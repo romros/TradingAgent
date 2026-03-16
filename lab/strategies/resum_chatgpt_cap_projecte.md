@@ -1,136 +1,110 @@
 # Resum per ChatGPT — Cap de Projecte TradingAgent
 
 Copia tot el text i enganxa'l a ChatGPT perquè faci de project manager.
+Actualitzat: 2026-03-16 (post-T4)
 
 ---
 
-## CONTEXT: On som (actualitzat post-T1)
+## ESTAT DEL PROJECTE
 
-Estem construint **TradingAgent**, un bot de trading automatitzat en Python que consumeix el nostre BrokerageService (ja en producció) per operar a Ostium (DEX crypto, perpetual futures).
+**Fase: LAB — recerca de setups**
+**Repo:** github.com/romros/TradingAgent (6 commits a main)
+**Gate de producció:** BUILD només si cas econòmic suficient (AGENTS §9)
 
-**Repo:** github.com/romros/TradingAgent
+---
 
-### El que JA està fet
+## TASQUES TANCADES
 
-1. **Projecte creat** amb estructura completa:
-   - `apps/agent/` — FastAPI app
-   - `packages/{runtime,brokerage,market,strategy,risk,execution,portfolio,shared}/`
-   - `lab/` — exploració i validació
-   - `testing/` — tests unitaris i integració
-   - 3 MDs: AGENTS_ARQUITECTURA.md, docs/ESTAT.md, README.md + CLAUDE.md
-   - Plantilla de tasca: `docs/plantilla_tasca.md`
+### T1 — Leverage recalibrat amb liquidació simulada ✅
 
-2. **Estratègia validada: Capitulation Scalp 1H**
-   - LONG crypto (ETH, BTC, SOL) després d'un crash extrem en 1H
-   - Condicions: body < -3% + close < BB lower(20,2) + drop 3h < -5% + hora no US afternoon
-   - 361 trades en 8.6 anys (dades Binance 1H)
+El backtest original (WR 68%, 250$→18.000$) no simulava liquidació d'Ostium. Amb lev 100x i MAE mediana 1.50%, el 61% dels trades es liquidarien.
 
-3. **Monte Carlo — 3/3 PASS**:
-   - Shuffle: 100% de 10.000 sims profitables
-   - Random Entry: edge +15-35pp per sobre P95 aleatori (estadísticament significatiu)
-   - Parameter Perturbation: 50/50 variants profitables (body ±0.5%, drop ±1%, BB ±3, mult ±0.3)
-
-4. **Walk-Forward — PASS**:
-   - Expanding: 7/9 anys positius
-   - Rolling 3y: 5/7 anys positius
-
-5. **Paper mode**: 2 pèrdues consecutives → mode paper fins que 1 senyal guanyi
-
-### T1 TANCAT: Leverage recalibrat amb liquidació simulada
-
-**Problema**: el backtest original (WR 68%, 250$→18.000$) no simulava la liquidació d'Ostium. Amb leverage 100x i MAE mediana 1.50%, el 61% dels trades serien liquidats abans del rebot.
-
-**Solució**: backtest refet amb liquidació real (si MAE >= 1/leverage → pnl = -collateral):
+Backtest refet amb liquidació real:
 
 | Lev | Liq% | WR | PF | EV/trade | 250$→ | MaxDD | Anys +/- |
 |-----|------|-----|-----|----------|-------|-------|----------|
-| 10x | 5% | 56% | 1.3 | +2.0$ | 560$ | 28% | 3+/6- |
-| **15x** | **9%** | **59%** | **1.4** | **+4.3$** | **924$** | **23%** | **5+/5-** |
-| **20x ← MVP** | **14%** | **59%** | **1.4** | **+5.6$** | **1.114$** | **37%** | **5+/5-** |
+| 15x | 9% | 59% | 1.4 | +4.3$ | 924$ | 23% | 5+/5- |
+| **20x ← decidit** | **14%** | **59%** | **1.4** | **+5.6$** | **1.114$** | **37%** | **5+/5-** |
 | 30x | 24% | 58% | 1.5 | +9.2$ | 1.596$ | 28% | 5+/5- |
-| 50x | 38% | 50% | 1.7 | +16.4$ | 2.369$ | 17% | 8+/2- |
 | 100x | 68% | 21% | 0.7 | -7.1$ | 10$ | 98% | 0+/3- |
 
-**Decisió: leverage MVP = 20x**
-- Criteri: max EV amb liquidació ≤20% i MaxDD ≤60%
-- Runner-up: 15x (MaxDD 23%, més conservador)
-- EV real: +5.6$/trade × 18 trades/any = ~100$/any amb 250$
-- Sizing: 20% capital, lev 20x → nominal ~800$ per trade
-- AGENTS_ARQUITECTURA.md §6 i §11 actualitzats
+**Decisió: leverage MVP = 20x.** EV real: +5.6$/trade × 18t/any = ~100$/any amb 250$.
 
-### Reflexió important sobre els números
+### T2 — Documents alineats, gate de producció ✅
 
-L'estratègia **funciona** (edge real demostrat per MC), però amb liquidació simulada els resultats són **modestos**:
-- 250$ → 1.114$ en 8.6 anys (x4.5, no x50 com pensàvem)
-- 5 anys positius, 5 negatius (de 10)
-- EV +5.6$/trade amb 14% de liquidacions
+- AGENTS_ARQUITECTURA.md §9: gate explícit ("no BUILD sense rendibilitat suficient")
+- Fases reordenades: LAB → GO/NO-GO → BUILD → PAPER → LIVE
+- README reflecteix fase LAB
 
-La pregunta és: **val la pena construir un bot per +100$/any amb 250$?**
-Possibles respostes:
-- Sí, si es veu com a **infraestructura** reutilitzable per futures estratègies (multi-strategy V2)
-- Sí, si s'escala amb **més capital** (2.500$ → ~1.000$/any)
-- No, si l'objectiu és rendiment a curt termini
+### T3 — Contracte canònic del LAB ✅
 
----
+3 estructures definides a `lab/contracts/models.py`:
 
-## EL QUE FALTA FER
+- **SetupSpec**: descripció declarativa d'un setup (nom, tesi, condicions, features, scoring)
+- **SetupValidationResult**: mètriques completes (WR, PF, MFE/MAE, liq per leverage, MC, WF, yearly)
+- **OpportunityEstimate**: estimació temps real (MFE/MAE 4H/1H, liq_risk, score, confiança)
 
-### MVP (leverage ja decidit, contracte alineat)
+Marc temporal: **4H context / 1H execution**
+Cicle de vida: CANDIDATE → ACCEPTED | WATCHLIST | REJECTED
+Documentació: `lab/docs/SETUPS_CONTRACTE.md`
+Exemple complet: Capitulation Scalp omplert amb dades reals (5/5 tests PASS)
 
-Ordre d'implementació:
-1. `packages/shared/models.py` — dataclasses (Candle, Signal, Trade, AgentState)
-2. `packages/portfolio/db.py` — SQLite schema (4 taules)
-3. `packages/market/indicators.py` — BB, RSI, drop, vol_rel
-4. `packages/strategy/capitulation_scalp.py` — evaluate() → Signal | None
-5. `packages/brokerage/client.py` — httpx async cap al BS
-6. `packages/execution/{base,paper,live}.py` — IExecutor + 2 implementacions
-7. `packages/risk/manager.py` — state machine + sizing (leverage 20x)
-8. `packages/portfolio/tracker.py` — registra signals, trades, equity
-9. `packages/runtime/engine.py` — poll_loop + close_loop
-10. `apps/agent/{app,routes}.py` — FastAPI endpoints
+### T4 — Inventari i catàleg del LAB ✅
 
-### V1 (robustesa)
+16 fitxers inventariats. Resultat:
 
-- recovery.py (startup reconciliation)
-- pending_actions taula
-- reconcile loop formal
-- contract tests live executor
-- quality gating estricte
+| Setup | Family | Status | Motiu |
+|-------|--------|--------|-------|
+| **Capitulation Scalp 1H** | capitulation | **WATCHLIST** | Edge real (MC 3/3 PASS), EV modest amb liq 20x. 5+/5- anys |
+| Markov HMM Regime | pattern | **REJECTED** | HMM falla 2026 (no detecta bear enmig de -43%) |
+| Markov trigrams | pattern | **REJECTED** | Overfitting amb qualsevol nombre d'estats |
 
-### V2 (creixement)
+**Conclusió T4**: El LAB té 1 setup real (WATCHLIST) i 2 morts (Markov). L'evolució investigadora ha estat sana (Markov → HMM → Indicadors simples → Capitulation). El setup sol no justifica BUILD — cal més peces.
 
-- Multi-strategy (Portfolio D: NVDA dilluns, etc.)
-- AI Agent orchestrator (Claude API)
-- Web UI
+Documents creats:
+- `lab/docs/LAB_INVENTARI.md` — inventari complet amb categoria/estat/acció per fitxer
+- `lab/docs/SETUPS_CATALOG.md` — catàleg orientat a decisió amb vista setup×asset×tf×status
 
 ---
 
-## ARQUITECTURA CLAU
+## ON SOM ARA
 
-- **2 loops**: poll_loop (5min) + close_loop (30s)
-- **Leverage: 20x** (decidit T1, amb liquidació simulada)
-- **Sizing**: col = min(max(capital × 20%, 15$), 60$), lev 20x
-- **Paper mode automàtic**: 2 losses → paper → 1 win paper → real
-- **1 posició max** simultània
-- **Sense SL** (el rebot necessita espai — per això lev 20x, no 100x)
-- **Exit = close de la candle 1H** (hold exactament 1 hora)
-- **SQLite**: signals, trades, equity_snapshots, agent_state
-- **BrokerageService**: gateway :8081, POST async (202 + operation_id)
+### El que tenim
+- 1 setup WATCHLIST amb edge real però EV modest
+- Contracte canònic definit i funcional
+- Metodologia de validació provada (MC + WF + stress + liq)
+- Arquitectura productiva definida (però no construïda — gate actiu)
+
+### El que NO tenim
+- Prou edge per justificar BUILD
+- Diversitat de setups (1 sola família: capitulation)
+- Portfolio combinat que millori l'EV agregat
+- Setups no-crypto (D1 equitats, XAU, etc.)
+
+---
+
+## ROADMAP LAB (T5-T9)
+
+| Tasca | Objectiu | Depèn de |
+|-------|----------|----------|
+| **T5** | Harness comú de validació (unificar backtest+liq+MFE/MAE+fees) | T3, T4 |
+| **T6** | Matriu setup × asset × tf — explorar nous setups | T5 |
+| **T7** | Funció d'oportunitat per agents de risc/exit | T6 |
+| **T8** | Portfolio candidat — avaluar conjunt | T6, T7 |
+| **T9** | Decisió BUILD_AUTHORIZED o LAB_CONTINUES | T8 |
 
 ---
 
 ## QUÈ NECESSITO DE TU (ChatGPT)
 
-Actua com a **cap de projecte**. Tens la tasca T1 tancada (leverage). Ara:
+Ets el **cap de projecte**. Amb T1-T4 tancades:
 
-1. **Reflexiona**: amb els números reals (x4.5 en 8.6 anys, 5+/5- anys), val la pena construir l'MVP? O millor invertir el temps en buscar una estratègia amb millor edge?
+1. **Valida el roadmap T5-T9**: és l'ordre correcte? Falta alguna cosa?
 
-2. **Si avancem amb MVP**: crea un **roadmap de 4 setmanes** (MVP → paper testing → go live) amb tasques concretes per setmana
+2. **Reflexiona sobre el catàleg**: amb 1 WATCHLIST i 2 REJECTED, quines línies d'investigació recomanaries per T6? (noves famílies? nous assets? portfolio approach?)
 
-3. **Risk register**: actualitza amb el risc de "liquidació intrabar" que hem descobert
+3. **Defineix criteri go/no-go concret**: quin EV/trade mínim, quin WR mínim, quants setups actius fan falta per autoritzar BUILD? Necessitem un número, no un principi.
 
-4. **Definition of Done**: criteris per dir "MVP llest per paper testing"
+4. **Detalla T5**: si estàs d'acord que T5 és la següent tasca, ajuda'm a definir-la amb la plantilla (què ha de fer el harness exactament, quines mètriques, quin format de sortida).
 
-5. **Alternativa**: si consideres que l'EV és massa baix, proposa un pla B (millorar l'estratègia? canviar d'asset? canviar d'exchange amb menys fees?)
-
-Respon en català. Sigues honest — prefereixo una recomanació dura que no pas optimisme buit.
+Respon en català. Continua sent honest.

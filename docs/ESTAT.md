@@ -22,7 +22,7 @@ Operativa diària i evidència. Actualitzar a cada canvi significatiu.
 
 #### Pendent: millorar edge per justificar BUILD
 - [x] T5: Harness comú de validació — smoke PASS (Capitulation → WATCHLIST coherent)
-- [ ] T6: Matriu setup × asset × tf — explorar nous setups
+- [x] T6: 6 setups explorats — 4 REJECTED, 1 WATCHLIST (N=11). Crypto 1H esgotat
 - [ ] T7: Funció d'oportunitat per agents de risc/exit
 - [ ] T8: Portfolio candidat — avaluar conjunt
 - [ ] T9: Decisió BUILD_AUTHORIZED o LAB_CONTINUES
@@ -49,11 +49,15 @@ Backtest refet amb liquidació simulada (MAE >= 1/lev → pèrdua total col):
 - Artifact: `lab/out/leverage_recalibration.json`
 - AGENTS_ARQUITECTURA.md §6 i §11 actualitzats
 
-### Pròxim pas: T6 — Explorar nous setups
+### Pròxim pas
 
-Harness funcional (T5). Ara cal explorar noves famílies (breakout, continuation, failed move) per trobar setups complementaris que millorin l'edge del portfolio.
+T6 ha demostrat que crypto 1H està esgotat amb 1 sol setup viable (Capitulation).
+Opcions per decidir amb PM:
+1. Explorar TF 4H/D1 o assets no-crypto (equitats)
+2. Acceptar Capitulation sol i construir bot com a infra reutilitzable
+3. Tancar LAB i no construir
 
-Veure `lab/docs/SETUPS_CATALOG.md` i `lab/docs/HARNESS_VALIDACIO.md`.
+Veure `lab/docs/T6_NOTES.md`.
 
 ---
 
@@ -69,3 +73,4 @@ Veure `lab/docs/SETUPS_CATALOG.md` i `lab/docs/HARNESS_VALIDACIO.md`.
 | 2026-03-16 | **T3**: Contracte canònic LAB (SetupSpec, ValidationResult, OpportunityEstimate). 5/5 tests |
 | 2026-03-16 | **T4**: Inventari LAB: 1 setup WATCHLIST (Capitulation), 2 REJECTED (Markov). Catàleg creat |
 | 2026-03-16 | **T5**: Harness validació creat. 7 passes (baseline→deployable→MFE/MAE→liq→MC→WF→classify). Smoke PASS: Capitulation → WATCHLIST |
+| 2026-03-16 | **T6**: 6 setups explorats (3 famílies). 4 REJECTED (MC 0%), 1 WATCHLIST N=11. Crypto 1H esgotat — cal pivot |

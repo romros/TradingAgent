@@ -2,6 +2,16 @@
 
 Bot de trading automatitzat que consumeix [BrokerageService](../BrokerageService) per operar a Ostium (DEX crypto perpetual futures).
 
+## Estat: LAB — validació estratègica
+
+El projecte està en **fase de validació**. La construcció del bot productiu (BUILD) està condicionada a disposar d'una estratègia amb expectativa de rendibilitat suficient. Veure [AGENTS_ARQUITECTURA.md §9](AGENTS_ARQUITECTURA.md) per al gate de producció.
+
+### Estratègia candidate: Capitulation Scalp 1H
+
+LONG crypto (ETH, BTC, SOL) després d'un crash extrem en 1H. Validada amb Monte Carlo (3/3 PASS) i Walk-Forward (7/9 anys positius). Edge estadísticament significatiu (+15-35pp vs random entry).
+
+**Amb liquidació simulada (T1)**: leverage 20x, EV +5.6$/trade, 250$→1.114$ en 8.6 anys (x4.5). Resultats modestos — cas econòmic en revisió.
+
 ## Arquitectura
 
 ```
@@ -10,41 +20,23 @@ TradingAgent (cervell)  ──HTTP──>  BrokerageService (cos)
 ```
 
 - **TF operatiu**: 1H
-- **Assets**: ETH, BTC, SOL
 - **Modes**: PAPER / LIVE / STOPPED
-- **Estratègia MVP**: Capitulation Scalp 1H (LONG after crash extrem)
-
-## Estructura
-
-```
-apps/agent/          FastAPI app (health, status, trades, mode)
-packages/runtime/    Engine (2 loops: poll + close)
-packages/brokerage/  Client HTTP cap al BS
-packages/market/     Monitor candles + indicadors
-packages/strategy/   IStrategy + implementacions
-packages/risk/       State machine paper/real/stopped + sizing
-packages/execution/  IExecutor + Paper + Live
-packages/portfolio/  Tracker + SQLite
-packages/shared/     Models, config, logging
-strategies/          YAML configs per estratègia
-lab/                 Exploració, backtest, MC, walk-forward
-```
+- **Leverage**: 20x (recalibrat amb liquidació simulada, era 100x)
 
 ## Docs
 
-- [AGENTS_ARQUITECTURA.md](AGENTS_ARQUITECTURA.md) — disseny, components, fluxos, SQLite schema
-- [docs/ESTAT.md](docs/ESTAT.md) — estat operatiu, evidència
+- [AGENTS_ARQUITECTURA.md](AGENTS_ARQUITECTURA.md) — disseny, components, fluxos, gate de producció
+- [docs/ESTAT.md](docs/ESTAT.md) — estat operatiu, evidència, decisions
 - [CLAUDE.md](CLAUDE.md) — regles pel coding assistant
 
-## Desenvolupament
+## Lab
 
 ```bash
-# Tests
-./test.sh testing/unit/test_indicators.py
-./scripts/run_tests.sh
+# Monte Carlo + Walk-Forward
+python3 lab/studies/mc_walkforward_capitulation.py --cache /tmp/crypto_1h_cache.pkl
 
-# Docker
-docker compose up -d trading-agent
+# Stress test + leverage recalibration (T1)
+python3 lab/studies/leverage_recalibration.py --cache /tmp/crypto_1h_cache.pkl
 ```
 
 ## Dependències

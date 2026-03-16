@@ -227,32 +227,68 @@ Claus: `runtime_state` (mode, consec_losses, open_trade_id, stop_reason),
 
 ---
 
-## 9) Fases d'implementació
+## 9) Gate de producció
 
-### MVP
+> **TradingAgent no entrarà en fase BUILD/producció mentre l'estratègia activa no presenti
+> una expectativa de rendibilitat considerada suficient pel projecte.**
+
+### Criteri mínim per autoritzar BUILD
+
+- EV/trade > 0 amb liquidació simulada ✓ (actual: +5.6$)
+- MC validation PASS ✓ (3/3)
+- Walk-forward PASS ✓ (7/9)
+- **Decisió explícita del projecte** que el cas econòmic justifica la inversió en codi
+
+### Estat actual: **LAB — cas econòmic en revisió**
+
+Resultats T1 amb liquidació simulada (lev 20x):
+- EV +5.6$/trade × 18 trades/any = ~100$/any amb 250$ capital
+- 250$ → 1.114$ en 8.6 anys (x4.5)
+- 5 anys positius, 5 negatius
+
+Opcions obertes:
+1. **GO BUILD** si es considera suficient (infraestructura reutilitzable, escala amb capital)
+2. **LAB CONTINUA** per trobar millor edge (més assets, altres TF, portfolio combinat)
+3. **HYBRID** construir el bot en paper-only com a infra, mentre es busca millor estratègia
+
+---
+
+## 10) Fases d'implementació (condicional a §9)
+
+### LAB (actual)
+- Exploració d'estratègies
+- Validació MC + WF + stress test
+- Decisió go/no-go per cada estratègia candidate
+
+### BUILD MVP (quan §9 autoritzat)
 - `float`, 2 loops, `runtime/engine.py` mínim
 - `agent_state` persistent, `close_due_at` persistent
 - Reconciliació mínima inline (dins close_loop)
 - Tests purs estil BS
-- 1 estratègia: Capitulation Scalp 1H
 - Paper + Live executors
 
-### V1
-- `recovery.py` formal
-- `pending_actions` taula
-- Reconcile loop separat
-- Contract tests del LiveExecutor
-- Quality gating estricte
-- Mètriques/telemetria
+### PAPER (4 setmanes mínim)
+- Bot operant en paper mode real
+- Comparar resultats vs backtest
+- Validar integració BS
 
-### V2
+### GO-LIVE
+- Revisió resultats paper vs expectativa
+- Capital limitat inicial
+- Monitoring actiu
+
+### V1 (robustesa post-live)
+- `recovery.py` formal, `pending_actions`, reconcile loop
+- Contract tests, quality gating estricte, mètriques
+
+### V2 (creixement)
 - Multi-strategy + allocation engine
 - AI Agent Orchestrator (Claude API)
 - Web UI
 
 ---
 
-## 10) Docker
+## 11) Docker
 
 ```yaml
 # docker-compose.yml
@@ -283,7 +319,7 @@ networks:
 
 ---
 
-## 11) Decisió T1: Leverage recalibrat (2026-03-16)
+## 12) Decisió T1: Leverage recalibrat (2026-03-16)
 
 El stress test va revelar que **leverage 100x = 61% liquidacions** (MAE mediana 1.50%, liq threshold 1%).
 Backtest refet amb liquidació simulada (si MAE >= 1/leverage → pnl = -collateral):

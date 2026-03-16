@@ -6,28 +6,23 @@ Operativa diària i evidència. Actualitzar a cada canvi significatiu.
 
 ## Estat actual (2026-03-16)
 
-### Fase: SETUP
+### Fase: LAB — cas econòmic en revisió
 
+#### Completat
 - [x] Estructura de directoris creada
 - [x] CLAUDE.md, AGENTS_ARQUITECTURA.md, README.md
 - [x] Lab amb estratègies importades de SQRunner
 - [x] Monte Carlo validation de Capitulation Scalp 1H — PASS (3/3)
 - [x] Walk-forward validation — PASS (7/9 expanding, 5/7 rolling)
-- [x] Stress test — ALERTA: lev 100x = 61% liquidacions. Recomanat lev 20-30x
-- [x] T1: Leverage recalibrat amb liquidació simulada → **20x** (EV +5.6$/t, liq 14%, 250$→1.114$)
-- [ ] MVP: packages/shared/models.py
-- [ ] MVP: packages/market/indicators.py
-- [ ] MVP: packages/strategy/capitulation_scalp.py
-- [ ] MVP: packages/brokerage/client.py
-- [ ] MVP: packages/execution/{paper,live}.py
-- [ ] MVP: packages/risk/manager.py
-- [ ] MVP: packages/portfolio/{db,tracker}.py
-- [ ] MVP: packages/runtime/engine.py
-- [ ] MVP: apps/agent/{app,routes}.py
-- [ ] Tests unitaris
-- [ ] Docker compose + deploy
-- [ ] Paper testing 2-4 setmanes
-- [ ] Go live
+- [x] Stress test — lev 100x inviable (61% liquidacions)
+- [x] T1: Leverage recalibrat amb liquidació simulada → 20x
+- [x] T2: Documents alineats, gate de producció establert
+
+#### Pendent: decisió go/no-go
+- [ ] Decidir si el cas econòmic actual (EV +5.6$/t, x4.5 en 8.6 anys) justifica BUILD
+- [ ] Alternativa: explorar millors estratègies al lab (més assets, portfolio combinat, altres TF)
+- [ ] Si GO BUILD: implementar MVP (packages/ → apps/)
+- [ ] Si LAB CONTINUA: obrir nous estudis
 
 ### Estratègia activa
 
@@ -53,7 +48,12 @@ Backtest refet amb liquidació simulada (MAE >= 1/lev → pèrdua total col):
 
 ### Pròxim pas
 
-Implementar MVP amb leverage 20x: `packages/shared/models.py` → ... → `apps/agent/app.py`
+**Decisió go/no-go.** Tres opcions:
+1. **GO BUILD**: construir MVP amb l'estratègia actual (EV modest però infra reutilitzable)
+2. **LAB CONTINUA**: buscar millor edge abans de construir (portfolio combinat, D1 equitats, etc.)
+3. **HYBRID**: construir infra en paper-only mentre es busca millor estratègia
+
+Veure AGENTS_ARQUITECTURA.md §9 (Gate de producció).
 
 ---
 
@@ -64,4 +64,5 @@ Implementar MVP amb leverage 20x: `packages/shared/models.py` → ... → `apps/
 | 2026-03-16 | Projecte creat. Estructura, MDs, lab importat de SQRunner |
 | 2026-03-16 | MC+WF PASS. Shuffle 100%, Random Entry edge +15-35pp, Param Perturb 50/50 |
 | 2026-03-16 | STRESS TEST: lev 100x = 61% liquidacions! Kelly=47%, sizing 20% OK. Recomanat lev 20-30x |
-| 2026-03-16 | **T1 TANCAT**: leverage MVP = 20x. Backtest amb liquidació: EV +5.6$/t, liq 14%, 250$→1.114$. AGENTS §6/§11 alineats |
+| 2026-03-16 | **T1 TANCAT**: leverage MVP = 20x. Backtest amb liquidació: EV +5.6$/t, liq 14%, 250$→1.114$. AGENTS §6/§12 alineats |
+| 2026-03-16 | **T2**: Docs alineats. Gate de producció establert (AGENTS §9). Fase = LAB, no BUILD |

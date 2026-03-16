@@ -1,110 +1,81 @@
 # Resum per ChatGPT — Cap de Projecte TradingAgent
 
-Copia tot el text i enganxa'l a ChatGPT perquè faci de project manager.
-Actualitzat: 2026-03-16 (post-T4)
+Actualitzat: 2026-03-16 (post-T5)
 
 ---
 
-## ESTAT DEL PROJECTE
+## ESTAT: LAB — 5 tasques tancades, harness funcional
 
-**Fase: LAB — recerca de setups**
-**Repo:** github.com/romros/TradingAgent (6 commits a main)
-**Gate de producció:** BUILD només si cas econòmic suficient (AGENTS §9)
+**Repo:** github.com/romros/TradingAgent (8 commits a main)
 
----
+### Tasques tancades
 
-## TASQUES TANCADES
+| Tasca | Resultat |
+|-------|----------|
+| **T1** | Leverage recalibrat: 20x (100x descartada, 61% liquidacions) |
+| **T2** | Docs alineats, gate de producció establert (§9) |
+| **T3** | Contracte canònic: SetupSpec, ValidationResult, OpportunityEstimate |
+| **T4** | Inventari: 1 WATCHLIST (Capitulation), 2 REJECTED (Markov) |
+| **T5** | Harness de validació: pipeline 7 passes, smoke PASS |
 
-### T1 — Leverage recalibrat amb liquidació simulada ✅
+### Harness (T5) — com funciona
 
-El backtest original (WR 68%, 250$→18.000$) no simulava liquidació d'Ostium. Amb lev 100x i MAE mediana 1.50%, el 61% dels trades es liquidarien.
+Pipeline unificat que valida qualsevol setup en 7 passes:
 
-Backtest refet amb liquidació real:
+```
+1. Backtest baseline (sense liquidació) → edge teòric
+2. Backtest deployable (amb liq + paper + compounding) → edge real
+3. MFE/MAE → distribució favorable/adversa
+4. Liquidació per leverage (5 leverages) → liq_rate
+5. Monte Carlo (shuffle + random entry) → significància
+6. Walk-forward (expanding + rolling 3y) → estabilitat
+7. Classificació automàtica → ACCEPTED / WATCHLIST / REJECTED
+```
 
-| Lev | Liq% | WR | PF | EV/trade | 250$→ | MaxDD | Anys +/- |
-|-----|------|-----|-----|----------|-------|-------|----------|
-| 15x | 9% | 59% | 1.4 | +4.3$ | 924$ | 23% | 5+/5- |
-| **20x ← decidit** | **14%** | **59%** | **1.4** | **+5.6$** | **1.114$** | **37%** | **5+/5-** |
-| 30x | 24% | 58% | 1.5 | +9.2$ | 1.596$ | 28% | 5+/5- |
-| 100x | 68% | 21% | 0.7 | -7.1$ | 10$ | 98% | 0+/3- |
+Dues capes de resultat separades:
+- **Baseline**: edge teòric (WR 68%, PF 2.94, EV +50.8$/t)
+- **Deployable**: edge real amb liq 20x (WR 57%, PF 1.3, EV +4.0$/t, 250$→1.398$)
 
-**Decisió: leverage MVP = 20x.** EV real: +5.6$/trade × 18t/any = ~100$/any amb 250$.
+Criteris numèrics per ACCEPTED (del ChatGPT PM):
+- N≥80, trades/any≥12, PF≥1.30, EV≥+8$, liq≤15%, WR≥55%
 
-### T2 — Documents alineats, gate de producció ✅
+### Smoke test Capitulation Scalp → WATCHLIST ✓
 
-- AGENTS_ARQUITECTURA.md §9: gate explícit ("no BUILD sense rendibilitat suficient")
-- Fases reordenades: LAB → GO/NO-GO → BUILD → PAPER → LIVE
-- README reflecteix fase LAB
-
-### T3 — Contracte canònic del LAB ✅
-
-3 estructures definides a `lab/contracts/models.py`:
-
-- **SetupSpec**: descripció declarativa d'un setup (nom, tesi, condicions, features, scoring)
-- **SetupValidationResult**: mètriques completes (WR, PF, MFE/MAE, liq per leverage, MC, WF, yearly)
-- **OpportunityEstimate**: estimació temps real (MFE/MAE 4H/1H, liq_risk, score, confiança)
-
-Marc temporal: **4H context / 1H execution**
-Cicle de vida: CANDIDATE → ACCEPTED | WATCHLIST | REJECTED
-Documentació: `lab/docs/SETUPS_CONTRACTE.md`
-Exemple complet: Capitulation Scalp omplert amb dades reals (5/5 tests PASS)
-
-### T4 — Inventari i catàleg del LAB ✅
-
-16 fitxers inventariats. Resultat:
-
-| Setup | Family | Status | Motiu |
-|-------|--------|--------|-------|
-| **Capitulation Scalp 1H** | capitulation | **WATCHLIST** | Edge real (MC 3/3 PASS), EV modest amb liq 20x. 5+/5- anys |
-| Markov HMM Regime | pattern | **REJECTED** | HMM falla 2026 (no detecta bear enmig de -43%) |
-| Markov trigrams | pattern | **REJECTED** | Overfitting amb qualsevol nombre d'estats |
-
-**Conclusió T4**: El LAB té 1 setup real (WATCHLIST) i 2 morts (Markov). L'evolució investigadora ha estat sana (Markov → HMM → Indicadors simples → Capitulation). El setup sol no justifica BUILD — cal més peces.
-
-Documents creats:
-- `lab/docs/LAB_INVENTARI.md` — inventari complet amb categoria/estat/acció per fitxer
-- `lab/docs/SETUPS_CATALOG.md` — catàleg orientat a decisió amb vista setup×asset×tf×status
+El harness confirma Capitulation com WATCHLIST:
+- Edge real (MC 100% shuffle, +24.6pp vs random)
+- Però EV deployable +4.0$ < 8$ i liq 15.1% > 15%
+- Coherent amb catàleg T4
 
 ---
 
-## ON SOM ARA
+## PRÒXIM: T6 — Explorar nous setups
 
-### El que tenim
-- 1 setup WATCHLIST amb edge real però EV modest
-- Contracte canònic definit i funcional
-- Metodologia de validació provada (MC + WF + stress + liq)
-- Arquitectura productiva definida (però no construïda — gate actiu)
+El LAB té 1 sol setup (WATCHLIST). Per justificar BUILD calen mínim 2 ACCEPTED (criteri PM).
 
-### El que NO tenim
-- Prou edge per justificar BUILD
-- Diversitat de setups (1 sola família: capitulation)
-- Portfolio combinat que millori l'EV agregat
-- Setups no-crypto (D1 equitats, XAU, etc.)
+### Línies d'investigació recomanades (del ChatGPT PM)
 
----
+1. **Breakout / continuation post-compressió** — complementari a capitulation
+2. **Failed move / reclaim** — MAE potencialment més baixa
+3. **Mean reversion fina** — variants amb menys risc de liquidació
+4. **Diversificació d'asset** — primer crypto 1H/4H, després D1 equitats
 
-## ROADMAP LAB (T5-T9)
+### Gate per autoritzar BUILD (criteri PM)
 
-| Tasca | Objectiu | Depèn de |
-|-------|----------|----------|
-| **T5** | Harness comú de validació (unificar backtest+liq+MFE/MAE+fees) | T3, T4 |
-| **T6** | Matriu setup × asset × tf — explorar nous setups | T5 |
-| **T7** | Funció d'oportunitat per agents de risc/exit | T6 |
-| **T8** | Portfolio candidat — avaluar conjunt | T6, T7 |
-| **T9** | Decisió BUILD_AUTHORIZED o LAB_CONTINUES | T8 |
+- Mínim 2 setups ACCEPTED (2 famílies diferents)
+- Portfolio agregat: EV≥+10$/t, PF≥1.35, MaxDD≤30%, ≥40 trades/any
+- Retorn esperat: ≥300$/any amb 250$ capital
+- ≥60% anys positius en validació temporal
 
 ---
 
 ## QUÈ NECESSITO DE TU (ChatGPT)
 
-Ets el **cap de projecte**. Amb T1-T4 tancades:
+T5 tancada. El harness funciona. Ara:
 
-1. **Valida el roadmap T5-T9**: és l'ordre correcte? Falta alguna cosa?
+1. **Detalla T6**: quins setups concrets explorar primer? Quins indicadors/condicions provar per breakout i failed move?
 
-2. **Reflexiona sobre el catàleg**: amb 1 WATCHLIST i 2 REJECTED, quines línies d'investigació recomanaries per T6? (noves famílies? nous assets? portfolio approach?)
+2. **Prioritza**: de les 4 línies d'investigació, quina té més probabilitat d'arribar a ACCEPTED amb el marc 4H/1H crypto?
 
-3. **Defineix criteri go/no-go concret**: quin EV/trade mínim, quin WR mínim, quants setups actius fan falta per autoritzar BUILD? Necessitem un número, no un principi.
+3. **Ajusta el criteri** si cal: amb el harness desplegat, els números que vas donar (EV≥8$, PF≥1.30) són realistes donada la MAE mediana de crypto i les fees d'Ostium?
 
-4. **Detalla T5**: si estàs d'acord que T5 és la següent tasca, ajuda'm a definir-la amb la plantilla (què ha de fer el harness exactament, quines mètriques, quin format de sortida).
-
-Respon en català. Continua sent honest.
+Respon en català.

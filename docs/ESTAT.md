@@ -17,12 +17,15 @@ Operativa diària i evidència. Actualitzar a cada canvi significatiu.
 - [x] Stress test — lev 100x inviable (61% liquidacions)
 - [x] T1: Leverage recalibrat amb liquidació simulada → 20x
 - [x] T2: Documents alineats, gate de producció establert
+- [x] T3: Contracte canònic del LAB (SetupSpec, ValidationResult, OpportunityEstimate)
+- [x] T4: Inventari i catàleg del LAB — 1 setup WATCHLIST, 2 rebutjats
 
-#### Pendent: decisió go/no-go
-- [ ] Decidir si el cas econòmic actual (EV +5.6$/t, x4.5 en 8.6 anys) justifica BUILD
-- [ ] Alternativa: explorar millors estratègies al lab (més assets, portfolio combinat, altres TF)
-- [ ] Si GO BUILD: implementar MVP (packages/ → apps/)
-- [ ] Si LAB CONTINUA: obrir nous estudis
+#### Pendent: millorar edge per justificar BUILD
+- [ ] T5: Harness comú de validació (unificar backtest, liq, MFE/MAE, fees)
+- [ ] T6: Matriu setup × asset × tf — explorar nous setups
+- [ ] T7: Funció d'oportunitat per agents de risc/exit
+- [ ] T8: Portfolio candidat — avaluar conjunt
+- [ ] T9: Decisió BUILD_AUTHORIZED o LAB_CONTINUES
 
 ### Estratègia activa
 
@@ -46,14 +49,12 @@ Backtest refet amb liquidació simulada (MAE >= 1/lev → pèrdua total col):
 - Artifact: `lab/out/leverage_recalibration.json`
 - AGENTS_ARQUITECTURA.md §6 i §11 actualitzats
 
-### Pròxim pas
+### Pròxim pas: T5 — Harness de validació
 
-**Decisió go/no-go.** Tres opcions:
-1. **GO BUILD**: construir MVP amb l'estratègia actual (EV modest però infra reutilitzable)
-2. **LAB CONTINUA**: buscar millor edge abans de construir (portfolio combinat, D1 equitats, etc.)
-3. **HYBRID**: construir infra en paper-only mentre es busca millor estratègia
+Construir el harness comú per validar qualsevol setup de manera homogènia.
+Després: explorar nous setups per millorar l'edge del portfolio.
 
-Veure AGENTS_ARQUITECTURA.md §9 (Gate de producció).
+Veure `lab/docs/SETUPS_CATALOG.md` i `lab/docs/LAB_INVENTARI.md`.
 
 ---
 
@@ -66,3 +67,5 @@ Veure AGENTS_ARQUITECTURA.md §9 (Gate de producció).
 | 2026-03-16 | STRESS TEST: lev 100x = 61% liquidacions! Kelly=47%, sizing 20% OK. Recomanat lev 20-30x |
 | 2026-03-16 | **T1 TANCAT**: leverage MVP = 20x. Backtest amb liquidació: EV +5.6$/t, liq 14%, 250$→1.114$. AGENTS §6/§12 alineats |
 | 2026-03-16 | **T2**: Docs alineats. Gate de producció establert (AGENTS §9). Fase = LAB, no BUILD |
+| 2026-03-16 | **T3**: Contracte canònic LAB (SetupSpec, ValidationResult, OpportunityEstimate). 5/5 tests |
+| 2026-03-16 | **T4**: Inventari LAB: 1 setup WATCHLIST (Capitulation), 2 REJECTED (Markov). Catàleg creat |

@@ -1,0 +1,14 @@
+import os
+
+ASSETS = os.getenv("PROBE_ASSETS", "MSFT,NVDA,QQQ").split(",")
+LEVERAGE = int(os.getenv("LEVERAGE", "20"))
+CAPITAL_INITIAL = float(os.getenv("CAPITAL_INITIAL", "250.0"))
+COL_PCT = float(os.getenv("COL_PCT", "0.20"))
+COL_MAX = float(os.getenv("COL_MAX", "60.0"))
+COL_MIN = float(os.getenv("COL_MIN", "15.0"))
+FEE = float(os.getenv("FEE", "5.38"))
+BODY_THRESH = float(os.getenv("BODY_THRESH", "-0.02"))
+BB_PERIOD = int(os.getenv("BB_PERIOD", "20"))
+BB_STD = float(os.getenv("BB_STD", "2.0"))
+DB_PATH = os.getenv("DB_PATH", "data/paper_probe.db")
+DATA_LOOKBACK_DAYS = int(os.getenv("DATA_LOOKBACK_DAYS", "365"))

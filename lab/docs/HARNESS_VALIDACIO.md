@@ -47,11 +47,18 @@ save_artifact(artifact, spec.name)
 
 ## Criteris de classificació
 
-### ACCEPTED
+### ACCEPTED (general)
 - N ≥ 80, trades/any ≥ 12
 - PF ≥ 1.30, EV deployable ≥ +8$/trade
 - Liq rate ≤ 15% al leverage operatiu
 - WR ≥ 55%
+
+### ACCEPTED_D1_ASSET (setups D1 per asset, baixa freqüència)
+Veure `lab/docs/D1_GATE_CRITERIA.md` per definició completa.
+- N ≥ 35 (adaptat: ~3-5 events/any → impossible arribar a 120 en 12 anys)
+- WR ≥ 60%, PF ≥ 1.8, EV deployable ≥ +8$/trade
+- Liq rate ≤ 5%, WF ≥ 70%, MC shuffle ≥ 90%, MAE mediana ≤ 1.5%
+- Autoritza paper probe mínim (no BUILD complet)
 
 ### WATCHLIST
 - MC PASS però algun criteri ACCEPTED no es compleix

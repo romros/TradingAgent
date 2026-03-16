@@ -30,6 +30,7 @@ from enum import StrEnum
 class SetupStatus(StrEnum):
     CANDIDATE = "candidate"
     ACCEPTED = "accepted"
+    ACCEPTED_D1_ASSET = "accepted_d1_asset"  # D1 per asset: N>=35, EV>=8$, PF>=1.8, liq<=5%, WF>=70%
     WATCHLIST = "watchlist"
     REJECTED = "rejected"
 

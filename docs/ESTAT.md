@@ -26,7 +26,8 @@ Operativa diària i evidència. Actualitzar a cada canvi significatiu.
 - [x] T6b: Crypto 4H — 6/6 REJECTED. MAE massa alta per leverage
 - [x] T6c: Equitats D1 — **Capitulation D1 WATCHLIST** (N=288, WR 60%, PF 2.59). Nasdaq/NVDA/MSFT prometedors
 - [x] T6d: **Leverage sweep D1** — MSFT millor asset (WR 78%, EV +12.7$@20x, liq 0%, WF 10/12). 3 WATCHLIST, 0 ACCEPTED
-- [ ] T7: Funció d'oportunitat per agents de risc/exit
+- [x] T6e: **Gate D1 adaptat + decisió** — MSFT = ACCEPTED_D1_ASSET (8/8 criteris). **PAPER_PROBE_AUTHORIZED**
+- [ ] T7: Paper probe mínim — MSFT capitulation_d1, 4 setmanes, 20x
 - [ ] T8: Portfolio candidat — avaluar conjunt
 - [ ] T9: Decisió BUILD_AUTHORIZED o LAB_CONTINUES
 
@@ -71,30 +72,28 @@ Backtest refet amb liquidació simulada (MAE >= 1/lev → pèrdua total col):
 | AMZN/META/GOOGL/TSLA | — | — | negatiu | — | — | — | — | REJECTED |
 
 **Perquè MSFT destaca:**
-- MAE mediana 0.75% → liq 0% fins a 25x (increïble per D1)
+- MAE mediana 0.75% → liq 0% fins a 25x (excepcional per D1)
 - WR 78% baseline, MC shuffle 100%, WF 10/12 (83% anys positius)
-- Problema: N=41 → a 3.2t/any cal >35 anys de dades per arribar a N=120 (ACCEPTED gate)
-- El D1 per naturalesa no pot assolir N≥120 individual; cal combinar assets
+- Problema anterior resolt: gate N≥120 era inaplicable al D1 (vegeu T6e)
 
-**Insight clau:**
-- Combined MSFT+QQQ+NVDA: N≈149 (≥120) però EV combinat ~7$ (just sota threshold 8$)
-- La freqüència baixa (3-4t/any/asset) és el límit estructural del D1
-- Paper probe de 4 setmanes és el camí racional per recol·lectar evidència real
+### T6e — Gate D1 adaptat + decisió final
 
-### Pròxim pas — Decisió PM
+Gate D1 per asset (`lab/docs/D1_GATE_CRITERIA.md`): N≥35, EV≥+8$, PF≥1.8, liq≤5%, WF≥70%, MC≥90%, MAE≤1.5%
 
-Tenim **4 WATCHLIST de 2 famílies**:
-1. **Capitulation Scalp 1H crypto** (EV +4$/t, 24/7, N=156 combinat)
-2. **Capitulation D1 equitats** (MSFT EV +12.7$, QQQ/NVDA prometedors)
+| Asset | N | WR | EV@20x | Liq@20x | WF | MC | MAE | Criteris | Status |
+|-------|---|-----|--------|---------|-----|-----|-----|---------|--------|
+| **MSFT** | **41** | **78%** | **+12.7$** | **0%** | **10/12** | **100%** | **0.75%** | **8/8** | **ACCEPTED_D1_ASSET** |
+| NVDA | 68 | 63% | +6.0$ | 4.4% | 11/13 | 100% | 1.55% | 5/8 | WATCHLIST |
+| QQQ | 40 | 63% | +3.6$ | 2.5% | 7/8 | 100% | 1.32% | 6/8 | WATCHLIST |
+| SPY | 23 | 74% | +3.3$ | 4.3% | 7/8 | 100% | 1.04% | 4/8 | REJECTED (N<35) |
 
-Cap arriba a ACCEPTED individual (N insuficient per D1, EV modest per crypto).
+### **Decisió T6e: PAPER_PROBE_AUTHORIZED**
 
-**Opcions:**
-- A) Paper probe 4 setmanes (infra bot mínima + tracking manual)
-- B) Continuar LAB: buscar assets addicionals D1 per augmentar N combined
-- C) Relaxar gate: construir BUILD amb WATCHLIST evidence (WF/MC sòlids)
+- Asset primari: **MSFT** (ACCEPTED_D1_ASSET, 8/8 criteris)
+- Assets complementaris: NVDA i QQQ (WATCHLIST — diversificació temporal)
+- Leverage: 20x | Setup: capitulation_d1 | Durada mínima: 4 setmanes
 
-Veure `lab/docs/T6_NOTES.md`.
+Veure `lab/docs/T6E_DECISIO_D1_ASSETS.md` i `lab/docs/D1_GATE_CRITERIA.md`.
 
 ---
 
@@ -114,3 +113,4 @@ Veure `lab/docs/T6_NOTES.md`.
 | 2026-03-16 | **T6b**: Crypto 4H — 6/6 REJECTED. MAE massa alta per leverage 20x (38% liq capitulation) |
 | 2026-03-16 | **T6c**: Equitats D1 — **Capitulation D1 WATCHLIST** (N=288, WR 60%, PF 2.59). Nasdaq WR 73%, NVDA WATCHLIST |
 | 2026-03-16 | **T6d**: Leverage sweep 10 assets D1 × 6 leverages. MSFT = estrella (WR 78%, EV +12.7$@20x, liq 0%, WF 10/12). 3 WATCHLIST, 0 ACCEPTED |
+| 2026-03-16 | **T6e**: Gate D1 adaptat. MSFT = ACCEPTED_D1_ASSET (8/8). **PAPER_PROBE_AUTHORIZED** |

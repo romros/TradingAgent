@@ -25,6 +25,7 @@ Operativa diària i evidència. Actualitzar a cada canvi significatiu.
 - [x] T6: Crypto 1H — 4 REJECTED, 1 WATCHLIST (N=11). Crypto 1H esgotat
 - [x] T6b: Crypto 4H — 6/6 REJECTED. MAE massa alta per leverage
 - [x] T6c: Equitats D1 — **Capitulation D1 WATCHLIST** (N=288, WR 60%, PF 2.59). Nasdaq/NVDA/MSFT prometedors
+- [x] T6d: **Leverage sweep D1** — MSFT millor asset (WR 78%, EV +12.7$@20x, liq 0%, WF 10/12). 3 WATCHLIST, 0 ACCEPTED
 - [ ] T7: Funció d'oportunitat per agents de risc/exit
 - [ ] T8: Portfolio candidat — avaluar conjunt
 - [ ] T9: Decisió BUILD_AUTHORIZED o LAB_CONTINUES
@@ -51,20 +52,47 @@ Backtest refet amb liquidació simulada (MAE >= 1/lev → pèrdua total col):
 - Artifact: `lab/out/leverage_recalibration.json`
 - AGENTS_ARQUITECTURA.md §6 i §11 actualitzats
 
-### Resultat T6 complet (3 cicles, 18 setups)
+### Resultat T6 complet (4 cicles, 18 setups)
 
 - Crypto 1H: **esgotat** (1 WATCHLIST modest)
 - Crypto 4H: **mort** (massa volàtil per leverage)
 - **Equitats D1: viable!** Capitulation D1 WATCHLIST amb Nasdaq/NVDA/MSFT prometedors
+- **T6d leverage sweep**: MSFT = asset estrella (WR 78%, liq 0%, EV +12.7$@20x)
 
-### Pròxim pas
+### T6d — Leverage sweep D1 (10 assets, 6 leverages)
 
-Tenim 2 setups WATCHLIST de 2 famílies/terrenys:
-1. **Capitulation Scalp 1H crypto** (EV modest +4$/t, 24/7)
-2. **Capitulation D1 equitats** (EV +3.3$/t combined, Nasdaq +20.7$/t)
+| Asset | N | WR | EV@20x | Liq@20x | BestLev | EV@best | WF | Status |
+|-------|---|-----|--------|---------|---------|---------|-----|--------|
+| **MSFT** | **41** | **78%** | **+12.7$** | **0%** | 30x | +13.7$ | 10/12 | WATCHLIST |
+| **NVDA** | **68** | **63%** | **+6.0$** | **4.4%** | 20x | +6.0$ | 11/13 | WATCHLIST |
+| **QQQ** | **40** | **62%** | **+3.6$** | **2.5%** | 20x | +3.6$ | 7/8 | WATCHLIST |
+| SPY | 23 | 74% | +3.3$ | 4.3% | 30x | +11.8$ | 7/8 | REJECTED (N<40) |
+| AAPL | 41 | 51% | +1.2$ | 2.4% | — | — | 6/12 | REJECTED |
+| AMZN/META/GOOGL/TSLA | — | — | negatiu | — | — | — | — | REJECTED |
 
-Possibilitat de portfolio complementari (crypto 24/7 + equitats market hours).
-Cal decidir amb PM: seguim a T7 (funció d'oportunitat) o construïm BUILD amb 2 WATCHLIST?
+**Perquè MSFT destaca:**
+- MAE mediana 0.75% → liq 0% fins a 25x (increïble per D1)
+- WR 78% baseline, MC shuffle 100%, WF 10/12 (83% anys positius)
+- Problema: N=41 → a 3.2t/any cal >35 anys de dades per arribar a N=120 (ACCEPTED gate)
+- El D1 per naturalesa no pot assolir N≥120 individual; cal combinar assets
+
+**Insight clau:**
+- Combined MSFT+QQQ+NVDA: N≈149 (≥120) però EV combinat ~7$ (just sota threshold 8$)
+- La freqüència baixa (3-4t/any/asset) és el límit estructural del D1
+- Paper probe de 4 setmanes és el camí racional per recol·lectar evidència real
+
+### Pròxim pas — Decisió PM
+
+Tenim **4 WATCHLIST de 2 famílies**:
+1. **Capitulation Scalp 1H crypto** (EV +4$/t, 24/7, N=156 combinat)
+2. **Capitulation D1 equitats** (MSFT EV +12.7$, QQQ/NVDA prometedors)
+
+Cap arriba a ACCEPTED individual (N insuficient per D1, EV modest per crypto).
+
+**Opcions:**
+- A) Paper probe 4 setmanes (infra bot mínima + tracking manual)
+- B) Continuar LAB: buscar assets addicionals D1 per augmentar N combined
+- C) Relaxar gate: construir BUILD amb WATCHLIST evidence (WF/MC sòlids)
 
 Veure `lab/docs/T6_NOTES.md`.
 
@@ -85,3 +113,4 @@ Veure `lab/docs/T6_NOTES.md`.
 | 2026-03-16 | **T6**: 6 setups explorats (3 famílies). 4 REJECTED (MC 0%), 1 WATCHLIST N=11. Crypto 1H esgotat — cal pivot |
 | 2026-03-16 | **T6b**: Crypto 4H — 6/6 REJECTED. MAE massa alta per leverage 20x (38% liq capitulation) |
 | 2026-03-16 | **T6c**: Equitats D1 — **Capitulation D1 WATCHLIST** (N=288, WR 60%, PF 2.59). Nasdaq WR 73%, NVDA WATCHLIST |
+| 2026-03-16 | **T6d**: Leverage sweep 10 assets D1 × 6 leverages. MSFT = estrella (WR 78%, EV +12.7$@20x, liq 0%, WF 10/12). 3 WATCHLIST, 0 ACCEPTED |

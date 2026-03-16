@@ -22,7 +22,9 @@ Operativa diària i evidència. Actualitzar a cada canvi significatiu.
 
 #### Pendent: millorar edge per justificar BUILD
 - [x] T5: Harness comú de validació — smoke PASS (Capitulation → WATCHLIST coherent)
-- [x] T6: 6 setups explorats — 4 REJECTED, 1 WATCHLIST (N=11). Crypto 1H esgotat
+- [x] T6: Crypto 1H — 4 REJECTED, 1 WATCHLIST (N=11). Crypto 1H esgotat
+- [x] T6b: Crypto 4H — 6/6 REJECTED. MAE massa alta per leverage
+- [x] T6c: Equitats D1 — **Capitulation D1 WATCHLIST** (N=288, WR 60%, PF 2.59). Nasdaq/NVDA/MSFT prometedors
 - [ ] T7: Funció d'oportunitat per agents de risc/exit
 - [ ] T8: Portfolio candidat — avaluar conjunt
 - [ ] T9: Decisió BUILD_AUTHORIZED o LAB_CONTINUES
@@ -49,13 +51,20 @@ Backtest refet amb liquidació simulada (MAE >= 1/lev → pèrdua total col):
 - Artifact: `lab/out/leverage_recalibration.json`
 - AGENTS_ARQUITECTURA.md §6 i §11 actualitzats
 
+### Resultat T6 complet (3 cicles, 18 setups)
+
+- Crypto 1H: **esgotat** (1 WATCHLIST modest)
+- Crypto 4H: **mort** (massa volàtil per leverage)
+- **Equitats D1: viable!** Capitulation D1 WATCHLIST amb Nasdaq/NVDA/MSFT prometedors
+
 ### Pròxim pas
 
-T6 ha demostrat que crypto 1H està esgotat amb 1 sol setup viable (Capitulation).
-Opcions per decidir amb PM:
-1. Explorar TF 4H/D1 o assets no-crypto (equitats)
-2. Acceptar Capitulation sol i construir bot com a infra reutilitzable
-3. Tancar LAB i no construir
+Tenim 2 setups WATCHLIST de 2 famílies/terrenys:
+1. **Capitulation Scalp 1H crypto** (EV modest +4$/t, 24/7)
+2. **Capitulation D1 equitats** (EV +3.3$/t combined, Nasdaq +20.7$/t)
+
+Possibilitat de portfolio complementari (crypto 24/7 + equitats market hours).
+Cal decidir amb PM: seguim a T7 (funció d'oportunitat) o construïm BUILD amb 2 WATCHLIST?
 
 Veure `lab/docs/T6_NOTES.md`.
 
@@ -74,3 +83,5 @@ Veure `lab/docs/T6_NOTES.md`.
 | 2026-03-16 | **T4**: Inventari LAB: 1 setup WATCHLIST (Capitulation), 2 REJECTED (Markov). Catàleg creat |
 | 2026-03-16 | **T5**: Harness validació creat. 7 passes (baseline→deployable→MFE/MAE→liq→MC→WF→classify). Smoke PASS: Capitulation → WATCHLIST |
 | 2026-03-16 | **T6**: 6 setups explorats (3 famílies). 4 REJECTED (MC 0%), 1 WATCHLIST N=11. Crypto 1H esgotat — cal pivot |
+| 2026-03-16 | **T6b**: Crypto 4H — 6/6 REJECTED. MAE massa alta per leverage 20x (38% liq capitulation) |
+| 2026-03-16 | **T6c**: Equitats D1 — **Capitulation D1 WATCHLIST** (N=288, WR 60%, PF 2.59). Nasdaq WR 73%, NVDA WATCHLIST |

@@ -1,0 +1,57 @@
+# Capitulation Scalp 1H — Configuració
+# LONG after crash extrem crypto
+# Documentació completa: lab/strategies/eth_capitulation_scalp.md
+
+name: capitulation_scalp_1h
+version: "1.0"
+enabled: true
+
+assets:
+  - ETHUSDT
+  - BTCUSDT
+  - SOLUSDT
+
+timeframe: 1h
+
+entry:
+  body_threshold_pct: -3.0
+  drop_3h_threshold_pct: -5.0
+  max_vol_rel: 5.0
+  excluded_hours_utc: [16, 17, 18, 19]
+  direction: long
+
+indicators:
+  bb_period: 20
+  bb_std: 2.0
+  rsi_period: 7
+  drop_lookback: 3
+  vol_ma_period: 20
+
+scoring:
+  body_severe_threshold: -7.5  # body_th * 2.5
+  body_moderate_threshold: -4.5  # body_th * 1.5
+  drop_severe_threshold: -12.5  # drop_th * 2.5
+  drop_moderate_threshold: -7.5  # drop_th * 1.5
+  rsi_extreme: 15
+  rsi_oversold: 25
+  vol_panic: 3.0
+  best_hours_utc: [20, 21]
+
+# Expected MFE/MAE per tier (from backtest)
+tiers:
+  low:    {min_score: 0, mfe: 0.0235, mae: 0.0232}
+  mid:    {min_score: 3, mfe: 0.0288, mae: 0.0221}
+  high:   {min_score: 5, mfe: 0.0524, mae: 0.0427}
+
+sizing:
+  leverage: 100
+  capital_fraction: 0.20
+  min_collateral: 15.0
+  max_collateral: 60.0
+  fee_estimate: 3.36
+
+risk:
+  max_positions: 1
+  paper_after_n_losses: 2
+  capital_floor: 100.0
+  hold_duration_h: 1

@@ -3,19 +3,23 @@
 **Data:** 2026-03-16
 **Repo/Path:** `/mnt/volume-SQ/dev/TradingAgent`
 **Modes:** PAPER / LIVE / STOPPED
-**Timeframe operatiu:** 1H
-**Assets MVP:** ETHUSDT, BTCUSDT, SOLUSDT
-**Objectiu:** Bot de trading que consumeix BrokerageService per operar a Ostium amb estratègies automatitzades.
+**Timeframe operatiu:** D1 (paper probe T7) → 1H crypto (futur)
+**Assets paper probe:** MSFT (primari), NVDA, QQQ
+**Assets futur:** ETHUSDT, BTCUSDT, SOLUSDT + equitats Ostium
+**Setup actiu:** `capitulation_d1` (body<-2% + BB_lower D1)
+**Objectiu:** Bot de trading paper (T7) i futur live que opera a Ostium amb estratègies automatitzades.
 
 ---
 
 ## 0) TL;DR
 
 - **TradingAgent és el cervell**: decideix QUÈ i QUAN operar
-- **BrokerageService és el cos**: executa ordres, serveix dades, gestiona posicions
-- Comunicació via HTTP (gateway BS :8081, hostname Docker `datalayer-proxy`)
-- 2 background loops: `poll_loop` (5min) + `close_loop` (30s)
-- Persistència SQLite: signals, trades, equity, agent_state
+- **BrokerageService és el cos**: executa ordres, serveix dades, gestiona posicions (futur live)
+- **T7 paper probe**: `DailyEngine` (1 cop/dia post-close) + yfinance D1 feed + SQLite
+- Comunicació futura via HTTP (gateway BS :8081, hostname Docker `datalayer-proxy`)
+- Loops futurs: `poll_loop` (5min, candles 1H) + `close_loop` (30s, settlements)
+- **Ara**: `DailyEngine` (1 cop/dia D1) + `YFinanceD1Feed`
+- Persistència SQLite: signals, paper_trades, agent_state
 - Paper mode automàtic: 2 losses → paper fins que 1 senyal guanyi
 
 ---
@@ -195,7 +199,7 @@ Claus: `runtime_state` (mode, consec_losses, open_trade_id, stop_reason),
 | Col·lateral | min(max(capital × 20%, 15$), 60$) |
 | Leverage | **20x** (T1: recalibrat amb liquidació simulada, era 100x) |
 | Nominal | col × leverage (ex: 40$ × 20 = 800$) |
-| Fee estimada | 3.36$/trade |
+| Fee estimada | 5.38$/trade (Ostium, validat T6d) |
 | Max posicions | 1 simultània |
 | Stop Loss | Cap (el rebot necessita espai) |
 | Exit | Close de la candle 1H (hold 1h) |
@@ -239,17 +243,17 @@ Claus: `runtime_state` (mode, consec_losses, open_trade_id, stop_reason),
 - Walk-forward PASS ✓ (7/9)
 - **Decisió explícita del projecte** que el cas econòmic justifica la inversió en codi
 
-### Estat actual: **LAB — cas econòmic en revisió**
+### Estat actual: **PAPER PROBE — T7 en curs**
 
-Resultats T1 amb liquidació simulada (lev 20x):
-- EV +5.6$/trade × 18 trades/any = ~100$/any amb 250$ capital
-- 250$ → 1.114$ en 8.6 anys (x4.5)
-- 5 anys positius, 5 negatius
+LAB tancat (T6→T6g). Troballa definitiva:
+- **MSFT** `capitulation_d1`: WR 78%, EV +12.7$/t, liq 0%, WF 10/12 → **ACCEPTED_D1_ASSET**
+- **NVDA**, **QQQ**: WATCHLIST complementaris
+- **CAGR simulat**: 15-25% (fixed col_max) / 25-53% (compounding)
 
-Opcions obertes:
-1. **GO BUILD** si es considera suficient (infraestructura reutilitzable, escala amb capital)
-2. **LAB CONTINUA** per trobar millor edge (més assets, altres TF, portfolio combinat)
-3. **HYBRID** construir el bot en paper-only com a infra, mentre es busca millor estratègia
+Paper probe autoritzat (T6e: `PAPER_PROBE_AUTHORIZED`).
+T7 implementat: `DailyEngine + PaperExecutor + SQLite + FastAPI`. Tests 7/7 PASS.
+
+**Pròxim**: ≥4 setmanes paper → T8 decisió live.
 
 ---
 
@@ -291,30 +295,29 @@ Opcions obertes:
 ## 11) Docker
 
 ```yaml
-# docker-compose.yml
+# docker-compose.yml (T7 paper probe D1)
 services:
   trading-agent:
     build: ./docker
     container_name: trading-agent
     environment:
-      - BS_BASE_URL=http://datalayer-proxy:8081
-      - MODE=paper
-      - SYMBOLS=ETHUSDT,BTCUSDT,SOLUSDT
-      - POLL_INTERVAL_S=300
-      - CLOSE_CHECK_INTERVAL_S=30
+      - PROBE_ASSETS=MSFT,NVDA,QQQ
+      - LEVERAGE=20
       - CAPITAL_INITIAL=250
+      - FEE=5.38
+      - DB_PATH=/app/data/paper_probe.db
+      - DATA_LOOKBACK_DAYS=365
     volumes:
       - ./data:/app/data     # SQLite
       - ./lab:/app/lab
-      - ./strategies:/app/strategies
     ports:
       - "8090:8090"
-    networks:
-      - brokerage_net
+    # (futur live: afegir BS_BASE_URL + brokerage_net)
 
-networks:
-  brokerage_net:
-    external: true
+# Futur live:
+#   - BS_BASE_URL=http://datalayer-proxy:8081
+#   - SYMBOLS=ETHUSDT,BTCUSDT,SOLUSDT
+#   networks: brokerage_net (external: true)
 ```
 
 ---
@@ -342,4 +345,50 @@ Backtest refet amb liquidació simulada (si MAE >= 1/leverage → pnl = -collate
 
 ---
 
-*Actualitzat: 2026-03-16 (T1 leverage recalibrat)*
+---
+
+## 13) T7 — Paper Probe D1 (2026-03-16)
+
+### Setup i assets
+
+| Paràmetre | Valor |
+|-----------|-------|
+| Setup | `capitulation_d1`: body<-2% + close<BB_lower(20,2) |
+| Asset primari | MSFT (ACCEPTED_D1_ASSET, WR 78%, EV +12.7$/t) |
+| Assets complementaris | NVDA (WR 63%, EV +6$/t), QQQ (WR 63%, EV +3.6$/t) |
+| TF | D1 (candles diàries) |
+| Entry | open(T+1) | Exit | close(T+1) |
+| Leverage | 20x | Col | min(max(cap×20%, 15$), 60$) |
+| Liq threshold | MAE ≥ 5% → pnl = −col − fee |
+
+### Components implementats (T7)
+
+| Paquet | Fitxer | Rol |
+|--------|--------|-----|
+| shared | config.py | Config via env |
+| shared | models.py | SignalRecord, PaperTradeRecord, AgentState |
+| portfolio | db.py | SQLite: signals, paper_trades, agent_state |
+| portfolio | tracker.py | Actualitza capital/pnl/losses |
+| strategy | capitulation_d1.py | Detecta senyal |
+| market | data_feed.py | yfinance D1 (paper), futur→BS |
+| execution | paper.py | PaperExecutor: open+settle+liq |
+| runtime | engine.py | DailyEngine: scan+settle+open |
+| apps/agent | app.py+routes.py | FastAPI /health /status /signals /trades POST /scan |
+
+### Com arrencar
+
+```bash
+mkdir -p data
+uvicorn apps.agent.app:app --host 0.0.0.0 --port 8090
+curl -X POST http://localhost:8090/scan   # scan manual
+curl http://localhost:8090/status
+```
+
+### Criteris de sortida T7 (→ T8 decisió live)
+
+- ≥4 setmanes en marxa sense errors crítics
+- ≥3 senyals MSFT detectats i registrats
+- WR paper coherent amb backtest (78% ± marge estadístic)
+- Cap discrepància inexplicada entre senyal i trade paper
+
+*Actualitzat: 2026-03-16 (T7 paper probe implementat)*

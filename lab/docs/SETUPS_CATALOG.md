@@ -8,7 +8,8 @@ Actualitzat: 2026-03-16 (T4)
 
 | # | Setup | Family | Assets | TF ctx/exec | Status | EV/trade | WR | Notes |
 |---|-------|--------|--------|-------------|--------|----------|-----|-------|
-| 1 | Capitulation Scalp | capitulation | ETH,BTC,SOL | 4H/1H | **WATCHLIST** | +5.6$ (20x liq) | 59% | Edge real, EV modest. MC 3/3 PASS. 5+/5- anys |
+| **0** | **capitulation_d1** | **capitulation** | **MSFT,NVDA,QQQ** | **D1/D1** | **ACCEPTED_D1_ASSET** | **+12.7$ MSFT** | **78%** | **T7 paper probe actiu. Liq 0%, WF 10/12** |
+| 1 | Capitulation Scalp 1H | capitulation | ETH,BTC,SOL | 4H/1H | WATCHLIST | +5.6$ (20x liq) | 59% | Edge real, EV modest. MC 3/3 PASS. 5+/5- anys |
 | 2 | Markov HMM Regime | pattern | ETH | 4H/1H | REJECTED | — | — | HMM no detecta bear 2026. Overfitting |
 | 3 | Markov pur trigrams | pattern | ETH | 4H/4H | REJECTED | — | — | Overfitting amb qualsevol nombre d'estats |
 
@@ -63,6 +64,28 @@ Actualitzat: 2026-03-16 (T4)
 - IS bo (overfitting), OOS negatiu sempre
 
 **Scripts**: eth_scalp_markov.py, eth_scalp_markov_v2.py
+
+---
+
+---
+
+### 0. capitulation_d1 (ACCEPTED_D1_ASSET — T7 PAPER PROBE ACTIU)
+
+**Tesi**: Crash extrem D1 (body<-2%, close<BB_lower) → rebot el dia T+1.
+Setup congelat (gate T6e, 8/8 criteris MSFT).
+
+**Validació MSFT**:
+- WR 78%, PF 3.46, EV +12.7$/trade @20x, liq 0%, MAE med 0.75%
+- MC Shuffle: 100%, WF: 10/12 (83% anys positius)
+- Capital simulat: 250$ → 772$ en 12 anys (CAGR ~10% fixed, ~25% compounding)
+
+**Univers**:
+- MSFT (primari, ACCEPTED) | NVDA (WATCHLIST) | QQQ (WATCHLIST)
+- Tots els altres assets testats: REJECTED (T6d/T6f/T6g)
+
+**Scripts**: `lab/studies/t6d_leverage_sweep_d1.py`, `lab/studies/t6e_*`, etc.
+**Codi prod**: `packages/strategy/capitulation_d1.py`
+**Runbook**: `docs/PAPER_PROBE_RUNBOOK.md`
 
 ---
 

@@ -6,7 +6,10 @@ Operativa diària i evidència. Actualitzar a cada canvi significatiu.
 
 ## Estat actual (2026-03-16)
 
-### Fase: LAB — cas econòmic en revisió
+### Fase: PAPER PROBE — T7 en curs (≥4 setmanes, inici 2026-03-16)
+
+**Setup actiu**: `capitulation_d1` — MSFT (primari), NVDA, QQQ (complementaris)
+**Leverage**: 20x | **Mode**: paper only | **Pròxim gate**: T7 OK → decidir live
 
 #### Completat
 - [x] Estructura de directoris creada
@@ -29,22 +32,25 @@ Operativa diària i evidència. Actualitzar a cada canvi significatiu.
 - [x] T6e: **Gate D1 adaptat + decisió** — MSFT = ACCEPTED_D1_ASSET (8/8 criteris). **PAPER_PROBE_AUTHORIZED**
 - [x] T6f: **Screening final** — AMD/NFLX/META/GOOGL/AMZN testats, tots REJECTED. Edge específic de MSFT confirmat. Univers: MSFT+NVDA+QQQ
 - [x] T6g: **Commodities + índexs** — GLD(N=3 insuf.), SPY(WATCHLIST N baix), DAX(REJECTED). Univers final tancat: MSFT+NVDA+QQQ
-- [ ] T7: Paper probe mínim — MSFT-centric, 20x, ≥4 setmanes
-- [ ] T8: Portfolio candidat — avaluar conjunt
-- [ ] T9: Decisió BUILD_AUTHORIZED o LAB_CONTINUES
+- [x] T7: **Paper probe mínim** — implementat: DailyEngine, PaperExecutor, SQLite, FastAPI (/health /status /signals /trades). Tests 7/7 PASS
+- [ ] T7 operatiu: ≥4 setmanes running, ≥3 senyals registrats, WR paper ≈ WR backtest
+- [ ] T8: Decisió live — revisar resultats paper vs backtest, autoritzar o no live trading
 
-### Estratègia activa
+### Estratègia activa (T7 paper probe)
 
-**Capitulation Scalp 1H** — LONG after crash extrem crypto
-- Assets: ETH, BTC, SOL
-- TF: 1H
-- Backtest: WR 68%, PF 2.5, 361 trades (3 assets), +18.335$ (8.6 anys)
-- MC Shuffle: PASS (100% sims profitables)
-- MC Random Entry: PASS (edge +15-35pp vs random, tots > P95)
-- MC Param Perturb: PASS (50/50 variants profitables, WR min 63%)
-- WF Expanding: 7/9 anys positius (2023 -155$, 2024 -206$ — N baix)
-- WF Rolling 3y: 5/7 anys positius
-- Script: `lab/studies/mc_walkforward_capitulation.py`
+**capitulation_d1** — LONG after crash extrem en D1 (equitats US mega-cap)
+- Asset primari: **MSFT** (ACCEPTED_D1_ASSET)
+- Assets complementaris: **NVDA**, **QQQ** (WATCHLIST)
+- TF: D1 | Entry: open(T+1) | Exit: close(T+1) | Leverage: 20x
+- Backtest MSFT: WR 78%, PF 3.46, EV +12.7$/trade, liq 0%, WF 10/12 (83%)
+- Gate: body < -2%, close < BB_lower(20,2)
+- Script: `packages/strategy/capitulation_d1.py`
+- Engine: `packages/runtime/engine.py` (DailyEngine, executar post-close)
+- DB: `data/paper_probe.db` (signals, paper_trades, agent_state)
+- API: `uvicorn apps.agent.app:app --port 8090`
+
+**Capitulation Scalp 1H (crypto)** — arxivat, WATCHLIST no suficient sol
+- Assets: ETH, BTC, SOL | TF: 1H | EV +5.6$/t | liq 14% | Script: `lab/studies/`
 
 ### Decisió T1: Leverage MVP = 20x (TANCAT)
 
@@ -118,3 +124,4 @@ Veure `lab/docs/T6E_DECISIO_D1_ASSETS.md` i `lab/docs/D1_GATE_CRITERIA.md`.
 | 2026-03-16 | **T6e**: Gate D1 adaptat. MSFT = ACCEPTED_D1_ASSET (8/8). **PAPER_PROBE_AUTHORIZED** |
 | 2026-03-16 | **T6f**: Screening 5 nous actius (AMD/NFLX/META/GOOGL/AMZN) → tots REJECTED. Univers final: MSFT+NVDA+QQQ. Fase LAB tancada |
 | 2026-03-16 | **T6g**: GLD(N=3), SPY(WATCHLIST N baix), DAX(REJECTED). Univers confirmat: MSFT+NVDA+QQQ. Resum complet LAB creat |
+| 2026-03-16 | **T7 implementat**: DailyEngine, PaperExecutor, SQLite, FastAPI. Tests 7/7. LAB→PAPER PROBE |

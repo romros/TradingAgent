@@ -14,7 +14,7 @@ Operativa diària i evidència. Actualitzar a cada canvi significatiu.
 - [x] Monte Carlo validation de Capitulation Scalp 1H — PASS (3/3)
 - [x] Walk-forward validation — PASS (7/9 expanding, 5/7 rolling)
 - [x] Stress test — ALERTA: lev 100x = 61% liquidacions. Recomanat lev 20-30x
-- [ ] Refer backtest amb liquidació simulada (leverage recalibrat)
+- [x] T1: Leverage recalibrat amb liquidació simulada → **20x** (EV +5.6$/t, liq 14%, 250$→1.114$)
 - [ ] MVP: packages/shared/models.py
 - [ ] MVP: packages/market/indicators.py
 - [ ] MVP: packages/strategy/capitulation_scalp.py
@@ -42,14 +42,18 @@ Operativa diària i evidència. Actualitzar a cada canvi significatiu.
 - WF Rolling 3y: 5/7 anys positius
 - Script: `lab/studies/mc_walkforward_capitulation.py`
 
-### ALERTA: Leverage 100x no viable
+### Decisió T1: Leverage MVP = 20x (TANCAT)
 
-El stress test ha revelat que **el 61% dels trades serien liquidats amb lev 100x** (MAE mediana 1.50%, liq threshold 1%). Cal refer el backtest amb liquidació simulada a lev 20-30x per trobar l'equilibri rendiment/supervivència.
+Backtest refet amb liquidació simulada (MAE >= 1/lev → pèrdua total col):
+- **20x recomanat**: EV +5.6$/trade, 14% liquidacions, 250$→1.114$ (x4.5), MaxDD 37%
+- **Runner-up 15x**: EV +4.3$/trade, 9% liq, MaxDD 23% (més conservador)
+- **100x DESCARTAT**: 68% liquidacions, EV negatiu, capital → 10$
+- Artifact: `lab/out/leverage_recalibration.json`
+- AGENTS_ARQUITECTURA.md §6 i §11 actualitzats
 
 ### Pròxim pas
 
-1. Refer backtest amb liquidació simulada (lev 20x, 30x, 50x)
-2. Implementar MVP amb leverage recalibrat
+Implementar MVP amb leverage 20x: `packages/shared/models.py` → ... → `apps/agent/app.py`
 
 ---
 
@@ -60,3 +64,4 @@ El stress test ha revelat que **el 61% dels trades serien liquidats amb lev 100x
 | 2026-03-16 | Projecte creat. Estructura, MDs, lab importat de SQRunner |
 | 2026-03-16 | MC+WF PASS. Shuffle 100%, Random Entry edge +15-35pp, Param Perturb 50/50 |
 | 2026-03-16 | STRESS TEST: lev 100x = 61% liquidacions! Kelly=47%, sizing 20% OK. Recomanat lev 20-30x |
+| 2026-03-16 | **T1 TANCAT**: leverage MVP = 20x. Backtest amb liquidació: EV +5.6$/t, liq 14%, 250$→1.114$. AGENTS §6/§11 alineats |

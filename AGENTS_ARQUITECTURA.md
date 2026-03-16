@@ -193,8 +193,8 @@ Claus: `runtime_state` (mode, consec_losses, open_trade_id, stop_reason),
 | Paràmetre | Valor |
 |-----------|-------|
 | Col·lateral | min(max(capital × 20%, 15$), 60$) |
-| Leverage | 100x |
-| Nominal | col × leverage |
+| Leverage | **20x** (T1: recalibrat amb liquidació simulada, era 100x) |
+| Nominal | col × leverage (ex: 40$ × 20 = 800$) |
 | Fee estimada | 3.36$/trade |
 | Max posicions | 1 simultània |
 | Stop Loss | Cap (el rebot necessita espai) |
@@ -283,4 +283,27 @@ networks:
 
 ---
 
-*Generat: 2026-03-16*
+## 11) Decisió T1: Leverage recalibrat (2026-03-16)
+
+El stress test va revelar que **leverage 100x = 61% liquidacions** (MAE mediana 1.50%, liq threshold 1%).
+Backtest refet amb liquidació simulada (si MAE >= 1/leverage → pnl = -collateral):
+
+| Lev | Liq% | WR | PF | EV/trade | 250$→ | MaxDD | Anys +/- |
+|-----|------|-----|-----|----------|-------|-------|----------|
+| 10x | 5% | 56% | 1.3 | +2.0$ | 560$ | 28% | 3+/6- |
+| **15x** | **9%** | **59%** | **1.4** | **+4.3$** | **924$** | **23%** | **5+/5-** |
+| **20x** | **14%** | **59%** | **1.4** | **+5.6$** | **1.114$** | **37%** | **5+/5-** |
+| 30x | 24% | 58% | 1.5 | +9.2$ | 1.596$ | 28% | 5+/5- |
+| 50x | 38% | 50% | 1.7 | +16.4$ | 2.369$ | 17% | 8+/2- |
+| 100x | 68% | 21% | 0.7 | -7.1$ | 10$ | 98% | 0+/3- |
+
+**Decisió MVP: 20x**
+- Criteri: max EV amb liquidació ≤20% i MaxDD ≤60%
+- Runner-up: 15x (menys DD 23%, menys EV +4.3$)
+- EV real: +5.6$/trade × 18t/any = ~100$/any amb 250$
+- Script: `lab/studies/leverage_recalibration.py`
+- Artifact: `lab/out/leverage_recalibration.json`
+
+---
+
+*Actualitzat: 2026-03-16 (T1 leverage recalibrat)*

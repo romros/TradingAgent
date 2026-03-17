@@ -22,10 +22,11 @@ from packages.portfolio.validation import (
     compute_probe_ok,
     compute_winrate_robust,
     run_validation,
+    compute_live_readiness,
 )
 from packages.strategy.capitulation_d1 import CapitulationD1Strategy
 from packages.market.data_feed import YFinanceD1Feed, validate_candles
-from packages.market.bs_probe import run_bs_audit
+from packages.market.bs_probe import run_bs_audit, run_proxy_validation
 from packages.execution.paper import PaperExecutor
 from packages.portfolio.tracker import PortfolioTracker
 from packages.runtime.engine import DailyEngine
@@ -174,10 +175,14 @@ def bs_audit():
     return run_bs_audit(assets=config.ASSETS, base_url=config.BS_BASE_URL)
 
 
-@router.get("/data-quality")
-def data_quality():
-    """Qualitat del data feed per asset. Valida candles D1 (yfinance)."""
-    import logging
+@router.get("/proxy-validation")
+def proxy_validation():
+    """T8b: Validació proxy QQQ vs NASDAQUSD/NDXUSD. Correlació returns, classificació aligned|warning|diverged."""
+    return run_proxy_validation(base_url=config.BS_BASE_URL, days=config.DATA_LOOKBACK_DAYS)
+
+
+def _get_data_quality_result() -> dict:
+    """Retorna resultat data_quality (reutilitzat per /live-readiness)."""
     feed = YFinanceD1Feed()
     result = {"source": "yfinance", "assets": {}}
     for asset in config.ASSETS:
@@ -190,10 +195,6 @@ def data_quality():
                 "warnings": validation["warnings"],
                 "errors": validation["errors"],
             }
-            logging.getLogger(__name__).info(
-                "data_quality_check asset=%s status=%s candles=%s",
-                asset, validation["status"], len(candles),
-            )
         except Exception as e:
             result["assets"][asset] = {
                 "status": "error",
@@ -201,6 +202,40 @@ def data_quality():
                 "warnings": [],
                 "errors": [str(e)[:100]],
             }
+    return result
+
+
+@router.get("/live-readiness")
+def live_readiness():
+    """T8c: Decision gate probe → shadow/live. Agrega validation, proxy, data_quality, bs_audit."""
+    conn = _get_conn()
+    try:
+        trade_summary = get_trade_summary(conn)
+        last_scan = get_last_scan_result(conn)
+        validation_result = run_validation(trade_summary, last_scan)
+    finally:
+        conn.close()
+    proxy_result = run_proxy_validation(base_url=config.BS_BASE_URL, days=config.DATA_LOOKBACK_DAYS)
+    data_quality_result = _get_data_quality_result()
+    bs_audit_result = run_bs_audit(assets=config.ASSETS, base_url=config.BS_BASE_URL)
+    return compute_live_readiness(
+        validation_result=validation_result,
+        proxy_result=proxy_result,
+        data_quality_result=data_quality_result,
+        bs_audit_result=bs_audit_result,
+    )
+
+
+@router.get("/data-quality")
+def data_quality():
+    """Qualitat del data feed per asset. Valida candles D1 (yfinance)."""
+    import logging
+    result = _get_data_quality_result()
+    for asset, info in result["assets"].items():
+        logging.getLogger(__name__).info(
+            "data_quality_check asset=%s status=%s candles=%s",
+            asset, info.get("status"), info.get("candles_count", 0),
+        )
     return result
 
 

@@ -142,3 +142,112 @@ def run_validation(trade_summary: dict, last_scan: Optional[dict]) -> dict:
         classification["status"],
     )
     return result
+
+
+# ─── T8c: Decision Gate Live Readiness ────────────────────────────────────────
+
+LIVE_STATUS_READY = "LIVE_READY"
+LIVE_STATUS_SHADOW = "LIVE_SHADOW_READY"
+LIVE_STATUS_NOT_READY = "LIVE_NOT_READY"
+
+
+def compute_live_readiness(
+    validation_result: dict,
+    proxy_result: dict,
+    data_quality_result: dict,
+    bs_audit_result: dict,
+) -> dict:
+    """
+    T8c: Decision gate determinista. Agrega validation, proxy, data_quality, bs_audit.
+    Retorna status: LIVE_READY | LIVE_SHADOW_READY | LIVE_NOT_READY i reasons.
+    No throws.
+    """
+    reasons = []
+    has_critical_fail = False
+    has_warnings = False
+
+    # 6.1 Criteris quantitatius (probe)
+    paper = validation_result.get("paper_metrics", {})
+    val_class = validation_result.get("validation", {})
+    trades_total = paper.get("trades_total", 0)
+    winrate_conf = paper.get("winrate_confidence", "low")
+    val_status = val_class.get("status", "diverged")
+
+    if trades_total < 3:
+        reasons.append("low_sample_size")
+        has_critical_fail = True
+    if winrate_conf == "low":
+        reasons.append("winrate_confidence_low")
+        has_critical_fail = True
+    if val_status == "diverged":
+        reasons.append("validation_diverged")
+        has_critical_fail = True
+
+    # 6.2 Criteris operatius
+    probe_ok = validation_result.get("probe_ok", False)
+    if not probe_ok:
+        reasons.append("probe_not_ok")
+        has_critical_fail = True
+
+    assets_dq = data_quality_result.get("assets", {})
+    for _asset, info in assets_dq.items():
+        if isinstance(info, dict):
+            st = info.get("status", "ok")
+            if st == "error":
+                reasons.append("data_quality_error")
+                has_critical_fail = True
+                break
+            if st == "warning":
+                has_warnings = True
+
+    # 6.3 Criteris proxy
+    proxy_status = proxy_result.get("status", "insufficient_data")
+    if proxy_status not in ("aligned", "warning"):
+        reasons.append("proxy_diverged" if proxy_status == "diverged" else "proxy_not_ready")
+        has_critical_fail = True
+    elif proxy_status == "warning":
+        has_warnings = True
+
+    # 6.4 Criteris BS readiness (MSFT com a asset primari)
+    bs_assets = bs_audit_result.get("assets", [])
+    msft_audit = next((a for a in bs_assets if a.get("asset") == "MSFT"), None)
+    if msft_audit is None:
+        reasons.append("bs_msft_missing")
+        has_critical_fail = True
+    else:
+        if not msft_audit.get("available", False):
+            reasons.append("bs_not_ready")
+            has_critical_fail = True
+        if msft_audit.get("data_quality") == "error":
+            reasons.append("bs_data_quality_error")
+            has_critical_fail = True
+        if msft_audit.get("comparison") == "warning":
+            has_warnings = True
+
+    for a in bs_assets:
+        if isinstance(a, dict) and a.get("data_quality") == "warning":
+            has_warnings = True
+            break
+
+    # 6.5 Estat final
+    if has_critical_fail:
+        status = LIVE_STATUS_NOT_READY
+    elif has_warnings:
+        status = LIVE_STATUS_SHADOW
+    else:
+        status = LIVE_STATUS_READY
+
+    metrics = {
+        "trades": paper.get("trades_total", 0),
+        "winrate": paper.get("winrate_pct"),
+        "ev": paper.get("avg_pnl_per_trade"),
+    }
+
+    result = {
+        "status": status,
+        "reasons": reasons,
+        "metrics": metrics,
+    }
+
+    logger.info("live_readiness status=%s reasons=%s", status, reasons)
+    return result

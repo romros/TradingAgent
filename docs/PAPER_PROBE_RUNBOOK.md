@@ -78,6 +78,14 @@ curl http://localhost:8090/data-quality
 curl http://localhost:8090/bs-audit
 # Requereix BS_BASE_URL (default http://localhost:8081) i BrokerageService en marxa
 
+# Validació proxy QQQ vs NASDAQUSD/NDXUSD (T8b)
+curl http://localhost:8090/proxy-validation
+# Correlació returns, classificació aligned|warning|diverged|insufficient_data
+
+# Decision Gate Live Readiness (T8c)
+curl http://localhost:8090/live-readiness
+# status: LIVE_READY | LIVE_SHADOW_READY | LIVE_NOT_READY; reasons; metrics
+
 # Senyals detectats
 curl http://localhost:8090/signals
 curl http://localhost:8090/signals?asset=MSFT&limit=20
@@ -142,7 +150,7 @@ curl -s http://localhost:8090/probe-summary | jq .
 curl -s http://localhost:8090/validation | jq .
 ```
 
-Esperat: `/status` mostra `probe_ok`, `last_scan` amb `assets`; `/validation` retorna `paper_metrics`, `validation.status`; `/probe-history` retorna `scan_runs`, `validation_runs`, `equity_curve`, `drawdown`; `/data-quality` retorna `status` per asset (ok/warning/error); `/bs-audit` retorna `available`, `data_quality`, `comparison` (aligned/warning/diverged) per asset.
+Esperat: `/status` mostra `probe_ok`, `last_scan` amb `assets`; `/validation` retorna `paper_metrics`, `validation.status`; `/probe-history` retorna `scan_runs`, `validation_runs`, `equity_curve`, `drawdown`; `/data-quality` retorna `status` per asset (ok/warning/error); `/bs-audit` retorna `available`, `data_quality`, `comparison` (aligned/warning/diverged) per asset; `/proxy-validation` retorna `status` (aligned|warning|diverged|insufficient_data), `correlation`, `avg_delta_pct`, `samples`; `/live-readiness` retorna `status` (LIVE_READY|LIVE_SHADOW_READY|LIVE_NOT_READY), `reasons`, `metrics`.
 
 ## Estats de trade
 

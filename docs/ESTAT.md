@@ -37,6 +37,8 @@ Operativa diària i evidència. Actualitzar a cada canvi significatiu.
 - [x] T7b: **Validació paper vs backtest** — polish T7a (probe_ok determinista, winrate robust), mètriques paper, baseline MSFT (WR 78%, EV +12.7$), classificació aligned/warning/diverged, endpoint /validation. Tests 19/19 PASS
 - [x] T7c: **Traçabilitat temporal + validació data source** — taules scan_runs, validation_runs; equity curve i drawdown; validate_candles (OHLC, gaps, count); endpoints /probe-history, /data-quality. Tests 26/26 PASS
 - [x] T8a: **Auditoria BrokerageService** — bs_probe: fetch BS, agregar 1m→D1, validar, comparar vs yfinance; endpoint /bs-audit; classificació aligned/warning/diverged. Tests 31/31 PASS
+- [x] T8b: **Validació proxy QQQ vs NASDAQUSD** — correlació returns, avg_delta_pct; endpoint /proxy-validation; classificació aligned|warning|diverged|insufficient_data. Tests 42/42 PASS
+- [x] T8c: **Decision Gate Live Readiness** — compute_live_readiness; endpoint /live-readiness; status LIVE_READY|LIVE_SHADOW_READY|LIVE_NOT_READY; reasons. Tests 53/53 PASS
 - [ ] T7 operatiu: ≥4 setmanes running, ≥3 senyals registrats, WR paper ≈ WR backtest
 - [ ] T8: Decisió live — revisar resultats paper vs backtest, autoritzar o no live trading
 
@@ -133,3 +135,5 @@ Veure `lab/docs/T6E_DECISIO_D1_ASSETS.md` i `lab/docs/D1_GATE_CRITERIA.md`.
 | 2026-03-17 | **T7b**: Validació paper vs backtest. Polish T7a: probe_ok (<48h, sense errors), winrate robust (<3 trades→confidence=low). Baseline MSFT 78%/12.7$. Mètriques paper, classificació aligned/warning/diverged, /validation. Tests 19/19 PASS |
 | 2026-03-17 | **T7c**: Traçabilitat temporal + data source. scan_runs, validation_runs; equity curve, drawdown; validate_candles (OHLC, gaps≥200); /probe-history, /data-quality. Tests 26/26 PASS |
 | 2026-03-17 | **T8a**: Auditoria BrokerageService. packages/market/bs_probe.py: fetch BS 1m, agregar D1, validar, comparar vs yfinance; /bs-audit; classificació aligned/warning/diverged. Tests 31/31 PASS |
+| 2026-03-17 | **T8b**: Validació proxy QQQ vs NASDAQUSD/NDXUSD. run_proxy_validation: returns, correlació Pearson, avg_delta_pct; /proxy-validation; aligned (corr≥0.95, δ<1%) | warning (corr≥0.90, δ<3%) | diverged | insufficient_data (samples<30). Tests 42/42 PASS |
+| 2026-03-17 | **T8c**: Decision Gate Live Readiness. compute_live_readiness; /live-readiness; agregació validation+proxy+data_quality+bs_audit; status LIVE_READY|LIVE_SHADOW_READY|LIVE_NOT_READY; reasons. Tests 53/53 PASS |

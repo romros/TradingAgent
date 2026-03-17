@@ -650,6 +650,235 @@ def test_bs_audit_run_no_crash():
     assert r["assets"][0]["asset"] == "MSFT"
 
 
+# ─── T8b: Proxy validation tests (0-network) ──────────────────────────────────
+
+def test_proxy_align_returns_by_date():
+    """Alineació de returns per dates coincidents."""
+    from packages.market.bs_probe import _align_returns_by_date
+    qqq = [
+        {"date": "2025-01-01", "close": 100.0},
+        {"date": "2025-01-02", "close": 102.0},
+        {"date": "2025-01-03", "close": 101.0},
+    ]
+    bs = [
+        {"date": "2025-01-01", "close": 200.0},
+        {"date": "2025-01-02", "close": 204.0},
+        {"date": "2025-01-03", "close": 202.0},
+    ]
+    rq, rb = _align_returns_by_date(qqq, bs)
+    assert len(rq) == 2
+    assert len(rb) == 2
+    assert abs(rq[0] - 0.02) < 1e-6
+    assert abs(rq[1] - (-1.0 / 102.0)) < 1e-6
+    assert abs(rb[0] - 0.02) < 1e-6
+
+
+def test_proxy_compute_metrics():
+    """Càlcul correlació i avg_delta."""
+    from packages.market.bs_probe import _compute_proxy_metrics
+    rq = [0.01, 0.02, -0.01, 0.03]
+    rb = [0.01, 0.02, -0.01, 0.03]
+    m = _compute_proxy_metrics(rq, rb)
+    assert m["correlation"] is not None
+    assert abs(m["correlation"] - 1.0) < 0.01
+    assert m["avg_delta_pct"] is not None
+    assert m["avg_delta_pct"] < 0.01
+    assert m["samples"] == 4
+
+
+def test_proxy_classify_aligned():
+    """Classificació aligned: corr>=0.95, delta<1%."""
+    from packages.market.bs_probe import _classify_proxy
+    assert _classify_proxy({"correlation": 0.97, "avg_delta_pct": 0.5, "samples": 50}) == "aligned"
+
+
+def test_proxy_classify_warning():
+    """Classificació warning: corr>=0.90, delta<3%."""
+    from packages.market.bs_probe import _classify_proxy
+    assert _classify_proxy({"correlation": 0.92, "avg_delta_pct": 2.0, "samples": 50}) == "warning"
+
+
+def test_proxy_classify_diverged():
+    """Classificació diverged."""
+    from packages.market.bs_probe import _classify_proxy
+    assert _classify_proxy({"correlation": 0.85, "avg_delta_pct": 2.0, "samples": 50}) == "diverged"
+    assert _classify_proxy({"correlation": 0.95, "avg_delta_pct": 5.0, "samples": 50}) == "diverged"
+
+
+def test_proxy_insufficient_data():
+    """samples < 30 → insufficient_data."""
+    from packages.market.bs_probe import _classify_proxy
+    assert _classify_proxy({"correlation": 0.99, "avg_delta_pct": 0.1, "samples": 20}) == "insufficient_data"
+
+
+def test_proxy_validation_with_override():
+    """run_proxy_validation amb override 0-network: aligned."""
+    from packages.market.bs_probe import run_proxy_validation
+    base = "2025-01-"
+    qqq = [{"date": base + f"{i:02d}", "close": 100.0 + i * 0.5} for i in range(1, 45)]
+    bs = [{"date": base + f"{i:02d}", "close": 200.0 + i * 1.0} for i in range(1, 45)]
+    r = run_proxy_validation(qqq_candles_override=qqq, bs_candles_override=bs)
+    assert r["status"] in ("aligned", "warning", "diverged")
+    assert r["samples"] >= 30
+    assert r["correlation"] is not None
+    assert r["avg_delta_pct"] is not None
+
+
+def test_proxy_validation_qqq_empty():
+    """QQQ buit → insufficient_data."""
+    from packages.market.bs_probe import run_proxy_validation
+    r = run_proxy_validation(qqq_candles_override=[], bs_candles_override=[])
+    assert r["status"] == "insufficient_data"
+    assert "reason" in r
+
+
+def test_proxy_validation_bs_empty():
+    """BS buit (override) → insufficient_data."""
+    from packages.market.bs_probe import run_proxy_validation
+    qqq = [{"date": "2025-01-01", "close": 100.0}, {"date": "2025-01-02", "close": 101.0}]
+    r = run_proxy_validation(qqq_candles_override=qqq, bs_candles_override=[])
+    assert r["status"] == "insufficient_data"
+
+
+def test_proxy_validation_no_crash():
+    """run_proxy_validation no tomba (0-network: override QQQ, BS fake URL)."""
+    from packages.market.bs_probe import run_proxy_validation
+    qqq = [{"date": "2025-01-01", "close": 100.0}, {"date": "2025-01-02", "close": 101.0}]
+    r = run_proxy_validation(
+        base_url="http://127.0.0.1:59999",
+        qqq_candles_override=qqq,
+    )
+    assert "status" in r
+    assert r["status"] in ("insufficient_data", "error")
+    assert "samples" in r
+
+
+# ─── T8c: Live readiness tests (0-network) ────────────────────────────────────
+
+def _make_validation_result(probe_ok=True, trades=5, winrate_conf="ok", val_status="aligned"):
+    return {
+        "probe_ok": probe_ok,
+        "paper_metrics": {
+            "trades_total": trades,
+            "winrate_confidence": winrate_conf,
+            "winrate_pct": 80.0,
+            "avg_pnl_per_trade": 12.7,
+        },
+        "validation": {"status": val_status},
+    }
+
+
+def test_live_readiness_ready():
+    """Tots criteris OK → LIVE_READY."""
+    from packages.portfolio.validation import compute_live_readiness
+    r = compute_live_readiness(
+        validation_result=_make_validation_result(),
+        proxy_result={"status": "aligned"},
+        data_quality_result={"assets": {"MSFT": {"status": "ok"}, "NVDA": {"status": "ok"}, "QQQ": {"status": "ok"}}},
+        bs_audit_result={"assets": [{"asset": "MSFT", "available": True, "data_quality": "ok", "comparison": "aligned"}]},
+    )
+    assert r["status"] == "LIVE_READY"
+    assert r["reasons"] == []
+    assert r["metrics"]["trades"] == 5
+
+
+def test_live_readiness_not_ready_low_sample():
+    """trades < 3 → LIVE_NOT_READY."""
+    from packages.portfolio.validation import compute_live_readiness
+    r = compute_live_readiness(
+        validation_result=_make_validation_result(trades=2),
+        proxy_result={"status": "aligned"},
+        data_quality_result={"assets": {"MSFT": {"status": "ok"}}},
+        bs_audit_result={"assets": [{"asset": "MSFT", "available": True, "data_quality": "ok"}]},
+    )
+    assert r["status"] == "LIVE_NOT_READY"
+    assert "low_sample_size" in r["reasons"]
+
+
+def test_live_readiness_not_ready_validation_diverged():
+    """validation diverged → LIVE_NOT_READY."""
+    from packages.portfolio.validation import compute_live_readiness
+    r = compute_live_readiness(
+        validation_result=_make_validation_result(val_status="diverged"),
+        proxy_result={"status": "aligned"},
+        data_quality_result={"assets": {"MSFT": {"status": "ok"}}},
+        bs_audit_result={"assets": [{"asset": "MSFT", "available": True, "data_quality": "ok"}]},
+    )
+    assert r["status"] == "LIVE_NOT_READY"
+    assert "validation_diverged" in r["reasons"]
+
+
+def test_live_readiness_not_ready_proxy_diverged():
+    """proxy diverged → LIVE_NOT_READY."""
+    from packages.portfolio.validation import compute_live_readiness
+    r = compute_live_readiness(
+        validation_result=_make_validation_result(),
+        proxy_result={"status": "diverged"},
+        data_quality_result={"assets": {"MSFT": {"status": "ok"}}},
+        bs_audit_result={"assets": [{"asset": "MSFT", "available": True, "data_quality": "ok"}]},
+    )
+    assert r["status"] == "LIVE_NOT_READY"
+    assert "proxy_diverged" in r["reasons"]
+
+
+def test_live_readiness_not_ready_bs_not_available():
+    """BS MSFT not available → LIVE_NOT_READY."""
+    from packages.portfolio.validation import compute_live_readiness
+    r = compute_live_readiness(
+        validation_result=_make_validation_result(),
+        proxy_result={"status": "aligned"},
+        data_quality_result={"assets": {"MSFT": {"status": "ok"}}},
+        bs_audit_result={"assets": [{"asset": "MSFT", "available": False, "data_quality": "ok"}]},
+    )
+    assert r["status"] == "LIVE_NOT_READY"
+    assert "bs_not_ready" in r["reasons"]
+
+
+def test_live_readiness_not_ready_data_quality_error():
+    """data_quality error → LIVE_NOT_READY."""
+    from packages.portfolio.validation import compute_live_readiness
+    r = compute_live_readiness(
+        validation_result=_make_validation_result(),
+        proxy_result={"status": "aligned"},
+        data_quality_result={"assets": {"MSFT": {"status": "error"}}},
+        bs_audit_result={"assets": [{"asset": "MSFT", "available": True, "data_quality": "ok"}]},
+    )
+    assert r["status"] == "LIVE_NOT_READY"
+    assert "data_quality_error" in r["reasons"]
+
+
+def test_live_readiness_shadow():
+    """Probe OK, proxy OK, BS/data warnings → LIVE_SHADOW_READY."""
+    from packages.portfolio.validation import compute_live_readiness
+    r = compute_live_readiness(
+        validation_result=_make_validation_result(),
+        proxy_result={"status": "warning"},
+        data_quality_result={"assets": {"MSFT": {"status": "ok"}, "NVDA": {"status": "warning"}}},
+        bs_audit_result={"assets": [{"asset": "MSFT", "available": True, "data_quality": "ok", "comparison": "aligned"}]},
+    )
+    assert r["status"] == "LIVE_SHADOW_READY"
+    assert r["reasons"] == []
+
+
+def test_live_readiness_reasons_correct():
+    """reasons reflecta cada criteri fallant."""
+    from packages.portfolio.validation import compute_live_readiness
+    r = compute_live_readiness(
+        validation_result=_make_validation_result(probe_ok=False, trades=1, winrate_conf="low", val_status="diverged"),
+        proxy_result={"status": "insufficient_data"},
+        data_quality_result={"assets": {"MSFT": {"status": "error"}}},
+        bs_audit_result={"assets": [{"asset": "MSFT", "available": False, "data_quality": "error"}]},
+    )
+    assert r["status"] == "LIVE_NOT_READY"
+    assert "low_sample_size" in r["reasons"]
+    assert "winrate_confidence_low" in r["reasons"]
+    assert "validation_diverged" in r["reasons"]
+    assert "probe_not_ok" in r["reasons"]
+    assert "proxy_not_ready" in r["reasons"]
+    assert "data_quality_error" in r["reasons"]
+    assert "bs_not_ready" in r["reasons"]
+
+
 def test_db_no_duplicate_signal():
     """signal_exists retorna True per duplicat."""
     with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as f:
@@ -712,6 +941,24 @@ def _run_tests():
         test_bs_compare_closes_aligned,
         test_bs_compare_closes_diverged,
         test_bs_audit_run_no_crash,
+        test_proxy_align_returns_by_date,
+        test_proxy_compute_metrics,
+        test_proxy_classify_aligned,
+        test_proxy_classify_warning,
+        test_proxy_classify_diverged,
+        test_proxy_insufficient_data,
+        test_proxy_validation_with_override,
+        test_proxy_validation_qqq_empty,
+        test_proxy_validation_bs_empty,
+        test_proxy_validation_no_crash,
+        test_live_readiness_ready,
+        test_live_readiness_not_ready_low_sample,
+        test_live_readiness_not_ready_validation_diverged,
+        test_live_readiness_not_ready_proxy_diverged,
+        test_live_readiness_not_ready_bs_not_available,
+        test_live_readiness_not_ready_data_quality_error,
+        test_live_readiness_shadow,
+        test_live_readiness_reasons_correct,
         test_db_no_duplicate_signal,
     ]
     for t in tests:

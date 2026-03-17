@@ -86,6 +86,11 @@ curl http://localhost:8090/proxy-validation
 curl http://localhost:8090/live-readiness
 # status: LIVE_READY | LIVE_SHADOW_READY | LIVE_NOT_READY; reasons; metrics
 
+# Snapshot diari (T7d) — genera fitxer Markdown a data/probe_snapshots/YYYY-MM-DD.md
+curl -X POST http://localhost:8090/snapshot
+# Retorna {path, status: ok|warning|error, missing_sections: []}
+# S'executa automàticament al final de cada POST /scan
+
 # Senyals detectats
 curl http://localhost:8090/signals
 curl http://localhost:8090/signals?asset=MSFT&limit=20
@@ -136,6 +141,12 @@ Executar cada dia després del scan (post-close):
    - `low` si settled_count < 3 (winrate_pct = null)
    - `ok` si settled_count >= 3
 
+8. **Snapshot diari (T7d)**
+   - Després del scan, es genera automàticament `data/probe_snapshots/YYYY-MM-DD.md`
+   - Conté: trade_summary, last_scan, validation, data_quality, proxy_validation, bs_audit, live_readiness
+   - Manual: `curl -X POST http://localhost:8090/snapshot`
+   - Log esperat: `daily_snapshot_written path=... status=ok`
+
 ## Smoke test (T7a)
 
 ```bash
@@ -150,7 +161,7 @@ curl -s http://localhost:8090/probe-summary | jq .
 curl -s http://localhost:8090/validation | jq .
 ```
 
-Esperat: `/status` mostra `probe_ok`, `last_scan` amb `assets`; `/validation` retorna `paper_metrics`, `validation.status`; `/probe-history` retorna `scan_runs`, `validation_runs`, `equity_curve`, `drawdown`; `/data-quality` retorna `status` per asset (ok/warning/error); `/bs-audit` retorna `available`, `data_quality`, `comparison` (aligned/warning/diverged) per asset; `/proxy-validation` retorna `status` (aligned|warning|diverged|insufficient_data), `correlation`, `avg_delta_pct`, `samples`; `/live-readiness` retorna `status` (LIVE_READY|LIVE_SHADOW_READY|LIVE_NOT_READY), `reasons`, `metrics`.
+Esperat: `/status` mostra `probe_ok`, `last_scan` amb `assets`; `/validation` retorna `paper_metrics`, `validation.status`; `/probe-history` retorna `scan_runs`, `validation_runs`, `equity_curve`, `drawdown`; `/data-quality` retorna `status` per asset (ok/warning/error); `/bs-audit` retorna `available`, `data_quality`, `comparison` (aligned/warning/diverged) per asset; `/proxy-validation` retorna `status` (aligned|warning|diverged|insufficient_data), `correlation`, `avg_delta_pct`, `samples`; `/live-readiness` retorna `status` (LIVE_READY|LIVE_SHADOW_READY|LIVE_NOT_READY), `reasons`, `metrics`; `POST /snapshot` genera fitxer a `data/probe_snapshots/YYYY-MM-DD.md` i retorna `{path, status, missing_sections}`.
 
 ## Estats de trade
 

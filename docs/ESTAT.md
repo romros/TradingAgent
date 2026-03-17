@@ -39,6 +39,7 @@ Operativa diària i evidència. Actualitzar a cada canvi significatiu.
 - [x] T8a: **Auditoria BrokerageService** — bs_probe: fetch BS, agregar 1m→D1, validar, comparar vs yfinance; endpoint /bs-audit; classificació aligned/warning/diverged. Tests 31/31 PASS
 - [x] T8b: **Validació proxy QQQ vs NASDAQUSD** — correlació returns, avg_delta_pct; endpoint /proxy-validation; classificació aligned|warning|diverged|insufficient_data. Tests 42/42 PASS
 - [x] T8c: **Decision Gate Live Readiness** — compute_live_readiness; endpoint /live-readiness; status LIVE_READY|LIVE_SHADOW_READY|LIVE_NOT_READY; reasons. Tests 53/53 PASS
+- [x] T7d: **Snapshot diari automàtic** — build_daily_snapshot; fitxer Markdown a data/probe_snapshots/YYYY-MM-DD.md; POST /snapshot; trigger al final del cicle diari; validation, live-readiness, data-quality, trades, proxy-validation, bs_audit. Tests 57/57 PASS
 - [ ] T7 operatiu: ≥4 setmanes running, ≥3 senyals registrats, WR paper ≈ WR backtest
 - [ ] T8: Decisió live — revisar resultats paper vs backtest, autoritzar o no live trading
 
@@ -137,3 +138,4 @@ Veure `lab/docs/T6E_DECISIO_D1_ASSETS.md` i `lab/docs/D1_GATE_CRITERIA.md`.
 | 2026-03-17 | **T8a**: Auditoria BrokerageService. packages/market/bs_probe.py: fetch BS 1m, agregar D1, validar, comparar vs yfinance; /bs-audit; classificació aligned/warning/diverged. Tests 31/31 PASS |
 | 2026-03-17 | **T8b**: Validació proxy QQQ vs NASDAQUSD/NDXUSD. run_proxy_validation: returns, correlació Pearson, avg_delta_pct; /proxy-validation; aligned (corr≥0.95, δ<1%) | warning (corr≥0.90, δ<3%) | diverged | insufficient_data (samples<30). Tests 42/42 PASS |
 | 2026-03-17 | **T8c**: Decision Gate Live Readiness. compute_live_readiness; /live-readiness; agregació validation+proxy+data_quality+bs_audit; status LIVE_READY|LIVE_SHADOW_READY|LIVE_NOT_READY; reasons. Tests 53/53 PASS |
+| 2026-03-17 | **T7d**: Snapshot diari automàtic. packages/runtime/daily_snapshot.py; build_daily_snapshot; data/probe_snapshots/YYYY-MM-DD.md; POST /snapshot; trigger al final engine.run(); reutilitza funcions canòniques; degradació amb secció error si falla. Tests 57/57 PASS |

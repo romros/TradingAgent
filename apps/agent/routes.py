@@ -25,11 +25,13 @@ from packages.portfolio.validation import (
     compute_live_readiness,
 )
 from packages.strategy.capitulation_d1 import CapitulationD1Strategy
-from packages.market.data_feed import YFinanceD1Feed, validate_candles
+from packages.market.data_feed import YFinanceD1Feed
 from packages.market.bs_probe import run_bs_audit, run_proxy_validation
+from packages.market.data_quality import get_data_quality_result
 from packages.execution.paper import PaperExecutor
 from packages.portfolio.tracker import PortfolioTracker
 from packages.runtime.engine import DailyEngine
+from packages.runtime.daily_snapshot import build_daily_snapshot
 
 router = APIRouter()
 
@@ -183,26 +185,7 @@ def proxy_validation():
 
 def _get_data_quality_result() -> dict:
     """Retorna resultat data_quality (reutilitzat per /live-readiness)."""
-    feed = YFinanceD1Feed()
-    result = {"source": "yfinance", "assets": {}}
-    for asset in config.ASSETS:
-        try:
-            candles = feed.fetch(asset, days=config.DATA_LOOKBACK_DAYS)
-            validation = validate_candles(candles)
-            result["assets"][asset] = {
-                "status": validation["status"],
-                "candles_count": len(candles),
-                "warnings": validation["warnings"],
-                "errors": validation["errors"],
-            }
-        except Exception as e:
-            result["assets"][asset] = {
-                "status": "error",
-                "candles_count": 0,
-                "warnings": [],
-                "errors": [str(e)[:100]],
-            }
-    return result
+    return get_data_quality_result(config.ASSETS, config.DATA_LOOKBACK_DAYS)
 
 
 @router.get("/live-readiness")
@@ -236,6 +219,19 @@ def data_quality():
             "data_quality_check asset=%s status=%s candles=%s",
             asset, info.get("status"), info.get("candles_count", 0),
         )
+    return result
+
+
+@router.post("/snapshot")
+def generate_snapshot():
+    """T7d: Genera snapshot diari del probe. Format Markdown a data/probe_snapshots/."""
+    result = build_daily_snapshot(
+        db_path=config.DB_PATH,
+        output_dir=config.PROBE_SNAPSHOTS_DIR,
+        assets=config.ASSETS,
+        base_url=config.BS_BASE_URL,
+        days=config.DATA_LOOKBACK_DAYS,
+    )
     return result
 
 

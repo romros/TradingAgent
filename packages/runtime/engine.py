@@ -3,6 +3,7 @@ import logging
 from datetime import datetime, date, timedelta, timezone
 from typing import Optional
 
+from packages.shared import config as shared_config
 from packages.shared.models import SignalRecord, PaperTradeRecord, AgentState
 from packages.portfolio.db import (
     init_db,
@@ -267,6 +268,21 @@ class DailyEngine:
                 trades_settled=len(result["settled_trades"]),
                 pnl_total=pnl_this_run,
             )
+
+            # T7d: Snapshot diari automàtic al final del cicle
+            try:
+                from packages.runtime.daily_snapshot import build_daily_snapshot
+                snap = build_daily_snapshot(
+                    db_path=self.db_path,
+                    output_dir=getattr(shared_config, "PROBE_SNAPSHOTS_DIR", "data/probe_snapshots"),
+                    assets=self.assets,
+                    base_url=getattr(shared_config, "BS_BASE_URL", "http://localhost:8081"),
+                    days=getattr(shared_config, "DATA_LOOKBACK_DAYS", 365),
+                )
+                if snap.get("status") == "error":
+                    logger.warning("daily_snapshot status=error path=%s", snap.get("path"))
+            except Exception as e:
+                logger.warning("daily_snapshot failed: %s", e)
 
         finally:
             conn.close()

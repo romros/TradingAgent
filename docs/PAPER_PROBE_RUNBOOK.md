@@ -68,6 +68,12 @@ curl http://localhost:8090/probe-summary
 # Validació paper vs backtest (T7b)
 curl http://localhost:8090/validation
 
+# Historial temporal (T7c): scans, validacions, equity curve, drawdown
+curl http://localhost:8090/probe-history
+
+# Qualitat del data feed (yfinance)
+curl http://localhost:8090/data-quality
+
 # Senyals detectats
 curl http://localhost:8090/signals
 curl http://localhost:8090/signals?asset=MSFT&limit=20
@@ -132,7 +138,7 @@ curl -s http://localhost:8090/probe-summary | jq .
 curl -s http://localhost:8090/validation | jq .
 ```
 
-Esperat: `/status` mostra `probe_ok`, `last_scan` amb `assets` (MSFT, NVDA, QQQ); `trades` amb `winrate_confidence`; `/validation` retorna `paper_metrics`, `validation.status` (aligned/warning/diverged).
+Esperat: `/status` mostra `probe_ok`, `last_scan` amb `assets`; `/validation` retorna `paper_metrics`, `validation.status`; `/probe-history` retorna `scan_runs`, `validation_runs`, `equity_curve`, `drawdown`; `/data-quality` retorna `status` per asset (ok/warning/error).
 
 ## Estats de trade
 

@@ -12,6 +12,11 @@ from packages.portfolio.db import (
     get_state,
     get_last_scan_result,
     get_trade_summary,
+    save_validation_run,
+    get_scan_runs,
+    get_validation_runs,
+    get_equity_curve,
+    get_drawdown,
 )
 from packages.portfolio.validation import (
     compute_probe_ok,
@@ -19,7 +24,7 @@ from packages.portfolio.validation import (
     run_validation,
 )
 from packages.strategy.capitulation_d1 import CapitulationD1Strategy
-from packages.market.data_feed import YFinanceD1Feed
+from packages.market.data_feed import YFinanceD1Feed, validate_candles
 from packages.execution.paper import PaperExecutor
 from packages.portfolio.tracker import PortfolioTracker
 from packages.runtime.engine import DailyEngine
@@ -108,11 +113,32 @@ def probe_summary():
 @router.get("/validation")
 def validation():
     """Validació paper vs backtest. Mètriques + classificació aligned/warning/diverged."""
+    import logging
     conn = _get_conn()
     try:
         trade_summary = get_trade_summary(conn)
         last_scan = get_last_scan_result(conn)
-        return run_validation(trade_summary, last_scan)
+        result = run_validation(trade_summary, last_scan)
+        save_validation_run(conn, result)
+        logging.getLogger(__name__).info("validation_run_saved")
+        return result
+    finally:
+        conn.close()
+
+
+@router.get("/probe-history")
+def probe_history(limit: int = 100):
+    """Historial de scans, validacions, equity curve i drawdown."""
+    conn = _get_conn()
+    try:
+        state = get_state(conn)
+        capital = state.capital if state.capital > 0 else config.CAPITAL_INITIAL
+        return {
+            "scan_runs": get_scan_runs(conn, limit=limit),
+            "validation_runs": get_validation_runs(conn, limit=limit),
+            "equity_curve": get_equity_curve(conn, capital_initial=capital),
+            "drawdown": get_drawdown(conn, capital_initial=capital),
+        }
     finally:
         conn.close()
 
@@ -139,6 +165,36 @@ def get_trades(
         return get_all_trades(conn, status=status, limit=limit)
     finally:
         conn.close()
+
+
+@router.get("/data-quality")
+def data_quality():
+    """Qualitat del data feed per asset. Valida candles D1 (yfinance)."""
+    import logging
+    feed = YFinanceD1Feed()
+    result = {"source": "yfinance", "assets": {}}
+    for asset in config.ASSETS:
+        try:
+            candles = feed.fetch(asset, days=config.DATA_LOOKBACK_DAYS)
+            validation = validate_candles(candles)
+            result["assets"][asset] = {
+                "status": validation["status"],
+                "candles_count": len(candles),
+                "warnings": validation["warnings"],
+                "errors": validation["errors"],
+            }
+            logging.getLogger(__name__).info(
+                "data_quality_check asset=%s status=%s candles=%s",
+                asset, validation["status"], len(candles),
+            )
+        except Exception as e:
+            result["assets"][asset] = {
+                "status": "error",
+                "candles_count": 0,
+                "warnings": [],
+                "errors": [str(e)[:100]],
+            }
+    return result
 
 
 @router.post("/scan")

@@ -19,8 +19,14 @@ from packages.portfolio.db import (
     get_all_trades,
     get_all_signals,
     save_scan_result,
+    save_scan_run,
+    save_validation_run,
     get_last_scan_result,
     get_trade_summary,
+    get_scan_runs,
+    get_validation_runs,
+    get_equity_curve,
+    get_drawdown,
 )
 
 
@@ -460,6 +466,130 @@ def test_probe_ok_deterministic():
     assert compute_probe_ok(old_scan) is False
 
 
+def test_scan_runs_persistence():
+    """Persistència scan_runs a l'historial."""
+    with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as f:
+        db_path = f.name
+    try:
+        conn = init_db(db_path)
+        result = {
+            "run_utc": _now(),
+            "assets": {"MSFT": {"status": "ok", "signal": False}},
+            "new_signals": [{"asset": "MSFT", "candle_date": "2025-01-10"}],
+            "status": "ok",
+        }
+        save_scan_run(conn, result)
+        runs = get_scan_runs(conn, limit=10)
+        assert len(runs) == 1
+        assert runs[0]["signals_count"] == 1
+        assert runs[0]["status"] == "ok"
+        conn.close()
+    finally:
+        os.unlink(db_path)
+
+
+def test_validation_runs_persistence():
+    """Persistència validation_runs a l'historial."""
+    with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as f:
+        db_path = f.name
+    try:
+        conn = init_db(db_path)
+        result = {
+            "paper_metrics": {"trades_total": 5, "winrate_pct": 80.0, "avg_pnl_per_trade": 12.5},
+            "validation": {"status": "aligned"},
+        }
+        save_validation_run(conn, result)
+        runs = get_validation_runs(conn, limit=10)
+        assert len(runs) == 1
+        assert runs[0]["trades_total"] == 5
+        assert runs[0]["status"] == "aligned"
+        conn.close()
+    finally:
+        os.unlink(db_path)
+
+
+def test_equity_curve():
+    """Equity curve: equity[n] = equity[n-1] + pnl."""
+    with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as f:
+        db_path = f.name
+    try:
+        conn = init_db(db_path)
+        now = _now()
+        for pnl in [10.0, -5.0, 15.0]:
+            save_trade(conn, PaperTradeRecord(
+                signal_id=1, asset="MSFT", strategy="capitulation_d1",
+                status="settled", signal_date="2025-01-10", entry_date="2025-01-11",
+                exit_date="2025-01-11", entry_price=100.0, exit_price=100.0,
+                collateral=50.0, leverage=20, nominal=1000.0, fee=5.38,
+                pnl=pnl, pnl_pct=pnl/50*100, liq_triggered=False,
+                created_at=now, updated_at=now,
+            ))
+        curve = get_equity_curve(conn, capital_initial=250.0)
+        assert len(curve) == 3
+        assert curve[0]["equity"] == 260.0   # 250 + 10
+        assert curve[1]["equity"] == 255.0   # 260 - 5
+        assert curve[2]["equity"] == 270.0   # 255 + 15
+        conn.close()
+    finally:
+        os.unlink(db_path)
+
+
+def test_drawdown():
+    """Drawdown: max (peak - equity) / peak."""
+    with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as f:
+        db_path = f.name
+    try:
+        conn = init_db(db_path)
+        now = _now()
+        # 250 -> 300 (peak) -> 270 (dd 10%) -> 250 (dd 16.7%)
+        for pnl in [50.0, -30.0, -20.0]:
+            save_trade(conn, PaperTradeRecord(
+                signal_id=1, asset="MSFT", strategy="capitulation_d1",
+                status="settled", signal_date="2025-01-10", entry_date="2025-01-11",
+                exit_date="2025-01-11", entry_price=100.0, exit_price=100.0,
+                collateral=50.0, leverage=20, nominal=1000.0, fee=5.38,
+                pnl=pnl, pnl_pct=pnl/50*100, liq_triggered=False,
+                created_at=now, updated_at=now,
+            ))
+        dd = get_drawdown(conn, capital_initial=250.0)
+        assert dd["max_drawdown_pct"] > 0
+        assert dd["peak_equity"] == 300.0
+        conn.close()
+    finally:
+        os.unlink(db_path)
+
+
+def test_data_validation_ohlc():
+    """Validació OHLC: high >= max(open,close), low <= min(open,close)."""
+    from packages.market.data_feed import validate_candles
+    candles = [
+        {"date": "2025-01-01", "open": 100.0, "high": 105.0, "low": 98.0, "close": 102.0},
+        {"date": "2025-01-02", "open": 102.0, "high": 101.0, "low": 99.0, "close": 100.0},
+    ]
+    r = validate_candles(candles)
+    assert r["status"] == "error"
+    assert any("ohlc_inconsistent" in e for e in r["errors"])
+
+
+def test_data_validation_empty():
+    """Validació candles buits → error."""
+    from packages.market.data_feed import validate_candles
+    r = validate_candles([])
+    assert r["status"] == "error"
+    assert "candles_empty" in r["errors"]
+
+
+def test_data_validation_ok():
+    """Validació candles correctes → ok."""
+    from datetime import timedelta
+    from packages.market.data_feed import validate_candles
+    base = datetime(2025, 1, 1).date()
+    candles = [{"date": (base + timedelta(days=i)).isoformat(), "open": 100.0, "high": 101.0, "low": 99.0, "close": 100.0}
+               for i in range(210)]
+    r = validate_candles(candles)
+    assert r["status"] == "ok"
+
+
 def test_db_no_duplicate_signal():
     """signal_exists retorna True per duplicat."""
     with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as f:
@@ -510,6 +640,13 @@ def _run_tests():
         test_classification_warning,
         test_classification_diverged,
         test_probe_ok_deterministic,
+        test_scan_runs_persistence,
+        test_validation_runs_persistence,
+        test_equity_curve,
+        test_drawdown,
+        test_data_validation_ohlc,
+        test_data_validation_empty,
+        test_data_validation_ok,
         test_db_no_duplicate_signal,
     ]
     for t in tests:

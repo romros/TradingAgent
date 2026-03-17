@@ -54,6 +54,24 @@ CREATE TABLE IF NOT EXISTS agent_state (
 )
 """
 
+_CREATE_SCAN_RUNS = """
+CREATE TABLE IF NOT EXISTS scan_runs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    run_utc TEXT NOT NULL,
+    value_json TEXT NOT NULL,
+    created_at TEXT NOT NULL
+)
+"""
+
+_CREATE_VALIDATION_RUNS = """
+CREATE TABLE IF NOT EXISTS validation_runs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    run_utc TEXT NOT NULL,
+    value_json TEXT NOT NULL,
+    created_at TEXT NOT NULL
+)
+"""
+
 
 def init_db(db_path: str) -> sqlite3.Connection:
     import os
@@ -64,6 +82,8 @@ def init_db(db_path: str) -> sqlite3.Connection:
     cur.execute(_CREATE_SIGNALS)
     cur.execute(_CREATE_PAPER_TRADES)
     cur.execute(_CREATE_AGENT_STATE)
+    cur.execute(_CREATE_SCAN_RUNS)
+    cur.execute(_CREATE_VALIDATION_RUNS)
     conn.commit()
     return conn
 
@@ -285,6 +305,125 @@ def get_last_scan_result(conn: sqlite3.Connection) -> Optional[dict]:
     if row is None:
         return None
     return json.loads(row["value_json"])
+
+
+def save_scan_run(conn: sqlite3.Connection, result: dict) -> int:
+    """Persisteix un scan run a l'historial. Retorna id."""
+    now = _now_utc()
+    new_signals = result.get("new_signals", [])
+    signals_count = len(new_signals) if isinstance(new_signals, list) else 0
+    value = json.dumps({
+        "run_utc": result.get("run_utc", now),
+        "assets": result.get("assets", {}),
+        "signals_count": signals_count,
+        "status": result.get("status", "ok"),
+    })
+    cur = conn.cursor()
+    cur.execute(
+        "INSERT INTO scan_runs (run_utc, value_json, created_at) VALUES (?,?,?)",
+        (result.get("run_utc", now), value, now),
+    )
+    conn.commit()
+    return cur.lastrowid
+
+
+def save_validation_run(conn: sqlite3.Connection, result: dict) -> int:
+    """Persisteix una validació a l'historial. Retorna id."""
+    now = _now_utc()
+    paper = result.get("paper_metrics", {})
+    validation = result.get("validation", {})
+    value = json.dumps({
+        "run_utc": now,
+        "trades_total": paper.get("trades_total", 0),
+        "winrate": paper.get("winrate_pct"),
+        "ev": paper.get("avg_pnl_per_trade"),
+        "status": validation.get("status", "aligned"),
+    })
+    cur = conn.cursor()
+    cur.execute(
+        "INSERT INTO validation_runs (run_utc, value_json, created_at) VALUES (?,?,?)",
+        (now, value, now),
+    )
+    conn.commit()
+    return cur.lastrowid
+
+
+def get_scan_runs(conn: sqlite3.Connection, limit: int = 100) -> list:
+    """Retorna l'historial de scans, més recents primer."""
+    cur = conn.cursor()
+    cur.execute(
+        "SELECT id, run_utc, value_json, created_at FROM scan_runs ORDER BY id DESC LIMIT ?",
+        (limit,),
+    )
+    rows = cur.fetchall()
+    return [{"id": r["id"], "run_utc": r["run_utc"], **json.loads(r["value_json"])} for r in rows]
+
+
+def get_validation_runs(conn: sqlite3.Connection, limit: int = 100) -> list:
+    """Retorna l'historial de validacions, més recents primer."""
+    cur = conn.cursor()
+    cur.execute(
+        "SELECT id, run_utc, value_json, created_at FROM validation_runs ORDER BY id DESC LIMIT ?",
+        (limit,),
+    )
+    rows = cur.fetchall()
+    return [{"id": r["id"], "run_utc": r["run_utc"], **json.loads(r["value_json"])} for r in rows]
+
+
+def get_settled_trades_ordered(conn: sqlite3.Connection) -> list:
+    """Trades settled ordenats per id (cronològic)."""
+    cur = conn.cursor()
+    cur.execute(
+        """SELECT id, pnl, updated_at FROM paper_trades
+           WHERE status IN ('settled','liq_settled') AND pnl IS NOT NULL
+           ORDER BY id ASC"""
+    )
+    return [dict(r) for r in cur.fetchall()]
+
+
+def get_equity_curve(conn: sqlite3.Connection, capital_initial: float = 250.0) -> list:
+    """
+    Equity curve: [{trade_id, equity, pnl, updated_at}, ...]
+    equity[n] = equity[n-1] + pnl_trade, equity[0] = capital_initial
+    """
+    trades = get_settled_trades_ordered(conn)
+    curve = []
+    equity = capital_initial
+    for t in trades:
+        pnl = float(t["pnl"]) if t["pnl"] is not None else 0.0
+        equity += pnl
+        curve.append({
+            "trade_id": t["id"],
+            "equity": round(equity, 2),
+            "pnl": pnl,
+            "updated_at": t["updated_at"],
+        })
+    return curve
+
+
+def get_drawdown(conn: sqlite3.Connection, capital_initial: float = 250.0) -> dict:
+    """
+    Drawdown bàsic. max_drawdown_pct = (equity - peak) / peak * 100.
+    Retorna max_drawdown_pct i peak_equity.
+    """
+    curve = get_equity_curve(conn, capital_initial)
+    if not curve:
+        return {"max_drawdown_pct": 0.0, "peak_equity": capital_initial, "equity_curve": []}
+    peak = capital_initial
+    max_dd_pct = 0.0
+    for pt in curve:
+        eq = pt["equity"]
+        if eq > peak:
+            peak = eq
+        if peak > 0:
+            dd_pct = (peak - eq) / peak * 100
+            if dd_pct > max_dd_pct:
+                max_dd_pct = dd_pct
+    return {
+        "max_drawdown_pct": round(max_dd_pct, 2),
+        "peak_equity": peak,
+        "equity_curve": curve,
+    }
 
 
 def get_trade_summary(conn: sqlite3.Connection) -> dict:

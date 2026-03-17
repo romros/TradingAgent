@@ -35,6 +35,7 @@ Operativa diària i evidència. Actualitzar a cada canvi significatiu.
 - [x] T7: **Paper probe mínim** — implementat: DailyEngine, PaperExecutor, SQLite, FastAPI (/health /status /signals /trades). Tests 7/7 PASS
 - [x] T7a: **Observabilitat i verificació operativa** — scan result persistent, /status enriquit, /probe-summary, logs estructurats, checklist diari al runbook. Tests 11/11 PASS
 - [x] T7b: **Validació paper vs backtest** — polish T7a (probe_ok determinista, winrate robust), mètriques paper, baseline MSFT (WR 78%, EV +12.7$), classificació aligned/warning/diverged, endpoint /validation. Tests 19/19 PASS
+- [x] T7c: **Traçabilitat temporal + validació data source** — taules scan_runs, validation_runs; equity curve i drawdown; validate_candles (OHLC, gaps, count); endpoints /probe-history, /data-quality. Tests 26/26 PASS
 - [ ] T7 operatiu: ≥4 setmanes running, ≥3 senyals registrats, WR paper ≈ WR backtest
 - [ ] T8: Decisió live — revisar resultats paper vs backtest, autoritzar o no live trading
 
@@ -129,3 +130,4 @@ Veure `lab/docs/T6E_DECISIO_D1_ASSETS.md` i `lab/docs/D1_GATE_CRITERIA.md`.
 | 2026-03-16 | **T7 implementat**: DailyEngine, PaperExecutor, SQLite, FastAPI. Tests 7/7. LAB→PAPER PROBE |
 | 2026-03-17 | **T7a**: Observabilitat. Scan result persistent (agent_state last_scan_result), /status enriquit amb trades+last_scan, /probe-summary, logs estructurats (scan_completed, settlement_completed), checklist diari al runbook. Tests 11/11 PASS |
 | 2026-03-17 | **T7b**: Validació paper vs backtest. Polish T7a: probe_ok (<48h, sense errors), winrate robust (<3 trades→confidence=low). Baseline MSFT 78%/12.7$. Mètriques paper, classificació aligned/warning/diverged, /validation. Tests 19/19 PASS |
+| 2026-03-17 | **T7c**: Traçabilitat temporal + data source. scan_runs, validation_runs; equity curve, drawdown; validate_candles (OHLC, gaps≥200); /probe-history, /data-quality. Tests 26/26 PASS |

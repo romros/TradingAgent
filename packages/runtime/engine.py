@@ -14,6 +14,7 @@ from packages.portfolio.db import (
     get_state,
     save_state,
     save_scan_result,
+    save_scan_run,
 )
 
 logger = logging.getLogger(__name__)
@@ -237,12 +238,14 @@ class DailyEngine:
                 "run_utc": datetime.now(timezone.utc).isoformat(),
                 "status": run_status,
                 "assets": assets_result,
-                "new_signals": len(result["new_signals"]),
+                "new_signals": result["new_signals"],
                 "settled_count": len(result["settled_trades"]),
                 "pending_count": len(pending_by_asset),
                 "errors": result["errors"],
             }
             save_scan_result(conn, scan_result)
+            save_scan_run(conn, scan_result)
+            logger.info("scan_run_saved run_utc=%s", scan_result["run_utc"])
 
             # Actualitzar last_scan_utc
             state = get_state(conn)

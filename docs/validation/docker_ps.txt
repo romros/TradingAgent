@@ -1,0 +1,2 @@
+NAME                   IMAGE                COMMAND                  SERVICE   CREATED         STATUS                   PORTS
+tradingagent-probe-1   tradingagent-probe   "uvicorn apps.agent.…"   probe     7 seconds ago   Up 6 seconds (healthy)   0.0.0.0:8090->8090/tcp, [::]:8090->8090/tcp

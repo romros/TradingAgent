@@ -72,10 +72,12 @@ run_smoke() {
 
     echo "  /health..."
     curl -sf "$PROBE_URL/health" | tee "$ARTIFACTS_DIR/${TS}_health.json" || { echo "  ✗ /health failed"; exit 7; }
+    cp "$ARTIFACTS_DIR/${TS}_health.json" "$ARTIFACTS_DIR/health.json" 2>/dev/null || true
     echo ""
 
     echo "  /quick-status..."
     curl -sf "$PROBE_URL/quick-status" | tee "$ARTIFACTS_DIR/${TS}_quick_status.json" || { echo "  ✗ /quick-status failed"; exit 8; }
+    cp "$ARTIFACTS_DIR/${TS}_quick_status.json" "$ARTIFACTS_DIR/quick_status.json" 2>/dev/null || true
     echo ""
 
     echo "  POST /scan..."
@@ -88,12 +90,15 @@ run_smoke() {
     if [ -n "$SNAPSHOTS" ]; then
         echo "  ✓ Snapshot: $SNAPSHOTS"
         cp "$SNAPSHOTS" "$ARTIFACTS_DIR/${TS}_snapshot.md" 2>/dev/null || true
+        cp "$SNAPSHOTS" "$ARTIFACTS_DIR/latest_snapshot.md" 2>/dev/null || true
     else
         echo "  ⚠ No snapshot found (check data/probe_snapshots/)"
     fi
 
     echo "  docker compose ps..."
     docker compose ps | tee "$ARTIFACTS_DIR/${TS}_ps.txt"
+
+    cp "$ARTIFACTS_DIR/${TS}_ps.txt" "$ARTIFACTS_DIR/docker_ps.txt" 2>/dev/null || true
 
     echo ""
     echo "  ✓ Smoke OK"
@@ -141,6 +146,7 @@ run_soak() {
     done
 
     docker compose logs probe 2>&1 | tail -100 > "$LOG"
+    cp "$LOG" "$ARTIFACTS_DIR/soak.log" 2>/dev/null || true
     echo "  Logs: $LOG"
 
     if [ "$FAILED" -eq 1 ]; then

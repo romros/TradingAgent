@@ -43,6 +43,7 @@ Operativa diària i evidència. Actualitzar a cada canvi significatiu.
 - [x] T8d: **Arrencada real + scheduler + quick-status** — docker compose up -d; scheduler diari (SCHEDULER_HOUR_UTC=21); /quick-status; healthcheck; restart unless-stopped. Tests 59/59 PASS
 - [x] T8d-v: **Validació operativa + fix assets** — PROBE_ASSETS: QQQ→NDXUSD (canònic executable); YF_SYMBOL_PROXY NDXUSD→QQQ; agent_started amb assets; test_probe_assets_config_canonical. Tests 57/57 PASS. Smoke: ver docs/T8D_V_SMOKE.md
 - [x] T8e: **Model de proves Docker-only** — run.sh (component, integration, smoke, soak); run_all.sh; test.sh delegat; scripts Python purs (NO pytest); scripts/README.md. Smoke i soak reals dins Docker.
+- [x] T8e-v: **Validació final + artifacts públics** — run_all.sh escriu a docs/validation/; LATEST.md amb raw URLs; smoke/soak artifacts versionats.
 - [ ] T7 operatiu: ≥4 setmanes running, ≥3 senyals registrats, WR paper ≈ WR backtest
 - [ ] T8: Decisió live — revisar resultats paper vs backtest, autoritzar o no live trading
 
@@ -108,7 +109,7 @@ Gate D1 per asset (`lab/docs/D1_GATE_CRITERIA.md`): N≥35, EV≥+8$, PF≥1.8, 
 ### **Decisió T6e: PAPER_PROBE_AUTHORIZED**
 
 - Asset primari: **MSFT** (ACCEPTED_D1_ASSET, 8/8 criteris)
-- Assets complementaris: NVDA i QQQ (WATCHLIST — diversificació temporal)
+- Assets complementaris: NVDA i NDXUSD (WATCHLIST; runtime: NDXUSD, backtest: QQQ)
 - Leverage: 20x | Setup: capitulation_d1 | Durada mínima: 4 setmanes
 
 Veure `lab/docs/T6E_DECISIO_D1_ASSETS.md` i `lab/docs/D1_GATE_CRITERIA.md`.
@@ -145,3 +146,4 @@ Veure `lab/docs/T6E_DECISIO_D1_ASSETS.md` i `lab/docs/D1_GATE_CRITERIA.md`.
 | 2026-03-17 | **T8d**: Arrencada real. Dockerfile + compose.yml; docker compose up -d; scheduler APScheduler (21:00 UTC); /quick-status; healthcheck; SCHEDULER_ENABLED, SCHEDULER_HOUR_UTC; scan_runner; Tests 59/59 PASS |
 | 2026-03-17 | **T8d-v**: Validació operativa + fix assets. PROBE_ASSETS=MSFT,NVDA,NDXUSD; YF_SYMBOL_PROXY (NDXUSD→QQQ); agent_started assets; test_probe_assets_config_canonical. Tests 57/57 PASS |
 | 2026-03-17 | **T8e**: Model proves Docker-only. run.sh component|integration|smoke|soak; run_all.sh; test.sh→run.sh; scripts Python purs (NO pytest); scripts/README. Smoke+soak reals dins Docker |
+| 2026-03-17 | **T8e-v**: Validació final. Artifacts a docs/validation/; LATEST.md raw https://raw.githubusercontent.com/romros/TradingAgent/main/docs/validation/LATEST.md |

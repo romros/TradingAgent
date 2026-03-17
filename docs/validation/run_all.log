@@ -1,0 +1,233 @@
+▶ 1/4 Component
+═══════════════════════════════════════════
+  Component (unit tests, dins Docker)
+═══════════════════════════════════════════
+ Container tradingagent-probe-run-0865d46fbaec Creating 
+ Container tradingagent-probe-run-0865d46fbaec Created 
+=== Daily Snapshot Unit Tests ===
+  PASS test_snapshot_filename_deterministic
+  PASS test_snapshot_render_contains_core_sections
+  PASS test_snapshot_write_no_crash_on_partial_error
+  PASS test_snapshot_uses_existing_canonical_results
+bs_fetch error http://127.0.0.1:59999/data/ohlcv/MSFT?tf=1m&limit=5000: <urlopen error [Errno 111] Connection refused>
+bs_fetch error http://127.0.0.1:59999/data/ohlcv/MSFTUSD?tf=1m&limit=5000: <urlopen error [Errno 111] Connection refused>
+bs_fetch error http://127.0.0.1:59999/data/ohlcv/MSFT?tf=1m&limit=5000: <urlopen error [Errno 111] Connection refused>
+bs_fetch error http://127.0.0.1:59999/data/ohlcv/MSFTUSD?tf=1m&limit=5000: <urlopen error [Errno 111] Connection refused>
+bs_fetch error http://127.0.0.1:59999/data/ohlcv/NDXUSD?tf=1m&limit=5000: <urlopen error [Errno 111] Connection refused>
+bs_fetch error http://127.0.0.1:59999/data/ohlcv/NASDAQUSD?tf=1m&limit=5000: <urlopen error [Errno 111] Connection refused>
+=== Paper Probe Unit Tests ===
+  PASS test_strategy_detect
+  PASS test_strategy_no_signal
+  PASS test_paper_executor_settle_win
+  PASS test_paper_executor_settle_loss
+  PASS test_paper_executor_settle_liq
+  PASS test_db_round_trip
+  PASS test_scan_result_persistence_zero_signals
+  PASS test_trade_summary
+  PASS test_status_payload_stable
+  PASS test_asset_error_does_not_break_global
+  PASS test_winrate_0_trades
+  PASS test_winrate_lt3_trades
+  PASS test_winrate_3plus_trades
+  PASS test_avg_pnl_calculation
+  PASS test_classification_aligned
+  PASS test_classification_warning
+  PASS test_classification_diverged
+  PASS test_probe_ok_deterministic
+  PASS test_scan_runs_persistence
+  PASS test_validation_runs_persistence
+  PASS test_equity_curve
+  PASS test_drawdown
+  PASS test_data_validation_ohlc
+  PASS test_data_validation_empty
+  PASS test_data_validation_ok
+  PASS test_bs_audit_asset_unavailable
+  PASS test_bs_aggregate_1m_to_d1
+  PASS test_bs_compare_closes_aligned
+  PASS test_bs_compare_closes_diverged
+  PASS test_bs_audit_run_no_crash
+  PASS test_proxy_align_returns_by_date
+  PASS test_proxy_compute_metrics
+  PASS test_proxy_classify_aligned
+  PASS test_proxy_classify_warning
+  PASS test_proxy_classify_diverged
+  PASS test_proxy_insufficient_data
+  PASS test_proxy_validation_with_override
+  PASS test_proxy_validation_qqq_empty
+  PASS test_proxy_validation_bs_empty
+  PASS test_proxy_validation_no_crash
+  PASS test_live_readiness_ready
+  PASS test_live_readiness_not_ready_low_sample
+  PASS test_live_readiness_not_ready_validation_diverged
+  PASS test_live_readiness_not_ready_proxy_diverged
+  PASS test_live_readiness_not_ready_bs_not_available
+  PASS test_live_readiness_not_ready_data_quality_error
+  PASS test_live_readiness_shadow
+  PASS test_live_readiness_reasons_correct
+  PASS test_db_no_duplicate_signal
+=== T8d Unit Tests ===
+  PASS test_quick_status_payload
+  PASS test_scheduler_config_parsing
+  PASS test_startup_fails_closed_without_required_config
+=== T8d-v Unit Tests ===
+  PASS test_probe_assets_config_canonical
+
+=== test_daily_snapshot.py ===
+
+=== test_paper_probe.py ===
+
+=== test_t8d.py ===
+
+=== test_t8d_v.py ===
+
+▶ 2/4 Integration
+═══════════════════════════════════════════
+  Integration (dins Docker)
+═══════════════════════════════════════════
+  (no integration tests; skipping)
+
+▶ 3/4 Smoke
+═══════════════════════════════════════════
+  Smoke (servei real dins Docker)
+═══════════════════════════════════════════
+  Build + up...
+#1 [internal] load local bake definitions
+#1 reading from stdin 520B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 272B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.12-slim
+#3 DONE 0.6s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 133B done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 40.50kB 0.0s done
+#5 DONE 0.0s
+
+#6 [1/5] FROM docker.io/library/python:3.12-slim@sha256:7026274c107626d7e940e0e5d6730481a4600ae95d5ca7eb532dd4180313fea9
+#6 resolve docker.io/library/python:3.12-slim@sha256:7026274c107626d7e940e0e5d6730481a4600ae95d5ca7eb532dd4180313fea9 0.0s done
+#6 DONE 0.0s
+
+#7 [2/5] WORKDIR /app
+#7 CACHED
+
+#8 [3/5] COPY requirements.txt .
+#8 CACHED
+
+#9 [4/5] RUN pip install --no-cache-dir -r requirements.txt
+#9 CACHED
+
+#10 [5/5] COPY . .
+#10 DONE 0.1s
+
+#11 exporting to image
+#11 exporting layers 0.1s done
+#11 exporting manifest sha256:882789173e5fd5d036022298a3c3df426d1e0cf76fe44675da087016ae2049b3 done
+#11 exporting config sha256:6a283ff8b30ce60732aecaea46f9c117496ea9386f63b40bd9f86f21da3ee218 done
+#11 exporting attestation manifest sha256:0383a3f230abb3fde7532ebdbbc673c33f912ac73d383d6d5116a2bc1d709ac0 0.0s done
+#11 exporting manifest list sha256:9c572288db1a7969a64fc486b3a2e27705c59b5e049aaed1da554ad0813f54d4
+#11 exporting manifest list sha256:9c572288db1a7969a64fc486b3a2e27705c59b5e049aaed1da554ad0813f54d4 done
+#11 naming to docker.io/library/tradingagent-probe:latest done
+#11 unpacking to docker.io/library/tradingagent-probe:latest
+#11 unpacking to docker.io/library/tradingagent-probe:latest 2.6s done
+#11 DONE 2.7s
+
+#12 resolving provenance for metadata file
+#12 DONE 0.0s
+ Container tradingagent-probe-1 Creating 
+ Container tradingagent-probe-1 Created 
+ Container tradingagent-probe-1 Starting 
+ Container tradingagent-probe-1 Started 
+  Waiting for /health...
+  ✓ Probe ready
+  /health...
+{"status":"ok","mode":"paper","assets":["MSFT","NVDA","NDXUSD"]}
+  /quick-status...
+{"ok":true,"probe_ok":true,"last_scan_utc":"2026-03-17T22:50:32.868491+00:00","trades":{"settled":0,"wins":0,"losses":0,"pnl":0.0,"winrate_pct":null},"validation":"aligned","live_readiness":"LIVE_NOT_READY"}
+  POST /scan...
+{"new_signals":[],"settled_trades":[],"pending_trades":[],"errors":[]}
+  Snapshot...
+  ✓ Snapshot: /mnt/volume-SQ/dev/TradingAgent/data/probe_snapshots/2026-03-17.md
+  docker compose ps...
+NAME                   IMAGE                COMMAND                  SERVICE   CREATED         STATUS                   PORTS
+tradingagent-probe-1   tradingagent-probe   "uvicorn apps.agent.…"   probe     7 seconds ago   Up 6 seconds (healthy)   0.0.0.0:8090->8090/tcp, [::]:8090->8090/tcp
+
+  ✓ Smoke OK
+  Artifacts: /mnt/volume-SQ/dev/TradingAgent/docs/validation
+
+▶ 4/4 Soak
+═══════════════════════════════════════════
+  Soak (1 min, servei viu)
+═══════════════════════════════════════════
+  Build + up...
+#1 [internal] load local bake definitions
+#1 reading from stdin 520B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 272B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.12-slim
+#3 DONE 0.2s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 133B done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 62.77kB 0.0s done
+#5 DONE 0.0s
+
+#6 [1/5] FROM docker.io/library/python:3.12-slim@sha256:7026274c107626d7e940e0e5d6730481a4600ae95d5ca7eb532dd4180313fea9
+#6 resolve docker.io/library/python:3.12-slim@sha256:7026274c107626d7e940e0e5d6730481a4600ae95d5ca7eb532dd4180313fea9 0.0s done
+#6 DONE 0.0s
+
+#7 [3/5] COPY requirements.txt .
+#7 CACHED
+
+#8 [2/5] WORKDIR /app
+#8 CACHED
+
+#9 [4/5] RUN pip install --no-cache-dir -r requirements.txt
+#9 CACHED
+
+#10 [5/5] COPY . .
+#10 DONE 0.1s
+
+#11 exporting to image
+#11 exporting layers 0.1s done
+#11 exporting manifest sha256:cac6e90fa190228ca461a977ecf00834b8341574d04b2cea9316c4ea6429f254 done
+#11 exporting config sha256:e2ff6032e23472cf8056520e469c31df40ed617745a7dee28fcffe6ce6a23e2e done
+#11 exporting attestation manifest sha256:f07e9487024b697acc259f854a759cfd4acaecc33d166c80e9ce6b41c5039182
+#11 exporting attestation manifest sha256:f07e9487024b697acc259f854a759cfd4acaecc33d166c80e9ce6b41c5039182 0.0s done
+#11 exporting manifest list sha256:e16dbeadc157447e49d4a90e91d5a91b1897f13d7855726d9c4736c90829255f 0.0s done
+#11 naming to docker.io/library/tradingagent-probe:latest done
+#11 unpacking to docker.io/library/tradingagent-probe:latest 0.0s done
+#11 DONE 0.2s
+
+#12 resolving provenance for metadata file
+#12 DONE 0.0s
+ Container tradingagent-probe-1 Recreate 
+ Container tradingagent-probe-1 Recreated 
+ Container tradingagent-probe-1 Starting 
+ Container tradingagent-probe-1 Started 
+  Waiting for /health...
+  ✓ Probe ready
+  Soak 1 min...
+  ... 34s elapsed
+  ... 64s elapsed
+  Logs: /mnt/volume-SQ/dev/TradingAgent/docs/validation/20260317_225953_soak.log
+  ✓ Soak OK
+
+
+╔══════════════════════════════════════════════════════════════╗
+║  ✓ Validació completa OK                                     ║
+╚══════════════════════════════════════════════════════════════╝
+

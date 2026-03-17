@@ -1,0 +1,14 @@
+probe-1  | INFO:     Started server process [1]
+probe-1  | INFO:     Waiting for application startup.
+probe-1  | 2026-03-17 22:59:56,779 INFO apps.agent.app agent_started host=0.0.0.0 port=8090 mode=paper assets=MSFT,NVDA,NDXUSD
+probe-1  | 2026-03-17 22:59:56,805 INFO apscheduler.scheduler Adding job tentatively -- it will be properly scheduled when the scheduler starts
+probe-1  | 2026-03-17 22:59:56,805 INFO apscheduler.scheduler Added job "_scheduled_scan_job" to job store "default"
+probe-1  | 2026-03-17 22:59:56,805 INFO apscheduler.scheduler Scheduler started
+probe-1  | 2026-03-17 22:59:56,806 INFO apps.agent.app daily_scheduler_registered next_run_utc=2026-03-18T21:00:00+00:00 schedule=post_close_d1 hour_utc=21
+probe-1  | INFO:     Application startup complete.
+probe-1  | INFO:     Uvicorn running on http://0.0.0.0:8090 (Press CTRL+C to quit)
+probe-1  | INFO:     172.20.0.1:57062 - "GET /health HTTP/1.1" 200 OK
+probe-1  | INFO:     172.20.0.1:57078 - "GET /health HTTP/1.1" 200 OK
+probe-1  | INFO:     127.0.0.1:35442 - "GET /health HTTP/1.1" 200 OK
+probe-1  | INFO:     172.20.0.1:34554 - "GET /health HTTP/1.1" 200 OK
+probe-1  | INFO:     127.0.0.1:40588 - "GET /health HTTP/1.1" 200 OK

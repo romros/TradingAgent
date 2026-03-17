@@ -23,6 +23,9 @@
 # Per tipus
 ./scripts/run.sh component    # scripts Python purs testing/unit (0-network)
 ./scripts/run.sh integration  # scripts Python purs testing/integration (si existeix)
+
+# Validació completa (artifacts a docs/validation/)
+./scripts/run_all.sh
 ./scripts/run.sh smoke        # servei arrencat, /health, /quick-status, POST /scan, snapshot
 ./scripts/run.sh soak         # servei viu N minuts (SOAK_MINUTES=2 per defecte)
 

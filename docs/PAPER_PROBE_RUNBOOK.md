@@ -59,8 +59,11 @@ print(engine.run())
 # Salut i mode
 curl http://localhost:8090/health
 
-# Estat complet (capital, PnL, trades)
+# Estat complet (capital, PnL, trades, últim scan per asset)
 curl http://localhost:8090/status
+
+# Resum compacte per verificació diària
+curl http://localhost:8090/probe-summary
 
 # Senyals detectats
 curl http://localhost:8090/signals
@@ -70,6 +73,53 @@ curl http://localhost:8090/signals?asset=MSFT&limit=20
 curl http://localhost:8090/trades
 curl http://localhost:8090/trades?status=settled&limit=50
 ```
+
+## Checklist diari de verificació (T7a)
+
+Executar cada dia després del scan (post-close):
+
+1. **Scan executat avui?**
+   ```bash
+   curl -s http://localhost:8090/status | jq '.last_scan_utc'
+   ```
+   Ha de mostrar timestamp d'avui (UTC).
+
+2. **Estat per asset (MSFT, NVDA, QQQ)?**
+   ```bash
+   curl -s http://localhost:8090/status | jq '.last_scan.assets'
+   ```
+   Cada asset ha de tenir `status: "ok"` o `"warning"`. Si `"error"` → investigar (feed, xarxa).
+
+3. **0 senyals vs error?**
+   - `last_scan.status == "ok"` i `assets.*.status == "ok"` → scan correcte, cap senyal avui.
+   - `last_scan.status == "error"` → algun asset ha fallat (veure `last_scan.assets` i `last_scan.errors`).
+
+4. **Trades oberts i tancats?**
+   ```bash
+   curl -s http://localhost:8090/status | jq '.trades'
+   ```
+   - `open_count`: trades pendents (pending_entry / pending_settlement)
+   - `settled_count`, `wins`, `losses`, `pnl_total`, `winrate_pct`
+
+5. **Logs del scan**
+   Si s'executa amb `uvicorn`, els logs mostraran:
+   - `scan_completed asset=X status=ok signal=false candles=...`
+   - `settlement_completed trades_open=N trades_settled=M pnl_total=...`
+
+## Smoke test (T7a)
+
+```bash
+# Arrencar API (en una terminal)
+uvicorn apps.agent.app:app --host 0.0.0.0 --port 8090
+
+# En una altra terminal
+curl -s http://localhost:8090/health
+curl -X POST http://localhost:8090/scan
+curl -s http://localhost:8090/status | jq .
+curl -s http://localhost:8090/probe-summary | jq .
+```
+
+Esperat: `/status` mostra `last_scan` amb `assets` (MSFT, NVDA, QQQ) i `status: "ok"`; `trades` amb `open_count`, `settled_count`, etc.
 
 ## Estats de trade
 

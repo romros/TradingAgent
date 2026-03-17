@@ -48,3 +48,17 @@ class AgentState:
     total_pnl: float = 0.0
     capital: float = 250.0
     consecutive_losses: int = 0
+
+
+@dataclass
+class ScanRunResult:
+    """Resultat persistent d'una execució del DailyEngine.
+    assets: {asset: {status, signal, candles, reason}}
+    """
+    run_utc: str
+    status: str  # ok | warning | error
+    assets: dict
+    new_signals: int = 0
+    settled_count: int = 0
+    pending_count: int = 0
+    errors: list = field(default_factory=list)

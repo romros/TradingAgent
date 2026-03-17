@@ -10,6 +10,8 @@ from packages.portfolio.db import (
     get_all_signals,
     get_all_trades,
     get_state,
+    get_last_scan_result,
+    get_trade_summary,
 )
 from packages.strategy.capitulation_d1 import CapitulationD1Strategy
 from packages.market.data_feed import YFinanceD1Feed
@@ -31,21 +33,61 @@ def health():
 
 @router.get("/status")
 def status():
+    """Estat operatiu enriquit del paper probe. Permet verificar el probe sense obrir la DB."""
     conn = _get_conn()
     try:
         state = get_state(conn)
-        trades = get_all_trades(conn, limit=1000)
-        signals = get_all_signals(conn, limit=1000)
-        return {
+        trade_summary = get_trade_summary(conn)
+        last_scan = get_last_scan_result(conn)
+
+        # Winrate paper simple (wins / settled si settled > 0)
+        settled = trade_summary["settled_count"]
+        wins = trade_summary["wins"]
+        winrate_pct = round(100.0 * wins / settled, 1) if settled > 0 else None
+
+        payload = {
             "mode": state.mode,
             "last_scan_utc": state.last_scan_utc,
             "capital": state.capital,
             "total_pnl": state.total_pnl,
-            "open_trade_count": state.open_trade_count,
-            "settled_count": state.settled_count,
             "consecutive_losses": state.consecutive_losses,
-            "total_signals": len(signals),
-            "total_trades": len(trades),
+            "trades": {
+                "open_count": trade_summary["open_count"],
+                "settled_count": trade_summary["settled_count"],
+                "wins": trade_summary["wins"],
+                "losses": trade_summary["losses"],
+                "pnl_total": trade_summary["pnl_total"],
+                "winrate_pct": winrate_pct,
+                "last_trade": trade_summary["last_trade"],
+            },
+            "last_scan": last_scan,
+        }
+        return payload
+    finally:
+        conn.close()
+
+
+@router.get("/probe-summary")
+def probe_summary():
+    """Resum compacte per verificació diària. Subconjunt de /status."""
+    conn = _get_conn()
+    try:
+        state = get_state(conn)
+        trade_summary = get_trade_summary(conn)
+        last_scan = get_last_scan_result(conn)
+        settled = trade_summary["settled_count"]
+        wins = trade_summary["wins"]
+        return {
+            "probe_ok": last_scan is not None and last_scan.get("status") != "error",
+            "last_scan_utc": state.last_scan_utc,
+            "last_scan_status": last_scan.get("status") if last_scan else None,
+            "assets": last_scan.get("assets", {}) if last_scan else {},
+            "trades_open": trade_summary["open_count"],
+            "trades_settled": trade_summary["settled_count"],
+            "wins": wins,
+            "losses": trade_summary["losses"],
+            "pnl_total": trade_summary["pnl_total"],
+            "winrate_pct": round(100.0 * wins / settled, 1) if settled > 0 else None,
         }
     finally:
         conn.close()

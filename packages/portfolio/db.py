@@ -263,3 +263,73 @@ def save_state(conn: sqlite3.Connection, state: AgentState) -> None:
         ("runtime_state", value, now),
     )
     conn.commit()
+
+
+def save_scan_result(conn: sqlite3.Connection, result: dict) -> None:
+    """Persisteix el resultat de l'últim scan (agent_state key last_scan_result)."""
+    now = _now_utc()
+    value = json.dumps(result)
+    cur = conn.cursor()
+    cur.execute(
+        "INSERT OR REPLACE INTO agent_state (key, value_json, updated_at) VALUES (?,?,?)",
+        ("last_scan_result", value, now),
+    )
+    conn.commit()
+
+
+def get_last_scan_result(conn: sqlite3.Connection) -> Optional[dict]:
+    """Retorna l'últim resultat de scan o None si no n'hi ha."""
+    cur = conn.cursor()
+    cur.execute("SELECT value_json FROM agent_state WHERE key=?", ("last_scan_result",))
+    row = cur.fetchone()
+    if row is None:
+        return None
+    return json.loads(row["value_json"])
+
+
+def get_trade_summary(conn: sqlite3.Connection) -> dict:
+    """Resum de trades paper: open_count, settled_count, wins, losses, pnl_total, last_trade."""
+    cur = conn.cursor()
+
+    cur.execute(
+        "SELECT COUNT(*) as n FROM paper_trades WHERE status IN ('pending_entry','pending_settlement')"
+    )
+    open_count = cur.fetchone()["n"]
+
+    cur.execute(
+        "SELECT COUNT(*) as n FROM paper_trades WHERE status IN ('settled','liq_settled')"
+    )
+    settled_count = cur.fetchone()["n"]
+
+    cur.execute(
+        """SELECT COUNT(*) as n FROM paper_trades
+           WHERE status IN ('settled','liq_settled') AND pnl > 0"""
+    )
+    wins = cur.fetchone()["n"]
+
+    cur.execute(
+        """SELECT COUNT(*) as n FROM paper_trades
+           WHERE status IN ('settled','liq_settled') AND pnl <= 0"""
+    )
+    losses = cur.fetchone()["n"]
+
+    cur.execute(
+        """SELECT COALESCE(SUM(pnl), 0) as total FROM paper_trades
+           WHERE status IN ('settled','liq_settled') AND pnl IS NOT NULL"""
+    )
+    pnl_total = cur.fetchone()["total"] or 0.0
+
+    cur.execute(
+        """SELECT * FROM paper_trades ORDER BY id DESC LIMIT 1"""
+    )
+    row = cur.fetchone()
+    last_trade = {k: row[k] for k in row.keys()} if row else None
+
+    return {
+        "open_count": open_count,
+        "settled_count": settled_count,
+        "wins": wins,
+        "losses": losses,
+        "pnl_total": round(pnl_total, 2),
+        "last_trade": last_trade,
+    }

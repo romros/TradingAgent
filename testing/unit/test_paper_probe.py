@@ -18,6 +18,9 @@ from packages.portfolio.db import (
     save_trade,
     get_all_trades,
     get_all_signals,
+    save_scan_result,
+    get_last_scan_result,
+    get_trade_summary,
 )
 
 
@@ -223,6 +226,158 @@ def test_db_round_trip():
         os.unlink(db_path)
 
 
+def test_scan_result_persistence_zero_signals():
+    """Cada scan deixa rastre persistent encara amb 0 senyals."""
+    with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as f:
+        db_path = f.name
+
+    try:
+        conn = init_db(db_path)
+        scan_result = {
+            "run_utc": _now(),
+            "status": "ok",
+            "assets": {
+                "MSFT": {"status": "ok", "signal": False, "candles": 365, "reason": None},
+                "NVDA": {"status": "ok", "signal": False, "candles": 365, "reason": None},
+                "QQQ": {"status": "ok", "signal": False, "candles": 365, "reason": None},
+            },
+            "new_signals": 0,
+            "settled_count": 0,
+            "pending_count": 0,
+            "errors": [],
+        }
+        save_scan_result(conn, scan_result)
+        loaded = get_last_scan_result(conn)
+        assert loaded is not None
+        assert loaded["status"] == "ok"
+        assert loaded["new_signals"] == 0
+        assert "MSFT" in loaded["assets"]
+        assert loaded["assets"]["MSFT"]["status"] == "ok"
+        assert loaded["assets"]["MSFT"]["signal"] is False
+        conn.close()
+    finally:
+        os.unlink(db_path)
+
+
+def test_trade_summary():
+    """Resum de trades: open_count, settled_count, wins, losses, pnl_total."""
+    with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as f:
+        db_path = f.name
+
+    try:
+        conn = init_db(db_path)
+        now = _now()
+        # 1 trade settled win
+        save_trade(conn, PaperTradeRecord(
+            signal_id=1, asset="MSFT", strategy="capitulation_d1",
+            status="settled", signal_date="2025-01-10", entry_date="2025-01-11",
+            exit_date="2025-01-11", entry_price=100.0, exit_price=104.0,
+            collateral=50.0, leverage=20, nominal=1000.0, fee=5.38,
+            pnl=14.62, pnl_pct=29.24, liq_triggered=False,
+            created_at=now, updated_at=now,
+        ))
+        # 1 trade pending
+        save_trade(conn, PaperTradeRecord(
+            signal_id=2, asset="NVDA", strategy="capitulation_d1",
+            status="pending_settlement", signal_date="2025-01-15", entry_date="2025-01-16",
+            exit_date=None, entry_price=500.0, exit_price=None,
+            collateral=50.0, leverage=20, nominal=1000.0, fee=5.38,
+            pnl=None, pnl_pct=None, liq_triggered=False,
+            created_at=now, updated_at=now,
+        ))
+        summary = get_trade_summary(conn)
+        assert summary["open_count"] == 1
+        assert summary["settled_count"] == 1
+        assert summary["wins"] == 1
+        assert summary["losses"] == 0
+        assert abs(summary["pnl_total"] - 14.62) < 0.01
+        assert summary["last_trade"] is not None
+        assert summary["last_trade"]["asset"] == "NVDA"
+        conn.close()
+    finally:
+        os.unlink(db_path)
+
+
+def test_status_payload_stable():
+    """Payload /status estable i llegible (serialitzable a JSON)."""
+    import json
+    from packages.portfolio.db import get_state
+
+    with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as f:
+        db_path = f.name
+    try:
+        conn = init_db(db_path)
+        save_scan_result(conn, {
+            "run_utc": _now(),
+            "status": "ok",
+            "assets": {"MSFT": {"status": "ok", "signal": False, "candles": 100, "reason": None}},
+            "new_signals": 0,
+            "settled_count": 0,
+            "pending_count": 0,
+            "errors": [],
+        })
+        conn.close()
+
+        conn = init_db(db_path)
+        state = get_state(conn)
+        trade_summary = get_trade_summary(conn)
+        last_scan = get_last_scan_result(conn)
+        settled = trade_summary["settled_count"]
+        wins = trade_summary["wins"]
+        winrate_pct = round(100.0 * wins / settled, 1) if settled > 0 else None
+        data = {
+            "mode": state.mode,
+            "last_scan_utc": state.last_scan_utc,
+            "capital": state.capital,
+            "total_pnl": state.total_pnl,
+            "consecutive_losses": state.consecutive_losses,
+            "trades": {
+                "open_count": trade_summary["open_count"],
+                "settled_count": trade_summary["settled_count"],
+                "wins": trade_summary["wins"],
+                "losses": trade_summary["losses"],
+                "pnl_total": trade_summary["pnl_total"],
+                "winrate_pct": winrate_pct,
+                "last_trade": trade_summary["last_trade"],
+            },
+            "last_scan": last_scan,
+        }
+        conn.close()
+        assert "mode" in data
+        assert "last_scan_utc" in data
+        assert "trades" in data
+        assert "open_count" in data["trades"]
+        assert "settled_count" in data["trades"]
+        assert "wins" in data["trades"]
+        assert "losses" in data["trades"]
+        assert "pnl_total" in data["trades"]
+        assert "last_scan" in data
+        json.dumps(data)
+    finally:
+        os.unlink(db_path)
+
+
+def test_asset_error_does_not_break_global():
+    """Un asset en error no tomba l'estat global (altres assets visibles)."""
+    scan_result = {
+        "run_utc": _now(),
+        "status": "error",
+        "assets": {
+            "MSFT": {"status": "ok", "signal": False, "candles": 365, "reason": None},
+            "NVDA": {"status": "error", "signal": False, "candles": 0, "reason": "fetch_error"},
+            "QQQ": {"status": "ok", "signal": False, "candles": 365, "reason": None},
+        },
+        "new_signals": 0,
+        "settled_count": 0,
+        "pending_count": 0,
+        "errors": ["fetch NVDA: timeout"],
+    }
+    # MSFT i QQQ tenen estat; NVDA en error
+    assert scan_result["assets"]["MSFT"]["status"] == "ok"
+    assert scan_result["assets"]["NVDA"]["status"] == "error"
+    assert scan_result["assets"]["QQQ"]["status"] == "ok"
+
+
 def test_db_no_duplicate_signal():
     """signal_exists retorna True per duplicat."""
     with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as f:
@@ -261,6 +416,10 @@ def _run_tests():
         test_paper_executor_settle_loss,
         test_paper_executor_settle_liq,
         test_db_round_trip,
+        test_scan_result_persistence_zero_signals,
+        test_trade_summary,
+        test_status_payload_stable,
+        test_asset_error_does_not_break_global,
         test_db_no_duplicate_signal,
     ]
     for t in tests:

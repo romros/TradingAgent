@@ -33,6 +33,7 @@ Operativa diària i evidència. Actualitzar a cada canvi significatiu.
 - [x] T6f: **Screening final** — AMD/NFLX/META/GOOGL/AMZN testats, tots REJECTED. Edge específic de MSFT confirmat. Univers: MSFT+NVDA+QQQ
 - [x] T6g: **Commodities + índexs** — GLD(N=3 insuf.), SPY(WATCHLIST N baix), DAX(REJECTED). Univers final tancat: MSFT+NVDA+QQQ
 - [x] T7: **Paper probe mínim** — implementat: DailyEngine, PaperExecutor, SQLite, FastAPI (/health /status /signals /trades). Tests 7/7 PASS
+- [x] T7a: **Observabilitat i verificació operativa** — scan result persistent, /status enriquit, /probe-summary, logs estructurats, checklist diari al runbook. Tests 11/11 PASS
 - [ ] T7 operatiu: ≥4 setmanes running, ≥3 senyals registrats, WR paper ≈ WR backtest
 - [ ] T8: Decisió live — revisar resultats paper vs backtest, autoritzar o no live trading
 
@@ -125,3 +126,4 @@ Veure `lab/docs/T6E_DECISIO_D1_ASSETS.md` i `lab/docs/D1_GATE_CRITERIA.md`.
 | 2026-03-16 | **T6f**: Screening 5 nous actius (AMD/NFLX/META/GOOGL/AMZN) → tots REJECTED. Univers final: MSFT+NVDA+QQQ. Fase LAB tancada |
 | 2026-03-16 | **T6g**: GLD(N=3), SPY(WATCHLIST N baix), DAX(REJECTED). Univers confirmat: MSFT+NVDA+QQQ. Resum complet LAB creat |
 | 2026-03-16 | **T7 implementat**: DailyEngine, PaperExecutor, SQLite, FastAPI. Tests 7/7. LAB→PAPER PROBE |
+| 2026-03-17 | **T7a**: Observabilitat. Scan result persistent (agent_state last_scan_result), /status enriquit amb trades+last_scan, /probe-summary, logs estructurats (scan_completed, settlement_completed), checklist diari al runbook. Tests 11/11 PASS |

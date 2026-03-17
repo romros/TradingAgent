@@ -325,11 +325,14 @@ def get_trade_summary(conn: sqlite3.Connection) -> dict:
     row = cur.fetchone()
     last_trade = {k: row[k] for k in row.keys()} if row else None
 
+    avg_pnl = round(pnl_total / settled_count, 2) if settled_count > 0 else None
+
     return {
         "open_count": open_count,
         "settled_count": settled_count,
         "wins": wins,
         "losses": losses,
         "pnl_total": round(pnl_total, 2),
+        "avg_pnl_per_trade": avg_pnl,
         "last_trade": last_trade,
     }

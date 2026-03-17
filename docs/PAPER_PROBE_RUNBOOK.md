@@ -65,6 +65,9 @@ curl http://localhost:8090/status
 # Resum compacte per verificació diària
 curl http://localhost:8090/probe-summary
 
+# Validació paper vs backtest (T7b)
+curl http://localhost:8090/validation
+
 # Senyals detectats
 curl http://localhost:8090/signals
 curl http://localhost:8090/signals?asset=MSFT&limit=20
@@ -105,6 +108,15 @@ Executar cada dia després del scan (post-close):
    Si s'executa amb `uvicorn`, els logs mostraran:
    - `scan_completed asset=X status=ok signal=false candles=...`
    - `settlement_completed trades_open=N trades_settled=M pnl_total=...`
+   - `validation_completed trades=N winrate=X ev=Y status=aligned|warning|diverged`
+
+6. **probe_ok** (determinista)
+   - `True` si: últim scan < 48h, cap asset amb status=error, almenys 1 scan registrat
+   - `False` altrament
+
+7. **winrate_confidence**
+   - `low` si settled_count < 3 (winrate_pct = null)
+   - `ok` si settled_count >= 3
 
 ## Smoke test (T7a)
 
@@ -117,9 +129,10 @@ curl -s http://localhost:8090/health
 curl -X POST http://localhost:8090/scan
 curl -s http://localhost:8090/status | jq .
 curl -s http://localhost:8090/probe-summary | jq .
+curl -s http://localhost:8090/validation | jq .
 ```
 
-Esperat: `/status` mostra `last_scan` amb `assets` (MSFT, NVDA, QQQ) i `status: "ok"`; `trades` amb `open_count`, `settled_count`, etc.
+Esperat: `/status` mostra `probe_ok`, `last_scan` amb `assets` (MSFT, NVDA, QQQ); `trades` amb `winrate_confidence`; `/validation` retorna `paper_metrics`, `validation.status` (aligned/warning/diverged).
 
 ## Estats de trade
 

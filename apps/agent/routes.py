@@ -13,6 +13,11 @@ from packages.portfolio.db import (
     get_last_scan_result,
     get_trade_summary,
 )
+from packages.portfolio.validation import (
+    compute_probe_ok,
+    compute_winrate_robust,
+    run_validation,
+)
 from packages.strategy.capitulation_d1 import CapitulationD1Strategy
 from packages.market.data_feed import YFinanceD1Feed
 from packages.execution.paper import PaperExecutor
@@ -40,13 +45,14 @@ def status():
         trade_summary = get_trade_summary(conn)
         last_scan = get_last_scan_result(conn)
 
-        # Winrate paper simple (wins / settled si settled > 0)
-        settled = trade_summary["settled_count"]
-        wins = trade_summary["wins"]
-        winrate_pct = round(100.0 * wins / settled, 1) if settled > 0 else None
+        winrate_pct, winrate_confidence = compute_winrate_robust(
+            trade_summary["settled_count"], trade_summary["wins"]
+        )
+        probe_ok = compute_probe_ok(last_scan)
 
         payload = {
             "mode": state.mode,
+            "probe_ok": probe_ok,
             "last_scan_utc": state.last_scan_utc,
             "capital": state.capital,
             "total_pnl": state.total_pnl,
@@ -57,7 +63,9 @@ def status():
                 "wins": trade_summary["wins"],
                 "losses": trade_summary["losses"],
                 "pnl_total": trade_summary["pnl_total"],
+                "avg_pnl_per_trade": trade_summary.get("avg_pnl_per_trade"),
                 "winrate_pct": winrate_pct,
+                "winrate_confidence": winrate_confidence,
                 "last_trade": trade_summary["last_trade"],
             },
             "last_scan": last_scan,
@@ -75,20 +83,36 @@ def probe_summary():
         state = get_state(conn)
         trade_summary = get_trade_summary(conn)
         last_scan = get_last_scan_result(conn)
-        settled = trade_summary["settled_count"]
-        wins = trade_summary["wins"]
+        winrate_pct, winrate_confidence = compute_winrate_robust(
+            trade_summary["settled_count"], trade_summary["wins"]
+        )
+        probe_ok = compute_probe_ok(last_scan)
         return {
-            "probe_ok": last_scan is not None and last_scan.get("status") != "error",
+            "probe_ok": probe_ok,
             "last_scan_utc": state.last_scan_utc,
             "last_scan_status": last_scan.get("status") if last_scan else None,
             "assets": last_scan.get("assets", {}) if last_scan else {},
             "trades_open": trade_summary["open_count"],
             "trades_settled": trade_summary["settled_count"],
-            "wins": wins,
+            "wins": trade_summary["wins"],
             "losses": trade_summary["losses"],
             "pnl_total": trade_summary["pnl_total"],
-            "winrate_pct": round(100.0 * wins / settled, 1) if settled > 0 else None,
+            "avg_pnl_per_trade": trade_summary.get("avg_pnl_per_trade"),
+            "winrate_pct": winrate_pct,
+            "winrate_confidence": winrate_confidence,
         }
+    finally:
+        conn.close()
+
+
+@router.get("/validation")
+def validation():
+    """Validació paper vs backtest. Mètriques + classificació aligned/warning/diverged."""
+    conn = _get_conn()
+    try:
+        trade_summary = get_trade_summary(conn)
+        last_scan = get_last_scan_result(conn)
+        return run_validation(trade_summary, last_scan)
     finally:
         conn.close()
 

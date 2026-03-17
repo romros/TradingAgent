@@ -291,6 +291,8 @@ def test_trade_summary():
         assert summary["wins"] == 1
         assert summary["losses"] == 0
         assert abs(summary["pnl_total"] - 14.62) < 0.01
+        assert summary["avg_pnl_per_trade"] is not None
+        assert abs(summary["avg_pnl_per_trade"] - 14.62) < 0.01
         assert summary["last_trade"] is not None
         assert summary["last_trade"]["asset"] == "NVDA"
         conn.close()
@@ -302,6 +304,7 @@ def test_status_payload_stable():
     """Payload /status estable i llegible (serialitzable a JSON)."""
     import json
     from packages.portfolio.db import get_state
+    from packages.portfolio.validation import compute_winrate_robust, compute_probe_ok
 
     with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as f:
         db_path = f.name
@@ -322,11 +325,13 @@ def test_status_payload_stable():
         state = get_state(conn)
         trade_summary = get_trade_summary(conn)
         last_scan = get_last_scan_result(conn)
-        settled = trade_summary["settled_count"]
-        wins = trade_summary["wins"]
-        winrate_pct = round(100.0 * wins / settled, 1) if settled > 0 else None
+        winrate_pct, winrate_confidence = compute_winrate_robust(
+            trade_summary["settled_count"], trade_summary["wins"]
+        )
+        probe_ok = compute_probe_ok(last_scan)
         data = {
             "mode": state.mode,
+            "probe_ok": probe_ok,
             "last_scan_utc": state.last_scan_utc,
             "capital": state.capital,
             "total_pnl": state.total_pnl,
@@ -337,13 +342,16 @@ def test_status_payload_stable():
                 "wins": trade_summary["wins"],
                 "losses": trade_summary["losses"],
                 "pnl_total": trade_summary["pnl_total"],
+                "avg_pnl_per_trade": trade_summary.get("avg_pnl_per_trade"),
                 "winrate_pct": winrate_pct,
+                "winrate_confidence": winrate_confidence,
                 "last_trade": trade_summary["last_trade"],
             },
             "last_scan": last_scan,
         }
         conn.close()
         assert "mode" in data
+        assert "probe_ok" in data
         assert "last_scan_utc" in data
         assert "trades" in data
         assert "open_count" in data["trades"]
@@ -351,6 +359,7 @@ def test_status_payload_stable():
         assert "wins" in data["trades"]
         assert "losses" in data["trades"]
         assert "pnl_total" in data["trades"]
+        assert "winrate_confidence" in data["trades"]
         assert "last_scan" in data
         json.dumps(data)
     finally:
@@ -376,6 +385,79 @@ def test_asset_error_does_not_break_global():
     assert scan_result["assets"]["MSFT"]["status"] == "ok"
     assert scan_result["assets"]["NVDA"]["status"] == "error"
     assert scan_result["assets"]["QQQ"]["status"] == "ok"
+
+
+def test_winrate_0_trades():
+    """Winrate amb 0 trades: winrate_pct=null, confidence=low."""
+    from packages.portfolio.validation import compute_winrate_robust
+    wr, conf = compute_winrate_robust(0, 0)
+    assert wr is None
+    assert conf == "low"
+
+
+def test_winrate_lt3_trades():
+    """Winrate amb <3 trades: winrate_pct=null, confidence=low."""
+    from packages.portfolio.validation import compute_winrate_robust
+    wr, conf = compute_winrate_robust(2, 1)
+    assert wr is None
+    assert conf == "low"
+
+
+def test_winrate_3plus_trades():
+    """Winrate amb >=3 trades: valor i confidence=ok."""
+    from packages.portfolio.validation import compute_winrate_robust
+    wr, conf = compute_winrate_robust(5, 4)
+    assert wr == 80.0
+    assert conf == "ok"
+
+
+def test_avg_pnl_calculation():
+    """avg_pnl_per_trade correcte."""
+    summary = {"settled_count": 4, "wins": 3, "losses": 1, "pnl_total": 50.0}
+    avg = 50.0 / 4
+    assert abs(avg - 12.5) < 0.01
+
+
+def test_classification_aligned():
+    """Paper dins marge → aligned."""
+    from packages.portfolio.validation import classify_validation
+    metrics = {"winrate_pct": 78.0, "avg_pnl_per_trade": 12.5}
+    r = classify_validation(metrics)
+    assert r["status"] == "aligned"
+
+
+def test_classification_warning():
+    """Paper fora marge moderat → warning."""
+    from packages.portfolio.validation import classify_validation
+    metrics = {"winrate_pct": 65.0, "avg_pnl_per_trade": 12.0}  # WR -13%
+    r = classify_validation(metrics)
+    assert r["status"] in ("warning", "diverged")
+
+
+def test_classification_diverged():
+    """Paper desviat fort → diverged."""
+    from packages.portfolio.validation import classify_validation
+    metrics = {"winrate_pct": 50.0, "avg_pnl_per_trade": -5.0}
+    r = classify_validation(metrics)
+    assert r["status"] == "diverged"
+
+
+def test_probe_ok_deterministic():
+    """probe_ok: True si scan <48h, sense errors, almenys 1 scan."""
+    from datetime import timedelta
+    from packages.portfolio.validation import compute_probe_ok
+    # Scan recent, sense errors
+    ok_scan = {"run_utc": _now(), "assets": {"MSFT": {"status": "ok"}}}
+    assert compute_probe_ok(ok_scan) is True
+    # Sense scan
+    assert compute_probe_ok(None) is False
+    # Asset en error
+    err_scan = {"run_utc": _now(), "assets": {"MSFT": {"status": "error"}}}
+    assert compute_probe_ok(err_scan) is False
+    # Scan > 48h
+    old_ts = (datetime.now(timezone.utc) - timedelta(hours=50)).isoformat()
+    old_scan = {"run_utc": old_ts, "assets": {"MSFT": {"status": "ok"}}}
+    assert compute_probe_ok(old_scan) is False
 
 
 def test_db_no_duplicate_signal():
@@ -420,6 +502,14 @@ def _run_tests():
         test_trade_summary,
         test_status_payload_stable,
         test_asset_error_does_not_break_global,
+        test_winrate_0_trades,
+        test_winrate_lt3_trades,
+        test_winrate_3plus_trades,
+        test_avg_pnl_calculation,
+        test_classification_aligned,
+        test_classification_warning,
+        test_classification_diverged,
+        test_probe_ok_deterministic,
         test_db_no_duplicate_signal,
     ]
     for t in tests:

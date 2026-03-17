@@ -109,3 +109,28 @@ def test_snapshot_uses_existing_canonical_results():
         assert "LIVE_SHADOW_READY" in content
         assert "0.6" in content
         assert "0.5" in content
+
+
+def _run_tests():
+    ok = True
+    tests = [
+        test_snapshot_filename_deterministic,
+        test_snapshot_render_contains_core_sections,
+        test_snapshot_write_no_crash_on_partial_error,
+        test_snapshot_uses_existing_canonical_results,
+    ]
+    for t in tests:
+        try:
+            t()
+            print(f"  PASS {t.__name__}")
+        except Exception as e:
+            import traceback
+            print(f"  FAIL {t.__name__}: {e}")
+            traceback.print_exc()
+            ok = False
+    return ok
+
+
+if __name__ == "__main__":
+    print("=== Daily Snapshot Unit Tests ===")
+    sys.exit(0 if _run_tests() else 1)

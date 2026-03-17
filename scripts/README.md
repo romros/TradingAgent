@@ -21,8 +21,8 @@
 ./scripts/run_all.sh
 
 # Per tipus
-./scripts/run.sh component    # pytest testing/unit (0-network)
-./scripts/run.sh integration  # pytest testing/integration (si existeix)
+./scripts/run.sh component    # scripts Python purs testing/unit (0-network)
+./scripts/run.sh integration  # scripts Python purs testing/integration (si existeix)
 ./scripts/run.sh smoke        # servei arrencat, /health, /quick-status, POST /scan, snapshot
 ./scripts/run.sh soak         # servei viu N minuts (SOAK_MINUTES=2 per defecte)
 

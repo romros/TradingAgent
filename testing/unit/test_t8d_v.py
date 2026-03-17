@@ -15,3 +15,23 @@ def test_probe_assets_config_canonical():
     assert "QQQ" not in config.ASSETS
     assert "MSFT" in config.ASSETS
     assert "NVDA" in config.ASSETS
+
+
+def _run_tests():
+    ok = True
+    tests = [test_probe_assets_config_canonical]
+    for t in tests:
+        try:
+            t()
+            print(f"  PASS {t.__name__}")
+        except Exception as e:
+            import traceback
+            print(f"  FAIL {t.__name__}: {e}")
+            traceback.print_exc()
+            ok = False
+    return ok
+
+
+if __name__ == "__main__":
+    print("=== T8d-v Unit Tests ===")
+    sys.exit(0 if _run_tests() else 1)

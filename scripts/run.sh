@@ -2,8 +2,8 @@
 # T8e: Wrapper canònic de proves. Executa DINS Docker.
 # Ús: ./scripts/run.sh <component|integration|smoke|soak>
 #
-# component: pytest testing/unit (0-network)
-# integration: pytest integration (API/DB dins contenidor)
+# component: scripts Python purs testing/unit (0-network)
+# integration: scripts Python purs (API/DB dins contenidor)
 # smoke: servei arrencat, /health, /quick-status, POST /scan, snapshot
 # soak: servei viu N minuts, sense crash
 set -euo pipefail
@@ -27,7 +27,7 @@ run_component() {
     echo "═══════════════════════════════════════════"
     docker compose run --rm --no-deps \
         -v "$ROOT:/app" -e PYTHONPATH=/app \
-        probe python -m pytest testing/unit/ -v --tb=short 2>&1
+        probe python testing/run_all.py 2>&1
 }
 
 run_integration() {
@@ -37,7 +37,7 @@ run_integration() {
     if [ -d "$ROOT/testing/integration" ] && [ -n "$(ls "$ROOT/testing/integration"/test_*.py 2>/dev/null)" ]; then
         docker compose run --rm --no-deps \
             -v "$ROOT:/app" -e PYTHONPATH=/app \
-            probe python -m pytest testing/integration/ -v --tb=short 2>&1
+            probe python testing/run_integration.py 2>&1
     else
         echo "  (no integration tests; skipping)"
     fi

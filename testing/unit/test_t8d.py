@@ -80,3 +80,27 @@ def test_startup_fails_closed_without_required_config():
 
     data = health()
     assert data.get("status") == "ok"
+
+
+def _run_tests():
+    ok = True
+    tests = [
+        test_quick_status_payload,
+        test_scheduler_config_parsing,
+        test_startup_fails_closed_without_required_config,
+    ]
+    for t in tests:
+        try:
+            t()
+            print(f"  PASS {t.__name__}")
+        except Exception as e:
+            import traceback
+            print(f"  FAIL {t.__name__}: {e}")
+            traceback.print_exc()
+            ok = False
+    return ok
+
+
+if __name__ == "__main__":
+    print("=== T8d Unit Tests ===")
+    sys.exit(0 if _run_tests() else 1)

@@ -1,20 +1,20 @@
 #!/usr/bin/env bash
-# Usage: ./test.sh <test_file>
-# Runs a single test file inside a Python container.
+# T8e: Executa test(s) dins Docker. Delegació a run.sh.
+# Ús: ./test.sh [test_file]
+#   sense args: ./scripts/run.sh component
+#   amb test_file: pytest sobre el fitxer (dins Docker)
 set -euo pipefail
 
+ROOT="$(cd "$(dirname "$0")" && pwd)"
+
 if [ $# -lt 1 ]; then
-    echo "Usage: $0 <test_file>"
-    echo "Example: $0 testing/unit/test_indicators.py"
-    exit 1
+    exec "$ROOT/scripts/run.sh" component
 fi
 
 TEST_FILE="$1"
 shift
 
-docker run --rm \
-    -v "$(pwd):/app" \
-    -w /app \
-    -e PYTHONPATH=/app \
-    python:3.11-slim \
-    python "$TEST_FILE" "$@"
+# Executar pytest dins Docker
+cd "$ROOT" && docker compose run --rm --no-deps \
+    -v "$ROOT:/app" -e PYTHONPATH=/app \
+    probe python -m pytest "$TEST_FILE" -v --tb=short "$@"

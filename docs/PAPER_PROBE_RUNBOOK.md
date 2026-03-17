@@ -151,27 +151,20 @@ Executar cada dia després del scan (post-close):
    - Manual: `curl -X POST http://localhost:8090/snapshot`
    - Log esperat: `daily_snapshot_written path=... status=ok`
 
-## Smoke test (T7a + T8d)
+## Smoke test (T7a + T8d + T8e)
+
+**Via canònica (Docker-only):**
 
 ```bash
-# Arrencada canònica
-docker compose up -d
-sleep 5
+./scripts/run.sh smoke
+# Artifacts: data/smoke_artifacts/
+```
 
-# Comprovar que està viu
-docker compose ps
-# STATUS: Up X seconds (healthy)
+**Validació completa:**
 
-# Consultes
-curl -s http://localhost:8090/health
-curl -s http://localhost:8090/quick-status
-curl -X POST http://localhost:8090/scan
-curl -s http://localhost:8090/status | jq .
-curl -s http://localhost:8090/validation | jq .
-
-# Logs: scheduler registrat
-docker compose logs | grep daily_scheduler_registered
-# daily_scheduler_registered next_run_utc=... schedule=post_close_d1
+```bash
+./scripts/run_all.sh
+# component → integration → smoke → soak
 ```
 
 Esperat: `/status` mostra `probe_ok`, `last_scan` amb `assets`; `/validation` retorna `paper_metrics`, `validation.status`; `/probe-history` retorna `scan_runs`, `validation_runs`, `equity_curve`, `drawdown`; `/data-quality` retorna `status` per asset (ok/warning/error); `/bs-audit` retorna `available`, `data_quality`, `comparison` (aligned/warning/diverged) per asset; `/proxy-validation` retorna `status` (aligned|warning|diverged|insufficient_data), `correlation`, `avg_delta_pct`, `samples`; `/live-readiness` retorna `status` (LIVE_READY|LIVE_SHADOW_READY|LIVE_NOT_READY), `reasons`, `metrics`; `POST /snapshot` genera fitxer a `data/probe_snapshots/YYYY-MM-DD.md` i retorna `{path, status, missing_sections}`.

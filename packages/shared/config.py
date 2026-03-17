@@ -1,6 +1,6 @@
 import os
 
-ASSETS = os.getenv("PROBE_ASSETS", "MSFT,NVDA,QQQ").split(",")
+ASSETS = os.getenv("PROBE_ASSETS", "MSFT,NVDA,NDXUSD").split(",")
 LEVERAGE = int(os.getenv("LEVERAGE", "20"))
 CAPITAL_INITIAL = float(os.getenv("CAPITAL_INITIAL", "250.0"))
 COL_PCT = float(os.getenv("COL_PCT", "0.20"))

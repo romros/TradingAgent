@@ -8,7 +8,7 @@ Operativa diària i evidència. Actualitzar a cada canvi significatiu.
 
 ### Fase: PAPER PROBE — T7 en curs (≥4 setmanes, inici 2026-03-16)
 
-**Setup actiu**: `capitulation_d1` — MSFT (primari), NVDA, QQQ (complementaris)
+**Setup actiu**: `capitulation_d1` — MSFT (primari), NVDA, NDXUSD (complementari, paper: QQQ proxy)
 **Leverage**: 20x | **Mode**: paper only | **Pròxim gate**: T7 OK → decidir live
 
 #### Completat
@@ -41,6 +41,7 @@ Operativa diària i evidència. Actualitzar a cada canvi significatiu.
 - [x] T8c: **Decision Gate Live Readiness** — compute_live_readiness; endpoint /live-readiness; status LIVE_READY|LIVE_SHADOW_READY|LIVE_NOT_READY; reasons. Tests 53/53 PASS
 - [x] T7d: **Snapshot diari automàtic** — build_daily_snapshot; fitxer Markdown a data/probe_snapshots/YYYY-MM-DD.md; POST /snapshot; trigger al final del cicle diari; validation, live-readiness, data-quality, trades, proxy-validation, bs_audit. Tests 57/57 PASS
 - [x] T8d: **Arrencada real + scheduler + quick-status** — docker compose up -d; scheduler diari (SCHEDULER_HOUR_UTC=21); /quick-status; healthcheck; restart unless-stopped. Tests 59/59 PASS
+- [x] T8d-v: **Validació operativa + fix assets** — PROBE_ASSETS: QQQ→NDXUSD (canònic executable); YF_SYMBOL_PROXY NDXUSD→QQQ; agent_started amb assets; test_probe_assets_config_canonical. Tests 57/57 PASS. Smoke: ver docs/T8D_V_SMOKE.md
 - [ ] T7 operatiu: ≥4 setmanes running, ≥3 senyals registrats, WR paper ≈ WR backtest
 - [ ] T8: Decisió live — revisar resultats paper vs backtest, autoritzar o no live trading
 
@@ -48,7 +49,7 @@ Operativa diària i evidència. Actualitzar a cada canvi significatiu.
 
 **capitulation_d1** — LONG after crash extrem en D1 (equitats US mega-cap)
 - Asset primari: **MSFT** (ACCEPTED_D1_ASSET)
-- Assets complementaris: **NVDA**, **QQQ** (WATCHLIST)
+- Assets complementaris: **NVDA**, **NDXUSD** (WATCHLIST; paper: QQQ proxy via yfinance)
 - TF: D1 | Entry: open(T+1) | Exit: close(T+1) | Leverage: 20x
 - Backtest MSFT: WR 78%, PF 3.46, EV +12.7$/trade, liq 0%, WF 10/12 (83%)
 - Gate: body < -2%, close < BB_lower(20,2)
@@ -141,3 +142,4 @@ Veure `lab/docs/T6E_DECISIO_D1_ASSETS.md` i `lab/docs/D1_GATE_CRITERIA.md`.
 | 2026-03-17 | **T8c**: Decision Gate Live Readiness. compute_live_readiness; /live-readiness; agregació validation+proxy+data_quality+bs_audit; status LIVE_READY|LIVE_SHADOW_READY|LIVE_NOT_READY; reasons. Tests 53/53 PASS |
 | 2026-03-17 | **T7d**: Snapshot diari automàtic. packages/runtime/daily_snapshot.py; build_daily_snapshot; data/probe_snapshots/YYYY-MM-DD.md; POST /snapshot; trigger al final engine.run(); reutilitza funcions canòniques; degradació amb secció error si falla. Tests 57/57 PASS |
 | 2026-03-17 | **T8d**: Arrencada real. Dockerfile + compose.yml; docker compose up -d; scheduler APScheduler (21:00 UTC); /quick-status; healthcheck; SCHEDULER_ENABLED, SCHEDULER_HOUR_UTC; scan_runner; Tests 59/59 PASS |
+| 2026-03-17 | **T8d-v**: Validació operativa + fix assets. PROBE_ASSETS=MSFT,NVDA,NDXUSD; YF_SYMBOL_PROXY (NDXUSD→QQQ); agent_started assets; test_probe_assets_config_canonical. Tests 57/57 PASS |

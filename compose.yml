@@ -6,7 +6,7 @@ services:
     volumes:
       - ./data:/app/data
     environment:
-      - PROBE_ASSETS=MSFT,NVDA,QQQ
+      - PROBE_ASSETS=MSFT,NVDA,NDXUSD
       - DB_PATH=data/paper_probe.db
       - PROBE_SNAPSHOTS_DIR=data/probe_snapshots
       - SCHEDULER_ENABLED=true

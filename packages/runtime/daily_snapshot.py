@@ -88,7 +88,7 @@ def build_daily_snapshot(
     from packages.shared import config as shared_config
 
     output_dir = output_dir or getattr(shared_config, "PROBE_SNAPSHOTS_DIR", SNAPSHOTS_DIR_DEFAULT)
-    assets = assets if assets is not None else list(getattr(shared_config, "ASSETS", ["MSFT", "NVDA", "QQQ"]))
+    assets = assets if assets is not None else list(getattr(shared_config, "ASSETS", ["MSFT", "NVDA", "NDXUSD"]))
     base_url = base_url or "http://localhost:8081"
     sections = {}
     missing = []

@@ -64,16 +64,22 @@ def validate_candles(candles: list) -> dict:
     return result
 
 
+# Símbols executables BS/Ostium que yfinance no té: mapejar a proxy
+YF_SYMBOL_PROXY = {"NDXUSD": "QQQ", "NASDAQUSD": "QQQ"}
+
+
 class YFinanceD1Feed:
     def fetch(self, ticker: str, days: int = 365) -> list:
         """
         Retorna llista de dicts {date: 'YYYY-MM-DD', open, high, low, close}
         ordenats cronològicament. Ignora el dia actual si el mercat no ha tancat.
+        NDXUSD/NASDAQUSD → QQQ (proxy yfinance).
         """
         import pandas as pd
 
+        yf_ticker = YF_SYMBOL_PROXY.get(ticker, ticker)
         period = f"{days}d"
-        raw = yf.download(ticker, period=period, interval="1d", auto_adjust=True, progress=False)
+        raw = yf.download(yf_ticker, period=period, interval="1d", auto_adjust=True, progress=False)
 
         if raw is None or raw.empty:
             return []

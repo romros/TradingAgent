@@ -15,13 +15,13 @@ from packages.market.data_feed import YFinanceD1Feed, validate_candles
 
 logger = logging.getLogger(__name__)
 
-ASSETS_TO_AUDIT = ["MSFT", "NVDA", "QQQ"]
+ASSETS_TO_AUDIT = ["MSFT", "NVDA", "NDXUSD"]
 
 # Símbols alternatius a provar (BS pot usar format diferent)
 SYMBOL_VARIANTS = {
     "MSFT": ["MSFT", "MSFTUSD"],
     "NVDA": ["NVDA", "NVDAUSD"],
-    "QQQ": ["QQQ", "QQQUSD"],
+    "NDXUSD": ["NDXUSD", "NASDAQUSD", "QQQ", "QQQUSD"],
 }
 
 # Marges per classificació comparació BS vs yfinance

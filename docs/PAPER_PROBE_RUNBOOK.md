@@ -18,7 +18,7 @@ curl http://localhost:8090/quick-status
 
 ```bash
 mkdir -p data
-export PROBE_ASSETS="MSFT,NVDA,QQQ"
+export PROBE_ASSETS="MSFT,NVDA,NDXUSD"
 export DB_PATH=data/paper_probe.db
 pip install -r requirements.txt
 uvicorn apps.agent.app:app --host 0.0.0.0 --port 8090
@@ -82,7 +82,7 @@ curl http://localhost:8090/data-quality
 curl http://localhost:8090/bs-audit
 # Requereix BS_BASE_URL (default http://localhost:8081) i BrokerageService en marxa
 
-# Validació proxy QQQ vs NASDAQUSD/NDXUSD (T8b)
+# Validació proxy QQQ (yf) vs NASDAQUSD/NDXUSD (BS) (T8b)
 curl http://localhost:8090/proxy-validation
 # Correlació returns, classificació aligned|warning|diverged|insufficient_data
 
@@ -114,7 +114,7 @@ Executar cada dia després del scan (post-close):
    ```
    Ha de mostrar timestamp d'avui (UTC).
 
-2. **Estat per asset (MSFT, NVDA, QQQ)?**
+2. **Estat per asset (MSFT, NVDA, NDXUSD)?**
    ```bash
    curl -s http://localhost:8090/status | jq '.last_scan.assets'
    ```

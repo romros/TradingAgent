@@ -34,7 +34,7 @@ async def lifespan(app: FastAPI):
     global _scheduler
     host = "0.0.0.0"
     port = 8090
-    logger.info("agent_started host=%s port=%s mode=paper", host, port)
+    logger.info("agent_started host=%s port=%s mode=paper assets=%s", host, port, ",".join(config.ASSETS))
 
     if config.SCHEDULER_ENABLED:
         from apscheduler.schedulers.background import BackgroundScheduler

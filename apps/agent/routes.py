@@ -25,6 +25,7 @@ from packages.portfolio.validation import (
 )
 from packages.strategy.capitulation_d1 import CapitulationD1Strategy
 from packages.market.data_feed import YFinanceD1Feed, validate_candles
+from packages.market.bs_probe import run_bs_audit
 from packages.execution.paper import PaperExecutor
 from packages.portfolio.tracker import PortfolioTracker
 from packages.runtime.engine import DailyEngine
@@ -165,6 +166,12 @@ def get_trades(
         return get_all_trades(conn, status=status, limit=limit)
     finally:
         conn.close()
+
+
+@router.get("/bs-audit")
+def bs_audit():
+    """Auditoria de BrokerageService: assets disponibles, qualitat D1, comparació vs yfinance."""
+    return run_bs_audit(assets=config.ASSETS, base_url=config.BS_BASE_URL)
 
 
 @router.get("/data-quality")

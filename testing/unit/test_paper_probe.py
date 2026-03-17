@@ -590,6 +590,66 @@ def test_data_validation_ok():
     assert r["status"] == "ok"
 
 
+def test_bs_audit_asset_unavailable():
+    """Asset no disponible a BS → available=false."""
+    from packages.market.bs_probe import audit_asset
+    # Mock: base_url inexistent o BS retorna empty
+    r = audit_asset("MSFT", "http://127.0.0.1:59999")
+    assert r["available"] is False
+    assert r["asset"] == "MSFT"
+
+
+def test_bs_aggregate_1m_to_d1():
+    """Agregació 1m → D1."""
+    from packages.market.bs_probe import _aggregate_1m_to_d1
+    # 3 candles mateix dia
+    ts = int(datetime(2025, 1, 15, 14, 30, tzinfo=timezone.utc).timestamp())
+    candles = [
+        [ts, 100.0, 101.0, 99.0, 100.5, 0],
+        [ts + 3600, 100.5, 102.0, 100.0, 101.5, 0],
+        [ts + 7200, 101.5, 102.0, 101.0, 101.0, 0],
+    ]
+    d1 = _aggregate_1m_to_d1(candles)
+    assert len(d1) == 1
+    assert d1[0]["date"] == "2025-01-15"
+    assert d1[0]["open"] == 100.0
+    assert d1[0]["high"] == 102.0
+    assert d1[0]["low"] == 99.0
+    assert d1[0]["close"] == 101.0
+
+
+def test_bs_compare_closes_aligned():
+    """Comparació aligned (< 0.5%)."""
+    from packages.market.bs_probe import _compare_closes
+    bs = [{"date": "2025-01-10", "close": 100.0}]
+    yf = [{"date": "2025-01-10", "close": 100.2}]
+    r = _compare_closes(bs, yf)
+    assert r["comparison"] == "aligned"
+    assert r["overlapping"] == 1
+    assert r["delta_pct"] is not None and r["delta_pct"] < 0.5
+
+
+def test_bs_compare_closes_diverged():
+    """Comparació diverged (> 2%)."""
+    from packages.market.bs_probe import _compare_closes
+    bs = [{"date": "2025-01-10", "close": 105.0}]
+    yf = [{"date": "2025-01-10", "close": 100.0}]
+    r = _compare_closes(bs, yf)
+    assert r["comparison"] == "diverged"
+    assert r["delta_pct"] == 5.0
+
+
+def test_bs_audit_run_no_crash():
+    """run_bs_audit no tomba si BS no respon."""
+    from packages.market.bs_probe import run_bs_audit
+    r = run_bs_audit(assets=["MSFT"], base_url="http://127.0.0.1:59999")
+    assert "source" in r
+    assert r["source"] == "brokerage_service"
+    assert "assets" in r
+    assert len(r["assets"]) == 1
+    assert r["assets"][0]["asset"] == "MSFT"
+
+
 def test_db_no_duplicate_signal():
     """signal_exists retorna True per duplicat."""
     with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as f:
@@ -647,6 +707,11 @@ def _run_tests():
         test_data_validation_ohlc,
         test_data_validation_empty,
         test_data_validation_ok,
+        test_bs_audit_asset_unavailable,
+        test_bs_aggregate_1m_to_d1,
+        test_bs_compare_closes_aligned,
+        test_bs_compare_closes_diverged,
+        test_bs_audit_run_no_crash,
         test_db_no_duplicate_signal,
     ]
     for t in tests:

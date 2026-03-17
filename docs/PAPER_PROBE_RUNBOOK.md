@@ -74,6 +74,10 @@ curl http://localhost:8090/probe-history
 # Qualitat del data feed (yfinance)
 curl http://localhost:8090/data-quality
 
+# Auditoria BrokerageService (T8a pre-live)
+curl http://localhost:8090/bs-audit
+# Requereix BS_BASE_URL (default http://localhost:8081) i BrokerageService en marxa
+
 # Senyals detectats
 curl http://localhost:8090/signals
 curl http://localhost:8090/signals?asset=MSFT&limit=20
@@ -138,7 +142,7 @@ curl -s http://localhost:8090/probe-summary | jq .
 curl -s http://localhost:8090/validation | jq .
 ```
 
-Esperat: `/status` mostra `probe_ok`, `last_scan` amb `assets`; `/validation` retorna `paper_metrics`, `validation.status`; `/probe-history` retorna `scan_runs`, `validation_runs`, `equity_curve`, `drawdown`; `/data-quality` retorna `status` per asset (ok/warning/error).
+Esperat: `/status` mostra `probe_ok`, `last_scan` amb `assets`; `/validation` retorna `paper_metrics`, `validation.status`; `/probe-history` retorna `scan_runs`, `validation_runs`, `equity_curve`, `drawdown`; `/data-quality` retorna `status` per asset (ok/warning/error); `/bs-audit` retorna `available`, `data_quality`, `comparison` (aligned/warning/diverged) per asset.
 
 ## Estats de trade
 

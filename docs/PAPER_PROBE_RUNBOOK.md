@@ -1,29 +1,30 @@
 # PAPER_PROBE_RUNBOOK — TradingAgent T7
 
-## Arrencar el paper probe
+## Arrencar el paper probe (T8d: forma canònica)
 
 ```bash
-# Crear directori de dades
+# Forma canònica única: Docker Compose
+docker compose up -d
+
+# Comprovar que està viu
+docker compose ps
+# STATUS ha de ser "Up X seconds (healthy)"
+
+# Consulta ràpida "com va?"
+curl http://localhost:8090/quick-status
+```
+
+**Alternativa sense Docker** (desenvolupament):
+
+```bash
 mkdir -p data
-
-# Variables d'entorn (opcionals, tots tenen defaults)
 export PROBE_ASSETS="MSFT,NVDA,QQQ"
-export LEVERAGE=20
-export CAPITAL_INITIAL=250.0
-export COL_PCT=0.20
-export COL_MAX=60.0
-export COL_MIN=15.0
-export FEE=5.38
-export BODY_THRESH=-0.02
-export BB_PERIOD=20
-export BB_STD=2.0
 export DB_PATH=data/paper_probe.db
-export DATA_LOOKBACK_DAYS=365
-
-# Arrencar FastAPI
-pip install fastapi uvicorn yfinance
+pip install -r requirements.txt
 uvicorn apps.agent.app:app --host 0.0.0.0 --port 8090
 ```
+
+**Scheduler automàtic**: el scan diari s'executa sol a les 21:00 UTC (post-close US). Variables: `SCHEDULER_ENABLED=true`, `SCHEDULER_HOUR_UTC=21`.
 
 ## Scan manual
 
@@ -56,6 +57,9 @@ print(engine.run())
 ## Veure l'estat
 
 ```bash
+# Consulta ràpida "com va?" (T8d) — curt i útil
+curl http://localhost:8090/quick-status
+
 # Salut i mode
 curl http://localhost:8090/health
 
@@ -147,18 +151,27 @@ Executar cada dia després del scan (post-close):
    - Manual: `curl -X POST http://localhost:8090/snapshot`
    - Log esperat: `daily_snapshot_written path=... status=ok`
 
-## Smoke test (T7a)
+## Smoke test (T7a + T8d)
 
 ```bash
-# Arrencar API (en una terminal)
-uvicorn apps.agent.app:app --host 0.0.0.0 --port 8090
+# Arrencada canònica
+docker compose up -d
+sleep 5
 
-# En una altra terminal
+# Comprovar que està viu
+docker compose ps
+# STATUS: Up X seconds (healthy)
+
+# Consultes
 curl -s http://localhost:8090/health
+curl -s http://localhost:8090/quick-status
 curl -X POST http://localhost:8090/scan
 curl -s http://localhost:8090/status | jq .
-curl -s http://localhost:8090/probe-summary | jq .
 curl -s http://localhost:8090/validation | jq .
+
+# Logs: scheduler registrat
+docker compose logs | grep daily_scheduler_registered
+# daily_scheduler_registered next_run_utc=... schedule=post_close_d1
 ```
 
 Esperat: `/status` mostra `probe_ok`, `last_scan` amb `assets`; `/validation` retorna `paper_metrics`, `validation.status`; `/probe-history` retorna `scan_runs`, `validation_runs`, `equity_curve`, `drawdown`; `/data-quality` retorna `status` per asset (ok/warning/error); `/bs-audit` retorna `available`, `data_quality`, `comparison` (aligned/warning/diverged) per asset; `/proxy-validation` retorna `status` (aligned|warning|diverged|insufficient_data), `correlation`, `avg_delta_pct`, `samples`; `/live-readiness` retorna `status` (LIVE_READY|LIVE_SHADOW_READY|LIVE_NOT_READY), `reasons`, `metrics`; `POST /snapshot` genera fitxer a `data/probe_snapshots/YYYY-MM-DD.md` i retorna `{path, status, missing_sections}`.

@@ -1,0 +1,20 @@
+services:
+  probe:
+    build: .
+    ports:
+      - "8090:8090"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - PROBE_ASSETS=MSFT,NVDA,QQQ
+      - DB_PATH=data/paper_probe.db
+      - PROBE_SNAPSHOTS_DIR=data/probe_snapshots
+      - SCHEDULER_ENABLED=true
+      - SCHEDULER_HOUR_UTC=21
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8090/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s

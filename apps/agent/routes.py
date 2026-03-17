@@ -4,7 +4,6 @@ from typing import Optional
 from fastapi import APIRouter, Query
 
 from packages.shared import config
-from packages.shared.models import AgentState
 from packages.portfolio.db import (
     init_db,
     get_all_signals,
@@ -24,14 +23,10 @@ from packages.portfolio.validation import (
     run_validation,
     compute_live_readiness,
 )
-from packages.strategy.capitulation_d1 import CapitulationD1Strategy
-from packages.market.data_feed import YFinanceD1Feed
 from packages.market.bs_probe import run_bs_audit, run_proxy_validation
 from packages.market.data_quality import get_data_quality_result
-from packages.execution.paper import PaperExecutor
-from packages.portfolio.tracker import PortfolioTracker
-from packages.runtime.engine import DailyEngine
 from packages.runtime.daily_snapshot import build_daily_snapshot
+from packages.runtime.scan_runner import run_daily_scan
 
 router = APIRouter()
 
@@ -43,6 +38,46 @@ def _get_conn() -> sqlite3.Connection:
 @router.get("/health")
 def health():
     return {"status": "ok", "mode": "paper", "assets": config.ASSETS}
+
+
+@router.get("/quick-status")
+def quick_status():
+    """T8d: Resum ràpid per consulta humana 'com va?'. Curt i útil."""
+    conn = _get_conn()
+    try:
+        state = get_state(conn)
+        trade_summary = get_trade_summary(conn)
+        last_scan = get_last_scan_result(conn)
+        winrate_pct, winrate_confidence = compute_winrate_robust(
+            trade_summary["settled_count"], trade_summary["wins"]
+        )
+        probe_ok = compute_probe_ok(last_scan)
+        validation_result = run_validation(trade_summary, last_scan)
+        proxy_result = run_proxy_validation(base_url=config.BS_BASE_URL, days=config.DATA_LOOKBACK_DAYS)
+        data_quality_result = _get_data_quality_result()
+        bs_audit_result = run_bs_audit(assets=config.ASSETS, base_url=config.BS_BASE_URL)
+        live_result = compute_live_readiness(
+            validation_result=validation_result,
+            proxy_result=proxy_result,
+            data_quality_result=data_quality_result,
+            bs_audit_result=bs_audit_result,
+        )
+        return {
+            "ok": True,
+            "probe_ok": probe_ok,
+            "last_scan_utc": state.last_scan_utc,
+            "trades": {
+                "settled": trade_summary["settled_count"],
+                "wins": trade_summary["wins"],
+                "losses": trade_summary["losses"],
+                "pnl": trade_summary["pnl_total"],
+                "winrate_pct": winrate_pct,
+            },
+            "validation": validation_result.get("validation", {}).get("status"),
+            "live_readiness": live_result.get("status"),
+        }
+    finally:
+        conn.close()
 
 
 @router.get("/status")
@@ -237,26 +272,5 @@ def generate_snapshot():
 
 @router.post("/scan")
 def manual_scan():
-    strategy = CapitulationD1Strategy(
-        body_thresh=config.BODY_THRESH,
-        bb_period=config.BB_PERIOD,
-        bb_std=config.BB_STD,
-    )
-    feed = YFinanceD1Feed()
-    executor = PaperExecutor(
-        leverage=config.LEVERAGE,
-        col_pct=config.COL_PCT,
-        col_max=config.COL_MAX,
-        col_min=config.COL_MIN,
-        fee=config.FEE,
-    )
-    tracker = PortfolioTracker(db_path=config.DB_PATH)
-    engine = DailyEngine(
-        assets=config.ASSETS,
-        strategy=strategy,
-        feed=feed,
-        executor=executor,
-        tracker=tracker,
-        db_path=config.DB_PATH,
-    )
-    return engine.run()
+    """Executa scan diari. També cridat pel scheduler automàtic."""
+    return run_daily_scan()

@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 from typing import Optional
 
 from packages.shared.models import SignalRecord, PaperTradeRecord, AgentState
+from packages.portfolio.costs import analyse_trade, summarise_trades
 
 
 _CREATE_SIGNALS = """
@@ -246,7 +247,11 @@ def get_all_trades(conn: sqlite3.Connection, status: Optional[str] = None, limit
         )
     else:
         cur.execute("SELECT * FROM paper_trades ORDER BY id DESC LIMIT ?", (limit,))
-    return [dict(r) for r in cur.fetchall()]
+    trades = [dict(r) for r in cur.fetchall()]
+    for trade in trades:
+        if trade.get("pnl") is not None:
+            trade["cost_analysis"] = analyse_trade(trade)
+    return trades
 
 
 def get_state(conn: sqlite3.Connection) -> AgentState:
@@ -371,14 +376,20 @@ def get_validation_runs(conn: sqlite3.Connection, limit: int = 100) -> list:
 
 
 def get_settled_trades_ordered(conn: sqlite3.Connection) -> list:
-    """Trades settled ordenats per id (cronològic)."""
+    """Trades settled cronològics, revalorats amb el cost base canònic."""
     cur = conn.cursor()
     cur.execute(
-        """SELECT id, pnl, updated_at FROM paper_trades
+        """SELECT * FROM paper_trades
            WHERE status IN ('settled','liq_settled') AND pnl IS NOT NULL
            ORDER BY id ASC"""
     )
-    return [dict(r) for r in cur.fetchall()]
+    result = []
+    for row in cur.fetchall():
+        trade = dict(row)
+        analysis = analyse_trade(trade)
+        result.append({"id": trade["id"], "pnl": analysis["scenarios"]["base"]["pnl"],
+                       "recorded_pnl": trade["pnl"], "updated_at": trade["updated_at"]})
+    return result
 
 
 def get_equity_curve(conn: sqlite3.Connection, capital_initial: float = 250.0) -> list:
@@ -427,51 +438,60 @@ def get_drawdown(conn: sqlite3.Connection, capital_initial: float = 250.0) -> di
 
 
 def get_trade_summary(conn: sqlite3.Connection) -> dict:
-    """Resum de trades paper: open_count, settled_count, wins, losses, pnl_total, last_trade."""
+    """Resum canònic revalorat, preservant totals enregistrats per auditoria."""
     cur = conn.cursor()
-
     cur.execute(
         "SELECT COUNT(*) as n FROM paper_trades WHERE status IN ('pending_entry','pending_settlement')"
     )
     open_count = cur.fetchone()["n"]
 
-    cur.execute(
-        "SELECT COUNT(*) as n FROM paper_trades WHERE status IN ('settled','liq_settled')"
-    )
-    settled_count = cur.fetchone()["n"]
+    cur.execute("""SELECT * FROM paper_trades
+                   WHERE status IN ('settled','liq_settled') AND pnl IS NOT NULL
+                   ORDER BY id ASC""")
+    settled = [dict(row) for row in cur.fetchall()]
+    cost_summary = summarise_trades(settled)
+    base = cost_summary["scenarios"]["base"]
 
-    cur.execute(
-        """SELECT COUNT(*) as n FROM paper_trades
-           WHERE status IN ('settled','liq_settled') AND pnl > 0"""
-    )
-    wins = cur.fetchone()["n"]
-
-    cur.execute(
-        """SELECT COUNT(*) as n FROM paper_trades
-           WHERE status IN ('settled','liq_settled') AND pnl <= 0"""
-    )
-    losses = cur.fetchone()["n"]
-
-    cur.execute(
-        """SELECT COALESCE(SUM(pnl), 0) as total FROM paper_trades
-           WHERE status IN ('settled','liq_settled') AND pnl IS NOT NULL"""
-    )
-    pnl_total = cur.fetchone()["total"] or 0.0
-
-    cur.execute(
-        """SELECT * FROM paper_trades ORDER BY id DESC LIMIT 1"""
-    )
+    cur.execute("SELECT * FROM paper_trades ORDER BY id DESC LIMIT 1")
     row = cur.fetchone()
     last_trade = {k: row[k] for k in row.keys()} if row else None
-
-    avg_pnl = round(pnl_total / settled_count, 2) if settled_count > 0 else None
+    if last_trade and last_trade.get("pnl") is not None:
+        last_trade["cost_analysis"] = analyse_trade(last_trade)
 
     return {
         "open_count": open_count,
-        "settled_count": settled_count,
-        "wins": wins,
-        "losses": losses,
-        "pnl_total": round(pnl_total, 2),
-        "avg_pnl_per_trade": avg_pnl,
+        "settled_count": len(settled),
+        "wins": base["wins"],
+        "losses": base["losses"],
+        "pnl_total": round(base["pnl_total"], 2),
+        "avg_pnl_per_trade": round(base["avg_pnl_per_trade"], 2) if settled else None,
+        "gross_pnl_total": round(cost_summary["gross_pnl_total"], 2),
+        "recorded_pnl_total": round(cost_summary["recorded_pnl_total"], 2),
+        "recorded_fee_total": round(cost_summary["recorded_fee_total"], 2),
+        "cost_model": cost_summary["model"],
+        "cost_scenarios": {
+            name: {key: round(value, 2) if isinstance(value, float) else value
+                   for key, value in values.items()}
+            for name, values in cost_summary["scenarios"].items()
+        },
         "last_trade": last_trade,
     }
+
+
+def reconcile_runtime_state(conn: sqlite3.Connection, capital_initial: float = 250.0) -> AgentState:
+    """Revalora l'estat agregat sense modificar cap fila de paper_trades."""
+    state = get_state(conn)
+    summary = get_trade_summary(conn)
+    state.total_pnl = summary["pnl_total"]
+    state.capital = round(capital_initial + state.total_pnl, 2)
+    state.settled_count = summary["settled_count"]
+    state.open_trade_count = summary["open_count"]
+    pnls = [trade["pnl"] for trade in get_settled_trades_ordered(conn)]
+    consecutive_losses = 0
+    for pnl in reversed(pnls):
+        if pnl > 0:
+            break
+        consecutive_losses += 1
+    state.consecutive_losses = consecutive_losses
+    save_state(conn, state)
+    return state

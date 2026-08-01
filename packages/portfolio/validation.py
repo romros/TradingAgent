@@ -77,6 +77,10 @@ def compute_paper_metrics(trade_summary: dict) -> dict:
         "winrate_confidence": confidence,
         "pnl_total": pnl_total,
         "avg_pnl_per_trade": avg_pnl,
+        "gross_pnl_total": trade_summary.get("gross_pnl_total"),
+        "recorded_pnl_total": trade_summary.get("recorded_pnl_total"),
+        "cost_model": trade_summary.get("cost_model"),
+        "cost_scenarios": trade_summary.get("cost_scenarios", {}),
     }
 
 

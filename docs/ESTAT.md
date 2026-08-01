@@ -4,7 +4,7 @@ Operativa diària i evidència. Actualitzar a cada canvi significatiu.
 
 ---
 
-## Estat actual (2026-03-16)
+## Estat actual (2026-08-01)
 
 ### Fase: PAPER PROBE — T7 en curs (≥4 setmanes, inici 2026-03-16)
 
@@ -44,6 +44,9 @@ Operativa diària i evidència. Actualitzar a cada canvi significatiu.
 - [x] T8d-v: **Validació operativa + fix assets** — PROBE_ASSETS: QQQ→NDXUSD (canònic executable); YF_SYMBOL_PROXY NDXUSD→QQQ; agent_started amb assets; test_probe_assets_config_canonical. Tests 57/57 PASS. Smoke: ver docs/T8D_V_SMOKE.md
 - [x] T8e: **Model de proves Docker-only** — run.sh (component, integration, smoke, soak); run_all.sh; test.sh delegat; scripts Python purs (NO pytest); scripts/README.md. Smoke i soak reals dins Docker.
 - [x] T8e-v: **Validació final + artifacts públics** — run_all.sh escriu a docs/validation/; LATEST.md amb raw URLs; smoke/soak artifacts versionats.
+- [x] T7e: **Reconciliació de costos paper** — PnL brut reconstruït des de preus/nominal; escenaris 6/10/18 bps; API, validació i equity canònics; trades antics immutables i backup verificat. 50 tests PASS.
+- [x] T9: **Campanya petit inversor — NO_CANDIDATE** — 6 famílies individuals + 3 carteres, split temporal immutable, costos 2x i leverage condicionat al risc. 0 candidates acceptades; `short_term_reversal` rebutjada per mostra (14 total, 1 test). Veure `lab/docs/SMALL_INVESTOR_CAMPAIGN_FINAL.md`.
+- [x] T10: **Campanya intradia FX — NO_CANDIDATE** — 6 famílies sobre EURUSD/XAUUSD 4H, 2004–2026, costos 2x i límits BS de 10x/50 USD. 0 configuracions viables en desenvolupament; la millor quasi-candidata falla validació (PF 0,48). Veure `lab/docs/INTRADAY_FX_CAMPAIGN_FINAL.md`.
 - [ ] T7 operatiu: ≥4 setmanes running, ≥3 senyals registrats, WR paper ≈ WR backtest
 - [ ] T8: Decisió live — revisar resultats paper vs backtest, autoritzar o no live trading
 
@@ -54,6 +57,7 @@ Operativa diària i evidència. Actualitzar a cada canvi significatiu.
 - Assets complementaris: **NVDA**, **NDXUSD** (WATCHLIST; paper: QQQ proxy via yfinance)
 - TF: D1 | Entry: open(T+1) | Exit: close(T+1) | Leverage: 20x
 - Backtest MSFT: WR 78%, PF 3.46, EV +12.7$/trade, liq 0%, WF 10/12 (83%)
+- Paper actual: 6 trades, WR 50%, brut +20.89$, base +17.56$, conservador +15.33$, estrès +10.88$; mostra encara insuficient.
 - Gate: body < -2%, close < BB_lower(20,2)
 - Script: `packages/strategy/capitulation_d1.py`
 - Engine: `packages/runtime/engine.py` (DailyEngine, executar post-close)
@@ -147,3 +151,6 @@ Veure `lab/docs/T6E_DECISIO_D1_ASSETS.md` i `lab/docs/D1_GATE_CRITERIA.md`.
 | 2026-03-17 | **T8d-v**: Validació operativa + fix assets. PROBE_ASSETS=MSFT,NVDA,NDXUSD; YF_SYMBOL_PROXY (NDXUSD→QQQ); agent_started assets; test_probe_assets_config_canonical. Tests 57/57 PASS |
 | 2026-03-17 | **T8e**: Model proves Docker-only. run.sh component|integration|smoke|soak; run_all.sh; test.sh→run.sh; scripts Python purs (NO pytest); scripts/README. Smoke+soak reals dins Docker |
 | 2026-03-17 | **T8e-v**: Validació final. Artifacts a docs/validation/; LATEST.md raw https://raw.githubusercontent.com/romros/TradingAgent/main/docs/validation/LATEST.md |
+| 2026-08-01 | **T7e costos paper**: eliminat el biaix de 5.38$ fixos del reporting; 6 trades preservats, estat reconciliat a capital 267.56$ i PnL base +17.56$; API amb brut/recorded/base/conservative/stress. |
+| 2026-08-01 | **T9 recerca petit inversor**: 6 famílies individuals + 3 carteres; execució next-open, costos/finançament, liquidació, OOS i leverage sense contaminar test. Resultat **NO_CANDIDATE** |
+| 2026-08-01 | **T10 recerca intradia FX**: EURUSD/XAUUSD M1→4H, 6 famílies, split dev/validació/test, gas+spread+finançament, leverage màxim BS 10x i auditoria bootstrap. Resultat **NO_CANDIDATE** |

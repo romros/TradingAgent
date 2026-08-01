@@ -199,7 +199,7 @@ Claus: `runtime_state` (mode, consec_losses, open_trade_id, stop_reason),
 | Col·lateral | min(max(capital × 20%, 15$), 60$) |
 | Leverage | **20x** (T1: recalibrat amb liquidació simulada, era 100x) |
 | Nominal | col × leverage (ex: 40$ × 20 = 800$) |
-| Fee estimada | 5.38$/trade (Ostium, validat T6d) |
+| Cost paper | 6 bps del nominal (3 bps open + spread/slippage base) |
 | Max posicions | 1 simultània |
 | Stop Loss | Cap (el rebot necessita espai) |
 | Exit | Close de la candle 1H (hold 1h) |
@@ -301,10 +301,12 @@ services:
     build: ./docker
     container_name: trading-agent
     environment:
-      - PROBE_ASSETS=MSFT,NVDA,QQQ
+      - PROBE_ASSETS=MSFT,NVDA,NDXUSD
       - LEVERAGE=20
       - CAPITAL_INITIAL=250
-      - FEE=5.38
+      - PAPER_COST_BPS=6.0
+      - PAPER_COST_CONSERVATIVE_BPS=10.0
+      - PAPER_COST_STRESS_BPS=18.0
       - DB_PATH=/app/data/paper_probe.db
       - DATA_LOOKBACK_DAYS=365
     volumes:

@@ -27,6 +27,7 @@ from packages.portfolio.db import (
     get_validation_runs,
     get_equity_curve,
     get_drawdown,
+    reconcile_runtime_state,
 )
 
 
@@ -129,6 +130,25 @@ def test_paper_executor_settle_win():
     assert not settled.liq_triggered
     assert abs(settled.pnl - expected_pnl) < 0.01
     assert settled.pnl > 0
+
+
+def test_paper_executor_dynamic_fee_bps():
+    """El cost per defecte escala amb el nominal."""
+    executor = PaperExecutor(
+        leverage=20, col_pct=0.20, col_max=60.0, col_min=15.0, fee_bps=6.0
+    )
+    signal = SignalRecord(
+        id=20,
+        candle_date="2025-01-10",
+        asset="MSFT",
+        strategy="capitulation_d1",
+        created_at=_now(),
+    )
+    candle = {"date": "2025-01-11", "open": 100.0, "high": 101.0,
+              "low": 99.0, "close": 100.0}
+    trade = executor.open_trade(signal, capital=250.0, entry_candle=candle)
+    assert trade.nominal == 1000.0
+    assert abs(trade.fee - 0.60) < 0.000001
 
 
 def test_paper_executor_settle_loss():
@@ -296,11 +316,45 @@ def test_trade_summary():
         assert summary["settled_count"] == 1
         assert summary["wins"] == 1
         assert summary["losses"] == 0
-        assert abs(summary["pnl_total"] - 14.62) < 0.01
+        # El reporting reconstrueix brut=40 i aplica 6 bps (=0.60),
+        # sense deixar que el fee històric fix contamini el resultat.
+        assert abs(summary["gross_pnl_total"] - 40.0) < 0.01
+        assert abs(summary["pnl_total"] - 39.40) < 0.01
+        assert abs(summary["recorded_pnl_total"] - 14.62) < 0.01
+        assert abs(summary["cost_scenarios"]["conservative"]["pnl_total"] - 39.0) < 0.01
+        assert abs(summary["cost_scenarios"]["stress"]["pnl_total"] - 38.2) < 0.01
         assert summary["avg_pnl_per_trade"] is not None
-        assert abs(summary["avg_pnl_per_trade"] - 14.62) < 0.01
+        assert abs(summary["avg_pnl_per_trade"] - 39.40) < 0.01
         assert summary["last_trade"] is not None
         assert summary["last_trade"]["asset"] == "NVDA"
+        conn.close()
+    finally:
+        os.unlink(db_path)
+
+
+def test_reconcile_runtime_state_preserves_trades():
+    """Revalora agent_state però no reescriu fee/pnl dels trades antics."""
+    with tempfile.NamedTemporaryFile(suffix=".db", delete=False) as f:
+        db_path = f.name
+    try:
+        conn = init_db(db_path)
+        now = _now()
+        save_trade(conn, PaperTradeRecord(
+            signal_id=1, asset="MSFT", strategy="capitulation_d1",
+            status="settled", signal_date="2025-01-10", entry_date="2025-01-11",
+            exit_date="2025-01-11", entry_price=100.0, exit_price=104.0,
+            collateral=50.0, leverage=20, nominal=1000.0, fee=5.38,
+            pnl=14.62, pnl_pct=29.24, liq_triggered=False,
+            created_at=now, updated_at=now,
+        ))
+        before = dict(conn.execute("SELECT fee,pnl FROM paper_trades WHERE id=1").fetchone())
+        state = reconcile_runtime_state(conn, capital_initial=250.0)
+        after = dict(conn.execute("SELECT fee,pnl FROM paper_trades WHERE id=1").fetchone())
+        assert before == after == {"fee": 5.38, "pnl": 14.62}
+        assert state.total_pnl == 39.40
+        assert state.capital == 289.40
+        assert state.settled_count == 1
+        assert state.consecutive_losses == 0
         conn.close()
     finally:
         os.unlink(db_path)
@@ -519,7 +573,8 @@ def test_equity_curve():
             save_trade(conn, PaperTradeRecord(
                 signal_id=1, asset="MSFT", strategy="capitulation_d1",
                 status="settled", signal_date="2025-01-10", entry_date="2025-01-11",
-                exit_date="2025-01-11", entry_price=100.0, exit_price=100.0,
+                exit_date="2025-01-11", entry_price=100.0,
+                exit_price=100.0 * (1 + (pnl + 0.6) / 1000.0),
                 collateral=50.0, leverage=20, nominal=1000.0, fee=5.38,
                 pnl=pnl, pnl_pct=pnl/50*100, liq_triggered=False,
                 created_at=now, updated_at=now,
@@ -546,7 +601,8 @@ def test_drawdown():
             save_trade(conn, PaperTradeRecord(
                 signal_id=1, asset="MSFT", strategy="capitulation_d1",
                 status="settled", signal_date="2025-01-10", entry_date="2025-01-11",
-                exit_date="2025-01-11", entry_price=100.0, exit_price=100.0,
+                exit_date="2025-01-11", entry_price=100.0,
+                exit_price=100.0 * (1 + (pnl + 0.6) / 1000.0),
                 collateral=50.0, leverage=20, nominal=1000.0, fee=5.38,
                 pnl=pnl, pnl_pct=pnl/50*100, liq_triggered=False,
                 created_at=now, updated_at=now,
@@ -914,11 +970,13 @@ def _run_tests():
         test_strategy_detect,
         test_strategy_no_signal,
         test_paper_executor_settle_win,
+        test_paper_executor_dynamic_fee_bps,
         test_paper_executor_settle_loss,
         test_paper_executor_settle_liq,
         test_db_round_trip,
         test_scan_result_persistence_zero_signals,
         test_trade_summary,
+        test_reconcile_runtime_state_preserves_trades,
         test_status_payload_stable,
         test_asset_error_does_not_break_global,
         test_winrate_0_trades,

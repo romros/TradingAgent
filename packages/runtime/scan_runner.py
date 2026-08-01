@@ -26,6 +26,7 @@ def run_daily_scan() -> dict:
         col_max=config.COL_MAX,
         col_min=config.COL_MIN,
         fee=config.FEE,
+        fee_bps=config.PAPER_COST_BPS,
     )
     tracker = PortfolioTracker(db_path=config.DB_PATH)
     engine = DailyEngine(

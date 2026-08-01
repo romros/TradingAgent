@@ -9,6 +9,7 @@ Actualitzat: 2026-03-16 (T4)
 | # | Setup | Family | Assets | TF ctx/exec | Status | EV/trade | WR | Notes |
 |---|-------|--------|--------|-------------|--------|----------|-----|-------|
 | **0** | **capitulation_d1** | **capitulation** | **MSFT,NVDA,QQQ** | **D1/D1** | **ACCEPTED_D1_ASSET** | **+12.7$ MSFT** | **78%** | **T7 paper probe actiu. Liq 0%, WF 10/12** |
+| 4 | SQ 0.423850 | Bollinger crossover | XAUUSD | H4/H4 | REJECTED_OOS | -0.023% OOS | 45.45% | 2019–2025 net: -1.00%, PF 0.96, 3/7 anys positius |
 | 1 | Capitulation Scalp 1H | capitulation | ETH,BTC,SOL | 4H/1H | WATCHLIST | +5.6$ (20x liq) | 59% | Edge real, EV modest. MC 3/3 PASS. 5+/5- anys |
 | 2 | Markov HMM Regime | pattern | ETH | 4H/1H | REJECTED | — | — | HMM no detecta bear 2026. Overfitting |
 | 3 | Markov pur trigrams | pattern | ETH | 4H/4H | REJECTED | — | — | Overfitting amb qualsevol nombre d'estats |
@@ -86,6 +87,21 @@ Setup congelat (gate T6e, 8/8 criteris MSFT).
 **Scripts**: `lab/studies/t6d_leverage_sweep_d1.py`, `lab/studies/t6e_*`, etc.
 **Codi prod**: `packages/strategy/capitulation_d1.py`
 **Runbook**: `docs/PAPER_PROBE_RUNBOOK.md`
+
+---
+
+### 4. SQ 0.423850 XAUUSD H4 (REJECTED_OOS)
+
+Importat del LAB de BrokerageService. El brut 2016–2025 era +16.38% compost,
+però el walk-forward amb train 2016–2018 i OOS 2019–2025 queda a -1.00% en
+cost base Ostium, PF 0.96 i només 3/7 anys positius. Amb cost conservador:
+-2.99%, PF 0.86.
+
+**Decisió**: no activar paper; conservar com a control negatiu.
+
+**Informe**: lab/docs/BROKERAGE_SQ_0423850_WALK_FORWARD.md
+
+**Artifacts**: lab/out/brokerage_sq_0423850/
 
 ---
 

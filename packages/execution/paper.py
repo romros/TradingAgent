@@ -5,12 +5,21 @@ from packages.shared.models import SignalRecord, PaperTradeRecord
 
 
 class PaperExecutor:
-    def __init__(self, leverage: int, col_pct: float, col_max: float, col_min: float, fee: float):
+    def __init__(
+        self,
+        leverage: int,
+        col_pct: float,
+        col_max: float,
+        col_min: float,
+        fee: Optional[float] = None,
+        fee_bps: float = 6.0,
+    ):
         self.leverage = leverage
         self.col_pct = col_pct
         self.col_max = col_max
         self.col_min = col_min
         self.fee = fee
+        self.fee_bps = fee_bps
 
     def _now_utc(self) -> str:
         return datetime.now(timezone.utc).isoformat()
@@ -32,6 +41,7 @@ class PaperExecutor:
 
         collateral = min(max(capital * self.col_pct, self.col_min), self.col_max)
         nominal = collateral * self.leverage
+        trade_fee = self.fee if self.fee is not None else nominal * self.fee_bps / 10_000.0
         now = self._now_utc()
 
         candle_date_str = str(entry_candle["date"])
@@ -60,7 +70,7 @@ class PaperExecutor:
             collateral=collateral,
             leverage=self.leverage,
             nominal=nominal,
-            fee=self.fee,
+            fee=trade_fee,
             pnl=None,
             pnl_pct=None,
             liq_triggered=False,

@@ -11,6 +11,9 @@ services:
       - PROBE_SNAPSHOTS_DIR=data/probe_snapshots
       - SCHEDULER_ENABLED=true
       - SCHEDULER_HOUR_UTC=21
+      - PAPER_COST_BPS=6.0
+      - PAPER_COST_CONSERVATIVE_BPS=10.0
+      - PAPER_COST_STRESS_BPS=18.0
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8090/health')"]

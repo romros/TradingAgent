@@ -189,8 +189,19 @@ Esperat: `/status` mostra `probe_ok`, `last_scan` amb `assets`; `/validation` re
 Exemple amb capital=250$:
 - collateral = min(max(50$, 15$), 60$) = 50$
 - nominal = 50$ × 20 = 1.000$
-- Si close +3%: pnl = 1.000$ × 3% - 5.38$ = +24.62$
-- Si MAE >= 5%: pnl = -50$ - 5.38$ = -55.38$
+- Cost base: 6 bps del nominal; per 1.000$ = 0.60$
+- Si close +3%: pnl = 1.000$ × 3% - 0.60$ = +29.40$
+- Si MAE >= 5%: pnl = -50$ - 0.60$ = -50.60$
+
+PAPER_COST_BPS (base), PAPER_COST_CONSERVATIVE_BPS i PAPER_COST_STRESS_BPS són configurables. FEE queda només com override fix retrocompatible. El reporting reconstrueix el PnL brut des de preus i nominal, mostra també recorded_pnl_total per traçabilitat i no reescriu els trades antics.
+
+Reconciliació segura després de canviar el model de costos:
+
+```bash
+python scripts/reconcile_paper_costs.py --db data/paper_probe.db       # auditoria
+python scripts/reconcile_paper_costs.py --db data/paper_probe.db --apply # backup + agent_state
+```
+
 
 ## Criteri de sortida T7 (quan decidir si GO/NO-GO)
 

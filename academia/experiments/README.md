@@ -19,3 +19,8 @@ d'Alquímia llevat que el protocol de la campanya ho autoritzi explícitament.
 artifact existeix i en desa el SHA-256. No copia resultats, trades ni datasets.
 El JSON d'entrada ha de seguir la forma de `campaign-observation.schema.json`,
 però els elements de `source_artifacts` només necessiten `path` i `role`.
+
+`tools/campaign_preflight.py` avalua una fitxa de pre-registre abans de generar.
+Un `ready=true` només autoritza l'etapa barata; mai el holdout ni trading. La
+fitxa d'exemple és deliberadament incompleta i ha de fallar fins que períodes,
+costos i protocol quedin realment congelats.

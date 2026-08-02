@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Preregistered StrategyQuant campaign plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id", "question", "family", "symbols", "timeframe", "direction", "engine",
+    "sq_version", "capital", "periods", "costs", "minimum_trades",
+    "maximum_drawdown_pct", "attempt_budget", "discard_criteria",
+    "prior_failure_ids", "frozen"
+  ],
+  "properties": {
+    "id": {"type": "string"},
+    "question": {"type": "string"},
+    "family": {"type": "string"},
+    "symbols": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "timeframe": {"type": "string"},
+    "direction": {"enum": ["long", "short", "both"]},
+    "engine": {"type": "string"},
+    "sq_version": {"type": "string"},
+    "capital": {"type": "object"},
+    "periods": {"type": "object"},
+    "costs": {"type": "object"},
+    "minimum_trades": {"type": "integer", "minimum": 1},
+    "maximum_drawdown_pct": {"type": "number", "exclusiveMinimum": 0},
+    "attempt_budget": {"type": "integer", "minimum": 1},
+    "discard_criteria": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "prior_failure_ids": {"type": "array", "items": {"type": "string"}},
+    "difference_from_prior": {"type": "string"},
+    "frozen": {"type": "boolean"}
+  }
+}

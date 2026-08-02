@@ -1,0 +1,27 @@
+{
+  "id": "example-new-edge-eurusd-h1",
+  "question": "Una font d'edge nova conserva expectativa després de costos i validació temporal?",
+  "family": "session_breakout_eurusd_h1",
+  "symbols": ["EURUSD"],
+  "timeframe": "H1",
+  "direction": "both",
+  "engine": "StrategyQuant Builder and Retester",
+  "sq_version": "143.2708",
+  "capital": {"amount": 250, "currency": "USD"},
+  "periods": {
+    "development": "TO_FREEZE_BEFORE_EXECUTION",
+    "validation": "TO_FREEZE_BEFORE_EXECUTION",
+    "holdout": "TO_FREEZE_BEFORE_EXECUTION"
+  },
+  "costs": {"spread": "TO_MEASURE", "commission": "TO_MEASURE", "slippage": "TO_MEASURE"},
+  "minimum_trades": 100,
+  "maximum_drawdown_pct": 20,
+  "attempt_budget": 1000,
+  "discard_criteria": [
+    "expectativa no positiva després de costos base",
+    "drawdown superior al límit",
+    "validació temporal negativa"
+  ],
+  "prior_failure_ids": [],
+  "frozen": false
+}

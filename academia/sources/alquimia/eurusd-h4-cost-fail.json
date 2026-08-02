@@ -1,0 +1,13 @@
+{
+  "id": "alquimia_eurusd_h4_cost_fail_20260802", "kind": "experiment",
+  "title": "EURUSD H4: temporal pass, small-account cost fail",
+  "url": null, "author": "TradingAgent/Alquímia", "published_at": "2026-08-02",
+  "accessed_at": "2026-08-02", "language": "ca", "sq_version": "143.2708",
+  "source_level": "A_PRIMARY", "domain": "strategyquant", "rights_policy": "first_party",
+  "metadata": {"observation": "academia/experiments/observations/alquimia-eurusd-h4-2026-08.json"},
+  "chunks": [
+    {"locator": "gate:temporal", "heading": "Supervivent temporal", "body": "Strategy 4.1.133 supera el gate OOS temporal amb 138 trades, Profit Factor 1.25, R Expectancy 0.13 i drawdown normalitzat 11.55%.", "evidence_status": "tested"},
+    {"locator": "gate:cost-base", "heading": "Fracàs després de costos", "body": "Amb costos base de compte petit, el mateix candidat cau a Profit Factor net 0.51, expectativa -0.144 USDC per trade i PnL -19.81 USDC; només 0.2% de 1000 simulacions són rendibles.", "evidence_status": "tested"},
+    {"locator": "decision", "heading": "Decisió", "body": "Es rebutja: passar validació temporal no implica viabilitat econòmica. Cal canviar la font d'edge o la fricció estructural, no afinar paràmetres.", "evidence_status": "tested"}
+  ]
+}

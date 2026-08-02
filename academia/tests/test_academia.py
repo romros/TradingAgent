@@ -39,6 +39,13 @@ class CatalogTest(unittest.TestCase):
         self.assertEqual(result["cases"], 23)
         self.assertEqual(result["recall_at_5"], 1.0)
 
+    def test_hard_benchmark_tracks_no_answer(self):
+        academia.ingest(self.db, list((self.root / "sources").glob("*/*.json")))
+        dataset = self.root / "benchmark/hard_queries.jsonl"
+        result = academia.benchmark(self.db, dataset, 5)
+        self.assertEqual(result["cases"], 10)
+        self.assertIn("no_answer_accuracy", result)
+
     def test_invalid_rights_policy_is_rejected(self):
         data = json.loads(self.source.read_text())
         data["rights_policy"] = "copy_everything"

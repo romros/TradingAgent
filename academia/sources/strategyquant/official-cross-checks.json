@@ -8,7 +8,7 @@
   "metadata": {"version_warning": "Documentació antiga; contrastar disponibilitat per build."},
   "chunks": [
     {"locator": "section:funnel", "heading": "Funnel", "body": "Els cross-checks s'apliquen de simples a complexos; una estratègia que falla aviat es descarta abans de consumir proves més cares.", "evidence_status": "captured"},
-    {"locator": "section:cost", "heading": "Cost computacional", "body": "Alguns cross-checks exigeixen centenars o milers de backtests i poden multiplicar fortament el temps respecte de la generació inicial.", "evidence_status": "captured"},
+    {"locator": "section:cost", "heading": "Cost computacional", "body": "No convé executar comprovacions lentes sobre cada candidat generat: alguns cross-checks exigeixen centenars o milers de backtests i poden multiplicar fortament el temps respecte de la generació inicial.", "evidence_status": "captured"},
     {"locator": "section:dimensions", "heading": "Dimensions", "body": "La robustesa es pot observar amb OOS, mercats addicionals, manipulació de trades, canvis de paràmetres, costos i Walk-Forward.", "evidence_status": "captured"}
   ]
 }

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Academia experiment result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "claim_id", "protocol_frozen_at", "executed_at", "sq_version", "dataset_id", "attempt_budget", "attempts_observed", "holdout_peeks", "costs", "artifacts", "result"],
+  "properties": {
+    "id": {"type": "string"}, "claim_id": {"type": "string"},
+    "protocol_frozen_at": {"type": "string", "format": "date-time"},
+    "executed_at": {"type": "string", "format": "date-time"},
+    "sq_version": {"type": "string"}, "dataset_id": {"type": "string"},
+    "attempt_budget": {"type": "integer", "minimum": 1},
+    "attempts_observed": {"type": "integer", "minimum": 1},
+    "holdout_peeks": {"type": "integer", "minimum": 0},
+    "costs": {"type": "object"}, "artifacts": {"type": "object"},
+    "result": {"type": "object"}, "limitations": {"type": "array", "items": {"type": "string"}}
+  }
+}

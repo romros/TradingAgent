@@ -41,6 +41,7 @@ python3 academia/tools/academia.py --db /tmp/academia.db ingest-claims academia/
 python3 academia/tools/academia.py --db /tmp/academia.db search "filtre correlació" --domain strategyquant
 python3 academia/tools/academia.py --db /tmp/academia.db benchmark academia/benchmark/queries.jsonl
 python3 -m unittest discover -s academia/tests -v
+python3 academia/tools/experiment_gate.py academia/experiments/examples/wfm-region-synthetic.json
 ```
 
 La base `.db` és regenerable i ignorada per Git. El curs preexistent fora d'aquest

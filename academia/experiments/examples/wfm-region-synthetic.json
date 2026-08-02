@@ -1,0 +1,18 @@
+{
+  "id": "example_wfm_region_synthetic",
+  "claim_id": "sq_wfm_region_preferred_over_isolated_peak",
+  "protocol_frozen_at": "2026-08-01T10:00:00Z",
+  "executed_at": "2026-08-01T12:00:00Z",
+  "sq_version": "SYNTHETIC-NOT-SQ",
+  "dataset_id": "fixture-no-market-data",
+  "attempt_budget": 9,
+  "attempts_observed": 9,
+  "holdout_peeks": 0,
+  "costs": {"spread": "synthetic:1", "commission": "synthetic:1", "slippage": "synthetic:1"},
+  "artifacts": {
+    "config_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "result_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+  },
+  "result": {"passed": true, "summary": "Fixture per provar el gate; no és evidència de mercat."},
+  "limitations": ["Dades sintètiques", "No executat a StrategyQuant", "No pot promocionar la claim real"]
+}

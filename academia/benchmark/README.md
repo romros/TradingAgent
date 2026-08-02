@@ -1,6 +1,6 @@
 # Benchmark de recuperació
 
-`queries.jsonl` és un conjunt llavor versionat de deu preguntes. Cada línia conté una pregunta,
+`queries.jsonl` és un conjunt llavor versionat de quinze preguntes. Cada línia conté una pregunta,
 el domini i els identificadors de font rellevants jutjats manualment. No és encara
 el gate de 50 preguntes de l'ADR-001; serveix per detectar regressions del motor.
 

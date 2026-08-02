@@ -8,3 +8,8 @@
 {"id":"sq-mc-perturbations","query":"Monte Carlo canvis spread slippage paràmetres dades històriques","domain":"strategyquant","relevant_source_ids":["sq_official_monte_carlo_retests_20190301"]}
 {"id":"sq-mc-runtime","query":"cada simulació refà backtest cost temps","domain":"strategyquant","relevant_source_ids":["sq_official_monte_carlo_retests_20190301"]}
 {"id":"sq-composer-version","query":"quin build va introduir Portfolio Composer","domain":"strategyquant","relevant_source_ids":["sq_official_portfolio_composer_20241015"]}
+{"id":"sq-wfo-sequence","query":"optimitzar segment passat provar següent out-of-sample cronològic","domain":"strategyquant","relevant_source_ids":["sq_official_walk_forward_optimization_20150506"]}
+{"id":"sq-wfo-oos-share","query":"percentatge OOS part reservada run","domain":"strategyquant","relevant_source_ids":["sq_official_walk_forward_optimization_20150506"]}
+{"id":"sq-wfo-not-rescue","query":"reoptimitzar no arregla estratègia deficient","domain":"strategyquant","relevant_source_ids":["sq_official_walk_forward_optimization_20150506"]}
+{"id":"sq-wf-score-relative","query":"WF Score comparació percentual backtest original","domain":"strategyquant","relevant_source_ids":["sq_official_walk_forward_values_20190101"]}
+{"id":"sq-wf-profit-concentration","query":"benefici concentrat en un sol run","domain":"strategyquant","relevant_source_ids":["sq_official_walk_forward_values_20190101"]}

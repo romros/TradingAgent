@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tradingagent.local/academia/reality-transfer.schema.json",
+  "title": "Historical-to-live transfer assessment",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["candidate_id", "instrument", "venue", "generation_period", "sealed_period", "mechanism", "normalization", "regime_results", "current_execution"],
+  "properties": {
+    "candidate_id": {"type": "string", "minLength": 1},
+    "instrument": {"type": "string", "minLength": 1},
+    "venue": {"type": "string", "minLength": 1},
+    "generation_period": {"type": "object", "required": ["start", "end"], "properties": {"start": {"type": "string"}, "end": {"type": "string"}}},
+    "sealed_period": {"type": "object", "required": ["start", "end", "used_in_development"], "properties": {"start": {"type": "string"}, "end": {"type": "string"}, "used_in_development": {"type": "boolean"}}},
+    "mechanism": {"type": "object", "required": ["hypothesis", "falsifier"], "properties": {"hypothesis": {"type": "string", "minLength": 1}, "falsifier": {"type": "string", "minLength": 1}}},
+    "normalization": {"type": "object", "required": ["price_distances", "position_risk"], "properties": {"price_distances": {"enum": ["atr", "volatility", "percent", "fixed"]}, "position_risk": {"enum": ["equity_percent", "volatility_target", "fixed_notional"]}}},
+    "regime_results": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["id", "tags", "trades", "net_expectancy", "comparable_to_current"], "properties": {"id": {"type": "string"}, "tags": {"type": "array", "items": {"type": "string"}}, "trades": {"type": "integer", "minimum": 0}, "net_expectancy": {"type": "number"}, "comparable_to_current": {"type": "boolean"}}}},
+    "current_execution": {"type": "object", "required": ["price_asof", "spread", "slippage", "commission", "minimum_position_notional", "account_equity", "liquidation_checked", "net_expectancy"], "properties": {"price_asof": {"type": "string"}, "spread": {"type": "number", "minimum": 0}, "slippage": {"type": "number", "minimum": 0}, "commission": {"type": "number", "minimum": 0}, "minimum_position_notional": {"type": "number", "exclusiveMinimum": 0}, "account_equity": {"type": "number", "exclusiveMinimum": 0}, "liquidation_checked": {"type": "boolean"}, "net_expectancy": {"type": "number"}}}
+  }
+}

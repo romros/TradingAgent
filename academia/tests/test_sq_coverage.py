@@ -19,8 +19,8 @@ class SqCoverageTest(unittest.TestCase):
 
     def test_first_operational_gap_drives_next_work(self):
         result = sq_coverage.report(self.data)
-        self.assertEqual(result["next_gap"]["id"], "portfolio")
-        self.assertLess(result["coverage_ratio"], 1)
+        self.assertIsNone(result["next_gap"])
+        self.assertEqual(result["coverage_ratio"], 1)
 
     def test_evidence_ids_resolve(self):
         ids = {json.loads(path.read_text())["id"] for path in (ROOT / "sources").glob("*/*.json")}

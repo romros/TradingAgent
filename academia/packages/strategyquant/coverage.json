@@ -12,10 +12,10 @@
     {"order": 6, "id": "monte-carlo-parameters", "status": "operational", "evidence": ["sq_official_monte_carlo_retests_20190301"], "next": "prova local en build 143"},
     {"order": 7, "id": "optimizer-wfo-wfm", "status": "operational", "evidence": ["sq_official_walk_forward_optimization_20150506", "sq_official_walk_forward_matrix_20150506"], "next": "prova local en build 143"},
     {"order": 8, "id": "regime-reality", "status": "tested", "evidence": ["wgc_gold_demand_2025", "ostium_official_fees_liquidation_2026"], "next": "aplicar a artifact finalista real"},
-    {"order": 9, "id": "portfolio", "status": "evidenced", "evidence": ["sq_official_portfolio_composer_20241015"], "next": "crear procediment i exercici"},
-    {"order": 10, "id": "export-crossplatform", "status": "mapped", "evidence": [], "next": "fonts oficials i reconciliació"},
-    {"order": 11, "id": "custom-projects", "status": "evidenced", "evidence": ["sq_official_custom_projects_20200504"], "next": "modelar workflow només després dels gates"},
-    {"order": 12, "id": "automatic-retest", "status": "evidenced", "evidence": ["sq_official_automatic_retest_144"], "next": "definir degradació i retirada"},
-    {"order": 13, "id": "extensions-grid", "status": "mapped", "evidence": ["sq_official_program_layout_20190226"], "next": "separar snippets, custom analysis i grid"}
+    {"order": 9, "id": "portfolio", "status": "operational", "evidence": ["sq_official_portfolio_composer_20241015"], "next": "prova local amb estratègies validades"},
+    {"order": 10, "id": "export-crossplatform", "status": "operational", "evidence": ["sq_official_source_code_export_20200522", "sq_official_crossplatform_reliability_20190429"], "next": "prova de paritat sobre motor objectiu"},
+    {"order": 11, "id": "custom-projects", "status": "operational", "evidence": ["sq_official_custom_projects_20200504"], "next": "prova local sobre projecte descartable"},
+    {"order": 12, "id": "automatic-retest", "status": "operational", "evidence": ["sq_official_automatic_retest_144"], "next": "prova local amb dades noves congelades"},
+    {"order": 13, "id": "extensions-grid", "status": "operational", "evidence": ["sq_official_program_layout_20190226", "sq_official_extensibility_20210804"], "next": "només pilot si un gap real ho exigeix"}
   ]
 }

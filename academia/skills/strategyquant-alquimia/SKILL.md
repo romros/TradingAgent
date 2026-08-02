@@ -27,6 +27,7 @@ no backtests que simplement semblin espectaculars.
 - Per autoritat, evidència i límits, llegir [evidence.md](references/evidence.md).
 - Per aprendre d'artifacts i fracassos, llegir [learning.md](references/learning.md).
 - Per passar del backtest a la realitat, llegir [regimes.md](references/regimes.md).
+- Per cartera, exportació, automatització i monitoratge, llegir [operations.md](references/operations.md).
 
 ## Regles de batalla
 

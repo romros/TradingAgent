@@ -1,0 +1,5 @@
+{
+  "id": "automation-stop-01",
+  "workflow": {"loop_until_finalists": 100, "attempt_limit": null, "on_zero_acceptance": "relax_filters", "automatic_reoptimization_after_pause": true, "grid_nodes": 4},
+  "expected": {"decision": "DESCARTAR", "violations": ["unbounded_selection", "post_result_filter_change", "silent_reoptimization", "grid_multiplies_unbounded_search"], "replacement": "Finite attempts; stop on zero acceptance; frozen gates; automatic retest can pause but never reoptimize."}
+}

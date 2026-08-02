@@ -1,0 +1,10 @@
+{
+  "id": "sq_official_extensibility_20210804", "kind": "documentation", "title": "StrategyQuant custom analysis and snippets",
+  "url": "https://strategyquant.com/doc/strategyquant/custom-analysis/", "author": "StrategyQuant", "published_at": "2021-08-04", "accessed_at": "2026-08-02",
+  "language": "en", "sq_version": "131+", "source_level": "A_PRIMARY", "domain": "strategyquant", "rights_policy": "transformative_notes",
+  "metadata": {"also_checked": "https://strategyquant.com/doc/programming-for-sq/introduction-2/", "version_warning": "API de snippets és sensible al build."},
+  "chunks": [
+    {"locator": "section:analysis", "heading": "Custom analysis", "body": "Custom analysis pot calcular mètriques o filtrar per estratègia després dels backtests i abans del databank; l'anàlisi per databank només s'executa com una tasca de Custom Project.", "evidence_status": "captured"},
+    {"locator": "section:snippets", "heading": "Extension model", "body": "Indicadors, blocs, money management i columnes són snippets Java; un bloc nou també necessita traducció per al codi de la plataforma objectiu.", "evidence_status": "captured"}
+  ]
+}

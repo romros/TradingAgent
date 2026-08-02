@@ -42,6 +42,8 @@ def extract(path: Path, stage: str | None = None) -> dict:
     instrument = results.find(".//InstrumentInfo")
     result_keys = [node.get("resultKey") for node in results.findall(".//Result")]
     is_portfolio = "Portfolio" in result_keys and len(result_keys) > 1
+    walk_forward_keys = [key for key in result_keys if key and key.startswith("WF:")]
+    walk_forward_periods = results.findall(".//WalkForwardPeriod")
     symbol_infos = [
         {"symbol": node.get("symbolName"), "instrument": node.get("instrumentName")}
         for node in results.findall(".//SymbolInfo")
@@ -51,7 +53,10 @@ def extract(path: Path, stage: str | None = None) -> dict:
     def iso_millis(value: str | None) -> str | None:
         return datetime.fromtimestamp(int(value) / 1000, timezone.utc).date().isoformat() if value else None
     is_retester = settings.get("IsRetester") == "true"
-    if is_portfolio:
+    if walk_forward_keys:
+        classification = "WFO_WFM_ARTIFACT_NOT_LIVE_READY"
+        missing = ["selection_stability", "regime_breakdown", "sealed_holdout", "current_venue_repricing"]
+    elif is_portfolio:
         classification = "PORTFOLIO_ARTIFACT_NOT_LIVE_READY"
         missing = ["component_cost_audit", "correlation_stability", "sealed_holdout", "current_venue_repricing"]
     elif stage is None:
@@ -76,6 +81,11 @@ def extract(path: Path, stage: str | None = None) -> dict:
             "is_portfolio": is_portfolio,
             "components": [key for key in result_keys if key != "Portfolio"],
             "symbols": symbol_infos,
+        },
+        "robustness": {
+            "walk_forward_variants": walk_forward_keys,
+            "walk_forward_periods": len(walk_forward_periods),
+            "future_periods": sum(node.get("futurePeriod") == "true" for node in walk_forward_periods),
         },
         "generation_result": {
             "history_from": iso_millis(special.get("HistoryFrom")),

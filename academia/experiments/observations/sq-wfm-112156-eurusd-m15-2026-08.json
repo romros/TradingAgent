@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "campaign_id": "sq-wfm-112156-eurusd-m15-2026-08",
+  "family": "eurusd_m15_walk_forward_matrix",
+  "source_artifacts": [
+    {"path": "/mnt/volume-SQ/user/projects/EURUSD_dmdjdv/databanks/BetterPassOpt/Strategy 1.12.156.sqx", "sha256": "be4d9c23a323e70c8f683cc31cd62b81b7090d8974ad4c03909b0aed8594f564", "role": "local_wfo_wfm_artifact_read_only"}
+  ],
+  "observations": {
+    "sq_build": "143.2708",
+    "engine": "JForex",
+    "window": "2008-01-01/2026-01-30",
+    "matrix": {"variants": 16, "run_counts": [5, 10, 15, 20], "oos_percentages": [10, 20, 30, 40], "walk_forward_period_records": 216, "future_period_records": 16},
+    "aggregate": {"trades": 121, "profit": 555.3800048828125, "drawdown": 389.0400085449219, "oos_present": true},
+    "execution": {"initial_capital": 250.0, "spread": 2.4, "slippage": 1.5, "commission_per_trade": 0.42}
+  },
+  "assessment": {
+    "decision": "HOLD_PENDING_STABLE_REGION_AND_ENGINE_PARITY",
+    "insight_code": "WFM_IS_A_SURFACE_NOT_A_BEST_CELL",
+    "reason": "El build produeix una matriu 4x4 real. Les 16 files futures són projeccions de paràmetres, no rendiment observat, i el motor és JForex: cap cel·la sola autoritza ús a Ostium.",
+    "next_test": "Promoure només una regió veïna estable, excloure períodes futurePeriod de l'evidència i repetir paritat al motor de desplegament.",
+    "evidence_status": "tested"
+  }
+}

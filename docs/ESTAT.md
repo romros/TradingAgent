@@ -184,3 +184,4 @@ Veure `lab/docs/T6E_DECISIO_D1_ASSETS.md` i `lab/docs/D1_GATE_CRITERIA.md`.
 | 2026-08-02 | **XAU H4 stop-breakout R2 tancat per compte petit**: `0.37` estable i segura a 20x, però EV insuficient amb 200 USDC; a risc 3% només passa base. Holdout preservat. |
 | 2026-08-02 | **XAU H4 compressió ATR R3 descartada**: millora durada però falla amplitud temporal i EV de 200 USDC; no s'executa MC ni holdout. |
 | 2026-08-02 | **MSFT D1 close v1**: 80 SQ → 48 Pareto → 8 validació/OOS → 3 finalistes congelats. `calendar long 0.14` és el millor (holdout 29 trades, PF estrès 1,66), però continua `LIVE_NOT_READY` per paritat OHLC/Ostium, gaps/liquidació i paper pendents. |
+| 2026-08-02 | **MSFT calendar 0.14 falsificada**: paràmetres estables (27/27), però no supera 500 calendaris mensuals aleatoris en validació/OOS/holdout; 21× també mostra un gap històric més gran que el proxy de liquidació. `REJECT_CALENDAR_TIMING_EDGE`; no passa a paper. |

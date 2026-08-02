@@ -76,6 +76,10 @@ class Evaluator:
         elif op in {"IsMonthFirstTradingDay", "IsMonthLastTradingDay"}:
             month = pd.Series(self.f.index.to_period("M"), index=self.f.index)
             first = month.ne(month.shift(1)); last = month.ne(month.shift(-1))
+            # Els extrems del dataset no demostren un canvi de mes: evita senyals
+            # artificials creats pel tall del warm-up o del final de mostra.
+            if len(first): first.iloc[0] = False
+            if len(last): last.iloc[-1] = False
             out = (first if op == "IsMonthFirstTradingDay" else last).shift(shift).fillna(False)
         else:
             raise ValueError(f"Operador no suportat: {op}")
@@ -94,9 +98,10 @@ def formula(action: dict, name: str):
     return raw if isinstance(raw, dict) else None
 
 
-def simulate(frame: pd.DataFrame, contract: dict, start: str, end: str) -> dict:
+def simulate(frame: pd.DataFrame, contract: dict, start: str, end: str,
+             signal_override: pd.Series | None = None) -> dict:
     ev = Evaluator(frame); direction, entry = next((d, e) for d, e in contract["entries"].items() if e)
-    signal = ev.series(entry["signal"]).fillna(False)
+    signal = (signal_override if signal_override is not None else ev.series(entry["signal"])).fillna(False)
     action = entry["action"]; sl = formula(action, "#StopLoss.StopLoss#"); pt = formula(action, "#ProfitTarget.ProfitTarget#")
     pt_atr = atr(frame, int(pt["params"].get("#AtrPeriod#", 14))) if pt and "ATRBasedValue" in pt["formula"] else None
     sl_atr = atr(frame, int(sl["params"].get("#AtrPeriod#", 14))) if sl and "ATRBasedValue" in sl["formula"] else None
@@ -115,6 +120,12 @@ def simulate(frame: pd.DataFrame, contract: dict, start: str, end: str) -> dict:
                 pos=None
         if pos is None and bool(signal.iloc[i]):
             entry_price=float(row.open)
+            # SQ no pot calcular una sortida ATR durant el warm-up. No inventem
+            # una distància infinita ni obrim una posició impossible de tancar.
+            if pt_atr is not None and math.isnan(pt_atr.iloc[i]):
+                continue
+            if sl_atr is not None and math.isnan(sl_atr.iloc[i]):
+                continue
             if sl and "PctValue" in sl["formula"]:
                 stop_distance = entry_price * float(sl["params"]["#Value#"]) / 100
             elif sl_atr is not None and not math.isnan(sl_atr.iloc[i]):

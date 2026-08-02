@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "data": "Yahoo MSFT unadjusted OHLC; execution parity with Ostium NOT certified",
+  "strategy": "first trading day monthly long",
+  "stop_pct": 2.1,
+  "leverage": 21,
+  "liquidation_proxy_pct": 4.761904761904762,
+  "periods": {
+    "train": {
+      "entries": 166,
+      "max_down_gap_pct": 11.117647058823533,
+      "p99_down_gap_pct": 4.723923559079957,
+      "gaps_beyond_stop": 2,
+      "gaps_beyond_liquidation_proxy": 1,
+      "intraday_moves_beyond_liquidation_if_stop_failed": 1
+    },
+    "validation": {
+      "entries": 66,
+      "max_down_gap_pct": 4.9401241032892,
+      "p99_down_gap_pct": 4.9401241032892,
+      "gaps_beyond_stop": 2,
+      "gaps_beyond_liquidation_proxy": 1,
+      "intraday_moves_beyond_liquidation_if_stop_failed": 0
+    },
+    "oos": {
+      "entries": 66,
+      "max_down_gap_pct": 2.9864983281704727,
+      "p99_down_gap_pct": 2.9864983281704727,
+      "gaps_beyond_stop": 1,
+      "gaps_beyond_liquidation_proxy": 0,
+      "intraday_moves_beyond_liquidation_if_stop_failed": 0
+    },
+    "holdout": {
+      "entries": 33,
+      "max_down_gap_pct": 1.2275752808883156,
+      "p99_down_gap_pct": 1.2275752808883156,
+      "gaps_beyond_stop": 0,
+      "gaps_beyond_liquidation_proxy": 0,
+      "intraday_moves_beyond_liquidation_if_stop_failed": 0
+    }
+  },
+  "verdict": "NOT_CERTIFIED_FOR_LIVE",
+  "reason": "Historical gap proxy is necessary but cannot establish Ostium oracle, stop fill, maintenance margin or liquidation behavior."
+}

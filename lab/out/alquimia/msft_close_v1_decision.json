@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "campaign": "alquimia-msft-d1-close-v1",
+  "decision": "REJECT_CALENDAR_TIMING_EDGE_KEEP_LONG_DRIFT_REFERENCE",
+  "best_research_reference": "ALQUIMIA_MSFT_D1_CALENDAR_LONG Strategy 0.14",
+  "evidence": {
+    "holdout_trades": 29,
+    "holdout_stress_profit_factor": 1.658533,
+    "holdout_stress_return_pct": 31.117047,
+    "parameter_perturbation_pass_ratio": 1.0,
+    "random_monthly_entry_empirical_p": {
+      "validation": 0.616766,
+      "oos": 0.295409,
+      "holdout": 0.185629
+    },
+    "leverage_21_liquidation_proxy_pct": 4.761905,
+    "validation_max_down_gap_pct": 4.940124,
+    "historical_max_down_gap_pct": 11.117647,
+    "first_zero_observed_gap_grid_leverage": 8
+  },
+  "reasons": [
+    "CALENDAR_TIMING_NOT_BETTER_THAN_MATCHED_RANDOM_MONTHLY_ENTRY",
+    "LEVERAGE_21_FAILS_HISTORICAL_GAP_PROXY",
+    "OSTIUM_OHLC_EXECUTION_PARITY_NOT_CERTIFIED"
+  ],
+  "paper_authorized": false,
+  "live_authorized": false,
+  "next_hypothesis": "Test a pre-registered generic risk-limited MSFT long-drift baseline against buy-and-hold/DCA; do not reuse the opened holdout for selection."
+}

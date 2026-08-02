@@ -1,0 +1,536 @@
+{
+  "schema_version": 1,
+  "candidate": "MSFT calendar long Strategy 0.14",
+  "sqx_sha256": "5007d9bba058e4761d16eb346a4e8f7f0bc740df0c9f52d0a9ab6abcbb52d795",
+  "cost_stress_roundtrip_bps": 36,
+  "base": {
+    "validation": {
+      "return_pct": 26.50928264664236,
+      "profit_factor": 1.3613793427668215,
+      "trades": 47
+    },
+    "oos": {
+      "return_pct": 63.21144473269915,
+      "profit_factor": 1.6134871074405281,
+      "trades": 56
+    },
+    "holdout": {
+      "return_pct": 31.1170472887204,
+      "profit_factor": 1.6585334712313868,
+      "trades": 29
+    }
+  },
+  "random_monthly_entry_benchmark": {
+    "validation": {
+      "simulations": 500,
+      "observed_stress_return_pct": 26.50928264664236,
+      "random_median_return_pct": 37.38261791187687,
+      "familywise_empirical_p": 0.6167664670658682
+    },
+    "oos": {
+      "simulations": 500,
+      "observed_stress_return_pct": 63.21144473269915,
+      "random_median_return_pct": 38.319140413703856,
+      "familywise_empirical_p": 0.2954091816367265
+    },
+    "holdout": {
+      "simulations": 500,
+      "observed_stress_return_pct": 31.1170472887204,
+      "random_median_return_pct": 11.991575319130309,
+      "familywise_empirical_p": 0.18562874251497005
+    }
+  },
+  "parameter_perturbation": {
+    "grid_size": 27,
+    "pass_ratio": 1.0,
+    "variants": [
+      {
+        "stop_multiplier": 0.9,
+        "target_multiplier": 0.9,
+        "target_atr_period": 18,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 10.504376023891894,
+            "profit_factor": 1.1665427809866629,
+            "trades": 54
+          },
+          "oos": {
+            "return_pct": 56.24524157320012,
+            "profit_factor": 1.5751740622325892,
+            "trades": 59
+          }
+        }
+      },
+      {
+        "stop_multiplier": 0.9,
+        "target_multiplier": 0.9,
+        "target_atr_period": 20,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 10.008403528428445,
+            "profit_factor": 1.1607007172322894,
+            "trades": 54
+          },
+          "oos": {
+            "return_pct": 55.92969084336315,
+            "profit_factor": 1.5720641051843665,
+            "trades": 59
+          }
+        }
+      },
+      {
+        "stop_multiplier": 0.9,
+        "target_multiplier": 0.9,
+        "target_atr_period": 22,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 9.541718207418803,
+            "profit_factor": 1.1552099357535899,
+            "trades": 54
+          },
+          "oos": {
+            "return_pct": 55.62481244939785,
+            "profit_factor": 1.5690513967478048,
+            "trades": 59
+          }
+        }
+      },
+      {
+        "stop_multiplier": 0.9,
+        "target_multiplier": 1.0,
+        "target_atr_period": 18,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 13.468238604924121,
+            "profit_factor": 1.2083350710577616,
+            "trades": 51
+          },
+          "oos": {
+            "return_pct": 58.50770057904662,
+            "profit_factor": 1.614595655763815,
+            "trades": 56
+          }
+        }
+      },
+      {
+        "stop_multiplier": 0.9,
+        "target_multiplier": 1.0,
+        "target_atr_period": 20,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 12.943216468224318,
+            "profit_factor": 1.2020780557998554,
+            "trades": 51
+          },
+          "oos": {
+            "return_pct": 57.673679717307365,
+            "profit_factor": 1.607170149517779,
+            "trades": 56
+          }
+        }
+      },
+      {
+        "stop_multiplier": 0.9,
+        "target_multiplier": 1.0,
+        "target_atr_period": 22,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 12.453522063122357,
+            "profit_factor": 1.1962496523820385,
+            "trades": 51
+          },
+          "oos": {
+            "return_pct": 56.90616741726677,
+            "profit_factor": 1.6002604233973952,
+            "trades": 56
+          }
+        }
+      },
+      {
+        "stop_multiplier": 0.9,
+        "target_multiplier": 1.1,
+        "target_atr_period": 18,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 14.754586976887008,
+            "profit_factor": 1.229998580178518,
+            "trades": 49
+          },
+          "oos": {
+            "return_pct": 75.52425589991105,
+            "profit_factor": 1.78315852347232,
+            "trades": 53
+          }
+        }
+      },
+      {
+        "stop_multiplier": 0.9,
+        "target_multiplier": 1.1,
+        "target_atr_period": 20,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 11.64418879943987,
+            "profit_factor": 1.1903043792594652,
+            "trades": 50
+          },
+          "oos": {
+            "return_pct": 74.55669273841356,
+            "profit_factor": 1.7747633582363231,
+            "trades": 53
+          }
+        }
+      },
+      {
+        "stop_multiplier": 0.9,
+        "target_multiplier": 1.1,
+        "target_atr_period": 22,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 11.164382094335167,
+            "profit_factor": 1.1844576929217991,
+            "trades": 50
+          },
+          "oos": {
+            "return_pct": 73.65320739359764,
+            "profit_factor": 1.7668463329693374,
+            "trades": 53
+          }
+        }
+      },
+      {
+        "stop_multiplier": 1.0,
+        "target_multiplier": 0.9,
+        "target_atr_period": 18,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 27.468328631186758,
+            "profit_factor": 1.3551964791840942,
+            "trades": 51
+          },
+          "oos": {
+            "return_pct": 59.79149372339907,
+            "profit_factor": 1.568489143230163,
+            "trades": 59
+          }
+        }
+      },
+      {
+        "stop_multiplier": 1.0,
+        "target_multiplier": 0.9,
+        "target_atr_period": 20,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 26.931422503639844,
+            "profit_factor": 1.3493910218146008,
+            "trades": 51
+          },
+          "oos": {
+            "return_pct": 59.569189061715576,
+            "profit_factor": 1.5662852175066562,
+            "trades": 59
+          }
+        }
+      },
+      {
+        "stop_multiplier": 1.0,
+        "target_multiplier": 0.9,
+        "target_atr_period": 22,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 26.420897232523988,
+            "profit_factor": 1.3438836143097723,
+            "trades": 51
+          },
+          "oos": {
+            "return_pct": 59.339456851413395,
+            "profit_factor": 1.5640447236232944,
+            "trades": 59
+          }
+        }
+      },
+      {
+        "stop_multiplier": 1.0,
+        "target_multiplier": 1.0,
+        "target_atr_period": 18,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 27.131720020616832,
+            "profit_factor": 1.3683644919269942,
+            "trades": 47
+          },
+          "oos": {
+            "return_pct": 63.96110388892535,
+            "profit_factor": 1.619643830106453,
+            "trades": 56
+          }
+        }
+      },
+      {
+        "stop_multiplier": 1.0,
+        "target_multiplier": 1.0,
+        "target_atr_period": 20,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 26.509281882514536,
+            "profit_factor": 1.3613793345134868,
+            "trades": 47
+          },
+          "oos": {
+            "return_pct": 63.211443970682126,
+            "profit_factor": 1.6134871019250965,
+            "trades": 56
+          }
+        }
+      },
+      {
+        "stop_multiplier": 1.0,
+        "target_multiplier": 1.0,
+        "target_atr_period": 22,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 25.92819936233881,
+            "profit_factor": 1.3548626894065985,
+            "trades": 47
+          },
+          "oos": {
+            "return_pct": 62.5093288182135,
+            "profit_factor": 1.6076688063391544,
+            "trades": 56
+          }
+        }
+      },
+      {
+        "stop_multiplier": 1.0,
+        "target_multiplier": 1.1,
+        "target_atr_period": 18,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 29.747962425601536,
+            "profit_factor": 1.4096776678112737,
+            "trades": 45
+          },
+          "oos": {
+            "return_pct": 84.02149485610302,
+            "profit_factor": 1.7974236355990825,
+            "trades": 53
+          }
+        }
+      },
+      {
+        "stop_multiplier": 1.0,
+        "target_multiplier": 1.1,
+        "target_atr_period": 20,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 25.92280779767362,
+            "profit_factor": 1.3583981319571974,
+            "trades": 46
+          },
+          "oos": {
+            "return_pct": 83.14536148144414,
+            "profit_factor": 1.79047654254431,
+            "trades": 53
+          }
+        }
+      },
+      {
+        "stop_multiplier": 1.0,
+        "target_multiplier": 1.1,
+        "target_atr_period": 22,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 25.34623256241739,
+            "profit_factor": 1.3518268676314884,
+            "trades": 46
+          },
+          "oos": {
+            "return_pct": 82.31033849615754,
+            "profit_factor": 1.783809709456937,
+            "trades": 53
+          }
+        }
+      },
+      {
+        "stop_multiplier": 1.1,
+        "target_multiplier": 0.9,
+        "target_atr_period": 18,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 40.56176175072106,
+            "profit_factor": 1.4854902562771306,
+            "trades": 50
+          },
+          "oos": {
+            "return_pct": 46.90905638087703,
+            "profit_factor": 1.4451248285940832,
+            "trades": 59
+          }
+        }
+      },
+      {
+        "stop_multiplier": 1.1,
+        "target_multiplier": 0.9,
+        "target_atr_period": 20,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 39.87522910853474,
+            "profit_factor": 1.4787260282467032,
+            "trades": 50
+          },
+          "oos": {
+            "return_pct": 46.70467398657075,
+            "profit_factor": 1.4430942453432116,
+            "trades": 59
+          }
+        }
+      },
+      {
+        "stop_multiplier": 1.1,
+        "target_multiplier": 0.9,
+        "target_atr_period": 22,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 39.22993922492537,
+            "profit_factor": 1.4723692588462423,
+            "trades": 50
+          },
+          "oos": {
+            "return_pct": 46.49346285480534,
+            "profit_factor": 1.4410299700798894,
+            "trades": 59
+          }
+        }
+      },
+      {
+        "stop_multiplier": 1.1,
+        "target_multiplier": 1.0,
+        "target_atr_period": 18,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 41.943024077347005,
+            "profit_factor": 1.5209552265369026,
+            "trades": 46
+          },
+          "oos": {
+            "return_pct": 51.06775461445467,
+            "profit_factor": 1.4922561131317886,
+            "trades": 56
+          }
+        }
+      },
+      {
+        "stop_multiplier": 1.1,
+        "target_multiplier": 1.0,
+        "target_atr_period": 20,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 41.14268029884247,
+            "profit_factor": 1.5128416319150373,
+            "trades": 46
+          },
+          "oos": {
+            "return_pct": 50.37704542863344,
+            "profit_factor": 1.4865836219984037,
+            "trades": 56
+          }
+        }
+      },
+      {
+        "stop_multiplier": 1.1,
+        "target_multiplier": 1.0,
+        "target_atr_period": 22,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 40.40219434645347,
+            "profit_factor": 1.5053254931765672,
+            "trades": 46
+          },
+          "oos": {
+            "return_pct": 49.73014224825434,
+            "profit_factor": 1.481222945166412,
+            "trades": 56
+          }
+        }
+      },
+      {
+        "stop_multiplier": 1.1,
+        "target_multiplier": 1.1,
+        "target_atr_period": 18,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 41.09348482217372,
+            "profit_factor": 1.516243156169928,
+            "trades": 45
+          },
+          "oos": {
+            "return_pct": 70.28310105352571,
+            "profit_factor": 1.656053237293537,
+            "trades": 53
+          }
+        }
+      },
+      {
+        "stop_multiplier": 1.1,
+        "target_multiplier": 1.1,
+        "target_atr_period": 20,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 36.561570499067805,
+            "profit_factor": 1.4578428938292318,
+            "trades": 46
+          },
+          "oos": {
+            "return_pct": 69.47237669716682,
+            "profit_factor": 1.6496525448161061,
+            "trades": 53
+          }
+        }
+      },
+      {
+        "stop_multiplier": 1.1,
+        "target_multiplier": 1.1,
+        "target_atr_period": 22,
+        "passed": true,
+        "results": {
+          "validation": {
+            "return_pct": 35.88014203544636,
+            "profit_factor": 1.450831621748897,
+            "trades": 46
+          },
+          "oos": {
+            "return_pct": 68.69969357394388,
+            "profit_factor": 1.6435100693872904,
+            "trades": 53
+          }
+        }
+      }
+    ]
+  },
+  "interpretation": "Random benchmark preserves one entry opportunity per month; parameter selection uses validation and OOS only."
+}

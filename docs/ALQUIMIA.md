@@ -164,15 +164,25 @@ el holdout es van congelar tres finalistes compatibles amb close-only:
 - `trend long 0.14`: compra després de tres tancaments descendents, stop
   2,6×ATR30 i target 4,6×ATR25. El PF cau a 1,12 en holdout amb estrès.
 
-El primer és el millor candidat de recerca, però el veredicte global continua
-sent `LIVE_NOT_READY`: falta paritat OHLC/executiva nativa d'Ostium, probabilitat
-de liquidació amb gaps, comparació aleatòria/calendari corregida per múltiples
-proves, pertorbació de paràmetres i paper trading. Amb 200 USDC i risc màxim de
-l'1%, `calendar 0.14` queda limitat aproximadament a 81,30 USDC de nocional. El
-cap preliminar de 21× només redueix el marge requerit (~3,87 USDC); no autoritza
-augmentar el nocional. Artifacts canònics: `msft_source_parity.json`,
-`msft_python_validation.json`, `msft_finalists_holdout.json` i
-`msft_final_gate.json` a `lab/out/alquimia/`.
+El primer semblava el millor candidat de recerca, però la falsificació posterior
+el rebutja com a **timing edge**. Amb 36 bps, 500 calendaris aleatoris que també
+intenten una entrada per mes obtenen una mediana superior en validació (37,38%
+contra 26,51%; p empírica 0,617). Tampoc és significatiu en OOS (p 0,295) ni en
+holdout (p 0,186). Les 27 pertorbacions ±10% de stop/target sí que passen els
+gates: els paràmetres són estables, però això no demostra que el primer dia de
+mes aporti informació respecte a estar long MSFT en un dia mensual qualsevol.
+
+El leverage preliminar de 21× tampoc supera la història completa: el llindar de
+liquidació proxy és 4,76% i hi ha un gap de 4,94% durant validació, a més d'un
+11,12% a train. El primer nivell de la graella sense gaps històrics més grans que
+el llindar proxy és 8× (12,5%), encara sense certificar contra l'oracle d'Ostium.
+
+Decisió final de la família: `REJECT_CALENDAR_TIMING_EDGE_KEEP_LONG_DRIFT_REFERENCE`.
+No s'integra al paper bot i no es retoca després del holdout. Amb 200 USDC i risc
+màxim de l'1%, el nocional teòric continuava limitat a ~81,30 USDC; el leverage
+només canviava el marge, no aquest risc. Artifacts canònics: `msft_source_parity.json`,
+`msft_finalists_holdout.json`, `msft_final_gate.json`,
+`msft_calendar_014_robustness.json` i `msft_calendar_014_gap_risk.json`.
 
 ## Campanya XAUUSD H4 (2026-08-02)
 

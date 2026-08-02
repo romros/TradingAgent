@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "methodology_id": "alquimia-confirmed-capitulation-v1",
+  "created_utc": "2026-08-02",
+  "status": "PREREGISTERED_BEFORE_EXECUTION",
+  "capital_usdc": 200,
+  "hypothesis": "An unusually large volatility-normalized daily loss followed by an observable partial recovery can identify forced selling exhaustion in liquid US technology assets.",
+  "assets": ["MSFT", "NVDA", "QQQ"],
+  "ostium_mapping": {"MSFT": "MSFTUSD", "NVDA": "NVDAUSD", "QQQ": "NDXUSD_PROXY_ONLY"},
+  "signal_contract": {
+    "price_dependency": "adjusted daily close only",
+    "entry": "confirmation close",
+    "exit": "close after fixed holding period",
+    "direction": "long_only",
+    "drop_z_grid": [1.5, 2.0, 2.5],
+    "recovery_fraction_grid": [0.25, 0.5],
+    "holding_days_grid": [1, 2, 3],
+    "regime_grid": ["none", "close_above_sma200_before_drop"],
+    "variants_per_asset": 36,
+    "volatility": "rolling 20-session standard deviation of close returns, lagged one session",
+    "confirmation": "next close recovers at least the configured fraction of the preceding close-to-close loss"
+  },
+  "temporal_split": {
+    "train": ["2004-01-01", "2013-12-31"],
+    "validation": ["2014-01-01", "2018-12-31"],
+    "oos": ["2019-01-01", "2023-12-31"],
+    "sealed_holdout": ["2024-01-01", "2026-08-01"]
+  },
+  "selection": {
+    "train_score": "profit_factor times sqrt(number_of_trades), penalized when max drawdown exceeds 15 percent",
+    "minimum_train_trades": 20,
+    "one_finalist_per_asset": true,
+    "no_holdout_use_for_selection": true
+  },
+  "costs": {
+    "ostium_stock_open_fee_bps": 3,
+    "base_total_execution_bps": 8,
+    "conservative_total_execution_bps": 15,
+    "stress_total_execution_bps": 30,
+    "annual_rollover_scenarios_pct": [4, 8, 12]
+  },
+  "gates": {
+    "minimum_trades_each_validation_period": 8,
+    "minimum_profit_factor_base": 1.2,
+    "minimum_profit_factor_stress": 1.05,
+    "maximum_drawdown_pct": 20,
+    "minimum_positive_year_ratio": 0.6,
+    "random_timing_runs": 1000,
+    "maximum_random_empirical_p_bonferroni_three_assets": 0.0166666667,
+    "maximum_observed_liquidation_rate": 0,
+    "risk_per_trade_pct": 1,
+    "maximum_margin_use_pct": 35
+  },
+  "holdout_policy": "Open only for the single preselected finalist if every validation and OOS gate passes; otherwise remain sealed.",
+  "mapping_limits": "QQQ is not directly executable on Ostium. NDXUSD parity and native execution costs must be certified before paper trading. Historical high/low is used only as a conservative risk audit, not to generate signals."
+}

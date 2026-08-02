@@ -199,6 +199,23 @@ No hi ha nova candidata. `capitulation_d1` continua sent l'única família amb
 evidència pròpia repetida i es manté només en paper. Revisió completa:
 [`STRATEGY_EVIDENCE_REVIEW_2026.md`](STRATEGY_EVIDENCE_REVIEW_2026.md).
 
+### Capitulació confirmada close-only v1
+
+S'ha preregistrat una prova diferent del senyal productiu: caiguda diària
+normalitzada per volatilitat, recuperació observable del 25% o 50%, entrada al
+tancament de confirmació i sortida després d'1–3 dies. La graella conté 36
+variants per actiu sobre MSFT, NVDA i QQQ; train 2004–2013, validació 2014–2018,
+OOS 2019–2023 i holdout 2024–2026 segellat.
+
+Cap actiu passa. MSFT falla validació (PF base 0,82; p contra timing aleatori
+0,832), NVDA passa de PF 2,09 al train a 0,35/0,75 fora de train, i QQQ és
+negatiu en els tres trams. Decisió:
+`REJECT_HOLDOUT_REMAINS_SEALED`. No es tuneja, no passa a SQ i no modifica
+`capitulation_d1`. Metodologia, runner i resultat:
+`methodology_confirmed_capitulation_v1.json`,
+`confirmed_capitulation_campaign.py` i
+`confirmed_capitulation_v1_decision.json`.
+
 ## Campanya XAUUSD H4 (2026-08-02)
 
 La incidència del Retest queda resolta: cal partir d'un projecte Retest **H4**

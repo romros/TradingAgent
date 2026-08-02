@@ -29,7 +29,7 @@
     "lesson": "Cal activar CrossChecks i MonteCarloRetest; una opció interna sense l'interruptor pare no executa res. En un projecte d'una sola tasca, action=start va executar-la mentre startOnlyTask task=1 va acabar sense retest."
   },
   "builder_random_vs_genetic": {
-    "status": "attempt_counter_discovered_comparison_pending",
+    "status": "small_sample_executed_comparison_rejected",
     "random_project_sha256": "207fd6802b547546c14f5a45e2116e2fee83df9222963ed298a1d50a92a7272f",
     "genetic_project_sha256": "db74a90bc17153c9ad8c780cafcc618bd598be2df551b98f8e4ef10b1b72199d",
     "common_data": "EURUSD_M1_dukas_M1_UTCMinus05 / H4",
@@ -48,7 +48,29 @@
       "accepted": 0,
       "lesson": "PinchTab polling plus /project/stop is too slow for an exact attempt budget at this throughput; queued workers continue after the command."
     },
-    "decision": "The missing counter is resolved, but no Random/Genetic quality comparison is claimed. Repeat under identical reduced CPU or pause control, require identical observed attempts, and loosen the shared acceptance filters only if survivor distributions are the declared outcome."
+    "small_sample": {
+      "acceptance_conditions_temporarily_disabled": true,
+      "genetic": {
+        "configured_population": 15,
+        "configured_generations": 3,
+        "observed_attempts": 100,
+        "accepted": 0,
+        "lesson": "Build 143 applied an effective initial population floor of 100; the configured 15 x 3 was not the observed budget."
+      },
+      "random": {
+        "observed_attempts": 105,
+        "accepted": 2,
+        "accepted_artifact_sha256": [
+          "9f9b1ee414251c83b8fa46806635e53565c0f9b7c809b2ce5dcb4626d8c3b37e",
+          "d7a136a14c96a6785907727f0406ea605b90f1d0673ecbd7cc068fe7748d6f8b"
+        ],
+        "accepted_net_profit": [-498.1000061035156, 1137.199951171875]
+      },
+      "comparison_contract": "rejected: attempt budgets differ (100 versus 105), resources changed during Random control, and Genetic has no survivor distribution",
+      "selection_lesson": "Disabling acceptance conditions made Databank admit a negative-profit strategy. More survivors are not evidence of better search."
+    },
+    "runtime_identity_lesson": "The isolated container needs the licensed SQ_LICENSE value and its read-only machine-id. Omitting them starts an expired trial identity; changing CFS CPU quota after license verification does not change that identity.",
+    "decision": "No Random/Genetic quality claim. A future useful benchmark must preregister at least 100 attempts, keep resources fixed, preserve meaningful shared ranking filters, and reject the run automatically unless observed attempts are identical and both methods yield enough survivors."
   },
   "export_crossplatform": {
     "status": "tested_boundary_failed",

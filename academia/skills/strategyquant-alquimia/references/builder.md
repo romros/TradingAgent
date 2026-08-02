@@ -17,3 +17,10 @@ Genetic, exportar dos manifests amb `attempted` idèntic i validar-los amb
 `academia/tools/compare_builder_runs.py --contract equal_attempts`. Si `stop`
 deixa drenar treballadors i sobrepassa el límit, la passada és calibratge, no
 evidència comparativa; reduir CPU o provar `pause` abans de repetir.
+
+No assumir que `PopulationSize × MaxGenerations` és el recompte executat: al
+build 143 una configuració Genetic 15×3 va executar un mínim efectiu de 100.
+Tampoc desactivar els gates per «obtenir mostra»: en la prova local això va
+acceptar un candidat de benefici negatiu. Si un mètode no produeix prou
+supervivents sota filtres útils, el resultat és inconcloent, no una invitació a
+canviar els filtres després de veure'l.

@@ -9,7 +9,11 @@
   "sq_version": null,
   "source_level": "C_EXPLORATORY",
   "domain": "strategyquant",
-  "rights_policy": "metadata_only",
-  "metadata": {"video_id": "sl3vcvauC_E", "shared_start_seconds": 0, "review_status": "metadata_captured_content_pending", "curated_by_user": true},
-  "chunks": [{"locator": "metadata:oembed", "heading": "Robustesa i Monte Carlo", "body": "Vídeo d'Easy Trading Academy aportat per l'usuari sobre proves de robustesa, Monte Carlo i filtres. Les recomanacions encara no s'han contrastat amb documentació oficial ni experiments locals.", "evidence_status": "captured"}]
+  "rights_policy": "transformative_notes",
+  "metadata": {"video_id": "sl3vcvauC_E", "shared_start_seconds": 0, "review_status": "transformative_notes_extracted", "curated_by_user": true, "caption_language": "es_auto", "duration_seconds": 496, "screen_evidence_available": false},
+  "chunks": [
+    {"locator": "audio:00:31-05:41", "heading": "Pertorbacions diferents, preguntes diferents", "body": "Recorre resampling, omissió aleatòria de trades, variació de paràmetres i dades. Els percentatges, 200 simulacions i llindars 95%/50% són presets del tutorial; només són reproduïbles si el contracte executat confirma exactament mètode, perturbació, simulacions i filtre.", "evidence_status": "corroborated"},
+    {"locator": "audio:06:12-06:44", "heading": "Costos aleatoris i diagnòstic", "body": "Afegeix spread/slippage aleatoris i conserva temporalment els fallits per inspeccionar-los. La idea de diagnosticar fallades és útil, però els rangs i només 10 simulacions no es poden generalitzar sense model econòmic i convergència.", "evidence_status": "captured"},
+    {"locator": "audio:07:16-08:16", "heading": "Anti-patró: ajustar el gate al pass rate", "body": "Suggereix pujar filtres si passen moltes estratègies i abaixar-los si en passen poques. Això és ajust post-resultat i contamina la selecció: els gates s'han de preregistrar segons risc i ús, no modificar per obtenir el nombre de supervivents desitjat.", "evidence_status": "contradicted"}
+  ]
 }

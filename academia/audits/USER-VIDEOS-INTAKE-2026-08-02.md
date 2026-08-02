@@ -3,12 +3,15 @@
 ## Resultat
 
 S'han rebut 13 enllaços i normalitzat 12 vídeos únics. `asA_PJYLYdw` estava
-duplicat. No s'ha descarregat cap vídeo ni s'ha versionat cap transcripció.
+duplicat. S'han recuperat temporalment els CC dels 12 vídeos (101 minuts en
+total), s'han revisat i convertit en notes transformadores amb timestamps. No
+s'ha descarregat cap vídeo ni s'ha versionat cap transcripció completa.
 
 L'endpoint públic oEmbed de YouTube ha permès verificar títol i autor. L'accés
-automatitzat al contingut i als subtítols ha estat bloquejat des d'aquest host;
-no s'han usat cookies personals ni mecanismes d'evasió. Per tant, tots els vídeos
-queden en estat `metadata_captured_content_pending` i nivell `C_EXPLORATORY`.
+directe automatitzat als subtítols ha estat bloquejat des d'aquest host; no
+s'han usat cookies personals ni mecanismes d'evasió. Els 12 manifests queden en
+estat `transformative_notes_extracted` i nivell `C_EXPLORATORY`: una nota pot
+descobrir una prova o un risc, però no acredita les mètriques mostrades en vídeo.
 
 S'han provat dues vies independents i efímeres: `yt-dlp` 2024.04.09 i
 `youtube-transcript-api` 1.2.4. Totes dues han rebut el bloqueig anti-bot/IP de
@@ -23,23 +26,38 @@ loopback, media/imatges bloquejats i allowlist de YouTube, va carregar metadades
 però va mostrar el mateix anti-bot. No va exposar el botó de transcripció.
 
 La cerca web va localitzar `youtube-transcript.ai`, que declara un endpoint públic
-de CC sense compte. El pilot d'una sola consulta per vídeo va recuperar CC
-auto-generats en castellà dels dos vídeos prioritaris i va verificar ID, títol i
-durada (10:11 i 6:43). La qualitat té un defecte material: moltes frases apareixen
-triplicades. Decisió: **adaptador exploratori d'un sol ús, no dependència**. Les
-transcripcions completes no es guarden; només notes transformadores amb timestamp.
+de CC sense compte. Una consulta per cada vídeo va recuperar CC auto-generats en
+castellà, ID, títol, idioma i durada dels 12. La qualitat té un defecte material:
+moltes frases apareixen triplicades, malgrat que la pàgina promet text net. Les
+condicions, actualitzades el 18-03-2026, no garanteixen disponibilitat, completitud
+ni exactitud i limiten l'automatització massiva sota fair use.
 
-Els dos manifests revisats passen a `transformative_notes_extracted`. Els altres
-deu continuen `metadata_captured_content_pending`.
+Decisió: **adaptador exploratori d'un sol ús, no dependència de producció**. És
+acceptable per aquesta entrada petita i curada, amb revisió i eliminació posterior;
+no és acceptable com a canal únic, benchmark de qualitat o ingestió massiva.
 
-## Ordre de revisió proposat
+## Auditoria de vies de transcripció
 
-1. Builder complet i introducció a SQ.
-2. Robustesa/Monte Carlo i Walk Forward Matrix.
-3. Revisió d'una estratègia un any després, per connectar backtest i realitat.
-4. Configuracions predeterminades, comprovant versió i defaults heretats.
-5. Casos d'or, EURUSD, intradia, gaps, gas natural i swing com a hipòtesis, mai
-   com a proves de rendibilitat.
+| Via | Resultat en aquest host | Privacitat/operació | Decisió |
+|---|---|---|---|
+| YouTube `Show transcript` | Via oficial per vídeos amb captions; el navegador cloud rep anti-bot | Sense tercer de transcripció, però manual i dependent de la UI | Preferida quan sigui accessible |
+| `yt-dlp` / `youtube-transcript-api` | 0/12 per bloqueig IP de YouTube | Eines locals, reproduïbles; instal·lar-les no canvia la IP | Mantenir com a primera via, no servei permanent |
+| PinchTab en Docker | Carrega la pàgina però no supera l'anti-bot | Efímer i aïllat; afegir navegador no resol la xarxa | No adoptar per CC |
+| `youtube-transcript.ai` | 12/12, timestamps útils; triplicació sistemàtica | Tercer independent, sense SLA ni garantia; prohibeix abusar l'automatització | Només fallback petit i revisat |
+| MacParakeet | No provat: requereix macOS i descarrega l'àudio via `yt-dlp` | Transcripció local i codi obert, però no resol aquest host Linux ni el bloqueig de descàrrega | No aplicable aquí |
+| Altres formularis/API comercials | No provats: cap guany després del 12/12 | Sovint processen URL/transcripció en tercers i afegeixen compte, crèdits o IA | No enviar dades ni incorporar sense necessitat |
+
+## Resultat de la revisió
+
+Els 12 vídeos ja tenen notes. Els insights amb més valor són: inspeccionar els
+defaults heretats; registrar el contracte real de cada crosscheck; no abaixar un
+gate perquè passen pocs candidats; considerar fus horari, sessió, gaps, marge i
+benefici net per trade; separar edge cru de filtres afegits; i retirar una família
+quan el mecanisme econòmic que generava l'edge ha canviat.
+
+Els números i afirmacions de pantalla no s'han promogut perquè el canal alternatiu
+només proporciona àudio/CC i no evidència visual. Les fonts originals atribuïdes a
+llibres o tercers queden pendents d'identificació abans de pujar de nivell.
 
 ## Gate per convertir un vídeo en aprenentatge
 
@@ -50,3 +68,10 @@ decisió i estat final (`captured`, `corroborated`, `tested` o `contradicted`).
 Cap títol promocional (`funciona`, `guanyadora`, `rentable`, `secreta`) es tracta
 com a evidència. Fins completar aquest gate, els manifests només serveixen per
 descobrir i prioritzar les fonts.
+
+## Referències de l'auditoria d'eines
+
+- YouTube Help, `View video transcripts`: https://support.google.com/youtube/answer/15930243?hl=en
+- `youtube-transcript.ai`, API: https://youtube-transcript.ai/youtube-transcript-api
+- `youtube-transcript.ai`, terms: https://youtube-transcript.ai/terms
+- MacParakeet, privacy: https://macparakeet.com/privacy/

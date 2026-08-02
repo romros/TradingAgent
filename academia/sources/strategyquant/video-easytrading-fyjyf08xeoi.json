@@ -9,7 +9,10 @@
   "sq_version": null,
   "source_level": "C_EXPLORATORY",
   "domain": "strategyquant",
-  "rights_policy": "metadata_only",
-  "metadata": {"video_id": "FyJyF08xeOI", "shared_start_seconds": 0, "review_status": "metadata_captured_content_pending", "curated_by_user": true},
-  "chunks": [{"locator": "metadata:oembed", "heading": "Configuracions predeterminades", "body": "Vídeo d'Easy Trading Academy aportat per l'usuari sobre configuracions predeterminades de StrategyQuant. Pendent de comprovar versió, supòsits i aplicabilitat.", "evidence_status": "captured"}]
+  "rights_policy": "transformative_notes",
+  "metadata": {"video_id": "FyJyF08xeOI", "shared_start_seconds": 0, "review_status": "transformative_notes_extracted", "curated_by_user": true, "caption_language": "es_auto", "duration_seconds": 191, "screen_evidence_available": false},
+  "chunks": [
+    {"locator": "audio:00:32-01:34", "heading": "Els presets són punts de partida", "body": "Descriu les configuracions predefinides com plantilles que carreguen mercat, timeframe, dades, Builder i filtres. Són una manera de descobrir camps i començar, no evidència que la configuració sigui adequada per al broker, dades o objectiu actuals.", "evidence_status": "captured"},
+    {"locator": "audio:01:34-03:05", "heading": "Famílies de preset", "body": "Enumera presets per mercat, trend following, mean reversion, diari i altres. La lliçó transferible és inspeccionar i versionar tots els valors heretats abans d'executar; el nom del preset no substitueix una hipòtesi ni una validació.", "evidence_status": "captured"}
+  ]
 }

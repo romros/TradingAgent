@@ -9,7 +9,11 @@
   "sq_version": null,
   "source_level": "C_EXPLORATORY",
   "domain": "strategyquant",
-  "rights_policy": "metadata_only",
-  "metadata": {"video_id": "VXCNESRYonI", "shared_start_seconds": 0, "review_status": "metadata_captured_content_pending", "curated_by_user": true},
-  "chunks": [{"locator": "metadata:oembed", "heading": "Cas intradia simple", "body": "Vídeo de Rubén Martínez aportat per l'usuari com a cas d'estratègia intradia simple. Simplicitat i rendibilitat s'han d'avaluar per separat amb evidència temporal i costos.", "evidence_status": "captured"}]
+  "rights_policy": "transformative_notes",
+  "metadata": {"video_id": "VXCNESRYonI", "shared_start_seconds": 0, "review_status": "transformative_notes_extracted", "curated_by_user": true, "caption_language": "es_auto", "duration_seconds": 474, "screen_evidence_available": false},
+  "chunks": [
+    {"locator": "audio:00:31-03:36", "heading": "Open Range Breakout explícit", "body": "Defineix una família simple: rang inicial, ordres stop als extrems, una operació diària i tancament de sessió. La simplicitat facilita paritat i diagnòstic, però l'afirmació que continua funcionant no queda demostrada sense artefactes.", "evidence_status": "captured"},
+    {"locator": "audio:03:36-05:08", "heading": "Estancament abans de millora", "body": "Mostra verbalment drawdowns i estancaments i proposa afegir condició, SL o TP. Cal mesurar primer l'edge cru i després comptar cada modificació com una nova hipòtesi; millorar la corba observada és optimització.", "evidence_status": "captured"},
+    {"locator": "audio:05:38-06:40", "heading": "Intradia no implica superioritat", "body": "Diferencia avantatges operatius intradia de rendibilitat i recorda que swing i diari tenen altres compromisos. L'horitzó és una propietat del sistema i dels costos, no un rànquing universal.", "evidence_status": "captured"}
+  ]
 }

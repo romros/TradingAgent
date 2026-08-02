@@ -9,7 +9,11 @@
   "sq_version": null,
   "source_level": "C_EXPLORATORY",
   "domain": "strategyquant",
-  "rights_policy": "metadata_only",
-  "metadata": {"video_id": "g21Ta_qv7oU", "shared_start_seconds": 0, "review_status": "metadata_captured_content_pending", "curated_by_user": true},
-  "chunks": [{"locator": "metadata:oembed", "heading": "Hipòtesi de gaps", "body": "Vídeo de Rubén Martínez aportat per l'usuari sobre una estratègia de gaps atribuïda a Larry Williams. Pendent d'identificar la font original i convertir la idea en una hipòtesi falsable.", "evidence_status": "captured"}]
+  "rights_policy": "transformative_notes",
+  "metadata": {"video_id": "g21Ta_qv7oU", "shared_start_seconds": 0, "review_status": "transformative_notes_extracted", "curated_by_user": true, "caption_language": "es_auto", "duration_seconds": 621, "screen_evidence_available": false},
+  "chunks": [
+    {"locator": "audio:01:02-04:36", "heading": "Patró de gap falsable", "body": "Explica entrades de reversió condicionades a gap i nivells previs, separables en long i short. Falta contrastar la font original i especificar sessió, ajust de contracte, ordres, stop i sortida abans de reproduir-lo.", "evidence_status": "captured"},
+    {"locator": "audio:06:09-06:40", "heading": "Seguiment posterior a publicació", "body": "Valora comprovar anys que no existien quan es va publicar la regla. Això és evidència temporal més forta que un backtest reconstruït, sempre que no hi hagi canvis de regla ni supervivència d'actius ocults.", "evidence_status": "captured"},
+    {"locator": "audio:07:11-09:14", "heading": "El mecanisme pot caducar", "body": "Relaciona la pèrdua de força dels gaps amb l'ampliació de l'horari de negociació. És l'insight central de vida real: si canvia el mecanisme que crea l'edge, passar tests històrics no justifica operar; cal monitoritzar el driver i criteris de retirada.", "evidence_status": "captured"}
+  ]
 }

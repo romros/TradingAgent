@@ -9,7 +9,12 @@
   "sq_version": null,
   "source_level": "C_EXPLORATORY",
   "domain": "strategyquant",
-  "rights_policy": "metadata_only",
-  "metadata": {"video_id": "TvhMg3FA_7s", "shared_start_seconds": 22, "review_status": "metadata_captured_content_pending", "curated_by_user": true},
-  "chunks": [{"locator": "metadata:oembed", "heading": "Walk Forward Matrix", "body": "Vídeo d'Easy Trading Academy aportat per l'usuari sobre interpretació de Walk Forward Matrix. Pendent de contrastar criteris, cel·les futures i risc de seleccionar màxims aïllats.", "evidence_status": "captured"}]
+  "rights_policy": "transformative_notes",
+  "metadata": {"video_id": "TvhMg3FA_7s", "shared_start_seconds": 22, "review_status": "transformative_notes_extracted", "curated_by_user": true, "caption_language": "es_auto", "duration_seconds": 731, "screen_evidence_available": false},
+  "chunks": [
+    {"locator": "audio:01:01-03:40", "heading": "Configuració WFM", "body": "Mostra una graella de percentatges i nombres de runs, mètode exacte i filtres de ranking. Els valors recomanats depenen de versió, mostra i estratègia; cal guardar la configuració real i no convertir-los en defaults de l'Acadèmia.", "evidence_status": "captured"},
+    {"locator": "audio:03:40-05:15", "heading": "Buscar zones, no un pic", "body": "Interpreta la superfície i escull una zona central en lloc d'un màxim aïllat. És una intuïció útil de robustesa paramètrica, però seleccionar visualment la mateixa matriu usada per decidir encara és selecció i exigeix validació posterior intacta.", "evidence_status": "captured"},
+    {"locator": "audio:05:15-07:51", "heading": "Original contra veïnat paramètric", "body": "Compara mètriques originals amb la mitjana de permutacions i alerta quan return/DD se separa molt, mirant també drawdown. La distància acceptable no pot decidir-se amb quantitats absolutes ni després de veure el gràfic; s'ha de normalitzar i preregistrar.", "evidence_status": "captured"},
+    {"locator": "audio:07:51-11:40", "heading": "Equity i estabilitat temporal", "body": "Revisa equitat walk-forward, estabilitat i mesos negatius abans d'exportar. És diagnòstic, no una garantia: WFM reutilitzada per escollir paràmetres no substitueix un holdout final ni una prova amb costos i execució reals.", "evidence_status": "corroborated"}
+  ]
 }

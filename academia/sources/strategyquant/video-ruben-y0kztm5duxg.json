@@ -9,7 +9,11 @@
   "sq_version": null,
   "source_level": "C_EXPLORATORY",
   "domain": "strategyquant",
-  "rights_policy": "metadata_only",
-  "metadata": {"video_id": "y0kZTM5duXg", "shared_start_seconds": 0, "review_status": "metadata_captured_content_pending", "curated_by_user": true},
-  "chunks": [{"locator": "metadata:oembed", "heading": "Cas d'estratègia sobre or", "body": "Vídeo de Rubén Martínez aportat per l'usuari com a cas d'estratègia sobre or. El títol no es considera evidència de rendibilitat; cal revisar dades, costos, OOS, règims i execució.", "evidence_status": "captured"}]
+  "rights_policy": "transformative_notes",
+  "metadata": {"video_id": "y0kZTM5duXg", "shared_start_seconds": 0, "review_status": "transformative_notes_extracted", "curated_by_user": true, "caption_language": "es_auto", "duration_seconds": 500, "screen_evidence_available": false},
+  "chunks": [
+    {"locator": "audio:00:01-02:40", "heading": "Hipòtesi estacional de cap de setmana", "body": "Formula una compra d'or en divendres i sortida després d'una barra, atribuïda a demanda de cobertura abans del cap de setmana. És una narrativa falsable, no una causa demostrada; cal controlar selecció del dia, calendari, fus horari i múltiples proves.", "evidence_status": "captured"},
+    {"locator": "audio:02:40-05:30", "heading": "Risc que el mercat estigui tancat", "body": "Reconèixer que durant el cap de setmana no es pot executar l'stop converteix el gap en risc d'execució, no només drawdown de backtest. La mida i liquidació s'han d'estressar amb salts discrets i preus actuals.", "evidence_status": "captured"},
+    {"locator": "audio:05:30-08:20", "heading": "Edge cru i variants", "body": "Passa d'una regla simple a variants amb stop, filtres i proves com OOS, Monte Carlo i permutació. Per evitar data snooping, l'edge cru, cada variant provada i el pressupost de cerca han de quedar separats abans del holdout.", "evidence_status": "corroborated"}
+  ]
 }

@@ -9,7 +9,10 @@
   "sq_version": null,
   "source_level": "C_EXPLORATORY",
   "domain": "strategyquant",
-  "rights_policy": "metadata_only",
-  "metadata": {"video_id": "HxcYOh99GdA", "shared_start_seconds": 8, "review_status": "metadata_captured_content_pending", "curated_by_user": true},
-  "chunks": [{"locator": "metadata:oembed", "heading": "Introducció a StrategyQuant", "body": "Vídeo d'Easy Trading Academy aportat per l'usuari com a introducció a StrategyQuant des de zero. Contingut pendent de revisió; no se n'han extret afirmacions.", "evidence_status": "captured"}]
+  "rights_policy": "transformative_notes",
+  "metadata": {"video_id": "HxcYOh99GdA", "shared_start_seconds": 8, "review_status": "transformative_notes_extracted", "curated_by_user": true, "caption_language": "es_auto", "duration_seconds": 376, "screen_evidence_available": false},
+  "chunks": [
+    {"locator": "audio:00:01-02:35", "heading": "Mapa introductori", "body": "Presenta un recorregut pràctic per configuració, Builder, Retester, cartera/correlació i qualitat de dades. És un mapa del curs del creador, no una especificació completa de StrategyQuant ni prova que aquest ordre sigui universal.", "evidence_status": "captured"},
+    {"locator": "audio:02:35-05:39", "heading": "Recursos de la màquina", "body": "Proposa reservar capacitat per a la interfície, no assignar tota la RAM i reiniciar després de canviar opcions. Són heurístiques operatives útils per evitar bloquejos, però CPU, RAM i paral·lelisme s'han de mesurar al host i registrar amb el pressupost executat.", "evidence_status": "captured"}
+  ]
 }

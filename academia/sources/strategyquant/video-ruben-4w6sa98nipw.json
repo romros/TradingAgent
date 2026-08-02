@@ -9,7 +9,11 @@
   "sq_version": null,
   "source_level": "C_EXPLORATORY",
   "domain": "strategyquant",
-  "rights_policy": "metadata_only",
-  "metadata": {"video_id": "4W6sA98Nipw", "shared_start_seconds": 0, "review_status": "metadata_captured_content_pending", "curated_by_user": true},
-  "chunks": [{"locator": "metadata:oembed", "heading": "Hipòtesi de swing trading", "body": "Vídeo de Rubén Martínez aportat per l'usuari sobre swing trading. El caràcter secret forma part del títol; l'Acadèmia només en promourà regles explícites, falsables i contrastades.", "evidence_status": "captured"}]
+  "rights_policy": "transformative_notes",
+  "metadata": {"video_id": "4W6sA98Nipw", "shared_start_seconds": 0, "review_status": "transformative_notes_extracted", "curated_by_user": true, "caption_language": "es_auto", "duration_seconds": 477, "screen_evidence_available": false},
+  "chunks": [
+    {"locator": "audio:00:32-03:36", "heading": "Replicació incompleta", "body": "Transfereix a accions dels EUA una regla publicada per accions índies amb SuperTrend, pivot i stops/targets percentuals, i reconeix haver usat inicialment paràmetres per defecte diferents dels originals. Una regla no és replicada fins que paràmetres, univers, dades i execució coincideixen.", "evidence_status": "captured"},
+    {"locator": "audio:03:36-05:41", "heading": "Transport entre mercats", "body": "La corba no convenç i suggereix que capitalització i volatilitat poden fer inadequades distàncies fixes. És una inferència raonable però no quantificada: abans d'optimitzar cal normalitzar i provar si el mecanisme existeix al mercat destí.", "evidence_status": "captured"},
+    {"locator": "audio:06:12-07:45", "heading": "Índex no és acció individual", "body": "Assenyala diferències entre operar una acció i una cistella/ETF, inclòs risc idiosincràtic. La portabilitat exigeix redefinir univers, corporate actions, biaix de supervivència, liquiditat i sizing; no basta canviar el símbol.", "evidence_status": "captured"}
+  ]
 }

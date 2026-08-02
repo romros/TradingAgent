@@ -9,7 +9,11 @@
   "sq_version": null,
   "source_level": "C_EXPLORATORY",
   "domain": "strategyquant",
-  "rights_policy": "metadata_only",
-  "metadata": {"video_id": "sSeJe4VPGpU", "shared_start_seconds": 87, "review_status": "metadata_captured_content_pending", "curated_by_user": true},
-  "chunks": [{"locator": "metadata:oembed", "heading": "Cas EURUSD day trading", "body": "Vídeo de Rubén Martínez aportat per l'usuari com a cas EURUSD intradia. L'adjectiu guanyadora forma part del títol i no és una conclusió de l'Acadèmia.", "evidence_status": "captured"}]
+  "rights_policy": "transformative_notes",
+  "metadata": {"video_id": "sSeJe4VPGpU", "shared_start_seconds": 87, "review_status": "transformative_notes_extracted", "curated_by_user": true, "caption_language": "es_auto", "duration_seconds": 534, "screen_evidence_available": false},
+  "chunks": [
+    {"locator": "audio:00:31-02:34", "heading": "Regla temporal i fus horari", "body": "Descriu entrades EURUSD en dies i hores concrets amb sortida temporal. La mateixa hora nominal canvia amb broker, zona horària, DST i sessió; el contracte executable ha d'incloure calendari i conversió horària.", "evidence_status": "captured"},
+    {"locator": "audio:04:35-05:35", "heading": "Benefici mitjà contra fricció", "body": "Adverteix que un benefici mitjà petit pot desaparèixer amb spread i slippage. És el pont pràctic correcte: un PF o una equitat atractius no serveixen si l'edge monetari per trade no supera friccions conservadores.", "evidence_status": "corroborated"},
+    {"locator": "audio:05:35-07:37", "heading": "Afegir filtre sense contaminar OOS", "body": "Proposa cercar un filtre que millori benefici mitjà i validar-lo en anys posteriors. Aquesta partició només és OOS si els anys no s'han mirat durant elecció, ajust o vídeo; després de usar-los per decidir passen a validació i cal un holdout nou.", "evidence_status": "corroborated"}
+  ]
 }

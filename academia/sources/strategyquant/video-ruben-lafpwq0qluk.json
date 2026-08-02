@@ -9,7 +9,12 @@
   "sq_version": null,
   "source_level": "C_EXPLORATORY",
   "domain": "strategyquant",
-  "rights_policy": "metadata_only",
-  "metadata": {"video_id": "lAFpwq0QlUk", "shared_start_seconds": 15, "review_status": "metadata_captured_content_pending", "curated_by_user": true},
-  "chunks": [{"locator": "metadata:oembed", "heading": "Cas de gas natural", "body": "Vídeo de Rubén Martínez aportat per l'usuari com a cas sobre gas natural. Caldrà tractar estacionalitat, contractes, gaps, costos i règims específics abans de generalitzar.", "evidence_status": "captured"}]
+  "rights_policy": "transformative_notes",
+  "metadata": {"video_id": "lAFpwq0QlUk", "shared_start_seconds": 15, "review_status": "transformative_notes_extracted", "curated_by_user": true, "caption_language": "es_auto", "duration_seconds": 614, "screen_evidence_available": false},
+  "chunks": [
+    {"locator": "audio:00:31-03:35", "heading": "Estacionalitat com edge cru", "body": "Construeix una venda de gas natural els dijous amb sortida divendres i després introdueix stop ATR i hores. El dia, hora i stop són hipòtesis separades; cal incloure contracte de futur, roll, sessió i biaix per haver escollit el dijous.", "evidence_status": "captured"},
+    {"locator": "audio:03:35-05:08", "heading": "Liquiditat i capacitat", "body": "Distingeix que una mida petita pot executar-se on capital institucional tindria impacte. La transferència a vida real requereix volum a l'hora exacta, tick, spread, marge i capacitat, no només resultat amb un contracte.", "evidence_status": "captured"},
+    {"locator": "audio:05:39-08:46", "heading": "Filtre IS/OOS i mida de compte", "body": "Proposa buscar filtre en una mostra i validar-lo en una altra, i observa que una caiguda inicial podria arruïnar un compte petit. És correcte separar selecció i validació, però el filtre mostrat i els anys vistos consumeixen aquesta validació; el capital mínim depèn de trajectòries adverses, marge i gap.", "evidence_status": "corroborated"},
+    {"locator": "audio:09:16-09:47", "heading": "Marge i volatilitat", "body": "Contrasta marge intradia amb overnight i defensa stops adaptats a volatilitat. ATR ajuda a escalar distàncies, però no elimina gaps, canvis de marge ni el risc nocional del contracte mínim.", "evidence_status": "captured"}
+  ]
 }

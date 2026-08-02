@@ -27,6 +27,10 @@ Distingir manipulació de trades (ràpida) de retest amb dades, paràmetres o co
 Si el paquet només conté configuració Monte Carlo però cap resultat, marcar-lo
 `operational`, no `tested`.
 
+Fixar els gates abans de veure el pass rate. Mai abaixar-los perquè sobreviuen
+pocs candidats ni apujar-los perquè en sobreviuen molts; això converteix el gate
+en una altra capa d'optimització. Zero supervivents és un resultat vàlid.
+
 Abans d'executar, enumerar els crosschecks actius i exigir coincidència exacta
 amb el pla; els projectes poden heretar proves. Comparar també els llindars de
 la metodologia amb les condicions d'acceptació del `.cfx`. Registrar per separat

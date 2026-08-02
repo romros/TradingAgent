@@ -17,7 +17,7 @@ Abans d'avaluar embeddings cal ampliar el conjunt a 50 preguntes, congelar els
 judicis de rellevància i comparar exactament el mateix corpus. La latència s'ha de
 mesurar al mateix host; els resultats generats no es versionen.
 
-`hard_queries.jsonl` conté 28 consultes més difícils, incloses quatre sobre
-deriva de contracte observada en SQX 143. Per executar-lo cal ingerir tots els
+`hard_queries.jsonl` conté 31 consultes més difícils, incloses quatre sobre
+deriva de contracte observada en SQX 143 i cinc sobre evidència de vídeos. Per executar-lo cal ingerir tots els
 dominis de `academia/sources/`, no només StrategyQuant, perquè també avalua
 recerca, règims i economia d'execució.

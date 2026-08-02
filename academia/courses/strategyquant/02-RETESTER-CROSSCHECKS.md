@@ -39,6 +39,12 @@ paràmetres també va executar manipulació de trades; es va invalidar i repetir
 amb només el crosscheck previst. Conservar els resultats fallits per diagnosticar
 és correcte; desactivar els gates per conservar-los no ho és.
 
+El nombre de supervivents tampoc decideix el llindar. Abaixar un filtre perquè
+passen pocs candidats, o apujar-lo perquè en passen molts, adapta el test al
+resultat observat. El gate es fixa abans segons el risc i l'ús previst; un embut
+que acaba a zero pot ser una resposta correcta. Aquest anti-patró apareix
+explícitament a `yt_easytrading_sl3vcvauce`, 07:16–08:16.
+
 El contracte del test ha de coincidir en tres llocs: metodologia escrita,
 condicions d'acceptació configurades i resultats executats. Per Monte Carlo,
 registrar simulacions demanades i membres produïts per separat: un paquet pot

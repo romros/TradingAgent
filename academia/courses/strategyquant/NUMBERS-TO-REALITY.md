@@ -34,6 +34,19 @@ a la regla crua. Font exploratòria: `yt_ruben_pgxeiqau1hu`, 00:01–06:39.
 Regla: separar sempre **afirmació de l'àudio**, **valor visible a pantalla** i
 **artifact reproduïble**. Si una capa falta, limitar la conclusió.
 
+## El mecanisme també té data de caducitat
+
+Una regla de gap pot degradar-se si s'amplia l'horari de negociació i disminueix
+el temps en què el mercat queda tancat. Una regla horària pot canviar per DST,
+sessió o fus del broker. Una estacional pot desaparèixer quan canvien participants,
+contractes o calendari. Per tant, l'informe ha d'identificar el driver proposat,
+una variable observable que el representi i una condició de retirada. Si no podem
+explicar què ha de continuar existint, la transferència queda en exploració.
+
+Fonts exploratòries que motiven aquesta comprovació, no que la demostren:
+`yt_ruben_g21taqv7ou` 06:09–09:14, `yt_ruben_sseje4vpgpu` 00:31–02:34 i
+`yt_ruben_y0kztm5duxg` 00:01–05:30.
+
 ## Exemple XAU, no excepció XAU
 
 2004–2015 barreja expansió, crisi, polítiques extraordinàries, gran cicle alcista

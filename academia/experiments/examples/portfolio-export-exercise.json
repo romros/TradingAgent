@@ -1,0 +1,6 @@
+{
+  "id": "portfolio-parity-01",
+  "portfolio": {"strategies": 3, "all_individually_positive_net": false, "weights_optimized_on_full_history": true, "free_margin_skips_recorded": false},
+  "parity": {"same_data": true, "same_timezone": false, "same_costs": false, "trade_level_compared": false, "aggregate_pnl_similar": true},
+  "expected": {"portfolio": "DESCARTAR", "parity": "CONFIG_MISMATCH", "next": "Remove negative components; freeze weights on development data; align timezone and costs; compare trades individually."}
+}

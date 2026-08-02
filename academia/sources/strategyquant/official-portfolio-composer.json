@@ -14,6 +14,7 @@
   "metadata": {"page_last_updated": "2024-10-15"},
   "chunks": [
     {"locator": "section:introduction", "heading": "Disponibilitat", "body": "Portfolio Composer es documenta com un mòdul introduït a StrategyQuant X Build 141 per simular composicions i pesos de múltiples estratègies.", "evidence_status": "captured"},
-    {"locator": "section:difference", "heading": "Composer i Portfolio Master", "body": "Portfolio Composer i l'antic Portfolio Master tenen funcions relacionades però no són el mateix mòdul; no s'han d'usar els noms com a sinònims.", "evidence_status": "captured"}
+    {"locator": "section:difference", "heading": "Composer i Portfolio Master", "body": "Portfolio Composer i l'antic Portfolio Master tenen funcions relacionades però no són el mateix mòdul; no s'han d'usar els noms com a sinònims.", "evidence_status": "captured"},
+    {"locator": "section:margin", "heading": "Pesos i marge", "body": "Portfolio Composer recalcula position sizing segons el pes, considera balance, leverage i free margin, i registra al log les ordres omeses quan no hi ha marge disponible.", "evidence_status": "captured"}
   ]
 }

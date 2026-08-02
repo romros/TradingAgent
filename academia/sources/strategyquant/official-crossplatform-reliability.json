@@ -1,0 +1,10 @@
+{
+  "id": "sq_official_crossplatform_reliability_20190429", "kind": "documentation", "title": "Reliable backtesting in MetaTrader",
+  "url": "https://strategyquant.com/doc/strategyquant/reliable-backtesting-in-metatrader/", "author": "StrategyQuant", "published_at": "2019-04-29", "accessed_at": "2026-08-02",
+  "language": "en", "sq_version": null, "source_level": "A_PRIMARY", "domain": "strategyquant", "rights_policy": "transformative_notes",
+  "metadata": {"scope": "Principis de reconciliació; Alquímia requereix adaptació al motor objectiu."},
+  "chunks": [
+    {"locator": "section:parity", "heading": "Parity inputs", "body": "Per comparar SQ amb la plataforma objectiu cal alinear dades, timezone, motor, bar type, spread, rang temporal, indicadors i configuració.", "evidence_status": "captured"},
+    {"locator": "section:diagnosis", "heading": "Difference diagnosis", "body": "Diferències grans indiquen primer un problema de dades o configuració; el backtest continua sent una aproximació i no simula completament slippage, fallades o spreads variables reals.", "evidence_status": "captured"}
+  ]
+}

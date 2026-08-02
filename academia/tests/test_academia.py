@@ -36,8 +36,11 @@ class CatalogTest(unittest.TestCase):
     def test_benchmark(self):
         dataset = Path(__file__).resolve().parents[1] / "benchmark/queries.jsonl"
         result = academia.benchmark(self.db, dataset, 5)
-        self.assertEqual(result["cases"], 23)
+        self.assertEqual(result["cases"], 27)
         self.assertEqual(result["recall_at_5"], 1.0)
+        local_cases = {item["id"]: item for item in result["details"] if item["id"].startswith("sq-local-")}
+        self.assertEqual(len(local_cases), 4)
+        self.assertTrue(all(item["first_relevant_rank"] == 1 for item in local_cases.values()))
 
     def test_hard_benchmark_tracks_no_answer(self):
         academia.ingest(self.db, list((self.root / "sources").glob("*/*.json")))

@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "campaign_id": "pinchtab-sq-gui-pilot-2026-08",
+  "family": "sq_local_browser_gap",
+  "source_artifacts": [],
+  "observations": {
+    "image": "pinchtab/pinchtab:0.11.0",
+    "image_digest": "sha256:295c842fbfa49e8de0634b896c0abd826562a838281b0902cf2df3c1ae2641ea",
+    "reported_binary_version": "dev",
+    "lifecycle": "docker --rm; container removed after test",
+    "network": "shared only with active SQ container; no published PinchTab port",
+    "auth": "ephemeral token; not printed",
+    "browser_health": "ok; Chrome instance running; auth required; guarded security",
+    "sq_target": "http://127.0.0.1:5050",
+    "sq_snapshot": "Unable to resolve the request",
+    "sq_process_mode": "project action=start; API /call available, GUI not served",
+    "persistent_process_after_test": false
+  },
+  "assessment": {
+    "decision": "REJECT_CURRENT_EXPORT_PILOT",
+    "insight_code": "BROWSER_WORKS_BUT_SQ_GUI_NOT_EXPOSED",
+    "reason": "PinchTab pot observar la pàgina local, però el procés SQ actiu només exposa l'API. A més, la imatge etiquetada 0.11.0 reporta versió binària 'dev', de manera que no supera el gate de provenance.",
+    "next_test": "Quan acabi la descoberta, iniciar SQ explícitament en mode GUI descartable i repetir amb una imatge que reporti la versió fixada; després exportar codi i provar paritat.",
+    "evidence_status": "tested"
+  }
+}

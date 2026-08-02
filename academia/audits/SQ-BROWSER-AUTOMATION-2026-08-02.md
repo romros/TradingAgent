@@ -53,3 +53,22 @@ inesperat, valor no llegible o procés residual torna el flux a manual. El pilot
 no justifica un servei permanent.
 
 Fonts: `pinchtab_official_2026`, `playwright_official_2026`.
+
+## Pilot local executat
+
+El gap d'exportació de codi queda demostrat: l'ajuda real de SQCLI 143.2708 només
+ofereix `databank export` a CSV/XLSX i no exportació de codi d'estratègia.
+
+Es va executar `pinchtab/pinchtab:0.11.0` fixada al digest
+`sha256:295c842fbfa49e8de0634b896c0abd826562a838281b0902cf2df3c1ae2641ea`
+com a contenidor `--rm`, sense port publicat, amb token efímer i xarxa compartida
+només amb SQ. El health check fou correcte i Chrome va obtenir un snapshot de
+`127.0.0.1:5050`, però SQ va respondre `Unable to resolve the request`: el procés
+actual serveix `/call`, no la GUI. No es va invocar `-gui` perquè la descoberta
+està activa.
+
+El pilot també falla el gate de provenance: la imatge etiquetada `0.11.0` retorna
+`pinchtab dev` com a versió del binari. El contenidor es va aturar i `--rm` el va
+eliminar; la verificació posterior no trobà cap procés PinchTab residual.
+
+Decisió actual: `PINCHTAB_TECHNICALLY_WORKS / PILOT_REJECTED / RETRY_AFTER_SQ`.

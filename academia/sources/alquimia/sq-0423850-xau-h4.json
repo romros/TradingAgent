@@ -1,0 +1,27 @@
+{
+  "id": "alquimia_sq_0423850_xau_h4_20260801",
+  "kind": "experiment",
+  "title": "Alquímia: sq_0423850 XAUUSD H4",
+  "author": "Alquímia",
+  "published_at": "2026-08-01",
+  "accessed_at": "2026-08-02",
+  "language": "ca",
+  "source_level": "A_PRIMARY",
+  "domain": "strategyquant",
+  "rights_policy": "first_party",
+  "metadata": {"observation": "academia/experiments/observations/sq-0423850-xau-h4-2026-08.json"},
+  "chunks": [
+    {
+      "locator": "result:oos-regime",
+      "heading": "El total positiu amaga un OOS negatiu",
+      "body": "sq_0423850 presenta +16.38% i PF 1.84 al període complet 2016-2025, però amb paràmetres congelats l'OOS 2019-2025 dona -1.00%, PF 0.96 i només 3 de 7 anys positius després de costos base.",
+      "evidence_status": "tested"
+    },
+    {
+      "locator": "decision:regime-preregistered",
+      "heading": "Hipòtesi de règim abans de reobrir",
+      "body": "El guany està concentrat al train inicial. No es pot ajustar sobre 2019-2025; només es pot reobrir amb una hipòtesi de règim definida ex ante i dades OOS noves.",
+      "evidence_status": "tested"
+    }
+  ]
+}

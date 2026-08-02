@@ -21,3 +21,15 @@ credencials. Conservar path, SHA-256, mètriques observades i decisió.
 - `TEMPORAL_AND_COST_PASS`: candidat apte per al següent gate, no per live.
 
 No crear un codi nou si un d'existent explica l'acció següent.
+
+## Mapa de decisions après
+
+| Evidència observada | Codi | No fer | Fer després |
+|---|---|---|---|
+| temporal passa, costos fallen | `TEMPORAL_PASS_COST_FAIL` | optimitzar o apalancar | canviar edge/fricció |
+| desenvolupament passa, validació falla | `TEMPORAL_FAIL` | rescatar la família | hipòtesi nova i OOS nou |
+| PF atractiu amb OOS minúscul | `LOW_SAMPLE_OR_VALIDATION_FAIL` | inferir edge del PF | més observacions sense canviar regles |
+| total positiu, OOS per règim negatiu | `OOS_REGIME_FAIL` | ajustar sobre l'OOS vist | règim ex ante i OOS nou |
+
+Si una consulta s'assembla a un cas, recuperar la fitxa d'observació abans de
+recomanar. No extrapolar les magnituds d'una família a una altra.

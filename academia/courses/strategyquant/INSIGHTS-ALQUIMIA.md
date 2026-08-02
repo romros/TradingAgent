@@ -57,12 +57,21 @@ SEGÜENT PAS: ampliar el període sense canviar regles i repetir només el resum
 EVIDÈNCIA: sq_official_walk_forward_values_20190101#section:concentration
 ```
 
+## Què ha après dels primers artifacts reals
+
+- Un pass temporal pot ser inoperable després de costos (EURUSD H4).
+- Un edge de desenvolupament pot desaparèixer clarament en validació (sis famílies FX).
+- Un PF molt alt amb un sol trade final no és una estimació (campanya D1).
+- El resultat complet pot ocultar que tot el guany és del règim inicial (XAUUSD H4).
+
+Vegeu `PATTERNS-REAL-CAMPAIGNS.md` per la comparació i l'acció associada.
+
 ## Què encara no sap
 
 - quins llindars funcionen millor per a les famílies d'Alquímia;
 - com es comporten aquests gates a la build instal·lada;
-- quins artifacts reals exposen els camps necessaris;
-- si algun insight queda contradit per campanyes reals.
+- quina nova font d'edge superarà aquests gates;
+- si aquests patrons es repetiran prou per promocionar-los de `tested` a `verified`.
 
-Això s'aprendrà important artifacts en mode només lectura. Fins llavors, la skill
-és assessora de recerca, no generadora autònoma ni sistema de trading.
+La skill continua sent assessora de recerca, no generadora autònoma ni sistema
+de trading.

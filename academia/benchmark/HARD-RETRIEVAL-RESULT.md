@@ -1,21 +1,22 @@
 # Benchmark difícil de retrieval
 
-Corpus: 14 fonts; motor SQLite FTS5/BM25 amb stopwords i cobertura lexical mínima.
-Dataset: 10 preguntes — 7 answerables, 3 que exigeixen abstenció.
+Corpus: 19 fonts; motor SQLite FTS5/BM25 amb stopwords i cobertura lexical mínima.
+Dataset: 16 preguntes — 13 answerables, 3 que exigeixen abstenció.
 
 ## Resultat 2026-08-02
 
-- Recall@5 answerable: **0,57**;
-- MRR@5 answerable: **0,71**;
+- Recall@5 answerable: **0,77**;
+- MRR@5 answerable: **0,85**;
 - no-answer accuracy: **1,00**;
 - benchmark lexical original (23 preguntes): Recall@5 i MRR@5 **1,00**.
 
-La millora d'abstenció elimina respostes espúries, però perd dues paràfrasis sense
-solapament suficient. És un límit real de cerca lexical.
+Les sis consultes noves sobre campanyes reals recuperen la font correcta en
+primera posició. Encara es perden dues paràfrasis antigues sense solapament
+suficient; és un límit real de cerca lexical, no amagat per la mitjana.
 
 ## Decisió
 
-No activar embeddings encara. Deu preguntes difícils són insuficients per justificar
+No activar embeddings encara. Setze preguntes difícils són insuficients per justificar
 cost, dependència i reindexació. Ampliar a 50 preguntes cegues i comparar:
 
 1. FTS5 actual;

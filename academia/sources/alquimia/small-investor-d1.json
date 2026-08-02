@@ -1,0 +1,27 @@
+{
+  "id": "alquimia_small_investor_d1_20260801",
+  "kind": "experiment",
+  "title": "Alquímia: campanya D1 per compte petit",
+  "author": "Alquímia",
+  "published_at": "2026-08-01",
+  "accessed_at": "2026-08-02",
+  "language": "ca",
+  "source_level": "A_PRIMARY",
+  "domain": "strategyquant",
+  "rights_policy": "first_party",
+  "metadata": {"observation": "academia/experiments/observations/small-investor-d1-2026-08.json"},
+  "chunks": [
+    {
+      "locator": "result:one-trade-test",
+      "heading": "PF alt amb una sola operació OOS",
+      "body": "La reversió curta mostra PF 3.13 al test però el test només conté una operació: 14 trades totals i 7 en validació. Aquesta xifra no estima un edge reproduïble; les altres famílies i les tres carteres fallen validació.",
+      "evidence_status": "tested"
+    },
+    {
+      "locator": "decision:new-data",
+      "heading": "Més observacions sense reutilitzar el holdout",
+      "body": "No s'han de combinar candidats rebutjats ni relaxar el PF després de veure 2023-2026. La prova útil és una família amb més observacions i un test temporal nou.",
+      "evidence_status": "tested"
+    }
+  ]
+}

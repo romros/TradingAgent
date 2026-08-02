@@ -1,0 +1,27 @@
+{
+  "id": "alquimia_intraday_fx_six_families_20260801",
+  "kind": "experiment",
+  "title": "Alquímia: sis famílies FX intradia sense candidat",
+  "author": "Alquímia",
+  "published_at": "2026-08-01",
+  "accessed_at": "2026-08-02",
+  "language": "ca",
+  "source_level": "A_PRIMARY",
+  "domain": "strategyquant",
+  "rights_policy": "first_party",
+  "metadata": {"observation": "academia/experiments/observations/intraday-fx-six-families-2026-08.json"},
+  "chunks": [
+    {
+      "locator": "result:validation-collapse",
+      "heading": "Desenvolupament positiu no reproduït",
+      "body": "Sis famílies EURUSD i XAUUSD H4 no produeixen candidat. La millor quasi-candidata té PF 1.22 i EV +0.23 USD en desenvolupament, però cau a PF 0.48 i EV -0.60 USD en validació; el bootstrap 95% de l'EV és enterament negatiu.",
+      "evidence_status": "tested"
+    },
+    {
+      "locator": "decision:next-direction",
+      "heading": "No rescatar amb leverage o afinament",
+      "body": "Quan la validació i els costos destrueixen l'edge, augmentar leverage només amplifica expectativa negativa. Cal canviar la font d'edge i reservar dades temporals noves, no afinar les mateixes sis famílies.",
+      "evidence_status": "tested"
+    }
+  ]
+}

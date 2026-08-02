@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "campaign_id": "alquimia-eurusd-h4-2026-08",
+  "family": "eurusd_h4_trend_reversion_v1",
+  "source_artifacts": [
+    {"path": "lab/out/alquimia/ALQUIMIA_EURUSD_H4_OOS/oos_gate.json", "sha256": "48d62b4d55a7497ab7b2c6f5cb80be38e77c56b3e241c0612ee12ada5f83990d", "role": "temporal_gate"},
+    {"path": "lab/out/alquimia/ALQUIMIA_EURUSD_H4_OOS/trade_cost_gate_eurusd.json", "sha256": "3f6bb63571dfa55187fb06bb2fa271f026258486309f6d484f93198c6115bfac", "role": "cost_gate"}
+  ],
+  "observations": {
+    "temporal": {
+      "input_count": 1, "survivor_count": 1,
+      "survivors": [{
+        "strategy": "Strategy 4.1.133",
+        "metrics": {"trades": 138, "profit_factor": 1.25, "r_expectancy": 0.13, "expectancy_decay_pct": 18.75, "drawdown_pct_normalized": 11.55},
+        "checks": {"minimum_trades": true, "minimum_profit_factor": true, "positive_expectancy": true, "expectancy_decay": true, "maximum_drawdown": true}
+      }]
+    },
+    "cost_base": {
+      "orders": 138,
+      "assumptions": {"name": "base", "roundtrip_bps": 4.5, "fixed_cost_usdc": 0.1, "note": "3 bps opening + 1.5 bps execution allowance; rollover excluded."},
+      "metrics": {"trades": 138, "net_pnl_usdc": -19.80698265, "net_expectancy_usdc": -0.14352886, "net_profit_factor": 0.51081529, "win_rate": 0.28985507, "max_drawdown_usdc": 23.85398495},
+      "monte_carlo": {"runs": 1000, "seed": 20260801, "profitable_ratio": 0.002, "p05_net_pnl_usdc": -30.43415119, "p95_max_drawdown_usdc": 31.6370418},
+      "passed": false
+    }
+  },
+  "assessment": {
+    "decision": "REJECT", "insight_code": "TEMPORAL_PASS_COST_FAIL",
+    "reason": "El candidat supera el gate temporal però perd l'edge després dels costos base.",
+    "next_test": "Canviar la font d'edge o reduir fricció estructural; no afinar paràmetres.",
+    "evidence_status": "tested"
+  }
+}

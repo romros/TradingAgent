@@ -274,6 +274,22 @@ escenari arriba al primer llindar de 400 USDC; per tant, el glidepath és una
 infraestructura correcta però no resol la baixa freqüència. Calen estratègies
 independents addicionals, no més risc sobre el mateix edge.
 
+### EURUSD intradia v2 — sessions DST
+
+Pilot Dukascopy de 549.497 candles M15 (2004-01-01–2026-02-27), sessions
+Europe/London i America/New_York amb DST. Es van congelar 10 variants
+representatives de breakout del rang asiàtic, continuació d'expansió i reversió
+d'expansió; long/short, entrada posterior al senyal, stop/target i tancament
+intradia. Train 2004–2013, validació 2014–2018, OOS 2019–2023; holdout segellat.
+
+Cap família s'apropa al gate fins i tot amb 8 bps: breakout PF 0,31/0,22 en
+validació/OOS; continuació 0,11/0,06; reversió 0,07/0,06. Tenen 593–684 trades
+OOS, de manera que no és falta de mostra. Decisió `REJECT_NO_SQCLI`: SQ no
+optimitza una família sense edge brut/base. Runner ~49 s amb cache de sessions.
+
+Artifacts: `methodology_eurusd_intraday_v2.json`, `eurusd_intraday_v2.py` i
+`eurusd_intraday_v2_decision.json`.
+
 Artifacts: `methodology_capitulation_anatomy_v1.json`,
 `capitulation_anatomy.py` i `capitulation_anatomy_v1.json`.
 

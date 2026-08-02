@@ -9,7 +9,13 @@
   "sq_version": null,
   "source_level": "C_EXPLORATORY",
   "domain": "strategyquant",
-  "rights_policy": "metadata_only",
-  "metadata": {"video_id": "asA_PJYLYdw", "shared_start_seconds": 0, "review_status": "metadata_captured_content_pending", "curated_by_user": true, "duplicate_links_received": 2},
-  "chunks": [{"locator": "metadata:oembed", "heading": "Builder complet", "body": "Vídeo d'Easy Trading Academy aportat per l'usuari sobre l'ús del Builder. L'enllaç es va rebre dues vegades i es cataloga una sola vegada. Contingut pendent de revisió.", "evidence_status": "captured"}]
+  "rights_policy": "transformative_notes",
+  "metadata": {"video_id": "asA_PJYLYdw", "shared_start_seconds": 0, "review_status": "transformative_notes_extracted", "curated_by_user": true, "duplicate_links_received": 2, "caption_language": "es_auto", "duration_seconds": 611, "screen_evidence_available": false},
+  "chunks": [
+    {"locator": "metadata:oembed", "heading": "Builder complet", "body": "Vídeo d'Easy Trading Academy aportat per l'usuari sobre l'ús del Builder. L'enllaç es va rebre dues vegades i es cataloga una sola vegada.", "evidence_status": "captured"},
+    {"locator": "audio:00:32-02:35", "heading": "Arquitectura i complexitat", "body": "L'àudio presenta Simple, multi-timeframe/symbol, template i improve; recomana començar amb Simple, separar long i short, limitar entrades a 1-3 condicions, sortides a 1-2 i shift a 1. Són presets del practicant, no llindars universals; la versió i la pantalla no s'han pogut verificar.", "evidence_status": "captured"},
+    {"locator": "audio:03:37-05:11", "heading": "Stops adaptats a volatilitat", "body": "Recomana exigir stop-loss i take-profit basats en ATR perquè escalen amb volatilitat, i restringir-ne la relació. L'ús d'ATR és coherent amb el principi de normalitzar distàncies, però els multiplicadors i la relació 80%-250% continuen sent heurístiques a provar.", "evidence_status": "corroborated"},
+    {"locator": "audio:05:11-08:19", "heading": "Genetic i illes", "body": "Descriu població, generacions, crossover, mutació, illes i migració; proposa població 100, 100 generacions, crossover 90%, mutació 30%, quatre illes, migració cada 20 generacions i 10% de població. Aquestes xifres amplien els intents i no s'han d'adoptar sense pressupost executat comparable.", "evidence_status": "captured"},
+    {"locator": "audio:08:19-09:52", "heading": "Filtres, Databank i reinicis", "body": "Proposa PF i return/DD mínims d'1 a la població inicial, Databank de 2.000-4.000 i reinicis quan l'evolució s'estanca. La nostra evidència SQX 143 mostra que Databank no compta intents i que els reinicis formen part del pressupost de selecció; el preset només és una hipòtesi operativa.", "evidence_status": "corroborated"}
+  ]
 }

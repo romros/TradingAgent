@@ -18,6 +18,22 @@ la causa continua existint ni si la posició mínima és operable avui.
    nocional, marge i liquidació amb data i venue actuals.
 8. Executar una sola vegada el període final segellat. Si falla, no reajustar-hi.
 
+## Incubació no és només un altre backtest
+
+Deixar una regla intacta i observar dades que encara no existien és evidència més
+forta que afegir una altra pertorbació sobre el mateix historial. Pot ser paper,
+retest posterior segellat o live controlat; cada via necessita logs, costos i
+paritat. «Ho tinc en producció» no basta sense artifact i mètriques verificables.
+
+En un cas aportat per l'usuari, l'àudio revisa un edge XAUUSD D1 un any després,
+canvia de Dukascopy a ticks Darwinex i declara spread, comissió i swap. És un bon
+patró conceptual. No podem validar el resultat perquè les mètriques només apareixen
+a pantalla, la transcripció no les conté i la versió de producció afegeix filtres
+a la regla crua. Font exploratòria: `yt_ruben_pgxeiqau1hu`, 00:01–06:39.
+
+Regla: separar sempre **afirmació de l'àudio**, **valor visible a pantalla** i
+**artifact reproduïble**. Si una capa falta, limitar la conclusió.
+
 ## Exemple XAU, no excepció XAU
 
 2004–2015 barreja expansió, crisi, polítiques extraordinàries, gran cicle alcista

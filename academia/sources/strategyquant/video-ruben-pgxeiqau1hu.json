@@ -9,7 +9,13 @@
   "sq_version": null,
   "source_level": "C_EXPLORATORY",
   "domain": "strategyquant",
-  "rights_policy": "metadata_only",
-  "metadata": {"video_id": "PgxeiqAU1HU", "shared_start_seconds": 0, "review_status": "metadata_captured_content_pending", "curated_by_user": true, "review_priority": 1},
-  "chunks": [{"locator": "metadata:oembed", "heading": "Revisió un any després", "body": "Vídeo de Rubén Martínez aportat per l'usuari. Prioritat alta per estudiar la diferència entre expectativa de backtest i comportament observat un any després; contingut encara no revisat.", "evidence_status": "captured"}]
+  "rights_policy": "transformative_notes",
+  "metadata": {"video_id": "PgxeiqAU1HU", "shared_start_seconds": 0, "review_status": "transformative_notes_extracted", "curated_by_user": true, "review_priority": 1, "caption_language": "es_auto", "duration_seconds": 403, "screen_evidence_available": false},
+  "chunks": [
+    {"locator": "metadata:oembed", "heading": "Revisió un any després", "body": "Vídeo de Rubén Martínez aportat per l'usuari per estudiar la diferència entre expectativa de backtest i comportament posterior.", "evidence_status": "captured"},
+    {"locator": "audio:00:01-01:02", "heading": "Incubació temporal", "body": "L'autor defensa deixar la regla intacta i revisar-la mesos després; considera Monte Carlo i altres proves indicatives, no concloents. Això coincideix amb reservar dades posteriors i paper/incubation com a evidència diferent, sense convertir live en una prova controlada perfecta.", "evidence_status": "corroborated"},
+    {"locator": "audio:01:02-02:33", "heading": "Hipòtesi simple i edge cru", "body": "La regla descrita és long XAUUSD D1, entrada divendres i sortida dilluns, amb la hipòtesi que cobertures de cap de setmana creen demanda d'or. L'àudio separa l'edge cru de money management; la causa econòmica no aporta font primària i queda com a hipòtesi, no com a fet.", "evidence_status": "captured"},
+    {"locator": "audio:02:33-04:35", "heading": "Canvi de dades i costos", "body": "Primer descriu Dukascopy 2003-2024; després retesta 2024 amb ticks Darwinex, spread real, comissió percentual i swap long carregat dijous. És un bon patró de transferència, però canviar proveïdor/motor introdueix una diferència que s'ha de reconciliar i registrar component per component.", "evidence_status": "corroborated"},
+    {"locator": "audio:04:35-06:39", "heading": "Resultat afirmat però no verificable", "body": "L'autor afirma que l'edge continua funcionant i que una versió amb filtres, stop-loss i take-profit és en producció. Els CC no contenen les mètriques mostrades a pantalla i no hi ha artifact, hash, trades, drawdown ni comparació de paritat; per tant l'Acadèmia no valida la conclusió quantitativa ni confon la regla crua amb la versió filtrada.", "evidence_status": "captured"}
+  ]
 }

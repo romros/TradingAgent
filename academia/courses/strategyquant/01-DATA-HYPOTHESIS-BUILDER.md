@@ -69,6 +69,12 @@ no amb la mateixa durada aparent.
 El filtre inicial ha de ser barat i poc selectiu: validesa, execució i mínim de
 trades. Un PF alt al principi crea pressió de selecció prematura.
 
+Els presets d'un tutorial són un punt de partida, no una recepta. Població 100,
+100 generacions, crossover 90%, mutació 30%, quatre illes o Databank 2.000 poden
+ser operables en un entorn concret, però tots canvien intents i selecció. Traduir
+cada número a la seva funció, congelar-lo al manifest i mesurar el comptador real
+abans de copiar-lo. Font exploratòria: `yt_easytrading_asapjylydw`, 05:11–09:52.
+
 ## 6. Databank i embut
 
 El Databank conserva els millors segons ranking i té capacitat limitada; no és

@@ -1,0 +1,10 @@
+{
+  "id": "ostium_official_fees_liquidation_2026", "kind": "documentation", "title": "Ostium fees and liquidation",
+  "url": "https://docs.ostium.com/traders/reference/fees", "author": "Ostium", "published_at": null, "accessed_at": "2026-08-02",
+  "language": "en", "sq_version": null, "source_level": "A_PRIMARY", "domain": "execution-economics", "rights_policy": "transformative_notes",
+  "metadata": {"also_checked": "https://docs.ostium.com/traders/trading/liquidation", "volatile": true},
+  "chunks": [
+    {"locator": "section:fees", "heading": "All-in costs", "body": "El cost inclou opening fee sobre nocional, oracle de 0,10 USDC per petició i rollover continu variable; no hi ha closing fee, però el tancament creua bid/ask. Els intents fallits per slippage poden consumir l'oracle fee.", "evidence_status": "captured"},
+    {"locator": "section:liquidation", "heading": "Liquidation", "body": "La liquidació depèn de palanquejament i màxim del parell; el rollover redueix el collateral efectiu i acosta el preu real de liquidació. En liquidar-se, no es retorna el collateral restant.", "evidence_status": "captured"}
+  ]
+}

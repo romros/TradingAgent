@@ -1,0 +1,10 @@
+{
+  "id": "sq_official_program_layout_20190226", "kind": "documentation", "title": "StrategyQuant X program layout",
+  "url": "https://strategyquant.com/doc/strategyquant/program-layout/", "author": "StrategyQuant", "published_at": "2019-02-26", "accessed_at": "2026-08-02",
+  "language": "en", "sq_version": null, "source_level": "A_PRIMARY", "domain": "strategyquant", "rights_policy": "transformative_notes",
+  "metadata": {"version_warning": "Inventari conceptual antic; verificar controls concrets en el build instal·lat."},
+  "chunks": [
+    {"locator": "section:main", "heading": "Core modules", "body": "El programa separa Builder, Retester, Optimizer, Data Manager, Custom Projects i AlgoWizard; també inclou tutorials, workflows, consola, editor de codi, grid i configuració global.", "evidence_status": "captured"},
+    {"locator": "section:intent", "heading": "Module intent", "body": "Builder genera o millora; Retester comprova estratègies existents amb altres dades o opcions; Optimizer explora paràmetres i walk-forward; Data Manager governa dades; Custom Projects encadena tasques; AlgoWizard defineix regles explícites.", "evidence_status": "captured"}
+  ]
+}

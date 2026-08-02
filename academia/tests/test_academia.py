@@ -36,7 +36,7 @@ class CatalogTest(unittest.TestCase):
     def test_benchmark(self):
         dataset = Path(__file__).resolve().parents[1] / "benchmark/queries.jsonl"
         result = academia.benchmark(self.db, dataset, 5)
-        self.assertEqual(result["cases"], 15)
+        self.assertEqual(result["cases"], 23)
         self.assertEqual(result["recall_at_5"], 1.0)
 
     def test_invalid_rights_policy_is_rejected(self):
@@ -52,8 +52,8 @@ class CatalogTest(unittest.TestCase):
     def test_claim_evidence_resolves_to_chunk(self):
         academia.ingest_claims(self.db, [self.root / "claims/strategyquant/core-claims.json"])
         with sqlite3.connect(self.db) as db:
-            self.assertEqual(db.execute("SELECT count(*) FROM claims").fetchone()[0], 10)
-            self.assertEqual(db.execute("SELECT count(*) FROM claim_evidence").fetchone()[0], 11)
+            self.assertEqual(db.execute("SELECT count(*) FROM claims").fetchone()[0], 16)
+            self.assertEqual(db.execute("SELECT count(*) FROM claim_evidence").fetchone()[0], 17)
 
 
 if __name__ == "__main__":

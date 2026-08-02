@@ -13,3 +13,11 @@
 {"id":"sq-wfo-not-rescue","query":"reoptimitzar no arregla estratègia deficient","domain":"strategyquant","relevant_source_ids":["sq_official_walk_forward_optimization_20150506"]}
 {"id":"sq-wf-score-relative","query":"WF Score comparació percentual backtest original","domain":"strategyquant","relevant_source_ids":["sq_official_walk_forward_values_20190101"]}
 {"id":"sq-wf-profit-concentration","query":"benefici concentrat en un sol run","domain":"strategyquant","relevant_source_ids":["sq_official_walk_forward_values_20190101"]}
+{"id":"sq-data-costs","query":"configurar spread slippage comissió swaps backtest","domain":"strategyquant","relevant_source_ids":["sq_official_data_settings_20190109"]}
+{"id":"sq-data-precision","query":"generació ràpida retest real tick ordres Stop Limit","domain":"strategyquant","relevant_source_ids":["sq_official_data_settings_20190109"]}
+{"id":"sq-cross-funnel","query":"cross checks simples abans complexos descartar estratègia","domain":"strategyquant","relevant_source_ids":["sq_official_cross_checks_20190226"]}
+{"id":"sq-cross-cost","query":"cross checks centenars backtests cost computacional","domain":"strategyquant","relevant_source_ids":["sq_official_cross_checks_20190226"]}
+{"id":"sq-workflow-stages","query":"importar dades configurar Builder generar avaluar retest","domain":"strategyquant","relevant_source_ids":["sq_official_workflow_20190130"]}
+{"id":"sq-generation-half","query":"generar candidats no és suficient robustness retest","domain":"strategyquant","relevant_source_ids":["sq_official_workflow_20190130"]}
+{"id":"sq-custom-workflow","query":"Custom Project encadenar build retest WFM Databank","domain":"strategyquant","relevant_source_ids":["sq_official_custom_projects_20200504"]}
+{"id":"sq-custom-runtime","query":"workflow repetir hores dies criteri aturada","domain":"strategyquant","relevant_source_ids":["sq_official_custom_projects_20200504"]}

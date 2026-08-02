@@ -29,13 +29,26 @@
     "lesson": "Cal activar CrossChecks i MonteCarloRetest; una opció interna sense l'interruptor pare no executa res. En un projecte d'una sola tasca, action=start va executar-la mentre startOnlyTask task=1 va acabar sense retest."
   },
   "builder_random_vs_genetic": {
-    "status": "tested_contract_failed",
+    "status": "attempt_counter_discovered_comparison_pending",
     "random_project_sha256": "207fd6802b547546c14f5a45e2116e2fee83df9222963ed298a1d50a92a7272f",
     "genetic_project_sha256": "db74a90bc17153c9ad8c780cafcc618bd598be2df551b98f8e4ef10b1b72199d",
     "common_data": "EURUSD_M1_dukas_M1_UTCMinus05 / H4",
     "successful_local_stage": "data load, test run and random strategy generation started under the two-core cgroup",
-    "failed_requirement": "SQ build 143 exposes PopulationSize x MaxGenerations for genetic evolution but no equivalent stop on total attempted strategies for random generation.",
-    "decision": "Do not compare survivor quality as if both methods had 2000 attempts. Keep capability operational until an attempts counter can stop and export both runs, or revise the benchmark to a clearly labelled equal-wall-clock test."
+    "attempt_counter": {
+      "gui_label": "Strategies generated",
+      "frontend_binding": "projectStats.totalJobsDone",
+      "scope_requirement": "disposable project with one active Build task"
+    },
+    "control_calibration": {
+      "cpu_limit": 2,
+      "first_stop_observed_at": 1853,
+      "first_final_attempts": 2241,
+      "second_pre_stop_observation": 3299,
+      "second_final_attempts": 4822,
+      "accepted": 0,
+      "lesson": "PinchTab polling plus /project/stop is too slow for an exact attempt budget at this throughput; queued workers continue after the command."
+    },
+    "decision": "The missing counter is resolved, but no Random/Genetic quality comparison is claimed. Repeat under identical reduced CPU or pause control, require identical observed attempts, and loosen the shared acceptance filters only if survivor distributions are the declared outcome."
   },
   "export_crossplatform": {
     "status": "tested_boundary_failed",

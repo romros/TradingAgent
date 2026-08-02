@@ -22,5 +22,44 @@
     "statement": "Portfolio Composer va ser introduït a StrategyQuant X Build 141.",
     "status": "captured", "confidence": 0.95, "first_seen_at": "2026-08-02", "updated_at": "2026-08-02",
     "evidence": [{"source_id": "sq_official_portfolio_composer_20241015", "locator": "section:introduction", "relation": "supports"}]
+  },
+  {
+    "id": "sq_wfo_alternates_optimization_and_oos",
+    "statement": "Una WFO alterna segments d'optimització amb segments OOS posteriors i repeteix el procés cronològicament.",
+    "status": "corroborated", "confidence": 0.95, "first_seen_at": "2026-08-02", "updated_at": "2026-08-02",
+    "evidence": [{"source_id": "sq_official_walk_forward_optimization_20150506", "locator": "section:definition", "relation": "supports"}]
+  },
+  {
+    "id": "sq_wfm_evaluates_multiple_schedules",
+    "statement": "Una WFM avalua múltiples configuracions de reoptimització variant runs i percentatge OOS.",
+    "status": "corroborated", "confidence": 0.95, "first_seen_at": "2026-08-02", "updated_at": "2026-08-02",
+    "evidence": [{"source_id": "sq_official_walk_forward_matrix_20150506", "locator": "section:definition", "relation": "supports"}]
+  },
+  {
+    "id": "sq_wfm_compute_cost_grows_with_grid",
+    "statement": "Augmentar les combinacions de runs i OOS d'una WFM augmenta el nombre d'optimitzacions i el cost de càlcul.",
+    "status": "captured", "confidence": 0.9, "first_seen_at": "2026-08-02", "updated_at": "2026-08-02",
+    "evidence": [{"source_id": "sq_official_walk_forward_matrix_20150506", "locator": "section:cost", "relation": "supports"}]
+  },
+  {
+    "id": "sq_wfm_region_preferred_over_isolated_peak",
+    "statement": "La documentació recomana interpretar regions veïnes estables de la WFM en lloc de dependre d'un únic resultat aïllat.",
+    "status": "captured", "confidence": 0.85, "first_seen_at": "2026-08-02", "updated_at": "2026-08-02",
+    "evidence": [{"source_id": "sq_official_walk_forward_matrix_20150506", "locator": "section:interpretation", "relation": "supports"}]
+  },
+  {
+    "id": "sq_wf_score_is_relative_comparison",
+    "statement": "WF Score és una comparació percentual entre una mètrica walk-forward i la mateixa mètrica del backtest original.",
+    "status": "captured", "confidence": 0.9, "first_seen_at": "2026-08-02", "updated_at": "2026-08-02",
+    "evidence": [{"source_id": "sq_official_walk_forward_values_20190101", "locator": "section:wf-score", "relation": "supports"}]
+  },
+  {
+    "id": "sq_wfm_pass_does_not_prove_future_profit",
+    "statement": "Superar una WFM no demostra rendibilitat futura ni elimina per si sol el risc de selecció i sobreajustament.",
+    "status": "captured", "confidence": 0.8, "first_seen_at": "2026-08-02", "updated_at": "2026-08-02",
+    "evidence": [
+      {"source_id": "sq_official_walk_forward_matrix_20150506", "locator": "section:interpretation", "relation": "mentions", "notes": "Inferència prudent: la font descriu un indicador de robustesa, no una garantia predictiva."},
+      {"source_id": "sq_official_walk_forward_optimization_20150506", "locator": "section:interpretation", "relation": "supports", "notes": "L'exemple oficial mostra que reoptimitzar no rescata necessàriament una estratègia deficient."}
+    ]
   }
 ]

@@ -1,0 +1,20 @@
+{
+  "id": "sq_official_walk_forward_optimization_20150506",
+  "kind": "documentation",
+  "title": "Walk-Forward Optimization",
+  "url": "https://strategyquant.com/doc/strategyquant/walk-forward-optimization/",
+  "author": "StrategyQuant",
+  "published_at": "2015-05-06",
+  "accessed_at": "2026-08-02",
+  "language": "en",
+  "sq_version": null,
+  "source_level": "A_PRIMARY",
+  "domain": "strategyquant",
+  "rights_policy": "transformative_notes",
+  "metadata": {"page_last_updated": "2015-05-06", "version_warning": "Exemple antic; contrastar interfície, camps i defaults amb la build objectiu."},
+  "chunks": [
+    {"locator": "section:definition", "heading": "Walk-forward optimization", "body": "La Walk-Forward Optimization divideix les dades en períodes successius: optimitza paràmetres en un segment passat i els avalua en el segment out-of-sample següent, repetint el procés en el temps.", "evidence_status": "corroborated"},
+    {"locator": "section:oos", "heading": "Percentatge OOS", "body": "El percentatge out-of-sample determina la part de cada període reservada al run posterior a l'optimització; també es poden definir durades concretes segons la documentació.", "evidence_status": "captured"},
+    {"locator": "section:interpretation", "heading": "Límit interpretatiu", "body": "L'exemple oficial mostra que reoptimitzar no converteix necessàriament una estratègia deficient en una estratègia útil; cal comparar el resultat amb l'original i inspeccionar els runs.", "evidence_status": "captured"}
+  ]
+}

@@ -1,0 +1,51 @@
+import json
+import sqlite3
+import tempfile
+import unittest
+from pathlib import Path
+
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
+import academia
+
+
+class CatalogTest(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.db = Path(self.tmp.name) / "test.db"
+        self.source = Path(__file__).resolve().parents[1] / "sources/strategyquant/build142-reference.json"
+        academia.ingest(self.db, [self.source])
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def test_fts_search_and_domain_filter(self):
+        hits = academia.search(self.db, "correlació Databank", 5, "strategyquant")
+        self.assertEqual(hits[0]["source_id"], "yt_easytrading_build142_20260528")
+        self.assertEqual(academia.search(self.db, "correlació", 5, "other"), [])
+
+    def test_reingest_is_idempotent(self):
+        academia.ingest(self.db, [self.source])
+        with sqlite3.connect(self.db) as db:
+            self.assertEqual(db.execute("SELECT count(*) FROM sources").fetchone()[0], 1)
+            self.assertEqual(db.execute("SELECT count(*) FROM chunks").fetchone()[0], 3)
+
+    def test_benchmark(self):
+        dataset = Path(__file__).resolve().parents[1] / "benchmark/queries.jsonl"
+        result = academia.benchmark(self.db, dataset, 5)
+        self.assertEqual(result["cases"], 3)
+        self.assertEqual(result["recall_at_5"], 1.0)
+
+    def test_invalid_rights_policy_is_rejected(self):
+        data = json.loads(self.source.read_text())
+        data["rights_policy"] = "copy_everything"
+        self.assertTrue(academia.validate(data))
+
+    def test_unknown_field_is_rejected(self):
+        data = json.loads(self.source.read_text())
+        data["surprise"] = True
+        self.assertIn("camp desconegut: surprise", academia.validate(data))
+
+
+if __name__ == "__main__":
+    unittest.main()

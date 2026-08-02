@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tradingagent.local/academia/source.schema.json",
+  "title": "Academia source manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "kind", "title", "accessed_at", "source_level", "domain", "rights_policy"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_-]+$"},
+    "kind": {"enum": ["documentation", "paper", "web", "video", "audio", "experiment", "note"]},
+    "title": {"type": "string", "minLength": 1},
+    "url": {"type": ["string", "null"]},
+    "author": {"type": ["string", "null"]},
+    "published_at": {"type": ["string", "null"], "format": "date"},
+    "accessed_at": {"type": "string", "format": "date"},
+    "language": {"type": ["string", "null"]},
+    "sq_version": {"type": ["string", "null"]},
+    "source_level": {"enum": ["A_PRIMARY", "B_PRACTITIONER", "C_EXPLORATORY", "D_REJECTED"]},
+    "domain": {"type": "string", "minLength": 1},
+    "rights_policy": {"enum": ["metadata_only", "transformative_notes", "redistributable", "first_party"]},
+    "content_sha256": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+    "metadata": {"type": "object"},
+    "chunks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["locator", "body"],
+        "properties": {
+          "locator": {"type": "string", "minLength": 1},
+          "heading": {"type": ["string", "null"]},
+          "body": {"type": "string", "minLength": 1},
+          "evidence_status": {"enum": ["captured", "corroborated", "tested", "verified", "contradicted", "obsolete"]}
+        }
+      }
+    }
+  }
+}

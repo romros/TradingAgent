@@ -62,3 +62,6 @@ Usar la sortida com a control mínim, no com a senyal de trading.
 Quan hi hagi gates temporal i de costos d'Alquímia, normalitzar-los amb
 `academia/tools/import_alquimia.py` abans de raonar. Consultar
 `academia/experiments/failure-memory.json` per evitar repetir una direcció rebutjada.
+Per explicar una família ja registrada amb format estable, executar
+`academia/tools/campaign_advisor.py FAMILY`; si no té evidència, no extrapolar
+una altra família.

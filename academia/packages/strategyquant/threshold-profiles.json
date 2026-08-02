@@ -1,0 +1,31 @@
+{
+  "warning": "Perfils preregistrats observats, no defaults universals. No ajustar després de veure resultats.",
+  "profiles": [
+    {
+      "id": "alquimia_eurusd_h4_small_account_v2",
+      "scope": "EURUSD H4, capital 200 USDC",
+      "minimum_oos_trades": 30, "minimum_oos_profit_factor": 1.15,
+      "maximum_oos_drawdown_pct": 20, "maximum_expectancy_decay_pct": 50,
+      "cost_scenarios": ["base", "conservative", "stress"],
+      "source": "lab/sq_bridge/methodology_v2.json"
+    },
+    {
+      "id": "intraday_fx_4h_small_investor_2026",
+      "scope": "EURUSD/XAUUSD 4H, capital 250 USD",
+      "minimum_total_trades": 100, "minimum_validation_trades": 25, "minimum_test_trades": 25,
+      "minimum_final_profit_factor": 1.25, "maximum_validation_drawdown_pct": 20,
+      "maximum_test_drawdown_pct": 25, "minimum_positive_neighbours_ratio": 0.70,
+      "cost_stress_multiplier": 2,
+      "source": "lab/docs/INTRADAY_FX_RESEARCH_PROTOCOL.md"
+    },
+    {
+      "id": "daily_small_investor_2026",
+      "scope": "ETF D1 long/cash, capital 250 USD",
+      "minimum_total_trades": 40, "minimum_validation_trades": 10, "minimum_test_trades": 8,
+      "minimum_profit_factor": 1.25, "minimum_positive_neighbours_ratio": 0.70,
+      "minimum_positive_walk_forward_ratio": 0.65, "maximum_single_regime_profit_share": 0.50,
+      "maximum_test_drawdown_pct": 25, "cost_stress_multiplier": 2,
+      "source": "lab/docs/SMALL_INVESTOR_RESEARCH_PROTOCOL.md"
+    }
+  ]
+}

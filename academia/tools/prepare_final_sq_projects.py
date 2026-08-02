@@ -26,7 +26,7 @@ def rewrite_cfx(
     files["config.xml"] = config.replace(f'name="{old_name}"', f'name="{project_name}"', 1).encode()
     for name, changes in replacements.items():
         payload = files[name]
-        text = payload.decode("utf-8")
+        text = payload.decode("utf-8").replace("\r\n", "\n")
         for old, new in changes.items():
             if old not in text:
                 raise ValueError(f"missing expected fragment in {source}: {old}")
@@ -48,7 +48,16 @@ def prepare_builder(projects: Path, source_name: str, target_name: str, mode: st
         source,
         target_dir / "project.cfx",
         target_name,
-        {"Build-Task1.xml": {
+        {
+            "config.xml": {
+                '    <Task type="Build" name="Build" showSettingsOverview="false" sampleName="Custom" active="true" version="126.2189" taskXMLFile="Build-Task1.xml" />\n'
+                '    <Task name="Filter strategies" type="Filtering" taskXMLFile="Filtering-Task1.xml" active="true" />\n'
+                '    <Task type="Retest" name="Retest strategies" showSettingsOverview="false" sampleName="Custom" active="true" taskXMLFile="Retest-Task1.xml" />\n'
+                '    <Task name="Clear databanks" type="ClearDatabanks" taskXMLFile="ClearDatabanks-Task1.xml" active="true" />\n'
+                '    <Task name="Go To Task" type="GoToTask" taskXMLFile="GoToTask-Task1.xml" active="true" />':
+                    '    <Task type="Build" name="Build" showSettingsOverview="false" sampleName="Custom" active="true" version="126.2189" taskXMLFile="Build-Task1.xml" />',
+            },
+            "Build-Task1.xml": {
             '<BuildMode generationType="genetic-evolution">': f'<BuildMode generationType="{generation}">',
             "<PopulationSize>100</PopulationSize>": "<PopulationSize>100</PopulationSize>",
             "<MaxGenerations>100</MaxGenerations>": "<MaxGenerations>20</MaxGenerations>",
@@ -57,7 +66,8 @@ def prepare_builder(projects: Path, source_name: str, target_name: str, mode: st
             '<CrossChecks use="true" evaluateAll="true">': '<CrossChecks use="false" evaluateAll="true">',
             'testPrecision="1"': 'testPrecision="4"',
             'timeframe="M15"': 'timeframe="H4"',
-        }},
+            },
+        },
     )
 
 

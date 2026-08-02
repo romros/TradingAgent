@@ -29,6 +29,7 @@ def run_daily_scan() -> dict:
         fee_bps=config.PAPER_COST_BPS,
         leverage_by_asset=config.LEVERAGE_BY_ASSET,
         risk_per_trade_pct=config.RISK_PER_TRADE_PCT,
+        risk_glidepath=config.RISK_GLIDEPATH,
         stop_distance_by_asset=config.STOP_DISTANCE_BY_ASSET,
     )
     tracker = PortfolioTracker(db_path=config.DB_PATH)

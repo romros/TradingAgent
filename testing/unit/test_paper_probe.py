@@ -195,6 +195,24 @@ def test_paper_executor_risk_sizes_and_stops_trade():
     assert abs(settled.pnl + 2.024) < 0.000001
 
 
+def test_paper_executor_applies_small_capital_glidepath():
+    from packages.portfolio.risk_policy import parse_risk_glidepath
+
+    executor = PaperExecutor(
+        leverage=10, col_pct=.20, col_max=60, col_min=15, fee_bps=0,
+        risk_per_trade_pct=.01, risk_glidepath=parse_risk_glidepath("400:.015,inf:.005"),
+        stop_distance_by_asset={"MSFT": .05},
+    )
+    signal = SignalRecord(id=24, candle_date="2025-01-10", asset="MSFT",
+                          strategy="capitulation_d1", created_at=_now())
+    candle = {"date": "2025-01-11", "open": 100.0, "high": 100.0,
+              "low": 100.0, "close": 100.0}
+    small = executor.open_trade(signal, capital=200, entry_candle=candle)
+    large = executor.open_trade(signal, capital=500, entry_candle=candle)
+    assert small.nominal == 60.0  # 200 * 1.5% / 5%
+    assert large.nominal == 50.0  # 500 * 0.5% / 5%
+
+
 def test_paper_executor_settle_loss():
     """Trade perdedor: close < open, però sense liquidació."""
     executor = PaperExecutor(leverage=20, col_pct=0.20, col_max=60.0, col_min=15.0, fee=5.38)

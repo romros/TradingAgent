@@ -229,11 +229,11 @@ La història ampliada invalida el cap global antic de 20x. La pitjor MAE
 observada és 5,57% MSFT, 12,75% NVDA i 10,07% QQQ. A 20x, el proxy hauria
 liquidat 2,70%, 7,64% i 2,41% dels trades. Amb buffer del 25%, els nous caps
 de **paper** són MSFT 10x i NVDA/NDXUSD 5x; fallback 5x. El nocional continua
-limitat independentment a risc 1% i marge màxim 35%. Cal certificar open/low
+limitat independentment pel tram vigent del glidepath i marge màxim 35%. Cal certificar open/low
 contra Ostium abans de considerar aquests caps per live.
 
 El paper executor aplica aquesta separació de forma explícita a les noves
-operacions: pressupost de risc 1%, stop diagnòstic per actiu, nocional
+operacions: pressupost de risc segons capital, stop diagnòstic per actiu, nocional
 `risc/stop` i collateral `nocional/leverage`. Si el low diari travessa el stop,
 registra `stop_settled`. No hi havia trades pendents durant la migració i no
 s'ha reescrit cap operació històrica.
@@ -260,6 +260,19 @@ Aquests són resultats històrics, no una projecció. El compounding és limitat
 per la baixa freqüència i el risc 1%. L'antic 250→772 a 20x no és comparable:
 assumia una exposició molt superior i zero liquidacions, hipòtesi invalidada
 per la història ampliada.
+
+#### Risk glidepath
+
+El paper aplica risc decreixent per capital: <400 USDC 1,5%; 400–999 1,25%;
+1.000–2.499 1%; 2.500–4.999 0,75%; ≥5.000 0,5%. El leverage no augmenta el
+pressupost de risc; només redueix el collateral necessari dins els caps per
+actiu.
+
+Simulació cronològica MSFT+NVDA des de 200 USDC: base 314,91, conservador
+303,23 i estrès 279,62. Drawdown màxim conservador 4,67%. En 23,05 anys cap
+escenari arriba al primer llindar de 400 USDC; per tant, el glidepath és una
+infraestructura correcta però no resol la baixa freqüència. Calen estratègies
+independents addicionals, no més risc sobre el mateix edge.
 
 Artifacts: `methodology_capitulation_anatomy_v1.json`,
 `capitulation_anatomy.py` i `capitulation_anatomy_v1.json`.

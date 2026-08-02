@@ -185,19 +185,21 @@ Esperat: `/status` mostra `probe_ok`, `last_scan` amb `assets`; `/validation` re
 - **pnl_pct**: rendibilitat sobre el collateral (%)
 - **liq_triggered**: si MAE >= 1/leverage, la posició es liquida totalment
 - **collateral**: marge reservat; primer es calcula el límit 20%/15$/60$ i
-  després es redueix si el nocional de risc 1% exigeix menys marge
+  després es redueix si el nocional permès pel glidepath exigeix menys marge
 - **nominal**: collateral × leverage específic de l'actiu
 
 Exemple amb capital=250$:
 - caps paper per defecte: MSFT 10x, NVDA 5x i NDXUSD 5x; fallback 5x
 - override: `LEVERAGE_BY_ASSET="MSFT:10,NVDA:5,NDXUSD:5"`
 - stops diagnòstics: `STOP_DISTANCE_BY_ASSET="MSFT:0.0476,NVDA:0.0700,NDXUSD:0.0522"`
-- risc: `RISK_PER_TRADE_PCT=0.01`
-- MSFT: pressupost de risc 2,50$; nominal = 2,50$/4,76% = 52,52$;
-  collateral a 10x = 5,25$
-- Cost base: 6 bps de 52,52$ = 0,03$
-- Si close +3%: pnl aproximat = 52,52$ × 3% - 0,03$ = +1,55$
-- Si el low travessa -4,76%: pèrdua aproximada = -2,50$ - fee
+- risc fallback sense glidepath: `RISK_PER_TRADE_PCT=0.01`
+- glidepath per defecte:
+  `RISK_GLIDEPATH="400:0.015,1000:0.0125,2500:0.01,5000:0.0075,inf:0.005"`
+- MSFT sota 400$: pressupost de risc 3,75$; nominal = 3,75$/4,76% = 78,78$;
+  collateral a 10x = 7,88$
+- Cost base: 8 bps de 78,78$ = 0,06$
+- Si close +3%: pnl aproximat = 78,78$ × 3% - 0,06$ = +2,30$
+- Si el low travessa -4,76%: pèrdua aproximada = -3,75$ - fee
 
 El stop D1 paper assumeix execució al nivell configurat. Gaps i slippage poden
 empitjorar-la en una execució real; per això aquests caps no autoritzen live.

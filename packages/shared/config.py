@@ -1,5 +1,7 @@
 import os
 
+from packages.portfolio.risk_policy import parse_risk_glidepath
+
 ASSETS = os.getenv("PROBE_ASSETS", "MSFT,NVDA").split(",")
 LEVERAGE = int(os.getenv("LEVERAGE", "5"))
 
@@ -23,6 +25,9 @@ LEVERAGE_BY_ASSET = _parse_asset_leverage(
     os.getenv("LEVERAGE_BY_ASSET", "MSFT:10,NVDA:5,NDXUSD:5")
 )
 RISK_PER_TRADE_PCT = float(os.getenv("RISK_PER_TRADE_PCT", "0.01"))
+RISK_GLIDEPATH = parse_risk_glidepath(os.getenv(
+    "RISK_GLIDEPATH", "400:0.015,1000:0.0125,2500:0.01,5000:0.0075,inf:0.005"
+))
 STOP_DISTANCE_BY_ASSET = {
     asset: float(value)
     for asset, value in (

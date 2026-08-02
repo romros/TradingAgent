@@ -1,6 +1,7 @@
 from datetime import datetime, timezone
-from typing import Mapping, Optional
+from typing import Mapping, Optional, Sequence
 
+from packages.portfolio.risk_policy import CapitalRiskTier, risk_pct_for_capital
 from packages.shared.models import SignalRecord, PaperTradeRecord
 
 
@@ -16,6 +17,7 @@ class PaperExecutor:
         leverage_by_asset: Optional[Mapping[str, int]] = None,
         risk_per_trade_pct: Optional[float] = None,
         stop_distance_by_asset: Optional[Mapping[str, float]] = None,
+        risk_glidepath: Optional[Sequence[CapitalRiskTier]] = None,
     ):
         self.leverage = leverage
         self.col_pct = col_pct
@@ -28,6 +30,7 @@ class PaperExecutor:
         self.risk_per_trade_pct = risk_per_trade_pct
         self.stop_distance_by_asset = {asset.upper(): float(value)
                                        for asset, value in (stop_distance_by_asset or {}).items()}
+        self.risk_glidepath = tuple(risk_glidepath or ())
 
     def leverage_for_asset(self, asset: str) -> int:
         return self.leverage_by_asset.get(asset.upper(), self.leverage)
@@ -55,9 +58,12 @@ class PaperExecutor:
         nominal = collateral * leverage
         stop_distance = self.stop_distance_by_asset.get(signal.asset.upper())
         if self.risk_per_trade_pct is not None and stop_distance is not None:
-            if not 0 < self.risk_per_trade_pct <= 1 or not 0 < stop_distance < 1:
+            risk_pct = risk_pct_for_capital(
+                capital, self.risk_glidepath, self.risk_per_trade_pct
+            ) if self.risk_glidepath else self.risk_per_trade_pct
+            if not 0 < risk_pct <= 1 or not 0 < stop_distance < 1:
                 raise ValueError("risk_per_trade_pct and stop distance must be in (0, 1]")
-            risk_limited_nominal = capital * self.risk_per_trade_pct / stop_distance
+            risk_limited_nominal = capital * risk_pct / stop_distance
             nominal = min(nominal, risk_limited_nominal)
             collateral = nominal / leverage
         trade_fee = self.fee if self.fee is not None else nominal * self.fee_bps / 10_000.0

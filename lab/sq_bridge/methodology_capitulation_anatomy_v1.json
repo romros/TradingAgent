@@ -21,11 +21,11 @@
   "bootstrap_seed": 20260802,
   "risk_policy": {
     "capital_usdc": 200,
-    "risk_per_trade_pct": 1,
+    "risk_glidepath_pct": {"below_400": 1.5, "400_to_999": 1.25, "1000_to_2499": 1.0, "2500_to_4999": 0.75, "5000_plus": 0.5},
     "maximum_margin_pct": 35,
     "leverage_grid": [1, 2, 3, 5, 8, 10, 15, 20, 30, 50],
     "historical_mae_buffer_multiplier": 1.25,
-    "rule": "Leverage is capped below the buffered worst observed MAE barrier; notional is capped by stop risk and margin independently."
+    "rule": "Leverage is capped below the buffered worst observed MAE barrier; notional is capped by the current capital-tier risk divided by stop distance and by margin independently."
   },
   "limitations": [
     "Yahoo OHLC is not certified as raw Ostium OHLC; MSFT close-only parity does not certify open/high/low.",

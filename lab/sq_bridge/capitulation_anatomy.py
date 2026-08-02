@@ -5,17 +5,27 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 from pathlib import Path
+import sys
 
 import numpy as np
-import pandas as pd
-
 
 ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+import pandas as pd
+
+from packages.portfolio.risk_policy import parse_risk_glidepath, risk_pct_for_capital
+
 OUT = ROOT / "lab" / "out" / "alquimia" / "capitulation_anatomy_v1.json"
 ASSETS = ("MSFT", "NVDA", "QQQ")
 LEVERAGES = (1, 2, 3, 5, 8, 10, 15, 20, 30, 50)
 STOP_DISTANCE = {"MSFT": .0476, "NVDA": .0700, "QQQ": .0522}
+DEFAULT_GLIDEPATH = parse_risk_glidepath(
+    "400:.015,1000:.0125,2500:.01,5000:.0075,inf:.005"
+)
 
 
 def download(asset: str) -> pd.DataFrame:
@@ -166,10 +176,46 @@ def analyse(asset: str, frame: pd.DataFrame, seed: int) -> dict:
             "risk_and_leverage": leverage_audit(events)}
 
 
+def simulate_portfolio_glidepath(frames: dict[str, pd.DataFrame]) -> dict:
+    rows = []
+    for asset in ("MSFT", "NVDA"):
+        events = event_table(frames[asset])
+        stop = STOP_DISTANCE[asset]
+        stopped = events.return_1d.where(events.mae_1d > -stop, -stop)
+        rows.extend((date, float(value), stop) for date, value in zip(events.entry_date, stopped))
+    scenarios = {}
+    for name, bps in (("base", 8), ("conservative", 15), ("stress", 30)):
+        by_date = {}
+        for date, value, stop in rows:
+            by_date.setdefault(date, []).append((value - bps / 10000, stop))
+        capital = peak = 200.0
+        max_drawdown = 0.0
+        reached = {}
+        for date, trades_on_day in sorted(by_date.items()):
+            risk_pct = risk_pct_for_capital(capital, DEFAULT_GLIDEPATH, .01)
+            capital *= 1 + sum(net * risk_pct / stop for net, stop in trades_on_day)
+            peak = max(peak, capital)
+            max_drawdown = max(max_drawdown, 1 - capital / peak)
+            for threshold in (400, 1000, 2500, 5000):
+                if capital >= threshold and str(threshold) not in reached:
+                    reached[str(threshold)] = str(date.date())
+        scenarios[name] = {"initial_usdc": 200.0, "final_usdc": capital,
+                           "profit_usdc": capital - 200, "total_return_pct": (capital / 200 - 1) * 100,
+                           "maximum_drawdown_pct": max_drawdown * 100,
+                           "capital_threshold_dates": reached}
+    return {"assets": ["MSFT", "NVDA"], "trades": len(rows),
+            "simultaneous_signals_use_same_start_of_day_capital": True,
+            "tiers": [{"capital_below": "inf" if math.isinf(tier.capital_below) else tier.capital_below,
+                       "risk_pct": tier.risk_pct}
+                      for tier in DEFAULT_GLIDEPATH], "scenarios": scenarios}
+
+
 def run() -> dict:
-    assets = [analyse(asset, download(asset), 20260802 + i) for i, asset in enumerate(ASSETS)]
+    frames = {asset: download(asset) for asset in ASSETS}
+    assets = [analyse(asset, frames[asset], 20260802 + i) for i, asset in enumerate(ASSETS)]
     return {"schema_version": 1, "methodology": "methodology_capitulation_anatomy_v1.json",
             "production_rule_changed": False, "assets": assets,
+            "portfolio_risk_glidepath": simulate_portfolio_glidepath(frames),
             "decision": "DESCRIPTIVE_AUDIT_ONLY_KEEP_PAPER_RULE_FROZEN"}
 
 

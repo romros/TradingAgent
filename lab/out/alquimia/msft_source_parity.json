@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "source": "/mnt/volume-SQ/dev/BrokerageService/datafiles/realtime_datalayer/candles/MSFT/America_New_York/2026",
+  "raw_m1_rows": 36141,
+  "regular_session_days": 95,
+  "selected_reference": "unadjusted",
+  "adjusted": {
+    "overlap_days": 95,
+    "first_overlap": "2026-03-17",
+    "last_overlap": "2026-07-31",
+    "close_diff_bps_median": 15.245591074541931,
+    "close_diff_bps_p95": 33.45706991109587,
+    "daily_return_correlation": 0.9974840506361303,
+    "dates_only_ostium": [],
+    "dates_only_reference": [
+      "2026-03-02",
+      "2026-03-03",
+      "2026-03-04",
+      "2026-03-05",
+      "2026-03-06",
+      "2026-03-09",
+      "2026-03-10",
+      "2026-03-11",
+      "2026-03-12",
+      "2026-03-13",
+      "2026-03-16"
+    ]
+  },
+  "unadjusted": {
+    "overlap_days": 95,
+    "first_overlap": "2026-03-17",
+    "last_overlap": "2026-07-31",
+    "close_diff_bps_median": 5.284224573312013,
+    "close_diff_bps_p95": 24.653301760183545,
+    "daily_return_correlation": 0.9974947172408166,
+    "dates_only_ostium": [],
+    "dates_only_reference": [
+      "2026-03-02",
+      "2026-03-03",
+      "2026-03-04",
+      "2026-03-05",
+      "2026-03-06",
+      "2026-03-09",
+      "2026-03-10",
+      "2026-03-11",
+      "2026-03-12",
+      "2026-03-13",
+      "2026-03-16"
+    ]
+  },
+  "intraday_anomalies": [
+    {
+      "timestamp_utc": "2026-03-27T19:58:00+00:00",
+      "neighbour_median": 357.01,
+      "close": 381.55,
+      "absolute_deviation": 0.06873757037617989,
+      "action": "EXCLUDED_ISOLATED_ORACLE_OUTLIER"
+    },
+    {
+      "timestamp_utc": "2026-03-30T19:58:00+00:00",
+      "neighbour_median": 359.425,
+      "close": 381.55,
+      "absolute_deviation": 0.06155665298741053,
+      "action": "EXCLUDED_ISOLATED_ORACLE_OUTLIER"
+    },
+    {
+      "timestamp_utc": "2026-04-14T19:59:00+00:00",
+      "neighbour_median": 393.16,
+      "close": 370.775,
+      "absolute_deviation": 0.05693610743717581,
+      "action": "EXCLUDED_ISOLATED_ORACLE_OUTLIER"
+    },
+    {
+      "timestamp_utc": "2026-05-29T19:58:00+00:00",
+      "neighbour_median": 449.13,
+      "close": 411.405,
+      "absolute_deviation": 0.08399572506846575,
+      "action": "EXCLUDED_ISOLATED_ORACLE_OUTLIER"
+    },
+    {
+      "timestamp_utc": "2026-06-02T19:59:00+00:00",
+      "neighbour_median": 441.45,
+      "close": 411.405,
+      "absolute_deviation": 0.06805980292218827,
+      "action": "EXCLUDED_ISOLATED_ORACLE_OUTLIER"
+    },
+    {
+      "timestamp_utc": "2026-06-09T19:59:00+00:00",
+      "neighbour_median": 403.695,
+      "close": 428.2725,
+      "absolute_deviation": 0.060881358451305934,
+      "action": "EXCLUDED_ISOLATED_ORACLE_OUTLIER"
+    },
+    {
+      "timestamp_utc": "2026-06-10T19:59:00+00:00",
+      "neighbour_median": 398.19,
+      "close": 428.2725,
+      "absolute_deviation": 0.07554810517592103,
+      "action": "EXCLUDED_ISOLATED_ORACLE_OUTLIER"
+    },
+    {
+      "timestamp_utc": "2026-06-22T19:58:00+00:00",
+      "neighbour_median": 367.835,
+      "close": 398.195,
+      "absolute_deviation": 0.08253700708197975,
+      "action": "EXCLUDED_ISOLATED_ORACLE_OUTLIER"
+    },
+    {
+      "timestamp_utc": "2026-06-25T19:58:00+00:00",
+      "neighbour_median": 352.64499,
+      "close": 398.195,
+      "absolute_deviation": 0.12916675776394837,
+      "action": "EXCLUDED_ISOLATED_ORACLE_OUTLIER"
+    },
+    {
+      "timestamp_utc": "2026-06-26T19:58:00+00:00",
+      "neighbour_median": 375.545,
+      "close": 352.11,
+      "absolute_deviation": 0.06240264149436148,
+      "action": "EXCLUDED_ISOLATED_ORACLE_OUTLIER"
+    },
+    {
+      "timestamp_utc": "2026-06-30T19:58:00+00:00",
+      "neighbour_median": 373.305,
+      "close": 398.195,
+      "absolute_deviation": 0.06667470299085188,
+      "action": "EXCLUDED_ISOLATED_ORACLE_OUTLIER"
+    },
+    {
+      "timestamp_utc": "2026-07-30T19:58:00+00:00",
+      "neighbour_median": 451.415,
+      "close": 389.76750000000004,
+      "absolute_deviation": 0.1365650233155743,
+      "action": "EXCLUDED_ISOLATED_ORACLE_OUTLIER"
+    },
+    {
+      "timestamp_utc": "2026-07-31T19:58:00+00:00",
+      "neighbour_median": 466.48249999999996,
+      "close": 389.76750000000004,
+      "absolute_deviation": 0.16445418638426934,
+      "action": "EXCLUDED_ISOLATED_ORACLE_OUTLIER"
+    }
+  ],
+  "incomplete_sessions": [
+    {
+      "date": "2026-03-17",
+      "open": 398.8575,
+      "high": 399.915,
+      "low": 398.715,
+      "close": 399.51,
+      "last_raw_close": 399.915,
+      "close_policy": "median_last_5_regular_session_bars",
+      "bars": 22,
+      "raw_bars": 22
+    },
+    {
+      "date": "2026-07-20",
+      "open": 390.005,
+      "high": 403.13,
+      "low": 390.005,
+      "close": 400.51,
+      "last_raw_close": 402.4975,
+      "close_policy": "median_last_5_regular_session_bars",
+      "bars": 218,
+      "raw_bars": 218
+    }
+  ],
+  "scope": "CLOSE_D1_ONLY_NO_RAW_OPEN_HIGH_LOW_DEPENDENCE",
+  "decision": "PASS_CLOSE_ONLY",
+  "reasons": [],
+  "warnings": [
+    "OSTIUM_ISOLATED_OUTLIERS_FILTERED",
+    "INCOMPLETE_REGULAR_SESSIONS_EXCLUDE_FROM_RESEARCH_PARITY"
+  ]
+}

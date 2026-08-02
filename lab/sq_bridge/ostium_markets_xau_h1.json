@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-08-01",
+  "notes": ["Research-only campaign registry overlay; canonical registry remains ostium_markets.json."],
+  "markets": {
+    "XAUUSD": {
+      "category": "commodity",
+      "ostium_pair": "XAU/USD",
+      "ostium_asset": "XAUUSD",
+      "bs_symbol": "XAUUSD",
+      "sq_symbol": "XAUUSD_M1_dukasXAUUSD_M1_dukas_NYclose",
+      "discovery_timeframe": "H1",
+      "venue_max_leverage": 200,
+      "opening_fee_bps": 3,
+      "research_eligible": true,
+      "live_eligible": false,
+      "warning": "BS quarantine: price parity must be recertified before paper/live."
+    }
+  }
+}

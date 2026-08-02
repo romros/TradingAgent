@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "methodology_id": "alquimia-xau-h4-atr-compression-breakout-v3",
+  "ownership": "TradingAgent/Alquimia",
+  "capital_usdc": 200,
+  "principles": {"sq_role": "candidate_generator_only", "legacy_configs": "format_scaffold_only", "holdout_policy": "sealed_until_final_gate", "live_policy": "explicit_human_authorization"},
+  "hypothesis": {"mechanism": "Falling H4 ATR before a stop-entry channel break filters noisy breaks and increases net movement per trade.", "context": "volatility compression followed by directional expansion", "falsifier": "reject if no candidate reaches validation PF 1.15 with 30 trades or if 200-USDC stress expectancy remains below 0.10 USDC per trade", "architecture": "single-symbol H4 forced ATR-compression plus channel stop entry", "maximum_entry_conditions": 1, "period_range": [10, 120], "shift_range": [1, 2]},
+  "stages": ["market_preflight", "discovery", "temporal_validation", "robustness", "small_account_economics", "python_translation", "parity", "paper"],
+  "temporal_split": {"train_pct": 50, "validation_pct": 20, "oos_pct": 20, "final_holdout_pct": 10, "embargo_bars": 10},
+  "discovery": {"max_rules": 1, "max_lookback_bars": 120, "minimum_trades_train": 60, "minimum_profit_factor_train": 1.05, "selection_metric": "return_drawdown_ratio", "robustness_during_generation": false},
+  "temporal_validation": {"minimum_trades_oos": 30, "minimum_positive_windows_ratio": 0.6, "minimum_oos_profit_factor": 1.15, "maximum_oos_drawdown_pct": 20, "maximum_train_oos_expectancy_decay_pct": 50},
+  "robustness": {"monte_carlo_runs": 1000, "minimum_profitable_monte_carlo_ratio": 0.7, "parameter_perturbation_pct": 10, "cost_stress_multiplier": 2, "minimum_stress_profit_factor": 1.05, "maximum_liquidation_probability": 0.001},
+  "small_account": {"capital_scenarios_usdc": [100, 200, 300, 500, 1000], "canonical_capital_usdc": 200, "maximum_risk_per_trade_pct": 1, "maximum_portfolio_margin_pct": 35, "minimum_reserve_pct": 40, "minimum_net_expectancy_usdc": 0.1, "minimum_net_profit_factor": 1.1, "leverage_grid": [1, 2, 3, 5, 8, 10, 15, 20, 30, 50]}
+}

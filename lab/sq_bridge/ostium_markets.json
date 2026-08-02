@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-08-02",
+  "notes": [
+    "Perpetus sintetics liquidats en USDC; no tokens spot.",
+    "Valors de mercat contrastats amb la documentacio oficial d Ostium el 2026-08-02.",
+    "El maxim del venue no es el leverage aprovat.",
+    "Live requereix PASS de compatibilitat BS."
+  ],
+  "markets": {
+    "NVDA": {
+      "category": "stock",
+      "ostium_pair": "NVDA/USD",
+      "ostium_asset": "NVDAUSD",
+      "bs_symbol": "NVDA",
+      "sq_symbol": "NVDAUSUSD_TICK_UTCMinus05",
+      "venue_max_leverage": 100,
+      "opening_fee_bps": 6,
+      "research_eligible": true,
+      "live_eligible": false
+    },
+    "MSFT": {
+      "category": "stock",
+      "ostium_pair": "MSFT/USD",
+      "ostium_asset": "MSFTUSD",
+      "bs_symbol": "MSFT",
+      "sq_symbol": "MSFT",
+      "sq_data_source": "Yahoo provisional; close-only parity certified against Ostium",
+      "sq_resource_clone_from": "NVDAUSUSD_TICK_UTCMinus05",
+      "sq_resource_remove_attributes": ["cloneFrom", "sourceTimezone"],
+      "sq_resource_attributes": {
+        "source": "3",
+        "barType": "1",
+        "precision": "D1",
+        "timezone": "Etc/UCT",
+        "dateFrom": "511108200000",
+        "dateTo": "1785504600000",
+        "uSymbol": "MSFT",
+        "uSymbolName": "Microsoft Corporation, NMS",
+        "removeWeekends": "false",
+        "broker": "-1"
+      },
+      "discovery_timeframe": "D1",
+      "discovery_slippage": 0,
+      "venue_max_leverage": 100,
+      "opening_fee_bps": 6,
+      "research_eligible": true,
+      "live_eligible": false
+    },
+    "XAUUSD": {
+      "category": "commodity",
+      "ostium_pair": "XAU/USD",
+      "ostium_asset": "XAUUSD",
+      "bs_symbol": "XAUUSD",
+      "sq_symbol": "XAUUSD_M1_dukasXAUUSD_M1_dukas_NYclose",
+      "discovery_timeframe": "H4",
+      "venue_max_leverage": 50,
+      "opening_fee_bps": 3,
+      "discovery_slippage": 400,
+      "research_eligible": true,
+      "live_eligible": false,
+      "warning": "BS quarantine: cal recertificar paritat."
+    },
+    "EURUSD": {
+      "category": "forex",
+      "ostium_pair": "EUR/USD",
+      "ostium_asset": "EURUSD",
+      "bs_symbol": "EURUSD",
+      "sq_symbol": "EURUSD_M1_dukas_M1_UTCMinus05",
+      "venue_max_leverage": 200,
+      "opening_fee_bps": 3,
+      "research_eligible": true,
+      "live_eligible": false,
+      "warning": "Cal recertificar paritat BS abans de paper/live."
+    },
+    "BTCUSD": {
+      "category": "crypto",
+      "ostium_pair": "BTC/USD",
+      "ostium_asset": "BTCUSD",
+      "bs_symbol": "BTCUSD",
+      "sq_symbol": "BTCUSDT",
+      "venue_max_leverage": 200,
+      "opening_fee_bps": 10,
+      "research_eligible": true,
+      "live_eligible": false,
+      "warning": "SQ usa BTCUSDT; cal provar paritat contra BTC/USD Ostium abans de paper/live."
+    }
+  }
+}

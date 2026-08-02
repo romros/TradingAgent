@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "family_id": "xau_h1_higher_edge_v1",
+  "hypothesis": "H1 gold movements can provide more return per trade than M15 equities while ATR exits cap adverse excursion.",
+  "market": "XAUUSD",
+  "timeframe": "H1",
+  "accepted_limit": 80,
+  "date_from": "2004-01-01",
+  "date_to": "2026-03-13",
+  "independence": {
+    "legacy_quant_results_used": false,
+    "legacy_role": "SQ XML syntax scaffold only",
+    "nvda_campaign_parameters_reused": false
+  },
+  "pre_registered_success": {
+    "minimum_oos_profit_factor": 1.15,
+    "minimum_oos_trades": 30,
+    "cost_scenarios_required": ["base", "conservative", "stress"],
+    "canonical_equity_usdc": 200,
+    "maximum_risk_per_trade_pct": 1,
+    "holdout_must_remain_sealed": true
+  },
+  "known_blocker_for_live": "XAUUSD BrokerageService price parity is quarantined and must be recertified before paper/live."
+}

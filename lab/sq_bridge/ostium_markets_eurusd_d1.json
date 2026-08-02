@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-08-02",
+  "notes": [
+    "Research-only overlay; Ostium market existence reverified against official documentation.",
+    "Venue maximum is never the approved strategy leverage."
+  ],
+  "markets": {
+    "EURUSD": {
+      "category": "forex",
+      "ostium_pair": "EUR/USD",
+      "ostium_asset": "EURUSD",
+      "bs_symbol": "EURUSD",
+      "sq_symbol": "EURUSD_M1_dukas_M1_UTCMinus05",
+      "discovery_timeframe": "D1",
+      "venue_max_leverage": 200,
+      "opening_fee_bps": 3,
+      "research_eligible": true,
+      "live_eligible": false,
+      "warning": "Paper/live require BrokerageService price and candle parity."
+    }
+  }
+}

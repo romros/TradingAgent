@@ -1,0 +1,4856 @@
+{
+  "schema_version": 1,
+  "data": "Yahoo MSFT unadjusted OHLC; close parity certified, OHLC execution provisional",
+  "periods": {
+    "validation": [
+      "2012-10-17",
+      "2018-04-23"
+    ],
+    "oos": [
+      "2018-04-24",
+      "2023-10-29"
+    ],
+    "holdout": [
+      "2023-10-30",
+      "2026-08-01"
+    ]
+  },
+  "candidate_count": 3,
+  "eligible_count": 3,
+  "eligible": [
+    {
+      "project": "ALQUIMIA_MSFT_D1_TREND_LONG_inventory",
+      "strategy": "Strategy 0.14",
+      "results": {
+        "validation": {
+          "direction": "long",
+          "trades": 36,
+          "win_rate": 0.6944444444444444,
+          "profit_factor": 4.44632694573981,
+          "compound_return": 4.220250083589851,
+          "max_drawdown": 0.10286528091684455,
+          "median_bars": 21.0,
+          "trades_detail": [
+            {
+              "entry_date": "2012-10-26",
+              "exit_date": "2012-11-06",
+              "return": 0.08325889151868049,
+              "stop_distance_pct": 4.724342734311061,
+              "bars": 5,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2012-11-20",
+              "exit_date": "2013-04-09",
+              "return": 0.09298800476959501,
+              "stop_distance_pct": 5.232830735706622,
+              "bars": 94,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-04-19",
+              "exit_date": "2013-04-25",
+              "return": 0.07886312342184087,
+              "stop_distance_pct": 4.359668639634721,
+              "bars": 4,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-05-15",
+              "exit_date": "2013-07-15",
+              "return": 0.08206659274090922,
+              "stop_distance_pct": 4.529945626271721,
+              "bars": 41,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-07-25",
+              "exit_date": "2013-08-23",
+              "return": 0.111110766806642,
+              "stop_distance_pct": 6.0988197855440855,
+              "bars": 21,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-09-04",
+              "exit_date": "2013-10-21",
+              "return": 0.12087182335892055,
+              "stop_distance_pct": 6.6489019249729955,
+              "bars": 33,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-10-30",
+              "exit_date": "2013-12-02",
+              "return": 0.08783066375083681,
+              "stop_distance_pct": 4.975944806914656,
+              "bars": 22,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-12-18",
+              "exit_date": "2014-03-18",
+              "return": 0.08647356618927371,
+              "stop_distance_pct": 4.86546555359625,
+              "bars": 60,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2014-04-02",
+              "exit_date": "2014-04-08",
+              "return": -0.04732064750574083,
+              "stop_distance_pct": 4.732064750574086,
+              "bars": 4,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-04-10",
+              "exit_date": "2014-07-16",
+              "return": 0.09303449620970361,
+              "stop_distance_pct": 5.142745950520953,
+              "bars": 66,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2014-08-05",
+              "exit_date": "2014-09-08",
+              "return": 0.0697251378948831,
+              "stop_distance_pct": 3.93722939545317,
+              "bars": 23,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2014-10-08",
+              "exit_date": "2014-10-13",
+              "return": -0.03704263728799584,
+              "stop_distance_pct": 3.7042637287995874,
+              "bars": 3,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-10-17",
+              "exit_date": "2014-10-31",
+              "return": 0.08596503019779811,
+              "stop_distance_pct": 4.693175989940182,
+              "bars": 10,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2014-11-24",
+              "exit_date": "2014-12-16",
+              "return": -0.04245550790268471,
+              "stop_distance_pct": 4.245550790268462,
+              "bars": 15,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-12-16",
+              "exit_date": "2015-01-27",
+              "return": -0.04778845886420591,
+              "stop_distance_pct": 4.77884588642059,
+              "bars": 27,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2015-02-03",
+              "exit_date": "2015-04-24",
+              "return": 0.12588537308422354,
+              "stop_distance_pct": 6.856547990878472,
+              "bars": 56,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2015-05-12",
+              "exit_date": "2015-06-29",
+              "return": -0.052145875100603756,
+              "stop_distance_pct": 5.214587510060382,
+              "bars": 33,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2015-07-07",
+              "exit_date": "2015-08-05",
+              "return": 0.08858789456210237,
+              "stop_distance_pct": 5.026616992185159,
+              "bars": 21,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2015-08-26",
+              "exit_date": "2015-10-08",
+              "return": 0.1297536453852437,
+              "stop_distance_pct": 7.039291588894011,
+              "bars": 30,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2015-10-19",
+              "exit_date": "2015-10-23",
+              "return": 0.0933813274535722,
+              "stop_distance_pct": 5.339756581173568,
+              "bars": 4,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2015-12-15",
+              "exit_date": "2016-01-07",
+              "return": -0.05020585310626369,
+              "stop_distance_pct": 5.020585310626377,
+              "bars": 15,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-01-08",
+              "exit_date": "2016-01-20",
+              "return": -0.0554429904446152,
+              "stop_distance_pct": 5.544299044461524,
+              "bars": 7,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-02-09",
+              "exit_date": "2016-04-15",
+              "return": 0.13791259111734622,
+              "stop_distance_pct": 7.561053148249676,
+              "bars": 46,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2016-04-15",
+              "exit_date": "2016-04-22",
+              "return": -0.051400366896384275,
+              "stop_distance_pct": 5.1400366896384195,
+              "bars": 5,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-05-04",
+              "exit_date": "2016-07-20",
+              "return": 0.10560328640784578,
+              "stop_distance_pct": 6.023283596901374,
+              "bars": 53,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2016-10-19",
+              "exit_date": "2016-10-24",
+              "return": 0.05957176900373318,
+              "stop_distance_pct": 3.41299305048688,
+              "bars": 3,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2016-11-02",
+              "exit_date": "2016-11-10",
+              "return": -0.03582499116868687,
+              "stop_distance_pct": 3.5824991168686897,
+              "bars": 6,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-11-10",
+              "exit_date": "2016-11-11",
+              "return": -0.03971445945529284,
+              "stop_distance_pct": 3.9714459455292888,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-12-22",
+              "exit_date": "2017-04-26",
+              "return": 0.06722813681294681,
+              "stop_distance_pct": 3.780300946552891,
+              "bars": 84,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2017-05-10",
+              "exit_date": "2017-06-05",
+              "return": 0.04844505670242749,
+              "stop_distance_pct": 2.7521677088369536,
+              "bars": 17,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2017-06-15",
+              "exit_date": "2017-07-20",
+              "return": 0.06961247874865384,
+              "stop_distance_pct": 3.783571228371262,
+              "bars": 24,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2017-08-03",
+              "exit_date": "2017-10-12",
+              "return": 0.06565992372395701,
+              "stop_distance_pct": 3.681521792058067,
+              "bars": 49,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2017-12-27",
+              "exit_date": "2018-01-22",
+              "return": 0.063232865976244,
+              "stop_distance_pct": 3.534419130877246,
+              "bars": 16,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2018-02-09",
+              "exit_date": "2018-02-27",
+              "return": 0.11025874066387664,
+              "stop_distance_pct": 5.816172239994817,
+              "bars": 11,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2018-03-07",
+              "exit_date": "2018-03-23",
+              "return": -0.05405065214932814,
+              "stop_distance_pct": 5.405065214932818,
+              "bars": 12,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2018-03-29",
+              "exit_date": "2018-06-04",
+              "return": 0.125389452684306,
+              "stop_distance_pct": 6.766645493979764,
+              "bars": 45,
+              "reason": "target"
+            }
+          ]
+        },
+        "oos": {
+          "direction": "long",
+          "trades": 28,
+          "win_rate": 0.6071428571428571,
+          "profit_factor": 2.677375256645829,
+          "compound_return": 1.8195297785279556,
+          "max_drawdown": 0.39343737136092993,
+          "median_bars": 24.0,
+          "trades_detail": [
+            {
+              "entry_date": "2018-06-29",
+              "exit_date": "2018-07-20",
+              "return": 0.08242858812184628,
+              "stop_distance_pct": 4.7484215873640165,
+              "bars": 14,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2018-08-03",
+              "exit_date": "2018-10-24",
+              "return": -0.045858411592482495,
+              "stop_distance_pct": 4.585841159248249,
+              "bars": 57,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2018-11-05",
+              "exit_date": "2018-12-20",
+              "return": -0.06939794027268786,
+              "stop_distance_pct": 6.939794027268785,
+              "bars": 31,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2018-12-28",
+              "exit_date": "2019-03-21",
+              "return": 0.1640073453440054,
+              "stop_distance_pct": 8.952667578125725,
+              "bars": 56,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2019-05-14",
+              "exit_date": "2019-06-10",
+              "return": 0.08213432410854127,
+              "stop_distance_pct": 4.602043959986613,
+              "bars": 18,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2019-07-15",
+              "exit_date": "2019-08-05",
+              "return": -0.03846255823336897,
+              "stop_distance_pct": 3.846255823336907,
+              "bars": 15,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2019-08-06",
+              "exit_date": "2019-10-28",
+              "return": 0.08609128416199252,
+              "stop_distance_pct": 4.765979887445332,
+              "bars": 58,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2019-12-09",
+              "exit_date": "2020-01-02",
+              "return": 0.057761067232179775,
+              "stop_distance_pct": 3.3692295879940866,
+              "bars": 16,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-02-28",
+              "exit_date": "2020-03-03",
+              "return": 0.13924448691214542,
+              "stop_distance_pct": 7.301328003856049,
+              "bars": 2,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-03-13",
+              "exit_date": "2020-04-17",
+              "return": 0.21936025932896386,
+              "stop_distance_pct": 11.342893385165057,
+              "bars": 24,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-07-23",
+              "exit_date": "2021-01-26",
+              "return": 0.12485773896511065,
+              "stop_distance_pct": 7.039638708160798,
+              "bars": 128,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-02-26",
+              "exit_date": "2021-04-09",
+              "return": 0.09882530580872895,
+              "stop_distance_pct": 5.572126190923153,
+              "bars": 29,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-05-06",
+              "exit_date": "2021-06-28",
+              "return": 0.08851542496089038,
+              "stop_distance_pct": 5.039664510341072,
+              "bars": 36,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-07-23",
+              "exit_date": "2021-10-18",
+              "return": 0.06603710860231637,
+              "stop_distance_pct": 3.766046881862175,
+              "bars": 60,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-10-18",
+              "exit_date": "2021-10-29",
+              "return": 0.07653899459894054,
+              "stop_distance_pct": 4.248298961934848,
+              "bars": 9,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-12-08",
+              "exit_date": "2021-12-17",
+              "return": -0.04721511457583971,
+              "stop_distance_pct": 4.721511457583976,
+              "bars": 7,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2021-12-27",
+              "exit_date": "2022-01-05",
+              "return": -0.052756168209580845,
+              "stop_distance_pct": 5.275616820958084,
+              "bars": 7,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-01-07",
+              "exit_date": "2022-01-21",
+              "return": -0.056340919249624366,
+              "stop_distance_pct": 5.634091924962427,
+              "bars": 9,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-02-18",
+              "exit_date": "2022-03-08",
+              "return": -0.0746067919637119,
+              "stop_distance_pct": 7.460679196371188,
+              "bars": 11,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-03-11",
+              "exit_date": "2022-05-09",
+              "return": -0.08253663809949152,
+              "stop_distance_pct": 8.253663809949149,
+              "bars": 40,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-05-13",
+              "exit_date": "2022-09-30",
+              "return": -0.09434956303673792,
+              "stop_distance_pct": 9.434956303673793,
+              "bars": 96,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-10-03",
+              "exit_date": "2022-11-03",
+              "return": -0.07374995522967431,
+              "stop_distance_pct": 7.374995522967436,
+              "bars": 23,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-11-08",
+              "exit_date": "2023-02-02",
+              "return": 0.155937617053042,
+              "stop_distance_pct": 8.718774855591256,
+              "bars": 58,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2023-02-16",
+              "exit_date": "2023-04-26",
+              "return": 0.12576352678570468,
+              "stop_distance_pct": 7.072709313981873,
+              "bars": 47,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2023-04-28",
+              "exit_date": "2023-06-02",
+              "return": 0.10540485019025958,
+              "stop_distance_pct": 5.916907512155402,
+              "bars": 24,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2023-06-27",
+              "exit_date": "2023-07-18",
+              "return": 0.09218707062745013,
+              "stop_distance_pct": 5.1797967147326665,
+              "bars": 14,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2023-07-27",
+              "exit_date": "2023-08-11",
+              "return": -0.060591413321905874,
+              "stop_distance_pct": 6.059141332190589,
+              "bars": 11,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2023-08-23",
+              "exit_date": "2023-11-06",
+              "return": 0.09799800866425135,
+              "stop_distance_pct": 5.563980579233378,
+              "bars": 52,
+              "reason": "target"
+            }
+          ]
+        },
+        "holdout": {
+          "direction": "long",
+          "trades": 21,
+          "win_rate": 0.38095238095238093,
+          "profit_factor": 1.2384057942084947,
+          "compound_return": 0.10538922206429735,
+          "max_drawdown": 0.2082252605033894,
+          "median_bars": 9.0,
+          "trades_detail": [
+            {
+              "entry_date": "2024-01-10",
+              "exit_date": "2024-01-24",
+              "return": 0.0726831533386707,
+              "stop_distance_pct": 4.16651584384049,
+              "bars": 9,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2024-02-26",
+              "exit_date": "2024-04-25",
+              "return": -0.04152984671082738,
+              "stop_distance_pct": 4.15298467108273,
+              "bars": 42,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2024-04-25",
+              "exit_date": "2024-05-21",
+              "return": 0.08836217089950571,
+              "stop_distance_pct": 4.903695643388366,
+              "bars": 18,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2024-07-24",
+              "exit_date": "2024-07-25",
+              "return": -0.045302522602599926,
+              "stop_distance_pct": 4.530252260259987,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2024-07-25",
+              "exit_date": "2024-08-02",
+              "return": -0.04746621289024777,
+              "stop_distance_pct": 4.746621289024785,
+              "bars": 6,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2024-08-07",
+              "exit_date": "2024-12-12",
+              "return": 0.10670846174941495,
+              "stop_distance_pct": 5.825989016703884,
+              "bars": 89,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2024-12-27",
+              "exit_date": "2025-01-13",
+              "return": -0.04739507245325758,
+              "stop_distance_pct": 4.7395072453257585,
+              "bars": 9,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2025-01-21",
+              "exit_date": "2025-02-03",
+              "return": -0.04860246999678386,
+              "stop_distance_pct": 4.8602469996783935,
+              "bars": 9,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2025-03-03",
+              "exit_date": "2025-03-31",
+              "return": -0.05616397341302304,
+              "stop_distance_pct": 5.616397341302303,
+              "bars": 20,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2025-04-10",
+              "exit_date": "2025-05-02",
+              "return": 0.14480678683854564,
+              "stop_distance_pct": 7.823646000778053,
+              "bars": 15,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2025-08-13",
+              "exit_date": "2025-08-19",
+              "return": -0.04301115251319232,
+              "stop_distance_pct": 4.3011152513192314,
+              "bars": 4,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2025-08-25",
+              "exit_date": "2025-10-28",
+              "return": 0.07523969116191775,
+              "stop_distance_pct": 4.2625497180860075,
+              "bars": 45,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2025-11-06",
+              "exit_date": "2025-11-20",
+              "return": -0.04617678670734282,
+              "stop_distance_pct": 4.617678670734278,
+              "bars": 10,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2025-11-25",
+              "exit_date": "2026-01-21",
+              "return": -0.0553101945159048,
+              "stop_distance_pct": 5.53101945159048,
+              "bars": 37,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-01-21",
+              "exit_date": "2026-01-29",
+              "return": -0.050847539174345036,
+              "stop_distance_pct": 5.084753917434508,
+              "bars": 6,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-02-06",
+              "exit_date": "2026-03-26",
+              "return": -0.07421839427843113,
+              "stop_distance_pct": 7.421839427843123,
+              "bars": 33,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-03-26",
+              "exit_date": "2026-04-15",
+              "return": 0.11532215102382826,
+              "stop_distance_pct": 6.608421439438443,
+              "bars": 13,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2026-05-18",
+              "exit_date": "2026-06-01",
+              "return": 0.1172755757896411,
+              "stop_distance_pct": 6.568557617882311,
+              "bars": 9,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2026-06-01",
+              "exit_date": "2026-06-03",
+              "return": -0.062490607133959375,
+              "stop_distance_pct": 6.249060713395941,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-06-15",
+              "exit_date": "2026-06-24",
+              "return": -0.07544159729342648,
+              "stop_distance_pct": 7.544159729342659,
+              "bars": 6,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-07-29",
+              "exit_date": "2026-07-30",
+              "return": 0.13900159834221815,
+              "stop_distance_pct": 7.816221752582127,
+              "bars": 1,
+              "reason": "target"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "project": "ALQUIMIA_MSFT_D1_CALENDAR_LONG_inventory",
+      "strategy": "Strategy 0.14",
+      "results": {
+        "validation": {
+          "direction": "long",
+          "trades": 47,
+          "win_rate": 0.3191489361702128,
+          "profit_factor": 1.6751158015268492,
+          "compound_return": 0.49685726105242956,
+          "max_drawdown": 0.08990224712094785,
+          "median_bars": 6.0,
+          "trades_detail": [
+            {
+              "entry_date": "2012-11-01",
+              "exit_date": "2012-11-12",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 7,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2012-12-03",
+              "exit_date": "2013-04-03",
+              "return": 0.0792597468490226,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 82,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-05-01",
+              "exit_date": "2013-06-03",
+              "return": 0.07700580722284767,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 22,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-06-03",
+              "exit_date": "2013-06-20",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 13,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2013-07-01",
+              "exit_date": "2013-07-02",
+              "return": -0.02100000000000013,
+              "stop_distance_pct": 2.1000000000000005,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2013-08-01",
+              "exit_date": "2013-08-06",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 3,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2013-09-03",
+              "exit_date": "2013-09-05",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2013-10-01",
+              "exit_date": "2013-10-25",
+              "return": 0.07930093814470629,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 18,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-11-01",
+              "exit_date": "2013-11-06",
+              "return": 0.07023577837532002,
+              "stop_distance_pct": 2.1,
+              "bars": 3,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-12-02",
+              "exit_date": "2013-12-05",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 3,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-01-02",
+              "exit_date": "2014-01-06",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-02-03",
+              "exit_date": "2014-02-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-03-03",
+              "exit_date": "2014-03-20",
+              "return": 0.06752443937170405,
+              "stop_distance_pct": 2.1,
+              "bars": 13,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2014-04-01",
+              "exit_date": "2014-04-04",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 3,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-05-01",
+              "exit_date": "2014-05-05",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-06-02",
+              "exit_date": "2014-06-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-07-01",
+              "exit_date": "2014-07-16",
+              "return": 0.0558669580660045,
+              "stop_distance_pct": 2.1,
+              "bars": 10,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2014-08-01",
+              "exit_date": "2014-08-06",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 3,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-09-02",
+              "exit_date": "2014-10-10",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 28,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-11-03",
+              "exit_date": "2014-12-16",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 30,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2015-01-02",
+              "exit_date": "2015-01-06",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2015-02-02",
+              "exit_date": "2015-04-24",
+              "return": 0.11598209366106027,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 57,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2015-05-01",
+              "exit_date": "2015-05-05",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2015-06-01",
+              "exit_date": "2015-06-05",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 4,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2015-07-01",
+              "exit_date": "2015-07-07",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 3,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2015-08-03",
+              "exit_date": "2015-08-11",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 6,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2015-09-01",
+              "exit_date": "2015-10-06",
+              "return": 0.11474761833123681,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 24,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2015-11-02",
+              "exit_date": "2016-01-11",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 47,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-02-01",
+              "exit_date": "2016-02-02",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-03-01",
+              "exit_date": "2016-04-18",
+              "return": 0.10774053078655665,
+              "stop_distance_pct": 2.1,
+              "bars": 33,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2016-05-02",
+              "exit_date": "2016-06-27",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 39,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-07-01",
+              "exit_date": "2016-07-20",
+              "return": 0.07761252914557626,
+              "stop_distance_pct": 2.1,
+              "bars": 12,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2016-08-01",
+              "exit_date": "2016-10-21",
+              "return": 0.06319878414446589,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 58,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2016-11-01",
+              "exit_date": "2016-11-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 3,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-12-01",
+              "exit_date": "2016-12-02",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2017-01-03",
+              "exit_date": "2017-04-05",
+              "return": 0.054570873390979546,
+              "stop_distance_pct": 2.1000000000000005,
+              "bars": 64,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2017-05-01",
+              "exit_date": "2017-05-18",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 13,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2017-06-01",
+              "exit_date": "2017-06-09",
+              "return": -0.02100000000000013,
+              "stop_distance_pct": 2.1,
+              "bars": 6,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2017-07-03",
+              "exit_date": "2017-07-19",
+              "return": 0.06356462880562974,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 11,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2017-08-01",
+              "exit_date": "2017-08-02",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2017-09-01",
+              "exit_date": "2017-09-05",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2017-10-02",
+              "exit_date": "2017-10-20",
+              "return": 0.04915874565190048,
+              "stop_distance_pct": 2.1,
+              "bars": 14,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2017-11-01",
+              "exit_date": "2017-12-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 22,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2018-01-02",
+              "exit_date": "2018-01-16",
+              "return": 0.04990834667903177,
+              "stop_distance_pct": 2.1,
+              "bars": 9,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2018-02-01",
+              "exit_date": "2018-02-02",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2018-03-01",
+              "exit_date": "2018-03-02",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2018-04-02",
+              "exit_date": "2018-04-03",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            }
+          ]
+        },
+        "oos": {
+          "direction": "long",
+          "trades": 56,
+          "win_rate": 0.32142857142857145,
+          "profit_factor": 1.9712879048062748,
+          "compound_return": 0.9929916275114987,
+          "max_drawdown": 0.25705325340286833,
+          "median_bars": 5.0,
+          "trades_detail": [
+            {
+              "entry_date": "2018-05-01",
+              "exit_date": "2018-07-12",
+              "return": 0.10919750870661016,
+              "stop_distance_pct": 2.1,
+              "bars": 50,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2018-08-01",
+              "exit_date": "2018-09-13",
+              "return": 0.0697572430972222,
+              "stop_distance_pct": 2.1,
+              "bars": 30,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2018-10-01",
+              "exit_date": "2018-10-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 3,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2018-11-01",
+              "exit_date": "2018-11-14",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 9,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2018-12-03",
+              "exit_date": "2018-12-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2019-01-02",
+              "exit_date": "2019-01-03",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2019-02-01",
+              "exit_date": "2019-03-13",
+              "return": 0.10669819020328841,
+              "stop_distance_pct": 2.1,
+              "bars": 27,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2019-04-01",
+              "exit_date": "2019-04-25",
+              "return": 0.06432005838639343,
+              "stop_distance_pct": 2.1,
+              "bars": 17,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2019-05-01",
+              "exit_date": "2019-05-02",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2019-06-03",
+              "exit_date": "2019-06-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2019-07-01",
+              "exit_date": "2019-08-05",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1000000000000005,
+              "bars": 24,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2019-09-03",
+              "exit_date": "2019-10-02",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 21,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2019-11-01",
+              "exit_date": "2019-12-13",
+              "return": 0.06574885596730629,
+              "stop_distance_pct": 2.1,
+              "bars": 29,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-01-02",
+              "exit_date": "2020-01-16",
+              "return": 0.042975470640929325,
+              "stop_distance_pct": 2.1,
+              "bars": 10,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-02-03",
+              "exit_date": "2020-02-04",
+              "return": 0.05910359511838781,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 1,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-03-02",
+              "exit_date": "2020-03-06",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 4,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2020-04-01",
+              "exit_date": "2020-06-09",
+              "return": 0.23372456839282774,
+              "stop_distance_pct": 2.1,
+              "bars": 47,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-07-01",
+              "exit_date": "2020-07-24",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 16,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2020-08-03",
+              "exit_date": "2020-08-10",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 5,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2020-09-01",
+              "exit_date": "2020-09-03",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2020-10-01",
+              "exit_date": "2020-10-02",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2020-11-02",
+              "exit_date": "2020-11-09",
+              "return": 0.10833653295009626,
+              "stop_distance_pct": 2.1,
+              "bars": 5,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-12-01",
+              "exit_date": "2020-12-11",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 8,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2021-01-04",
+              "exit_date": "2021-01-05",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2021-02-01",
+              "exit_date": "2021-02-23",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 15,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2021-03-01",
+              "exit_date": "2021-03-03",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2021-04-01",
+              "exit_date": "2021-04-15",
+              "return": 0.08749693599787367,
+              "stop_distance_pct": 2.1,
+              "bars": 9,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-05-03",
+              "exit_date": "2021-05-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2021-06-01",
+              "exit_date": "2021-06-02",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2021-07-01",
+              "exit_date": "2021-07-22",
+              "return": 0.05442593140099716,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 14,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-08-02",
+              "exit_date": "2021-08-20",
+              "return": 0.05543907749420085,
+              "stop_distance_pct": 2.1,
+              "bars": 14,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-09-01",
+              "exit_date": "2021-09-10",
+              "return": -0.02100000000000013,
+              "stop_distance_pct": 2.1,
+              "bars": 6,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2021-10-01",
+              "exit_date": "2021-10-14",
+              "return": 0.0698613042482159,
+              "stop_distance_pct": 2.1,
+              "bars": 9,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-11-01",
+              "exit_date": "2021-12-03",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 23,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-01-03",
+              "exit_date": "2022-01-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-02-01",
+              "exit_date": "2022-02-03",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-03-01",
+              "exit_date": "2022-03-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 3,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-04-01",
+              "exit_date": "2022-04-06",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 3,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-05-02",
+              "exit_date": "2022-05-06",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 4,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-06-01",
+              "exit_date": "2022-06-02",
+              "return": -0.02100000000000013,
+              "stop_distance_pct": 2.1000000000000005,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-07-01",
+              "exit_date": "2022-07-13",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 7,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-08-01",
+              "exit_date": "2022-08-26",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 19,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-09-01",
+              "exit_date": "2022-09-06",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-10-03",
+              "exit_date": "2022-10-10",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 5,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-11-01",
+              "exit_date": "2022-11-02",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-12-01",
+              "exit_date": "2022-12-05",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2023-01-03",
+              "exit_date": "2023-01-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2023-02-01",
+              "exit_date": "2023-02-08",
+              "return": 0.1045983619678994,
+              "stop_distance_pct": 2.1000000000000005,
+              "bars": 5,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2023-03-01",
+              "exit_date": "2023-03-16",
+              "return": 0.10159593667773126,
+              "stop_distance_pct": 2.1,
+              "bars": 11,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2023-04-03",
+              "exit_date": "2023-04-24",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 14,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2023-05-01",
+              "exit_date": "2023-05-30",
+              "return": 0.08733222764628423,
+              "stop_distance_pct": 2.1,
+              "bars": 20,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2023-06-01",
+              "exit_date": "2023-06-16",
+              "return": 0.07595499190026977,
+              "stop_distance_pct": 2.1000000000000005,
+              "bars": 11,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2023-07-03",
+              "exit_date": "2023-07-10",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 4,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2023-08-01",
+              "exit_date": "2023-08-02",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2023-09-01",
+              "exit_date": "2023-09-20",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 12,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2023-10-02",
+              "exit_date": "2023-10-25",
+              "return": 0.07652095723887342,
+              "stop_distance_pct": 2.1,
+              "bars": 17,
+              "reason": "target"
+            }
+          ]
+        },
+        "holdout": {
+          "direction": "long",
+          "trades": 29,
+          "win_rate": 0.3448275862068966,
+          "profit_factor": 2.033079058780827,
+          "compound_return": 0.45395406018907347,
+          "max_drawdown": 0.15615722865257542,
+          "median_bars": 7.0,
+          "trades_detail": [
+            {
+              "entry_date": "2023-11-01",
+              "exit_date": "2023-11-10",
+              "return": 0.08583377866777075,
+              "stop_distance_pct": 2.1,
+              "bars": 7,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2023-12-01",
+              "exit_date": "2023-12-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2024-01-02",
+              "exit_date": "2024-01-19",
+              "return": 0.05962717153767283,
+              "stop_distance_pct": 2.1,
+              "bars": 12,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2024-02-01",
+              "exit_date": "2024-03-14",
+              "return": 0.06431206648203291,
+              "stop_distance_pct": 2.1,
+              "bars": 29,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2024-04-01",
+              "exit_date": "2024-04-15",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 10,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2024-05-01",
+              "exit_date": "2024-05-20",
+              "return": 0.084234352373874,
+              "stop_distance_pct": 2.1,
+              "bars": 13,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2024-06-03",
+              "exit_date": "2024-06-17",
+              "return": 0.0713973547124862,
+              "stop_distance_pct": 2.1000000000000005,
+              "bars": 10,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2024-07-01",
+              "exit_date": "2024-07-17",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 11,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2024-08-01",
+              "exit_date": "2024-08-02",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1000000000000005,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2024-09-03",
+              "exit_date": "2024-09-04",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2024-10-01",
+              "exit_date": "2024-10-02",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2024-11-01",
+              "exit_date": "2024-12-05",
+              "return": 0.07623092974987378,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 23,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2025-01-02",
+              "exit_date": "2025-01-10",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 5,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2025-02-03",
+              "exit_date": "2025-02-24",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 14,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2025-03-03",
+              "exit_date": "2025-03-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2025-04-01",
+              "exit_date": "2025-04-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 3,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2025-05-01",
+              "exit_date": "2025-06-20",
+              "return": 0.11742212971444221,
+              "stop_distance_pct": 2.1,
+              "bars": 34,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2025-07-01",
+              "exit_date": "2025-07-31",
+              "return": 0.05733474384285686,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 21,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2025-08-01",
+              "exit_date": "2025-08-07",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 4,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2025-09-02",
+              "exit_date": "2025-10-27",
+              "return": 0.062199427513022876,
+              "stop_distance_pct": 2.1,
+              "bars": 39,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2025-11-03",
+              "exit_date": "2025-11-04",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2025-12-01",
+              "exit_date": "2025-12-03",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-01-02",
+              "exit_date": "2026-01-05",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1000000000000005,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-02-02",
+              "exit_date": "2026-02-03",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-03-02",
+              "exit_date": "2026-03-20",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 14,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-04-01",
+              "exit_date": "2026-04-02",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-05-01",
+              "exit_date": "2026-05-13",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 8,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-06-01",
+              "exit_date": "2026-06-02",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-07-01",
+              "exit_date": "2026-07-30",
+              "return": 0.13260658985951745,
+              "stop_distance_pct": 2.1,
+              "bars": 20,
+              "reason": "target"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "project": "ALQUIMIA_MSFT_D1_CALENDAR_LONG_inventory",
+      "strategy": "Strategy 0.77",
+      "results": {
+        "validation": {
+          "direction": "long",
+          "trades": 28,
+          "win_rate": 0.5714285714285714,
+          "profit_factor": 1.986951673504133,
+          "compound_return": 0.7227447789449604,
+          "max_drawdown": 0.21518596239031518,
+          "median_bars": 19.0,
+          "trades_detail": [
+            {
+              "entry_date": "2012-11-01",
+              "exit_date": "2012-11-13",
+              "return": -0.05132369497679257,
+              "stop_distance_pct": 5.132369497679257,
+              "bars": 8,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2013-03-01",
+              "exit_date": "2013-04-09",
+              "return": 0.06368547667692526,
+              "stop_distance_pct": 4.528210632572087,
+              "bars": 26,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-05-01",
+              "exit_date": "2013-06-03",
+              "return": 0.0809548229778656,
+              "stop_distance_pct": 5.038739568307047,
+              "bars": 22,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-06-03",
+              "exit_date": "2013-06-21",
+              "return": -0.04682055773761362,
+              "stop_distance_pct": 4.682055773761375,
+              "bars": 14,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2013-07-01",
+              "exit_date": "2013-07-19",
+              "return": -0.05176786488153895,
+              "stop_distance_pct": 5.1767864881538905,
+              "bars": 13,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2013-08-01",
+              "exit_date": "2013-08-23",
+              "return": 0.09005900000483713,
+              "stop_distance_pct": 6.025987250396677,
+              "bars": 16,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-09-03",
+              "exit_date": "2013-10-25",
+              "return": 0.11054215694222869,
+              "stop_distance_pct": 7.089120221434683,
+              "bars": 38,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-11-01",
+              "exit_date": "2013-12-02",
+              "return": 0.07383761316379789,
+              "stop_distance_pct": 5.154787547570217,
+              "bars": 20,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-12-02",
+              "exit_date": "2013-12-17",
+              "return": -0.04600453063460408,
+              "stop_distance_pct": 4.600453063460414,
+              "bars": 11,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-02-03",
+              "exit_date": "2014-03-31",
+              "return": 0.08738276242298038,
+              "stop_distance_pct": 5.636858820045963,
+              "bars": 39,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2014-04-01",
+              "exit_date": "2014-04-11",
+              "return": -0.05193977441909381,
+              "stop_distance_pct": 5.193977441909386,
+              "bars": 8,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-06-02",
+              "exit_date": "2014-07-16",
+              "return": 0.06145019761253301,
+              "stop_distance_pct": 4.430942907231379,
+              "bars": 31,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2014-09-02",
+              "exit_date": "2014-10-13",
+              "return": -0.03595552038618277,
+              "stop_distance_pct": 3.5955520386182807,
+              "bars": 29,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-12-01",
+              "exit_date": "2014-12-16",
+              "return": -0.04542139713278792,
+              "stop_distance_pct": 4.5421397132787895,
+              "bars": 11,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2015-02-02",
+              "exit_date": "2015-04-24",
+              "return": 0.12192989333598647,
+              "stop_distance_pct": 7.62498490440062,
+              "bars": 57,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2015-08-03",
+              "exit_date": "2015-08-21",
+              "return": -0.05307217935457553,
+              "stop_distance_pct": 5.307217935457557,
+              "bars": 14,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2015-09-01",
+              "exit_date": "2015-10-07",
+              "return": 0.12063211157899256,
+              "stop_distance_pct": 7.588646972730229,
+              "bars": 25,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2015-12-01",
+              "exit_date": "2016-01-11",
+              "return": -0.05233600288754081,
+              "stop_distance_pct": 5.233600288754071,
+              "bars": 27,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-02-01",
+              "exit_date": "2016-02-05",
+              "return": -0.0669327200180635,
+              "stop_distance_pct": 6.693272001806356,
+              "bars": 4,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-04-01",
+              "exit_date": "2016-04-22",
+              "return": -0.06079803590766353,
+              "stop_distance_pct": 6.079803590766353,
+              "bars": 15,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-06-01",
+              "exit_date": "2016-06-13",
+              "return": -0.05498124308005092,
+              "stop_distance_pct": 5.498124308005085,
+              "bars": 8,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-07-01",
+              "exit_date": "2016-07-20",
+              "return": 0.0815926588453495,
+              "stop_distance_pct": 5.617643614466143,
+              "bars": 12,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2016-08-01",
+              "exit_date": "2016-10-21",
+              "return": 0.06643974743392556,
+              "stop_distance_pct": 4.680814170357741,
+              "bars": 58,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2016-12-01",
+              "exit_date": "2016-12-22",
+              "return": 0.06565365732928874,
+              "stop_distance_pct": 4.355885413118752,
+              "bars": 15,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2017-04-03",
+              "exit_date": "2017-04-28",
+              "return": 0.04456470217603359,
+              "stop_distance_pct": 3.118256190081694,
+              "bars": 18,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2017-05-01",
+              "exit_date": "2017-06-05",
+              "return": 0.04674465041365172,
+              "stop_distance_pct": 3.1338224308640354,
+              "bars": 24,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2017-09-01",
+              "exit_date": "2017-10-20",
+              "return": 0.05529117547588425,
+              "stop_distance_pct": 3.7731857452382305,
+              "bars": 34,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2017-11-01",
+              "exit_date": "2018-01-05",
+              "return": 0.055890986131919895,
+              "stop_distance_pct": 3.604766678103549,
+              "bars": 44,
+              "reason": "target"
+            }
+          ]
+        },
+        "oos": {
+          "direction": "long",
+          "trades": 30,
+          "win_rate": 0.6666666666666666,
+          "profit_factor": 2.998483390094144,
+          "compound_return": 2.2277404402093497,
+          "max_drawdown": 0.3308698663678513,
+          "median_bars": 15.0,
+          "trades_detail": [
+            {
+              "entry_date": "2018-05-01",
+              "exit_date": "2018-07-12",
+              "return": 0.11479738094797498,
+              "stop_distance_pct": 7.460344258469437,
+              "bars": 50,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2018-10-01",
+              "exit_date": "2018-10-08",
+              "return": -0.04102333344233744,
+              "stop_distance_pct": 4.102333344233741,
+              "bars": 5,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2019-02-01",
+              "exit_date": "2019-03-15",
+              "return": 0.11216989226499541,
+              "stop_distance_pct": 7.894028059074176,
+              "bars": 29,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2019-04-01",
+              "exit_date": "2019-04-25",
+              "return": 0.06761852291902892,
+              "stop_distance_pct": 4.94681524265822,
+              "bars": 17,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2019-06-03",
+              "exit_date": "2019-06-10",
+              "return": 0.07788993236610531,
+              "stop_distance_pct": 5.151225746827024,
+              "bars": 5,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2019-07-01",
+              "exit_date": "2019-11-11",
+              "return": 0.06902116587045559,
+              "stop_distance_pct": 4.682999191161524,
+              "bars": 93,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2019-12-02",
+              "exit_date": "2020-01-02",
+              "return": 0.051270028617007135,
+              "stop_distance_pct": 3.740316846677966,
+              "bars": 21,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-02-03",
+              "exit_date": "2020-02-05",
+              "return": 0.06213454871420265,
+              "stop_distance_pct": 3.9456636701977623,
+              "bars": 2,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-04-01",
+              "exit_date": "2020-06-09",
+              "return": 0.24571044369502415,
+              "stop_distance_pct": 14.60086106024859,
+              "bars": 47,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-07-01",
+              "exit_date": "2020-08-27",
+              "return": 0.10471406237707148,
+              "stop_distance_pct": 7.354528439406417,
+              "bars": 40,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-09-01",
+              "exit_date": "2020-09-04",
+              "return": -0.06325945739186822,
+              "stop_distance_pct": 6.325945739186821,
+              "bars": 3,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2020-11-02",
+              "exit_date": "2020-11-09",
+              "return": 0.11389225258856284,
+              "stop_distance_pct": 7.836978824636198,
+              "bars": 5,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-12-01",
+              "exit_date": "2021-01-27",
+              "return": 0.09792998053150126,
+              "stop_distance_pct": 6.984690388445282,
+              "bars": 38,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-02-01",
+              "exit_date": "2021-04-12",
+              "return": 0.09547918533553701,
+              "stop_distance_pct": 6.267532302686125,
+              "bars": 48,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-07-01",
+              "exit_date": "2021-07-22",
+              "return": 0.0572170048061762,
+              "stop_distance_pct": 4.16237375108008,
+              "bars": 14,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-08-02",
+              "exit_date": "2021-08-20",
+              "return": 0.05828210710928827,
+              "stop_distance_pct": 4.042355393791337,
+              "bars": 14,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-09-01",
+              "exit_date": "2021-09-20",
+              "return": -0.03839235756296211,
+              "stop_distance_pct": 3.8392357562962096,
+              "bars": 12,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2021-10-01",
+              "exit_date": "2021-10-14",
+              "return": 0.07344393523530401,
+              "stop_distance_pct": 4.750732030674784,
+              "bars": 9,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-11-01",
+              "exit_date": "2022-01-05",
+              "return": -0.04328225986680345,
+              "stop_distance_pct": 4.328225986680353,
+              "bars": 45,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-02-01",
+              "exit_date": "2022-02-18",
+              "return": -0.07756243747337288,
+              "stop_distance_pct": 7.756243747337279,
+              "bars": 13,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-03-01",
+              "exit_date": "2022-03-08",
+              "return": -0.08269256294964988,
+              "stop_distance_pct": 8.269256294964986,
+              "bars": 5,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-05-02",
+              "exit_date": "2022-05-12",
+              "return": -0.0906631448922085,
+              "stop_distance_pct": 9.066314489220849,
+              "bars": 8,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-06-01",
+              "exit_date": "2022-06-13",
+              "return": -0.09102890294713828,
+              "stop_distance_pct": 9.102890294713832,
+              "bars": 8,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-07-01",
+              "exit_date": "2022-08-10",
+              "return": 0.12831420859894194,
+              "stop_distance_pct": 9.030587356225684,
+              "bars": 27,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2022-11-01",
+              "exit_date": "2023-02-07",
+              "return": 0.1386785539075357,
+              "stop_distance_pct": 9.148861141578797,
+              "bars": 66,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2023-03-01",
+              "exit_date": "2023-03-17",
+              "return": 0.1068059847124867,
+              "stop_distance_pct": 7.464010974337672,
+              "bars": 12,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2023-04-03",
+              "exit_date": "2023-05-16",
+              "return": 0.09322777086368106,
+              "stop_distance_pct": 6.4657711094425006,
+              "bars": 30,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2023-08-01",
+              "exit_date": "2023-08-18",
+              "return": -0.06498582395945296,
+              "stop_distance_pct": 6.498582395945299,
+              "bars": 13,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2023-09-01",
+              "exit_date": "2023-09-26",
+              "return": -0.057119013143088204,
+              "stop_distance_pct": 5.711901314308824,
+              "bars": 16,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2023-10-02",
+              "exit_date": "2023-10-25",
+              "return": 0.08044510889214895,
+              "stop_distance_pct": 5.639875389056249,
+              "bars": 17,
+              "reason": "target"
+            }
+          ]
+        },
+        "holdout": {
+          "direction": "long",
+          "trades": 12,
+          "win_rate": 0.5,
+          "profit_factor": 1.5682004048076603,
+          "compound_return": 0.16946601389940308,
+          "max_drawdown": 0.12924368717179358,
+          "median_bars": 17.5,
+          "trades_detail": [
+            {
+              "entry_date": "2023-11-01",
+              "exit_date": "2023-11-14",
+              "return": 0.09023551090714355,
+              "stop_distance_pct": 5.956512248399072,
+              "bars": 9,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2024-01-02",
+              "exit_date": "2024-01-19",
+              "return": 0.06268497520627125,
+              "stop_distance_pct": 4.489967839183517,
+              "bars": 12,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2024-03-01",
+              "exit_date": "2024-04-25",
+              "return": -0.04377999606061245,
+              "stop_distance_pct": 4.37799960606124,
+              "bars": 38,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2024-07-01",
+              "exit_date": "2024-07-24",
+              "return": -0.0439666801322679,
+              "stop_distance_pct": 4.3966680132267895,
+              "bars": 16,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2024-09-03",
+              "exit_date": "2024-12-12",
+              "return": 0.08016501728338477,
+              "stop_distance_pct": 5.445255548289761,
+              "bars": 71,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2025-05-01",
+              "exit_date": "2025-06-23",
+              "return": 0.12344377739210577,
+              "stop_distance_pct": 7.819657549519618,
+              "bars": 35,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2025-08-01",
+              "exit_date": "2025-08-19",
+              "return": -0.044550686372806014,
+              "stop_distance_pct": 4.455068637280598,
+              "bars": 12,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2025-09-02",
+              "exit_date": "2025-10-27",
+              "return": 0.06538914174445987,
+              "stop_distance_pct": 4.526748164517557,
+              "bars": 39,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2025-12-01",
+              "exit_date": "2026-01-14",
+              "return": -0.056966422981912235,
+              "stop_distance_pct": 5.696642298191228,
+              "bars": 30,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-03-02",
+              "exit_date": "2026-03-27",
+              "return": -0.0766433623905789,
+              "stop_distance_pct": 7.664336239057895,
+              "bars": 19,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-04-01",
+              "exit_date": "2026-04-15",
+              "return": 0.10061336186285219,
+              "stop_distance_pct": 7.076835618101808,
+              "bars": 9,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2026-06-01",
+              "exit_date": "2026-06-03",
+              "return": -0.0672975769134947,
+              "stop_distance_pct": 6.729757691349474,
+              "bars": 2,
+              "reason": "stop"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "candidates": [
+    {
+      "project": "ALQUIMIA_MSFT_D1_TREND_LONG_inventory",
+      "strategy": "Strategy 0.14",
+      "sqx_sha256": "42e90a83180d6c1e934740d772dba936047802aebe21404f8731f5500b64b732",
+      "translation": "SUPPORTED_SUBSET",
+      "results": {
+        "validation": {
+          "direction": "long",
+          "trades": 36,
+          "win_rate": 0.6944444444444444,
+          "profit_factor": 4.44632694573981,
+          "compound_return": 4.220250083589851,
+          "max_drawdown": 0.10286528091684455,
+          "median_bars": 21.0,
+          "trades_detail": [
+            {
+              "entry_date": "2012-10-26",
+              "exit_date": "2012-11-06",
+              "return": 0.08325889151868049,
+              "stop_distance_pct": 4.724342734311061,
+              "bars": 5,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2012-11-20",
+              "exit_date": "2013-04-09",
+              "return": 0.09298800476959501,
+              "stop_distance_pct": 5.232830735706622,
+              "bars": 94,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-04-19",
+              "exit_date": "2013-04-25",
+              "return": 0.07886312342184087,
+              "stop_distance_pct": 4.359668639634721,
+              "bars": 4,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-05-15",
+              "exit_date": "2013-07-15",
+              "return": 0.08206659274090922,
+              "stop_distance_pct": 4.529945626271721,
+              "bars": 41,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-07-25",
+              "exit_date": "2013-08-23",
+              "return": 0.111110766806642,
+              "stop_distance_pct": 6.0988197855440855,
+              "bars": 21,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-09-04",
+              "exit_date": "2013-10-21",
+              "return": 0.12087182335892055,
+              "stop_distance_pct": 6.6489019249729955,
+              "bars": 33,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-10-30",
+              "exit_date": "2013-12-02",
+              "return": 0.08783066375083681,
+              "stop_distance_pct": 4.975944806914656,
+              "bars": 22,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-12-18",
+              "exit_date": "2014-03-18",
+              "return": 0.08647356618927371,
+              "stop_distance_pct": 4.86546555359625,
+              "bars": 60,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2014-04-02",
+              "exit_date": "2014-04-08",
+              "return": -0.04732064750574083,
+              "stop_distance_pct": 4.732064750574086,
+              "bars": 4,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-04-10",
+              "exit_date": "2014-07-16",
+              "return": 0.09303449620970361,
+              "stop_distance_pct": 5.142745950520953,
+              "bars": 66,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2014-08-05",
+              "exit_date": "2014-09-08",
+              "return": 0.0697251378948831,
+              "stop_distance_pct": 3.93722939545317,
+              "bars": 23,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2014-10-08",
+              "exit_date": "2014-10-13",
+              "return": -0.03704263728799584,
+              "stop_distance_pct": 3.7042637287995874,
+              "bars": 3,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-10-17",
+              "exit_date": "2014-10-31",
+              "return": 0.08596503019779811,
+              "stop_distance_pct": 4.693175989940182,
+              "bars": 10,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2014-11-24",
+              "exit_date": "2014-12-16",
+              "return": -0.04245550790268471,
+              "stop_distance_pct": 4.245550790268462,
+              "bars": 15,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-12-16",
+              "exit_date": "2015-01-27",
+              "return": -0.04778845886420591,
+              "stop_distance_pct": 4.77884588642059,
+              "bars": 27,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2015-02-03",
+              "exit_date": "2015-04-24",
+              "return": 0.12588537308422354,
+              "stop_distance_pct": 6.856547990878472,
+              "bars": 56,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2015-05-12",
+              "exit_date": "2015-06-29",
+              "return": -0.052145875100603756,
+              "stop_distance_pct": 5.214587510060382,
+              "bars": 33,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2015-07-07",
+              "exit_date": "2015-08-05",
+              "return": 0.08858789456210237,
+              "stop_distance_pct": 5.026616992185159,
+              "bars": 21,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2015-08-26",
+              "exit_date": "2015-10-08",
+              "return": 0.1297536453852437,
+              "stop_distance_pct": 7.039291588894011,
+              "bars": 30,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2015-10-19",
+              "exit_date": "2015-10-23",
+              "return": 0.0933813274535722,
+              "stop_distance_pct": 5.339756581173568,
+              "bars": 4,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2015-12-15",
+              "exit_date": "2016-01-07",
+              "return": -0.05020585310626369,
+              "stop_distance_pct": 5.020585310626377,
+              "bars": 15,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-01-08",
+              "exit_date": "2016-01-20",
+              "return": -0.0554429904446152,
+              "stop_distance_pct": 5.544299044461524,
+              "bars": 7,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-02-09",
+              "exit_date": "2016-04-15",
+              "return": 0.13791259111734622,
+              "stop_distance_pct": 7.561053148249676,
+              "bars": 46,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2016-04-15",
+              "exit_date": "2016-04-22",
+              "return": -0.051400366896384275,
+              "stop_distance_pct": 5.1400366896384195,
+              "bars": 5,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-05-04",
+              "exit_date": "2016-07-20",
+              "return": 0.10560328640784578,
+              "stop_distance_pct": 6.023283596901374,
+              "bars": 53,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2016-10-19",
+              "exit_date": "2016-10-24",
+              "return": 0.05957176900373318,
+              "stop_distance_pct": 3.41299305048688,
+              "bars": 3,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2016-11-02",
+              "exit_date": "2016-11-10",
+              "return": -0.03582499116868687,
+              "stop_distance_pct": 3.5824991168686897,
+              "bars": 6,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-11-10",
+              "exit_date": "2016-11-11",
+              "return": -0.03971445945529284,
+              "stop_distance_pct": 3.9714459455292888,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-12-22",
+              "exit_date": "2017-04-26",
+              "return": 0.06722813681294681,
+              "stop_distance_pct": 3.780300946552891,
+              "bars": 84,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2017-05-10",
+              "exit_date": "2017-06-05",
+              "return": 0.04844505670242749,
+              "stop_distance_pct": 2.7521677088369536,
+              "bars": 17,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2017-06-15",
+              "exit_date": "2017-07-20",
+              "return": 0.06961247874865384,
+              "stop_distance_pct": 3.783571228371262,
+              "bars": 24,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2017-08-03",
+              "exit_date": "2017-10-12",
+              "return": 0.06565992372395701,
+              "stop_distance_pct": 3.681521792058067,
+              "bars": 49,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2017-12-27",
+              "exit_date": "2018-01-22",
+              "return": 0.063232865976244,
+              "stop_distance_pct": 3.534419130877246,
+              "bars": 16,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2018-02-09",
+              "exit_date": "2018-02-27",
+              "return": 0.11025874066387664,
+              "stop_distance_pct": 5.816172239994817,
+              "bars": 11,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2018-03-07",
+              "exit_date": "2018-03-23",
+              "return": -0.05405065214932814,
+              "stop_distance_pct": 5.405065214932818,
+              "bars": 12,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2018-03-29",
+              "exit_date": "2018-06-04",
+              "return": 0.125389452684306,
+              "stop_distance_pct": 6.766645493979764,
+              "bars": 45,
+              "reason": "target"
+            }
+          ]
+        },
+        "oos": {
+          "direction": "long",
+          "trades": 28,
+          "win_rate": 0.6071428571428571,
+          "profit_factor": 2.677375256645829,
+          "compound_return": 1.8195297785279556,
+          "max_drawdown": 0.39343737136092993,
+          "median_bars": 24.0,
+          "trades_detail": [
+            {
+              "entry_date": "2018-06-29",
+              "exit_date": "2018-07-20",
+              "return": 0.08242858812184628,
+              "stop_distance_pct": 4.7484215873640165,
+              "bars": 14,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2018-08-03",
+              "exit_date": "2018-10-24",
+              "return": -0.045858411592482495,
+              "stop_distance_pct": 4.585841159248249,
+              "bars": 57,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2018-11-05",
+              "exit_date": "2018-12-20",
+              "return": -0.06939794027268786,
+              "stop_distance_pct": 6.939794027268785,
+              "bars": 31,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2018-12-28",
+              "exit_date": "2019-03-21",
+              "return": 0.1640073453440054,
+              "stop_distance_pct": 8.952667578125725,
+              "bars": 56,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2019-05-14",
+              "exit_date": "2019-06-10",
+              "return": 0.08213432410854127,
+              "stop_distance_pct": 4.602043959986613,
+              "bars": 18,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2019-07-15",
+              "exit_date": "2019-08-05",
+              "return": -0.03846255823336897,
+              "stop_distance_pct": 3.846255823336907,
+              "bars": 15,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2019-08-06",
+              "exit_date": "2019-10-28",
+              "return": 0.08609128416199252,
+              "stop_distance_pct": 4.765979887445332,
+              "bars": 58,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2019-12-09",
+              "exit_date": "2020-01-02",
+              "return": 0.057761067232179775,
+              "stop_distance_pct": 3.3692295879940866,
+              "bars": 16,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-02-28",
+              "exit_date": "2020-03-03",
+              "return": 0.13924448691214542,
+              "stop_distance_pct": 7.301328003856049,
+              "bars": 2,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-03-13",
+              "exit_date": "2020-04-17",
+              "return": 0.21936025932896386,
+              "stop_distance_pct": 11.342893385165057,
+              "bars": 24,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-07-23",
+              "exit_date": "2021-01-26",
+              "return": 0.12485773896511065,
+              "stop_distance_pct": 7.039638708160798,
+              "bars": 128,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-02-26",
+              "exit_date": "2021-04-09",
+              "return": 0.09882530580872895,
+              "stop_distance_pct": 5.572126190923153,
+              "bars": 29,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-05-06",
+              "exit_date": "2021-06-28",
+              "return": 0.08851542496089038,
+              "stop_distance_pct": 5.039664510341072,
+              "bars": 36,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-07-23",
+              "exit_date": "2021-10-18",
+              "return": 0.06603710860231637,
+              "stop_distance_pct": 3.766046881862175,
+              "bars": 60,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-10-18",
+              "exit_date": "2021-10-29",
+              "return": 0.07653899459894054,
+              "stop_distance_pct": 4.248298961934848,
+              "bars": 9,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-12-08",
+              "exit_date": "2021-12-17",
+              "return": -0.04721511457583971,
+              "stop_distance_pct": 4.721511457583976,
+              "bars": 7,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2021-12-27",
+              "exit_date": "2022-01-05",
+              "return": -0.052756168209580845,
+              "stop_distance_pct": 5.275616820958084,
+              "bars": 7,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-01-07",
+              "exit_date": "2022-01-21",
+              "return": -0.056340919249624366,
+              "stop_distance_pct": 5.634091924962427,
+              "bars": 9,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-02-18",
+              "exit_date": "2022-03-08",
+              "return": -0.0746067919637119,
+              "stop_distance_pct": 7.460679196371188,
+              "bars": 11,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-03-11",
+              "exit_date": "2022-05-09",
+              "return": -0.08253663809949152,
+              "stop_distance_pct": 8.253663809949149,
+              "bars": 40,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-05-13",
+              "exit_date": "2022-09-30",
+              "return": -0.09434956303673792,
+              "stop_distance_pct": 9.434956303673793,
+              "bars": 96,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-10-03",
+              "exit_date": "2022-11-03",
+              "return": -0.07374995522967431,
+              "stop_distance_pct": 7.374995522967436,
+              "bars": 23,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-11-08",
+              "exit_date": "2023-02-02",
+              "return": 0.155937617053042,
+              "stop_distance_pct": 8.718774855591256,
+              "bars": 58,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2023-02-16",
+              "exit_date": "2023-04-26",
+              "return": 0.12576352678570468,
+              "stop_distance_pct": 7.072709313981873,
+              "bars": 47,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2023-04-28",
+              "exit_date": "2023-06-02",
+              "return": 0.10540485019025958,
+              "stop_distance_pct": 5.916907512155402,
+              "bars": 24,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2023-06-27",
+              "exit_date": "2023-07-18",
+              "return": 0.09218707062745013,
+              "stop_distance_pct": 5.1797967147326665,
+              "bars": 14,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2023-07-27",
+              "exit_date": "2023-08-11",
+              "return": -0.060591413321905874,
+              "stop_distance_pct": 6.059141332190589,
+              "bars": 11,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2023-08-23",
+              "exit_date": "2023-11-06",
+              "return": 0.09799800866425135,
+              "stop_distance_pct": 5.563980579233378,
+              "bars": 52,
+              "reason": "target"
+            }
+          ]
+        },
+        "holdout": {
+          "direction": "long",
+          "trades": 21,
+          "win_rate": 0.38095238095238093,
+          "profit_factor": 1.2384057942084947,
+          "compound_return": 0.10538922206429735,
+          "max_drawdown": 0.2082252605033894,
+          "median_bars": 9.0,
+          "trades_detail": [
+            {
+              "entry_date": "2024-01-10",
+              "exit_date": "2024-01-24",
+              "return": 0.0726831533386707,
+              "stop_distance_pct": 4.16651584384049,
+              "bars": 9,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2024-02-26",
+              "exit_date": "2024-04-25",
+              "return": -0.04152984671082738,
+              "stop_distance_pct": 4.15298467108273,
+              "bars": 42,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2024-04-25",
+              "exit_date": "2024-05-21",
+              "return": 0.08836217089950571,
+              "stop_distance_pct": 4.903695643388366,
+              "bars": 18,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2024-07-24",
+              "exit_date": "2024-07-25",
+              "return": -0.045302522602599926,
+              "stop_distance_pct": 4.530252260259987,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2024-07-25",
+              "exit_date": "2024-08-02",
+              "return": -0.04746621289024777,
+              "stop_distance_pct": 4.746621289024785,
+              "bars": 6,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2024-08-07",
+              "exit_date": "2024-12-12",
+              "return": 0.10670846174941495,
+              "stop_distance_pct": 5.825989016703884,
+              "bars": 89,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2024-12-27",
+              "exit_date": "2025-01-13",
+              "return": -0.04739507245325758,
+              "stop_distance_pct": 4.7395072453257585,
+              "bars": 9,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2025-01-21",
+              "exit_date": "2025-02-03",
+              "return": -0.04860246999678386,
+              "stop_distance_pct": 4.8602469996783935,
+              "bars": 9,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2025-03-03",
+              "exit_date": "2025-03-31",
+              "return": -0.05616397341302304,
+              "stop_distance_pct": 5.616397341302303,
+              "bars": 20,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2025-04-10",
+              "exit_date": "2025-05-02",
+              "return": 0.14480678683854564,
+              "stop_distance_pct": 7.823646000778053,
+              "bars": 15,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2025-08-13",
+              "exit_date": "2025-08-19",
+              "return": -0.04301115251319232,
+              "stop_distance_pct": 4.3011152513192314,
+              "bars": 4,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2025-08-25",
+              "exit_date": "2025-10-28",
+              "return": 0.07523969116191775,
+              "stop_distance_pct": 4.2625497180860075,
+              "bars": 45,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2025-11-06",
+              "exit_date": "2025-11-20",
+              "return": -0.04617678670734282,
+              "stop_distance_pct": 4.617678670734278,
+              "bars": 10,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2025-11-25",
+              "exit_date": "2026-01-21",
+              "return": -0.0553101945159048,
+              "stop_distance_pct": 5.53101945159048,
+              "bars": 37,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-01-21",
+              "exit_date": "2026-01-29",
+              "return": -0.050847539174345036,
+              "stop_distance_pct": 5.084753917434508,
+              "bars": 6,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-02-06",
+              "exit_date": "2026-03-26",
+              "return": -0.07421839427843113,
+              "stop_distance_pct": 7.421839427843123,
+              "bars": 33,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-03-26",
+              "exit_date": "2026-04-15",
+              "return": 0.11532215102382826,
+              "stop_distance_pct": 6.608421439438443,
+              "bars": 13,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2026-05-18",
+              "exit_date": "2026-06-01",
+              "return": 0.1172755757896411,
+              "stop_distance_pct": 6.568557617882311,
+              "bars": 9,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2026-06-01",
+              "exit_date": "2026-06-03",
+              "return": -0.062490607133959375,
+              "stop_distance_pct": 6.249060713395941,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-06-15",
+              "exit_date": "2026-06-24",
+              "return": -0.07544159729342648,
+              "stop_distance_pct": 7.544159729342659,
+              "bars": 6,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-07-29",
+              "exit_date": "2026-07-30",
+              "return": 0.13900159834221815,
+              "stop_distance_pct": 7.816221752582127,
+              "bars": 1,
+              "reason": "target"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "project": "ALQUIMIA_MSFT_D1_CALENDAR_LONG_inventory",
+      "strategy": "Strategy 0.14",
+      "sqx_sha256": "5007d9bba058e4761d16eb346a4e8f7f0bc740df0c9f52d0a9ab6abcbb52d795",
+      "translation": "SUPPORTED_SUBSET",
+      "results": {
+        "validation": {
+          "direction": "long",
+          "trades": 47,
+          "win_rate": 0.3191489361702128,
+          "profit_factor": 1.6751158015268492,
+          "compound_return": 0.49685726105242956,
+          "max_drawdown": 0.08990224712094785,
+          "median_bars": 6.0,
+          "trades_detail": [
+            {
+              "entry_date": "2012-11-01",
+              "exit_date": "2012-11-12",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 7,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2012-12-03",
+              "exit_date": "2013-04-03",
+              "return": 0.0792597468490226,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 82,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-05-01",
+              "exit_date": "2013-06-03",
+              "return": 0.07700580722284767,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 22,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-06-03",
+              "exit_date": "2013-06-20",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 13,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2013-07-01",
+              "exit_date": "2013-07-02",
+              "return": -0.02100000000000013,
+              "stop_distance_pct": 2.1000000000000005,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2013-08-01",
+              "exit_date": "2013-08-06",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 3,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2013-09-03",
+              "exit_date": "2013-09-05",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2013-10-01",
+              "exit_date": "2013-10-25",
+              "return": 0.07930093814470629,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 18,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-11-01",
+              "exit_date": "2013-11-06",
+              "return": 0.07023577837532002,
+              "stop_distance_pct": 2.1,
+              "bars": 3,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-12-02",
+              "exit_date": "2013-12-05",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 3,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-01-02",
+              "exit_date": "2014-01-06",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-02-03",
+              "exit_date": "2014-02-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-03-03",
+              "exit_date": "2014-03-20",
+              "return": 0.06752443937170405,
+              "stop_distance_pct": 2.1,
+              "bars": 13,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2014-04-01",
+              "exit_date": "2014-04-04",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 3,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-05-01",
+              "exit_date": "2014-05-05",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-06-02",
+              "exit_date": "2014-06-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-07-01",
+              "exit_date": "2014-07-16",
+              "return": 0.0558669580660045,
+              "stop_distance_pct": 2.1,
+              "bars": 10,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2014-08-01",
+              "exit_date": "2014-08-06",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 3,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-09-02",
+              "exit_date": "2014-10-10",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 28,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-11-03",
+              "exit_date": "2014-12-16",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 30,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2015-01-02",
+              "exit_date": "2015-01-06",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2015-02-02",
+              "exit_date": "2015-04-24",
+              "return": 0.11598209366106027,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 57,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2015-05-01",
+              "exit_date": "2015-05-05",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2015-06-01",
+              "exit_date": "2015-06-05",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 4,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2015-07-01",
+              "exit_date": "2015-07-07",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 3,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2015-08-03",
+              "exit_date": "2015-08-11",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 6,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2015-09-01",
+              "exit_date": "2015-10-06",
+              "return": 0.11474761833123681,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 24,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2015-11-02",
+              "exit_date": "2016-01-11",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 47,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-02-01",
+              "exit_date": "2016-02-02",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-03-01",
+              "exit_date": "2016-04-18",
+              "return": 0.10774053078655665,
+              "stop_distance_pct": 2.1,
+              "bars": 33,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2016-05-02",
+              "exit_date": "2016-06-27",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 39,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-07-01",
+              "exit_date": "2016-07-20",
+              "return": 0.07761252914557626,
+              "stop_distance_pct": 2.1,
+              "bars": 12,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2016-08-01",
+              "exit_date": "2016-10-21",
+              "return": 0.06319878414446589,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 58,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2016-11-01",
+              "exit_date": "2016-11-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 3,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-12-01",
+              "exit_date": "2016-12-02",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2017-01-03",
+              "exit_date": "2017-04-05",
+              "return": 0.054570873390979546,
+              "stop_distance_pct": 2.1000000000000005,
+              "bars": 64,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2017-05-01",
+              "exit_date": "2017-05-18",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 13,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2017-06-01",
+              "exit_date": "2017-06-09",
+              "return": -0.02100000000000013,
+              "stop_distance_pct": 2.1,
+              "bars": 6,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2017-07-03",
+              "exit_date": "2017-07-19",
+              "return": 0.06356462880562974,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 11,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2017-08-01",
+              "exit_date": "2017-08-02",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2017-09-01",
+              "exit_date": "2017-09-05",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2017-10-02",
+              "exit_date": "2017-10-20",
+              "return": 0.04915874565190048,
+              "stop_distance_pct": 2.1,
+              "bars": 14,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2017-11-01",
+              "exit_date": "2017-12-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 22,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2018-01-02",
+              "exit_date": "2018-01-16",
+              "return": 0.04990834667903177,
+              "stop_distance_pct": 2.1,
+              "bars": 9,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2018-02-01",
+              "exit_date": "2018-02-02",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2018-03-01",
+              "exit_date": "2018-03-02",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2018-04-02",
+              "exit_date": "2018-04-03",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            }
+          ]
+        },
+        "oos": {
+          "direction": "long",
+          "trades": 56,
+          "win_rate": 0.32142857142857145,
+          "profit_factor": 1.9712879048062748,
+          "compound_return": 0.9929916275114987,
+          "max_drawdown": 0.25705325340286833,
+          "median_bars": 5.0,
+          "trades_detail": [
+            {
+              "entry_date": "2018-05-01",
+              "exit_date": "2018-07-12",
+              "return": 0.10919750870661016,
+              "stop_distance_pct": 2.1,
+              "bars": 50,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2018-08-01",
+              "exit_date": "2018-09-13",
+              "return": 0.0697572430972222,
+              "stop_distance_pct": 2.1,
+              "bars": 30,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2018-10-01",
+              "exit_date": "2018-10-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 3,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2018-11-01",
+              "exit_date": "2018-11-14",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 9,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2018-12-03",
+              "exit_date": "2018-12-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2019-01-02",
+              "exit_date": "2019-01-03",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2019-02-01",
+              "exit_date": "2019-03-13",
+              "return": 0.10669819020328841,
+              "stop_distance_pct": 2.1,
+              "bars": 27,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2019-04-01",
+              "exit_date": "2019-04-25",
+              "return": 0.06432005838639343,
+              "stop_distance_pct": 2.1,
+              "bars": 17,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2019-05-01",
+              "exit_date": "2019-05-02",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2019-06-03",
+              "exit_date": "2019-06-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2019-07-01",
+              "exit_date": "2019-08-05",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1000000000000005,
+              "bars": 24,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2019-09-03",
+              "exit_date": "2019-10-02",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 21,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2019-11-01",
+              "exit_date": "2019-12-13",
+              "return": 0.06574885596730629,
+              "stop_distance_pct": 2.1,
+              "bars": 29,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-01-02",
+              "exit_date": "2020-01-16",
+              "return": 0.042975470640929325,
+              "stop_distance_pct": 2.1,
+              "bars": 10,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-02-03",
+              "exit_date": "2020-02-04",
+              "return": 0.05910359511838781,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 1,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-03-02",
+              "exit_date": "2020-03-06",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 4,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2020-04-01",
+              "exit_date": "2020-06-09",
+              "return": 0.23372456839282774,
+              "stop_distance_pct": 2.1,
+              "bars": 47,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-07-01",
+              "exit_date": "2020-07-24",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 16,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2020-08-03",
+              "exit_date": "2020-08-10",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 5,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2020-09-01",
+              "exit_date": "2020-09-03",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2020-10-01",
+              "exit_date": "2020-10-02",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2020-11-02",
+              "exit_date": "2020-11-09",
+              "return": 0.10833653295009626,
+              "stop_distance_pct": 2.1,
+              "bars": 5,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-12-01",
+              "exit_date": "2020-12-11",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 8,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2021-01-04",
+              "exit_date": "2021-01-05",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2021-02-01",
+              "exit_date": "2021-02-23",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 15,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2021-03-01",
+              "exit_date": "2021-03-03",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2021-04-01",
+              "exit_date": "2021-04-15",
+              "return": 0.08749693599787367,
+              "stop_distance_pct": 2.1,
+              "bars": 9,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-05-03",
+              "exit_date": "2021-05-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2021-06-01",
+              "exit_date": "2021-06-02",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2021-07-01",
+              "exit_date": "2021-07-22",
+              "return": 0.05442593140099716,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 14,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-08-02",
+              "exit_date": "2021-08-20",
+              "return": 0.05543907749420085,
+              "stop_distance_pct": 2.1,
+              "bars": 14,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-09-01",
+              "exit_date": "2021-09-10",
+              "return": -0.02100000000000013,
+              "stop_distance_pct": 2.1,
+              "bars": 6,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2021-10-01",
+              "exit_date": "2021-10-14",
+              "return": 0.0698613042482159,
+              "stop_distance_pct": 2.1,
+              "bars": 9,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-11-01",
+              "exit_date": "2021-12-03",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 23,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-01-03",
+              "exit_date": "2022-01-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-02-01",
+              "exit_date": "2022-02-03",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-03-01",
+              "exit_date": "2022-03-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 3,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-04-01",
+              "exit_date": "2022-04-06",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 3,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-05-02",
+              "exit_date": "2022-05-06",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 4,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-06-01",
+              "exit_date": "2022-06-02",
+              "return": -0.02100000000000013,
+              "stop_distance_pct": 2.1000000000000005,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-07-01",
+              "exit_date": "2022-07-13",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 7,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-08-01",
+              "exit_date": "2022-08-26",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 19,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-09-01",
+              "exit_date": "2022-09-06",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-10-03",
+              "exit_date": "2022-10-10",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 5,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-11-01",
+              "exit_date": "2022-11-02",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-12-01",
+              "exit_date": "2022-12-05",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2023-01-03",
+              "exit_date": "2023-01-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2023-02-01",
+              "exit_date": "2023-02-08",
+              "return": 0.1045983619678994,
+              "stop_distance_pct": 2.1000000000000005,
+              "bars": 5,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2023-03-01",
+              "exit_date": "2023-03-16",
+              "return": 0.10159593667773126,
+              "stop_distance_pct": 2.1,
+              "bars": 11,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2023-04-03",
+              "exit_date": "2023-04-24",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 14,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2023-05-01",
+              "exit_date": "2023-05-30",
+              "return": 0.08733222764628423,
+              "stop_distance_pct": 2.1,
+              "bars": 20,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2023-06-01",
+              "exit_date": "2023-06-16",
+              "return": 0.07595499190026977,
+              "stop_distance_pct": 2.1000000000000005,
+              "bars": 11,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2023-07-03",
+              "exit_date": "2023-07-10",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 4,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2023-08-01",
+              "exit_date": "2023-08-02",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2023-09-01",
+              "exit_date": "2023-09-20",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 12,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2023-10-02",
+              "exit_date": "2023-10-25",
+              "return": 0.07652095723887342,
+              "stop_distance_pct": 2.1,
+              "bars": 17,
+              "reason": "target"
+            }
+          ]
+        },
+        "holdout": {
+          "direction": "long",
+          "trades": 29,
+          "win_rate": 0.3448275862068966,
+          "profit_factor": 2.033079058780827,
+          "compound_return": 0.45395406018907347,
+          "max_drawdown": 0.15615722865257542,
+          "median_bars": 7.0,
+          "trades_detail": [
+            {
+              "entry_date": "2023-11-01",
+              "exit_date": "2023-11-10",
+              "return": 0.08583377866777075,
+              "stop_distance_pct": 2.1,
+              "bars": 7,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2023-12-01",
+              "exit_date": "2023-12-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2024-01-02",
+              "exit_date": "2024-01-19",
+              "return": 0.05962717153767283,
+              "stop_distance_pct": 2.1,
+              "bars": 12,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2024-02-01",
+              "exit_date": "2024-03-14",
+              "return": 0.06431206648203291,
+              "stop_distance_pct": 2.1,
+              "bars": 29,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2024-04-01",
+              "exit_date": "2024-04-15",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 10,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2024-05-01",
+              "exit_date": "2024-05-20",
+              "return": 0.084234352373874,
+              "stop_distance_pct": 2.1,
+              "bars": 13,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2024-06-03",
+              "exit_date": "2024-06-17",
+              "return": 0.0713973547124862,
+              "stop_distance_pct": 2.1000000000000005,
+              "bars": 10,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2024-07-01",
+              "exit_date": "2024-07-17",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 11,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2024-08-01",
+              "exit_date": "2024-08-02",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1000000000000005,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2024-09-03",
+              "exit_date": "2024-09-04",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2024-10-01",
+              "exit_date": "2024-10-02",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2024-11-01",
+              "exit_date": "2024-12-05",
+              "return": 0.07623092974987378,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 23,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2025-01-02",
+              "exit_date": "2025-01-10",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 5,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2025-02-03",
+              "exit_date": "2025-02-24",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 14,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2025-03-03",
+              "exit_date": "2025-03-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2025-04-01",
+              "exit_date": "2025-04-04",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 3,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2025-05-01",
+              "exit_date": "2025-06-20",
+              "return": 0.11742212971444221,
+              "stop_distance_pct": 2.1,
+              "bars": 34,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2025-07-01",
+              "exit_date": "2025-07-31",
+              "return": 0.05733474384285686,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 21,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2025-08-01",
+              "exit_date": "2025-08-07",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 4,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2025-09-02",
+              "exit_date": "2025-10-27",
+              "return": 0.062199427513022876,
+              "stop_distance_pct": 2.1,
+              "bars": 39,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2025-11-03",
+              "exit_date": "2025-11-04",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2025-12-01",
+              "exit_date": "2025-12-03",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 2,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-01-02",
+              "exit_date": "2026-01-05",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1000000000000005,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-02-02",
+              "exit_date": "2026-02-03",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-03-02",
+              "exit_date": "2026-03-20",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 14,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-04-01",
+              "exit_date": "2026-04-02",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-05-01",
+              "exit_date": "2026-05-13",
+              "return": -0.02100000000000002,
+              "stop_distance_pct": 2.0999999999999996,
+              "bars": 8,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-06-01",
+              "exit_date": "2026-06-02",
+              "return": -0.020999999999999908,
+              "stop_distance_pct": 2.1,
+              "bars": 1,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-07-01",
+              "exit_date": "2026-07-30",
+              "return": 0.13260658985951745,
+              "stop_distance_pct": 2.1,
+              "bars": 20,
+              "reason": "target"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "project": "ALQUIMIA_MSFT_D1_CALENDAR_LONG_inventory",
+      "strategy": "Strategy 0.77",
+      "sqx_sha256": "ff389537579194ab5cdd9b9d93eea8704dca557692826804cf5f1aa8eca0e562",
+      "translation": "SUPPORTED_SUBSET",
+      "results": {
+        "validation": {
+          "direction": "long",
+          "trades": 28,
+          "win_rate": 0.5714285714285714,
+          "profit_factor": 1.986951673504133,
+          "compound_return": 0.7227447789449604,
+          "max_drawdown": 0.21518596239031518,
+          "median_bars": 19.0,
+          "trades_detail": [
+            {
+              "entry_date": "2012-11-01",
+              "exit_date": "2012-11-13",
+              "return": -0.05132369497679257,
+              "stop_distance_pct": 5.132369497679257,
+              "bars": 8,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2013-03-01",
+              "exit_date": "2013-04-09",
+              "return": 0.06368547667692526,
+              "stop_distance_pct": 4.528210632572087,
+              "bars": 26,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-05-01",
+              "exit_date": "2013-06-03",
+              "return": 0.0809548229778656,
+              "stop_distance_pct": 5.038739568307047,
+              "bars": 22,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-06-03",
+              "exit_date": "2013-06-21",
+              "return": -0.04682055773761362,
+              "stop_distance_pct": 4.682055773761375,
+              "bars": 14,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2013-07-01",
+              "exit_date": "2013-07-19",
+              "return": -0.05176786488153895,
+              "stop_distance_pct": 5.1767864881538905,
+              "bars": 13,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2013-08-01",
+              "exit_date": "2013-08-23",
+              "return": 0.09005900000483713,
+              "stop_distance_pct": 6.025987250396677,
+              "bars": 16,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-09-03",
+              "exit_date": "2013-10-25",
+              "return": 0.11054215694222869,
+              "stop_distance_pct": 7.089120221434683,
+              "bars": 38,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-11-01",
+              "exit_date": "2013-12-02",
+              "return": 0.07383761316379789,
+              "stop_distance_pct": 5.154787547570217,
+              "bars": 20,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2013-12-02",
+              "exit_date": "2013-12-17",
+              "return": -0.04600453063460408,
+              "stop_distance_pct": 4.600453063460414,
+              "bars": 11,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-02-03",
+              "exit_date": "2014-03-31",
+              "return": 0.08738276242298038,
+              "stop_distance_pct": 5.636858820045963,
+              "bars": 39,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2014-04-01",
+              "exit_date": "2014-04-11",
+              "return": -0.05193977441909381,
+              "stop_distance_pct": 5.193977441909386,
+              "bars": 8,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-06-02",
+              "exit_date": "2014-07-16",
+              "return": 0.06145019761253301,
+              "stop_distance_pct": 4.430942907231379,
+              "bars": 31,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2014-09-02",
+              "exit_date": "2014-10-13",
+              "return": -0.03595552038618277,
+              "stop_distance_pct": 3.5955520386182807,
+              "bars": 29,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2014-12-01",
+              "exit_date": "2014-12-16",
+              "return": -0.04542139713278792,
+              "stop_distance_pct": 4.5421397132787895,
+              "bars": 11,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2015-02-02",
+              "exit_date": "2015-04-24",
+              "return": 0.12192989333598647,
+              "stop_distance_pct": 7.62498490440062,
+              "bars": 57,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2015-08-03",
+              "exit_date": "2015-08-21",
+              "return": -0.05307217935457553,
+              "stop_distance_pct": 5.307217935457557,
+              "bars": 14,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2015-09-01",
+              "exit_date": "2015-10-07",
+              "return": 0.12063211157899256,
+              "stop_distance_pct": 7.588646972730229,
+              "bars": 25,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2015-12-01",
+              "exit_date": "2016-01-11",
+              "return": -0.05233600288754081,
+              "stop_distance_pct": 5.233600288754071,
+              "bars": 27,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-02-01",
+              "exit_date": "2016-02-05",
+              "return": -0.0669327200180635,
+              "stop_distance_pct": 6.693272001806356,
+              "bars": 4,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-04-01",
+              "exit_date": "2016-04-22",
+              "return": -0.06079803590766353,
+              "stop_distance_pct": 6.079803590766353,
+              "bars": 15,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-06-01",
+              "exit_date": "2016-06-13",
+              "return": -0.05498124308005092,
+              "stop_distance_pct": 5.498124308005085,
+              "bars": 8,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2016-07-01",
+              "exit_date": "2016-07-20",
+              "return": 0.0815926588453495,
+              "stop_distance_pct": 5.617643614466143,
+              "bars": 12,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2016-08-01",
+              "exit_date": "2016-10-21",
+              "return": 0.06643974743392556,
+              "stop_distance_pct": 4.680814170357741,
+              "bars": 58,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2016-12-01",
+              "exit_date": "2016-12-22",
+              "return": 0.06565365732928874,
+              "stop_distance_pct": 4.355885413118752,
+              "bars": 15,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2017-04-03",
+              "exit_date": "2017-04-28",
+              "return": 0.04456470217603359,
+              "stop_distance_pct": 3.118256190081694,
+              "bars": 18,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2017-05-01",
+              "exit_date": "2017-06-05",
+              "return": 0.04674465041365172,
+              "stop_distance_pct": 3.1338224308640354,
+              "bars": 24,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2017-09-01",
+              "exit_date": "2017-10-20",
+              "return": 0.05529117547588425,
+              "stop_distance_pct": 3.7731857452382305,
+              "bars": 34,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2017-11-01",
+              "exit_date": "2018-01-05",
+              "return": 0.055890986131919895,
+              "stop_distance_pct": 3.604766678103549,
+              "bars": 44,
+              "reason": "target"
+            }
+          ]
+        },
+        "oos": {
+          "direction": "long",
+          "trades": 30,
+          "win_rate": 0.6666666666666666,
+          "profit_factor": 2.998483390094144,
+          "compound_return": 2.2277404402093497,
+          "max_drawdown": 0.3308698663678513,
+          "median_bars": 15.0,
+          "trades_detail": [
+            {
+              "entry_date": "2018-05-01",
+              "exit_date": "2018-07-12",
+              "return": 0.11479738094797498,
+              "stop_distance_pct": 7.460344258469437,
+              "bars": 50,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2018-10-01",
+              "exit_date": "2018-10-08",
+              "return": -0.04102333344233744,
+              "stop_distance_pct": 4.102333344233741,
+              "bars": 5,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2019-02-01",
+              "exit_date": "2019-03-15",
+              "return": 0.11216989226499541,
+              "stop_distance_pct": 7.894028059074176,
+              "bars": 29,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2019-04-01",
+              "exit_date": "2019-04-25",
+              "return": 0.06761852291902892,
+              "stop_distance_pct": 4.94681524265822,
+              "bars": 17,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2019-06-03",
+              "exit_date": "2019-06-10",
+              "return": 0.07788993236610531,
+              "stop_distance_pct": 5.151225746827024,
+              "bars": 5,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2019-07-01",
+              "exit_date": "2019-11-11",
+              "return": 0.06902116587045559,
+              "stop_distance_pct": 4.682999191161524,
+              "bars": 93,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2019-12-02",
+              "exit_date": "2020-01-02",
+              "return": 0.051270028617007135,
+              "stop_distance_pct": 3.740316846677966,
+              "bars": 21,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-02-03",
+              "exit_date": "2020-02-05",
+              "return": 0.06213454871420265,
+              "stop_distance_pct": 3.9456636701977623,
+              "bars": 2,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-04-01",
+              "exit_date": "2020-06-09",
+              "return": 0.24571044369502415,
+              "stop_distance_pct": 14.60086106024859,
+              "bars": 47,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-07-01",
+              "exit_date": "2020-08-27",
+              "return": 0.10471406237707148,
+              "stop_distance_pct": 7.354528439406417,
+              "bars": 40,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-09-01",
+              "exit_date": "2020-09-04",
+              "return": -0.06325945739186822,
+              "stop_distance_pct": 6.325945739186821,
+              "bars": 3,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2020-11-02",
+              "exit_date": "2020-11-09",
+              "return": 0.11389225258856284,
+              "stop_distance_pct": 7.836978824636198,
+              "bars": 5,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2020-12-01",
+              "exit_date": "2021-01-27",
+              "return": 0.09792998053150126,
+              "stop_distance_pct": 6.984690388445282,
+              "bars": 38,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-02-01",
+              "exit_date": "2021-04-12",
+              "return": 0.09547918533553701,
+              "stop_distance_pct": 6.267532302686125,
+              "bars": 48,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-07-01",
+              "exit_date": "2021-07-22",
+              "return": 0.0572170048061762,
+              "stop_distance_pct": 4.16237375108008,
+              "bars": 14,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-08-02",
+              "exit_date": "2021-08-20",
+              "return": 0.05828210710928827,
+              "stop_distance_pct": 4.042355393791337,
+              "bars": 14,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-09-01",
+              "exit_date": "2021-09-20",
+              "return": -0.03839235756296211,
+              "stop_distance_pct": 3.8392357562962096,
+              "bars": 12,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2021-10-01",
+              "exit_date": "2021-10-14",
+              "return": 0.07344393523530401,
+              "stop_distance_pct": 4.750732030674784,
+              "bars": 9,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2021-11-01",
+              "exit_date": "2022-01-05",
+              "return": -0.04328225986680345,
+              "stop_distance_pct": 4.328225986680353,
+              "bars": 45,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-02-01",
+              "exit_date": "2022-02-18",
+              "return": -0.07756243747337288,
+              "stop_distance_pct": 7.756243747337279,
+              "bars": 13,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-03-01",
+              "exit_date": "2022-03-08",
+              "return": -0.08269256294964988,
+              "stop_distance_pct": 8.269256294964986,
+              "bars": 5,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-05-02",
+              "exit_date": "2022-05-12",
+              "return": -0.0906631448922085,
+              "stop_distance_pct": 9.066314489220849,
+              "bars": 8,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-06-01",
+              "exit_date": "2022-06-13",
+              "return": -0.09102890294713828,
+              "stop_distance_pct": 9.102890294713832,
+              "bars": 8,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2022-07-01",
+              "exit_date": "2022-08-10",
+              "return": 0.12831420859894194,
+              "stop_distance_pct": 9.030587356225684,
+              "bars": 27,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2022-11-01",
+              "exit_date": "2023-02-07",
+              "return": 0.1386785539075357,
+              "stop_distance_pct": 9.148861141578797,
+              "bars": 66,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2023-03-01",
+              "exit_date": "2023-03-17",
+              "return": 0.1068059847124867,
+              "stop_distance_pct": 7.464010974337672,
+              "bars": 12,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2023-04-03",
+              "exit_date": "2023-05-16",
+              "return": 0.09322777086368106,
+              "stop_distance_pct": 6.4657711094425006,
+              "bars": 30,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2023-08-01",
+              "exit_date": "2023-08-18",
+              "return": -0.06498582395945296,
+              "stop_distance_pct": 6.498582395945299,
+              "bars": 13,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2023-09-01",
+              "exit_date": "2023-09-26",
+              "return": -0.057119013143088204,
+              "stop_distance_pct": 5.711901314308824,
+              "bars": 16,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2023-10-02",
+              "exit_date": "2023-10-25",
+              "return": 0.08044510889214895,
+              "stop_distance_pct": 5.639875389056249,
+              "bars": 17,
+              "reason": "target"
+            }
+          ]
+        },
+        "holdout": {
+          "direction": "long",
+          "trades": 12,
+          "win_rate": 0.5,
+          "profit_factor": 1.5682004048076603,
+          "compound_return": 0.16946601389940308,
+          "max_drawdown": 0.12924368717179358,
+          "median_bars": 17.5,
+          "trades_detail": [
+            {
+              "entry_date": "2023-11-01",
+              "exit_date": "2023-11-14",
+              "return": 0.09023551090714355,
+              "stop_distance_pct": 5.956512248399072,
+              "bars": 9,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2024-01-02",
+              "exit_date": "2024-01-19",
+              "return": 0.06268497520627125,
+              "stop_distance_pct": 4.489967839183517,
+              "bars": 12,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2024-03-01",
+              "exit_date": "2024-04-25",
+              "return": -0.04377999606061245,
+              "stop_distance_pct": 4.37799960606124,
+              "bars": 38,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2024-07-01",
+              "exit_date": "2024-07-24",
+              "return": -0.0439666801322679,
+              "stop_distance_pct": 4.3966680132267895,
+              "bars": 16,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2024-09-03",
+              "exit_date": "2024-12-12",
+              "return": 0.08016501728338477,
+              "stop_distance_pct": 5.445255548289761,
+              "bars": 71,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2025-05-01",
+              "exit_date": "2025-06-23",
+              "return": 0.12344377739210577,
+              "stop_distance_pct": 7.819657549519618,
+              "bars": 35,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2025-08-01",
+              "exit_date": "2025-08-19",
+              "return": -0.044550686372806014,
+              "stop_distance_pct": 4.455068637280598,
+              "bars": 12,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2025-09-02",
+              "exit_date": "2025-10-27",
+              "return": 0.06538914174445987,
+              "stop_distance_pct": 4.526748164517557,
+              "bars": 39,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2025-12-01",
+              "exit_date": "2026-01-14",
+              "return": -0.056966422981912235,
+              "stop_distance_pct": 5.696642298191228,
+              "bars": 30,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-03-02",
+              "exit_date": "2026-03-27",
+              "return": -0.0766433623905789,
+              "stop_distance_pct": 7.664336239057895,
+              "bars": 19,
+              "reason": "stop"
+            },
+            {
+              "entry_date": "2026-04-01",
+              "exit_date": "2026-04-15",
+              "return": 0.10061336186285219,
+              "stop_distance_pct": 7.076835618101808,
+              "bars": 9,
+              "reason": "target"
+            },
+            {
+              "entry_date": "2026-06-01",
+              "exit_date": "2026-06-03",
+              "return": -0.0672975769134947,
+              "stop_distance_pct": 6.729757691349474,
+              "bars": 2,
+              "reason": "stop"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

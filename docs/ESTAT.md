@@ -4,7 +4,31 @@ Operativa diària i evidència. Actualitzar a cada canvi significatiu.
 
 ---
 
-## Estat actual (2026-08-01)
+## Estat actual (2026-08-02)
+
+### Continuïtat SQ / DuckDB / Ostium
+
+Pla canònic per automatitzar campanyes SQ, validar preus i operacions amb DuckDB/BS i calcular mida, collateral i leverage segur per Ostium: [`docs/SQ_AUTOMATION_OSTIUM_PLAN.md`](SQ_AUTOMATION_OSTIUM_PLAN.md). SQCLI torna a tenir una trial activa.
+
+### Alquímia — laboratori quantitatiu
+
+Arquitectura a [`docs/ALQUIMIA.md`](ALQUIMIA.md). Pilot `TA_SQ_PILOT`: NVDA/USD M1/tick, límit 20, manifest amb hashes i originals intactes. Eines a `lab/sq_bridge/`: preparador CFX, allowlist/gate Ostium, estat compacte i watchdog. Generació correcta i sense errors tècnics; acceptació inicial 0%. Watchdog: stop a 1.000 candidates sense acceptades, RAM host <1 GB o disc <2 GB.
+
+**XAUUSD H4:** Retest SQCLI reparat fent servir un contracte Retest H4 nadiu.
+Shortlist estructural 8/60 validada sobre 2015-02-07–2019-07-16: **0/8 PASS**.
+Millors PF: `0.106720` 1,06; `0.34159` 1,05; `0.7893` 1,04 (gate 1,15).
+Holdout 2023-12-24–2026-03-13 intacte. Aquesta fornada no avança.
+
+**XAUUSD H4 stop-breakout R2:** nova hipòtesi dirigida. 40 descoberts de 63
+intents; 10 passen validació, 4 passen OOS i `0.26`, `0.33`, `0.37` passen costos
+2× i Monte Carlo de paràmetres (3.003 membres executats). `0.37` té 5/5 anys OOS
+positius i 0 liquidacions proxy a 20x, però falla economia de 200 USDC: risc 1–2%
+no arriba a EV mínim i risc 3% falla costos conservadors/estrès. Família rebutjada
+per al perfil petit; holdout intacte i sense traducció/paritat.
+
+**XAUUSD H4 compressió ATR R3:** 5/40 passen validació, 2/5 OOS i 1/2 costos
+2×. El finalista `0.74` falla règims (2/5 anys positius) i economia 200 USDC
+(+0,29 estrès en 130 trades). Branca descartada sense MC ni holdout.
 
 ### Fase: PAPER PROBE — T7 en curs (≥4 setmanes, inici 2026-03-16)
 
@@ -154,3 +178,9 @@ Veure `lab/docs/T6E_DECISIO_D1_ASSETS.md` i `lab/docs/D1_GATE_CRITERIA.md`.
 | 2026-08-01 | **T7e costos paper**: eliminat el biaix de 5.38$ fixos del reporting; 6 trades preservats, estat reconciliat a capital 267.56$ i PnL base +17.56$; API amb brut/recorded/base/conservative/stress. |
 | 2026-08-01 | **T9 recerca petit inversor**: 6 famílies individuals + 3 carteres; execució next-open, costos/finançament, liquidació, OOS i leverage sense contaminar test. Resultat **NO_CANDIDATE** |
 | 2026-08-01 | **T10 recerca intradia FX**: EURUSD/XAUUSD M1→4H, 6 famílies, split dev/validació/test, gas+spread+finançament, leverage màxim BS 10x i auditoria bootstrap. Resultat **NO_CANDIDATE** |
+| 2026-08-01 | **Pla SQ → Ostium documentat**: SQCLI, databank, paritat DuckDB, traducció controlada, matching d'execució i sizing/leverage condicionat al risc. |
+| 2026-08-02 | **XAUUSD H4 shortlist validada**: incidència Retest resolta amb plantilla H4 nativa; 8 famílies retestades, 0 PASS (PF màxim 1,06 vs gate 1,15); holdout intacte. |
+| 2026-08-02 | **XAU H4 stop-breakout R2 prometedor**: 3 candidats passen validació, OOS, costos 2× i MC de paràmetres 1.000×; encara no autoritzats per holdout/paper. |
+| 2026-08-02 | **XAU H4 stop-breakout R2 tancat per compte petit**: `0.37` estable i segura a 20x, però EV insuficient amb 200 USDC; a risc 3% només passa base. Holdout preservat. |
+| 2026-08-02 | **XAU H4 compressió ATR R3 descartada**: millora durada però falla amplitud temporal i EV de 200 USDC; no s'executa MC ni holdout. |
+| 2026-08-02 | **MSFT D1 close v1**: 80 SQ → 48 Pareto → 8 validació/OOS → 3 finalistes congelats. `calendar long 0.14` és el millor (holdout 29 trades, PF estrès 1,66), però continua `LIVE_NOT_READY` per paritat OHLC/Ostium, gaps/liquidació i paper pendents. |

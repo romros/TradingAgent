@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "source": "lab/out/alquimia/msft_finalists_holdout.json",
+  "costs_roundtrip_bps": {
+    "base": 12,
+    "conservative": 24,
+    "stress": 36
+  },
+  "candidates": [
+    {
+      "project": "ALQUIMIA_MSFT_D1_TREND_LONG_inventory",
+      "strategy": "Strategy 0.14",
+      "trade_count": 85,
+      "scenarios": {
+        "base": {
+          "return_pct": 1373.530184,
+          "profit_factor": 2.542241,
+          "max_drawdown_pct": 39.888939
+        },
+        "conservative": {
+          "return_pct": 1234.394798,
+          "profit_factor": 2.458317,
+          "max_drawdown_pct": 40.429936
+        },
+        "stress": {
+          "return_pct": 1108.256144,
+          "profit_factor": 2.377868,
+          "max_drawdown_pct": 40.966754
+        }
+      },
+      "holdout_stress": {
+        "return_pct": 2.490031,
+        "profit_factor": 1.121286,
+        "max_drawdown_pct": 23.45055
+      },
+      "monte_carlo": {
+        "runs": 10000,
+        "profitable_ratio": 0.9997,
+        "return_pct_p05": 265.85295,
+        "max_drawdown_pct_p95": 41.721281
+      },
+      "small_account_200": {
+        "risk_budget_usdc": 2.0,
+        "stop_distance_pct_p95": 8.253663809949149,
+        "stress_cost_pct": 0.36,
+        "risk_limited_notional_usdc": 23.22,
+        "preliminary_max_leverage": 5,
+        "required_margin_usdc": 4.64,
+        "warning": "not live-approved; leverage does not increase risk-limited notional"
+      },
+      "verdict": "LIVE_NOT_READY",
+      "reasons": [
+        "HOLDOUT_TRADES_LT_25",
+        "OSTIUM_OHLC_EXECUTION_PARITY_NOT_CERTIFIED",
+        "GAP_LIQUIDATION_PROBABILITY_NOT_MEASURED"
+      ]
+    },
+    {
+      "project": "ALQUIMIA_MSFT_D1_CALENDAR_LONG_inventory",
+      "strategy": "Strategy 0.14",
+      "trade_count": 132,
+      "scenarios": {
+        "base": {
+          "return_pct": 270.751677,
+          "profit_factor": 1.750361,
+          "max_drawdown_pct": 26.970141
+        },
+        "conservative": {
+          "return_pct": 216.846121,
+          "profit_factor": 1.635823,
+          "max_drawdown_pct": 28.214938
+        },
+        "stress": {
+          "return_pct": 170.727369,
+          "profit_factor": 1.532458,
+          "max_drawdown_pct": 29.440009
+        }
+      },
+      "holdout_stress": {
+        "return_pct": 31.117047,
+        "profit_factor": 1.658533,
+        "max_drawdown_pct": 18.066405
+      },
+      "monte_carlo": {
+        "runs": 10000,
+        "profitable_ratio": 0.9618,
+        "return_pct_p05": 6.960992,
+        "max_drawdown_pct_p95": 45.16089
+      },
+      "small_account_200": {
+        "risk_budget_usdc": 2.0,
+        "stop_distance_pct_p95": 2.1000000000000005,
+        "stress_cost_pct": 0.36,
+        "risk_limited_notional_usdc": 81.3,
+        "preliminary_max_leverage": 21,
+        "required_margin_usdc": 3.87,
+        "warning": "not live-approved; leverage does not increase risk-limited notional"
+      },
+      "verdict": "LIVE_NOT_READY",
+      "reasons": [
+        "OSTIUM_OHLC_EXECUTION_PARITY_NOT_CERTIFIED",
+        "GAP_LIQUIDATION_PROBABILITY_NOT_MEASURED"
+      ]
+    },
+    {
+      "project": "ALQUIMIA_MSFT_D1_CALENDAR_LONG_inventory",
+      "strategy": "Strategy 0.77",
+      "trade_count": 70,
+      "scenarios": {
+        "base": {
+          "return_pct": 499.058076,
+          "profit_factor": 2.232222,
+          "max_drawdown_pct": 33.521004
+        },
+        "conservative": {
+          "return_pct": 451.808825,
+          "profit_factor": 2.157031,
+          "max_drawdown_pct": 33.952766
+        },
+        "stress": {
+          "return_pct": 408.2369,
+          "profit_factor": 2.084808,
+          "max_drawdown_pct": 34.382282
+        }
+      },
+      "holdout_stress": {
+        "return_pct": 12.043762,
+        "profit_factor": 1.411852,
+        "max_drawdown_pct": 13.594973
+      },
+      "monte_carlo": {
+        "runs": 10000,
+        "profitable_ratio": 0.9956,
+        "return_pct_p05": 84.361909,
+        "max_drawdown_pct_p95": 43.060527
+      },
+      "small_account_200": {
+        "risk_budget_usdc": 2.0,
+        "stop_distance_pct_p95": 9.066314489220849,
+        "stress_cost_pct": 0.36,
+        "risk_limited_notional_usdc": 21.22,
+        "preliminary_max_leverage": 5,
+        "required_margin_usdc": 4.24,
+        "warning": "not live-approved; leverage does not increase risk-limited notional"
+      },
+      "verdict": "LIVE_NOT_READY",
+      "reasons": [
+        "HOLDOUT_TRADES_LT_25",
+        "OSTIUM_OHLC_EXECUTION_PARITY_NOT_CERTIFIED",
+        "GAP_LIQUIDATION_PROBABILITY_NOT_MEASURED"
+      ]
+    }
+  ],
+  "portfolio_verdict": "LIVE_NOT_READY",
+  "note": "No strategy may be promoted until native Ostium execution parity and gap/liquidation risk are measured."
+}

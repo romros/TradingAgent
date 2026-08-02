@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "methodology_id": "alquimia-msft-d1-close-v1",
+  "ownership": "TradingAgent/Alquimia",
+  "capital_usdc": 200,
+  "principles": {
+    "sq_role": "candidate_generator_only",
+    "legacy_configs": "format_scaffold_only",
+    "holdout_policy": "sealed_until_final_gate",
+    "live_policy": "explicit_human_authorization"
+  },
+  "hypothesis": {
+    "mechanism": "MSFT daily close persistence, close-derived mean reversion, and calendar effects can create multi-day moves large enough to survive Ostium costs when signals use a robust session close.",
+    "context": "single-stock daily regimes; long and short evaluated independently",
+    "falsifier": "reject a family if no candidate reaches validation PF 1.15 with at least 25 trades, fewer than 60 percent of OOS windows are positive, or stress net expectancy for 200 USDC is below 0.10 USDC per trade",
+    "architecture": "single-symbol D1 close-only trend or calendar family",
+    "maximum_entry_conditions": 2,
+    "period_range": [2, 250],
+    "shift_range": [1, 3]
+  },
+  "data_contract": {
+    "sq_source": "Yahoo unadjusted",
+    "ostium_symbol": "MSFTUSD",
+    "signal_close_policy": "median last 5 regular-session M1 bars",
+    "source_gate": "lab/out/alquimia/msft_source_parity.json",
+    "allowed_price_dependency": "close-derived only",
+    "forbidden": ["raw open optimization", "intraday high-low dependent entries", "hour optimization"]
+  },
+  "stages": ["market_preflight", "discovery", "temporal_validation", "robustness", "small_account_economics", "python_translation", "parity", "paper"],
+  "temporal_split": {"train_pct": 50, "validation_pct": 20, "oos_pct": 20, "final_holdout_pct": 10, "embargo_bars": 20},
+  "discovery": {"max_rules": 2, "max_lookback_bars": 250, "minimum_trades_train": 30, "minimum_profit_factor_train": 1.05, "selection_metric": "return_drawdown_ratio", "robustness_during_generation": false},
+  "temporal_validation": {"minimum_trades_oos": 25, "minimum_positive_windows_ratio": 0.6, "minimum_oos_profit_factor": 1.15, "maximum_oos_drawdown_pct": 20, "maximum_train_oos_expectancy_decay_pct": 50},
+  "robustness": {"monte_carlo_runs": 1000, "minimum_profitable_monte_carlo_ratio": 0.7, "parameter_perturbation_pct": 10, "cost_stress_multiplier": 2, "minimum_stress_profit_factor": 1.05, "maximum_liquidation_probability": 0.001},
+  "small_account": {"capital_scenarios_usdc": [100, 200, 300, 500, 1000], "canonical_capital_usdc": 200, "maximum_risk_per_trade_pct": 1, "maximum_portfolio_margin_pct": 35, "minimum_reserve_pct": 40, "minimum_net_expectancy_usdc": 0.1, "minimum_net_profit_factor": 1.1, "leverage_grid": [1, 2, 3, 5, 8, 10, 15, 20, 30, 50, 75, 100]}
+}

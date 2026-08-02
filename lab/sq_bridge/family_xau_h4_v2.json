@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "family_id": "xau_h4_cost_aware_v2",
+  "hypothesis": "XAUUSD H4 with wide ATR stops and higher reward targets can lower notional fee drag per unit risk while preserving enough trades for temporal validation.",
+  "market": "XAUUSD",
+  "timeframe": "H4",
+  "accepted_limit": 60,
+  "date_from": "2004-01-01",
+  "date_to": "2026-03-13",
+  "methodology_id": "alquimia-v2-cost-aware",
+  "independence": {
+    "legacy_quant_results_used": false,
+    "legacy_role": "SQ XML syntax and XAU instrument-resource scaffold only",
+    "previous_family_results_used_only_as_falsification_evidence": true
+  },
+  "pre_registered_success": {
+    "minimum_profit_factor_train": 1.30,
+    "minimum_r_expectancy_train": 0.25,
+    "minimum_oos_profit_factor": 1.15,
+    "minimum_oos_trades": 30,
+    "cost_scenarios_required": [
+      "base",
+      "conservative",
+      "stress"
+    ],
+    "canonical_equity_usdc": 200,
+    "maximum_risk_per_trade_pct": 1,
+    "holdout_must_remain_sealed": true
+  },
+  "market_constraints": {
+    "ostium_pair": "XAU/USD",
+    "venue_max_leverage": 50,
+    "opening_fee_bps": 3,
+    "oracle_open_usdc": 0.10,
+    "rollover_required_before_paper": true,
+    "live_requires_bs_parity": true
+  }
+}

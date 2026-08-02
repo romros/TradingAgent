@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "methodology_id": "alquimia-v1",
+  "ownership": "TradingAgent/Alquimia",
+  "capital_usdc": 200,
+  "principles": {
+    "sq_role": "candidate_generator_only",
+    "legacy_configs": "format_scaffold_only",
+    "holdout_policy": "sealed_until_final_gate",
+    "live_policy": "explicit_human_authorization"
+  },
+  "stages": ["market_preflight", "discovery", "temporal_validation", "robustness", "small_account_economics", "python_translation", "parity", "paper"],
+  "temporal_split": {"train_pct": 50, "validation_pct": 20, "oos_pct": 20, "final_holdout_pct": 10, "embargo_bars": 10},
+  "discovery": {"max_rules": 4, "max_lookback_bars": 250, "minimum_trades_train": 80, "selection_metric": "deflated_expectancy", "robustness_during_generation": false},
+  "temporal_validation": {"minimum_trades_oos": 30, "minimum_positive_windows_ratio": 0.6, "minimum_oos_profit_factor": 1.15, "maximum_oos_drawdown_pct": 20, "maximum_train_oos_expectancy_decay_pct": 50},
+  "robustness": {"monte_carlo_runs": 1000, "minimum_profitable_monte_carlo_ratio": 0.7, "parameter_perturbation_pct": 10, "cost_stress_multiplier": 2, "minimum_stress_profit_factor": 1.05, "maximum_liquidation_probability": 0.001},
+  "small_account": {"capital_scenarios_usdc": [100, 200, 300, 500, 1000], "canonical_capital_usdc": 200, "maximum_risk_per_trade_pct": 1, "maximum_portfolio_margin_pct": 35, "minimum_reserve_pct": 40, "minimum_net_expectancy_usdc": 0.1, "minimum_net_profit_factor": 1.1, "leverage_grid": [1, 2, 3, 5, 8, 10, 15, 20, 30, 50, 75, 100, 150, 200]}
+}

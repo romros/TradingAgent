@@ -1,0 +1,5 @@
+[
+  {"name": "base", "roundtrip_bps": 3, "fixed_cost_usdc": 0, "note": "Ostium XAU opening fee allowance; SQ PnL already includes slippage 400."},
+  {"name": "conservative", "roundtrip_bps": 6, "fixed_cost_usdc": 0, "note": "Double opening-fee allowance; SQ slippage retained."},
+  {"name": "stress", "roundtrip_bps": 9, "fixed_cost_usdc": 0, "note": "Triple fee allowance; funding still requires separate duration-aware reconciliation."}
+]

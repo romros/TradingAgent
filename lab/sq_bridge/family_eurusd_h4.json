@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "family_id": "eurusd_h4_trend_reversion_v1",
+  "hypothesis": "EURUSD H4 can combine medium-term trend and pullback entries with ATR exits, producing enough movement per trade to survive Ostium fees on a 200 USDC account.",
+  "market": "EURUSD",
+  "timeframe": "H4",
+  "accepted_limit": 80,
+  "date_from": "2006-01-01",
+  "date_to": "2026-01-27",
+  "independence": {
+    "legacy_quant_results_used": false,
+    "legacy_role": "SQ XML syntax and instrument-resource scaffold only",
+    "prior_family_parameters_reused": false
+  },
+  "pre_registered_success": {
+    "minimum_oos_profit_factor": 1.15,
+    "minimum_oos_trades": 30,
+    "cost_scenarios_required": [
+      "base",
+      "conservative",
+      "stress"
+    ],
+    "canonical_equity_usdc": 200,
+    "maximum_risk_per_trade_pct": 1,
+    "holdout_must_remain_sealed": true
+  },
+  "market_constraints": {
+    "ostium_pair": "EUR/USD",
+    "venue_max_leverage": 200,
+    "opening_fee_bps": 3,
+    "market_hours": "24/5",
+    "live_requires_bs_parity": true
+  }
+}

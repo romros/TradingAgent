@@ -13,11 +13,11 @@
     {
       "id": "intraday_fx_six_families_20260801",
       "family": "intraday_fx_4h", "decision": "NO_CANDIDATE",
-      "failure_code": "VALIDATION_AND_COST_FAIL",
+      "failure_code": "TEMPORAL_FAIL",
       "lesson": "Sis famílies no conserven EV positiva a costos 2x i DD <=20%; la quasi-candidata PF 1.22 en desenvolupament cau a 0.48 en validació.",
       "do_not_repeat": "No relaxar costos, DD o mostra ni usar leverage sobre expectativa negativa.",
       "next_direction": "Canviar font d'edge: sessió, carry/roll, breakout amb stop o cartera setmanal.",
-      "evidence": "lab/docs/INTRADAY_FX_CAMPAIGN_FINAL.md"
+      "evidence": "academia/experiments/observations/intraday-fx-six-families-2026-08.json"
     },
     {
       "id": "small_investor_daily_20260801",
@@ -26,7 +26,7 @@
       "lesson": "L'única anomalia econòmica té 14 trades totals i un sol trade al test; la resta falla validació.",
       "do_not_repeat": "No combinar components rebutjats ni relaxar PF després de veure el test.",
       "next_direction": "Nova família amb més observacions i un test temporal nou.",
-      "evidence": "lab/docs/SMALL_INVESTOR_CAMPAIGN_FINAL.md"
+      "evidence": "academia/experiments/observations/small-investor-d1-2026-08.json"
     },
     {
       "id": "sq_0423850_xau_h4_20260801",
@@ -35,7 +35,7 @@
       "lesson": "El +16.38% brut total amaga OOS 2019-2025 negatiu: PF base 0.96 i només 3/7 anys positius.",
       "do_not_repeat": "No ajustar sobre 2019-2025 ni reutilitzar-lo com holdout.",
       "next_direction": "Només reobrir amb hipòtesi de règim ex ante i OOS nou.",
-      "evidence": "lab/out/brokerage_sq_0423850/CONCLUSIONS.md"
+      "evidence": "academia/experiments/observations/sq-0423850-xau-h4-2026-08.json"
     }
   ]
 }

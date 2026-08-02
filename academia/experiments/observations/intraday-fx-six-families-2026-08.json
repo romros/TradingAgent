@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "campaign_id": "intraday-fx-six-families-2026-08",
+  "family": "intraday_fx_4h",
+  "source_artifacts": [
+    {"path": "lab/out/intraday_fx_campaign/results.json", "sha256": "8b5cb5c3fdb226081077ae71f520ae24d81309f66c2cc1e17c21197682278cbc", "role": "campaign_results"},
+    {"path": "lab/out/intraday_fx_campaign/near_candidate_audit.json", "sha256": "fc140941644ad42994761a7c7cd1b7e2d70af7dec37570b3d0f58d33943cfdbb", "role": "near_candidate_audit"}
+  ],
+  "observations": {
+    "scope": {"symbols": ["EURUSD", "XAUUSD"], "timeframe": "H4", "families_tested": 6, "capital_usd": 250},
+    "best_development_candidate": {"family": "vol_expansion", "symbol": "EURUSD", "trades": 206, "profit_factor": 1.2239, "expectancy_usd": 0.2252, "max_drawdown_pct": 15.73},
+    "validation": {"trades": 141, "profit_factor": 0.4841, "expectancy_usd": -0.6041, "max_drawdown_pct": 34.07, "positive_year_ratio": 0.1667, "bootstrap_mean_pnl_95pct_usd": [-0.9903, -0.2224]},
+    "cost_stress": {"development_profit_factor_2x": 0.8504},
+    "outcome": "Cap família arriba legítimament al gate final."
+  },
+  "assessment": {
+    "decision": "REJECT",
+    "insight_code": "TEMPORAL_FAIL",
+    "reason": "L'edge de desenvolupament no es repeteix en validació i ja falla amb costos 2x.",
+    "next_test": "Canviar la font d'edge i reservar un període temporal nou; no afinar les sis famílies.",
+    "evidence_status": "tested"
+  }
+}

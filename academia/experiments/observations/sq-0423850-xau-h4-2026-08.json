@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "campaign_id": "sq-0423850-xau-h4-2026-08",
+  "family": "xauusd_h4_bollinger_long",
+  "source_artifacts": [
+    {"path": "lab/out/brokerage_sq_0423850/walk_forward_report.json", "sha256": "d230076eb03028876afed8b85d4166b74b21c55360b2f92e3346bbeae8faeb2f", "role": "anchored_oos_report"}
+  ],
+  "observations": {
+    "gross_full_period": {"window": "2016-2025", "trades": 45, "compound_return_pct": 16.3822, "profit_factor": 1.8414},
+    "official_base_oos": {"window": "2019-2025", "trades": 33, "compound_return_pct": -1.0009, "profit_factor": 0.96, "max_drawdown_pct": 5.5009, "positive_years": 3, "total_years": 7},
+    "outcome": "El resultat agregat positiu està concentrat al train 2016-2018."
+  },
+  "assessment": {
+    "decision": "REJECT",
+    "insight_code": "OOS_REGIME_FAIL",
+    "reason": "El backtest complet amaga degradació: l'OOS ancorat és negatiu després de costos.",
+    "next_test": "Només reobrir amb una hipòtesi de règim ex ante i dades OOS noves.",
+    "evidence_status": "tested"
+  }
+}

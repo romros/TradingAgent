@@ -13,6 +13,8 @@ ACTIONS = {
     "TEMPORAL_FAIL": "Rebutjar la família o formular una hipòtesi de règim ex ante.",
     "HOLDOUT_PEEKED": "Reservar dades noves; reclassificar el holdout com desenvolupament.",
     "TEMPORAL_PASS_COST_FAIL": "Aturar l'afinament i buscar més edge brut o menor fricció.",
+    "LOW_SAMPLE_OR_VALIDATION_FAIL": "Canviar a una família amb més observacions i reservar OOS nou.",
+    "OOS_REGIME_FAIL": "Formular el règim ex ante i validar-lo només amb OOS nou.",
 }
 
 

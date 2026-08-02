@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "campaign_id": "small-investor-d1-2026-08",
+  "family": "daily_small_investor",
+  "source_artifacts": [
+    {"path": "lab/out/small_investor_campaign/results.json", "sha256": "9f3b61daf89ba5929e43b55d91456ce3442a6aef28fe8b2fa61d5b27602fc793", "role": "individual_results"},
+    {"path": "lab/out/small_investor_campaign/portfolio_results.json", "sha256": "0b4b5687c094a1880c20e43423c7abd873f8b981d7132bbb26455f41c9dbeb10", "role": "portfolio_results"}
+  ],
+  "observations": {
+    "scope": {"assets": ["SPY", "QQQ", "IWM", "GLD", "TLT"], "timeframe": "D1", "capital_usd": 250},
+    "economic_anomaly": {"family": "short_term_reversal", "total_trades": 14, "validation_trades": 7, "final_test_trades": 1, "test_profit_factor": 3.13},
+    "portfolios": {"tested": 3, "validation_profit_factor_range": [1.0, 1.07], "all_rejected": true},
+    "outcome": "L'única anomalia positiva no té una mostra OOS interpretable."
+  },
+  "assessment": {
+    "decision": "REJECT",
+    "insight_code": "LOW_SAMPLE_OR_VALIDATION_FAIL",
+    "reason": "Un PF atractiu basat en un sol trade final no estima un edge; la resta de famílies falla validació.",
+    "next_test": "Buscar una família amb més observacions i congelar un test temporal que no reutilitzi 2023-2026.",
+    "evidence_status": "tested"
+  }
+}

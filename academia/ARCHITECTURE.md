@@ -37,4 +37,3 @@ política i experiments reproduïbles.
 3. encapsular la CLI en HTTP només quan existeixi un consumidor;
 4. provar embeddings fora del camí principal només després del gate ADR-001;
 5. adoptar una alternativa únicament si guanya el benchmark i manté cites.
-

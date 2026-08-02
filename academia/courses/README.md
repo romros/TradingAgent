@@ -15,4 +15,3 @@ Cada curs es compon de lliçons petites i verificables:
 
 Formats previstos: Markdown com a font canònica, diapositives/HTML derivades i guió
 de vídeo. Els vídeos propis es generaran des del guió versionat, no al revés.
-

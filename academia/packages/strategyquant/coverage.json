@@ -12,7 +12,7 @@
     {"order": 6, "id": "monte-carlo-parameters", "status": "operational", "evidence": ["sq_official_monte_carlo_retests_20190301"], "next": "prova local en build 143"},
     {"order": 7, "id": "optimizer-wfo-wfm", "status": "operational", "evidence": ["sq_official_walk_forward_optimization_20150506", "sq_official_walk_forward_matrix_20150506"], "next": "prova local en build 143"},
     {"order": 8, "id": "regime-reality", "status": "tested", "evidence": ["wgc_gold_demand_2025", "ostium_official_fees_liquidation_2026"], "next": "aplicar a artifact finalista real"},
-    {"order": 9, "id": "portfolio", "status": "operational", "evidence": ["sq_official_portfolio_composer_20241015"], "next": "prova local amb estratègies validades"},
+    {"order": 9, "id": "portfolio", "status": "tested", "evidence": ["sq_official_portfolio_composer_20241015"], "local_evidence": "experiments/observations/sq-portfolio-1774074144996-2026-08.json", "next": "repetir amb components validats, costos reals i correlacions per règim"},
     {"order": 10, "id": "export-crossplatform", "status": "operational", "evidence": ["sq_official_source_code_export_20200522", "sq_official_crossplatform_reliability_20190429"], "next": "prova de paritat sobre motor objectiu"},
     {"order": 11, "id": "custom-projects", "status": "tested", "evidence": ["sq_official_custom_projects_20200504"], "local_evidence": "experiments/observations/alquimia-eurusd-h4-41133-windows-2026-08.json", "next": "fer idempotent la promoció entre databanks i registrar-ne els recomptes"},
     {"order": 12, "id": "automatic-retest", "status": "operational", "evidence": ["sq_official_automatic_retest_144"], "next": "prova local amb dades noves congelades"},

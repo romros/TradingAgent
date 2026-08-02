@@ -40,12 +40,21 @@ def extract(path: Path, stage: str | None = None) -> dict:
         node for node in results.findall(".//Fingerprint") if node.get("trades") is not None
     )
     instrument = results.find(".//InstrumentInfo")
+    result_keys = [node.get("resultKey") for node in results.findall(".//Result")]
+    is_portfolio = "Portfolio" in result_keys and len(result_keys) > 1
+    symbol_infos = [
+        {"symbol": node.get("symbolName"), "instrument": node.get("instrumentName")}
+        for node in results.findall(".//SymbolInfo")
+    ]
     settings = {node.tag: node.text for node in results.findall(".//Result/SettingsMap/*")}
     special = {node.tag: node.text for node in results.findall(".//SpecialValuesMap/SettingsMap/*")}
     def iso_millis(value: str | None) -> str | None:
         return datetime.fromtimestamp(int(value) / 1000, timezone.utc).date().isoformat() if value else None
     is_retester = settings.get("IsRetester") == "true"
-    if stage is None:
+    if is_portfolio:
+        classification = "PORTFOLIO_ARTIFACT_NOT_LIVE_READY"
+        missing = ["component_cost_audit", "correlation_stability", "sealed_holdout", "current_venue_repricing"]
+    elif stage is None:
         classification = "RETESTED_WINDOW_UNLABELLED" if is_retester else "IS_CANDIDATE_NOT_FINALIST"
         missing = ["stage_label", "sealed_holdout", "regime_breakdown", "current_ostium_repricing", "liquidation"] if is_retester else ["validation", "oos", "sealed_holdout", "regime_breakdown", "current_ostium_repricing", "liquidation"]
     else:
@@ -58,11 +67,16 @@ def extract(path: Path, stage: str | None = None) -> dict:
         }[stage]
         missing = remaining + ["regime_breakdown", "current_ostium_repricing", "liquidation"]
     return {
-        "candidate_id": results.find(".//StrategyName").text,
+        "candidate_id": results.get("ResultName") if is_portfolio else results.find(".//StrategyName").text,
         "artifact_sha256": raw_hash,
         "sq_build": strategy.get("AppVersion"),
         "engine": strategy.find(".//Strategy").get("engine"),
         "logic": {"blocks": blocks, "atr_exits": formulas},
+        "portfolio": {
+            "is_portfolio": is_portfolio,
+            "components": [key for key in result_keys if key != "Portfolio"],
+            "symbols": symbol_infos,
+        },
         "generation_result": {
             "history_from": iso_millis(special.get("HistoryFrom")),
             "history_to": iso_millis(special.get("HistoryTo")),
@@ -77,12 +91,12 @@ def extract(path: Path, stage: str | None = None) -> dict:
         "execution_assumptions": {
             "initial_capital": float(settings["MoneyManagement.InitialCapital"]),
             "result_slippage": float(settings["Slippage"]),
-            "instrument": instrument.get("instrument"),
-            "instrument_spread": float(instrument.get("defaultSpread")),
-            "instrument_slippage": float(instrument.get("defaultSlippage")),
-            "order_size_step": float(instrument.get("orderSizeStep")),
-            "commission_xml": instrument.get("commissions"),
-            "swap_xml": instrument.get("swap"),
+            "instrument": None if is_portfolio else instrument.get("instrument"),
+            "instrument_spread": None if is_portfolio else float(instrument.get("defaultSpread")),
+            "instrument_slippage": None if is_portfolio else float(instrument.get("defaultSlippage")),
+            "order_size_step": None if is_portfolio else float(instrument.get("orderSizeStep")),
+            "commission_xml": None if is_portfolio else instrument.get("commissions"),
+            "swap_xml": None if is_portfolio else instrument.get("swap"),
         },
         "classification": classification,
         "missing": missing,

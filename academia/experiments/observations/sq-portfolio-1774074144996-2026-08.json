@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "campaign_id": "sq-portfolio-1774074144996-2026-08",
+  "family": "multi_asset_equity_intraday_portfolio",
+  "source_artifacts": [
+    {"path": "/mnt/volume-SQ/user/projects/PortfolioComposer/databanks/Portfolios/Portfolio-1774074144996.sqx", "sha256": "b8fd37afcd5acd336ed51b5b8f5809d5eb8a4be3fd88929dadd504879a08a46a", "role": "local_portfolio_artifact_read_only"}
+  ],
+  "observations": {
+    "candidate_id": "Portfolio-1774074144996",
+    "window": "2022-03-31/2026-03-13",
+    "components": 3,
+    "trades": 442,
+    "profit": 361.9100036621094,
+    "drawdown": 268.7900085449219,
+    "initial_capital": 4000.0,
+    "symbols": ["NVDAUSUSD_TICK_UTCMinus05", "TSLAUSUSD_TICK_UTCMinus05"],
+    "result_slippage": 0.0,
+    "component_label_warning": "La cama 'APPL dilluns' referencia NVDA al resultKey; cal verificar identitat i provenance abans d'usar-la."
+  },
+  "assessment": {
+    "decision": "REJECT_AS_DEPLOYMENT_EVIDENCE",
+    "insight_code": "PORTFOLIO_AGGREGATE_HIDES_COMPONENT_ASSUMPTIONS",
+    "reason": "L'agregat existeix i és llegible, però zero slippage i una etiqueta/símbol incoherent impedeixen considerar-lo prova de cartera executable.",
+    "next_test": "Auditar cada cama, costos i identitat; després mesurar correlacions rodants i concentració per règim amb estratègies ja validades.",
+    "evidence_status": "tested"
+  }
+}

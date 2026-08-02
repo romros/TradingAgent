@@ -23,6 +23,7 @@ no backtests que simplement semblin espectaculars.
 - Per escollir o interpretar proves, llegir [robustness.md](references/robustness.md).
 - Per revisar candidats, llegir [decision.md](references/decision.md).
 - Per autoritat, evidència i límits, llegir [evidence.md](references/evidence.md).
+- Per aprendre d'artifacts i fracassos, llegir [learning.md](references/learning.md).
 
 ## Regles de batalla
 
@@ -57,3 +58,7 @@ python3 scripts/review_candidate.py candidate.json
 ```
 
 Usar la sortida com a control mínim, no com a senyal de trading.
+
+Quan hi hagi gates temporal i de costos d'Alquímia, normalitzar-los amb
+`academia/tools/import_alquimia.py` abans de raonar. Consultar
+`academia/experiments/failure-memory.json` per evitar repetir una direcció rebutjada.

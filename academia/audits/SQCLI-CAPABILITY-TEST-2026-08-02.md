@@ -46,3 +46,23 @@ python3 -m unittest discover -s academia/tests -p 'test_*.py'
 ```
 
 La primera ordre és només lectura i emet JSON a stdout; la segona valida el paquet.
+
+## Inventari executat versus configurat
+
+`audit_sq_artifacts.py` ha inspeccionat 1.574 SQX i els projectes locals. Hi ha 19
+tasques Build, 57 Retest, una Optimize i una AutomaticPortfolioBuilder configurades.
+Els artifacts contenen 486 resultats de precisió superior i 592 membres walk-forward,
+però cap membre Monte Carlo ni additional-market. Per tant Monte Carlo continua sent
+un gap real: veure l'opció al XML no prova que s'hagi executat.
+
+El build objectiu 143.2708 tampoc conté cap tasca local d'Automatic Retest i la font
+oficial catalogada situa aquesta funció al Build 144. El test de compatibilitat és
+negatiu: l'expert ha de dir «no disponible en aquest build», no inventar un workflow.
+
+La graella local d'extensions existeix sota `user/extend` per JForex, MT4, MT5,
+EasyLanguage i pseudocodi; només hi ha dos fitxers CustomFunctions i cap plugin local.
+No hi ha cap gap que justifiqui instal·lar una extensió o un navegador ara mateix.
+
+```bash
+python3 academia/tools/audit_sq_artifacts.py /mnt/volume-SQ/user/projects
+```

@@ -13,4 +13,3 @@ Una afirmació de configuració SQ es verifica aquí amb:
 
 Els experiments educatius no comparteixen resultats quantitatius amb les campanyes
 d'Alquímia llevat que el protocol de la campanya ho autoritzi explícitament.
-

@@ -27,4 +27,3 @@ Comparar Recall@5, MRR@10, precisió de cites, latència i cost entre:
 Només adoptar RAG vectorial si millora materialment el benchmark, especialment en
 preguntes semàntiques, sense reduir la traçabilitat. Cache RAG serà una optimització
 posterior per consultes repetides, mai la font de veritat.
-

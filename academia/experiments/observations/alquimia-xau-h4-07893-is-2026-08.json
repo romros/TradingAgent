@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "campaign_id": "alquimia-xau-h4-discovery-07893-is-2026-08",
+  "family": "xauusd_h4_ema_sma_adx_atr",
+  "source_artifacts": [
+    {
+      "path": "/mnt/volume-SQ/user/projects/ALQUIMIA_XAU_H4_DISCOVERY/databanks/Results/Strategy 0.7893.sqx",
+      "sha256": "6fb6f46a37caf78735d96c1688273143bd9ee3b8a5abf4a761086abbd85107e5",
+      "role": "live_sq_build_candidate_read_only"
+    }
+  ],
+  "observations": {
+    "sq_build": "143.2708",
+    "engine": "MetaTrader4",
+    "window": "2004-01-01/2015-02-06",
+    "trades": 340,
+    "profit": 42177.96875,
+    "drawdown": 7224.2998046875,
+    "fitness": 0.8214285749040608,
+    "complexity": 11,
+    "logic": "EMA(14, shift 1) contra SMA(50, shift 2), sortida ADX(14, shift 2) i PT/SL escalats a 2.9/3.8 ATR(10)",
+    "execution": {
+      "initial_capital": 10000.0,
+      "instrument": "XAUUSD_C250_L20OST",
+      "spread": 900.0,
+      "result_slippage": 300.0,
+      "instrument_default_slippage": 400.0,
+      "order_size_step": 0.001,
+      "commission_per_trade": 0.785,
+      "swap_enabled": false
+    },
+    "oos_present": false
+  },
+  "assessment": {
+    "decision": "HOLD_NOT_FINALIST",
+    "insight_code": "IS_ONLY_AND_COST_MISMATCH",
+    "reason": "És un candidat de descoberta IS, no una estratègia validada. A més, el resultat conserva slippage 300 mentre l'instrument declara 400.",
+    "next_test": "Retester sobre validació i OOS, reconciliar costos, aplicar règims i reservar el holdout 2023-12-24/2026-03-13 fins al final.",
+    "evidence_status": "tested"
+  }
+}

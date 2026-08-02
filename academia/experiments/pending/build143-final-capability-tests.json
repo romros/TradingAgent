@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "id": "build143-final-capability-tests",
+  "target_build": "143.2708",
+  "state": "WAITING_FOR_SQ_IDLE_AND_COW_RUNTIME",
+  "write_root": "academia/runtime/build143-final-capability-tests",
+  "holdout_access": false,
+  "live_trading_access": false,
+  "source_mounts_read_only": true,
+  "resource_gate": {
+    "active_sq_projects": 0,
+    "require_license_idle": true,
+    "maximum_test_cores": 2,
+    "maximum_runtime_minutes_each": 20
+  },
+  "tests": [
+    {
+      "capability": "builder-improver",
+      "channel": "sq_gui_then_sqcli",
+      "question": "Random i genetic produeixen qualitat comparable amb el mateix pressupost finit?",
+      "attempt_budget_each": 2000,
+      "uses_holdout": false,
+      "required_artifacts": ["frozen_config_random", "frozen_config_genetic", "status_logs", "databank_exports"],
+      "pass_condition": "Tots dos runs acaben amb el mateix pressupost, espai, dades i filtres; es registren intents totals i distribució, no només supervivents."
+    },
+    {
+      "capability": "monte-carlo-parameters",
+      "channel": "sq_gui_then_sqcli",
+      "question": "El candidat 4.1.133 depèn d'un pic estret de paràmetres?",
+      "input_sha256": "3470b786bd4416d44a7a5be9d93dd39d2fdc52cf39681123b75443395f5e2ca2",
+      "simulations": 50,
+      "uses_holdout": false,
+      "required_artifacts": ["frozen_mc_config", "mc_result_sqx", "status_log"],
+      "pass_condition": "L'SQX conté resultats Monte Carlo executats, configuració de pertorbació i percentils; una opció XML sense resultats falla."
+    },
+    {
+      "capability": "export-crossplatform",
+      "channel": "pinchtab_ephemeral_then_artifact_tools",
+      "question": "El codi exportat conserva ordres respecte del resultat SQ al motor objectiu?",
+      "input_sha256": "3470b786bd4416d44a7a5be9d93dd39d2fdc52cf39681123b75443395f5e2ca2",
+      "uses_holdout": false,
+      "required_artifacts": ["source_export", "sq_orders_csv", "target_engine_orders_csv", "parity_report"],
+      "pass_condition": "Identitat de senyal i diferències de fills/costos queden quantificades; compilar sense comparar ordres no passa."
+    }
+  ]
+}

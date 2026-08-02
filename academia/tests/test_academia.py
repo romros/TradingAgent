@@ -43,8 +43,8 @@ class CatalogTest(unittest.TestCase):
         academia.ingest(self.db, list((self.root / "sources").glob("*/*.json")))
         dataset = self.root / "benchmark/hard_queries.jsonl"
         result = academia.benchmark(self.db, dataset, 5)
-        self.assertEqual(result["cases"], 16)
-        self.assertEqual(result["answerable_cases"], 13)
+        self.assertEqual(result["cases"], 19)
+        self.assertEqual(result["answerable_cases"], 16)
         self.assertIn("no_answer_accuracy", result)
 
     def test_invalid_rights_policy_is_rejected(self):

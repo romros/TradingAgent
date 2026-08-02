@@ -1,0 +1,26 @@
+[
+  {
+    "id": "sq_databank_capacity_is_ranked",
+    "statement": "El Databank té capacitat configurada i conserva estratègies segons el ranking, no és un magatzem il·limitat.",
+    "status": "captured", "confidence": 0.9, "first_seen_at": "2026-08-02", "updated_at": "2026-08-02",
+    "evidence": [{"source_id": "sq_official_databanks_20190121", "locator": "section:capacity", "relation": "supports", "notes": "Cal confirmar defaults a la build objectiu."}]
+  },
+  {
+    "id": "sq_wfm_is_grid_of_wfo",
+    "statement": "La Walk-Forward Matrix avalua una graella de nombres de runs i percentatges OOS mitjançant múltiples optimitzacions walk-forward.",
+    "status": "corroborated", "confidence": 0.95, "first_seen_at": "2026-08-02", "updated_at": "2026-08-02",
+    "evidence": [{"source_id": "sq_official_walk_forward_matrix_20150506", "locator": "section:definition", "relation": "supports"}]
+  },
+  {
+    "id": "sq_mc_retest_cost_scales_with_runs",
+    "statement": "El cost dels Monte Carlo retests creix aproximadament amb el nombre de simulacions perquè cada simulació refà el backtest.",
+    "status": "captured", "confidence": 0.85, "first_seen_at": "2026-08-02", "updated_at": "2026-08-02",
+    "evidence": [{"source_id": "sq_official_monte_carlo_retests_20190301", "locator": "section:runtime", "relation": "supports"}]
+  },
+  {
+    "id": "sq_portfolio_composer_from_build_141",
+    "statement": "Portfolio Composer va ser introduït a StrategyQuant X Build 141.",
+    "status": "captured", "confidence": 0.95, "first_seen_at": "2026-08-02", "updated_at": "2026-08-02",
+    "evidence": [{"source_id": "sq_official_portfolio_composer_20241015", "locator": "section:introduction", "relation": "supports"}]
+  }
+]

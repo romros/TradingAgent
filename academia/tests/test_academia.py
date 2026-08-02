@@ -13,8 +13,9 @@ class CatalogTest(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.db = Path(self.tmp.name) / "test.db"
-        self.source = Path(__file__).resolve().parents[1] / "sources/strategyquant/build142-reference.json"
-        academia.ingest(self.db, [self.source])
+        self.root = Path(__file__).resolve().parents[1]
+        self.source = self.root / "sources/strategyquant/build142-reference.json"
+        academia.ingest(self.db, list((self.root / "sources/strategyquant").glob("*.json")))
 
     def tearDown(self):
         self.tmp.cleanup()
@@ -25,15 +26,17 @@ class CatalogTest(unittest.TestCase):
         self.assertEqual(academia.search(self.db, "correlació", 5, "other"), [])
 
     def test_reingest_is_idempotent(self):
+        with sqlite3.connect(self.db) as db:
+            before = db.execute("SELECT count(*) FROM sources").fetchone()[0], db.execute("SELECT count(*) FROM chunks").fetchone()[0]
         academia.ingest(self.db, [self.source])
         with sqlite3.connect(self.db) as db:
-            self.assertEqual(db.execute("SELECT count(*) FROM sources").fetchone()[0], 1)
-            self.assertEqual(db.execute("SELECT count(*) FROM chunks").fetchone()[0], 3)
+            after = db.execute("SELECT count(*) FROM sources").fetchone()[0], db.execute("SELECT count(*) FROM chunks").fetchone()[0]
+            self.assertEqual(after, before)
 
     def test_benchmark(self):
         dataset = Path(__file__).resolve().parents[1] / "benchmark/queries.jsonl"
         result = academia.benchmark(self.db, dataset, 5)
-        self.assertEqual(result["cases"], 3)
+        self.assertEqual(result["cases"], 10)
         self.assertEqual(result["recall_at_5"], 1.0)
 
     def test_invalid_rights_policy_is_rejected(self):
@@ -45,6 +48,12 @@ class CatalogTest(unittest.TestCase):
         data = json.loads(self.source.read_text())
         data["surprise"] = True
         self.assertIn("camp desconegut: surprise", academia.validate(data))
+
+    def test_claim_evidence_resolves_to_chunk(self):
+        academia.ingest_claims(self.db, [self.root / "claims/strategyquant/core-claims.json"])
+        with sqlite3.connect(self.db) as db:
+            self.assertEqual(db.execute("SELECT count(*) FROM claims").fetchone()[0], 4)
+            self.assertEqual(db.execute("SELECT count(*) FROM claim_evidence").fetchone()[0], 4)
 
 
 if __name__ == "__main__":

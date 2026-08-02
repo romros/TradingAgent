@@ -37,6 +37,7 @@ academia/
 
 ```bash
 python3 academia/tools/academia.py --db /tmp/academia.db ingest academia/sources/strategyquant/*.json
+python3 academia/tools/academia.py --db /tmp/academia.db ingest-claims academia/claims/strategyquant/*.json
 python3 academia/tools/academia.py --db /tmp/academia.db search "filtre correlació" --domain strategyquant
 python3 academia/tools/academia.py --db /tmp/academia.db benchmark academia/benchmark/queries.jsonl
 python3 -m unittest discover -s academia/tests -v

@@ -1,5 +1,7 @@
 # Robustesa orientada a decisions
 
+Procediment complet: `academia/courses/strategyquant/02-RETESTER-CROSSCHECKS.md`.
+
 | Pregunta | Prova útil | Senyal de risc |
 |---|---|---|
 | Depèn de l'ordre dels trades? | Monte Carlo trades | drawdown o pocs trades dominen |

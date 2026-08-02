@@ -1,0 +1,13 @@
+{
+  "id": "retester-funnel-01",
+  "candidates": [
+    {"id": "A", "fast_pf": 1.4, "precise_pf": 0.7, "cost_pf": 0.6, "holdout_peeks": 0},
+    {"id": "B", "fast_pf": 1.35, "precise_pf": 1.28, "cost_pf": 1.12, "parameter_region": "unknown", "holdout_peeks": 0},
+    {"id": "C", "fast_pf": 1.3, "precise_pf": 1.25, "cost_pf": 1.1, "parameter_region": "broad", "holdout_peeks": 3}
+  ],
+  "expected": {
+    "A": {"decision": "DESCARTAR", "next": "none", "reason": "precision_and_cost_failure"},
+    "B": {"decision": "PROVA_DIRIGIDA", "next": "parameter_sensitivity", "reason": "one_unknown"},
+    "C": {"decision": "PROVA_DIRIGIDA", "next": "new_sealed_data", "reason": "holdout_contaminated"}
+  }
+}

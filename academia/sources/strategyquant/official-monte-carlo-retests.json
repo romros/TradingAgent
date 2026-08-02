@@ -1,0 +1,20 @@
+{
+  "id": "sq_official_monte_carlo_retests_20190301",
+  "kind": "documentation",
+  "title": "Monte Carlo retest methods",
+  "url": "https://strategyquant.com/doc/strategyquant/monte-carlo-retest-methods/",
+  "author": "StrategyQuant",
+  "published_at": "2019-03-01",
+  "accessed_at": "2026-08-02",
+  "language": "en",
+  "sq_version": null,
+  "source_level": "A_PRIMARY",
+  "domain": "strategyquant",
+  "rights_policy": "transformative_notes",
+  "metadata": {"page_last_updated": "2019-03-01", "version_warning": "Confirmar mètodes i noms a la build objectiu."},
+  "chunks": [
+    {"locator": "section:retest-methods", "heading": "Pertorbacions", "body": "Els Monte Carlo retests repeteixen el backtest amb canvis aleatoris en elements com spread, slippage, paràmetres de l'estratègia o dades històriques.", "evidence_status": "captured"},
+    {"locator": "section:runtime", "heading": "Temps d'execució", "body": "Cada simulació exigeix un backtest complet; el cost aproximat creix amb el nombre de simulacions multiplicat pel temps del backtest base.", "evidence_status": "captured"},
+    {"locator": "section:starting-bar", "heading": "Barra inicial", "body": "Randomize Starting Bar comprova la sensibilitat del resultat al punt d'inici de la prova.", "evidence_status": "captured"}
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "sq_official_walk_forward_matrix_20150506",
+  "kind": "documentation",
+  "title": "Walk-Forward Matrix",
+  "url": "https://strategyquant.com/doc/strategyquant/walk-forward-matrix/",
+  "author": "StrategyQuant",
+  "published_at": "2015-05-06",
+  "accessed_at": "2026-08-02",
+  "language": "en",
+  "sq_version": null,
+  "source_level": "A_PRIMARY",
+  "domain": "strategyquant",
+  "rights_policy": "transformative_notes",
+  "metadata": {"page_last_updated": "2015-05-06", "version_warning": "Documentació antiga; la interfície i els defaults poden haver canviat."},
+  "chunks": [
+    {"locator": "section:definition", "heading": "Definició", "body": "Una Walk-Forward Matrix executa diverses optimitzacions walk-forward combinant diferents nombres de runs i percentatges out-of-sample.", "evidence_status": "corroborated"},
+    {"locator": "section:cost", "heading": "Cost computacional", "body": "Cada combinació requereix una optimització walk-forward; augmentar passos i combinacions incrementa fortament el temps de càlcul.", "evidence_status": "captured"},
+    {"locator": "section:interpretation", "heading": "Interpretació", "body": "La documentació proposa buscar regions de resultats graduals i múltiples combinacions reeixides, no seleccionar només un màxim aïllat.", "evidence_status": "captured"}
+  ]
+}

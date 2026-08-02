@@ -61,5 +61,41 @@
       {"source_id": "sq_official_walk_forward_matrix_20150506", "locator": "section:interpretation", "relation": "mentions", "notes": "Inferència prudent: la font descriu un indicador de robustesa, no una garantia predictiva."},
       {"source_id": "sq_official_walk_forward_optimization_20150506", "locator": "section:interpretation", "relation": "supports", "notes": "L'exemple oficial mostra que reoptimitzar no rescata necessàriament una estratègia deficient."}
     ]
+  },
+  {
+    "id": "sq_backtest_costs_are_configuration",
+    "statement": "Spread, slippage, comissió i swaps són supòsits configurables del backtest i condicionen el resultat.",
+    "status": "corroborated", "confidence": 0.98, "first_seen_at": "2026-08-02", "updated_at": "2026-08-02",
+    "evidence": [{"source_id": "sq_official_data_settings_20190109", "locator": "section:costs", "relation": "supports"}]
+  },
+  {
+    "id": "sq_fast_generation_needs_precise_retest",
+    "statement": "Es pot usar precisió ràpida per generar, però els supervivents requereixen retest amb precisió adequada al tipus d'ordre.",
+    "status": "captured", "confidence": 0.9, "first_seen_at": "2026-08-02", "updated_at": "2026-08-02",
+    "evidence": [{"source_id": "sq_official_data_settings_20190109", "locator": "section:precision", "relation": "supports"}]
+  },
+  {
+    "id": "sq_cross_checks_should_form_funnel",
+    "statement": "Els cross-checks s'han d'ordenar de simples/barats a complexos/cars perquè els fracassos primerencs no consumeixin proves posteriors.",
+    "status": "corroborated", "confidence": 0.95, "first_seen_at": "2026-08-02", "updated_at": "2026-08-02",
+    "evidence": [{"source_id": "sq_official_cross_checks_20190226", "locator": "section:funnel", "relation": "supports"}]
+  },
+  {
+    "id": "sq_cross_checks_can_dominate_runtime",
+    "statement": "Els cross-checks intensius poden dominar el temps total perquè executen molts backtests per candidat.",
+    "status": "captured", "confidence": 0.95, "first_seen_at": "2026-08-02", "updated_at": "2026-08-02",
+    "evidence": [{"source_id": "sq_official_cross_checks_20190226", "locator": "section:cost", "relation": "supports"}]
+  },
+  {
+    "id": "sq_generation_is_not_validation",
+    "statement": "Generar i ordenar candidats no substitueix retestar-los sota canvis de dades, paràmetres, mercats i costos.",
+    "status": "corroborated", "confidence": 0.95, "first_seen_at": "2026-08-02", "updated_at": "2026-08-02",
+    "evidence": [{"source_id": "sq_official_workflow_20190130", "locator": "section:retest", "relation": "supports"}]
+  },
+  {
+    "id": "sq_custom_projects_need_external_budget",
+    "statement": "Un Custom Project repetitiu necessita pressupost d'intents i criteri d'aturada explícits, no només una quota de finalistes.",
+    "status": "corroborated", "confidence": 0.85, "first_seen_at": "2026-08-02", "updated_at": "2026-08-02",
+    "evidence": [{"source_id": "sq_official_custom_projects_20200504", "locator": "section:risk", "relation": "supports", "notes": "La necessitat de pressupost és una inferència metodològica aplicada a la capacitat de repetició documentada."}]
   }
 ]

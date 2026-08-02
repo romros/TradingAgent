@@ -60,7 +60,7 @@ def prepare_builder(projects: Path, source_name: str, target_name: str, mode: st
             "Build-Task1.xml": {
             '<BuildMode generationType="genetic-evolution">': f'<BuildMode generationType="{generation}">',
             "<PopulationSize>100</PopulationSize>": "<PopulationSize>100</PopulationSize>",
-            "<MaxGenerations>100</MaxGenerations>": "<MaxGenerations>20</MaxGenerations>",
+            "<MaxGenerations>100</MaxGenerations>": "<MaxGenerations>1</MaxGenerations>",
             '<StopCondition type="databank-full" passedStrategies="300" restartCount="5" days="0" hours="1" minutes="0" />':
                 '<StopCondition type="finished-evolution" passedStrategies="2000" restartCount="0" days="0" hours="0" minutes="20" />',
             '<CrossChecks use="true" evaluateAll="true">': '<CrossChecks use="false" evaluateAll="true">',

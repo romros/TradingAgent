@@ -107,6 +107,35 @@ def ingest(db_path: Path, files: list[Path]) -> None:
                 )
 
 
+def ingest_claims(db_path: Path, files: list[Path]) -> None:
+    init_db(db_path)
+    with connect(db_path) as db:
+        for path in files:
+            claims = json.loads(path.read_text(encoding="utf-8"))
+            if not isinstance(claims, list):
+                raise ValueError(f"{path}: s'esperava una llista de claims")
+            for claim in claims:
+                if claim.get("status") not in STATUSES or not 0 <= claim.get("confidence", -1) <= 1:
+                    raise ValueError(f"{path}: claim invàlida: {claim.get('id')}")
+                db.execute(
+                    """INSERT OR REPLACE INTO claims
+                    (id,statement,status,confidence,first_seen_at,updated_at) VALUES(?,?,?,?,?,?)""",
+                    tuple(claim[key] for key in ("id", "statement", "status", "confidence", "first_seen_at", "updated_at")),
+                )
+                db.execute("DELETE FROM claim_evidence WHERE claim_id=?", (claim["id"],))
+                for evidence in claim.get("evidence", []):
+                    chunk = db.execute(
+                        "SELECT id FROM chunks WHERE source_id=? AND locator=?",
+                        (evidence["source_id"], evidence["locator"]),
+                    ).fetchone()
+                    if chunk is None:
+                        raise ValueError(f"{path}: evidència inexistent {evidence['source_id']}#{evidence['locator']}")
+                    db.execute(
+                        "INSERT INTO claim_evidence(claim_id,chunk_id,relation,notes) VALUES(?,?,?,?)",
+                        (claim["id"], chunk["id"], evidence["relation"], evidence.get("notes")),
+                    )
+
+
 def fts_query(query: str) -> str:
     tokens = [token.replace('"', "") for token in query.split() if token.replace('"', "")]
     if not tokens:
@@ -158,6 +187,8 @@ def main(argv: list[str] | None = None) -> int:
     commands.add_parser("init")
     load = commands.add_parser("ingest")
     load.add_argument("files", type=Path, nargs="+")
+    claim_load = commands.add_parser("ingest-claims")
+    claim_load.add_argument("files", type=Path, nargs="+")
     find = commands.add_parser("search")
     find.add_argument("query")
     find.add_argument("--limit", type=int, default=5)
@@ -173,6 +204,9 @@ def main(argv: list[str] | None = None) -> int:
         elif args.command == "ingest":
             ingest(args.db, args.files)
             result = {"ingested": len(args.files)}
+        elif args.command == "ingest-claims":
+            ingest_claims(args.db, args.files)
+            result = {"claim_files_ingested": len(args.files)}
         elif args.command == "search":
             result = search(args.db, args.query, args.limit, args.domain)
         else:

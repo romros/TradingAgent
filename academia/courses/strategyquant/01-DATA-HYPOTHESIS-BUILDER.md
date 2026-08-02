@@ -52,6 +52,13 @@ hipòtesi. Pesos, percentatges, parameter sets i rangs també són graus de llib
 i entren al manifest. Calibrar magnituds dependents del mercat; no confondre
 autocalibració amb validació d'una estratègia.
 
+Una allowlist només diu què **pot** aparèixer. No obliga SQ a usar el mecanisme.
+Si la hipòtesi exigeix, per exemple, entrada stop sobre canal, cal imposar-ne
+l'arquitectura amb template/accions i comprovar després els artifacts. En el cas
+local R1, 0/40 acceptades contenien `Highest`/`Lowest`; a R2, una arquitectura
+`EnterAtStop` va donar cobertura 40/40. El segon resultat valida el contracte de
+cerca, no l'edge.
+
 ## 5. Random o genetic
 
 `Random` és una línia base transparent. `Genetic` afegeix selecció iterativa,
@@ -69,6 +76,16 @@ el registre complet d'intents. Guardar `.sqx`, configuració, comptadors i motiu
 de descart fora de la memòria efímera del ranking. No deixar que una única
 mètrica decideixi: usar mínim de trades, expectativa/costos, DD i concentració.
 
+Separar sempre tres registres:
+
+1. **intenció**: manifest i pressupost preregistrats;
+2. **configuració**: què contenia realment el projecte;
+3. **execució**: comptadors i estructura dels `.sqx` resultants.
+
+No declarar que un pressupost governa la passada sense un stop/controller que ho
+demostri. En una campanya local, el manifest deia 20.000 intents però el Builder
+va parar amb 63 en omplir un Databank de 40.
+
 ## Checklist de sortida
 
 - [ ] dades i instrument versionats;
@@ -76,7 +93,9 @@ mètrica decideixi: usar mínim de trades, expectativa/costos, DD i concentraci�
 - [ ] mecanisme i falsador escrits;
 - [ ] arquitectura i complexitat justificades;
 - [ ] blocs i paràmetres limitats;
+- [ ] artifacts contenen el mecanisme obligatori;
 - [ ] pressupost d'intents inclou decimation i reinicis;
+- [ ] el comptador executat, no només el manifest, queda registrat;
 - [ ] ranking no substitueix l'inventari complet;
 - [ ] costos preliminars inclosos;
 - [ ] una sola raó preregistrada per avançar a Retester.
@@ -89,7 +108,10 @@ mètrica decideixi: usar mínim de trades, expectativa/costos, DD i concentraci�
 4. Tractar 100 entrades del Databank com si només s'haguessin provat 100 models.
 5. Comparar genetic i random ignorant decimation, poblacions i reinicis.
 6. Usar stops en pips/dòlars no comparables entre règims o instruments.
+7. Confondre una allowlist de blocs amb una arquitectura obligatòria.
+8. Donar per executat un pressupost perquè apareix al manifest.
 
 Fonts: `sq_official_data_settings_20190109`,
 `sq_official_what_to_build_20190109`, `sq_official_building_blocks_20190226`,
 `sq_official_genetic_options_20190226`, `sq_official_databanks_20190121`.
+Cas local: `sq_local_sqx143_contract_drift_20260802`.

@@ -33,6 +33,18 @@ fallava precisió o costos.
 - candidats entrants, sortints i motiu de cada descart;
 - temps/còmput i nombre total de backtests.
 
+Abans d'executar, fer una llista exacta dels crosschecks actius i rebutjar-ne
+qualsevol d'heretat. En el cas local SQX 143, una passada de Monte Carlo de
+paràmetres també va executar manipulació de trades; es va invalidar i repetir
+amb només el crosscheck previst. Conservar els resultats fallits per diagnosticar
+és correcte; desactivar els gates per conservar-los no ho és.
+
+El contracte del test ha de coincidir en tres llocs: metodologia escrita,
+condicions d'acceptació configurades i resultats executats. Per Monte Carlo,
+registrar simulacions demanades i membres produïts per separat: un paquet pot
+incloure el resultat base, de manera que membres no equival automàticament a
+simulacions.
+
 ## Interpretació correcta
 
 - Precisió: una diferència gran indica dependència del model intrabar, sobretot
@@ -44,6 +56,9 @@ fallava precisió o costos.
 - Mercats addicionals: han de compartir un mecanisme plausible. Exigir benefici
   idèntic a qualsevol símbol és tan arbitrari com ignorar-los tots.
 - OOS: després de mirar-lo i canviar una decisió ja és desenvolupament.
+- Costos: evitar etiquetes com «2x» soles. Enumerar valor base i estressat de
+  spread, slippage, comissió, swap/rollover i impacte. Si només canvia slippage,
+  la conclusió queda limitada a slippage.
 
 ## Regla de decisió
 
@@ -62,4 +77,5 @@ el holdout consultat de C com a confirmació final.
 
 Fonts: `sq_official_cross_checks_20190226`,
 `sq_official_monte_carlo_retests_20190301` i
-`sq_official_data_settings_20190109`.
+`sq_official_data_settings_20190109`. Cas local:
+`sq_local_sqx143_contract_drift_20260802`.

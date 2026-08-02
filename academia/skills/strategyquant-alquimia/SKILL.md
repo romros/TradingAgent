@@ -13,10 +13,11 @@ no backtests que simplement semblin espectaculars.
 1. Definir mercat, timeframe, capital, costos, drawdown i freqüència.
 2. Congelar dades, pressupost d'intents, filtres i holdout abans de generar.
 3. Construir barat; aplicar proves cares només als supervivents.
-4. Revisar estabilitat, concentració, costos, intents i contaminació.
-5. Validar mecanisme, règims comparables i economia executable avui.
-6. Donar `CONTINUAR`, `PROVA DIRIGIDA` o `DESCARTAR`.
-7. Proposar una sola prova següent; no obrir una cerca per salvar un candidat.
+4. Provar que intenció, configuració i artifacts executats coincideixen.
+5. Revisar estabilitat, concentració, costos, intents i contaminació.
+6. Validar mecanisme, règims comparables i economia executable avui.
+7. Donar `CONTINUAR`, `PROVA DIRIGIDA` o `DESCARTAR`.
+8. Proposar una sola prova següent; no obrir una cerca per salvar un candidat.
 
 ## Carregar només el necessari
 
@@ -32,6 +33,8 @@ no backtests que simplement semblin espectaculars.
 ## Regles de batalla
 
 - Comptar intents; si no es coneixen, declarar confiança baixa.
+- Tractar una execució sense errors només com a gate operatiu, no com a evidència.
+- No confondre blocs permesos amb un mecanisme obligatori; inspeccionar artifacts.
 - Tractar qualsevol holdout consultat com a dades de desenvolupament.
 - Incloure spread, comissió i slippage abans de comparar.
 - Preferir regions estables a pics aïllats.
@@ -70,3 +73,8 @@ Quan hi hagi gates temporal i de costos d'Alquímia, normalitzar-los amb
 Per explicar una família ja registrada amb format estable, executar
 `academia/tools/campaign_advisor.py FAMILY`; si no té evidència, no extrapolar
 una altra família.
+
+Abans d'interpretar una passada SQ, comprovar el contracte executat amb
+`academia/tools/verify_sq_contract.py`: declarar els tokens estructurals,
+crosschecks exactes i valors de configuració que importen. Un `pass` d'aquesta
+eina només permet començar la interpretació; no valida robustesa ni benefici.

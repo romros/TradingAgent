@@ -27,6 +27,19 @@ Distingir manipulació de trades (ràpida) de retest amb dades, paràmetres o co
 Si el paquet només conté configuració Monte Carlo però cap resultat, marcar-lo
 `operational`, no `tested`.
 
+Abans d'executar, enumerar els crosschecks actius i exigir coincidència exacta
+amb el pla; els projectes poden heretar proves. Comparar també els llindars de
+la metodologia amb les condicions d'acceptació del `.cfx`. Registrar per separat
+simulacions sol·licitades, executades i membres del paquet: el resultat base pot
+ser un membre addicional.
+
+No resumir costos com «2x». Enumerar spread, slippage, comissió, swap/rollover i
+impacte amb valors base i estressats. Si només varia un component, limitar la
+conclusió a aquell component.
+
+Aplicar temporalitat i economia del compte abans de MC car. Més leverage no crea
+edge quan el risc o la mida mínima ja limiten el nocional.
+
 ## OOS
 
 OOS usat per ajustar deixa de ser cec. Reservar holdout final. Si es mira, registrar

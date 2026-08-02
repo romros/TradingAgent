@@ -1,0 +1,51 @@
+{
+  "id": "sq_local_sqx143_contract_drift_20260802",
+  "kind": "experiment",
+  "title": "Deriva entre intenció, configuració i execució en SQX 143",
+  "url": null,
+  "author": "Alquímia",
+  "published_at": "2026-08-02",
+  "accessed_at": "2026-08-02",
+  "language": "ca",
+  "sq_version": "143",
+  "source_level": "C_EXPLORATORY",
+  "domain": "strategyquant",
+  "rights_policy": "first_party",
+  "content_sha256": null,
+  "metadata": {
+    "scope": "Una seqüència local R1/R2/Monte Carlo; útil com a cas operatiu, no com a freqüència universal.",
+    "rights_note": "Només mètriques, configuració observada i notes transformadores; cap estratègia completa."
+  },
+  "chunks": [
+    {
+      "locator": "r1:mechanism-coverage",
+      "heading": "Permès no vol dir obligatori",
+      "body": "La primera generació va acceptar 40 estratègies de 428 intents, però 0 de 40 contenien Highest o Lowest. L'allowlist havia permès blocs compatibles amb breakout, però no havia imposat el mecanisme. La correcció R2 va usar una arquitectura EnterAtStop amb Highest i Lowest; 40 de 40 artifacts contenien els tres elements requerits.",
+      "evidence_status": "tested"
+    },
+    {
+      "locator": "runtime:configured-versus-executed",
+      "heading": "El contracte executat és l'autoritat",
+      "body": "La configuració auxiliar podia mostrar dates diferents, mentre l'artifact SQX confirmava 2004-2015. Un pressupost declarat de 20000 intents tampoc governava la passada: va acabar amb 63 intents quan el Databank va arribar a 40. Cal registrar per separat intenció, configuració efectiva i comptadors o artifacts executats.",
+      "evidence_status": "tested"
+    },
+    {
+      "locator": "mc:inherited-crosschecks",
+      "heading": "Crosscheck heretat invalida la interpretació",
+      "body": "Una passada destinada a Monte Carlo de paràmetres també va executar MonteCarloManipulation heretat i es va excloure. La passada corregida va activar només la prova prevista. Els 3003 membres de resultat de tres candidats incloïen les variants i el resultat base; no s'han de descriure automàticament com 3003 simulacions.",
+      "evidence_status": "tested"
+    },
+    {
+      "locator": "costs:label-contract",
+      "heading": "Una etiqueta de costos no és una especificació",
+      "body": "La prova anomenada costos 2x va alterar slippage a 800, però spread era zero i la comissió estava desactivada. El resultat només evidencia sensibilitat a aquell slippage; una prova de cost real ha d'enumerar spread, slippage, comissió, swap o rollover i qualsevol impacte del venue.",
+      "evidence_status": "tested"
+    },
+    {
+      "locator": "decision:funnel",
+      "heading": "Economia abans de robustesa cara",
+      "body": "Una família posterior es va descartar abans de Monte Carlo perquè només tenia 2 de 5 anys OOS positius i, amb 200 USDC, produïa 0,29 USDC sota estrès en 4,5 anys i EV de 0,0022 USDC per trade. Augmentar leverage no reparava l'edge perquè el risc limitava el nocional. La lliçó és aplicar temporalitat i economia del compte abans de proves cares.",
+      "evidence_status": "tested"
+    }
+  ]
+}

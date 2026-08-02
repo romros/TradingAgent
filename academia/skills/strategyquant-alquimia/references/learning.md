@@ -11,6 +11,8 @@ credencials. Conservar path, SHA-256, mètriques observades i decisió.
 4. Afegir fracassos a `academia/experiments/failure-memory.json` amb què no repetir.
 5. Proposar una nova direcció, no un ajust que reutilitzi el holdout.
 6. Promocionar un insight a `tested`; reservar `verified` per reproduccions.
+7. Abans d'interpretar mètriques, verificar equivalència entre intenció,
+   configuració i artifact executat.
 
 ## Codis inicials
 
@@ -30,6 +32,12 @@ No crear un codi nou si un d'existent explica l'acció següent.
 | desenvolupament passa, validació falla | `TEMPORAL_FAIL` | rescatar la família | hipòtesi nova i OOS nou |
 | PF atractiu amb OOS minúscul | `LOW_SAMPLE_OR_VALIDATION_FAIL` | inferir edge del PF | més observacions sense canviar regles |
 | total positiu, OOS per règim negatiu | `OOS_REGIME_FAIL` | ajustar sobre l'OOS vist | règim ex ante i OOS nou |
+
+No convertir una anomalia operacional en una llei universal. El cas SQX 143
+demostra que poden existir mecanismes absents, crosschecks heretats, comptadors
+que no coincideixen amb el pressupost i etiquetes de costos amb cobertura
+incompleta. Fer-ne gates deterministes; mantenir l'estat `tested` fins que es
+reprodueixin en una campanya independent.
 
 Si una consulta s'assembla a un cas, recuperar la fitxa d'observació abans de
 recomanar. No extrapolar les magnituds d'una família a una altra.

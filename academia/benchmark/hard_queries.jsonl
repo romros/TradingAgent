@@ -20,3 +20,7 @@
 {"id":"portfolio-free-margin","query":"pesos de cartera ordres omeses per manca de free margin","domain":"strategyquant","relevant_source_ids":["sq_official_portfolio_composer_20241015"]}
 {"id":"export-money-management","query":"exportar codi amb money management del darrer test o diferent","domain":"strategyquant","relevant_source_ids":["sq_official_source_code_export_20200522"]}
 {"id":"custom-analysis-stage","query":"anàlisi custom després crosschecks abans de guardar databank","domain":"strategyquant","relevant_source_ids":["sq_official_extensibility_20210804"]}
+{"id":"local-allowlist-not-mandatory","query":"blocs de canal permesos però cap candidat conté Highest Lowest","domain":"strategyquant","relevant_source_ids":["sq_local_sqx143_contract_drift_20260802"]}
+{"id":"local-inherited-crosscheck","query":"Monte Carlo de paràmetres invalidat perquè també executa manipulació heretada","domain":"strategyquant","relevant_source_ids":["sq_local_sqx143_contract_drift_20260802"]}
+{"id":"local-budget-not-runtime","query":"manifest pressupost 20000 però Builder acaba amb 63 en omplir Databank","domain":"strategyquant","relevant_source_ids":["sq_local_sqx143_contract_drift_20260802"]}
+{"id":"local-cost-label-incomplete","query":"costos 2x només canvia slippage amb spread zero i comissió desactivada","domain":"strategyquant","relevant_source_ids":["sq_local_sqx143_contract_drift_20260802"]}

@@ -9,6 +9,11 @@ Comptar decimation, poblacions, illes i reinicis. Databank és selecció truncad
 no recompte d'intents. Si l'usuari proposa més blocs o còmput, demanar quina part
 de la hipòtesi ho necessita; si no n'hi ha, simplificar.
 
+No tractar una allowlist com una obligació estructural. Si el mecanisme requereix
+blocs o tipus d'ordre concrets, imposar-los amb template/accions i auditar tots
+els `.sqx` supervivents. Informar cobertura `artifacts conformes / artifacts
+inspeccionats`; si és incompleta, la campanya no ha provat la hipòtesi declarada.
+
 En SQX 143, el Task Manager mostra el recompte real com
 `projectStats.totalJobsDone` (`Strategies generated`). Fer servir un projecte
 descartable d'una sola tasca Build perquè el comptador sigui inequívoc. No
@@ -24,3 +29,8 @@ Tampoc desactivar els gates per «obtenir mostra»: en la prova local això va
 acceptar un candidat de benefici negatiu. Si un mètode no produeix prou
 supervivents sota filtres útils, el resultat és inconcloent, no una invitació a
 canviar els filtres després de veure'l.
+
+Separar manifest, projecte configurat i execució observada. Un `attempt_budget`
+al manifest expressa intenció; només és un límit real si el controlador/stop i
+el comptador executat ho confirmen. Registrar també la causa de finalització
+(pressupost, Databank ple, temps o intervenció).

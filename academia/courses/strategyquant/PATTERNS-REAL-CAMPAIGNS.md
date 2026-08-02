@@ -20,3 +20,17 @@ té prou observacions independents i està repartit entre períodes? El primer
 Amb només quatre campanyes no podem estimar freqüències universals ni declarar
 cap patró `verified`. Els quatre són `tested`: provenen d'experiments reals,
 però encara no han estat reproduïts en campanyes independents equivalents.
+
+## Cinquè patró: una execució sense errors pot executar la pregunta equivocada
+
+La seqüència R1/R2 de SQX 143 aporta un aprenentatge diferent del rendiment:
+
+- R1 va completar-se, però 0/40 artifacts contenien el canal que definia la idea;
+- R2 va imposar l'arquitectura i 40/40 contenien `EnterAtStop`, `Highest` i `Lowest`;
+- una primera passada MC va heretar un crosscheck no previst i es va invalidar;
+- «costos 2x» només havia duplicat slippage, amb spread zero i comissió apagada.
+
+Per tant, absència d'errors és només el gate zero. Abans d'aprendre res del
+resultat cal demostrar que intenció, configuració i artifacts executats són
+equivalents. Aquest patró és `tested` en una seqüència local, encara no
+`verified` entre versions o entorns.

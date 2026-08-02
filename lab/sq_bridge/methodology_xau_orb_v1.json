@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "methodology_id": "alquimia-xau-comex-orb-v1",
+  "capital_usdc": 200,
+  "hypothesis": "Price discovery around the COMEX gold open can produce intraday continuation after a confirmed opening-range breakout.",
+  "data": "BrokerageService Dukascopy XAUUSD M1",
+  "session_timezone": "America/New_York",
+  "opening_time": "08:20",
+  "range_minutes": [15, 30, 60],
+  "bar_minutes": 5,
+  "entry": "first 5m close outside range, next 5m open",
+  "direction": "both, first breakout only",
+  "stop": "opposite opening-range boundary",
+  "target_r": 1.5,
+  "time_exit": "15:45 America/New_York",
+  "ambiguity": "stop first if stop and target occur in same 5m bar",
+  "splits": {
+    "train": ["2004-01-01", "2013-12-31"],
+    "validation": ["2014-01-01", "2018-12-31"],
+    "oos": ["2019-01-01", "2023-12-31"],
+    "holdout": ["2024-01-01", "2026-02-27"]
+  },
+  "cost_roundtrip_bps": {"base": 6, "conservative": 10, "stress": 15},
+  "gate": {
+    "minimum_trades_each_validation_oos": 100,
+    "minimum_stress_profit_factor": 1.15,
+    "maximum_stress_drawdown_pct": 20,
+    "minimum_positive_year_ratio": 0.6
+  },
+  "small_account": {"maximum_risk_per_trade_pct": 1, "maximum_leverage_grid": [1, 2, 3, 5, 8, 10, 15, 20, 30, 50]},
+  "holdout_policy": "sealed until exactly one range is selected",
+  "live_policy": "never without Ostium 5m parity, live fees, paper and explicit authorization"
+}

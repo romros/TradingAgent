@@ -50,6 +50,19 @@ python3 msft_final_gate.py \
 L'execució usa Yahoo OHLC provisional. Només el close D1 està certificat contra
 Ostium; per tant el resultat no pot autoritzar live.
 
+## Campanyes Dukascopy amb DuckDB
+
+Els runners `tsmom_duka_campaign.py` i `xau_orb_campaign.py` consulten directament
+els Parquet de BrokerageService. Per no modificar el Python del sistema:
+
+```bash
+python3 -m venv .venv-alquimia
+.venv-alquimia/bin/pip install duckdb pandas numpy
+```
+
+Els dos runners mantenen el holdout tancat per defecte. L'opció
+`--unseal-holdout` només és vàlida juntament amb un únic `--finalist` congelat.
+
 ## Inventari offline d'un databank congelat
 
 `discovery_inventory.py` és genèric per a qualsevol directori de fitxers `.sqx`.

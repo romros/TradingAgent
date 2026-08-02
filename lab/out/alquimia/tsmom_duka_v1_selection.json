@@ -1,0 +1,1159 @@
+{
+  "schema_version": 1,
+  "methodology_id": "alquimia-tsmom-duka-v1",
+  "daily_close_hashes": {
+    "EURUSD": "3bfd367f4255bc948e0c43163e151b48c9570290aa97cdd6d3629bbbaaf599db",
+    "XAUUSD": "95486680a896bab21e1d27dbb326564ec9be12ec8879968b2376ec01a1949b66"
+  },
+  "coverage": {
+    "EURUSD": {
+      "first": "2003-05-04",
+      "last": "2026-02-27",
+      "days": 7036
+    },
+    "XAUUSD": {
+      "first": "2003-05-05",
+      "last": "2026-02-27",
+      "days": 6232
+    }
+  },
+  "holdout_unsealed": false,
+  "eligible_models": [],
+  "models": [
+    {
+      "model": "21",
+      "results": {
+        "train": {
+          "gross": {
+            "days": 2781,
+            "total_return_pct": 32.121328,
+            "annual_return_pct": 2.556207,
+            "annual_volatility_pct": 7.880982,
+            "sharpe": 0.359708,
+            "max_drawdown_pct": 11.983333,
+            "positive_year_ratio": 0.6,
+            "year_returns_pct": {
+              "2004": -2.5798,
+              "2005": -4.9516,
+              "2006": 8.9233,
+              "2007": 6.6179,
+              "2008": 6.7277,
+              "2009": 2.9913,
+              "2010": 7.1405,
+              "2011": 9.9053,
+              "2012": -4.3508,
+              "2013": -0.7578
+            }
+          },
+          "base": {
+            "days": 2781,
+            "total_return_pct": -9.137608,
+            "annual_return_pct": -0.864549,
+            "annual_volatility_pct": 7.882205,
+            "sharpe": -0.070732,
+            "max_drawdown_pct": 15.471529,
+            "positive_year_ratio": 0.5,
+            "year_returns_pct": {
+              "2004": -4.7095,
+              "2005": -8.7606,
+              "2006": 5.5863,
+              "2007": 2.1966,
+              "2008": 3.1161,
+              "2009": -1.1005,
+              "2010": 2.7221,
+              "2011": 5.0669,
+              "2012": -8.0779,
+              "2013": -4.2723
+            }
+          },
+          "conservative": {
+            "days": 2781,
+            "total_return_pct": -37.516653,
+            "annual_return_pct": -4.171828,
+            "annual_volatility_pct": 7.885869,
+            "sharpe": -0.500883,
+            "max_drawdown_pct": 39.07465,
+            "positive_year_ratio": 0.2,
+            "year_returns_pct": {
+              "2004": -6.7931,
+              "2005": -12.4177,
+              "2006": 2.351,
+              "2007": -2.0422,
+              "2008": -0.3739,
+              "2009": -5.0304,
+              "2010": -1.5149,
+              "2011": 0.4406,
+              "2012": -11.6605,
+              "2013": -7.663
+            }
+          },
+          "stress": {
+            "days": 2781,
+            "total_return_pct": -57.035153,
+            "annual_return_pct": -7.369374,
+            "annual_volatility_pct": 7.891971,
+            "sharpe": -0.930346,
+            "max_drawdown_pct": 57.910635,
+            "positive_year_ratio": 0.0,
+            "year_returns_pct": {
+              "2004": -8.8314,
+              "2005": -15.9289,
+              "2006": -0.7857,
+              "2007": -6.1061,
+              "2008": -3.7464,
+              "2009": -8.8049,
+              "2010": -5.5778,
+              "2011": -3.9829,
+              "2012": -15.1041,
+              "2013": -10.9342
+            }
+          }
+        },
+        "validation": {
+          "gross": {
+            "days": 1289,
+            "total_return_pct": -17.217796,
+            "annual_return_pct": -3.626718,
+            "annual_volatility_pct": 6.93141,
+            "sharpe": -0.498274,
+            "max_drawdown_pct": 23.442607,
+            "positive_year_ratio": 0.0,
+            "year_returns_pct": {
+              "2014": -0.6448,
+              "2015": -3.7073,
+              "2016": -3.8466,
+              "2017": -8.1153,
+              "2018": -2.0633
+            }
+          },
+          "base": {
+            "days": 1289,
+            "total_return_pct": -34.394566,
+            "annual_return_pct": -7.910172,
+            "annual_volatility_pct": 6.926357,
+            "sharpe": -1.154926,
+            "max_drawdown_pct": 36.958846,
+            "positive_year_ratio": 0.0,
+            "year_returns_pct": {
+              "2014": -4.7239,
+              "2015": -7.8244,
+              "2016": -8.0843,
+              "2017": -12.7206,
+              "2018": -6.881
+            }
+          },
+          "conservative": {
+            "days": 1289,
+            "total_return_pct": -48.01052,
+            "annual_return_pct": -12.004317,
+            "annual_volatility_pct": 6.927116,
+            "sharpe": -1.811016,
+            "max_drawdown_pct": 48.946248,
+            "positive_year_ratio": 0.0,
+            "year_returns_pct": {
+              "2014": -8.6366,
+              "2015": -11.7663,
+              "2016": -12.1362,
+              "2017": -17.0963,
+              "2018": -11.463
+            }
+          },
+          "stress": {
+            "days": 1289,
+            "total_return_pct": -58.803156,
+            "annual_return_pct": -15.917474,
+            "annual_volatility_pct": 6.933685,
+            "sharpe": -2.464895,
+            "max_drawdown_pct": 59.334618,
+            "positive_year_ratio": 0.0,
+            "year_returns_pct": {
+              "2014": -12.3894,
+              "2015": -15.5406,
+              "2016": -16.0105,
+              "2017": -21.2539,
+              "2018": -15.8207
+            }
+          }
+        },
+        "oos": {
+          "gross": {
+            "days": 1290,
+            "total_return_pct": -9.337485,
+            "annual_return_pct": -1.896712,
+            "annual_volatility_pct": 7.122374,
+            "sharpe": -0.23323,
+            "max_drawdown_pct": 21.382601,
+            "positive_year_ratio": 0.4,
+            "year_returns_pct": {
+              "2019": 4.7555,
+              "2020": -8.233,
+              "2021": -6.2686,
+              "2022": -0.6655,
+              "2023": 1.293
+            }
+          },
+          "base": {
+            "days": 1290,
+            "total_return_pct": -27.93187,
+            "annual_return_pct": -6.198386,
+            "annual_volatility_pct": 7.124445,
+            "sharpe": -0.862398,
+            "max_drawdown_pct": 31.573911,
+            "positive_year_ratio": 0.0,
+            "year_returns_pct": {
+              "2019": -0.4769,
+              "2020": -12.2625,
+              "2021": -10.4275,
+              "2022": -5.002,
+              "2023": -3.006
+            }
+          },
+          "conservative": {
+            "days": 1290,
+            "total_return_pct": -42.716111,
+            "annual_return_pct": -10.312498,
+            "annual_volatility_pct": 7.131885,
+            "sharpe": -1.490078,
+            "max_drawdown_pct": 44.045888,
+            "positive_year_ratio": 0.0,
+            "year_returns_pct": {
+              "2019": -5.4493,
+              "2020": -16.1159,
+              "2021": -14.4029,
+              "2022": -9.1502,
+              "2023": -7.1236
+            }
+          },
+          "stress": {
+            "days": 1290,
+            "total_return_pct": -54.470229,
+            "annual_return_pct": -14.247179,
+            "annual_volatility_pct": 7.144676,
+            "sharpe": -2.114864,
+            "max_drawdown_pct": 55.061502,
+            "positive_year_ratio": 0.0,
+            "year_returns_pct": {
+              "2019": -10.1746,
+              "2020": -19.8011,
+              "2021": -18.2029,
+              "2022": -13.1184,
+              "2023": -11.0672
+            }
+          }
+        }
+      },
+      "position_changes": {
+        "EURUSD": 626,
+        "XAUUSD": 602
+      }
+    },
+    {
+      "model": "63",
+      "results": {
+        "train": {
+          "gross": {
+            "days": 2781,
+            "total_return_pct": 49.168187,
+            "annual_return_pct": 3.690185,
+            "annual_volatility_pct": 8.869817,
+            "sharpe": 0.452939,
+            "max_drawdown_pct": 15.376493,
+            "positive_year_ratio": 0.7,
+            "year_returns_pct": {
+              "2004": -0.1333,
+              "2005": -1.1607,
+              "2006": 2.1009,
+              "2007": 11.4484,
+              "2008": 8.6908,
+              "2009": 5.1014,
+              "2010": 15.2894,
+              "2011": -3.4672,
+              "2012": 0.9847,
+              "2013": 3.4431
+            }
+          },
+          "base": {
+            "days": 2781,
+            "total_return_pct": 6.92071,
+            "annual_return_pct": 0.608213,
+            "annual_volatility_pct": 8.871546,
+            "sharpe": 0.112728,
+            "max_drawdown_pct": 18.118501,
+            "positive_year_ratio": 0.4,
+            "year_returns_pct": {
+              "2004": -2.0592,
+              "2005": -4.999,
+              "2006": -1.0469,
+              "2007": 7.7448,
+              "2008": 5.2192,
+              "2009": 2.0935,
+              "2010": 11.0229,
+              "2011": -7.1261,
+              "2012": -2.6204,
+              "2013": -0.0744
+            }
+          },
+          "conservative": {
+            "days": 2781,
+            "total_return_pct": -23.365488,
+            "annual_return_pct": -2.382624,
+            "annual_volatility_pct": 8.874622,
+            "sharpe": -0.227316,
+            "max_drawdown_pct": 23.968811,
+            "positive_year_ratio": 0.3,
+            "year_returns_pct": {
+              "2004": -3.9482,
+              "2005": -8.689,
+              "2006": -4.0981,
+              "2007": 4.1638,
+              "2008": 1.8581,
+              "2009": -0.8287,
+              "2010": 6.9137,
+              "2011": -10.6468,
+              "2012": -6.0974,
+              "2013": -3.4728
+            }
+          },
+          "stress": {
+            "days": 2781,
+            "total_return_pct": -45.075782,
+            "annual_return_pct": -5.285006,
+            "annual_volatility_pct": 8.879046,
+            "sharpe": -0.567038,
+            "max_drawdown_pct": 45.228791,
+            "positive_year_ratio": 0.2,
+            "year_returns_pct": {
+              "2004": -5.8011,
+              "2005": -12.2364,
+              "2006": -7.0557,
+              "2007": 0.7012,
+              "2008": -1.3961,
+              "2009": -3.6675,
+              "2010": 2.956,
+              "2011": -14.0346,
+              "2012": -9.4509,
+              "2013": -6.7562
+            }
+          }
+        },
+        "validation": {
+          "gross": {
+            "days": 1289,
+            "total_return_pct": 2.873796,
+            "annual_return_pct": 0.555444,
+            "annual_volatility_pct": 7.398166,
+            "sharpe": 0.111833,
+            "max_drawdown_pct": 13.214005,
+            "positive_year_ratio": 0.6,
+            "year_returns_pct": {
+              "2014": 1.8506,
+              "2015": -6.5231,
+              "2016": 6.6064,
+              "2017": -7.6395,
+              "2018": 9.7405
+            }
+          },
+          "base": {
+            "days": 1289,
+            "total_return_pct": -16.751949,
+            "annual_return_pct": -3.520932,
+            "annual_volatility_pct": 7.398014,
+            "sharpe": -0.44751,
+            "max_drawdown_pct": 23.158344,
+            "positive_year_ratio": 0.4,
+            "year_returns_pct": {
+              "2014": -2.0092,
+              "2015": -10.3757,
+              "2016": 2.5592,
+              "2017": -12.1008,
+              "2018": 5.1486
+            }
+          },
+          "conservative": {
+            "days": 1289,
+            "total_return_pct": -32.636982,
+            "annual_return_pct": -7.432967,
+            "annual_volatility_pct": 7.401963,
+            "sharpe": -1.006317,
+            "max_drawdown_pct": 33.422493,
+            "positive_year_ratio": 0.2,
+            "year_returns_pct": {
+              "2014": -5.7236,
+              "2015": -14.0704,
+              "2016": -1.3352,
+              "2017": -16.3478,
+              "2018": 0.7478
+            }
+          },
+          "stress": {
+            "days": 1289,
+            "total_return_pct": -45.493645,
+            "annual_return_pct": -11.187251,
+            "annual_volatility_pct": 7.410006,
+            "sharpe": -1.563664,
+            "max_drawdown_pct": 45.349509,
+            "positive_year_ratio": 0.0,
+            "year_returns_pct": {
+              "2014": -9.2978,
+              "2015": -17.6135,
+              "2016": -5.0825,
+              "2017": -20.3907,
+              "2018": -3.4698
+            }
+          }
+        },
+        "oos": {
+          "gross": {
+            "days": 1290,
+            "total_return_pct": -0.629772,
+            "annual_return_pct": -0.123338,
+            "annual_volatility_pct": 6.857521,
+            "sharpe": 0.016318,
+            "max_drawdown_pct": 12.309711,
+            "positive_year_ratio": 0.6,
+            "year_returns_pct": {
+              "2019": 2.7797,
+              "2020": 0.3965,
+              "2021": -2.8572,
+              "2022": 1.5099,
+              "2023": -2.3412
+            }
+          },
+          "base": {
+            "days": 1290,
+            "total_return_pct": -18.589106,
+            "annual_return_pct": -3.937931,
+            "annual_volatility_pct": 6.857425,
+            "sharpe": -0.551504,
+            "max_drawdown_pct": 22.912848,
+            "positive_year_ratio": 0.0,
+            "year_returns_pct": {
+              "2019": -2.1752,
+              "2020": -3.0869,
+              "2021": -6.6881,
+              "2022": -2.1476,
+              "2023": -5.9536
+            }
+          },
+          "conservative": {
+            "days": 1290,
+            "total_return_pct": -33.305673,
+            "annual_return_pct": -7.607659,
+            "annual_volatility_pct": 6.861584,
+            "sharpe": -1.118648,
+            "max_drawdown_pct": 35.104526,
+            "positive_year_ratio": 0.0,
+            "year_returns_pct": {
+              "2019": -6.8924,
+              "2020": -6.4501,
+              "2021": -10.3688,
+              "2022": -5.674,
+              "2023": -9.4331
+            }
+          },
+          "stress": {
+            "days": 1290,
+            "total_return_pct": -45.364442,
+            "annual_return_pct": -11.137992,
+            "annual_volatility_pct": 6.869991,
+            "sharpe": -1.684063,
+            "max_drawdown_pct": 46.74961,
+            "positive_year_ratio": 0.0,
+            "year_returns_pct": {
+              "2019": -11.3833,
+              "2020": -9.6973,
+              "2021": -13.9051,
+              "2022": -9.074,
+              "2023": -12.7846
+            }
+          }
+        }
+      },
+      "position_changes": {
+        "EURUSD": 356,
+        "XAUUSD": 279
+      }
+    },
+    {
+      "model": "126",
+      "results": {
+        "train": {
+          "gross": {
+            "days": 2781,
+            "total_return_pct": 74.690253,
+            "annual_return_pct": 5.184839,
+            "annual_volatility_pct": 8.993786,
+            "sharpe": 0.607059,
+            "max_drawdown_pct": 13.637151,
+            "positive_year_ratio": 0.9,
+            "year_returns_pct": {
+              "2004": 2.9875,
+              "2005": 1.2226,
+              "2006": 4.0503,
+              "2007": 9.6172,
+              "2008": 6.0159,
+              "2009": 9.2103,
+              "2010": 12.2866,
+              "2011": 7.5858,
+              "2012": -8.7576,
+              "2013": 15.1252
+            }
+          },
+          "base": {
+            "days": 2781,
+            "total_return_pct": 26.511014,
+            "annual_return_pct": 2.153758,
+            "annual_volatility_pct": 8.996103,
+            "sharpe": 0.281854,
+            "max_drawdown_pct": 17.319429,
+            "positive_year_ratio": 0.8,
+            "year_returns_pct": {
+              "2004": 1.0579,
+              "2005": -2.4162,
+              "2006": 1.1289,
+              "2007": 5.718,
+              "2008": 2.8184,
+              "2009": 5.9887,
+              "2010": 8.227,
+              "2011": 3.7404,
+              "2012": -11.6791,
+              "2013": 11.0398
+            }
+          },
+          "conservative": {
+            "days": 2781,
+            "total_return_pct": -8.384768,
+            "annual_return_pct": -0.790398,
+            "annual_volatility_pct": 8.999357,
+            "sharpe": -0.043179,
+            "max_drawdown_pct": 21.517487,
+            "positive_year_ratio": 0.5,
+            "year_returns_pct": {
+              "2004": -0.8359,
+              "2005": -5.9248,
+              "2006": -1.7108,
+              "2007": 1.9568,
+              "2008": -0.283,
+              "2009": 2.8618,
+              "2010": 4.3137,
+              "2011": 0.0319,
+              "2012": -14.5074,
+              "2013": 7.0986
+            }
+          },
+          "stress": {
+            "days": 2781,
+            "total_return_pct": -33.658281,
+            "annual_return_pct": -3.65011,
+            "annual_volatility_pct": 9.003546,
+            "sharpe": -0.367939,
+            "max_drawdown_pct": 38.689308,
+            "positive_year_ratio": 0.2,
+            "year_returns_pct": {
+              "2004": -2.6944,
+              "2005": -9.3078,
+              "2006": -4.4711,
+              "2007": -1.6711,
+              "2008": -3.2911,
+              "2009": -0.1732,
+              "2010": 0.5413,
+              "2011": -3.5444,
+              "2012": -17.2456,
+              "2013": 3.2968
+            }
+          }
+        },
+        "validation": {
+          "gross": {
+            "days": 1289,
+            "total_return_pct": 10.435042,
+            "annual_return_pct": 1.959434,
+            "annual_volatility_pct": 7.559347,
+            "sharpe": 0.294477,
+            "max_drawdown_pct": 8.45984,
+            "positive_year_ratio": 0.8,
+            "year_returns_pct": {
+              "2014": 5.5599,
+              "2015": 2.8985,
+              "2016": 2.9334,
+              "2017": 1.896,
+              "2018": -3.0638
+            }
+          },
+          "base": {
+            "days": 1289,
+            "total_return_pct": -10.260972,
+            "annual_return_pct": -2.094331,
+            "annual_volatility_pct": 7.557434,
+            "sharpe": -0.24229,
+            "max_drawdown_pct": 16.512823,
+            "positive_year_ratio": 0.2,
+            "year_returns_pct": {
+              "2014": 1.5142,
+              "2015": -1.1691,
+              "2016": -1.3651,
+              "2017": -2.2376,
+              "2018": -7.2402
+            }
+          },
+          "conservative": {
+            "days": 1289,
+            "total_return_pct": -27.081916,
+            "annual_return_pct": -5.987795,
+            "annual_volatility_pct": 7.559133,
+            "sharpe": -0.778957,
+            "max_drawdown_pct": 28.844602,
+            "positive_year_ratio": 0.0,
+            "year_returns_pct": {
+              "2014": -2.3772,
+              "2015": -5.0767,
+              "2016": -5.4852,
+              "2017": -6.2044,
+              "2018": -11.2376
+            }
+          },
+          "stress": {
+            "days": 1289,
+            "total_return_pct": -40.752702,
+            "annual_return_pct": -9.727262,
+            "annual_volatility_pct": 7.564441,
+            "sharpe": -1.314754,
+            "max_drawdown_pct": 40.588062,
+            "positive_year_ratio": 0.0,
+            "year_returns_pct": {
+              "2014": -6.1203,
+              "2015": -8.8306,
+              "2016": -9.434,
+              "2017": -10.0111,
+              "2018": -15.0637
+            }
+          }
+        },
+        "oos": {
+          "gross": {
+            "days": 1290,
+            "total_return_pct": 11.517034,
+            "annual_return_pct": 2.152277,
+            "annual_volatility_pct": 6.699348,
+            "sharpe": 0.351371,
+            "max_drawdown_pct": 8.587179,
+            "positive_year_ratio": 0.4,
+            "year_returns_pct": {
+              "2019": 9.6359,
+              "2020": 5.5862,
+              "2021": -2.4113,
+              "2022": -0.3324,
+              "2023": -0.9561
+            }
+          },
+          "base": {
+            "days": 1290,
+            "total_return_pct": -7.398795,
+            "annual_return_pct": -1.49039,
+            "annual_volatility_pct": 6.698065,
+            "sharpe": -0.190681,
+            "max_drawdown_pct": 17.746733,
+            "positive_year_ratio": 0.4,
+            "year_returns_pct": {
+              "2019": 5.1415,
+              "2020": 2.539,
+              "2021": -6.1854,
+              "2022": -4.0225,
+              "2023": -4.6076
+            }
+          },
+          "conservative": {
+            "days": 1290,
+            "total_return_pct": -23.109055,
+            "annual_return_pct": -5.003883,
+            "annual_volatility_pct": 6.700296,
+            "sharpe": -0.732556,
+            "max_drawdown_pct": 28.059437,
+            "positive_year_ratio": 0.2,
+            "year_returns_pct": {
+              "2019": 0.8304,
+              "2020": -0.4208,
+              "2021": -9.8144,
+              "2022": -7.5767,
+              "2023": -8.1253
+            }
+          },
+          "stress": {
+            "days": 1290,
+            "total_return_pct": -36.156471,
+            "annual_return_pct": -8.392758,
+            "annual_volatility_pct": 6.706035,
+            "sharpe": -1.273404,
+            "max_drawdown_pct": 38.277911,
+            "positive_year_ratio": 0.0,
+            "year_returns_pct": {
+              "2019": -3.3048,
+              "2020": -3.2956,
+              "2021": -13.3038,
+              "2022": -10.9999,
+              "2023": -11.5139
+            }
+          }
+        }
+      },
+      "position_changes": {
+        "EURUSD": 208,
+        "XAUUSD": 189
+      }
+    },
+    {
+      "model": "252",
+      "results": {
+        "train": {
+          "gross": {
+            "days": 2781,
+            "total_return_pct": 32.331529,
+            "annual_return_pct": 2.570981,
+            "annual_volatility_pct": 8.470639,
+            "sharpe": 0.34208,
+            "max_drawdown_pct": 22.988142,
+            "positive_year_ratio": 0.8,
+            "year_returns_pct": {
+              "2004": 3.6417,
+              "2005": 2.0631,
+              "2006": 8.9488,
+              "2007": 17.3532,
+              "2008": -4.9755,
+              "2009": 3.5741,
+              "2010": 3.2948,
+              "2011": 2.0724,
+              "2012": -11.1127,
+              "2013": 6.0791
+            }
+          },
+          "base": {
+            "days": 2781,
+            "total_return_pct": -2.254775,
+            "annual_return_pct": -0.206441,
+            "annual_volatility_pct": 8.473301,
+            "sharpe": 0.018014,
+            "max_drawdown_pct": 32.833073,
+            "positive_year_ratio": 0.5,
+            "year_returns_pct": {
+              "2004": 1.9761,
+              "2005": -0.5674,
+              "2006": 6.2305,
+              "2007": 13.4396,
+              "2008": -8.0055,
+              "2009": 0.4854,
+              "2010": -0.122,
+              "2011": -1.4843,
+              "2012": -13.9233,
+              "2013": 2.1713
+            }
+          },
+          "conservative": {
+            "days": 2781,
+            "total_return_pct": -27.804456,
+            "annual_return_pct": -2.909009,
+            "annual_volatility_pct": 8.476709,
+            "sharpe": -0.305823,
+            "max_drawdown_pct": 43.980376,
+            "positive_year_ratio": 0.3,
+            "year_returns_pct": {
+              "2004": 0.3371,
+              "2005": -3.1303,
+              "2006": 3.5796,
+              "2007": 9.656,
+              "2008": -10.9393,
+              "2009": -2.5114,
+              "2010": -3.4262,
+              "2011": -4.9174,
+              "2012": -16.6455,
+              "2013": -1.5932
+            }
+          },
+          "stress": {
+            "days": 2781,
+            "total_return_pct": -46.677824,
+            "annual_return_pct": -5.538729,
+            "annual_volatility_pct": 8.480861,
+            "sharpe": -0.629343,
+            "max_drawdown_pct": 53.338433,
+            "positive_year_ratio": 0.2,
+            "year_returns_pct": {
+              "2004": -1.2758,
+              "2005": -5.6274,
+              "2006": 0.9946,
+              "2007": 5.9981,
+              "2008": -13.7798,
+              "2009": -5.4192,
+              "2010": -6.6215,
+              "2011": -8.2314,
+              "2012": -19.282,
+              "2013": -5.2197
+            }
+          }
+        },
+        "validation": {
+          "gross": {
+            "days": 1289,
+            "total_return_pct": -7.562794,
+            "annual_return_pct": -1.525669,
+            "annual_volatility_pct": 6.973918,
+            "sharpe": -0.185586,
+            "max_drawdown_pct": 18.213812,
+            "positive_year_ratio": 0.6,
+            "year_returns_pct": {
+              "2014": 3.4974,
+              "2015": 7.514,
+              "2016": -12.7084,
+              "2017": 0.8621,
+              "2018": -5.6477
+            }
+          },
+          "base": {
+            "days": 1289,
+            "total_return_pct": -24.030032,
+            "annual_return_pct": -5.231184,
+            "annual_volatility_pct": 6.976881,
+            "sharpe": -0.735149,
+            "max_drawdown_pct": 28.257131,
+            "positive_year_ratio": 0.2,
+            "year_returns_pct": {
+              "2014": -0.1045,
+              "2015": 4.0567,
+              "2016": -16.2002,
+              "2017": -3.6411,
+              "2018": -9.4911
+            }
+          },
+          "conservative": {
+            "days": 1289,
+            "total_return_pct": -37.566386,
+            "annual_return_pct": -8.798027,
+            "annual_volatility_pct": 6.98347,
+            "sharpe": -1.283579,
+            "max_drawdown_pct": 38.497807,
+            "positive_year_ratio": 0.2,
+            "year_returns_pct": {
+              "2014": -3.5817,
+              "2015": 0.7101,
+              "2016": -19.5531,
+              "2017": -7.9444,
+              "2018": -13.1788
+            }
+          },
+          "stress": {
+            "days": 1289,
+            "total_return_pct": -48.693027,
+            "annual_return_pct": -12.231359,
+            "annual_volatility_pct": 6.993675,
+            "sharpe": -1.830028,
+            "max_drawdown_pct": 48.220962,
+            "positive_year_ratio": 0.0,
+            "year_returns_pct": {
+              "2014": -6.9384,
+              "2015": -2.5295,
+              "2016": -22.7725,
+              "2017": -12.0565,
+              "2018": -16.7169
+            }
+          }
+        },
+        "oos": {
+          "gross": {
+            "days": 1290,
+            "total_return_pct": 4.450388,
+            "annual_return_pct": 0.854216,
+            "annual_volatility_pct": 8.118466,
+            "sharpe": 0.145407,
+            "max_drawdown_pct": 20.523172,
+            "positive_year_ratio": 0.4,
+            "year_returns_pct": {
+              "2019": 5.3679,
+              "2020": 14.4988,
+              "2021": -9.4888,
+              "2022": -2.6265,
+              "2023": -1.7669
+            }
+          },
+          "base": {
+            "days": 1290,
+            "total_return_pct": -14.262134,
+            "annual_return_pct": -2.961213,
+            "annual_volatility_pct": 8.117705,
+            "sharpe": -0.329637,
+            "max_drawdown_pct": 29.701331,
+            "positive_year_ratio": 0.4,
+            "year_returns_pct": {
+              "2019": 1.0732,
+              "2020": 9.7713,
+              "2021": -13.2256,
+              "2022": -6.444,
+              "2023": -4.8114
+            }
+          },
+          "conservative": {
+            "days": 1290,
+            "total_return_pct": -29.625227,
+            "annual_return_pct": -6.633068,
+            "annual_volatility_pct": 8.1198,
+            "sharpe": -0.804487,
+            "max_drawdown_pct": 37.821186,
+            "positive_year_ratio": 0.2,
+            "year_returns_pct": {
+              "2019": -3.0474,
+              "2020": 5.238,
+              "2021": -16.8089,
+              "2022": -10.1127,
+              "2023": -7.762
+            }
+          },
+          "stress": {
+            "days": 1290,
+            "total_return_pct": -42.237889,
+            "annual_return_pct": -10.166722,
+            "annual_volatility_pct": 8.124748,
+            "sharpe": -1.278643,
+            "max_drawdown_pct": 45.004582,
+            "positive_year_ratio": 0.2,
+            "year_returns_pct": {
+              "2019": -7.0007,
+              "2020": 0.891,
+              "2021": -20.2451,
+              "2022": -13.6382,
+              "2023": -10.6217
+            }
+          }
+        }
+      },
+      "position_changes": {
+        "EURUSD": 169,
+        "XAUUSD": 125
+      }
+    },
+    {
+      "model": "ensemble",
+      "results": {
+        "train": {
+          "gross": {
+            "days": 2781,
+            "total_return_pct": 63.331608,
+            "annual_return_pct": 4.545979,
+            "annual_volatility_pct": 8.159665,
+            "sharpe": 0.585708,
+            "max_drawdown_pct": 13.031501,
+            "positive_year_ratio": 0.9,
+            "year_returns_pct": {
+              "2004": 0.8823,
+              "2005": 0.897,
+              "2006": 3.064,
+              "2007": 13.1292,
+              "2008": 6.9422,
+              "2009": 7.1939,
+              "2010": 15.0439,
+              "2011": 3.1369,
+              "2012": -3.5607,
+              "2013": 4.9168
+            }
+          },
+          "base": {
+            "days": 2781,
+            "total_return_pct": 22.314475,
+            "annual_return_pct": 1.841971,
+            "annual_volatility_pct": 8.158639,
+            "sharpe": 0.264547,
+            "max_drawdown_pct": 16.182333,
+            "positive_year_ratio": 0.6,
+            "year_returns_pct": {
+              "2004": -0.8588,
+              "2005": -2.2517,
+              "2006": 0.4734,
+              "2007": 9.4956,
+              "2008": 3.9845,
+              "2009": 4.2903,
+              "2010": 11.47,
+              "2011": -0.2401,
+              "2012": -6.4595,
+              "2013": 1.7046
+            }
+          },
+          "conservative": {
+            "days": 2781,
+            "total_return_pct": -8.406357,
+            "annual_return_pct": -0.792517,
+            "annual_volatility_pct": 8.159423,
+            "sharpe": -0.056683,
+            "max_drawdown_pct": 21.09926,
+            "positive_year_ratio": 0.4,
+            "year_returns_pct": {
+              "2004": -2.5702,
+              "2005": -5.3028,
+              "2006": -2.0525,
+              "2007": 5.9782,
+              "2008": 1.1082,
+              "2009": 1.4651,
+              "2010": 8.0067,
+              "2011": -3.5069,
+              "2012": -9.2716,
+              "2013": -1.4099
+            }
+          },
+          "stress": {
+            "days": 2781,
+            "total_return_pct": -31.414446,
+            "annual_return_pct": -3.359261,
+            "annual_volatility_pct": 8.162019,
+            "sharpe": -0.377766,
+            "max_drawdown_pct": 32.979237,
+            "positive_year_ratio": 0.2,
+            "year_returns_pct": {
+              "2004": -4.2523,
+              "2005": -8.2591,
+              "2006": -4.5152,
+              "2007": 2.5732,
+              "2008": -1.6889,
+              "2009": -1.284,
+              "2010": 4.6505,
+              "2011": -6.6673,
+              "2012": -11.9997,
+              "2013": -4.4295
+            }
+          }
+        },
+        "validation": {
+          "gross": {
+            "days": 1289,
+            "total_return_pct": -0.834893,
+            "annual_return_pct": -0.163773,
+            "annual_volatility_pct": 6.746728,
+            "sharpe": 0.009423,
+            "max_drawdown_pct": 12.099146,
+            "positive_year_ratio": 0.4,
+            "year_returns_pct": {
+              "2014": 3.9791,
+              "2015": -1.1526,
+              "2016": -0.0214,
+              "2017": -3.9861,
+              "2018": 0.5095
+            }
+          },
+          "base": {
+            "days": 1289,
+            "total_return_pct": -17.01183,
+            "annual_return_pct": -3.579888,
+            "annual_volatility_pct": 6.743486,
+            "sharpe": -0.506855,
+            "max_drawdown_pct": 22.05832,
+            "positive_year_ratio": 0.2,
+            "year_returns_pct": {
+              "2014": 0.5953,
+              "2015": -4.6373,
+              "2016": -3.3853,
+              "2017": -7.5592,
+              "2018": -3.1381
+            }
+          },
+          "conservative": {
+            "days": 1289,
+            "total_return_pct": -30.55271,
+            "annual_return_pct": -6.879875,
+            "annual_volatility_pct": 6.745249,
+            "sharpe": -1.02287,
+            "max_drawdown_pct": 32.065655,
+            "positive_year_ratio": 0.0,
+            "year_returns_pct": {
+              "2014": -2.679,
+              "2015": -7.9998,
+              "2016": -6.6369,
+              "2017": -11.0001,
+              "2018": -6.6541
+            }
+          },
+          "stress": {
+            "days": 1289,
+            "total_return_pct": -41.886608,
+            "annual_return_pct": -10.067657,
+            "annual_volatility_pct": 6.752014,
+            "sharpe": -1.537476,
+            "max_drawdown_pct": 41.634164,
+            "positive_year_ratio": 0.0,
+            "year_returns_pct": {
+              "2014": -5.8474,
+              "2015": -11.2445,
+              "2016": -9.7797,
+              "2017": -14.3138,
+              "2018": -10.0433
+            }
+          }
+        },
+        "oos": {
+          "gross": {
+            "days": 1290,
+            "total_return_pct": 8.219819,
+            "annual_return_pct": 1.555113,
+            "annual_volatility_pct": 6.666013,
+            "sharpe": 0.264863,
+            "max_drawdown_pct": 9.719003,
+            "positive_year_ratio": 0.6,
+            "year_returns_pct": {
+              "2019": 8.6293,
+              "2020": 2.7212,
+              "2021": -3.7032,
+              "2022": 1.6562,
+              "2023": -0.9274
+            }
+          },
+          "base": {
+            "days": 1290,
+            "total_return_pct": -8.474089,
+            "annual_return_pct": -1.714902,
+            "annual_volatility_pct": 6.665968,
+            "sharpe": -0.226118,
+            "max_drawdown_pct": 18.707249,
+            "positive_year_ratio": 0.2,
+            "year_returns_pct": {
+              "2019": 4.5765,
+              "2020": -0.1627,
+              "2021": -6.8378,
+              "2022": -1.9395,
+              "2023": -4.0415
+            }
+          },
+          "conservative": {
+            "days": 1290,
+            "total_return_pct": -22.5956,
+            "annual_return_pct": -4.880294,
+            "annual_volatility_pct": 6.670116,
+            "sharpe": -0.716655,
+            "max_drawdown_pct": 27.928203,
+            "positive_year_ratio": 0.2,
+            "year_returns_pct": {
+              "2019": 0.674,
+              "2020": -2.9661,
+              "2021": -9.8711,
+              "2022": -5.4089,
+              "2023": -7.0584
+            }
+          },
+          "stress": {
+            "days": 1290,
+            "total_return_pct": -34.54067,
+            "annual_return_pct": -7.94439,
+            "annual_volatility_pct": 6.67845,
+            "sharpe": -1.205826,
+            "max_drawdown_pct": 36.118917,
+            "positive_year_ratio": 0.0,
+            "year_returns_pct": {
+              "2019": -3.0837,
+              "2020": -5.6912,
+              "2021": -12.8063,
+              "2022": -8.7561,
+              "2023": -9.9811
+            }
+          }
+        }
+      },
+      "position_changes": {
+        "EURUSD": 319,
+        "XAUUSD": 284
+      }
+    }
+  ]
+}

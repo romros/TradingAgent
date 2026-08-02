@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "methodology_id": "alquimia-tsmom-duka-v1",
+  "capital_usdc": 200,
+  "hypothesis": "Diversified time-series momentum across EURUSD and XAUUSD captures slow under-reaction and crisis trends; inverse-volatility sizing reduces concentration.",
+  "evidence_basis": [
+    "Moskowitz, Ooi, Pedersen (2012), Time Series Momentum",
+    "Hurst, Ooi, Pedersen (2017), A Century of Evidence on Trend-Following Investing",
+    "Moreira, Muir (2017), Volatility-Managed Portfolios"
+  ],
+  "data": {
+    "source": "BrokerageService Dukascopy parquet M1",
+    "symbols": ["EURUSD", "XAUUSD"],
+    "daily_boundary": "17:00 America/New_York",
+    "signal_dependency": "close only",
+    "execution_proxy": "next daily close-to-close return; one-day lag",
+    "limitation": "two markets are a pilot, not the broad diversified portfolio in the literature"
+  },
+  "models": {
+    "individual_lookbacks_sessions": [21, 63, 126, 252],
+    "ensemble": "sign of the mean of four lookback signs",
+    "rebalance": "daily only when desired sign changes",
+    "volatility_lookback_sessions": 20,
+    "annual_target_volatility_per_leg": 0.10,
+    "maximum_absolute_exposure_per_leg": 1.0,
+    "equal_leg_budget": 0.5
+  },
+  "splits": {
+    "train": ["2004-06-01", "2013-12-31"],
+    "validation": ["2014-01-01", "2018-12-31"],
+    "oos": ["2019-01-01", "2023-12-31"],
+    "holdout": ["2024-01-01", "2026-02-27"],
+    "holdout_policy": "sealed until one model is selected from validation and OOS"
+  },
+  "costs": {
+    "opening_only_bps": {"base": 5, "conservative": 10, "stress": 15},
+    "annual_rollover_both_sides_pct": {"base": 4, "conservative": 8, "stress": 12},
+    "oracle_fee": "assumed refunded on successful full close; failures excluded"
+  },
+  "selection_gate": {
+    "minimum_validation_sharpe_stress": 0.3,
+    "minimum_oos_sharpe_stress": 0.3,
+    "maximum_oos_drawdown_stress_pct": 20,
+    "minimum_positive_oos_year_ratio": 0.6,
+    "minimum_return_over_zero_benchmark": true
+  },
+  "live_policy": "never; requires live rollover capture, Ostium execution parity, paper and explicit authorization"
+}

@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "campaign": "alquimia-tsmom-duka-v1",
+  "decision": "REJECT_FOR_OSTIUM_CARRY_HOLDOUT_SEALED",
+  "holdout_opened": false,
+  "best_gross_reference": "126 sessions",
+  "gross_evidence": {
+    "validation_return_pct": 10.435042,
+    "validation_sharpe": 0.294477,
+    "oos_return_pct": 11.517034,
+    "oos_sharpe": 0.351371,
+    "oos_max_drawdown_pct": 8.587179
+  },
+  "base_carry_4pct_evidence": {
+    "validation_return_pct": -10.3,
+    "oos_return_pct": -7.4
+  },
+  "reasons": [
+    "GROSS_EDGE_TOO_SMALL_FOR_OSTIUM_ROLLOVER",
+    "ONLY_TWO_DUKASCOPY_MARKETS_AVAILABLE",
+    "LIVE_HISTORICAL_ROLLOVER_SERIES_UNAVAILABLE"
+  ],
+  "paper_authorized": false,
+  "live_authorized": false
+}

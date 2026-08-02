@@ -184,6 +184,21 @@ només canviava el marge, no aquest risc. Artifacts canònics: `msft_source_pari
 `msft_finalists_holdout.json`, `msft_final_gate.json`,
 `msft_calendar_014_robustness.json` i `msft_calendar_014_gap_risk.json`.
 
+## Revisió de famílies famoses (2026-08-02)
+
+S'han contrastat time-series momentum, volatility management, overnight equity,
+opening-range breakout i reversió curta amb evidència publicada i amb les nostres
+campanyes. Dos experiments nous usen exclusivament Dukascopy local:
+
+- TSMOM EURUSD+XAUUSD: el lookback 126d és positiu brut en validació i OOS,
+  però fins i tot el carry base conservador del 4% el torna negatiu. Holdout segellat.
+- ORB XAU 08:20 NY: 15/30/60 minuts; totes perden abans de costos d'estrès.
+  Millor OOS PF base 0,805 sobre 1.215 trades. Holdout segellat.
+
+No hi ha nova candidata. `capitulation_d1` continua sent l'única família amb
+evidència pròpia repetida i es manté només en paper. Revisió completa:
+[`STRATEGY_EVIDENCE_REVIEW_2026.md`](STRATEGY_EVIDENCE_REVIEW_2026.md).
+
 ## Campanya XAUUSD H4 (2026-08-02)
 
 La incidència del Retest queda resolta: cal partir d'un projecte Retest **H4**

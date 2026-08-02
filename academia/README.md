@@ -49,6 +49,11 @@ python3 academia/tools/reality_transfer.py academia/experiments/examples/reality
 Per entendre SQ en ordre i sense perdre l'objectiu global, començar per
 `courses/strategyquant/SQ-END-TO-END-MAP.md`; per convertir resultats històrics en
 una decisió actual, continuar amb `courses/strategyquant/NUMBERS-TO-REALITY.md`.
+La cobertura real —incloent els buits— es consulta amb:
+
+```bash
+python3 academia/tools/sq_coverage.py academia/packages/strategyquant/coverage.json
+```
 
 La base `.db` és regenerable i ignorada per Git. El curs preexistent fora d'aquest
 directori no es migra ni es modifica dins d'aquest canvi.

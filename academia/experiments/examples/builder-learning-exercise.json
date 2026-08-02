@@ -1,0 +1,15 @@
+{
+  "id": "builder-space-control-01",
+  "scenario": "Volem descobrir una família tendencial simple en H4. Es proposa activar 80 blocs, 1-6 condicions, períodes 2-300, multi-TF H1/H4/D1, genetic amb 5 illes, decimation 10 i reinici infinit. El Databank guarda 100 candidats.",
+  "questions": [
+    "Quines opcions no deriven de la hipòtesi?",
+    "Quins elements augmenten els intents efectius?",
+    "Per què 100 candidats guardats no equivalen a 100 intents?",
+    "Quina configuració mínima provaries primer?"
+  ],
+  "rubric": {
+    "must_identify": ["blocs no justificats", "multi-timeframe no justificat", "complexitat excessiva", "decimation", "illes", "reinicis", "databank truncat"],
+    "minimum_proposal": "Una sèrie H4, blocs tendencials preregistrats, complexitat baixa, random baseline amb pressupost finit, filtre de trades i costos preliminars.",
+    "fail_if": ["recomana més còmput sense reduir l'espai", "usa OOS per escollir blocs", "interpreta databank_size com attempts"]
+  }
+}

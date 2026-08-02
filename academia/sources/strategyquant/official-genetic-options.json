@@ -1,0 +1,10 @@
+{
+  "id": "sq_official_genetic_options_20190226", "kind": "documentation", "title": "Settings: Genetic options",
+  "url": "https://strategyquant.com/doc/strategyquant/genetic-options/", "author": "StrategyQuant", "published_at": "2019-02-26", "accessed_at": "2026-08-02",
+  "language": "en", "sq_version": null, "source_level": "A_PRIMARY", "domain": "strategyquant", "rights_policy": "transformative_notes",
+  "metadata": {"version_warning": "Recomanacions del manual són punt de partida, no llindars d'Alquímia."},
+  "chunks": [
+    {"locator": "section:budget", "heading": "Evolution budget", "body": "Genetic options controla generacions, població, mutació, crossover, illes i migració. Decimation genera múltiples candidats per plaça i incrementa materialment els intents reals.", "evidence_status": "captured"},
+    {"locator": "section:selection", "heading": "Selection pressure", "body": "La documentació desaconsella filtres inicials massa estrictes i suggereix com a mínim filtrar estratègies sense trades; reinicis i fresh blood modifiquen diversitat i també s'han de comptar com a cerca.", "evidence_status": "captured"}
+  ]
+}

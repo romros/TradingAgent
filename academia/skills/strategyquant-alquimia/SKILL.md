@@ -21,6 +21,7 @@ no backtests que simplement semblin espectaculars.
 ## Carregar només el necessari
 
 - Per dissenyar una campanya, llegir [campaign.md](references/campaign.md).
+- Per configurar dades, hipòtesi i Builder, llegir [builder.md](references/builder.md).
 - Per escollir o interpretar proves, llegir [robustness.md](references/robustness.md).
 - Per revisar candidats, llegir [decision.md](references/decision.md).
 - Per autoritat, evidència i límits, llegir [evidence.md](references/evidence.md).

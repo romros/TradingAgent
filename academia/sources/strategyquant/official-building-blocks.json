@@ -1,0 +1,10 @@
+{
+  "id": "sq_official_building_blocks_20190226", "kind": "documentation", "title": "Settings: Building blocks",
+  "url": "https://strategyquant.com/doc/strategyquant/building-blocks/", "author": "StrategyQuant", "published_at": "2019-02-26", "accessed_at": "2026-08-02",
+  "language": "en", "sq_version": null, "source_level": "A_PRIMARY", "domain": "strategyquant", "rights_policy": "transformative_notes",
+  "metadata": {"version_warning": "La llista de blocs canvia entre builds."},
+  "chunks": [
+    {"locator": "section:families", "heading": "Block families", "body": "Els blocs es divideixen en signals/indicators, preus stop/limit, tipus d'ordre, exits i indicadors de dades externes; pesos i percentatges canvien la probabilitat de selecció.", "evidence_status": "captured"},
+    {"locator": "section:parameters", "heading": "Parameters", "body": "Cada bloc pot fixar o sortejar chart, shift, període i altres paràmetres mitjançant rangs o sets. L'autocalibració adapta rangs d'indicadors al mercat configurat.", "evidence_status": "captured"}
+  ]
+}

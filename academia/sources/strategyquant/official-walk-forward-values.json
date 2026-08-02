@@ -1,0 +1,20 @@
+{
+  "id": "sq_official_walk_forward_values_20190101",
+  "kind": "documentation",
+  "title": "Description of advanced Walk-Forward values",
+  "url": "https://strategyquant.com/doc/strategyquant/description-advanced-walk-forward-values-can-used-filters-databank/",
+  "author": "StrategyQuant",
+  "published_at": "2019-01-01",
+  "accessed_at": "2026-08-02",
+  "language": "en",
+  "sq_version": null,
+  "source_level": "A_PRIMARY",
+  "domain": "strategyquant",
+  "rights_policy": "transformative_notes",
+  "metadata": {"published_at_precision": "year", "version_warning": "La pàgina recuperada no exposa una data exacta fiable."},
+  "chunks": [
+    {"locator": "section:wf-score", "heading": "WF Score", "body": "WF Score compara una mètrica del resultat walk-forward amb la mateixa mètrica del backtest original i l'expressa com a percentatge relatiu.", "evidence_status": "captured"},
+    {"locator": "section:special-values", "heading": "Valors per run", "body": "Els valors especials inclouen drawdown màxim en un run, benefici màxim en un run, percentatge del benefici concentrat en un run, estancament, mínim de trades i percentatge de runs rendibles.", "evidence_status": "captured"},
+    {"locator": "section:concentration", "heading": "Concentració", "body": "La documentació adverteix que una part excessiva del benefici total concentrada en un sol run indica que la resta de períodes han estat poc efectius.", "evidence_status": "captured"}
+  ]
+}

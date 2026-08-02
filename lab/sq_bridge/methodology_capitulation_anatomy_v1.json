@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "methodology_id": "alquimia-capitulation-anatomy-v1",
+  "created_utc": "2026-08-02",
+  "purpose": "Describe and falsify the frozen capitulation_d1 edge without changing its production rule.",
+  "assets": ["MSFT", "NVDA", "QQQ"],
+  "frozen_signal": "daily body below -2 percent and close below population Bollinger lower band 20,2",
+  "canonical_execution": "signal on day t close; enter t+1 open; exit t+1 close",
+  "diagnostics_not_selection": [
+    "signal-close to next-open gap",
+    "next-open to close returns after 1,2,3,5 sessions",
+    "MAE and MFE from entry open",
+    "above or below lagged SMA200",
+    "lagged 20-day volatility above or below its expanding median",
+    "pre-2020 and 2020-plus",
+    "year-stratified random-entry benchmark"
+  ],
+  "cost_scenarios_bps": {"base": 8, "conservative": 15, "stress": 30},
+  "random_benchmark_runs": 5000,
+  "bootstrap_runs": 5000,
+  "bootstrap_seed": 20260802,
+  "risk_policy": {
+    "capital_usdc": 200,
+    "risk_per_trade_pct": 1,
+    "maximum_margin_pct": 35,
+    "leverage_grid": [1, 2, 3, 5, 8, 10, 15, 20, 30, 50],
+    "historical_mae_buffer_multiplier": 1.25,
+    "rule": "Leverage is capped below the buffered worst observed MAE barrier; notional is capped by stop risk and margin independently."
+  },
+  "limitations": [
+    "Yahoo OHLC is not certified as raw Ostium OHLC; MSFT close-only parity does not certify open/high/low.",
+    "QQQ is only a research proxy for NDXUSD.",
+    "Descriptive holding-period and regime results cannot authorize a production rule change.",
+    "No holdout is opened and no paper/live strategy is modified by this audit."
+  ]
+}

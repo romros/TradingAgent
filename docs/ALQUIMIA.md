@@ -216,6 +216,37 @@ negatiu en els tres trams. Decisió:
 `confirmed_capitulation_campaign.py` i
 `confirmed_capitulation_v1_decision.json`.
 
+### Anatomia del `capitulation_d1` congelat
+
+L'auditoria preserva la regla productiva exacta: senyal al close de T, entrada
+a l'open de T+1 i sortida al close de T+1. Amb 15 bps conservadors, MSFT dona
+74 trades, PF 2,98 i EV +91,3 bps; NVDA 144, PF 1,82 i +70,4 bps; QQQ 83,
+PF 2,00 i +49,5 bps. Els p empírics contra dies aleatoris aparellats per any
+són 0,0002, 0,0004 i 0,0002. L'edge és intradia: el gap previ no explica el
+retorn operat. QQQ és negatiu el 2003–2013 i continua sent només proxy.
+
+La història ampliada invalida el cap global antic de 20x. La pitjor MAE
+observada és 5,57% MSFT, 12,75% NVDA i 10,07% QQQ. A 20x, el proxy hauria
+liquidat 2,70%, 7,64% i 2,41% dels trades. Amb buffer del 25%, els nous caps
+de **paper** són MSFT 10x i NVDA/NDXUSD 5x; fallback 5x. El nocional continua
+limitat independentment a risc 1% i marge màxim 35%. Cal certificar open/low
+contra Ostium abans de considerar aquests caps per live.
+
+El paper executor aplica aquesta separació de forma explícita a les noves
+operacions: pressupost de risc 1%, stop diagnòstic per actiu, nocional
+`risc/stop` i collateral `nocional/leverage`. Si el low diari travessa el stop,
+registra `stop_settled`. No hi havia trades pendents durant la migració i no
+s'ha reescrit cap operació històrica.
+
+Amb el stop aplicat i 200 USDC, MSFT conserva EV de +0,351 USDC/trade en
+conservador i +0,288 en estrès; NVDA +0,212 i +0,169. QQQ baixa a +0,126 i
++0,069, respectivament. Per això el paper actiu per defecte queda en
+`MSFT,NVDA`; NDXUSD continua watchlist fins que la paritat nativa i l'economia
+d'estrès siguin suficients. Els costos per defecte nous són 8/15/30 bps.
+
+Artifacts: `methodology_capitulation_anatomy_v1.json`,
+`capitulation_anatomy.py` i `capitulation_anatomy_v1.json`.
+
 ## Campanya XAUUSD H4 (2026-08-02)
 
 La incidència del Retest queda resolta: cal partir d'un projecte Retest **H4**

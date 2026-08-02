@@ -7,12 +7,12 @@ import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 
-def test_probe_assets_config_canonical():
-    """El símbol canònic NDXUSD queda reflectit al config runtime."""
+def test_probe_assets_config_defaults_to_certified_economics():
+    """NDXUSD conserva mapping però no opera per defecte fins superar el gate."""
     from packages.shared import config
 
-    assert "NDXUSD" in config.ASSETS
-    assert "QQQ" not in config.ASSETS
+    assert config.ASSETS == ["MSFT", "NVDA"]
+    assert config.LEVERAGE_BY_ASSET["NDXUSD"] == 5
     assert "MSFT" in config.ASSETS
     assert "NVDA" in config.ASSETS
 

@@ -151,6 +151,50 @@ def test_paper_executor_dynamic_fee_bps():
     assert abs(trade.fee - 0.60) < 0.000001
 
 
+def test_paper_executor_asset_leverage_caps_new_trade():
+    """Cada actiu usa el seu cap; el fallback es conserva per compatibilitat."""
+    executor = PaperExecutor(
+        leverage=5, col_pct=0.20, col_max=60.0, col_min=15.0,
+        fee_bps=6.0, leverage_by_asset={"MSFT": 10, "NVDA": 5},
+    )
+    candle = {"date": "2025-01-11", "open": 100.0, "high": 101.0,
+              "low": 99.0, "close": 100.0}
+    msft = SignalRecord(id=21, candle_date="2025-01-10", asset="MSFT",
+                        strategy="capitulation_d1", created_at=_now())
+    other = SignalRecord(id=22, candle_date="2025-01-10", asset="OTHER",
+                         strategy="capitulation_d1", created_at=_now())
+    msft_trade = executor.open_trade(msft, capital=250.0, entry_candle=candle)
+    other_trade = executor.open_trade(other, capital=250.0, entry_candle=candle)
+    assert msft_trade.leverage == 10
+    assert msft_trade.nominal == msft_trade.collateral * 10
+    assert other_trade.leverage == 5
+
+
+def test_parse_asset_leverage():
+    from packages.shared.config import _parse_asset_leverage
+
+    assert _parse_asset_leverage("MSFT:10, NVDA:5") == {"MSFT": 10, "NVDA": 5}
+
+
+def test_paper_executor_risk_sizes_and_stops_trade():
+    executor = PaperExecutor(
+        leverage=5, col_pct=.20, col_max=60, col_min=15, fee_bps=6,
+        leverage_by_asset={"MSFT": 10}, risk_per_trade_pct=.01,
+        stop_distance_by_asset={"MSFT": .05},
+    )
+    signal = SignalRecord(id=23, candle_date="2025-01-10", asset="MSFT",
+                          strategy="capitulation_d1", created_at=_now())
+    candle = {"date": "2025-01-11", "open": 100.0, "high": 101.0,
+              "low": 94.0, "close": 99.0}
+    trade = executor.open_trade(signal, capital=200.0, entry_candle=candle)
+    assert trade.nominal == 40.0
+    assert trade.collateral == 4.0
+    settled = executor.settle_trade(trade, candle)
+    assert settled.status == "stop_settled"
+    assert not settled.liq_triggered
+    assert abs(settled.pnl + 2.024) < 0.000001
+
+
 def test_paper_executor_settle_loss():
     """Trade perdedor: close < open, però sense liquidació."""
     executor = PaperExecutor(leverage=20, col_pct=0.20, col_max=60.0, col_min=15.0, fee=5.38)
@@ -316,15 +360,15 @@ def test_trade_summary():
         assert summary["settled_count"] == 1
         assert summary["wins"] == 1
         assert summary["losses"] == 0
-        # El reporting reconstrueix brut=40 i aplica 6 bps (=0.60),
+        # El reporting reconstrueix brut=40 i aplica 8 bps (=0.80),
         # sense deixar que el fee històric fix contamini el resultat.
         assert abs(summary["gross_pnl_total"] - 40.0) < 0.01
-        assert abs(summary["pnl_total"] - 39.40) < 0.01
+        assert abs(summary["pnl_total"] - 39.20) < 0.01
         assert abs(summary["recorded_pnl_total"] - 14.62) < 0.01
-        assert abs(summary["cost_scenarios"]["conservative"]["pnl_total"] - 39.0) < 0.01
-        assert abs(summary["cost_scenarios"]["stress"]["pnl_total"] - 38.2) < 0.01
+        assert abs(summary["cost_scenarios"]["conservative"]["pnl_total"] - 38.5) < 0.01
+        assert abs(summary["cost_scenarios"]["stress"]["pnl_total"] - 37.0) < 0.01
         assert summary["avg_pnl_per_trade"] is not None
-        assert abs(summary["avg_pnl_per_trade"] - 39.40) < 0.01
+        assert abs(summary["avg_pnl_per_trade"] - 39.20) < 0.01
         assert summary["last_trade"] is not None
         assert summary["last_trade"]["asset"] == "NVDA"
         conn.close()
@@ -351,8 +395,8 @@ def test_reconcile_runtime_state_preserves_trades():
         state = reconcile_runtime_state(conn, capital_initial=250.0)
         after = dict(conn.execute("SELECT fee,pnl FROM paper_trades WHERE id=1").fetchone())
         assert before == after == {"fee": 5.38, "pnl": 14.62}
-        assert state.total_pnl == 39.40
-        assert state.capital == 289.40
+        assert state.total_pnl == 39.20
+        assert state.capital == 289.20
         assert state.settled_count == 1
         assert state.consecutive_losses == 0
         conn.close()
@@ -574,7 +618,7 @@ def test_equity_curve():
                 signal_id=1, asset="MSFT", strategy="capitulation_d1",
                 status="settled", signal_date="2025-01-10", entry_date="2025-01-11",
                 exit_date="2025-01-11", entry_price=100.0,
-                exit_price=100.0 * (1 + (pnl + 0.6) / 1000.0),
+                exit_price=100.0 * (1 + (pnl + 0.8) / 1000.0),
                 collateral=50.0, leverage=20, nominal=1000.0, fee=5.38,
                 pnl=pnl, pnl_pct=pnl/50*100, liq_triggered=False,
                 created_at=now, updated_at=now,
@@ -602,7 +646,7 @@ def test_drawdown():
                 signal_id=1, asset="MSFT", strategy="capitulation_d1",
                 status="settled", signal_date="2025-01-10", entry_date="2025-01-11",
                 exit_date="2025-01-11", entry_price=100.0,
-                exit_price=100.0 * (1 + (pnl + 0.6) / 1000.0),
+                exit_price=100.0 * (1 + (pnl + 0.8) / 1000.0),
                 collateral=50.0, leverage=20, nominal=1000.0, fee=5.38,
                 pnl=pnl, pnl_pct=pnl/50*100, liq_triggered=False,
                 created_at=now, updated_at=now,

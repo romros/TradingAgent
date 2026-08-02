@@ -1,16 +1,45 @@
 import os
 
-ASSETS = os.getenv("PROBE_ASSETS", "MSFT,NVDA,NDXUSD").split(",")
-LEVERAGE = int(os.getenv("LEVERAGE", "20"))
+ASSETS = os.getenv("PROBE_ASSETS", "MSFT,NVDA").split(",")
+LEVERAGE = int(os.getenv("LEVERAGE", "5"))
+
+
+def _parse_asset_leverage(raw: str) -> dict[str, int]:
+    result = {}
+    for item in raw.split(","):
+        if not item.strip():
+            continue
+        asset, value = item.split(":", 1)
+        leverage = int(value)
+        if leverage < 1:
+            raise ValueError(f"leverage must be positive for {asset}")
+        result[asset.strip().upper()] = leverage
+    return result
+
+
+# Caps provisionals de paper, derivats de pitjor MAE històrica amb buffer 25%.
+# LEVERAGE continua sent el fallback per actius no especificats.
+LEVERAGE_BY_ASSET = _parse_asset_leverage(
+    os.getenv("LEVERAGE_BY_ASSET", "MSFT:10,NVDA:5,NDXUSD:5")
+)
+RISK_PER_TRADE_PCT = float(os.getenv("RISK_PER_TRADE_PCT", "0.01"))
+STOP_DISTANCE_BY_ASSET = {
+    asset: float(value)
+    for asset, value in (
+        item.split(":", 1) for item in os.getenv(
+            "STOP_DISTANCE_BY_ASSET", "MSFT:0.0476,NVDA:0.0700,NDXUSD:0.0522"
+        ).split(",") if item.strip()
+    )
+}
 CAPITAL_INITIAL = float(os.getenv("CAPITAL_INITIAL", "250.0"))
 COL_PCT = float(os.getenv("COL_PCT", "0.20"))
 COL_MAX = float(os.getenv("COL_MAX", "60.0"))
 COL_MIN = float(os.getenv("COL_MIN", "15.0"))
 FEE_RAW = os.getenv("FEE", "").strip()
 FEE = float(FEE_RAW) if FEE_RAW else None
-PAPER_COST_BPS = float(os.getenv("PAPER_COST_BPS", "6.0"))
-PAPER_COST_CONSERVATIVE_BPS = float(os.getenv("PAPER_COST_CONSERVATIVE_BPS", "10.0"))
-PAPER_COST_STRESS_BPS = float(os.getenv("PAPER_COST_STRESS_BPS", "18.0"))
+PAPER_COST_BPS = float(os.getenv("PAPER_COST_BPS", "8.0"))
+PAPER_COST_CONSERVATIVE_BPS = float(os.getenv("PAPER_COST_CONSERVATIVE_BPS", "15.0"))
+PAPER_COST_STRESS_BPS = float(os.getenv("PAPER_COST_STRESS_BPS", "30.0"))
 BODY_THRESH = float(os.getenv("BODY_THRESH", "-0.02"))
 BB_PERIOD = int(os.getenv("BB_PERIOD", "20"))
 BB_STD = float(os.getenv("BB_STD", "2.0"))

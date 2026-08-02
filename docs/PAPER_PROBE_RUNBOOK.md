@@ -18,7 +18,7 @@ curl http://localhost:8090/quick-status
 
 ```bash
 mkdir -p data
-export PROBE_ASSETS="MSFT,NVDA,NDXUSD"
+export PROBE_ASSETS="MSFT,NVDA"  # NDXUSD queda watchlist fins certificar proxy i economia
 export DB_PATH=data/paper_probe.db
 pip install -r requirements.txt
 uvicorn apps.agent.app:app --host 0.0.0.0 --port 8090
@@ -176,24 +176,36 @@ Esperat: `/status` mostra `probe_ok`, `last_scan` amb `assets`; `/validation` re
 | `pending_entry` | Senyal detectat, esperant candle T+1 (open) |
 | `pending_settlement` | Entrat a open(T+1), esperant close(T+1) |
 | `settled` | Tancat normalment (pnl pot ser + o -) |
-| `liq_settled` | Liquidat (MAE >= 1/leverage = 5%) → pnl = -collateral - fee |
+| `stop_settled` | El low de T+1 ha travessat el stop de risc; sortida simulada al nivell de stop |
+| `liq_settled` | Liquidat (MAE >= 1/leverage) → pnl = -collateral - fee |
 
 ## Interpretació dels resultats
 
 - **pnl**: guany/pèrdua neta en dòlars (inclou fee)
 - **pnl_pct**: rendibilitat sobre el collateral (%)
-- **liq_triggered**: si MAE >= 5%, la posició es liquida totalment
-- **collateral**: capital arriscat = min(max(capital×20%, 15$), 60$)
-- **nominal**: collateral × 20 (leverage 20x)
+- **liq_triggered**: si MAE >= 1/leverage, la posició es liquida totalment
+- **collateral**: marge reservat; primer es calcula el límit 20%/15$/60$ i
+  després es redueix si el nocional de risc 1% exigeix menys marge
+- **nominal**: collateral × leverage específic de l'actiu
 
 Exemple amb capital=250$:
-- collateral = min(max(50$, 15$), 60$) = 50$
-- nominal = 50$ × 20 = 1.000$
-- Cost base: 6 bps del nominal; per 1.000$ = 0.60$
-- Si close +3%: pnl = 1.000$ × 3% - 0.60$ = +29.40$
-- Si MAE >= 5%: pnl = -50$ - 0.60$ = -50.60$
+- caps paper per defecte: MSFT 10x, NVDA 5x i NDXUSD 5x; fallback 5x
+- override: `LEVERAGE_BY_ASSET="MSFT:10,NVDA:5,NDXUSD:5"`
+- stops diagnòstics: `STOP_DISTANCE_BY_ASSET="MSFT:0.0476,NVDA:0.0700,NDXUSD:0.0522"`
+- risc: `RISK_PER_TRADE_PCT=0.01`
+- MSFT: pressupost de risc 2,50$; nominal = 2,50$/4,76% = 52,52$;
+  collateral a 10x = 5,25$
+- Cost base: 6 bps de 52,52$ = 0,03$
+- Si close +3%: pnl aproximat = 52,52$ × 3% - 0,03$ = +1,55$
+- Si el low travessa -4,76%: pèrdua aproximada = -2,50$ - fee
 
-PAPER_COST_BPS (base), PAPER_COST_CONSERVATIVE_BPS i PAPER_COST_STRESS_BPS són configurables. FEE queda només com override fix retrocompatible. El reporting reconstrueix el PnL brut des de preus i nominal, mostra també recorded_pnl_total per traçabilitat i no reescriu els trades antics.
+El stop D1 paper assumeix execució al nivell configurat. Gaps i slippage poden
+empitjorar-la en una execució real; per això aquests caps no autoritzen live.
+
+PAPER_COST_BPS (8), PAPER_COST_CONSERVATIVE_BPS (15) i PAPER_COST_STRESS_BPS
+(30) són configurables. FEE queda només com override fix retrocompatible. El
+reporting reconstrueix el PnL brut des de preus i nominal, mostra també
+recorded_pnl_total per traçabilitat i no reescriu els trades antics.
 
 Reconciliació segura després de canviar el model de costos:
 

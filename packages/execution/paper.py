@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from typing import Optional
+from typing import Mapping, Optional
 
 from packages.shared.models import SignalRecord, PaperTradeRecord
 
@@ -13,6 +13,9 @@ class PaperExecutor:
         col_min: float,
         fee: Optional[float] = None,
         fee_bps: float = 6.0,
+        leverage_by_asset: Optional[Mapping[str, int]] = None,
+        risk_per_trade_pct: Optional[float] = None,
+        stop_distance_by_asset: Optional[Mapping[str, float]] = None,
     ):
         self.leverage = leverage
         self.col_pct = col_pct
@@ -20,6 +23,14 @@ class PaperExecutor:
         self.col_min = col_min
         self.fee = fee
         self.fee_bps = fee_bps
+        self.leverage_by_asset = {asset.upper(): int(value)
+                                  for asset, value in (leverage_by_asset or {}).items()}
+        self.risk_per_trade_pct = risk_per_trade_pct
+        self.stop_distance_by_asset = {asset.upper(): float(value)
+                                       for asset, value in (stop_distance_by_asset or {}).items()}
+
+    def leverage_for_asset(self, asset: str) -> int:
+        return self.leverage_by_asset.get(asset.upper(), self.leverage)
 
     def _now_utc(self) -> str:
         return datetime.now(timezone.utc).isoformat()
@@ -39,8 +50,16 @@ class PaperExecutor:
         """
         from datetime import date
 
+        leverage = self.leverage_for_asset(signal.asset)
         collateral = min(max(capital * self.col_pct, self.col_min), self.col_max)
-        nominal = collateral * self.leverage
+        nominal = collateral * leverage
+        stop_distance = self.stop_distance_by_asset.get(signal.asset.upper())
+        if self.risk_per_trade_pct is not None and stop_distance is not None:
+            if not 0 < self.risk_per_trade_pct <= 1 or not 0 < stop_distance < 1:
+                raise ValueError("risk_per_trade_pct and stop distance must be in (0, 1]")
+            risk_limited_nominal = capital * self.risk_per_trade_pct / stop_distance
+            nominal = min(nominal, risk_limited_nominal)
+            collateral = nominal / leverage
         trade_fee = self.fee if self.fee is not None else nominal * self.fee_bps / 10_000.0
         now = self._now_utc()
 
@@ -68,7 +87,7 @@ class PaperExecutor:
             entry_price=entry_price,
             exit_price=None,
             collateral=collateral,
-            leverage=self.leverage,
+            leverage=leverage,
             nominal=nominal,
             fee=trade_fee,
             pnl=None,
@@ -98,10 +117,16 @@ class PaperExecutor:
 
         liq_threshold = 1.0 / trade.leverage
         mae = (open_price - low_price) / open_price if open_price > 0 else 0.0
+        stop_distance = self.stop_distance_by_asset.get(trade.asset.upper())
 
         liq_triggered = mae >= liq_threshold
 
-        if liq_triggered:
+        if stop_distance is not None and mae >= stop_distance:
+            pnl = -trade.nominal * stop_distance - trade.fee
+            status = "stop_settled"
+            exit_price = open_price * (1.0 - stop_distance)
+            liq_triggered = False
+        elif liq_triggered:
             pnl = -trade.collateral - trade.fee
             status = "liq_settled"
             exit_price = open_price * (1.0 - liq_threshold)

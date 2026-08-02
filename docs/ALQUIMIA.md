@@ -244,6 +244,23 @@ conservador i +0,288 en estrès; NVDA +0,212 i +0,169. QQQ baixa a +0,126 i
 `MSFT,NVDA`; NDXUSD continua watchlist fins que la paritat nativa i l'economia
 d'estrès siguin suficients. Els costos per defecte nous són 8/15/30 bps.
 
+#### Resultat combinat MSFT + NVDA amb 200 USDC
+
+Les 218 operacions s'han ordenat cronològicament; senyals simultanis comparteixen
+el capital inicial del dia i no fan compounding artificial entre ells. Període:
+23,05 anys, aproximadament 9,46 trades/any.
+
+| Cost | Guany amb risc fix 2 USDC | Capital final fix | Guany compounding 1% | Capital final | CAGR |
+|---|---:|---:|---:|---:|---:|
+| Base 8 bps | 61,54 | 261,54 | 71,14 | 271,14 | 1,33% |
+| Conservador 15 bps | 56,49 | 256,49 | 64,39 | 264,39 | 1,22% |
+| Estrès 30 bps | 45,65 | 245,65 | 50,47 | 250,47 | 0,98% |
+
+Aquests són resultats històrics, no una projecció. El compounding és limitat
+per la baixa freqüència i el risc 1%. L'antic 250→772 a 20x no és comparable:
+assumia una exposició molt superior i zero liquidacions, hipòtesi invalidada
+per la història ampliada.
+
 Artifacts: `methodology_capitulation_anatomy_v1.json`,
 `capitulation_anatomy.py` i `capitulation_anatomy_v1.json`.
 

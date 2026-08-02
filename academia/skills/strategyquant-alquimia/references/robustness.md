@@ -17,10 +17,15 @@ Començar 3×3. Buscar regió connectada, trades per run, benefici repartit i dr
 assumible. Si falla clarament, no ampliar per pescar una cel·la. Els llindars dels
 exemples oficials són heurístiques, no lleis.
 
+No comptar files `futurePeriod` com a validació. Són la recepta futura suggerida pel
+procés, no trades futurs observats.
+
 ## Monte Carlo
 
 Distingir manipulació de trades (ràpida) de retest amb dades, paràmetres o costos
 (car). Cada prova respon una pregunta; no sumar passes com evidència independent.
+Si el paquet només conté configuració Monte Carlo però cap resultat, marcar-lo
+`operational`, no `tested`.
 
 ## OOS
 

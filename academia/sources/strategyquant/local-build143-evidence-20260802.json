@@ -1,0 +1,22 @@
+{
+  "id": "sq_local_build143_evidence_20260802",
+  "kind": "experiment",
+  "title": "Artifacts locals SQ 143.2708 d'Alquímia",
+  "url": null,
+  "author": "Alquímia",
+  "published_at": "2026-08-02",
+  "accessed_at": "2026-08-02",
+  "language": "ca",
+  "sq_version": "143.2708",
+  "source_level": "A_PRIMARY",
+  "domain": "strategyquant",
+  "rights_policy": "first_party",
+  "metadata": {"scope": "read_only_artifact_audit", "artifacts_inspected": 1574},
+  "chunks": [
+    {"locator": "candidate:0.7893", "heading": "IS no és validació", "body": "Strategy 0.7893 només conté el període IS 2004-01-01 a 2015-02-06 i OOS buit. El resultat usa slippage 300 mentre l'instrument declara 400. S'ha de retenir, reconciliar costos i passar validació, OOS, règims i economia actual.", "evidence_status": "tested"},
+    {"locator": "candidate:4.1.133", "heading": "Cadena temporal", "body": "Strategy 4.1.133 conserva benefici nominal en train, validació i OOS separats, però el benefici decau. El signe persistent justifica una prova de règim i normalització; no autoritza obrir el holdout ni desplegar.", "evidence_status": "tested"},
+    {"locator": "wfm:1.12.156", "heading": "Matriu i futur", "body": "L'artifact WFM de Strategy 1.12.156 conté 16 variants de runs i percentatge OOS, 216 registres WalkForwardPeriod i 16 futurePeriod. futurePeriod projecta paràmetres: no és rendiment observat. Cal seleccionar una regió estable, no la millor cel·la.", "evidence_status": "tested"},
+    {"locator": "portfolio:1774074144996", "heading": "L'agregat amaga supòsits", "body": "La cartera local és llegible però usa slippage zero i una cama etiquetada APPL referencia NVDA. Un agregat positiu no és evidència executable fins auditar identitat, costos, correlació i concentració de cada component.", "evidence_status": "tested"},
+    {"locator": "inventory:capabilities", "heading": "Configurat no és executat", "body": "En 1.574 SQX hi ha 486 resultats de precisió superior i 592 membres walk-forward, però zero Monte Carlo. Una opció present al XML o a la interfície no compta com a prova executada.", "evidence_status": "tested"}
+  ]
+}

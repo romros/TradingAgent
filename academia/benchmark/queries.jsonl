@@ -21,3 +21,7 @@
 {"id":"sq-generation-half","query":"generar candidats no és suficient robustness retest","domain":"strategyquant","relevant_source_ids":["sq_official_workflow_20190130"]}
 {"id":"sq-custom-workflow","query":"Custom Project encadenar build retest WFM Databank","domain":"strategyquant","relevant_source_ids":["sq_official_custom_projects_20200504"]}
 {"id":"sq-custom-runtime","query":"workflow repetir hores dies criteri aturada","domain":"strategyquant","relevant_source_ids":["sq_official_custom_projects_20200504"]}
+{"id":"sq-local-is-cost-mismatch","query":"candidat IS slippage resultat diferent instrument encara no finalista","domain":"strategyquant","relevant_source_ids":["sq_local_build143_evidence_20260802"]}
+{"id":"sq-local-wfm-future","query":"walk forward matrix futurePeriod no és rendiment observat regió estable","domain":"strategyquant","relevant_source_ids":["sq_local_build143_evidence_20260802"]}
+{"id":"sq-local-config-not-run","query":"Monte Carlo configurat XML no equival prova executada artifact","domain":"strategyquant","relevant_source_ids":["sq_local_build143_evidence_20260802"]}
+{"id":"sq-local-portfolio-hidden","query":"cartera agregada slippage zero cama etiqueta símbol incoherent","domain":"strategyquant","relevant_source_ids":["sq_local_build143_evidence_20260802"]}

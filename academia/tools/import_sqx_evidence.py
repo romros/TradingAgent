@@ -16,7 +16,7 @@ def _params(item: ET.Element) -> dict:
     return {p.get("key", "").strip("#"): (p.text or "").strip() for p in item.findall("./Param")}
 
 
-def extract(path: Path) -> dict:
+def extract(path: Path, stage: str | None = None) -> dict:
     raw_hash = hashlib.sha256(path.read_bytes()).hexdigest()
     with zipfile.ZipFile(path) as archive:
         strategy = ET.fromstring(archive.read("strategy_Portfolio.xml"))
@@ -44,6 +44,19 @@ def extract(path: Path) -> dict:
     special = {node.tag: node.text for node in results.findall(".//SpecialValuesMap/SettingsMap/*")}
     def iso_millis(value: str | None) -> str | None:
         return datetime.fromtimestamp(int(value) / 1000, timezone.utc).date().isoformat() if value else None
+    is_retester = settings.get("IsRetester") == "true"
+    if stage is None:
+        classification = "RETESTED_WINDOW_UNLABELLED" if is_retester else "IS_CANDIDATE_NOT_FINALIST"
+        missing = ["stage_label", "sealed_holdout", "regime_breakdown", "current_ostium_repricing", "liquidation"] if is_retester else ["validation", "oos", "sealed_holdout", "regime_breakdown", "current_ostium_repricing", "liquidation"]
+    else:
+        classification = f"{stage.upper()}_RESULT_NOT_LIVE_READY"
+        remaining = {
+            "discovery": ["validation", "oos", "sealed_holdout"],
+            "validation": ["oos", "sealed_holdout"],
+            "oos": ["sealed_holdout"],
+            "holdout": [],
+        }[stage]
+        missing = remaining + ["regime_breakdown", "current_ostium_repricing", "liquidation"]
     return {
         "candidate_id": results.find(".//StrategyName").text,
         "artifact_sha256": raw_hash,
@@ -59,6 +72,7 @@ def extract(path: Path) -> dict:
             "fitness": float(fingerprint.get("fitness")),
             "complexity": int(special["Complexity"]),
             "oos_present": bool(results.find(".//Fitnesses").get("OOS") != "0.0"),
+            "is_retester": is_retester,
         },
         "execution_assumptions": {
             "initial_capital": float(settings["MoneyManagement.InitialCapital"]),
@@ -70,16 +84,17 @@ def extract(path: Path) -> dict:
             "commission_xml": instrument.get("commissions"),
             "swap_xml": instrument.get("swap"),
         },
-        "classification": "IS_CANDIDATE_NOT_FINALIST",
-        "missing": ["validation", "oos", "sealed_holdout", "regime_breakdown", "current_ostium_repricing", "liquidation"],
+        "classification": classification,
+        "missing": missing,
     }
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("sqx", type=Path)
+    parser.add_argument("--stage", choices=("discovery", "validation", "oos", "holdout"))
     args = parser.parse_args()
-    print(json.dumps(extract(args.sqx), ensure_ascii=False, indent=2))
+    print(json.dumps(extract(args.sqx, args.stage), ensure_ascii=False, indent=2))
     return 0
 
 

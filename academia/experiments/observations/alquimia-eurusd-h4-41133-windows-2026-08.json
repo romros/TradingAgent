@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "campaign_id": "alquimia-eurusd-h4-41133-window-chain-2026-08",
+  "family": "eurusd_h4_sma_ema_atr",
+  "source_artifacts": [
+    {"path": "/mnt/volume-SQ/user/projects/ALQUIMIA_EURUSD_H4_VALIDATION_RISK1/databanks/Results/Strategy 4.1.133.sqx", "sha256": "93bef186b662cc2a2d090ec3ecd7b26fdaa925bf6e9962522fede3ec71500038", "role": "train"},
+    {"path": "/mnt/volume-SQ/user/projects/ALQUIMIA_EURUSD_H4_VALIDATION_RISK1/databanks/Validation/Strategy 4.1.133.sqx", "sha256": "3470b786bd4416d44a7a5be9d93dd39d2fdc52cf39681123b75443395f5e2ca2", "role": "validation"},
+    {"path": "/mnt/volume-SQ/user/projects/ALQUIMIA_EURUSD_H4_OOS/databanks/Oos/Strategy 4.1.133.sqx", "sha256": "1ca16f8e7168d202ce115b1688fda232106946db4b9eb3d19561f6c833314c06", "role": "oos"}
+  ],
+  "observations": {
+    "sq_build": "143.2708",
+    "engine": "MetaTrader4",
+    "instrument": "EURUSDOST",
+    "costs": {"spread": 0.8, "slippage": 0.5, "commission_per_trade": 0.42},
+    "train": {"window": "2006-01-01/2016-01-15", "trades": 341, "profit": 9350.0, "drawdown": 8539.0},
+    "validation": {"window": "2016-01-16/2020-01-20", "trades": 130, "profit": 2112.39990234375, "drawdown": 1326.0, "is_retester": true},
+    "oos": {"window": "2020-01-21/2024-01-25", "trades": 138, "profit": 1279.5, "drawdown": 1155.0, "is_retester": true},
+    "holdout_opened": false
+  },
+  "assessment": {
+    "decision": "HOLD_PENDING_REALITY_GATES",
+    "insight_code": "EDGE_PERSISTS_BUT_DECAYS",
+    "reason": "El signe positiu persisteix en dues finestres no solapades, però el benefici absolut decau. Això mereix anàlisi normalitzada i de règims; no autoritza holdout ni producció.",
+    "next_test": "Calcular rendiments i drawdown sobre capital i temps comparables, comprovar règims, mida mínima, costos actuals i liquidació abans d'obrir el holdout.",
+    "evidence_status": "tested"
+  }
+}

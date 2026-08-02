@@ -66,3 +66,15 @@ No hi ha cap gap que justifiqui instal·lar una extensió o un navegador ara mat
 ```bash
 python3 academia/tools/audit_sq_artifacts.py /mnt/volume-SQ/user/projects
 ```
+
+## Runtime descartable per a les proves finals
+
+El contenidor habitual no compleix l'abast d'escriptura: munta `user`, `internal` i
+`logs` externs en mode RW. El dry-run de `prepare_sq_cow_runtime.py` ha calculat una
+còpia writable de 5.430.649.740 bytes dins `academia/runtime/`, deixant els 16 GB
+d'History en mount de només lectura. Hi ha 12.105.007.104 bytes lliures, suficients
+amb el marge del 20%.
+
+La còpia de 5,4 GB no s'executa mentre la descoberta està activa per no introduir
+I/O competidora. En acabar, el runtime complet s'ha de preparar, provar amb `-h` i
+eliminar després dels tres experiments. `academia/runtime/` està ignorat per Git.

@@ -2,11 +2,19 @@
   "schema_version": 1,
   "id": "build143-final-capability-tests",
   "target_build": "143.2708",
-  "state": "WAITING_FOR_SQ_IDLE_AND_COW_RUNTIME",
+  "state": "WAITING_FOR_SQ_IDLE",
   "write_root": "academia/runtime/build143-final-capability-tests",
   "holdout_access": false,
   "live_trading_access": false,
   "source_mounts_read_only": true,
+  "cow_runtime": {
+    "strategy": "copy writable internal and user metadata; mount 16 GB History read-only",
+    "dry_run_copy_bytes": 5430649740,
+    "dry_run_free_bytes": 12105007104,
+    "space_margin_passed": true,
+    "prepared": false,
+    "preparation_deferred_reason": "avoid 5.4 GB I/O while SQ discovery is active"
+  },
   "resource_gate": {
     "active_sq_projects": 0,
     "require_license_idle": true,

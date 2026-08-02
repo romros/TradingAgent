@@ -1,0 +1,13 @@
+{
+  "id": "sq_official_workflow_20190130", "kind": "documentation",
+  "title": "Recommended workflows for building strategies",
+  "url": "https://strategyquant.com/doc/strategyquant/workflow/",
+  "author": "StrategyQuant", "published_at": "2019-01-30", "accessed_at": "2026-08-02",
+  "language": "en", "sq_version": null, "source_level": "A_PRIMARY",
+  "domain": "strategyquant", "rights_policy": "transformative_notes",
+  "metadata": {"version_warning": "Blueprint genèric; no copiar configuracions sense context."},
+  "chunks": [
+    {"locator": "section:blueprint", "heading": "Flux", "body": "El flux oficial separa importació de dades, configuració del Builder, generació, avaluació i retests o optimitzacions posteriors.", "evidence_status": "captured"},
+    {"locator": "section:retest", "heading": "Segona meitat", "body": "Generar candidats és només una part del treball; la documentació exigeix retests i robustness per comprovar sensibilitat a dades, paràmetres, mercats i costos.", "evidence_status": "captured"}
+  ]
+}

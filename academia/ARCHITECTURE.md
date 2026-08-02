@@ -8,6 +8,8 @@
 - tota resposta recuperada conserva `source_id` i `locator`;
 - media temporal fora del repositori; només metadades i notes transformadores;
 - cap connexió amb execució de trading.
+- accés a SQ desacoblat del coneixement: artifact → SQCLI → PinchTab efímer →
+  Playwright → manual; navegador només amb un gap de CLI demostrat.
 
 ## Components
 

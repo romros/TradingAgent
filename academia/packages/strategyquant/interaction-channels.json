@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "priority": ["artifact", "sqcli", "pinchtab", "playwright", "manual"],
+  "channels": {
+    "artifact": {"mutates_sq": false, "requires_gap": false, "required_outputs": ["source_hash", "parsed_result"]},
+    "sqcli": {"mutates_sq": true, "requires_gap": false, "required_outputs": ["command_manifest", "exit_status", "export_hash"]},
+    "pinchtab": {"mutates_sq": true, "requires_gap": true, "installed": false, "required_outputs": ["gap", "precondition", "postcondition", "export_hash", "clean_shutdown"]},
+    "playwright": {"mutates_sq": true, "requires_gap": true, "installed": false, "required_outputs": ["gap", "assertions", "trace", "export_hash", "clean_shutdown"]},
+    "manual": {"mutates_sq": true, "requires_gap": true, "required_outputs": ["gap", "checklist", "observed_result"]}
+  },
+  "forbidden": ["live-trading", "credential-persistence", "coordinate-only-clicks", "remote-browser-port", "permanent-browser-service"]
+}

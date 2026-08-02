@@ -1,0 +1,11 @@
+{
+  "id": "pinchtab_official_2026", "kind": "documentation", "title": "PinchTab official documentation",
+  "url": "https://pinchtab.com/docs/", "author": "PinchTab", "published_at": null, "accessed_at": "2026-08-02",
+  "language": "en", "sq_version": null, "source_level": "A_PRIMARY", "domain": "tooling", "rights_policy": "transformative_notes",
+  "metadata": {"also_checked": ["https://github.com/pinchtab/pinchtab", "https://pinchtab.com/docs/config/", "https://pinchtab.com/docs/instances/"], "installed": false, "observed_latest_release": "v0.11.0"},
+  "chunks": [
+    {"locator": "overview:interface", "heading": "Agent interface", "body": "PinchTab és un binari Go amb CLI i API HTTP que controla Chrome; snapshots d'accessibilitat donen refs d'elements i les mutacions usen accions click, fill, press o select.", "evidence_status": "captured"},
+    {"locator": "overview:lifecycle", "heading": "Lifecycle", "body": "El model principal és server-first i normalment recomana daemon, instàncies i perfils persistents. També es pot iniciar el servidor directament, fet que permet un ús efímer sense instal·lar servei permanent.", "evidence_status": "captured"},
+    {"locator": "security:boundary", "heading": "Security boundary", "body": "El navegador pot conservar cookies i qualsevol client autoritzat pot actuar com l'usuari. La configuració permet loopback, token, allowlist de dominis, límits i protecció contra contingut; exposar el port o allowHosts wildcard redueix seguretat.", "evidence_status": "captured"}
+  ]
+}

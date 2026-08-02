@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "build143-final-capability-tests",
   "target_build": "143.2708",
-  "state": "WAITING_FOR_SQ_IDLE",
+  "state": "PARTIAL_RESULTS_RECORDED",
   "write_root": "academia/runtime/build143-final-capability-tests",
   "holdout_access": false,
   "live_trading_access": false,
@@ -12,8 +12,8 @@
     "dry_run_copy_bytes": 5430649740,
     "dry_run_free_bytes": 12105007104,
     "space_margin_passed": true,
-    "prepared": false,
-    "preparation_deferred_reason": "avoid 5.4 GB I/O while SQ discovery is active"
+    "prepared": true,
+    "preparation_deferred_reason": null
   },
   "resource_gate": {
     "active_sq_projects": 0,

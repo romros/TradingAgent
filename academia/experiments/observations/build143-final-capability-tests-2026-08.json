@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "build143-final-capability-tests-2026-08",
+  "observed_at": "2026-08-02",
+  "target_build": "143.2708",
+  "environment": {
+    "isolation": "copy-on-write under academia/runtime; History mounted read-only",
+    "cpu_limit": 2,
+    "memory_limit_gib": 12,
+    "holdout_access": false,
+    "live_trading_access": false
+  },
+  "monte_carlo_parameters": {
+    "status": "passed",
+    "candidate_input_sha256": "3470b786bd4416d44a7a5be9d93dd39d2fdc52cf39681123b75443395f5e2ca2",
+    "configuration": {
+      "method": "RandomizeStrategyParameters",
+      "simulations": 50,
+      "probability_pct": 10,
+      "maximum_change_pct": 20,
+      "symmetric": true,
+      "other_randomization_methods": false
+    },
+    "runtime_seconds": 41.85,
+    "executed_monte_carlo_members": 152,
+    "result_sqx_bytes": 143069,
+    "result_sqx_sha256": "ad4b36cc3ec21e07f02666b35207a0d13f0520a595e41ee6e14573c3d8ba28a1",
+    "frozen_project_sha256": "3d5d5c929e63f3f29a08c120ea3c01d3feafbb3a2b41f21de02739923b6bea79",
+    "lesson": "Cal activar CrossChecks i MonteCarloRetest; una opció interna sense l'interruptor pare no executa res. En un projecte d'una sola tasca, action=start va executar-la mentre startOnlyTask task=1 va acabar sense retest."
+  },
+  "builder_random_vs_genetic": {
+    "status": "tested_contract_failed",
+    "random_project_sha256": "207fd6802b547546c14f5a45e2116e2fee83df9222963ed298a1d50a92a7272f",
+    "genetic_project_sha256": "db74a90bc17153c9ad8c780cafcc618bd598be2df551b98f8e4ef10b1b72199d",
+    "common_data": "EURUSD_M1_dukas_M1_UTCMinus05 / H4",
+    "successful_local_stage": "data load, test run and random strategy generation started under the two-core cgroup",
+    "failed_requirement": "SQ build 143 exposes PopulationSize x MaxGenerations for genetic evolution but no equivalent stop on total attempted strategies for random generation.",
+    "decision": "Do not compare survivor quality as if both methods had 2000 attempts. Keep capability operational until an attempts counter can stop and export both runs, or revise the benchmark to a clearly labelled equal-wall-clock test."
+  },
+  "export_crossplatform": {
+    "status": "tested_boundary_failed",
+    "sq_orders_rows": 130,
+    "sq_orders_csv_sha256": "cb611265b8a1bbf6de918ad55de225a170cce11ce41f0505ec68d5196b39d299",
+    "sqcli_command_capability": "tools/orderstocsv passed",
+    "source_export": "not exposed by SQCLI 143; GUI route was reachable in the ephemeral PinchTab pilot",
+    "target_engine_orders": "absent",
+    "parity_decision": "not passed: SQ orders alone cannot establish cross-platform parity",
+    "next": "Export source through disposable GUI, compile in the explicitly chosen target engine and compare signal identity plus fills/costs against these 130 SQ orders."
+  },
+  "runtime_artifact_policy": "Full SQX and orders CSV remain gitignored in academia/runtime; only hashes, counts, configuration and transformative conclusions are versioned."
+}

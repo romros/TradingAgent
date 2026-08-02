@@ -43,7 +43,12 @@ python3 academia/tools/academia.py --db /tmp/academia.db benchmark academia/benc
 python3 -m unittest discover -s academia/tests -v
 python3 academia/tools/experiment_gate.py academia/experiments/examples/wfm-region-synthetic.json
 python3 academia/tools/strategy_review.py academia/experiments/examples/three-candidates.json
+python3 academia/tools/reality_transfer.py academia/experiments/examples/reality-transfer-xau-example.json
 ```
+
+Per entendre SQ en ordre i sense perdre l'objectiu global, començar per
+`courses/strategyquant/SQ-END-TO-END-MAP.md`; per convertir resultats històrics en
+una decisió actual, continuar amb `courses/strategyquant/NUMBERS-TO-REALITY.md`.
 
 La base `.db` és regenerable i ignorada per Git. El curs preexistent fora d'aquest
 directori no es migra ni es modifica dins d'aquest canvi.

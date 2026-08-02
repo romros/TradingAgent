@@ -14,8 +14,9 @@ no backtests que simplement semblin espectaculars.
 2. Congelar dades, pressupost d'intents, filtres i holdout abans de generar.
 3. Construir barat; aplicar proves cares només als supervivents.
 4. Revisar estabilitat, concentració, costos, intents i contaminació.
-5. Donar `CONTINUAR`, `PROVA DIRIGIDA` o `DESCARTAR`.
-6. Proposar una sola prova següent; no obrir una cerca per salvar un candidat.
+5. Validar mecanisme, règims comparables i economia executable avui.
+6. Donar `CONTINUAR`, `PROVA DIRIGIDA` o `DESCARTAR`.
+7. Proposar una sola prova següent; no obrir una cerca per salvar un candidat.
 
 ## Carregar només el necessari
 
@@ -24,6 +25,7 @@ no backtests que simplement semblin espectaculars.
 - Per revisar candidats, llegir [decision.md](references/decision.md).
 - Per autoritat, evidència i límits, llegir [evidence.md](references/evidence.md).
 - Per aprendre d'artifacts i fracassos, llegir [learning.md](references/learning.md).
+- Per passar del backtest a la realitat, llegir [regimes.md](references/regimes.md).
 
 ## Regles de batalla
 
@@ -34,6 +36,7 @@ no backtests que simplement semblin espectaculars.
 - Penalitzar pocs trades, benefici concentrat, drawdown i complexitat.
 - No confondre `pass` amb rendibilitat futura.
 - No canviar criteris després de veure resultats sense nova campanya.
+- No promoure cap finalista sense informe de règims i economia actual.
 - No tocar BrokerageService, Ostium ni execució de trading.
 
 ## Format de resposta

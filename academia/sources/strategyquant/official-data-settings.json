@@ -1,0 +1,12 @@
+{
+  "id": "sq_official_data_settings_20190109", "kind": "documentation",
+  "title": "Settings - Data", "url": "https://strategyquant.com/doc/strategyquant/data/",
+  "author": "StrategyQuant", "published_at": "2019-01-09", "accessed_at": "2026-08-02",
+  "language": "en", "sq_version": null, "source_level": "A_PRIMARY",
+  "domain": "strategyquant", "rights_policy": "transformative_notes",
+  "metadata": {"version_warning": "Verificar noms i defaults a la build objectiu."},
+  "chunks": [
+    {"locator": "section:precision", "heading": "Precisió", "body": "StrategyQuant permet generació ràpida amb precisió menor i verificació final amb dades d'un minut o real tick; Stop i Limit requereixen especial atenció a la simulació intrabar.", "evidence_status": "captured"},
+    {"locator": "section:costs", "heading": "Costos", "body": "La configuració de test inclou spread, slippage, distància mínima, comissió i swaps; aquests supòsits formen part del resultat del backtest.", "evidence_status": "corroborated"}
+  ]
+}

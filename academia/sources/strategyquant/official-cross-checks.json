@@ -1,0 +1,14 @@
+{
+  "id": "sq_official_cross_checks_20190226", "kind": "documentation",
+  "title": "Cross checks - automated strategy robustness tests",
+  "url": "https://strategyquant.com/doc/strategyquant/cross-checks-automated-strategy-robustness-tests/",
+  "author": "StrategyQuant", "published_at": "2019-02-26", "accessed_at": "2026-08-02",
+  "language": "en", "sq_version": null, "source_level": "A_PRIMARY",
+  "domain": "strategyquant", "rights_policy": "transformative_notes",
+  "metadata": {"version_warning": "Documentació antiga; contrastar disponibilitat per build."},
+  "chunks": [
+    {"locator": "section:funnel", "heading": "Funnel", "body": "Els cross-checks s'apliquen de simples a complexos; una estratègia que falla aviat es descarta abans de consumir proves més cares.", "evidence_status": "captured"},
+    {"locator": "section:cost", "heading": "Cost computacional", "body": "Alguns cross-checks exigeixen centenars o milers de backtests i poden multiplicar fortament el temps respecte de la generació inicial.", "evidence_status": "captured"},
+    {"locator": "section:dimensions", "heading": "Dimensions", "body": "La robustesa es pot observar amb OOS, mercats addicionals, manipulació de trades, canvis de paràmetres, costos i Walk-Forward.", "evidence_status": "captured"}
+  ]
+}

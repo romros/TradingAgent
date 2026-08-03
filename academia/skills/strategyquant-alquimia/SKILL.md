@@ -78,3 +78,13 @@ Abans d'interpretar una passada SQ, comprovar el contracte executat amb
 `academia/tools/verify_sq_contract.py`: declarar els tokens estructurals,
 crosschecks exactes i valors de configuració que importen. Un `pass` d'aquesta
 eina només permet començar la interpretació; no valida robustesa ni benefici.
+
+Després de qualsevol Improver, executar també:
+
+```bash
+python3 academia/tools/lint_sqx_semantics.py VARIANT.sqx --base BASE.sqx
+```
+
+Rebutjar si detecta un senyal constant o deriva d'entrada/ordres congelades. Un
+`pass` només confirma aquest contracte semàntic mínim; encara cal validació fora
+de mostra, costos, règims i economia real.

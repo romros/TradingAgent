@@ -44,6 +44,7 @@ python3 -m unittest discover -s academia/tests -v
 python3 academia/tools/experiment_gate.py academia/experiments/examples/wfm-region-synthetic.json
 python3 academia/tools/strategy_review.py academia/experiments/examples/three-candidates.json
 python3 academia/tools/reality_transfer.py academia/experiments/examples/reality-transfer-xau-example.json
+python3 academia/tools/lint_sqx_semantics.py VARIANT.sqx --base BASE.sqx
 ```
 
 Per entendre SQ en ordre i sense perdre l'objectiu global, començar per

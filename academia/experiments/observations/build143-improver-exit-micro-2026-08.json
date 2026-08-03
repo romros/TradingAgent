@@ -38,9 +38,15 @@
     "result_sha256": "a80570639df7efe82d52ba7f2725c9bb541c1ebc6351b0994af361c4af5a786f"
   },
   "structural_check": {
+    "tool": "academia/tools/lint_sqx_semantics.py",
+    "lint_passed": false,
     "entry_signal_values_preserved": true,
     "entry_order_direction_and_size_preserved": true,
     "exit_rules_changed": true,
+    "constant_false_signals": [
+      "33333333-1111-2222-3333-333333333333",
+      "33333333-2222-2222-3333-333333333333"
+    ],
     "observed_exit_change": "long and short signal exits were wrapped with an AND false branch; ATR-based protective exits remained",
     "warning": "The surviving modification can disable rule exits. This proves part scoping, not that the improvement is economically sensible. Semantic lint remains mandatory."
   },

@@ -108,6 +108,13 @@ Contracte mínim:
 6. repetir precisió, costos i robustesa sobre la variant resultant;
 7. mantenir-la només si millora el criteri preregistrat sense degradar els altres gates.
 
+Abans de mirar mètriques, comparar la variant amb la base mitjançant
+`academia/tools/lint_sqx_semantics.py`. El gate rebutja canvis semàntics en
+entrades/ordres congelades i senyals constants. A la microprova local de Build
+143, SQ va acceptar 178/178 variants, però l'única desada convertia els dos exits
+de regla en constants `false`; conservar ATR exits podia mantenir un backtest
+positiu i ocultar que la lògica de sortida havia quedat morta.
+
 Si es modifiquen simultàniament entrada, sortida, ordre i sizing, no podem atribuir
 la millora ni estimar-ne el cost de selecció. Si cap variant supera la base sota el
 contracte congelat, la decisió correcta és conservar la base o descartar-la.
@@ -126,6 +133,7 @@ contracte congelat, la decisió correcta és conservar la base o descartar-la.
 - [ ] costos preliminars inclosos;
 - [ ] una sola raó preregistrada per avançar a Retester.
 - [ ] si s'usa Improver, base, parts modificables i pressupost de variants congelats.
+- [ ] el lint semàntic confirma parts congelades i cap senyal constant.
 
 ## Errors que l'expert ha de detectar
 
@@ -139,6 +147,8 @@ contracte congelat, la decisió correcta és conservar la base o descartar-la.
 8. Donar per executat un pressupost perquè apareix al manifest.
 9. Dir «he millorat l'estratègia» comparant només la millor variant sobre les
    mateixes dades que l'han seleccionada.
+10. Acceptar una variant perquè manté benefici quan l'Improver ha desactivat una
+    regla amb una constant i el resultat sobreviu gràcies a altres exits.
 
 Fonts: `sq_official_data_settings_20190109`,
 `sq_official_what_to_build_20190109`, `sq_official_building_blocks_20190226`,
@@ -146,3 +156,4 @@ Fonts: `sq_official_data_settings_20190109`,
 Modes i Improver: `sq_official_build_modes_20190122` i
 `sq_official_workflow_20190130`.
 Cas local: `sq_local_sqx143_contract_drift_20260802`.
+Microprova Improver: `sq_local_build143_improver_20260803`.

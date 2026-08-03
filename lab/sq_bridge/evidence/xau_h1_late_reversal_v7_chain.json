@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ALQUIMIA_XAU_H1_LATE_REVERSAL_V7",
+  "hypothesis_id": "xau-h1-late-bearish-reversal-v7",
+  "market": "XAUUSD",
+  "capital_usdc": 200,
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "methodology_sha256": "ea4c6512d10f21e9550789615c41eb8b12228916ac668373fbb3afc9f905aeab",
+  "provenance": "alquimia_native",
+  "legacy_quantitative_inputs": [],
+  "receipts": [
+    {
+      "stage": "market_preflight",
+      "decision": "PASS",
+      "artifact": "lab/sq_bridge/ostium_markets_xau_h1.json",
+      "artifact_sha256": "cf1c7ec78ea970634d2e1219d8c390c18eba728da37265e737da4a2d6a172ded",
+      "candidate_ids": [
+        "XAU_H1_LATE_REVERSAL_V7"
+      ],
+      "holdout_accessed": false,
+      "translation_exact": null,
+      "parity_pass": null,
+      "previous_receipt_sha256": null,
+      "receipt_sha256": "309a4d4753dc9989abb504bcf34af0cb4dfa5a6cf81156896d84567068ab15d6"
+    },
+    {
+      "stage": "discovery",
+      "decision": "PASS",
+      "artifact": "lab/sq_bridge/evidence/xau_h1_late_reversal_v7_train.json",
+      "artifact_sha256": "3ea4833ac684792a1b05299aa7d3370e6c55d3f4903ecdc8a9eea6dc08a8e7a9",
+      "candidate_ids": [
+        "XAU_H1_LATE_REVERSAL_V7"
+      ],
+      "holdout_accessed": false,
+      "translation_exact": null,
+      "parity_pass": null,
+      "previous_receipt_sha256": "309a4d4753dc9989abb504bcf34af0cb4dfa5a6cf81156896d84567068ab15d6",
+      "receipt_sha256": "4dcdb7ff86e05c72ef222d32f729764f91849a91fb7000b824ee413043dc2422"
+    },
+    {
+      "stage": "temporal_validation",
+      "decision": "REJECT",
+      "artifact": "lab/sq_bridge/evidence/xau_h1_late_reversal_v7_validation.json",
+      "artifact_sha256": "0dc7655d3da50b26a3f9134c405883a0788f841238d4bbc09ba38c242bb5801f",
+      "candidate_ids": [
+        "XAU_H1_LATE_REVERSAL_V7"
+      ],
+      "holdout_accessed": false,
+      "translation_exact": null,
+      "parity_pass": null,
+      "previous_receipt_sha256": "4dcdb7ff86e05c72ef222d32f729764f91849a91fb7000b824ee413043dc2422",
+      "receipt_sha256": "c96e530dd7ef118cec25756c7d3f8aef047c1c280f30dc59448af7843a8bf365"
+    }
+  ],
+  "live_authorized": false
+}

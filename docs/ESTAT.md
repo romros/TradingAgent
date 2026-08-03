@@ -41,6 +41,14 @@ combinada perden en base. **V5 rebutjada** sense obrir validation/OOS/holdout ni
 executar 5.000 optimitzacions SQ. Cadena SHA-256 terminal a
 `lab/sq_bridge/evidence/xau_h4_sweep_reclaim_v5_chain.json`.
 
+**Alquímia XAU H1 v6–v7:** v6 va preregistrar desplaçament continuació/reversió
+per costat, sis blocs UTC, dies, ATR i durada: 5.184 punts train, 0 PASS d'estrès
+i 0 regions estables. L'auditoria de barres va descobrir una regla tardana long
+amb edge train després d'exigir ≥50 M1 observades; es va congelar com v7 amb
+biaix de selecció declarat. Train: 55 trades, PF estrès 1,84 i 7/10 anys positius.
+Validació independent 2015–2019: 20 trades, PF base 2,27 però PF estrès 0,85,
+−0,43% i 2/5 anys positius. **V6 i v7 rebutjades**; OOS/holdout intactes.
+
 ### Fase: PAPER PROBE — T7 en curs (≥4 setmanes, inici 2026-03-16)
 
 **Setup actiu**: `capitulation_d1` — MSFT (primari), NVDA, NDXUSD (complementari, paper: QQQ proxy)
@@ -203,3 +211,4 @@ Veure `lab/docs/T6E_DECISIO_D1_ASSETS.md` i `lab/docs/D1_GATE_CRITERIA.md`.
 | 2026-08-02 | **Risk glidepath**: risc 1,5% sota 400 USDC i reducció escalonada fins 0,5% sobre 5.000. MSFT+NVDA conservador: 200→303,23 en 23,05 anys, DD 4,67%, sense arribar a 400; confirma que falten edges independents. |
 | 2026-08-02 | **EURUSD intradia v2**: 549.497 M15 Dukascopy, DST Londres/NY, 10 pilots. Breakout asiàtic PF base val/OOS 0,31/0,22; expansió continuació 0,11/0,06; reversió 0,07/0,06. `REJECT_NO_SQCLI`, holdout segellat. |
 | 2026-08-03 | **Alquímia v3 + sweep/reclaim v4–v5**: contracte natiu amb rebuts SHA-256 i holdout segellat. V4 genera 20 SQX però 0 passen semàntica; v5 executa seed fix real i 1.350 punts Dukascopy, amb 0 PASS d'estrès. Cadena terminal verificada; 171 tests + 4 subtests PASS. |
+| 2026-08-03 | **XAU H1 displacement v6–v7**: 5.184 punts per mecanisme/costat/hora/dia. V6 sense regió; v7 tardana congelada passa train però falla validació en estrès (PF 0,85). OOS/holdout no consultats. |

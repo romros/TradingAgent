@@ -32,6 +32,9 @@ antigues més enllà d'exemples tècnics.
 - V5 seed semàntic: smoke SQ real completat; preflight Dukascopy train-only de
   1.350 punts, 0 PASS d'estrès i 0 regions estables; rebuig terminal verificat.
 - Validation, OOS i holdout v5 no s'han consultat.
+- V6 XAU H1: 5.184 punts train i 0 regions estables; rebuig terminal.
+- V7 congelada: discovery PASS però validació independent REJECT (PF estrès
+  0,85); OOS i holdout no consultats. Cadena terminal verificada.
 
 L'objectiu global **encara no està complet**: falta que una candidata v3 real
 superi els gates fins a paper, o evidència suficient que la metodologia funciona

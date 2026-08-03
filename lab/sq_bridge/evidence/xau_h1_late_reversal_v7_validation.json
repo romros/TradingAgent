@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "hypothesis_id": "xau-h1-late-bearish-reversal-v7",
+  "stage": "independent_temporal_validation",
+  "parameters_frozen": true,
+  "selection_bias_acknowledged": true,
+  "sample_from": "2015-02-07",
+  "sample_to_exclusive": "2019-07-17",
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "coverage": {
+    "source": "BrokerageService Dukascopy XAUUSD M1 parquet",
+    "alignment": "UTC H1 buckets",
+    "from": "2014-11-01",
+    "to_exclusive": "2019-07-17",
+    "h1_bars": 27909,
+    "full_60_minute_bars": 26989,
+    "sparse_bars_retained": 920,
+    "sparse_bar_policy": "retain to match BrokerageService/SQ aggregation",
+    "first_bar": "2014-11-02T23:00:00+00:00",
+    "last_bar": "2019-07-16T23:00:00+00:00",
+    "source_fingerprint": "42c7aba8f86b07eed5592c56077cd4233f1191401f79c4fc2ab35d460cc31aab"
+  },
+  "cost_scenarios": [
+    {
+      "name": "base",
+      "roundtrip_bps": 8.0,
+      "annual_funding_pct": 4.0
+    },
+    {
+      "name": "conservative",
+      "roundtrip_bps": 12.0,
+      "annual_funding_pct": 8.0
+    },
+    {
+      "name": "stress",
+      "roundtrip_bps": 20.0,
+      "annual_funding_pct": 12.0
+    }
+  ],
+  "metrics": {
+    "base": {
+      "trades": 20,
+      "profit_factor": 2.269623,
+      "expectancy_bps": 10.689672,
+      "compound_return_pct": 2.147515,
+      "max_drawdown_pct": 1.011495,
+      "positive_year_ratio": 0.8,
+      "years_observed": 5,
+      "max_mae_pct": 0.855487,
+      "ambiguous_h4_exits": 0
+    },
+    "conservative": {
+      "trades": 20,
+      "profit_factor": 1.630989,
+      "expectancy_bps": 6.28812,
+      "compound_return_pct": 1.253183,
+      "max_drawdown_pct": 1.465934,
+      "positive_year_ratio": 0.8,
+      "years_observed": 5,
+      "max_mae_pct": 0.855487,
+      "ambiguous_h4_exits": 0
+    },
+    "stress": {
+      "trades": 20,
+      "profit_factor": 0.848357,
+      "expectancy_bps": -2.113431,
+      "compound_return_pct": -0.433462,
+      "max_drawdown_pct": 2.349931,
+      "positive_year_ratio": 0.4,
+      "years_observed": 5,
+      "max_mae_pct": 0.855487,
+      "ambiguous_h4_exits": 0
+    }
+  },
+  "gate": {
+    "minimum_trades": 15,
+    "minimum_stress_profit_factor": 1.15,
+    "minimum_positive_year_ratio": 0.6,
+    "maximum_stress_drawdown_pct": 15
+  },
+  "checks": {
+    "minimum_trades": true,
+    "stress_profit_factor": false,
+    "positive_year_ratio": false,
+    "maximum_drawdown": true
+  },
+  "verdict": "REJECT_FAMILY_V7",
+  "family_sha256": "7f493d0ceb78fffd6a2c3afdd9501bce28037d255205cab81049fc89eb6307ae"
+}

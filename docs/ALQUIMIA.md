@@ -363,6 +363,23 @@ ordre intrabar ambigu; M1 no pot rescatar aquest deteriorament. Short i combinad
 ja són negatives en base. Decisió terminal `REJECT_FAMILY_V5`; validation, OOS i
 holdout continuen segellats. L'Optimizer existeix però deliberadament no s'executa.
 
+### Desplaçament H1 i reversió tardana v6–v7 (2026-08-03)
+
+V6 prova una hipòtesi independent sobre 71.257 H1 Dukascopy: barres expansives
+que tanquen a l'extrem, continuació o reversió, long/short/combinada, sis blocs
+UTC, dies de la setmana, ATR14/28 i sortides 1/2/4/8 hores. S'executen 5.184
+punts pre-registrats: 0 passen el gate d'estrès i cap punt té una regió estable.
+
+La diagnosi separa barres escasses i detecta una possible reversió long després
+d'un desplaçament baixista entre 20–24 UTC. Com que la regla deriva del train,
+es congela com v7 i es declara explícitament el biaix de selecció; no s'optimitza.
+Amb ≥50 M1 observades al senyal i entrada, train dóna 55 trades, PF estrès 1,84,
++6,10% i 7/10 anys positius. A la validació independent 2015-02-07–2019-07-16,
+però, només conserva edge base: 20 trades, PF base 2,27; amb estrès PF 0,85,
+−0,43% i 2/5 anys positius. V7 queda terminalment rebutjada sense consultar OOS
+ni holdout. La diferència confirma que un edge d'uns 10,7 bps/trade no té marge
+suficient per al pressupost conservador de costos d'Ostium.
+
 ## Pilot anterior
 
 - `TA_SQ_PILOT`, original `NVIDIA` intacte.

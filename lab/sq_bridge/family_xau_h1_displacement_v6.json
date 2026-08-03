@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "family_id": "xau_h1_displacement_session_v6",
+  "hypothesis_id": "xau-h1-displacement-session-v6",
+  "hypothesis": "An unusually large XAUUSD H1 bar that closes near its extreme reflects either information-driven continuation or short-lived exhaustion; direction, liquid-session block and holding horizon determine which mechanism is present.",
+  "market": "XAUUSD",
+  "timeframe": "H1",
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "implementation_origin": "alquimia_native",
+  "legacy_quantitative_inputs": [],
+  "predecessor_role": "Independent mechanism after terminal sweep/reclaim v5; no v5 metric or parameter is reused.",
+  "fixed_structure": {
+    "event": "H1 true range >= expansion_multiple * Wilder ATR known at prior close",
+    "bullish_close": "close location >= 0.8 and close > open",
+    "bearish_close": "close location <= 0.2 and close < open",
+    "entry": "next H1 open",
+    "exit": "time exit with 1.5 ATR catastrophe stop",
+    "lookahead_forbidden": true
+  },
+  "pre_registered_grid": {
+    "mechanism": ["continuation", "reversal"],
+    "side": ["long", "short", "both"],
+    "utc_session_start": [0, 4, 8, 12, 16, 20],
+    "weekday": ["all", 0, 1, 2, 3, 4],
+    "expansion_atr": [1.0, 1.5, 2.0],
+    "holding_hours": [1, 2, 4, 8],
+    "atr_period": [14, 28],
+    "stop_atr": 1.5,
+    "maximum_points": 5184,
+    "selection": "stable_parameter_region_not_single_best_point"
+  },
+  "periods": {
+    "train_from": "2004-01-01",
+    "train_to": "2015-02-06",
+    "validation_from": "2015-02-07",
+    "validation_to": "2019-07-16",
+    "oos_from": "2019-07-17",
+    "oos_to": "2023-12-23",
+    "holdout_from": "2023-12-24",
+    "holdout_to": "2026-03-13"
+  },
+  "pre_registered_falsifiers": {
+    "minimum_train_trades": 50,
+    "minimum_base_profit_factor": 1.2,
+    "minimum_stress_profit_factor": 1.05,
+    "minimum_positive_year_ratio": 0.6,
+    "minimum_passing_orthogonal_neighbours": 2,
+    "holdout_sealed": true
+  },
+  "holdout_release_authorized": false
+}

@@ -50,6 +50,26 @@ Resultat congelat: 1.350 punts, 0 PASS d'estrès, 0 membres estables i holdout n
 consultat. Per tant v5 acaba en `REJECT_FAMILY_V5`; no s'ha executat l'Optimizer
 de 5.000 punts. El resum versionat fixa el SHA-256 de l'artifact complet ignorat.
 
+V6 amplia el preflight reutilitzable a H1 per mecanisme, direcció, hora, dia,
+expansió ATR i durada. V7 mostra com congelar una observació de train amb el
+biaix declarat i executar una única validació independent:
+
+```bash
+.venv/bin/python -m lab.sq_bridge.xau_h1_displacement_preflight \
+  --root /mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet \
+  --output lab/out/alquimia/xau_h1_displacement_v6/train_preflight.json \
+  --summary-output lab/sq_bridge/evidence/xau_h1_displacement_v6_train_summary.json
+
+.venv/bin/python -m lab.sq_bridge.xau_h1_late_reversal_v7 \
+  --stage validation \
+  --root /mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet \
+  --family lab/sq_bridge/family_xau_h1_late_reversal_v7.json \
+  --output lab/sq_bridge/evidence/xau_h1_late_reversal_v7_validation.json
+```
+
+V6 acaba sense regió estable. V7 passa train però falla validació amb costos
+d'estrès; ambdues cadenes són terminals i no consulten OOS ni holdout.
+
 ```bash
 cd lab/sq_bridge
 python3 test_sq_campaign.py

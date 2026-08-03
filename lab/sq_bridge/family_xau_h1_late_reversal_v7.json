@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "family_id": "xau_h1_late_bearish_reversal_v7_frozen",
+  "hypothesis_id": "xau-h1-late-bearish-reversal-v7",
+  "hypothesis": "A liquid late-UTC bearish XAUUSD displacement can overshoot as daily liquidity thins, followed by a short-lived long reversion after the bar closes.",
+  "market": "XAUUSD",
+  "timeframe": "H1",
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "implementation_origin": "alquimia_native",
+  "legacy_quantitative_inputs": [],
+  "provenance": {
+    "role": "train-derived frozen finalist from v6; requires strict independent validation",
+    "source_train_artifact": "lab/out/alquimia/xau_h1_displacement_v6/train_preflight.json",
+    "source_train_holdout_accessed": false,
+    "selection_bias_acknowledged": true
+  },
+  "frozen_rule": {
+    "direction": "long only",
+    "event": "bearish H1 range >= 1.5 * prior Wilder ATR(28), close in bottom 20%",
+    "signal_session_utc": "20:00 through 23:59",
+    "data_quality": "signal and next-entry H1 each contain at least 50 observed M1 candles",
+    "weekdays": "all market-open days",
+    "entry": "next H1 open",
+    "stop": "1.5 * prior ATR(28)",
+    "exit": "close after 4 H1 bars",
+    "parameter_optimization": false
+  },
+  "periods": {
+    "train_from": "2004-01-01", "train_to": "2015-02-06",
+    "validation_from": "2015-02-07", "validation_to": "2019-07-16",
+    "oos_from": "2019-07-17", "oos_to": "2023-12-23",
+    "holdout_from": "2023-12-24", "holdout_to": "2026-03-13"
+  },
+  "validation_gate": {
+    "minimum_trades": 15,
+    "minimum_stress_profit_factor": 1.15,
+    "minimum_positive_year_ratio": 0.6,
+    "maximum_stress_drawdown_pct": 15
+  },
+  "holdout_release_authorized": false
+}

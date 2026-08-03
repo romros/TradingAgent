@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ALQUIMIA_XAU_H1_DISPLACEMENT_V6",
+  "hypothesis_id": "xau-h1-displacement-session-v6",
+  "market": "XAUUSD",
+  "capital_usdc": 200,
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "methodology_sha256": "ea4c6512d10f21e9550789615c41eb8b12228916ac668373fbb3afc9f905aeab",
+  "provenance": "alquimia_native",
+  "legacy_quantitative_inputs": [],
+  "receipts": [
+    {
+      "stage": "market_preflight",
+      "decision": "PASS",
+      "artifact": "lab/sq_bridge/ostium_markets_xau_h1.json",
+      "artifact_sha256": "cf1c7ec78ea970634d2e1219d8c390c18eba728da37265e737da4a2d6a172ded",
+      "candidate_ids": [
+        "XAU_H1_DISPLACEMENT_V6"
+      ],
+      "holdout_accessed": false,
+      "translation_exact": null,
+      "parity_pass": null,
+      "previous_receipt_sha256": null,
+      "receipt_sha256": "d51fc71fa36e38b5e956e9c36a196868cf16383fc17de9413f35e038d513e362"
+    },
+    {
+      "stage": "discovery",
+      "decision": "REJECT",
+      "artifact": "lab/sq_bridge/evidence/xau_h1_displacement_v6_train_summary.json",
+      "artifact_sha256": "a7bb088cf2ff57ab0d830f0fbee2ec53c07150465a81078d459c8cb7fdc538c5",
+      "candidate_ids": [
+        "XAU_H1_DISPLACEMENT_V6"
+      ],
+      "holdout_accessed": false,
+      "translation_exact": null,
+      "parity_pass": null,
+      "previous_receipt_sha256": "d51fc71fa36e38b5e956e9c36a196868cf16383fc17de9413f35e038d513e362",
+      "receipt_sha256": "b1f2710db061a5ec67ae427cc7fd92cd5cb481d88dc9372c8222886dd843650d"
+    }
+  ],
+  "live_authorized": false
+}

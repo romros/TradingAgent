@@ -1,0 +1,951 @@
+{
+  "schema_version": 1,
+  "experiment": "xau_h1_displacement_session_v6_train",
+  "decision_scope": "train-only falsification; cannot promote to paper or live",
+  "holdout_accessed": false,
+  "coverage": {
+    "source": "BrokerageService Dukascopy XAUUSD M1 parquet",
+    "alignment": "UTC H1 buckets",
+    "from": "2004-01-01",
+    "to_exclusive": "2015-02-07",
+    "h1_bars": 71257,
+    "full_60_minute_bars": 44252,
+    "sparse_bars_retained": 27005,
+    "sparse_bar_policy": "retain to match BrokerageService/SQ aggregation",
+    "first_bar": "2004-01-01T00:00:00+00:00",
+    "last_bar": "2015-02-06T21:00:00+00:00",
+    "source_fingerprint": "2475e3a3217d41fcbab4a82a10ca1a9fc708cb5f68652264939435f384a95628"
+  },
+  "cost_scenarios": [
+    {
+      "name": "base",
+      "roundtrip_bps": 8.0,
+      "annual_funding_pct": 4.0
+    },
+    {
+      "name": "conservative",
+      "roundtrip_bps": 12.0,
+      "annual_funding_pct": 8.0
+    },
+    {
+      "name": "stress",
+      "roundtrip_bps": 20.0,
+      "annual_funding_pct": 12.0
+    }
+  ],
+  "grid_points": 5184,
+  "stress_gate_passes": 0,
+  "stable_region_members": 0,
+  "verdict": "REJECT_FAMILY_V6",
+  "top_stable": [],
+  "best_by_scenario_mechanism_side": {
+    "base": {
+      "continuation_long": {
+        "parameters": {
+          "mechanism": "continuation",
+          "side": "long",
+          "session_start_utc": 16,
+          "weekday": 2,
+          "expansion_atr": 1.5,
+          "holding_hours": 2,
+          "atr_period": 14,
+          "stop_atr": 1.5
+        },
+        "metrics": {
+          "base": {
+            "trades": 64,
+            "profit_factor": 1.685531,
+            "expectancy_bps": 7.732511,
+            "compound_return_pct": 5.009788,
+            "max_drawdown_pct": 1.514423,
+            "positive_year_ratio": 0.583333,
+            "years_observed": 12,
+            "max_mae_pct": 0.961929,
+            "ambiguous_h4_exits": 0
+          },
+          "conservative": {
+            "trades": 64,
+            "profit_factor": 1.279498,
+            "expectancy_bps": 3.644101,
+            "compound_return_pct": 2.299241,
+            "max_drawdown_pct": 1.956457,
+            "positive_year_ratio": 0.583333,
+            "years_observed": 12,
+            "max_mae_pct": 0.961929,
+            "ambiguous_h4_exits": 0
+          },
+          "stress": {
+            "trades": 64,
+            "profit_factor": 0.743453,
+            "expectancy_bps": -4.444309,
+            "compound_return_pct": -2.861915,
+            "max_drawdown_pct": 5.01339,
+            "positive_year_ratio": 0.166667,
+            "years_observed": 12,
+            "max_mae_pct": 0.961929,
+            "ambiguous_h4_exits": 0
+          }
+        },
+        "passes_stress_gate": false,
+        "passing_orthogonal_neighbours": 0,
+        "stable_region_member": false
+      },
+      "continuation_short": {
+        "parameters": {
+          "mechanism": "continuation",
+          "side": "short",
+          "session_start_utc": 8,
+          "weekday": 1,
+          "expansion_atr": 1.5,
+          "holding_hours": 2,
+          "atr_period": 28,
+          "stop_atr": 1.5
+        },
+        "metrics": {
+          "base": {
+            "trades": 73,
+            "profit_factor": 1.525355,
+            "expectancy_bps": 7.058055,
+            "compound_return_pct": 5.188397,
+            "max_drawdown_pct": 2.769431,
+            "positive_year_ratio": 0.666667,
+            "years_observed": 12,
+            "max_mae_pct": 1.349376,
+            "ambiguous_h4_exits": 0
+          },
+          "conservative": {
+            "trades": 73,
+            "profit_factor": 1.188917,
+            "expectancy_bps": 2.968669,
+            "compound_return_pct": 2.096124,
+            "max_drawdown_pct": 3.451612,
+            "positive_year_ratio": 0.5,
+            "years_observed": 12,
+            "max_mae_pct": 1.349376,
+            "ambiguous_h4_exits": 0
+          },
+          "stress": {
+            "trades": 73,
+            "profit_factor": 0.756711,
+            "expectancy_bps": -5.120718,
+            "compound_return_pct": -3.759097,
+            "max_drawdown_pct": 6.748648,
+            "positive_year_ratio": 0.333333,
+            "years_observed": 12,
+            "max_mae_pct": 1.349376,
+            "ambiguous_h4_exits": 0
+          }
+        },
+        "passes_stress_gate": false,
+        "passing_orthogonal_neighbours": 0,
+        "stable_region_member": false
+      },
+      "continuation_both": {
+        "parameters": {
+          "mechanism": "continuation",
+          "side": "both",
+          "session_start_utc": 0,
+          "weekday": 0,
+          "expansion_atr": 1.5,
+          "holding_hours": 8,
+          "atr_period": 28,
+          "stop_atr": 1.5
+        },
+        "metrics": {
+          "base": {
+            "trades": 66,
+            "profit_factor": 1.359186,
+            "expectancy_bps": 7.992823,
+            "compound_return_pct": 5.160145,
+            "max_drawdown_pct": 3.704858,
+            "positive_year_ratio": 0.583333,
+            "years_observed": 12,
+            "max_mae_pct": 2.108824,
+            "ambiguous_h4_exits": 0
+          },
+          "conservative": {
+            "trades": 66,
+            "profit_factor": 1.148299,
+            "expectancy_bps": 3.675481,
+            "compound_return_pct": 2.207611,
+            "max_drawdown_pct": 3.994129,
+            "positive_year_ratio": 0.5,
+            "years_observed": 12,
+            "max_mae_pct": 2.108824,
+            "ambiguous_h4_exits": 0
+          },
+          "stress": {
+            "trades": 66,
+            "profit_factor": 0.844492,
+            "expectancy_bps": -4.64186,
+            "compound_return_pct": -3.252284,
+            "max_drawdown_pct": 7.024151,
+            "positive_year_ratio": 0.333333,
+            "years_observed": 12,
+            "max_mae_pct": 2.108824,
+            "ambiguous_h4_exits": 0
+          }
+        },
+        "passes_stress_gate": false,
+        "passing_orthogonal_neighbours": 0,
+        "stable_region_member": false
+      },
+      "reversal_long": {
+        "parameters": {
+          "mechanism": "reversal",
+          "side": "long",
+          "session_start_utc": 20,
+          "weekday": "all",
+          "expansion_atr": 1.5,
+          "holding_hours": 4,
+          "atr_period": 28,
+          "stop_atr": 1.5
+        },
+        "metrics": {
+          "base": {
+            "trades": 72,
+            "profit_factor": 3.117942,
+            "expectancy_bps": 19.440569,
+            "compound_return_pct": 14.908305,
+            "max_drawdown_pct": 1.840275,
+            "positive_year_ratio": 0.666667,
+            "years_observed": 12,
+            "max_mae_pct": 0.904212,
+            "ambiguous_h4_exits": 0
+          },
+          "conservative": {
+            "trades": 72,
+            "profit_factor": 2.393872,
+            "expectancy_bps": 15.233963,
+            "compound_return_pct": 11.486279,
+            "max_drawdown_pct": 2.208572,
+            "positive_year_ratio": 0.583333,
+            "years_observed": 12,
+            "max_mae_pct": 0.904212,
+            "ambiguous_h4_exits": 0
+          },
+          "stress": {
+            "trades": 72,
+            "profit_factor": 1.465277,
+            "expectancy_bps": 7.027357,
+            "compound_return_pct": 5.096726,
+            "max_drawdown_pct": 3.786315,
+            "positive_year_ratio": 0.5,
+            "years_observed": 12,
+            "max_mae_pct": 0.904212,
+            "ambiguous_h4_exits": 0
+          }
+        },
+        "passes_stress_gate": false,
+        "passing_orthogonal_neighbours": 0,
+        "stable_region_member": false
+      },
+      "reversal_short": {
+        "parameters": {
+          "mechanism": "reversal",
+          "side": "short",
+          "session_start_utc": 4,
+          "weekday": 0,
+          "expansion_atr": 1.5,
+          "holding_hours": 4,
+          "atr_period": 28,
+          "stop_atr": 1.5
+        },
+        "metrics": {
+          "base": {
+            "trades": 57,
+            "profit_factor": 1.858825,
+            "expectancy_bps": 11.675303,
+            "compound_return_pct": 6.782339,
+            "max_drawdown_pct": 2.146023,
+            "positive_year_ratio": 0.75,
+            "years_observed": 12,
+            "max_mae_pct": 1.75632,
+            "ambiguous_h4_exits": 0
+          },
+          "conservative": {
+            "trades": 57,
+            "profit_factor": 1.484654,
+            "expectancy_bps": 7.50879,
+            "compound_return_pct": 4.278595,
+            "max_drawdown_pct": 2.632447,
+            "positive_year_ratio": 0.666667,
+            "years_observed": 12,
+            "max_mae_pct": 1.75632,
+            "ambiguous_h4_exits": 0
+          },
+          "stress": {
+            "trades": 57,
+            "profit_factor": 0.966374,
+            "expectancy_bps": -0.657722,
+            "compound_return_pct": -0.46273,
+            "max_drawdown_pct": 3.581898,
+            "positive_year_ratio": 0.416667,
+            "years_observed": 12,
+            "max_mae_pct": 1.75632,
+            "ambiguous_h4_exits": 0
+          }
+        },
+        "passes_stress_gate": false,
+        "passing_orthogonal_neighbours": 0,
+        "stable_region_member": false
+      },
+      "reversal_both": {
+        "parameters": {
+          "mechanism": "reversal",
+          "side": "both",
+          "session_start_utc": 20,
+          "weekday": 2,
+          "expansion_atr": 1.0,
+          "holding_hours": 4,
+          "atr_period": 14,
+          "stop_atr": 1.5
+        },
+        "metrics": {
+          "base": {
+            "trades": 72,
+            "profit_factor": 2.11058,
+            "expectancy_bps": 11.507268,
+            "compound_return_pct": 8.546548,
+            "max_drawdown_pct": 1.825291,
+            "positive_year_ratio": 0.583333,
+            "years_observed": 12,
+            "max_mae_pct": 0.579701,
+            "ambiguous_h4_exits": 0
+          },
+          "conservative": {
+            "trades": 72,
+            "profit_factor": 1.586737,
+            "expectancy_bps": 7.327914,
+            "compound_return_pct": 5.331818,
+            "max_drawdown_pct": 2.357617,
+            "positive_year_ratio": 0.583333,
+            "years_observed": 12,
+            "max_mae_pct": 0.579701,
+            "ambiguous_h4_exits": 0
+          },
+          "stress": {
+            "trades": 72,
+            "profit_factor": 0.950048,
+            "expectancy_bps": -0.851441,
+            "compound_return_pct": -0.690415,
+            "max_drawdown_pct": 3.934224,
+            "positive_year_ratio": 0.583333,
+            "years_observed": 12,
+            "max_mae_pct": 0.579701,
+            "ambiguous_h4_exits": 0
+          }
+        },
+        "passes_stress_gate": false,
+        "passing_orthogonal_neighbours": 0,
+        "stable_region_member": false
+      }
+    },
+    "conservative": {
+      "continuation_long": {
+        "parameters": {
+          "mechanism": "continuation",
+          "side": "long",
+          "session_start_utc": 16,
+          "weekday": 2,
+          "expansion_atr": 1.5,
+          "holding_hours": 2,
+          "atr_period": 14,
+          "stop_atr": 1.5
+        },
+        "metrics": {
+          "base": {
+            "trades": 64,
+            "profit_factor": 1.685531,
+            "expectancy_bps": 7.732511,
+            "compound_return_pct": 5.009788,
+            "max_drawdown_pct": 1.514423,
+            "positive_year_ratio": 0.583333,
+            "years_observed": 12,
+            "max_mae_pct": 0.961929,
+            "ambiguous_h4_exits": 0
+          },
+          "conservative": {
+            "trades": 64,
+            "profit_factor": 1.279498,
+            "expectancy_bps": 3.644101,
+            "compound_return_pct": 2.299241,
+            "max_drawdown_pct": 1.956457,
+            "positive_year_ratio": 0.583333,
+            "years_observed": 12,
+            "max_mae_pct": 0.961929,
+            "ambiguous_h4_exits": 0
+          },
+          "stress": {
+            "trades": 64,
+            "profit_factor": 0.743453,
+            "expectancy_bps": -4.444309,
+            "compound_return_pct": -2.861915,
+            "max_drawdown_pct": 5.01339,
+            "positive_year_ratio": 0.166667,
+            "years_observed": 12,
+            "max_mae_pct": 0.961929,
+            "ambiguous_h4_exits": 0
+          }
+        },
+        "passes_stress_gate": false,
+        "passing_orthogonal_neighbours": 0,
+        "stable_region_member": false
+      },
+      "continuation_short": {
+        "parameters": {
+          "mechanism": "continuation",
+          "side": "short",
+          "session_start_utc": 4,
+          "weekday": 1,
+          "expansion_atr": 1.0,
+          "holding_hours": 8,
+          "atr_period": 28,
+          "stop_atr": 1.5
+        },
+        "metrics": {
+          "base": {
+            "trades": 105,
+            "profit_factor": 1.463254,
+            "expectancy_bps": 13.565872,
+            "compound_return_pct": 14.813938,
+            "max_drawdown_pct": 6.036801,
+            "positive_year_ratio": 0.75,
+            "years_observed": 12,
+            "max_mae_pct": 1.899756,
+            "ambiguous_h4_exits": 0
+          },
+          "conservative": {
+            "trades": 105,
+            "profit_factor": 1.292073,
+            "expectancy_bps": 9.282091,
+            "compound_return_pct": 9.769923,
+            "max_drawdown_pct": 7.043068,
+            "positive_year_ratio": 0.666667,
+            "years_observed": 12,
+            "max_mae_pct": 1.899756,
+            "ambiguous_h4_exits": 0
+          },
+          "stress": {
+            "trades": 105,
+            "profit_factor": 1.027118,
+            "expectancy_bps": 0.998311,
+            "compound_return_pct": 0.629982,
+            "max_drawdown_pct": 9.347552,
+            "positive_year_ratio": 0.416667,
+            "years_observed": 12,
+            "max_mae_pct": 1.899756,
+            "ambiguous_h4_exits": 0
+          }
+        },
+        "passes_stress_gate": false,
+        "passing_orthogonal_neighbours": 0,
+        "stable_region_member": false
+      },
+      "continuation_both": {
+        "parameters": {
+          "mechanism": "continuation",
+          "side": "both",
+          "session_start_utc": 8,
+          "weekday": 3,
+          "expansion_atr": 1.5,
+          "holding_hours": 8,
+          "atr_period": 14,
+          "stop_atr": 1.5
+        },
+        "metrics": {
+          "base": {
+            "trades": 109,
+            "profit_factor": 1.343644,
+            "expectancy_bps": 9.45104,
+            "compound_return_pct": 10.477434,
+            "max_drawdown_pct": 4.764916,
+            "positive_year_ratio": 0.583333,
+            "years_observed": 12,
+            "max_mae_pct": 2.110728,
+            "ambiguous_h4_exits": 0
+          },
+          "conservative": {
+            "trades": 109,
+            "profit_factor": 1.173706,
+            "expectancy_bps": 5.180186,
+            "compound_return_pct": 5.45626,
+            "max_drawdown_pct": 6.544581,
+            "positive_year_ratio": 0.5,
+            "years_observed": 12,
+            "max_mae_pct": 2.110728,
+            "ambiguous_h4_exits": 0
+          },
+          "stress": {
+            "trades": 109,
+            "profit_factor": 0.910456,
+            "expectancy_bps": -3.090669,
+            "compound_return_pct": -3.633949,
+            "max_drawdown_pct": 10.493795,
+            "positive_year_ratio": 0.416667,
+            "years_observed": 12,
+            "max_mae_pct": 2.110728,
+            "ambiguous_h4_exits": 0
+          }
+        },
+        "passes_stress_gate": false,
+        "passing_orthogonal_neighbours": 0,
+        "stable_region_member": false
+      },
+      "reversal_long": {
+        "parameters": {
+          "mechanism": "reversal",
+          "side": "long",
+          "session_start_utc": 20,
+          "weekday": "all",
+          "expansion_atr": 1.5,
+          "holding_hours": 4,
+          "atr_period": 28,
+          "stop_atr": 1.5
+        },
+        "metrics": {
+          "base": {
+            "trades": 72,
+            "profit_factor": 3.117942,
+            "expectancy_bps": 19.440569,
+            "compound_return_pct": 14.908305,
+            "max_drawdown_pct": 1.840275,
+            "positive_year_ratio": 0.666667,
+            "years_observed": 12,
+            "max_mae_pct": 0.904212,
+            "ambiguous_h4_exits": 0
+          },
+          "conservative": {
+            "trades": 72,
+            "profit_factor": 2.393872,
+            "expectancy_bps": 15.233963,
+            "compound_return_pct": 11.486279,
+            "max_drawdown_pct": 2.208572,
+            "positive_year_ratio": 0.583333,
+            "years_observed": 12,
+            "max_mae_pct": 0.904212,
+            "ambiguous_h4_exits": 0
+          },
+          "stress": {
+            "trades": 72,
+            "profit_factor": 1.465277,
+            "expectancy_bps": 7.027357,
+            "compound_return_pct": 5.096726,
+            "max_drawdown_pct": 3.786315,
+            "positive_year_ratio": 0.5,
+            "years_observed": 12,
+            "max_mae_pct": 0.904212,
+            "ambiguous_h4_exits": 0
+          }
+        },
+        "passes_stress_gate": false,
+        "passing_orthogonal_neighbours": 0,
+        "stable_region_member": false
+      },
+      "reversal_short": {
+        "parameters": {
+          "mechanism": "reversal",
+          "side": "short",
+          "session_start_utc": 4,
+          "weekday": 0,
+          "expansion_atr": 1.5,
+          "holding_hours": 4,
+          "atr_period": 28,
+          "stop_atr": 1.5
+        },
+        "metrics": {
+          "base": {
+            "trades": 57,
+            "profit_factor": 1.858825,
+            "expectancy_bps": 11.675303,
+            "compound_return_pct": 6.782339,
+            "max_drawdown_pct": 2.146023,
+            "positive_year_ratio": 0.75,
+            "years_observed": 12,
+            "max_mae_pct": 1.75632,
+            "ambiguous_h4_exits": 0
+          },
+          "conservative": {
+            "trades": 57,
+            "profit_factor": 1.484654,
+            "expectancy_bps": 7.50879,
+            "compound_return_pct": 4.278595,
+            "max_drawdown_pct": 2.632447,
+            "positive_year_ratio": 0.666667,
+            "years_observed": 12,
+            "max_mae_pct": 1.75632,
+            "ambiguous_h4_exits": 0
+          },
+          "stress": {
+            "trades": 57,
+            "profit_factor": 0.966374,
+            "expectancy_bps": -0.657722,
+            "compound_return_pct": -0.46273,
+            "max_drawdown_pct": 3.581898,
+            "positive_year_ratio": 0.416667,
+            "years_observed": 12,
+            "max_mae_pct": 1.75632,
+            "ambiguous_h4_exits": 0
+          }
+        },
+        "passes_stress_gate": false,
+        "passing_orthogonal_neighbours": 0,
+        "stable_region_member": false
+      },
+      "reversal_both": {
+        "parameters": {
+          "mechanism": "reversal",
+          "side": "both",
+          "session_start_utc": 20,
+          "weekday": 2,
+          "expansion_atr": 1.0,
+          "holding_hours": 4,
+          "atr_period": 14,
+          "stop_atr": 1.5
+        },
+        "metrics": {
+          "base": {
+            "trades": 72,
+            "profit_factor": 2.11058,
+            "expectancy_bps": 11.507268,
+            "compound_return_pct": 8.546548,
+            "max_drawdown_pct": 1.825291,
+            "positive_year_ratio": 0.583333,
+            "years_observed": 12,
+            "max_mae_pct": 0.579701,
+            "ambiguous_h4_exits": 0
+          },
+          "conservative": {
+            "trades": 72,
+            "profit_factor": 1.586737,
+            "expectancy_bps": 7.327914,
+            "compound_return_pct": 5.331818,
+            "max_drawdown_pct": 2.357617,
+            "positive_year_ratio": 0.583333,
+            "years_observed": 12,
+            "max_mae_pct": 0.579701,
+            "ambiguous_h4_exits": 0
+          },
+          "stress": {
+            "trades": 72,
+            "profit_factor": 0.950048,
+            "expectancy_bps": -0.851441,
+            "compound_return_pct": -0.690415,
+            "max_drawdown_pct": 3.934224,
+            "positive_year_ratio": 0.583333,
+            "years_observed": 12,
+            "max_mae_pct": 0.579701,
+            "ambiguous_h4_exits": 0
+          }
+        },
+        "passes_stress_gate": false,
+        "passing_orthogonal_neighbours": 0,
+        "stable_region_member": false
+      }
+    },
+    "stress": {
+      "continuation_long": {
+        "parameters": {
+          "mechanism": "continuation",
+          "side": "long",
+          "session_start_utc": 8,
+          "weekday": 3,
+          "expansion_atr": 1.5,
+          "holding_hours": 8,
+          "atr_period": 14,
+          "stop_atr": 1.5
+        },
+        "metrics": {
+          "base": {
+            "trades": 64,
+            "profit_factor": 1.452383,
+            "expectancy_bps": 11.417607,
+            "compound_return_pct": 7.396441,
+            "max_drawdown_pct": 4.221769,
+            "positive_year_ratio": 0.666667,
+            "years_observed": 12,
+            "max_mae_pct": 2.010669,
+            "ambiguous_h4_exits": 0
+          },
+          "conservative": {
+            "trades": 64,
+            "profit_factor": 1.260838,
+            "expectancy_bps": 7.145961,
+            "compound_return_pct": 4.503016,
+            "max_drawdown_pct": 4.968338,
+            "positive_year_ratio": 0.666667,
+            "years_observed": 12,
+            "max_mae_pct": 2.010669,
+            "ambiguous_h4_exits": 0
+          },
+          "stress": {
+            "trades": 64,
+            "profit_factor": 0.964496,
+            "expectancy_bps": -1.125685,
+            "compound_return_pct": -0.883685,
+            "max_drawdown_pct": 7.52222,
+            "positive_year_ratio": 0.583333,
+            "years_observed": 12,
+            "max_mae_pct": 2.010669,
+            "ambiguous_h4_exits": 0
+          }
+        },
+        "passes_stress_gate": false,
+        "passing_orthogonal_neighbours": 0,
+        "stable_region_member": false
+      },
+      "continuation_short": {
+        "parameters": {
+          "mechanism": "continuation",
+          "side": "short",
+          "session_start_utc": 4,
+          "weekday": 1,
+          "expansion_atr": 1.0,
+          "holding_hours": 8,
+          "atr_period": 28,
+          "stop_atr": 1.5
+        },
+        "metrics": {
+          "base": {
+            "trades": 105,
+            "profit_factor": 1.463254,
+            "expectancy_bps": 13.565872,
+            "compound_return_pct": 14.813938,
+            "max_drawdown_pct": 6.036801,
+            "positive_year_ratio": 0.75,
+            "years_observed": 12,
+            "max_mae_pct": 1.899756,
+            "ambiguous_h4_exits": 0
+          },
+          "conservative": {
+            "trades": 105,
+            "profit_factor": 1.292073,
+            "expectancy_bps": 9.282091,
+            "compound_return_pct": 9.769923,
+            "max_drawdown_pct": 7.043068,
+            "positive_year_ratio": 0.666667,
+            "years_observed": 12,
+            "max_mae_pct": 1.899756,
+            "ambiguous_h4_exits": 0
+          },
+          "stress": {
+            "trades": 105,
+            "profit_factor": 1.027118,
+            "expectancy_bps": 0.998311,
+            "compound_return_pct": 0.629982,
+            "max_drawdown_pct": 9.347552,
+            "positive_year_ratio": 0.416667,
+            "years_observed": 12,
+            "max_mae_pct": 1.899756,
+            "ambiguous_h4_exits": 0
+          }
+        },
+        "passes_stress_gate": false,
+        "passing_orthogonal_neighbours": 0,
+        "stable_region_member": false
+      },
+      "continuation_both": {
+        "parameters": {
+          "mechanism": "continuation",
+          "side": "both",
+          "session_start_utc": 8,
+          "weekday": 3,
+          "expansion_atr": 1.5,
+          "holding_hours": 8,
+          "atr_period": 14,
+          "stop_atr": 1.5
+        },
+        "metrics": {
+          "base": {
+            "trades": 109,
+            "profit_factor": 1.343644,
+            "expectancy_bps": 9.45104,
+            "compound_return_pct": 10.477434,
+            "max_drawdown_pct": 4.764916,
+            "positive_year_ratio": 0.583333,
+            "years_observed": 12,
+            "max_mae_pct": 2.110728,
+            "ambiguous_h4_exits": 0
+          },
+          "conservative": {
+            "trades": 109,
+            "profit_factor": 1.173706,
+            "expectancy_bps": 5.180186,
+            "compound_return_pct": 5.45626,
+            "max_drawdown_pct": 6.544581,
+            "positive_year_ratio": 0.5,
+            "years_observed": 12,
+            "max_mae_pct": 2.110728,
+            "ambiguous_h4_exits": 0
+          },
+          "stress": {
+            "trades": 109,
+            "profit_factor": 0.910456,
+            "expectancy_bps": -3.090669,
+            "compound_return_pct": -3.633949,
+            "max_drawdown_pct": 10.493795,
+            "positive_year_ratio": 0.416667,
+            "years_observed": 12,
+            "max_mae_pct": 2.110728,
+            "ambiguous_h4_exits": 0
+          }
+        },
+        "passes_stress_gate": false,
+        "passing_orthogonal_neighbours": 0,
+        "stable_region_member": false
+      },
+      "reversal_long": {
+        "parameters": {
+          "mechanism": "reversal",
+          "side": "long",
+          "session_start_utc": 20,
+          "weekday": "all",
+          "expansion_atr": 1.5,
+          "holding_hours": 4,
+          "atr_period": 28,
+          "stop_atr": 1.5
+        },
+        "metrics": {
+          "base": {
+            "trades": 72,
+            "profit_factor": 3.117942,
+            "expectancy_bps": 19.440569,
+            "compound_return_pct": 14.908305,
+            "max_drawdown_pct": 1.840275,
+            "positive_year_ratio": 0.666667,
+            "years_observed": 12,
+            "max_mae_pct": 0.904212,
+            "ambiguous_h4_exits": 0
+          },
+          "conservative": {
+            "trades": 72,
+            "profit_factor": 2.393872,
+            "expectancy_bps": 15.233963,
+            "compound_return_pct": 11.486279,
+            "max_drawdown_pct": 2.208572,
+            "positive_year_ratio": 0.583333,
+            "years_observed": 12,
+            "max_mae_pct": 0.904212,
+            "ambiguous_h4_exits": 0
+          },
+          "stress": {
+            "trades": 72,
+            "profit_factor": 1.465277,
+            "expectancy_bps": 7.027357,
+            "compound_return_pct": 5.096726,
+            "max_drawdown_pct": 3.786315,
+            "positive_year_ratio": 0.5,
+            "years_observed": 12,
+            "max_mae_pct": 0.904212,
+            "ambiguous_h4_exits": 0
+          }
+        },
+        "passes_stress_gate": false,
+        "passing_orthogonal_neighbours": 0,
+        "stable_region_member": false
+      },
+      "reversal_short": {
+        "parameters": {
+          "mechanism": "reversal",
+          "side": "short",
+          "session_start_utc": 4,
+          "weekday": 0,
+          "expansion_atr": 1.5,
+          "holding_hours": 8,
+          "atr_period": 28,
+          "stop_atr": 1.5
+        },
+        "metrics": {
+          "base": {
+            "trades": 52,
+            "profit_factor": 1.685997,
+            "expectancy_bps": 15.178022,
+            "compound_return_pct": 8.059123,
+            "max_drawdown_pct": 2.014293,
+            "positive_year_ratio": 0.416667,
+            "years_observed": 12,
+            "max_mae_pct": 1.75632,
+            "ambiguous_h4_exits": 0
+          },
+          "conservative": {
+            "trades": 52,
+            "profit_factor": 1.451432,
+            "expectancy_bps": 10.884932,
+            "compound_return_pct": 5.676751,
+            "max_drawdown_pct": 2.357929,
+            "positive_year_ratio": 0.416667,
+            "years_observed": 12,
+            "max_mae_pct": 1.75632,
+            "ambiguous_h4_exits": 0
+          },
+          "stress": {
+            "trades": 52,
+            "profit_factor": 1.091784,
+            "expectancy_bps": 2.591841,
+            "compound_return_pct": 1.219378,
+            "max_drawdown_pct": 4.801973,
+            "positive_year_ratio": 0.416667,
+            "years_observed": 12,
+            "max_mae_pct": 1.75632,
+            "ambiguous_h4_exits": 0
+          }
+        },
+        "passes_stress_gate": false,
+        "passing_orthogonal_neighbours": 0,
+        "stable_region_member": false
+      },
+      "reversal_both": {
+        "parameters": {
+          "mechanism": "reversal",
+          "side": "both",
+          "session_start_utc": 4,
+          "weekday": 4,
+          "expansion_atr": 1.5,
+          "holding_hours": 8,
+          "atr_period": 28,
+          "stop_atr": 1.5
+        },
+        "metrics": {
+          "base": {
+            "trades": 53,
+            "profit_factor": 1.761231,
+            "expectancy_bps": 19.059406,
+            "compound_return_pct": 10.349206,
+            "max_drawdown_pct": 3.05407,
+            "positive_year_ratio": 0.727273,
+            "years_observed": 11,
+            "max_mae_pct": 1.977419,
+            "ambiguous_h4_exits": 0
+          },
+          "conservative": {
+            "trades": 53,
+            "profit_factor": 1.540318,
+            "expectancy_bps": 14.777872,
+            "compound_return_pct": 7.877585,
+            "max_drawdown_pct": 3.372314,
+            "positive_year_ratio": 0.636364,
+            "years_observed": 11,
+            "max_mae_pct": 1.977419,
+            "ambiguous_h4_exits": 0
+          },
+          "stress": {
+            "trades": 53,
+            "profit_factor": 1.201659,
+            "expectancy_bps": 6.496338,
+            "compound_return_pct": 3.249734,
+            "max_drawdown_pct": 4.37589,
+            "positive_year_ratio": 0.545455,
+            "years_observed": 11,
+            "max_mae_pct": 1.977419,
+            "ambiguous_h4_exits": 0
+          }
+        },
+        "passes_stress_gate": false,
+        "passing_orthogonal_neighbours": 0,
+        "stable_region_member": false
+      }
+    }
+  },
+  "full_artifact": "lab/out/alquimia/xau_h1_displacement_v6/train_preflight.json",
+  "full_artifact_sha256": "d25486694a47aa235d61da628ddda790b9095080d59724299dd15f2f00e55ccb"
+}

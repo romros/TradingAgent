@@ -550,6 +550,29 @@ paritat d'execució, paper i live. SOL requereix l'alta determinista prèvia de
 l'instrument `SOLUSDT` amb tick `0,0001`; la recepta i els límits queden al
 rebut `lab/sq_bridge/evidence/solusdt_sqcli_import_receipt.json`.
 
+### Crypto compressió intradia v18 (2026-08-03)
+
+V18 és una hipòtesi independent: després d'ATR H1 anormalment comprimit, prova
+continuació i fade d'una ruptura de canal, long/short, blocs 00/08/16 UTC,
+weekday/weekend i BTC/ETH/SOL. La malla de 2.304 punts es congela abans de
+calcular. El notional surt d'arriscar l'1% de 200 USDC; el leverage és el màxim
+enter permès pel venue que manté la liquidació almenys 1,25 vegades més lluny
+que l'stop. Oracle de 0,10 USDC, fee 5 bps, impacte i rollover entren abans de
+seleccionar.
+
+Desenvolupament 2021–2024 produeix 17 PASS i dues regions de 3 membres. Els
+medoids topològics són BTC breakout short, 00 UTC laborables (66 trades, PF
+estrès 1,47, +0,37 USDC/trade, +12,45%, DD 7,51%) i ETH breakout long al mateix
+bloc (62 trades, PF 1,70, +0,56 USDC/trade, +18,44%, DD 4,65%). Durada mediana
+5 hores; leverage median 72,5x BTC i 52,5x ETH, marge median aproximat 1,26% i
+0 liquidacions simulades.
+
+La validació independent 2025H1 els falsifica: BTC només 6 trades, PF estrès
+0,73, -0,41 USDC/trade i -1,30%; ETH 4 trades, tots perdedors, -1,32
+USDC/trade i -2,61%. Decisió terminal:
+`REJECT_CRYPTO_INTRADAY_COMPRESSION_NO_SQCLI`. No es tuneja, no s'executa
+Builder i el holdout 2025H2–2026H1 continua segellat.
+
 ## Pilot anterior
 
 - `TA_SQ_PILOT`, original `NVIDIA` intacte.

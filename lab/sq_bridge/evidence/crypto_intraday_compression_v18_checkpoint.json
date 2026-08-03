@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "checkpoint_id": "crypto-intraday-compression-v18-terminal",
+  "source_sha256": {
+    "BTCUSD": "ccc111b7925d29b8cab82195b467add2e9eed71bedb3461e9689fd1b62d2a40a",
+    "ETHUSD": "357a01c213204b7dd4f75d82ef0b82e5dd9e026660f3e2f1ef4093b2475f995a",
+    "SOLUSD": "becabb8469f63c35f6ebbc3d8c7250a06b0337eba5db3911ce968aabc0ba2b08"
+  },
+  "points_evaluated": 2304,
+  "development_passes": 17,
+  "stable_candidate_ids": [
+    "v18-499b6efd6936",
+    "v18-b0551ac55be9"
+  ],
+  "selected_candidate_ids": [
+    "v18-b0551ac55be9",
+    "v18-499b6efd6936"
+  ],
+  "validation_trade_counts": {
+    "v18-b0551ac55be9": 6,
+    "v18-499b6efd6936": 4
+  },
+  "artifact_sha256": {
+    "lab/sq_bridge/family_crypto_intraday_compression_v18.json": "42cd8760205ae613a2a46e17296ef539f7dd7c86d99296e529080666b23dc7aa",
+    "lab/sq_bridge/evidence/crypto_intraday_compression_v18_development.json": "c1302b8951e7f860340b9c90b5ad68d47881638afbff69184a7845988ec1dcb8",
+    "lab/sq_bridge/evidence/crypto_intraday_compression_v18_validation.json": "1675f47ee8769141b064c0da0519822409d576fc72e079d03ef65c1e2f363442"
+  },
+  "decision": "REJECT_CRYPTO_INTRADAY_COMPRESSION_NO_SQCLI",
+  "reason": "Both topology-selected development representatives had negative stress expectancy and insufficient samples in independent 2025H1 validation.",
+  "holdout_accessed": false,
+  "sqcli_builder_executed": false,
+  "paper_or_live_authorized": false
+}

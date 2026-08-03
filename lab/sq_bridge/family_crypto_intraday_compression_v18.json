@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "family_id": "crypto_intraday_compression_v18",
+  "hypothesis_id": "ostium-crypto-intraday-compression-expansion-v18",
+  "hypothesis": "After an unusually quiet H1 volatility state, a close beyond a short frozen channel can either continue or mean-revert over the next few hours; the effect may differ by UTC liquidity block, weekday/weekend and direction.",
+  "markets": ["BTCUSD", "ETHUSD", "SOLUSD"],
+  "research_proxies": ["BTCUSDT", "ETHUSDT", "SOLUSDT"],
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "implementation_origin": "alquimia_native",
+  "legacy_quantitative_inputs": [],
+  "derivation_disclosure": "Independent intraday volatility/liquidity mechanism chosen after v15-v17 momentum failed temporal validation. No v15-v17 parameter or performance value defines this grid. Session tests v13-v14 are treated only as negative evidence against plain BTC range breaks; v18 requires prior volatility compression and tests three assets with account-level economics.",
+  "researcher_period_disclosure": "The research program has already inspected data through 2024-12 in other mechanisms. V18 therefore uses 2021-2024 as development and reserves untouched 2025H1 as its first temporal validation; 2025H2 onward remains sealed holdout.",
+  "periods": {
+    "development_from": "2021-01-01",
+    "development_to": "2024-12-31",
+    "validation_from": "2025-01-01",
+    "validation_to": "2025-06-30",
+    "holdout_from": "2025-07-01",
+    "holdout_to": "2026-06-30"
+  },
+  "data_contract": {
+    "input": "independently checksummed Binance spot M1 aggregated to strict UTC H1",
+    "volume_rules_allowed": false,
+    "signal_time": "completed H1 close only; entry at next complete H1 open",
+    "session_blocks": "signal hour belongs to fixed 00-07, 08-15 or 16-23 UTC block",
+    "day_group": "weekday or weekend from signal timestamp",
+    "proxy_limitation": "No promotion until the matching native Ostium market passes coverage and price parity",
+    "lookahead_forbidden": true
+  },
+  "execution_contract": {
+    "compression": "ATR14/close on the completed H1 bar immediately before the signal ranks at or below the registered quantile within its prior 168 or 336 complete H1 bars",
+    "channel": "highest high / lowest low of the registered complete H1 bars ending one bar before the signal",
+    "breakout": "long above prior channel high; short below prior channel low",
+    "fade": "long below prior channel low; short above prior channel high",
+    "entry": "next complete H1 open",
+    "exit": "gap-adverse ATR stop or close after the registered 2 or 6 H1 bars",
+    "position_policy": "one open position per asset/candidate; overlapping signals ignored",
+    "sides_separate": true
+  },
+  "cost_model": {
+    "source_checked_utc": "2026-08-03",
+    "opening_fee_bps_per_trade": 5,
+    "oracle_fee_usdc_per_trade": 0.10,
+    "closing_fee_bps": 0,
+    "scenarios": {
+      "base": {"dynamic_spread_and_impact_bps": 1, "annual_rollover_pct": 8},
+      "conservative": {"dynamic_spread_and_impact_bps": 4, "annual_rollover_pct": 20},
+      "stress": {"dynamic_spread_and_impact_bps": 10, "annual_rollover_pct": 40}
+    }
+  },
+  "grid": {
+    "asset": ["BTCUSD", "ETHUSD", "SOLUSD"],
+    "mode": ["breakout", "fade"],
+    "side": ["long", "short"],
+    "session_start_utc": [0, 8, 16],
+    "day_group": ["weekday", "weekend"],
+    "compression_lookback_hours": [168, 336],
+    "compression_quantile": [0.10, 0.20],
+    "channel_hours": [6, 12],
+    "stop_atr": [1.5, 2.5],
+    "hold_bars": [2, 6],
+    "points": 2304
+  },
+  "stability": {
+    "categorical_groups": ["asset", "mode", "side", "session_start_utc", "day_group"],
+    "orthogonal_axes": ["compression_lookback_hours", "compression_quantile", "channel_hours", "stop_atr", "hold_bars"],
+    "minimum_passing_neighbours": 2,
+    "representative": "graph medoid of largest stable component per categorical group without using performance metrics"
+  },
+  "pre_registered_development_gate": {
+    "minimum_trades": 60,
+    "minimum_stress_profit_factor": 1.08,
+    "minimum_stress_expectancy_bps_on_capital": 2,
+    "minimum_positive_year_ratio": 0.75,
+    "maximum_stress_drawdown_pct_on_capital": 15,
+    "maximum_liquidations": 0,
+    "minimum_net_expectancy_usdc": 0.10
+  },
+  "pre_registered_validation_gate": {
+    "minimum_trades": 12,
+    "minimum_stress_profit_factor": 1.15,
+    "minimum_stress_expectancy_bps_on_capital": 2,
+    "minimum_positive_quarter_ratio": 0.50,
+    "maximum_stress_drawdown_pct_on_capital": 12,
+    "maximum_liquidations": 0,
+    "maximum_development_validation_expectancy_decay_pct": 50
+  },
+  "small_account": {
+    "capital_usdc": 200,
+    "risk_per_trade_pct": 1.0,
+    "venue_max_leverage": {"BTCUSD": 200, "ETHUSD": 200, "SOLUSD": 150},
+    "liquidation_buffer_over_stop": 1.25,
+    "maximum_margin_pct": 35,
+    "minimum_reserve_pct": 40,
+    "leverage_rule": "Use the highest venue leverage whose approximate liquidation distance remains at least 1.25 times the initial stop distance; reject if required collateral exceeds 35% of capital.",
+    "compounding_policy": "Not used for selection; evaluate on constant 200 USDC first. Compound only after a candidate passes validation, parity and Monte Carlo sequence stress."
+  },
+  "family_stop_rule": {
+    "stop_after_development_if": "zero stable components",
+    "no_local_refinement_without": "a stable component selected topologically and explicit derivation disclosure",
+    "sqcli_builder_only_after": "development and independent validation both pass"
+  },
+  "holdout_release_authorized": false,
+  "sqcli_policy": "No SQCLI Builder, OOS/holdout, paper or live until stable development, temporal validation, 200-USDC economics and native Ostium parity pass."
+}

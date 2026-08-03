@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "family_id": "crypto_intraday_compression_v18",
+  "period": "validation",
+  "source_sha256": {
+    "BTCUSD": "ccc111b7925d29b8cab82195b467add2e9eed71bedb3461e9689fd1b62d2a40a",
+    "ETHUSD": "357a01c213204b7dd4f75d82ef0b82e5dd9e026660f3e2f1ef4093b2475f995a",
+    "SOLUSD": "becabb8469f63c35f6ebbc3d8c7250a06b0337eba5db3911ce968aabc0ba2b08"
+  },
+  "config_sha256": "fd1c587639db022ee26bca92644609cd6dd1032c0410488ba31ae5ffbf644e10",
+  "development_canonical_content_sha256": "11d6b2edb9427d41b35fd00ec47eb652ddbd770cc4816c60d72218b7efbeb215",
+  "validation_from": "2025-01-01",
+  "validation_to": "2025-06-30",
+  "results": [
+    {
+      "candidate_id": "v18-b0551ac55be9",
+      "parameters": {
+        "asset": "BTCUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.2,
+        "channel_hours": 12,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 6,
+          "profit_factor": 0.9164038667126007,
+          "expectancy_bps": -5.278971543447151,
+          "net_return_pct": -0.39464781646454394,
+          "drawdown_pct": 3.737063052078482,
+          "positive_year_ratio": 0.0,
+          "positive_half_year_ratio": 0.0,
+          "positive_quarter_ratio": 0.5
+        },
+        "conservative": {
+          "trades": 6,
+          "profit_factor": 0.8453437666792242,
+          "expectancy_bps": -10.438515227170992,
+          "net_return_pct": -0.7027192425060669,
+          "drawdown_pct": 3.9895285469466635,
+          "positive_year_ratio": 0.0,
+          "positive_half_year_ratio": 0.0,
+          "positive_quarter_ratio": 0.5
+        },
+        "stress": {
+          "trades": 6,
+          "profit_factor": 0.7300199089873,
+          "expectancy_bps": -20.5181419311001,
+          "net_return_pct": -1.3023645590045985,
+          "drawdown_pct": 4.482000965416278,
+          "positive_year_ratio": 0.0,
+          "positive_half_year_ratio": 0.0,
+          "positive_quarter_ratio": 0.5
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": -0.410362838622002,
+      "development_validation_expectancy_decay_pct": 209.62728738706775,
+      "trade_diagnostics": {
+        "trades": 6,
+        "median_duration_hours": 3.5,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.5,
+        "median_leverage": 109.5,
+        "minimum_leverage": 85,
+        "maximum_leverage": 173,
+        "median_exposure_to_capital": 1.3799994496226553,
+        "maximum_exposure_to_capital": 2.1717633456269603,
+        "median_margin_pct": 1.2590380037779,
+        "maximum_margin_pct": 1.262648072038282,
+        "liquidations": 0
+      },
+      "passes_validation_gate": false
+    },
+    {
+      "candidate_id": "v18-499b6efd6936",
+      "parameters": {
+        "asset": "ETHUSD",
+        "mode": "breakout",
+        "side": "long",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.1,
+        "channel_hours": 6,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 4,
+          "profit_factor": 0.0,
+          "expectancy_bps": -58.41182878989576,
+          "net_return_pct": -2.3186416012751287,
+          "drawdown_pct": 2.3186416012751287,
+          "positive_year_ratio": 0.0,
+          "positive_half_year_ratio": 0.0,
+          "positive_quarter_ratio": 0.0
+        },
+        "conservative": {
+          "trades": 4,
+          "profit_factor": 0.0,
+          "expectancy_bps": -60.96479571841519,
+          "net_return_pct": -2.4189285075584155,
+          "drawdown_pct": 2.4189285075584155,
+          "positive_year_ratio": 0.0,
+          "positive_half_year_ratio": 0.0,
+          "positive_quarter_ratio": 0.0
+        },
+        "stress": {
+          "trades": 4,
+          "profit_factor": 0.0,
+          "expectancy_bps": -65.9370928214115,
+          "net_return_pct": -2.614043265830024,
+          "drawdown_pct": 2.614043265830024,
+          "positive_year_ratio": 0.0,
+          "positive_half_year_ratio": 0.0,
+          "positive_quarter_ratio": 0.0
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": -1.3187418564282298,
+      "development_validation_expectancy_decay_pct": 333.7233018776211,
+      "trade_diagnostics": {
+        "trades": 4,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.25,
+        "median_leverage": 54.5,
+        "minimum_leverage": 42,
+        "maximum_leverage": 78,
+        "median_exposure_to_capital": 0.6837898368993567,
+        "maximum_exposure_to_capital": 0.9753398980746879,
+        "median_margin_pct": 1.253108466754135,
+        "maximum_margin_pct": 1.2578336738158766,
+        "liquidations": 0
+      },
+      "passes_validation_gate": false
+    }
+  ],
+  "passing_candidate_ids": [],
+  "decision": "REJECT_TEMPORAL_VALIDATION",
+  "holdout_accessed": false,
+  "sqcli_builder_executed": false,
+  "paper_or_live_authorized": false
+}

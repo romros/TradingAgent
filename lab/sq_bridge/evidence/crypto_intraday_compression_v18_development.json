@@ -1,0 +1,3122 @@
+{
+  "schema_version": 1,
+  "family_id": "crypto_intraday_compression_v18",
+  "period": "development",
+  "source_sha256": {
+    "BTCUSD": "ccc111b7925d29b8cab82195b467add2e9eed71bedb3461e9689fd1b62d2a40a",
+    "ETHUSD": "357a01c213204b7dd4f75d82ef0b82e5dd9e026660f3e2f1ef4093b2475f995a",
+    "SOLUSD": "becabb8469f63c35f6ebbc3d8c7250a06b0337eba5db3911ce968aabc0ba2b08"
+  },
+  "config_sha256": "fd1c587639db022ee26bca92644609cd6dd1032c0410488ba31ae5ffbf644e10",
+  "coverage": {
+    "BTCUSD": {
+      "from": "2021-01-01T00:00:00+00:00",
+      "to": "2024-12-31T23:00:00+00:00",
+      "bars": 35050,
+      "incomplete_bars": 7
+    },
+    "ETHUSD": {
+      "from": "2021-01-01T00:00:00+00:00",
+      "to": "2024-12-31T23:00:00+00:00",
+      "bars": 35050,
+      "incomplete_bars": 7
+    },
+    "SOLUSD": {
+      "from": "2021-01-01T00:00:00+00:00",
+      "to": "2024-12-31T23:00:00+00:00",
+      "bars": 35050,
+      "incomplete_bars": 8
+    }
+  },
+  "points_evaluated": 2304,
+  "point_gate_passes": 17,
+  "passing_candidates": [
+    {
+      "candidate_id": "v18-216c133d938b",
+      "parameters": {
+        "asset": "BTCUSD",
+        "mode": "breakout",
+        "side": "long",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.2,
+        "channel_hours": 12,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 60,
+          "profit_factor": 1.5368643656028598,
+          "expectancy_bps": 20.333245027854478,
+          "net_return_pct": 12.486362244901738,
+          "drawdown_pct": 4.382600582484974,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.5625
+        },
+        "conservative": {
+          "trades": 60,
+          "profit_factor": 1.4354807221094705,
+          "expectancy_bps": 17.042575636363473,
+          "net_return_pct": 10.292924417937765,
+          "drawdown_pct": 4.673768081064777,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.5625
+        },
+        "stress": {
+          "trades": 60,
+          "profit_factor": 1.2557579507572016,
+          "expectancy_bps": 10.640444106601876,
+          "net_return_pct": 6.144640082355024,
+          "drawdown_pct": 5.352252846158301,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.5625
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.21280888213203752,
+      "trade_diagnostics": {
+        "trades": 60,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.31666666666666665,
+        "median_leverage": 62.5,
+        "minimum_leverage": 24,
+        "maximum_leverage": 200,
+        "median_exposure_to_capital": 0.7890720821277543,
+        "maximum_exposure_to_capital": 2.913477464331086,
+        "median_margin_pct": 1.258559044359014,
+        "maximum_margin_pct": 1.456738732165543,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 0
+    },
+    {
+      "candidate_id": "v18-b0551ac55be9",
+      "parameters": {
+        "asset": "BTCUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.2,
+        "channel_hours": 12,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 66,
+          "profit_factor": 1.8843787525299436,
+          "expectancy_bps": 30.037759064788638,
+          "net_return_pct": 21.151132792116222,
+          "drawdown_pct": 5.40617595996149,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.6875
+        },
+        "conservative": {
+          "trades": 66,
+          "profit_factor": 1.733018857683172,
+          "expectancy_bps": 26.192863734202774,
+          "net_return_pct": 18.12625093449669,
+          "drawdown_pct": 6.032578106588082,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.6875
+        },
+        "stress": {
+          "trades": 66,
+          "profit_factor": 1.4725521489931088,
+          "expectancy_bps": 18.71627258152931,
+          "net_return_pct": 12.45401307206202,
+          "drawdown_pct": 7.5106368396485435,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.625
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.37432545163058617,
+      "trade_diagnostics": {
+        "trades": 66,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.18181818181818182,
+        "median_leverage": 72.5,
+        "minimum_leverage": 25,
+        "maximum_leverage": 200,
+        "median_exposure_to_capital": 0.9106958892212322,
+        "maximum_exposure_to_capital": 4.9254209404137725,
+        "median_margin_pct": 1.2577318038770862,
+        "maximum_margin_pct": 2.4627104702068863,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2
+    },
+    {
+      "candidate_id": "v18-7d44687bd2a6",
+      "parameters": {
+        "asset": "BTCUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.2,
+        "channel_hours": 12,
+        "stop_atr": 2.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 66,
+          "profit_factor": 1.7061491030319964,
+          "expectancy_bps": 15.474772357882125,
+          "net_return_pct": 10.488348157296823,
+          "drawdown_pct": 3.791092854514999,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.625
+        },
+        "conservative": {
+          "trades": 66,
+          "profit_factor": 1.5699572956168015,
+          "expectancy_bps": 13.141716606305557,
+          "net_return_pct": 8.802950476809478,
+          "drawdown_pct": 4.191870591708691,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.625
+        },
+        "stress": {
+          "trades": 66,
+          "profit_factor": 1.3380989771343246,
+          "expectancy_bps": 8.612230992659738,
+          "net_return_pct": 5.602296615553892,
+          "drawdown_pct": 5.145632336266726,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.5625
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.17224461985319475,
+      "trade_diagnostics": {
+        "trades": 66,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.06060606060606061,
+        "median_leverage": 43.5,
+        "minimum_leverage": 15,
+        "maximum_leverage": 200,
+        "median_exposure_to_capital": 0.5464175335327393,
+        "maximum_exposure_to_capital": 2.9552525642482634,
+        "median_margin_pct": 1.263459053628212,
+        "maximum_margin_pct": 1.4776262821241317,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 1
+    },
+    {
+      "candidate_id": "v18-43bde3be7208",
+      "parameters": {
+        "asset": "BTCUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 336,
+        "compression_quantile": 0.2,
+        "channel_hours": 12,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 65,
+          "profit_factor": 1.5056489414442953,
+          "expectancy_bps": 19.07778235552951,
+          "net_return_pct": 12.513327144589459,
+          "drawdown_pct": 5.769826470644257,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.5625
+        },
+        "conservative": {
+          "trades": 65,
+          "profit_factor": 1.3753751460302353,
+          "expectancy_bps": 14.996123563634264,
+          "net_return_pct": 9.57352359274537,
+          "drawdown_pct": 6.0936931302579715,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.5625
+        },
+        "stress": {
+          "trades": 65,
+          "profit_factor": 1.157557858945176,
+          "expectancy_bps": 7.064473990977612,
+          "net_return_pct": 4.074155046186756,
+          "drawdown_pct": 6.719021200311337,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.5625
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.14128947981955225,
+      "trade_diagnostics": {
+        "trades": 65,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.18461538461538463,
+        "median_leverage": 83.0,
+        "minimum_leverage": 25,
+        "maximum_leverage": 200,
+        "median_exposure_to_capital": 1.0439389874666807,
+        "maximum_exposure_to_capital": 4.9254209404137725,
+        "median_margin_pct": 1.2576639142047303,
+        "maximum_margin_pct": 2.4627104702068863,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 1
+    },
+    {
+      "candidate_id": "v18-b2540d7c3c41",
+      "parameters": {
+        "asset": "ETHUSD",
+        "mode": "breakout",
+        "side": "long",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.1,
+        "channel_hours": 6,
+        "stop_atr": 1.5,
+        "hold_bars": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 75,
+          "profit_factor": 1.659611795476877,
+          "expectancy_bps": 15.241706959568335,
+          "net_return_pct": 11.786434113469358,
+          "drawdown_pct": 2.664192889361816,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "conservative": {
+          "trades": 75,
+          "profit_factor": 1.5359608308308736,
+          "expectancy_bps": 13.047559482172899,
+          "net_return_pct": 9.964432353091034,
+          "drawdown_pct": 2.8489288294452964,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "stress": {
+          "trades": 75,
+          "profit_factor": 1.3235537312311616,
+          "expectancy_bps": 8.690685426516287,
+          "net_return_pct": 6.432723769766202,
+          "drawdown_pct": 3.2148997482634334,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6666666666666666
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.17381370853032577,
+      "trade_diagnostics": {
+        "trades": 75,
+        "median_duration_hours": 1.0,
+        "maximum_duration_hours": 1.0,
+        "stop_exit_ratio": 0.05333333333333334,
+        "median_leverage": 52.0,
+        "minimum_leverage": 15,
+        "maximum_leverage": 143,
+        "median_exposure_to_capital": 0.6568166388432443,
+        "maximum_exposure_to_capital": 1.792068855718538,
+        "median_margin_pct": 1.261837992888091,
+        "maximum_margin_pct": 1.303176620515891,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 1
+    },
+    {
+      "candidate_id": "v18-499b6efd6936",
+      "parameters": {
+        "asset": "ETHUSD",
+        "mode": "breakout",
+        "side": "long",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.1,
+        "channel_hours": 6,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 62,
+          "profit_factor": 1.9837067554341965,
+          "expectancy_bps": 35.734780844638095,
+          "net_return_pct": 24.083331683996057,
+          "drawdown_pct": 4.093271811878596,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "conservative": {
+          "trades": 62,
+          "profit_factor": 1.883053157085772,
+          "expectancy_bps": 33.1800263391443,
+          "net_return_pct": 22.139470593162525,
+          "drawdown_pct": 4.282339962885661,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "stress": {
+          "trades": 62,
+          "profit_factor": 1.7035692823143984,
+          "expectancy_bps": 28.211604188245012,
+          "net_return_pct": 18.444058975351084,
+          "drawdown_pct": 4.650198488398294,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6666666666666666
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.5642320837649002,
+      "trade_diagnostics": {
+        "trades": 62,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.25806451612903225,
+        "median_leverage": 52.5,
+        "minimum_leverage": 15,
+        "maximum_leverage": 143,
+        "median_exposure_to_capital": 0.6634701767083554,
+        "maximum_exposure_to_capital": 1.792068855718538,
+        "median_margin_pct": 1.2615096969097412,
+        "maximum_margin_pct": 1.303176620515891,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2
+    },
+    {
+      "candidate_id": "v18-c39a0faf108e",
+      "parameters": {
+        "asset": "ETHUSD",
+        "mode": "breakout",
+        "side": "long",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.1,
+        "channel_hours": 6,
+        "stop_atr": 2.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 62,
+          "profit_factor": 1.6531102759232834,
+          "expectancy_bps": 16.65149850585777,
+          "net_return_pct": 10.625998163452955,
+          "drawdown_pct": 3.3289925664500952,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "conservative": {
+          "trades": 62,
+          "profit_factor": 1.5739945846420988,
+          "expectancy_bps": 15.091836799897946,
+          "net_return_pct": 9.562761225511585,
+          "drawdown_pct": 3.4474964521653106,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "stress": {
+          "trades": 62,
+          "profit_factor": 1.4326736748727207,
+          "expectancy_bps": 12.066101838252482,
+          "net_return_pct": 7.528566213289167,
+          "drawdown_pct": 3.7604870339607244,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6666666666666666
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.24132203676504965,
+      "trade_diagnostics": {
+        "trades": 62,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.11290322580645161,
+        "median_leverage": 31.5,
+        "minimum_leverage": 9,
+        "maximum_leverage": 86,
+        "median_exposure_to_capital": 0.3980821060250132,
+        "maximum_exposure_to_capital": 1.075241313431123,
+        "median_margin_pct": 1.2671936863208897,
+        "maximum_margin_pct": 1.321003151321231,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 1
+    },
+    {
+      "candidate_id": "v18-f10f5736bbe2",
+      "parameters": {
+        "asset": "ETHUSD",
+        "mode": "breakout",
+        "side": "long",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.2,
+        "channel_hours": 12,
+        "stop_atr": 1.5,
+        "hold_bars": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 92,
+          "profit_factor": 1.507123811675504,
+          "expectancy_bps": 12.327717652372375,
+          "net_return_pct": 11.606420848664545,
+          "drawdown_pct": 4.562543767447192,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.875,
+          "positive_quarter_ratio": 0.75
+        },
+        "conservative": {
+          "trades": 92,
+          "profit_factor": 1.3911234316503014,
+          "expectancy_bps": 10.01369610723938,
+          "net_return_pct": 9.258555500806231,
+          "drawdown_pct": 5.019549447483507,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.875,
+          "positive_quarter_ratio": 0.75
+        },
+        "stress": {
+          "trades": 92,
+          "profit_factor": 1.191834551930655,
+          "expectancy_bps": 5.418385613262082,
+          "net_return_pct": 4.739539899127987,
+          "drawdown_pct": 5.92071460813256,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.625
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.10836771226524164,
+      "trade_diagnostics": {
+        "trades": 92,
+        "median_duration_hours": 1.0,
+        "maximum_duration_hours": 1.0,
+        "stop_exit_ratio": 0.06521739130434782,
+        "median_leverage": 52.5,
+        "minimum_leverage": 15,
+        "maximum_leverage": 200,
+        "median_exposure_to_capital": 0.6616517788066345,
+        "maximum_exposure_to_capital": 2.5376829217783152,
+        "median_margin_pct": 1.2615944948863675,
+        "maximum_margin_pct": 1.303176620515891,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 0
+    },
+    {
+      "candidate_id": "v18-31a3c5656524",
+      "parameters": {
+        "asset": "ETHUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.2,
+        "channel_hours": 12,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 62,
+          "profit_factor": 1.7132700038686,
+          "expectancy_bps": 29.277934600985706,
+          "net_return_pct": 19.123116640567005,
+          "drawdown_pct": 9.03950599219694,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "conservative": {
+          "trades": 62,
+          "profit_factor": 1.6262589368498084,
+          "expectancy_bps": 26.460384137934835,
+          "net_return_pct": 17.068865317240057,
+          "drawdown_pct": 9.434359164513939,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "stress": {
+          "trades": 62,
+          "profit_factor": 1.4686573871116497,
+          "expectancy_bps": 20.979008318798176,
+          "net_return_pct": 13.171140354308353,
+          "drawdown_pct": 10.199516012636622,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.5333333333333333
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.41958016637596346,
+      "trade_diagnostics": {
+        "trades": 62,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.3225806451612903,
+        "median_leverage": 57.5,
+        "minimum_leverage": 21,
+        "maximum_leverage": 173,
+        "median_exposure_to_capital": 0.7309666724948946,
+        "maximum_exposure_to_capital": 2.1649821579576662,
+        "median_margin_pct": 1.2608921763274927,
+        "maximum_margin_pct": 1.2975410862090684,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 1
+    },
+    {
+      "candidate_id": "v18-59241d3bf8ff",
+      "parameters": {
+        "asset": "ETHUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.2,
+        "channel_hours": 12,
+        "stop_atr": 2.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 62,
+          "profit_factor": 1.4123210884765096,
+          "expectancy_bps": 12.14079739878481,
+          "net_return_pct": 7.531868590788893,
+          "drawdown_pct": 7.687279130600711,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "conservative": {
+          "trades": 62,
+          "profit_factor": 1.345275890173382,
+          "expectancy_bps": 10.421602439838965,
+          "net_return_pct": 6.3939077973895975,
+          "drawdown_pct": 7.9336160785498215,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "stress": {
+          "trades": 62,
+          "profit_factor": 1.223194729134868,
+          "expectancy_bps": 7.08500247983144,
+          "net_return_pct": 4.218887668557092,
+          "drawdown_pct": 8.410378606540858,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.4666666666666667
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.1417000495966288,
+      "trade_diagnostics": {
+        "trades": 62,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.16129032258064516,
+        "median_leverage": 34.5,
+        "minimum_leverage": 13,
+        "maximum_leverage": 103,
+        "median_exposure_to_capital": 0.4385800034969367,
+        "maximum_exposure_to_capital": 1.2989892947745996,
+        "median_margin_pct": 1.2665228576123708,
+        "maximum_margin_pct": 1.3210999704982416,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 1
+    },
+    {
+      "candidate_id": "v18-bda9399c020a",
+      "parameters": {
+        "asset": "ETHUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 8,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.1,
+        "channel_hours": 6,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 73,
+          "profit_factor": 1.4717238147985339,
+          "expectancy_bps": 21.850918622776618,
+          "net_return_pct": 16.294998917020067,
+          "drawdown_pct": 6.981672078149392,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.4666666666666667
+        },
+        "conservative": {
+          "trades": 73,
+          "profit_factor": 1.3978181931341118,
+          "expectancy_bps": 18.991326384899523,
+          "net_return_pct": 13.898820940117806,
+          "drawdown_pct": 7.498736508317016,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.4666666666666667
+        },
+        "stress": {
+          "trades": 73,
+          "profit_factor": 1.2650111991880446,
+          "expectancy_bps": 13.428635672714114,
+          "net_return_pct": 9.375622227646918,
+          "drawdown_pct": 8.667593288507947,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.4
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.2685727134542823,
+      "trade_diagnostics": {
+        "trades": 73,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.3561643835616438,
+        "median_leverage": 54.0,
+        "minimum_leverage": 17,
+        "maximum_leverage": 174,
+        "median_exposure_to_capital": 0.6857857427097387,
+        "maximum_exposure_to_capital": 2.181328307928738,
+        "median_margin_pct": 1.257813958313921,
+        "maximum_margin_pct": 1.2836514762355997,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 1
+    },
+    {
+      "candidate_id": "v18-8ace86835a01",
+      "parameters": {
+        "asset": "ETHUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 8,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.1,
+        "channel_hours": 6,
+        "stop_atr": 2.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 72,
+          "profit_factor": 1.3545764463719077,
+          "expectancy_bps": 10.702558942055948,
+          "net_return_pct": 7.6458233845963175,
+          "drawdown_pct": 5.658232853797573,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.4
+        },
+        "conservative": {
+          "trades": 72,
+          "profit_factor": 1.2882064173778605,
+          "expectancy_bps": 8.954573539494753,
+          "net_return_pct": 6.300920164611035,
+          "drawdown_pct": 5.862733488837191,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.4
+        },
+        "stress": {
+          "trades": 72,
+          "profit_factor": 1.1693481784626052,
+          "expectancy_bps": 5.56246811765537,
+          "net_return_pct": 3.7379570937362327,
+          "drawdown_pct": 6.258478293058567,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.4
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.1112493623531074,
+      "trade_diagnostics": {
+        "trades": 72,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.18055555555555555,
+        "median_leverage": 32.0,
+        "minimum_leverage": 10,
+        "maximum_leverage": 104,
+        "median_exposure_to_capital": 0.4062251071616919,
+        "maximum_exposure_to_capital": 1.308796984757243,
+        "median_margin_pct": 1.2674818814366602,
+        "maximum_margin_pct": 1.3057867876135842,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 1
+    },
+    {
+      "candidate_id": "v18-18ded4ff5085",
+      "parameters": {
+        "asset": "ETHUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 8,
+        "day_group": "weekday",
+        "compression_lookback_hours": 336,
+        "compression_quantile": 0.2,
+        "channel_hours": 6,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 118,
+          "profit_factor": 1.3269205474349801,
+          "expectancy_bps": 15.552888788217466,
+          "net_return_pct": 18.711069700421845,
+          "drawdown_pct": 8.244191094579357,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.5
+        },
+        "conservative": {
+          "trades": 118,
+          "profit_factor": 1.249044771536783,
+          "expectancy_bps": 12.294766425489335,
+          "net_return_pct": 14.23938125967581,
+          "drawdown_pct": 9.378513814622757,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.5
+        },
+        "stress": {
+          "trades": 118,
+          "profit_factor": 1.1122303467260337,
+          "expectancy_bps": 5.948906527508253,
+          "net_return_pct": 6.002099647435122,
+          "drawdown_pct": 11.554677508390288,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.5
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.11897813055016507,
+      "trade_diagnostics": {
+        "trades": 118,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.3644067796610169,
+        "median_leverage": 64.5,
+        "minimum_leverage": 20,
+        "maximum_leverage": 200,
+        "median_exposure_to_capital": 0.8074616033556007,
+        "maximum_exposure_to_capital": 4.201828504024108,
+        "median_margin_pct": 1.2582228665850193,
+        "maximum_margin_pct": 2.100914252012054,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 0
+    },
+    {
+      "candidate_id": "v18-14a32601ef70",
+      "parameters": {
+        "asset": "SOLUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 16,
+        "day_group": "weekend",
+        "compression_lookback_hours": 336,
+        "compression_quantile": 0.1,
+        "channel_hours": 6,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 67,
+          "profit_factor": 1.463406587481954,
+          "expectancy_bps": 18.95049067873108,
+          "net_return_pct": 12.915873515543307,
+          "drawdown_pct": 6.071890749919351,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.625
+        },
+        "conservative": {
+          "trades": 67,
+          "profit_factor": 1.3889827368814331,
+          "expectancy_bps": 16.386095787655528,
+          "net_return_pct": 10.996516734576534,
+          "drawdown_pct": 6.489444404658795,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.625
+        },
+        "stress": {
+          "trades": 67,
+          "profit_factor": 1.255763898720431,
+          "expectancy_bps": 11.39445954407204,
+          "net_return_pct": 7.351782732681733,
+          "drawdown_pct": 7.300263553843278,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.625
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.22788919088144083,
+      "trade_diagnostics": {
+        "trades": 67,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.29850746268656714,
+        "median_leverage": 55.0,
+        "minimum_leverage": 23,
+        "maximum_leverage": 113,
+        "median_exposure_to_capital": 0.696632256227917,
+        "maximum_exposure_to_capital": 1.4172683146592462,
+        "median_margin_pct": 1.2619402771705264,
+        "maximum_margin_pct": 1.2919877229045356,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 1
+    },
+    {
+      "candidate_id": "v18-eeff9bb9e164",
+      "parameters": {
+        "asset": "SOLUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 16,
+        "day_group": "weekend",
+        "compression_lookback_hours": 336,
+        "compression_quantile": 0.1,
+        "channel_hours": 6,
+        "stop_atr": 2.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 67,
+          "profit_factor": 1.3620420614890503,
+          "expectancy_bps": 10.123539704266463,
+          "net_return_pct": 6.767910639897279,
+          "drawdown_pct": 4.721489800863399,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6875
+        },
+        "conservative": {
+          "trades": 67,
+          "profit_factor": 1.2986170680992468,
+          "expectancy_bps": 8.558148770083706,
+          "net_return_pct": 5.655268307113581,
+          "drawdown_pct": 4.985844495544112,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.625
+        },
+        "stress": {
+          "trades": 67,
+          "profit_factor": 1.1836669420393908,
+          "expectancy_bps": 5.5185770247045784,
+          "net_return_pct": 3.5272273470272397,
+          "drawdown_pct": 5.4977791307391,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.625
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.11037154049409158,
+      "trade_diagnostics": {
+        "trades": 67,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.14925373134328357,
+        "median_leverage": 33.0,
+        "minimum_leverage": 14,
+        "maximum_leverage": 68,
+        "median_exposure_to_capital": 0.41797935373675027,
+        "maximum_exposure_to_capital": 0.8503609887955478,
+        "median_margin_pct": 1.2668101595898995,
+        "maximum_margin_pct": 1.3268692715368269,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 1
+    },
+    {
+      "candidate_id": "v18-4727eb6c7fa4",
+      "parameters": {
+        "asset": "SOLUSD",
+        "mode": "fade",
+        "side": "long",
+        "session_start_utc": 0,
+        "day_group": "weekend",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.2,
+        "channel_hours": 6,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 75,
+          "profit_factor": 1.5447407686963184,
+          "expectancy_bps": 14.295480271550094,
+          "net_return_pct": 11.03383282788062,
+          "drawdown_pct": 3.05380577462403,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.5625
+        },
+        "conservative": {
+          "trades": 75,
+          "profit_factor": 1.440125509174189,
+          "expectancy_bps": 11.936581440190727,
+          "net_return_pct": 9.089284092648287,
+          "drawdown_pct": 3.350017252629889,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.5625
+        },
+        "stress": {
+          "trades": 75,
+          "profit_factor": 1.253203187994298,
+          "expectancy_bps": 7.3541549215582664,
+          "net_return_pct": 5.407015393266423,
+          "drawdown_pct": 3.92530109627075,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.5625
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.14708309843116532,
+      "trade_diagnostics": {
+        "trades": 75,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.14666666666666667,
+        "median_leverage": 52.0,
+        "minimum_leverage": 17,
+        "maximum_leverage": 109,
+        "median_exposure_to_capital": 0.6570488614689691,
+        "maximum_exposure_to_capital": 1.368188312384876,
+        "median_margin_pct": 1.2620029581386498,
+        "maximum_margin_pct": 1.3058868265166133,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 0
+    },
+    {
+      "candidate_id": "v18-383db4675434",
+      "parameters": {
+        "asset": "SOLUSD",
+        "mode": "fade",
+        "side": "long",
+        "session_start_utc": 0,
+        "day_group": "weekend",
+        "compression_lookback_hours": 336,
+        "compression_quantile": 0.2,
+        "channel_hours": 6,
+        "stop_atr": 2.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 63,
+          "profit_factor": 1.6915376921077232,
+          "expectancy_bps": 10.020340266737179,
+          "net_return_pct": 6.431246933230805,
+          "drawdown_pct": 1.5610032423196807,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.6875
+        },
+        "conservative": {
+          "trades": 63,
+          "profit_factor": 1.5611341412096866,
+          "expectancy_bps": 8.472656509095678,
+          "net_return_pct": 5.399337207412014,
+          "drawdown_pct": 1.7109098664249256,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.6875
+        },
+        "stress": {
+          "trades": 63,
+          "profit_factor": 1.335505498695871,
+          "expectancy_bps": 5.471546805849996,
+          "net_return_pct": 3.4262760052777175,
+          "drawdown_pct": 2.0012516847695228,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.625
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.10943093611699992,
+      "trade_diagnostics": {
+        "trades": 63,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.047619047619047616,
+        "median_leverage": 32.0,
+        "minimum_leverage": 12,
+        "maximum_leverage": 65,
+        "median_exposure_to_capital": 0.40723185497246744,
+        "maximum_exposure_to_capital": 0.8209129874309256,
+        "median_margin_pct": 1.2688574134627115,
+        "maximum_margin_pct": 1.3449713672037897,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 0
+    }
+  ],
+  "stable_candidate_ids": [
+    "v18-499b6efd6936",
+    "v18-b0551ac55be9"
+  ],
+  "topology_selected_representatives": [
+    {
+      "candidate_id": "v18-b0551ac55be9",
+      "component_size": 3,
+      "parameters": {
+        "asset": "BTCUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.2,
+        "channel_hours": 12,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "performance_metrics_used": false
+    },
+    {
+      "candidate_id": "v18-499b6efd6936",
+      "component_size": 3,
+      "parameters": {
+        "asset": "ETHUSD",
+        "mode": "breakout",
+        "side": "long",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.1,
+        "channel_hours": 6,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "performance_metrics_used": false
+    }
+  ],
+  "diagnostic_top_30": [
+    {
+      "candidate_id": "v18-499b6efd6936",
+      "parameters": {
+        "asset": "ETHUSD",
+        "mode": "breakout",
+        "side": "long",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.1,
+        "channel_hours": 6,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 62,
+          "profit_factor": 1.9837067554341965,
+          "expectancy_bps": 35.734780844638095,
+          "net_return_pct": 24.083331683996057,
+          "drawdown_pct": 4.093271811878596,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "conservative": {
+          "trades": 62,
+          "profit_factor": 1.883053157085772,
+          "expectancy_bps": 33.1800263391443,
+          "net_return_pct": 22.139470593162525,
+          "drawdown_pct": 4.282339962885661,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "stress": {
+          "trades": 62,
+          "profit_factor": 1.7035692823143984,
+          "expectancy_bps": 28.211604188245012,
+          "net_return_pct": 18.444058975351084,
+          "drawdown_pct": 4.650198488398294,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6666666666666666
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.5642320837649002,
+      "trade_diagnostics": {
+        "trades": 62,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.25806451612903225,
+        "median_leverage": 52.5,
+        "minimum_leverage": 15,
+        "maximum_leverage": 143,
+        "median_exposure_to_capital": 0.6634701767083554,
+        "maximum_exposure_to_capital": 1.792068855718538,
+        "median_margin_pct": 1.2615096969097412,
+        "maximum_margin_pct": 1.303176620515891,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2
+    },
+    {
+      "candidate_id": "v18-b0551ac55be9",
+      "parameters": {
+        "asset": "BTCUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.2,
+        "channel_hours": 12,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 66,
+          "profit_factor": 1.8843787525299436,
+          "expectancy_bps": 30.037759064788638,
+          "net_return_pct": 21.151132792116222,
+          "drawdown_pct": 5.40617595996149,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.6875
+        },
+        "conservative": {
+          "trades": 66,
+          "profit_factor": 1.733018857683172,
+          "expectancy_bps": 26.192863734202774,
+          "net_return_pct": 18.12625093449669,
+          "drawdown_pct": 6.032578106588082,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.6875
+        },
+        "stress": {
+          "trades": 66,
+          "profit_factor": 1.4725521489931088,
+          "expectancy_bps": 18.71627258152931,
+          "net_return_pct": 12.45401307206202,
+          "drawdown_pct": 7.5106368396485435,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.625
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.37432545163058617,
+      "trade_diagnostics": {
+        "trades": 66,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.18181818181818182,
+        "median_leverage": 72.5,
+        "minimum_leverage": 25,
+        "maximum_leverage": 200,
+        "median_exposure_to_capital": 0.9106958892212322,
+        "maximum_exposure_to_capital": 4.9254209404137725,
+        "median_margin_pct": 1.2577318038770862,
+        "maximum_margin_pct": 2.4627104702068863,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2
+    },
+    {
+      "candidate_id": "v18-31a3c5656524",
+      "parameters": {
+        "asset": "ETHUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.2,
+        "channel_hours": 12,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 62,
+          "profit_factor": 1.7132700038686,
+          "expectancy_bps": 29.277934600985706,
+          "net_return_pct": 19.123116640567005,
+          "drawdown_pct": 9.03950599219694,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "conservative": {
+          "trades": 62,
+          "profit_factor": 1.6262589368498084,
+          "expectancy_bps": 26.460384137934835,
+          "net_return_pct": 17.068865317240057,
+          "drawdown_pct": 9.434359164513939,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "stress": {
+          "trades": 62,
+          "profit_factor": 1.4686573871116497,
+          "expectancy_bps": 20.979008318798176,
+          "net_return_pct": 13.171140354308353,
+          "drawdown_pct": 10.199516012636622,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.5333333333333333
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.41958016637596346,
+      "trade_diagnostics": {
+        "trades": 62,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.3225806451612903,
+        "median_leverage": 57.5,
+        "minimum_leverage": 21,
+        "maximum_leverage": 173,
+        "median_exposure_to_capital": 0.7309666724948946,
+        "maximum_exposure_to_capital": 2.1649821579576662,
+        "median_margin_pct": 1.2608921763274927,
+        "maximum_margin_pct": 1.2975410862090684,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 1
+    },
+    {
+      "candidate_id": "v18-c39a0faf108e",
+      "parameters": {
+        "asset": "ETHUSD",
+        "mode": "breakout",
+        "side": "long",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.1,
+        "channel_hours": 6,
+        "stop_atr": 2.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 62,
+          "profit_factor": 1.6531102759232834,
+          "expectancy_bps": 16.65149850585777,
+          "net_return_pct": 10.625998163452955,
+          "drawdown_pct": 3.3289925664500952,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "conservative": {
+          "trades": 62,
+          "profit_factor": 1.5739945846420988,
+          "expectancy_bps": 15.091836799897946,
+          "net_return_pct": 9.562761225511585,
+          "drawdown_pct": 3.4474964521653106,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "stress": {
+          "trades": 62,
+          "profit_factor": 1.4326736748727207,
+          "expectancy_bps": 12.066101838252482,
+          "net_return_pct": 7.528566213289167,
+          "drawdown_pct": 3.7604870339607244,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6666666666666666
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.24132203676504965,
+      "trade_diagnostics": {
+        "trades": 62,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.11290322580645161,
+        "median_leverage": 31.5,
+        "minimum_leverage": 9,
+        "maximum_leverage": 86,
+        "median_exposure_to_capital": 0.3980821060250132,
+        "maximum_exposure_to_capital": 1.075241313431123,
+        "median_margin_pct": 1.2671936863208897,
+        "maximum_margin_pct": 1.321003151321231,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 1
+    },
+    {
+      "candidate_id": "v18-7d44687bd2a6",
+      "parameters": {
+        "asset": "BTCUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.2,
+        "channel_hours": 12,
+        "stop_atr": 2.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 66,
+          "profit_factor": 1.7061491030319964,
+          "expectancy_bps": 15.474772357882125,
+          "net_return_pct": 10.488348157296823,
+          "drawdown_pct": 3.791092854514999,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.625
+        },
+        "conservative": {
+          "trades": 66,
+          "profit_factor": 1.5699572956168015,
+          "expectancy_bps": 13.141716606305557,
+          "net_return_pct": 8.802950476809478,
+          "drawdown_pct": 4.191870591708691,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.625
+        },
+        "stress": {
+          "trades": 66,
+          "profit_factor": 1.3380989771343246,
+          "expectancy_bps": 8.612230992659738,
+          "net_return_pct": 5.602296615553892,
+          "drawdown_pct": 5.145632336266726,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.5625
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.17224461985319475,
+      "trade_diagnostics": {
+        "trades": 66,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.06060606060606061,
+        "median_leverage": 43.5,
+        "minimum_leverage": 15,
+        "maximum_leverage": 200,
+        "median_exposure_to_capital": 0.5464175335327393,
+        "maximum_exposure_to_capital": 2.9552525642482634,
+        "median_margin_pct": 1.263459053628212,
+        "maximum_margin_pct": 1.4776262821241317,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 1
+    },
+    {
+      "candidate_id": "v18-383db4675434",
+      "parameters": {
+        "asset": "SOLUSD",
+        "mode": "fade",
+        "side": "long",
+        "session_start_utc": 0,
+        "day_group": "weekend",
+        "compression_lookback_hours": 336,
+        "compression_quantile": 0.2,
+        "channel_hours": 6,
+        "stop_atr": 2.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 63,
+          "profit_factor": 1.6915376921077232,
+          "expectancy_bps": 10.020340266737179,
+          "net_return_pct": 6.431246933230805,
+          "drawdown_pct": 1.5610032423196807,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.6875
+        },
+        "conservative": {
+          "trades": 63,
+          "profit_factor": 1.5611341412096866,
+          "expectancy_bps": 8.472656509095678,
+          "net_return_pct": 5.399337207412014,
+          "drawdown_pct": 1.7109098664249256,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.6875
+        },
+        "stress": {
+          "trades": 63,
+          "profit_factor": 1.335505498695871,
+          "expectancy_bps": 5.471546805849996,
+          "net_return_pct": 3.4262760052777175,
+          "drawdown_pct": 2.0012516847695228,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.625
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.10943093611699992,
+      "trade_diagnostics": {
+        "trades": 63,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.047619047619047616,
+        "median_leverage": 32.0,
+        "minimum_leverage": 12,
+        "maximum_leverage": 65,
+        "median_exposure_to_capital": 0.40723185497246744,
+        "maximum_exposure_to_capital": 0.8209129874309256,
+        "median_margin_pct": 1.2688574134627115,
+        "maximum_margin_pct": 1.3449713672037897,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 0
+    },
+    {
+      "candidate_id": "v18-b2540d7c3c41",
+      "parameters": {
+        "asset": "ETHUSD",
+        "mode": "breakout",
+        "side": "long",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.1,
+        "channel_hours": 6,
+        "stop_atr": 1.5,
+        "hold_bars": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 75,
+          "profit_factor": 1.659611795476877,
+          "expectancy_bps": 15.241706959568335,
+          "net_return_pct": 11.786434113469358,
+          "drawdown_pct": 2.664192889361816,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "conservative": {
+          "trades": 75,
+          "profit_factor": 1.5359608308308736,
+          "expectancy_bps": 13.047559482172899,
+          "net_return_pct": 9.964432353091034,
+          "drawdown_pct": 2.8489288294452964,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "stress": {
+          "trades": 75,
+          "profit_factor": 1.3235537312311616,
+          "expectancy_bps": 8.690685426516287,
+          "net_return_pct": 6.432723769766202,
+          "drawdown_pct": 3.2148997482634334,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6666666666666666
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.17381370853032577,
+      "trade_diagnostics": {
+        "trades": 75,
+        "median_duration_hours": 1.0,
+        "maximum_duration_hours": 1.0,
+        "stop_exit_ratio": 0.05333333333333334,
+        "median_leverage": 52.0,
+        "minimum_leverage": 15,
+        "maximum_leverage": 143,
+        "median_exposure_to_capital": 0.6568166388432443,
+        "maximum_exposure_to_capital": 1.792068855718538,
+        "median_margin_pct": 1.261837992888091,
+        "maximum_margin_pct": 1.303176620515891,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 1
+    },
+    {
+      "candidate_id": "v18-b1822540b907",
+      "parameters": {
+        "asset": "ETHUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.2,
+        "channel_hours": 12,
+        "stop_atr": 1.5,
+        "hold_bars": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 70,
+          "profit_factor": 1.6191977318147706,
+          "expectancy_bps": 16.44175782434974,
+          "net_return_pct": 11.677360469621533,
+          "drawdown_pct": 3.3856194557280173,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.375,
+          "positive_quarter_ratio": 0.5333333333333333
+        },
+        "conservative": {
+          "trades": 70,
+          "profit_factor": 1.4966839838540131,
+          "expectancy_bps": 14.005407576410088,
+          "net_return_pct": 9.793625624558612,
+          "drawdown_pct": 4.057662166050191,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.375,
+          "positive_quarter_ratio": 0.4
+        },
+        "stress": {
+          "trades": 70,
+          "profit_factor": 1.2912129987292604,
+          "expectancy_bps": 9.167085992063665,
+          "net_return_pct": 6.144755423946613,
+          "drawdown_pct": 5.378858451704693,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.375,
+          "positive_quarter_ratio": 0.3333333333333333
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.18334171984127332,
+      "trade_diagnostics": {
+        "trades": 70,
+        "median_duration_hours": 1.0,
+        "maximum_duration_hours": 1.0,
+        "stop_exit_ratio": 0.07142857142857142,
+        "median_leverage": 55.5,
+        "minimum_leverage": 21,
+        "maximum_leverage": 173,
+        "median_exposure_to_capital": 0.7037266098649363,
+        "maximum_exposure_to_capital": 2.1649821579576662,
+        "median_margin_pct": 1.2608921763274927,
+        "maximum_margin_pct": 1.2975410862090684,
+        "liquidations": 0
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v18-d884be8afeb9",
+      "parameters": {
+        "asset": "SOLUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.1,
+        "channel_hours": 6,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 74,
+          "profit_factor": 1.4661333972009647,
+          "expectancy_bps": 15.202400945973215,
+          "net_return_pct": 11.432962220630948,
+          "drawdown_pct": 4.427545755664919,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.5
+        },
+        "conservative": {
+          "trades": 74,
+          "profit_factor": 1.398580486616747,
+          "expectancy_bps": 13.36257109960765,
+          "net_return_pct": 9.928824112821433,
+          "drawdown_pct": 4.581591599897294,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.4375
+        },
+        "stress": {
+          "trades": 74,
+          "profit_factor": 1.2764761241093554,
+          "expectancy_bps": 9.787490307823454,
+          "net_return_pct": 7.062880642898328,
+          "drawdown_pct": 4.980362241500924,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.375,
+          "positive_quarter_ratio": 0.4375
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.19574980615646906,
+      "trade_diagnostics": {
+        "trades": 74,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.1891891891891892,
+        "median_leverage": 38.0,
+        "minimum_leverage": 10,
+        "maximum_leverage": 78,
+        "median_exposure_to_capital": 0.47876484023088006,
+        "maximum_exposure_to_capital": 0.9763657872957848,
+        "median_margin_pct": 1.2644414840566767,
+        "maximum_margin_pct": 1.357041078976018,
+        "liquidations": 0
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v18-bda9399c020a",
+      "parameters": {
+        "asset": "ETHUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 8,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.1,
+        "channel_hours": 6,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 73,
+          "profit_factor": 1.4717238147985339,
+          "expectancy_bps": 21.850918622776618,
+          "net_return_pct": 16.294998917020067,
+          "drawdown_pct": 6.981672078149392,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.4666666666666667
+        },
+        "conservative": {
+          "trades": 73,
+          "profit_factor": 1.3978181931341118,
+          "expectancy_bps": 18.991326384899523,
+          "net_return_pct": 13.898820940117806,
+          "drawdown_pct": 7.498736508317016,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.4666666666666667
+        },
+        "stress": {
+          "trades": 73,
+          "profit_factor": 1.2650111991880446,
+          "expectancy_bps": 13.428635672714114,
+          "net_return_pct": 9.375622227646918,
+          "drawdown_pct": 8.667593288507947,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.4
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.2685727134542823,
+      "trade_diagnostics": {
+        "trades": 73,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.3561643835616438,
+        "median_leverage": 54.0,
+        "minimum_leverage": 17,
+        "maximum_leverage": 174,
+        "median_exposure_to_capital": 0.6857857427097387,
+        "maximum_exposure_to_capital": 2.181328307928738,
+        "median_margin_pct": 1.257813958313921,
+        "maximum_margin_pct": 1.2836514762355997,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 1
+    },
+    {
+      "candidate_id": "v18-4c70bd4e33a9",
+      "parameters": {
+        "asset": "SOLUSD",
+        "mode": "fade",
+        "side": "short",
+        "session_start_utc": 16,
+        "day_group": "weekend",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.1,
+        "channel_hours": 6,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 73,
+          "profit_factor": 1.4584634154512073,
+          "expectancy_bps": 17.102763683463472,
+          "net_return_pct": 12.698856601879038,
+          "drawdown_pct": 5.880007710231028,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "conservative": {
+          "trades": 73,
+          "profit_factor": 1.3872364888300774,
+          "expectancy_bps": 14.825983312322869,
+          "net_return_pct": 10.845509678775688,
+          "drawdown_pct": 6.021800824603574,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "stress": {
+          "trades": 73,
+          "profit_factor": 1.2576210833483192,
+          "expectancy_bps": 10.389363235827119,
+          "net_return_pct": 7.319501874547196,
+          "drawdown_pct": 6.300079014559568,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.6
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.20778726471654238,
+      "trade_diagnostics": {
+        "trades": 73,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.3013698630136986,
+        "median_leverage": 47.0,
+        "minimum_leverage": 22,
+        "maximum_leverage": 122,
+        "median_exposure_to_capital": 0.5954488108298964,
+        "maximum_exposure_to_capital": 1.5267489144171364,
+        "median_margin_pct": 1.2639053830827507,
+        "maximum_margin_pct": 1.290406456072996,
+        "liquidations": 0
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v18-b6f6650876fb",
+      "parameters": {
+        "asset": "SOLUSD",
+        "mode": "fade",
+        "side": "long",
+        "session_start_utc": 0,
+        "day_group": "weekend",
+        "compression_lookback_hours": 336,
+        "compression_quantile": 0.2,
+        "channel_hours": 6,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 65,
+          "profit_factor": 1.5818341460298375,
+          "expectancy_bps": 14.660935654408382,
+          "net_return_pct": 9.76245017263091,
+          "drawdown_pct": 3.521503514172697,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.625
+        },
+        "conservative": {
+          "trades": 65,
+          "profit_factor": 1.464189766778756,
+          "expectancy_bps": 12.127257623623692,
+          "net_return_pct": 7.97198815547786,
+          "drawdown_pct": 3.818246741804676,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.625
+        },
+        "stress": {
+          "trades": 65,
+          "profit_factor": 1.2560467535144768,
+          "expectancy_bps": 7.204206916737658,
+          "net_return_pct": 4.574613028401764,
+          "drawdown_pct": 4.415726469134185,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.375,
+          "positive_quarter_ratio": 0.625
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.14408413833475317,
+      "trade_diagnostics": {
+        "trades": 65,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.13846153846153847,
+        "median_leverage": 54.0,
+        "minimum_leverage": 21,
+        "maximum_leverage": 109,
+        "median_exposure_to_capital": 0.6787197582874457,
+        "maximum_exposure_to_capital": 1.368188312384876,
+        "median_margin_pct": 1.2606132281239149,
+        "maximum_margin_pct": 1.2845199183711256,
+        "liquidations": 0
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v18-14a32601ef70",
+      "parameters": {
+        "asset": "SOLUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 16,
+        "day_group": "weekend",
+        "compression_lookback_hours": 336,
+        "compression_quantile": 0.1,
+        "channel_hours": 6,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 67,
+          "profit_factor": 1.463406587481954,
+          "expectancy_bps": 18.95049067873108,
+          "net_return_pct": 12.915873515543307,
+          "drawdown_pct": 6.071890749919351,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.625
+        },
+        "conservative": {
+          "trades": 67,
+          "profit_factor": 1.3889827368814331,
+          "expectancy_bps": 16.386095787655528,
+          "net_return_pct": 10.996516734576534,
+          "drawdown_pct": 6.489444404658795,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.625
+        },
+        "stress": {
+          "trades": 67,
+          "profit_factor": 1.255763898720431,
+          "expectancy_bps": 11.39445954407204,
+          "net_return_pct": 7.351782732681733,
+          "drawdown_pct": 7.300263553843278,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.625
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.22788919088144083,
+      "trade_diagnostics": {
+        "trades": 67,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.29850746268656714,
+        "median_leverage": 55.0,
+        "minimum_leverage": 23,
+        "maximum_leverage": 113,
+        "median_exposure_to_capital": 0.696632256227917,
+        "maximum_exposure_to_capital": 1.4172683146592462,
+        "median_margin_pct": 1.2619402771705264,
+        "maximum_margin_pct": 1.2919877229045356,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 1
+    },
+    {
+      "candidate_id": "v18-216c133d938b",
+      "parameters": {
+        "asset": "BTCUSD",
+        "mode": "breakout",
+        "side": "long",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.2,
+        "channel_hours": 12,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 60,
+          "profit_factor": 1.5368643656028598,
+          "expectancy_bps": 20.333245027854478,
+          "net_return_pct": 12.486362244901738,
+          "drawdown_pct": 4.382600582484974,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.5625
+        },
+        "conservative": {
+          "trades": 60,
+          "profit_factor": 1.4354807221094705,
+          "expectancy_bps": 17.042575636363473,
+          "net_return_pct": 10.292924417937765,
+          "drawdown_pct": 4.673768081064777,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.5625
+        },
+        "stress": {
+          "trades": 60,
+          "profit_factor": 1.2557579507572016,
+          "expectancy_bps": 10.640444106601876,
+          "net_return_pct": 6.144640082355024,
+          "drawdown_pct": 5.352252846158301,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.5625
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.21280888213203752,
+      "trade_diagnostics": {
+        "trades": 60,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.31666666666666665,
+        "median_leverage": 62.5,
+        "minimum_leverage": 24,
+        "maximum_leverage": 200,
+        "median_exposure_to_capital": 0.7890720821277543,
+        "maximum_exposure_to_capital": 2.913477464331086,
+        "median_margin_pct": 1.258559044359014,
+        "maximum_margin_pct": 1.456738732165543,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 0
+    },
+    {
+      "candidate_id": "v18-4727eb6c7fa4",
+      "parameters": {
+        "asset": "SOLUSD",
+        "mode": "fade",
+        "side": "long",
+        "session_start_utc": 0,
+        "day_group": "weekend",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.2,
+        "channel_hours": 6,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 75,
+          "profit_factor": 1.5447407686963184,
+          "expectancy_bps": 14.295480271550094,
+          "net_return_pct": 11.03383282788062,
+          "drawdown_pct": 3.05380577462403,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.5625
+        },
+        "conservative": {
+          "trades": 75,
+          "profit_factor": 1.440125509174189,
+          "expectancy_bps": 11.936581440190727,
+          "net_return_pct": 9.089284092648287,
+          "drawdown_pct": 3.350017252629889,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.5625
+        },
+        "stress": {
+          "trades": 75,
+          "profit_factor": 1.253203187994298,
+          "expectancy_bps": 7.3541549215582664,
+          "net_return_pct": 5.407015393266423,
+          "drawdown_pct": 3.92530109627075,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.5625
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.14708309843116532,
+      "trade_diagnostics": {
+        "trades": 75,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.14666666666666667,
+        "median_leverage": 52.0,
+        "minimum_leverage": 17,
+        "maximum_leverage": 109,
+        "median_exposure_to_capital": 0.6570488614689691,
+        "maximum_exposure_to_capital": 1.368188312384876,
+        "median_margin_pct": 1.2620029581386498,
+        "maximum_margin_pct": 1.3058868265166133,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 0
+    },
+    {
+      "candidate_id": "v18-59241d3bf8ff",
+      "parameters": {
+        "asset": "ETHUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.2,
+        "channel_hours": 12,
+        "stop_atr": 2.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 62,
+          "profit_factor": 1.4123210884765096,
+          "expectancy_bps": 12.14079739878481,
+          "net_return_pct": 7.531868590788893,
+          "drawdown_pct": 7.687279130600711,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "conservative": {
+          "trades": 62,
+          "profit_factor": 1.345275890173382,
+          "expectancy_bps": 10.421602439838965,
+          "net_return_pct": 6.3939077973895975,
+          "drawdown_pct": 7.9336160785498215,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "stress": {
+          "trades": 62,
+          "profit_factor": 1.223194729134868,
+          "expectancy_bps": 7.08500247983144,
+          "net_return_pct": 4.218887668557092,
+          "drawdown_pct": 8.410378606540858,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.4666666666666667
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.1417000495966288,
+      "trade_diagnostics": {
+        "trades": 62,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.16129032258064516,
+        "median_leverage": 34.5,
+        "minimum_leverage": 13,
+        "maximum_leverage": 103,
+        "median_exposure_to_capital": 0.4385800034969367,
+        "maximum_exposure_to_capital": 1.2989892947745996,
+        "median_margin_pct": 1.2665228576123708,
+        "maximum_margin_pct": 1.3210999704982416,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 1
+    },
+    {
+      "candidate_id": "v18-ac226778bcad",
+      "parameters": {
+        "asset": "ETHUSD",
+        "mode": "breakout",
+        "side": "long",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.2,
+        "channel_hours": 12,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 81,
+          "profit_factor": 1.421956376975566,
+          "expectancy_bps": 18.686496387876858,
+          "net_return_pct": 15.446006940179391,
+          "drawdown_pct": 7.364101680856483,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.6875
+        },
+        "conservative": {
+          "trades": 81,
+          "profit_factor": 1.349023412436745,
+          "expectancy_bps": 15.99798343550842,
+          "net_return_pct": 12.963366939144905,
+          "drawdown_pct": 7.815879200886022,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.6875
+        },
+        "stress": {
+          "trades": 81,
+          "profit_factor": 1.219791567972809,
+          "expectancy_bps": 10.766958772287909,
+          "net_return_pct": 8.282347870444395,
+          "drawdown_pct": 8.69047694515437,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.6875
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.21533917544575817,
+      "trade_diagnostics": {
+        "trades": 81,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.32098765432098764,
+        "median_leverage": 52.0,
+        "minimum_leverage": 15,
+        "maximum_leverage": 200,
+        "median_exposure_to_capital": 0.6584639754761449,
+        "maximum_exposure_to_capital": 2.5376829217783152,
+        "median_margin_pct": 1.2621423496803175,
+        "maximum_margin_pct": 1.303176620515891,
+        "liquidations": 0
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v18-d56429402a21",
+      "parameters": {
+        "asset": "BTCUSD",
+        "mode": "breakout",
+        "side": "long",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 336,
+        "compression_quantile": 0.2,
+        "channel_hours": 12,
+        "stop_atr": 1.5,
+        "hold_bars": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 71,
+          "profit_factor": 1.6588323366541615,
+          "expectancy_bps": 15.270109356691272,
+          "net_return_pct": 11.144781254522783,
+          "drawdown_pct": 5.313342575922153,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.5625
+        },
+        "conservative": {
+          "trades": 71,
+          "profit_factor": 1.4805848010721565,
+          "expectancy_bps": 11.994641885157545,
+          "net_return_pct": 8.592994768578176,
+          "drawdown_pct": 5.5332622029734875,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.5
+        },
+        "stress": {
+          "trades": 71,
+          "profit_factor": 1.1921658698724957,
+          "expectancy_bps": 5.490160696712959,
+          "net_return_pct": 3.695163094864462,
+          "drawdown_pct": 5.968896807010903,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.5
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.10980321393425918,
+      "trade_diagnostics": {
+        "trades": 71,
+        "median_duration_hours": 1.0,
+        "maximum_duration_hours": 1.0,
+        "stop_exit_ratio": 0.08450704225352113,
+        "median_leverage": 81.0,
+        "minimum_leverage": 34,
+        "maximum_leverage": 200,
+        "median_exposure_to_capital": 1.0166502802211141,
+        "maximum_exposure_to_capital": 2.9614805030233122,
+        "median_margin_pct": 1.2583291570046335,
+        "maximum_margin_pct": 1.4807402515116561,
+        "liquidations": 0
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v18-f10f5736bbe2",
+      "parameters": {
+        "asset": "ETHUSD",
+        "mode": "breakout",
+        "side": "long",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.2,
+        "channel_hours": 12,
+        "stop_atr": 1.5,
+        "hold_bars": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 92,
+          "profit_factor": 1.507123811675504,
+          "expectancy_bps": 12.327717652372375,
+          "net_return_pct": 11.606420848664545,
+          "drawdown_pct": 4.562543767447192,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.875,
+          "positive_quarter_ratio": 0.75
+        },
+        "conservative": {
+          "trades": 92,
+          "profit_factor": 1.3911234316503014,
+          "expectancy_bps": 10.01369610723938,
+          "net_return_pct": 9.258555500806231,
+          "drawdown_pct": 5.019549447483507,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.875,
+          "positive_quarter_ratio": 0.75
+        },
+        "stress": {
+          "trades": 92,
+          "profit_factor": 1.191834551930655,
+          "expectancy_bps": 5.418385613262082,
+          "net_return_pct": 4.739539899127987,
+          "drawdown_pct": 5.92071460813256,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.625
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.10836771226524164,
+      "trade_diagnostics": {
+        "trades": 92,
+        "median_duration_hours": 1.0,
+        "maximum_duration_hours": 1.0,
+        "stop_exit_ratio": 0.06521739130434782,
+        "median_leverage": 52.5,
+        "minimum_leverage": 15,
+        "maximum_leverage": 200,
+        "median_exposure_to_capital": 0.6616517788066345,
+        "maximum_exposure_to_capital": 2.5376829217783152,
+        "median_margin_pct": 1.2615944948863675,
+        "maximum_margin_pct": 1.303176620515891,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 0
+    },
+    {
+      "candidate_id": "v18-eeff9bb9e164",
+      "parameters": {
+        "asset": "SOLUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 16,
+        "day_group": "weekend",
+        "compression_lookback_hours": 336,
+        "compression_quantile": 0.1,
+        "channel_hours": 6,
+        "stop_atr": 2.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 67,
+          "profit_factor": 1.3620420614890503,
+          "expectancy_bps": 10.123539704266463,
+          "net_return_pct": 6.767910639897279,
+          "drawdown_pct": 4.721489800863399,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6875
+        },
+        "conservative": {
+          "trades": 67,
+          "profit_factor": 1.2986170680992468,
+          "expectancy_bps": 8.558148770083706,
+          "net_return_pct": 5.655268307113581,
+          "drawdown_pct": 4.985844495544112,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.625
+        },
+        "stress": {
+          "trades": 67,
+          "profit_factor": 1.1836669420393908,
+          "expectancy_bps": 5.5185770247045784,
+          "net_return_pct": 3.5272273470272397,
+          "drawdown_pct": 5.4977791307391,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.625
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.11037154049409158,
+      "trade_diagnostics": {
+        "trades": 67,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.14925373134328357,
+        "median_leverage": 33.0,
+        "minimum_leverage": 14,
+        "maximum_leverage": 68,
+        "median_exposure_to_capital": 0.41797935373675027,
+        "maximum_exposure_to_capital": 0.8503609887955478,
+        "median_margin_pct": 1.2668101595898995,
+        "maximum_margin_pct": 1.3268692715368269,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 1
+    },
+    {
+      "candidate_id": "v18-d766cdaedb7d",
+      "parameters": {
+        "asset": "SOLUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 16,
+        "day_group": "weekend",
+        "compression_lookback_hours": 336,
+        "compression_quantile": 0.2,
+        "channel_hours": 6,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 95,
+          "profit_factor": 1.3556809680048534,
+          "expectancy_bps": 15.279351137110295,
+          "net_return_pct": 14.718654719783398,
+          "drawdown_pct": 5.251455073457767,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.6875
+        },
+        "conservative": {
+          "trades": 95,
+          "profit_factor": 1.2920632991058718,
+          "expectancy_bps": 12.884877441248493,
+          "net_return_pct": 12.143481212266938,
+          "drawdown_pct": 5.432788299912095,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.6875
+        },
+        "stress": {
+          "trades": 95,
+          "profit_factor": 1.1773359348881955,
+          "expectancy_bps": 8.22686201667074,
+          "net_return_pct": 7.296217467260813,
+          "drawdown_pct": 6.10658255051878,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.5625
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.1645372403334148,
+      "trade_diagnostics": {
+        "trades": 95,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.30526315789473685,
+        "median_leverage": 52.0,
+        "minimum_leverage": 14,
+        "maximum_leverage": 113,
+        "median_exposure_to_capital": 0.6612636034544579,
+        "maximum_exposure_to_capital": 1.4172683146592462,
+        "median_margin_pct": 1.2619402771705264,
+        "maximum_margin_pct": 1.3008599214216428,
+        "liquidations": 0
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v18-cf5ee4f5c719",
+      "parameters": {
+        "asset": "ETHUSD",
+        "mode": "breakout",
+        "side": "long",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.1,
+        "channel_hours": 6,
+        "stop_atr": 2.5,
+        "hold_bars": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 75,
+          "profit_factor": 1.4613804267093005,
+          "expectancy_bps": 6.9809211652979,
+          "net_return_pct": 5.264219602559095,
+          "drawdown_pct": 1.489888630993208,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "conservative": {
+          "trades": 75,
+          "profit_factor": 1.3563835715487442,
+          "expectancy_bps": 5.6634985853244215,
+          "net_return_pct": 4.229933033210753,
+          "drawdown_pct": 1.6018291967979326,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "stress": {
+          "trades": 75,
+          "profit_factor": 1.1748604583105509,
+          "expectancy_bps": 3.0478173293700945,
+          "net_return_pct": 2.205959136886726,
+          "drawdown_pct": 1.9789670996902764,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.6
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.060956346587401886,
+      "trade_diagnostics": {
+        "trades": 75,
+        "median_duration_hours": 1.0,
+        "maximum_duration_hours": 1.0,
+        "stop_exit_ratio": 0.013333333333333334,
+        "median_leverage": 31.0,
+        "minimum_leverage": 9,
+        "maximum_leverage": 86,
+        "median_exposure_to_capital": 0.3940899833059465,
+        "maximum_exposure_to_capital": 1.075241313431123,
+        "median_margin_pct": 1.2674410125472022,
+        "maximum_margin_pct": 1.321003151321231,
+        "liquidations": 0
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v18-5c43eb7f5f50",
+      "parameters": {
+        "asset": "BTCUSD",
+        "mode": "breakout",
+        "side": "long",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 336,
+        "compression_quantile": 0.2,
+        "channel_hours": 12,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 63,
+          "profit_factor": 1.4877992933533755,
+          "expectancy_bps": 18.621643595081693,
+          "net_return_pct": 11.916833656022607,
+          "drawdown_pct": 6.546453747808789,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6875
+        },
+        "conservative": {
+          "trades": 63,
+          "profit_factor": 1.37087495990537,
+          "expectancy_bps": 14.799999890369625,
+          "net_return_pct": 9.259947652076118,
+          "drawdown_pct": 6.755525462569634,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.625
+        },
+        "stress": {
+          "trades": 63,
+          "profit_factor": 1.170207547640813,
+          "expectancy_bps": 7.367584116672185,
+          "net_return_pct": 4.268475256906767,
+          "drawdown_pct": 7.178721441931346,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.5625
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.1473516823334437,
+      "trade_diagnostics": {
+        "trades": 63,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.2857142857142857,
+        "median_leverage": 79.0,
+        "minimum_leverage": 35,
+        "maximum_leverage": 200,
+        "median_exposure_to_capital": 0.9944440887584286,
+        "maximum_exposure_to_capital": 2.9614805030233122,
+        "median_margin_pct": 1.2583538577111693,
+        "maximum_margin_pct": 1.4807402515116561,
+        "liquidations": 0
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v18-8ace86835a01",
+      "parameters": {
+        "asset": "ETHUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 8,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.1,
+        "channel_hours": 6,
+        "stop_atr": 2.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 72,
+          "profit_factor": 1.3545764463719077,
+          "expectancy_bps": 10.702558942055948,
+          "net_return_pct": 7.6458233845963175,
+          "drawdown_pct": 5.658232853797573,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.4
+        },
+        "conservative": {
+          "trades": 72,
+          "profit_factor": 1.2882064173778605,
+          "expectancy_bps": 8.954573539494753,
+          "net_return_pct": 6.300920164611035,
+          "drawdown_pct": 5.862733488837191,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.4
+        },
+        "stress": {
+          "trades": 72,
+          "profit_factor": 1.1693481784626052,
+          "expectancy_bps": 5.56246811765537,
+          "net_return_pct": 3.7379570937362327,
+          "drawdown_pct": 6.258478293058567,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.4
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.1112493623531074,
+      "trade_diagnostics": {
+        "trades": 72,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.18055555555555555,
+        "median_leverage": 32.0,
+        "minimum_leverage": 10,
+        "maximum_leverage": 104,
+        "median_exposure_to_capital": 0.4062251071616919,
+        "maximum_exposure_to_capital": 1.308796984757243,
+        "median_margin_pct": 1.2674818814366602,
+        "maximum_margin_pct": 1.3057867876135842,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 1
+    },
+    {
+      "candidate_id": "v18-fe822b79b002",
+      "parameters": {
+        "asset": "SOLUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 16,
+        "day_group": "weekend",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.2,
+        "channel_hours": 12,
+        "stop_atr": 2.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 78,
+          "profit_factor": 1.3353820773824308,
+          "expectancy_bps": 8.591602183077615,
+          "net_return_pct": 6.689496050708943,
+          "drawdown_pct": 3.747218525631635,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6875
+        },
+        "conservative": {
+          "trades": 78,
+          "profit_factor": 1.2735788081575,
+          "expectancy_bps": 7.201169132908389,
+          "net_return_pct": 5.539841638702958,
+          "drawdown_pct": 3.863869454262958,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6875
+        },
+        "stress": {
+          "trades": 78,
+          "profit_factor": 1.1624827685602832,
+          "expectancy_bps": 4.503472876881909,
+          "net_return_pct": 3.3439806234581537,
+          "drawdown_pct": 4.090687434057482,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.6875
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.09006945753763818,
+      "trade_diagnostics": {
+        "trades": 78,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.10256410256410256,
+        "median_leverage": 29.0,
+        "minimum_leverage": 8,
+        "maximum_leverage": 65,
+        "median_exposure_to_capital": 0.3701479954452828,
+        "maximum_exposure_to_capital": 0.8165712454389924,
+        "median_margin_pct": 1.2705317547034614,
+        "maximum_margin_pct": 1.3659029174927246,
+        "liquidations": 0
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v18-43bde3be7208",
+      "parameters": {
+        "asset": "BTCUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 336,
+        "compression_quantile": 0.2,
+        "channel_hours": 12,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 65,
+          "profit_factor": 1.5056489414442953,
+          "expectancy_bps": 19.07778235552951,
+          "net_return_pct": 12.513327144589459,
+          "drawdown_pct": 5.769826470644257,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.5625
+        },
+        "conservative": {
+          "trades": 65,
+          "profit_factor": 1.3753751460302353,
+          "expectancy_bps": 14.996123563634264,
+          "net_return_pct": 9.57352359274537,
+          "drawdown_pct": 6.0936931302579715,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.5625
+        },
+        "stress": {
+          "trades": 65,
+          "profit_factor": 1.157557858945176,
+          "expectancy_bps": 7.064473990977612,
+          "net_return_pct": 4.074155046186756,
+          "drawdown_pct": 6.719021200311337,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.5625
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.14128947981955225,
+      "trade_diagnostics": {
+        "trades": 65,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.18461538461538463,
+        "median_leverage": 83.0,
+        "minimum_leverage": 25,
+        "maximum_leverage": 200,
+        "median_exposure_to_capital": 1.0439389874666807,
+        "maximum_exposure_to_capital": 4.9254209404137725,
+        "median_margin_pct": 1.2576639142047303,
+        "maximum_margin_pct": 2.4627104702068863,
+        "liquidations": 0
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 1
+    },
+    {
+      "candidate_id": "v18-2e5f8923f39f",
+      "parameters": {
+        "asset": "SOLUSD",
+        "mode": "breakout",
+        "side": "long",
+        "session_start_utc": 16,
+        "day_group": "weekday",
+        "compression_lookback_hours": 336,
+        "compression_quantile": 0.2,
+        "channel_hours": 6,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 69,
+          "profit_factor": 1.2933645727570902,
+          "expectancy_bps": 12.259872051579697,
+          "net_return_pct": 8.218019882757478,
+          "drawdown_pct": 7.489461184233037,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.6875
+        },
+        "conservative": {
+          "trades": 69,
+          "profit_factor": 1.2426410225670543,
+          "expectancy_bps": 10.372178879548295,
+          "net_return_pct": 6.820005433838894,
+          "drawdown_pct": 8.073109448190085,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.625
+        },
+        "stress": {
+          "trades": 69,
+          "profit_factor": 1.1499970057638356,
+          "expectancy_bps": 6.698879657093259,
+          "net_return_pct": 4.150175370794051,
+          "drawdown_pct": 9.198669641566948,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.5
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.13397759314186516,
+      "trade_diagnostics": {
+        "trades": 69,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.2753623188405797,
+        "median_leverage": 39.0,
+        "minimum_leverage": 13,
+        "maximum_leverage": 82,
+        "median_exposure_to_capital": 0.4881565216539401,
+        "maximum_exposure_to_capital": 1.02935249419381,
+        "median_margin_pct": 1.2622902259653985,
+        "maximum_margin_pct": 1.315458091372875,
+        "liquidations": 0
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v18-deb024985373",
+      "parameters": {
+        "asset": "ETHUSD",
+        "mode": "breakout",
+        "side": "short",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.2,
+        "channel_hours": 12,
+        "stop_atr": 2.5,
+        "hold_bars": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 70,
+          "profit_factor": 1.412058022887986,
+          "expectancy_bps": 7.334848116688636,
+          "net_return_pct": 5.088153970673259,
+          "drawdown_pct": 2.2840866655751357,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.375,
+          "positive_quarter_ratio": 0.4
+        },
+        "conservative": {
+          "trades": 70,
+          "profit_factor": 1.3125010959206214,
+          "expectancy_bps": 5.872586193187646,
+          "net_return_pct": 4.019335611405528,
+          "drawdown_pct": 2.502410480312367,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.375,
+          "positive_quarter_ratio": 0.3333333333333333
+        },
+        "stress": {
+          "trades": 70,
+          "profit_factor": 1.142734991384216,
+          "expectancy_bps": 2.9688402846844584,
+          "net_return_pct": 1.9284275594528832,
+          "drawdown_pct": 3.3096889597437285,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.375,
+          "positive_quarter_ratio": 0.3333333333333333
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.059376805693689166,
+      "trade_diagnostics": {
+        "trades": 70,
+        "median_duration_hours": 1.0,
+        "maximum_duration_hours": 1.0,
+        "stop_exit_ratio": 0.014285714285714285,
+        "median_leverage": 33.0,
+        "minimum_leverage": 12,
+        "maximum_leverage": 103,
+        "median_exposure_to_capital": 0.42223596591896173,
+        "maximum_exposure_to_capital": 1.2989892947745996,
+        "median_margin_pct": 1.267044702146719,
+        "maximum_margin_pct": 1.3285114726031837,
+        "liquidations": 0
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v18-f04b5d42082b",
+      "parameters": {
+        "asset": "BTCUSD",
+        "mode": "breakout",
+        "side": "long",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.2,
+        "channel_hours": 6,
+        "stop_atr": 1.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 88,
+          "profit_factor": 1.3910538733090159,
+          "expectancy_bps": 15.563962493919727,
+          "net_return_pct": 13.981889578021512,
+          "drawdown_pct": 5.977362971185151,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.5625
+        },
+        "conservative": {
+          "trades": 88,
+          "profit_factor": 1.2961808549195768,
+          "expectancy_bps": 12.257405654477465,
+          "net_return_pct": 10.71721189499264,
+          "drawdown_pct": 7.325349704268957,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.5625
+        },
+        "stress": {
+          "trades": 88,
+          "profit_factor": 1.13100932834611,
+          "expectancy_bps": 5.827077572395139,
+          "net_return_pct": 4.629705933999695,
+          "drawdown_pct": 9.894644928264295,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.75,
+          "positive_quarter_ratio": 0.5
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.11654155144790279,
+      "trade_diagnostics": {
+        "trades": 88,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.3068181818181818,
+        "median_leverage": 64.5,
+        "minimum_leverage": 24,
+        "maximum_leverage": 200,
+        "median_exposure_to_capital": 0.8104053188624059,
+        "maximum_exposure_to_capital": 3.007457065301533,
+        "median_margin_pct": 1.259166963357133,
+        "maximum_margin_pct": 1.5037285326507666,
+        "liquidations": 0
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v18-0ccfdb060661",
+      "parameters": {
+        "asset": "SOLUSD",
+        "mode": "fade",
+        "side": "long",
+        "session_start_utc": 0,
+        "day_group": "weekend",
+        "compression_lookback_hours": 168,
+        "compression_quantile": 0.2,
+        "channel_hours": 6,
+        "stop_atr": 2.5,
+        "hold_bars": 6
+      },
+      "metrics": {
+        "base": {
+          "trades": 73,
+          "profit_factor": 1.392189840287697,
+          "expectancy_bps": 6.721063799690838,
+          "net_return_pct": 4.923163748401094,
+          "drawdown_pct": 3.656191661183439,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.625
+        },
+        "conservative": {
+          "trades": 73,
+          "profit_factor": 1.2978566406803267,
+          "expectancy_bps": 5.278091368568656,
+          "net_return_pct": 3.824415904452394,
+          "drawdown_pct": 3.833211967905681,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.625
+        },
+        "stress": {
+          "trades": 73,
+          "profit_factor": 1.1309888538080315,
+          "expectancy_bps": 2.479667405212902,
+          "net_return_pct": 1.725723993865147,
+          "drawdown_pct": 4.176155132788817,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.625,
+          "positive_quarter_ratio": 0.625
+        }
+      },
+      "liquidations": 0,
+      "stress_expectancy_usdc": 0.04959334810425804,
+      "trade_diagnostics": {
+        "trades": 73,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.0684931506849315,
+        "median_leverage": 31.0,
+        "minimum_leverage": 10,
+        "maximum_leverage": 65,
+        "median_exposure_to_capital": 0.39422931688138146,
+        "maximum_exposure_to_capital": 0.8209129874309256,
+        "median_margin_pct": 1.271707473810908,
+        "maximum_margin_pct": 1.3449713672037897,
+        "liquidations": 0
+      },
+      "passes_point_gate": false
+    }
+  ],
+  "validation_accessed": false,
+  "holdout_accessed": false,
+  "sqcli_builder_executed": false,
+  "paper_or_live_authorized": false
+}

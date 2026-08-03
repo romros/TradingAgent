@@ -96,6 +96,14 @@ intactes. ETH i SOL ja són a SQ en símbols nous: roundtrip juny 2026 amb
 43.200 timestamps i OHLC exactes. Volum fraccional truncat, de manera que són
 `PASS_SIGNAL_RESEARCH` exclusivament; paper/live i regles de volum bloquejats.
 
+**Crypto compressió intradia v18:** 17/2.304 punts passen desenvolupament i
+dues regions petites seleccionen BTC short i ETH long, 00 UTC laborables. Els
+medoids semblen forts en 2021–2024 (PF estrès 1,47/1,70; +0,37/+0,56 USDC per
+trade; 0 liquidacions), però fallen la validació 2025H1: BTC 6 trades, PF 0,73,
+-0,41 USDC/trade; ETH 4/4 pèrdues, -1,32 USDC/trade. Branca terminal
+`REJECT_CRYPTO_INTRADAY_COMPRESSION_NO_SQCLI`; holdout intacte, sense Builder,
+paper ni live.
+
 ### Fase: PAPER PROBE — T7 en curs (≥4 setmanes, inici 2026-03-16)
 
 **Setup actiu**: `capitulation_d1` — MSFT (primari), NVDA, NDXUSD (complementari, paper: QQQ proxy)

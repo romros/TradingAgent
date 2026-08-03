@@ -1,0 +1,206 @@
+{
+  "schema_version": 1,
+  "preflight_id": "alquimia-market-data-v22",
+  "policy": "newest compatibility observation wins; missing or conflicting evidence fails closed",
+  "brokerage_service_root": "/mnt/volume-SQ/dev/BrokerageService",
+  "markets": [
+    {
+      "symbol": "EURUSD",
+      "decision": "BLOCK_CURRENT_PARITY",
+      "reasons": [
+        "The newest compatibility observation does not authorize the proxy for backtesting.",
+        "Compatibility registries disagree; newest asof_ts is authoritative and fail-closed."
+      ],
+      "historical_dukascopy": {
+        "available": true,
+        "done_months": 274,
+        "rows": 10050611,
+        "from": "2003-05",
+        "to": "2026-02",
+        "last_updated": "2026-02-28T21:09:59.909526+00:00"
+      },
+      "ostium_native_storage": {
+        "available": true,
+        "files": 1,
+        "bytes": 37738,
+        "paths": [
+          "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet_ostium_v1/EURUSD/tf=1m/year=2026/month=03/data.parquet"
+        ]
+      },
+      "compatibility_observations": [
+        {
+          "registry": "/mnt/volume-SQ/dev/BrokerageService/datafiles/compat_reports/ostium_compat_registry.json",
+          "status": "PASS_BACKTEST",
+          "ostium_primary_allowed": false,
+          "allowed_for_backtest": true,
+          "allowed_for_live": false,
+          "asof_ts": 1771601987,
+          "verdict_reason": "corr=0.968 dir_agree_filtered=96.7% (eligible=427, dir_agree_1m=89.9%)",
+          "window_minutes": 646
+        },
+        {
+          "registry": "/mnt/volume-SQ/dev/BrokerageService/datafiles/realtime_datalayer/compat_reports/ostium_compat_registry.json",
+          "status": "PARTIAL",
+          "ostium_primary_allowed": false,
+          "allowed_for_backtest": false,
+          "allowed_for_live": false,
+          "asof_ts": 1772311725,
+          "verdict_reason": "corr=0.966 dir_agree=92.9%",
+          "window_minutes": 71
+        }
+      ],
+      "current_compatibility": {
+        "registry": "/mnt/volume-SQ/dev/BrokerageService/datafiles/realtime_datalayer/compat_reports/ostium_compat_registry.json",
+        "status": "PARTIAL",
+        "ostium_primary_allowed": false,
+        "allowed_for_backtest": false,
+        "allowed_for_live": false,
+        "asof_ts": 1772311725,
+        "verdict_reason": "corr=0.966 dir_agree=92.9%",
+        "window_minutes": 71
+      },
+      "registry_conflict": true,
+      "paper_or_live_authorized": false
+    },
+    {
+      "symbol": "XAUUSD",
+      "decision": "BLOCK_CURRENT_PARITY",
+      "reasons": [
+        "The newest compatibility observation does not authorize the proxy for backtesting.",
+        "Compatibility registries disagree; newest asof_ts is authoritative and fail-closed."
+      ],
+      "historical_dukascopy": {
+        "available": true,
+        "done_months": 274,
+        "rows": 7799353,
+        "from": "2003-05",
+        "to": "2026-02",
+        "last_updated": "2026-02-27T18:57:58.270700+00:00"
+      },
+      "ostium_native_storage": {
+        "available": false,
+        "files": 0,
+        "bytes": 0,
+        "paths": []
+      },
+      "compatibility_observations": [
+        {
+          "registry": "/mnt/volume-SQ/dev/BrokerageService/datafiles/compat_reports/ostium_compat_registry.json",
+          "status": "PASS",
+          "ostium_primary_allowed": true,
+          "allowed_for_backtest": true,
+          "allowed_for_live": true,
+          "asof_ts": 1772057173,
+          "verdict_reason": "corr=1.000 dir_agree=100.0%",
+          "window_minutes": 120
+        },
+        {
+          "registry": "/mnt/volume-SQ/dev/BrokerageService/datafiles/realtime_datalayer/compat_reports/ostium_compat_registry.json",
+          "status": "PARTIAL",
+          "ostium_primary_allowed": false,
+          "allowed_for_backtest": false,
+          "allowed_for_live": false,
+          "asof_ts": 1772311725,
+          "verdict_reason": "corr=0.960 dir_agree=88.6%",
+          "window_minutes": 71
+        }
+      ],
+      "current_compatibility": {
+        "registry": "/mnt/volume-SQ/dev/BrokerageService/datafiles/realtime_datalayer/compat_reports/ostium_compat_registry.json",
+        "status": "PARTIAL",
+        "ostium_primary_allowed": false,
+        "allowed_for_backtest": false,
+        "allowed_for_live": false,
+        "asof_ts": 1772311725,
+        "verdict_reason": "corr=0.960 dir_agree=88.6%",
+        "window_minutes": 71
+      },
+      "registry_conflict": true,
+      "paper_or_live_authorized": false
+    },
+    {
+      "symbol": "MSFT",
+      "decision": "BLOCK_HISTORICAL_SOURCE",
+      "reasons": [
+        "No checksummed Dukascopy coverage index with completed months."
+      ],
+      "historical_dukascopy": {
+        "available": false,
+        "done_months": 0,
+        "rows": 0,
+        "from": null,
+        "to": null
+      },
+      "ostium_native_storage": {
+        "available": true,
+        "files": 1,
+        "bytes": 2730,
+        "paths": [
+          "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet_ostium_v1/MSFT/tf=1m/year=2026/month=03/data.parquet"
+        ]
+      },
+      "compatibility_observations": [],
+      "current_compatibility": null,
+      "registry_conflict": false,
+      "paper_or_live_authorized": false
+    },
+    {
+      "symbol": "NVDA",
+      "decision": "BLOCK_HISTORICAL_SOURCE",
+      "reasons": [
+        "No checksummed Dukascopy coverage index with completed months."
+      ],
+      "historical_dukascopy": {
+        "available": false,
+        "done_months": 0,
+        "rows": 0,
+        "from": null,
+        "to": null
+      },
+      "ostium_native_storage": {
+        "available": true,
+        "files": 1,
+        "bytes": 2445,
+        "paths": [
+          "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet_ostium_v1/NVDA/tf=1m/year=2026/month=03/data.parquet"
+        ]
+      },
+      "compatibility_observations": [],
+      "current_compatibility": null,
+      "registry_conflict": false,
+      "paper_or_live_authorized": false
+    },
+    {
+      "symbol": "NDXUSD",
+      "decision": "BLOCK_HISTORICAL_SOURCE",
+      "reasons": [
+        "No checksummed Dukascopy coverage index with completed months."
+      ],
+      "historical_dukascopy": {
+        "available": false,
+        "done_months": 0,
+        "rows": 0,
+        "from": null,
+        "to": null
+      },
+      "ostium_native_storage": {
+        "available": true,
+        "files": 1,
+        "bytes": 2405,
+        "paths": [
+          "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet_ostium_v1/NDXUSD/tf=1m/year=2026/month=03/data.parquet"
+        ]
+      },
+      "compatibility_observations": [],
+      "current_compatibility": null,
+      "registry_conflict": false,
+      "paper_or_live_authorized": false
+    }
+  ],
+  "research_proxy_eligible_symbols": [],
+  "d1_equity_campaign_authorized": false,
+  "strategy_campaign_authorized": false,
+  "global_holdout_accessed": false,
+  "performance_metrics_accessed": false,
+  "paper_or_live_authorized": false
+}

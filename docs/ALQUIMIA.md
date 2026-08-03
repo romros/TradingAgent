@@ -638,6 +638,20 @@ positius. 2023H1 guanya +11,08%, però 2023H2, 2024H1, 2024H2 i 2025H1 perden.
 BTC queda quasi pla (+0,45%); ETH (−4,20%) i SOL (−1,00%) són negatius.
 Decisió `REJECT_CRYPTO_DONCHIAN_ATR_INTERNAL_WF`; no SQCLI, holdout ni paper.
 
+### Preflight de mercat v22 (2026-08-03)
+
+Després de falsificar les famílies crypto, el pivot D1 no s'inicia a cegues.
+Un gate nou inspecciona coverage Dukascopy, registres de paritat i persistència
+Ostium, i resol discrepàncies sempre amb l'observació més recent. EURUSD i
+XAUUSD tenen 274 mesos històrics cadascun, però el registre de compatibilitat
+més recent és `PARTIAL` i revoca `allowed_for_backtest`; MSFT, NVDA i NDXUSD
+només tenen Parquets Ostium minúsculs de març de 2026 i cap coverage històric.
+
+Resultat: 0 mercats elegibles, D1 equity no autoritzat i cap performance
+consultada. La següent campanya queda condicionada a una nova paritat canònica
+EUR/XAU o a una font històrica certificada per les equitats. Vegeu
+`docs/MARKET_DATA_PREFLIGHT_V22.md`.
+
 ## Pilot anterior
 
 - `TA_SQ_PILOT`, original `NVIDIA` intacte.

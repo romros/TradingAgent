@@ -1,0 +1,22 @@
+{
+  "id": "sq_local_build143_improver_20260803",
+  "kind": "experiment",
+  "title": "Microprova local Improver exit-only a SQ 143",
+  "url": null,
+  "author": "Alquímia",
+  "published_at": "2026-08-03",
+  "accessed_at": "2026-08-03",
+  "language": "ca",
+  "sq_version": "143.2708",
+  "source_level": "A_PRIMARY",
+  "domain": "strategyquant",
+  "rights_policy": "first_party",
+  "metadata": {"scope": "ephemeral_improver_capability_test", "generated": 178, "saved_results": 1},
+  "chunks": [
+    {"locator": "preflight:resources", "heading": "El resolutor mira més que la tasca activa", "body": "SQ va bloquejar el projecte perquè els recursos Symbol incrustats i un Setup de cross-check inactiu conservaven dates 2005-2026. Cal alinear Setup, Chart i Resources amb dades disponibles; no s'ha d'usar Load without resolving.", "evidence_status": "tested"},
+    {"locator": "preflight:catalog", "heading": "Fitxer històric no equival a recurs registrat", "body": "Els DAT d'EURUSD existien però la còpia efímera de data.db no coincidia amb el catàleg real. SQ informava tots els dies com absents fins sincronitzar la còpia del catàleg, mantenint History en lectura.", "evidence_status": "tested"},
+    {"locator": "preflight:ranking", "heading": "Improver de Databank necessita límit compatible", "body": "A SQ 143, databank-full és rebutjat quan es milloren totes les estratègies d'un Databank. El plugin local reconeix time-limit i la prova va acabar en 2m11s. El log ha de demostrar també que la candidata es va carregar al Databank d'entrada.", "evidence_status": "tested"},
+    {"locator": "result:scope", "heading": "Exit-only provat, qualitat no provada", "body": "La microprova va generar 178 variants, en va desar una i va preservar valors de senyals d'entrada, direcció i mida d'ordres mentre canviava les sortides. La variant va afegir una branca AND false als exits de regla: això prova l'abast de l'Improver però exigeix lint semàntic i no és evidència de millora.", "evidence_status": "tested"},
+    {"locator": "result:decision", "heading": "No promocionar el supervivent", "body": "El resultat només és IS 2016-2020, sense OOS ni holdout, règims, repricing Ostium o liquidació. A més, 178 de 178 variants van passar filtres permissius. La conclusió és capacitat local provada, no estratègia millor ni executable.", "evidence_status": "tested"}
+  ]
+}

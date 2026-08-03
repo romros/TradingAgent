@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "id": "build143-improver-exit-micro-2026-08",
+  "observed_at": "2026-08-03",
+  "target_build": "143.2708",
+  "scope": "capability test only; no profitability, validation or deployment claim",
+  "environment": {
+    "isolation": "copy-on-write under academia/runtime; History mounted read-only",
+    "cpu_limit": 2,
+    "memory_limit_gib": 12,
+    "holdout_access": false,
+    "live_trading_access": false,
+    "browser": "ephemeral PinchTab 0.14.0 used only to diagnose project resource resolution"
+  },
+  "input": {
+    "candidate": "Strategy 4.1.133",
+    "sha256": "3470b786bd4416d44a7a5be9d93dd39d2fdc52cf39681123b75443395f5e2ca2",
+    "databank": "ImproveInput",
+    "data": "EURUSD_M1_dukas_M1_UTCMinus05 / H4 / 2016-01-16 to 2020-01-20"
+  },
+  "configuration": {
+    "improve_type": "databank",
+    "entry_rules": "frozen",
+    "order_types": "frozen",
+    "exit_rules_long": "add-or-replace",
+    "exit_rules_short": "add-or-replace",
+    "cross_checks": false,
+    "stop_condition": "time-limit 2 minutes"
+  },
+  "execution": {
+    "status": "passed_capability_boundary",
+    "runtime": "2m 11s",
+    "strategies_generated": 178,
+    "accepted_before_databank_selection": 178,
+    "rejected": 0,
+    "saved_results": 1,
+    "result_name": "Strategy 4.1.133 - Improved 0.2",
+    "result_sha256": "a80570639df7efe82d52ba7f2725c9bb541c1ebc6351b0994af361c4af5a786f"
+  },
+  "structural_check": {
+    "entry_signal_values_preserved": true,
+    "entry_order_direction_and_size_preserved": true,
+    "exit_rules_changed": true,
+    "observed_exit_change": "long and short signal exits were wrapped with an AND false branch; ATR-based protective exits remained",
+    "warning": "The surviving modification can disable rule exits. This proves part scoping, not that the improvement is economically sensible. Semantic lint remains mandatory."
+  },
+  "result_snapshot": {
+    "classification": "IS_CANDIDATE_NOT_FINALIST",
+    "trades": 106,
+    "profit": 2355.300048828125,
+    "drawdown": 530.9000244140625,
+    "oos_present": false,
+    "missing": ["validation", "oos", "sealed_holdout", "regime_breakdown", "current_ostium_repricing", "liquidation"]
+  },
+  "operational_lessons": [
+    "The resource resolver reads embedded Symbol date ranges and can block on inactive cross-check setups; sanitizing only the active Setup is insufficient.",
+    "A CFX must contain config.xml and the referenced task XML; stale unreferenced task XML should not be carried into a minimal capability project.",
+    "History files without the matching data.db catalog can exist on disk yet remain unresolved to SQ.",
+    "Databank-wide Improver requires a total-generated or time-limit ranking stop. Build 143 recognizes the literal time-limit; databank-full is rejected for this mode.",
+    "A candidate must be physically present in the named input databank and the start log must prove that it loaded."
+  ],
+  "decision": "Improver exit-only execution is locally tested. Do not promote its survivor: the sample is one base strategy, has no OOS, all variants passed permissive filters and the selected rule-exit change is semantically suspicious."
+}

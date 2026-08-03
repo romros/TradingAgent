@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "family_id": "crypto_donchian_atr_v21",
+  "hypothesis_id": "ostium-crypto-short-horizon-donchian-atr-v21",
+  "hypothesis": "Persistent crypto price discovery can make a volatility-buffered Donchian close breakout profitable over 12–48 hours after Ostium-like costs, if the rule is structural across BTC, ETH and SOL and robust to nearby parameters.",
+  "markets": ["BTCUSD", "ETHUSD", "SOLUSD"],
+  "research_proxies": ["BTCUSDT", "ETHUSDT", "SOLUSDT"],
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "implementation_origin": "alquimia_native",
+  "legacy_quantitative_inputs": [],
+  "derivation_disclosure": "V21 is a new trend mechanism, not a local variation of v20 reclaim, v18 compression breakout, v17 weekly relative momentum or v13 session breakout. It uses a continuous H4 Donchian state, an ATR entry buffer and optional ATR trailing exit, with the complete grid frozen before performance access.",
+  "temporal_evidence_contract": {
+    "ledger": "lab/sq_bridge/temporal_evidence_ledger.json",
+    "proposal": "lab/sq_bridge/proposal_crypto_donchian_atr_v21.json",
+    "mode": "internal_walk_forward_non_independent",
+    "promotion_authorized": false
+  },
+  "periods": {
+    "discovery_from": "2021-01-01", "discovery_to": "2022-12-31",
+    "internal_folds": [
+      {"id": "2023H1", "from": "2023-01-01", "to": "2023-06-30"},
+      {"id": "2023H2", "from": "2023-07-01", "to": "2023-12-31"},
+      {"id": "2024H1", "from": "2024-01-01", "to": "2024-06-30"},
+      {"id": "2024H2", "from": "2024-07-01", "to": "2024-12-31"},
+      {"id": "2025H1", "from": "2025-01-01", "to": "2025-06-30"}
+    ],
+    "global_holdout_from": "2025-07-01", "global_holdout_to": "2026-06-30"
+  },
+  "data_contract": {
+    "input": "checksummed Binance spot M1 aggregated to strict UTC H4; price-only",
+    "signal_time": "completed H4 close only; next complete H4 open entry",
+    "indicator_policy": "Donchian and EMA use completed bars strictly before the signal close; ATR14 includes the completed signal bar only for sizing/buffer",
+    "proxy_limitation": "No promotion before native Ostium coverage and parity",
+    "lookahead_forbidden": true
+  },
+  "execution_contract": {
+    "entry": "close above/below prior Donchian channel plus/minus entry_buffer_atr times signal ATR; optional EMA regime must agree with side",
+    "exit": "initial ATR stop, optional causal chandelier ATR trail based on completed prior bars, or frozen 3/6/12 H4 maximum hold",
+    "universal_rule": "identical parameters on BTCUSD, ETHUSD and SOLUSD",
+    "portfolio_scheduler": "sort by entry time and asset; accept at most two concurrent 1%-risk positions; later simultaneous signals skipped",
+    "boundary_policy": "skip any trade whose full maximum hold cannot finish inside its evaluated period"
+  },
+  "cost_model": {
+    "source_checked_utc": "2026-08-03", "opening_fee_bps_per_trade": 5,
+    "oracle_fee_usdc_per_trade": 0.10, "closing_fee_bps": 0,
+    "scenarios": {
+      "base": {"dynamic_spread_and_impact_bps": 1, "annual_rollover_pct": 8},
+      "conservative": {"dynamic_spread_and_impact_bps": 4, "annual_rollover_pct": 20},
+      "stress": {"dynamic_spread_and_impact_bps": 10, "annual_rollover_pct": 40}
+    }
+  },
+  "grid": {
+    "side": ["long", "short"], "session_start_utc": [0, 8, 16], "day_group": ["weekday", "weekend"],
+    "channel_bars": [3, 6, 12, 18], "entry_buffer_atr": [0.0, 0.25],
+    "ema_regime_bars": [0, 12, 24], "stop_atr": [1.5, 2.5],
+    "trail_atr": [0.0, 2.5, 4.0], "hold_bars": [3, 6, 12], "points": 5184
+  },
+  "stability": {
+    "categorical_groups": ["side", "session_start_utc", "day_group"],
+    "orthogonal_axes": ["channel_bars", "entry_buffer_atr", "ema_regime_bars", "stop_atr", "trail_atr", "hold_bars"],
+    "minimum_passing_neighbours": 2,
+    "representative": "graph medoid of largest stable component without performance metrics"
+  },
+  "pre_registered_discovery_gate": {
+    "minimum_portfolio_trades": 90, "minimum_trades_per_asset": 18,
+    "minimum_stress_profit_factor": 1.10, "minimum_stress_expectancy_bps_on_capital": 5,
+    "minimum_positive_asset_ratio": 1.0, "minimum_positive_year_ratio": 1.0,
+    "maximum_stress_drawdown_pct_on_capital": 15, "maximum_liquidations": 0,
+    "minimum_net_expectancy_usdc": 0.10
+  },
+  "pre_registered_internal_walk_forward_gate": {
+    "minimum_total_trades": 90, "minimum_trades_per_asset": 20, "minimum_trades_per_fold": 12,
+    "minimum_stress_profit_factor": 1.15, "minimum_stress_expectancy_bps_on_capital": 5,
+    "minimum_positive_fold_ratio": 0.80, "minimum_positive_asset_ratio": 1.0,
+    "minimum_drop_one_asset_profit_factor": 1.05,
+    "maximum_stress_drawdown_pct_on_capital": 12, "maximum_liquidations": 0,
+    "maximum_discovery_walk_forward_expectancy_decay_pct": 50
+  },
+  "small_account": {
+    "capital_usdc": 200, "risk_per_trade_pct": 1.0, "maximum_concurrent_positions": 2,
+    "maximum_total_open_risk_pct": 2.0,
+    "venue_max_leverage": {"BTCUSD": 200, "ETHUSD": 200, "SOLUSD": 150},
+    "liquidation_buffer_over_stop": 1.25, "maximum_margin_pct": 35, "minimum_reserve_pct": 40,
+    "leverage_rule": "Highest venue leverage whose liquidation distance is at least 1.25 times the initial stop distance."
+  },
+  "family_stop_rule": {
+    "stop_after_discovery_if": "zero universal stable components",
+    "stop_after_internal_walk_forward_if": "zero representatives pass every aggregate, per-asset, per-fold and drop-one gate",
+    "global_holdout_policy": "Survivors enter a final-cohort waitlist; no family-level holdout release.",
+    "sqcli_policy": "SQ reproduction on consumed periods only after internal survival; never a promotion by itself."
+  },
+  "global_holdout_release_authorized": false,
+  "paper_or_live_authorized": false
+}

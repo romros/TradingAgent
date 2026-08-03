@@ -1,0 +1,193 @@
+{
+  "schema_version": 1,
+  "family_id": "crypto_donchian_atr_v21",
+  "period": "internal_walk_forward",
+  "temporal_claim": "internal_non_independent",
+  "config_sha256": "876489880f0238542a886adc2c3274e01e374d11920f228aa634bc3cf5da1e0c",
+  "discovery_sha256": "a48757b583924c0aadc8ddb409e1c00c6af7d299a69bdd8c947cdc925bee9549",
+  "candidates": [
+    {
+      "candidate_id": "v21-6bb82dfa57fd",
+      "parameters": {
+        "side": "long",
+        "session_start_utc": 16,
+        "day_group": "weekday",
+        "channel_bars": 6,
+        "entry_buffer_atr": 0.25,
+        "ema_regime_bars": 12,
+        "stop_atr": 2.5,
+        "trail_atr": 0.0,
+        "hold_bars": 6
+      },
+      "discovery_component_size": 12,
+      "discovery_stress_expectancy_bps": 9.739897501026372,
+      "folds": [
+        {
+          "id": "2023H1",
+          "from": "2023-01-01",
+          "to": "2023-06-30",
+          "stress": {
+            "trades": 28,
+            "profit_factor": 2.5731875435226206,
+            "expectancy_bps": 38.35529935002797,
+            "net_return_pct": 11.083643423413436,
+            "drawdown_pct": 5.78495919753601,
+            "positive_year_ratio": 1.0,
+            "positive_half_year_ratio": 1.0,
+            "positive_quarter_ratio": 0.5
+          },
+          "scheduler_skips": 3
+        },
+        {
+          "id": "2023H2",
+          "from": "2023-07-01",
+          "to": "2023-12-31",
+          "stress": {
+            "trades": 31,
+            "profit_factor": 0.39180944830345094,
+            "expectancy_bps": -28.79416761358473,
+            "net_return_pct": -8.63133059709692,
+            "drawdown_pct": 10.401228325098977,
+            "positive_year_ratio": 0.0,
+            "positive_half_year_ratio": 0.0,
+            "positive_quarter_ratio": 0.5
+          },
+          "scheduler_skips": 5
+        },
+        {
+          "id": "2024H1",
+          "from": "2024-01-01",
+          "to": "2024-06-30",
+          "stress": {
+            "trades": 32,
+            "profit_factor": 0.8836534757192686,
+            "expectancy_bps": -3.94739080998571,
+            "net_return_pct": -1.3540922776685949,
+            "drawdown_pct": 6.690294574468137,
+            "positive_year_ratio": 0.0,
+            "positive_half_year_ratio": 0.0,
+            "positive_quarter_ratio": 0.5
+          },
+          "scheduler_skips": 4
+        },
+        {
+          "id": "2024H2",
+          "from": "2024-07-01",
+          "to": "2024-12-31",
+          "stress": {
+            "trades": 29,
+            "profit_factor": 0.7230546683849501,
+            "expectancy_bps": -7.328941458848324,
+            "net_return_pct": -2.152623958042421,
+            "drawdown_pct": 3.98923670936826,
+            "positive_year_ratio": 0.0,
+            "positive_half_year_ratio": 0.0,
+            "positive_quarter_ratio": 0.5
+          },
+          "scheduler_skips": 3
+        },
+        {
+          "id": "2025H1",
+          "from": "2025-01-01",
+          "to": "2025-06-30",
+          "stress": {
+            "trades": 27,
+            "profit_factor": 0.694003265583295,
+            "expectancy_bps": -10.062621264375533,
+            "net_return_pct": -2.7478249740197858,
+            "drawdown_pct": 5.042307004837221,
+            "positive_year_ratio": 0.0,
+            "positive_half_year_ratio": 0.0,
+            "positive_quarter_ratio": 0.5
+          },
+          "scheduler_skips": 2
+        }
+      ],
+      "aggregate_stress": {
+        "trades": 147,
+        "profit_factor": 0.9122495737605656,
+        "expectancy_bps": -2.9198462352695724,
+        "net_return_pct": -4.725868992078153,
+        "drawdown_pct": 17.95564918011676,
+        "positive_year_ratio": 0.3333333333333333,
+        "positive_half_year_ratio": 0.2,
+        "positive_quarter_ratio": 0.5
+      },
+      "per_asset_stress": {
+        "BTCUSD": {
+          "trades": 64,
+          "profit_factor": 1.0344270631212615,
+          "expectancy_bps": 1.2254676036369179,
+          "net_return_pct": 0.45111033351574736,
+          "drawdown_pct": 10.115005093461049,
+          "positive_year_ratio": 0.3333333333333333,
+          "positive_half_year_ratio": 0.4,
+          "positive_quarter_ratio": 0.5
+        },
+        "ETHUSD": {
+          "trades": 53,
+          "profit_factor": 0.7824135606281604,
+          "expectancy_bps": -7.775772685163805,
+          "net_return_pct": -4.197815610592426,
+          "drawdown_pct": 9.094277660564842,
+          "positive_year_ratio": 0.3333333333333333,
+          "positive_half_year_ratio": 0.4,
+          "positive_quarter_ratio": 0.3
+        },
+        "SOLUSD": {
+          "trades": 30,
+          "profit_factor": 0.867162907051955,
+          "expectancy_bps": -3.1843790301236137,
+          "net_return_pct": -0.9978005314584815,
+          "drawdown_pct": 2.6653460369693405,
+          "positive_year_ratio": 0.0,
+          "positive_half_year_ratio": 0.2,
+          "positive_quarter_ratio": 0.4
+        }
+      },
+      "drop_one_asset_stress": {
+        "BTCUSD": {
+          "trades": 83,
+          "profit_factor": 0.805736923378225,
+          "expectancy_bps": -6.1162328098480705,
+          "net_return_pct": -5.153730315578842,
+          "drawdown_pct": 10.31681006311036,
+          "positive_year_ratio": 0.3333333333333333,
+          "positive_half_year_ratio": 0.2,
+          "positive_quarter_ratio": 0.4
+        },
+        "ETHUSD": {
+          "trades": 94,
+          "profit_factor": 0.9942944012763686,
+          "expectancy_bps": -0.1819302582015495,
+          "net_return_pct": -0.5511913792479173,
+          "drawdown_pct": 11.142976536189863,
+          "positive_year_ratio": 0.3333333333333333,
+          "positive_half_year_ratio": 0.4,
+          "positive_quarter_ratio": 0.5
+        },
+        "SOLUSD": {
+          "trades": 117,
+          "profit_factor": 0.9200211956688722,
+          "expectancy_bps": -2.8520173135121256,
+          "net_return_pct": -3.7656420570779447,
+          "drawdown_pct": 16.924478748213033,
+          "positive_year_ratio": 0.3333333333333333,
+          "positive_half_year_ratio": 0.2,
+          "positive_quarter_ratio": 0.5
+        }
+      },
+      "positive_fold_ratio": 0.2,
+      "positive_asset_ratio": 0.3333333333333333,
+      "expectancy_decay_pct": 129.97820290164125,
+      "liquidations": 0,
+      "passes_internal_walk_forward_gate": false
+    }
+  ],
+  "survivor_candidate_ids": [],
+  "decision": "REJECT_CRYPTO_DONCHIAN_ATR_INTERNAL_WF",
+  "global_holdout_accessed": false,
+  "sqcli_builder_executed": false,
+  "performance_promotion_authorized": false,
+  "paper_or_live_authorized": false
+}

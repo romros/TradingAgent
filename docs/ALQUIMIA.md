@@ -617,6 +617,27 @@ La regla d'aturada evita obrir el walk-forward intern, executar SQCLI o tocar
 el holdout global. Els resultats són una pista descriptiva sobre reclaims long
 laborables, no un candidat ni autorització de paper/live.
 
+### Tendència Donchian-ATR H4 v21 (2026-08-03)
+
+V21 preregistra 5.184 combinacions d'un mecanisme diferent: close fora del
+canal Donchian H4 previ, buffer ATR, filtre EMA opcional, stop/trailing ATR i
+sortida màxima de 12–48 hores. La regla és comuna a BTC/ETH/SOL, incorpora els
+costos i sizing de 200 USDC i limita la cartera a dues posicions d'1% de risc.
+El motor comprova que el canal exclogui la barra del senyal i que un trailing
+calculat amb l'extrem d'una barra només pugui actuar a partir de la següent.
+
+Discovery 2021–2022 dóna 12 PASS en una sola regió estable de 12 membres. El
+medoid topològic —long laborable a les 16 UTC, canal 6 H4, buffer 0,25 ATR,
+EMA12, stop 2,5 ATR, sense trailing i hold 6 H4— fa 98 trades, PF estrès 1,51,
+EV +0,195 USDC/trade, +9,84%, DD 5,19% i 0 liquidacions. La durada mediana és
+20 hores i el leverage median 11,5x (rang 3–34x).
+
+El walk-forward intern 2023–2025H1 el falsifica amb 147 trades: PF estrès
+0,91, EV −2,92 bps (−0,058 USDC/trade), −4,73%, DD 17,96% i només 1/5 folds
+positius. 2023H1 guanya +11,08%, però 2023H2, 2024H1, 2024H2 i 2025H1 perden.
+BTC queda quasi pla (+0,45%); ETH (−4,20%) i SOL (−1,00%) són negatius.
+Decisió `REJECT_CRYPTO_DONCHIAN_ATR_INTERNAL_WF`; no SQCLI, holdout ni paper.
+
 ## Pilot anterior
 
 - `TA_SQ_PILOT`, original `NVIDIA` intacte.

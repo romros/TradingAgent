@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "gate_id": "alquimia-market-universe-v2-maturity-and-parity",
+  "purpose": "Select a market for new discovery without using prior strategy performance.",
+  "markets": [
+    {
+      "market": "XAUUSD",
+      "decision": "PASS_RESEARCH",
+      "live_eligible": false,
+      "reasons": [
+        "DUKASCOPY_ACCEPTED_AS_RESEARCH_PROXY_ONLY"
+      ],
+      "evidence": {
+        "path": "/mnt/volume-SQ/dev/BrokerageService/datafiles/realtime_datalayer/artifacts/compat/latest_full_XAUUSD.json",
+        "sha256": "639b2642edfeb71e6da8cbaef1f8d2e4c8ec6b0c45f270a45ec5fbcaf99b1fc3",
+        "aligned_m1": 6885,
+        "overlap_minutes": 10174,
+        "market_open_return_corr": 0.9709795624710966,
+        "market_open_filtered_direction_pct": 96.6933,
+        "upstream_verdict": "PASS_BACKTEST"
+      },
+      "limitation": "Short recent overlap permits research, not paper/live certification."
+    },
+    {
+      "market": "BTCUSD",
+      "decision": "WARMING",
+      "live_eligible": false,
+      "reasons": [
+        "NATIVE_OSTIUM_HISTORY_NOT_MATURE"
+      ],
+      "native_ostium_paths_present": [
+        "/mnt/volume-SQ/dev/BrokerageService/datafiles/realtime_datalayer/candles/BTCUSD/America_New_York"
+      ],
+      "coverage_artifact": "lab/sq_bridge/evidence/btcusd_native_coverage_initial.json",
+      "coverage_decision": "WARMING",
+      "parity_artifact": null,
+      "parity_decision": null,
+      "limitation": "BTCUSDT in SQ cannot proxy BTC/USD on Ostium until price and execution parity are measured."
+    }
+  ],
+  "selected_for_discovery": [
+    "XAUUSD"
+  ],
+  "paper_or_live_authorized": false
+}

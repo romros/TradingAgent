@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "symbol": "BTCUSDT",
+  "timeframe": "M1",
+  "source_path": "/mnt/volume-SQ/user/data/History/BTCUSDT/BTCUSDT_M1.dat",
+  "source_size_bytes": 91687147,
+  "source_sha256": "b5d7f29329be830bfdf2dd69c5f5a5fa78e2882cc792d1649ab96e8823cfc05c",
+  "source_last_modified_utc": "2026-03-15T16:39:21.751162921+00:00",
+  "sqcli_version": "143.2708",
+  "export_request": {
+    "date_from": "2026-06-01",
+    "date_to": "2026-08-03",
+    "format": "Custom OHLCV with header",
+    "output_directory": "/mnt/volume-SQ/user/exports/alquimia_btc_m1_parity"
+  },
+  "result": "BLOCK",
+  "error": "Unknown logic type of value 3",
+  "output_file_created": false,
+  "source_modified": false,
+  "next_safe_action": "Rebuild a separate BTCUSDT source from an attributable provider or repair through Data Manager without overwriting this frozen file.",
+  "research_authorized": false,
+  "paper_or_live_authorized": false
+}

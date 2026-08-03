@@ -34,4 +34,12 @@ def test_btc_requires_an_existing_native_path(tmp_path):
     native = tmp_path / "btc-native"
     native.mkdir()
     result = build(report(tmp_path), [native])
+    assert result["markets"][1]["decision"] == "WARMING"
+
+
+def test_btc_requires_maturity_and_explicit_proxy_parity(tmp_path):
+    native = tmp_path / "btc-native"; native.mkdir()
+    coverage = tmp_path / "coverage.json"; coverage.write_text(json.dumps({"decision": "READY_FOR_PARITY"}))
+    parity = tmp_path / "parity.json"; parity.write_text(json.dumps({"decision": "PASS_RESEARCH_OHLC"}))
+    result = build(report(tmp_path), [native], coverage, parity)
     assert result["markets"][1]["decision"] == "PASS_RESEARCH"

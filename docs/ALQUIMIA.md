@@ -437,6 +437,37 @@ el règim 2015–2019. V10 queda `REJECT_TEMPORAL_VALIDATION`; OOS i holdout no
 s'obren i SQCLI no s'executa. Cadena:
 `lab/sq_bridge/evidence/xau_d1_trend_pullback_v10_chain.json`.
 
+### Activació del recorder BTCUSD (2026-08-03)
+
+BrokerageService ja implementava el recorder adequat sobre l'endpoint Ostium
+`latest-price`; TradingAgent no el duplica. S'ha afegit `BTCUSD` amb hot-reload
+`diff`, preservant els deu símbols existents i sense reiniciar serveis. L'oracle
+confirma el feed BTC/USD i BS resol l'instrument com a `perp`. La verificació
+inicial mostra ticks i candles escrits, zero errors i fitxers físics CSV/JSONL.
+
+`ostium_native_coverage_gate.py` exigeix 60 dies, cobertura ≥90%, candle recent,
+OHLC vàlid i absència de duplicats abans de `READY_FOR_PARITY`. La primera
+captura té 6 M1 consecutives i 100% de cobertura, però queda `WARMING`; no podrà
+madurar abans de 2026-10-02 08:34 UTC. Fins llavors no autoritza recerca.
+
+El gate d'univers v2 també queda endurit: l'existència del directori BTC ja no
+és suficient. Requereix maduració **i** un artifact explícit de paritat
+BTCUSDT/BTCUSD. Això evita promocionar accidentalment una font acabada de crear.
+
+La font SQ existent `BTCUSDT_M1.dat` (91.687.147 bytes, SHA congelat) falla una
+exportació nativa amb SQ 143.2708: `Unknown logic type of value 3`. No s'ha
+generat cap CSV ni modificat el `.dat`. Queda bloquejada fins reconstruir una
+font separada i atribuïble; no es farà `update` destructiu sobre l'única còpia.
+
+La reconstrucció separada ja té un primer tram verificat. El builder descarrega
+els arxius mensuals oficials de Binance, valida el `.CHECKSUM`, normalitza els
+timestamps i crea `BTCUSDT_BINANCE_M1` sense sobreescriure `BTCUSDT`. Juny de
+2026 aporta 43.200 M1 consecutives; SQCLI n'importa i en reexporta exactament
+43.200 amb timestamps idèntics. SQ arrodoneix OHLC a una dècima (error màxim
+0,05 USD, negligible per a senyals BTC) i volum a enters, així que queda permès
+només per recerca sense regles de volum. Paper/live continuen bloquejats fins a
+maduresa del recorder, paritat BTCUSD/BTCUSDT i model d'execució Ostium.
+
 ## Pilot anterior
 
 - `TA_SQ_PILOT`, original `NVIDIA` intacte.

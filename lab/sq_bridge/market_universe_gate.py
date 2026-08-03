@@ -46,24 +46,44 @@ def evaluate_xau(report_path: Path) -> dict:
     }
 
 
-def evaluate_btc(native_ostium_paths: list[Path]) -> dict:
+def _optional_json(path: Path | None) -> dict | None:
+    return json.loads(path.read_text()) if path is not None and path.is_file() else None
+
+
+def evaluate_btc(native_ostium_paths: list[Path], coverage_path: Path | None = None,
+                 parity_path: Path | None = None) -> dict:
     present = sorted(str(path) for path in native_ostium_paths if path.exists())
+    coverage = _optional_json(coverage_path)
+    parity = _optional_json(parity_path)
+    if not present:
+        decision, reasons = "BLOCK", ["NO_NATIVE_OSTIUM_HISTORY_FOR_BTCUSDT_PROXY_PARITY"]
+    elif not coverage or coverage.get("decision") != "READY_FOR_PARITY":
+        decision, reasons = "WARMING", ["NATIVE_OSTIUM_HISTORY_NOT_MATURE"]
+    elif not parity or parity.get("decision") != "PASS_RESEARCH_OHLC":
+        decision, reasons = "BLOCK", ["BTCUSDT_BTCUSD_PARITY_NOT_PASSED"]
+    else:
+        decision, reasons = "PASS_RESEARCH", ["NATIVE_HISTORY_MATURE_AND_PROXY_PARITY_PASSED"]
     return {
         "market": "BTCUSD",
-        "decision": "PASS_RESEARCH" if present else "BLOCK",
+        "decision": decision,
         "live_eligible": False,
-        "reasons": ["NATIVE_OSTIUM_HISTORY_PRESENT"] if present else ["NO_NATIVE_OSTIUM_HISTORY_FOR_BTCUSDT_PROXY_PARITY"],
+        "reasons": reasons,
         "native_ostium_paths_present": present,
+        "coverage_artifact": str(coverage_path) if coverage_path else None,
+        "coverage_decision": coverage.get("decision") if coverage else None,
+        "parity_artifact": str(parity_path) if parity_path else None,
+        "parity_decision": parity.get("decision") if parity else None,
         "limitation": "BTCUSDT in SQ cannot proxy BTC/USD on Ostium until price and execution parity are measured.",
     }
 
 
-def build(report_path: Path, btc_paths: list[Path]) -> dict:
-    markets = [evaluate_xau(report_path), evaluate_btc(btc_paths)]
+def build(report_path: Path, btc_paths: list[Path], coverage_path: Path | None = None,
+          parity_path: Path | None = None) -> dict:
+    markets = [evaluate_xau(report_path), evaluate_btc(btc_paths, coverage_path, parity_path)]
     selected = [item["market"] for item in markets if item["decision"] == "PASS_RESEARCH"]
     return {
         "schema_version": 1,
-        "gate_id": "alquimia-market-universe-v9",
+        "gate_id": "alquimia-market-universe-v2-maturity-and-parity",
         "purpose": "Select a market for new discovery without using prior strategy performance.",
         "markets": markets,
         "selected_for_discovery": selected,
@@ -75,9 +95,12 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--xau-compat-report", type=Path, required=True)
     parser.add_argument("--btc-native-ostium-path", type=Path, action="append", default=[])
+    parser.add_argument("--btc-coverage-report", type=Path)
+    parser.add_argument("--btc-parity-report", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
-    result = build(args.xau_compat_report, args.btc_native_ostium_path)
+    result = build(args.xau_compat_report, args.btc_native_ostium_path,
+                   args.btc_coverage_report, args.btc_parity_report)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2) + "\n")
     print(json.dumps(result, indent=2))

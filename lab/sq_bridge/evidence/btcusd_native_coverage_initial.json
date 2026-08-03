@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "gate_id": "ostium-native-m1-maturity-v1",
+  "root": "/mnt/volume-SQ/dev/BrokerageService/datafiles/realtime_datalayer/candles/BTCUSD/America_New_York",
+  "files": {
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/realtime_datalayer/candles/BTCUSD/America_New_York/2026/08.csv": "5e4c0b14e0c61c1419e674f6b0f6b32c627c060b7d8bb96e83fc68bcfaf6c315"
+  },
+  "candles": 6,
+  "first_ts": 1785746040,
+  "last_ts": 1785746340,
+  "observed_span_days": 0.003472,
+  "ready_not_before_utc": "2026-10-02T08:34:00+00:00",
+  "expected_minutes_in_span": 6,
+  "coverage_ratio": 1.0,
+  "last_candle_age_seconds": 117,
+  "invalid_rows": 0,
+  "duplicate_timestamps": 0,
+  "thresholds": {
+    "minimum_days": 60,
+    "minimum_coverage_ratio": 0.9,
+    "maximum_stale_seconds": 180
+  },
+  "decision": "WARMING",
+  "reasons": [
+    "SPAN_LT_60_DAYS"
+  ],
+  "scope": "RECORDER_MATURITY_ONLY; DOES_NOT_PROVE_SQ_PROXY_PARITY_OR_AUTHORIZE_RESEARCH",
+  "research_authorized": false,
+  "paper_or_live_authorized": false
+}

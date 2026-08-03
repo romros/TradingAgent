@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "source": "Binance official public spot monthly klines",
+  "source_documentation": "https://github.com/binance/binance-public-data/blob/master/README.md",
+  "symbol": "BTCUSDT",
+  "timeframe": "M1",
+  "timezone": "UTC",
+  "timestamp_units_normalized": [
+    "milliseconds",
+    "microseconds"
+  ],
+  "sources": [
+    {
+      "month": "2026-06",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/BTCUSDT/1m/BTCUSDT-1m-2026-06.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_btc/archives/BTCUSDT-1m-2026-06.zip",
+      "sha256": "c8e1d5e70b766dd2312fc9cd7085785bb25708e27e75c21a5a5aaba61a6d07f5",
+      "rows": 43200
+    }
+  ],
+  "rows": 43200,
+  "first_utc": "2026-06-01T00:00:00+00:00",
+  "last_utc": "2026-06-30T23:59:00+00:00",
+  "output_csv": "/mnt/volume-SQ/user/imports/alquimia_btc/BTCUSDT_BINANCE_M1.csv",
+  "output_sha256": "f06137892f1fa7c887150a48a40407169ced2c7e61568ab4473d56431c59594c",
+  "sq_import_format": "MetaTrader4 bar format",
+  "sq_import_has_header": false,
+  "intended_sq_symbol": "BTCUSDT_BINANCE_M1",
+  "existing_sq_symbol_overwritten": false,
+  "research_authorized": false,
+  "paper_or_live_authorized": false
+}

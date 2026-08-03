@@ -68,6 +68,13 @@ connectada, tota long. El medoid topològic EMA200/RSI3≤10/stop1,5ATR/2 dies t
 PF estrès 1,51 en train, però falla la validació 2015–2019: 11 trades, PF 0,097,
 −6,46% i 0/3 anys positius. **V10 rebutjada temporalment**; OOS/holdout intactes.
 
+**BTCUSD recorder:** activat a BrokerageService per hot-reload sense reinici ni
+trading. Feed perp verificat, ticks/candles persistents i zero errors. Gate de
+maduració: 60 dies i ≥90% cobertura; estat inicial `WARMING`, no abans de
+2026-10-02. El gate d'univers exigeix després paritat explícita BTCUSDT/BTCUSD.
+El `.dat` BTCUSDT actual falla export SQ 143 (`Unknown logic type of value 3`),
+queda congelat i bloquejat, sense sobreescriure'l.
+
 ### Fase: PAPER PROBE — T7 en curs (≥4 setmanes, inici 2026-03-16)
 
 **Setup actiu**: `capitulation_d1` — MSFT (primari), NVDA, NDXUSD (complementari, paper: QQQ proxy)
@@ -234,3 +241,5 @@ Veure `lab/docs/T6E_DECISIO_D1_ASSETS.md` i `lab/docs/D1_GATE_CRITERIA.md`.
 | 2026-08-03 | **MSFT D1 gap/shock v8**: export SQ nadiu 6.936 D1; close passa paritat recent però open/high/low fallen. Família bloquejada a market preflight, abans de Builder. |
 | 2026-08-03 | **Gate XAU/BTC + XAU D1 v9**: XAU apte només per recerca, BTC bloquejat per paritat absent. Inside-day: 1.944 punts train, 0 PASS/regions; rebuig terminal sense SQCLI ni holdout. |
 | 2026-08-03 | **XAU D1 trend-pullback v10**: 25/324 PASS train en una regió; medoid triat sense PF. Validació: 11 trades, PF estrès 0,097 i −6,46%. Rebuig terminal; OOS/holdout segellats. |
+| 2026-08-03 | **BTCUSD recorder natiu**: afegit a BS, 11/11 símbols preservats, feed perp i persistència verificats. Gate 60 dies en `WARMING`; font SQ BTCUSDT existent no exportable i congelada. |
+| 2026-08-03 | **BTC SQ reconstruït, només recerca**: 43.200 M1 oficials Binance amb checksum importades a `BTCUSDT_BINANCE_M1`; round-trip SQ conserva files/timestamps i limita l'error OHLC a 0,05 USD. Volum arrodonit: prohibit usar-lo; paper/live bloquejats. |

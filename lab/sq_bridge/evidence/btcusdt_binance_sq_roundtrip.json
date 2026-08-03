@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "source_csv": "/mnt/volume-SQ/user/imports/alquimia_btc/BTCUSDT_BINANCE_M1.csv",
+  "source_sha256": "f06137892f1fa7c887150a48a40407169ced2c7e61568ab4473d56431c59594c",
+  "exported_csv": "/mnt/volume-SQ/user/exports/alquimia_btc_m1_roundtrip/BTCUSDT_BINANCE_M1-M1-No Session.csv",
+  "exported_sha256": "f09c6330b45b4ac51823c533fd420be2388f95a973b121762e5bdebd5c417718",
+  "source_rows": 43200,
+  "exported_rows": 43200,
+  "timestamps_exact_and_ordered": true,
+  "field_errors": {
+    "open": {
+      "changed_rows": 31187,
+      "max_absolute_error": "0.05000000",
+      "mean_absolute_error": "0.01660740740740740740740740741"
+    },
+    "high": {
+      "changed_rows": 25841,
+      "max_absolute_error": "0.05000000",
+      "mean_absolute_error": "0.01484074074074074074074074074"
+    },
+    "low": {
+      "changed_rows": 26124,
+      "max_absolute_error": "0.05000000",
+      "mean_absolute_error": "0.01483032407407407407407407407"
+    },
+    "close": {
+      "changed_rows": 32167,
+      "max_absolute_error": "0.05000000",
+      "mean_absolute_error": "0.01687939814814814814814814815"
+    },
+    "volume": {
+      "changed_rows": 43199,
+      "max_absolute_error": "0.99994000",
+      "mean_absolute_error": "0.48643079375"
+    }
+  },
+  "decision": "PASS_SIGNAL_RESEARCH",
+  "decision_scope": "Data integrity for signal research only; volume-dependent rules, execution, paper, and live remain unauthorized.",
+  "exact_numeric_parity": false,
+  "paper_or_live_authorized": false
+}

@@ -28,6 +28,20 @@ regions de paràmetres i impedeix obrir validació des del runner de train.
 V10 afegeix selecció del medoid del component estable sense mirar rendiment i
 un runner independent que només pot consultar el tram de validació congelat.
 
+El recorder BTC viu a BrokerageService. Aquest pont només en comprova maduració:
+
+```bash
+python3 -m lab.sq_bridge.ostium_native_coverage_gate \
+  --root /mnt/volume-SQ/dev/BrokerageService/datafiles/realtime_datalayer/candles/BTCUSD/America_New_York \
+  --output lab/out/alquimia/btcusd_native_coverage_latest.json \
+  --fail-unless-ready
+```
+
+El codi de sortida és 2 mentre no hi ha 60 dies, cobertura 90%, continuïtat i
+frescor. `READY_FOR_PARITY` només permet executar la comparació de fonts; no
+autoritza discovery, paper ni live. `market_universe_gate.py` exigeix després
+un artifact de paritat `PASS_RESEARCH_OHLC` abans d'incloure BTC.
+
 ```bash
 python3 evidence_chain.py new --methodology methodology_v3.json \
   --campaign CAMPAIGN --hypothesis HYPOTHESIS --market XAUUSD --output chain.json
@@ -116,6 +130,15 @@ python3 sq_campaign.py inspect \
 L'execució SQCLI es fa com a procés `one-off`: aturar temporalment la GUI,
 executar la campanya i tornar a iniciar la GUI. Un `PASS` de SQ no autoritza ni
 paper ni live; després cal paritat de dades/trades i el gate Ostium.
+
+## Font BTC reproduïble i round-trip SQ
+
+`binance_sq_source.py` construeix una font separada a partir dels arxius oficials
+amb checksum. `sq_data_roundtrip_audit.py` compara la reexportació de SQ fila per
+fila. El primer rebut és `evidence/btcusdt_binance_sq_roundtrip.json`: 43.200
+timestamps exactes, error OHLC màxim 0,05 USD i volum no exacte. El seu PASS és
+només per recerca de senyals sense volum; no implica paritat Ostium ni autoritza
+paper/live.
 
 ## Fallback Python MSFT D1
 

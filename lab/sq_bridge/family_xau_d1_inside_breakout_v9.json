@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "family_id": "xau_d1_inside_breakout_v9",
+  "hypothesis_id": "xau-d1-inside-breakout-v9",
+  "hypothesis": "A daily range fully contained in the prior session represents temporary balance; a subsequent break aligned with the broader close trend can expand far enough to cover Ostium fees and short-duration funding.",
+  "market": "XAUUSD",
+  "ostium_asset": "XAUUSD",
+  "timeframe": "D1_NY_CLOSE",
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "implementation_origin": "alquimia_native",
+  "legacy_quantitative_inputs": [],
+  "predecessor_role": "Independent D1 geometric hypothesis; no performance, candidate or tuned parameter from rejected H4/H1 families is reused.",
+  "fixed_structure": {
+    "session": "17:00 America/New_York to 17:00 America/New_York with DST",
+    "setup": "signal high < previous high and signal low > previous low",
+    "entry": "next-session stop at signal extreme plus optional ATR buffer; adverse gaps fill at open",
+    "trend": "long close above prior-known EMA; short close below prior-known EMA",
+    "exit": "ATR stop, ATR target or 1/2/3-session time exit",
+    "same_bar_stop_target": "pessimistic_stop_first",
+    "lookahead_forbidden": true
+  },
+  "pre_registered_grid": {
+    "side": ["long", "short"],
+    "inside_range_ratio_max": [0.6, 0.8, 1.0],
+    "trend_ema": [0, 50, 200],
+    "atr_period": [14, 28],
+    "entry_buffer_atr": [0.0, 0.1],
+    "stop_atr": [0.75, 1.0, 1.5],
+    "target_atr": [1.5, 2.0, 3.0],
+    "hold_sessions": [1, 2, 3],
+    "maximum_points": 1944,
+    "selection": "stable_parameter_region_not_single_best_point"
+  },
+  "costs": {
+    "base": {"opening_bps": 3, "annual_funding_pct": 4},
+    "conservative": {"opening_bps": 6, "annual_funding_pct": 8},
+    "stress": {"opening_bps": 9, "annual_funding_pct": 12}
+  },
+  "periods": {
+    "train_from": "2004-01-01", "train_to": "2015-02-06",
+    "validation_from": "2015-02-07", "validation_to": "2019-07-16",
+    "oos_from": "2019-07-17", "oos_to": "2023-12-23",
+    "holdout_from": "2023-12-24", "holdout_to": "2026-03-13"
+  },
+  "pre_registered_falsifiers": {
+    "minimum_train_trades": 50,
+    "minimum_base_profit_factor": 1.2,
+    "minimum_stress_profit_factor": 1.05,
+    "minimum_positive_year_ratio": 0.6,
+    "minimum_passing_orthogonal_neighbours": 2,
+    "holdout_sealed": true
+  },
+  "holdout_release_authorized": false
+}

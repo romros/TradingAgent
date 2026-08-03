@@ -397,6 +397,26 @@ train/validation/OOS/holdout. El gate és reutilitzable per altres equities a
 `sq_ostium_equity_parity.py`. El bloqueig només es pot aixecar amb un històric
 Ostium/BS corregit o una font OHLC que superi els mateixos llindars congelats.
 
+### Gate XAU/BTC i inside-day XAU D1 v9 (2026-08-03)
+
+El gate de mercat reproduïble selecciona XAU només per a recerca: 6.885 M1
+alineades entre Ostium i Dukascopy, correlació de retorns en mercat obert 0,971
+i acord direccional filtrat 96,69%. El solapament és de només set dies, així que
+`live_eligible` continua fals. BTC queda bloquejat perquè `BTCUSDT` de SQ no es
+pot equiparar a BTC/USD d'Ostium sense històric nadiu de l'oracle.
+
+V9 preregistra una hipòtesi geomètrica nova: ruptura del màxim/mínim d'un dia
+interior D1 amb sessió 17:00 New York, filtre EMA opcional, entrada stop el dia
+següent, stop/target ATR i sortida en 1–3 sessions. S'han calculat 1.944 punts
+sobre 3.205 sessions de train (2004-01-02–2015-02-06), incloent 3/6/9 bps i
+finançament anual 4/8/12%. Resultat: 0 punts passen i 0 regions estables.
+
+El millor short té 105 trades i PF 1,212 base, però PF 1,046 en estrès i només
+3/9 anys positius. El millor long arriba a PF 1,215 base però cau a 0,979 en
+estrès. Decisió terminal: `REJECT_DISCOVERY`; no s'executa SQCLI i validació,
+OOS i holdout continuen segellats. La cadena verificable és
+`lab/sq_bridge/evidence/xau_d1_inside_breakout_v9_chain.json`.
+
 ## Pilot anterior
 
 - `TA_SQ_PILOT`, original `NVIDIA` intacte.

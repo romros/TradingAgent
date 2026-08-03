@@ -56,6 +56,13 @@ però open falla (mediana 29,36 bps, p95 116,30) i high/low tenen p95 229,52 i
 178,78 bps. Una regla de gaps/stops no seria paritat executable. Cadena terminal
 `BLOCK` sense discovery, validation, OOS ni holdout.
 
+**XAU D1 inside-day v9:** gate previ accepta Dukascopy com a proxy de recerca
+XAU (corr retorn 0,971; direcció filtrada 96,69%) però no per live; BTC queda
+bloquejat per manca d'històric Ostium nadiu. La família D1 prova 1.944 punts
+preregistrats amb costos i funding: 0 PASS i 0 regions estables. Millor short
+PF 1,212 base / 1,046 estrès, però només 3/9 anys positius; millor long cau a
+PF 0,979 estrès. **V9 rebutjada en discovery**, sense SQCLI ni obrir validació.
+
 ### Fase: PAPER PROBE — T7 en curs (≥4 setmanes, inici 2026-03-16)
 
 **Setup actiu**: `capitulation_d1` — MSFT (primari), NVDA, NDXUSD (complementari, paper: QQQ proxy)
@@ -220,3 +227,4 @@ Veure `lab/docs/T6E_DECISIO_D1_ASSETS.md` i `lab/docs/D1_GATE_CRITERIA.md`.
 | 2026-08-03 | **Alquímia v3 + sweep/reclaim v4–v5**: contracte natiu amb rebuts SHA-256 i holdout segellat. V4 genera 20 SQX però 0 passen semàntica; v5 executa seed fix real i 1.350 punts Dukascopy, amb 0 PASS d'estrès. Cadena terminal verificada; 171 tests + 4 subtests PASS. |
 | 2026-08-03 | **XAU H1 displacement v6–v7**: 5.184 punts per mecanisme/costat/hora/dia. V6 sense regió; v7 tardana congelada passa train però falla validació en estrès (PF 0,85). OOS/holdout no consultats. |
 | 2026-08-03 | **MSFT D1 gap/shock v8**: export SQ nadiu 6.936 D1; close passa paritat recent però open/high/low fallen. Família bloquejada a market preflight, abans de Builder. |
+| 2026-08-03 | **Gate XAU/BTC + XAU D1 v9**: XAU apte només per recerca, BTC bloquejat per paritat absent. Inside-day: 1.944 punts train, 0 PASS/regions; rebuig terminal sense SQCLI ni holdout. |

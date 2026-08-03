@@ -21,6 +21,11 @@ anterior. Només `PASS` avança; `REJECT` i `BLOCK` són terminals. Traducció
 requereix equivalència exacta i paritat requereix `parity_pass=true`. Paper no
 autoritza live.
 
+`market_universe_gate.py` congela la idoneïtat de la font abans de descobrir
+estratègies. `xau_d1_inside_breakout_v9.py` és un preflight nadiu preregistrat:
+agrega Dukascopy M1 amb sessió New York/DST, incorpora costos i funding, exigeix
+regions de paràmetres i impedeix obrir validació des del runner de train.
+
 ```bash
 python3 evidence_chain.py new --methodology methodology_v3.json \
   --campaign CAMPAIGN --hypothesis HYPOTHESIS --market XAUUSD --output chain.json

@@ -596,6 +596,27 @@ trades, 2023H2 només té 2<3 i només 3/5 folds són positius (mínim 4/5).
 `REJECT_CRYPTO_CAPITULATION_RECLAIM_INTERNAL_WF`: no es relaxen llindars, no
 s'executa SQCLI i el holdout global continua intacte.
 
+### Reclaim universal multi-actiu v20 (2026-08-03)
+
+V20 deriva explícitament de la manca de mostra de v19, però no rescata ni
+retuneja el seu punt BTC. Congela 3.888 combinacions i elimina l'eix d'actiu:
+un únic shock close-to-close expressat en ATR previ, una mateixa regla i uns
+mateixos paràmetres han de funcionar simultàniament en BTC, ETH i SOL. La
+cartera ordena entrades per hora/actiu i admet com a màxim dues posicions amb
+risc de l'1% cadascuna. Inclou oracle, fee, impacte, rollover, marge i leverage
+màxim segur per actiu.
+
+Discovery 2021–2022 dóna només 3/3.888 PASS puntuals. El millor fa 63 trades,
+PF estrès 1,41, EV +0,60 USDC/trade, +18,85%, DD 10,80% i 0 liquidacions; BTC
+i ETH contribueixen, però SOL queda pràcticament pla (PF 1,03, +0,04%). Els
+dos punts similars només són veïns entre ells i cadascun té 1 veí PASS, quan el
+contracte exigia 2; el tercer en té 0. Per tant no existeix una regió universal
+estable: `REJECT_CRYPTO_UNIVERSAL_RECLAIM_NO_STABLE_REGION`.
+
+La regla d'aturada evita obrir el walk-forward intern, executar SQCLI o tocar
+el holdout global. Els resultats són una pista descriptiva sobre reclaims long
+laborables, no un candidat ni autorització de paper/live.
+
 ## Pilot anterior
 
 - `TA_SQ_PILOT`, original `NVIDIA` intacte.

@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "family_id": "crypto_universal_reclaim_v20",
+  "hypothesis_id": "ostium-crypto-universal-atr-shock-reclaim-v20",
+  "hypothesis": "A capitulation/reclaim effect, if structural rather than BTC-specific, should survive a volatility-normalized shock definition with one common parameter set across BTC, ETH and SOL.",
+  "markets": ["BTCUSD", "ETHUSD", "SOLUSD"],
+  "research_proxies": ["BTCUSDT", "ETHUSDT", "SOLUSDT"],
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "implementation_origin": "alquimia_native",
+  "legacy_quantitative_inputs": [],
+  "derivation_disclosure": "V20 is explicitly derived after v19 produced an attractive but under-sampled BTC-only result. It does not reuse the v19 winning point. The full common grid is frozen around volatility-normalized shocks, removes the asset selection axis and requires all three assets to contribute positively.",
+  "temporal_evidence_contract": {
+    "ledger": "lab/sq_bridge/temporal_evidence_ledger.json",
+    "proposal": "lab/sq_bridge/proposal_crypto_universal_reclaim_v20.json",
+    "mode": "internal_walk_forward_non_independent",
+    "promotion_authorized": false
+  },
+  "periods": {
+    "discovery_from": "2021-01-01", "discovery_to": "2022-12-31",
+    "internal_folds": [
+      {"id": "2023H1", "from": "2023-01-01", "to": "2023-06-30"},
+      {"id": "2023H2", "from": "2023-07-01", "to": "2023-12-31"},
+      {"id": "2024H1", "from": "2024-01-01", "to": "2024-06-30"},
+      {"id": "2024H2", "from": "2024-07-01", "to": "2024-12-31"},
+      {"id": "2025H1", "from": "2025-01-01", "to": "2025-06-30"}
+    ],
+    "global_holdout_from": "2025-07-01", "global_holdout_to": "2026-06-30"
+  },
+  "data_contract": {
+    "input": "checksummed Binance spot M1 aggregated to strict UTC H1; no volume rules",
+    "shock_normalization": "absolute close-to-close shock divided by prior ATR14, common across assets",
+    "signal_time": "completed H1 bars only; next complete H1 open entry",
+    "proxy_limitation": "No promotion before native Ostium coverage and parity",
+    "lookahead_forbidden": true
+  },
+  "execution_contract": {
+    "shock": "long setup: close change <= -shock_close_atr times prior ATR and true range >= range_atr times prior ATR; short symmetric",
+    "reclaim": "first close through frozen 50/75% shock-bar level within 1/2/3 hours",
+    "entry_exit": "next H1 open; shock-time ATR stop or 2/6/12-bar close",
+    "universal_rule": "identical parameters on BTCUSD, ETHUSD and SOLUSD",
+    "portfolio_scheduler": "sort by entry time and asset; accept at most two concurrent 1%-risk positions; later simultaneous signals are skipped",
+    "boundary_policy": "skip any trade whose full registered holding cannot finish inside its evaluated period"
+  },
+  "cost_model": {
+    "source_checked_utc": "2026-08-03", "opening_fee_bps_per_trade": 5,
+    "oracle_fee_usdc_per_trade": 0.10, "closing_fee_bps": 0,
+    "scenarios": {
+      "base": {"dynamic_spread_and_impact_bps": 1, "annual_rollover_pct": 8},
+      "conservative": {"dynamic_spread_and_impact_bps": 4, "annual_rollover_pct": 20},
+      "stress": {"dynamic_spread_and_impact_bps": 10, "annual_rollover_pct": 40}
+    }
+  },
+  "grid": {
+    "side": ["long", "short"], "session_start_utc": [0, 8, 16], "day_group": ["weekday", "weekend"],
+    "shock_close_atr": [1.0, 1.5, 2.0], "range_atr": [1.5, 2.0, 2.5],
+    "reclaim_hours": [1, 2, 3], "reclaim_fraction": [0.50, 0.75],
+    "stop_atr": [1.0, 2.0], "hold_bars": [2, 6, 12], "points": 3888
+  },
+  "stability": {
+    "categorical_groups": ["side", "session_start_utc", "day_group"],
+    "orthogonal_axes": ["shock_close_atr", "range_atr", "reclaim_hours", "reclaim_fraction", "stop_atr", "hold_bars"],
+    "minimum_passing_neighbours": 2,
+    "representative": "graph medoid of largest stable component without performance metrics"
+  },
+  "pre_registered_discovery_gate": {
+    "minimum_portfolio_trades": 60, "minimum_trades_per_asset": 12,
+    "minimum_stress_profit_factor": 1.10, "minimum_stress_expectancy_bps_on_capital": 5,
+    "minimum_positive_asset_ratio": 1.0, "minimum_positive_year_ratio": 1.0,
+    "maximum_stress_drawdown_pct_on_capital": 15, "maximum_liquidations": 0,
+    "minimum_net_expectancy_usdc": 0.10
+  },
+  "pre_registered_internal_walk_forward_gate": {
+    "minimum_total_trades": 60, "minimum_trades_per_asset": 15, "minimum_trades_per_fold": 8,
+    "minimum_stress_profit_factor": 1.15, "minimum_stress_expectancy_bps_on_capital": 5,
+    "minimum_positive_fold_ratio": 0.80, "minimum_positive_asset_ratio": 1.0,
+    "minimum_drop_one_asset_profit_factor": 1.05,
+    "maximum_stress_drawdown_pct_on_capital": 12, "maximum_liquidations": 0,
+    "maximum_discovery_walk_forward_expectancy_decay_pct": 50
+  },
+  "small_account": {
+    "capital_usdc": 200, "risk_per_trade_pct": 1.0, "maximum_concurrent_positions": 2,
+    "maximum_total_open_risk_pct": 2.0,
+    "venue_max_leverage": {"BTCUSD": 200, "ETHUSD": 200, "SOLUSD": 150},
+    "liquidation_buffer_over_stop": 1.25, "maximum_margin_pct": 35, "minimum_reserve_pct": 40,
+    "leverage_rule": "Highest venue leverage whose liquidation distance is at least 1.25 times the stop distance."
+  },
+  "family_stop_rule": {
+    "stop_after_discovery_if": "zero universal stable components",
+    "stop_after_internal_walk_forward_if": "zero representatives pass all aggregate, per-asset, per-fold and drop-one gates",
+    "global_holdout_policy": "Survivors enter a final-cohort waitlist; no family-level holdout release.",
+    "sqcli_policy": "SQ reproduction on consumed periods only after internal survival; never a promotion by itself."
+  },
+  "global_holdout_release_authorized": false,
+  "paper_or_live_authorized": false
+}

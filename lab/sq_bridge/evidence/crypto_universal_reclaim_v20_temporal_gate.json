@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "family_id": "crypto_universal_reclaim_v20",
+  "claim": "internal_walk_forward",
+  "assets": [
+    "BTCUSD",
+    "ETHUSD",
+    "SOLUSD"
+  ],
+  "from": "2021-01-01",
+  "to": "2025-06-30",
+  "independent": false,
+  "performance_promotion_authorized": false,
+  "reasons": [
+    "Allowed for development/internal walk-forward; cannot support an independent OOS claim."
+  ],
+  "decision": "PASS_INTERNAL_NON_INDEPENDENT"
+}

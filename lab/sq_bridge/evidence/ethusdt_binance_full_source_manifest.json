@@ -1,0 +1,687 @@
+{
+  "schema_version": 1,
+  "source": "Binance official public spot monthly klines",
+  "source_documentation": "https://github.com/binance/binance-public-data/blob/master/README.md",
+  "symbol": "ETHUSDT",
+  "timeframe": "M1",
+  "timezone": "UTC",
+  "timestamp_units_normalized": [
+    "milliseconds",
+    "microseconds"
+  ],
+  "sources": [
+    {
+      "month": "2019-01",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2019-01.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2019-01.zip",
+      "sha256": "86e6770246976d2ab0b21a22084bffd3a4c11c7cab9d4cda1dcaf30e1a772cf4",
+      "rows": 44640
+    },
+    {
+      "month": "2019-02",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2019-02.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2019-02.zip",
+      "sha256": "4b320265d1c632ed6fc174201d20a7fe5112f26c5ddf9aad822d29040c2dc5c4",
+      "rows": 40320
+    },
+    {
+      "month": "2019-03",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2019-03.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2019-03.zip",
+      "sha256": "e8c2e8180a1253b2128adabe6d59e6be1669ba24f2d7c9427b5ef2771eddd94d",
+      "rows": 44280
+    },
+    {
+      "month": "2019-04",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2019-04.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2019-04.zip",
+      "sha256": "edc798b17340883d5b0c779d4077a75cb80f1ce4d22155532ba0e024dc56d1b3",
+      "rows": 43200
+    },
+    {
+      "month": "2019-05",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2019-05.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2019-05.zip",
+      "sha256": "fdb21c1b49a831073898dc060b35ee8a4cb93cdfd901d4ed2fc0439b0bd33dc8",
+      "rows": 44040
+    },
+    {
+      "month": "2019-06",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2019-06.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2019-06.zip",
+      "sha256": "fe214b966bf8ca7472eeb8a52120a995c6df9119788b0801a1ec10f84ec1b517",
+      "rows": 43139
+    },
+    {
+      "month": "2019-07",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2019-07.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2019-07.zip",
+      "sha256": "2e8794d8f1c30c8640617289a3f072d581746ea9e299f623936ac9ab0f0d024b",
+      "rows": 44640
+    },
+    {
+      "month": "2019-08",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2019-08.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2019-08.zip",
+      "sha256": "c0e04e35b1e512355708abd81e882ef185c7f1469f290539872de8bb2197b145",
+      "rows": 44160
+    },
+    {
+      "month": "2019-09",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2019-09.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2019-09.zip",
+      "sha256": "ed943b86487a8a94eda85b2f526ede929dbbd1f41aefe7b8311552aa47827976",
+      "rows": 43200
+    },
+    {
+      "month": "2019-10",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2019-10.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2019-10.zip",
+      "sha256": "e36eadbbde9973e4596f6f5cab7e864bddd6b8bf64e0c98f1949e907877125f1",
+      "rows": 44640
+    },
+    {
+      "month": "2019-11",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2019-11.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2019-11.zip",
+      "sha256": "fcfe68f4c98deb2ec57e191413082f8cad63c9af194d322c16f13589f8a040e5",
+      "rows": 42937
+    },
+    {
+      "month": "2019-12",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2019-12.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2019-12.zip",
+      "sha256": "b0bdcb05d6a7a210ad53b96cc8a2db844281461880f508afd1cfbacdf759e1cc",
+      "rows": 44640
+    },
+    {
+      "month": "2020-01",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2020-01.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2020-01.zip",
+      "sha256": "48886abc91602bcd38a79ca6af913e294dc2e2ea653bcac419699cb471a56f4c",
+      "rows": 44640
+    },
+    {
+      "month": "2020-02",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2020-02.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2020-02.zip",
+      "sha256": "bf55b325926b016c2de79ed5ce5ce066ec72a4d652700be356ded28b3209728e",
+      "rows": 41346
+    },
+    {
+      "month": "2020-03",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2020-03.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2020-03.zip",
+      "sha256": "4be4045d288edf14305d486ac2f74df763664633a81dee2c9bf856aa4bc57298",
+      "rows": 44512
+    },
+    {
+      "month": "2020-04",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2020-04.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2020-04.zip",
+      "sha256": "874ffde63826cca5d991ab7b7a727ae9b4f8fc3696f10b1ddb78c74e56566c85",
+      "rows": 43050
+    },
+    {
+      "month": "2020-05",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2020-05.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2020-05.zip",
+      "sha256": "ddd7c0679fe93c1c087ff9a5c9a495f84d3d22830d3731f2d38c054e141d3681",
+      "rows": 44640
+    },
+    {
+      "month": "2020-06",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2020-06.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2020-06.zip",
+      "sha256": "1340d9c29d4a4c660a44336ab0b9c9470faad2a3bdf3bcd1122b0e575088ce38",
+      "rows": 42990
+    },
+    {
+      "month": "2020-07",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2020-07.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2020-07.zip",
+      "sha256": "f91b6e1f027c421161880af78a37bcfef3923551d1d1c8abe96374a3130b84a9",
+      "rows": 44640
+    },
+    {
+      "month": "2020-08",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2020-08.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2020-08.zip",
+      "sha256": "3500a8e33232a5c7d7c4d3adaaf65889a0382a11ac78967679052424eade907a",
+      "rows": 44640
+    },
+    {
+      "month": "2020-09",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2020-09.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2020-09.zip",
+      "sha256": "7e7bf162ccf90d74dd0c89c969d86bd2fa6cb4aa99e5d635c0540fbafbc01624",
+      "rows": 43200
+    },
+    {
+      "month": "2020-10",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2020-10.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2020-10.zip",
+      "sha256": "be7d2d73aa9d879b4043ea82e97d37fe78cd404ff94cebb123a50c7ffc9bd090",
+      "rows": 44640
+    },
+    {
+      "month": "2020-11",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2020-11.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2020-11.zip",
+      "sha256": "d886f8e908d9ade6c9f1def4a93267ab5701aba92e873419b9627bf7d9f20352",
+      "rows": 43140
+    },
+    {
+      "month": "2020-12",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2020-12.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2020-12.zip",
+      "sha256": "84b8aae21ed5be1c6257c596d7bf4717117cfb4d515febe4dbacd37d7666c7f8",
+      "rows": 44349
+    },
+    {
+      "month": "2021-01",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2021-01.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2021-01.zip",
+      "sha256": "19406d35bbc4c5511c1c04265369a3dcd6719ff2195e0bdb0bf5147e937ee857",
+      "rows": 44640
+    },
+    {
+      "month": "2021-02",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2021-02.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2021-02.zip",
+      "sha256": "964070408500f1e189daf68832abc14d53ee03c53e9971d23aef180f5730543e",
+      "rows": 40241
+    },
+    {
+      "month": "2021-03",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2021-03.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2021-03.zip",
+      "sha256": "a315049701c13cb36884412ae501e4b83582dbead0b9b07db9c8e58578c4b589",
+      "rows": 44550
+    },
+    {
+      "month": "2021-04",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2021-04.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2021-04.zip",
+      "sha256": "7a9c6f70708570a7a786afe7451c8fc8cab20e5efb6fcb11aa242521bd19edc9",
+      "rows": 42766
+    },
+    {
+      "month": "2021-05",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2021-05.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2021-05.zip",
+      "sha256": "241b0fbc11f80d36f5ed97b4ae2f618180542646a6c11e8c012bfe5bbea7bee8",
+      "rows": 44640
+    },
+    {
+      "month": "2021-06",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2021-06.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2021-06.zip",
+      "sha256": "e9cc31fd36a498c14b668016a6b9a9a11a92dee39583760d8289228f32509143",
+      "rows": 43200
+    },
+    {
+      "month": "2021-07",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2021-07.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2021-07.zip",
+      "sha256": "eef8b511856eb16c728ac76395784b1bdba42fc528e70bc93cf41641e3b4dc90",
+      "rows": 44640
+    },
+    {
+      "month": "2021-08",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2021-08.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2021-08.zip",
+      "sha256": "e6d65e00e8eb757c748c61469268d921f679968e40b9329b04d66ed5392c0073",
+      "rows": 44370
+    },
+    {
+      "month": "2021-09",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2021-09.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2021-09.zip",
+      "sha256": "5bbfb9f41522b2fd1472e4f4b164a5ba4711b02aab37eebe0b2b25a1286c90a9",
+      "rows": 43080
+    },
+    {
+      "month": "2021-10",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2021-10.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2021-10.zip",
+      "sha256": "734dda1470947fee74e8c48b2a243d7c81acc286fd20cca913ca70429f288107",
+      "rows": 44640
+    },
+    {
+      "month": "2021-11",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2021-11.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2021-11.zip",
+      "sha256": "a91e027bbbace0f12f05782f5f3203206b1674d58d1376ad1ced85f98f07b447",
+      "rows": 43200
+    },
+    {
+      "month": "2021-12",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2021-12.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2021-12.zip",
+      "sha256": "4afcb0943a7a7e474904bc2f40983abc5155c6c88cd0775f5b5b2977cb69a69f",
+      "rows": 44640
+    },
+    {
+      "month": "2022-01",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2022-01.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2022-01.zip",
+      "sha256": "38386e47208de53dddfcb47490533d19284dd2331099b0679fcf75e7e0eb5b1e",
+      "rows": 44640
+    },
+    {
+      "month": "2022-02",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2022-02.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2022-02.zip",
+      "sha256": "4a316d17bac7b19f6d55e23910479b0354177bead4d6488f5829cb959df85178",
+      "rows": 40320
+    },
+    {
+      "month": "2022-03",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2022-03.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2022-03.zip",
+      "sha256": "41d2ebb5fc88f090ec38e51b785b6621738dac1ce996de14e0f9945024c02f78",
+      "rows": 44640
+    },
+    {
+      "month": "2022-04",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2022-04.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2022-04.zip",
+      "sha256": "f5eefaafeebe9934811c1ccc46acc93e3de342761dc33349ab6917ade9018e5c",
+      "rows": 43200
+    },
+    {
+      "month": "2022-05",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2022-05.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2022-05.zip",
+      "sha256": "7f3e2df3fc5c365cd678233c27d7a8864855bab0709370ac665d388e5795dfc3",
+      "rows": 44640
+    },
+    {
+      "month": "2022-06",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2022-06.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2022-06.zip",
+      "sha256": "c189abf1f43601f3a389819f93a955ba0d96dab19dee0804dc1c741e26977e8c",
+      "rows": 43200
+    },
+    {
+      "month": "2022-07",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2022-07.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2022-07.zip",
+      "sha256": "d536b2ae7c8161736f3f54e6d196ab53c86616e983b6c195ddad02936517e079",
+      "rows": 44640
+    },
+    {
+      "month": "2022-08",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2022-08.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2022-08.zip",
+      "sha256": "6d5171bf39094bf479c49d7835bd99e4880b497bfcb3ccd655fc9298a7f508d9",
+      "rows": 44640
+    },
+    {
+      "month": "2022-09",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2022-09.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2022-09.zip",
+      "sha256": "2f608ec0e0072c8ec88dc8df798e101af9937702edd37f3447107faa00c84445",
+      "rows": 43200
+    },
+    {
+      "month": "2022-10",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2022-10.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2022-10.zip",
+      "sha256": "99648a89a2a713738cf36780f748a6ab9f84737d52fde3728dd59218ac832bc3",
+      "rows": 44640
+    },
+    {
+      "month": "2022-11",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2022-11.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2022-11.zip",
+      "sha256": "925acf2264f9ffbe1dea1beada4b480eed9bfd7585bebe799a276d7e85ada0df",
+      "rows": 43200
+    },
+    {
+      "month": "2022-12",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2022-12.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2022-12.zip",
+      "sha256": "0a4c1f1a0d983cdf3207737bcff6550e6fa00dd6e0e4abb7a6c686beaca5a58f",
+      "rows": 44640
+    },
+    {
+      "month": "2023-01",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2023-01.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2023-01.zip",
+      "sha256": "c69ea0c9b620b53f15dc5e20a1446a2f233e2d8c8dd8eaa8bf49dae92f3162c3",
+      "rows": 44640
+    },
+    {
+      "month": "2023-02",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2023-02.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2023-02.zip",
+      "sha256": "4ee0c9bf3c53c038798df52b085156f0fae2c59406e3e1c02ade5f680a129a11",
+      "rows": 40320
+    },
+    {
+      "month": "2023-03",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2023-03.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2023-03.zip",
+      "sha256": "e2552c2298f4b67027bfa1f7da364b0d398e96a76dae8fa2085dddf357f60a69",
+      "rows": 44560
+    },
+    {
+      "month": "2023-04",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2023-04.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2023-04.zip",
+      "sha256": "87d0e7d1a21d72636f60cdd50557c90cc1921664596f5b4e9713c0365c3410c5",
+      "rows": 43200
+    },
+    {
+      "month": "2023-05",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2023-05.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2023-05.zip",
+      "sha256": "fe57aa54eb3467ec40d04c1585e8019c8fb0fb2085abf28bb8e615ab5461def0",
+      "rows": 44640
+    },
+    {
+      "month": "2023-06",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2023-06.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2023-06.zip",
+      "sha256": "c12d39ce1b3b6a47e09e4b5a1c64d39939b9b58108f2c6f87e39d544cb0430f3",
+      "rows": 43200
+    },
+    {
+      "month": "2023-07",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2023-07.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2023-07.zip",
+      "sha256": "ad0b53a0f9b7ec4dd13c3d9c8a2f93dcbf797ea7ae40c8a109f5a275983869f2",
+      "rows": 44640
+    },
+    {
+      "month": "2023-08",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2023-08.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2023-08.zip",
+      "sha256": "fd3f848b8ee996504745083b8b2a34e5bdf2bd388a8fc7edf426d8dc10bffe7f",
+      "rows": 44640
+    },
+    {
+      "month": "2023-09",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2023-09.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2023-09.zip",
+      "sha256": "7bfed19a472eaa4691d1920c865d07436262e7dc9ad737509db14dc6bcc2429e",
+      "rows": 43200
+    },
+    {
+      "month": "2023-10",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2023-10.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2023-10.zip",
+      "sha256": "e7c67fa12dd93c7bebd4a5893852b3b1b0ac3faf30ec2a590fa6c942fabf4e4d",
+      "rows": 44640
+    },
+    {
+      "month": "2023-11",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2023-11.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2023-11.zip",
+      "sha256": "b3a5ba98d81b4bc62022d35d85d4e28c6ab7ca550d8283643191f66f6f986c66",
+      "rows": 43200
+    },
+    {
+      "month": "2023-12",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2023-12.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2023-12.zip",
+      "sha256": "9a0d342828ced43d17a97341234ec9d6344eba9945b5a5dccc73eabb253a83bb",
+      "rows": 44640
+    },
+    {
+      "month": "2024-01",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2024-01.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2024-01.zip",
+      "sha256": "2fb2c9b77365183f77e185de3578de2f3be5fefe433d7c0564f033f968d5e23c",
+      "rows": 44640
+    },
+    {
+      "month": "2024-02",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2024-02.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2024-02.zip",
+      "sha256": "ede3c9d4d47a5e9fdbc2e37b7086d97d4bcceec54316dd345fe0a1f8e648c443",
+      "rows": 41760
+    },
+    {
+      "month": "2024-03",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2024-03.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2024-03.zip",
+      "sha256": "b63d885ef49b4e0f2a654ab02c5dcb502fb8abeb7300f3ebff4a33aadd3d4a82",
+      "rows": 44640
+    },
+    {
+      "month": "2024-04",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2024-04.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2024-04.zip",
+      "sha256": "9c6ef16ea4e0593ac4547d2f6c64c272d8f39806871473c4877885af47a67b88",
+      "rows": 43200
+    },
+    {
+      "month": "2024-05",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2024-05.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2024-05.zip",
+      "sha256": "4e09e26b7a2b352d24c25f6fc6cdd531d167d460a48226e4a8080413e0bb5e66",
+      "rows": 44640
+    },
+    {
+      "month": "2024-06",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2024-06.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2024-06.zip",
+      "sha256": "27040862f050687c6da296108dfcfb29e0500e0f9c8dd73669146e9e68a128c0",
+      "rows": 43200
+    },
+    {
+      "month": "2024-07",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2024-07.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2024-07.zip",
+      "sha256": "bda530d17235096c0e619edff1bef56154923b980d7a73406ea66114966ba0d2",
+      "rows": 44640
+    },
+    {
+      "month": "2024-08",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2024-08.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2024-08.zip",
+      "sha256": "de64ff8c0e9bd0ff9ca7fc4015948fac94087c7293915a2a7f7bb47780e98e60",
+      "rows": 44640
+    },
+    {
+      "month": "2024-09",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2024-09.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2024-09.zip",
+      "sha256": "cb2ef3750b2608a871dcc6db479382e33b7d341f89ea17ed58b9fd44db88a793",
+      "rows": 43200
+    },
+    {
+      "month": "2024-10",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2024-10.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2024-10.zip",
+      "sha256": "99b11df1d79a2408d639cf512f1cfc6a4df4687de9146bd6271f9489ba15a8ba",
+      "rows": 44640
+    },
+    {
+      "month": "2024-11",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2024-11.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2024-11.zip",
+      "sha256": "2c3e15ae6458707b07d2d8b51ad6634756153bc65f9bbb44d5ddb7ecdbccd0c6",
+      "rows": 43200
+    },
+    {
+      "month": "2024-12",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2024-12.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2024-12.zip",
+      "sha256": "76e33a1db36f036c1e5866de2ebc54ab825522c801e1f9c487a85be781af4716",
+      "rows": 44640
+    },
+    {
+      "month": "2025-01",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2025-01.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2025-01.zip",
+      "sha256": "04ab6131e9f8ad979676b72115a8cfaf7e4f827b06f44cdf80c840d95016766d",
+      "rows": 44640
+    },
+    {
+      "month": "2025-02",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2025-02.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2025-02.zip",
+      "sha256": "5ec2fb4e87e29241745ee7e9449fb86f4f44bad96508a80a1af0e308d73c6f5a",
+      "rows": 40320
+    },
+    {
+      "month": "2025-03",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2025-03.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2025-03.zip",
+      "sha256": "609346fc0dc8f8f1cf283c5cb373d1bb25f26f1716fc67c3883d2176ce9cf40b",
+      "rows": 44640
+    },
+    {
+      "month": "2025-04",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2025-04.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2025-04.zip",
+      "sha256": "32505b36565f7c446a3946dc6ea2f511e71d0f72c13cca2b09bb83307f198f8e",
+      "rows": 43200
+    },
+    {
+      "month": "2025-05",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2025-05.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2025-05.zip",
+      "sha256": "743268912388656e3c53d21e6e4b6c2b155c1b1f67c7bcbdae5e14cc3d9c633c",
+      "rows": 44640
+    },
+    {
+      "month": "2025-06",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2025-06.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2025-06.zip",
+      "sha256": "eb7641c42f642697524ce45f64c92bcc33a751b6ade791f91f70e3ec52880a70",
+      "rows": 43200
+    },
+    {
+      "month": "2025-07",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2025-07.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2025-07.zip",
+      "sha256": "b95c721b528260d865585f0723d287c836f2f22bb681ac45e0c56eaaf0047bd9",
+      "rows": 44640
+    },
+    {
+      "month": "2025-08",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2025-08.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2025-08.zip",
+      "sha256": "aaebc0e2baa7d7dcfcf6eb3eeb681b55a2e746dad86e758be0af7fca4391c480",
+      "rows": 44640
+    },
+    {
+      "month": "2025-09",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2025-09.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2025-09.zip",
+      "sha256": "2912831352b3e194ac38f7a66a373ea78f138dfd4fe5a3ac25acb80c5ccaa0ec",
+      "rows": 43200
+    },
+    {
+      "month": "2025-10",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2025-10.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2025-10.zip",
+      "sha256": "a384d1bea37e4f59f7cae491a6f3f2dffe262259a4a0bc9324310a9aef16a843",
+      "rows": 44640
+    },
+    {
+      "month": "2025-11",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2025-11.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2025-11.zip",
+      "sha256": "30b80de8cbbd68edf2b2bf76154f60e6edb0f8365e08e6d5afc63657e26e0f7c",
+      "rows": 43200
+    },
+    {
+      "month": "2025-12",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2025-12.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2025-12.zip",
+      "sha256": "57b653e4ff3558fae8d2e6da616c40e6cfad4002f131584f82ae7a80bd228293",
+      "rows": 44640
+    },
+    {
+      "month": "2026-01",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2026-01.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2026-01.zip",
+      "sha256": "cadd060ab73bd03fee94708b78738144da76d007fc2170d8ad2cec678de7a654",
+      "rows": 44640
+    },
+    {
+      "month": "2026-02",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2026-02.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2026-02.zip",
+      "sha256": "1ddb64d08739a40b7f66a37bccf5ca5fec58339c7f01e83311086116f41b445f",
+      "rows": 40320
+    },
+    {
+      "month": "2026-03",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2026-03.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2026-03.zip",
+      "sha256": "5747c9f1f76be7afbf9513d50ea65ff6e979fa9684c75a775b6974e64c751844",
+      "rows": 44640
+    },
+    {
+      "month": "2026-04",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2026-04.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2026-04.zip",
+      "sha256": "8a2f0a2907764827ca3c52416bd9357c5d6213f3816fadbd0515bf504ea75ffd",
+      "rows": 43200
+    },
+    {
+      "month": "2026-05",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2026-05.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2026-05.zip",
+      "sha256": "bc0e625d18c0fa5378cecd0119aa20721b8830c24c3a55094f4c4c966ff8f710",
+      "rows": 44640
+    },
+    {
+      "month": "2026-06",
+      "url": "https://data.binance.vision/data/spot/monthly/klines/ETHUSDT/1m/ETHUSDT-1m-2026-06.zip",
+      "archive": "/mnt/volume-SQ/user/imports/alquimia_eth/archives/ETHUSDT-1m-2026-06.zip",
+      "sha256": "770fdf44aac01dbe136e5b37a10501e57069af4048e76fbb3a3a2de2e9662934",
+      "rows": 43200
+    }
+  ],
+  "rows": 3938630,
+  "first_utc": "2019-01-01T00:00:00+00:00",
+  "last_utc": "2026-06-30T23:59:00+00:00",
+  "continuity": {
+    "gap_intervals": 22,
+    "missing_minutes": 4090,
+    "largest_gap_minutes": 600,
+    "first_five_gaps": [
+      {
+        "left_ms": 1552355940000,
+        "right_ms": 1552377600000,
+        "missing_minutes": 360
+      },
+      {
+        "left_ms": 1557889140000,
+        "right_ms": 1557925200000,
+        "missing_minutes": 600
+      },
+      {
+        "left_ms": 1559941980000,
+        "right_ms": 1559945700000,
+        "missing_minutes": 61
+      },
+      {
+        "left_ms": 1565834340000,
+        "right_ms": 1565863200000,
+        "missing_minutes": 480
+      },
+      {
+        "left_ms": 1573610340000,
+        "right_ms": 1573618800000,
+        "missing_minutes": 140
+      }
+    ]
+  },
+  "output_csv": "/mnt/volume-SQ/user/imports/alquimia_eth/ETHUSDT_BINANCE_M1_FULL.csv",
+  "output_sha256": "357a01c213204b7dd4f75d82ef0b82e5dd9e026660f3e2f1ef4093b2475f995a",
+  "sq_import_format": "MetaTrader4 bar format",
+  "sq_import_has_header": false,
+  "intended_sq_symbol": "ETHUSDT_BINANCE_M1",
+  "existing_sq_symbol_overwritten": false,
+  "research_authorized": false,
+  "paper_or_live_authorized": false
+}

@@ -87,6 +87,15 @@ produeix 1 punt aïllat però 0 regions estables. `REJECT_BTC_SESSION_FAMILIES`;
 validació/OOS/holdout intactes i sense SQCLI. ETHUSD i SOLUSD s'han afegit al
 recorder natiu: primers M1 verificats, estat `WARMING` fins almenys 2026-10-02.
 
+**Crypto multi-actiu v15–v17:** fonts Binance oficials i hasheades disponibles
+per BTC (4.377.479 M1), ETH (3.938.630) i SOL (3.064.335). V15 té 0/192 PASS;
+V16 2/96 però cap regió estable; V17 forma una regió estable (14/225) però el
+medoid passa de PF estrès 1,19 i +5,59% en desenvolupament a PF 0,62 i -2,33%
+en validació 2024H2. `REJECT_CRYPTO_MOMENTUM_NO_OOS_NO_SQCLI`; OOS/holdout
+intactes. ETH i SOL ja són a SQ en símbols nous: roundtrip juny 2026 amb
+43.200 timestamps i OHLC exactes. Volum fraccional truncat, de manera que són
+`PASS_SIGNAL_RESEARCH` exclusivament; paper/live i regles de volum bloquejats.
+
 ### Fase: PAPER PROBE — T7 en curs (≥4 setmanes, inici 2026-03-16)
 
 **Setup actiu**: `capitulation_d1` — MSFT (primari), NVDA, NDXUSD (complementari, paper: QQQ proxy)

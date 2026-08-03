@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "source_csv": "/mnt/volume-SQ/user/imports/alquimia_eth/ETHUSDT_BINANCE_M1_FULL.csv",
+  "source_sha256": "357a01c213204b7dd4f75d82ef0b82e5dd9e026660f3e2f1ef4093b2475f995a",
+  "exported_csv": "/mnt/volume-SQ/user/exports/alquimia_eth_m1_roundtrip/ETHUSDT_BINANCE_M1-M1-No Session.csv",
+  "exported_sha256": "afb7b43fb2c8469e65b05b3dd11004348ab1f7eedb25ba22d012dbb4a4436217",
+  "exported_has_header": false,
+  "source_rows": 43200,
+  "exported_rows": 43200,
+  "timestamps_exact_and_ordered": true,
+  "field_errors": {
+    "open": {
+      "changed_rows": 0,
+      "max_absolute_error": "0E-8",
+      "mean_absolute_error": "0E-8"
+    },
+    "high": {
+      "changed_rows": 0,
+      "max_absolute_error": "0E-8",
+      "mean_absolute_error": "0E-8"
+    },
+    "low": {
+      "changed_rows": 0,
+      "max_absolute_error": "0E-8",
+      "mean_absolute_error": "0E-8"
+    },
+    "close": {
+      "changed_rows": 0,
+      "max_absolute_error": "0E-8",
+      "mean_absolute_error": "0E-8"
+    },
+    "volume": {
+      "changed_rows": 43196,
+      "max_absolute_error": "0.99990000",
+      "mean_absolute_error": "0.4998784652777777777777777778"
+    }
+  },
+  "decision": "PASS_SIGNAL_RESEARCH",
+  "decision_scope": "Data integrity for signal research only; volume-dependent rules, execution, paper, and live remain unauthorized.",
+  "exact_numeric_parity": false,
+  "paper_or_live_authorized": false
+}

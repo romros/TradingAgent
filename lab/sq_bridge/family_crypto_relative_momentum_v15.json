@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "family_id": "crypto_relative_momentum_v15",
+  "hypothesis_id": "ostium-crypto-cross-sectional-momentum-v15",
+  "hypothesis": "Relative momentum among BTC, ETH and SOL can persist for several days, allowing a weekly strongest-asset position or a strongest-minus-weakest spread with less dependence on absolute crypto direction.",
+  "markets": ["BTCUSD", "ETHUSD", "SOLUSD"],
+  "research_proxies": ["BTCUSDT", "ETHUSDT", "SOLUSDT"],
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "implementation_origin": "alquimia_native",
+  "legacy_quantitative_inputs": [],
+  "inspiration_not_evidence": "Classic cross-sectional momentum; schedule, grid, costs and all evidence are newly preregistered.",
+  "periods": {
+    "development_from": "2021-01-01", "development_to": "2024-06-30",
+    "validation_from": "2024-07-01", "validation_to": "2024-12-31",
+    "oos_from": "2025-01-01", "oos_to": "2025-06-30",
+    "holdout_from": "2025-07-01", "holdout_to": "2026-06-30"
+  },
+  "data_contract": {
+    "input": "independently checksummed Binance spot M1 aggregated to strict UTC D1",
+    "decision_time": "Monday 00:00 UTC using only prior completed D1 bars",
+    "entry": "Monday D1 open",
+    "volume_rules_allowed": false,
+    "missing_asset_policy": "skip the portfolio trade",
+    "proxy_limitation": "Negative evidence is terminal; positive evidence cannot promote until all three Ostium native parity gates pass",
+    "lookahead_forbidden": true
+  },
+  "cost_model": {
+    "opening_fee_bps_per_leg": 5,
+    "oracle_fee_usdc_per_leg": 0.10,
+    "closing_fee_bps": 0,
+    "scenarios": {
+      "base": {"dynamic_spread_and_impact_bps_per_leg": 1, "annual_rollover_pct_per_leg": 8},
+      "conservative": {"dynamic_spread_and_impact_bps_per_leg": 4, "annual_rollover_pct_per_leg": 20},
+      "stress": {"dynamic_spread_and_impact_bps_per_leg": 10, "annual_rollover_pct_per_leg": 40}
+    },
+    "rollover_conservatism": "Charge carry on every leg; do not assume long/short offset."
+  },
+  "grid": {
+    "mode": ["long_strongest", "long_strongest_short_weakest"],
+    "lookback_days": [7, 14, 28, 56, 84, 112],
+    "hold_days": [1, 3, 7, 14],
+    "volatility_lookback_days": [14, 28],
+    "stop_atr": [2.0, 3.0],
+    "points": 192
+  },
+  "execution_contract": {
+    "ranking": "trailing close-to-close return ending on Sunday close",
+    "long_leg": "highest ranked asset",
+    "short_leg": "lowest ranked asset only in hedged mode",
+    "risk_weighting": "equal stop-risk per active leg using prior ATR",
+    "exit": "gap-adverse ATR stop per leg or close after 1/3/7/14 days",
+    "overlap": "if prior portfolio remains open, skip the new Monday signal",
+    "same_asset_two_legs_forbidden": true
+  },
+  "stability": {
+    "categorical_groups": ["mode"],
+    "orthogonal_axes": ["lookback_days", "hold_days", "volatility_lookback_days", "stop_atr"],
+    "minimum_passing_neighbours": 2,
+    "representative": "graph medoid per mode without performance metrics"
+  },
+  "pre_registered_development_gate": {
+    "minimum_portfolio_trades": 80,
+    "minimum_stress_profit_factor": 1.05,
+    "minimum_stress_expectancy_bps": 2,
+    "minimum_positive_year_ratio": 0.75,
+    "maximum_stress_drawdown_pct": 20
+  },
+  "pre_registered_validation_gate": {
+    "minimum_portfolio_trades": 10,
+    "minimum_stress_profit_factor": 1.15,
+    "minimum_stress_expectancy_bps": 2,
+    "minimum_positive_quarter_ratio": 0.50,
+    "maximum_stress_drawdown_pct": 15,
+    "maximum_development_validation_expectancy_decay_pct": 50
+  },
+  "small_account": {
+    "capital_usdc": 200,
+    "total_risk_per_portfolio_trade_pct": 1.0,
+    "research_leverage_cap": 20,
+    "maximum_total_margin_pct": 35,
+    "minimum_reserve_pct": 40,
+    "minimum_net_expectancy_usdc": 0.10,
+    "maximum_liquidation_probability": 0.001
+  },
+  "holdout_release_authorized": false,
+  "sqcli_policy": "No SQCLI until stable development, validation, OOS, small-account economics and three native parity gates pass."
+}

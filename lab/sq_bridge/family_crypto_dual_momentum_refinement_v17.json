@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "family_id": "crypto_dual_momentum_refinement_v17",
+  "hypothesis_id": "ostium-crypto-dual-momentum-local-stability-v17",
+  "hypothesis": "The v16 dual-momentum mechanism may occupy a smooth region near two weeks of ranking, one week of holding and a wide ATR stop rather than being an isolated optimum.",
+  "markets": ["BTCUSD", "ETHUSD", "SOLUSD"],
+  "research_proxies": ["BTCUSDT", "ETHUSDT", "SOLUSDT"],
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "implementation_origin": "alquimia_native",
+  "legacy_quantitative_inputs": [],
+  "derivation_disclosure": "This is an explicitly development-tuned local refinement after v16 produced two adjacent but insufficiently connected PASS points around lookback 14, hold 7 and stop 3 ATR. V16 performance cannot validate v17.",
+  "periods": {
+    "development_from": "2021-01-01", "development_to": "2024-06-30",
+    "validation_from": "2024-07-01", "validation_to": "2024-12-31",
+    "oos_from": "2025-01-01", "oos_to": "2025-06-30",
+    "holdout_from": "2025-07-01", "holdout_to": "2026-06-30"
+  },
+  "data_contract": {
+    "input": "independently checksummed Binance spot M1 aggregated to strict UTC D1",
+    "decision_time": "Monday 00:00 UTC using prior completed bars",
+    "cash_filter": "strongest trailing return must be positive",
+    "proxy_limitation": "No promotion until all three native Ostium parity gates pass",
+    "lookahead_forbidden": true
+  },
+  "cost_model": {
+    "opening_fee_bps_per_leg": 5, "oracle_fee_usdc_per_leg": 0.10, "closing_fee_bps": 0,
+    "scenarios": {
+      "base": {"dynamic_spread_and_impact_bps_per_leg": 1, "annual_rollover_pct_per_leg": 8},
+      "conservative": {"dynamic_spread_and_impact_bps_per_leg": 4, "annual_rollover_pct_per_leg": 20},
+      "stress": {"dynamic_spread_and_impact_bps_per_leg": 10, "annual_rollover_pct_per_leg": 40}
+    }
+  },
+  "grid": {
+    "mode": ["long_strongest_if_positive"],
+    "lookback_days": [7, 10, 14, 21, 28],
+    "hold_days": [5, 7, 10],
+    "volatility_lookback_days": [10, 14, 21, 28, 35],
+    "stop_atr": [2.5, 3.0, 3.5],
+    "points": 225
+  },
+  "execution_contract": {
+    "ranking": "trailing close-to-close return through Sunday",
+    "risk_weighting": "1% stop-risk, including 0.10 USDC oracle cost",
+    "exit": "gap-adverse ATR stop or registered holding close",
+    "overlap": "skip Monday while position remains open"
+  },
+  "stability": {
+    "categorical_groups": ["mode"],
+    "orthogonal_axes": ["lookback_days", "hold_days", "volatility_lookback_days", "stop_atr"],
+    "minimum_passing_neighbours": 2,
+    "representative": "graph medoid without performance metrics"
+  },
+  "pre_registered_development_gate": {
+    "minimum_portfolio_trades": 80, "minimum_stress_profit_factor": 1.05,
+    "minimum_stress_expectancy_bps": 2, "minimum_positive_year_ratio": 0.75,
+    "maximum_stress_drawdown_pct": 20
+  },
+  "pre_registered_validation_gate": {
+    "minimum_portfolio_trades": 10, "minimum_stress_profit_factor": 1.15,
+    "minimum_stress_expectancy_bps": 2, "minimum_positive_quarter_ratio": 0.50,
+    "maximum_stress_drawdown_pct": 15, "maximum_development_validation_expectancy_decay_pct": 50
+  },
+  "pre_registered_oos_gate": {
+    "minimum_portfolio_trades": 10, "minimum_stress_profit_factor": 1.15,
+    "minimum_stress_expectancy_bps": 2, "maximum_stress_drawdown_pct": 15
+  },
+  "small_account": {
+    "capital_usdc": 200, "total_risk_per_portfolio_trade_pct": 1.0,
+    "research_leverage_cap": 20, "maximum_total_margin_pct": 35,
+    "minimum_reserve_pct": 40, "minimum_net_expectancy_usdc": 0.10,
+    "maximum_liquidation_probability": 0.001
+  },
+  "holdout_release_authorized": false,
+  "sqcli_policy": "No SQCLI until stable development, validation, OOS, small-account and three parity gates pass."
+}

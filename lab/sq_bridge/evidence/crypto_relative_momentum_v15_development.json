@@ -1,0 +1,883 @@
+{
+  "schema_version": 1,
+  "family_id": "crypto_relative_momentum_v15",
+  "period": "development",
+  "source_sha256": {
+    "BTCUSD": "ccc111b7925d29b8cab82195b467add2e9eed71bedb3461e9689fd1b62d2a40a",
+    "ETHUSD": "357a01c213204b7dd4f75d82ef0b82e5dd9e026660f3e2f1ef4093b2475f995a",
+    "SOLUSD": "becabb8469f63c35f6ebbc3d8c7250a06b0337eba5db3911ce968aabc0ba2b08"
+  },
+  "config_sha256": "dba633e496ed36770546a677024a85512e285f98067097c1a0244b84ef8e1d04",
+  "points_evaluated": 192,
+  "point_gate_passes": 0,
+  "passing_candidates": [],
+  "stable_candidate_ids": [],
+  "topology_selected_representatives": [],
+  "diagnostic_top_20": [
+    {
+      "candidate_id": "v15-acd3fd47d8c5",
+      "parameters": {
+        "mode": "long_strongest",
+        "lookback_days": 84,
+        "hold_days": 14,
+        "volatility_lookback_days": 14,
+        "stop_atr": 2.0
+      },
+      "metrics": {
+        "base": {
+          "trades": 62,
+          "profit_factor": 1.3503703087591947,
+          "expectancy_bps": 16.86549906356104,
+          "net_return_pct": 10.121954982928338,
+          "drawdown_pct": 11.001335563326474,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.6666666666666666,
+          "positive_quarter_ratio": 0.5
+        },
+        "conservative": {
+          "trades": 62,
+          "profit_factor": 1.2646521702821942,
+          "expectancy_bps": 13.23488788928315,
+          "net_return_pct": 7.6853758911238135,
+          "drawdown_pct": 11.85484870874708,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.5
+        },
+        "stress": {
+          "trades": 62,
+          "profit_factor": 1.132918042702054,
+          "expectancy_bps": 7.0953032432185665,
+          "net_return_pct": 3.6844112765638037,
+          "drawdown_pct": 13.28145963740759,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.4166666666666667
+        }
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v15-8602dfdf3590",
+      "parameters": {
+        "mode": "long_strongest",
+        "lookback_days": 84,
+        "hold_days": 14,
+        "volatility_lookback_days": 28,
+        "stop_atr": 2.0
+      },
+      "metrics": {
+        "base": {
+          "trades": 62,
+          "profit_factor": 1.3310851295092216,
+          "expectancy_bps": 15.120446916705578,
+          "net_return_pct": 9.003852283990366,
+          "drawdown_pct": 9.292551517031667,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.5833333333333334
+        },
+        "conservative": {
+          "trades": 62,
+          "profit_factor": 1.244525390674729,
+          "expectancy_bps": 11.587643092048998,
+          "net_return_pct": 6.6546267500323,
+          "drawdown_pct": 10.137741033499237,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.5
+        },
+        "stress": {
+          "trades": 62,
+          "profit_factor": 1.1110251612031683,
+          "expectancy_bps": 5.6140111164212145,
+          "net_return_pct": 2.7945198526794224,
+          "drawdown_pct": 11.5495822862563,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.4166666666666667
+        }
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v15-9d2a27ab5acd",
+      "parameters": {
+        "mode": "long_strongest",
+        "lookback_days": 14,
+        "hold_days": 14,
+        "volatility_lookback_days": 28,
+        "stop_atr": 2.0
+      },
+      "metrics": {
+        "base": {
+          "trades": 86,
+          "profit_factor": 1.330131318553473,
+          "expectancy_bps": 15.581484773276456,
+          "net_return_pct": 13.077195729363101,
+          "drawdown_pct": 9.169752935268448,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.42857142857142855,
+          "positive_quarter_ratio": 0.5714285714285714
+        },
+        "conservative": {
+          "trades": 86,
+          "profit_factor": 1.2422145074128579,
+          "expectancy_bps": 11.917604933727693,
+          "net_return_pct": 9.5849954647242,
+          "drawdown_pct": 10.130174446885665,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.42857142857142855,
+          "positive_quarter_ratio": 0.35714285714285715
+        },
+        "stress": {
+          "trades": 86,
+          "profit_factor": 1.1083972166416007,
+          "expectancy_bps": 5.719391161987458,
+          "net_return_pct": 3.9172812882091623,
+          "drawdown_pct": 12.84763286777899,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.42857142857142855,
+          "positive_quarter_ratio": 0.2857142857142857
+        }
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v15-b5cf0e19e959",
+      "parameters": {
+        "mode": "long_strongest",
+        "lookback_days": 112,
+        "hold_days": 14,
+        "volatility_lookback_days": 14,
+        "stop_atr": 2.0
+      },
+      "metrics": {
+        "base": {
+          "trades": 58,
+          "profit_factor": 1.3285118909136024,
+          "expectancy_bps": 15.1586507047608,
+          "net_return_pct": 8.41840140437986,
+          "drawdown_pct": 8.728950138634906,
+          "positive_year_ratio": 0.6666666666666666,
+          "positive_half_year_ratio": 0.6,
+          "positive_quarter_ratio": 0.4444444444444444
+        },
+        "conservative": {
+          "trades": 58,
+          "profit_factor": 1.238537904394029,
+          "expectancy_bps": 11.46010437828867,
+          "net_return_pct": 6.127288522090435,
+          "drawdown_pct": 9.321165813548705,
+          "positive_year_ratio": 0.6666666666666666,
+          "positive_half_year_ratio": 0.6,
+          "positive_quarter_ratio": 0.4444444444444444
+        },
+        "stress": {
+          "trades": 58,
+          "profit_factor": 1.1012684219645401,
+          "expectancy_bps": 5.203553128159887,
+          "net_return_pct": 2.3587159726516926,
+          "drawdown_pct": 11.117979852883952,
+          "positive_year_ratio": 0.3333333333333333,
+          "positive_half_year_ratio": 0.4,
+          "positive_quarter_ratio": 0.3333333333333333
+        }
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v15-68137431ac93",
+      "parameters": {
+        "mode": "long_strongest",
+        "lookback_days": 112,
+        "hold_days": 14,
+        "volatility_lookback_days": 28,
+        "stop_atr": 2.0
+      },
+      "metrics": {
+        "base": {
+          "trades": 60,
+          "profit_factor": 1.3199850096666375,
+          "expectancy_bps": 14.034989975797142,
+          "net_return_pct": 8.04913636931981,
+          "drawdown_pct": 8.217394653634646,
+          "positive_year_ratio": 0.3333333333333333,
+          "positive_half_year_ratio": 0.4,
+          "positive_quarter_ratio": 0.5555555555555556
+        },
+        "conservative": {
+          "trades": 60,
+          "profit_factor": 1.229517992268355,
+          "expectancy_bps": 10.450682806199637,
+          "net_return_pct": 5.759957112975411,
+          "drawdown_pct": 8.662500850943822,
+          "positive_year_ratio": 0.3333333333333333,
+          "positive_half_year_ratio": 0.4,
+          "positive_quarter_ratio": 0.4444444444444444
+        },
+        "stress": {
+          "trades": 60,
+          "profit_factor": 1.0904457926549962,
+          "expectancy_bps": 4.386953148293018,
+          "net_return_pct": 1.9947029164212093,
+          "drawdown_pct": 10.487417382028784,
+          "positive_year_ratio": 0.3333333333333333,
+          "positive_half_year_ratio": 0.4,
+          "positive_quarter_ratio": 0.4444444444444444
+        }
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v15-3897ade146cf",
+      "parameters": {
+        "mode": "long_strongest",
+        "lookback_days": 112,
+        "hold_days": 14,
+        "volatility_lookback_days": 28,
+        "stop_atr": 3.0
+      },
+      "metrics": {
+        "base": {
+          "trades": 56,
+          "profit_factor": 1.2946421042079155,
+          "expectancy_bps": 9.301591188577534,
+          "net_return_pct": 4.996412444164533,
+          "drawdown_pct": 6.3158374778868875,
+          "positive_year_ratio": 0.3333333333333333,
+          "positive_half_year_ratio": 0.4,
+          "positive_quarter_ratio": 0.4444444444444444
+        },
+        "conservative": {
+          "trades": 56,
+          "profit_factor": 1.2033625316535352,
+          "expectancy_bps": 6.683204673814287,
+          "net_return_pct": 3.4715317072639085,
+          "drawdown_pct": 6.980890798839379,
+          "positive_year_ratio": 0.3333333333333333,
+          "positive_half_year_ratio": 0.4,
+          "positive_quarter_ratio": 0.4444444444444444
+        },
+        "stress": {
+          "trades": 56,
+          "profit_factor": 1.06427071779395,
+          "expectancy_bps": 2.2595885708095795,
+          "net_return_pct": 0.9444010343073517,
+          "drawdown_pct": 8.423514177586922,
+          "positive_year_ratio": 0.3333333333333333,
+          "positive_half_year_ratio": 0.4,
+          "positive_quarter_ratio": 0.4444444444444444
+        }
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v15-9af2609f0558",
+      "parameters": {
+        "mode": "long_strongest",
+        "lookback_days": 112,
+        "hold_days": 14,
+        "volatility_lookback_days": 14,
+        "stop_atr": 3.0
+      },
+      "metrics": {
+        "base": {
+          "trades": 56,
+          "profit_factor": 1.300998396004736,
+          "expectancy_bps": 9.57979558873582,
+          "net_return_pct": 5.168915933596807,
+          "drawdown_pct": 6.202613875819917,
+          "positive_year_ratio": 0.3333333333333333,
+          "positive_half_year_ratio": 0.4,
+          "positive_quarter_ratio": 0.4444444444444444
+        },
+        "conservative": {
+          "trades": 56,
+          "profit_factor": 1.2070834148619412,
+          "expectancy_bps": 6.865810189301108,
+          "net_return_pct": 3.586517946347212,
+          "drawdown_pct": 6.524515392922215,
+          "positive_year_ratio": 0.3333333333333333,
+          "positive_half_year_ratio": 0.4,
+          "positive_quarter_ratio": 0.4444444444444444
+        },
+        "stress": {
+          "trades": 56,
+          "profit_factor": 1.0642123574643247,
+          "expectancy_bps": 2.2806323541336053,
+          "net_return_pct": 0.9658173177004903,
+          "drawdown_pct": 7.503945343804652,
+          "positive_year_ratio": 0.3333333333333333,
+          "positive_half_year_ratio": 0.4,
+          "positive_quarter_ratio": 0.4444444444444444
+        }
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v15-60c1a3c1185b",
+      "parameters": {
+        "mode": "long_strongest",
+        "lookback_days": 84,
+        "hold_days": 14,
+        "volatility_lookback_days": 14,
+        "stop_atr": 3.0
+      },
+      "metrics": {
+        "base": {
+          "trades": 60,
+          "profit_factor": 1.2665545761165848,
+          "expectancy_bps": 9.150546313345236,
+          "net_return_pct": 5.2456481872193095,
+          "drawdown_pct": 8.004450352667124,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.4166666666666667
+        },
+        "conservative": {
+          "trades": 60,
+          "profit_factor": 1.1815747497545128,
+          "expectancy_bps": 6.488490292269522,
+          "net_return_pct": 3.5833692913032067,
+          "drawdown_pct": 8.615982721331662,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.4166666666666667
+        },
+        "stress": {
+          "trades": 60,
+          "profit_factor": 1.0520904778265845,
+          "expectancy_bps": 1.9915682970003379,
+          "net_return_pct": 0.833528994226751,
+          "drawdown_pct": 9.640403474781056,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5,
+          "positive_quarter_ratio": 0.4166666666666667
+        }
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v15-1858e2854db6",
+      "parameters": {
+        "mode": "long_strongest",
+        "lookback_days": 7,
+        "hold_days": 7,
+        "volatility_lookback_days": 28,
+        "stop_atr": 2.0
+      },
+      "metrics": {
+        "base": {
+          "trades": 165,
+          "profit_factor": 1.2094459937688948,
+          "expectancy_bps": 7.683679736028452,
+          "net_return_pct": 12.478999367566047,
+          "drawdown_pct": 11.854786502906112,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5714285714285714,
+          "positive_quarter_ratio": 0.7142857142857143
+        },
+        "conservative": {
+          "trades": 165,
+          "profit_factor": 1.1456675125230897,
+          "expectancy_bps": 5.504049972487649,
+          "net_return_pct": 8.512784026684116,
+          "drawdown_pct": 12.84164264549702,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5714285714285714,
+          "positive_quarter_ratio": 0.6428571428571429
+        },
+        "stress": {
+          "trades": 165,
+          "profit_factor": 1.0446786339947156,
+          "expectancy_bps": 1.777277209285002,
+          "net_return_pct": 2.0500404351674106,
+          "drawdown_pct": 14.626051700145837,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5714285714285714,
+          "positive_quarter_ratio": 0.5
+        }
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v15-882c8e6a3847",
+      "parameters": {
+        "mode": "long_strongest",
+        "lookback_days": 14,
+        "hold_days": 7,
+        "volatility_lookback_days": 14,
+        "stop_atr": 3.0
+      },
+      "metrics": {
+        "base": {
+          "trades": 160,
+          "profit_factor": 1.233127729027959,
+          "expectancy_bps": 5.395074416780586,
+          "net_return_pct": 8.599408034296886,
+          "drawdown_pct": 8.90852478844698,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.7142857142857143,
+          "positive_quarter_ratio": 0.5714285714285714
+        },
+        "conservative": {
+          "trades": 160,
+          "profit_factor": 1.1586311826067976,
+          "expectancy_bps": 3.825078187247452,
+          "net_return_pct": 5.907052218769615,
+          "drawdown_pct": 9.72590090163381,
+          "positive_year_ratio": 0.75,
+          "positive_half_year_ratio": 0.7142857142857143,
+          "positive_quarter_ratio": 0.42857142857142855
+        },
+        "stress": {
+          "trades": 160,
+          "profit_factor": 1.0444081064326811,
+          "expectancy_bps": 1.1459772971662887,
+          "net_return_pct": 1.4647828251112882,
+          "drawdown_pct": 11.104565690271572,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5714285714285714,
+          "positive_quarter_ratio": 0.35714285714285715
+        }
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v15-c9bb905e6cad",
+      "parameters": {
+        "mode": "long_strongest",
+        "lookback_days": 14,
+        "hold_days": 7,
+        "volatility_lookback_days": 28,
+        "stop_atr": 2.0
+      },
+      "metrics": {
+        "base": {
+          "trades": 158,
+          "profit_factor": 1.2124674637638815,
+          "expectancy_bps": 7.607080988211157,
+          "net_return_pct": 11.776008786102166,
+          "drawdown_pct": 11.25153198216301,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5714285714285714,
+          "positive_quarter_ratio": 0.5714285714285714
+        },
+        "conservative": {
+          "trades": 158,
+          "profit_factor": 1.1465351759292866,
+          "expectancy_bps": 5.435487238431171,
+          "net_return_pct": 8.011453497503451,
+          "drawdown_pct": 12.327256849091262,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5714285714285714,
+          "positive_quarter_ratio": 0.5714285714285714
+        },
+        "stress": {
+          "trades": 158,
+          "profit_factor": 1.0437987801907318,
+          "expectancy_bps": 1.7239894735693835,
+          "net_return_pct": 1.8662729834202585,
+          "drawdown_pct": 14.135890824104912,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5714285714285714,
+          "positive_quarter_ratio": 0.5714285714285714
+        }
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v15-e1dac018e6d8",
+      "parameters": {
+        "mode": "long_strongest",
+        "lookback_days": 7,
+        "hold_days": 14,
+        "volatility_lookback_days": 28,
+        "stop_atr": 2.0
+      },
+      "metrics": {
+        "base": {
+          "trades": 90,
+          "profit_factor": 1.260097427891626,
+          "expectancy_bps": 12.732280476420485,
+          "net_return_pct": 11.040820400154526,
+          "drawdown_pct": 11.934020110885191,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5714285714285714,
+          "positive_quarter_ratio": 0.5
+        },
+        "conservative": {
+          "trades": 90,
+          "profit_factor": 1.174188068822268,
+          "expectancy_bps": 8.850554466391916,
+          "net_return_pct": 7.2444404545490615,
+          "drawdown_pct": 12.809717102567486,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5714285714285714,
+          "positive_quarter_ratio": 0.42857142857142855
+        },
+        "stress": {
+          "trades": 90,
+          "profit_factor": 1.042113290788954,
+          "expectancy_bps": 2.2826338895609752,
+          "net_return_pct": 1.1097195331490228,
+          "drawdown_pct": 14.272381546542935,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5714285714285714,
+          "positive_quarter_ratio": 0.42857142857142855
+        }
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v15-4590f561fc59",
+      "parameters": {
+        "mode": "long_strongest",
+        "lookback_days": 14,
+        "hold_days": 14,
+        "volatility_lookback_days": 14,
+        "stop_atr": 2.0
+      },
+      "metrics": {
+        "base": {
+          "trades": 87,
+          "profit_factor": 1.249255909778951,
+          "expectancy_bps": 11.981864550640172,
+          "net_return_pct": 9.860369175133975,
+          "drawdown_pct": 9.415878290327518,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5714285714285714,
+          "positive_quarter_ratio": 0.5
+        },
+        "conservative": {
+          "trades": 87,
+          "profit_factor": 1.1664832489232282,
+          "expectancy_bps": 8.3384593905434,
+          "net_return_pct": 6.446190823080822,
+          "drawdown_pct": 10.326744121661779,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.42857142857142855,
+          "positive_quarter_ratio": 0.42857142857142855
+        },
+        "stress": {
+          "trades": 87,
+          "profit_factor": 1.0405440863154536,
+          "expectancy_bps": 2.1759946643677655,
+          "net_return_pct": 0.9074747711507625,
+          "drawdown_pct": 13.264118842673668,
+          "positive_year_ratio": 0.25,
+          "positive_half_year_ratio": 0.42857142857142855,
+          "positive_quarter_ratio": 0.2857142857142857
+        }
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v15-19bc8cccafee",
+      "parameters": {
+        "mode": "long_strongest",
+        "lookback_days": 84,
+        "hold_days": 14,
+        "volatility_lookback_days": 28,
+        "stop_atr": 3.0
+      },
+      "metrics": {
+        "base": {
+          "trades": 60,
+          "profit_factor": 1.2443417877409602,
+          "expectancy_bps": 8.302645264360528,
+          "net_return_pct": 4.712519992902231,
+          "drawdown_pct": 8.113187186722403,
+          "positive_year_ratio": 0.25,
+          "positive_half_year_ratio": 0.3333333333333333,
+          "positive_quarter_ratio": 0.4166666666666667
+        },
+        "conservative": {
+          "trades": 60,
+          "profit_factor": 1.1617575114599343,
+          "expectancy_bps": 5.719534204008387,
+          "net_return_pct": 3.1066554875905927,
+          "drawdown_pct": 8.686053671390582,
+          "positive_year_ratio": 0.25,
+          "positive_half_year_ratio": 0.3333333333333333,
+          "positive_quarter_ratio": 0.4166666666666667
+        },
+        "stress": {
+          "trades": 60,
+          "profit_factor": 1.0358485770702446,
+          "expectancy_bps": 1.3562707925077402,
+          "net_return_pct": 0.44871595800481945,
+          "drawdown_pct": 9.755909197790292,
+          "positive_year_ratio": 0.25,
+          "positive_half_year_ratio": 0.3333333333333333,
+          "positive_quarter_ratio": 0.4166666666666667
+        }
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v15-255927b086df",
+      "parameters": {
+        "mode": "long_strongest",
+        "lookback_days": 14,
+        "hold_days": 14,
+        "volatility_lookback_days": 14,
+        "stop_atr": 3.0
+      },
+      "metrics": {
+        "base": {
+          "trades": 82,
+          "profit_factor": 1.2568030373088015,
+          "expectancy_bps": 8.824683996340129,
+          "net_return_pct": 6.980991511424572,
+          "drawdown_pct": 8.5343912438681,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5714285714285714,
+          "positive_quarter_ratio": 0.5
+        },
+        "conservative": {
+          "trades": 82,
+          "profit_factor": 1.1678276136037153,
+          "expectancy_bps": 6.031079904721385,
+          "net_return_pct": 4.5627561718710075,
+          "drawdown_pct": 9.226070726944602,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.42857142857142855,
+          "positive_quarter_ratio": 0.42857142857142855
+        },
+        "stress": {
+          "trades": 82,
+          "profit_factor": 1.0339294489186917,
+          "expectancy_bps": 1.3133115481585262,
+          "net_return_pct": 0.6004830484652723,
+          "drawdown_pct": 10.419343254432679,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.42857142857142855,
+          "positive_quarter_ratio": 0.42857142857142855
+        }
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v15-e4c2a17d23b7",
+      "parameters": {
+        "mode": "long_strongest",
+        "lookback_days": 7,
+        "hold_days": 7,
+        "volatility_lookback_days": 14,
+        "stop_atr": 2.0
+      },
+      "metrics": {
+        "base": {
+          "trades": 167,
+          "profit_factor": 1.2041686011964008,
+          "expectancy_bps": 7.4056573024505905,
+          "net_return_pct": 12.183108819604339,
+          "drawdown_pct": 11.158216180992842,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.7142857142857143,
+          "positive_quarter_ratio": 0.6428571428571429
+        },
+        "conservative": {
+          "trades": 167,
+          "profit_factor": 1.1377021168267216,
+          "expectancy_bps": 5.153133525151315,
+          "net_return_pct": 8.047873012009642,
+          "drawdown_pct": 12.215642330492503,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5714285714285714,
+          "positive_quarter_ratio": 0.6428571428571429
+        },
+        "stress": {
+          "trades": 167,
+          "profit_factor": 1.0329869833907153,
+          "expectancy_bps": 1.3032892237985547,
+          "net_return_pct": 1.3273540833362407,
+          "drawdown_pct": 14.02174460245128,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5714285714285714,
+          "positive_quarter_ratio": 0.5
+        }
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v15-d10503981d28",
+      "parameters": {
+        "mode": "long_strongest",
+        "lookback_days": 7,
+        "hold_days": 14,
+        "volatility_lookback_days": 14,
+        "stop_atr": 2.0
+      },
+      "metrics": {
+        "base": {
+          "trades": 91,
+          "profit_factor": 1.2264155017871152,
+          "expectancy_bps": 11.171912143925779,
+          "net_return_pct": 9.64483935752536,
+          "drawdown_pct": 11.836732414020268,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5714285714285714,
+          "positive_quarter_ratio": 0.42857142857142855
+        },
+        "conservative": {
+          "trades": 91,
+          "profit_factor": 1.1434296725334978,
+          "expectancy_bps": 7.343503771678472,
+          "net_return_pct": 5.905508963363948,
+          "drawdown_pct": 12.767403535927047,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.42857142857142855,
+          "positive_quarter_ratio": 0.42857142857142855
+        },
+        "stress": {
+          "trades": 91,
+          "profit_factor": 1.0158601113268022,
+          "expectancy_bps": 0.8656106812918231,
+          "net_return_pct": -0.13790109536706563,
+          "drawdown_pct": 14.555666751266095,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.42857142857142855,
+          "positive_quarter_ratio": 0.42857142857142855
+        }
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v15-09c845c9d315",
+      "parameters": {
+        "mode": "long_strongest",
+        "lookback_days": 7,
+        "hold_days": 7,
+        "volatility_lookback_days": 14,
+        "stop_atr": 3.0
+      },
+      "metrics": {
+        "base": {
+          "trades": 167,
+          "profit_factor": 1.1840019485879643,
+          "expectancy_bps": 4.465663052853703,
+          "net_return_pct": 7.308751561671745,
+          "drawdown_pct": 10.806732196646351,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5714285714285714,
+          "positive_quarter_ratio": 0.5714285714285714
+        },
+        "conservative": {
+          "trades": 167,
+          "profit_factor": 1.114346401734491,
+          "expectancy_bps": 2.8744558377505824,
+          "net_return_pct": 4.496731580068825,
+          "drawdown_pct": 11.615138868009979,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5714285714285714,
+          "positive_quarter_ratio": 0.5714285714285714
+        },
+        "stress": {
+          "trades": 167,
+          "profit_factor": 1.005942347515067,
+          "expectancy_bps": 0.15868514200939907,
+          "net_return_pct": -0.13474577374872343,
+          "drawdown_pct": 12.979449663886589,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5714285714285714,
+          "positive_quarter_ratio": 0.5
+        }
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v15-a112d16b2fdc",
+      "parameters": {
+        "mode": "long_strongest",
+        "lookback_days": 14,
+        "hold_days": 7,
+        "volatility_lookback_days": 14,
+        "stop_atr": 2.0
+      },
+      "metrics": {
+        "base": {
+          "trades": 160,
+          "profit_factor": 1.1593723932167974,
+          "expectancy_bps": 5.819747210601622,
+          "net_return_pct": 8.835303606871946,
+          "drawdown_pct": 10.240341221504535,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.42857142857142855,
+          "positive_quarter_ratio": 0.6428571428571429
+        },
+        "conservative": {
+          "trades": 160,
+          "profit_factor": 1.0951719815563998,
+          "expectancy_bps": 3.6006723434098076,
+          "net_return_pct": 5.043589577057661,
+          "drawdown_pct": 11.349578702957142,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.42857142857142855,
+          "positive_quarter_ratio": 0.5714285714285714
+        },
+        "stress": {
+          "trades": 160,
+          "profit_factor": 0.9952335357065364,
+          "expectancy_bps": -0.19144652986547142,
+          "net_return_pct": -1.1351737796742811,
+          "drawdown_pct": 13.289067957143452,
+          "positive_year_ratio": 0.25,
+          "positive_half_year_ratio": 0.42857142857142855,
+          "positive_quarter_ratio": 0.5
+        }
+      },
+      "passes_point_gate": false
+    },
+    {
+      "candidate_id": "v15-a14976824811",
+      "parameters": {
+        "mode": "long_strongest",
+        "lookback_days": 14,
+        "hold_days": 14,
+        "volatility_lookback_days": 28,
+        "stop_atr": 3.0
+      },
+      "metrics": {
+        "base": {
+          "trades": 82,
+          "profit_factor": 1.1895795654605514,
+          "expectancy_bps": 6.875563014314174,
+          "net_return_pct": 5.235169723661048,
+          "drawdown_pct": 9.761747664464405,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.5714285714285714,
+          "positive_quarter_ratio": 0.42857142857142855
+        },
+        "conservative": {
+          "trades": 82,
+          "profit_factor": 1.1097540266482697,
+          "expectancy_bps": 4.151428062300064,
+          "net_return_pct": 2.915285680310209,
+          "drawdown_pct": 10.431121433663215,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.42857142857142855,
+          "positive_quarter_ratio": 0.2857142857142857
+        },
+        "stress": {
+          "trades": 82,
+          "profit_factor": 0.9888993622779938,
+          "expectancy_bps": -0.4502121774755703,
+          "net_return_pct": -0.8896739839145518,
+          "drawdown_pct": 11.58918760023343,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.42857142857142855,
+          "positive_quarter_ratio": 0.21428571428571427
+        }
+      },
+      "passes_point_gate": false
+    }
+  ],
+  "validation_accessed": false,
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "sqcli_executed": false,
+  "paper_or_live_authorized": false
+}

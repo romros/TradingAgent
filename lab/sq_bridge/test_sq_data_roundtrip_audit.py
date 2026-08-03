@@ -20,3 +20,10 @@ def test_roundtrip_blocks_timestamp_loss(tmp_path: Path):
     source.write_text("2026.06.01,00:00,100,101,99,100,3\n")
     exported.write_text("Date,Time,Open,High,Low,Close,Volume\n2026.06.01,00:01,100,101,99,100,3\n")
     assert audit(source, exported)["decision"] == "BLOCK"
+
+
+def test_source_period_filter_allows_a_month_roundtrip(tmp_path: Path):
+    source = tmp_path / "source.csv"; exported = tmp_path / "exported.csv"
+    source.write_text("2026.05.31,23:59,1,1,1,1,1\n2026.06.01,00:00,2,2,2,2,2\n")
+    exported.write_text("Date,Time,Open,High,Low,Close,Volume\n2026.06.01,00:00,2,2,2,2,2\n")
+    assert audit(source, exported, "2026.06.01T00:00Z", "2026.06.30T23:59Z")["decision"] == "PASS_SIGNAL_RESEARCH"

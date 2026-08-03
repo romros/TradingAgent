@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-08-03T10:07:49Z",
+  "sq_version": "143.2708",
+  "source_symbol": "SOLUSDT",
+  "sq_symbol": "SOLUSDT_BINANCE_M1",
+  "instrument": {
+    "description": "Alquimia_Binance_signal_research",
+    "datatype": "crypto",
+    "point_value": 1.0,
+    "tick_size": 0.0001,
+    "tick_step": 0.0001,
+    "default_spread": 0.0,
+    "order_size_multiplier": 1.0,
+    "order_size_step": 0.01,
+    "rationale": "The source contains 0.0001 price increments in 2020; retaining that precision avoids destroying historical OHLC information. Ostium costs are applied by the Alquimia harness, not this research instrument."
+  },
+  "commands": [
+    "-instrument action=add instrument=SOLUSDT description=Alquimia_Binance_signal_research pointvalue=1 ticksize=0.0001 tickstep=0.0001 defaultspread=0 datatype=crypto orderSizeMultiplier=1 orderSizeStep=0.01",
+    "-symbol action=add symbols=SOLUSDT instrument=SOLUSDT datasource=file datatype=M1 postfix=_BINANCE_M1 exchange=Binance",
+    "-data action=import symbol=SOLUSDT_BINANCE_M1 instrument=SOLUSDT filepath=/home/squser/SQ/user/imports/alquimia_sol/SOLUSDT_BINANCE_M1_FULL.csv timezone=Etc/UTC timeframe=M1 bartype=startofbar errorhandling=stop format=MetaTrader4",
+    "-data action=export symbols=SOLUSDT_BINANCE_M1 timeframe=M1 datefrom=2026.06.01 dateto=2026.06.30 outputdir=/home/squser/SQ/user/exports/alquimia_sol_m1_roundtrip"
+  ],
+  "imported_rows": 3064335,
+  "import_from": "2020-09-01T00:00:00Z",
+  "import_to": "2026-06-30T23:59:00Z",
+  "roundtrip_artifact": "lab/sq_bridge/evidence/solusdt_binance_sq_roundtrip.json",
+  "decision": "PASS_SIGNAL_RESEARCH",
+  "limitations": [
+    "SQ truncates fractional volume, so volume-dependent rules are forbidden.",
+    "Binance spot is a research proxy and has not passed native Ostium price parity.",
+    "Instrument economics are not an Ostium execution model; costs and sizing must be evaluated by the Alquimia harness."
+  ],
+  "paper_or_live_authorized": false
+}

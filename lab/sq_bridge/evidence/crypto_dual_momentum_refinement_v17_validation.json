@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "family_id": "crypto_dual_momentum_refinement_v17",
+  "period": "validation",
+  "development_artifact_sha256": "b6663153142d5b226446b7d8e88e93cdccc65c3f5656fdcd0bb6dd0d0125b95b",
+  "source_sha256": {
+    "BTCUSD": "ccc111b7925d29b8cab82195b467add2e9eed71bedb3461e9689fd1b62d2a40a",
+    "ETHUSD": "357a01c213204b7dd4f75d82ef0b82e5dd9e026660f3e2f1ef4093b2475f995a",
+    "SOLUSD": "becabb8469f63c35f6ebbc3d8c7250a06b0337eba5db3911ce968aabc0ba2b08"
+  },
+  "candidates_evaluated": 1,
+  "results": [
+    {
+      "candidate_id": "v17-005bcb02e9e8",
+      "component_size": 16,
+      "parameters": {
+        "mode": "long_strongest_if_positive",
+        "lookback_days": 14,
+        "hold_days": 7,
+        "volatility_lookback_days": 21,
+        "stop_atr": 3.0
+      },
+      "performance_metrics_used": false,
+      "metrics": {
+        "base": {
+          "trades": 18,
+          "profit_factor": 0.7320131465285936,
+          "expectancy_bps": -8.288615095492396,
+          "net_return_pct": -1.519275672110043,
+          "drawdown_pct": 3.154850065725723,
+          "positive_year_ratio": 0.0,
+          "positive_half_year_ratio": 0.0,
+          "positive_quarter_ratio": 0.0
+        },
+        "conservative": {
+          "trades": 18,
+          "profit_factor": 0.6867209955030906,
+          "expectancy_bps": -9.986787402598017,
+          "net_return_pct": -1.8200586680767183,
+          "drawdown_pct": 3.42713816730007,
+          "positive_year_ratio": 0.0,
+          "positive_half_year_ratio": 0.0,
+          "positive_quarter_ratio": 0.0
+        },
+        "stress": {
+          "trades": 18,
+          "profit_factor": 0.615347138376875,
+          "expectancy_bps": -12.88588012909801,
+          "net_return_pct": -2.3315612396497376,
+          "drawdown_pct": 3.8903874428536045,
+          "positive_year_ratio": 0.0,
+          "positive_half_year_ratio": 0.0,
+          "positive_quarter_ratio": 0.0
+        }
+      },
+      "development_validation_expectancy_decay_pct": 327.7472482559002,
+      "decision": "REJECT"
+    }
+  ],
+  "passing_candidate_ids": [],
+  "decision": "REJECT_TEMPORAL_VALIDATION",
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "sqcli_executed": false,
+  "paper_or_live_authorized": false
+}

@@ -517,13 +517,38 @@ té dos veïns ortogonals bons. Altres punts amb PF 1,34–1,43 només són posi
 4/7 anys. Resultat: 0 regions estables. No s'obre validació, OOS ni holdout i no
 s'executa SQCLI. Això evita promocionar el punt aïllat per cherry-picking.
 
-Com que continuar amb v15 consumiria el mateix univers temporal, s'ha ampliat
-la infraestructura, no el p-hacking. BrokerageService grava ara també ETHUSD i
-SOLUSD per hot-reload: 13/13 símbols actius, primers ticks/candles físics, zero
-errors i cap ordre. Tots dos comencen `WARMING` i no podran arribar a 60 dies
-abans de 2026-10-02 09:27 UTC. El registre canònic incorpora ETH/USD (200x) i
-SOL/USD (150x), amb 5 bps; recerca promotable i paper/live continuen bloquejats
-fins tenir font atribuïble i paritat pròpia.
+BrokerageService grava ara també ETHUSD i SOLUSD per hot-reload: 13/13 símbols
+actius, primers ticks/candles físics, zero errors i cap ordre. Tots dos comencen
+`WARMING` i no podran arribar a 60 dies abans de 2026-10-02 09:27 UTC. El
+registre canònic incorpora ETH/USD (200x) i SOL/USD (150x), amb 5 bps; recerca
+promotable i paper/live continuen bloquejats fins tenir paritat pròpia.
+
+### Crypto multi-actiu v15–v17 i fonts SQ verificades (2026-08-03)
+
+La següent branca no reutilitza resultats quantitatius antics. Parteix de CSV
+M1 oficials de Binance, amb hash i control de buits: BTC 4.377.479 files
+(2018-03–2026-06), ETH 3.938.630 (2019-01–2026-06) i SOL 3.064.335
+(2020-09–2026-06). Els tres són proxies de recerca; els recorders Ostium natius
+continuen `WARMING` i són el gate de promoció.
+
+V15 prova 192 variants de momentum relatiu setmanal, ja escalades a 200 USDC,
+risc d'stop de l'1%, oracle fix i costos Ostium: 0 PASS. V16 afegeix momentum
+absolut i quedar-se en efectiu: 2/96 PASS aïllats, però cap regió estable. V17
+declara el biaix de selecció i refina localment 225 punts: 16 PASS, 14 estables
+i un medoid topològic de lookback 14 dies, hold 7, ATR21 i stop 3 ATR. En
+desenvolupament fa 102 trades, PF estrès 1,19, EV +5,66 bps, +5,59% i 3/4 anys
+positius. La validació independent 2024H2 reverteix: 18 trades, PF estrès 0,62,
+EV -12,89 bps, -2,33% i 0/2 trimestres. Decisió terminal:
+`REJECT_CRYPTO_MOMENTUM_NO_OOS_NO_SQCLI`; OOS 2025H1 i holdout 2025H2+ no
+s'han obert.
+
+ETH i SOL s'han importat a SQ 143.2708 en símbols nous, sense sobreescriure
+fonts existents. Els roundtrips de juny de 2026 tenen 43.200/43.200 timestamps
+i OHLC exactes. SQ trunca el volum fraccional (ETH 43.196 files; SOL 43.168),
+per tant la decisió és `PASS_SIGNAL_RESEARCH`: es prohibeixen regles de volum,
+paritat d'execució, paper i live. SOL requereix l'alta determinista prèvia de
+l'instrument `SOLUSDT` amb tick `0,0001`; la recepta i els límits queden al
+rebut `lab/sq_bridge/evidence/solusdt_sqcli_import_receipt.json`.
 
 ## Pilot anterior
 

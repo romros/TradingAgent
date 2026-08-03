@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "family_id": "crypto_dual_momentum_v16",
+  "hypothesis_id": "ostium-crypto-relative-plus-absolute-momentum-v16",
+  "hypothesis": "Selecting the strongest of BTC, ETH and SOL only when its own trailing return is positive can retain cross-sectional momentum while avoiding forced long exposure in broad crypto bear regimes.",
+  "markets": ["BTCUSD", "ETHUSD", "SOLUSD"],
+  "research_proxies": ["BTCUSDT", "ETHUSDT", "SOLUSDT"],
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "implementation_origin": "alquimia_native",
+  "legacy_quantitative_inputs": [],
+  "derivation_disclosure": "Preregistered after v15 failed temporal consistency. It adds the standard absolute-momentum cash filter only; no threshold or parameter was fitted to v15 outcomes.",
+  "periods": {
+    "development_from": "2021-01-01", "development_to": "2024-06-30",
+    "validation_from": "2024-07-01", "validation_to": "2024-12-31",
+    "oos_from": "2025-01-01", "oos_to": "2025-06-30",
+    "holdout_from": "2025-07-01", "holdout_to": "2026-06-30"
+  },
+  "data_contract": {
+    "input": "independently checksummed Binance spot M1 aggregated to strict UTC D1",
+    "decision_time": "Monday 00:00 UTC using only prior completed D1 bars",
+    "cash_filter": "do not trade when the strongest asset trailing return is less than or equal to zero",
+    "proxy_limitation": "Positive evidence cannot promote until BTC, ETH and SOL native Ostium parity gates pass",
+    "lookahead_forbidden": true
+  },
+  "cost_model": {
+    "opening_fee_bps_per_leg": 5, "oracle_fee_usdc_per_leg": 0.10, "closing_fee_bps": 0,
+    "scenarios": {
+      "base": {"dynamic_spread_and_impact_bps_per_leg": 1, "annual_rollover_pct_per_leg": 8},
+      "conservative": {"dynamic_spread_and_impact_bps_per_leg": 4, "annual_rollover_pct_per_leg": 20},
+      "stress": {"dynamic_spread_and_impact_bps_per_leg": 10, "annual_rollover_pct_per_leg": 40}
+    }
+  },
+  "grid": {
+    "mode": ["long_strongest_if_positive"],
+    "lookback_days": [7, 14, 28, 56, 84, 112],
+    "hold_days": [1, 3, 7, 14],
+    "volatility_lookback_days": [14, 28],
+    "stop_atr": [2.0, 3.0],
+    "points": 96
+  },
+  "execution_contract": {
+    "ranking": "trailing close-to-close return ending on Sunday close",
+    "risk_weighting": "1% stop-risk on selected leg",
+    "exit": "gap-adverse ATR stop or close after registered holding period",
+    "overlap": "skip new Monday while prior position remains open"
+  },
+  "stability": {
+    "categorical_groups": ["mode"],
+    "orthogonal_axes": ["lookback_days", "hold_days", "volatility_lookback_days", "stop_atr"],
+    "minimum_passing_neighbours": 2,
+    "representative": "graph medoid without performance metrics"
+  },
+  "pre_registered_development_gate": {
+    "minimum_portfolio_trades": 80, "minimum_stress_profit_factor": 1.05,
+    "minimum_stress_expectancy_bps": 2, "minimum_positive_year_ratio": 0.75,
+    "maximum_stress_drawdown_pct": 20
+  },
+  "pre_registered_validation_gate": {
+    "minimum_portfolio_trades": 10, "minimum_stress_profit_factor": 1.15,
+    "minimum_stress_expectancy_bps": 2, "minimum_positive_quarter_ratio": 0.50,
+    "maximum_stress_drawdown_pct": 15, "maximum_development_validation_expectancy_decay_pct": 50
+  },
+  "small_account": {
+    "capital_usdc": 200, "total_risk_per_portfolio_trade_pct": 1.0,
+    "research_leverage_cap": 20, "maximum_total_margin_pct": 35,
+    "minimum_reserve_pct": 40, "minimum_net_expectancy_usdc": 0.10,
+    "maximum_liquidation_probability": 0.001
+  },
+  "holdout_release_authorized": false,
+  "sqcli_policy": "No SQCLI until development, validation, OOS, small-account and three parity gates pass."
+}

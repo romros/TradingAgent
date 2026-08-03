@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "checkpoint_id": "crypto-momentum-v15-v17-terminal",
+  "source_sha256": {
+    "BTCUSD": "ccc111b7925d29b8cab82195b467add2e9eed71bedb3461e9689fd1b62d2a40a",
+    "ETHUSD": "357a01c213204b7dd4f75d82ef0b82e5dd9e026660f3e2f1ef4093b2475f995a",
+    "SOLUSD": "becabb8469f63c35f6ebbc3d8c7250a06b0337eba5db3911ce968aabc0ba2b08"
+  },
+  "v15": {
+    "points": 192,
+    "passes": 0,
+    "stable": 0
+  },
+  "v16": {
+    "points": 96,
+    "passes": 2,
+    "stable": 0
+  },
+  "v17": {
+    "points": 225,
+    "passes": 16,
+    "stable": 14,
+    "validation": "REJECT_TEMPORAL_VALIDATION"
+  },
+  "artifact_sha256": {
+    "lab/sq_bridge/evidence/btcusdt_binance_full_source_manifest.json": "690ec463d3c13619fea0a453c48a247bee9a2bea09fd199992f809851dbc3c91",
+    "lab/sq_bridge/evidence/ethusdt_binance_full_source_manifest.json": "4049ae9403568698a7cca1f57af3bbf852ccbd11a223582937f5c860cef077c8",
+    "lab/sq_bridge/evidence/solusdt_binance_full_source_manifest.json": "1ed84b0a0734ddc37590f6ffb67cca5945313c2e151c9e38fce01e77d297cf94",
+    "lab/sq_bridge/evidence/crypto_relative_momentum_v15_development.json": "dea8df113a757823b73632c0c69a9f1398cf57cf7868aa508a38e065befc9fdc",
+    "lab/sq_bridge/evidence/crypto_dual_momentum_v16_development.json": "faa27cb76ae134505f26a3abe0dde989ddd8bddb33ef8e8c54fbd3f8623de770",
+    "lab/sq_bridge/evidence/crypto_dual_momentum_refinement_v17_development.json": "91ec1352db6ecfe5a50832722795306b3db24c567547cbfc2b8293cf4db0ffd3",
+    "lab/sq_bridge/evidence/crypto_dual_momentum_refinement_v17_validation.json": "abec18863d4b05a010104e18083a35e1b5e4eac781675f09cd957b76d5f06939",
+    "lab/sq_bridge/evidence/ethusdt_binance_sq_roundtrip.json": "6774a422f00f64740a169cccb4139e812306e30f557113257f4cb144cc4ae550",
+    "lab/sq_bridge/evidence/solusdt_binance_sq_roundtrip.json": "8e823af1a0da7a45f9b92cd7bfa1a8ff363aaedc732e3ce32f6b5cdf60ecf5db",
+    "lab/sq_bridge/evidence/solusdt_sqcli_import_receipt.json": "396702bf90aee860437a9e4a322c2f333e66b3fa6dc3a7fb287d4dfc6cf011a5"
+  },
+  "sq_signal_sources": {
+    "ETHUSD": "PASS_SIGNAL_RESEARCH",
+    "SOLUSD": "PASS_SIGNAL_RESEARCH"
+  },
+  "decision": "REJECT_CRYPTO_MOMENTUM_NO_OOS_NO_SQCLI",
+  "reasons": [
+    "V15 relative momentum had no development pass after 200-USDC risk scaling and oracle costs.",
+    "V16 dual momentum had two isolated passes but no stable region.",
+    "V17 local refinement formed a stable region but reversed to negative expectancy in independent validation."
+  ],
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "sqcli_builder_executed": false,
+  "paper_or_live_authorized": false
+}

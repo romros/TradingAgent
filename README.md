@@ -2,15 +2,22 @@
 
 Bot de trading automatitzat que consumeix [BrokerageService](../BrokerageService) per operar a Ostium (DEX crypto perpetual futures).
 
-## Estat: LAB — validació estratègica
+## Estat: LAB + paper probe controlat
 
-El projecte està en **fase de validació**. La construcció del bot productiu (BUILD) està condicionada a disposar d'una estratègia amb expectativa de rendibilitat suficient. Veure [AGENTS_ARQUITECTURA.md §9](AGENTS_ARQUITECTURA.md) per al gate de producció.
+`capitulation_d1` s'executa només en paper sobre MSFT/NVDA/NDXUSD. La resta del
+projecte continua en **fase de validació**: cap estratègia nova passa a paper o
+live sense evidència temporal, economia de 200 USDC, paritat Ostium i gate de
+producció. Veure [AGENTS_ARQUITECTURA.md §9](AGENTS_ARQUITECTURA.md).
 
-### Estratègia candidate: Capitulation Scalp 1H
+### Estratègia activa en paper: Capitulation D1
 
-LONG crypto (ETH, BTC, SOL) després d'un crash extrem en 1H. Validada amb Monte Carlo (3/3 PASS) i Walk-Forward (7/9 anys positius). Edge estadísticament significatiu (+15-35pp vs random entry).
+LONG d'un dia després d'una capitulació D1. MSFT és l'actiu primari; NVDA i
+NDXUSD són complementaris. El paper probe té encara una mostra massa petita per
+confirmar el backtest i l'estat live continua `LIVE_NOT_READY`.
 
-**Amb liquidació simulada (T1)**: leverage 20x, EV +5.6$/trade, 250$→1.114$ en 8.6 anys (x4.5). Resultats modestos — cas econòmic en revisió.
+La recerca Alquímia més recent ha rebutjat el momentum BTC/ETH/SOL v15–v17 en
+validació temporal. Les fonts BTC/ETH/SOL són reproduïbles i ETH/SOL tenen
+roundtrip SQ amb OHLC exacte, però encara no paritat executiva Ostium.
 
 ## Arquitectura
 
@@ -19,7 +26,7 @@ TradingAgent (cervell)  ──HTTP──>  BrokerageService (cos)
   decideix QUÈ i QUAN                executa, dades, posicions
 ```
 
-- **TF operatiu**: 1H
+- **TF operatiu paper**: D1
 - **Modes**: PAPER / LIVE / STOPPED
 - **Leverage**: 20x (recalibrat amb liquidació simulada, era 100x)
 

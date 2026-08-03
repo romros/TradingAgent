@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "symbol": "MSFT",
+  "sq_csv": "/mnt/volume-SQ/user/exports/alquimia_msft_d1/MSFT-D1-No Session.csv",
+  "sq_csv_sha256": "b19c15a91de06c3a7d854f354239646843d347ae9b3c076a0b1112c6a72ed08a",
+  "ostium_root": "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet_ostium_v1",
+  "ostium_storage": "parquet_quarantined",
+  "sq_rows": 6936,
+  "ostium_m1_rows": 31214,
+  "ostium_regular_days": 83,
+  "ostium_complete_days_compared": 80,
+  "comparison": {
+    "overlap_days": 80,
+    "first_overlap": "2026-03-18",
+    "last_overlap": "2026-07-29",
+    "ohlc": {
+      "open": {
+        "median_bps": 29.281426238121355,
+        "p95_bps": 107.95925815334506,
+        "max_bps": 191.3448891133096
+      },
+      "high": {
+        "median_bps": 5.13479201717737,
+        "p95_bps": 229.51515365844944,
+        "max_bps": 422.53167417973583
+      },
+      "low": {
+        "median_bps": 3.022261115285807,
+        "p95_bps": 178.77760357798422,
+        "max_bps": 255.93050451052645
+      },
+      "close": {
+        "median_bps": 4.738627625705538,
+        "p95_bps": 19.4055218747069,
+        "max_bps": 24.838278243306533
+      }
+    },
+    "daily_return_correlation": 0.9984149367772714,
+    "return_direction_match_ratio": 1.0,
+    "dates_only_sq_count": 6856,
+    "dates_only_sq_examples": [
+      "1999-01-04",
+      "1999-01-05",
+      "1999-01-06",
+      "1999-01-07",
+      "1999-01-08",
+      "1999-01-11",
+      "1999-01-12",
+      "1999-01-13",
+      "1999-01-14",
+      "1999-01-15"
+    ],
+    "dates_only_ostium_count": 0,
+    "dates_only_ostium_examples": []
+  },
+  "ostium_anomalies": [],
+  "incomplete_ostium_sessions": [
+    {
+      "date": "2026-03-17",
+      "open": 398.8575,
+      "high": 399.915,
+      "low": 398.715,
+      "close": 399.51,
+      "last_raw_close": 399.915,
+      "close_policy": "median_last_5_regular_session_bars",
+      "bars": 22,
+      "raw_bars": 22
+    },
+    {
+      "date": "2026-07-20",
+      "open": 390.005,
+      "high": 403.13,
+      "low": 390.005,
+      "close": 400.51,
+      "last_raw_close": 402.4975,
+      "close_policy": "median_last_5_regular_session_bars",
+      "bars": 218,
+      "raw_bars": 218
+    },
+    {
+      "date": "2026-08-03",
+      "open": 478.83,
+      "high": 491.2,
+      "low": 478.2975,
+      "close": 483.5625,
+      "last_raw_close": 483.98,
+      "close_policy": "median_last_5_regular_session_bars",
+      "bars": 89,
+      "raw_bars": 89
+    }
+  ],
+  "scope": "RECENT_OHLC_RESEARCH_PARITY_NOT_EXECUTION_FILL_PARITY",
+  "decision": "BLOCK",
+  "reasons": [
+    "OPEN_MEDIAN_DIFF_GT_25_BPS",
+    "OPEN_P95_DIFF_GT_100_BPS",
+    "HIGH_P95_DIFF_GT_100_BPS",
+    "LOW_P95_DIFF_GT_100_BPS"
+  ],
+  "warnings": [
+    "INCOMPLETE_OSTIUM_SESSIONS_PRESENT"
+  ],
+  "live_authorized": false
+}

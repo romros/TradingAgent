@@ -652,6 +652,22 @@ consultada. La següent campanya queda condicionada a una nova paritat canònica
 EUR/XAU o a una font històrica certificada per les equitats. Vegeu
 `docs/MARKET_DATA_PREFLIGHT_V22.md`.
 
+### Paritat MSFT sobre rollover net v23 (2026-08-03)
+
+El rollover de BrokerageService posa en quarantena dies amb salts M1 continus
+superiors al 5% sense modificar els CSV originals. El gate reproduïble llegeix
+ara aquests Parquet amb DuckDB. Contra l'export D1 congelat de SQ, 80 sessions
+completes donen correlació de retorns 0,9984, direcció 100% i diferència de close
+de 4,74 bps mediana / 19,41 bps p95. Open, high i low no superen els llindars
+congelats. Per tant, la mostra certifica només senyals derivats del close; no
+certifica gaps, stops intradia, fills, liquidacions, paper ni live. L'evidència
+canònica és `lab/sq_bridge/evidence/msft_sq_ostium_parity_clean_v23.json`.
+
+Això no canvia el rebuig de `MSFT calendar long 0.14`: el timing no va superar
+el control d'entrades mensuals aleatòries i 21x travessava el proxy històric de
+liquidació. La primera palanca sense gaps observats al seu grid era 8x, encara
+pendent del model real de manteniment i fills d'Ostium.
+
 Una inspecció posterior del runtime troba 95–120 dies UTC de recorder natiu per
 MSFT/NVDA/NDXUSD, però no accessibles via `source=ostium` i contaminats per
 salts continus de fins a 16,70%. Raw ticks i CSV demostren que un preu premarket

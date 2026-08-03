@@ -39,6 +39,31 @@ def load_ostium_m1(root: Path) -> list[dict]:
     return rows
 
 
+def load_ostium_parquet_m1(root: Path, symbol: str) -> list[dict]:
+    """Load quarantined Ostium rollover partitions through DuckDB.
+
+    ``root`` is the canonical ``historical_parquet_ostium_v1`` directory.  The
+    explicit symbol argument prevents a parity run from silently mixing assets.
+    """
+    import duckdb
+
+    base = root / symbol.upper() / "tf=1m"
+    paths = sorted(base.rglob("data.parquet"))
+    if not paths:
+        return []
+    rows = duckdb.connect(":memory:").execute(
+        'SELECT "ts", "open", "high", "low", "close" FROM read_parquet(?) ORDER BY "ts"',
+        [[str(path) for path in paths]],
+    ).fetchall()
+    result = []
+    for ts, open_, high, low, close in rows:
+        dt_utc = datetime.fromtimestamp(int(ts), timezone.utc)
+        result.append({"ts": int(ts), "dt_utc": dt_utc, "dt_ny": dt_utc.astimezone(NY),
+                       "open": float(open_), "high": float(high),
+                       "low": float(low), "close": float(close)})
+    return result
+
+
 def aggregate_regular_session(rows: list[dict]) -> tuple[list[dict], list[dict]]:
     grouped = defaultdict(list)
     anomalies = []

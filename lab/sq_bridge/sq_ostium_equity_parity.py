@@ -10,7 +10,11 @@ import math
 from pathlib import Path
 from statistics import median
 
-from lab.sq_bridge.msft_source_parity import aggregate_regular_session, load_ostium_m1
+from lab.sq_bridge.msft_source_parity import (
+    aggregate_regular_session,
+    load_ostium_m1,
+    load_ostium_parquet_m1,
+)
 
 FIELDS = ("open", "high", "low", "close")
 
@@ -83,8 +87,17 @@ def compare(sq_rows: list[dict], ostium_rows: list[dict]) -> dict:
             "dates_only_ostium_count":len(only_ostium),"dates_only_ostium_examples":only_ostium[:10]}
 
 
-def certify(sq_csv: Path, ostium_root: Path, symbol: str) -> dict:
-    sq=load_sq_csv(sq_csv); raw=load_ostium_m1(ostium_root); daily,anomalies=aggregate_regular_session(raw)
+def certify(
+    sq_csv: Path,
+    ostium_root: Path,
+    symbol: str,
+    *,
+    parquet: bool = False,
+) -> dict:
+    sq=load_sq_csv(sq_csv)
+    raw=(load_ostium_parquet_m1(ostium_root, symbol) if parquet
+         else load_ostium_m1(ostium_root))
+    daily,anomalies=aggregate_regular_session(raw)
     complete_daily=[row for row in daily if row["bars"]>=300]
     comparison=compare(sq,complete_daily); reasons=[]; warnings=[]
     if comparison["overlap_days"]<60:reasons.append("OVERLAP_LT_60")
@@ -101,7 +114,8 @@ def certify(sq_csv: Path, ostium_root: Path, symbol: str) -> dict:
     if incomplete:warnings.append("INCOMPLETE_OSTIUM_SESSIONS_PRESENT")
     return {"schema_version":1,"symbol":symbol,"sq_csv":str(sq_csv),
             "sq_csv_sha256":hashlib.sha256(sq_csv.read_bytes()).hexdigest(),
-            "ostium_root":str(ostium_root),"sq_rows":len(sq),"ostium_m1_rows":len(raw),
+            "ostium_root":str(ostium_root),"ostium_storage":"parquet_quarantined" if parquet else "csv_raw",
+            "sq_rows":len(sq),"ostium_m1_rows":len(raw),
             "ostium_regular_days":len(daily),"ostium_complete_days_compared":len(complete_daily),
             "comparison":comparison,
             "ostium_anomalies":anomalies,"incomplete_ostium_sessions":incomplete,
@@ -113,8 +127,10 @@ def certify(sq_csv: Path, ostium_root: Path, symbol: str) -> dict:
 def main() -> None:
     p=argparse.ArgumentParser(description=__doc__); p.add_argument("--sq-csv",type=Path,required=True)
     p.add_argument("--ostium-root",type=Path,required=True); p.add_argument("--symbol",required=True)
+    p.add_argument("--parquet",action="store_true",
+                   help="Read canonical quarantined historical_parquet_ostium_v1 partitions")
     p.add_argument("--output",type=Path,required=True); a=p.parse_args()
-    result=certify(a.sq_csv,a.ostium_root,a.symbol); a.output.parent.mkdir(parents=True,exist_ok=True)
+    result=certify(a.sq_csv,a.ostium_root,a.symbol,parquet=a.parquet); a.output.parent.mkdir(parents=True,exist_ok=True)
     a.output.write_text(json.dumps(result,indent=2)+"\n"); print(json.dumps(result,indent=2))
 
 

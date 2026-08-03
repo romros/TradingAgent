@@ -1,7 +1,11 @@
+import tempfile
 import unittest
 from datetime import datetime, timezone
+from pathlib import Path
 
-from msft_source_parity import aggregate_regular_session, compare
+import duckdb
+
+from msft_source_parity import aggregate_regular_session, compare, load_ostium_parquet_m1
 
 
 class MsftSourceParityTest(unittest.TestCase):
@@ -25,6 +29,21 @@ class MsftSourceParityTest(unittest.TestCase):
         self.assertEqual(result["overlap_days"], 3)
         self.assertEqual(result["close_diff_bps_median"], 0.0)
         self.assertAlmostEqual(result["daily_return_correlation"], 1.0)
+
+    def test_quarantined_parquet_loader_is_symbol_scoped(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            target = root / "MSFT" / "tf=1m" / "year=2026" / "month=07"
+            target.mkdir(parents=True)
+            duckdb.connect(":memory:").execute(
+                'COPY (SELECT 1782916200::BIGINT "ts", 100.0::DOUBLE "open", '
+                '101.0::DOUBLE "high", 99.0::DOUBLE "low", 100.5::DOUBLE "close") '
+                f"TO '{target / 'data.parquet'}' (FORMAT PARQUET)"
+            )
+            rows = load_ostium_parquet_m1(root, "MSFT")
+            self.assertEqual(len(rows), 1)
+            self.assertEqual(rows[0]["close"], 100.5)
+            self.assertEqual(load_ostium_parquet_m1(root, "NVDAUSD"), [])
 
 
 if __name__ == "__main__":

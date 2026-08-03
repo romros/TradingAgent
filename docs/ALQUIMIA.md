@@ -380,6 +380,23 @@ però, només conserva edge base: 20 trades, PF base 2,27; amb estrès PF 0,85,
 ni holdout. La diferència confirma que un edge d'uns 10,7 bps/trade no té marge
 suficient per al pressupost conservador de costos d'Ostium.
 
+### MSFT D1 gap/shock v8 — bloqueig de font (2026-08-03)
+
+SQCLI exporta directament `MSFT` D1 del Data Manager, 6.936 files entre
+1999-01-04 i 2026-07-31, amb SHA-256 congelat. El nou gate offline agrega les
+candles M1 natives d'Ostium a sessió regular i compara OHLC sense Yahoo.
+
+En 93 sessions completes, el close és coherent: diferència mediana 5,29 bps,
+p95 24,34 bps, correlació de retorns 0,9979 i direcció 100%. L'open no passa:
+mediana 29,36 bps i p95 116,30 bps. High i low tenen p95 229,52 i 178,78 bps,
+amb diversos outliers d'oracle detectats. Això permetria recerca estrictament
+close-only, però no una estratègia que defineix gaps, stops o execució a l'open.
+
+V8 acaba amb `BLOCK` a `market_preflight`; no s'executa Builder ni es consulten
+train/validation/OOS/holdout. El gate és reutilitzable per altres equities a
+`sq_ostium_equity_parity.py`. El bloqueig només es pot aixecar amb un històric
+Ostium/BS corregit o una font OHLC que superi els mateixos llindars congelats.
+
 ## Pilot anterior
 
 - `TA_SQ_PILOT`, original `NVIDIA` intacte.

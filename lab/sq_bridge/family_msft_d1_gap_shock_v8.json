@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "family_id": "msft_d1_gap_shock_v8",
+  "hypothesis_id": "msft-d1-gap-shock-v8",
+  "hypothesis": "Large overnight MSFT gaps can either continue or mean-revert intraday with enough amplitude to survive Ostium equity fees.",
+  "market": "MSFT",
+  "ostium_asset": "MSFTUSD",
+  "timeframe": "D1",
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "implementation_origin": "alquimia_native",
+  "legacy_quantitative_inputs": [],
+  "required_price_fields": ["open", "high", "low", "close"],
+  "source": {
+    "sq_symbol": "MSFT",
+    "sq_native_export": "user/exports/alquimia_msft_d1/MSFT-D1-No Session.csv",
+    "sq_native_export_sha256": "b19c15a91de06c3a7d854f354239646843d347ae9b3c076a0b1112c6a72ed08a",
+    "coverage": ["1999-01-04", "2026-07-31"],
+    "recent_parity_required": "PASS_RESEARCH_OHLC"
+  },
+  "periods": {
+    "train_from": "1999-01-04", "train_to": "2012-10-16",
+    "validation_from": "2012-10-17", "validation_to": "2018-04-23",
+    "oos_from": "2018-04-24", "oos_to": "2023-10-29",
+    "holdout_from": "2023-10-30", "holdout_to": "2026-07-31"
+  },
+  "state": "BLOCKED_AT_MARKET_PREFLIGHT",
+  "block_reason": "SQ close parity is acceptable, but open/high/low parity against Ostium fails frozen thresholds; gap and stop economics are not executable evidence.",
+  "holdout_release_authorized": false
+}

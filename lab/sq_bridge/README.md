@@ -70,6 +70,24 @@ biaix declarat i executar una única validació independent:
 V6 acaba sense regió estable. V7 passa train però falla validació amb costos
 d'estrès; ambdues cadenes són terminals i no consulten OOS ni holdout.
 
+## Paritat equity SQ → Ostium
+
+`sq_ostium_equity_parity.py` compara un CSV custom exportat pel Data Manager d'SQ
+amb M1 Ostium agregat a la sessió regular. És offline i comprova OHLC, correlació
+de retorns, direcció, sessions incompletes i outliers; un PASS és només de font
+de recerca, mai de fills o live.
+
+```bash
+.venv/bin/python -m lab.sq_bridge.sq_ostium_equity_parity \
+  --sq-csv '/mnt/volume-SQ/user/exports/alquimia_msft_d1/MSFT-D1-No Session.csv' \
+  --ostium-root /mnt/volume-SQ/dev/BrokerageService/datafiles/realtime_datalayer/candles/MSFT \
+  --symbol MSFT --output lab/sq_bridge/evidence/msft_d1_gap_shock_v8_source_parity.json
+```
+
+MSFT v8 passa close però falla open/high/low, de manera que una família de gaps
+queda bloquejada abans de Builder. No es pot convertir un PASS close-only en un
+PASS OHLC.
+
 ```bash
 cd lab/sq_bridge
 python3 test_sq_campaign.py

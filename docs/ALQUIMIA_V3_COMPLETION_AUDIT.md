@@ -35,6 +35,8 @@ antigues més enllà d'exemples tècnics.
 - V6 XAU H1: 5.184 punts train i 0 regions estables; rebuig terminal.
 - V7 congelada: discovery PASS però validació independent REJECT (PF estrès
   0,85); OOS i holdout no consultats. Cadena terminal verificada.
+- V8 MSFT gap/shock: export D1 nadiu SQ verificat; close passa paritat recent,
+  open/high/low fallen. `BLOCK` terminal al primer gate, abans de Builder.
 
 L'objectiu global **encara no està complet**: falta que una candidata v3 real
 superi els gates fins a paper, o evidència suficient que la metodologia funciona

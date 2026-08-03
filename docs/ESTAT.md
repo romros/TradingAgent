@@ -82,6 +82,11 @@ breakouts amb règim D1; el representant short PF 1,56 cau a 3/3 pèrdues en la
 nova validació 2023-07–2024-06. `REJECT_BTC_PROXY_FAMILIES_NO_SQCLI`; OOS i
 holdout intactes, cap paper/live.
 
+**BTC v13–v14:** 288 breakouts de sessió produeixen 0 PASS. La inversió fade
+produeix 1 punt aïllat però 0 regions estables. `REJECT_BTC_SESSION_FAMILIES`;
+validació/OOS/holdout intactes i sense SQCLI. ETHUSD i SOLUSD s'han afegit al
+recorder natiu: primers M1 verificats, estat `WARMING` fins almenys 2026-10-02.
+
 ### Fase: PAPER PROBE — T7 en curs (≥4 setmanes, inici 2026-03-16)
 
 **Setup actiu**: `capitulation_d1` — MSFT (primari), NVDA, NDXUSD (complementari, paper: QQQ proxy)
@@ -251,3 +256,4 @@ Veure `lab/docs/T6E_DECISIO_D1_ASSETS.md` i `lab/docs/D1_GATE_CRITERIA.md`.
 | 2026-08-03 | **BTCUSD recorder natiu**: afegit a BS, 11/11 símbols preservats, feed perp i persistència verificats. Gate 60 dies en `WARMING`; font SQ BTCUSDT existent no exportable i congelada. |
 | 2026-08-03 | **BTC SQ reconstruït, només recerca**: 43.200 M1 oficials Binance amb checksum importades a `BTCUSDT_BINANCE_M1`; round-trip SQ conserva files/timestamps i limita l'error OHLC a 0,05 USD. Volum arrodonit: prohibit usar-lo; paper/live bloquejats. |
 | 2026-08-03 | **BTC v11–v12 falsificades**: 4.377.479 M1 oficials; v11 1.032 punts → 2 regions estables → 0/2 validació. V12 216 punts → 1 regió short → 3/3 pèrdues validació. No SQCLI, OOS/holdout segellats. |
+| 2026-08-03 | **BTC v13–v14 + ETH/SOL recorder**: breakout sessions 0/288; fade 1 punt però 0 regions. No validació/SQCLI. Recorders ETHUSD/SOLUSD actius, primers M1, 13 símbols totals. |

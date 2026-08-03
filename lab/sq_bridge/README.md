@@ -162,6 +162,24 @@ V12 usa `btc_regime_breakout_v12.py` i
 validacions i holdout intacte. Cap PASS de proxy pot saltar-se el gate natiu
 Ostium ni el small-account gate.
 
+V13 i V14 comparteixen un motor de sessió però no evidència de promoció:
+
+```bash
+PYTHONPATH=../.. python3 btc_session_breakout_v13.py \
+  --source /path/BTCUSDT_M1_FULL.csv \
+  --family family_btc_session_breakout_v13.json \
+  --output evidence/btc_session_breakout_v13_development.json
+PYTHONPATH=../.. python3 btc_session_breakout_v13.py \
+  --source /path/BTCUSDT_M1_FULL.csv \
+  --family family_btc_session_fade_v14.json \
+  --output evidence/btc_session_fade_v14_development.json
+```
+
+`btc_session_checkpoint.py` comprova mateixa font, zero regions estables i que
+validació/OOS/holdout continuen tancats. ETHUSD i SOLUSD també acumulen M1 al
+recorder de BrokerageService; els artifacts inicials de cobertura són només
+`WARMING`, mai permisos de recerca, paper o live.
+
 ## Fallback Python MSFT D1
 
 Quan el Retest SQCLI no progressa ni amb un únic candidat, el subset compatible

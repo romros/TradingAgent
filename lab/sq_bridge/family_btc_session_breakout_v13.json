@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "family_id": "btc_session_breakout_v13",
+  "hypothesis_id": "btc-fixed-utc-session-range-breakout-v13",
+  "hypothesis": "BTC can exhibit continuation after breaking a fully observed range at fixed eight-hour UTC liquidity blocks, with different behavior on weekdays and weekends.",
+  "market": "BTCUSD",
+  "research_proxy": "BTCUSDT Binance spot official monthly klines",
+  "ostium_asset": "BTCUSD",
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "implementation_origin": "alquimia_native",
+  "legacy_quantitative_inputs": [],
+  "derivation_disclosure": "Independent session mechanism requested before any v13 performance was inspected. V11/v12 parameters and performance are not reused.",
+  "periods": {
+    "development_from": "2018-03-01", "development_to": "2024-06-30",
+    "validation_from": "2024-07-01", "validation_to": "2024-12-31",
+    "oos_from": "2025-01-01", "oos_to": "2025-06-30",
+    "holdout_from": "2025-07-01", "holdout_to": "2026-06-30"
+  },
+  "data_contract": {
+    "input": "checksummed Binance spot M1 aggregated to strict UTC H1",
+    "volume_rules_allowed": false,
+    "session_anchor": "fixed UTC blocks starting 00:00, 08:00 or 16:00; no retrospective best-hour search",
+    "day_group": "weekday or weekend determined by session anchor date",
+    "proxy_limitation": "Research only until BTCUSDT/BTCUSD Ostium parity passes",
+    "lookahead_forbidden": true
+  },
+  "execution_contract": {
+    "range": "first 2 or 4 complete H1 bars from session anchor",
+    "trigger": "first completed H1 close outside the frozen range during the registered window",
+    "entry": "next H1 open",
+    "exit": "ATR catastrophe stop or close after 2/4/8 H1 bars",
+    "position_policy": "one position per candidate; at most one signal per anchored session; overlapping signals ignored",
+    "sides_separate": true
+  },
+  "cost_model": {
+    "source_checked_utc": "2026-08-03",
+    "ostium_opening_fee_bps": 5,
+    "oracle_fee_usdc_per_open": 0.10,
+    "closing_fee_bps": 0,
+    "scenarios": {
+      "base": {"dynamic_spread_and_impact_bps": 1, "annual_rollover_pct": 8},
+      "conservative": {"dynamic_spread_and_impact_bps": 4, "annual_rollover_pct": 20},
+      "stress": {"dynamic_spread_and_impact_bps": 10, "annual_rollover_pct": 40}
+    }
+  },
+  "grid": {
+    "session_start_utc": [0, 8, 16],
+    "day_group": ["weekday", "weekend"],
+    "mode": ["breakout"],
+    "range_hours": [2, 4],
+    "trade_window_hours": [4, 8],
+    "stop_atr": [1.5, 2.5],
+    "hold_bars": [2, 4, 8],
+    "side": ["long", "short"],
+    "points": 288
+  },
+  "stability": {
+    "categorical_groups": ["session_start_utc", "day_group", "mode", "side"],
+    "orthogonal_axes": ["range_hours", "trade_window_hours", "stop_atr", "hold_bars"],
+    "minimum_passing_neighbours": 2,
+    "representative": "graph medoid of largest stable component per categorical group without performance metrics"
+  },
+  "pre_registered_development_gate": {
+    "minimum_trades": 80,
+    "minimum_stress_profit_factor": 1.05,
+    "minimum_stress_expectancy_bps": 1,
+    "minimum_positive_year_ratio": 0.60,
+    "maximum_stress_drawdown_pct": 20
+  },
+  "pre_registered_validation_gate": {
+    "minimum_trades": 10,
+    "minimum_stress_profit_factor": 1.15,
+    "minimum_stress_expectancy_bps": 2,
+    "minimum_positive_quarter_ratio": 0.50,
+    "maximum_stress_drawdown_pct": 15,
+    "maximum_development_validation_expectancy_decay_pct": 50
+  },
+  "pre_registered_oos_gate": {
+    "minimum_trades": 10,
+    "minimum_stress_profit_factor": 1.15,
+    "minimum_stress_expectancy_bps": 2,
+    "maximum_stress_drawdown_pct": 15
+  },
+  "small_account": {
+    "capital_usdc": 200,
+    "risk_per_trade_pct": 1.0,
+    "research_leverage_cap": 20,
+    "venue_max_leverage": 200,
+    "maximum_margin_pct": 35,
+    "minimum_reserve_pct": 40,
+    "minimum_net_expectancy_usdc": 0.10
+  },
+  "holdout_release_authorized": false,
+  "sqcli_policy": "No SQCLI until stable development, validation, OOS and small-account gates pass."
+}

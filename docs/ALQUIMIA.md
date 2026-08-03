@@ -503,6 +503,28 @@ El cost actual s'ha recertificat contra la
 [taula oficial d'Ostium](https://docs.ostium.com/traders/reference/markets):
 BTC/USD és 5 bps d'obertura, fins a 200x, amb bid/ask dinàmic i rollover.
 
+### BTC sessions v13–v14 i ampliació nativa ETH/SOL (2026-08-03)
+
+V13 congela abans de calcular 288 ruptures de rang H1: blocs 00/08/16 UTC,
+weekday/weekend, rang 2/4h, finestra 4/8h, stops 1,5/2,5 ATR, sortida 2/4/8h i
+long/short separats. La millor variant de continuació sota estrès té 532 trades,
+PF 1,03, EV +2,31 bps, DD 32,7% i només 3/7 anys positius. Resultat: 0/288 PASS.
+
+V14 declara que deriva d'aquest fracàs i prova la inversió simètrica, sense
+retunejar la malla: entrar contra el primer close fora del rang. Només 1/288
+passa puntualment (short de cap de setmana 16 UTC, PF 1,23, 197 trades), però no
+té dos veïns ortogonals bons. Altres punts amb PF 1,34–1,43 només són positius
+4/7 anys. Resultat: 0 regions estables. No s'obre validació, OOS ni holdout i no
+s'executa SQCLI. Això evita promocionar el punt aïllat per cherry-picking.
+
+Com que continuar amb v15 consumiria el mateix univers temporal, s'ha ampliat
+la infraestructura, no el p-hacking. BrokerageService grava ara també ETHUSD i
+SOLUSD per hot-reload: 13/13 símbols actius, primers ticks/candles físics, zero
+errors i cap ordre. Tots dos comencen `WARMING` i no podran arribar a 60 dies
+abans de 2026-10-02 09:27 UTC. El registre canònic incorpora ETH/USD (200x) i
+SOL/USD (150x), amb 5 bps; recerca promotable i paper/live continuen bloquejats
+fins tenir font atribuïble i paritat pròpia.
+
 ## Pilot anterior
 
 - `TA_SQ_PILOT`, original `NVIDIA` intacte.

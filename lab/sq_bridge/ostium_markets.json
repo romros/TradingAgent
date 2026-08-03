@@ -85,6 +85,32 @@
       "live_eligible": false,
       "fee_source_checked_utc": "2026-08-03",
       "warning": "SQ usa BTCUSDT; cal provar paritat contra BTC/USD Ostium, impacte dinàmic i rollover abans de paper/live."
+    },
+    "ETHUSD": {
+      "category": "crypto",
+      "ostium_pair": "ETH/USD",
+      "ostium_asset": "ETHUSD",
+      "bs_symbol": "ETHUSD",
+      "sq_symbol": "ETHUSDT_BINANCE_M1",
+      "venue_max_leverage": 200,
+      "opening_fee_bps": 5,
+      "research_eligible": true,
+      "live_eligible": false,
+      "fee_source_checked_utc": "2026-08-03",
+      "warning": "Recorder natiu WARMING; cal font atribuïble, paritat ETHUSDT/ETHUSD, impacte dinàmic i rollover abans de recerca promotable."
+    },
+    "SOLUSD": {
+      "category": "crypto",
+      "ostium_pair": "SOL/USD",
+      "ostium_asset": "SOLUSD",
+      "bs_symbol": "SOLUSD",
+      "sq_symbol": "SOLUSDT_BINANCE_M1",
+      "venue_max_leverage": 150,
+      "opening_fee_bps": 5,
+      "research_eligible": true,
+      "live_eligible": false,
+      "fee_source_checked_utc": "2026-08-03",
+      "warning": "Recorder natiu WARMING; cal font atribuïble, paritat SOLUSDT/SOLUSD, impacte dinàmic i rollover abans de recerca promotable."
     }
   }
 }

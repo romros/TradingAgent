@@ -43,6 +43,34 @@ Ostium nativa. Els minuts actuals només demostren persistència tècnica, no
 validesa per discovery D1. El proveïdor Dukascopy de BS no té mapping històric
 per aquests símbols en l'estat inspeccionat.
 
+## Actualització: cobertura nativa trobada al recorder
+
+L'API viva `/realtime/status` i els CSV del recorder contenen més dades que el
+rollover històric: MSFT 36.141 files/95 dies UTC, NVDAUSD 43.459/114 dies i
+NDXUSD 134.331/120 dies. En canvi, `/data/coverage/MSFT?source=ostium` retorna
+zero. Per tant hi ha també una desconnexió de persistència/consulta: les dades
+existeixen a `realtime_datalayer/candles`, però no són visibles al path
+històric canònic.
+
+L'auditoria d'integritat bloqueja els tres símbols. MSFT té 13 salts continus
+M1 >5% (màxim 16,35%), NVDA 28 (16,70%) i NDXUSD 10 (6,81%). Molts apareixen
+als últims minuts de sessió i reutilitzen exactament un mateix preu en dates
+diferents.
+
+Diagnosi reproduïble del 31/07: el tick recorder MSFT acaba amb preus
+465,48–465,82, però la candle CSV del mateix bucket 19:58 UTC incorpora 389,77.
+El status premarket de 03/08 mostra `last_price=389,7675` amb el timestamp antic
+del 31/07. La inferència és que Ostium pot publicar un preu actual conservant
+el timestamp de l'última sessió; quan el símbol torna a `open`, el gate valida
+el bucket antic com a horari obert i el barreja amb la candle ja existent.
+
+Correcció requerida a BS: rebutjar ticks no monòtons o excessivament antics
+respecte del temps de recepció/reobertura, i no reobrir un bucket ja tancat
+després d'una pausa de mercat. Cal provar el cas “preu nou + timestamp de la
+sessió anterior”, reconstruir/netejar només candles demostrablement
+contaminades des dels raw ticks i rerun de l'auditoria. No s'ha modificat ni
+esborrat cap dada de BS des d'aquest projecte.
+
 ## Reproducció
 
 ```bash

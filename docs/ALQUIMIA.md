@@ -652,6 +652,14 @@ consultada. La següent campanya queda condicionada a una nova paritat canònica
 EUR/XAU o a una font històrica certificada per les equitats. Vegeu
 `docs/MARKET_DATA_PREFLIGHT_V22.md`.
 
+Una inspecció posterior del runtime troba 95–120 dies UTC de recorder natiu per
+MSFT/NVDA/NDXUSD, però no accessibles via `source=ostium` i contaminats per
+salts continus de fins a 16,70%. Raw ticks i CSV demostren que un preu premarket
+amb timestamp vell pot entrar al darrer bucket de la sessió anterior. El nou
+`ostium_native_coverage_audit.py` bloqueja aquesta classe de dades abans de
+paritat o performance; BS ha de corregir frescor/monotonia i reconstruir els
+buckets afectats.
+
 ## Pilot anterior
 
 - `TA_SQ_PILOT`, original `NVIDIA` intacte.

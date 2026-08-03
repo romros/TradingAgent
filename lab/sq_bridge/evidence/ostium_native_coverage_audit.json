@@ -1,0 +1,392 @@
+{
+  "schema_version": 1,
+  "audit_id": "ostium-native-coverage-2026-08-03",
+  "purpose": "data integrity and parity sample only; no strategy performance",
+  "symbols": [
+    {
+      "symbol": "MSFT",
+      "kind": "us_equity",
+      "root": "/mnt/volume-SQ/dev/BrokerageService/datafiles/realtime_datalayer/candles/MSFT",
+      "rows": 36141,
+      "first_utc": "2026-03-17T19:37:00+00:00",
+      "last_utc": "2026-07-31T19:58:00+00:00",
+      "calendar_span_days": 136,
+      "unique_utc_days": 95,
+      "duplicate_timestamps": 0,
+      "nonfinite_ohlc_rows": 0,
+      "invalid_ohlc_rows": 0,
+      "within_day_gaps_over_5m": 2,
+      "outside_us_rth_rows": 0,
+      "maximum_continuous_minute_return_pct": 16.353520612915005,
+      "outlier_threshold_pct": 5.0,
+      "continuous_return_outliers": [
+        {
+          "utc": "2026-03-27T19:58:00+00:00",
+          "previous_close": 356.96,
+          "close": 381.55,
+          "absolute_return_pct": 6.888727028238462
+        },
+        {
+          "utc": "2026-03-30T19:58:00+00:00",
+          "previous_close": 359.46,
+          "close": 381.55,
+          "absolute_return_pct": 6.145329104768282
+        },
+        {
+          "utc": "2026-04-14T19:59:00+00:00",
+          "previous_close": 393.115,
+          "close": 370.775,
+          "absolute_return_pct": 5.682815461124613
+        },
+        {
+          "utc": "2026-05-29T19:58:00+00:00",
+          "previous_close": 449.13,
+          "close": 411.405,
+          "absolute_return_pct": 8.399572506846575
+        },
+        {
+          "utc": "2026-06-02T19:59:00+00:00",
+          "previous_close": 441.5125,
+          "close": 411.405,
+          "absolute_return_pct": 6.819172730103906
+        },
+        {
+          "utc": "2026-06-09T19:59:00+00:00",
+          "previous_close": 403.53,
+          "close": 428.2725,
+          "absolute_return_pct": 6.131514385547554
+        },
+        {
+          "utc": "2026-06-10T19:59:00+00:00",
+          "previous_close": 398.19,
+          "close": 428.2725,
+          "absolute_return_pct": 7.554810517592103
+        },
+        {
+          "utc": "2026-06-22T19:58:00+00:00",
+          "previous_close": 367.49,
+          "close": 398.195,
+          "absolute_return_pct": 8.35532939671828
+        },
+        {
+          "utc": "2026-06-25T19:58:00+00:00",
+          "previous_close": 352.43,
+          "close": 398.195,
+          "absolute_return_pct": 12.985557415657013
+        },
+        {
+          "utc": "2026-06-26T19:58:00+00:00",
+          "previous_close": 375.545,
+          "close": 352.11,
+          "absolute_return_pct": 6.240264149436148
+        },
+        {
+          "utc": "2026-06-30T19:58:00+00:00",
+          "previous_close": 373.76273,
+          "close": 398.195,
+          "absolute_return_pct": 6.536839561290675
+        },
+        {
+          "utc": "2026-07-30T19:58:00+00:00",
+          "previous_close": 450.6525,
+          "close": 389.7675,
+          "absolute_return_pct": 13.510409905636822
+        },
+        {
+          "utc": "2026-07-31T19:58:00+00:00",
+          "previous_close": 465.97,
+          "close": 389.7675,
+          "absolute_return_pct": 16.353520612915005
+        }
+      ],
+      "zero_volume_rows": 36141,
+      "enough_coverage_for_parity": true,
+      "integrity_ok": false,
+      "decision": "BLOCK_NATIVE_INTEGRITY_OR_COVERAGE",
+      "performance_research_authorized": false,
+      "paper_or_live_authorized": false
+    },
+    {
+      "symbol": "NVDAUSD",
+      "kind": "us_equity",
+      "root": "/mnt/volume-SQ/dev/BrokerageService/datafiles/realtime_datalayer/candles/NVDAUSD",
+      "rows": 43459,
+      "first_utc": "2026-02-18T20:58:00+00:00",
+      "last_utc": "2026-07-31T19:58:00+00:00",
+      "calendar_span_days": 162,
+      "unique_utc_days": 114,
+      "duplicate_timestamps": 0,
+      "nonfinite_ohlc_rows": 0,
+      "invalid_ohlc_rows": 0,
+      "within_day_gaps_over_5m": 3,
+      "outside_us_rth_rows": 0,
+      "maximum_continuous_minute_return_pct": 16.700060426804054,
+      "outlier_threshold_pct": 5.0,
+      "continuous_return_outliers": [
+        {
+          "utc": "2026-02-27T20:58:00+00:00",
+          "previous_close": 176.975,
+          "close": 187.765,
+          "absolute_return_pct": 6.096906342703767
+        },
+        {
+          "utc": "2026-04-10T19:58:00+00:00",
+          "previous_close": 188.61,
+          "close": 177.765,
+          "absolute_return_pct": 5.749960235406403
+        },
+        {
+          "utc": "2026-04-13T19:58:00+00:00",
+          "previous_close": 189.315,
+          "close": 177.765,
+          "absolute_return_pct": 6.100942872989467
+        },
+        {
+          "utc": "2026-04-14T19:59:00+00:00",
+          "previous_close": 196.415,
+          "close": 177.765,
+          "absolute_return_pct": 9.495201486648174
+        },
+        {
+          "utc": "2026-04-15T19:59:00+00:00",
+          "previous_close": 199.095,
+          "close": 177.765,
+          "absolute_return_pct": 10.713478490168015
+        },
+        {
+          "utc": "2026-04-27T19:58:00+00:00",
+          "previous_close": 216.71,
+          "close": 201.675,
+          "absolute_return_pct": 6.937843200590654
+        },
+        {
+          "utc": "2026-04-28T19:58:00+00:00",
+          "previous_close": 213.42,
+          "close": 199.665,
+          "absolute_return_pct": 6.445037953331456
+        },
+        {
+          "utc": "2026-05-06T19:59:00+00:00",
+          "previous_close": 208.2,
+          "close": 196.44,
+          "absolute_return_pct": 5.648414985590778
+        },
+        {
+          "utc": "2026-05-07T19:58:00+00:00",
+          "previous_close": 211.515,
+          "close": 196.44,
+          "absolute_return_pct": 7.127154102545918
+        },
+        {
+          "utc": "2026-05-08T19:58:00+00:00",
+          "previous_close": 215.265,
+          "close": 196.44,
+          "absolute_return_pct": 8.745035189185412
+        },
+        {
+          "utc": "2026-05-11T19:58:00+00:00",
+          "previous_close": 219.28,
+          "close": 196.44,
+          "absolute_return_pct": 10.415906603429404
+        },
+        {
+          "utc": "2026-05-13T19:59:00+00:00",
+          "previous_close": 225.845,
+          "close": 196.44,
+          "absolute_return_pct": 13.019991587150482
+        },
+        {
+          "utc": "2026-05-14T19:58:00+00:00",
+          "previous_close": 235.8225,
+          "close": 196.44,
+          "absolute_return_pct": 16.700060426804054
+        },
+        {
+          "utc": "2026-05-15T19:59:00+00:00",
+          "previous_close": 225.4,
+          "close": 196.44,
+          "absolute_return_pct": 12.848269742679685
+        },
+        {
+          "utc": "2026-05-21T19:58:00+00:00",
+          "previous_close": 219.6225,
+          "close": 196.44,
+          "absolute_return_pct": 10.555612471399789
+        },
+        {
+          "utc": "2026-05-22T19:58:00+00:00",
+          "previous_close": 215.42,
+          "close": 196.44,
+          "absolute_return_pct": 8.810695385758049
+        },
+        {
+          "utc": "2026-05-27T19:59:00+00:00",
+          "previous_close": 212.7425,
+          "close": 196.44,
+          "absolute_return_pct": 7.663019847938235
+        },
+        {
+          "utc": "2026-05-29T19:58:00+00:00",
+          "previous_close": 212.545,
+          "close": 196.44,
+          "absolute_return_pct": 7.577218941871133
+        },
+        {
+          "utc": "2026-06-02T19:59:00+00:00",
+          "previous_close": 222.705,
+          "close": 196.44,
+          "absolute_return_pct": 11.793628342426087
+        },
+        {
+          "utc": "2026-06-09T19:59:00+00:00",
+          "previous_close": 207.7225,
+          "close": 218.955,
+          "absolute_return_pct": 5.4074546570545
+        },
+        {
+          "utc": "2026-06-15T19:58:00+00:00",
+          "previous_close": 212.105,
+          "close": 201.11875,
+          "absolute_return_pct": 5.179628014426807
+        },
+        {
+          "utc": "2026-06-26T19:58:00+00:00",
+          "previous_close": 193.11866,
+          "close": 208.305,
+          "absolute_return_pct": 7.863735177118558
+        },
+        {
+          "utc": "2026-07-02T19:58:00+00:00",
+          "previous_close": 194.77,
+          "close": 204.55,
+          "absolute_return_pct": 5.021307182831025
+        },
+        {
+          "utc": "2026-07-10T19:58:00+00:00",
+          "previous_close": 210.595,
+          "close": 194.825,
+          "absolute_return_pct": 7.488306939860879
+        },
+        {
+          "utc": "2026-07-15T19:58:00+00:00",
+          "previous_close": 212.525,
+          "close": 194.825,
+          "absolute_return_pct": 8.328431949182457
+        },
+        {
+          "utc": "2026-07-16T19:58:00+00:00",
+          "previous_close": 207.29,
+          "close": 196.79,
+          "absolute_return_pct": 5.0653673597375715
+        },
+        {
+          "utc": "2026-07-27T19:58:00+00:00",
+          "previous_close": 196.47,
+          "close": 206.725,
+          "absolute_return_pct": 5.219626406067079
+        },
+        {
+          "utc": "2026-07-31T19:58:00+00:00",
+          "previous_close": 201.51375,
+          "close": 190.27625,
+          "absolute_return_pct": 5.576542543622942
+        }
+      ],
+      "zero_volume_rows": 43459,
+      "enough_coverage_for_parity": true,
+      "integrity_ok": false,
+      "decision": "BLOCK_NATIVE_INTEGRITY_OR_COVERAGE",
+      "performance_research_authorized": false,
+      "paper_or_live_authorized": false
+    },
+    {
+      "symbol": "NDXUSD",
+      "kind": "index",
+      "root": "/mnt/volume-SQ/dev/BrokerageService/datafiles/realtime_datalayer/candles/NDXUSD",
+      "rows": 134331,
+      "first_utc": "2026-03-17T20:13:00+00:00",
+      "last_utc": "2026-08-03T10:59:00+00:00",
+      "calendar_span_days": 138,
+      "unique_utc_days": 120,
+      "duplicate_timestamps": 0,
+      "nonfinite_ohlc_rows": 0,
+      "invalid_ohlc_rows": 0,
+      "within_day_gaps_over_5m": 84,
+      "outside_us_rth_rows": null,
+      "maximum_continuous_minute_return_pct": 6.806117781740051,
+      "outlier_threshold_pct": 5.0,
+      "continuous_return_outliers": [
+        {
+          "utc": "2026-04-14T20:59:00+00:00",
+          "previous_close": 25836.57333,
+          "close": 24237.09,
+          "absolute_return_pct": 6.190771932370643
+        },
+        {
+          "utc": "2026-05-14T20:59:00+00:00",
+          "previous_close": 29585.95666,
+          "close": 28099.54333,
+          "absolute_return_pct": 5.024050251549306
+        },
+        {
+          "utc": "2026-05-26T20:58:00+00:00",
+          "previous_close": 29979.55333,
+          "close": 28099.54333,
+          "absolute_return_pct": 6.270974017877395
+        },
+        {
+          "utc": "2026-05-27T20:59:00+00:00",
+          "previous_close": 30056.42333,
+          "close": 28099.54333,
+          "absolute_return_pct": 6.510688176416501
+        },
+        {
+          "utc": "2026-06-05T20:59:00+00:00",
+          "previous_close": 28788.78,
+          "close": 30365.69667,
+          "absolute_return_pct": 5.47753906209294
+        },
+        {
+          "utc": "2026-06-10T20:59:00+00:00",
+          "previous_close": 28430.67167,
+          "close": 30365.69667,
+          "absolute_return_pct": 6.806117781740051
+        },
+        {
+          "utc": "2026-06-16T20:58:00+00:00",
+          "previous_close": 29998.55667,
+          "close": 28430.55667,
+          "absolute_return_pct": 5.226918138925251
+        },
+        {
+          "utc": "2026-06-18T20:59:00+00:00",
+          "previous_close": 30425.03333,
+          "close": 28430.55667,
+          "absolute_return_pct": 6.555380361846252
+        },
+        {
+          "utc": "2026-06-19T16:59:00+00:00",
+          "previous_close": 30361.33333,
+          "close": 28430.55667,
+          "absolute_return_pct": 6.35932763233491
+        },
+        {
+          "utc": "2026-06-30T20:58:00+00:00",
+          "previous_close": 30241.07667,
+          "close": 28430.55667,
+          "absolute_return_pct": 5.986956151584655
+        }
+      ],
+      "zero_volume_rows": 134331,
+      "enough_coverage_for_parity": true,
+      "integrity_ok": false,
+      "decision": "BLOCK_NATIVE_INTEGRITY_OR_COVERAGE",
+      "performance_research_authorized": false,
+      "paper_or_live_authorized": false
+    }
+  ],
+  "native_parity_ready_symbols": [],
+  "performance_metrics_accessed": false,
+  "global_holdout_accessed": false,
+  "paper_or_live_authorized": false
+}

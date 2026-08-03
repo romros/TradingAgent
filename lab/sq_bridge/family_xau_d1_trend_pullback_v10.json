@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "family_id": "xau_d1_trend_pullback_v10",
+  "hypothesis_id": "xau-d1-trend-pullback-v10",
+  "hypothesis": "An extreme short-term daily pullback against an established XAU trend can mean-revert over the next few sessions with enough amplitude to cover Ostium costs.",
+  "market": "XAUUSD",
+  "ostium_asset": "XAUUSD",
+  "timeframe": "D1_NY_CLOSE",
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "implementation_origin": "alquimia_native",
+  "legacy_quantitative_inputs": [],
+  "inspiration_not_evidence": "Classic short-RSI trend-pullback concept; all rules, grid and evidence are newly preregistered here.",
+  "predecessor_role": "Independent mean-reversion mechanism; no candidate, performance or tuned parameter from v9 is reused.",
+  "fixed_structure": {
+    "session": "17:00 America/New_York to 17:00 America/New_York with DST",
+    "long_setup": "signal close above EMA and Wilder RSI at or below the registered extreme",
+    "short_setup": "signal close below EMA and Wilder RSI at or above 100 minus the registered extreme",
+    "entry": "next-session open",
+    "exit": "ATR catastrophe stop or close after 1/2/3 sessions",
+    "position_policy": "one open position per strategy; signals while a position is open are ignored",
+    "lookahead_forbidden": true
+  },
+  "pre_registered_grid": {
+    "side": ["long", "short"],
+    "trend_ema": [100, 200],
+    "rsi_period": [2, 3, 5],
+    "rsi_extreme": [5, 10, 15],
+    "stop_atr": [1.0, 1.5, 2.0],
+    "hold_sessions": [1, 2, 3],
+    "maximum_points": 324,
+    "selection": "stable_parameter_region_not_single_best_point"
+  },
+  "costs": {
+    "base": {"opening_bps": 3, "annual_funding_pct": 4},
+    "conservative": {"opening_bps": 6, "annual_funding_pct": 8},
+    "stress": {"opening_bps": 9, "annual_funding_pct": 12}
+  },
+  "periods": {
+    "train_from": "2004-01-01", "train_to": "2015-02-06",
+    "validation_from": "2015-02-07", "validation_to": "2019-07-16",
+    "oos_from": "2019-07-17", "oos_to": "2023-12-23",
+    "holdout_from": "2023-12-24", "holdout_to": "2026-03-13"
+  },
+  "pre_registered_falsifiers": {
+    "minimum_train_trades": 50,
+    "minimum_base_profit_factor": 1.2,
+    "minimum_stress_profit_factor": 1.05,
+    "minimum_positive_year_ratio": 0.6,
+    "minimum_passing_orthogonal_neighbours": 2,
+    "holdout_sealed": true
+  },
+  "representative_selection": {
+    "rule": "graph_medoid_of_largest_connected_stable_component",
+    "adjacency": "one grid step in exactly one non-side parameter",
+    "tie_break": "lexicographically_smallest_candidate_id",
+    "performance_metrics_used": false
+  },
+  "pre_registered_validation_gate": {
+    "minimum_trades": 20,
+    "minimum_stress_profit_factor": 1.15,
+    "minimum_stress_net_return_pct": 0,
+    "minimum_positive_year_ratio": 0.6,
+    "maximum_stress_drawdown_pct": 20,
+    "maximum_train_validation_expectancy_decay_pct": 50
+  },
+  "holdout_release_authorized": false
+}

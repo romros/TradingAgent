@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "family_id": "xau_d1_trend_pullback_v10",
+  "selection_rule": {
+    "rule": "graph_medoid_of_largest_connected_stable_component",
+    "adjacency": "one grid step in exactly one non-side parameter",
+    "tie_break": "lexicographically_smallest_candidate_id",
+    "performance_metrics_used": false
+  },
+  "train_artifact": "lab/sq_bridge/evidence/xau_d1_trend_pullback_v10_train.json",
+  "train_artifact_sha256": "767f39a42837dfd8277b67a4a90dd5feb3f7b9740066f2efe68bca2ed7e39670",
+  "stable_candidates": 25,
+  "component_sizes": [
+    25
+  ],
+  "selected_candidate_ids": [
+    "v10-b0e3c5e754bd"
+  ],
+  "selected": [
+    {
+      "candidate_id": "v10-b0e3c5e754bd",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 200,
+        "rsi_period": 3,
+        "rsi_extreme": 10,
+        "stop_atr": 1.5,
+        "hold_sessions": 2
+      },
+      "train_metrics": {
+        "base": {
+          "trades": 57,
+          "profit_factor": 1.809622,
+          "net_return_pct": 20.445713,
+          "max_drawdown_pct": 6.009458,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.1875,
+            "2005": 2.1294,
+            "2006": -2.5773,
+            "2007": 6.0324,
+            "2008": 2.4142,
+            "2009": 5.3931,
+            "2010": 6.4385,
+            "2011": -1.4803,
+            "2012": 0.6777
+          },
+          "expectancy_bps": 33.810585
+        },
+        "conservative": {
+          "trades": 57,
+          "profit_factor": 1.655271,
+          "net_return_pct": 16.856803,
+          "max_drawdown_pct": 6.120196,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.1356,
+            "2005": 1.7378,
+            "2006": -2.7912,
+            "2007": 5.6829,
+            "2008": 2.0747,
+            "2009": 4.9591,
+            "2010": 5.8679,
+            "2011": -2.1724,
+            "2012": 0.6258
+          },
+          "expectancy_bps": 28.485814
+        },
+        "stress": {
+          "trades": 57,
+          "profit_factor": 1.512433,
+          "net_return_pct": 13.372986,
+          "max_drawdown_pct": 6.230873,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.0837,
+            "2005": 1.3475,
+            "2006": -3.0049,
+            "2007": 5.3344,
+            "2008": 1.736,
+            "2009": 4.5267,
+            "2010": 5.3,
+            "2011": -2.8601,
+            "2012": 0.5739
+          },
+          "expectancy_bps": 23.161042
+        }
+      }
+    }
+  ],
+  "validation_accessed": false,
+  "holdout_accessed": false
+}

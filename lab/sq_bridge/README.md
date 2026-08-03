@@ -25,6 +25,8 @@ autoritza live.
 estratègies. `xau_d1_inside_breakout_v9.py` és un preflight nadiu preregistrat:
 agrega Dukascopy M1 amb sessió New York/DST, incorpora costos i funding, exigeix
 regions de paràmetres i impedeix obrir validació des del runner de train.
+V10 afegeix selecció del medoid del component estable sense mirar rendiment i
+un runner independent que només pot consultar el tram de validació congelat.
 
 ```bash
 python3 evidence_chain.py new --methodology methodology_v3.json \

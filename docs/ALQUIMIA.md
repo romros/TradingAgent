@@ -411,11 +411,31 @@ següent, stop/target ATR i sortida en 1–3 sessions. S'han calculat 1.944 punt
 sobre 3.205 sessions de train (2004-01-02–2015-02-06), incloent 3/6/9 bps i
 finançament anual 4/8/12%. Resultat: 0 punts passen i 0 regions estables.
 
-El millor short té 105 trades i PF 1,212 base, però PF 1,046 en estrès i només
-3/9 anys positius. El millor long arriba a PF 1,215 base però cau a 0,979 en
-estrès. Decisió terminal: `REJECT_DISCOVERY`; no s'executa SQCLI i validació,
+Una auditoria posterior fixa l'invariant d'una sola posició oberta i regenera
+la malla: el millor punt sota estrès és long amb PF 1,003; el millor short cau a
+0,996. La conclusió es reforça. Decisió terminal: `REJECT_DISCOVERY`; no
+s'executa SQCLI i validació,
 OOS i holdout continuen segellats. La cadena verificable és
 `lab/sq_bridge/evidence/xau_d1_inside_breakout_v9_chain.json`.
+
+### XAU D1 trend-pullback v10 (2026-08-03)
+
+V10 parteix d'una idea clàssica però genera evidència pròpia: RSI curt extrem
+contra una tendència EMA100/200, entrada al següent open, una sola posició,
+stop ATR i sortida en 1–3 sessions. La malla preregistrada de 324 punts produeix
+25 PASS de train, tots long i dins un únic component estable: RSI2/3, durada
+1/2 dies i stops 1–2 ATR.
+
+Per no escollir el millor PF, un selector sense mètriques tria el medoid del
+component: EMA200, RSI3 ≤10, stop 1,5 ATR, dues sessions. Train: 57 trades, PF
+estrès 1,512, +13,37%, DD 6,23% i 7/9 anys positius. A la validació independent
+2015-02-09–2019-07-16 només fa 11 trades, PF estrès 0,097, −6,46% i 0/3 anys
+positius; l'expectativa cau de +23,16 a −60,35 bps.
+
+La concentració del train en el cicle alcista de l'or 2004–2011 no es manté en
+el règim 2015–2019. V10 queda `REJECT_TEMPORAL_VALIDATION`; OOS i holdout no
+s'obren i SQCLI no s'executa. Cadena:
+`lab/sq_bridge/evidence/xau_d1_trend_pullback_v10_chain.json`.
 
 ## Pilot anterior
 

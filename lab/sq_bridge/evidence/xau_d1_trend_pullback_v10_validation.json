@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "family_id": "xau_d1_trend_pullback_v10",
+  "period": "validation",
+  "coverage": {
+    "from": "2015-02-09",
+    "to": "2019-07-16",
+    "sessions": 1144
+  },
+  "selected_candidate_ids": [
+    "v10-b0e3c5e754bd"
+  ],
+  "passing_candidate_ids": [],
+  "decision": "REJECT",
+  "results": [
+    {
+      "candidate_id": "v10-b0e3c5e754bd",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 200,
+        "rsi_period": 3,
+        "rsi_extreme": 10,
+        "stop_atr": 1.5,
+        "hold_sessions": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 11,
+          "profit_factor": 0.152,
+          "net_return_pct": -5.278129,
+          "max_drawdown_pct": 5.745096,
+          "positive_year_ratio": 0.0,
+          "year_returns_pct": {
+            "2016": -4.1626,
+            "2017": -0.9688,
+            "2019": -0.1971
+          },
+          "expectancy_bps": -48.971916
+        },
+        "conservative": {
+          "trades": 11,
+          "profit_factor": 0.121987,
+          "net_return_pct": -5.871995,
+          "max_drawdown_pct": 6.267195,
+          "positive_year_ratio": 0.0,
+          "year_returns_pct": {
+            "2016": -4.523,
+            "2017": -1.0426,
+            "2019": -0.3742
+          },
+          "expectancy_bps": -54.659988
+        },
+        "stress": {
+          "trades": 11,
+          "profit_factor": 0.096579,
+          "net_return_pct": -6.462486,
+          "max_drawdown_pct": 6.786699,
+          "positive_year_ratio": 0.0,
+          "year_returns_pct": {
+            "2016": -4.8822,
+            "2017": -1.1164,
+            "2019": -0.5512
+          },
+          "expectancy_bps": -60.34806
+        }
+      },
+      "stress_expectancy_decay_pct": 360.558484,
+      "passes": false
+    }
+  ],
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "selection_artifact": "lab/sq_bridge/evidence/xau_d1_trend_pullback_v10_selection.json",
+  "selection_artifact_sha256": "d905947a1d3cd83891b1c30391d5379bc2d6e2127710aa4c930103edcef9bda0"
+}

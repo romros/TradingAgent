@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ALQUIMIA_XAU_D1_V10",
+  "hypothesis_id": "xau-d1-trend-pullback-v10",
+  "market": "XAUUSD",
+  "capital_usdc": 200,
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "methodology_sha256": "ea4c6512d10f21e9550789615c41eb8b12228916ac668373fbb3afc9f905aeab",
+  "provenance": "alquimia_native",
+  "legacy_quantitative_inputs": [],
+  "receipts": [
+    {
+      "stage": "market_preflight",
+      "decision": "PASS",
+      "artifact": "lab/sq_bridge/evidence/market_universe_v9.json",
+      "artifact_sha256": "451e2152d2b071600a204263fdd8ae47bfc4d8dbc089010d863f508c8ff7b352",
+      "candidate_ids": [],
+      "holdout_accessed": false,
+      "translation_exact": null,
+      "parity_pass": null,
+      "previous_receipt_sha256": null,
+      "receipt_sha256": "e9706aa76733ce872e38b889d1bfec1657831966e84ef7236d82d4d6c2f2eb4b"
+    },
+    {
+      "stage": "discovery",
+      "decision": "PASS",
+      "artifact": "lab/sq_bridge/evidence/xau_d1_trend_pullback_v10_train.json",
+      "artifact_sha256": "767f39a42837dfd8277b67a4a90dd5feb3f7b9740066f2efe68bca2ed7e39670",
+      "candidate_ids": [
+        "v10-033e9f24cdcd",
+        "v10-28c7d36c6d51",
+        "v10-3c45cc8da2b1",
+        "v10-507f90bcba76",
+        "v10-643e5520ddbc",
+        "v10-7cb7e487c6ac",
+        "v10-7ed3f4b0b1d5",
+        "v10-825197d39152",
+        "v10-8a7213e07e69",
+        "v10-9cf85584ead8",
+        "v10-9ec849c190f2",
+        "v10-a30d8b9acc52",
+        "v10-a4cb2cea0c37",
+        "v10-a7c0033afc66",
+        "v10-b0c8ebc8d1d4",
+        "v10-b0e3c5e754bd",
+        "v10-c35a96b4bbd8",
+        "v10-cb95aec6ecec",
+        "v10-cbc61352d233",
+        "v10-dc8ca5c94be8",
+        "v10-eb15662f988c",
+        "v10-ebeb1309799e",
+        "v10-f9fd731dcafd",
+        "v10-fa67d3578f9f",
+        "v10-fb14b0be4171"
+      ],
+      "holdout_accessed": false,
+      "translation_exact": null,
+      "parity_pass": null,
+      "previous_receipt_sha256": "e9706aa76733ce872e38b889d1bfec1657831966e84ef7236d82d4d6c2f2eb4b",
+      "receipt_sha256": "332ac0cdd7d0a53381ba949b2783fac4f8239635db9180583a46af681d901299"
+    },
+    {
+      "stage": "temporal_validation",
+      "decision": "REJECT",
+      "artifact": "lab/sq_bridge/evidence/xau_d1_trend_pullback_v10_validation.json",
+      "artifact_sha256": "d9a1642b3ec79e37a45b6ba589d055754da7740970e3ae5770a4b016292ddc5a",
+      "candidate_ids": [
+        "v10-b0e3c5e754bd"
+      ],
+      "holdout_accessed": false,
+      "translation_exact": null,
+      "parity_pass": null,
+      "previous_receipt_sha256": "332ac0cdd7d0a53381ba949b2783fac4f8239635db9180583a46af681d901299",
+      "receipt_sha256": "20f994d97470aa77ab95b96d75788e707377cb5c8e5ef627a4964fb2aa090679"
+    }
+  ],
+  "live_authorized": false
+}

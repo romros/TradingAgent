@@ -59,9 +59,14 @@ però open falla (mediana 29,36 bps, p95 116,30) i high/low tenen p95 229,52 i
 **XAU D1 inside-day v9:** gate previ accepta Dukascopy com a proxy de recerca
 XAU (corr retorn 0,971; direcció filtrada 96,69%) però no per live; BTC queda
 bloquejat per manca d'històric Ostium nadiu. La família D1 prova 1.944 punts
-preregistrats amb costos i funding: 0 PASS i 0 regions estables. Millor short
-PF 1,212 base / 1,046 estrès, però només 3/9 anys positius; millor long cau a
-PF 0,979 estrès. **V9 rebutjada en discovery**, sense SQCLI ni obrir validació.
+preregistrats amb costos i funding: 0 PASS i 0 regions estables. Després de
+fixar una sola posició oberta, els millors PF estrès són 1,003 long i 0,996
+short. **V9 rebutjada en discovery**, sense SQCLI ni obrir validació.
+
+**XAU D1 trend-pullback v10:** 25/324 punts passen train i formen una regió
+connectada, tota long. El medoid topològic EMA200/RSI3≤10/stop1,5ATR/2 dies té
+PF estrès 1,51 en train, però falla la validació 2015–2019: 11 trades, PF 0,097,
+−6,46% i 0/3 anys positius. **V10 rebutjada temporalment**; OOS/holdout intactes.
 
 ### Fase: PAPER PROBE — T7 en curs (≥4 setmanes, inici 2026-03-16)
 
@@ -228,3 +233,4 @@ Veure `lab/docs/T6E_DECISIO_D1_ASSETS.md` i `lab/docs/D1_GATE_CRITERIA.md`.
 | 2026-08-03 | **XAU H1 displacement v6–v7**: 5.184 punts per mecanisme/costat/hora/dia. V6 sense regió; v7 tardana congelada passa train però falla validació en estrès (PF 0,85). OOS/holdout no consultats. |
 | 2026-08-03 | **MSFT D1 gap/shock v8**: export SQ nadiu 6.936 D1; close passa paritat recent però open/high/low fallen. Família bloquejada a market preflight, abans de Builder. |
 | 2026-08-03 | **Gate XAU/BTC + XAU D1 v9**: XAU apte només per recerca, BTC bloquejat per paritat absent. Inside-day: 1.944 punts train, 0 PASS/regions; rebuig terminal sense SQCLI ni holdout. |
+| 2026-08-03 | **XAU D1 trend-pullback v10**: 25/324 PASS train en una regió; medoid triat sense PF. Validació: 11 trades, PF estrès 0,097 i −6,46%. Rebuig terminal; OOS/holdout segellats. |

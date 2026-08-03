@@ -16,6 +16,7 @@
     "entry": "next-session stop at signal extreme plus optional ATR buffer; adverse gaps fill at open",
     "trend": "long close above prior-known EMA; short close below prior-known EMA",
     "exit": "ATR stop, ATR target or 1/2/3-session time exit",
+    "position_policy": "one open position per strategy; signals while a position is open are ignored",
     "same_bar_stop_target": "pessimistic_stop_first",
     "lookahead_forbidden": true
   },

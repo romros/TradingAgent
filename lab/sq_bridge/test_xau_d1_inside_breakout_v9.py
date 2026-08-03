@@ -36,3 +36,15 @@ def test_metrics_include_costs_and_year_stability():
     assert result["trades"] == 2
     assert result["profit_factor"] == 2
     assert result["positive_year_ratio"] == .5
+
+
+def test_signals_do_not_create_overlapping_positions():
+    index = pd.date_range("2020-01-01", periods=22, freq="D")
+    frame = pd.DataFrame({"open": 100., "high": 102., "low": 98., "close": 100., "bars": 100}, index=index)
+    frame.loc[index[15], ["high", "low"]] = [101.5, 98.5]
+    frame.loc[index[16], ["high", "low", "close"]] = [101., 99., 100.]
+    frame.loc[index[17], ["high", "low", "close"]] = [103., 99.5, 101.]
+    frame.loc[index[18], ["high", "low", "close"]] = [103., 99.5, 101.]
+    costs = {"base": {"opening_bps": 0, "annual_funding_pct": 0}}
+    trades = simulate(enrich(frame), params(hold_sessions=3, stop_atr=10, target_atr=10), costs)
+    assert len(trades) == 1

@@ -1,0 +1,3442 @@
+{
+  "schema_version": 1,
+  "family_id": "xau_d1_trend_pullback_v10",
+  "period": "train",
+  "source": "BrokerageService Dukascopy XAUUSD M1 parquet aggregated to DST-aware NY-close D1",
+  "coverage": {
+    "from": "2004-01-02",
+    "to": "2015-02-06",
+    "sessions": 3205
+  },
+  "points_evaluated": 324,
+  "point_gate_passes": 25,
+  "stable_candidate_ids": [
+    "v10-825197d39152",
+    "v10-eb15662f988c",
+    "v10-7ed3f4b0b1d5",
+    "v10-9ec849c190f2",
+    "v10-033e9f24cdcd",
+    "v10-a30d8b9acc52",
+    "v10-28c7d36c6d51",
+    "v10-7cb7e487c6ac",
+    "v10-fb14b0be4171",
+    "v10-b0c8ebc8d1d4",
+    "v10-507f90bcba76",
+    "v10-ebeb1309799e",
+    "v10-c35a96b4bbd8",
+    "v10-cb95aec6ecec",
+    "v10-3c45cc8da2b1",
+    "v10-a4cb2cea0c37",
+    "v10-f9fd731dcafd",
+    "v10-a7c0033afc66",
+    "v10-dc8ca5c94be8",
+    "v10-8a7213e07e69",
+    "v10-cbc61352d233",
+    "v10-b0e3c5e754bd",
+    "v10-fa67d3578f9f",
+    "v10-9cf85584ead8",
+    "v10-643e5520ddbc"
+  ],
+  "holdout_accessed": false,
+  "evaluated_grid_sha256": "73f2a86701a32000b6fb9546cd7ec5b13d2d3e05d25ef5c89aef6d178a386753",
+  "diagnostic_top_20_by_stress_profit_factor": [
+    {
+      "candidate_id": "v10-8a7213e07e69",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 200,
+        "rsi_period": 3,
+        "rsi_extreme": 10,
+        "stop_atr": 1.0,
+        "hold_sessions": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 58,
+          "profit_factor": 1.990609,
+          "net_return_pct": 23.15524,
+          "max_drawdown_pct": 4.524085,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.1875,
+            "2005": 1.5906,
+            "2006": -1.0376,
+            "2007": 6.0324,
+            "2008": 2.4142,
+            "2009": 5.1397,
+            "2010": 6.4385,
+            "2011": -0.0649,
+            "2012": 0.6777
+          },
+          "expectancy_bps": 36.870378
+        },
+        "conservative": {
+          "trades": 58,
+          "profit_factor": 1.807259,
+          "net_return_pct": 19.424737,
+          "max_drawdown_pct": 4.635935,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.1356,
+            "2005": 1.1897,
+            "2006": -1.2543,
+            "2007": 5.6829,
+            "2008": 2.0747,
+            "2009": 4.7066,
+            "2010": 5.8679,
+            "2011": -0.807,
+            "2012": 0.6258
+          },
+          "expectancy_bps": 31.547925
+        },
+        "stress": {
+          "trades": 58,
+          "profit_factor": 1.640336,
+          "net_return_pct": 15.805312,
+          "max_drawdown_pct": 4.747726,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.0837,
+            "2005": 0.7902,
+            "2006": -1.4707,
+            "2007": 5.3344,
+            "2008": 1.736,
+            "2009": 4.2751,
+            "2010": 5.3,
+            "2011": -1.544,
+            "2012": 0.5739
+          },
+          "expectancy_bps": 26.225472
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 3,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-b0e3c5e754bd",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 200,
+        "rsi_period": 3,
+        "rsi_extreme": 10,
+        "stop_atr": 1.5,
+        "hold_sessions": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 57,
+          "profit_factor": 1.809622,
+          "net_return_pct": 20.445713,
+          "max_drawdown_pct": 6.009458,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.1875,
+            "2005": 2.1294,
+            "2006": -2.5773,
+            "2007": 6.0324,
+            "2008": 2.4142,
+            "2009": 5.3931,
+            "2010": 6.4385,
+            "2011": -1.4803,
+            "2012": 0.6777
+          },
+          "expectancy_bps": 33.810585
+        },
+        "conservative": {
+          "trades": 57,
+          "profit_factor": 1.655271,
+          "net_return_pct": 16.856803,
+          "max_drawdown_pct": 6.120196,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.1356,
+            "2005": 1.7378,
+            "2006": -2.7912,
+            "2007": 5.6829,
+            "2008": 2.0747,
+            "2009": 4.9591,
+            "2010": 5.8679,
+            "2011": -2.1724,
+            "2012": 0.6258
+          },
+          "expectancy_bps": 28.485814
+        },
+        "stress": {
+          "trades": 57,
+          "profit_factor": 1.512433,
+          "net_return_pct": 13.372986,
+          "max_drawdown_pct": 6.230873,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.0837,
+            "2005": 1.3475,
+            "2006": -3.0049,
+            "2007": 5.3344,
+            "2008": 1.736,
+            "2009": 4.5267,
+            "2010": 5.3,
+            "2011": -2.8601,
+            "2012": 0.5739
+          },
+          "expectancy_bps": 23.161042
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 5,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-dc8ca5c94be8",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 200,
+        "rsi_period": 3,
+        "rsi_extreme": 10,
+        "stop_atr": 1.0,
+        "hold_sessions": 1
+      },
+      "metrics": {
+        "base": {
+          "trades": 76,
+          "profit_factor": 1.827764,
+          "net_return_pct": 15.606166,
+          "max_drawdown_pct": 5.841931,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.9154,
+            "2005": -0.8714,
+            "2006": -4.9798,
+            "2007": 2.7853,
+            "2008": 4.7453,
+            "2009": 4.4813,
+            "2010": 5.9948,
+            "2011": 1.459,
+            "2012": 0.5377
+          },
+          "expectancy_bps": 19.530378
+        },
+        "conservative": {
+          "trades": 76,
+          "profit_factor": 1.604589,
+          "net_return_pct": 12.069349,
+          "max_drawdown_pct": 6.348667,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.8744,
+            "2005": -1.2365,
+            "2006": -5.1762,
+            "2007": 2.4502,
+            "2008": 4.4474,
+            "2009": 4.0134,
+            "2010": 5.3481,
+            "2011": 0.673,
+            "2012": 0.4968
+          },
+          "expectancy_bps": 15.435238
+        },
+        "stress": {
+          "trades": 76,
+          "profit_factor": 1.410807,
+          "net_return_pct": 8.639355,
+          "max_drawdown_pct": 6.886693,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.8335,
+            "2005": -1.6004,
+            "2006": -5.3723,
+            "2007": 2.1161,
+            "2008": 4.1502,
+            "2009": 3.5475,
+            "2010": 4.705,
+            "2011": -0.1072,
+            "2012": 0.4558
+          },
+          "expectancy_bps": 11.340097
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-cb95aec6ecec",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 3,
+        "rsi_extreme": 15,
+        "stop_atr": 2.0,
+        "hold_sessions": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 56,
+          "profit_factor": 1.66919,
+          "net_return_pct": 17.015058,
+          "max_drawdown_pct": 5.515289,
+          "positive_year_ratio": 0.8,
+          "year_returns_pct": {
+            "2004": 0.2608,
+            "2005": 3.2078,
+            "2006": 1.5413,
+            "2007": 4.7529,
+            "2008": 3.5136,
+            "2009": 1.7661,
+            "2010": 0.8083,
+            "2011": -2.0545,
+            "2012": 2.606,
+            "2014": -0.3825
+          },
+          "expectancy_bps": 29.052823
+        },
+        "conservative": {
+          "trades": 56,
+          "profit_factor": 1.521093,
+          "net_return_pct": 13.571836,
+          "max_drawdown_pct": 5.811975,
+          "positive_year_ratio": 0.8,
+          "year_returns_pct": {
+            "2004": 0.187,
+            "2005": 2.9419,
+            "2006": 1.1818,
+            "2007": 4.4725,
+            "2008": 3.3006,
+            "2009": 1.0712,
+            "2010": 0.4322,
+            "2011": -2.5518,
+            "2012": 2.3945,
+            "2014": -0.4344
+          },
+          "expectancy_bps": 23.706094
+        },
+        "stress": {
+          "trades": 56,
+          "profit_factor": 1.38533,
+          "net_return_pct": 10.228156,
+          "max_drawdown_pct": 6.107885,
+          "positive_year_ratio": 0.8,
+          "year_returns_pct": {
+            "2004": 0.1132,
+            "2005": 2.6765,
+            "2006": 0.8234,
+            "2007": 4.1928,
+            "2008": 3.088,
+            "2009": 0.3807,
+            "2010": 0.0572,
+            "2011": -3.0468,
+            "2012": 2.1833,
+            "2014": -0.4864
+          },
+          "expectancy_bps": 18.359365
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-033e9f24cdcd",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 2,
+        "rsi_extreme": 10,
+        "stop_atr": 1.5,
+        "hold_sessions": 1
+      },
+      "metrics": {
+        "base": {
+          "trades": 128,
+          "profit_factor": 1.664724,
+          "net_return_pct": 29.132422,
+          "max_drawdown_pct": 6.258001,
+          "positive_year_ratio": 0.909091,
+          "year_returns_pct": {
+            "2004": 0.1027,
+            "2005": 2.6323,
+            "2006": 5.049,
+            "2007": 1.0334,
+            "2008": -1.7794,
+            "2009": 5.7659,
+            "2010": 1.509,
+            "2011": 5.6501,
+            "2012": 3.7757,
+            "2014": 0.3379,
+            "2015": 2.0857
+          },
+          "expectancy_bps": 20.584633
+        },
+        "conservative": {
+          "trades": 128,
+          "profit_factor": 1.504236,
+          "net_return_pct": 22.549057,
+          "max_drawdown_pct": 6.834302,
+          "positive_year_ratio": 0.818182,
+          "year_returns_pct": {
+            "2004": -0.102,
+            "2005": 2.2139,
+            "2006": 4.536,
+            "2007": 0.5796,
+            "2008": -2.1416,
+            "2009": 4.4765,
+            "2010": 0.9291,
+            "2011": 4.6618,
+            "2012": 3.3531,
+            "2014": 0.2148,
+            "2015": 2.0447
+          },
+          "expectancy_bps": 16.489492
+        },
+        "stress": {
+          "trades": 128,
+          "profit_factor": 1.359462,
+          "net_return_pct": 16.298834,
+          "max_drawdown_pct": 7.521429,
+          "positive_year_ratio": 0.818182,
+          "year_returns_pct": {
+            "2004": -0.3065,
+            "2005": 1.797,
+            "2006": 4.0254,
+            "2007": 0.1277,
+            "2008": -2.5026,
+            "2009": 3.2023,
+            "2010": 0.3524,
+            "2011": 3.6823,
+            "2012": 2.932,
+            "2014": 0.0918,
+            "2015": 2.0038
+          },
+          "expectancy_bps": 12.394352
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 4,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-507f90bcba76",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 3,
+        "rsi_extreme": 15,
+        "stop_atr": 1.5,
+        "hold_sessions": 1
+      },
+      "metrics": {
+        "base": {
+          "trades": 77,
+          "profit_factor": 1.67917,
+          "net_return_pct": 15.674672,
+          "max_drawdown_pct": 4.040064,
+          "positive_year_ratio": 0.9,
+          "year_returns_pct": {
+            "2004": 0.2632,
+            "2005": 0.8513,
+            "2006": 2.5281,
+            "2007": 1.9443,
+            "2008": 2.4847,
+            "2009": 3.6759,
+            "2010": 3.2858,
+            "2011": -3.1299,
+            "2012": 2.818,
+            "2014": 0.132
+          },
+          "expectancy_bps": 19.45875
+        },
+        "conservative": {
+          "trades": 77,
+          "profit_factor": 1.504197,
+          "net_return_pct": 12.089828,
+          "max_drawdown_pct": 4.290793,
+          "positive_year_ratio": 0.9,
+          "year_returns_pct": {
+            "2004": 0.1812,
+            "2005": 0.6453,
+            "2006": 2.1937,
+            "2007": 1.6949,
+            "2008": 2.276,
+            "2009": 2.8737,
+            "2010": 2.865,
+            "2011": -3.7639,
+            "2012": 2.6088,
+            "2014": 0.091
+          },
+          "expectancy_bps": 15.363609
+        },
+        "stress": {
+          "trades": 77,
+          "profit_factor": 1.348178,
+          "net_return_pct": 8.614683,
+          "max_drawdown_pct": 4.683771,
+          "positive_year_ratio": 0.9,
+          "year_returns_pct": {
+            "2004": 0.0993,
+            "2005": 0.4396,
+            "2006": 1.8603,
+            "2007": 1.446,
+            "2008": 2.0677,
+            "2009": 2.0773,
+            "2010": 2.4457,
+            "2011": -4.3941,
+            "2012": 2.3999,
+            "2014": 0.0501
+          },
+          "expectancy_bps": 11.268469
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 3,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-9cf85584ead8",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 200,
+        "rsi_period": 3,
+        "rsi_extreme": 10,
+        "stop_atr": 2.0,
+        "hold_sessions": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 57,
+          "profit_factor": 1.597713,
+          "net_return_pct": 16.519428,
+          "max_drawdown_pct": 7.494831,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.1875,
+            "2005": 2.571,
+            "2006": -4.1169,
+            "2007": 6.0324,
+            "2008": 2.4142,
+            "2009": 5.3931,
+            "2010": 6.4385,
+            "2011": -3.5783,
+            "2012": 0.6777
+          },
+          "expectancy_bps": 28.271705
+        },
+        "conservative": {
+          "trades": 57,
+          "profit_factor": 1.467627,
+          "net_return_pct": 13.033117,
+          "max_drawdown_pct": 7.660867,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.1356,
+            "2005": 2.1779,
+            "2006": -4.3281,
+            "2007": 5.6829,
+            "2008": 2.0747,
+            "2009": 4.9591,
+            "2010": 5.8679,
+            "2011": -4.2675,
+            "2012": 0.6258
+          },
+          "expectancy_bps": 22.927721
+        },
+        "stress": {
+          "trades": 57,
+          "profit_factor": 1.346304,
+          "net_return_pct": 9.649321,
+          "max_drawdown_pct": 7.989142,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.0837,
+            "2005": 1.7861,
+            "2006": -4.539,
+            "2007": 5.3344,
+            "2008": 1.736,
+            "2009": 4.5267,
+            "2010": 5.3,
+            "2011": -4.9521,
+            "2012": 0.5739
+          },
+          "expectancy_bps": 17.583736
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-a30d8b9acc52",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 2,
+        "rsi_extreme": 10,
+        "stop_atr": 1.5,
+        "hold_sessions": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 96,
+          "profit_factor": 1.59784,
+          "net_return_pct": 28.812036,
+          "max_drawdown_pct": 7.602158,
+          "positive_year_ratio": 0.727273,
+          "year_returns_pct": {
+            "2004": -1.5934,
+            "2005": 2.4681,
+            "2006": 7.31,
+            "2007": 4.2343,
+            "2008": -2.2682,
+            "2009": 7.7092,
+            "2010": 0.7965,
+            "2011": 3.3349,
+            "2012": 2.9641,
+            "2014": -0.1484,
+            "2015": 1.3144
+          },
+          "expectancy_bps": 27.559716
+        },
+        "conservative": {
+          "trades": 96,
+          "profit_factor": 1.46426,
+          "net_return_pct": 22.43426,
+          "max_drawdown_pct": 8.179206,
+          "positive_year_ratio": 0.727273,
+          "year_returns_pct": {
+            "2004": -1.7983,
+            "2005": 1.9474,
+            "2006": 6.7441,
+            "2007": 3.7199,
+            "2008": -2.6232,
+            "2009": 6.49,
+            "2010": 0.2641,
+            "2011": 2.5465,
+            "2012": 2.5921,
+            "2014": -0.2521,
+            "2015": 1.2405
+          },
+          "expectancy_bps": 22.255359
+        },
+        "stress": {
+          "trades": 96,
+          "profit_factor": 1.340116,
+          "net_return_pct": 16.369088,
+          "max_drawdown_pct": 8.752956,
+          "positive_year_ratio": 0.636364,
+          "year_returns_pct": {
+            "2004": -2.003,
+            "2005": 1.429,
+            "2006": 6.1807,
+            "2007": 3.2077,
+            "2008": -2.9771,
+            "2009": 5.2839,
+            "2010": -0.2658,
+            "2011": 1.7636,
+            "2012": 2.2213,
+            "2014": -0.3557,
+            "2015": 1.1667
+          },
+          "expectancy_bps": 16.951001
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 4,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-7cb7e487c6ac",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 2,
+        "rsi_extreme": 10,
+        "stop_atr": 2.0,
+        "hold_sessions": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 95,
+          "profit_factor": 1.582379,
+          "net_return_pct": 27.968129,
+          "max_drawdown_pct": 5.559805,
+          "positive_year_ratio": 0.727273,
+          "year_returns_pct": {
+            "2004": -1.5934,
+            "2005": 2.4681,
+            "2006": 7.31,
+            "2007": 2.9786,
+            "2008": -0.8794,
+            "2009": 7.4044,
+            "2010": 0.7965,
+            "2011": 2.7444,
+            "2012": 2.9641,
+            "2014": -0.1484,
+            "2015": 1.3144
+          },
+          "expectancy_bps": 27.121587
+        },
+        "conservative": {
+          "trades": 95,
+          "profit_factor": 1.449416,
+          "net_return_pct": 21.680497,
+          "max_drawdown_pct": 5.856361,
+          "positive_year_ratio": 0.727273,
+          "year_returns_pct": {
+            "2004": -1.7983,
+            "2005": 1.9474,
+            "2006": 6.7441,
+            "2007": 2.4699,
+            "2008": -1.1882,
+            "2009": 6.1766,
+            "2010": 0.2641,
+            "2011": 1.9602,
+            "2012": 2.5921,
+            "2014": -0.2521,
+            "2015": 1.2405
+          },
+          "expectancy_bps": 21.804501
+        },
+        "stress": {
+          "trades": 95,
+          "profit_factor": 1.326301,
+          "net_return_pct": 15.698675,
+          "max_drawdown_pct": 6.15214,
+          "positive_year_ratio": 0.636364,
+          "year_returns_pct": {
+            "2004": -2.003,
+            "2005": 1.429,
+            "2006": 6.1807,
+            "2007": 1.9634,
+            "2008": -1.4961,
+            "2009": 4.9622,
+            "2010": -0.2658,
+            "2011": 1.1817,
+            "2012": 2.2213,
+            "2014": -0.3557,
+            "2015": 1.1667
+          },
+          "expectancy_bps": 16.487415
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-c35a96b4bbd8",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 3,
+        "rsi_extreme": 15,
+        "stop_atr": 2.0,
+        "hold_sessions": 1
+      },
+      "metrics": {
+        "base": {
+          "trades": 77,
+          "profit_factor": 1.619593,
+          "net_return_pct": 14.717961,
+          "max_drawdown_pct": 4.040064,
+          "positive_year_ratio": 0.9,
+          "year_returns_pct": {
+            "2004": 0.2632,
+            "2005": 0.8513,
+            "2006": 2.5281,
+            "2007": 1.9443,
+            "2008": 2.4094,
+            "2009": 3.6759,
+            "2010": 3.2858,
+            "2011": -3.8604,
+            "2012": 2.818,
+            "2014": 0.132
+          },
+          "expectancy_bps": 18.404838
+        },
+        "conservative": {
+          "trades": 77,
+          "profit_factor": 1.453911,
+          "net_return_pct": 11.162379,
+          "max_drawdown_pct": 4.489946,
+          "positive_year_ratio": 0.9,
+          "year_returns_pct": {
+            "2004": 0.1812,
+            "2005": 0.6453,
+            "2006": 2.1937,
+            "2007": 1.6949,
+            "2008": 2.2008,
+            "2009": 2.8737,
+            "2010": 2.865,
+            "2011": -4.4899,
+            "2012": 2.6088,
+            "2014": 0.091
+          },
+          "expectancy_bps": 14.309698
+        },
+        "stress": {
+          "trades": 77,
+          "profit_factor": 1.305661,
+          "net_return_pct": 7.715612,
+          "max_drawdown_pct": 5.115649,
+          "positive_year_ratio": 0.9,
+          "year_returns_pct": {
+            "2004": 0.0993,
+            "2005": 0.4396,
+            "2006": 1.8603,
+            "2007": 1.446,
+            "2008": 1.9926,
+            "2009": 2.0773,
+            "2010": 2.4457,
+            "2011": -5.1156,
+            "2012": 2.3999,
+            "2014": 0.0501
+          },
+          "expectancy_bps": 10.214558
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-28c7d36c6d51",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 2,
+        "rsi_extreme": 10,
+        "stop_atr": 2.0,
+        "hold_sessions": 1
+      },
+      "metrics": {
+        "base": {
+          "trades": 128,
+          "profit_factor": 1.587942,
+          "net_return_pct": 26.626584,
+          "max_drawdown_pct": 6.29033,
+          "positive_year_ratio": 0.818182,
+          "year_returns_pct": {
+            "2004": 0.1027,
+            "2005": 2.6323,
+            "2006": 5.049,
+            "2007": -0.1837,
+            "2008": -1.8132,
+            "2009": 5.6178,
+            "2010": 1.509,
+            "2011": 5.0464,
+            "2012": 3.7757,
+            "2014": 0.3379,
+            "2015": 2.0857
+          },
+          "expectancy_bps": 19.087256
+        },
+        "conservative": {
+          "trades": 128,
+          "profit_factor": 1.438375,
+          "net_return_pct": 20.169985,
+          "max_drawdown_pct": 6.866446,
+          "positive_year_ratio": 0.727273,
+          "year_returns_pct": {
+            "2004": -0.102,
+            "2005": 2.2139,
+            "2006": 4.536,
+            "2007": -0.6325,
+            "2008": -2.1753,
+            "2009": 4.3302,
+            "2010": 0.9291,
+            "2011": 4.0634,
+            "2012": 3.3531,
+            "2014": 0.2148,
+            "2015": 2.0447
+          },
+          "expectancy_bps": 14.992116
+        },
+        "stress": {
+          "trades": 128,
+          "profit_factor": 1.302882,
+          "net_return_pct": 14.040161,
+          "max_drawdown_pct": 7.55335,
+          "positive_year_ratio": 0.727273,
+          "year_returns_pct": {
+            "2004": -0.3065,
+            "2005": 1.797,
+            "2006": 4.0254,
+            "2007": -1.0795,
+            "2008": -2.5362,
+            "2009": 3.0578,
+            "2010": 0.3524,
+            "2011": 3.0893,
+            "2012": 2.932,
+            "2014": 0.0918,
+            "2015": 2.0038
+          },
+          "expectancy_bps": 10.896976
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 3,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-ebeb1309799e",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 3,
+        "rsi_extreme": 15,
+        "stop_atr": 1.5,
+        "hold_sessions": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 57,
+          "profit_factor": 1.554192,
+          "net_return_pct": 15.055687,
+          "max_drawdown_pct": 6.591458,
+          "positive_year_ratio": 0.8,
+          "year_returns_pct": {
+            "2004": 0.2608,
+            "2005": 3.2078,
+            "2006": 1.5413,
+            "2007": 4.7529,
+            "2008": 3.0597,
+            "2009": 1.05,
+            "2010": 0.8083,
+            "2011": -2.585,
+            "2012": 2.606,
+            "2014": -0.3825
+          },
+          "expectancy_bps": 25.689152
+        },
+        "conservative": {
+          "trades": 57,
+          "profit_factor": 1.420724,
+          "net_return_pct": 11.61196,
+          "max_drawdown_pct": 6.943397,
+          "positive_year_ratio": 0.8,
+          "year_returns_pct": {
+            "2004": 0.187,
+            "2005": 2.9419,
+            "2006": 1.1818,
+            "2007": 4.4725,
+            "2008": 2.7833,
+            "2009": 0.3596,
+            "2010": 0.4322,
+            "2011": -3.069,
+            "2012": 2.3945,
+            "2014": -0.4344
+          },
+          "expectancy_bps": 20.345167
+        },
+        "stress": {
+          "trades": 57,
+          "profit_factor": 1.297441,
+          "net_return_pct": 8.269525,
+          "max_drawdown_pct": 7.294204,
+          "positive_year_ratio": 0.7,
+          "year_returns_pct": {
+            "2004": 0.1132,
+            "2005": 2.6765,
+            "2006": 0.8234,
+            "2007": 4.1928,
+            "2008": 2.5075,
+            "2009": -0.3264,
+            "2010": 0.0572,
+            "2011": -3.551,
+            "2012": 2.1833,
+            "2014": -0.4864
+          },
+          "expectancy_bps": 15.001183
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 4,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-9ec849c190f2",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 2,
+        "rsi_extreme": 10,
+        "stop_atr": 1.0,
+        "hold_sessions": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 100,
+          "profit_factor": 1.546011,
+          "net_return_pct": 27.024249,
+          "max_drawdown_pct": 5.8092,
+          "positive_year_ratio": 0.636364,
+          "year_returns_pct": {
+            "2004": -1.8197,
+            "2005": 1.3399,
+            "2006": 7.31,
+            "2007": 5.4974,
+            "2008": -3.7817,
+            "2009": 10.8381,
+            "2010": -0.3327,
+            "2011": 2.7072,
+            "2012": 2.1113,
+            "2014": -0.1484,
+            "2015": 1.3144
+          },
+          "expectancy_bps": 24.968523
+        },
+        "conservative": {
+          "trades": 100,
+          "profit_factor": 1.414468,
+          "net_return_pct": 20.564058,
+          "max_drawdown_pct": 6.219301,
+          "positive_year_ratio": 0.636364,
+          "year_returns_pct": {
+            "2004": -2.0348,
+            "2005": 0.8243,
+            "2006": 6.7441,
+            "2007": 4.9772,
+            "2008": -4.1605,
+            "2009": 9.5973,
+            "2010": -0.8892,
+            "2011": 1.8815,
+            "2012": 1.7004,
+            "2014": -0.2521,
+            "2015": 1.2405
+          },
+          "expectancy_bps": 19.734437
+        },
+        "stress": {
+          "trades": 100,
+          "profit_factor": 1.292585,
+          "net_return_pct": 14.429237,
+          "max_drawdown_pct": 6.627822,
+          "positive_year_ratio": 0.636364,
+          "year_returns_pct": {
+            "2004": -2.2496,
+            "2005": 0.3111,
+            "2006": 6.1807,
+            "2007": 4.4594,
+            "2008": -4.538,
+            "2009": 8.3698,
+            "2010": -1.4428,
+            "2011": 1.0621,
+            "2012": 1.291,
+            "2014": -0.3557,
+            "2015": 1.1667
+          },
+          "expectancy_bps": 14.500351
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 3,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-cbc61352d233",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 200,
+        "rsi_period": 3,
+        "rsi_extreme": 10,
+        "stop_atr": 1.5,
+        "hold_sessions": 1
+      },
+      "metrics": {
+        "base": {
+          "trades": 76,
+          "profit_factor": 1.612524,
+          "net_return_pct": 12.751059,
+          "max_drawdown_pct": 7.145955,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.9154,
+            "2005": -0.6994,
+            "2006": -6.4581,
+            "2007": 2.7853,
+            "2008": 4.7453,
+            "2009": 4.4813,
+            "2010": 5.9948,
+            "2011": 0.343,
+            "2012": 0.5377
+          },
+          "expectancy_bps": 16.381035
+        },
+        "conservative": {
+          "trades": 76,
+          "profit_factor": 1.428386,
+          "net_return_pct": 9.30042,
+          "max_drawdown_pct": 7.646223,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.8744,
+            "2005": -1.065,
+            "2006": -6.652,
+            "2007": 2.4502,
+            "2008": 4.4474,
+            "2009": 4.0134,
+            "2010": 5.3481,
+            "2011": -0.4348,
+            "2012": 0.4968
+          },
+          "expectancy_bps": 12.285894
+        },
+        "stress": {
+          "trades": 76,
+          "profit_factor": 1.266333,
+          "net_return_pct": 5.954038,
+          "max_drawdown_pct": 8.177343,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.8335,
+            "2005": -1.4295,
+            "2006": -6.8457,
+            "2007": 2.1161,
+            "2008": 4.1502,
+            "2009": 3.5475,
+            "2010": 4.705,
+            "2011": -1.2069,
+            "2012": 0.4558
+          },
+          "expectancy_bps": 8.190754
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 3,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-b0c8ebc8d1d4",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 3,
+        "rsi_extreme": 15,
+        "stop_atr": 1.0,
+        "hold_sessions": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 58,
+          "profit_factor": 1.462893,
+          "net_return_pct": 12.397012,
+          "max_drawdown_pct": 4.501726,
+          "positive_year_ratio": 0.7,
+          "year_returns_pct": {
+            "2004": 0.2608,
+            "2005": 3.2801,
+            "2006": 1.5413,
+            "2007": 4.7529,
+            "2008": -0.3928,
+            "2009": 2.0634,
+            "2010": 0.5653,
+            "2011": -2.348,
+            "2012": 2.606,
+            "2014": -0.3825
+          },
+          "expectancy_bps": 21.044763
+        },
+        "conservative": {
+          "trades": 58,
+          "profit_factor": 1.33141,
+          "net_return_pct": 9.011122,
+          "max_drawdown_pct": 4.849894,
+          "positive_year_ratio": 0.7,
+          "year_returns_pct": {
+            "2004": 0.187,
+            "2005": 3.0141,
+            "2006": 1.1818,
+            "2007": 4.4725,
+            "2008": -0.6507,
+            "2009": 1.3779,
+            "2010": 0.1899,
+            "2011": -2.8729,
+            "2012": 2.3945,
+            "2014": -0.4344
+          },
+          "expectancy_bps": 15.760074
+        },
+        "stress": {
+          "trades": 58,
+          "profit_factor": 1.210697,
+          "net_return_pct": 5.725494,
+          "max_drawdown_pct": 5.196979,
+          "positive_year_ratio": 0.6,
+          "year_returns_pct": {
+            "2004": 0.1132,
+            "2005": 2.7486,
+            "2006": 0.8234,
+            "2007": 4.1928,
+            "2008": -0.9081,
+            "2009": 0.6968,
+            "2010": -0.1843,
+            "2011": -3.3953,
+            "2012": 2.1833,
+            "2014": -0.4864
+          },
+          "expectancy_bps": 10.475384
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-825197d39152",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 2,
+        "rsi_extreme": 5,
+        "stop_atr": 1.5,
+        "hold_sessions": 1
+      },
+      "metrics": {
+        "base": {
+          "trades": 57,
+          "profit_factor": 1.498441,
+          "net_return_pct": 8.18566,
+          "max_drawdown_pct": 3.805787,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.2632,
+            "2005": 1.4432,
+            "2006": -1.0433,
+            "2007": 1.6464,
+            "2008": -0.4371,
+            "2009": 2.1737,
+            "2010": 2.471,
+            "2011": 0.0857,
+            "2012": 1.358
+          },
+          "expectancy_bps": 14.287456
+        },
+        "conservative": {
+          "trades": 57,
+          "profit_factor": 1.333638,
+          "net_return_pct": 5.692385,
+          "max_drawdown_pct": 4.122038,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.1812,
+            "2005": 1.3607,
+            "2006": -1.1652,
+            "2007": 1.3976,
+            "2008": -0.6004,
+            "2009": 1.5487,
+            "2010": 2.095,
+            "2011": -0.5273,
+            "2012": 1.3171
+          },
+          "expectancy_bps": 10.192315
+        },
+        "stress": {
+          "trades": 57,
+          "profit_factor": 1.187427,
+          "net_return_pct": 3.255585,
+          "max_drawdown_pct": 4.437379,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.0993,
+            "2005": 1.2783,
+            "2006": -1.2871,
+            "2007": 1.1492,
+            "2008": -0.7634,
+            "2009": 0.9273,
+            "2010": 1.7202,
+            "2011": -1.1368,
+            "2012": 1.2761
+          },
+          "expectancy_bps": 6.097175
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-fa67d3578f9f",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 200,
+        "rsi_period": 3,
+        "rsi_extreme": 10,
+        "stop_atr": 2.0,
+        "hold_sessions": 1
+      },
+      "metrics": {
+        "base": {
+          "trades": 76,
+          "profit_factor": 1.454652,
+          "net_return_pct": 10.152774,
+          "max_drawdown_pct": 8.613368,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.9154,
+            "2005": -0.6994,
+            "2006": -7.9363,
+            "2007": 2.7853,
+            "2008": 4.7453,
+            "2009": 4.4813,
+            "2010": 5.9948,
+            "2011": -0.3953,
+            "2012": 0.5377
+          },
+          "expectancy_bps": 13.478592
+        },
+        "conservative": {
+          "trades": 76,
+          "profit_factor": 1.297115,
+          "net_return_pct": 6.780576,
+          "max_drawdown_pct": 9.106356,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.8744,
+            "2005": -1.065,
+            "2006": -8.1279,
+            "2007": 2.4502,
+            "2008": 4.4474,
+            "2009": 4.0134,
+            "2010": 5.3481,
+            "2011": -1.1677,
+            "2012": 0.4968
+          },
+          "expectancy_bps": 9.383451
+        },
+        "stress": {
+          "trades": 76,
+          "profit_factor": 1.157127,
+          "net_return_pct": 3.510296,
+          "max_drawdown_pct": 9.629702,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.8335,
+            "2005": -1.4295,
+            "2006": -8.3191,
+            "2007": 2.1161,
+            "2008": 4.1502,
+            "2009": 3.5475,
+            "2010": 4.705,
+            "2011": -1.9344,
+            "2012": 0.4558
+          },
+          "expectancy_bps": 5.288311
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-eb15662f988c",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 2,
+        "rsi_extreme": 5,
+        "stop_atr": 2.0,
+        "hold_sessions": 1
+      },
+      "metrics": {
+        "base": {
+          "trades": 57,
+          "profit_factor": 1.442598,
+          "net_return_pct": 7.488367,
+          "max_drawdown_pct": 3.876519,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.2632,
+            "2005": 1.4432,
+            "2006": -1.0433,
+            "2007": 1.6464,
+            "2008": -0.5104,
+            "2009": 2.1737,
+            "2010": 2.471,
+            "2011": -0.4862,
+            "2012": 1.358
+          },
+          "expectancy_bps": 13.17787
+        },
+        "conservative": {
+          "trades": 57,
+          "profit_factor": 1.286896,
+          "net_return_pct": 5.010877,
+          "max_drawdown_pct": 4.192568,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.1812,
+            "2005": 1.3607,
+            "2006": -1.1652,
+            "2007": 1.3976,
+            "2008": -0.6735,
+            "2009": 1.5487,
+            "2010": 2.095,
+            "2011": -1.0959,
+            "2012": 1.3171
+          },
+          "expectancy_bps": 9.08273
+        },
+        "stress": {
+          "trades": 57,
+          "profit_factor": 1.148261,
+          "net_return_pct": 2.589512,
+          "max_drawdown_pct": 4.507707,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.0993,
+            "2005": 1.2783,
+            "2006": -1.2871,
+            "2007": 1.1492,
+            "2008": -0.8364,
+            "2009": 0.9273,
+            "2010": 1.7202,
+            "2011": -1.7022,
+            "2012": 1.2761
+          },
+          "expectancy_bps": 4.98759
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-4cfa0fe9d6c2",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 200,
+        "rsi_period": 2,
+        "rsi_extreme": 5,
+        "stop_atr": 1.0,
+        "hold_sessions": 3
+      },
+      "metrics": {
+        "base": {
+          "trades": 65,
+          "profit_factor": 1.362341,
+          "net_return_pct": 14.422397,
+          "max_drawdown_pct": 7.069172,
+          "positive_year_ratio": 0.555556,
+          "year_returns_pct": {
+            "2004": -0.4627,
+            "2005": 1.4785,
+            "2006": 0.9959,
+            "2007": -1.9169,
+            "2008": 13.5625,
+            "2009": -3.2841,
+            "2010": 7.2982,
+            "2011": -7.0692,
+            "2012": 4.4162
+          },
+          "expectancy_bps": 22.329666
+        },
+        "conservative": {
+          "trades": 65,
+          "profit_factor": 1.247769,
+          "net_return_pct": 9.769745,
+          "max_drawdown_pct": 7.989592,
+          "positive_year_ratio": 0.555556,
+          "year_returns_pct": {
+            "2004": -0.5474,
+            "2005": 1.1088,
+            "2006": 0.698,
+            "2007": -2.3304,
+            "2008": 12.9326,
+            "2009": -3.821,
+            "2010": 6.5962,
+            "2011": -7.9896,
+            "2012": 4.1883
+          },
+          "expectancy_bps": 15.926307
+        },
+        "stress": {
+          "trades": 65,
+          "profit_factor": 1.142174,
+          "net_return_pct": 5.303396,
+          "max_drawdown_pct": 8.901443,
+          "positive_year_ratio": 0.555556,
+          "year_returns_pct": {
+            "2004": -0.6322,
+            "2005": 0.7402,
+            "2006": 0.4008,
+            "2007": -2.7425,
+            "2008": 12.3059,
+            "2009": -4.3553,
+            "2010": 5.8984,
+            "2011": -8.9014,
+            "2012": 3.9607
+          },
+          "expectancy_bps": 9.522948
+        }
+      },
+      "passes_point_gate": false,
+      "passing_orthogonal_neighbours": 1,
+      "stable": false
+    },
+    {
+      "candidate_id": "v10-a9e9a424559c",
+      "parameters": {
+        "side": "short",
+        "trend_ema": 100,
+        "rsi_period": 2,
+        "rsi_extreme": 15,
+        "stop_atr": 1.5,
+        "hold_sessions": 1
+      },
+      "metrics": {
+        "base": {
+          "trades": 119,
+          "profit_factor": 1.464953,
+          "net_return_pct": 15.083688,
+          "max_drawdown_pct": 8.476578,
+          "positive_year_ratio": 0.454545,
+          "year_returns_pct": {
+            "2004": -3.4206,
+            "2005": -1.215,
+            "2006": -3.3158,
+            "2007": -0.2789,
+            "2008": 5.2874,
+            "2009": -1.9834,
+            "2010": -1.1252,
+            "2011": 2.8799,
+            "2012": 0.1702,
+            "2013": 15.8603,
+            "2014": 2.6907
+          },
+          "expectancy_bps": 12.193747
+        },
+        "conservative": {
+          "trades": 119,
+          "profit_factor": 1.28818,
+          "net_return_pct": 9.614877,
+          "max_drawdown_pct": 9.375198,
+          "positive_year_ratio": 0.363636,
+          "year_returns_pct": {
+            "2004": -3.7774,
+            "2005": -1.4983,
+            "2006": -3.594,
+            "2007": -0.3607,
+            "2008": 4.9022,
+            "2009": -2.1046,
+            "2010": -1.2067,
+            "2011": 2.7969,
+            "2012": -0.972,
+            "2013": 14.5459,
+            "2014": 1.7706
+          },
+          "expectancy_bps": 8.098607
+        },
+        "stress": {
+          "trades": 119,
+          "profit_factor": 1.132907,
+          "net_return_pct": 4.403865,
+          "max_drawdown_pct": 10.265358,
+          "positive_year_ratio": 0.363636,
+          "year_returns_pct": {
+            "2004": -4.133,
+            "2005": -1.7809,
+            "2006": -3.8715,
+            "2007": -0.4425,
+            "2008": 4.5182,
+            "2009": -2.2257,
+            "2010": -1.2881,
+            "2011": 2.7138,
+            "2012": -2.1017,
+            "2013": 13.246,
+            "2014": 0.8583
+          },
+          "expectancy_bps": 4.003466
+        }
+      },
+      "passes_point_gate": false,
+      "passing_orthogonal_neighbours": 0,
+      "stable": false
+    }
+  ],
+  "stable_candidates": [
+    {
+      "candidate_id": "v10-825197d39152",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 2,
+        "rsi_extreme": 5,
+        "stop_atr": 1.5,
+        "hold_sessions": 1
+      },
+      "metrics": {
+        "base": {
+          "trades": 57,
+          "profit_factor": 1.498441,
+          "net_return_pct": 8.18566,
+          "max_drawdown_pct": 3.805787,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.2632,
+            "2005": 1.4432,
+            "2006": -1.0433,
+            "2007": 1.6464,
+            "2008": -0.4371,
+            "2009": 2.1737,
+            "2010": 2.471,
+            "2011": 0.0857,
+            "2012": 1.358
+          },
+          "expectancy_bps": 14.287456
+        },
+        "conservative": {
+          "trades": 57,
+          "profit_factor": 1.333638,
+          "net_return_pct": 5.692385,
+          "max_drawdown_pct": 4.122038,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.1812,
+            "2005": 1.3607,
+            "2006": -1.1652,
+            "2007": 1.3976,
+            "2008": -0.6004,
+            "2009": 1.5487,
+            "2010": 2.095,
+            "2011": -0.5273,
+            "2012": 1.3171
+          },
+          "expectancy_bps": 10.192315
+        },
+        "stress": {
+          "trades": 57,
+          "profit_factor": 1.187427,
+          "net_return_pct": 3.255585,
+          "max_drawdown_pct": 4.437379,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.0993,
+            "2005": 1.2783,
+            "2006": -1.2871,
+            "2007": 1.1492,
+            "2008": -0.7634,
+            "2009": 0.9273,
+            "2010": 1.7202,
+            "2011": -1.1368,
+            "2012": 1.2761
+          },
+          "expectancy_bps": 6.097175
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-eb15662f988c",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 2,
+        "rsi_extreme": 5,
+        "stop_atr": 2.0,
+        "hold_sessions": 1
+      },
+      "metrics": {
+        "base": {
+          "trades": 57,
+          "profit_factor": 1.442598,
+          "net_return_pct": 7.488367,
+          "max_drawdown_pct": 3.876519,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.2632,
+            "2005": 1.4432,
+            "2006": -1.0433,
+            "2007": 1.6464,
+            "2008": -0.5104,
+            "2009": 2.1737,
+            "2010": 2.471,
+            "2011": -0.4862,
+            "2012": 1.358
+          },
+          "expectancy_bps": 13.17787
+        },
+        "conservative": {
+          "trades": 57,
+          "profit_factor": 1.286896,
+          "net_return_pct": 5.010877,
+          "max_drawdown_pct": 4.192568,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.1812,
+            "2005": 1.3607,
+            "2006": -1.1652,
+            "2007": 1.3976,
+            "2008": -0.6735,
+            "2009": 1.5487,
+            "2010": 2.095,
+            "2011": -1.0959,
+            "2012": 1.3171
+          },
+          "expectancy_bps": 9.08273
+        },
+        "stress": {
+          "trades": 57,
+          "profit_factor": 1.148261,
+          "net_return_pct": 2.589512,
+          "max_drawdown_pct": 4.507707,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.0993,
+            "2005": 1.2783,
+            "2006": -1.2871,
+            "2007": 1.1492,
+            "2008": -0.8364,
+            "2009": 0.9273,
+            "2010": 1.7202,
+            "2011": -1.7022,
+            "2012": 1.2761
+          },
+          "expectancy_bps": 4.98759
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-7ed3f4b0b1d5",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 2,
+        "rsi_extreme": 10,
+        "stop_atr": 1.0,
+        "hold_sessions": 1
+      },
+      "metrics": {
+        "base": {
+          "trades": 128,
+          "profit_factor": 1.363812,
+          "net_return_pct": 17.24308,
+          "max_drawdown_pct": 9.737941,
+          "positive_year_ratio": 0.818182,
+          "year_returns_pct": {
+            "2004": -0.7813,
+            "2005": 0.6854,
+            "2006": 5.049,
+            "2007": 2.2577,
+            "2008": -4.5725,
+            "2009": 2.5335,
+            "2010": 1.3666,
+            "2011": 4.152,
+            "2012": 3.2542,
+            "2014": 0.3379,
+            "2015": 2.0857
+          },
+          "expectancy_bps": 13.008876
+        },
+        "conservative": {
+          "trades": 128,
+          "profit_factor": 1.237343,
+          "net_return_pct": 11.261466,
+          "max_drawdown_pct": 10.661344,
+          "positive_year_ratio": 0.818182,
+          "year_returns_pct": {
+            "2004": -0.9846,
+            "2005": 0.2741,
+            "2006": 4.536,
+            "2007": 1.7989,
+            "2008": -4.9255,
+            "2009": 1.2822,
+            "2010": 0.7875,
+            "2011": 3.1771,
+            "2012": 2.8335,
+            "2014": 0.2148,
+            "2015": 2.0447
+          },
+          "expectancy_bps": 8.913736
+        },
+        "stress": {
+          "trades": 128,
+          "profit_factor": 1.122304,
+          "net_return_pct": 5.582765,
+          "max_drawdown_pct": 11.575675,
+          "positive_year_ratio": 0.727273,
+          "year_returns_pct": {
+            "2004": -1.1876,
+            "2005": -0.1357,
+            "2006": 4.0254,
+            "2007": 1.342,
+            "2008": -5.2773,
+            "2009": 0.0457,
+            "2010": 0.2115,
+            "2011": 2.2109,
+            "2012": 2.4143,
+            "2014": 0.0918,
+            "2015": 2.0038
+          },
+          "expectancy_bps": 4.818595
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-9ec849c190f2",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 2,
+        "rsi_extreme": 10,
+        "stop_atr": 1.0,
+        "hold_sessions": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 100,
+          "profit_factor": 1.546011,
+          "net_return_pct": 27.024249,
+          "max_drawdown_pct": 5.8092,
+          "positive_year_ratio": 0.636364,
+          "year_returns_pct": {
+            "2004": -1.8197,
+            "2005": 1.3399,
+            "2006": 7.31,
+            "2007": 5.4974,
+            "2008": -3.7817,
+            "2009": 10.8381,
+            "2010": -0.3327,
+            "2011": 2.7072,
+            "2012": 2.1113,
+            "2014": -0.1484,
+            "2015": 1.3144
+          },
+          "expectancy_bps": 24.968523
+        },
+        "conservative": {
+          "trades": 100,
+          "profit_factor": 1.414468,
+          "net_return_pct": 20.564058,
+          "max_drawdown_pct": 6.219301,
+          "positive_year_ratio": 0.636364,
+          "year_returns_pct": {
+            "2004": -2.0348,
+            "2005": 0.8243,
+            "2006": 6.7441,
+            "2007": 4.9772,
+            "2008": -4.1605,
+            "2009": 9.5973,
+            "2010": -0.8892,
+            "2011": 1.8815,
+            "2012": 1.7004,
+            "2014": -0.2521,
+            "2015": 1.2405
+          },
+          "expectancy_bps": 19.734437
+        },
+        "stress": {
+          "trades": 100,
+          "profit_factor": 1.292585,
+          "net_return_pct": 14.429237,
+          "max_drawdown_pct": 6.627822,
+          "positive_year_ratio": 0.636364,
+          "year_returns_pct": {
+            "2004": -2.2496,
+            "2005": 0.3111,
+            "2006": 6.1807,
+            "2007": 4.4594,
+            "2008": -4.538,
+            "2009": 8.3698,
+            "2010": -1.4428,
+            "2011": 1.0621,
+            "2012": 1.291,
+            "2014": -0.3557,
+            "2015": 1.1667
+          },
+          "expectancy_bps": 14.500351
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 3,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-033e9f24cdcd",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 2,
+        "rsi_extreme": 10,
+        "stop_atr": 1.5,
+        "hold_sessions": 1
+      },
+      "metrics": {
+        "base": {
+          "trades": 128,
+          "profit_factor": 1.664724,
+          "net_return_pct": 29.132422,
+          "max_drawdown_pct": 6.258001,
+          "positive_year_ratio": 0.909091,
+          "year_returns_pct": {
+            "2004": 0.1027,
+            "2005": 2.6323,
+            "2006": 5.049,
+            "2007": 1.0334,
+            "2008": -1.7794,
+            "2009": 5.7659,
+            "2010": 1.509,
+            "2011": 5.6501,
+            "2012": 3.7757,
+            "2014": 0.3379,
+            "2015": 2.0857
+          },
+          "expectancy_bps": 20.584633
+        },
+        "conservative": {
+          "trades": 128,
+          "profit_factor": 1.504236,
+          "net_return_pct": 22.549057,
+          "max_drawdown_pct": 6.834302,
+          "positive_year_ratio": 0.818182,
+          "year_returns_pct": {
+            "2004": -0.102,
+            "2005": 2.2139,
+            "2006": 4.536,
+            "2007": 0.5796,
+            "2008": -2.1416,
+            "2009": 4.4765,
+            "2010": 0.9291,
+            "2011": 4.6618,
+            "2012": 3.3531,
+            "2014": 0.2148,
+            "2015": 2.0447
+          },
+          "expectancy_bps": 16.489492
+        },
+        "stress": {
+          "trades": 128,
+          "profit_factor": 1.359462,
+          "net_return_pct": 16.298834,
+          "max_drawdown_pct": 7.521429,
+          "positive_year_ratio": 0.818182,
+          "year_returns_pct": {
+            "2004": -0.3065,
+            "2005": 1.797,
+            "2006": 4.0254,
+            "2007": 0.1277,
+            "2008": -2.5026,
+            "2009": 3.2023,
+            "2010": 0.3524,
+            "2011": 3.6823,
+            "2012": 2.932,
+            "2014": 0.0918,
+            "2015": 2.0038
+          },
+          "expectancy_bps": 12.394352
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 4,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-a30d8b9acc52",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 2,
+        "rsi_extreme": 10,
+        "stop_atr": 1.5,
+        "hold_sessions": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 96,
+          "profit_factor": 1.59784,
+          "net_return_pct": 28.812036,
+          "max_drawdown_pct": 7.602158,
+          "positive_year_ratio": 0.727273,
+          "year_returns_pct": {
+            "2004": -1.5934,
+            "2005": 2.4681,
+            "2006": 7.31,
+            "2007": 4.2343,
+            "2008": -2.2682,
+            "2009": 7.7092,
+            "2010": 0.7965,
+            "2011": 3.3349,
+            "2012": 2.9641,
+            "2014": -0.1484,
+            "2015": 1.3144
+          },
+          "expectancy_bps": 27.559716
+        },
+        "conservative": {
+          "trades": 96,
+          "profit_factor": 1.46426,
+          "net_return_pct": 22.43426,
+          "max_drawdown_pct": 8.179206,
+          "positive_year_ratio": 0.727273,
+          "year_returns_pct": {
+            "2004": -1.7983,
+            "2005": 1.9474,
+            "2006": 6.7441,
+            "2007": 3.7199,
+            "2008": -2.6232,
+            "2009": 6.49,
+            "2010": 0.2641,
+            "2011": 2.5465,
+            "2012": 2.5921,
+            "2014": -0.2521,
+            "2015": 1.2405
+          },
+          "expectancy_bps": 22.255359
+        },
+        "stress": {
+          "trades": 96,
+          "profit_factor": 1.340116,
+          "net_return_pct": 16.369088,
+          "max_drawdown_pct": 8.752956,
+          "positive_year_ratio": 0.636364,
+          "year_returns_pct": {
+            "2004": -2.003,
+            "2005": 1.429,
+            "2006": 6.1807,
+            "2007": 3.2077,
+            "2008": -2.9771,
+            "2009": 5.2839,
+            "2010": -0.2658,
+            "2011": 1.7636,
+            "2012": 2.2213,
+            "2014": -0.3557,
+            "2015": 1.1667
+          },
+          "expectancy_bps": 16.951001
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 4,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-28c7d36c6d51",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 2,
+        "rsi_extreme": 10,
+        "stop_atr": 2.0,
+        "hold_sessions": 1
+      },
+      "metrics": {
+        "base": {
+          "trades": 128,
+          "profit_factor": 1.587942,
+          "net_return_pct": 26.626584,
+          "max_drawdown_pct": 6.29033,
+          "positive_year_ratio": 0.818182,
+          "year_returns_pct": {
+            "2004": 0.1027,
+            "2005": 2.6323,
+            "2006": 5.049,
+            "2007": -0.1837,
+            "2008": -1.8132,
+            "2009": 5.6178,
+            "2010": 1.509,
+            "2011": 5.0464,
+            "2012": 3.7757,
+            "2014": 0.3379,
+            "2015": 2.0857
+          },
+          "expectancy_bps": 19.087256
+        },
+        "conservative": {
+          "trades": 128,
+          "profit_factor": 1.438375,
+          "net_return_pct": 20.169985,
+          "max_drawdown_pct": 6.866446,
+          "positive_year_ratio": 0.727273,
+          "year_returns_pct": {
+            "2004": -0.102,
+            "2005": 2.2139,
+            "2006": 4.536,
+            "2007": -0.6325,
+            "2008": -2.1753,
+            "2009": 4.3302,
+            "2010": 0.9291,
+            "2011": 4.0634,
+            "2012": 3.3531,
+            "2014": 0.2148,
+            "2015": 2.0447
+          },
+          "expectancy_bps": 14.992116
+        },
+        "stress": {
+          "trades": 128,
+          "profit_factor": 1.302882,
+          "net_return_pct": 14.040161,
+          "max_drawdown_pct": 7.55335,
+          "positive_year_ratio": 0.727273,
+          "year_returns_pct": {
+            "2004": -0.3065,
+            "2005": 1.797,
+            "2006": 4.0254,
+            "2007": -1.0795,
+            "2008": -2.5362,
+            "2009": 3.0578,
+            "2010": 0.3524,
+            "2011": 3.0893,
+            "2012": 2.932,
+            "2014": 0.0918,
+            "2015": 2.0038
+          },
+          "expectancy_bps": 10.896976
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 3,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-7cb7e487c6ac",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 2,
+        "rsi_extreme": 10,
+        "stop_atr": 2.0,
+        "hold_sessions": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 95,
+          "profit_factor": 1.582379,
+          "net_return_pct": 27.968129,
+          "max_drawdown_pct": 5.559805,
+          "positive_year_ratio": 0.727273,
+          "year_returns_pct": {
+            "2004": -1.5934,
+            "2005": 2.4681,
+            "2006": 7.31,
+            "2007": 2.9786,
+            "2008": -0.8794,
+            "2009": 7.4044,
+            "2010": 0.7965,
+            "2011": 2.7444,
+            "2012": 2.9641,
+            "2014": -0.1484,
+            "2015": 1.3144
+          },
+          "expectancy_bps": 27.121587
+        },
+        "conservative": {
+          "trades": 95,
+          "profit_factor": 1.449416,
+          "net_return_pct": 21.680497,
+          "max_drawdown_pct": 5.856361,
+          "positive_year_ratio": 0.727273,
+          "year_returns_pct": {
+            "2004": -1.7983,
+            "2005": 1.9474,
+            "2006": 6.7441,
+            "2007": 2.4699,
+            "2008": -1.1882,
+            "2009": 6.1766,
+            "2010": 0.2641,
+            "2011": 1.9602,
+            "2012": 2.5921,
+            "2014": -0.2521,
+            "2015": 1.2405
+          },
+          "expectancy_bps": 21.804501
+        },
+        "stress": {
+          "trades": 95,
+          "profit_factor": 1.326301,
+          "net_return_pct": 15.698675,
+          "max_drawdown_pct": 6.15214,
+          "positive_year_ratio": 0.636364,
+          "year_returns_pct": {
+            "2004": -2.003,
+            "2005": 1.429,
+            "2006": 6.1807,
+            "2007": 1.9634,
+            "2008": -1.4961,
+            "2009": 4.9622,
+            "2010": -0.2658,
+            "2011": 1.1817,
+            "2012": 2.2213,
+            "2014": -0.3557,
+            "2015": 1.1667
+          },
+          "expectancy_bps": 16.487415
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-fb14b0be4171",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 3,
+        "rsi_extreme": 15,
+        "stop_atr": 1.0,
+        "hold_sessions": 1
+      },
+      "metrics": {
+        "base": {
+          "trades": 77,
+          "profit_factor": 1.320583,
+          "net_return_pct": 8.072858,
+          "max_drawdown_pct": 5.635656,
+          "positive_year_ratio": 0.8,
+          "year_returns_pct": {
+            "2004": 0.2632,
+            "2005": 0.8513,
+            "2006": 2.5281,
+            "2007": 1.9443,
+            "2008": -1.1612,
+            "2009": 1.0157,
+            "2010": 3.2858,
+            "2011": -3.686,
+            "2012": 2.818,
+            "2014": 0.132
+          },
+          "expectancy_bps": 10.55498
+        },
+        "conservative": {
+          "trades": 77,
+          "profit_factor": 1.185354,
+          "net_return_pct": 4.720708,
+          "max_drawdown_pct": 6.100614,
+          "positive_year_ratio": 0.8,
+          "year_returns_pct": {
+            "2004": 0.1812,
+            "2005": 0.6453,
+            "2006": 2.1937,
+            "2007": 1.6949,
+            "2008": -1.3639,
+            "2009": 0.2329,
+            "2010": 2.865,
+            "2011": -4.3167,
+            "2012": 2.6088,
+            "2014": 0.091
+          },
+          "expectancy_bps": 6.45984
+        },
+        "stress": {
+          "trades": 77,
+          "profit_factor": 1.06417,
+          "net_return_pct": 1.471225,
+          "max_drawdown_pct": 6.563472,
+          "positive_year_ratio": 0.7,
+          "year_returns_pct": {
+            "2004": 0.0993,
+            "2005": 0.4396,
+            "2006": 1.8603,
+            "2007": 1.446,
+            "2008": -1.5663,
+            "2009": -0.544,
+            "2010": 2.4457,
+            "2011": -4.9434,
+            "2012": 2.3999,
+            "2014": 0.0501
+          },
+          "expectancy_bps": 2.3647
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-b0c8ebc8d1d4",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 3,
+        "rsi_extreme": 15,
+        "stop_atr": 1.0,
+        "hold_sessions": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 58,
+          "profit_factor": 1.462893,
+          "net_return_pct": 12.397012,
+          "max_drawdown_pct": 4.501726,
+          "positive_year_ratio": 0.7,
+          "year_returns_pct": {
+            "2004": 0.2608,
+            "2005": 3.2801,
+            "2006": 1.5413,
+            "2007": 4.7529,
+            "2008": -0.3928,
+            "2009": 2.0634,
+            "2010": 0.5653,
+            "2011": -2.348,
+            "2012": 2.606,
+            "2014": -0.3825
+          },
+          "expectancy_bps": 21.044763
+        },
+        "conservative": {
+          "trades": 58,
+          "profit_factor": 1.33141,
+          "net_return_pct": 9.011122,
+          "max_drawdown_pct": 4.849894,
+          "positive_year_ratio": 0.7,
+          "year_returns_pct": {
+            "2004": 0.187,
+            "2005": 3.0141,
+            "2006": 1.1818,
+            "2007": 4.4725,
+            "2008": -0.6507,
+            "2009": 1.3779,
+            "2010": 0.1899,
+            "2011": -2.8729,
+            "2012": 2.3945,
+            "2014": -0.4344
+          },
+          "expectancy_bps": 15.760074
+        },
+        "stress": {
+          "trades": 58,
+          "profit_factor": 1.210697,
+          "net_return_pct": 5.725494,
+          "max_drawdown_pct": 5.196979,
+          "positive_year_ratio": 0.6,
+          "year_returns_pct": {
+            "2004": 0.1132,
+            "2005": 2.7486,
+            "2006": 0.8234,
+            "2007": 4.1928,
+            "2008": -0.9081,
+            "2009": 0.6968,
+            "2010": -0.1843,
+            "2011": -3.3953,
+            "2012": 2.1833,
+            "2014": -0.4864
+          },
+          "expectancy_bps": 10.475384
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-507f90bcba76",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 3,
+        "rsi_extreme": 15,
+        "stop_atr": 1.5,
+        "hold_sessions": 1
+      },
+      "metrics": {
+        "base": {
+          "trades": 77,
+          "profit_factor": 1.67917,
+          "net_return_pct": 15.674672,
+          "max_drawdown_pct": 4.040064,
+          "positive_year_ratio": 0.9,
+          "year_returns_pct": {
+            "2004": 0.2632,
+            "2005": 0.8513,
+            "2006": 2.5281,
+            "2007": 1.9443,
+            "2008": 2.4847,
+            "2009": 3.6759,
+            "2010": 3.2858,
+            "2011": -3.1299,
+            "2012": 2.818,
+            "2014": 0.132
+          },
+          "expectancy_bps": 19.45875
+        },
+        "conservative": {
+          "trades": 77,
+          "profit_factor": 1.504197,
+          "net_return_pct": 12.089828,
+          "max_drawdown_pct": 4.290793,
+          "positive_year_ratio": 0.9,
+          "year_returns_pct": {
+            "2004": 0.1812,
+            "2005": 0.6453,
+            "2006": 2.1937,
+            "2007": 1.6949,
+            "2008": 2.276,
+            "2009": 2.8737,
+            "2010": 2.865,
+            "2011": -3.7639,
+            "2012": 2.6088,
+            "2014": 0.091
+          },
+          "expectancy_bps": 15.363609
+        },
+        "stress": {
+          "trades": 77,
+          "profit_factor": 1.348178,
+          "net_return_pct": 8.614683,
+          "max_drawdown_pct": 4.683771,
+          "positive_year_ratio": 0.9,
+          "year_returns_pct": {
+            "2004": 0.0993,
+            "2005": 0.4396,
+            "2006": 1.8603,
+            "2007": 1.446,
+            "2008": 2.0677,
+            "2009": 2.0773,
+            "2010": 2.4457,
+            "2011": -4.3941,
+            "2012": 2.3999,
+            "2014": 0.0501
+          },
+          "expectancy_bps": 11.268469
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 3,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-ebeb1309799e",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 3,
+        "rsi_extreme": 15,
+        "stop_atr": 1.5,
+        "hold_sessions": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 57,
+          "profit_factor": 1.554192,
+          "net_return_pct": 15.055687,
+          "max_drawdown_pct": 6.591458,
+          "positive_year_ratio": 0.8,
+          "year_returns_pct": {
+            "2004": 0.2608,
+            "2005": 3.2078,
+            "2006": 1.5413,
+            "2007": 4.7529,
+            "2008": 3.0597,
+            "2009": 1.05,
+            "2010": 0.8083,
+            "2011": -2.585,
+            "2012": 2.606,
+            "2014": -0.3825
+          },
+          "expectancy_bps": 25.689152
+        },
+        "conservative": {
+          "trades": 57,
+          "profit_factor": 1.420724,
+          "net_return_pct": 11.61196,
+          "max_drawdown_pct": 6.943397,
+          "positive_year_ratio": 0.8,
+          "year_returns_pct": {
+            "2004": 0.187,
+            "2005": 2.9419,
+            "2006": 1.1818,
+            "2007": 4.4725,
+            "2008": 2.7833,
+            "2009": 0.3596,
+            "2010": 0.4322,
+            "2011": -3.069,
+            "2012": 2.3945,
+            "2014": -0.4344
+          },
+          "expectancy_bps": 20.345167
+        },
+        "stress": {
+          "trades": 57,
+          "profit_factor": 1.297441,
+          "net_return_pct": 8.269525,
+          "max_drawdown_pct": 7.294204,
+          "positive_year_ratio": 0.7,
+          "year_returns_pct": {
+            "2004": 0.1132,
+            "2005": 2.6765,
+            "2006": 0.8234,
+            "2007": 4.1928,
+            "2008": 2.5075,
+            "2009": -0.3264,
+            "2010": 0.0572,
+            "2011": -3.551,
+            "2012": 2.1833,
+            "2014": -0.4864
+          },
+          "expectancy_bps": 15.001183
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 4,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-c35a96b4bbd8",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 3,
+        "rsi_extreme": 15,
+        "stop_atr": 2.0,
+        "hold_sessions": 1
+      },
+      "metrics": {
+        "base": {
+          "trades": 77,
+          "profit_factor": 1.619593,
+          "net_return_pct": 14.717961,
+          "max_drawdown_pct": 4.040064,
+          "positive_year_ratio": 0.9,
+          "year_returns_pct": {
+            "2004": 0.2632,
+            "2005": 0.8513,
+            "2006": 2.5281,
+            "2007": 1.9443,
+            "2008": 2.4094,
+            "2009": 3.6759,
+            "2010": 3.2858,
+            "2011": -3.8604,
+            "2012": 2.818,
+            "2014": 0.132
+          },
+          "expectancy_bps": 18.404838
+        },
+        "conservative": {
+          "trades": 77,
+          "profit_factor": 1.453911,
+          "net_return_pct": 11.162379,
+          "max_drawdown_pct": 4.489946,
+          "positive_year_ratio": 0.9,
+          "year_returns_pct": {
+            "2004": 0.1812,
+            "2005": 0.6453,
+            "2006": 2.1937,
+            "2007": 1.6949,
+            "2008": 2.2008,
+            "2009": 2.8737,
+            "2010": 2.865,
+            "2011": -4.4899,
+            "2012": 2.6088,
+            "2014": 0.091
+          },
+          "expectancy_bps": 14.309698
+        },
+        "stress": {
+          "trades": 77,
+          "profit_factor": 1.305661,
+          "net_return_pct": 7.715612,
+          "max_drawdown_pct": 5.115649,
+          "positive_year_ratio": 0.9,
+          "year_returns_pct": {
+            "2004": 0.0993,
+            "2005": 0.4396,
+            "2006": 1.8603,
+            "2007": 1.446,
+            "2008": 1.9926,
+            "2009": 2.0773,
+            "2010": 2.4457,
+            "2011": -5.1156,
+            "2012": 2.3999,
+            "2014": 0.0501
+          },
+          "expectancy_bps": 10.214558
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-cb95aec6ecec",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 100,
+        "rsi_period": 3,
+        "rsi_extreme": 15,
+        "stop_atr": 2.0,
+        "hold_sessions": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 56,
+          "profit_factor": 1.66919,
+          "net_return_pct": 17.015058,
+          "max_drawdown_pct": 5.515289,
+          "positive_year_ratio": 0.8,
+          "year_returns_pct": {
+            "2004": 0.2608,
+            "2005": 3.2078,
+            "2006": 1.5413,
+            "2007": 4.7529,
+            "2008": 3.5136,
+            "2009": 1.7661,
+            "2010": 0.8083,
+            "2011": -2.0545,
+            "2012": 2.606,
+            "2014": -0.3825
+          },
+          "expectancy_bps": 29.052823
+        },
+        "conservative": {
+          "trades": 56,
+          "profit_factor": 1.521093,
+          "net_return_pct": 13.571836,
+          "max_drawdown_pct": 5.811975,
+          "positive_year_ratio": 0.8,
+          "year_returns_pct": {
+            "2004": 0.187,
+            "2005": 2.9419,
+            "2006": 1.1818,
+            "2007": 4.4725,
+            "2008": 3.3006,
+            "2009": 1.0712,
+            "2010": 0.4322,
+            "2011": -2.5518,
+            "2012": 2.3945,
+            "2014": -0.4344
+          },
+          "expectancy_bps": 23.706094
+        },
+        "stress": {
+          "trades": 56,
+          "profit_factor": 1.38533,
+          "net_return_pct": 10.228156,
+          "max_drawdown_pct": 6.107885,
+          "positive_year_ratio": 0.8,
+          "year_returns_pct": {
+            "2004": 0.1132,
+            "2005": 2.6765,
+            "2006": 0.8234,
+            "2007": 4.1928,
+            "2008": 3.088,
+            "2009": 0.3807,
+            "2010": 0.0572,
+            "2011": -3.0468,
+            "2012": 2.1833,
+            "2014": -0.4864
+          },
+          "expectancy_bps": 18.359365
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-3c45cc8da2b1",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 200,
+        "rsi_period": 2,
+        "rsi_extreme": 5,
+        "stop_atr": 1.0,
+        "hold_sessions": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 73,
+          "profit_factor": 1.268435,
+          "net_return_pct": 9.967945,
+          "max_drawdown_pct": 5.801692,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.2608,
+            "2005": 1.5906,
+            "2006": -1.483,
+            "2007": 5.3923,
+            "2008": 2.9136,
+            "2009": -0.5717,
+            "2010": 3.5398,
+            "2011": -4.8429,
+            "2012": 3.1407
+          },
+          "expectancy_bps": 14.077894
+        },
+        "conservative": {
+          "trades": 73,
+          "profit_factor": 1.161348,
+          "net_return_pct": 5.827572,
+          "max_drawdown_pct": 6.076551,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.187,
+            "2005": 1.1897,
+            "2006": -1.75,
+            "2007": 5.0014,
+            "2008": 2.3828,
+            "2009": -1.1382,
+            "2010": 2.972,
+            "2011": -5.7268,
+            "2012": 2.9818
+          },
+          "expectancy_bps": 8.812604
+        },
+        "stress": {
+          "trades": 73,
+          "profit_factor": 1.062369,
+          "net_return_pct": 1.840991,
+          "max_drawdown_pct": 6.620259,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.1132,
+            "2005": 0.7902,
+            "2006": -2.0164,
+            "2007": 4.6117,
+            "2008": 1.8544,
+            "2009": -1.7017,
+            "2010": 2.4071,
+            "2011": -6.603,
+            "2012": 2.8231
+          },
+          "expectancy_bps": 3.547313
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-a4cb2cea0c37",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 200,
+        "rsi_period": 2,
+        "rsi_extreme": 5,
+        "stop_atr": 1.5,
+        "hold_sessions": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 70,
+          "profit_factor": 1.290802,
+          "net_return_pct": 10.50476,
+          "max_drawdown_pct": 6.58036,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.2608,
+            "2005": 2.1294,
+            "2006": -3.0157,
+            "2007": 5.3923,
+            "2008": 4.4906,
+            "2009": -0.2071,
+            "2010": 3.79,
+            "2011": -5.4141,
+            "2012": 3.1407
+          },
+          "expectancy_bps": 15.521959
+        },
+        "conservative": {
+          "trades": 70,
+          "profit_factor": 1.184125,
+          "net_return_pct": 6.463286,
+          "max_drawdown_pct": 6.998147,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.187,
+            "2005": 1.7378,
+            "2006": -3.2792,
+            "2007": 5.0014,
+            "2008": 3.9836,
+            "2009": -0.7866,
+            "2010": 3.221,
+            "2011": -6.2163,
+            "2012": 2.9818
+          },
+          "expectancy_bps": 10.190874
+        },
+        "stress": {
+          "trades": 70,
+          "profit_factor": 1.084589,
+          "net_return_pct": 2.567554,
+          "max_drawdown_pct": 7.414274,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.1132,
+            "2005": 1.3475,
+            "2006": -3.5421,
+            "2007": 4.6117,
+            "2008": 3.4788,
+            "2009": -1.363,
+            "2010": 2.6549,
+            "2011": -7.0122,
+            "2012": 2.8231
+          },
+          "expectancy_bps": 4.85979
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-f9fd731dcafd",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 200,
+        "rsi_period": 2,
+        "rsi_extreme": 10,
+        "stop_atr": 1.0,
+        "hold_sessions": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 148,
+          "profit_factor": 1.304984,
+          "net_return_pct": 23.785735,
+          "max_drawdown_pct": 6.447691,
+          "positive_year_ratio": 0.6,
+          "year_returns_pct": {
+            "2004": -0.9631,
+            "2005": -2.0973,
+            "2006": 5.5632,
+            "2007": 7.1106,
+            "2008": -4.3773,
+            "2009": 10.2432,
+            "2010": 5.9298,
+            "2011": -5.2576,
+            "2012": 5.3385,
+            "2015": 1.3144
+          },
+          "expectancy_bps": 15.465812
+        },
+        "conservative": {
+          "trades": 148,
+          "profit_factor": 1.195239,
+          "net_return_pct": 14.661778,
+          "max_drawdown_pct": 7.866162,
+          "positive_year_ratio": 0.6,
+          "year_returns_pct": {
+            "2004": -1.1283,
+            "2005": -2.8602,
+            "2006": 4.8112,
+            "2007": 6.3073,
+            "2008": -5.1769,
+            "2009": 8.7704,
+            "2010": 4.8392,
+            "2011": -6.4785,
+            "2012": 4.656,
+            "2015": 1.2405
+          },
+          "expectancy_bps": 10.282931
+        },
+        "stress": {
+          "trades": 148,
+          "profit_factor": 1.093184,
+          "net_return_pct": 6.20604,
+          "max_drawdown_pct": 9.401444,
+          "positive_year_ratio": 0.6,
+          "year_returns_pct": {
+            "2004": -1.2934,
+            "2005": -3.6177,
+            "2006": 4.0642,
+            "2007": 5.5096,
+            "2008": -5.9703,
+            "2009": 7.3165,
+            "2010": 3.7593,
+            "2011": -7.6842,
+            "2012": 3.9776,
+            "2015": 1.1667
+          },
+          "expectancy_bps": 5.10005
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 4,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-a7c0033afc66",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 200,
+        "rsi_period": 2,
+        "rsi_extreme": 10,
+        "stop_atr": 1.5,
+        "hold_sessions": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 142,
+          "profit_factor": 1.293325,
+          "net_return_pct": 22.681407,
+          "max_drawdown_pct": 6.993023,
+          "positive_year_ratio": 0.6,
+          "year_returns_pct": {
+            "2004": -0.7348,
+            "2005": -0.4824,
+            "2006": 2.8279,
+            "2007": 5.221,
+            "2008": -0.0467,
+            "2009": 6.8546,
+            "2010": 7.13,
+            "2011": -6.0561,
+            "2012": 5.3967,
+            "2015": 1.3144
+          },
+          "expectancy_bps": 15.653304
+        },
+        "conservative": {
+          "trades": 142,
+          "profit_factor": 1.188415,
+          "net_return_pct": 13.879325,
+          "max_drawdown_pct": 8.295036,
+          "positive_year_ratio": 0.6,
+          "year_returns_pct": {
+            "2004": -0.8896,
+            "2005": -1.2462,
+            "2006": 2.0943,
+            "2007": 4.4311,
+            "2008": -0.8322,
+            "2009": 5.4136,
+            "2010": 6.0591,
+            "2011": -7.1911,
+            "2012": 4.7567,
+            "2015": 1.2405
+          },
+          "expectancy_bps": 10.401325
+        },
+        "stress": {
+          "trades": 142,
+          "profit_factor": 1.090063,
+          "net_return_pct": 5.704588,
+          "max_drawdown_pct": 9.722684,
+          "positive_year_ratio": 0.6,
+          "year_returns_pct": {
+            "2004": -1.0443,
+            "2005": -2.0047,
+            "2006": 1.3655,
+            "2007": 3.6467,
+            "2008": -1.6119,
+            "2009": 3.9913,
+            "2010": 4.9984,
+            "2011": -8.313,
+            "2012": 4.1202,
+            "2015": 1.1667
+          },
+          "expectancy_bps": 5.149346
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 4,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-dc8ca5c94be8",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 200,
+        "rsi_period": 3,
+        "rsi_extreme": 10,
+        "stop_atr": 1.0,
+        "hold_sessions": 1
+      },
+      "metrics": {
+        "base": {
+          "trades": 76,
+          "profit_factor": 1.827764,
+          "net_return_pct": 15.606166,
+          "max_drawdown_pct": 5.841931,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.9154,
+            "2005": -0.8714,
+            "2006": -4.9798,
+            "2007": 2.7853,
+            "2008": 4.7453,
+            "2009": 4.4813,
+            "2010": 5.9948,
+            "2011": 1.459,
+            "2012": 0.5377
+          },
+          "expectancy_bps": 19.530378
+        },
+        "conservative": {
+          "trades": 76,
+          "profit_factor": 1.604589,
+          "net_return_pct": 12.069349,
+          "max_drawdown_pct": 6.348667,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.8744,
+            "2005": -1.2365,
+            "2006": -5.1762,
+            "2007": 2.4502,
+            "2008": 4.4474,
+            "2009": 4.0134,
+            "2010": 5.3481,
+            "2011": 0.673,
+            "2012": 0.4968
+          },
+          "expectancy_bps": 15.435238
+        },
+        "stress": {
+          "trades": 76,
+          "profit_factor": 1.410807,
+          "net_return_pct": 8.639355,
+          "max_drawdown_pct": 6.886693,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.8335,
+            "2005": -1.6004,
+            "2006": -5.3723,
+            "2007": 2.1161,
+            "2008": 4.1502,
+            "2009": 3.5475,
+            "2010": 4.705,
+            "2011": -0.1072,
+            "2012": 0.4558
+          },
+          "expectancy_bps": 11.340097
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-8a7213e07e69",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 200,
+        "rsi_period": 3,
+        "rsi_extreme": 10,
+        "stop_atr": 1.0,
+        "hold_sessions": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 58,
+          "profit_factor": 1.990609,
+          "net_return_pct": 23.15524,
+          "max_drawdown_pct": 4.524085,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.1875,
+            "2005": 1.5906,
+            "2006": -1.0376,
+            "2007": 6.0324,
+            "2008": 2.4142,
+            "2009": 5.1397,
+            "2010": 6.4385,
+            "2011": -0.0649,
+            "2012": 0.6777
+          },
+          "expectancy_bps": 36.870378
+        },
+        "conservative": {
+          "trades": 58,
+          "profit_factor": 1.807259,
+          "net_return_pct": 19.424737,
+          "max_drawdown_pct": 4.635935,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.1356,
+            "2005": 1.1897,
+            "2006": -1.2543,
+            "2007": 5.6829,
+            "2008": 2.0747,
+            "2009": 4.7066,
+            "2010": 5.8679,
+            "2011": -0.807,
+            "2012": 0.6258
+          },
+          "expectancy_bps": 31.547925
+        },
+        "stress": {
+          "trades": 58,
+          "profit_factor": 1.640336,
+          "net_return_pct": 15.805312,
+          "max_drawdown_pct": 4.747726,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.0837,
+            "2005": 0.7902,
+            "2006": -1.4707,
+            "2007": 5.3344,
+            "2008": 1.736,
+            "2009": 4.2751,
+            "2010": 5.3,
+            "2011": -1.544,
+            "2012": 0.5739
+          },
+          "expectancy_bps": 26.225472
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 3,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-cbc61352d233",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 200,
+        "rsi_period": 3,
+        "rsi_extreme": 10,
+        "stop_atr": 1.5,
+        "hold_sessions": 1
+      },
+      "metrics": {
+        "base": {
+          "trades": 76,
+          "profit_factor": 1.612524,
+          "net_return_pct": 12.751059,
+          "max_drawdown_pct": 7.145955,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.9154,
+            "2005": -0.6994,
+            "2006": -6.4581,
+            "2007": 2.7853,
+            "2008": 4.7453,
+            "2009": 4.4813,
+            "2010": 5.9948,
+            "2011": 0.343,
+            "2012": 0.5377
+          },
+          "expectancy_bps": 16.381035
+        },
+        "conservative": {
+          "trades": 76,
+          "profit_factor": 1.428386,
+          "net_return_pct": 9.30042,
+          "max_drawdown_pct": 7.646223,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.8744,
+            "2005": -1.065,
+            "2006": -6.652,
+            "2007": 2.4502,
+            "2008": 4.4474,
+            "2009": 4.0134,
+            "2010": 5.3481,
+            "2011": -0.4348,
+            "2012": 0.4968
+          },
+          "expectancy_bps": 12.285894
+        },
+        "stress": {
+          "trades": 76,
+          "profit_factor": 1.266333,
+          "net_return_pct": 5.954038,
+          "max_drawdown_pct": 8.177343,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.8335,
+            "2005": -1.4295,
+            "2006": -6.8457,
+            "2007": 2.1161,
+            "2008": 4.1502,
+            "2009": 3.5475,
+            "2010": 4.705,
+            "2011": -1.2069,
+            "2012": 0.4558
+          },
+          "expectancy_bps": 8.190754
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 3,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-b0e3c5e754bd",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 200,
+        "rsi_period": 3,
+        "rsi_extreme": 10,
+        "stop_atr": 1.5,
+        "hold_sessions": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 57,
+          "profit_factor": 1.809622,
+          "net_return_pct": 20.445713,
+          "max_drawdown_pct": 6.009458,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.1875,
+            "2005": 2.1294,
+            "2006": -2.5773,
+            "2007": 6.0324,
+            "2008": 2.4142,
+            "2009": 5.3931,
+            "2010": 6.4385,
+            "2011": -1.4803,
+            "2012": 0.6777
+          },
+          "expectancy_bps": 33.810585
+        },
+        "conservative": {
+          "trades": 57,
+          "profit_factor": 1.655271,
+          "net_return_pct": 16.856803,
+          "max_drawdown_pct": 6.120196,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.1356,
+            "2005": 1.7378,
+            "2006": -2.7912,
+            "2007": 5.6829,
+            "2008": 2.0747,
+            "2009": 4.9591,
+            "2010": 5.8679,
+            "2011": -2.1724,
+            "2012": 0.6258
+          },
+          "expectancy_bps": 28.485814
+        },
+        "stress": {
+          "trades": 57,
+          "profit_factor": 1.512433,
+          "net_return_pct": 13.372986,
+          "max_drawdown_pct": 6.230873,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.0837,
+            "2005": 1.3475,
+            "2006": -3.0049,
+            "2007": 5.3344,
+            "2008": 1.736,
+            "2009": 4.5267,
+            "2010": 5.3,
+            "2011": -2.8601,
+            "2012": 0.5739
+          },
+          "expectancy_bps": 23.161042
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 5,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-fa67d3578f9f",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 200,
+        "rsi_period": 3,
+        "rsi_extreme": 10,
+        "stop_atr": 2.0,
+        "hold_sessions": 1
+      },
+      "metrics": {
+        "base": {
+          "trades": 76,
+          "profit_factor": 1.454652,
+          "net_return_pct": 10.152774,
+          "max_drawdown_pct": 8.613368,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.9154,
+            "2005": -0.6994,
+            "2006": -7.9363,
+            "2007": 2.7853,
+            "2008": 4.7453,
+            "2009": 4.4813,
+            "2010": 5.9948,
+            "2011": -0.3953,
+            "2012": 0.5377
+          },
+          "expectancy_bps": 13.478592
+        },
+        "conservative": {
+          "trades": 76,
+          "profit_factor": 1.297115,
+          "net_return_pct": 6.780576,
+          "max_drawdown_pct": 9.106356,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.8744,
+            "2005": -1.065,
+            "2006": -8.1279,
+            "2007": 2.4502,
+            "2008": 4.4474,
+            "2009": 4.0134,
+            "2010": 5.3481,
+            "2011": -1.1677,
+            "2012": 0.4968
+          },
+          "expectancy_bps": 9.383451
+        },
+        "stress": {
+          "trades": 76,
+          "profit_factor": 1.157127,
+          "net_return_pct": 3.510296,
+          "max_drawdown_pct": 9.629702,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.8335,
+            "2005": -1.4295,
+            "2006": -8.3191,
+            "2007": 2.1161,
+            "2008": 4.1502,
+            "2009": 3.5475,
+            "2010": 4.705,
+            "2011": -1.9344,
+            "2012": 0.4558
+          },
+          "expectancy_bps": 5.288311
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-9cf85584ead8",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 200,
+        "rsi_period": 3,
+        "rsi_extreme": 10,
+        "stop_atr": 2.0,
+        "hold_sessions": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 57,
+          "profit_factor": 1.597713,
+          "net_return_pct": 16.519428,
+          "max_drawdown_pct": 7.494831,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.1875,
+            "2005": 2.571,
+            "2006": -4.1169,
+            "2007": 6.0324,
+            "2008": 2.4142,
+            "2009": 5.3931,
+            "2010": 6.4385,
+            "2011": -3.5783,
+            "2012": 0.6777
+          },
+          "expectancy_bps": 28.271705
+        },
+        "conservative": {
+          "trades": 57,
+          "profit_factor": 1.467627,
+          "net_return_pct": 13.033117,
+          "max_drawdown_pct": 7.660867,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.1356,
+            "2005": 2.1779,
+            "2006": -4.3281,
+            "2007": 5.6829,
+            "2008": 2.0747,
+            "2009": 4.9591,
+            "2010": 5.8679,
+            "2011": -4.2675,
+            "2012": 0.6258
+          },
+          "expectancy_bps": 22.927721
+        },
+        "stress": {
+          "trades": 57,
+          "profit_factor": 1.346304,
+          "net_return_pct": 9.649321,
+          "max_drawdown_pct": 7.989142,
+          "positive_year_ratio": 0.777778,
+          "year_returns_pct": {
+            "2004": 0.0837,
+            "2005": 1.7861,
+            "2006": -4.539,
+            "2007": 5.3344,
+            "2008": 1.736,
+            "2009": 4.5267,
+            "2010": 5.3,
+            "2011": -4.9521,
+            "2012": 0.5739
+          },
+          "expectancy_bps": 17.583736
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2,
+      "stable": true
+    },
+    {
+      "candidate_id": "v10-643e5520ddbc",
+      "parameters": {
+        "side": "long",
+        "trend_ema": 200,
+        "rsi_period": 3,
+        "rsi_extreme": 15,
+        "stop_atr": 1.5,
+        "hold_sessions": 2
+      },
+      "metrics": {
+        "base": {
+          "trades": 99,
+          "profit_factor": 1.329425,
+          "net_return_pct": 16.951392,
+          "max_drawdown_pct": 11.437945,
+          "positive_year_ratio": 0.888889,
+          "year_returns_pct": {
+            "2004": 0.2608,
+            "2005": 0.2361,
+            "2006": 2.6704,
+            "2007": 7.6192,
+            "2008": 3.5929,
+            "2009": 0.2483,
+            "2010": 6.4949,
+            "2011": -11.4379,
+            "2012": 7.5304
+          },
+          "expectancy_bps": 16.987217
+        },
+        "conservative": {
+          "trades": 99,
+          "profit_factor": 1.218223,
+          "net_return_pct": 10.957973,
+          "max_drawdown_pct": 12.273376,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.187,
+            "2005": -0.2829,
+            "2006": 2.085,
+            "2007": 7.0984,
+            "2008": 2.9828,
+            "2009": -0.6548,
+            "2010": 5.6928,
+            "2011": -12.2734,
+            "2012": 7.0888
+          },
+          "expectancy_bps": 11.664192
+        },
+        "stress": {
+          "trades": 99,
+          "profit_factor": 1.114327,
+          "net_return_pct": 5.268716,
+          "max_drawdown_pct": 13.10134,
+          "positive_year_ratio": 0.666667,
+          "year_returns_pct": {
+            "2004": 0.1132,
+            "2005": -0.7995,
+            "2006": 1.5026,
+            "2007": 6.5798,
+            "2008": 2.376,
+            "2009": -1.5502,
+            "2010": 4.8963,
+            "2011": -13.1013,
+            "2012": 6.6487
+          },
+          "expectancy_bps": 6.341167
+        }
+      },
+      "passes_point_gate": true,
+      "passing_orthogonal_neighbours": 2,
+      "stable": true
+    }
+  ]
+}

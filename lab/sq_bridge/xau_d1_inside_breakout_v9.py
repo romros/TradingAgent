@@ -75,7 +75,10 @@ def simulate(frame: pd.DataFrame, params: dict, costs: dict) -> list[dict]:
     atr_values = frame[atr_col].to_numpy()
     ema_values = frame[f"ema_{params['trend_ema']}"] .to_numpy() if params["trend_ema"] else None
     dates = frame.index
+    last_exit_idx = -1
     for signal_idx in range(1, len(frame) - 1):
+        if signal_idx + 1 <= last_exit_idx:
+            continue
         if not inside[signal_idx] or range_ratio[signal_idx] > params["inside_range_ratio_max"]:
             continue
         atr = atr_values[signal_idx]
@@ -122,6 +125,7 @@ def simulate(frame: pd.DataFrame, params: dict, costs: dict) -> list[dict]:
         for name, cost in costs.items():
             trade[name] = gross - cost["opening_bps"] / 10_000 - cost["annual_funding_pct"] / 100 * elapsed_days / 365.25
         trades.append(trade)
+        last_exit_idx = exit_idx
     return trades
 
 
@@ -170,7 +174,7 @@ def run(root: Path, config: dict, period: str = "train") -> dict:
     for params in parameter_grid(config):
         trades = simulate(frame, params, config["costs"])
         result = {name: metrics(trades, name) for name in config["costs"]}
-        passed = (result["base"]["trades"] >= falsifiers["minimum_train_trades"] and
+        passed = bool(result["base"]["trades"] >= falsifiers["minimum_train_trades"] and
                   result["base"]["profit_factor"] >= falsifiers["minimum_base_profit_factor"] and
                   result["stress"]["profit_factor"] >= falsifiers["minimum_stress_profit_factor"] and
                   result["stress"]["positive_year_ratio"] >= falsifiers["minimum_positive_year_ratio"])
@@ -190,11 +194,12 @@ def run(root: Path, config: dict, period: str = "train") -> dict:
                     key = tuple(altered[field] for field in PARAMETERS)
                     neighbours += key in passing_keys
         row["passing_orthogonal_neighbours"] = neighbours
-        row["stable"] = row["passes_point_gate"] and neighbours >= falsifiers["minimum_passing_orthogonal_neighbours"]
+        row["stable"] = bool(row["passes_point_gate"] and neighbours >= falsifiers["minimum_passing_orthogonal_neighbours"])
     stable = [row["candidate_id"] for row in rows if row["stable"]]
     grid_sha256 = hashlib.sha256(json.dumps(rows, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+    diagnostic_pool = [row for row in rows if row["metrics"]["base"]["trades"] >= falsifiers["minimum_train_trades"]]
     diagnostics = sorted(
-        rows,
+        diagnostic_pool,
         key=lambda row: (row["metrics"]["stress"]["profit_factor"], row["metrics"]["stress"]["expectancy_bps"]),
         reverse=True,
     )[:20]
@@ -206,6 +211,7 @@ def run(root: Path, config: dict, period: str = "train") -> dict:
         "stable_candidate_ids": stable, "holdout_accessed": False,
         "evaluated_grid_sha256": grid_sha256,
         "diagnostic_top_20_by_stress_profit_factor": diagnostics,
+        "stable_candidates": [row for row in rows if row["stable"]],
     }
 
 

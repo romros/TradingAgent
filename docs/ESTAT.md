@@ -104,6 +104,14 @@ trade; 0 liquidacions), però fallen la validació 2025H1: BTC 6 trades, PF 0,73
 `REJECT_CRYPTO_INTRADAY_COMPRESSION_NO_SQCLI`; holdout intacte, sense Builder,
 paper ni live.
 
+**Ledger temporal + crypto capitulació/reclaim v19:** el gate global impedeix
+reutilitzar dades ja vistes com a OOS independent; 2025H2–2026H1 queda reservat
+per una sola cohort. V19 prova 11.664 punts i troba una regió BTC long de 9
+membres. Discovery: 45 trades, PF estrès 1,60 i +0,41 USDC/trade. Walk-forward
+intern agregat: 27 trades, PF 2,05 i +12,43%, però falla mostra (27<30), mínim
+per fold (2<3) i consistència (3/5 folds positius, mínim 4/5). Rebuig terminal
+`REJECT_CRYPTO_CAPITULATION_RECLAIM_INTERNAL_WF`, sense SQCLI ni holdout.
+
 ### Fase: PAPER PROBE — T7 en curs (≥4 setmanes, inici 2026-03-16)
 
 **Setup actiu**: `capitulation_d1` — MSFT (primari), NVDA, NDXUSD (complementari, paper: QQQ proxy)

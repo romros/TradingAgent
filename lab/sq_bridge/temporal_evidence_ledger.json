@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "ledger_id": "alquimia-crypto-performance-periods-v1",
+  "as_of_utc": "2026-08-03T10:30:00Z",
+  "policy": {
+    "unit": "calendar dates, inclusive",
+    "performance_access": "Any inspection of strategy PnL, trades, expectancy, ranking or candidate acceptance consumes that asset-period for future claims of independent validation.",
+    "internal_reuse": "Consumed periods may be reused for development and internal walk-forward only when explicitly labelled non-independent.",
+    "global_holdout": "The common 2025H2-2026H1 block may be opened once for a preregistered final cohort, not separately for each family.",
+    "parity_exception": "Native-feed coverage and price-parity work may inspect prices without consuming performance holdout, provided no strategy returns, signals or candidate ranking are calculated."
+  },
+  "reusable_research_pool": {
+    "BTCUSD": {"from": "2018-03-01", "to": "2025-06-30"},
+    "ETHUSD": {"from": "2021-01-01", "to": "2025-06-30"},
+    "SOLUSD": {"from": "2021-01-01", "to": "2025-06-30"}
+  },
+  "global_holdout": {
+    "assets": ["BTCUSD", "ETHUSD", "SOLUSD"],
+    "from": "2025-07-01",
+    "to": "2026-06-30",
+    "release_authorized": false,
+    "authorized_cohort_id": null,
+    "accessed_for_performance": false
+  },
+  "events": [
+    {"family_id": "btc_multimechanism_v11", "assets": ["BTCUSD"], "stage": "development", "from": "2018-03-01", "to": "2021-12-31", "performance_accessed": true, "artifact": "lab/sq_bridge/evidence/btc_proxy_research_v11_v12_checkpoint.json"},
+    {"family_id": "btc_multimechanism_v11", "assets": ["BTCUSD"], "stage": "validation", "from": "2022-01-01", "to": "2023-06-30", "performance_accessed": true, "artifact": "lab/sq_bridge/evidence/btc_proxy_research_v11_v12_checkpoint.json"},
+    {"family_id": "btc_regime_breakout_v12", "assets": ["BTCUSD"], "stage": "validation", "from": "2023-07-01", "to": "2024-06-30", "performance_accessed": true, "artifact": "lab/sq_bridge/evidence/btc_proxy_research_v11_v12_checkpoint.json"},
+    {"family_id": "btc_session_v13_v14", "assets": ["BTCUSD"], "stage": "development", "from": "2018-03-01", "to": "2024-06-30", "performance_accessed": true, "artifact": "lab/sq_bridge/evidence/btc_session_v13_v14_checkpoint.json"},
+    {"family_id": "crypto_momentum_v15_v17", "assets": ["BTCUSD", "ETHUSD", "SOLUSD"], "stage": "development", "from": "2021-01-01", "to": "2024-06-30", "performance_accessed": true, "artifact": "lab/sq_bridge/evidence/crypto_momentum_v15_v17_checkpoint.json"},
+    {"family_id": "crypto_momentum_v17", "assets": ["BTCUSD", "ETHUSD", "SOLUSD"], "stage": "validation", "from": "2024-07-01", "to": "2024-12-31", "performance_accessed": true, "artifact": "lab/sq_bridge/evidence/crypto_momentum_v15_v17_checkpoint.json"},
+    {"family_id": "crypto_intraday_compression_v18", "assets": ["BTCUSD", "ETHUSD", "SOLUSD"], "stage": "development", "from": "2021-01-01", "to": "2024-12-31", "performance_accessed": true, "artifact": "lab/sq_bridge/evidence/crypto_intraday_compression_v18_checkpoint.json"},
+    {"family_id": "crypto_intraday_compression_v18", "assets": ["BTCUSD", "ETHUSD", "SOLUSD"], "stage": "validation", "from": "2025-01-01", "to": "2025-06-30", "performance_accessed": true, "artifact": "lab/sq_bridge/evidence/crypto_intraday_compression_v18_checkpoint.json"},
+    {"family_id": "crypto_capitulation_reclaim_v19", "assets": ["BTCUSD", "ETHUSD", "SOLUSD"], "stage": "discovery", "from": "2021-01-01", "to": "2022-12-31", "performance_accessed": true, "artifact": "lab/sq_bridge/evidence/crypto_capitulation_reclaim_v19_checkpoint.json"},
+    {"family_id": "crypto_capitulation_reclaim_v19", "assets": ["BTCUSD", "ETHUSD", "SOLUSD"], "stage": "internal_walk_forward_non_independent", "from": "2023-01-01", "to": "2025-06-30", "performance_accessed": true, "artifact": "lab/sq_bridge/evidence/crypto_capitulation_reclaim_v19_checkpoint.json"}
+  ],
+  "artifact_sha256": {
+    "lab/sq_bridge/evidence/btc_proxy_research_v11_v12_checkpoint.json": "c87c04afbab9dfa8d810cbf224c78a545ebdb16c7f8c6fb7550b4e1579cd45dc",
+    "lab/sq_bridge/evidence/btc_session_v13_v14_checkpoint.json": "5acebdef2b05147a2216e5972384c34ad7d6afae6f022a2472bb4a88a3cbe0ab",
+    "lab/sq_bridge/evidence/crypto_momentum_v15_v17_checkpoint.json": "9b587e5b78561840ba5b5553d14fcc4a1f924a04dba36a9c86f1791be99d1b8d",
+    "lab/sq_bridge/evidence/crypto_intraday_compression_v18_checkpoint.json": "68cb381c8dc39c666de9a961b03568caa3e80cd75c91925ece347e16c865df9f",
+    "lab/sq_bridge/evidence/crypto_capitulation_reclaim_v19_checkpoint.json": "5e909e1be8ce9193f4c26ff73bfae4095182a3b6779b878b42fb588d5448b26d"
+  }
+}

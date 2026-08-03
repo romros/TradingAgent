@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "family_id": "crypto_capitulation_reclaim_v19",
+  "hypothesis_id": "ostium-crypto-hourly-capitulation-reclaim-v19",
+  "hypothesis": "A large directional H1 shock whose range is abnormal relative to prior ATR can temporarily exhaust order flow; a prompt close back through a frozen fraction of the shock bar may identify a short-lived reversal.",
+  "markets": ["BTCUSD", "ETHUSD", "SOLUSD"],
+  "research_proxies": ["BTCUSDT", "ETHUSDT", "SOLUSDT"],
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "implementation_origin": "alquimia_native",
+  "legacy_quantitative_inputs": [],
+  "derivation_disclosure": "New price-only mechanism. Existing capitulation_d1 supplies only the qualitative idea that forced directional moves may rebound; none of its thresholds, timeframe, assets or quantitative evidence are reused. V18 code may be reused solely for tested account sizing and cost mechanics.",
+  "temporal_evidence_contract": {
+    "ledger": "lab/sq_bridge/temporal_evidence_ledger.json",
+    "proposal": "lab/sq_bridge/proposal_crypto_capitulation_reclaim_v19.json",
+    "mode": "internal_walk_forward_non_independent",
+    "promotion_authorized": false,
+    "reason": "Crypto performance through 2025H1 has been inspected by earlier families."
+  },
+  "periods": {
+    "discovery_from": "2021-01-01",
+    "discovery_to": "2022-12-31",
+    "internal_folds": [
+      {"id": "2023H1", "from": "2023-01-01", "to": "2023-06-30"},
+      {"id": "2023H2", "from": "2023-07-01", "to": "2023-12-31"},
+      {"id": "2024H1", "from": "2024-01-01", "to": "2024-06-30"},
+      {"id": "2024H2", "from": "2024-07-01", "to": "2024-12-31"},
+      {"id": "2025H1", "from": "2025-01-01", "to": "2025-06-30"}
+    ],
+    "global_holdout_from": "2025-07-01",
+    "global_holdout_to": "2026-06-30"
+  },
+  "data_contract": {
+    "input": "independently checksummed Binance spot M1 aggregated to strict UTC H1",
+    "volume_rules_allowed": false,
+    "shock_information": "completed shock H1 OHLC and ATR14 computed only from bars available at its close",
+    "reclaim_information": "completed closes after the shock; entry at the next complete H1 open",
+    "session_block": "shock hour belongs to fixed 00-07, 08-15 or 16-23 UTC block",
+    "day_group": "weekday or weekend from shock timestamp",
+    "proxy_limitation": "No execution promotion before native Ostium coverage/parity",
+    "lookahead_forbidden": true
+  },
+  "execution_contract": {
+    "shock": "long setup requires shock close/previous close - 1 <= -shock_return and true range >= range_atr times prior ATR14; short is symmetric",
+    "reclaim_level": "shock low plus reclaim_fraction of shock high-low for long; shock high minus the same fraction for short",
+    "trigger": "first completed close through the frozen reclaim level within reclaim_hours; no trigger on the shock bar",
+    "entry": "next complete H1 open after trigger",
+    "stop": "stop_atr times shock-time ATR from entry, gap-adverse",
+    "exit": "stop or close after 2/6/12 H1 bars",
+    "position_policy": "one open position per asset/candidate; later shocks ignored until exit",
+    "sides_separate": true
+  },
+  "cost_model": {
+    "source_checked_utc": "2026-08-03",
+    "opening_fee_bps_per_trade": 5,
+    "oracle_fee_usdc_per_trade": 0.10,
+    "closing_fee_bps": 0,
+    "scenarios": {
+      "base": {"dynamic_spread_and_impact_bps": 1, "annual_rollover_pct": 8},
+      "conservative": {"dynamic_spread_and_impact_bps": 4, "annual_rollover_pct": 20},
+      "stress": {"dynamic_spread_and_impact_bps": 10, "annual_rollover_pct": 40}
+    }
+  },
+  "grid": {
+    "asset": ["BTCUSD", "ETHUSD", "SOLUSD"],
+    "side": ["long", "short"],
+    "session_start_utc": [0, 8, 16],
+    "day_group": ["weekday", "weekend"],
+    "shock_return": [0.01, 0.02, 0.03],
+    "range_atr": [1.5, 2.0, 2.5],
+    "reclaim_hours": [1, 2, 3],
+    "reclaim_fraction": [0.50, 0.75],
+    "stop_atr": [1.0, 2.0],
+    "hold_bars": [2, 6, 12],
+    "points": 11664
+  },
+  "stability": {
+    "categorical_groups": ["asset", "side", "session_start_utc", "day_group"],
+    "orthogonal_axes": ["shock_return", "range_atr", "reclaim_hours", "reclaim_fraction", "stop_atr", "hold_bars"],
+    "minimum_passing_neighbours": 2,
+    "representative": "graph medoid of largest stable component per categorical group without performance metrics"
+  },
+  "pre_registered_discovery_gate": {
+    "minimum_trades": 35,
+    "minimum_stress_profit_factor": 1.10,
+    "minimum_stress_expectancy_bps_on_capital": 5,
+    "minimum_positive_year_ratio": 1.0,
+    "maximum_stress_drawdown_pct_on_capital": 15,
+    "maximum_liquidations": 0,
+    "minimum_net_expectancy_usdc": 0.10
+  },
+  "pre_registered_internal_walk_forward_gate": {
+    "minimum_total_trades": 30,
+    "minimum_trades_per_fold": 3,
+    "minimum_stress_profit_factor": 1.15,
+    "minimum_stress_expectancy_bps_on_capital": 5,
+    "minimum_positive_fold_ratio": 0.80,
+    "maximum_stress_drawdown_pct_on_capital": 12,
+    "maximum_liquidations": 0,
+    "maximum_discovery_walk_forward_expectancy_decay_pct": 50
+  },
+  "small_account": {
+    "capital_usdc": 200,
+    "risk_per_trade_pct": 1.0,
+    "venue_max_leverage": {"BTCUSD": 200, "ETHUSD": 200, "SOLUSD": 150},
+    "liquidation_buffer_over_stop": 1.25,
+    "maximum_margin_pct": 35,
+    "minimum_reserve_pct": 40,
+    "leverage_rule": "Highest venue leverage whose approximate liquidation distance is at least 1.25 times the stop distance; reject if collateral exceeds 35% of capital."
+  },
+  "family_stop_rule": {
+    "stop_after_discovery_if": "zero stable components",
+    "stop_after_internal_walk_forward_if": "zero frozen representatives pass every aggregate gate",
+    "global_holdout_policy": "Survivors enter a final-cohort waitlist; this family cannot open the holdout alone.",
+    "sqcli_policy": "A survivor may be reproduced/retested in SQ on consumed research periods, but SQ results cannot authorize performance promotion."
+  },
+  "global_holdout_release_authorized": false,
+  "paper_or_live_authorized": false
+}

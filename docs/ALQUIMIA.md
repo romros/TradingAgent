@@ -573,6 +573,29 @@ USDC/trade i -2,61%. Decisió terminal:
 `REJECT_CRYPTO_INTRADAY_COMPRESSION_NO_SQCLI`. No es tuneja, no s'executa
 Builder i el holdout 2025H2–2026H1 continua segellat.
 
+### Ledger temporal global i capitulació/reclaim v19 (2026-08-03)
+
+`temporal_evidence_ledger.json` registra qualsevol període on s'han mirat
+trades, PnL o selecció. Per BTC, ETH i SOL tot fins 2025H1 és ja pool de recerca
+reutilitzable, mai més OOS independent. El bloc comú 2025H2–2026H1 queda
+reservat per una sola cohort final. El gate permet inspeccionar preus natius per
+paritat sense consumir holdout només quan no calcula senyals ni rendiments.
+
+V19 preregistra 11.664 combinacions H1 price-only: shock direccional d'1/2/3%,
+rang anormal respecte ATR, reclaim en 1/2/3 hores, blocs UTC, weekday/weekend,
+long/short i BTC/ETH/SOL. No reutilitza thresholds ni evidència quantitativa de
+`capitulation_d1`; només reutilitza el motor tècnic auditat de costos i sizing.
+Discovery 2021–2022 dóna 20 PASS i una regió BTC long de 9 membres. El medoid
+(shock -1%, rang 1,5 ATR, reclaim 50% en 2h, stop 1 ATR, hold 6h, bloc 00 UTC
+laborable) fa 45 trades, PF estrès 1,60, +0,41 USDC/trade, +9,48%, DD 2,87%,
+2/2 anys i 0 liquidacions.
+
+El walk-forward intern 2023–2025H1 és atractiu agregat —27 trades, PF estrès
+2,05, +12,43%, DD 4,22% i 0 liquidacions— però falla els gates congelats: 27<30
+trades, 2023H2 només té 2<3 i només 3/5 folds són positius (mínim 4/5).
+`REJECT_CRYPTO_CAPITULATION_RECLAIM_INTERNAL_WF`: no es relaxen llindars, no
+s'executa SQCLI i el holdout global continua intacte.
+
 ## Pilot anterior
 
 - `TA_SQ_PILOT`, original `NVIDIA` intacte.

@@ -1,0 +1,349 @@
+{
+  "schema_version": 1,
+  "family_id": "crypto_capitulation_reclaim_v19",
+  "period": "internal_walk_forward",
+  "temporal_claim": "internal_non_independent",
+  "source_sha256": {
+    "BTCUSD": "ccc111b7925d29b8cab82195b467add2e9eed71bedb3461e9689fd1b62d2a40a",
+    "ETHUSD": "357a01c213204b7dd4f75d82ef0b82e5dd9e026660f3e2f1ef4093b2475f995a",
+    "SOLUSD": "becabb8469f63c35f6ebbc3d8c7250a06b0337eba5db3911ce968aabc0ba2b08"
+  },
+  "config_sha256": "822137dc1df4e44200fad19e25bc6fe2d02605402f072cc488f81ef4ec465ffe",
+  "discovery_canonical_content_sha256": "6bf0e3324ac1f15e73b5f40204d532a8440ae12c6c31b1ced536b334c04e3988",
+  "results": [
+    {
+      "candidate_id": "v19-418dba42b3e6",
+      "parameters": {
+        "asset": "BTCUSD",
+        "side": "long",
+        "session_start_utc": 0,
+        "day_group": "weekday",
+        "shock_return": 0.01,
+        "range_atr": 1.5,
+        "reclaim_hours": 2,
+        "reclaim_fraction": 0.5,
+        "stop_atr": 1.0,
+        "hold_bars": 6
+      },
+      "folds": [
+        {
+          "fold_id": "2023H1",
+          "from": "2023-01-01",
+          "to": "2023-06-30",
+          "metrics": {
+            "base": {
+              "trades": 4,
+              "profit_factor": 10.98837850774885,
+              "expectancy_bps": 75.77522405271671,
+              "net_return_pct": 3.0413938756364445,
+              "drawdown_pct": 0.2415215254692904,
+              "positive_year_ratio": 1.0,
+              "positive_half_year_ratio": 1.0,
+              "positive_quarter_ratio": 0.5
+            },
+            "conservative": {
+              "trades": 4,
+              "profit_factor": 9.049908347733862,
+              "expectancy_bps": 72.30400220197332,
+              "net_return_pct": 2.899693595317032,
+              "drawdown_pct": 0.26250374918749264,
+              "positive_year_ratio": 1.0,
+              "positive_half_year_ratio": 1.0,
+              "positive_quarter_ratio": 0.5
+            },
+            "stress": {
+              "trades": 4,
+              "profit_factor": 6.61116122735403,
+              "expectancy_bps": 65.57650814756951,
+              "net_return_pct": 2.6254759118871096,
+              "drawdown_pct": 0.3031689072736099,
+              "positive_year_ratio": 1.0,
+              "positive_half_year_ratio": 1.0,
+              "positive_quarter_ratio": 0.5
+            }
+          },
+          "trade_diagnostics": {
+            "trades": 4,
+            "median_duration_hours": 5.0,
+            "maximum_duration_hours": 5.0,
+            "stop_exit_ratio": 0.0,
+            "median_leverage": 81.0,
+            "minimum_leverage": 45,
+            "maximum_leverage": 92,
+            "median_exposure_to_capital": 1.0183369558167712,
+            "maximum_exposure_to_capital": 1.16234477878332,
+            "median_margin_pct": 1.2621557674379078,
+            "maximum_margin_pct": 1.2655078272051745,
+            "liquidations": 0
+          },
+          "positive_stress": true
+        },
+        {
+          "fold_id": "2023H2",
+          "from": "2023-07-01",
+          "to": "2023-12-31",
+          "metrics": {
+            "base": {
+              "trades": 2,
+              "profit_factor": 0.0,
+              "expectancy_bps": -112.24336505364944,
+              "net_return_pct": -2.2322688785375133,
+              "drawdown_pct": 2.2322688785375133,
+              "positive_year_ratio": 0.0,
+              "positive_half_year_ratio": 0.0,
+              "positive_quarter_ratio": 0.0
+            },
+            "conservative": {
+              "trades": 2,
+              "profit_factor": 0.0,
+              "expectancy_bps": -115.97357054179969,
+              "net_return_pct": -2.30602188711041,
+              "drawdown_pct": 2.30602188711041,
+              "positive_year_ratio": 0.0,
+              "positive_half_year_ratio": 0.0,
+              "positive_quarter_ratio": 0.0
+            },
+            "stress": {
+              "trades": 2,
+              "profit_factor": 0.0,
+              "expectancy_bps": -123.37972003743761,
+              "net_return_pct": -2.4523728142163748,
+              "drawdown_pct": 2.4523728142163748,
+              "positive_year_ratio": 0.0,
+              "positive_half_year_ratio": 0.0,
+              "positive_quarter_ratio": 0.0
+            }
+          },
+          "trade_diagnostics": {
+            "trades": 2,
+            "median_duration_hours": 1.0,
+            "maximum_duration_hours": 1.0,
+            "stop_exit_ratio": 1.0,
+            "median_leverage": 95.0,
+            "minimum_leverage": 90,
+            "maximum_leverage": 100,
+            "median_exposure_to_capital": 1.1891403487208232,
+            "maximum_exposure_to_capital": 1.2528210347715718,
+            "median_margin_pct": 1.2516658855358274,
+            "maximum_margin_pct": 1.2528210347715718,
+            "liquidations": 0
+          },
+          "positive_stress": false
+        },
+        {
+          "fold_id": "2024H1",
+          "from": "2024-01-01",
+          "to": "2024-06-30",
+          "metrics": {
+            "base": {
+              "trades": 6,
+              "profit_factor": 9.32090615202109,
+              "expectancy_bps": 154.03057269420148,
+              "net_return_pct": 9.47792623946695,
+              "drawdown_pct": 1.1106764326872298,
+              "positive_year_ratio": 1.0,
+              "positive_half_year_ratio": 1.0,
+              "positive_quarter_ratio": 1.0
+            },
+            "conservative": {
+              "trades": 6,
+              "profit_factor": 8.8767336944413,
+              "expectancy_bps": 150.02630449856522,
+              "net_return_pct": 9.21901345898577,
+              "drawdown_pct": 1.142805967436289,
+              "positive_year_ratio": 1.0,
+              "positive_half_year_ratio": 1.0,
+              "positive_quarter_ratio": 1.0
+            },
+            "stress": {
+              "trades": 6,
+              "profit_factor": 8.075995954245652,
+              "expectancy_bps": 142.24749394940224,
+              "net_return_pct": 8.717436802686418,
+              "drawdown_pct": 1.2061693777316473,
+              "positive_year_ratio": 1.0,
+              "positive_half_year_ratio": 1.0,
+              "positive_quarter_ratio": 1.0
+            }
+          },
+          "trade_diagnostics": {
+            "trades": 6,
+            "median_duration_hours": 5.0,
+            "maximum_duration_hours": 5.0,
+            "stop_exit_ratio": 0.16666666666666666,
+            "median_leverage": 79.5,
+            "minimum_leverage": 62,
+            "maximum_leverage": 146,
+            "median_exposure_to_capital": 0.9993834446822377,
+            "maximum_exposure_to_capital": 1.8264798472203296,
+            "median_margin_pct": 1.2571072577122615,
+            "maximum_margin_pct": 1.2620660712392522,
+            "liquidations": 0
+          },
+          "positive_stress": true
+        },
+        {
+          "fold_id": "2024H2",
+          "from": "2024-07-01",
+          "to": "2024-12-31",
+          "metrics": {
+            "base": {
+              "trades": 8,
+              "profit_factor": 0.5186338718084534,
+              "expectancy_bps": -27.425507989730765,
+              "net_return_pct": -2.2062281066953626,
+              "drawdown_pct": 3.8424849034857322,
+              "positive_year_ratio": 0.0,
+              "positive_half_year_ratio": 0.0,
+              "positive_quarter_ratio": 0.5
+            },
+            "conservative": {
+              "trades": 8,
+              "profit_factor": 0.47815038172130575,
+              "expectancy_bps": -30.665600185163488,
+              "net_return_pct": -2.4595377530066465,
+              "drawdown_pct": 3.97069811805848,
+              "positive_year_ratio": 0.0,
+              "positive_half_year_ratio": 0.0,
+              "positive_quarter_ratio": 0.5
+            },
+            "stress": {
+              "trades": 8,
+              "profit_factor": 0.40607913991619315,
+              "expectancy_bps": -36.981628899273815,
+              "net_return_pct": -2.9517472606479633,
+              "drawdown_pct": 4.221645084203507,
+              "positive_year_ratio": 0.0,
+              "positive_half_year_ratio": 0.0,
+              "positive_quarter_ratio": 0.5
+            }
+          },
+          "trade_diagnostics": {
+            "trades": 8,
+            "median_duration_hours": 4.5,
+            "maximum_duration_hours": 5.0,
+            "stop_exit_ratio": 0.5,
+            "median_leverage": 70.5,
+            "minimum_leverage": 32,
+            "maximum_leverage": 109,
+            "median_exposure_to_capital": 0.8880934882423557,
+            "maximum_exposure_to_capital": 1.3746074274744267,
+            "median_margin_pct": 1.2614300960461615,
+            "maximum_margin_pct": 1.2689362923724916,
+            "liquidations": 0
+          },
+          "positive_stress": false
+        },
+        {
+          "fold_id": "2025H1",
+          "from": "2025-01-01",
+          "to": "2025-06-30",
+          "metrics": {
+            "base": {
+              "trades": 7,
+              "profit_factor": 4.147585090784054,
+              "expectancy_bps": 99.86186159837798,
+              "net_return_pct": 7.069451851185526,
+              "drawdown_pct": 1.1464117313835787,
+              "positive_year_ratio": 1.0,
+              "positive_half_year_ratio": 1.0,
+              "positive_quarter_ratio": 1.0
+            },
+            "conservative": {
+              "trades": 7,
+              "profit_factor": 3.959948110052114,
+              "expectancy_bps": 96.99102634803089,
+              "net_return_pct": 6.856692998884628,
+              "drawdown_pct": 1.269306913785162,
+              "positive_year_ratio": 1.0,
+              "positive_half_year_ratio": 1.0,
+              "positive_quarter_ratio": 1.0
+            },
+            "stress": {
+              "trades": 7,
+              "profit_factor": 3.624137783680072,
+              "expectancy_bps": 91.38739753771195,
+              "net_return_pct": 6.442367253823766,
+              "drawdown_pct": 1.5099476975909187,
+              "positive_year_ratio": 1.0,
+              "positive_half_year_ratio": 1.0,
+              "positive_quarter_ratio": 1.0
+            }
+          },
+          "trade_diagnostics": {
+            "trades": 7,
+            "median_duration_hours": 5.0,
+            "maximum_duration_hours": 5.0,
+            "stop_exit_ratio": 0.2857142857142857,
+            "median_leverage": 59.0,
+            "minimum_leverage": 47,
+            "maximum_leverage": 111,
+            "median_exposure_to_capital": 0.7495472106173239,
+            "maximum_exposure_to_capital": 1.3967872037582467,
+            "median_margin_pct": 1.2583668502326548,
+            "maximum_margin_pct": 1.2704190010463117,
+            "liquidations": 0
+          },
+          "positive_stress": true
+        }
+      ],
+      "aggregate_metrics": {
+        "base": {
+          "trades": 27,
+          "profit_factor": 2.420248381272677,
+          "expectancy_bps": 54.90468776072506,
+          "net_return_pct": 15.481017110932193,
+          "drawdown_pct": 3.842484903485721,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.6,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "conservative": {
+          "trades": 27,
+          "profit_factor": 2.286050293130253,
+          "expectancy_bps": 51.51996583965161,
+          "net_return_pct": 14.437052756267853,
+          "drawdown_pct": 3.97069811805848,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.6,
+          "positive_quarter_ratio": 0.6666666666666666
+        },
+        "stress": {
+          "trades": 27,
+          "profit_factor": 2.0491778422838136,
+          "expectancy_bps": 44.92186325117073,
+          "net_return_pct": 12.427704587487343,
+          "drawdown_pct": 4.221645084203496,
+          "positive_year_ratio": 1.0,
+          "positive_half_year_ratio": 0.6,
+          "positive_quarter_ratio": 0.6666666666666666
+        }
+      },
+      "aggregate_trade_diagnostics": {
+        "trades": 27,
+        "median_duration_hours": 5.0,
+        "maximum_duration_hours": 5.0,
+        "stop_exit_ratio": 0.3333333333333333,
+        "median_leverage": 75.0,
+        "minimum_leverage": 32,
+        "maximum_leverage": 146,
+        "median_exposure_to_capital": 0.9456699728008942,
+        "maximum_exposure_to_capital": 1.8264798472203296,
+        "median_margin_pct": 1.2590722984011748,
+        "maximum_margin_pct": 1.2704190010463117,
+        "liquidations": 0
+      },
+      "positive_fold_ratio": 0.6,
+      "liquidations": 0,
+      "discovery_walk_forward_expectancy_decay_pct": -117.28550435147116,
+      "passes_internal_walk_forward_gate": false
+    }
+  ],
+  "passing_candidate_ids": [],
+  "decision": "REJECT_INTERNAL_WALK_FORWARD",
+  "independent_validation": false,
+  "global_holdout_accessed": false,
+  "sqcli_builder_executed": false,
+  "performance_promotion_authorized": false,
+  "paper_or_live_authorized": false
+}

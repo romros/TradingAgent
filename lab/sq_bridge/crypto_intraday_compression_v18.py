@@ -94,7 +94,9 @@ def simulate(frame: pd.DataFrame, params: dict, costs: dict, account: dict,
         plan = leverage_plan(stop_distance, params["asset"], account)
         if plan is None: continue
         stop = entry * (1 - direction * stop_distance)
-        exit_idx = min(entry_idx + params["hold_bars"] - 1, len(frame) - 1)
+        planned_exit = entry_idx + params["hold_bars"] - 1
+        if planned_exit >= len(frame) or (allowed_end is not None and dates[planned_exit] > allowed_end): continue
+        exit_idx = planned_exit
         exit_price = None; reason = "time"; liquidation = False; invalid = False
         liquidation_price = entry * (1 - direction * plan["liquidation_distance"])
         for at in range(entry_idx, exit_idx + 1):

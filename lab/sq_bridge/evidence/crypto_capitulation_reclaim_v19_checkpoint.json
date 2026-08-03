@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "checkpoint_id": "crypto-capitulation-reclaim-v19-terminal",
+  "source_sha256": {
+    "BTCUSD": "ccc111b7925d29b8cab82195b467add2e9eed71bedb3461e9689fd1b62d2a40a",
+    "ETHUSD": "357a01c213204b7dd4f75d82ef0b82e5dd9e026660f3e2f1ef4093b2475f995a",
+    "SOLUSD": "becabb8469f63c35f6ebbc3d8c7250a06b0337eba5db3911ce968aabc0ba2b08"
+  },
+  "points_evaluated": 11664,
+  "development_passes": 20,
+  "stable_candidate_ids": [
+    "v19-1b0adf47e9dc",
+    "v19-3677ef790d26",
+    "v19-418dba42b3e6",
+    "v19-a62abab3c9e2",
+    "v19-bb6c74066f2b",
+    "v19-c8ba9fa1c0b8",
+    "v19-d32e383fff18",
+    "v19-d47e91519ade",
+    "v19-e9205aa0818d"
+  ],
+  "selected_candidate_ids": [
+    "v19-418dba42b3e6"
+  ],
+  "walkforward_stress_trades": 27,
+  "walkforward_stress_profit_factor": 2.0491778422838136,
+  "walkforward_positive_fold_ratio": 0.6,
+  "failed_gates": [
+    "minimum_total_trades",
+    "minimum_trades_per_fold",
+    "minimum_positive_fold_ratio"
+  ],
+  "artifact_sha256": {
+    "lab/sq_bridge/family_crypto_capitulation_reclaim_v19.json": "c32750bb70cc8203e6aacd8da507d26d1fe47a4ed48a083d26ab879034032d85",
+    "lab/sq_bridge/evidence/crypto_capitulation_reclaim_v19_temporal_gate.json": "6ca4511b2682d9a8448a233938c9ffd76d25701892966c9901d5c2182ae55fe3",
+    "lab/sq_bridge/evidence/crypto_capitulation_reclaim_v19_discovery.json": "526e2d14bdfbb6c4ba5bd8954bdf2a3375716fe7add9bb3c5d00ac8607552785",
+    "lab/sq_bridge/evidence/crypto_capitulation_reclaim_v19_walkforward.json": "2ba6744be1890f81b0f7b011db622506f0ff2b318c3c5a2851952b5d8a7be5f9"
+  },
+  "decision": "REJECT_CRYPTO_CAPITULATION_RECLAIM_INTERNAL_WF",
+  "independent_validation": false,
+  "global_holdout_accessed": false,
+  "sqcli_builder_executed": false,
+  "performance_promotion_authorized": false,
+  "paper_or_live_authorized": false
+}

@@ -34,3 +34,12 @@ Separar manifest, projecte configurat i execució observada. Un `attempt_budget`
 al manifest expressa intenció; només és un límit real si el controlador/stop i
 el comptador executat ho confirmen. Registrar també la causa de finalització
 (pressupost, Databank ple, temps o intervenció).
+
+## Improver
+
+Tractar cada variant millorada com una nova hipòtesi seleccionada. Exigir hash de
+la base, una part modificable explícita, blocs i complexitat limitats, pressupost
+de variants i criteri de millora preregistrat. La base és el control. Una variant
+només avança si supera el criteri en dades no usades per escollir-la i torna a
+passar precisió, costos i robustesa. No obrir parts noves per rescatar una passada
+fallida.

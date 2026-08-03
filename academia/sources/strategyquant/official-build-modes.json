@@ -1,0 +1,20 @@
+{
+  "id": "sq_official_build_modes_20190122",
+  "kind": "documentation",
+  "title": "Different build modes",
+  "url": "https://strategyquant.com/doc/strategyquant/different-build-modes/",
+  "author": "StrategyQuant",
+  "published_at": "2019-01-22",
+  "accessed_at": "2026-08-03",
+  "language": "en",
+  "sq_version": null,
+  "source_level": "A_PRIMARY",
+  "domain": "strategyquant",
+  "rights_policy": "transformative_notes",
+  "metadata": {"version_warning": "Descripció conceptual antiga; els controls i mínims efectius s'han de verificar al build 143.2708."},
+  "chunks": [
+    {"locator": "section:random", "heading": "Random generation", "body": "Random genera i avalua candidats independents fins que s'atura i conserva els millors segons criteris del Databank. És més simple i no evoluciona el candidat, però una execució oberta continua acumulant intents i selecció.", "evidence_status": "captured"},
+    {"locator": "section:genetic", "heading": "Genetic evolution", "body": "Genetic parteix d'una població random i aplica evolució durant generacions fins al límit o estancament. Pot cercar més eficientment, però és més lent, limitat per població i més exposat a sobreajust perquè millora sobre les mateixes dades.", "evidence_status": "captured"},
+    {"locator": "section:custom", "heading": "Random i genetic en un workflow", "body": "Custom Projects pot encadenar generació random i després genetic usant supervivents com població inicial. Aquesta possibilitat no demostra superioritat: el pressupost total, la població d'entrada i tots els gates formen part del contracte comparatiu.", "evidence_status": "captured"}
+  ]
+}

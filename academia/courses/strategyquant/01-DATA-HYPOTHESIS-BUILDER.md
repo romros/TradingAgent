@@ -92,6 +92,26 @@ No declarar que un pressupost governa la passada sense un stop/controller que ho
 demostri. En una campanya local, el manifest deia 20.000 intents però el Builder
 va parar amb 63 en omplir un Databank de 40.
 
+## 7. Improver sense autoengany
+
+Improver conserva una estratègia base i genera canvis només a les parts declarades:
+entrada long/short, sortida, tipus d'ordre o condicions addicionals. És útil per
+respondre una pregunta estreta, però no és una reparació gratuïta del candidat.
+
+Contracte mínim:
+
+1. congelar hash i mètriques de l'estratègia base;
+2. declarar una sola part o família de parts modificable;
+3. fixar blocs, complexitat, dades, ranking i pressupost de variants;
+4. conservar la base com a control i comptar totes les variants provades;
+5. comparar en dades no usades per triar la millora;
+6. repetir precisió, costos i robustesa sobre la variant resultant;
+7. mantenir-la només si millora el criteri preregistrat sense degradar els altres gates.
+
+Si es modifiquen simultàniament entrada, sortida, ordre i sizing, no podem atribuir
+la millora ni estimar-ne el cost de selecció. Si cap variant supera la base sota el
+contracte congelat, la decisió correcta és conservar la base o descartar-la.
+
 ## Checklist de sortida
 
 - [ ] dades i instrument versionats;
@@ -105,6 +125,7 @@ va parar amb 63 en omplir un Databank de 40.
 - [ ] ranking no substitueix l'inventari complet;
 - [ ] costos preliminars inclosos;
 - [ ] una sola raó preregistrada per avançar a Retester.
+- [ ] si s'usa Improver, base, parts modificables i pressupost de variants congelats.
 
 ## Errors que l'expert ha de detectar
 
@@ -116,8 +137,12 @@ va parar amb 63 en omplir un Databank de 40.
 6. Usar stops en pips/dòlars no comparables entre règims o instruments.
 7. Confondre una allowlist de blocs amb una arquitectura obligatòria.
 8. Donar per executat un pressupost perquè apareix al manifest.
+9. Dir «he millorat l'estratègia» comparant només la millor variant sobre les
+   mateixes dades que l'han seleccionada.
 
 Fonts: `sq_official_data_settings_20190109`,
 `sq_official_what_to_build_20190109`, `sq_official_building_blocks_20190226`,
 `sq_official_genetic_options_20190226`, `sq_official_databanks_20190121`.
+Modes i Improver: `sq_official_build_modes_20190122` i
+`sq_official_workflow_20190130`.
 Cas local: `sq_local_sqx143_contract_drift_20260802`.

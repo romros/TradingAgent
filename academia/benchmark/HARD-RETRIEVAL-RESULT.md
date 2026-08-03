@@ -1,12 +1,12 @@
 # Benchmark difícil de retrieval
 
-Corpus: 46 fonts; motor SQLite FTS5/BM25 amb stopwords i cobertura lexical mínima.
-Dataset: 31 preguntes — 28 answerables, 3 que exigeixen abstenció.
+Corpus: 47 fonts; motor SQLite FTS5/BM25 amb stopwords i cobertura lexical mínima.
+Dataset: 33 preguntes — 30 answerables, 3 que exigeixen abstenció.
 
 ## Resultat 2026-08-02
 
-- Recall@5 answerable: **0,89**;
-- MRR@5 answerable: **0,89**;
+- Recall@5 answerable: **0,90**;
+- MRR@5 answerable: **0,90**;
 - no-answer accuracy: **1,00**;
 - quatre consultes noves de deriva de contracte: Recall@5 **1,00** i MRR@5 **0,88**;
 - cinc consultes de notes de vídeo: Recall@5 i MRR@5 **1,00**;
@@ -17,7 +17,7 @@ exportació i custom analysis. Es mantenen les dues paràfrasis antigues difíci
 
 ## Decisió
 
-No activar embeddings encara. Trenta-una preguntes difícils són insuficients per justificar
+No activar embeddings encara. Trenta-tres preguntes difícils són insuficients per justificar
 cost, dependència i reindexació. Ampliar a 50 preguntes cegues i comparar:
 
 1. FTS5 actual;

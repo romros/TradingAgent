@@ -54,6 +54,13 @@ SEARCH_PROFILES = {
         "ExitAfterBars.ExitAfterBars", "ProfitTarget.ProfitTarget",
         "StopLoss.StopLoss",
     },
+    "xau_h4_sweep_reclaim_v4": {
+        "Prices.Close", "Prices.High", "Prices.Low",
+        "Indicators.Highest", "Indicators.Lowest", "Indicators.ATR",
+        "IsGreater", "IsLower", "EnterAtMarket",
+        "ExitAfterBars.ExitAfterBars", "ProfitTarget.ProfitTarget",
+        "StopLoss.StopLoss",
+    },
     "msft_d1_close_trend_v1": {
         "Prices.Close", "Indicators.SMA", "Indicators.EMA", "Indicators.RSI",
         "Indicators.ROC", "IsGreater", "IsLower", "CrossesAbove", "CrossesBelow",
@@ -143,10 +150,11 @@ def _configure_build(xml: bytes, market: dict, periods: dict, methodology: dict,
     is_stop_channel_profile = search_profile in {
         "xau_h4_stop_channel_breakout_v2", "xau_h4_atr_compression_breakout_v3"
     }
+    is_sweep_profile = search_profile == "xau_h4_sweep_reclaim_v4"
     is_channel_profile = search_profile == "xau_h4_channel_breakout_v1" or is_stop_channel_profile
     ET.SubElement(complexity, "Chart", {"name": "Main chart",
         "minConditions": "0" if search_profile == "xau_h4_stop_channel_breakout_v2" else "1",
-        "maxConditions": "1" if is_stop_channel_profile else ("2" if search_profile == "xau_h4_channel_breakout_v1" else "3"),
+        "maxConditions": "1" if is_stop_channel_profile else ("2" if search_profile == "xau_h4_channel_breakout_v1" or is_sweep_profile else "3"),
         "minExitConditions": "0", "maxExitConditions": "0" if is_channel_profile else "1",
         "minExitTypes": "1", "maxExitTypes": "2",
         "minPeriod": "10" if is_channel_profile else "5",

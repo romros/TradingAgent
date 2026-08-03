@@ -29,10 +29,20 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("market")
     parser.add_argument("--registry", type=Path, default=Path(__file__).with_name("ostium_markets.json"))
+    parser.add_argument("--output", type=Path,
+                        help="Escriu el rebut JSON reproduïble per a la cadena d'evidències")
     args = parser.parse_args()
     try:
         result = validate(args.registry, args.market)
     except ValueError as exc:
         print(json.dumps({"status": "REJECT", "reason": str(exc)}, indent=2))
         raise SystemExit(2)
-    print(json.dumps(result, indent=2))
+    rendered = json.dumps(result, indent=2) + "\n"
+    if args.output:
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        args.output.write_text(rendered, encoding="utf-8")
+    print(rendered, end="")
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ALQUIMIA_V3_XAU_H4_SWEEP_RECLAIM_V5",
+  "hypothesis_id": "xau-h4-sweep-reclaim-v5-fixed-seed",
+  "market": "XAUUSD",
+  "capital_usdc": 200,
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "methodology_sha256": "ea4c6512d10f21e9550789615c41eb8b12228916ac668373fbb3afc9f905aeab",
+  "provenance": "alquimia_native",
+  "legacy_quantitative_inputs": [],
+  "receipts": [
+    {
+      "stage": "market_preflight",
+      "decision": "PASS",
+      "artifact": "lab/sq_bridge/ostium_markets_xau_h4.json",
+      "artifact_sha256": "7a172f15d9e006f8e194350bb2d939f485707a0c78d573ee6cde504def26684e",
+      "candidate_ids": [
+        "ALQUIMIA_XAU_H4_SWEEP_RECLAIM_V5_SEED"
+      ],
+      "holdout_accessed": false,
+      "translation_exact": null,
+      "parity_pass": null,
+      "previous_receipt_sha256": null,
+      "receipt_sha256": "fa4da3ceeea0f1b3511a2ee5b9e68c0f13045419b5f7b9c381967000ba319d10"
+    },
+    {
+      "stage": "discovery",
+      "decision": "REJECT",
+      "artifact": "lab/sq_bridge/evidence/xau_h4_sweep_reclaim_v5_train_preflight_summary.json",
+      "artifact_sha256": "b3ccc1c107b2b9c0d0901e390304f51cdbe411722fce00fcda4e8ea1a407c6bb",
+      "candidate_ids": [
+        "ALQUIMIA_XAU_H4_SWEEP_RECLAIM_V5_SEED"
+      ],
+      "holdout_accessed": false,
+      "translation_exact": null,
+      "parity_pass": null,
+      "previous_receipt_sha256": "fa4da3ceeea0f1b3511a2ee5b9e68c0f13045419b5f7b9c381967000ba319d10",
+      "receipt_sha256": "9af3cf20b9a86a052740db863f0ed8dca989d0d01c62f293845d5986c1f2edf4"
+    }
+  ],
+  "live_authorized": false
+}

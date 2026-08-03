@@ -4,6 +4,52 @@ Primera peça del pont StrategyQuant → DuckDB/BS → TradingAgent. Prepara una
 limitada d'un projecte `.cfx` sense modificar l'original i deixa un manifest amb
 hashes per poder reproduir la campanya.
 
+## Alquímia v3 — cadena d'evidència nativa
+
+`methodology_v3.json` és el contracte canònic per a campanyes noves. No permet
+usar resultats quantitatius heretats per promocionar candidats; un CFX anterior
+només pot aportar sintaxi XML i recursos de mercat. `evidence_chain.py` encadena
+rebuts SHA-256 en l'ordre obligatori:
+
+```text
+market_preflight → discovery → temporal_validation → robustness
+→ small_account_economics → python_translation → parity → paper
+```
+
+Cada rebut fixa artifact, decisió, candidats, accés al holdout i hash del rebut
+anterior. Només `PASS` avança; `REJECT` i `BLOCK` són terminals. Traducció
+requereix equivalència exacta i paritat requereix `parity_pass=true`. Paper no
+autoritza live.
+
+```bash
+python3 evidence_chain.py new --methodology methodology_v3.json \
+  --campaign CAMPAIGN --hypothesis HYPOTHESIS --market XAUUSD --output chain.json
+python3 evidence_chain.py verify chain.json --methodology methodology_v3.json
+```
+
+Per a hipòtesis dirigides, limitar blocs SQ no és evidència semàntica suficient.
+`structural_hypothesis_gate.py` valida l'AST extret per `sqx_extract.py`; el
+perfil `xau_h4_sweep_reclaim_v4` exigeix exactament break + reclaim tant long
+com short abans de consultar les mètriques.
+
+La v5 fixa aquesta semàntica en un seed i usa un preflight Dukascopy train-only
+abans de gastar una optimització SQ. La malla conserva l'agregació H4 escassa de
+BrokerageService, resol amb stop-first qualsevol ambigüitat H4 i exigeix una
+regió amb almenys dos veïns ortogonals, no un màxim aïllat:
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+.venv/bin/python -m lab.sq_bridge.xau_sweep_reclaim_preflight \
+  --root /mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet \
+  --output lab/out/alquimia/xau_h4_sweep_reclaim_v5/train_preflight.json \
+  --summary-output lab/sq_bridge/evidence/xau_h4_sweep_reclaim_v5_train_preflight_summary.json
+```
+
+Resultat congelat: 1.350 punts, 0 PASS d'estrès, 0 membres estables i holdout no
+consultat. Per tant v5 acaba en `REJECT_FAMILY_V5`; no s'ha executat l'Optimizer
+de 5.000 punts. El resum versionat fixa el SHA-256 de l'artifact complet ignorat.
+
 ```bash
 cd lab/sq_bridge
 python3 test_sq_campaign.py

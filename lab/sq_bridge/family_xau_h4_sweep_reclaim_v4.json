@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "family_id": "xau_h4_sweep_reclaim_v4",
+  "hypothesis_id": "xau-h4-sweep-reclaim-v4",
+  "hypothesis": "A false break of a recent XAUUSD H4 extreme followed by a close back inside the prior range can capture forced-liquidation exhaustion without paying overnight-scale holding costs.",
+  "market": "XAUUSD",
+  "timeframe": "H4",
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "search_profile": "xau_h4_sweep_reclaim_v4",
+  "generation_type": "genetic-evolution",
+  "market_side": "both",
+  "accepted_limit": 20,
+  "wall_time_minutes": 45,
+  "date_from": "2004-01-01",
+  "date_to": "2026-03-13",
+  "independence": {
+    "implementation_origin": "alquimia_native",
+    "legacy_quantitative_inputs": [],
+    "scaffold_role": "XML syntax and XAU resource only",
+    "previous_results_role": "falsification context only; no candidates, parameters or metrics reused"
+  },
+  "pre_registered_falsifiers": {
+    "minimum_discovery_trades": 50,
+    "minimum_discovery_profit_factor": 1.2,
+    "minimum_oos_trades": 30,
+    "minimum_oos_profit_factor": 1.15,
+    "minimum_positive_oos_windows_ratio": 0.6,
+    "minimum_stress_profit_factor": 1.05,
+    "minimum_net_expectancy_200_usdc": 0.1,
+    "holdout_sealed": true
+  },
+  "translation_contract": {
+    "long": "Low[t] < Lowest(Low,n)[t-1] and Close[t] > Lowest(Low,n)[t-1]",
+    "short": "High[t] > Highest(High,n)[t-1] and Close[t] < Highest(High,n)[t-1]",
+    "entry": "next H4 market open",
+    "risk": "ATR stop; optional ATR target or time exit",
+    "unsupported_rules_rejected": true
+  }
+}

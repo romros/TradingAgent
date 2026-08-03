@@ -12,7 +12,7 @@ from xml.etree import ElementTree as ET
 SUPPORTED_SIGNAL_NODES = {
     "AND", "IsRising", "IsFalling", "CrossesAbove", "CrossesBelow",
     "IsGreater", "IsLower", "Close", "Low", "High", "SMA", "EMA", "RSI",
-    "ROC", "BarDayOfMonth", "BarDayOfWeekIs", "IsMonthFirstTradingDay",
+    "ROC", "Highest", "Lowest", "BarDayOfMonth", "BarDayOfWeekIs", "IsMonthFirstTradingDay",
     "IsMonthLastTradingDay", "ADX", "Number", "Boolean",
 }
 SUPPORTED_ENTRY = {"EnterAtMarket"}

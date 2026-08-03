@@ -10,9 +10,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
-from methodology import validate
+from lab.sq_bridge.methodology import validate
 
-PERIOD_KEYS = {"validation": ("validation_from", "validation_to"),
+PERIOD_KEYS = {"train": ("train_from", "train_to"),
+               "validation": ("validation_from", "validation_to"),
                "oos": ("oos_from", "oos_to"), "holdout": ("holdout_from", "holdout_to")}
 
 def _require_resource_symbol(task_xml: ET.Element, symbol: str) -> None:
@@ -39,6 +40,16 @@ def _graft_resource_symbol(task_xml: ET.Element, resource_xml: ET.Element, symbo
     target.clear()
     target.append(copy.deepcopy(source))
     _require_resource_symbol(task_xml, symbol)
+
+def _select_all_input_strategies(task_xml: ET.Element) -> None:
+    databanks = task_xml.find("./Databanks")
+    if databanks is None:
+        raise ValueError("DATABANKS_NODE_MISSING")
+    databanks.set("retestSelected", "false")
+    selected = task_xml.find("./SelectedStrategies")
+    if selected is None:
+        selected = ET.SubElement(task_xml, "SelectedStrategies")
+    selected.clear()
 
 def _condition(column: str, fmt: str, comparator: str, threshold: float) -> ET.Element:
     node = ET.Element("Condition", {"use": "true"})
@@ -148,10 +159,14 @@ def generate(source: Path, output: Path, project_name: str, stage: str, manifest
     conditions.extend([_condition("NumberOfTrades", "Integer", ">=", minimum_trades),
                        _condition("ProfitFactor", "Decimal2", ">=", minimum_pf)])
     task_xml.find("./Rankings/MaxStrategies").text = "1000"
-    task_xml.find("./Rankings/StopCondition").set("passedStrategies", "1000")
+    stop_condition = task_xml.find("./Rankings/StopCondition")
+    stop_condition.set("type", "databank-full")
+    stop_condition.set("passedStrategies", "1000")
     output_db = stage.capitalize()
-    task_xml.find("./Databanks/Databank[@name='Input']").set("value", "Results")
-    task_xml.find("./Databanks/Databank[@name='Output']").set("value", output_db)
+    task_databanks = task_xml.find("./Databanks")
+    _select_all_input_strategies(task_xml)
+    task_databanks.find("./Databank[@name='Input']").set("value", "Results")
+    task_databanks.find("./Databank[@name='Output']").set("value", output_db)
 
     config = ET.Element("Project", {"name": project_name, "version": "143.2708"})
     tasks = ET.SubElement(config, "Tasks")

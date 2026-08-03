@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "family_id": "xau_h4_sweep_reclaim_v5_fixed_seed",
+  "hypothesis_id": "xau-h4-sweep-reclaim-v5-fixed-seed",
+  "hypothesis": "A completed XAUUSD H4 bar that sweeps a prior extreme and closes back inside the same prior range can capture short-lived forced-liquidation exhaustion.",
+  "market": "XAUUSD",
+  "timeframe": "H4",
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "implementation_origin": "alquimia_native",
+  "legacy_quantitative_inputs": [],
+  "predecessor_role": "v4 proves that unconstrained Builder search does not reliably generate the semantic hypothesis; no v4 metrics or parameters are reused",
+  "fixed_structure": {
+    "long": "Low[1] < Lowest(Low,n)[2] and Close[1] > Lowest(Low,n)[2]",
+    "short": "High[1] > Highest(High,n)[2] and Close[1] < Highest(High,n)[2]",
+    "entry": "market at the next H4 bar",
+    "same_threshold_within_direction": true,
+    "lookahead_forbidden": true
+  },
+  "neutral_seed": {
+    "lookback": 20,
+    "exit_after_bars": 6,
+    "atr_period": 14,
+    "stop_atr": 2.0,
+    "target_atr": 2.0
+  },
+  "search": {
+    "role": "parameter_and_exit_search_only",
+    "entry_logic_mutation": false,
+    "lookback_bounds": [5, 60],
+    "exit_after_bars_bounds": [2, 12],
+    "atr_period_bounds": [10, 30],
+    "stop_atr_bounds": [1.0, 4.0],
+    "target_atr_bounds": [1.0, 4.0],
+    "maximum_optimizations": 5000,
+    "selection": "stable_parameter_region_not_single_best_point"
+  },
+  "periods": {
+    "train_from": "2004-01-01",
+    "train_to": "2015-02-06",
+    "validation_from": "2015-02-07",
+    "validation_to": "2019-07-16",
+    "oos_from": "2019-07-17",
+    "oos_to": "2023-12-23",
+    "holdout_from": "2023-12-24",
+    "holdout_to": "2026-03-13"
+  },
+  "pre_registered_falsifiers": {
+    "minimum_discovery_trades": 50,
+    "minimum_discovery_profit_factor": 1.2,
+    "minimum_oos_trades": 30,
+    "minimum_oos_profit_factor": 1.15,
+    "minimum_positive_oos_windows_ratio": 0.6,
+    "minimum_stress_profit_factor": 1.05,
+    "minimum_net_expectancy_200_usdc": 0.1,
+    "holdout_sealed": true
+  },
+  "holdout_release_authorized": false
+}

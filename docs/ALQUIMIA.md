@@ -342,6 +342,27 @@ risc i l'EV estrès és només 0,0022 USDC/trade.
 
 Decisió: `REJECT_TEMPORAL_AND_SMALL_ACCOUNT_FAIL`; no MC, no holdout, no Python.
 
+### Sweep + reclaim nadiu v4–v5 (2026-08-03)
+
+V4 és la primera campanya sota `alquimia-v3-native-evidence-chain`: cap pipeline
+quantitativa antiga, Builder nou i gate sobre l'AST real. SQCLI va generar prop
+de 4.000 estratègies i en va acceptar 20, però **0/20** implementaven exactament
+el mateix extrem per al sweep i el reclaim. Això prova que una allowlist de blocs
+no basta per generar una hipòtesi coordinada.
+
+V5 fixa l'entrada long/short en un SQX nadiu i deixa optimitzables només lookback,
+ATR i sortides. El Retester es va reparar eliminant la selecció TSLA residual;
+el smoke SQ real acaba en 6,01 s, conserva l'AST i produeix 1.180 trades, amb
+−1.037,71 de benefici train. Abans de llançar 5.000 optimitzacions, una malla
+DuckDB sobre 18.448 H4 Dukascopy prova 1.350 punts i costos 8/12/20 bps més
+funding 4/8/12% anual. Resultat: 0 PASS d'estrès i 0 regions estables.
+
+El millor long (lookback 60, 12 barres, ATR14, stop/target 3×ATR) té 221 trades,
+PF 1,149 i +17,88% base, però PF 0,878 i −18,51% en estrès. No té cap trade amb
+ordre intrabar ambigu; M1 no pot rescatar aquest deteriorament. Short i combinada
+ja són negatives en base. Decisió terminal `REJECT_FAMILY_V5`; validation, OOS i
+holdout continuen segellats. L'Optimizer existeix però deliberadament no s'executa.
+
 ## Pilot anterior
 
 - `TA_SQ_PILOT`, original `NVIDIA` intacte.

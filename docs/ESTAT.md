@@ -4,7 +4,7 @@ Operativa diària i evidència. Actualitzar a cada canvi significatiu.
 
 ---
 
-## Estat actual (2026-08-02)
+## Estat actual (2026-08-03)
 
 ### Continuïtat SQ / DuckDB / Ostium
 
@@ -29,6 +29,17 @@ per al perfil petit; holdout intacte i sense traducció/paritat.
 **XAUUSD H4 compressió ATR R3:** 5/40 passen validació, 2/5 OOS i 1/2 costos
 2×. El finalista `0.74` falla règims (2/5 anys positius) i economia 200 USDC
 (+0,29 estrès en 130 trades). Branca descartada sense MC ni holdout.
+
+**Alquímia v3 sweep/reclaim v4–v5:** v4 va executar un Builder nadiu nou
+(~4.000 generades, 20 acceptades), però 0/20 reproduïen l'AST semàntic exacte;
+rebuig terminal. V5 va fixar l'entrada sweep/reclaim i va reparar el Retester
+SQCLI (`retestSelected=false` i selecció antiga buidada). El smoke real acaba en
+6,01 s i produeix 1.180 trades, però perd −1.037,71. Un preflight train-only amb
+18.448 H4 Dukascopy i 1.350 combinacions dóna 0 PASS en estrès i 0 membres de
+regió estable. El millor long passa de PF 1,149 base a 0,878 estrès; short i
+combinada perden en base. **V5 rebutjada** sense obrir validation/OOS/holdout ni
+executar 5.000 optimitzacions SQ. Cadena SHA-256 terminal a
+`lab/sq_bridge/evidence/xau_h4_sweep_reclaim_v5_chain.json`.
 
 ### Fase: PAPER PROBE — T7 en curs (≥4 setmanes, inici 2026-03-16)
 
@@ -191,3 +202,4 @@ Veure `lab/docs/T6E_DECISIO_D1_ASSETS.md` i `lab/docs/D1_GATE_CRITERIA.md`.
 | 2026-08-02 | **Paper risk sizing v2**: noves operacions amb stop i nocional `capital×1%/stop`, caps MSFT 10x/NVDA 5x i costos 8/15/30 bps. EV estrès a 200 USDC: MSFT +0,288, NVDA +0,169, QQQ +0,069; NDXUSD surt del probe per defecte i queda watchlist. Històric intacte. |
 | 2026-08-02 | **Risk glidepath**: risc 1,5% sota 400 USDC i reducció escalonada fins 0,5% sobre 5.000. MSFT+NVDA conservador: 200→303,23 en 23,05 anys, DD 4,67%, sense arribar a 400; confirma que falten edges independents. |
 | 2026-08-02 | **EURUSD intradia v2**: 549.497 M15 Dukascopy, DST Londres/NY, 10 pilots. Breakout asiàtic PF base val/OOS 0,31/0,22; expansió continuació 0,11/0,06; reversió 0,07/0,06. `REJECT_NO_SQCLI`, holdout segellat. |
+| 2026-08-03 | **Alquímia v3 + sweep/reclaim v4–v5**: contracte natiu amb rebuts SHA-256 i holdout segellat. V4 genera 20 SQX però 0 passen semàntica; v5 executa seed fix real i 1.350 punts Dukascopy, amb 0 PASS d'estrès. Cadena terminal verificada; 171 tests + 4 subtests PASS. |

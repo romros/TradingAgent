@@ -12,6 +12,10 @@ assert "EnterAtMarket" not in stop_breakout
 compression = SEARCH_PROFILES["xau_h4_atr_compression_breakout_v3"]
 assert {"Indicators.ATR", "IsFalling", "EnterAtStop"}.issubset(compression)
 assert "Indicators.ADX" not in compression and "Indicators.ROC" not in compression
+sweep = SEARCH_PROFILES["xau_h4_sweep_reclaim_v4"]
+assert {"Prices.Close", "Prices.High", "Prices.Low", "Indicators.Highest",
+        "Indicators.Lowest", "EnterAtMarket"}.issubset(sweep)
+assert "EnterAtStop" not in sweep and "Indicators.SMA" not in sweep
 
 split = _split_dates(date(2017, 1, 26), date(2026, 3, 13),
     {"train_pct": 50, "validation_pct": 20, "oos_pct": 20, "final_holdout_pct": 10})

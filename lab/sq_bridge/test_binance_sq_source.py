@@ -5,7 +5,7 @@ import zipfile
 
 import pytest
 
-from lab.sq_bridge.binance_sq_source import checksum_value, parse_archive, timestamp_ms
+from lab.sq_bridge.binance_sq_source import checksum_value, month_range, parse_archive, timestamp_ms
 
 
 def archive(row):
@@ -30,3 +30,9 @@ def test_archive_parses_valid_ohlcv_and_rejects_bad_high():
 def test_checksum_file_parser():
     digest = hashlib.sha256(b"data").hexdigest()
     assert checksum_value(f"{digest}  file.zip\n".encode()) == digest
+
+
+def test_month_range_crosses_year_and_is_inclusive():
+    assert month_range("2025-11", "2026-02") == ["2025-11", "2025-12", "2026-01", "2026-02"]
+    with pytest.raises(ValueError, match="FROM_MONTH_AFTER_TO_MONTH"):
+        month_range("2026-02", "2025-11")

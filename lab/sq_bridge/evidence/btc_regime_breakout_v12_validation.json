@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "family_id": "btc_regime_breakout_v12",
+  "period": "validation",
+  "development_artifact_sha256": "8e94d9567797a77b8578a8f1556f896ba69dd7851b0df8255c184a598d1a9523",
+  "source_sha256": "ccc111b7925d29b8cab82195b467add2e9eed71bedb3461e9689fd1b62d2a40a",
+  "candidates_evaluated": 1,
+  "results": [
+    {
+      "mechanism": "regime_donchian",
+      "timeframe": "H1",
+      "side": "short",
+      "component_size": 3,
+      "candidate_id": "v12-f15f9e75ac2a",
+      "parameters": {
+        "regime_ema": 200,
+        "lookback": 168,
+        "exit_lookback": 36,
+        "stop_atr": 1.5,
+        "side": "short",
+        "timeframe": "H1"
+      },
+      "performance_metrics_used": false,
+      "metrics": {
+        "base": {
+          "trades": 3,
+          "profit_factor": 0.0,
+          "expectancy_bps": -89.54871534314535,
+          "net_return_pct": -2.663250952608409,
+          "drawdown_pct": 2.663250952608409,
+          "positive_year_ratio": 0.0,
+          "positive_half_year_ratio": 0.0,
+          "positive_quarter_ratio": 0.0
+        },
+        "conservative": {
+          "trades": 3,
+          "profit_factor": 0.0,
+          "expectancy_bps": -93.826379043807,
+          "net_return_pct": -2.7891802382040365,
+          "drawdown_pct": 2.7891802382040365,
+          "positive_year_ratio": 0.0,
+          "positive_half_year_ratio": 0.0,
+          "positive_quarter_ratio": 0.0
+        },
+        "stress": {
+          "trades": 3,
+          "profit_factor": 0.0,
+          "expectancy_bps": -101.95581854490975,
+          "net_return_pct": -3.0282208395757793,
+          "drawdown_pct": 3.0282208395757793,
+          "positive_year_ratio": 0.0,
+          "positive_half_year_ratio": 0.0,
+          "positive_quarter_ratio": 0.0
+        }
+      },
+      "development_validation_expectancy_decay_pct": 236.19765863731342,
+      "decision": "REJECT"
+    }
+  ],
+  "passing_candidate_ids": [],
+  "decision": "REJECT_TEMPORAL_VALIDATION",
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "sqcli_executed": false,
+  "paper_or_live_authorized": false
+}

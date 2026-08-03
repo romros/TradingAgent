@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "family_id": "btc_multimechanism_v11",
+  "period": "validation",
+  "train_artifact_sha256": "ae9ebd93b51e31753f60de888f33f7528de6f1e0ce0cdd51e165c561e46423be",
+  "source_sha256": "ccc111b7925d29b8cab82195b467add2e9eed71bedb3461e9689fd1b62d2a40a",
+  "coverage": {
+    "H1": {
+      "from": "2021-03-07T00:00:00+00:00",
+      "to": "2023-06-30T23:00:00+00:00",
+      "bars_with_warmup": 20292
+    },
+    "H4": {
+      "from": "2021-03-07T00:00:00+00:00",
+      "to": "2023-06-30T20:00:00+00:00",
+      "bars_with_warmup": 5076
+    }
+  },
+  "selection_rule": "graph medoid of each stable connected component without performance metrics",
+  "candidates_evaluated": 2,
+  "results": [
+    {
+      "mechanism": "compression_breakout",
+      "timeframe": "H1",
+      "side": "long",
+      "component_size": 6,
+      "candidate_id": "v11-1af10791cc4d",
+      "parameters": {
+        "atr_rank_lookback": 100,
+        "compression_quantile": 0.1,
+        "channel_lookback": 48,
+        "hold_bars": 6,
+        "stop_atr": 1.5,
+        "side": "long",
+        "timeframe": "H1"
+      },
+      "performance_metrics_used": false,
+      "metrics": {
+        "base": {
+          "trades": 36,
+          "profit_factor": 0.833709558221229,
+          "expectancy_bps": -10.345028402794476,
+          "net_return_pct": -4.139233719923441,
+          "drawdown_pct": 13.11237545163314,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.3333333333333333
+        },
+        "conservative": {
+          "trades": 36,
+          "profit_factor": 0.7854979492562743,
+          "expectancy_bps": -13.827954861080272,
+          "net_return_pct": -5.334786561384519,
+          "drawdown_pct": 13.678853795677416,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.3333333333333333
+        },
+        "stress": {
+          "trades": 36,
+          "profit_factor": 0.700495949122502,
+          "expectancy_bps": -20.632832291556614,
+          "net_return_pct": -7.62913731582302,
+          "drawdown_pct": 14.778664038397649,
+          "positive_year_ratio": 0.5,
+          "positive_half_year_ratio": 0.3333333333333333
+        }
+      },
+      "train_validation_expectancy_decay_pct": 244.9906148277747,
+      "decision": "REJECT"
+    },
+    {
+      "mechanism": "trend_pullback",
+      "timeframe": "H4",
+      "side": "long",
+      "component_size": 5,
+      "candidate_id": "v11-8237917311b7",
+      "parameters": {
+        "trend_ema": 100,
+        "rsi_period": 3,
+        "rsi_extreme": 15,
+        "hold_bars": 3,
+        "stop_atr": 1.5,
+        "side": "long",
+        "timeframe": "H4"
+      },
+      "performance_metrics_used": false,
+      "metrics": {
+        "base": {
+          "trades": 27,
+          "profit_factor": 0.7455301386320407,
+          "expectancy_bps": -24.39066892336385,
+          "net_return_pct": -6.955562956519945,
+          "drawdown_pct": 9.091385937207185,
+          "positive_year_ratio": 0.0,
+          "positive_half_year_ratio": 0.3333333333333333
+        },
+        "conservative": {
+          "trades": 27,
+          "profit_factor": 0.7116596932530179,
+          "expectancy_bps": -28.38440735721178,
+          "net_return_pct": -7.956059263199567,
+          "drawdown_pct": 9.337834706125737,
+          "positive_year_ratio": 0.0,
+          "positive_half_year_ratio": 0.3333333333333333
+        },
+        "stress": {
+          "trades": 27,
+          "profit_factor": 0.6517424780997834,
+          "expectancy_bps": -36.04063808029169,
+          "net_return_pct": -9.845304458704495,
+          "drawdown_pct": 11.130219612668935,
+          "positive_year_ratio": 0.0,
+          "positive_half_year_ratio": 0.3333333333333333
+        }
+      },
+      "train_validation_expectancy_decay_pct": 334.96786279879615,
+      "decision": "REJECT"
+    }
+  ],
+  "passing_candidate_ids": [],
+  "decision": "REJECT_TEMPORAL_VALIDATION",
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "sqcli_executed": false,
+  "paper_or_live_authorized": false
+}

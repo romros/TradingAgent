@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "checkpoint_id": "btc-proxy-research-v11-v12-terminal",
+  "source": {
+    "rows": 4377479,
+    "first_utc": "2018-03-01T00:00:00+00:00",
+    "last_utc": "2026-06-30T23:59:00+00:00",
+    "sha256": "ccc111b7925d29b8cab82195b467add2e9eed71bedb3461e9689fd1b62d2a40a",
+    "continuity": {
+      "gap_intervals": 27,
+      "missing_minutes": 5881,
+      "largest_gap_minutes": 600,
+      "first_five_gaps": [
+        {
+          "left_ms": 1529978340000,
+          "right_ms": 1530014400000,
+          "missing_minutes": 600
+        },
+        {
+          "left_ms": 1530104340000,
+          "right_ms": 1530110700000,
+          "missing_minutes": 105
+        },
+        {
+          "left_ms": 1530663720000,
+          "right_ms": 1530691200000,
+          "missing_minutes": 457
+        },
+        {
+          "left_ms": 1539928740000,
+          "right_ms": 1539941400000,
+          "missing_minutes": 210
+        },
+        {
+          "left_ms": 1542160740000,
+          "right_ms": 1542186000000,
+          "missing_minutes": 420
+        }
+      ]
+    }
+  },
+  "v11": {
+    "points": 1032,
+    "point_passes": 18,
+    "representatives": 2,
+    "validation_decision": "REJECT_TEMPORAL_VALIDATION",
+    "validation_passes": []
+  },
+  "v12": {
+    "points": 216,
+    "point_passes": 4,
+    "representatives": 1,
+    "validation_decision": "REJECT_TEMPORAL_VALIDATION",
+    "validation_passes": []
+  },
+  "artifact_sha256": {
+    "lab/sq_bridge/evidence/btcusdt_binance_full_source_manifest.json": "690ec463d3c13619fea0a453c48a247bee9a2bea09fd199992f809851dbc3c91",
+    "lab/sq_bridge/evidence/btc_multimechanism_v11_train.json": "f68fa1feb13e82ed4d8bbdc9851c4cdbbbe664f7a03323cf113045ffe8b585ca",
+    "lab/sq_bridge/evidence/btc_multimechanism_v11_validation.json": "37ea9f0db2646a8cb0a21649d8ec2f996ba92f6b922656cd3b616c3ab21e8bf8",
+    "lab/sq_bridge/evidence/btc_regime_breakout_v12_development.json": "cfdd074820c3977364b335f996b9cef2d8411ab2c661e3f6dfe9e2a581a99e11",
+    "lab/sq_bridge/evidence/btc_regime_breakout_v12_validation.json": "bed3fd54838860e8916b36c66f69ce38ae70869fc37296d9775d3a69b6b93476"
+  },
+  "decision": "REJECT_BTC_PROXY_FAMILIES_NO_SQCLI",
+  "reasons": [
+    "V11 long compression and pullback regions reversed to negative expectancy in 2022-2023.",
+    "V12 regime-filtered short breakout produced only three validation trades in 2023-2024 and all lost.",
+    "Native Ostium BTCUSD maturity/parity is still unavailable."
+  ],
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "sqcli_executed": false,
+  "paper_or_live_authorized": false
+}

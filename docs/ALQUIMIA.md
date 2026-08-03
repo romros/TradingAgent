@@ -468,6 +468,41 @@ timestamps i crea `BTCUSDT_BINANCE_M1` sense sobreescriure `BTCUSDT`. Juny de
 només per recerca sense regles de volum. Paper/live continuen bloquejats fins a
 maduresa del recorder, paritat BTCUSD/BTCUSDT i model d'execució Ostium.
 
+### BTC proxy v11–v12 — falsificació abans de SQCLI (2026-08-03)
+
+La font completa cobreix 2018-03-01–2026-06-30 amb 4.377.479 M1 i checksum per
+cada arxiu mensual oficial. L'auditoria detecta 27 gaps reals (5.881 minuts,
+màxim 600); cap timestamp es repara ni s'inventa. El motor només usa barres
+completes dins de tot el lookback i descarta trades que travessen un gap. Les
+anomalies desalineades de 2017 i febrer de 2018 s'exclouen abans de veure PnL.
+
+V11 preregistra 1.032 punts de tres mecanismes independents, H1/H4/D1 i costats
+separats: Donchian, pullback en tendència i breakout de compressió. Inclou 5 bps
+d'obertura, impacte dinàmic 1/4/10 bps i rollover 8/20/40% anual. En train
+2018-03–2021-12, 18 punts passen i només dues regions tenen veïnat estable:
+compressió long H1 (medoid: 185 trades, PF estrès 1,27) i pullback long H4
+(74 trades, PF 1,21). A la validació 2022–2023 ambdues reverteixen: PF 0,70 i
+0,65, expectativa −20,6 i −36,0 bps. V11 queda rebutjada.
+
+El canvi de règim no és només matemàtic: el 2022 va coincidir amb enduriment
+monetari accelerat de la Fed. V12 declara aquesta observació i consumeix
+2022–2023 com a desenvolupament; no el reutilitza com a validació. Prova 216
+breakouts alineats amb el D1 anterior respecte EMA100/200. Una regió short H1
+de tres punts sobreviu; el medoid (EMA200, canal 168h, sortida 36h, stop 1,5ATR)
+té PF estrès 1,56 en desenvolupament. A la nova validació 2023-07–2024-06 només
+fa 3 trades, tots perdedors: PF 0 i EV −102 bps. Aquest període inclou
+l'aprovació dels ETP spot de bitcoin als EUA el gener de 2024, un règim alcista
+materialment diferent. V12 també queda rebutjada.
+
+Decisió reproduïble: `REJECT_BTC_PROXY_FAMILIES_NO_SQCLI`. OOS i holdout no
+s'han consultat; SQCLI, small-account promotion i paper/live no s'executen. Els
+fets de context provenen de les fonts primàries de la
+[Reserva Federal](https://www.federalreserve.gov/publications/2022-ar-monetary-policy.htm)
+i la [SEC](https://www.sec.gov/newsroom/speeches-statements/gensler-statement-spot-bitcoin-011023).
+El cost actual s'ha recertificat contra la
+[taula oficial d'Ostium](https://docs.ostium.com/traders/reference/markets):
+BTC/USD és 5 bps d'obertura, fins a 200x, amb bid/ask dinàmic i rollover.
+
 ## Pilot anterior
 
 - `TA_SQ_PILOT`, original `NVIDIA` intacte.

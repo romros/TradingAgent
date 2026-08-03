@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "family_id": "btc_multimechanism_v11",
+  "hypothesis_id": "btc-regime-aware-independent-mechanisms-v11",
+  "hypothesis": "BTC trends and volatility clusters can support a small set of structurally distinct H1/H4/D1 mechanisms whose edge survives directional separation, temporal regimes, Ostium costs and risk-based sizing for 200 USDC.",
+  "market": "BTCUSD",
+  "research_proxy": "BTCUSDT Binance spot official monthly klines",
+  "ostium_asset": "BTCUSD",
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "implementation_origin": "alquimia_native",
+  "legacy_quantitative_inputs": [],
+  "inspiration_not_evidence": [
+    "Donchian/time-series momentum",
+    "trend-filtered short-RSI pullback",
+    "volatility compression breakout"
+  ],
+  "data_contract": {
+    "input": "checksummed Binance spot M1, UTC",
+    "bar_alignment": "UTC epoch boundaries; label and execute at bar open",
+    "volume_rules_allowed": false,
+    "proxy_limitation": "Research only until BTCUSDT/BTCUSD Ostium OHLC and execution parity pass",
+    "lookahead_forbidden": true
+  },
+  "periods": {
+    "train_from": "2018-03-01", "train_to": "2021-12-31",
+    "validation_from": "2022-01-01", "validation_to": "2023-06-30",
+    "oos_from": "2023-07-01", "oos_to": "2025-06-30",
+    "holdout_from": "2025-07-01", "holdout_to": "2026-06-30"
+  },
+  "data_quality_exclusions": {
+    "2017": "Excluded before performance inspection: official archive contains exchange-outage placeholders offset from UTC minute boundaries (for example 2017-12-04), and normalizing them would create duplicates or synthetic bars.",
+    "2018-01_to_2018-02": "Excluded before performance inspection after February was found to contain 1,201 actively traded bars shifted 34.789 seconds from UTC minute boundaries; rounding would alter event order."
+  },
+  "cost_model": {
+    "source_checked_utc": "2026-08-03",
+    "ostium_opening_fee_bps": 5,
+    "oracle_fee_usdc_per_open": 0.10,
+    "closing_fee_bps": 0,
+    "scenarios": {
+      "base": {"dynamic_spread_and_impact_bps": 1, "annual_rollover_pct": 8},
+      "conservative": {"dynamic_spread_and_impact_bps": 4, "annual_rollover_pct": 20},
+      "stress": {"dynamic_spread_and_impact_bps": 10, "annual_rollover_pct": 40}
+    },
+    "limitation": "Historical Ostium dynamic impact and rollover are unavailable; conservative/stress values are preregistered falsifiers, not measurements."
+  },
+  "execution_contract": {
+    "signal": "completed bar only",
+    "entry": "next bar open with adverse spread/impact",
+    "intrabar_stop": "gap-adverse stop fill; no optimistic target priority",
+    "position_policy": "one position per candidate; signals while open ignored",
+    "side_policy": "long and short evaluated separately",
+    "venue_max_leverage": 200,
+    "research_leverage_cap": 20,
+    "risk_per_trade_pct": 1.0,
+    "capital_usdc": 200,
+    "minimum_reserve_pct": 40,
+    "maximum_portfolio_margin_pct": 35,
+    "liquidation_model": "Ostium 25% backstop formula plus adverse price path",
+    "leverage_is_derived_not_optimized": true
+  },
+  "fixed_mechanism_contracts": {
+    "donchian_trend": "Close breaks the prior N-bar channel; enter next open; exit next open after opposite exit-channel close or ATR catastrophe stop.",
+    "trend_pullback": "Close is on trend side of EMA and Wilder RSI reaches registered extreme; enter next open; exit at close after registered bars or ATR stop.",
+    "compression_breakout": "ATR rank was below the registered quantile in one of the prior three completed bars and close breaks the prior channel; enter next open; exit after registered bars or ATR stop."
+  },
+  "families": {
+    "donchian_trend": {
+      "timeframes": ["H4", "D1"],
+      "lookback": [20, 50, 100, 200],
+      "exit_lookback": [10, 20, 50],
+      "stop_atr": [2.0, 3.0],
+      "sides": ["long", "short"]
+    },
+    "trend_pullback": {
+      "timeframes": ["H4", "D1"],
+      "trend_ema": [50, 100, 200],
+      "rsi_period": [2, 3, 5],
+      "rsi_extreme": [5, 10, 15],
+      "hold_bars": [1, 3, 6],
+      "stop_atr": [1.5, 2.5],
+      "sides": ["long", "short"]
+    },
+    "compression_breakout": {
+      "timeframes": ["H1", "H4"],
+      "atr_rank_lookback": [50, 100],
+      "compression_quantile": [0.10, 0.20],
+      "channel_lookback": [12, 24, 48],
+      "hold_bars": [6, 12, 24],
+      "stop_atr": [1.5, 2.5],
+      "sides": ["long", "short"]
+    }
+  },
+  "pre_registered_train_gate": {
+    "minimum_trades": 60,
+    "minimum_stress_profit_factor": 1.05,
+    "minimum_stress_expectancy_bps": 1,
+    "minimum_positive_year_ratio": 0.60,
+    "maximum_stress_drawdown_pct": 20,
+    "minimum_passing_orthogonal_neighbours": 2
+  },
+  "selection": {
+    "rule": "graph medoid of each stable connected component without performance metrics",
+    "maximum_representatives_per_mechanism_side_timeframe": 1,
+    "performance_metrics_used_for_representative": false
+  },
+  "pre_registered_validation_gate": {
+    "minimum_trades": 25,
+    "minimum_stress_profit_factor": 1.15,
+    "minimum_stress_expectancy_bps": 2,
+    "minimum_positive_half_year_ratio": 0.60,
+    "maximum_stress_drawdown_pct": 20,
+    "maximum_train_validation_expectancy_decay_pct": 50
+  },
+  "holdout_release_authorized": false,
+  "sqcli_policy": "Do not run Builder/Optimizer unless a stable component passes independent validation and small-account economics."
+}

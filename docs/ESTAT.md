@@ -75,6 +75,13 @@ maduració: 60 dies i ≥90% cobertura; estat inicial `WARMING`, no abans de
 El `.dat` BTCUSDT actual falla export SQ 143 (`Unknown logic type of value 3`),
 queda congelat i bloquejat, sense sobreescriure'l.
 
+**BTC v11–v12:** font oficial 2018–2026 (4.377.479 M1) verificada. V11 prova
+1.032 variants; dues regions long estables de train fallen 2022–2023 amb PF
+estrès 0,70/0,65. V12 consumeix aquest tram com a desenvolupament i prova 216
+breakouts amb règim D1; el representant short PF 1,56 cau a 3/3 pèrdues en la
+nova validació 2023-07–2024-06. `REJECT_BTC_PROXY_FAMILIES_NO_SQCLI`; OOS i
+holdout intactes, cap paper/live.
+
 ### Fase: PAPER PROBE — T7 en curs (≥4 setmanes, inici 2026-03-16)
 
 **Setup actiu**: `capitulation_d1` — MSFT (primari), NVDA, NDXUSD (complementari, paper: QQQ proxy)
@@ -243,3 +250,4 @@ Veure `lab/docs/T6E_DECISIO_D1_ASSETS.md` i `lab/docs/D1_GATE_CRITERIA.md`.
 | 2026-08-03 | **XAU D1 trend-pullback v10**: 25/324 PASS train en una regió; medoid triat sense PF. Validació: 11 trades, PF estrès 0,097 i −6,46%. Rebuig terminal; OOS/holdout segellats. |
 | 2026-08-03 | **BTCUSD recorder natiu**: afegit a BS, 11/11 símbols preservats, feed perp i persistència verificats. Gate 60 dies en `WARMING`; font SQ BTCUSDT existent no exportable i congelada. |
 | 2026-08-03 | **BTC SQ reconstruït, només recerca**: 43.200 M1 oficials Binance amb checksum importades a `BTCUSDT_BINANCE_M1`; round-trip SQ conserva files/timestamps i limita l'error OHLC a 0,05 USD. Volum arrodonit: prohibit usar-lo; paper/live bloquejats. |
+| 2026-08-03 | **BTC v11–v12 falsificades**: 4.377.479 M1 oficials; v11 1.032 punts → 2 regions estables → 0/2 validació. V12 216 punts → 1 regió short → 3/3 pèrdues validació. No SQCLI, OOS/holdout segellats. |

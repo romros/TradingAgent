@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "family_id": "btc_regime_breakout_v12",
+  "hypothesis_id": "btc-d1-regime-intraday-donchian-v12",
+  "hypothesis": "A Donchian breakout aligned with the prior completed D1 close versus a slow D1 EMA can participate in BTC trends while avoiding structurally wrong-side exposure in bear regimes.",
+  "market": "BTCUSD",
+  "research_proxy": "BTCUSDT Binance spot official monthly klines",
+  "ostium_asset": "BTCUSD",
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "implementation_origin": "alquimia_native",
+  "legacy_quantitative_inputs": [],
+  "derivation_disclosure": "Created after v11 long-only stable regions failed 2022-2023. That interval is now development data and can never validate v12.",
+  "inspiration_not_evidence": "Classic time-series momentum and regime-filtered Donchian breakout; all parameters and evidence are new.",
+  "periods": {
+    "development_from": "2018-03-01", "development_to": "2023-06-30",
+    "validation_from": "2023-07-01", "validation_to": "2024-06-30",
+    "oos_from": "2024-07-01", "oos_to": "2025-06-30",
+    "holdout_from": "2025-07-01", "holdout_to": "2026-06-30"
+  },
+  "data_contract": {
+    "input": "checksummed Binance spot M1, UTC",
+    "volume_rules_allowed": false,
+    "regime": "prior completed UTC D1 close versus prior completed D1 EMA; never current incomplete D1",
+    "proxy_limitation": "Research only until BTCUSDT/BTCUSD Ostium parity passes",
+    "lookahead_forbidden": true
+  },
+  "cost_model": {
+    "source_checked_utc": "2026-08-03",
+    "ostium_opening_fee_bps": 5,
+    "oracle_fee_usdc_per_open": 0.10,
+    "closing_fee_bps": 0,
+    "scenarios": {
+      "base": {"dynamic_spread_and_impact_bps": 1, "annual_rollover_pct": 8},
+      "conservative": {"dynamic_spread_and_impact_bps": 4, "annual_rollover_pct": 20},
+      "stress": {"dynamic_spread_and_impact_bps": 10, "annual_rollover_pct": 40}
+    }
+  },
+  "families": {
+    "regime_donchian": {
+      "timeframes": ["H1", "H4"],
+      "regime_ema": [100, 200],
+      "lookback": [24, 72, 168],
+      "exit_lookback": [12, 36, 84],
+      "stop_atr": [1.5, 2.5, 3.5],
+      "sides": ["long", "short"]
+    }
+  },
+  "pre_registered_development_gate": {
+    "minimum_trades": 60,
+    "minimum_stress_profit_factor": 1.05,
+    "minimum_stress_expectancy_bps": 2,
+    "minimum_positive_year_ratio": 0.60,
+    "maximum_stress_drawdown_pct": 25,
+    "minimum_passing_orthogonal_neighbours": 2
+  },
+  "selection": {
+    "rule": "graph medoid of largest stable component per timeframe and side without performance metrics",
+    "performance_metrics_used_for_representative": false
+  },
+  "pre_registered_validation_gate": {
+    "minimum_trades": 15,
+    "minimum_stress_profit_factor": 1.15,
+    "minimum_stress_expectancy_bps": 2,
+    "minimum_positive_quarter_ratio": 0.60,
+    "maximum_stress_drawdown_pct": 20,
+    "maximum_development_validation_expectancy_decay_pct": 50
+  },
+  "small_account": {
+    "capital_usdc": 200,
+    "risk_per_trade_pct": 1.0,
+    "research_leverage_cap": 20,
+    "venue_max_leverage": 200,
+    "maximum_margin_pct": 35,
+    "minimum_reserve_pct": 40,
+    "minimum_net_expectancy_usdc": 0.10
+  },
+  "holdout_release_authorized": false,
+  "sqcli_policy": "No SQCLI unless stable development and temporal validation pass."
+}

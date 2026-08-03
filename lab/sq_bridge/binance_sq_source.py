@@ -14,8 +14,31 @@ from pathlib import Path
 
 
 BASE_URL = "https://data.binance.vision/data/spot/monthly/klines"
+
+
+def month_range(start: str, end: str) -> list[str]:
+    first = datetime.strptime(start, "%Y-%m")
+    last = datetime.strptime(end, "%Y-%m")
+    if first > last:
+        raise ValueError("FROM_MONTH_AFTER_TO_MONTH")
+    months = []
+    year, month = first.year, first.month
+    while (year, month) <= (last.year, last.month):
+        months.append(f"{year:04d}-{month:02d}")
+        year, month = (year + 1, 1) if month == 12 else (year, month + 1)
+    return months
+
+
 def sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
+
+
+def file_sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
 
 
 def timestamp_ms(raw: str) -> int:
@@ -79,6 +102,7 @@ def build(symbol: str, months: list[str], archive_dir: Path, output_csv: Path) -
     all_rows.sort(key=lambda row: row[0])
     timestamps = [row[0] for row in all_rows]
     if len(timestamps) != len(set(timestamps)): raise ValueError("DUPLICATE_MINUTES_ACROSS_ARCHIVES")
+    gaps = [(left, right, (right - left) // 60_000 - 1) for left, right in zip(timestamps, timestamps[1:]) if right - left > 60_000]
     output_csv.parent.mkdir(parents=True, exist_ok=True)
     with output_csv.open("w", newline="") as handle:
         # SQ's MetaTrader4 bar importer expects Date,Time,OHLCV without a
@@ -94,7 +118,10 @@ def build(symbol: str, months: list[str], archive_dir: Path, output_csv: Path) -
         "sources": sources, "rows": len(all_rows),
         "first_utc": datetime.fromtimestamp(timestamps[0] / 1000, timezone.utc).isoformat() if timestamps else None,
         "last_utc": datetime.fromtimestamp(timestamps[-1] / 1000, timezone.utc).isoformat() if timestamps else None,
-        "output_csv": str(output_csv), "output_sha256": sha256(output_csv.read_bytes()),
+        "continuity": {"gap_intervals": len(gaps), "missing_minutes": sum(gap[2] for gap in gaps),
+                       "largest_gap_minutes": max((gap[2] for gap in gaps), default=0),
+                       "first_five_gaps": [{"left_ms": gap[0], "right_ms": gap[1], "missing_minutes": gap[2]} for gap in gaps[:5]]},
+        "output_csv": str(output_csv), "output_sha256": file_sha256(output_csv),
         "sq_import_format": "MetaTrader4 bar format", "sq_import_has_header": False,
         "intended_sq_symbol": f"{symbol}_BINANCE_M1", "existing_sq_symbol_overwritten": False,
         "research_authorized": False, "paper_or_live_authorized": False,
@@ -104,12 +131,22 @@ def build(symbol: str, months: list[str], archive_dir: Path, output_csv: Path) -
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--symbol", default="BTCUSDT")
-    parser.add_argument("--month", action="append", required=True)
+    parser.add_argument("--month", action="append")
+    parser.add_argument("--from-month")
+    parser.add_argument("--to-month")
     parser.add_argument("--archive-dir", type=Path, required=True)
     parser.add_argument("--output-csv", type=Path, required=True)
     parser.add_argument("--manifest", type=Path, required=True)
     args = parser.parse_args()
-    result = build(args.symbol.upper(), args.month, args.archive_dir, args.output_csv)
+    if args.month and (args.from_month or args.to_month):
+        parser.error("use --month or --from-month/--to-month, not both")
+    if args.month:
+        months = args.month
+    elif args.from_month and args.to_month:
+        months = month_range(args.from_month, args.to_month)
+    else:
+        parser.error("provide --month or both --from-month and --to-month")
+    result = build(args.symbol.upper(), months, args.archive_dir, args.output_csv)
     args.manifest.parent.mkdir(parents=True, exist_ok=True)
     args.manifest.write_text(json.dumps(result, indent=2) + "\n")
     print(json.dumps(result, indent=2))

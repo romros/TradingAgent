@@ -140,6 +140,28 @@ timestamps exactes, error OHLC màxim 0,05 USD i volum no exacte. El seu PASS é
 només per recerca de senyals sense volum; no implica paritat Ostium ni autoritza
 paper/live.
 
+La font multirègim i les dues falsificacions BTC es reprodueixen així:
+
+```bash
+python3 binance_sq_source.py --symbol BTCUSDT \
+  --from-month 2018-03 --to-month 2026-06 \
+  --archive-dir /path/archives --output-csv /path/BTCUSDT_M1_FULL.csv \
+  --manifest evidence/btcusdt_binance_full_source_manifest.json
+PYTHONPATH=../.. python3 btc_multimechanism_v11.py \
+  --source /path/BTCUSDT_M1_FULL.csv --family family_btc_multimechanism_v11.json \
+  --output evidence/btc_multimechanism_v11_train.json
+PYTHONPATH=../.. python3 btc_multimechanism_v11_validation.py \
+  --source /path/BTCUSDT_M1_FULL.csv --family family_btc_multimechanism_v11.json \
+  --train evidence/btc_multimechanism_v11_train.json \
+  --output evidence/btc_multimechanism_v11_validation.json
+```
+
+V12 usa `btc_regime_breakout_v12.py` i
+`btc_regime_breakout_v12_validation.py`. El verificador final
+`btc_research_checkpoint.py` exigeix mateixa font, rebuig terminal de totes dues
+validacions i holdout intacte. Cap PASS de proxy pot saltar-se el gate natiu
+Ostium ni el small-account gate.
+
 ## Fallback Python MSFT D1
 
 Quan el Retest SQCLI no progressa ni amb un únic candidat, el subset compatible

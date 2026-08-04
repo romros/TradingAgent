@@ -21,6 +21,15 @@ etapa invalida les següents.
 | 12 | Automatic Retest / monitoratge | Detectar degradació amb dades noves | criteris previs de pausa o retirada |
 | 13 | Code Editor / snippets / grid | Estendre blocs o escalar còmput quan cal | prova de necessitat, test i control de versió |
 
+## Gates entre SQ i operació
+
+`Resultat SQ → mecanisme falsable → règims → costos i mida actuals → holdout únic → paritat → paper trading → decisió humana sobre live`
+
+SQ acaba principalment al resultat estadístic. No decideix per si sol si el driver
+econòmic continua, si la mida mínima és adequada al compte, si el venue actual
+liquidaria la posició o si una traducció genera les mateixes ordres. Aquestes són
+portes separades: superar-ne una no concedeix la següent.
+
 ## Tres camins, no un
 
 - Si coneixem la lògica: `Dades → AlgoWizard → Retester → robustesa → realitat`.

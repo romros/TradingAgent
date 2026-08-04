@@ -18,6 +18,26 @@ la causa continua existint ni si la posició mínima és operable avui.
    nocional, marge i liquidació amb data i venue actuals.
 8. Executar una sola vegada el període final segellat. Si falla, no reajustar-hi.
 
+## Decisions que no s'han de barrejar
+
+- `INCOMPLET`: falten dades; no és prova que la lògica sigui dolenta.
+- `DESCARTAR`: ha fallat un gate que invalida el candidat actual.
+- `PROVA DIRIGIDA`: hi ha un únic dubte resoluble sense obrir el holdout.
+- `OBRIR HOLDOUT`: mecanisme, règims i economia passen; el tram final continua intacte.
+- `PREPARAR PAPER TRADING`: el holdout ja ha passat; encara falten traducció i paritat.
+
+El nocional mínim superior al capital no implica automàticament inviabilitat: implica
+palanquejament. La pregunta correcta és si el palanquejament requerit queda per sota
+d'un límit segur justificat amb marge i liquidació. Si aquest límit falta, la decisió
+és una prova dirigida, no una suposició optimista.
+
+Per comptes petits, informar també en diners: risc per trade, expectativa neta per
+trade i estimació anual basada en freqüència observada. Una estratègia pot tenir edge
+positiu i ser massa petita per compensar complexitat, errors i temps operatiu.
+
+Els placeholders s'han de marcar amb `current_execution.evidence_complete=false`.
+Zero significa zero mesurat; no s'ha d'utilitzar per representar «encara no ho sé».
+
 ## Incubació no és només un altre backtest
 
 Deixar una regla intacta i observar dades que encara no existien és evidència més
@@ -57,7 +77,7 @@ que una regla normalitzada per ATR funcioni: només crea una hipòtesi a provar.
 El candidat `0.7893` encara no té artifact local identificable. Sabem que una
 combinació EMA/SMA, ADX i ATR podria escalar millor que distàncies fixes; no sabem
 si el benefici travessa règims. L'exemple JSON queda deliberadament en
-`DESCARTAR` fins que hi hagi resultats per règim i condicions Ostium verificades.
+`INCOMPLET` fins que hi hagi resultats per règim i condicions Ostium verificades.
 
 Executar:
 

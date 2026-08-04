@@ -10,3 +10,9 @@ liquidació comprovada i un tram final intacte. Si falta l'artifact, respondre q
 falta evidència; no completar mètriques de memòria.
 
 Produir l'informe amb `assets/finalist-report.md`.
+
+Interpretar les decisions de l'eina literalment: `INCOMPLET` no és un rebuig;
+`OBRIR HOLDOUT` autoritza una sola lectura del tram segellat; `PREPARAR PAPER
+TRADING` encara exigeix traducció i paritat i mai autoritza live. Quan el nocional
+mínim supera el capital, calcular el palanquejament requerit i exigir un límit
+segur justificat; no confondre nocional amb marge ni assumir leverage disponible.

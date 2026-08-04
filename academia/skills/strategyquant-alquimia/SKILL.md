@@ -16,7 +16,8 @@ no backtests que simplement semblin espectaculars.
 4. Provar que intenció, configuració i artifacts executats coincideixen.
 5. Revisar estabilitat, concentració, costos, intents i contaminació.
 6. Validar mecanisme, règims comparables i economia executable avui.
-7. Donar `CONTINUAR`, `PROVA DIRIGIDA` o `DESCARTAR`.
+7. Donar una decisió pròpia de l'etapa: selecció (`CONTINUAR`, `PROVA DIRIGIDA`,
+   `DESCARTAR`) o transferència (`INCOMPLET`, `OBRIR HOLDOUT`, `PREPARAR PAPER TRADING`).
 8. Proposar una sola prova següent; no obrir una cerca per salvar un candidat.
 
 ## Carregar només el necessari
@@ -53,6 +54,10 @@ RISC PRINCIPAL: un
 SEGÜENT PAS: una sola acció concreta
 EVIDÈNCIA: font, locator o experiment; indicar si falta
 ```
+
+En transferència a realitat, usar les decisions més precises de
+`reality_transfer.py`; `OBRIR HOLDOUT` i `PREPARAR PAPER TRADING` no són
+sinònims de `CONTINUAR` ni autoritzen live.
 
 Separar fets observats, inferències i recomanacions. Afegir només detalls que
 canvien la decisió.

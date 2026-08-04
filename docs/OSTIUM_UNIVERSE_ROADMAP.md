@@ -59,3 +59,15 @@ Correcció requerida a BS abans de reprendre: convertir mesos explícitament en
 base 10 o delegar tota l'aritmètica de dates a Python; propagar `any_failed`;
 exigir almenys un mes/filera dins del rang; per `429`, respectar `Retry-After`,
 afegir jitter i backoff llarg, i començar pilots amb un sol worker/mes.
+
+### Represa corregida
+
+BrokerageService `8798f75` corregeix el wrapper i el backoff mensual.
+`18339bd` corregeix el nivell horari: 1 req/s per defecte, reintent 429 per la
+mateixa hora, cache negatiu de 404 històrics i represa del cache BI5 existent.
+Les proves aïllades passen 14/14.
+
+El pilot `GBPUSD` 2026-07-01 va completar 1.425 M1, de 00:00 a 23:59 UTC,
+reutilitzant les primeres 21 hores i descarregant només les tres restants. El
+mes complet continua al job persistent `bafaf4bc`; només quan generi Parquet i
+passi cobertura es pot iniciar la paritat contra Ostium.

@@ -668,6 +668,23 @@ el control d'entrades mensuals aleatòries i 21x travessava el proxy històric d
 liquidació. La primera palanca sense gaps observats al seu grid era 8x, encara
 pendent del model real de manteniment i fills d'Ostium.
 
+### MSFT close-drift v24 (2026-08-04)
+
+La següent hipòtesi evita explícitament l'open no certificat: calcula el senyal
+amb el close D-1, entra al close robust D i surt a close després de 5/10/20 dies,
+sense stops ni high/low intradia. Sobre 54 variants i 36 bps, cinc superen el
+gate formal condicionat al mateix règim de tendència. No són cinc estratègies
+independents. L'auditoria local ±20% conserva només el clúster SMA100, ROC5
+≤−2%, hold 5: 42/81 veïns (51,9%) passen validació i OOS; el clúster SMA200
+queda fràgil amb 30/81 (37,0%).
+
+Tot l'històric MSFT ja havia estat consultat per campanyes anteriors: aquesta és
+evidència de desenvolupament, no una nova validació independent. El candidat
+només pot avançar a forward paper des del 2026-08-04. El pitjor adverse move
+close-to-close observat durant els cinc dies és 19,07%: 8x produeix una
+liquidació proxy i 5x queda sense marge prudent. El cap provisional és 4x,
+encara pendent d'intradia, maintenance margin i fills reals d'Ostium.
+
 Una inspecció posterior del runtime troba 95–120 dies UTC de recorder natiu per
 MSFT/NVDA/NDXUSD, però no accessibles via `source=ostium` i contaminats per
 salts continus de fins a 16,70%. Raw ticks i CSV demostren que un preu premarket

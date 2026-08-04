@@ -1,0 +1,5049 @@
+{
+  "schema_version": 1,
+  "cost_bps": 36,
+  "scope": "post-selection robustness; historical evidence is non-independent",
+  "seeds": [
+    {
+      "seed": "sma100_roc5_dip2_hold5",
+      "neighbour_count": 81,
+      "pass_count": 42,
+      "pass_ratio": 0.5185185185185185,
+      "decision": "ROBUST_CLUSTER",
+      "neighbours": [
+        {
+          "sma": 80,
+          "roc_days": 4,
+          "threshold_pct": -1.6,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 154,
+            "profit_factor": 0.7438185969108946,
+            "return_pct": -51.434635302820844,
+            "max_drawdown_pct": 62.94473554812623,
+            "positive_year_ratio": 0.2,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 65,
+            "profit_factor": 0.9074636228912759,
+            "return_pct": -6.496767329345432,
+            "max_drawdown_pct": 25.87463978260349,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 75,
+            "profit_factor": 1.1262235321172875,
+            "return_pct": 7.564584356610515,
+            "max_drawdown_pct": 23.66346912322317,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 4,
+          "threshold_pct": -1.6,
+          "hold": 5,
+          "passed": false,
+          "train": {
+            "trades": 146,
+            "profit_factor": 0.7546171183788455,
+            "return_pct": -55.03819559345642,
+            "max_drawdown_pct": 74.13605198578885,
+            "positive_year_ratio": 0.2,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 60,
+            "profit_factor": 1.0081513742233776,
+            "return_pct": -1.210079203611436,
+            "max_drawdown_pct": 15.87190095737656,
+            "positive_year_ratio": 0.2,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 69,
+            "profit_factor": 1.5744206893747388,
+            "return_pct": 52.64988069501384,
+            "max_drawdown_pct": 27.606923806123053,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 4,
+          "threshold_pct": -1.6,
+          "hold": 6,
+          "passed": true,
+          "train": {
+            "trades": 137,
+            "profit_factor": 0.9101358587087,
+            "return_pct": -33.546886505789594,
+            "max_drawdown_pct": 59.61362318224941,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 57,
+            "profit_factor": 2.267876330143414,
+            "return_pct": 45.11202403942141,
+            "max_drawdown_pct": 7.910839669295422,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 67,
+            "profit_factor": 1.4978245729561586,
+            "return_pct": 47.66844480645651,
+            "max_drawdown_pct": 30.44032968072611,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 4,
+          "threshold_pct": -2.0,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 134,
+            "profit_factor": 0.8656622814475402,
+            "return_pct": -29.538482050372195,
+            "max_drawdown_pct": 51.120058990447006,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 50,
+            "profit_factor": 0.9166649680784573,
+            "return_pct": -5.391910715865578,
+            "max_drawdown_pct": 25.376243189872916,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 61,
+            "profit_factor": 1.080585019850025,
+            "return_pct": 2.843260968588468,
+            "max_drawdown_pct": 21.01975613782283,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 4,
+          "threshold_pct": -2.0,
+          "hold": 5,
+          "passed": false,
+          "train": {
+            "trades": 129,
+            "profit_factor": 0.7205939784887322,
+            "return_pct": -53.32696328104471,
+            "max_drawdown_pct": 70.21613342929328,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 48,
+            "profit_factor": 0.9845193011250203,
+            "return_pct": -2.4717559905026443,
+            "max_drawdown_pct": 15.764077637058927,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 55,
+            "profit_factor": 1.6959068787937808,
+            "return_pct": 50.525064287825884,
+            "max_drawdown_pct": 21.519852056905698,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 4,
+          "threshold_pct": -2.0,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 120,
+            "profit_factor": 0.9371644763568578,
+            "return_pct": -24.58141313529928,
+            "max_drawdown_pct": 52.548563267871515,
+            "positive_year_ratio": 0.5333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 46,
+            "profit_factor": 1.8089552674442002,
+            "return_pct": 26.131758588745303,
+            "max_drawdown_pct": 15.960025247864685,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 54,
+            "profit_factor": 1.0721318631637518,
+            "return_pct": 0.24465465129255293,
+            "max_drawdown_pct": 27.46431882809134,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 4,
+          "threshold_pct": -2.4,
+          "hold": 4,
+          "passed": true,
+          "train": {
+            "trades": 106,
+            "profit_factor": 0.8916738555117707,
+            "return_pct": -22.277769619301814,
+            "max_drawdown_pct": 43.65266996255165,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 43,
+            "profit_factor": 1.186410454269418,
+            "return_pct": 5.82195493759432,
+            "max_drawdown_pct": 12.978673644692517,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 51,
+            "profit_factor": 1.2662714174883707,
+            "return_pct": 15.024784435827465,
+            "max_drawdown_pct": 17.047354995854768,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 4,
+          "threshold_pct": -2.4,
+          "hold": 5,
+          "passed": false,
+          "train": {
+            "trades": 104,
+            "profit_factor": 0.7684140637206648,
+            "return_pct": -44.06855621165933,
+            "max_drawdown_pct": 61.53837669481521,
+            "positive_year_ratio": 0.4666666666666667,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 40,
+            "profit_factor": 1.0965218958956053,
+            "return_pct": 2.4148026188266725,
+            "max_drawdown_pct": 12.51793396243741,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 47,
+            "profit_factor": 1.5252708202044871,
+            "return_pct": 30.12570749971686,
+            "max_drawdown_pct": 16.845505209285406,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 4,
+          "threshold_pct": -2.4,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 99,
+            "profit_factor": 1.051457793246465,
+            "return_pct": -4.968686965790403,
+            "max_drawdown_pct": 51.87815458945022,
+            "positive_year_ratio": 0.4666666666666667,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 39,
+            "profit_factor": 3.0948754212278504,
+            "return_pct": 35.73189735407152,
+            "max_drawdown_pct": 6.682453029624968,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 46,
+            "profit_factor": 0.934432220748406,
+            "return_pct": -10.902214597533277,
+            "max_drawdown_pct": 33.253553570644016,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 5,
+          "threshold_pct": -1.6,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 148,
+            "profit_factor": 0.906601903635203,
+            "return_pct": -29.07570003297949,
+            "max_drawdown_pct": 53.97120768460268,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 59,
+            "profit_factor": 0.9376952692401451,
+            "return_pct": -5.001700922783869,
+            "max_drawdown_pct": 14.504256513502833,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 67,
+            "profit_factor": 1.2767356931417433,
+            "return_pct": 22.212261877053784,
+            "max_drawdown_pct": 29.59512171145895,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 5,
+          "threshold_pct": -1.6,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 140,
+            "profit_factor": 0.9320948537390297,
+            "return_pct": -25.70611492736471,
+            "max_drawdown_pct": 56.643120869138365,
+            "positive_year_ratio": 0.4666666666666667,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 57,
+            "profit_factor": 1.4393686073478908,
+            "return_pct": 20.473838206237073,
+            "max_drawdown_pct": 13.902303183011277,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 65,
+            "profit_factor": 1.5102842434010988,
+            "return_pct": 45.851825616365986,
+            "max_drawdown_pct": 34.555100296247524,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 5,
+          "threshold_pct": -1.6,
+          "hold": 6,
+          "passed": true,
+          "train": {
+            "trades": 136,
+            "profit_factor": 0.9387849723072796,
+            "return_pct": -26.600353664539167,
+            "max_drawdown_pct": 59.214295956071695,
+            "positive_year_ratio": 0.4666666666666667,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 55,
+            "profit_factor": 1.5888534105153564,
+            "return_pct": 26.872190971403764,
+            "max_drawdown_pct": 14.33752823008847,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 61,
+            "profit_factor": 1.123851145478683,
+            "return_pct": 5.960693531710515,
+            "max_drawdown_pct": 30.807574471733336,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 5,
+          "threshold_pct": -2.0,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 121,
+            "profit_factor": 0.8909674591216309,
+            "return_pct": -29.00230545128293,
+            "max_drawdown_pct": 54.610631892584074,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 47,
+            "profit_factor": 0.8649605330274548,
+            "return_pct": -7.7974883140557445,
+            "max_drawdown_pct": 13.123687629905756,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 59,
+            "profit_factor": 1.3480773373570305,
+            "return_pct": 26.83694544425692,
+            "max_drawdown_pct": 27.861161241327636,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 5,
+          "threshold_pct": -2.0,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 114,
+            "profit_factor": 0.970437829747936,
+            "return_pct": -17.608192370428398,
+            "max_drawdown_pct": 52.804806938849836,
+            "positive_year_ratio": 0.4666666666666667,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 45,
+            "profit_factor": 3.5800653142033134,
+            "return_pct": 57.63628805072902,
+            "max_drawdown_pct": 4.349417886770269,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 56,
+            "profit_factor": 1.555150118781264,
+            "return_pct": 46.70347310019864,
+            "max_drawdown_pct": 29.595506947656737,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 5,
+          "threshold_pct": -2.0,
+          "hold": 6,
+          "passed": true,
+          "train": {
+            "trades": 110,
+            "profit_factor": 0.9397123383720111,
+            "return_pct": -24.377408097001997,
+            "max_drawdown_pct": 59.214295956071695,
+            "positive_year_ratio": 0.4666666666666667,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 45,
+            "profit_factor": 2.2468544407499444,
+            "return_pct": 40.02543235283733,
+            "max_drawdown_pct": 5.574277049056386,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 52,
+            "profit_factor": 1.3411930814858801,
+            "return_pct": 25.8363854272037,
+            "max_drawdown_pct": 23.60219798859874,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 5,
+          "threshold_pct": -2.4,
+          "hold": 4,
+          "passed": true,
+          "train": {
+            "trades": 106,
+            "profit_factor": 0.7401929125454063,
+            "return_pct": -43.09734777339664,
+            "max_drawdown_pct": 54.95740299689511,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 42,
+            "profit_factor": 1.2897574009485313,
+            "return_pct": 8.665398707561911,
+            "max_drawdown_pct": 12.916625205838706,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 47,
+            "profit_factor": 1.6446150986825252,
+            "return_pct": 37.21415480865331,
+            "max_drawdown_pct": 19.900626670302923,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 5,
+          "threshold_pct": -2.4,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 103,
+            "profit_factor": 0.6604797413827199,
+            "return_pct": -54.97404802285673,
+            "max_drawdown_pct": 59.21602895403427,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 40,
+            "profit_factor": 3.054662255033334,
+            "return_pct": 42.36083952981162,
+            "max_drawdown_pct": 4.289990336089355,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 46,
+            "profit_factor": 2.2917048585307374,
+            "return_pct": 79.89022100722663,
+            "max_drawdown_pct": 21.908039275133607,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 5,
+          "threshold_pct": -2.4,
+          "hold": 6,
+          "passed": true,
+          "train": {
+            "trades": 98,
+            "profit_factor": 0.814056017015198,
+            "return_pct": -37.40275814893948,
+            "max_drawdown_pct": 57.670543487247315,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 39,
+            "profit_factor": 2.47796413365917,
+            "return_pct": 35.82232417029574,
+            "max_drawdown_pct": 6.450361227421631,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 44,
+            "profit_factor": 1.9653725500755148,
+            "return_pct": 62.133204291742274,
+            "max_drawdown_pct": 23.915965503308446,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 6,
+          "threshold_pct": -1.6,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 142,
+            "profit_factor": 0.8281320239930419,
+            "return_pct": -36.55733854857882,
+            "max_drawdown_pct": 47.86706727199582,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 56,
+            "profit_factor": 1.1859231291234942,
+            "return_pct": 7.687661394985867,
+            "max_drawdown_pct": 14.379896837878793,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 68,
+            "profit_factor": 1.0152604437877377,
+            "return_pct": -2.5821401812418876,
+            "max_drawdown_pct": 22.99959869597291,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 6,
+          "threshold_pct": -1.6,
+          "hold": 5,
+          "passed": false,
+          "train": {
+            "trades": 127,
+            "profit_factor": 0.775250772014486,
+            "return_pct": -45.116866929250364,
+            "max_drawdown_pct": 55.00665468209971,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 52,
+            "profit_factor": 0.8535274086641855,
+            "return_pct": -10.475678247789677,
+            "max_drawdown_pct": 14.493369332512207,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 59,
+            "profit_factor": 1.4861213647278984,
+            "return_pct": 34.50457573051053,
+            "max_drawdown_pct": 24.46129934859014,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 6,
+          "threshold_pct": -1.6,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 117,
+            "profit_factor": 0.8383320942305604,
+            "return_pct": -38.3876903068471,
+            "max_drawdown_pct": 55.76544258131033,
+            "positive_year_ratio": 0.4666666666666667,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 49,
+            "profit_factor": 1.26561001448802,
+            "return_pct": 10.41767348769076,
+            "max_drawdown_pct": 17.573907589531736,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 55,
+            "profit_factor": 0.8838029955862997,
+            "return_pct": -14.907178152282919,
+            "max_drawdown_pct": 34.21579858005182,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 6,
+          "threshold_pct": -2.0,
+          "hold": 4,
+          "passed": true,
+          "train": {
+            "trades": 126,
+            "profit_factor": 0.8061419563061494,
+            "return_pct": -37.1347198985576,
+            "max_drawdown_pct": 47.621535815879156,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 54,
+            "profit_factor": 1.4598505731124811,
+            "return_pct": 19.23987035817243,
+            "max_drawdown_pct": 10.627524458206272,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 55,
+            "profit_factor": 1.1813217533417069,
+            "return_pct": 9.802028919792916,
+            "max_drawdown_pct": 19.57183825941422,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 6,
+          "threshold_pct": -2.0,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 110,
+            "profit_factor": 0.7078080740493631,
+            "return_pct": -49.05863418442693,
+            "max_drawdown_pct": 57.77314571010231,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 49,
+            "profit_factor": 1.448820457154617,
+            "return_pct": 17.63492140719436,
+            "max_drawdown_pct": 10.224794479010168,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 48,
+            "profit_factor": 1.6572899233123455,
+            "return_pct": 37.222426326803685,
+            "max_drawdown_pct": 20.971253170507865,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 6,
+          "threshold_pct": -2.0,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 106,
+            "profit_factor": 0.8137366038512921,
+            "return_pct": -40.53731409540773,
+            "max_drawdown_pct": 54.40601378725036,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 47,
+            "profit_factor": 1.795534321353599,
+            "return_pct": 23.561636216306113,
+            "max_drawdown_pct": 6.217213998254323,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 45,
+            "profit_factor": 0.9474594738279923,
+            "return_pct": -8.471667891322543,
+            "max_drawdown_pct": 27.21964357107548,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 6,
+          "threshold_pct": -2.4,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 107,
+            "profit_factor": 0.7227235224385116,
+            "return_pct": -41.13666764074681,
+            "max_drawdown_pct": 46.55838858872839,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 41,
+            "profit_factor": 1.0156723993145598,
+            "return_pct": -0.5749292098908287,
+            "max_drawdown_pct": 10.96524957976217,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 42,
+            "profit_factor": 0.9750399690799286,
+            "return_pct": -3.6726649307220915,
+            "max_drawdown_pct": 17.41115235796521,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 6,
+          "threshold_pct": -2.4,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 93,
+            "profit_factor": 0.6660323293631648,
+            "return_pct": -47.54245788190388,
+            "max_drawdown_pct": 52.83135893138042,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 36,
+            "profit_factor": 1.1327257897767238,
+            "return_pct": 3.173506249755542,
+            "max_drawdown_pct": 10.22479447901018,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 37,
+            "profit_factor": 1.172552285854232,
+            "return_pct": 5.999739420744121,
+            "max_drawdown_pct": 20.722868547209437,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 80,
+          "roc_days": 6,
+          "threshold_pct": -2.4,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 90,
+            "profit_factor": 0.7992869626117906,
+            "return_pct": -35.92336010530606,
+            "max_drawdown_pct": 54.40601378725036,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 34,
+            "profit_factor": 1.1525717634411206,
+            "return_pct": 3.5357820058601774,
+            "max_drawdown_pct": 7.957484293767159,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 34,
+            "profit_factor": 0.6973379369044298,
+            "return_pct": -23.155140031676357,
+            "max_drawdown_pct": 32.23981945038541,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 4,
+          "threshold_pct": -1.6,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 150,
+            "profit_factor": 0.7328590594600346,
+            "return_pct": -50.76437639653633,
+            "max_drawdown_pct": 62.332799032355,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 70,
+            "profit_factor": 1.041875786496613,
+            "return_pct": 0.7556744006202321,
+            "max_drawdown_pct": 22.26870611180143,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 72,
+            "profit_factor": 1.1577689377678664,
+            "return_pct": 10.037821443245365,
+            "max_drawdown_pct": 19.220441815603383,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 4,
+          "threshold_pct": -1.6,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 144,
+            "profit_factor": 0.7572386212481361,
+            "return_pct": -53.600141254502766,
+            "max_drawdown_pct": 72.26875184046986,
+            "positive_year_ratio": 0.2,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 65,
+            "profit_factor": 1.2666591600436976,
+            "return_pct": 12.79911052843634,
+            "max_drawdown_pct": 12.5179339624374,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 65,
+            "profit_factor": 1.7541654269606743,
+            "return_pct": 63.71321542673365,
+            "max_drawdown_pct": 20.605474357113295,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 4,
+          "threshold_pct": -1.6,
+          "hold": 6,
+          "passed": true,
+          "train": {
+            "trades": 133,
+            "profit_factor": 0.8842118500813406,
+            "return_pct": -35.43322557480321,
+            "max_drawdown_pct": 58.03027242683986,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 61,
+            "profit_factor": 2.631978283735776,
+            "return_pct": 62.09740109004696,
+            "max_drawdown_pct": 6.554368755676654,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 64,
+            "profit_factor": 1.627350723240931,
+            "return_pct": 58.4434467675248,
+            "max_drawdown_pct": 24.955380157493224,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 4,
+          "threshold_pct": -2.0,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 127,
+            "profit_factor": 0.8835483858089757,
+            "return_pct": -25.911369713228737,
+            "max_drawdown_pct": 47.335003422712504,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 55,
+            "profit_factor": 1.0696552447613237,
+            "return_pct": 1.9462276042645277,
+            "max_drawdown_pct": 20.22561050751095,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 60,
+            "profit_factor": 1.1295323730456184,
+            "return_pct": 6.864713696948477,
+            "max_drawdown_pct": 16.821253306649687,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 4,
+          "threshold_pct": -2.0,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 120,
+            "profit_factor": 0.736475684459612,
+            "return_pct": -48.58130600499867,
+            "max_drawdown_pct": 65.65283677191157,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 53,
+            "profit_factor": 1.2468720454663402,
+            "return_pct": 11.358518024783738,
+            "max_drawdown_pct": 12.51793396243741,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 54,
+            "profit_factor": 2.0774201356634663,
+            "return_pct": 71.86700699618662,
+            "max_drawdown_pct": 11.362602585239534,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 4,
+          "threshold_pct": -2.0,
+          "hold": 6,
+          "passed": true,
+          "train": {
+            "trades": 112,
+            "profit_factor": 0.9289001889849837,
+            "return_pct": -22.89269452829363,
+            "max_drawdown_pct": 46.99701472353056,
+            "positive_year_ratio": 0.4666666666666667,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 50,
+            "profit_factor": 2.1793090653936376,
+            "return_pct": 40.89549365391334,
+            "max_drawdown_pct": 13.367343597593774,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 52,
+            "profit_factor": 1.1759906326884693,
+            "return_pct": 9.707824579737622,
+            "max_drawdown_pct": 22.14665699267829,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 4,
+          "threshold_pct": -2.4,
+          "hold": 4,
+          "passed": true,
+          "train": {
+            "trades": 101,
+            "profit_factor": 0.8770480017462924,
+            "return_pct": -22.49764322901555,
+            "max_drawdown_pct": 44.773184909315745,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 47,
+            "profit_factor": 1.1251247791550694,
+            "return_pct": 4.009202571320847,
+            "max_drawdown_pct": 10.516710941661312,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 52,
+            "profit_factor": 1.18327402243677,
+            "return_pct": 9.876023900061902,
+            "max_drawdown_pct": 16.42209264003318,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 4,
+          "threshold_pct": -2.4,
+          "hold": 5,
+          "passed": false,
+          "train": {
+            "trades": 100,
+            "profit_factor": 0.7818507181636329,
+            "return_pct": -38.29789884987241,
+            "max_drawdown_pct": 57.08522516028669,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 44,
+            "profit_factor": 1.0086804444307162,
+            "return_pct": -1.194690468790427,
+            "max_drawdown_pct": 15.612427967096332,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 48,
+            "profit_factor": 1.6637462653919275,
+            "return_pct": 37.9656453351322,
+            "max_drawdown_pct": 10.942186975153778,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 4,
+          "threshold_pct": -2.4,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 95,
+            "profit_factor": 1.0040192178256417,
+            "return_pct": -9.469380877581656,
+            "max_drawdown_pct": 40.13226905939472,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 43,
+            "profit_factor": 2.4469622865169796,
+            "return_pct": 34.21972357413689,
+            "max_drawdown_pct": 6.1848709889497755,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 46,
+            "profit_factor": 0.9451682944107235,
+            "return_pct": -9.982339670697037,
+            "max_drawdown_pct": 30.108181754459252,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 5,
+          "threshold_pct": -1.6,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 142,
+            "profit_factor": 0.9075027178649612,
+            "return_pct": -24.942202980326744,
+            "max_drawdown_pct": 49.10129389905289,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 64,
+            "profit_factor": 1.0566731127635394,
+            "return_pct": 1.3429452576315004,
+            "max_drawdown_pct": 12.547670539757739,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 67,
+            "profit_factor": 1.0696812474470054,
+            "return_pct": 1.0924919951292633,
+            "max_drawdown_pct": 37.43165964413435,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 5,
+          "threshold_pct": -1.6,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 134,
+            "profit_factor": 0.9733354069465716,
+            "return_pct": -15.065453178308275,
+            "max_drawdown_pct": 46.75455649327497,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 61,
+            "profit_factor": 1.483383089258343,
+            "return_pct": 25.50247447695282,
+            "max_drawdown_pct": 13.131586514521153,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 64,
+            "profit_factor": 1.6667677809109827,
+            "return_pct": 59.31351435895322,
+            "max_drawdown_pct": 22.51931532013023,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 5,
+          "threshold_pct": -1.6,
+          "hold": 6,
+          "passed": true,
+          "train": {
+            "trades": 126,
+            "profit_factor": 0.9058742477744249,
+            "return_pct": -26.832392922221416,
+            "max_drawdown_pct": 47.25728636873674,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 59,
+            "profit_factor": 1.6183683464095406,
+            "return_pct": 32.14178597185584,
+            "max_drawdown_pct": 14.33752823008847,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 60,
+            "profit_factor": 1.150970041821696,
+            "return_pct": 8.385742467973834,
+            "max_drawdown_pct": 24.825345103460748,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 5,
+          "threshold_pct": -2.0,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 119,
+            "profit_factor": 0.9341660673174043,
+            "return_pct": -18.808579741105934,
+            "max_drawdown_pct": 47.01932300326932,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 52,
+            "profit_factor": 0.9749315872630097,
+            "return_pct": -2.9006977679773893,
+            "max_drawdown_pct": 12.087529672974885,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 57,
+            "profit_factor": 1.1852341189928681,
+            "return_pct": 11.748228411977157,
+            "max_drawdown_pct": 28.51549232316032,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 5,
+          "threshold_pct": -2.0,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 111,
+            "profit_factor": 1.0802610621820612,
+            "return_pct": 3.1644149817835254,
+            "max_drawdown_pct": 38.897868453139594,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 48,
+            "profit_factor": 3.128520656770086,
+            "return_pct": 60.30755988946994,
+            "max_drawdown_pct": 4.728435728227554,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 56,
+            "profit_factor": 1.642159752746943,
+            "return_pct": 52.788178620966455,
+            "max_drawdown_pct": 20.52571512740624,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 5,
+          "threshold_pct": -2.0,
+          "hold": 6,
+          "passed": true,
+          "train": {
+            "trades": 105,
+            "profit_factor": 0.9752067441229528,
+            "return_pct": -14.257230543997235,
+            "max_drawdown_pct": 43.40194744273581,
+            "positive_year_ratio": 0.4666666666666667,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 48,
+            "profit_factor": 2.277781640840401,
+            "return_pct": 47.69715101871257,
+            "max_drawdown_pct": 5.574277049056386,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 50,
+            "profit_factor": 1.379414308839887,
+            "return_pct": 28.37754998338631,
+            "max_drawdown_pct": 22.146656992678302,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 5,
+          "threshold_pct": -2.4,
+          "hold": 4,
+          "passed": true,
+          "train": {
+            "trades": 109,
+            "profit_factor": 0.8360595879855197,
+            "return_pct": -27.48202912487726,
+            "max_drawdown_pct": 42.7956992201325,
+            "positive_year_ratio": 0.2,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 46,
+            "profit_factor": 1.4135840676536051,
+            "return_pct": 13.864502177801509,
+            "max_drawdown_pct": 11.309038965183982,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 46,
+            "profit_factor": 1.221184522410167,
+            "return_pct": 11.354131702829084,
+            "max_drawdown_pct": 29.245398645619215,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 5,
+          "threshold_pct": -2.4,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 103,
+            "profit_factor": 0.7329396571565109,
+            "return_pct": -41.6717897822264,
+            "max_drawdown_pct": 49.452172045060095,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 43,
+            "profit_factor": 2.605018912822748,
+            "return_pct": 41.60411657764384,
+            "max_drawdown_pct": 4.728435728227542,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 45,
+            "profit_factor": 2.066878437092249,
+            "return_pct": 67.00080795721624,
+            "max_drawdown_pct": 12.335512924565673,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 5,
+          "threshold_pct": -2.4,
+          "hold": 6,
+          "passed": true,
+          "train": {
+            "trades": 96,
+            "profit_factor": 0.8510002606451936,
+            "return_pct": -26.809648258655137,
+            "max_drawdown_pct": 43.133858445861826,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 43,
+            "profit_factor": 2.3180675157671566,
+            "return_pct": 39.15357646369555,
+            "max_drawdown_pct": 5.24399145313621,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 43,
+            "profit_factor": 1.636389249639059,
+            "return_pct": 42.55374584023981,
+            "max_drawdown_pct": 16.668360739823605,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 6,
+          "threshold_pct": -1.6,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 145,
+            "profit_factor": 0.8387553556868681,
+            "return_pct": -33.08382504623809,
+            "max_drawdown_pct": 45.52528711460509,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 61,
+            "profit_factor": 1.1917832899178622,
+            "return_pct": 8.654095260974493,
+            "max_drawdown_pct": 14.112260880219363,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 67,
+            "profit_factor": 0.9414623327616529,
+            "return_pct": -10.661916850618292,
+            "max_drawdown_pct": 26.285881860063032,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 6,
+          "threshold_pct": -1.6,
+          "hold": 5,
+          "passed": false,
+          "train": {
+            "trades": 123,
+            "profit_factor": 0.7204841664509241,
+            "return_pct": -49.77623573770921,
+            "max_drawdown_pct": 59.360040088224444,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 56,
+            "profit_factor": 1.020032007298824,
+            "return_pct": -0.7829864724075652,
+            "max_drawdown_pct": 12.889901482434606,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 59,
+            "profit_factor": 1.6998831492868414,
+            "return_pct": 48.50749679597393,
+            "max_drawdown_pct": 13.103323966263137,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 6,
+          "threshold_pct": -1.6,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 113,
+            "profit_factor": 0.7714183590904964,
+            "return_pct": -42.939867099053984,
+            "max_drawdown_pct": 54.302011820750565,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 54,
+            "profit_factor": 1.285231737048891,
+            "return_pct": 12.620282148397166,
+            "max_drawdown_pct": 13.179786901668699,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 54,
+            "profit_factor": 0.9433128963353102,
+            "return_pct": -9.617422805315845,
+            "max_drawdown_pct": 27.93613807356189,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 6,
+          "threshold_pct": -2.0,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 127,
+            "profit_factor": 0.809826458367303,
+            "return_pct": -34.38818441756667,
+            "max_drawdown_pct": 45.84269564631446,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 59,
+            "profit_factor": 1.3688489662082823,
+            "return_pct": 16.59934506635301,
+            "max_drawdown_pct": 13.768376743843103,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 53,
+            "profit_factor": 1.038642327332436,
+            "return_pct": -1.3028946577105849,
+            "max_drawdown_pct": 26.285881860063043,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 6,
+          "threshold_pct": -2.0,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 107,
+            "profit_factor": 0.6608265898998892,
+            "return_pct": -50.83828485627729,
+            "max_drawdown_pct": 59.77650600529029,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 52,
+            "profit_factor": 1.6033583374389493,
+            "return_pct": 24.16917173912081,
+            "max_drawdown_pct": 8.541279941444014,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 48,
+            "profit_factor": 2.0000380304091956,
+            "return_pct": 51.92253648936591,
+            "max_drawdown_pct": 11.283895413632038,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 6,
+          "threshold_pct": -2.0,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 103,
+            "profit_factor": 0.7631761604059336,
+            "return_pct": -42.76455050046858,
+            "max_drawdown_pct": 54.55327072963725,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 51,
+            "profit_factor": 1.768683930288396,
+            "return_pct": 26.506111100943365,
+            "max_drawdown_pct": 7.610349902008629,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 43,
+            "profit_factor": 1.0036101182972594,
+            "return_pct": -4.279889915401958,
+            "max_drawdown_pct": 22.14665699267829,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 6,
+          "threshold_pct": -2.4,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 111,
+            "profit_factor": 0.6680124903467229,
+            "return_pct": -45.40693331218992,
+            "max_drawdown_pct": 52.09018726084219,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 46,
+            "profit_factor": 0.9637264051202175,
+            "return_pct": -2.7766626843873654,
+            "max_drawdown_pct": 13.768376743843103,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 41,
+            "profit_factor": 0.8244984722484137,
+            "return_pct": -13.799139874918708,
+            "max_drawdown_pct": 26.285881860063032,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 6,
+          "threshold_pct": -2.4,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 96,
+            "profit_factor": 0.613610543621317,
+            "return_pct": -51.00266449864623,
+            "max_drawdown_pct": 57.87050147564585,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 40,
+            "profit_factor": 1.317797851579425,
+            "return_pct": 9.43442498379461,
+            "max_drawdown_pct": 8.541279941444024,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 38,
+            "profit_factor": 1.39386242045318,
+            "return_pct": 16.189254830617685,
+            "max_drawdown_pct": 15.026586280556842,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 100,
+          "roc_days": 6,
+          "threshold_pct": -2.4,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 93,
+            "profit_factor": 0.7287338898945098,
+            "return_pct": -41.31043330978086,
+            "max_drawdown_pct": 49.78401633225291,
+            "positive_year_ratio": 0.4666666666666667,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 40,
+            "profit_factor": 1.306139878412262,
+            "return_pct": 9.49159683030192,
+            "max_drawdown_pct": 7.610349902008606,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 33,
+            "profit_factor": 0.7643821699068994,
+            "return_pct": -17.993836126054987,
+            "max_drawdown_pct": 27.085287752556663,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 4,
+          "threshold_pct": -1.6,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 154,
+            "profit_factor": 0.6748276074303367,
+            "return_pct": -60.06566179949884,
+            "max_drawdown_pct": 66.1702136482489,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 73,
+            "profit_factor": 1.0787261804930866,
+            "return_pct": 3.0366986740434365,
+            "max_drawdown_pct": 17.65515094335154,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 75,
+            "profit_factor": 1.3010791715327614,
+            "return_pct": 23.680324381227514,
+            "max_drawdown_pct": 16.439518018828693,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 4,
+          "threshold_pct": -1.6,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 144,
+            "profit_factor": 0.7465116367042416,
+            "return_pct": -53.373744061856534,
+            "max_drawdown_pct": 67.7364777111439,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 68,
+            "profit_factor": 1.3416058474770916,
+            "return_pct": 17.9990092890133,
+            "max_drawdown_pct": 12.5179339624374,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 68,
+            "profit_factor": 1.8977975939885787,
+            "return_pct": 80.1836631463047,
+            "max_drawdown_pct": 20.047281807512697,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 4,
+          "threshold_pct": -1.6,
+          "hold": 6,
+          "passed": true,
+          "train": {
+            "trades": 130,
+            "profit_factor": 0.9324861197090112,
+            "return_pct": -26.06017027177868,
+            "max_drawdown_pct": 54.31341259753217,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 64,
+            "profit_factor": 2.6972584144700025,
+            "return_pct": 71.29448784503359,
+            "max_drawdown_pct": 6.5543687556766645,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 67,
+            "profit_factor": 1.774866651302314,
+            "return_pct": 78.47153536863756,
+            "max_drawdown_pct": 24.955380157493234,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 4,
+          "threshold_pct": -2.0,
+          "hold": 4,
+          "passed": true,
+          "train": {
+            "trades": 132,
+            "profit_factor": 0.8256842758101371,
+            "return_pct": -36.69781385342502,
+            "max_drawdown_pct": 54.13473311423791,
+            "positive_year_ratio": 0.2,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 58,
+            "profit_factor": 1.1095403138080686,
+            "return_pct": 4.2542050073499205,
+            "max_drawdown_pct": 15.490792282532361,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 63,
+            "profit_factor": 1.100954375083582,
+            "return_pct": 4.662323544511304,
+            "max_drawdown_pct": 16.82125330664975,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 4,
+          "threshold_pct": -2.0,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 122,
+            "profit_factor": 0.8065830557762343,
+            "return_pct": -40.538807202901815,
+            "max_drawdown_pct": 61.98212182720244,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 56,
+            "profit_factor": 1.32367633811261,
+            "return_pct": 16.492007261924435,
+            "max_drawdown_pct": 12.5179339624374,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 55,
+            "profit_factor": 2.187872726924684,
+            "return_pct": 82.18507585938318,
+            "max_drawdown_pct": 11.362602585239534,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 4,
+          "threshold_pct": -2.0,
+          "hold": 6,
+          "passed": true,
+          "train": {
+            "trades": 115,
+            "profit_factor": 0.9587863864482492,
+            "return_pct": -19.088887043135227,
+            "max_drawdown_pct": 48.24715008992495,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 53,
+            "profit_factor": 2.2757973595694128,
+            "return_pct": 48.88962600771865,
+            "max_drawdown_pct": 9.175413330756966,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 55,
+            "profit_factor": 1.2609623374816674,
+            "return_pct": 18.356940192813063,
+            "max_drawdown_pct": 22.24102010990514,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 4,
+          "threshold_pct": -2.4,
+          "hold": 4,
+          "passed": true,
+          "train": {
+            "trades": 109,
+            "profit_factor": 0.7731499039898962,
+            "return_pct": -37.73944074111264,
+            "max_drawdown_pct": 51.158939808496065,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 51,
+            "profit_factor": 1.2108900367063107,
+            "return_pct": 8.385031934172904,
+            "max_drawdown_pct": 10.189199977384067,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 54,
+            "profit_factor": 1.1445596239728169,
+            "return_pct": 7.631224249984481,
+            "max_drawdown_pct": 16.42209264003316,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 4,
+          "threshold_pct": -2.4,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 106,
+            "profit_factor": 0.8748838050519242,
+            "return_pct": -27.547983371645557,
+            "max_drawdown_pct": 49.76699191501126,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 48,
+            "profit_factor": 1.1023976649583669,
+            "return_pct": 3.29273237174188,
+            "max_drawdown_pct": 17.41151601465144,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 49,
+            "profit_factor": 1.7745169172584303,
+            "return_pct": 46.2484394222769,
+            "max_drawdown_pct": 10.942186975153778,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 4,
+          "threshold_pct": -2.4,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 100,
+            "profit_factor": 1.089840876572869,
+            "return_pct": 3.5176870665847515,
+            "max_drawdown_pct": 34.63587884252901,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 46,
+            "profit_factor": 2.3973408361689166,
+            "return_pct": 36.81166401683418,
+            "max_drawdown_pct": 8.22069771899876,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 48,
+            "profit_factor": 1.0163321893435255,
+            "return_pct": -4.479508376824059,
+            "max_drawdown_pct": 25.835654750088256,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 5,
+          "threshold_pct": -1.6,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 150,
+            "profit_factor": 0.8772395527901174,
+            "return_pct": -31.111227125709217,
+            "max_drawdown_pct": 54.573633546198195,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 69,
+            "profit_factor": 1.295363309537434,
+            "return_pct": 15.878834024782652,
+            "max_drawdown_pct": 12.087529672974895,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 68,
+            "profit_factor": 1.0031800994888858,
+            "return_pct": -5.933430877038304,
+            "max_drawdown_pct": 41.780156005278826,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 5,
+          "threshold_pct": -1.6,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 142,
+            "profit_factor": 1.0144347387899664,
+            "return_pct": -8.253345022639824,
+            "max_drawdown_pct": 47.71770533812707,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 66,
+            "profit_factor": 1.5967750422419162,
+            "return_pct": 34.27014615000412,
+            "max_drawdown_pct": 8.99499066667403,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 64,
+            "profit_factor": 1.6502650379182289,
+            "return_pct": 58.009171606082475,
+            "max_drawdown_pct": 23.153670603524134,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 5,
+          "threshold_pct": -1.6,
+          "hold": 6,
+          "passed": true,
+          "train": {
+            "trades": 131,
+            "profit_factor": 0.9219022348735387,
+            "return_pct": -25.498703190877848,
+            "max_drawdown_pct": 51.83351858786469,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 63,
+            "profit_factor": 1.7215573650763862,
+            "return_pct": 38.934144355374855,
+            "max_drawdown_pct": 11.107019224856284,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 62,
+            "profit_factor": 1.147379703393238,
+            "return_pct": 8.057009663031023,
+            "max_drawdown_pct": 24.825345103460762,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 5,
+          "threshold_pct": -2.0,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 129,
+            "profit_factor": 0.8689577438796043,
+            "return_pct": -29.481734325399454,
+            "max_drawdown_pct": 52.852738726188456,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 56,
+            "profit_factor": 1.0157536827989038,
+            "return_pct": -0.9905288346617747,
+            "max_drawdown_pct": 12.087529672974872,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 58,
+            "profit_factor": 1.1023479514448633,
+            "return_pct": 3.9817324197549686,
+            "max_drawdown_pct": 33.937747080221335,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 5,
+          "threshold_pct": -2.0,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 120,
+            "profit_factor": 1.072041306018645,
+            "return_pct": 2.0978703218644146,
+            "max_drawdown_pct": 41.43313593872563,
+            "positive_year_ratio": 0.4666666666666667,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 51,
+            "profit_factor": 2.743378479535172,
+            "return_pct": 58.00492100560337,
+            "max_drawdown_pct": 8.810165089510502,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 56,
+            "profit_factor": 1.6251156428201403,
+            "return_pct": 51.53726055346619,
+            "max_drawdown_pct": 21.176392553802025,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 5,
+          "threshold_pct": -2.0,
+          "hold": 6,
+          "passed": true,
+          "train": {
+            "trades": 112,
+            "profit_factor": 0.9443958486170911,
+            "return_pct": -19.906523588875313,
+            "max_drawdown_pct": 44.54532037505242,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 51,
+            "profit_factor": 2.1772811443406286,
+            "return_pct": 45.77704476106712,
+            "max_drawdown_pct": 5.574277049056386,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 52,
+            "profit_factor": 1.374425541079375,
+            "return_pct": 27.988182238729298,
+            "max_drawdown_pct": 22.24102010990515,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 5,
+          "threshold_pct": -2.4,
+          "hold": 4,
+          "passed": true,
+          "train": {
+            "trades": 118,
+            "profit_factor": 0.7689331240480289,
+            "return_pct": -38.05252078024286,
+            "max_drawdown_pct": 47.30328699439125,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 49,
+            "profit_factor": 1.2786122068835217,
+            "return_pct": 10.733554983175608,
+            "max_drawdown_pct": 14.242837448187473,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 47,
+            "profit_factor": 1.1020512219100398,
+            "return_pct": 2.7711790390839486,
+            "max_drawdown_pct": 34.61228842699832,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 5,
+          "threshold_pct": -2.4,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 110,
+            "profit_factor": 0.7249971562368464,
+            "return_pct": -45.08167806658495,
+            "max_drawdown_pct": 56.303513861857404,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 46,
+            "profit_factor": 2.166161499619398,
+            "return_pct": 38.03062439184561,
+            "max_drawdown_pct": 8.810165089510502,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 45,
+            "profit_factor": 2.066878437092249,
+            "return_pct": 67.00080795721624,
+            "max_drawdown_pct": 12.335512924565673,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 5,
+          "threshold_pct": -2.4,
+          "hold": 6,
+          "passed": true,
+          "train": {
+            "trades": 104,
+            "profit_factor": 0.8052931799221754,
+            "return_pct": -34.972101416664515,
+            "max_drawdown_pct": 48.498848144919926,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 46,
+            "profit_factor": 2.226158300589219,
+            "return_pct": 37.75380385250395,
+            "max_drawdown_pct": 5.243991453136198,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 44,
+            "profit_factor": 1.6317469188041935,
+            "return_pct": 42.29385088424926,
+            "max_drawdown_pct": 16.668360739823605,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 6,
+          "threshold_pct": -1.6,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 151,
+            "profit_factor": 0.765557715866042,
+            "return_pct": -44.878229369098385,
+            "max_drawdown_pct": 55.12680408095936,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 65,
+            "profit_factor": 1.290231552289646,
+            "return_pct": 15.138123650292346,
+            "max_drawdown_pct": 12.91905962675768,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 68,
+            "profit_factor": 0.8758182224948131,
+            "return_pct": -17.54791674137386,
+            "max_drawdown_pct": 31.877257400533164,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 6,
+          "threshold_pct": -1.6,
+          "hold": 5,
+          "passed": false,
+          "train": {
+            "trades": 130,
+            "profit_factor": 0.726618563159169,
+            "return_pct": -49.657930644326385,
+            "max_drawdown_pct": 58.19962138556186,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 60,
+            "profit_factor": 1.035160048863556,
+            "return_pct": 0.05522683745642354,
+            "max_drawdown_pct": 16.6219683326138,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 60,
+            "profit_factor": 1.7503494255189476,
+            "return_pct": 51.49691855174245,
+            "max_drawdown_pct": 11.65983214385159,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 6,
+          "threshold_pct": -1.6,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 118,
+            "profit_factor": 0.7131031585514196,
+            "return_pct": -52.58147685616758,
+            "max_drawdown_pct": 60.28721445245579,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 58,
+            "profit_factor": 1.3016567832311254,
+            "return_pct": 13.892860334682243,
+            "max_drawdown_pct": 13.180230565460683,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 56,
+            "profit_factor": 0.9876156364230845,
+            "return_pct": -6.179222957207864,
+            "max_drawdown_pct": 25.194791601488454,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 6,
+          "threshold_pct": -2.0,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 136,
+            "profit_factor": 0.7670618370094052,
+            "return_pct": -42.6119114869149,
+            "max_drawdown_pct": 52.63072438569256,
+            "positive_year_ratio": 0.2,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 60,
+            "profit_factor": 1.2531309649470599,
+            "return_pct": 11.64734218803385,
+            "max_drawdown_pct": 17.430655003842077,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 54,
+            "profit_factor": 0.9430071420077716,
+            "return_pct": -8.910269168628792,
+            "max_drawdown_pct": 31.877257400533175,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 6,
+          "threshold_pct": -2.0,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 115,
+            "profit_factor": 0.6802918446328274,
+            "return_pct": -50.39712535569543,
+            "max_drawdown_pct": 59.41555487755834,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 53,
+            "profit_factor": 1.4414733815285565,
+            "return_pct": 18.849379228860542,
+            "max_drawdown_pct": 12.459655228570188,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 49,
+            "profit_factor": 2.08129191154083,
+            "return_pct": 54.980702208749044,
+            "max_drawdown_pct": 9.810179992838396,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 6,
+          "threshold_pct": -2.0,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 109,
+            "profit_factor": 0.7382327864262089,
+            "return_pct": -49.01153993304405,
+            "max_drawdown_pct": 61.593930566200875,
+            "positive_year_ratio": 0.2,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 52,
+            "profit_factor": 1.7096676551592258,
+            "return_pct": 25.09552551045271,
+            "max_drawdown_pct": 8.640525503839513,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 45,
+            "profit_factor": 1.0575686059442708,
+            "return_pct": -0.6386475635175914,
+            "max_drawdown_pct": 22.24102010990513,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 6,
+          "threshold_pct": -2.4,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 121,
+            "profit_factor": 0.6281502801994867,
+            "return_pct": -53.73062561011881,
+            "max_drawdown_pct": 59.39489761119858,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 48,
+            "profit_factor": 0.9835609395814163,
+            "return_pct": -2.215420291182879,
+            "max_drawdown_pct": 17.430655003842066,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 44,
+            "profit_factor": 0.7877133956073533,
+            "return_pct": -17.46950785170266,
+            "max_drawdown_pct": 31.877257400533175,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 6,
+          "threshold_pct": -2.4,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 104,
+            "profit_factor": 0.5870788614369554,
+            "return_pct": -57.072999659470995,
+            "max_drawdown_pct": 63.089972566951126,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 42,
+            "profit_factor": 1.2736651426009988,
+            "return_pct": 8.992929323765452,
+            "max_drawdown_pct": 12.459655228570199,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 40,
+            "profit_factor": 1.5024869569407568,
+            "return_pct": 21.006600549423716,
+            "max_drawdown_pct": 13.615042900246321,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 120,
+          "roc_days": 6,
+          "threshold_pct": -2.4,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 100,
+            "profit_factor": 0.7205706878597912,
+            "return_pct": -45.29988000533718,
+            "max_drawdown_pct": 53.197467843401824,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 42,
+            "profit_factor": 1.2635703013291744,
+            "return_pct": 8.244627433141938,
+            "max_drawdown_pct": 8.640525503839525,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 36,
+            "profit_factor": 0.8580200445716731,
+            "return_pct": -12.88135204901215,
+            "max_drawdown_pct": 24.156590451668546,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          }
+        }
+      ]
+    },
+    {
+      "seed": "sma200_roc5_dip2_hold5",
+      "neighbour_count": 81,
+      "pass_count": 30,
+      "pass_ratio": 0.37037037037037035,
+      "decision": "FRAGILE_CLUSTER",
+      "neighbours": [
+        {
+          "sma": 160,
+          "roc_days": 4,
+          "threshold_pct": -1.6,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 147,
+            "profit_factor": 0.6680008542592787,
+            "return_pct": -57.801919050990506,
+            "max_drawdown_pct": 68.99345123004157,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 76,
+            "profit_factor": 1.0469389856435227,
+            "return_pct": 0.7403483342792949,
+            "max_drawdown_pct": 16.877227786842653,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 78,
+            "profit_factor": 1.2303156559037218,
+            "return_pct": 18.36555080151512,
+            "max_drawdown_pct": 22.930503607495655,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 4,
+          "threshold_pct": -1.6,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 137,
+            "profit_factor": 0.7479020861720536,
+            "return_pct": -50.028596141490624,
+            "max_drawdown_pct": 68.21573135262314,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 69,
+            "profit_factor": 1.257401791278781,
+            "return_pct": 13.70409049647372,
+            "max_drawdown_pct": 12.761166223481624,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 71,
+            "profit_factor": 1.6180909932690348,
+            "return_pct": 58.47927769881463,
+            "max_drawdown_pct": 29.55441921286861,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 4,
+          "threshold_pct": -1.6,
+          "hold": 6,
+          "passed": true,
+          "train": {
+            "trades": 124,
+            "profit_factor": 0.9055168871192857,
+            "return_pct": -28.485822588381858,
+            "max_drawdown_pct": 60.25042330781315,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 65,
+            "profit_factor": 2.4700713838958244,
+            "return_pct": 66.0811976889103,
+            "max_drawdown_pct": 8.234000403058083,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 69,
+            "profit_factor": 1.6046220905757784,
+            "return_pct": 63.97110627181861,
+            "max_drawdown_pct": 32.23206201640272,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 4,
+          "threshold_pct": -2.0,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 126,
+            "profit_factor": 0.7679176564366629,
+            "return_pct": -42.861715177084584,
+            "max_drawdown_pct": 59.14303033150383,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 61,
+            "profit_factor": 1.0694718259786977,
+            "return_pct": 1.9307204414494628,
+            "max_drawdown_pct": 14.692422130971172,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 65,
+            "profit_factor": 1.109988090257822,
+            "return_pct": 5.717451507233329,
+            "max_drawdown_pct": 18.64117211814008,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 4,
+          "threshold_pct": -2.0,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 117,
+            "profit_factor": 0.8266230150817635,
+            "return_pct": -36.147883584994,
+            "max_drawdown_pct": 60.47104085000521,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 57,
+            "profit_factor": 1.2394865454173716,
+            "return_pct": 12.251940212340484,
+            "max_drawdown_pct": 12.5179339624374,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 57,
+            "profit_factor": 1.8064862433674336,
+            "return_pct": 61.765955976772034,
+            "max_drawdown_pct": 20.859355546882195,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 4,
+          "threshold_pct": -2.0,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 110,
+            "profit_factor": 0.9477972959322042,
+            "return_pct": -19.53534846084184,
+            "max_drawdown_pct": 52.87036543667178,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 54,
+            "profit_factor": 2.0812999854616576,
+            "return_pct": 44.358220290115334,
+            "max_drawdown_pct": 9.175413330756966,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 57,
+            "profit_factor": 1.0096751966243984,
+            "return_pct": -7.1821990382857415,
+            "max_drawdown_pct": 33.62726201067724,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 4,
+          "threshold_pct": -2.4,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 99,
+            "profit_factor": 0.6944983269059247,
+            "return_pct": -43.93152174790358,
+            "max_drawdown_pct": 57.80297073224685,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 53,
+            "profit_factor": 1.146584358215738,
+            "return_pct": 5.9909470402050635,
+            "max_drawdown_pct": 12.569193749764352,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 54,
+            "profit_factor": 1.0716939423721772,
+            "return_pct": 1.9871009230606473,
+            "max_drawdown_pct": 20.273140695187518,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 4,
+          "threshold_pct": -2.4,
+          "hold": 5,
+          "passed": false,
+          "train": {
+            "trades": 98,
+            "profit_factor": 0.9234029300083462,
+            "return_pct": -19.626778982752292,
+            "max_drawdown_pct": 50.290569923749054,
+            "positive_year_ratio": 0.4666666666666667,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 48,
+            "profit_factor": 1.0287100672199772,
+            "return_pct": -0.3112450107524478,
+            "max_drawdown_pct": 20.417565252295766,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 50,
+            "profit_factor": 1.5148390470767121,
+            "return_pct": 32.80368189562961,
+            "max_drawdown_pct": 19.030806657423526,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 4,
+          "threshold_pct": -2.4,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 93,
+            "profit_factor": 1.0980581906182352,
+            "return_pct": 4.440489591255337,
+            "max_drawdown_pct": 40.99493130642151,
+            "positive_year_ratio": 0.5333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 46,
+            "profit_factor": 2.5095540302813317,
+            "return_pct": 40.360432723429284,
+            "max_drawdown_pct": 8.220697718998727,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 49,
+            "profit_factor": 0.8053115074168765,
+            "return_pct": -24.90511961546048,
+            "max_drawdown_pct": 41.69457735508,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 5,
+          "threshold_pct": -1.6,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 147,
+            "profit_factor": 0.8013178264298582,
+            "return_pct": -41.147415218688586,
+            "max_drawdown_pct": 64.1499298784943,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 73,
+            "profit_factor": 1.023170512167243,
+            "return_pct": -1.0421003789693795,
+            "max_drawdown_pct": 13.857882369112783,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 72,
+            "profit_factor": 0.9868132942894714,
+            "return_pct": -8.149199623259518,
+            "max_drawdown_pct": 44.52054673419445,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 5,
+          "threshold_pct": -1.6,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 139,
+            "profit_factor": 1.0352656310239894,
+            "return_pct": -4.085954501951572,
+            "max_drawdown_pct": 43.56518459199904,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 69,
+            "profit_factor": 1.561476464583853,
+            "return_pct": 34.34548791155636,
+            "max_drawdown_pct": 8.99499066667403,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 68,
+            "profit_factor": 1.5804309149832259,
+            "return_pct": 57.041346501413656,
+            "max_drawdown_pct": 27.498276406043544,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 5,
+          "threshold_pct": -1.6,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 128,
+            "profit_factor": 0.9609157929947701,
+            "return_pct": -17.991030558587607,
+            "max_drawdown_pct": 49.72541810601439,
+            "positive_year_ratio": 0.5333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 67,
+            "profit_factor": 1.4407167399914504,
+            "return_pct": 26.962389113236497,
+            "max_drawdown_pct": 16.85366003268145,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 65,
+            "profit_factor": 0.986675789237915,
+            "return_pct": -9.332578253034708,
+            "max_drawdown_pct": 36.347822916634144,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 5,
+          "threshold_pct": -2.0,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 127,
+            "profit_factor": 0.8295872950396493,
+            "return_pct": -33.79724143866313,
+            "max_drawdown_pct": 60.10706114712365,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 59,
+            "profit_factor": 0.8359437629720876,
+            "return_pct": -12.221598731933813,
+            "max_drawdown_pct": 20.31894404574891,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 62,
+            "profit_factor": 1.0079290117004667,
+            "return_pct": -5.577201051301572,
+            "max_drawdown_pct": 39.91886264998629,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 5,
+          "threshold_pct": -2.0,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 118,
+            "profit_factor": 1.1230533071557114,
+            "return_pct": 11.008539792973782,
+            "max_drawdown_pct": 37.158561775690025,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 53,
+            "profit_factor": 2.460867074395303,
+            "return_pct": 54.24112558458032,
+            "max_drawdown_pct": 12.129285631331088,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 60,
+            "profit_factor": 1.5550262325828137,
+            "return_pct": 50.60907667929195,
+            "max_drawdown_pct": 25.63278630709909,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 5,
+          "threshold_pct": -2.0,
+          "hold": 6,
+          "passed": true,
+          "train": {
+            "trades": 111,
+            "profit_factor": 0.9845333410359113,
+            "return_pct": -12.942964619113884,
+            "max_drawdown_pct": 47.79653879523684,
+            "positive_year_ratio": 0.4666666666666667,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 52,
+            "profit_factor": 1.7522571341269126,
+            "return_pct": 33.9658758548447,
+            "max_drawdown_pct": 8.102214532871987,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 56,
+            "profit_factor": 1.130948263924829,
+            "return_pct": 5.926750784173218,
+            "max_drawdown_pct": 33.62726201067724,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 5,
+          "threshold_pct": -2.4,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 113,
+            "profit_factor": 0.7205258026314199,
+            "return_pct": -42.39283631316447,
+            "max_drawdown_pct": 53.816558738092155,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 52,
+            "profit_factor": 1.0959370428098683,
+            "return_pct": 3.009420184201028,
+            "max_drawdown_pct": 19.125190292881534,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 52,
+            "profit_factor": 1.0308410482505417,
+            "return_pct": -2.8064004337663984,
+            "max_drawdown_pct": 35.67958735384802,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 5,
+          "threshold_pct": -2.4,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 107,
+            "profit_factor": 0.8227579793283094,
+            "return_pct": -32.53175117571951,
+            "max_drawdown_pct": 50.47196744276376,
+            "positive_year_ratio": 0.4666666666666667,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 47,
+            "profit_factor": 1.9730159416752504,
+            "return_pct": 34.95336064371835,
+            "max_drawdown_pct": 12.129285631331088,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 49,
+            "profit_factor": 1.8451954418914378,
+            "return_pct": 60.14072162416162,
+            "max_drawdown_pct": 20.297584656515934,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 5,
+          "threshold_pct": -2.4,
+          "hold": 6,
+          "passed": true,
+          "train": {
+            "trades": 102,
+            "profit_factor": 0.8752624911090038,
+            "return_pct": -24.99358233401593,
+            "max_drawdown_pct": 46.20688486126946,
+            "positive_year_ratio": 0.4666666666666667,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 46,
+            "profit_factor": 1.7026895626858969,
+            "return_pct": 25.99039541225132,
+            "max_drawdown_pct": 9.40613193410531,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 48,
+            "profit_factor": 1.5155130135539228,
+            "return_pct": 37.96938669067917,
+            "max_drawdown_pct": 24.28158407097647,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 6,
+          "threshold_pct": -1.6,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 149,
+            "profit_factor": 0.7145158060076564,
+            "return_pct": -50.23473920140027,
+            "max_drawdown_pct": 65.8198299867066,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 68,
+            "profit_factor": 1.3966149352219226,
+            "return_pct": 22.087988505111554,
+            "max_drawdown_pct": 12.05510913011687,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 73,
+            "profit_factor": 0.846351291378975,
+            "return_pct": -21.76262998550523,
+            "max_drawdown_pct": 32.44178023805071,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 6,
+          "threshold_pct": -1.6,
+          "hold": 5,
+          "passed": false,
+          "train": {
+            "trades": 131,
+            "profit_factor": 0.7758677662015235,
+            "return_pct": -44.011513038844754,
+            "max_drawdown_pct": 58.65569291016046,
+            "positive_year_ratio": 0.4666666666666667,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 64,
+            "profit_factor": 0.9906900863009817,
+            "return_pct": -2.8766062312224228,
+            "max_drawdown_pct": 20.424269227032866,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 63,
+            "profit_factor": 1.617463899634309,
+            "return_pct": 47.24803676533145,
+            "max_drawdown_pct": 19.68327215642973,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 6,
+          "threshold_pct": -1.6,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 121,
+            "profit_factor": 0.6850418847486565,
+            "return_pct": -56.53071170469227,
+            "max_drawdown_pct": 66.32601917760441,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 60,
+            "profit_factor": 1.102553208609502,
+            "return_pct": 3.733306019425431,
+            "max_drawdown_pct": 14.263848317778915,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 59,
+            "profit_factor": 0.8893752273247041,
+            "return_pct": -17.713471965681236,
+            "max_drawdown_pct": 35.65144830927379,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 6,
+          "threshold_pct": -2.0,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 135,
+            "profit_factor": 0.6958666812674116,
+            "return_pct": -49.112367687372604,
+            "max_drawdown_pct": 63.21780792462442,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 63,
+            "profit_factor": 1.411585444315096,
+            "return_pct": 20.7415299077065,
+            "max_drawdown_pct": 17.430655003842066,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 58,
+            "profit_factor": 0.8697712229103897,
+            "return_pct": -15.778942067241076,
+            "max_drawdown_pct": 31.877257400533175,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 6,
+          "threshold_pct": -2.0,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 115,
+            "profit_factor": 0.6786664155241366,
+            "return_pct": -50.51334069398008,
+            "max_drawdown_pct": 64.57319643582618,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 55,
+            "profit_factor": 1.2110834981796297,
+            "return_pct": 9.298228718764602,
+            "max_drawdown_pct": 12.459655228570178,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 52,
+            "profit_factor": 1.8258707761603838,
+            "return_pct": 48.9897772327905,
+            "max_drawdown_pct": 18.001613495104696,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 6,
+          "threshold_pct": -2.0,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 111,
+            "profit_factor": 0.6950422822254771,
+            "return_pct": -53.97379436684735,
+            "max_drawdown_pct": 65.93495130906487,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 52,
+            "profit_factor": 1.209988650494601,
+            "return_pct": 7.7155950084360825,
+            "max_drawdown_pct": 12.190248584897889,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 48,
+            "profit_factor": 0.9615151024862304,
+            "return_pct": -9.796943339854936,
+            "max_drawdown_pct": 33.62726201067724,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 6,
+          "threshold_pct": -2.4,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 119,
+            "profit_factor": 0.6019976895684979,
+            "return_pct": -53.1875123214481,
+            "max_drawdown_pct": 63.828624482196005,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 52,
+            "profit_factor": 1.1704133063536806,
+            "return_pct": 6.748612787731045,
+            "max_drawdown_pct": 17.430655003842077,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 48,
+            "profit_factor": 0.7362125085014112,
+            "return_pct": -22.526449142693274,
+            "max_drawdown_pct": 32.78853667007944,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 6,
+          "threshold_pct": -2.4,
+          "hold": 5,
+          "passed": false,
+          "train": {
+            "trades": 101,
+            "profit_factor": 0.6183061377889918,
+            "return_pct": -51.52511167011671,
+            "max_drawdown_pct": 63.53118018509322,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 43,
+            "profit_factor": 1.032995051306607,
+            "return_pct": -0.16305001545490194,
+            "max_drawdown_pct": 12.459655228570199,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 43,
+            "profit_factor": 1.3681915027126064,
+            "return_pct": 17.979893011236037,
+            "max_drawdown_pct": 21.272172191930128,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 160,
+          "roc_days": 6,
+          "threshold_pct": -2.4,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 98,
+            "profit_factor": 0.6795525161327792,
+            "return_pct": -47.86062321212867,
+            "max_drawdown_pct": 60.507275607482434,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 42,
+            "profit_factor": 0.8913159795540507,
+            "return_pct": -6.794152685716092,
+            "max_drawdown_pct": 16.50216640139075,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 39,
+            "profit_factor": 0.7432409075530441,
+            "return_pct": -25.68613589965476,
+            "max_drawdown_pct": 35.30412876411473,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 4,
+          "threshold_pct": -1.6,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 148,
+            "profit_factor": 0.7045831052150676,
+            "return_pct": -54.97752342813678,
+            "max_drawdown_pct": 69.32085700604873,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 77,
+            "profit_factor": 0.9973688051812055,
+            "return_pct": -2.817980715621682,
+            "max_drawdown_pct": 19.81327257887493,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 80,
+            "profit_factor": 1.1278595490590915,
+            "return_pct": 8.270440653377808,
+            "max_drawdown_pct": 19.17928492570762,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 4,
+          "threshold_pct": -1.6,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 139,
+            "profit_factor": 0.8060514416168274,
+            "return_pct": -45.23343628724052,
+            "max_drawdown_pct": 68.2627748523098,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 70,
+            "profit_factor": 1.2629608768932252,
+            "return_pct": 14.907924124094073,
+            "max_drawdown_pct": 12.5179339624374,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 72,
+            "profit_factor": 1.5596166807038494,
+            "return_pct": 50.27887474100383,
+            "max_drawdown_pct": 28.043905577715833,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 4,
+          "threshold_pct": -1.6,
+          "hold": 6,
+          "passed": true,
+          "train": {
+            "trades": 128,
+            "profit_factor": 0.8883487037626829,
+            "return_pct": -33.37398874620383,
+            "max_drawdown_pct": 62.58500690859206,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 66,
+            "profit_factor": 2.135366488001093,
+            "return_pct": 57.959222265263286,
+            "max_drawdown_pct": 10.282078985878906,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 70,
+            "profit_factor": 1.6337698694491807,
+            "return_pct": 64.59672075114938,
+            "max_drawdown_pct": 27.30930007946246,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 4,
+          "threshold_pct": -2.0,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 128,
+            "profit_factor": 0.7760025300631804,
+            "return_pct": -43.41482311021417,
+            "max_drawdown_pct": 60.65261426128653,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 62,
+            "profit_factor": 1.0713851549339952,
+            "return_pct": 2.0547064905644508,
+            "max_drawdown_pct": 14.588656068161665,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 65,
+            "profit_factor": 1.095109093678656,
+            "return_pct": 4.334730033322032,
+            "max_drawdown_pct": 14.634172808060065,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 4,
+          "threshold_pct": -2.0,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 118,
+            "profit_factor": 0.8757737256647209,
+            "return_pct": -32.24176962903032,
+            "max_drawdown_pct": 59.77436467400277,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 59,
+            "profit_factor": 1.3668354475776585,
+            "return_pct": 20.563404273664588,
+            "max_drawdown_pct": 12.51793396243739,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 57,
+            "profit_factor": 1.9260208225801179,
+            "return_pct": 68.57955052305864,
+            "max_drawdown_pct": 12.598593107173073,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 4,
+          "threshold_pct": -2.0,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 111,
+            "profit_factor": 0.9712090007816125,
+            "return_pct": -17.113736240518783,
+            "max_drawdown_pct": 47.99485269965207,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 56,
+            "profit_factor": 2.1805194920801614,
+            "return_pct": 49.50335823369363,
+            "max_drawdown_pct": 9.175413330756966,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 57,
+            "profit_factor": 0.9920079946819826,
+            "return_pct": -8.652781513465502,
+            "max_drawdown_pct": 33.62726201067724,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 4,
+          "threshold_pct": -2.4,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 104,
+            "profit_factor": 0.758465475926695,
+            "return_pct": -39.57655373954723,
+            "max_drawdown_pct": 59.80578607417435,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 54,
+            "profit_factor": 1.1488074778788642,
+            "return_pct": 6.119871850198999,
+            "max_drawdown_pct": 12.569193749764384,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 54,
+            "profit_factor": 1.0524927217879259,
+            "return_pct": 0.6531702191161948,
+            "max_drawdown_pct": 19.85615804109335,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 4,
+          "threshold_pct": -2.4,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 102,
+            "profit_factor": 0.9719913598800743,
+            "return_pct": -15.530763660456016,
+            "max_drawdown_pct": 50.67374142946348,
+            "positive_year_ratio": 0.5333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 50,
+            "profit_factor": 1.1685453187475259,
+            "return_pct": 7.070003837543037,
+            "max_drawdown_pct": 16.503317363662575,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 50,
+            "profit_factor": 1.5952768207622112,
+            "return_pct": 36.605566006965276,
+            "max_drawdown_pct": 10.579178852773385,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 4,
+          "threshold_pct": -2.4,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 97,
+            "profit_factor": 1.1230047115659838,
+            "return_pct": 8.182492990114287,
+            "max_drawdown_pct": 37.80954286782482,
+            "positive_year_ratio": 0.6,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 49,
+            "profit_factor": 2.6276396185809756,
+            "return_pct": 44.92569702571822,
+            "max_drawdown_pct": 7.064441663882304,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 49,
+            "profit_factor": 0.7780449584939552,
+            "return_pct": -26.094904483502923,
+            "max_drawdown_pct": 38.750696782071614,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 5,
+          "threshold_pct": -1.6,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 150,
+            "profit_factor": 0.8270550656897087,
+            "return_pct": -39.0931794251256,
+            "max_drawdown_pct": 62.83816573842208,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 75,
+            "profit_factor": 1.010965885472771,
+            "return_pct": -2.0217727073574276,
+            "max_drawdown_pct": 12.087529672974872,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 72,
+            "profit_factor": 0.9763446611775456,
+            "return_pct": -8.821511559197493,
+            "max_drawdown_pct": 40.445311811428155,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 5,
+          "threshold_pct": -1.6,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 142,
+            "profit_factor": 1.0528134726898217,
+            "return_pct": -1.0700948772504493,
+            "max_drawdown_pct": 43.573227870508504,
+            "positive_year_ratio": 0.4666666666666667,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 71,
+            "profit_factor": 1.5178632293631331,
+            "return_pct": 34.08070886945096,
+            "max_drawdown_pct": 8.99499066667403,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 67,
+            "profit_factor": 1.6134874807596709,
+            "return_pct": 57.432932501338584,
+            "max_drawdown_pct": 24.50810019662614,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 5,
+          "threshold_pct": -1.6,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 129,
+            "profit_factor": 0.96804579059642,
+            "return_pct": -16.544735143691113,
+            "max_drawdown_pct": 47.50109568070092,
+            "positive_year_ratio": 0.5333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 69,
+            "profit_factor": 1.3854931075137593,
+            "return_pct": 24.382388953708436,
+            "max_drawdown_pct": 16.85366003268145,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 65,
+            "profit_factor": 1.0017984391837627,
+            "return_pct": -7.315787807334894,
+            "max_drawdown_pct": 33.62726201067725,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 5,
+          "threshold_pct": -2.0,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 123,
+            "profit_factor": 0.8539118684265199,
+            "return_pct": -31.46028365470802,
+            "max_drawdown_pct": 58.55371966584444,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 61,
+            "profit_factor": 0.8956972471889391,
+            "return_pct": -8.782745130375435,
+            "max_drawdown_pct": 17.297913182416778,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 62,
+            "profit_factor": 1.0026933476089206,
+            "return_pct": -5.702347761554217,
+            "max_drawdown_pct": 34.18646464717613,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 5,
+          "threshold_pct": -2.0,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 115,
+            "profit_factor": 1.1118312769867027,
+            "return_pct": 8.417639805677535,
+            "max_drawdown_pct": 38.640891419275825,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 55,
+            "profit_factor": 2.6980619392713514,
+            "return_pct": 65.66159252394357,
+            "max_drawdown_pct": 8.196122738914802,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 59,
+            "profit_factor": 1.595366534291988,
+            "return_pct": 51.56617220258344,
+            "max_drawdown_pct": 20.03297051151526,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 5,
+          "threshold_pct": -2.0,
+          "hold": 6,
+          "passed": true,
+          "train": {
+            "trades": 108,
+            "profit_factor": 1.0086589081867696,
+            "return_pct": -8.869834409585032,
+            "max_drawdown_pct": 43.426962954586436,
+            "positive_year_ratio": 0.4666666666666667,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 54,
+            "profit_factor": 1.786717813508539,
+            "return_pct": 36.191184464119466,
+            "max_drawdown_pct": 8.102214532871987,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 56,
+            "profit_factor": 1.1569354929109368,
+            "return_pct": 8.390931899734655,
+            "max_drawdown_pct": 33.62726201067724,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 5,
+          "threshold_pct": -2.4,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 113,
+            "profit_factor": 0.7576138673876,
+            "return_pct": -38.86542778269828,
+            "max_drawdown_pct": 50.651182216258036,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 54,
+            "profit_factor": 1.1717717118447593,
+            "return_pct": 7.044972330031074,
+            "max_drawdown_pct": 16.05889940020563,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 51,
+            "profit_factor": 0.981830963250338,
+            "return_pct": -6.399563147175202,
+            "max_drawdown_pct": 34.61228842699828,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 5,
+          "threshold_pct": -2.4,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 107,
+            "profit_factor": 0.8324350612192556,
+            "return_pct": -31.429521478495115,
+            "max_drawdown_pct": 48.31386604172005,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 49,
+            "profit_factor": 2.1985598578751113,
+            "return_pct": 44.94570469428352,
+            "max_drawdown_pct": 8.196122738914823,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 49,
+            "profit_factor": 2.047453691185879,
+            "return_pct": 71.90159428542589,
+            "max_drawdown_pct": 9.76734049654241,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 5,
+          "threshold_pct": -2.4,
+          "hold": 6,
+          "passed": true,
+          "train": {
+            "trades": 102,
+            "profit_factor": 0.9224723278043304,
+            "return_pct": -18.74284810584936,
+            "max_drawdown_pct": 38.67105743735208,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 48,
+            "profit_factor": 1.743496108063496,
+            "return_pct": 28.083223229841224,
+            "max_drawdown_pct": 9.40613193410531,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 48,
+            "profit_factor": 1.5874068036637654,
+            "return_pct": 41.178977796720815,
+            "max_drawdown_pct": 16.739089485313883,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 6,
+          "threshold_pct": -1.6,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 144,
+            "profit_factor": 0.6089020292515802,
+            "return_pct": -59.099444794591946,
+            "max_drawdown_pct": 71.13052462261133,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 70,
+            "profit_factor": 1.3642717969760727,
+            "return_pct": 21.52289065240549,
+            "max_drawdown_pct": 12.05510913011687,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 74,
+            "profit_factor": 0.8903257714881114,
+            "return_pct": -17.001671550030494,
+            "max_drawdown_pct": 31.877257400533164,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 6,
+          "threshold_pct": -1.6,
+          "hold": 5,
+          "passed": false,
+          "train": {
+            "trades": 128,
+            "profit_factor": 0.7359208381487286,
+            "return_pct": -45.0988234633169,
+            "max_drawdown_pct": 61.09386184859199,
+            "positive_year_ratio": 0.4,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 66,
+            "profit_factor": 1.0215130407733803,
+            "return_pct": -0.8945306239584894,
+            "max_drawdown_pct": 16.510351072203832,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 65,
+            "profit_factor": 1.5774130122758294,
+            "return_pct": 46.36350902669795,
+            "max_drawdown_pct": 11.285758037772498,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 6,
+          "threshold_pct": -1.6,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 116,
+            "profit_factor": 0.6816127710850878,
+            "return_pct": -51.72839625912883,
+            "max_drawdown_pct": 62.60585065038118,
+            "positive_year_ratio": 0.2,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 62,
+            "profit_factor": 1.0398098782122693,
+            "return_pct": 0.0636342804422485,
+            "max_drawdown_pct": 15.163526677181139,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 61,
+            "profit_factor": 0.9600660688534227,
+            "return_pct": -10.786580745491836,
+            "max_drawdown_pct": 33.62726201067724,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 6,
+          "threshold_pct": -2.0,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 130,
+            "profit_factor": 0.6236396484874528,
+            "return_pct": -54.181357392170014,
+            "max_drawdown_pct": 66.23997500914336,
+            "positive_year_ratio": 0.2,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 64,
+            "profit_factor": 1.345249806567983,
+            "return_pct": 17.750367245427224,
+            "max_drawdown_pct": 17.430655003842077,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 59,
+            "profit_factor": 0.9494949236323766,
+            "return_pct": -8.945967241271779,
+            "max_drawdown_pct": 31.877257400533175,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 6,
+          "threshold_pct": -2.0,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 111,
+            "profit_factor": 0.6873914247173978,
+            "return_pct": -45.292133804670634,
+            "max_drawdown_pct": 60.288599373439034,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 57,
+            "profit_factor": 1.113684867385353,
+            "return_pct": 4.486838844897334,
+            "max_drawdown_pct": 13.740667735474876,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 54,
+            "profit_factor": 1.7841885785172813,
+            "return_pct": 50.287045034089005,
+            "max_drawdown_pct": 11.28575803777252,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 6,
+          "threshold_pct": -2.0,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 107,
+            "profit_factor": 0.7362695527606381,
+            "return_pct": -44.4258454467614,
+            "max_drawdown_pct": 57.46981493248047,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 54,
+            "profit_factor": 1.1249694350030965,
+            "return_pct": 4.06350226221357,
+            "max_drawdown_pct": 12.190248584897889,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 50,
+            "profit_factor": 1.0454607390721922,
+            "return_pct": -2.5228118196637284,
+            "max_drawdown_pct": 33.62726201067725,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 6,
+          "threshold_pct": -2.4,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 118,
+            "profit_factor": 0.6020423926912813,
+            "return_pct": -51.002547902592134,
+            "max_drawdown_pct": 61.40669445812661,
+            "positive_year_ratio": 0.26666666666666666,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 53,
+            "profit_factor": 1.1729655304064166,
+            "return_pct": 6.878459203911813,
+            "max_drawdown_pct": 17.430655003842087,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 49,
+            "profit_factor": 0.8224228654479903,
+            "return_pct": -16.240909211467603,
+            "max_drawdown_pct": 31.877257400533175,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 6,
+          "threshold_pct": -2.4,
+          "hold": 5,
+          "passed": false,
+          "train": {
+            "trades": 102,
+            "profit_factor": 0.6616707210140356,
+            "return_pct": -45.902729182984444,
+            "max_drawdown_pct": 58.73310013928119,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 45,
+            "profit_factor": 1.0516721351654508,
+            "return_pct": 0.7067987524696839,
+            "max_drawdown_pct": 13.740667735474865,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 44,
+            "profit_factor": 1.3028357233086516,
+            "return_pct": 15.080882768311831,
+            "max_drawdown_pct": 14.145786157453378,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 200,
+          "roc_days": 6,
+          "threshold_pct": -2.4,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 98,
+            "profit_factor": 0.7615727295458512,
+            "return_pct": -37.30543668756285,
+            "max_drawdown_pct": 50.89771442996551,
+            "positive_year_ratio": 0.3333333333333333,
+            "year_count": 15
+          },
+          "validation": {
+            "trades": 44,
+            "profit_factor": 0.9276179181116233,
+            "return_pct": -5.245909350316502,
+            "max_drawdown_pct": 16.50216640139075,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 40,
+            "profit_factor": 0.7944179945823877,
+            "return_pct": -21.328209185260093,
+            "max_drawdown_pct": 33.62726201067724,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 4,
+          "threshold_pct": -1.6,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 142,
+            "profit_factor": 0.5815823720102895,
+            "return_pct": -64.43924138512081,
+            "max_drawdown_pct": 69.24235616286379,
+            "positive_year_ratio": 0.2857142857142857,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 80,
+            "profit_factor": 1.0362334001065576,
+            "return_pct": -0.017293327030898364,
+            "max_drawdown_pct": 17.502372292233037,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 82,
+            "profit_factor": 1.1638465588051086,
+            "return_pct": 12.109001374371498,
+            "max_drawdown_pct": 16.793902731437036,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 4,
+          "threshold_pct": -1.6,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 131,
+            "profit_factor": 0.6441291012730423,
+            "return_pct": -61.20855168081061,
+            "max_drawdown_pct": 70.30449947845028,
+            "positive_year_ratio": 0.2857142857142857,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 73,
+            "profit_factor": 1.4009743944643809,
+            "return_pct": 25.262297297690694,
+            "max_drawdown_pct": 12.51793396243741,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 73,
+            "profit_factor": 1.5365606755131977,
+            "return_pct": 48.407015603487324,
+            "max_drawdown_pct": 28.9401837344194,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 4,
+          "threshold_pct": -1.6,
+          "hold": 6,
+          "passed": true,
+          "train": {
+            "trades": 122,
+            "profit_factor": 0.7157670975031034,
+            "return_pct": -53.236634061663565,
+            "max_drawdown_pct": 66.79961746181264,
+            "positive_year_ratio": 0.35714285714285715,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 69,
+            "profit_factor": 2.4081902646903424,
+            "return_pct": 73.6692871420975,
+            "max_drawdown_pct": 6.797472501712932,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 72,
+            "profit_factor": 1.6206118411670833,
+            "return_pct": 64.95441301723429,
+            "max_drawdown_pct": 27.15133276966908,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 4,
+          "threshold_pct": -2.0,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 117,
+            "profit_factor": 0.6372342849896552,
+            "return_pct": -54.736053551455655,
+            "max_drawdown_pct": 61.926343989917896,
+            "positive_year_ratio": 0.21428571428571427,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 64,
+            "profit_factor": 1.1236751453104175,
+            "return_pct": 5.513383940232619,
+            "max_drawdown_pct": 13.035247301393426,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 67,
+            "profit_factor": 1.0426282974876293,
+            "return_pct": -0.4125218880340009,
+            "max_drawdown_pct": 18.331495493029205,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 4,
+          "threshold_pct": -2.0,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 107,
+            "profit_factor": 0.7040085895970045,
+            "return_pct": -50.04672163118076,
+            "max_drawdown_pct": 60.14170692235328,
+            "positive_year_ratio": 0.2857142857142857,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 61,
+            "profit_factor": 1.5396774740115677,
+            "return_pct": 32.69707204114882,
+            "max_drawdown_pct": 12.51793396243739,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 59,
+            "profit_factor": 1.6966513987280427,
+            "return_pct": 54.688311343181304,
+            "max_drawdown_pct": 19.800616389587557,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 4,
+          "threshold_pct": -2.0,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 101,
+            "profit_factor": 0.7764673021710163,
+            "return_pct": -40.53898892424675,
+            "max_drawdown_pct": 52.15720564558084,
+            "positive_year_ratio": 0.35714285714285715,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 58,
+            "profit_factor": 2.4109283308821756,
+            "return_pct": 62.001385492362914,
+            "max_drawdown_pct": 9.175413330756966,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 59,
+            "profit_factor": 0.9946054788951296,
+            "return_pct": -8.454270914761663,
+            "max_drawdown_pct": 33.62726201067724,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 4,
+          "threshold_pct": -2.4,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 93,
+            "profit_factor": 0.60493965530823,
+            "return_pct": -50.19311317011002,
+            "max_drawdown_pct": 57.658430654499895,
+            "positive_year_ratio": 0.2857142857142857,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 55,
+            "profit_factor": 1.1323606819554446,
+            "return_pct": 5.27654073028867,
+            "max_drawdown_pct": 12.569193749764374,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 56,
+            "profit_factor": 0.9943019439783123,
+            "return_pct": -3.9265699648155628,
+            "max_drawdown_pct": 23.502719522613113,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 4,
+          "threshold_pct": -2.4,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 91,
+            "profit_factor": 0.8055204681515744,
+            "return_pct": -32.860170866339935,
+            "max_drawdown_pct": 48.94756107007646,
+            "positive_year_ratio": 0.35714285714285715,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 50,
+            "profit_factor": 1.2128418955973188,
+            "return_pct": 9.425939811143724,
+            "max_drawdown_pct": 14.666081618367011,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 52,
+            "profit_factor": 1.5124163431182045,
+            "return_pct": 32.20675065113754,
+            "max_drawdown_pct": 13.458605311671068,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 4,
+          "threshold_pct": -2.4,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 87,
+            "profit_factor": 0.9209347064412916,
+            "return_pct": -18.639416273878552,
+            "max_drawdown_pct": 40.02071280063657,
+            "positive_year_ratio": 0.5,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 49,
+            "profit_factor": 2.309437394747099,
+            "return_pct": 40.21350426138311,
+            "max_drawdown_pct": 10.086198843792127,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 50,
+            "profit_factor": 0.802898839089643,
+            "return_pct": -24.177541698482287,
+            "max_drawdown_pct": 37.161670561649686,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 5,
+          "threshold_pct": -1.6,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 142,
+            "profit_factor": 0.7264483481259116,
+            "return_pct": -49.414527087700954,
+            "max_drawdown_pct": 64.04593298845694,
+            "positive_year_ratio": 0.21428571428571427,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 77,
+            "profit_factor": 1.0646953175391085,
+            "return_pct": 1.92523775971023,
+            "max_drawdown_pct": 12.087529672974872,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 73,
+            "profit_factor": 0.9320746405462572,
+            "return_pct": -13.804261329475686,
+            "max_drawdown_pct": 43.69987452644023,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 5,
+          "threshold_pct": -1.6,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 134,
+            "profit_factor": 0.9236473703250243,
+            "return_pct": -21.259852940042943,
+            "max_drawdown_pct": 46.57051524402392,
+            "positive_year_ratio": 0.42857142857142855,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 73,
+            "profit_factor": 1.600874204372139,
+            "return_pct": 41.04380217042403,
+            "max_drawdown_pct": 8.99499066667403,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 68,
+            "profit_factor": 1.5896456242429493,
+            "return_pct": 55.47196311188494,
+            "max_drawdown_pct": 25.448420003378537,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 5,
+          "threshold_pct": -1.6,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 122,
+            "profit_factor": 0.7972266930677906,
+            "return_pct": -39.056356659429646,
+            "max_drawdown_pct": 56.5304785093955,
+            "positive_year_ratio": 0.5,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 71,
+            "profit_factor": 1.4991244322417563,
+            "return_pct": 33.58344930397066,
+            "max_drawdown_pct": 16.85366003268145,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 66,
+            "profit_factor": 1.0245199193515804,
+            "return_pct": -4.911227499615589,
+            "max_drawdown_pct": 33.62726201067725,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 5,
+          "threshold_pct": -2.0,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 117,
+            "profit_factor": 0.739138353384653,
+            "return_pct": -42.61470562737132,
+            "max_drawdown_pct": 58.86350353522241,
+            "positive_year_ratio": 0.35714285714285715,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 63,
+            "profit_factor": 0.9173788694654342,
+            "return_pct": -7.563064702333944,
+            "max_drawdown_pct": 17.297913182416778,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 62,
+            "profit_factor": 1.0143559434320921,
+            "return_pct": -4.512391720840226,
+            "max_drawdown_pct": 33.937747080221335,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 5,
+          "threshold_pct": -2.0,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 110,
+            "profit_factor": 0.9518022421276858,
+            "return_pct": -14.899500559483258,
+            "max_drawdown_pct": 39.20097544980552,
+            "positive_year_ratio": 0.35714285714285715,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 57,
+            "profit_factor": 2.8650058653534707,
+            "return_pct": 74.26474755540423,
+            "max_drawdown_pct": 8.196122738914802,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 59,
+            "profit_factor": 1.6199098020671565,
+            "return_pct": 53.42714220862046,
+            "max_drawdown_pct": 19.051113932389928,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 5,
+          "threshold_pct": -2.0,
+          "hold": 6,
+          "passed": true,
+          "train": {
+            "trades": 101,
+            "profit_factor": 0.8559889238940644,
+            "return_pct": -27.403979156107805,
+            "max_drawdown_pct": 49.71558920672384,
+            "positive_year_ratio": 0.5,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 56,
+            "profit_factor": 1.8195338913641135,
+            "return_pct": 41.51002319394945,
+            "max_drawdown_pct": 8.170714397708478,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 56,
+            "profit_factor": 1.1883947639392927,
+            "return_pct": 11.783179498888142,
+            "max_drawdown_pct": 33.62726201067724,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 5,
+          "threshold_pct": -2.4,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 109,
+            "profit_factor": 0.7403214698204005,
+            "return_pct": -40.19614703229405,
+            "max_drawdown_pct": 51.94085338058028,
+            "positive_year_ratio": 0.2857142857142857,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 56,
+            "profit_factor": 1.1992915689574661,
+            "return_pct": 8.714373202967195,
+            "max_drawdown_pct": 16.05889940020565,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 51,
+            "profit_factor": 0.9964446902758827,
+            "return_pct": -5.218405370682033,
+            "max_drawdown_pct": 34.61228842699828,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 5,
+          "threshold_pct": -2.4,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 102,
+            "profit_factor": 0.773455033062178,
+            "return_pct": -37.77552835104571,
+            "max_drawdown_pct": 52.39671692201525,
+            "positive_year_ratio": 0.2857142857142857,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 51,
+            "profit_factor": 2.3289541906740667,
+            "return_pct": 51.11701116781005,
+            "max_drawdown_pct": 8.196122738914813,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 50,
+            "profit_factor": 2.2560816290337384,
+            "return_pct": 89.72498217058185,
+            "max_drawdown_pct": 9.277474521501361,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 5,
+          "threshold_pct": -2.4,
+          "hold": 6,
+          "passed": true,
+          "train": {
+            "trades": 96,
+            "profit_factor": 0.8946887131375156,
+            "return_pct": -21.20894718210301,
+            "max_drawdown_pct": 41.505302741476605,
+            "positive_year_ratio": 0.42857142857142855,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 50,
+            "profit_factor": 1.7085931178993554,
+            "return_pct": 29.288880898993575,
+            "max_drawdown_pct": 9.40613193410531,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 49,
+            "profit_factor": 1.7056817252275729,
+            "return_pct": 52.20464800801141,
+            "max_drawdown_pct": 16.668360739823605,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 6,
+          "threshold_pct": -1.6,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 142,
+            "profit_factor": 0.6141205121230023,
+            "return_pct": -57.94160575078955,
+            "max_drawdown_pct": 69.7640297224471,
+            "positive_year_ratio": 0.2857142857142857,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 73,
+            "profit_factor": 1.5860794844998538,
+            "return_pct": 38.70823813385855,
+            "max_drawdown_pct": 12.05510913011687,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 75,
+            "profit_factor": 0.8695722077508637,
+            "return_pct": -19.614813815656028,
+            "max_drawdown_pct": 31.877257400533164,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 6,
+          "threshold_pct": -1.6,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 125,
+            "profit_factor": 0.6619365358032745,
+            "return_pct": -54.0347389163663,
+            "max_drawdown_pct": 65.39022787350011,
+            "positive_year_ratio": 0.2857142857142857,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 68,
+            "profit_factor": 1.129437184738644,
+            "return_pct": 6.8616913924060885,
+            "max_drawdown_pct": 16.510351072203868,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 67,
+            "profit_factor": 1.6716125513114621,
+            "return_pct": 57.5919441539257,
+            "max_drawdown_pct": 11.78447761676299,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 6,
+          "threshold_pct": -1.6,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 113,
+            "profit_factor": 0.6281503107578271,
+            "return_pct": -57.306377379280846,
+            "max_drawdown_pct": 67.46800845141873,
+            "positive_year_ratio": 0.21428571428571427,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 64,
+            "profit_factor": 1.1135308680660772,
+            "return_pct": 4.903142593191312,
+            "max_drawdown_pct": 14.263848317778915,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 62,
+            "profit_factor": 0.9846150814661664,
+            "return_pct": -8.472065233298842,
+            "max_drawdown_pct": 33.62726201067724,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 6,
+          "threshold_pct": -2.0,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 128,
+            "profit_factor": 0.6087658023710959,
+            "return_pct": -55.06428877753999,
+            "max_drawdown_pct": 66.70966985707909,
+            "positive_year_ratio": 0.21428571428571427,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 68,
+            "profit_factor": 1.6329655638603227,
+            "return_pct": 37.0294769485084,
+            "max_drawdown_pct": 12.024074856630163,
+            "positive_year_ratio": 1.0,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 59,
+            "profit_factor": 0.8725848708944058,
+            "return_pct": -15.58366762250839,
+            "max_drawdown_pct": 31.877257400533175,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 6,
+          "threshold_pct": -2.0,
+          "hold": 5,
+          "passed": true,
+          "train": {
+            "trades": 106,
+            "profit_factor": 0.5762144581132399,
+            "return_pct": -56.00252145562104,
+            "max_drawdown_pct": 67.40926411957606,
+            "positive_year_ratio": 0.21428571428571427,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 59,
+            "profit_factor": 1.1622070423358903,
+            "return_pct": 7.479181078045372,
+            "max_drawdown_pct": 14.893869477137523,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 55,
+            "profit_factor": 1.943116820055275,
+            "return_pct": 63.85747129958024,
+            "max_drawdown_pct": 11.28575803777252,
+            "positive_year_ratio": 0.8,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 6,
+          "threshold_pct": -2.0,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 103,
+            "profit_factor": 0.6405483458837385,
+            "return_pct": -54.75726185147379,
+            "max_drawdown_pct": 65.94279507964302,
+            "positive_year_ratio": 0.2857142857142857,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 56,
+            "profit_factor": 1.1374997209822464,
+            "return_pct": 5.043060368400076,
+            "max_drawdown_pct": 12.190248584897889,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 50,
+            "profit_factor": 1.0454607390721922,
+            "return_pct": -2.5228118196637284,
+            "max_drawdown_pct": 33.62726201067725,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 6,
+          "threshold_pct": -2.4,
+          "hold": 4,
+          "passed": false,
+          "train": {
+            "trades": 112,
+            "profit_factor": 0.5897702709754902,
+            "return_pct": -51.276299849474725,
+            "max_drawdown_pct": 61.62231776253271,
+            "positive_year_ratio": 0.2857142857142857,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 56,
+            "profit_factor": 1.4445571521533018,
+            "return_pct": 21.49435818357115,
+            "max_drawdown_pct": 12.024074856630184,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 48,
+            "profit_factor": 0.8354638115876649,
+            "return_pct": -15.231330570131952,
+            "max_drawdown_pct": 31.877257400533175,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 6,
+          "threshold_pct": -2.4,
+          "hold": 5,
+          "passed": false,
+          "train": {
+            "trades": 93,
+            "profit_factor": 0.5838386940390825,
+            "return_pct": -51.1141805601645,
+            "max_drawdown_pct": 61.94512170014813,
+            "positive_year_ratio": 0.2857142857142857,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 46,
+            "profit_factor": 1.0648130359759036,
+            "return_pct": 1.3537703335031015,
+            "max_drawdown_pct": 14.893869477137544,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 45,
+            "profit_factor": 1.5640971143160345,
+            "return_pct": 31.3838041843179,
+            "max_drawdown_pct": 11.28575803777252,
+            "positive_year_ratio": 0.6,
+            "year_count": 5
+          }
+        },
+        {
+          "sma": 240,
+          "roc_days": 6,
+          "threshold_pct": -2.4,
+          "hold": 6,
+          "passed": false,
+          "train": {
+            "trades": 91,
+            "profit_factor": 0.7068388209549846,
+            "return_pct": -40.77276140904916,
+            "max_drawdown_pct": 54.37225308427707,
+            "positive_year_ratio": 0.35714285714285715,
+            "year_count": 14
+          },
+          "validation": {
+            "trades": 45,
+            "profit_factor": 0.9260502748755437,
+            "return_pct": -5.642099428468283,
+            "max_drawdown_pct": 16.50216640139075,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          },
+          "oos_internal_non_independent": {
+            "trades": 39,
+            "profit_factor": 0.7992216819456014,
+            "return_pct": -20.917741101576247,
+            "max_drawdown_pct": 33.62726201067724,
+            "positive_year_ratio": 0.4,
+            "year_count": 5
+          }
+        }
+      ]
+    }
+  ],
+  "paper_authorized": false,
+  "live_authorized": false
+}

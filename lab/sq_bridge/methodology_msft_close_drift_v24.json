@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "methodology_id": "alquimia-msft-close-drift-v24",
+  "created_utc": "2026-08-04T00:00:00Z",
+  "status": "PREREGISTERED_BEFORE_PERFORMANCE_RUN",
+  "capital_usdc": 200,
+  "hypothesis": "A long-only MSFT pullback inside a positive close trend can improve close-to-close long drift after Ostium costs.",
+  "execution_contract": {
+    "signal": "computed after close D-1",
+    "entry": "robust regular-session close D",
+    "exit": "robust regular-session close after fixed holding days",
+    "forbidden": ["next-open execution", "intraday stops", "high/low signals", "calendar timing"]
+  },
+  "grid": {
+    "trend_sma": [100, 200],
+    "pullback_roc_days": [3, 5, 10],
+    "pullback_threshold_pct": [-2, -4, -6],
+    "holding_days": [5, 10, 20]
+  },
+  "periods": {
+    "train": ["1999-01-01", "2013-12-31"],
+    "validation": ["2014-01-01", "2018-12-31"],
+    "oos_internal_non_independent": ["2019-01-01", "2023-12-31"],
+    "forward_only": ["2026-08-04", null]
+  },
+  "costs_roundtrip_bps": [12, 24, 36],
+  "frozen_gate": {
+    "minimum_validation_trades": 25,
+    "minimum_validation_stress_pf": 1.1,
+    "minimum_oos_stress_pf": 1.1,
+    "minimum_positive_year_ratio": 0.6,
+    "maximum_oos_drawdown_pct": 25,
+    "maximum_random_timing_empirical_p": 0.1,
+    "minimum_excess_return_vs_matched_periodic_drift_pct": 0
+  },
+  "evidence_policy": "All historical MSFT periods are development/non-independent because earlier campaigns opened them. Promotion requires new forward paper evidence."
+}

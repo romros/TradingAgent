@@ -8,10 +8,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 import lint_sqx_semantics
 
 
-def _sqx(path: Path, exit_expression: str, direction: str = "1") -> Path:
+def _sqx(path: Path, exit_expression: str, direction: str = "1", entry_key: str = "SMA", entry_period: str = "20") -> Path:
     strategy = f"""<Root><Strategy engine="MetaTrader4"><Events><Event key="OnBarUpdate">
       <Rule name="Trading signals"><signals>
-        <signal variable="entry-long"><Item key="SMA"><Param key="#Period#">20</Param></Item></signal>
+        <signal variable="entry-long"><Item key="{entry_key}"><Param key="#Period#">{entry_period}</Param></Item></signal>
         <signal variable="exit-long">{exit_expression}</signal>
       </signals></Rule>
       <Rule name="Long entry"><If><Item key="BooleanVariable"><Param key="#Variable#">entry-long</Param></Item></If>
@@ -52,6 +52,16 @@ class SqxSemanticLintTest(unittest.TestCase):
             result = lint_sqx_semantics.lint(candidate, base)
             self.assertTrue(result["passed"])
             self.assertTrue(result["frozen_contract"]["entry_and_orders_preserved"])
+
+    def test_allows_entry_change_but_keeps_orders_frozen(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            base = _sqx(root / "base.sqx", '<Item key="ATR"/>')
+            candidate = _sqx(root / "candidate.sqx", '<Item key="ATR"/>', entry_key="EMA", entry_period="30")
+            result = lint_sqx_semantics.lint(candidate, base, allow_entry_change=True)
+            self.assertTrue(result["passed"])
+            self.assertFalse(result["frozen_contract"]["entry_preserved"])
+            self.assertTrue(result["frozen_contract"]["orders_preserved"])
 
 
 if __name__ == "__main__":

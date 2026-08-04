@@ -115,6 +115,12 @@ entrades/ordres congelades i senyals constants. A la microprova local de Build
 de regla en constants `false`; conservar ATR exits podia mantenir un backtest
 positiu i ocultar que la lògica de sortida havia quedat morta.
 
+La prova entry-only posterior va congelar ordre i exits: 302 variants, zero
+supervivents. 252 van quedar sense trades o amb massa pocs; les altres van fallar
+els gates de PF, Win/Loss o 100 trades. No s'abaixen aquests filtres després de
+veure el resultat. La lliçó és estreta: aquesta base i aquest espai de blocs no
+ofereixen una substitució d'entrada útil amb el pressupost provat.
+
 Si es modifiquen simultàniament entrada, sortida, ordre i sizing, no podem atribuir
 la millora ni estimar-ne el cost de selecció. Si cap variant supera la base sota el
 contracte congelat, la decisió correcta és conservar la base o descartar-la.

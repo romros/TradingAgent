@@ -88,3 +88,7 @@ python3 academia/tools/lint_sqx_semantics.py VARIANT.sqx --base BASE.sqx
 Rebutjar si detecta un senyal constant o deriva d'entrada/ordres congelades. Un
 `pass` només confirma aquest contracte semàntic mínim; encara cal validació fora
 de mostra, costos, règims i economia real.
+
+Per una prova entry-only, afegir `--allow-entry-change`: això permet diferències
+als senyals d'entrada però continua exigint que les ordres quedin congelades. Si
+no hi ha supervivents, registrar els motius i no relaxar filtres post hoc.

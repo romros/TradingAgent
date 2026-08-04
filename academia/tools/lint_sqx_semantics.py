@@ -82,7 +82,7 @@ def _entry_contract(root: ET.Element) -> dict:
     return contract
 
 
-def lint(candidate: Path, base: Path | None = None) -> dict:
+def lint(candidate: Path, base: Path | None = None, allow_entry_change: bool = False) -> dict:
     root = _strategy(candidate)
     findings = []
     for signal in root.findall(".//signal"):
@@ -103,16 +103,29 @@ def lint(candidate: Path, base: Path | None = None) -> dict:
     if base is not None:
         base_contract = _entry_contract(_strategy(base))
         candidate_contract = _entry_contract(root)
+        entry_preserved = {
+            name: value["signal"] for name, value in base_contract.items()
+        } == {
+            name: value["signal"] for name, value in candidate_contract.items()
+        }
+        orders_preserved = {
+            name: value["orders"] for name, value in base_contract.items()
+        } == {
+            name: value["orders"] for name, value in candidate_contract.items()
+        }
         frozen_contract = {
-            "entry_and_orders_preserved": base_contract == candidate_contract,
+            "entry_preserved": entry_preserved,
+            "orders_preserved": orders_preserved,
+            "entry_change_allowed": allow_entry_change,
+            "entry_and_orders_preserved": entry_preserved and orders_preserved,
             "base_sha256": hashlib.sha256(base.read_bytes()).hexdigest(),
             "candidate_sha256": hashlib.sha256(candidate.read_bytes()).hexdigest(),
         }
-        if base_contract != candidate_contract:
+        if not orders_preserved or (not allow_entry_change and not entry_preserved):
             findings.append({
                 "code": "FROZEN_ENTRY_OR_ORDER_DRIFT",
                 "severity": "error",
-                "message": "l'entrada o les ordres han canviat respecte de la base",
+                "message": "ha canviat una part congelada de l'entrada o les ordres",
             })
 
     errors = [finding for finding in findings if finding["severity"] == "error"]
@@ -130,9 +143,10 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("candidate", type=Path)
     parser.add_argument("--base", type=Path)
+    parser.add_argument("--allow-entry-change", action="store_true")
     args = parser.parse_args()
     try:
-        result = lint(args.candidate, args.base)
+        result = lint(args.candidate, args.base, args.allow_entry_change)
     except (OSError, KeyError, zipfile.BadZipFile, ET.ParseError) as exc:
         result = {"passed": False, "candidate": str(args.candidate), "findings": [{"code": "UNREADABLE_SQX", "severity": "error", "message": str(exc)}]}
     print(json.dumps(result, ensure_ascii=False, indent=2))

@@ -6,6 +6,7 @@
 - **Builder random vs genetic: microprova executada, comparació rebutjada.** El Task Manager exposa els intents reals com `projectStats.totalJobsDone` (`Strategies generated`). Les calibracions amb `stop` van acabar en 2.241 i 4.822 intents. Amb `pause`, la microprova final va produir Genetic 100/0 acceptades i Random 105/2. El pressupost no és igual i Genetic no té distribució de supervivents: no hi ha guanyador.
 - **Export/paritat: costat SQ provat, paritat pendent.** SQCLI va exportar 130 ordres del resultat a CSV. No hi ha exportació de codi font a SQCLI 143 ni ordres d'un motor objectiu escollit; per tant, la paritat es rebutja correctament en comptes de declarar-la per compilació o semblança visual.
 - **Improver exit-only: capacitat provada el 2026-08-03.** Una base verificada va produir 178 variants en 2m11s i un SQX desat. Entrada, direcció i mida es van preservar; les sortides van canviar. El supervivent no es promociona: només té IS i la sortida de regla incorpora una branca `AND false` sospitosa.
+- **Improver entry-only: capacitat provada el 2026-08-04, sense supervivents.** Amb ordre i exits congelats es van generar 302 variants: 180 amb massa pocs trades, 72 sense trades i 50 rebutjades pels gates quantitatius. No es relaxen filtres després del resultat.
 
 ## Aprenentatge operatiu
 
@@ -21,6 +22,7 @@
 10. El resolutor de projectes llegeix dates dels `Resources/Symbol`, i també pot exposar referències de cross-check inactives. Veure el `.dat` al disc no basta si el `data.db` efímer no registra el símbol.
 11. Improver sobre tot un Databank rebutja `databank-full`; a Build 143 la microprova finita va requerir `time-limit` i una candidata real al Databank d'entrada.
 12. Restringir `PartsToImprove` és necessari però no suficient: cal comparar semànticament entrada/ordres i rebutjar sortides degenerades encara que SQ les accepti.
+13. Zero supervivents també és informació: en entry-only, el patró dominant va ser destruir la freqüència de trading. Ampliar blocs o abaixar gates per salvar la base seria una campanya nova, no continuació neutral.
 
 ## Decisió de cobertura
 

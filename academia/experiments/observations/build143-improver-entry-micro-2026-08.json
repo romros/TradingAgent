@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "id": "build143-improver-entry-micro-2026-08",
+  "observed_at": "2026-08-04",
+  "target_build": "143.2708",
+  "scope": "entry-only capability and search-space test; no profitability claim",
+  "environment": {
+    "isolation": "copy-on-write under academia/runtime; History mounted read-only",
+    "cpu_limit": 2,
+    "memory_limit_gib": 12,
+    "holdout_access": false,
+    "live_trading_access": false,
+    "browser_used": false
+  },
+  "input": {
+    "candidate": "Strategy 4.1.133",
+    "sha256": "3470b786bd4416d44a7a5be9d93dd39d2fdc52cf39681123b75443395f5e2ca2",
+    "databank": "ImproveInput",
+    "data": "EURUSD_M1_dukas_M1_UTCMinus05 / H4 / 2016-01-16 to 2020-01-20"
+  },
+  "configuration": {
+    "project_sha256": "957b03c60515270a90a006fa4a5b0e3be992736948f4c9ef2626ba9bf47c6304",
+    "entry_rules_long": "add-or-replace",
+    "entry_rules_short": "add-or-replace",
+    "order_types": "frozen",
+    "exit_rules": "frozen",
+    "cross_checks": false,
+    "stop_condition": "time-limit 2 minutes"
+  },
+  "execution": {
+    "status": "passed_capability_no_survivors",
+    "runtime": "2m 10s",
+    "strategies_generated": 302,
+    "accepted": 0,
+    "rejected": 302,
+    "saved_results": 0,
+    "rejection_breakdown": {
+      "too_little_trades": 180,
+      "no_trades": 72,
+      "profit_factor_below_1_30": 21,
+      "win_loss_ratio_below_1_20": 25,
+      "trades_below_100": 4
+    }
+  },
+  "interpretation": {
+    "observed": "SQ executed entry-only improvement with the base loaded and produced no artifact passing the frozen filters.",
+    "inference": "Within this configured block space, changing the entry usually destroyed trade frequency; this does not prove every possible entry modification is bad.",
+    "decision": "Do not relax filters and do not search more variants to rescue the base. Preserve the exit-only failure plus this entry-only failure as negative knowledge; SL/PT-only remains an explicit configuration gap until SQ can isolate it from order direction and sizing."
+  }
+}

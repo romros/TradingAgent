@@ -19,6 +19,19 @@ La recerca Alquímia més recent ha rebutjat el momentum BTC/ETH/SOL v15–v17 e
 validació temporal. Les fonts BTC/ETH/SOL són reproduïbles i ETH/SOL tenen
 roundtrip SQ amb OHLC exacte, però encara no paritat executiva Ostium.
 
+### Probe forward separat: MSFT close drift
+
+`msft_close_drift_v24` disposa d'un motor paper close-to-close independent amb
+200 USDC virtuals, 4x, risc de l'1%, cost roundtrip de 36 bps i holding de cinc
+sessions. Usa `source=ostium_clean` i una SQLite diferent; no comparteix capital
+ni operacions amb `capitulation_d1`. Actualment resta `WARMING_UP` fins acumular
+102 sessions completes. Smoke manual read-only/paper:
+
+```bash
+MSFT_DRIFT_DB_PATH=data/msft_close_drift_probe.db \
+python -c 'from packages.runtime.msft_close_drift_runner import run_msft_close_drift_probe; print(run_msft_close_drift_probe())'
+```
+
 ## Arquitectura
 
 ```

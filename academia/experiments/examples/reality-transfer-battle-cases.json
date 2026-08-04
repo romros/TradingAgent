@@ -1,0 +1,79 @@
+{
+  "id": "reality-transfer-battle-v1",
+  "cases": [
+    {
+      "id": "unknown-is-not-zero",
+      "expected_decision": "INCOMPLET",
+      "input": {
+        "candidate_id": "unknown-economics", "instrument": "GENERIC", "venue": "target",
+        "generation_period": {"start": "2010", "end": "2018"},
+        "sealed_period": {"start": "2024", "end": "2026", "used_in_development": false},
+        "mechanism": {"hypothesis": "persistent price response", "falsifier": "negative comparable regimes"},
+        "normalization": {"price_distances": "atr", "position_risk": "equity_percent"},
+        "regime_results": [{"id": "r1", "tags": ["trend"], "trades": 30, "net_expectancy": 0.1, "comparable_to_current": true}],
+        "current_execution": {"evidence_complete": false, "price_asof": "PENDING", "spread": 0, "slippage": 0, "commission": 0, "minimum_position_notional": 100, "account_equity": 200, "liquidation_checked": false, "net_expectancy": 0}
+      }
+    },
+    {
+      "id": "robust-but-account-infeasible",
+      "expected_decision": "DESCARTAR",
+      "input": {
+        "candidate_id": "too-large", "instrument": "GENERIC", "venue": "target",
+        "generation_period": {"start": "2010", "end": "2018"},
+        "sealed_period": {"start": "2024", "end": "2026", "used_in_development": false},
+        "mechanism": {"hypothesis": "persistent breakout", "falsifier": "negative comparable regimes"},
+        "normalization": {"price_distances": "atr", "position_risk": "equity_percent"},
+        "regime_results": [
+          {"id": "r1", "tags": ["trend"], "trades": 40, "net_expectancy": 0.1, "comparable_to_current": true},
+          {"id": "r2", "tags": ["crisis"], "trades": 35, "net_expectancy": 0.04, "comparable_to_current": false}
+        ],
+        "current_execution": {"evidence_complete": true, "price_asof": "2026-08-01", "spread": 1, "slippage": 1, "commission": 1, "minimum_position_notional": 2000, "account_equity": 200, "max_safe_leverage": 5, "liquidation_checked": true, "net_expectancy": 0.02}
+      }
+    },
+    {
+      "id": "old-regime-only",
+      "expected_decision": "DESCARTAR",
+      "input": {
+        "candidate_id": "old-bull", "instrument": "GENERIC", "venue": "target",
+        "generation_period": {"start": "2004", "end": "2015"},
+        "sealed_period": {"start": "2024", "end": "2026", "used_in_development": false},
+        "mechanism": {"hypothesis": "persistent trend", "falsifier": "loss outside old bull"},
+        "normalization": {"price_distances": "percent", "position_risk": "equity_percent"},
+        "regime_results": [{"id": "2004-2011", "tags": ["secular_bull"], "trades": 80, "net_expectancy": 0.2, "comparable_to_current": false}],
+        "current_execution": {"evidence_complete": true, "price_asof": "2026-08-01", "spread": 1, "slippage": 1, "commission": 1, "minimum_position_notional": 100, "account_equity": 200, "liquidation_checked": true, "net_expectancy": 0.03}
+      }
+    },
+    {
+      "id": "ready-for-one-holdout",
+      "expected_decision": "OBRIR HOLDOUT",
+      "input": {
+        "candidate_id": "holdout-ready", "instrument": "GENERIC", "venue": "target",
+        "generation_period": {"start": "2010", "end": "2018"},
+        "sealed_period": {"start": "2024", "end": "2026", "used_in_development": false},
+        "mechanism": {"hypothesis": "persistent volatility expansion", "falsifier": "negative comparable regimes"},
+        "normalization": {"price_distances": "atr", "position_risk": "equity_percent"},
+        "regime_results": [
+          {"id": "r1", "tags": ["trend"], "trades": 45, "net_expectancy": 0.08, "comparable_to_current": true},
+          {"id": "r2", "tags": ["range"], "trades": 37, "net_expectancy": 0.03, "comparable_to_current": false}
+        ],
+        "current_execution": {"evidence_complete": true, "price_asof": "2026-08-01", "spread": 1, "slippage": 1, "commission": 1, "minimum_position_notional": 100, "account_equity": 200, "liquidation_checked": true, "net_expectancy": 0.02, "risk_per_trade_pct": 1, "net_expectancy_per_trade_account": 0.08, "expected_trades_per_year": 40}
+      }
+    },
+    {
+      "id": "holdout-pass-is-not-live",
+      "expected_decision": "PREPARAR PAPER TRADING",
+      "input": {
+        "candidate_id": "paper-ready", "instrument": "GENERIC", "venue": "target",
+        "generation_period": {"start": "2010", "end": "2018"},
+        "sealed_period": {"start": "2024", "end": "2026", "used_in_development": false, "executed": true, "passed": true},
+        "mechanism": {"hypothesis": "persistent volatility expansion", "falsifier": "negative comparable regimes"},
+        "normalization": {"price_distances": "atr", "position_risk": "equity_percent"},
+        "regime_results": [
+          {"id": "r1", "tags": ["trend"], "trades": 45, "net_expectancy": 0.08, "comparable_to_current": true},
+          {"id": "r2", "tags": ["range"], "trades": 37, "net_expectancy": 0.03, "comparable_to_current": false}
+        ],
+        "current_execution": {"evidence_complete": true, "price_asof": "2026-08-01", "spread": 1, "slippage": 1, "commission": 1, "minimum_position_notional": 100, "account_equity": 200, "liquidation_checked": true, "net_expectancy": 0.02}
+      }
+    }
+  ]
+}

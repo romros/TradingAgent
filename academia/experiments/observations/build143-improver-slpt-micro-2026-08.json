@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "id": "build143-improver-slpt-micro-2026-08",
+  "observed_at": "2026-08-04",
+  "target_build": "143.2708",
+  "scope": "SL/PT-only configuration and search-space test; no profitability claim",
+  "environment": {
+    "isolation": "ephemeral Docker container; copy-on-write user runtime; History mounted read-only",
+    "cpu_limit": 2,
+    "memory_limit_gib": 12,
+    "holdout_access": false,
+    "live_trading_access": false,
+    "browser_used": false
+  },
+  "input": {
+    "candidate": "Strategy 4.1.133",
+    "sha256": "3470b786bd4416d44a7a5be9d93dd39d2fdc52cf39681123b75443395f5e2ca2",
+    "databank": "ImproveInput",
+    "data": "EURUSD_M1_dukas_M1_UTCMinus05 / H4 / 2016-01-16 to 2020-01-20"
+  },
+  "configuration": {
+    "project_sha256": "6b7bb67a4ce740403dc48764e183fa14abc7b65fd1ba5b01b63f080d51265efa",
+    "entry_rules": "frozen",
+    "exit_rules": "frozen",
+    "order_types": "enabled because Build 143 has no dedicated SL/PT part",
+    "allowed_order_block": "EnterAtMarket only",
+    "allowed_exit_types": ["ProfitTarget.ProfitTarget", "StopLoss.StopLoss"],
+    "size_symbol_direction": "intended frozen; requires a saved artifact for proof",
+    "cross_checks": false,
+    "stop_condition": "time-limit 2 minutes"
+  },
+  "execution": {
+    "status": "passed_execution_no_survivors_scope_unverified",
+    "runtime": "2m 13s",
+    "strategies_generated": 173,
+    "accepted": 0,
+    "rejected": 173,
+    "saved_results": 0,
+    "rejection_breakdown": {
+      "profit_factor_below_1_30": 173
+    }
+  },
+  "interpretation": {
+    "observed": "SQ loaded the base and generated 173 variants under the narrow OrderTypes configuration; every variant failed the preregistered profit-factor gate.",
+    "not_proven": "With no saved variant, semantic comparison cannot prove that only SL/PT changed or that direction, size and symbol stayed frozen.",
+    "decision": "Do not relax the filter and do not mark SL/PT-only isolation as tested. Keep the executable configuration as partial capability evidence and require a saved artifact before closing the gap."
+  }
+}

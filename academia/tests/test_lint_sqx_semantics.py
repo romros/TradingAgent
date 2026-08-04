@@ -63,6 +63,37 @@ class SqxSemanticLintTest(unittest.TestCase):
             self.assertFalse(result["frozen_contract"]["entry_preserved"])
             self.assertTrue(result["frozen_contract"]["orders_preserved"])
 
+    def test_allows_only_slpt_parameter_change(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            base = _sqx(root / "base.sqx", '<Item key="ATR"/>')
+            candidate = _sqx(root / "candidate.sqx", '<Item key="ATR"/>')
+            for path, value in ((base, "2.0"), (candidate, "3.5")):
+                with zipfile.ZipFile(path, "r") as archive:
+                    strategy = archive.read("strategy_Portfolio.xml").decode().replace(
+                        '<Param key="#Size#"><Formula key="SQ.Formulas.Size.UseGlobalMM"/></Param>',
+                        f'<Param key="#Size#"><Formula key="SQ.Formulas.Size.UseGlobalMM"/></Param><Param key="#StopLoss.StopLoss#">{value}</Param>',
+                    )
+                with zipfile.ZipFile(path, "w") as archive:
+                    archive.writestr("strategy_Portfolio.xml", strategy)
+            rejected = lint_sqx_semantics.lint(candidate, base)
+            accepted = lint_sqx_semantics.lint(candidate, base, allow_slpt_change=True)
+            self.assertFalse(rejected["passed"])
+            self.assertTrue(accepted["passed"])
+            self.assertTrue(accepted["frozen_contract"]["entry_preserved"])
+            self.assertTrue(accepted["frozen_contract"]["orders_preserved"])
+            self.assertTrue(accepted["frozen_contract"]["exit_signals_preserved"])
+            self.assertTrue(accepted["frozen_contract"]["slpt_changed"])
+
+    def test_rejects_slpt_claim_without_a_change(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            base = _sqx(root / "base.sqx", '<Item key="ATR"/>')
+            candidate = _sqx(root / "candidate.sqx", '<Item key="ATR"/>')
+            result = lint_sqx_semantics.lint(candidate, base, allow_slpt_change=True)
+            self.assertFalse(result["passed"])
+            self.assertEqual(result["findings"][0]["code"], "EXPECTED_SLPT_CHANGE_MISSING")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -98,6 +98,13 @@ Improver conserva una estratègia base i genera canvis només a les parts declar
 entrada long/short, sortida, tipus d'ordre o condicions addicionals. És útil per
 respondre una pregunta estreta, però no és una reparació gratuïta del candidat.
 
+A Build 143 SL/PT no és una part independent: queda sota `OrderTypes`. Es pot
+restringir l'espai a `EnterAtMarket`, stop-loss i profit-target, però el projecte
+sol no demostra que símbol, direcció i sizing quedin intactes. Cal una variant
+desada i una comparació semàntica amb `--allow-slpt-change`; si no sobreviu cap
+variant, només s'ha provat l'execució de la cerca. En la microprova local, 173 de
+173 variants van fallar PF 1,30 i no es van abaixar els gates.
+
 Contracte mínim:
 
 1. congelar hash i mètriques de l'estratègia base;

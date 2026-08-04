@@ -85,6 +85,16 @@ Després de qualsevol Improver, executar també:
 python3 academia/tools/lint_sqx_semantics.py VARIANT.sqx --base BASE.sqx
 ```
 
+Per una prova restringida a stop-loss/profit-target:
+
+```bash
+python3 academia/tools/lint_sqx_semantics.py VARIANT.sqx --base BASE.sqx --allow-slpt-change
+```
+
+Aquest mode només aprova si SL/PT canvia realment i entrada, ordres sense els
+paràmetres SL/PT i senyals de sortida queden preservats. Sense variant desada no
+es pot declarar provat l'aïllament, encara que el log mostri variants generades.
+
 Rebutjar si detecta un senyal constant o deriva d'entrada/ordres congelades. Un
 `pass` només confirma aquest contracte semàntic mínim; encara cal validació fora
 de mostra, costos, règims i economia real.

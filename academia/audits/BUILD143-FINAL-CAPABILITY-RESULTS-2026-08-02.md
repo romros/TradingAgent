@@ -7,6 +7,7 @@
 - **Export/paritat: costat SQ provat, paritat pendent.** SQCLI va exportar 130 ordres del resultat a CSV. No hi ha exportació de codi font a SQCLI 143 ni ordres d'un motor objectiu escollit; per tant, la paritat es rebutja correctament en comptes de declarar-la per compilació o semblança visual.
 - **Improver exit-only: capacitat provada el 2026-08-03.** Una base verificada va produir 178 variants en 2m11s i un SQX desat. Entrada, direcció i mida es van preservar; les sortides van canviar. El supervivent no es promociona: només té IS i la sortida de regla incorpora una branca `AND false` sospitosa.
 - **Improver entry-only: capacitat provada el 2026-08-04, sense supervivents.** Amb ordre i exits congelats es van generar 302 variants: 180 amb massa pocs trades, 72 sense trades i 50 rebutjades pels gates quantitatius. No es relaxen filtres després del resultat.
+- **Improver SL/PT estret: execució provada, aïllament encara no provat.** Build 143 obliga a habilitar `OrderTypes`; limitant blocs a `EnterAtMarket`, SL i PT es van generar 173 variants i totes van fallar PF 1,30. Sense artefacte desat no es pot provar que direcció, mida i símbol no derivin.
 
 ## Aprenentatge operatiu
 
@@ -23,6 +24,7 @@
 11. Improver sobre tot un Databank rebutja `databank-full`; a Build 143 la microprova finita va requerir `time-limit` i una candidata real al Databank d'entrada.
 12. Restringir `PartsToImprove` és necessari però no suficient: cal comparar semànticament entrada/ordres i rebutjar sortides degenerades encara que SQ les accepti.
 13. Zero supervivents també és informació: en entry-only, el patró dominant va ser destruir la freqüència de trading. Ampliar blocs o abaixar gates per salvar la base seria una campanya nova, no continuació neutral.
+14. Una configuració estreta no és encara un contracte: si SQ no desa cap variant, el log prova execució i rebuig, però no l'aïllament estructural anunciat. Per SL/PT cal un SQX auditable i el lint `--allow-slpt-change` ha d'exigir un canvi SL/PT real.
 
 ## Decisió de cobertura
 

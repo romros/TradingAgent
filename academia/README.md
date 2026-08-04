@@ -46,6 +46,7 @@ python3 academia/tools/strategy_review.py academia/experiments/examples/three-ca
 python3 academia/tools/reality_transfer.py academia/experiments/examples/reality-transfer-xau-example.json
 python3 academia/tools/benchmark_reality_transfer.py academia/experiments/examples/reality-transfer-battle-cases.json
 python3 academia/tools/observation_to_reality.py --markdown academia/experiments/observations/*.json
+python3 academia/tools/sqx_to_reality.py CANDIDAT.sqx --stage oos
 python3 academia/tools/lint_sqx_semantics.py VARIANT.sqx --base BASE.sqx
 ```
 

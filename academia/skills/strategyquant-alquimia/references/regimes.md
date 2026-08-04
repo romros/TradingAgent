@@ -16,3 +16,8 @@ Interpretar les decisions de l'eina literalment: `INCOMPLET` no és un rebuig;
 TRADING` encara exigeix traducció i paritat i mai autoritza live. Quan el nocional
 mínim supera el capital, calcular el palanquejament requerit i exigir un límit
 segur justificat; no confondre nocional amb marge ni assumir leverage disponible.
+
+Quan l'entrada sigui un SQX, començar amb `academia/tools/sqx_to_reality.py`.
+No escriure manualment un manifest complet a partir del nom o les mètriques
+agregades. Els camps suplementaris han de venir d'evidència separada i mai poden
+sobreescriure identitat, instrument o període extrets de l'artifact.

@@ -38,6 +38,19 @@ positiu i ser massa petita per compensar complexitat, errors i temps operatiu.
 Els placeholders s'han de marcar amb `current_execution.evidence_complete=false`.
 Zero significa zero mesurat; no s'ha d'utilitzar per representar «encara no ho sé».
 
+## Adaptar un SQX sense completar-lo de memòria
+
+`sqx_to_reality.py` bloqueja identitat, instrument i període extrets de l'SQX.
+Sense suplement retorna un esborrany `INCOMPLET`; és correcte perquè l'SQX no
+conté per si sol mecanisme econòmic, règims comparables, venue actual, liquidació
+ni estat fiable del holdout. Un suplement pot aportar-los amb evidència externa,
+però no pot sobreescriure els camps bloquejats.
+
+```bash
+python3 academia/tools/sqx_to_reality.py CANDIDAT.sqx --stage oos
+python3 academia/tools/sqx_to_reality.py CANDIDAT.sqx --stage oos --supplement EVIDENCIA.json
+```
+
 ## Incubació no és només un altre backtest
 
 Deixar una regla intacta i observar dades que encara no existien és evidència més

@@ -45,6 +45,14 @@ class ObservationToRealityTest(unittest.TestCase):
         self.assertIn("DESCARTAR", report)
         self.assertIn("No reobre artifacts externs", report)
 
+    def test_frozen_blind_portfolio_acceptance(self):
+        acceptance = json.loads((ROOT / "experiments/acceptance/portfolio-blind-v1.json").read_text())
+        observation = json.loads((ROOT.parent / acceptance["observation"]).read_text())
+        result = observation_to_reality.assess_observation(observation)
+        self.assertEqual(result["decision"], acceptance["expected_decision"])
+        self.assertTrue(result["metric_consistency_verified"])
+        self.assertIn("slippage zero", result["reason"])
+
 
 if __name__ == "__main__":
     unittest.main()

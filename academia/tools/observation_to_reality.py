@@ -43,8 +43,13 @@ def assess_observation(observation: dict) -> dict:
         verified = facts.get("holdout_opened") is False and facts.get("oos", {}).get("profit", 0) > 0
         reason = "El signe persisteix fora de train, però encara falten normalització, règims i economia actual."
         missing = ["resultats normalitzats", "règims", "mida mínima", "marge i liquidació", "costos actuals"]
+    elif insight == "PORTFOLIO_AGGREGATE_HIDES_COMPONENT_ASSUMPTIONS":
+        zero_slippage = facts.get("result_slippage") == 0
+        identity_warning = bool(facts.get("component_label_warning"))
+        verified = zero_slippage and identity_warning
+        reason = "La cartera usa slippage zero i conté una incoherència d'identitat de component."
 
-    rejection_insights = {"TEMPORAL_PASS_COST_FAIL", "TEMPORAL_FAIL", "LOW_SAMPLE_OR_VALIDATION_FAIL", "OOS_REGIME_FAIL"}
+    rejection_insights = {"TEMPORAL_PASS_COST_FAIL", "TEMPORAL_FAIL", "LOW_SAMPLE_OR_VALIDATION_FAIL", "OOS_REGIME_FAIL", "PORTFOLIO_AGGREGATE_HIDES_COMPONENT_ASSUMPTIONS"}
     if insight in rejection_insights and verified:
         decision = "DESCARTAR"
         missing = []

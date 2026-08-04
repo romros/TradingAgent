@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "id": "portfolio-blind-v1",
+  "frozen_before_rule_change": "2026-08-04",
+  "observation": "academia/experiments/observations/sq-portfolio-1774074144996-2026-08.json",
+  "artifact_sha256": "b8fd37afcd5acd336ed51b5b8f5809d5eb8a4be3fd88929dadd504879a08a46a",
+  "expected_decision": "DESCARTAR",
+  "expected_evidence": ["result_slippage_zero", "component_identity_warning"],
+  "scope": "deployment evidence only; not a claim that the family has no edge"
+}

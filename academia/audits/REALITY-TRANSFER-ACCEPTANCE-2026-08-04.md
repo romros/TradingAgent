@@ -27,3 +27,13 @@ Aquesta acceptació comprova decisions sobre metadades i mètriques importades; 
 demostra la veracitat dels artifacts originals ni rendibilitat. El següent adaptador
 ha d'extreure només camps demostrables d'un SQX/informe verificat i declarar la resta
 absent. Només un manifest complet podrà entrar a `reality_transfer.py`.
+
+## Cas cec congelat
+
+Després de construir els gates anteriors es va reservar
+`sq-portfolio-1774074144996-2026-08` com a acceptació. Abans d'afegir-ne la regla
+es va congelar `portfolio-blind-v1`: havia de rebutjar-se com a evidència de
+desplegament si, i només si, coexistien slippage zero i una alerta d'identitat de
+component. El resultat és `DESCARTAR` amb consistència mètrica verificada. Això
+no declara que la família no tingui edge; declara que aquest artifact agregat no
+és una prova executable.

@@ -34,7 +34,13 @@ def _fetch_bs_ohlcv(base_url: str, symbol: str, limit: int = 5000) -> Optional[d
     GET /data/ohlcv/{symbol}?tf=1m&limit=...
     BS retorna {candles: [[ts,o,h,l,c,v], ...], ...}
     """
-    url = f"{base_url.rstrip('/')}/data/ohlcv/{symbol}?tf=1m&limit={limit}"
+    # L'auditoria necessita només candles natives quarantinades d'Ostium.
+    # Sense source explícita, BrokerageService pot fer fallback Dukascopy fins
+    # i tot per equities/índexs no suportats i provocar ràfegues/HTTP 429.
+    url = (
+        f"{base_url.rstrip('/')}/data/ohlcv/{symbol}"
+        f"?tf=1m&limit={limit}&source=ostium_clean"
+    )
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "TradingAgent-BS-Audit/1.0"})
         with urllib.request.urlopen(req, timeout=15) as resp:

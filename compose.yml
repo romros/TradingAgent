@@ -5,15 +5,26 @@ services:
       - "8090:8090"
     volumes:
       - ./data:/app/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
       - PROBE_ASSETS=MSFT,NVDA,NDXUSD
       - DB_PATH=data/paper_probe.db
       - PROBE_SNAPSHOTS_DIR=data/probe_snapshots
+      - BS_BASE_URL=http://host.docker.internal:8081
       - SCHEDULER_ENABLED=true
       - SCHEDULER_HOUR_UTC=21
       - PAPER_COST_BPS=6.0
       - PAPER_COST_CONSERVATIVE_BPS=10.0
       - PAPER_COST_STRESS_BPS=18.0
+      - MSFT_DRIFT_SCHEDULER_ENABLED=true
+      - MSFT_DRIFT_SCHEDULER_HOUR_UTC=21
+      - MSFT_DRIFT_SCHEDULER_MINUTE_UTC=10
+      - MSFT_DRIFT_DB_PATH=data/msft_close_drift_probe.db
+      - MSFT_DRIFT_CAPITAL=200
+      - MSFT_DRIFT_LEVERAGE=4
+      - MSFT_DRIFT_RISK_PCT=0.01
+      - MSFT_DRIFT_COST_BPS=36
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8090/health')"]

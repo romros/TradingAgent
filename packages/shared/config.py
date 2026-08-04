@@ -54,3 +54,8 @@ BS_BASE_URL = os.getenv("BS_BASE_URL", "http://localhost:8081")
 PROBE_SNAPSHOTS_DIR = os.getenv("PROBE_SNAPSHOTS_DIR", "data/probe_snapshots")
 SCHEDULER_ENABLED = os.getenv("SCHEDULER_ENABLED", "true").lower() in ("1", "true", "yes")
 SCHEDULER_HOUR_UTC = int(os.getenv("SCHEDULER_HOUR_UTC", "21"))
+MSFT_DRIFT_SCHEDULER_ENABLED = os.getenv(
+    "MSFT_DRIFT_SCHEDULER_ENABLED", "true"
+).lower() in ("1", "true", "yes")
+MSFT_DRIFT_SCHEDULER_HOUR_UTC = int(os.getenv("MSFT_DRIFT_SCHEDULER_HOUR_UTC", "21"))
+MSFT_DRIFT_SCHEDULER_MINUTE_UTC = int(os.getenv("MSFT_DRIFT_SCHEDULER_MINUTE_UTC", "10"))

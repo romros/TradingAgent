@@ -28,6 +28,21 @@ def _scheduled_scan_job():
         logger.exception("scheduled_scan_failed error=%s", e)
 
 
+def _scheduled_msft_drift_job():
+    """Paper-only close drift scan; isolated DB and fail-closed warm-up."""
+    try:
+        logger.info("msft_drift_scan_triggered source=scheduler")
+        from packages.runtime.msft_close_drift_runner import run_msft_close_drift_probe
+        result = run_msft_close_drift_probe()
+        logger.info(
+            "msft_drift_scan_completed status=%s sessions=%s/%s opened=%s settled=%s",
+            result.get("status"), result.get("complete_sessions"), result.get("required_sessions"),
+            bool(result.get("opened")), bool(result.get("settled")),
+        )
+    except Exception as e:
+        logger.exception("msft_drift_scan_failed error=%s", e)
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Startup: scheduler. Shutdown: aturar scheduler."""
@@ -46,6 +61,13 @@ async def lifespan(app: FastAPI):
             CronTrigger(hour=config.SCHEDULER_HOUR_UTC, minute=0),
             id="daily_scan",
         )
+        if config.MSFT_DRIFT_SCHEDULER_ENABLED:
+            _scheduler.add_job(
+                _scheduled_msft_drift_job,
+                CronTrigger(hour=config.MSFT_DRIFT_SCHEDULER_HOUR_UTC,
+                            minute=config.MSFT_DRIFT_SCHEDULER_MINUTE_UTC),
+                id="msft_close_drift_scan",
+            )
         _scheduler.start()
         next_run = _scheduler.get_job("daily_scan").next_run_time
         next_utc = next_run.isoformat() if next_run else "unknown"
@@ -54,6 +76,14 @@ async def lifespan(app: FastAPI):
             next_utc,
             config.SCHEDULER_HOUR_UTC,
         )
+        if config.MSFT_DRIFT_SCHEDULER_ENABLED:
+            drift_next = _scheduler.get_job("msft_close_drift_scan").next_run_time
+            logger.info(
+                "msft_drift_scheduler_registered next_run_utc=%s schedule=%02d:%02dZ",
+                drift_next.isoformat() if drift_next else "unknown",
+                config.MSFT_DRIFT_SCHEDULER_HOUR_UTC,
+                config.MSFT_DRIFT_SCHEDULER_MINUTE_UTC,
+            )
     else:
         logger.info("daily_scheduler_disabled SCHEDULER_ENABLED=false")
 

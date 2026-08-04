@@ -41,3 +41,21 @@ d'Alquímia.
 Cap mercat nou queda autoritzat automàticament. `EURUSD` i `XAUUSD` necessiten
 paritat recent; els altres necessiten dades o mapping. Aquest bloqueig deliberat
 evita repetir una campanya sobre un preu que després no es pot executar a Ostium.
+
+## Incidència del primer pilot GBPUSD
+
+El job `495b023b` del 2026-08-04 va acabar `FAILED`, 0/2 mesos i cap Parquet
+creat. La causa de xarxa va ser `HTTP 429` en tots els intents, perquè dos mesos
+es van demanar concurrentment amb backoff de només 2/4/8 segons. No s'ha repetit
+per evitar agreujar el límit.
+
+També es van detectar dos defectes del wrapper `BrokerageService/scripts/sync_symbol.sh`:
+
+- usa mesos de shell amb zero inicial en aritmètica (`08`/`09` fallen com octal);
+- després d'un job fallit, un índex buit produeix `missing=0` i el wrapper informa
+  incorrectament `Coverage OK` i retorna èxit.
+
+Correcció requerida a BS abans de reprendre: convertir mesos explícitament en
+base 10 o delegar tota l'aritmètica de dates a Python; propagar `any_failed`;
+exigir almenys un mes/filera dins del rang; per `429`, respectar `Retry-After`,
+afegir jitter i backoff llarg, i començar pilots amb un sol worker/mes.

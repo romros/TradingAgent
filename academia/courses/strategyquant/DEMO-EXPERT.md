@@ -64,3 +64,21 @@ python3 academia/tools/benchmark_reality_transfer.py \
 
 Un 5/5 només prova coherència de la política. No prova que els inputs d'una
 campanya real siguin certs; aquests continuen necessitant artifacts i fonts.
+
+## Acceptació amb observacions reals
+
+L'adaptador `observation_to_reality.py` no converteix automàticament qualsevol
+`REJECT` en veritat: comprova la mètrica que sosté cada codi de fracàs. Els casos
+locals de costos EURUSD, sis famílies intraday, mostra diària mínima i Bollinger
+XAU han de quedar descartats. Els candidats `0.7893` i `4.1.133` han de quedar
+incomplets perquè encara no disposen de tots els gates de règim i execució.
+
+```bash
+python3 academia/tools/observation_to_reality.py --markdown \
+  academia/experiments/observations/alquimia-eurusd-h4-2026-08.json \
+  academia/experiments/observations/intraday-fx-six-families-2026-08.json \
+  academia/experiments/observations/small-investor-d1-2026-08.json \
+  academia/experiments/observations/sq-0423850-xau-h4-2026-08.json \
+  academia/experiments/observations/alquimia-xau-h4-07893-is-2026-08.json \
+  academia/experiments/observations/alquimia-eurusd-h4-41133-windows-2026-08.json
+```

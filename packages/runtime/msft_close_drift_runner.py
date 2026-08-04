@@ -8,6 +8,20 @@ from packages.strategy.msft_close_drift import MsftCloseDriftStrategy
 
 
 def run_msft_close_drift_probe() -> dict:
+    # v24 calcula el senyal i l'entrada amb el close regular de les 16:00 ET.
+    # Ostium força el tancament de les posicions intradia a les 15:45 ET; per
+    # tant aquest fill no existeix. Bloquegem també les invocacions manuals,
+    # no només el scheduler, fins que una versió pre-close sigui revalidada.
+    if os.getenv("MSFT_DRIFT_EXECUTION_COMPATIBLE", "false").lower() not in (
+        "1", "true", "yes"
+    ):
+        return {
+            "status": "BLOCKED_EXECUTION_WINDOW",
+            "strategy": MsftCloseDriftStrategy.STRATEGY_NAME,
+            "reason": "signal_requires_16_00_et_close_after_ostium_15_45_et_cutoff",
+            "opened": None,
+            "settled": None,
+        }
     strategy = MsftCloseDriftStrategy()
     feed = OstiumCleanD1Feed(os.getenv("BS_BASE_URL", "http://localhost:8081"))
     config = CloseHoldProbeConfig(

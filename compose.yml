@@ -17,7 +17,10 @@ services:
       - PAPER_COST_BPS=6.0
       - PAPER_COST_CONSERVATIVE_BPS=10.0
       - PAPER_COST_STRESS_BPS=18.0
-      - MSFT_DRIFT_SCHEDULER_ENABLED=true
+      # v24 queda preservada com a recerca, però el close 16:00 ET no és
+      # executable abans del tall Ostium 15:45 ET.
+      - MSFT_DRIFT_SCHEDULER_ENABLED=false
+      - MSFT_DRIFT_EXECUTION_COMPATIBLE=false
       - MSFT_DRIFT_SCHEDULER_HOUR_UTC=21
       - MSFT_DRIFT_SCHEDULER_MINUTE_UTC=10
       - MSFT_DRIFT_DB_PATH=data/msft_close_drift_probe.db

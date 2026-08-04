@@ -4,6 +4,7 @@ import pytest
 
 from packages.market.ostium_clean_d1 import aggregate_complete_regular_sessions
 from packages.strategy.msft_close_drift import MsftCloseDriftStrategy
+from packages.runtime.msft_close_drift_runner import run_msft_close_drift_probe
 
 
 def _candles(prices):
@@ -41,3 +42,10 @@ def test_regular_session_aggregation_fails_closed_on_outlier():
     rows = [[start, 100, 100, 100, 100, 0], [start + 60, 120, 120, 120, 120, 0]]
     with pytest.raises(ValueError, match="OUTLIER"):
         aggregate_complete_regular_sessions(rows, minimum_bars=1)
+
+
+def test_runner_blocks_non_executable_close_fill(monkeypatch):
+    monkeypatch.delenv("MSFT_DRIFT_EXECUTION_COMPATIBLE", raising=False)
+    result = run_msft_close_drift_probe()
+    assert result["status"] == "BLOCKED_EXECUTION_WINDOW"
+    assert "15_45" in result["reason"]

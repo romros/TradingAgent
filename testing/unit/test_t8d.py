@@ -72,6 +72,7 @@ def test_scheduler_config_parsing():
     assert isinstance(config.SCHEDULER_ENABLED, bool)
     assert isinstance(config.SCHEDULER_HOUR_UTC, int)
     assert 0 <= config.SCHEDULER_HOUR_UTC <= 23
+    assert config.MSFT_DRIFT_SCHEDULER_ENABLED is False
 
 
 def test_startup_fails_closed_without_required_config():

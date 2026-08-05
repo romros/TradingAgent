@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "symbol": "GBPUSD",
+  "reference_files": [
+    "/bs/pilots/GBPUSD_2026-08-03_2026-08-05_dukascopy.parquet"
+  ],
+  "ostium_files": [
+    "/bs/historical_parquet_ostium_v1/GBPUSD/tf=1m/year=2026/month=08/data.parquet"
+  ],
+  "metrics": {
+    "reference_rows": 2873,
+    "ostium_rows": 2880,
+    "aligned_rows": 2873,
+    "union_coverage_ratio": 0.9975694444444444,
+    "first_aligned_ts": 1785715200,
+    "last_aligned_ts": 1785887940,
+    "close_diff_bps_median": 0.296962812831314,
+    "close_diff_bps_p95": 0.8193668528866382,
+    "close_diff_bps_max": 5.513213085686086,
+    "m1_return_correlation": 0.8840394384677654,
+    "return_direction_match_ratio": 0.8603827072997874,
+    "consecutive_return_pairs": 2866,
+    "interval_seconds": 60
+  },
+  "timeframes_minutes": {
+    "1": {
+      "reference_rows": 2873,
+      "ostium_rows": 2880,
+      "aligned_rows": 2873,
+      "union_coverage_ratio": 0.9975694444444444,
+      "first_aligned_ts": 1785715200,
+      "last_aligned_ts": 1785887940,
+      "close_diff_bps_median": 0.296962812831314,
+      "close_diff_bps_p95": 0.8193668528866382,
+      "close_diff_bps_max": 5.513213085686086,
+      "m1_return_correlation": 0.8840394384677654,
+      "return_direction_match_ratio": 0.8603827072997874,
+      "consecutive_return_pairs": 2866,
+      "interval_seconds": 60
+    },
+    "5": {
+      "reference_rows": 576,
+      "ostium_rows": 576,
+      "aligned_rows": 576,
+      "union_coverage_ratio": 1.0,
+      "first_aligned_ts": 1785715200,
+      "last_aligned_ts": 1785887700,
+      "close_diff_bps_median": 0.29708411936835155,
+      "close_diff_bps_p95": 0.8177952240773223,
+      "close_diff_bps_max": 3.7984299822735323,
+      "m1_return_correlation": 0.9698474366873134,
+      "return_direction_match_ratio": 0.9301919720767888,
+      "consecutive_return_pairs": 575,
+      "interval_seconds": 300
+    },
+    "15": {
+      "reference_rows": 192,
+      "ostium_rows": 192,
+      "aligned_rows": 192,
+      "union_coverage_ratio": 1.0,
+      "first_aligned_ts": 1785715200,
+      "last_aligned_ts": 1785887100,
+      "close_diff_bps_median": 0.2975127930504584,
+      "close_diff_bps_p95": 1.2642413064822833,
+      "close_diff_bps_max": 3.7984299822735323,
+      "m1_return_correlation": 0.9842987574138126,
+      "return_direction_match_ratio": 0.9421052631578948,
+      "consecutive_return_pairs": 191,
+      "interval_seconds": 900
+    },
+    "60": {
+      "reference_rows": 48,
+      "ostium_rows": 48,
+      "aligned_rows": 48,
+      "union_coverage_ratio": 1.0,
+      "first_aligned_ts": 1785715200,
+      "last_aligned_ts": 1785884400,
+      "close_diff_bps_median": 0.297681064507227,
+      "close_diff_bps_p95": 2.5316832715316373,
+      "close_diff_bps_max": 3.1981435892092236,
+      "m1_return_correlation": 0.9879109312417929,
+      "return_direction_match_ratio": 0.9787234042553191,
+      "consecutive_return_pairs": 47,
+      "interval_seconds": 3600
+    },
+    "240": {
+      "reference_rows": 12,
+      "ostium_rows": 12,
+      "aligned_rows": 12,
+      "union_coverage_ratio": 1.0,
+      "first_aligned_ts": 1785715200,
+      "last_aligned_ts": 1785873600,
+      "close_diff_bps_median": 0.22332062887153725,
+      "close_diff_bps_p95": 0.5958676577910715,
+      "close_diff_bps_max": 0.5958676577910715,
+      "m1_return_correlation": 0.9997072536638135,
+      "return_direction_match_ratio": 1.0,
+      "consecutive_return_pairs": 11,
+      "interval_seconds": 14400
+    }
+  },
+  "timeframe_decisions": {
+    "M1": {
+      "decision": "BLOCK",
+      "reasons": [
+        "M1_RETURN_CORRELATION_LT_0_95",
+        "DIRECTION_MATCH_LT_0_90"
+      ],
+      "scope": "M1_MAPPING_PILOT_ONLY_NOT_PAPER_OR_LIVE"
+    },
+    "M15": {
+      "pass": false,
+      "reasons": [
+        "ALIGNED_ROWS_LT_500",
+        "DIRECTION_MATCH_LT_0_95"
+      ]
+    },
+    "H1": {
+      "pass": true,
+      "reasons": []
+    },
+    "H4": {
+      "pass": false,
+      "reasons": [
+        "ALIGNED_ROWS_LT_30"
+      ]
+    }
+  },
+  "decision": "PASS_H1_MAPPING_PILOT_EXTEND_SAMPLE",
+  "reasons": [],
+  "scope": "H1_MAPPING_PILOT_ONLY_EXTEND_TO_30_DAYS_BEFORE_RESEARCH"
+}

@@ -7,7 +7,7 @@
   "markets": [
     {"symbol":"EURUSD","class":"forex","ostium_pair":"EUR/USD","venue_max_leverage":200,"opening_fee_bps":3,"dukascopy":"ready","local_history":"ready","mapping":"known","parity":"refresh_required","priority":1},
     {"symbol":"XAUUSD","class":"metal","ostium_pair":"XAU/USD","venue_max_leverage":50,"opening_fee_bps":3,"dukascopy":"ready","local_history":"ready","mapping":"known","parity":"refresh_required","priority":1},
-    {"symbol":"GBPUSD","class":"forex","ostium_pair":"GBP/USD","venue_max_leverage":200,"opening_fee_bps":3,"dukascopy":"verified_available","local_history":"missing","ostium_recorder_m1":169299,"ostium_clean_m1":1440,"mapping":"known_bs","parity":"missing","priority":1},
+    {"symbol":"GBPUSD","class":"forex","ostium_pair":"GBP/USD","venue_max_leverage":200,"opening_fee_bps":3,"dukascopy":"verified_available","local_history":"pilot_1_month","ostium_recorder_m1":169299,"ostium_clean_m1":2880,"mapping":"known_bs","parity":"pilot_h1_pass_extend_30d","priority":1},
     {"symbol":"USDJPY","class":"forex","ostium_pair":"USD/JPY","venue_max_leverage":100,"opening_fee_bps":3,"dukascopy":"verified_available","local_history":"missing","ostium_recorder_m1":169296,"ostium_clean_m1":1440,"mapping":"known_bs","parity":"missing","priority":1},
     {"symbol":"AUDUSD","class":"forex","ostium_pair":"AUD/USD","venue_max_leverage":100,"opening_fee_bps":3,"dukascopy":"verified_available","local_history":"missing","mapping":"known_bs","parity":"missing","priority":1},
 

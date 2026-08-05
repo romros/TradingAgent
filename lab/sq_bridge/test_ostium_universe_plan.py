@@ -21,6 +21,6 @@ def test_plan_fails_closed_and_prioritizes_existing_evidence():
     assert plan["research_authorized"] == []
     by_symbol = {row["symbol"]: row for row in plan["queue"]}
     assert by_symbol["EURUSD"]["next_action"] == "REFRESH_PARITY"
-    assert by_symbol["GBPUSD"]["next_action"] == "BACKFILL_THEN_PARITY"
+    assert by_symbol["GBPUSD"]["next_action"] == "EXTEND_OSTIUM_OVERLAP_THEN_RECERTIFY"
     assert by_symbol["US500"]["next_action"] == "VERIFY_SOURCE_AND_MAPPING"
     assert all(not row["research_authorized"] for row in plan["queue"])

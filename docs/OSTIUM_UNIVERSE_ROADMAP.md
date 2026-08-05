@@ -71,3 +71,11 @@ El pilot `GBPUSD` 2026-07-01 va completar 1.425 M1, de 00:00 a 23:59 UTC,
 reutilitzant les primeres 21 hores i descarregant només les tres restants. El
 mes complet continua al job persistent `bafaf4bc`; només quan generi Parquet i
 passi cobertura es pot iniciar la paritat contra Ostium.
+
+El job va acabar `DONE`: 32.773 M1, 744 fitxers horaris, 0 duplicats i 0 OHLC
+invàlids. El pilot solapat 2026-08-03–05 compara 2.873 M1 Dukascopy amb 2.880
+M1 Ostium nets. Preu: mediana 0,30 bps i p95 0,82 bps. El soroll M1 falla,
+però H1 obté correlació 0,9879, direcció 97,87%, cobertura 100% i p95 2,53 bps;
+H4 obté 0,9997/100% però només 11 retorns. Decisió:
+`PASS_H1_MAPPING_PILOT_EXTEND_SAMPLE`. Calen 30 dies solapats abans d'autoritzar
+el proxy per recerca; M1 queda exclòs.

@@ -38,13 +38,13 @@
       "venue_max_leverage": 200,
       "opening_fee_bps": 3,
       "dukascopy": "verified_available",
-      "local_history": "missing",
+      "local_history": "pilot_1_month",
       "ostium_recorder_m1": 169299,
-      "ostium_clean_m1": 1440,
+      "ostium_clean_m1": 2880,
       "mapping": "known_bs",
-      "parity": "missing",
+      "parity": "pilot_h1_pass_extend_30d",
       "priority": 1,
-      "next_action": "BACKFILL_THEN_PARITY",
+      "next_action": "EXTEND_OSTIUM_OVERLAP_THEN_RECERTIFY",
       "research_authorized": false
     },
     {

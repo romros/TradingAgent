@@ -8,6 +8,8 @@ from pathlib import Path
 
 
 def action_for(market: dict) -> str:
+    if market["parity"].startswith("pilot_"):
+        return "EXTEND_OSTIUM_OVERLAP_THEN_RECERTIFY"
     if market["local_history"] == "ready" and market["parity"] != "pass":
         return "REFRESH_PARITY"
     if market["dukascopy"] == "verified_available" and market["local_history"] == "missing":

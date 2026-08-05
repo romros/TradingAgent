@@ -1,15 +1,16 @@
 # Benchmark difícil de retrieval
 
 Corpus: 48 fonts; motor SQLite FTS5/BM25 amb stopwords i cobertura lexical mínima.
-Dataset: 34 preguntes — 31 answerables, 3 que exigeixen abstenció.
+Dataset: 35 preguntes — 32 answerables, 3 que exigeixen abstenció.
 
-## Resultat 2026-08-02
+## Resultat 2026-08-05
 
-- Recall@5 answerable: **0,90**;
-- MRR@5 answerable: **0,90**;
+- Recall@5 answerable: **0,90625**;
+- MRR@5 answerable: **0,90625**;
 - no-answer accuracy: **1,00**;
 - cinc consultes de deriva de contracte: Recall@5 **1,00** i MRR@5 **0,90**;
 - la consulta nova sobre recursos inactius de l'Improver recupera l'evidència local a rang **1**;
+- la consulta sobre símbols interns i cobertura OHLC d'Ostium recupera la font oficial a rang **1**;
 - cinc consultes de notes de vídeo: Recall@5 i MRR@5 **1,00**;
 - benchmark lexical original (27 preguntes): Recall@5 **1,00** i MRR@5 **0,98**.
 
@@ -18,7 +19,7 @@ exportació i custom analysis. Es mantenen les dues paràfrasis antigues difíci
 
 ## Decisió
 
-No activar embeddings encara. Trenta-quatre preguntes difícils són insuficients per justificar
+No activar embeddings encara. Trenta-cinc preguntes difícils són insuficients per justificar
 cost, dependència i reindexació. Ampliar a 50 preguntes cegues i comparar:
 
 1. FTS5 actual;

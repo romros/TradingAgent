@@ -2,10 +2,11 @@
   "id": "ostium_official_markets_2026", "kind": "documentation", "title": "Ostium markets",
   "url": "https://docs.ostium.com/traders/reference/markets", "author": "Ostium", "published_at": null, "accessed_at": "2026-08-05",
   "language": "en", "sq_version": null, "source_level": "A_PRIMARY", "domain": "execution-economics", "rights_policy": "transformative_notes",
-  "metadata": {"volatile": true, "rule": "Refresh immediately before a final deployment decision."},
+  "metadata": {"volatile": true, "rule": "Refresh immediately before a final deployment decision.", "builder_api": "https://builder.prod.bedrock.ostium.io/v1/ohlc"},
   "chunks": [
     {"locator": "section:execution", "heading": "Execution", "body": "Els parells executen bid/ask: long entra ask i surt bid; short entra bid i surt ask. Commodities, índexs i FX usen spread bid/ask estàndard.", "evidence_status": "captured"},
     {"locator": "section:xau", "heading": "XAU specification", "body": "A la consulta de 2026-08-05, XAU/USD figura amb màxim 200x, opening fee de 3 bps, rollover basat en l'estructura temporal de futurs i horari amb pausa diària.", "evidence_status": "captured"},
-    {"locator": "section:universe", "heading": "Univers Ostium actual", "body": "La consulta oficial de 2026-08-05 enumera 71 parells: 33 accions, 6 ETF, 7 commodities, 7 índexs, 9 forex i 9 cripto. Les opening fees són 3-5 bps i els horaris depenen del mercat subjacent.", "evidence_status": "captured"}
+    {"locator": "section:universe", "heading": "Univers Ostium observat", "body": "L'univers és dinàmic i s'ha de consultar de nou abans de cada campanya. Les opening fees documentades són 3-5 bps i els horaris depenen del mercat subjacent.", "evidence_status": "captured"},
+    {"locator": "builder-api:ohlc", "heading": "Cobertura OHLC oficial", "body": "La prova de 2026-08-05 confirma que l'API OHLC usa SPX-USD per US500 i CL-USD per WTI. Per a una petició 2017-2026, cinc actius retornen dades des de 2024; TLT només des de 2026-04-17. És una font de realitat moderna, no una història completa de descobriment.", "evidence_status": "captured"}
   ]
 }

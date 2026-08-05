@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "id": "ostium-official-ohlc-coverage-2026-08",
+  "observed_at": "2026-08-05",
+  "source": "https://builder.prod.bedrock.ostium.io/v1/ohlc",
+  "request": {"window": "2017-01-01/2026-07-31", "resolution": "1D"},
+  "assets": {
+    "EUR/USD": {"api_pair": "EUR-USD", "count": 771, "first": "2024-01-01", "last": "2026-07-31"},
+    "US500/USD": {"api_pair": "SPX-USD", "count": 756, "first": "2024-01-01", "last": "2026-07-31"},
+    "XAU/USD": {"api_pair": "XAU-USD", "count": 767, "first": "2024-01-01", "last": "2026-07-31"},
+    "WTI/USD": {"api_pair": "CL-USD", "count": 767, "first": "2024-01-01", "last": "2026-07-31"},
+    "BTC/USD": {"api_pair": "BTC-USD", "count": 943, "first": "2024-01-01", "last": "2026-07-31"},
+    "TLT/USD": {"api_pair": "TLT-USD", "count": 73, "first": "2026-04-17", "last": "2026-07-31"}
+  },
+  "decision": "USE_FOR_MODERN_REPRICING_AND_SEALED_HOLDOUT_ONLY",
+  "insight": "L'API oficial resol el tram modern i la paritat amb els identificadors d'execució, però no substitueix les dades de descobriment. Cinc actius comencen el 2024 i TLT només el 2026-04-17.",
+  "campaign_impact": "Cal adquirir sèries amb provenance per a 2017-2023. El holdout 2025-08-01/2026-07-31 queda disponible per a cinc actius, però TLT no pot passar el mateix holdout i requereix substitució preregistrada o exclusió abans de generar candidats.",
+  "holdout_access": {
+    "market_data_returned": true,
+    "candidate_or_portfolio_evaluated": false,
+    "campaign_holdout_read_consumed": false,
+    "note": "La sonda inicial va mostrar la primera i l'última espelma del període recent. No s'ha generat, triat ni avaluat cap candidat amb aquestes dades; les sondes posteriors només n'han conservat cobertura i recompte."
+  },
+  "raw_candles_persisted": false,
+  "sqcli_used": false
+}

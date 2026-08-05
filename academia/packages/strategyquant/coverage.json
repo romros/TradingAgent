@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-08-03",
+  "as_of": "2026-08-05",
   "target_build": "143.2708",
   "statuses": {"mapped": "funció identificada", "evidenced": "font oficial destil·lada", "operational": "procediment i criteris", "tested": "prova local reproduïble"},
   "capabilities": [
@@ -11,7 +11,7 @@
     {"order": 5, "id": "retester-crosschecks", "status": "tested", "evidence": ["sq_official_cross_checks_20190226"], "local_evidence": "experiments/observations/alquimia-eurusd-h4-41133-windows-2026-08.json", "next": "executar les variants de precisió i mercats addicionals sobre finalistes"},
     {"order": 6, "id": "monte-carlo-parameters", "status": "tested", "evidence": ["sq_official_monte_carlo_retests_20190301"], "local_evidence": "experiments/observations/build143-final-capability-tests-2026-08.json", "next": "afegir una porta quantitativa basada en percentils abans de promocionar candidats"},
     {"order": 7, "id": "optimizer-wfo-wfm", "status": "tested", "evidence": ["sq_official_walk_forward_optimization_20150506", "sq_official_walk_forward_matrix_20150506"], "local_evidence": "experiments/observations/sq-wfm-112156-eurusd-m15-2026-08.json", "next": "automatitzar l'estabilitat de regions i excloure explícitament futurePeriod"},
-    {"order": 8, "id": "regime-reality", "status": "tested", "evidence": ["wgc_gold_demand_2025", "ostium_official_fees_liquidation_2026"], "next": "aplicar a artifact finalista real"},
+    {"order": 8, "id": "regime-reality", "status": "tested", "evidence": ["wgc_gold_demand_2025", "ostium_official_fees_liquidation_2026"], "local_evidence": "audits/REALITY-TRANSFER-ACCEPTANCE-2026-08-04.md", "next": "completar règims i economia actual només quan aparegui un finalista legítim"},
     {"order": 9, "id": "portfolio", "status": "tested", "evidence": ["sq_official_portfolio_composer_20241015"], "local_evidence": "experiments/observations/sq-portfolio-1774074144996-2026-08.json", "next": "repetir amb components validats, costos reals i correlacions per règim"},
     {"order": 10, "id": "export-crossplatform", "status": "operational", "evidence": ["sq_official_source_code_export_20200522", "sq_official_crossplatform_reliability_20190429"], "tested_parts": ["sqcli_export_gap", "ephemeral_browser_reachability", "sq_orders_csv", "cleanup", "missing_target_engine_rejection"], "untested_parts": ["source_code_export", "engine_parity"], "local_evidence": "experiments/observations/build143-final-capability-tests-2026-08.json", "next": "exportar codi per GUI descartable, executar el motor objectiu escollit i comparar-lo amb les 130 ordres SQ"},
     {"order": 11, "id": "custom-projects", "status": "tested", "evidence": ["sq_official_custom_projects_20200504"], "local_evidence": "experiments/observations/alquimia-eurusd-h4-41133-windows-2026-08.json", "next": "fer idempotent la promoció entre databanks i registrar-ne els recomptes"},

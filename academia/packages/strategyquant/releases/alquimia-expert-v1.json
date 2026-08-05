@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "id": "alquimia-strategyquant-expert-v1",
+  "released_at": "2026-08-05",
+  "target_sq_build": "143.2708",
+  "status": "operational_with_declared_boundaries",
+  "acceptance": {
+    "reality_battle_suite": "academia/experiments/examples/reality-transfer-battle-cases.json",
+    "minimum_battle_score": 1.0,
+    "blind_case": "academia/experiments/acceptance/portfolio-blind-v1.json",
+    "blind_expected_decision": "DESCARTAR",
+    "minimum_unit_tests": 76,
+    "hard_retrieval_recall_at_5": 0.9032258064516129,
+    "hard_retrieval_mrr_at_5": 0.9032258064516129,
+    "hard_retrieval_no_answer_accuracy": 1.0
+  },
+  "guarantees": [
+    "missing evidence is not converted to zero",
+    "SQX fields are not silently overridden by supplements",
+    "failed candidates do not reach holdout",
+    "holdout pass does not authorize live trading",
+    "observed metrics are checked before trusting rejection labels"
+  ],
+  "open_boundaries": [
+    "improver_slpt_only_structural_proof",
+    "random_vs_genetic_equal_attempt_result",
+    "source_code_export_and_target_engine_parity",
+    "paper_trading_and_live_execution_out_of_scope"
+  ]
+}

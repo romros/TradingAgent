@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-08-05T09:06:09.986163+00:00",
+  "symbol": "GBPUSD",
+  "policy": {
+    "detector": "NY_ROLL_WINDOW_CLOSE_JUMP",
+    "window_new_york": "16:55-17:35",
+    "threshold_bps_strictly_greater_than": 8.0,
+    "action": "EXCLUDE_WHOLE_LOCAL_DATE_NO_PRICE_CORRECTION",
+    "reference_market_used_for_detection": false
+  },
+  "input": {
+    "path": "/bs/datafiles/realtime_datalayer/candles/GBPUSD/America_New_York/2026/02.csv",
+    "sha256": "0686adc8877d6c832a7c677867938ae7f1bc2f3171dc74cffcdb5040cbe9a318",
+    "rows": 10055
+  },
+  "output": {
+    "path": "/app/data/research/GBPUSD_2026-02_ostium_internal_quarantine.parquet",
+    "sha256": "bd0817cfc6451b0d59b20efbe1cae0ed86f6af69d8806d3d323d51423f9098c7",
+    "rows": 9036
+  },
+  "quarantined_local_dates": [
+    "2026-02-27"
+  ],
+  "quarantined_rows": 1019,
+  "receipts": [
+    {
+      "reason": "NY_ROLL_WINDOW_CLOSE_JUMP",
+      "local_date": "2026-02-27",
+      "timestamp_utc": "2026-02-27T21:58:00+00:00",
+      "timestamp_new_york": "2026-02-27T16:58:00-05:00",
+      "jump_bps": 130.41833275221347,
+      "threshold_bps": 8.0
+    }
+  ],
+  "scope": "DATA_QUALITY_PILOT_NOT_RESEARCH_PAPER_OR_LIVE_AUTHORIZATION"
+}

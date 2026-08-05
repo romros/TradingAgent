@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import hashlib
 import json
 from datetime import datetime, timezone
@@ -14,6 +15,22 @@ from lab.sq_bridge.intraday_source_parity import load_ohlcv_parquet
 from lab.sq_bridge.ostium_fx_quarantine import (
     detect_roll_window_anomalies, exclude_quarantined_dates, quarantined_local_dates,
 )
+
+
+def load_input(path: Path) -> list[dict]:
+    if path.suffix.lower() == ".parquet":
+        return load_ohlcv_parquet([path])
+    if path.suffix.lower() != ".csv":
+        raise ValueError(f"UNSUPPORTED_INPUT_FORMAT:{path.suffix}")
+    rows = []
+    with path.open(newline="") as handle:
+        for line, values in enumerate(csv.reader(handle), start=1):
+            if len(values) != 6:
+                raise ValueError(f"INVALID_CSV_COLUMNS:{line}")
+            ts, open_, high, low, close, volume = values
+            rows.append({"ts": int(ts), "open": float(open_), "high": float(high),
+                         "low": float(low), "close": float(close), "volume": float(volume)})
+    return rows
 
 
 def _sha256(path: Path) -> str:
@@ -33,7 +50,7 @@ def main() -> None:
     parser.add_argument("--threshold-bps", type=float, default=8.0)
     args = parser.parse_args()
 
-    rows = load_ohlcv_parquet([args.input])
+    rows = load_input(args.input)
     receipts = detect_roll_window_anomalies(rows, threshold_bps=args.threshold_bps)
     dates = quarantined_local_dates(receipts)
     kept = exclude_quarantined_dates(rows, dates)

@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-08-05T09:06:27.886359+00:00",
+  "symbol": "GBPUSD",
+  "policy": {
+    "detector": "NY_ROLL_WINDOW_CLOSE_JUMP",
+    "window_new_york": "16:55-17:35",
+    "threshold_bps_strictly_greater_than": 8.0,
+    "action": "EXCLUDE_WHOLE_LOCAL_DATE_NO_PRICE_CORRECTION",
+    "reference_market_used_for_detection": false
+  },
+  "input": {
+    "path": "/bs/datafiles/realtime_datalayer/candles/GBPUSD/America_New_York/2026/06.csv",
+    "sha256": "12b043d47e9ab2a21288723d973e875c30afd5511401fc4eabf95798d05f52f8",
+    "rows": 31410
+  },
+  "output": {
+    "path": "/app/data/research/GBPUSD_2026-06_ostium_internal_quarantine.parquet",
+    "sha256": "b4b2de90c6236b29456b58f1671b86c64fd57a313b19ddaaafe225dad6e6c90f",
+    "rows": 27332
+  },
+  "quarantined_local_dates": [
+    "2026-06-05",
+    "2026-06-12",
+    "2026-06-19",
+    "2026-06-26"
+  ],
+  "quarantined_rows": 4078,
+  "receipts": [
+    {
+      "reason": "NY_ROLL_WINDOW_CLOSE_JUMP",
+      "local_date": "2026-06-05",
+      "timestamp_utc": "2026-06-05T20:59:00+00:00",
+      "timestamp_new_york": "2026-06-05T16:59:00-04:00",
+      "jump_bps": 86.20172703286188,
+      "threshold_bps": 8.0
+    },
+    {
+      "reason": "NY_ROLL_WINDOW_CLOSE_JUMP",
+      "local_date": "2026-06-12",
+      "timestamp_utc": "2026-06-12T20:59:00+00:00",
+      "timestamp_new_york": "2026-06-12T16:59:00-04:00",
+      "jump_bps": 47.0737438919755,
+      "threshold_bps": 8.0
+    },
+    {
+      "reason": "NY_ROLL_WINDOW_CLOSE_JUMP",
+      "local_date": "2026-06-19",
+      "timestamp_utc": "2026-06-19T20:59:00+00:00",
+      "timestamp_new_york": "2026-06-19T16:59:00-04:00",
+      "jump_bps": 129.89858993153635,
+      "threshold_bps": 8.0
+    },
+    {
+      "reason": "NY_ROLL_WINDOW_CLOSE_JUMP",
+      "local_date": "2026-06-26",
+      "timestamp_utc": "2026-06-26T20:58:00+00:00",
+      "timestamp_new_york": "2026-06-26T16:58:00-04:00",
+      "jump_bps": 109.57201745877887,
+      "threshold_bps": 8.0
+    }
+  ],
+  "scope": "DATA_QUALITY_PILOT_NOT_RESEARCH_PAPER_OR_LIVE_AUTHORIZATION"
+}

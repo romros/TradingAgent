@@ -728,3 +728,13 @@ global i cobertura de sessions elegibles separadament, i només llavors decidir
 si GBPUSD H1/H4 pot entrar en recerca d'estratègies. Evidències:
 `gbpusd_ostium_internal_quarantine_v1.json` i
 `gbpusd_ostium_internal_quarantine_parity_v1.json`.
+
+La regla congelada s'ha executat després, sense retocar el llindar, sobre els
+CSV bruts de febrer–juny. Detecta 1, 5, 4, 5 i 4 dates respectivament. El patró
+fora de mostra és fort: gairebé tots els divendres presenten el salt a
+16:58–16:59 NY, entre 38 i 192 bps; també apareixen dos canvis de sessió no
+divendres. Això reforça que és un problema recurrent de frontera de mercat, no
+un artefacte escollit a juliol. Alhora demostra que excloure la data completa
+perd massa cobertura. El proper pilot ha de mantenir la detecció congelada i
+invalidar només els buckets H1/H4 que intersecten la finestra contaminada,
+sempre de forma fail-closed i sense reparar preus.

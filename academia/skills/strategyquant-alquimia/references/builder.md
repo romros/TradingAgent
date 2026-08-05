@@ -30,6 +30,29 @@ acceptar un candidat de benefici negatiu. Si un mètode no produeix prou
 supervivents sota filtres útils, el resultat és inconcloent, no una invitació a
 canviar els filtres després de veure'l.
 
+## De la sèrie històrica al venue actual
+
+Separar quatre papers de les dades abans de donar llum verda a Builder:
+
+1. `discovery`: història llarga per generar, sense holdout;
+2. `validation`: període no usat per generar;
+3. `venue_overlap`: solapament amb el feed actual per mesurar basis, sessions,
+   gaps, spread i transformacions;
+4. `sealed_holdout`: una sola avaluació dels finalistes.
+
+No exigir que una sola font faci els quatre papers. Sí exigir símbol, timezone,
+OHLC, política d'ajustos, cobertura, gaps, hash i provenance per a cada tram.
+Una sèrie del subjacent anterior a l'alta del parell al venue és un proxy: serveix
+per estudiar el mecanisme però no prova execució històrica real. Comparar-la amb
+el venue durant el solapament i rebutjar-la si les diferències canvien senyals o
+economia.
+
+Per campanyes Ostium, executar primer `academia/tools/audit_portfolio_data.py` i,
+si cal refrescar cobertura oficial, `academia/tools/probe_ostium_ohlc.py`. No
+persistir espelmes en Git. No obrir SQ perquè un endpoint respongui: el gate exigeix
+la finestra requerida i camps compatibles. Bloquejos, 429 i murs anti-bot fan el
+proveïdor no operatiu; no autoritzen evasió amb navegador.
+
 Separar manifest, projecte configurat i execució observada. Un `attempt_budget`
 al manifest expressa intenció; només és un límit real si el controlador/stop i
 el comptador executat ho confirmen. Registrar també la causa de finalització

@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "id": "portfolio-data-provider-attempts-2026-08",
+  "observed_at": "2026-08-05",
+  "purpose": "Buscar una font efímera de recerca per completar l'OHLC 2017-2026 sense versionar dades de mercat.",
+  "attempts": [
+    {
+      "provider": "Stooq CSV download",
+      "symbols": ["EURUSD", "^SPX", "XAUUSD", "CL.F", "BTCUSD", "TLT.US"],
+      "result": "BLOCKED_ANTIBOT_HTML",
+      "operational": false,
+      "rights": "No s'han trobat termes oficials prou clars per automatitzar i redistribuir; cap dada conservada."
+    },
+    {
+      "provider": "Yahoo chart endpoint",
+      "symbols": ["EURUSD=X", "^GSPC", "GC=F", "CL=F", "BTC-USD", "TLT"],
+      "result": "HTTP_429_ALL_REQUESTS",
+      "operational": false,
+      "rights": "Cap dada conservada ni incorporada."
+    }
+  ],
+  "decision": "DO_NOT_INCORPORATE_EITHER_PROVIDER",
+  "next": "Executar un pilot no comparatiu de tres actius amb el runtime aïllat existent; mantenir bloquejada la comparació 3-vs-6 fins adquirir WTI i TLT amb provenance i validar-los contra Ostium en el solapament.",
+  "browser_bypass_allowed": false,
+  "sqcli_used": false
+}

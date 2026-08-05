@@ -9,6 +9,13 @@ optimitzats. Exigir paritat trade a trade abans de confiar en un export. Custom
 Projects encadena gates congelats amb límits; Automatic Retest pot pausar però no
 reoptimitzar; snippets i grid necessiten un gap i pressupost explícits.
 
+En una comparació de cartera de 3 contra 6 actius, congelar primer el mateix
+univers elegible. No declarar que 3 supera 6 si la cartera de 6 estava bloquejada
+per dades. Permetre una mostra de 3 actius com a pilot de cablejat, etiquetada
+`PILOT_NOT_COMPARATIVE`; no usar-la per escollir actius ni canviar l'univers.
+Modelar compounding sobre equity realitzada i demostrar per separat que el leverage
+només redueix collateral: amb risc i stop fixats no crea edge ni benefici.
+
 Per automatitzar la GUI local, preferir els endpoints interns de SQ (`/project/start`,
 `/project/pause`, `/project/resume`, `/project/stop`) amb el mateix formulari
 comprimit que usa la interfície. Reservar PinchTab efímer per inspecció i accions

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Preregistered small-account portfolio campaign",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "frozen_at", "question", "capital", "horizon", "universe", "portfolio_sizes", "periods", "risk", "cost_model", "families", "selection", "discard_criteria", "holdout_policy", "live_trading"],
+  "properties": {
+    "id": {"type": "string"},
+    "frozen_at": {"type": "string"},
+    "question": {"type": "string"},
+    "capital": {"type": "object"},
+    "horizon": {"type": "object"},
+    "universe": {"type": "array", "minItems": 6, "items": {"type": "object"}},
+    "portfolio_sizes": {"type": "array", "const": [3, 6]},
+    "periods": {"type": "object"},
+    "risk": {"type": "object"},
+    "cost_model": {"type": "object"},
+    "families": {"type": "array", "minItems": 1},
+    "selection": {"type": "object"},
+    "discard_criteria": {"type": "array", "minItems": 1},
+    "holdout_policy": {"type": "object"},
+    "live_trading": {"const": false}
+  }
+}

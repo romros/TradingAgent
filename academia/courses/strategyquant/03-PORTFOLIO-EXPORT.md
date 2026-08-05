@@ -50,3 +50,15 @@ paritat fora d'Academia.
 Fonts: `sq_official_portfolio_composer_20241015`,
 `sq_official_source_code_export_20200522` i
 `sq_official_crossplatform_reliability_20190429`.
+
+## Compounding i leverage amb compte petit
+
+Dimensionar primer per risc: `notional = equity × risk_pct / stop_distance_pct`.
+Després calcular el collateral com `notional / leverage`. Augmentar leverage redueix
+marge requerit però no pot augmentar el nocional decidit pel risc. A cada entrada
+cal recomputar equity realitzada, free margin, risc simultani i leverage efectiu.
+
+La comparació 3-vs-6 ha d'usar el mateix univers congelat i simular ordres omeses.
+Sis actius no són més diversos si comparteixen driver o si les comissions fixes i
+el marge impedeixen executar-los. El manifest inicial és
+`experiments/pending/ostium-500-portfolio-3v6-v1.json`.

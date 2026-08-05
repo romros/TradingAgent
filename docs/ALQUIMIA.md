@@ -738,3 +738,16 @@ un artefacte escollit a juliol. Alhora demostra que excloure la data completa
 perd massa cobertura. El proper pilot ha de mantenir la detecció congelada i
 invalidar només els buckets H1/H4 que intersecten la finestra contaminada,
 sempre de forma fail-closed i sense reparar preus.
+
+El pilot per bucket conserva molta més informació: H1 elimina 298 M1 i deixa
+490 barres completes alineades; H4 elimina 478 M1 i en deixa 110. La qualitat
+de preu continua alta. H1: correlació 0,99896, direcció 97,15%, close p95
+0,68 bps. H4: correlació 0,99987, direcció 100%, close p95 0,53 bps. Tanmateix,
+la cobertura estricta de barres completes és només 90,24% H1 i 83,97% H4.
+
+Durant aquest pilot s'ha corregit un error del gate: abans decidia amb buckets
+agregats encara que fossin parcials. Ara M15/H1/H4 decideixen exclusivament amb
+OHLC complet i comproven consistència del recompte. El veredicte honest és
+`BLOCK_H1_MAPPING_PILOT: UNION_COVERAGE_LT_0_95`. No es rebaixa el 95% després
+de veure el resultat. Proper bloqueig a resoldre: entendre i reparar a l'origen
+els minuts absents del recorder; després repetir exactament aquest gate.

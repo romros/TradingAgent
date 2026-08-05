@@ -1,7 +1,8 @@
 from datetime import datetime, timezone
 
 from lab.sq_bridge.ostium_fx_quarantine import (
-    detect_roll_window_anomalies, exclude_quarantined_dates, quarantined_local_dates,
+    detect_roll_window_anomalies, exclude_quarantined_dates, exclude_utc_buckets,
+    quarantined_local_dates, quarantined_utc_buckets,
 )
 from lab.sq_bridge.ostium_fx_quarantine_audit import load_input
 
@@ -48,3 +49,19 @@ def test_audit_loader_reads_headerless_recorder_csv(tmp_path):
     assert load_input(source) == [
         {"ts": 60, "open": 1.0, "high": 1.2, "low": 0.9, "close": 1.1, "volume": 0.0}
     ]
+
+
+def test_bucket_quarantine_removes_only_intersecting_h1_bar():
+    rows = [_row("2026-07-03T20:57:00", 1.20), _row("2026-07-03T20:58:00", 1.18),
+            _row("2026-07-03T19:00:00", 1.19), _row("2026-07-03T21:00:00", 1.18)]
+    receipts = detect_roll_window_anomalies(rows)
+    buckets = quarantined_utc_buckets(receipts, 60)
+    kept = exclude_utc_buckets(rows, buckets, 60)
+    assert len(buckets) == 1
+    assert [row["ts"] for row in kept] == [rows[2]["ts"], rows[3]["ts"]]
+
+
+def test_bucket_quarantine_rejects_invalid_timeframe():
+    import pytest
+    with pytest.raises(ValueError, match="timeframe_minutes"):
+        quarantined_utc_buckets([], 0)

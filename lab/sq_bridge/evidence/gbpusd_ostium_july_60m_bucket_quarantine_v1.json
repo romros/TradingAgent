@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-08-05T16:42:01.545592+00:00",
+  "symbol": "GBPUSD",
+  "policy": {
+    "detector": "NY_ROLL_WINDOW_CLOSE_JUMP",
+    "window_new_york": "16:55-17:35",
+    "threshold_bps_strictly_greater_than": 8.0,
+    "action": "EXCLUDE_INTERSECTING_UTC_BUCKET_NO_PRICE_CORRECTION",
+    "quarantine_bucket_minutes": 60,
+    "reference_market_used_for_detection": false
+  },
+  "input": {
+    "path": "/bs/datafiles/pilots/GBPUSD_2026-07_ostium_raw.parquet",
+    "sha256": "4abd090fd3c91e0a3084dd01583821185611b9713a7d990cc1ba837e862df853",
+    "rows": 32301
+  },
+  "output": {
+    "path": "/app/data/research/GBPUSD_2026-07_ostium_60m_bucket_quarantine.parquet",
+    "sha256": "3a5a6c67b69954da49ec4e6c2847158acddff58ebf3022256631cd1ce63f4998",
+    "rows": 32003
+  },
+  "quarantined_local_dates": [
+    "2026-07-03",
+    "2026-07-10",
+    "2026-07-13",
+    "2026-07-17",
+    "2026-07-31"
+  ],
+  "quarantined_utc_bucket_starts": [
+    1783108800,
+    1783713600,
+    1783976400,
+    1784318400,
+    1785528000
+  ],
+  "quarantined_rows": 298,
+  "receipts": [
+    {
+      "reason": "NY_ROLL_WINDOW_CLOSE_JUMP",
+      "local_date": "2026-07-03",
+      "timestamp_utc": "2026-07-03T20:58:00+00:00",
+      "timestamp_new_york": "2026-07-03T16:58:00-04:00",
+      "jump_bps": 114.38202247190942,
+      "threshold_bps": 8.0
+    },
+    {
+      "reason": "NY_ROLL_WINDOW_CLOSE_JUMP",
+      "local_date": "2026-07-10",
+      "timestamp_utc": "2026-07-10T20:58:00+00:00",
+      "timestamp_new_york": "2026-07-10T16:58:00-04:00",
+      "jump_bps": 38.20496366051307,
+      "threshold_bps": 8.0
+    },
+    {
+      "reason": "NY_ROLL_WINDOW_CLOSE_JUMP",
+      "local_date": "2026-07-13",
+      "timestamp_utc": "2026-07-13T21:00:00+00:00",
+      "timestamp_new_york": "2026-07-13T17:00:00-04:00",
+      "jump_bps": 8.466639193795977,
+      "threshold_bps": 8.0
+    },
+    {
+      "reason": "NY_ROLL_WINDOW_CLOSE_JUMP",
+      "local_date": "2026-07-17",
+      "timestamp_utc": "2026-07-17T20:59:00+00:00",
+      "timestamp_new_york": "2026-07-17T16:59:00-04:00",
+      "jump_bps": 75.97157384555797,
+      "threshold_bps": 8.0
+    },
+    {
+      "reason": "NY_ROLL_WINDOW_CLOSE_JUMP",
+      "local_date": "2026-07-31",
+      "timestamp_utc": "2026-07-31T20:58:00+00:00",
+      "timestamp_new_york": "2026-07-31T16:58:00-04:00",
+      "jump_bps": 116.0901720211549,
+      "threshold_bps": 8.0
+    }
+  ],
+  "scope": "DATA_QUALITY_PILOT_NOT_RESEARCH_PAPER_OR_LIVE_AUTHORIZATION"
+}

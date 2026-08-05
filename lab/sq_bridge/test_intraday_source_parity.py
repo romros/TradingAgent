@@ -1,5 +1,6 @@
 from lab.sq_bridge.intraday_source_parity import (
-    aggregate_close, compare, compare_ohlcv, decide, decide_research_timeframe,
+    aggregate_close, compare, compare_ohlcv, decide, decide_complete_ohlcv_timeframe,
+    decide_research_timeframe,
 )
 
 
@@ -56,3 +57,17 @@ def test_ohlcv_comparison_uses_only_complete_bars():
     assert result["reference_bars_complete"] == 1
     assert result["aligned_complete_bars"] == 1
     assert result["fields"]["high"]["diff_bps_p95"] == 0
+
+
+def test_complete_ohlcv_gate_does_not_pass_partial_bucket_coverage():
+    metrics = {
+        "aligned_complete_bars": 48,
+        "close_returns": {
+            "aligned_rows": 48, "union_coverage_ratio": .90,
+            "m1_return_correlation": .999, "return_direction_match_ratio": 1,
+            "close_diff_bps_p95": 1,
+        },
+    }
+    result = decide_complete_ohlcv_timeframe(metrics, 40)
+    assert result["pass"] is False
+    assert "UNION_COVERAGE_LT_0_95" in result["reasons"]

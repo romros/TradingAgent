@@ -133,6 +133,14 @@ def decide_research_timeframe(metrics: dict, minimum_rows: int) -> dict:
     return {"pass": not reasons, "reasons": reasons}
 
 
+def decide_complete_ohlcv_timeframe(metrics: dict, minimum_rows: int) -> dict:
+    """Gate a research timeframe on complete OHLC bars, never partial buckets."""
+    close = metrics["close_returns"]
+    if close["aligned_rows"] != metrics["aligned_complete_bars"]:
+        return {"pass": False, "reasons": ["INCONSISTENT_COMPLETE_BAR_COUNTS"]}
+    return decide_research_timeframe(close, minimum_rows)
+
+
 def compare_bars(reference_all, ostium_all, interval_seconds: int, minimum_coverage: float = 1.0) -> dict:
     reference = complete_by_timestamp(reference_all, minimum_coverage)
     ostium = complete_by_timestamp(ostium_all, minimum_coverage)
@@ -204,9 +212,9 @@ def main() -> None:
     metrics = timeframes["1"]
     timeframe_decisions = {
         "M1": decide(metrics),
-        "M15": decide_research_timeframe(timeframes["15"], minimum_rows=500),
-        "H1": decide_research_timeframe(timeframes["60"], minimum_rows=40),
-        "H4": decide_research_timeframe(timeframes["240"], minimum_rows=30),
+        "M15": decide_complete_ohlcv_timeframe(ohlcv_timeframes["15"], minimum_rows=500),
+        "H1": decide_complete_ohlcv_timeframe(ohlcv_timeframes["60"], minimum_rows=40),
+        "H4": decide_complete_ohlcv_timeframe(ohlcv_timeframes["240"], minimum_rows=30),
     }
     h1_pass = timeframe_decisions["H1"]["pass"]
     overall = (

@@ -51,3 +51,22 @@ def exclude_quarantined_dates(rows: list[dict], dates: set[str]) -> list[dict]:
         if datetime.fromtimestamp(int(row["ts"]), timezone.utc).astimezone(ny).date().isoformat()
         not in dates
     ]
+
+
+def quarantined_utc_buckets(receipts: list[dict], timeframe_minutes: int) -> set[int]:
+    """Return fixed UTC bucket starts intersecting anomaly receipts."""
+    if timeframe_minutes < 1:
+        raise ValueError("timeframe_minutes must be positive")
+    seconds = timeframe_minutes * 60
+    result = set()
+    for receipt in receipts:
+        ts = int(datetime.fromisoformat(str(receipt["timestamp_utc"])).timestamp())
+        result.add((ts // seconds) * seconds)
+    return result
+
+
+def exclude_utc_buckets(rows: list[dict], buckets: set[int], timeframe_minutes: int) -> list[dict]:
+    if timeframe_minutes < 1:
+        raise ValueError("timeframe_minutes must be positive")
+    seconds = timeframe_minutes * 60
+    return [row for row in rows if (int(row["ts"]) // seconds) * seconds not in buckets]

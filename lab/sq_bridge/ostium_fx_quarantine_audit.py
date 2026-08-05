@@ -13,7 +13,8 @@ import duckdb
 
 from lab.sq_bridge.intraday_source_parity import load_ohlcv_parquet
 from lab.sq_bridge.ostium_fx_quarantine import (
-    detect_roll_window_anomalies, exclude_quarantined_dates, quarantined_local_dates,
+    detect_roll_window_anomalies, exclude_quarantined_dates, exclude_utc_buckets,
+    quarantined_local_dates, quarantined_utc_buckets,
 )
 
 
@@ -48,12 +49,23 @@ def main() -> None:
     parser.add_argument("--evidence", type=Path, required=True)
     parser.add_argument("--symbol", required=True)
     parser.add_argument("--threshold-bps", type=float, default=8.0)
+    parser.add_argument(
+        "--quarantine-bucket-minutes", type=int,
+        help="Exclude only UTC buckets at this research timeframe instead of whole local dates",
+    )
     args = parser.parse_args()
 
     rows = load_input(args.input)
     receipts = detect_roll_window_anomalies(rows, threshold_bps=args.threshold_bps)
     dates = quarantined_local_dates(receipts)
-    kept = exclude_quarantined_dates(rows, dates)
+    buckets = None
+    if args.quarantine_bucket_minutes:
+        buckets = quarantined_utc_buckets(receipts, args.quarantine_bucket_minutes)
+        kept = exclude_utc_buckets(rows, buckets, args.quarantine_bucket_minutes)
+        action = "EXCLUDE_INTERSECTING_UTC_BUCKET_NO_PRICE_CORRECTION"
+    else:
+        kept = exclude_quarantined_dates(rows, dates)
+        action = "EXCLUDE_WHOLE_LOCAL_DATE_NO_PRICE_CORRECTION"
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     connection = duckdb.connect(":memory:")
@@ -74,12 +86,14 @@ def main() -> None:
             "detector": "NY_ROLL_WINDOW_CLOSE_JUMP",
             "window_new_york": "16:55-17:35",
             "threshold_bps_strictly_greater_than": args.threshold_bps,
-            "action": "EXCLUDE_WHOLE_LOCAL_DATE_NO_PRICE_CORRECTION",
+            "action": action,
+            "quarantine_bucket_minutes": args.quarantine_bucket_minutes,
             "reference_market_used_for_detection": False,
         },
         "input": {"path": str(args.input), "sha256": _sha256(args.input), "rows": len(rows)},
         "output": {"path": str(args.output), "sha256": _sha256(args.output), "rows": len(kept)},
         "quarantined_local_dates": sorted(dates),
+        "quarantined_utc_bucket_starts": sorted(buckets) if buckets is not None else None,
         "quarantined_rows": len(rows) - len(kept),
         "receipts": receipts,
         "scope": "DATA_QUALITY_PILOT_NOT_RESEARCH_PAPER_OR_LIVE_AUTHORIZATION",

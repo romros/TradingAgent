@@ -704,3 +704,27 @@ buckets afectats.
 
 Proper gate: acabar o diagnosticar `ZERO_ACCEPTANCE`, exportar databank, construir
 col·lector i paritat DuckDB/BS. Cap pas automàtic a paper/live.
+
+### GBPUSD: paritat canònica i quarantena autònoma (2026-08-05)
+
+La descàrrega reprenable de Dukascopy conserva 32.773 M1 de juliol de 2026. El
+recorder brut d'Ostium en té 32.301. L'auditoria va trobar contaminació prop de
+les 17:00 de Nova York, amb divergències puntuals de fins a 116 bps. No es
+corregeixen ni s'interpolen preus.
+
+`ostium_fx_quarantine.py` implementa un primer detector estrictament intern:
+un salt close-to-close superior a 8 bps entre minuts contigus dins 16:55–17:35
+NY genera un rebut i exclou la data local sencera del pilot. No consulta
+Dukascopy per decidir. A juliol marca 03, 10, 13, 17 i 31; conserva 26.783 M1.
+Sobre barres completes alineades, H1 dóna 406 barres, correlació 0,99890,
+direcció 97,59% i p95 del close 0,68 bps; H4 dóna 90 barres, correlació 0,99988,
+direcció 100% i p95 0,52 bps. M1 continua bloquejat.
+
+El gate global encara queda `BLOCK`: la cobertura union penalitza correctament
+els dies exclosos i el detector no captura divergències lentes o stale que no
+creen un salt intern. No s'ajustarà el llindar mirant el proxy. Proper pas:
+validar la mateixa regla congelada en mesos no utilitzats, informar cobertura
+global i cobertura de sessions elegibles separadament, i només llavors decidir
+si GBPUSD H1/H4 pot entrar en recerca d'estratègies. Evidències:
+`gbpusd_ostium_internal_quarantine_v1.json` i
+`gbpusd_ostium_internal_quarantine_parity_v1.json`.

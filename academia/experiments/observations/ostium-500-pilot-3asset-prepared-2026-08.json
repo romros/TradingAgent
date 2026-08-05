@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "id": "ostium-500-pilot-3asset-prepared-2026-08",
+  "observed_at": "2026-08-05",
+  "manifest": "academia/experiments/pending/ostium-500-pilot-3asset-atr-v1.json",
+  "result": "PREPARED_NOT_STARTED",
+  "runtime": "academia/runtime/build143-final-capability-tests",
+  "projects": [
+    {
+      "name": "ACADEMIA_OSTIUM_PILOT_EURUSD_H4_ATR",
+      "symbol": "EURUSD_M1_dukas_M1_UTCMinus05",
+      "sha256": "a39adb3651e00d9d4b7075ab46a38c04ec4290465c1dd03a62ad8a070726a3d4"
+    },
+    {
+      "name": "ACADEMIA_OSTIUM_PILOT_US500_H4_ATR",
+      "symbol": "SP_M1_dukas",
+      "sha256": "0c77a592370623599edb7d7138b24e40e4f43f92e5ee5afe7966124c7841563c"
+    },
+    {
+      "name": "ACADEMIA_OSTIUM_PILOT_XAUUSD_H4_ATR",
+      "symbol": "XAUUSD_M1_dukasXAUUSD_M1_dukas_NYclose",
+      "sha256": "966f300d52698a40c5922254916d4064f0f6094e7c861c52a9b85ece3a07cd98"
+    }
+  ],
+  "contract": {
+    "family": "ATR stop-channel breakout R2",
+    "required_tokens": ["EnterAtStop", "Highest", "Lowest", "ATR"],
+    "development": "2017-01-01/2021-12-31",
+    "timeframe": "H4",
+    "crosschecks": false,
+    "validation_accessed": false,
+    "holdout_accessed": false,
+    "costs": "non-zero provisional spread and slippage; full Ostium repricing remains mandatory"
+  },
+  "preflight": {
+    "campaign_gate": "GENERATE_CHEAP_STAGE",
+    "sq_version": "143.2708",
+    "sqcli_projects_loaded": 3,
+    "sqcli_projects_started": 0,
+    "container": "ephemeral --rm",
+    "history_mount": "read-only",
+    "writes": "academia/runtime only"
+  },
+  "blocker_before_start": "Implementar o demostrar un controlador que aturi i registri com a màxim 1.000 intents executats per actiu; el límit temporal/databank del CFX no prova aquest pressupost.",
+  "interpretation": "Els projectes són carregables i el contracte de preparació és coherent. Encara no hi ha cap resultat de mercat ni autorització per comparar carteres.",
+  "sqcli_used": true
+}

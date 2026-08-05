@@ -1,0 +1,34 @@
+{
+  "id": "ostium-500-pilot-3asset-atr-v1",
+  "question": "Pot una arquitectura ATR stop-channel produir artifacts conformes en EUR/USD, US500/USD i XAU/USD abans d'invertir en la campanya de sis actius?",
+  "family": "atr_breakout",
+  "symbols": ["EUR/USD", "US500/USD", "XAU/USD"],
+  "timeframe": "H4",
+  "direction": "both",
+  "engine": "MetaTrader4 compatibility engine; execution repriced separately for Ostium",
+  "sq_version": "143.2708",
+  "capital": {"amount": 500, "currency": "USDC", "simulation_only": true},
+  "periods": {
+    "development": "2017-01-01/2021-12-31",
+    "validation": "2022-01-01/2025-07-31",
+    "holdout": "2025-08-01/2026-07-31"
+  },
+  "costs": {
+    "spread": "provisional non-zero per asset during Builder; measured Ostium bid/ask required before selection",
+    "commission": "Ostium opening fee and oracle applied during external repricing before selection",
+    "slippage": "provisional non-zero per asset during Builder; measured base plus 2x stress before selection"
+  },
+  "minimum_trades": 40,
+  "maximum_drawdown_pct": 15,
+  "attempt_budget": 3000,
+  "discard_criteria": [
+    "external controller cannot prove at most 1000 generated attempts per asset",
+    "artifact does not contain the mandatory stop-channel architecture",
+    "no accepted artifact under preregistered cheap gates",
+    "any validation or holdout period is used during Builder",
+    "project references an undeclared active or dormant symbol"
+  ],
+  "prior_failure_ids": ["sq_0423850_xau_h4_20260801", "intraday_fx_six_families_20260801"],
+  "difference_from_prior": "PILOT_NOT_COMPARATIVE de cablejat multi-actiu amb una arquitectura R2 ja conforme. No compara carteres, no selecciona actius i no obre validació ni holdout. No iniciar fins que cada CFX passi l'auditoria de contracte i existeixi un controlador del pressupost d'intents.",
+  "frozen": true
+}

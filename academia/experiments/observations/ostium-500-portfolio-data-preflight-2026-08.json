@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "ostium-500-portfolio-data-preflight-2026-08",
+  "observed_at": "2026-08-05",
+  "catalog": "academia/runtime/build143-final-capability-tests/user/data/data.db",
+  "required_window": "2017-01-01/2026-07-31",
+  "result": {
+    "ready": false,
+    "ready_assets": [],
+    "insufficient_end_date": {
+      "EUR/USD": "2026-03-13",
+      "US500/USD": "2026-03-13 (proxy pendent de validar)",
+      "XAU/USD": "2026-03-13"
+    },
+    "insufficient_history": {"BTC/USD": "2019-09-25/2026-03-14"},
+    "missing_assets": ["WTI/USD", "TLT/USD"],
+    "catalog_records": 37
+  },
+  "decision": "ACQUIRE_OR_REVISE_DATA_BEFORE_BUILDER",
+  "interpretation": {
+    "observed": "Cap dels sis actius cobreix tota la finestra congelada fins al 2026-07-31. EURUSD, XAU i el millor proxy US500 acaben el 2026-03-13; BTCUSDT comença el 2019 i acaba el 2026-03-14; WTI i TLT no hi consten. US500 encara no té equivalència Ostium provada.",
+    "not_allowed": "No substituir WTI/TLT per accions tecnològiques ni escurçar el període després de veure resultats.",
+    "next": "Actualitzar fins al 2026-07-31 les sèries existents, adquirir WTI i TLT amb provenance, validar el mapping US500 i decidir ex ante si la finestra comuna comença el 2019 o si BTC usa una prova amb finestra pròpia."
+  },
+  "holdout_accessed": false,
+  "sqcli_used": false
+}

@@ -62,3 +62,9 @@ La comparació 3-vs-6 ha d'usar el mateix univers congelat i simular ordres omes
 Sis actius no són més diversos si comparteixen driver o si les comissions fixes i
 el marge impedeixen executar-los. El manifest inicial és
 `experiments/pending/ostium-500-portfolio-3v6-v1.json`.
+
+Abans del Builder, executar `audit_portfolio_data.py` contra una còpia de només
+lectura del catàleg SQ. Una coincidència de nom i dates només autoritza preparar
+projectes: encara falten gaps, sessions, timezone i provenance. Si un actiu no hi
+és, no substituir-lo després de veure resultats; revisar l'univers o adquirir dades
+com una nova decisió preregistrada.

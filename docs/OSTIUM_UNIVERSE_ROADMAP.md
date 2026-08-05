@@ -79,3 +79,10 @@ però H1 obté correlació 0,9879, direcció 97,87%, cobertura 100% i p95 2,53 b
 H4 obté 0,9997/100% però només 11 retorns. Decisió:
 `PASS_H1_MAPPING_PILOT_EXTEND_SAMPLE`. Calen 30 dies solapats abans d'autoritzar
 el proxy per recerca; M1 queda exclòs.
+
+L'agregació canònica ja parteix exclusivament de M1 i reconstrueix OHLCV complet
+per M5/M15/H1/H4 amb buckets UTC, recompte de minuts i exclusió fail-closed de
+barres incompletes. D1 Forex usa sessió 17:00 Nova York amb canvi DST explícit.
+Sobre les 43 H1 completes solapades, la correlació de retorns és 0,9985 i la
+direcció 100%; p95 en bps: open 0,89, high 0,37, low 0,60 i close 0,60. D1 només
+té una sessió completa i continua `WARMING_UP`.

@@ -9,6 +9,10 @@ from pathlib import Path
 
 import duckdb
 
+from lab.sq_bridge.canonical_ohlcv import (
+    aggregate_fx_daily_ny_close, aggregate_m1, complete_by_timestamp,
+)
+
 
 def _percentile(values: list[float], fraction: float) -> float | None:
     if not values:
@@ -37,6 +41,21 @@ def load_parquet(paths: list[Path]) -> dict[int, float]:
         [[str(path) for path in paths]],
     ).fetchall()
     return {int(ts): float(close) for ts, close in rows if close and float(close) > 0}
+
+
+def load_ohlcv_parquet(paths: list[Path]) -> list[dict]:
+    if not paths:
+        return []
+    rows = duckdb.connect(":memory:").execute(
+        'SELECT "ts", "open", "high", "low", "close", '
+        'coalesce("volume", 0) FROM read_parquet(?) ORDER BY "ts"',
+        [[str(path) for path in paths]],
+    ).fetchall()
+    return [
+        {"ts": int(ts), "open": float(open_), "high": float(high),
+         "low": float(low), "close": float(close), "volume": float(volume or 0)}
+        for ts, open_, high, low, close, volume in rows
+    ]
 
 
 def aggregate_close(rows: dict[int, float], timeframe_minutes: int) -> dict[int, float]:
@@ -114,6 +133,46 @@ def decide_research_timeframe(metrics: dict, minimum_rows: int) -> dict:
     return {"pass": not reasons, "reasons": reasons}
 
 
+def compare_bars(reference_all, ostium_all, interval_seconds: int, minimum_coverage: float = 1.0) -> dict:
+    reference = complete_by_timestamp(reference_all, minimum_coverage)
+    ostium = complete_by_timestamp(ostium_all, minimum_coverage)
+    timestamps = sorted(set(reference) & set(ostium))
+    fields = {}
+    for field in ("open", "high", "low", "close"):
+        differences = [
+            abs(getattr(ostium[ts], field) / getattr(reference[ts], field) - 1) * 10_000
+            for ts in timestamps if getattr(reference[ts], field) > 0
+        ]
+        fields[field] = {
+            "diff_bps_median": _percentile(differences, .5),
+            "diff_bps_p95": _percentile(differences, .95),
+            "diff_bps_max": max(differences) if differences else None,
+        }
+    close_metrics = compare(
+        {ts: bar.close for ts, bar in reference.items()},
+        {ts: bar.close for ts, bar in ostium.items()},
+        interval_seconds=interval_seconds,
+    )
+    return {
+        "reference_bars_total": len(reference_all),
+        "reference_bars_complete": len(reference),
+        "ostium_bars_total": len(ostium_all),
+        "ostium_bars_complete": len(ostium),
+        "aligned_complete_bars": len(timestamps),
+        "fields": fields,
+        "close_returns": close_metrics,
+    }
+
+
+def compare_ohlcv(reference_rows: list[dict], ostium_rows: list[dict], minutes: int) -> dict:
+    result = compare_bars(
+        aggregate_m1(reference_rows, minutes),
+        aggregate_m1(ostium_rows, minutes),
+        interval_seconds=minutes * 60,
+    )
+    return {"timeframe_minutes": minutes, **result}
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--symbol", required=True)
@@ -121,8 +180,10 @@ def main() -> None:
     parser.add_argument("--ostium", type=Path, nargs="+", required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
-    reference = load_parquet(args.reference)
-    ostium = load_parquet(args.ostium)
+    reference_rows = load_ohlcv_parquet(args.reference)
+    ostium_rows = load_ohlcv_parquet(args.ostium)
+    reference = {row["ts"]: row["close"] for row in reference_rows}
+    ostium = {row["ts"]: row["close"] for row in ostium_rows}
     timeframes = {}
     for minutes in (1, 5, 15, 60, 240):
         timeframes[str(minutes)] = compare(
@@ -130,6 +191,16 @@ def main() -> None:
             aggregate_close(ostium, minutes),
             interval_seconds=minutes * 60,
         )
+    ohlcv_timeframes = {
+        str(minutes): compare_ohlcv(reference_rows, ostium_rows, minutes)
+        for minutes in (5, 15, 60, 240)
+    }
+    daily_ny_close = compare_bars(
+        aggregate_fx_daily_ny_close(reference_rows),
+        aggregate_fx_daily_ny_close(ostium_rows),
+        interval_seconds=86_400,
+        minimum_coverage=.98,
+    )
     metrics = timeframes["1"]
     timeframe_decisions = {
         "M1": decide(metrics),
@@ -146,6 +217,8 @@ def main() -> None:
               "reference_files": [str(p) for p in args.reference],
               "ostium_files": [str(p) for p in args.ostium],
               "metrics": metrics, "timeframes_minutes": timeframes,
+              "ohlcv_timeframes_minutes": ohlcv_timeframes,
+              "d1_new_york_17_close": daily_ny_close,
               "timeframe_decisions": timeframe_decisions,
               "decision": overall,
               "reasons": [] if h1_pass else timeframe_decisions["H1"]["reasons"],

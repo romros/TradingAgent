@@ -1,5 +1,5 @@
 from lab.sq_bridge.intraday_source_parity import (
-    aggregate_close, compare, decide, decide_research_timeframe,
+    aggregate_close, compare, compare_ohlcv, decide, decide_research_timeframe,
 )
 
 
@@ -42,3 +42,17 @@ def test_research_timeframe_requires_sample_and_quality():
     result = decide_research_timeframe(good, 100)
     assert result["pass"] is False
     assert "ALIGNED_ROWS_LT_100" in result["reasons"]
+
+
+def test_ohlcv_comparison_uses_only_complete_bars():
+    reference = [
+        {"ts": i * 60, "open": 100 + i, "high": 101 + i,
+         "low": 99 + i, "close": 100.5 + i, "volume": 1}
+        for i in range(6)
+    ]
+    ostium = [dict(row) for row in reference]
+    result = compare_ohlcv(reference, ostium, 5)
+    assert result["reference_bars_total"] == 2
+    assert result["reference_bars_complete"] == 1
+    assert result["aligned_complete_bars"] == 1
+    assert result["fields"]["high"]["diff_bps_p95"] == 0

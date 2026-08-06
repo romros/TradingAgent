@@ -36,6 +36,16 @@
       "do_not_repeat": "No ajustar sobre 2019-2025 ni reutilitzar-lo com holdout.",
       "next_direction": "Només reobrir amb hipòtesi de règim ex ante i OOS nou.",
       "evidence": "academia/experiments/observations/sq-0423850-xau-h4-2026-08.json"
+    },
+    {
+      "id": "ostium_500_atr_stop_channel_20260806",
+      "family": "ostium_h4_atr_stop_channel",
+      "decision": "REJECT",
+      "failure_code": "TEMPORAL_PASS_COST_FAIL",
+      "lesson": "Només 2 de 40 EURUSD i 0 de 4 XAUUSD superen la validació temporal; a 500 USDC tots dos supervivents mantenen expectativa neta negativa i PF base inferior a 1 després de costos Ostium compatibles.",
+      "do_not_repeat": "No generar més variants del mateix stop-channel, no augmentar leverage o capital per declarar-lo viable i no obrir el holdout 2025-08/2026-07.",
+      "next_direction": "Preregistrar una família diferent amb més moviment esperat per operació i comprovar costos abans de les proves cares.",
+      "evidence": "academia/experiments/observations/ostium-500-atr-risk1-reprice-v3-2026-08.json"
     }
   ]
 }

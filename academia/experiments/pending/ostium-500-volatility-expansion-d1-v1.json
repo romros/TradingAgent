@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "id": "ostium-500-volatility-expansion-d1-v1",
+  "frozen_at": "2026-08-06",
+  "question": "Una expansió de volatilitat D1, amb risc normalitzat i menys rotació, conserva prou moviment net per operació per superar costos compatibles amb Ostium en un compte de 500 USDC?",
+  "family": "volatility_expansion",
+  "symbols": ["EUR/USD", "XAU/USD"],
+  "timeframe": "D1",
+  "direction": "both",
+  "capital": {"amount": 500, "currency": "USDC", "simulation_only": true},
+  "periods": {
+    "development": "2017-01-01/2021-12-31",
+    "validation": "2022-01-01/2025-07-31",
+    "sealed_holdout": "2025-08-01/2026-07-31"
+  },
+  "holdout_accessed": false,
+  "mechanism": {
+    "hypothesis": "Una ruptura després de contracció de rang pot capturar moviments D1 prou grans perquè els costos fixos i proporcionals no consumeixin l'edge.",
+    "required_structure": ["volatility_contraction_filter", "breakout_entry", "ATR_normalized_stop", "ATR_or_time_exit"],
+    "forbidden_rescue": ["same H4 stop-channel architecture", "fixed monetary stops", "leverage optimization", "holdout feedback"]
+  },
+  "risk": {
+    "risk_per_trade_pct": 1.0,
+    "maximum_drawdown_pct": 15.0,
+    "maximum_effective_leverage": 5.0,
+    "sizing": "equity_percent_from_stop_distance"
+  },
+  "cheap_generation": {
+    "attempt_budget_per_symbol": 500,
+    "accepted_target_per_symbol": 20,
+    "minimum_development_trades": 35,
+    "minimum_development_profit_factor": 1.05,
+    "crosschecks_enabled": false
+  },
+  "validation_gates_in_order": [
+    "artifact_contract_matches_frozen_mechanism",
+    "positive_net_expectancy_under_base_costs_at_500_usdc",
+    "minimum_net_profit_factor_1_10",
+    "at_least_3_positive_validation_years",
+    "maximum_drawdown_15_pct",
+    "cost_stress_and_trade_bootstrap_only_for_survivors"
+  ],
+  "costs": {
+    "opening_fee": "pair-specific current Ostium-compatible assumption",
+    "oracle_fee_usdc_per_open": 0.1,
+    "spread_slippage": "non-zero base plus stress",
+    "rollover": "side and holding-time proxy; must be dated and disclosed"
+  },
+  "discard_criteria": [
+    "non-positive net expectancy under base costs",
+    "profit factor below 1.10 after base costs",
+    "fewer than 35 development trades or insufficient validation coverage",
+    "maximum drawdown above 15 percent",
+    "profit depends on one year or one direction",
+    "artifact violates the frozen mechanism",
+    "attempt budget exceeded"
+  ],
+  "prior_failure_ids": ["ostium_500_atr_stop_channel_20260806"],
+  "difference_from_prior": "Canvia simultàniament la font d'edge i l'horitzó de captura: contracció-expansió D1 amb menys rotació, no més variants del stop-channel ATR H4 rebutjat.",
+  "holdout_policy": {"maximum_reads": 1, "open_only_after_all_pre_holdout_gates": true, "no_refit_after_result": true},
+  "status": "PREREGISTERED_NEEDS_SQ_CONTRACT_PREPARATION"
+}

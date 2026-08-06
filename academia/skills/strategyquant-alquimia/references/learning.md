@@ -33,6 +33,21 @@ No crear un codi nou si un d'existent explica l'acció següent.
 | PF atractiu amb OOS minúscul | `LOW_SAMPLE_OR_VALIDATION_FAIL` | inferir edge del PF | més observacions sense canviar regles |
 | total positiu, OOS per règim negatiu | `OOS_REGIME_FAIL` | ajustar sobre l'OOS vist | règim ex ante i OOS nou |
 
+## Capital, costos i palanquejament
+
+Recalcular l'economia amb el capital objectiu: no extrapolar directament un
+veredicte obtingut amb un altre saldo. Separar costos proporcionals del cost fix
+per ordre i preservar els límits de risc, marge i liquidació.
+
+Si l'expectativa neta continua negativa amb costos base:
+
+1. rebutjar la família abans del holdout;
+2. no usar més leverage, compounding o variants per rescatar-la;
+3. buscar més moviment net per operació, menys fricció o un mecanisme diferent.
+
+Una millora de PnL en augmentar capital no és un `pass`: exigir expectativa neta
+positiva, PF mínim i robustesa. Registrar també el capital exacte de la prova.
+
 No convertir una anomalia operacional en una llei universal. El cas SQX 143
 demostra que poden existir mecanismes absents, crosschecks heretats, comptadors
 que no coincideixen amb el pressupost i etiquetes de costos amb cobertura

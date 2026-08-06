@@ -156,8 +156,14 @@ def generate(source: Path, output: Path, project_name: str, stage: str, manifest
     delete_failed.text = "false" if keep_failed else "true"
     minimum_trades = methodology["temporal_validation"]["minimum_trades_oos"]
     minimum_pf = methodology["temporal_validation"]["minimum_oos_profit_factor"]
+    maximum_dd_pct = methodology["temporal_validation"]["maximum_oos_drawdown_pct"]
     conditions.extend([_condition("NumberOfTrades", "Integer", ">=", minimum_trades),
-                       _condition("ProfitFactor", "Decimal2", ">=", minimum_pf)])
+                       _condition("ProfitFactor", "Decimal2", ">=", minimum_pf),
+                       _condition("DrawdownPct", "Decimal2Pct", "<=", maximum_dd_pct)])
+    risk_management = task_xml.find("./RiskMoneyManagement/RiskManagement")
+    if risk_management is None:
+        raise ValueError("RISK_MANAGEMENT_MISSING")
+    risk_management.set("maxDrawdown", str(maximum_dd_pct))
     task_xml.find("./Rankings/MaxStrategies").text = "1000"
     stop_condition = task_xml.find("./Rankings/StopCondition")
     stop_condition.set("type", "databank-full")
@@ -195,7 +201,9 @@ def generate(source: Path, output: Path, project_name: str, stage: str, manifest
         "keep_failed": keep_failed,
         "risk_per_trade_pct": methodology["small_account"]["maximum_risk_per_trade_pct"] if money_management == "risk_percent" else None,
         "minimum_trades": minimum_trades,
-        "minimum_profit_factor": minimum_pf, "holdout_locked": stage != "holdout",
+        "minimum_profit_factor": minimum_pf,
+        "maximum_drawdown_pct": maximum_dd_pct,
+        "holdout_locked": stage != "holdout",
         "cfx_sha256": hashlib.sha256(output.read_bytes()).hexdigest()}
     output.with_suffix(".manifest.json").write_text(json.dumps(result, indent=2) + "\n")
     return result

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "campaign": "ostium-atr-risk1-validation-v3",
+  "observed_at": "2026-08-06",
+  "decision": "REJECT_FAMILY_BEFORE_HOLDOUT",
+  "holdout_status": "SEALED_UNTOUCHED",
+  "facts": {
+    "validation_period": ["2022-01-01", "2025-07-31"],
+    "eurusd": {
+      "frozen_inputs": 40,
+      "accepted": 2,
+      "rejected": 38,
+      "survivors": [
+        {"name": "Strategy 0.19", "trades": 127, "sq_profit_factor": 1.36, "sq_net_profit": 8054.1, "average_hours": 29.5,
+         "small_account_base_net_usdc": -12.40115118, "small_account_base_pf": 0.3356949, "selected_leverage": 30},
+        {"name": "Strategy 0.43", "trades": 64, "sq_profit_factor": 1.45, "sq_net_profit": 4703.4, "average_hours": 34.3,
+         "small_account_base_net_usdc": -5.24814353, "small_account_base_pf": 0.66396607, "selected_leverage": 50}
+      ]
+    },
+    "xauusd": {"frozen_inputs": 4, "accepted": 0, "rejected": 4},
+    "cost_model": {
+      "capital_usdc": 200,
+      "source_equity_usdc": 10000,
+      "fx_contract_multiplier": 100000,
+      "opening_execution_bps": {"base": 4.5, "conservative": 7, "stress": 10},
+      "annual_rollover_proxy_pct": {"base": 4, "conservative": 8, "stress": 12},
+      "oracle_usdc_per_trade": 0.1,
+      "warning": "Rollover is a preregistered proxy, not a historical Ostium series."
+    }
+  },
+  "inference": "The family has gross validation signal but insufficient edge per trade for a 200 USDC account after Ostium-compatible costs. More leverage cannot repair negative net expectancy.",
+  "next_family_requirements": [
+    "lower turnover or materially larger average move per trade",
+    "prefer same-session exits to reduce rollover uncertainty",
+    "include Ostium economics before SQ promotion",
+    "do not inspect the sealed 2025-08-01 to 2026-07-31 holdout"
+  ],
+  "evidence": [
+    "lab/sq_bridge/evidence/eurusd_h4_atr_019_validation_cost_gate_v3.json",
+    "lab/sq_bridge/evidence/eurusd_h4_atr_043_validation_cost_gate_v3.json"
+  ]
+}

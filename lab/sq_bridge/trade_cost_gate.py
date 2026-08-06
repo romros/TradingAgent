@@ -8,6 +8,7 @@ import hashlib
 import json
 import math
 import random
+from datetime import datetime
 from pathlib import Path
 
 
@@ -33,15 +34,30 @@ def load_orders(path: Path, contract_multiplier: float = 1.0) -> list[dict[str, 
             exposure = price * size * contract_multiplier
             if exposure <= 0:
                 raise ValueError("Open price * Size ha de ser positiu")
+            opened = datetime.strptime(row["Open time"], "%Y.%m.%d %H:%M:%S") if row.get("Open time") else None
+            closed = datetime.strptime(row["Close time"], "%Y.%m.%d %H:%M:%S") if row.get("Close time") else None
+            held_years = (closed - opened).total_seconds() / (365.25 * 86400) if opened and closed else 0.0
+            if held_years < 0:
+                raise ValueError("Close time anterior a Open time")
             rows.append({
                 "return": _number(row["Profit/Loss"]) / exposure,
                 "mae": abs(_number(row["MAE ($)"])) / exposure,
                 "pnl": _number(row["Profit/Loss"]),
                 "exposure": exposure,
+                "held_years": held_years,
             })
     if not rows:
         raise ValueError(f"CSV sense ordres: {path}")
     return rows
+
+
+def validate_contract_units(path: Path, contract_multiplier: float) -> None:
+    """Reject the common SQ FX-lot/unit mismatch before it can produce a verdict."""
+    header = path.read_text(encoding="utf-8-sig", errors="replace").splitlines()[:2]
+    if any("EURUSD" in line for line in header) and contract_multiplier == 1:
+        raise ValueError("EURUSD SQ exporta Size en lots; indica --contract-multiplier 100000")
+
+
 def _metrics_pnls(pnls: list[float]) -> dict:
     gains = sum(value for value in pnls if value > 0)
     losses = -sum(value for value in pnls if value < 0)
@@ -83,6 +99,7 @@ def _monte_carlo_pnls(pnls: list[float], runs: int, seed: int) -> dict:
 def evaluate(path: Path, methodology: dict, scenarios: list[dict], *, broker_max_leverage: float,
              venue_max_leverage: float, contract_multiplier: float = 1.0,
              source_equity: float | None = None, seed: int = 20260801) -> dict:
+    validate_contract_units(path, contract_multiplier)
     orders = load_orders(path, contract_multiplier)
     account = methodology["small_account"]
     robust = methodology["robustness"]
@@ -118,14 +135,17 @@ def evaluate(path: Path, methodology: dict, scenarios: list[dict], *, broker_max
     scenario_results = []
     for scenario in scenarios:
         proportional_cost = float(scenario["roundtrip_bps"]) / 10_000
+        annual_rollover = float(scenario.get("annual_rollover_pct", 0)) / 100
         fixed_cost = float(scenario.get("fixed_cost_usdc", 0))
         if order_scale is None:
             fixed_return_cost = fixed_cost / notional if notional else float("inf")
-            net_pnls = [(row["return"] - proportional_cost - fixed_return_cost) * notional
+            net_pnls = [(row["return"] - proportional_cost - annual_rollover * row["held_years"]
+                         - fixed_return_cost) * notional
                         for row in orders]
         else:
             net_pnls = [row["pnl"] * order_scale
                         - row["exposure"] * order_scale * proportional_cost
+                        - row["exposure"] * order_scale * annual_rollover * row["held_years"]
                         - fixed_cost for row in orders]
         metrics = _metrics_pnls(net_pnls)
         monte_carlo = _monte_carlo_pnls(net_pnls, int(robust["monte_carlo_runs"]), seed)

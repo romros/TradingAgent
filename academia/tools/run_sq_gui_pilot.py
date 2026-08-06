@@ -55,15 +55,33 @@ def append_jsonl(path: Path, value: dict) -> None:
         stream.write(json.dumps(value, ensure_ascii=False, sort_keys=True) + "\n")
 
 
+def budget_decision(generated: int | None, pause_at: int, hard_budget: int) -> str:
+    if not isinstance(generated, int):
+        return "CONTINUE"
+    if generated > hard_budget:
+        return "HARD_BUDGET_EXCEEDED"
+    if generated >= pause_at:
+        return "REQUEST_CONTROL"
+    return "CONTINUE"
+
+
 async def run(
     *, gui_url: str, project: str, attempt_budget: int, journal: Path,
     message_timeout: int = 120, allow_control: bool = False, action: str = "start",
+    pause_at: int | None = None,
 ) -> dict:
+    pause_at = pause_at if pause_at is not None else attempt_budget
+    if not 0 < pause_at <= attempt_budget:
+        raise ValueError("pause_at must be positive and no greater than attempt_budget")
     project_preflight(http_json(gui_url, "taskmanager/listProjects"), project)
     websocket_url = gui_url.replace("http://", "ws://").replace("https://", "wss://")
     websocket_url = f"{websocket_url.rstrip('/')}/websocket/updates"
     started_at = datetime.now(timezone.utc).isoformat()
-    latest: dict = {"project": project, "started_at": started_at, "attempt_budget": attempt_budget}
+    latest: dict = {
+        "project": project, "started_at": started_at,
+        "attempt_budget": attempt_budget, "pause_at": pause_at,
+    }
+    control_requested = False
 
     async with websockets.connect(websocket_url) as socket:
         await socket.send(json.dumps({"action": "setup", "app": "TASKMANAGER"}))
@@ -97,6 +115,7 @@ async def run(
                 "observed_at": datetime.now(timezone.utc).isoformat(),
                 "project": project,
                 "attempt_budget": attempt_budget,
+                "pause_at": pause_at,
                 "generated": update.get("totalJobsDone"),
                 "accepted": update.get("strategiesAccepted"),
                 "rejected": update.get("strategiesRejected"),
@@ -109,20 +128,29 @@ async def run(
             append_jsonl(journal, latest)
             generated = latest["generated"]
             if latest["running_status"] in {3, 4}:
-                latest["reason"] = "SQ_FINISHED"
-                latest["control_applied"] = False
+                generated = latest["generated"]
+                latest["reason"] = (
+                    "ATTEMPT_BUDGET_OVERSHOOT" if isinstance(generated, int) and generated > attempt_budget
+                    else "ATTEMPT_WATERMARK" if control_requested
+                    else "SQ_FINISHED"
+                )
+                latest["control_applied"] = control_requested
+                latest["budget_compliant"] = not isinstance(generated, int) or generated <= attempt_budget
                 append_jsonl(journal, latest)
                 return latest
-            if isinstance(generated, int) and generated >= attempt_budget:
-                latest["reason"] = "ATTEMPT_BUDGET"
+            decision = budget_decision(generated, pause_at, attempt_budget)
+            if decision in {"REQUEST_CONTROL", "HARD_BUDGET_EXCEEDED"} and not control_requested:
+                latest["reason"] = decision
                 if allow_control:
                     latest["pause_response"] = http_json(gui_url, "project/pause", {"projectName": project})
                     latest["stop_response"] = http_json(gui_url, "project/stop", {"projectName": project})
                     latest["control_applied"] = True
+                    control_requested = True
                 else:
                     latest["control_applied"] = False
                 append_jsonl(journal, latest)
-                return latest
+                if not allow_control:
+                    return latest
 
 
 def main() -> int:
@@ -130,6 +158,7 @@ def main() -> int:
     parser.add_argument("--gui-url", default="http://127.0.0.1:8080")
     parser.add_argument("--project", required=True)
     parser.add_argument("--attempt-budget", required=True, type=int)
+    parser.add_argument("--pause-at", type=int, help="Preventive control watermark (<= attempt budget)")
     parser.add_argument("--journal", required=True, type=Path)
     parser.add_argument("--message-timeout", type=int, default=120)
     parser.add_argument("--action", choices=("start", "resume"), default="start")
@@ -138,10 +167,10 @@ def main() -> int:
     result = asyncio.run(run(
         gui_url=args.gui_url, project=args.project, attempt_budget=args.attempt_budget,
         journal=args.journal, message_timeout=args.message_timeout,
-        allow_control=args.allow_control, action=args.action,
+        allow_control=args.allow_control, action=args.action, pause_at=args.pause_at,
     ))
     print(json.dumps(result, ensure_ascii=False, indent=2))
-    return 0
+    return 0 if result.get("budget_compliant", True) else 2
 
 
 if __name__ == "__main__":

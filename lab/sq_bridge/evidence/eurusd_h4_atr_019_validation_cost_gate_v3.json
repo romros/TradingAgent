@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "source": "academia/runtime/build143-final-capability-tests/user/projects/ACADEMIA_OSTIUM_EURUSD_H4_ATR_VALIDATION_V3/orders-019.csv",
+  "source_sha256": "0909fa0925c0d4adbbf7850accaf6d153dbc748ee455b123972d60c92a1d8dea",
+  "orders": 127,
+  "contract_multiplier": 100000.0,
+  "sizing": {
+    "equity_usdc": 200.0,
+    "risk_budget_usdc": 2.0,
+    "mae99_pct": 1.81046593,
+    "risk_notional_usdc": 110.46880087,
+    "margin_notional_usdc": 2100.0,
+    "selected_notional_usdc": 110.46880087,
+    "selected_leverage": 30.0,
+    "hard_leverage_cap": 36,
+    "sizing_mode": "PRESERVE_SQ_RISK_SIZING",
+    "source_equity_usdc": 10000.0,
+    "order_scale": 0.0004850324,
+    "liquidation_model": "CONSERVATIVE_PROXY_1_OVER_L_GTE_1_5_X_HISTORICAL_MAE99",
+    "exact_ostium_liquidation_confirmation_required": true
+  },
+  "scenarios": [
+    {
+      "name": "base",
+      "assumptions": {
+        "name": "base",
+        "roundtrip_bps": 4.5,
+        "fixed_cost_usdc": 0.1,
+        "annual_rollover_pct": 4,
+        "note": "3 bps opening + 1.5 bps bid/ask/slippage, oracle opening request and preregistered 4% annual carry proxy."
+      },
+      "metrics": {
+        "trades": 127,
+        "net_pnl_usdc": -12.40115118,
+        "net_expectancy_usdc": -0.09764686,
+        "net_profit_factor": 0.3356949,
+        "win_rate": 0.48031496,
+        "max_drawdown_usdc": 12.46430073
+      },
+      "monte_carlo": {
+        "runs": 1000,
+        "seed": 20260801,
+        "profitable_ratio": 0.0,
+        "p05_net_pnl_usdc": -16.43154614,
+        "p95_max_drawdown_usdc": 16.73765162
+      },
+      "passed": false,
+      "checks": {
+        "minimum_expectancy": false,
+        "minimum_profit_factor": false,
+        "monte_carlo_profitable": false
+      }
+    },
+    {
+      "name": "conservative",
+      "assumptions": {
+        "name": "conservative",
+        "roundtrip_bps": 7,
+        "fixed_cost_usdc": 0.1,
+        "annual_rollover_pct": 8,
+        "note": "Wider execution allowance and preregistered 8% annual carry proxy."
+      },
+      "metrics": {
+        "trades": 127,
+        "net_pnl_usdc": -14.78642847,
+        "net_expectancy_usdc": -0.11642857,
+        "net_profit_factor": 0.25980478,
+        "win_rate": 0.47244094,
+        "max_drawdown_usdc": 14.83433588
+      },
+      "monte_carlo": {
+        "runs": 1000,
+        "seed": 20260801,
+        "profitable_ratio": 0.0,
+        "p05_net_pnl_usdc": -18.86368944,
+        "p95_max_drawdown_usdc": 19.05451924
+      },
+      "passed": false,
+      "checks": {
+        "minimum_expectancy": false,
+        "minimum_profit_factor": false,
+        "monte_carlo_profitable": false
+      }
+    },
+    {
+      "name": "stress",
+      "assumptions": {
+        "name": "stress",
+        "roundtrip_bps": 10,
+        "fixed_cost_usdc": 0.1,
+        "annual_rollover_pct": 12,
+        "note": "Adverse execution allowance and preregistered 12% annual carry proxy; proxy, not historical Ostium rollover."
+      },
+      "metrics": {
+        "trades": 127,
+        "net_pnl_usdc": -17.47729912,
+        "net_expectancy_usdc": -0.13761653,
+        "net_profit_factor": 0.18619561,
+        "win_rate": 0.4488189,
+        "max_drawdown_usdc": 17.50804772
+      },
+      "monte_carlo": {
+        "runs": 1000,
+        "seed": 20260801,
+        "profitable_ratio": 0.0,
+        "p05_net_pnl_usdc": -21.59986877,
+        "p95_max_drawdown_usdc": 21.73736166
+      },
+      "passed": false,
+      "checks": {
+        "minimum_expectancy": false,
+        "minimum_profit_factor": false,
+        "monte_carlo_profitable": false
+      }
+    }
+  ],
+  "verdict": "NOT_VIABLE_SMALL_ACCOUNT"
+}

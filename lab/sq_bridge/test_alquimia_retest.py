@@ -8,6 +8,10 @@ node = _condition("ProfitFactor", "Decimal2", ">=", 1.15)
 assert node.find("./Left-Side/Column-Value").get("column") == "ProfitFactor"
 assert node.find("Comparator").get("value") == ">="
 assert node.find("./Right-Side/Numeric-Value").get("value") == "1.15"
+dd_node = _condition("DrawdownPct", "Decimal2Pct", "<=", 20)
+assert dd_node.find("./Left-Side/Column-Value").get("column") == "DrawdownPct"
+assert dd_node.find("Comparator").get("value") == "<="
+assert dd_node.find("./Right-Side/Numeric-Value").get("value") == "20"
 resources = ET.fromstring("<Settings><Resources><Symbols><Symbol/></Symbols></Resources></Settings>")
 resources.find("./Resources/Symbols/Symbol").set("name", "XAU")
 _require_resource_symbol(resources, "XAU")

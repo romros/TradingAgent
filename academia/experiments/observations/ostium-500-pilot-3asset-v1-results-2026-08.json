@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "id": "ostium-500-pilot-3asset-v1-results-2026-08",
+  "observed_at": "2026-08-06",
+  "manifest": "academia/experiments/pending/ostium-500-pilot-3asset-atr-v1.json",
+  "result": "PARTIAL_OPERATIONAL_PASS_QUANTITATIVE_REJECT",
+  "runs": {
+    "EURUSD": {"attempted": 251, "accepted": 40, "rejected": 211, "failed": 0, "contract_artifacts_passed": 40, "structural_families": 15, "inventory_sha256": "34ca1650b7c35e4440e3d378d17133b6aeefc9cab9983ba97564f2e4a4582177", "candidates_with_max_dd_le_15pct": 0},
+    "XAUUSD": {"attempted": 259, "accepted": 40, "rejected": 219, "failed": 0, "contract_artifacts_passed": 40, "structural_families": 4, "inventory_sha256": "cbd9de41e0bdf08d0b21f7c49d1b3a0df1c36bd1ccf044c8fd9551369e20e09d", "candidates_with_max_dd_le_15pct": 0},
+    "US500": {"started": false, "reason": "hasUnresolvedResources=true in live SQ task manager preflight"}
+  },
+  "contract": {"required_tokens": ["EnterAtStop", "Highest", "Lowest", "ATR"], "artifacts_checked": 80, "artifacts_passed": 80, "holdout_accessed": false},
+  "configuration_defect": "The v1 CFX inherited FixedSize=1 and ranking gates only NumberOfTrades>60 and ProfitFactor>1.05; the preregistered 15% maximum drawdown was not enforced in SQ.",
+  "decision": "Reject all v1 candidates. Preserve the run as wiring evidence and open a separately identified RISK1 campaign; do not relax v1 gates or inspect validation/holdout.",
+  "sqcli_used": true
+}

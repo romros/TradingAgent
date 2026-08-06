@@ -1,7 +1,7 @@
 # SQCLI — política d'aturada, estancament i handoff
 
 **Data:** 2026-08-02
-**Estat:** especificació pendent d'implementació; no canviar la campanya activa
+**Estat:** controlador mínim implementat; no canviar campanyes històriques actives
 
 ## Objectiu
 
@@ -106,15 +106,24 @@ Projecte: `ALQUIMIA_XAU_H4_DISCOVERY`.
 - Aplicar només alertes de salut. No inventar ara un timeout científic.
 - En acabar: congelar lot, inventariar/hashing, deduplicar i iniciar embut.
 
-## Limitació del watchdog existent
+## Controlador implementat
 
-`lab/sq_bridge/sq_watchdog.py` és un pilot, no aquesta implementació. Actualment:
+`lab/sq_bridge/sq_watchdog.py` carrega els límits del manifest, compta els intents
+reals exposats com `Strategies generated`, desa journal JSONL append-only i una
+vista atòmica, i inventaria els `.sqx` sense modificar-los. Per defecte és només
+lectura. `--allow-control` és obligatori perquè un gate terminal executi primer
+`pause` i després `stop`; un error del monitor mai envia control a SQ.
 
-- considera `TARGET_REACHED` a 20 amb valor codificat;
-- pot parar per 1.000 generades sense acceptades;
-- protegeix memòria i disc;
-- no calcula interarribades, estancament, famílies, checkpoints ni pressupost;
-- no s'ha d'apuntar a la campanya activa sense revisar i provar.
+En projectes d'una sola tasca, declarar `attempt_budget_per_project`. Si el
+manifest només té un pressupost total divisible pel nombre de símbols, el
+controlador el reparteix de forma inequívoca. El polling pot sobrepassar el límit
+en els treballs que ja estiguin en vol: registrar l'overshoot real i no usar dues
+passades amb intents diferents com una comparació Random/Genetic.
+
+Encara queden fora del controlador mínim la diversitat semàntica, l'autosync i
+el reinici automàtic. Són observables addicionals; no bloquegen el pilot aïllat
+de 1.000 intents perquè el journal, l'inventari i el volum persistent preserven
+els resultats.
 
 ## Tasca preparada per a una sessió nova
 

@@ -81,7 +81,46 @@ def find_symbol(root: ET.Element, name: str) -> ET.Element:
     return deepcopy(matches[0])
 
 
-def rewrite(base_files: dict[str, bytes], project: dict, symbol: ET.Element) -> dict[str, bytes]:
+def add_drawdown_gate(root: ET.Element, maximum_drawdown_pct: float) -> None:
+    conditions = root.find(".//Rankings/Conditions")
+    if conditions is None:
+        raise ValueError("missing ranking conditions")
+    condition = ET.SubElement(conditions, "Condition", {"use": "true"})
+    left = ET.SubElement(condition, "Left-Side", {"valueType": "column"})
+    ET.SubElement(left, "Column-Value", {
+        "column": "DrawdownPct", "columnType": "0", "name": "Max DD %",
+        "format": "Decimal2Pct", "resultType": "main", "direction": "0",
+        "sampleType": "127", "plType": "10", "confidenceLevel": "50",
+        "market": "1", "subresult": "30", "pctRatio": "0", "class": "DrawdownPct",
+    })
+    ET.SubElement(condition, "Comparator", {"value": "<="})
+    right = ET.SubElement(condition, "Right-Side", {"valueType": "numeric"})
+    ET.SubElement(right, "Numeric-Value", {"value": str(maximum_drawdown_pct)})
+
+
+def set_risk_sizing(root: ET.Element, risk_pct: float, maximum_drawdown_pct: float) -> None:
+    methods = root.findall(".//RiskMoneyManagement/MoneyManagement/Method")
+    risk_method = None
+    for method in methods:
+        method.set("use", "false")
+        if method.get("type") == "RiskFixedBalancePct":
+            risk_method = method
+    if risk_method is None:
+        raise ValueError("RiskFixedBalancePct money management unavailable")
+    risk_method.set("use", "true")
+    risk = risk_method.find(".//*[@key='Risk']")
+    if risk is None:
+        raise ValueError("RiskFixedBalancePct Risk parameter unavailable")
+    risk.text = str(risk_pct)
+    risk_management = root.find(".//RiskMoneyManagement/RiskManagement")
+    if risk_management is None:
+        raise ValueError("risk management unavailable")
+    risk_management.set("maxDrawdown", str(maximum_drawdown_pct))
+    add_drawdown_gate(root, maximum_drawdown_pct)
+
+
+def rewrite(base_files: dict[str, bytes], project: dict, symbol: ET.Element,
+            risk_pct: float | None = None, maximum_drawdown_pct: float = 15) -> dict[str, bytes]:
     files = dict(base_files)
     config = ET.fromstring(files["config.xml"])
     config.set("name", project["project"])
@@ -108,6 +147,8 @@ def rewrite(base_files: dict[str, bytes], project: dict, symbol: ET.Element) -> 
     if stop is None:
         raise ValueError("missing stop condition")
     stop.attrib.update({"type": "databank-full", "passedStrategies": "40", "restartCount": "0", "days": "0", "hours": "0", "minutes": "10"})
+    if risk_pct is not None:
+        set_risk_sizing(root, risk_pct, maximum_drawdown_pct)
 
     symbols = root.find(".//Resources/Symbols")
     instruments = root.find(".//Resources/Instruments")
@@ -130,7 +171,9 @@ def rewrite(base_files: dict[str, bytes], project: dict, symbol: ET.Element) -> 
     return files
 
 
-def prepare(base: Path, eur_template: Path, data_db: Path, output: Path) -> list[Path]:
+def prepare(base: Path, eur_template: Path, data_db: Path, output: Path,
+            risk_pct: float | None = None, maximum_drawdown_pct: float = 15,
+            project_suffix: str = "") -> list[Path]:
     with ZipFile(base) as archive:
         base_files = {name: archive.read(name) for name in archive.namelist()}
     with ZipFile(eur_template) as archive:
@@ -143,11 +186,15 @@ def prepare(base: Path, eur_template: Path, data_db: Path, output: Path) -> list
             "XAUUSD": find_symbol(base_root, PROJECTS["XAUUSD"]["symbol"]),
         }
     prepared = []
-    for key, project in PROJECTS.items():
+    for key, source_project in PROJECTS.items():
+        project = dict(source_project)
+        project["project"] += project_suffix
         target_dir = output / project["project"]
         if target_dir.exists():
             raise FileExistsError(f"refusing to overwrite prepared project: {target_dir}")
-        prepared.append((target_dir, rewrite(base_files, project, symbols[key])))
+        prepared.append((target_dir, rewrite(
+            base_files, project, symbols[key], risk_pct, maximum_drawdown_pct,
+        )))
     created = []
     for target_dir, files in prepared:
         target_dir.mkdir(parents=True)
@@ -165,8 +212,14 @@ def main() -> None:
     parser.add_argument("--eur-template", type=Path, required=True)
     parser.add_argument("--data-db", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--risk-pct", type=float)
+    parser.add_argument("--maximum-drawdown-pct", type=float, default=15)
+    parser.add_argument("--project-suffix", default="")
     args = parser.parse_args()
-    for path in prepare(args.base, args.eur_template, args.data_db, args.output):
+    for path in prepare(
+        args.base, args.eur_template, args.data_db, args.output,
+        args.risk_pct, args.maximum_drawdown_pct, args.project_suffix,
+    ):
         print(path)
 
 

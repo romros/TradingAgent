@@ -1,0 +1,77 @@
+import json
+from pathlib import Path
+
+from sq_watchdog import Limits, evaluate, inventory_sqx, load_limits, run_monitor
+
+
+def status(generated=1, accepted=0):
+    return {
+        "observed_at": "2026-08-06T00:00:00+00:00", "project": "P",
+        "generated": generated, "in_databank": accepted,
+        "memory_available_bytes": 8 * 1024**3, "disk_free_bytes": 8 * 1024**3,
+        "artifacts": [], "raw_status": "",
+    }
+
+
+def test_manifest_divides_total_budget_per_isolated_project(tmp_path):
+    manifest = tmp_path / "manifest.json"
+    manifest.write_text(json.dumps({"symbols": ["A", "B", "C"], "attempt_budget": 3000}))
+    assert load_limits(manifest).attempt_budget == 1000
+
+
+def test_budget_uses_generated_not_databank():
+    assert evaluate(status(1000, 2), [], Limits(1000), 1) == ("BUDGET_REACHED", "ATTEMPT_BUDGET")
+    assert evaluate(status(999, 40), [], Limits(1000), 1)[0] == "HEALTHY"
+
+
+def test_irregular_acceptance_is_not_false_stall():
+    history = [status(10, 0), status(25, 0), status(50, 1)]
+    assert evaluate(status(71, 1), history, Limits(1000, stagnation_attempts=500), 500)[0] == "HEALTHY"
+
+
+def test_inventory_is_deterministic_and_hashed(tmp_path):
+    artifact = tmp_path / "Results" / "a.sqx"
+    artifact.parent.mkdir()
+    artifact.write_bytes(b"candidate")
+    first = inventory_sqx(tmp_path)
+    second = inventory_sqx(tmp_path)
+    assert first == second
+    assert first[0]["sha256"] == "dda18a0e21ae47c53b4309434cbc02ae8bf764fa83a6defbb719431242722aa7"
+
+
+def test_monitor_is_read_only_by_default(tmp_path):
+    calls = []
+    result = run_monitor(
+        base_url="http://sq", project="P", limits=Limits(1000),
+        status_file=tmp_path / "latest.json", journal_file=tmp_path / "journal.jsonl",
+        disk_path=tmp_path, artifacts=None, interval=1, allow_control=False, once=True,
+        snapshot_fn=lambda *_: status(1000), call_fn=lambda *args: calls.append(args),
+    )
+    assert result["reason"] == "ATTEMPT_BUDGET"
+    assert calls == []
+    assert len((tmp_path / "journal.jsonl").read_text().splitlines()) == 1
+
+
+def test_control_requires_opt_in_and_is_audited(tmp_path):
+    calls = []
+    run_monitor(
+        base_url="http://sq", project="P", limits=Limits(1000),
+        status_file=tmp_path / "latest.json", journal_file=tmp_path / "journal.jsonl",
+        disk_path=tmp_path, artifacts=None, interval=1, allow_control=True, once=True,
+        snapshot_fn=lambda *_: status(1001), call_fn=lambda *args: calls.append(args) or "ok",
+    )
+    assert [call[1].split()[1] for call in calls] == ["action=pause", "action=stop"]
+    assert json.loads((tmp_path / "journal.jsonl").read_text().splitlines()[-1])["event"] == "CONTROL_APPLIED"
+
+
+def test_monitor_error_cannot_control_sq(tmp_path):
+    calls = []
+    result = run_monitor(
+        base_url="http://sq", project="P", limits=Limits(1000),
+        status_file=tmp_path / "latest.json", journal_file=tmp_path / "journal.jsonl",
+        disk_path=tmp_path, artifacts=None, interval=1, allow_control=True, once=True,
+        snapshot_fn=lambda *_: (_ for _ in ()).throw(ConnectionError("offline")),
+        call_fn=lambda *args: calls.append(args),
+    )
+    assert result["reason"] == "MONITOR_ERROR"
+    assert calls == []

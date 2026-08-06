@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "id": "ostium-500-pilot-2asset-atr-risk1-v2",
+  "question": "Pot la mateixa arquitectura ATR stop-channel generar artifacts IS amb risc normalitzat de l'1% i drawdown màxim del 15% en EURUSD i XAUUSD?",
+  "family": "atr_breakout",
+  "symbols": ["EUR/USD", "XAU/USD"],
+  "timeframe": "H4",
+  "direction": "both",
+  "engine": "MetaTrader4 compatibility engine; execution repriced separately for Ostium",
+  "sq_version": "143.2708",
+  "capital": {"amount": 500, "currency": "USDC", "simulation_only": true},
+  "periods": {
+    "development": "2017-01-01/2021-12-31",
+    "validation": "2022-01-01/2025-07-31",
+    "holdout": "2025-08-01/2026-07-31"
+  },
+  "holdout_accessed": false,
+  "costs": {
+    "spread": "same frozen non-zero v1 per-asset spread",
+    "commission": "Ostium opening fee and oracle applied during external repricing before selection",
+    "slippage": "same frozen non-zero v1 per-asset slippage"
+  },
+  "risk_per_trade_pct": 1,
+  "maximum_drawdown_pct": 15,
+  "minimum_trades": 60,
+  "minimum_profit_factor": 1.05,
+  "attempt_budget": 2000,
+  "attempt_budget_per_project": 1000,
+  "accepted_target_per_project": 40,
+  "projects": {
+    "EURUSD": {"name": "ACADEMIA_OSTIUM_PILOT_EURUSD_H4_ATR_RISK1", "sha256": "8d8c16bd156cf902eedeb3a75af1a22e735651684ffcd67abef0e7ee1d781d53"},
+    "XAUUSD": {"name": "ACADEMIA_OSTIUM_PILOT_XAUUSD_H4_ATR_RISK1", "sha256": "e9fc891cbcdc7b952729fc08eff91d50fc19980abcb41308f13402b1ee9f3492"}
+  },
+  "required_tokens": ["EnterAtStop", "Highest", "Lowest", "ATR"],
+  "prior_failure_ids": ["sq_0423850_xau_h4_20260801", "intraday_fx_six_families_20260801"],
+  "difference_from_prior": "New campaign after a documented v1 configuration defect: FixedSize is disabled, RiskFixedBalancePct=1 is enabled, RiskManagement maxDrawdown=15 and a main-result DrawdownPct<=15 ranking condition is mandatory.",
+  "discard_criteria": ["project has unresolved resources", "attempt budget exceeded", "risk sizing or drawdown gate absent", "no accepted artifact", "artifact violates the required architecture"],
+  "frozen": true
+}

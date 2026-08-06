@@ -37,6 +37,22 @@ class PrepareOstiumPilotSqTest(unittest.TestCase):
             pilot.rewrite({"config.xml": b'<Project name="old"/>', "Build-Task1.xml": build},
                           {"project": "p", "symbol": "NEW", "spread": "1", "slippage": "1"}, symbol)
 
+    def test_risk_campaign_enforces_one_pct_sizing_and_fifteen_pct_drawdown(self):
+        root = ET.fromstring('''<Settings><RiskMoneyManagement><MoneyManagement>
+        <Method type="FixedSize" use="true"><Params><Param key="Size">1</Param></Params></Method>
+        <Method type="RiskFixedBalancePct" use="false"><Params><Param key="Risk">5</Param></Params></Method>
+        </MoneyManagement><RiskManagement maxDrawdown="30" /></RiskMoneyManagement>
+        <Rankings><Conditions /></Rankings></Settings>''')
+        pilot.set_risk_sizing(root, 1, 15)
+        self.assertEqual(root.find(".//Method[@type='FixedSize']").get("use"), "false")
+        risk = root.find(".//Method[@type='RiskFixedBalancePct']")
+        self.assertEqual(risk.get("use"), "true")
+        self.assertEqual(risk.find(".//*[@key='Risk']").text, "1")
+        condition = root.findall(".//Rankings/Conditions/Condition")[-1]
+        self.assertEqual(condition.find("./Left-Side/Column-Value").get("column"), "DrawdownPct")
+        self.assertEqual(condition.find("./Comparator").get("value"), "<=")
+        self.assertEqual(condition.find("./Right-Side/Numeric-Value").get("value"), "15")
+
 
 if __name__ == "__main__":
     unittest.main()

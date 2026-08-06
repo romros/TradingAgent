@@ -21,6 +21,7 @@
   "minimum_trades": 40,
   "maximum_drawdown_pct": 15,
   "attempt_budget": 3000,
+  "attempt_budget_per_project": 1000,
   "discard_criteria": [
     "external controller cannot prove at most 1000 generated attempts per asset",
     "artifact does not contain the mandatory stop-channel architecture",

@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "observation_id": "ostium-500-atr-risk1-reprice-v3-2026-08",
+  "question": "Els dos supervivents EURUSD H4 ATR de V3 recuperen expectativa neta quan el capital objectiu correcte és 500 USDC?",
+  "scope": {
+    "capital_usdc": 500,
+    "risk_per_trade_pct": 1,
+    "source_equity_usdc": 10000,
+    "validation_period": "2022-01-01/2025-07-31",
+    "holdout": "2025-08-01/2026-07-31",
+    "holdout_accessed": false
+  },
+  "method": {
+    "description": "Reexecució determinista de la mateixa porta de costos V3, canviant únicament canonical_capital_usdc de 200 a 500.",
+    "orders": "Ordres de validació ja exportades per SQ; cap nova generació ni selecció.",
+    "sizing": "1% de risc, preservant el sizing relatiu de SQ i limitant-lo per MAE99, marge i proxy conservador de liquidació.",
+    "cost_scenarios": {
+      "base": {"roundtrip_bps": 4.5, "fixed_cost_usdc": 0.1, "annual_rollover_pct": 4},
+      "conservative": {"roundtrip_bps": 7, "fixed_cost_usdc": 0.1, "annual_rollover_pct": 8},
+      "stress": {"roundtrip_bps": 10, "fixed_cost_usdc": 0.1, "annual_rollover_pct": 12}
+    },
+    "monte_carlo": {"runs": 1000, "seed": 20260801}
+  },
+  "results": [
+    {
+      "candidate": "0.19",
+      "trades": 127,
+      "selected_notional_usdc": 276.17200217,
+      "selected_leverage": 30,
+      "base": {"net_pnl_usdc": -11.95287796, "expectancy_usdc": -0.09411715, "profit_factor": 0.67702259, "mc_profitable_ratio": 0.035},
+      "stress": {"net_pnl_usdc": -24.64324781, "expectancy_usdc": -0.19404132, "profit_factor": 0.43474808, "mc_profitable_ratio": 0.0},
+      "verdict": "NOT_VIABLE_SMALL_ACCOUNT"
+    },
+    {
+      "candidate": "0.43",
+      "trades": 64,
+      "selected_notional_usdc": 437.86671924,
+      "selected_leverage": 50,
+      "base": {"net_pnl_usdc": -3.52035884, "expectancy_usdc": -0.05500561, "profit_factor": 0.89588649, "mc_profitable_ratio": 0.333},
+      "stress": {"net_pnl_usdc": -16.34499003, "expectancy_usdc": -0.25539047, "profit_factor": 0.59839893, "mc_profitable_ratio": 0.036},
+      "verdict": "NOT_VIABLE_SMALL_ACCOUNT"
+    }
+  ],
+  "decision": "REJECT_FAMILY_BEFORE_HOLDOUT",
+  "inference": "El capital addicional redueix el pes relatiu del cost fix i millora 0.43 respecte del càlcul a 200 USDC, però no produeix expectativa neta positiva ni PF superior a 1 en base. El palanquejament no repara un edge net negatiu.",
+  "learning_for_expert": [
+    "La pregunta de capital s'ha de recalcular amb el capital objectiu; no és correcte extrapolar mecànicament el veredicte de 200 a 500 USDC.",
+    "Una millora econòmica en augmentar capital no equival a viabilitat: primer cal expectativa neta positiva i robusta.",
+    "No s'ha de gastar el holdout ni generar més variants quan la família falla abans en validació amb costos actuals.",
+    "El següent pivot ha de buscar més moviment net per operació o una font d'edge diferent, no més palanquejament de la mateixa família."
+  ],
+  "evidence": [
+    {"path": "academia/runtime/build143-final-capability-tests/user/projects/ACADEMIA_OSTIUM_EURUSD_H4_ATR_VALIDATION_V3/orders-019.csv", "sha256": "0909fa0925c0d4adbbf7850accaf6d153dbc748ee455b123972d60c92a1d8dea"},
+    {"path": "academia/runtime/build143-final-capability-tests/user/projects/ACADEMIA_OSTIUM_EURUSD_H4_ATR_VALIDATION_V3/orders-043.csv", "sha256": "8cda441a105fb6c8f13948fb7df76e07d8b88989f0be8367dbe327a9cc89c9b9"},
+    {"path": "academia/runtime/ostium-500-reprice-v3/eurusd-019.json", "sha256": "e38a717231029124c783e746ca204184c6e27281ce4ef65987df579ca5e6f442"},
+    {"path": "academia/runtime/ostium-500-reprice-v3/eurusd-043.json", "sha256": "83b7162bb63941f5b89ec9d459ee6190342e60c57cef3df891f64255e65c31d0"}
+  ],
+  "implementation_provenance": {
+    "cost_gate_sha256": "e3a5f30c1769b00893577393c83b78d9d0aba49bb414e1bde5538fd3f6063328",
+    "methodology_sha256": "4e21e7ab6b9f3cfc8e7b0d3857616b3618f0f17bdd4a831fa80d58f1fa1a24d5",
+    "scenarios_sha256": "e3ce00e9944a1ac6beff6936b969d6a2980da7b1e7c8488efa256ddab8c27f9a"
+  },
+  "next": "No obrir el holdout. Tancar aquesta família i preregistrar un pivot d'edge amb més expectativa neta per operació abans d'usar SQCLI."
+}

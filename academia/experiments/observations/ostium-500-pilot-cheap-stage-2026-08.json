@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "ostium-500-pilot-cheap-stage-2026-08",
+  "observed_at": "2026-08-06",
+  "manifest": "academia/experiments/pending/ostium-500-pilot-3asset-atr-v1.json",
+  "stage": "cheap_generation",
+  "label": "PILOT_NOT_COMPARATIVE",
+  "controller": {
+    "counter": "projectStats.totalJobsDone",
+    "hard_budget_per_asset": 1000,
+    "preventive_pause_at": 900,
+    "cpu_limit": 2,
+    "container": "ephemeral; removed after run",
+    "history": "read-only",
+    "writes": "academia/runtime only"
+  },
+  "results": {
+    "EUR/USD": {
+      "status": "COMPLETED_DATABANK_FULL",
+      "generated": 242,
+      "accepted": 40,
+      "rejected": 202,
+      "failed": 0,
+      "budget_compliant": true,
+      "artifact_contract": "40/40",
+      "artifact_set_sha256": "4e2eb37afb886a5721b489b4eb5b8cc46cd777576812ad79697d03aac6f968f6"
+    },
+    "XAU/USD": {
+      "status": "COMPLETED_DATABANK_FULL",
+      "generated": 284,
+      "accepted": 40,
+      "rejected": 244,
+      "failed": 0,
+      "budget_compliant": true,
+      "artifact_contract": "40/40",
+      "artifact_set_sha256": "6e1c2a0c10926b7fdf8098cc58e7cff1245d764f2b0748edfafa4bb2a2cd18d9"
+    },
+    "US500/USD": {
+      "status": "NOT_STARTED_UNRESOLVED_RESOURCES",
+      "generated": 0,
+      "accepted": 0,
+      "failed": 0,
+      "preflight": "tasks=1; hasUnresolvedResources=true",
+      "diagnostic": "project/checkResources returned empty missing Symbols/Sessions, so load-as-is was not applied blindly"
+    }
+  },
+  "artifact_contract": {
+    "required_tokens": ["EnterAtStop", "Highest", "Lowest", "ATR"],
+    "passed": 80,
+    "checked": 80
+  },
+  "configuration_defect": "Aquesta rèplica V1 conserva FixedSize=1 i no aplica el gate de drawdown 15% dins SQ; els artifacts no són candidats promocionables.",
+  "concurrent_evidence": {
+    "prior_v1": "academia/experiments/observations/ostium-500-pilot-3asset-v1-results-2026-08.json",
+    "risk1_v2": "academia/experiments/observations/ostium-500-pilot-2asset-atr-risk1-v2-results-2026-08.json",
+    "validation_v3": "academia/experiments/observations/ostium-atr-risk1-validation-v3-results-2026-08.json",
+    "warning": "La validació de costos V3 usa capital 200 USDC; no respon encara exactament la pregunta congelada de 500 USDC."
+  },
+  "validation_accessed": false,
+  "holdout_accessed": false,
+  "decision": "ARCHIVE_DUPLICATE_V1_DO_NOT_PROMOTE",
+  "interpretation": "EURUSD i XAU repliquen cablejat i cobertura de l'arquitectura R2, no edge ni superioritat de cartera. US500 és una fallada de preparació, no una família rebutjada. Els 80 artifacts d'aquesta rèplica no entren a V2/V3 ni augmenten el pressupost de selecció.",
+  "next": "Recalcular dins academia l'economia dels supervivents V3 amb 500 USDC abans de decidir si la família queda rebutjada per a l'objectiu actual; no obrir holdout."
+}

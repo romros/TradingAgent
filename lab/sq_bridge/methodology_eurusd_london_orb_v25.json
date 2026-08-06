@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "methodology_id": "eurusd-london-orb-v25",
+  "status": "PREREGISTERED",
+  "hypothesis": "A confirmed break of the early London range can continue far enough within the same session to cover Ostium costs without rollover.",
+  "data": "BrokerageService Dukascopy EURUSD M1 aggregated to M15; Europe/London DST",
+  "splits": {
+    "train": ["2007-01-01", "2014-12-31"],
+    "validation": ["2015-01-01", "2018-12-31"],
+    "oos": ["2019-01-01", "2023-12-31"],
+    "sealed_holdout": ["2024-01-01", "2026-08-01"]
+  },
+  "search": {
+    "range_minutes": [30, 60, 120],
+    "buffer_range_fraction": [0.0, 0.1],
+    "stop_range_fraction": [0.75, 1.0],
+    "reward_risk": [1.0, 1.5, 2.0],
+    "side": ["long", "short"],
+    "variants": 72,
+    "selection": "highest train stress expectancy among variants passing train gates"
+  },
+  "execution": {
+    "signal": "M15 close beyond range plus buffer",
+    "entry": "next M15 open",
+    "latest_signal_london_hour": 11,
+    "forced_exit_london_hour": 16,
+    "ambiguous_bar_policy": "stop_first",
+    "maximum_trades_per_day": 1,
+    "rollover": "none_by_contract"
+  },
+  "economics": {
+    "capital_usdc": 200,
+    "risk_per_trade_pct": 1,
+    "opening_oracle_usdc": 0.1,
+    "roundtrip_bps": {"base": 4.5, "conservative": 7.0, "stress": 10.0}
+  },
+  "gates": {
+    "train_minimum_trades": 160,
+    "validation_minimum_trades": 80,
+    "oos_minimum_trades": 100,
+    "minimum_base_profit_factor": 1.15,
+    "minimum_stress_profit_factor": 1.02,
+    "minimum_stress_expectancy_usdc": 0.02,
+    "minimum_positive_year_ratio": 0.6,
+    "maximum_drawdown_pct": 20
+  },
+  "sq_policy": "Only create an SQ campaign if the single frozen Python finalist passes validation and OOS.",
+  "holdout_policy": "Do not inspect the sealed holdout during this campaign."
+}

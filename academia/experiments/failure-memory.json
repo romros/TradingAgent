@@ -2,6 +2,16 @@
   "schema_version": 1,
   "entries": [
     {
+      "id": "eurusd_london_orb_v25_20260806",
+      "family": "eurusd_london_opening_range_breakout",
+      "decision": "REJECT",
+      "failure_code": "TEMPORAL_FAIL",
+      "lesson": "Zero of 72 preregistered same-session London ORB variants pass the train gates after small-account Ostium costs.",
+      "do_not_repeat": "Do not relax costs, sample or range parameters to rescue the family.",
+      "next_direction": "Change mechanism or asset while retaining the early same-session economics gate.",
+      "evidence": "academia/experiments/observations/eurusd-london-orb-v25-2026-08.json"
+    },
+    {
       "id": "alquimia_eurusd_h4_cost_fail_20260802",
       "family": "eurusd_h4_trend_reversion_v1", "decision": "REJECT",
       "failure_code": "TEMPORAL_PASS_COST_FAIL",

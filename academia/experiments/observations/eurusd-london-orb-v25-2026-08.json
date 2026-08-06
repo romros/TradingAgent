@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "campaign_id": "eurusd-london-orb-v25-2026-08",
+  "family": "eurusd_london_opening_range_breakout",
+  "source_artifacts": [
+    {
+      "path": "lab/sq_bridge/evidence/eurusd_london_orb_v25_preflight.json",
+      "role": "python_preflight"
+    },
+    {
+      "path": "lab/sq_bridge/methodology_eurusd_london_orb_v25.json",
+      "role": "preregistered_methodology"
+    }
+  ],
+  "observations": {
+    "symbol": "EURUSD",
+    "source": "Dukascopy M1 aggregated to M15",
+    "variants_attempted": 72,
+    "train_eligible": 0,
+    "train_period": ["2007-01-01", "2014-12-31"],
+    "validation_period": ["2015-01-01", "2018-12-31"],
+    "oos_period": ["2019-01-01", "2023-12-31"],
+    "holdout": "2024-01-01 to 2026-08-01 sealed and not loaded",
+    "economics": "200 USDC, 1% risk, 0.10 USDC oracle and 4.5/7/10 bps; forced same-day exit",
+    "sqcli_used": false
+  },
+  "assessment": {
+    "decision": "REJECT_NO_SQCLI",
+    "failure_code": "TEMPORAL_FAIL",
+    "reason": "No frozen variant passes the train sample, stability, drawdown and stressed-cost gates.",
+    "do_not_repeat": "Do not relax costs or optimize the London range parameters after observing this rejection.",
+    "next_direction": "Change mechanism or asset; retain same-session economics as an early gate.",
+    "evidence_status": "tested"
+  }
+}

@@ -58,5 +58,15 @@
   "prior_failure_ids": ["ostium_500_atr_stop_channel_20260806"],
   "difference_from_prior": "Canvia simultàniament la font d'edge i l'horitzó de captura: contracció-expansió D1 amb menys rotació, no més variants del stop-channel ATR H4 rebutjat.",
   "holdout_policy": {"maximum_reads": 1, "open_only_after_all_pre_holdout_gates": true, "no_refit_after_result": true},
-  "status": "PREREGISTERED_NEEDS_SQ_CONTRACT_PREPARATION"
+  "projects": {
+    "EURUSD": {"name": "ACADEMIA_OSTIUM_EURUSD_D1_VOL_EXP_V1", "sha256": "099dbe7fd8acddbb1e75c29c9e46aad22f1e73291196b75836ccf4550e6e4a44"},
+    "XAUUSD": {"name": "ACADEMIA_OSTIUM_XAUUSD_D1_VOL_EXP_V1", "sha256": "445f73c21a4cc3db695389a9dbda18cf07f9a785ecc045f92e1dbb1e9f471f77"}
+  },
+  "post_generation_contract": {
+    "required_contraction_tokens_any": ["ATRChangesDown", "ATRFalling"],
+    "required_breakout_tokens_any": ["BBBarClosesAboveUp", "BBBarClosesBelowDown"],
+    "required_risk_tokens": ["ATR", "StopLoss"],
+    "note": "Els blocs permesos limiten la cerca, però cada artifact s'ha d'inspeccionar: disponibilitat no demostra que el mecanisme s'hagi usat."
+  },
+  "status": "PREREGISTERED_PROJECTS_PREPARED_NOT_EXECUTED"
 }

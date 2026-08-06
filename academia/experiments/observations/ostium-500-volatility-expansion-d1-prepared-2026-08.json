@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "observation_id": "ostium-500-volatility-expansion-d1-prepared-2026-08",
+  "observed_at": "2026-08-06",
+  "result": "SQ_PROJECT_CONTRACT_PREPARED",
+  "projects": [
+    {"symbol": "EUR/USD", "project": "ACADEMIA_OSTIUM_EURUSD_D1_VOL_EXP_V1", "sha256": "099dbe7fd8acddbb1e75c29c9e46aad22f1e73291196b75836ccf4550e6e4a44"},
+    {"symbol": "XAU/USD", "project": "ACADEMIA_OSTIUM_XAUUSD_D1_VOL_EXP_V1", "sha256": "445f73c21a4cc3db695389a9dbda18cf07f9a785ecc045f92e1dbb1e9f471f77"}
+  ],
+  "contract": {
+    "period": "2017-01-01/2021-12-31",
+    "timeframe": "D1",
+    "market_sides": "both symmetric",
+    "entry_conditions": 2,
+    "allowed_signals": ["ATRChangesDown", "ATRFalling", "BBBarClosesAboveUp", "BBBarClosesBelowDown"],
+    "order_type": "EnterAtMarket",
+    "stop": "ATR 1.5-4.0, period 10-50",
+    "exit": "ExitAfterBars plus required stop loss",
+    "risk_per_trade_pct": 1,
+    "maximum_drawdown_pct": 15,
+    "crosschecks": "disabled during cheap generation",
+    "accepted_target_per_symbol": 20,
+    "attempt_budget_per_symbol": 500
+  },
+  "important_limit": "Dues condicions i un allowlist estret no garanteixen que cada estratègia combini contracció i breakout; l'artifact postgeneració ha de contenir almenys un token de cada grup.",
+  "holdout_accessed": false,
+  "sqcli_used": false,
+  "decision": "READY_FOR_CHEAP_GENERATION",
+  "next": "Executar un símbol cada vegada amb límit dur de 500 intents, auditar tots els artifacts i aplicar costos a 500 USDC abans de qualsevol prova cara."
+}

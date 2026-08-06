@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "observation_id": "ostium-500-volatility-expansion-d1-cheap-results-2026-08",
+  "observed_at": "2026-08-06",
+  "campaign": "ostium-500-volatility-expansion-d1-v1",
+  "holdout_accessed": false,
+  "results": {
+    "EURUSD": {
+      "generated": 450,
+      "accepted_by_sq": 15,
+      "rejected_by_sq": 435,
+      "failed": 0,
+      "stop_reason": "ATTEMPT_WATERMARK",
+      "control_applied": true,
+      "budget_compliant": true,
+      "semantic_contract": {
+        "checked": 15,
+        "passed": 11,
+        "failed": 4,
+        "required": "at least one ATR contraction token, one Bollinger breakout token, ATR and StopLoss"
+      },
+      "artifact_set_sha256": "638659c7cc760e54e82850870db42cfc2c21adff44a95a1a7eb9c1714835abe4"
+    },
+    "XAUUSD": {
+      "generated": 0,
+      "accepted_by_sq": 0,
+      "failed": 0,
+      "running_status": 50,
+      "symptom": "El motor queda després de TASK STARTED sense emetre cap backtest ni actualització de progrés.",
+      "resource_preflight": "hasUnresolvedResources=false",
+      "first_timeout_seconds": 120,
+      "resume_attempts": 1,
+      "observed_cpu_pct_after_resume": 0.53,
+      "decision": "OPERATIONAL_BLOCK_NOT_STRATEGY_FAIL",
+      "control": "paused on timeout and manually stopped; zero attempts consumed"
+    }
+  },
+  "observed": "EURUSD produeix 15 acceptades dins 450 intents, però quatre no implementen el mecanisme complet malgrat l'allowlist. XAU no arriba al primer backtest.",
+  "inference": "El gate post-artifact és obligatori; la configuració de blocs permesos no prova ús efectiu. El bloqueig XAU no aporta evidència a favor ni en contra de la família.",
+  "decision": "CONTINUE_EURUSD_TO_CHEAP_COST_GATE_DIAGNOSE_XAU_SEPARATELY",
+  "not_allowed": [
+    "comptar les 15 EURUSD com a candidates del mecanisme",
+    "relaxar filtres per substituir les quatre fallades semàntiques",
+    "interpretar el bloqueig XAU com a fracàs de mercat",
+    "obrir validació o holdout abans del cost gate"
+  ],
+  "evidence": [
+    {"path": "academia/runtime/ostium-pilot/eurusd-d1-vol-exp-controller.jsonl", "sha256": "bb2dd6e5357e2fc4dc190f833211c8243d9b96dea31c58d3712796ac9a5d22f2"},
+    {"path": "academia/runtime/ostium-pilot/xauusd-d1-vol-exp-controller.jsonl", "sha256": "7ee61e91b71628e2f477143aa1637e600cbea0d3a750b01414d06aa1f90a69ed"},
+    {"path": "academia/runtime/build143-final-capability-tests/user/projects/ACADEMIA_OSTIUM_EURUSD_D1_VOL_EXP_V1/log/global_log_20260806_073803.log", "sha256": "e861986e1d65318377487b242ae94a94e22b4e253e476c9d8dd0a6b21884b806"},
+    {"path": "academia/runtime/build143-final-capability-tests/user/projects/ACADEMIA_OSTIUM_XAUUSD_D1_VOL_EXP_V1/log/global_log_20260806_074425.log", "sha256": "0a32639df63f2c1d29135534b0e090e676842543dfc456ba737a17dde7bc6ecc"}
+  ],
+  "next": "Aplicar un cost gate barat als 11 artifacts EURUSD contractualment vàlids; investigar XAU com a incidència de càrrega D1 sense canviar la hipòtesi."
+}

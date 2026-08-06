@@ -103,6 +103,7 @@ async def run(
                 })
                 if allow_control:
                     latest["pause_response"] = http_json(gui_url, "project/pause", {"projectName": project})
+                    latest["stop_response"] = http_json(gui_url, "project/stop", {"projectName": project})
                     latest["control_applied"] = True
                 else:
                     latest["control_applied"] = False

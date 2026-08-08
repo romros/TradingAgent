@@ -66,6 +66,16 @@
       "do_not_repeat": "No validar, fer Monte Carlo o obrir holdout per rescatar 0.292; no relaxar PF 1.10 per incloure el near-miss 0.206.",
       "next_direction": "Canviar mecanisme o mercat i exigir repartiment per anys i direccions abans de la validació temporal cara.",
       "evidence": "academia/experiments/observations/ostium-500-volatility-expansion-d1-cost-gate-2026-08.json"
+    },
+    {
+      "id": "ostium_500_xauusd_d1_vol_expansion_20260808",
+      "family": "xauusd_d1_volatility_expansion",
+      "decision": "NO_CANDIDATE",
+      "failure_code": "TEMPORAL_FAIL",
+      "lesson": "Després de proporcionar una caché D1 writable específica del símbol, SQ executa 450 intents XAUUSD sense errors però no n'accepta cap amb els gates congelats.",
+      "do_not_repeat": "No confondre el bloqueig previ de caché amb evidència de mercat i no relaxar els filtres després de 0/450 acceptades.",
+      "next_direction": "Canviar mecanisme; conservar l'overlay per símbol quan History global sigui read-only i falti el timeframe derivat.",
+      "evidence": "academia/experiments/observations/ostium-500-xau-d1-overlay-and-generation-2026-08.json"
     }
   ]
 }

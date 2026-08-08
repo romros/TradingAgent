@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "observation_id": "ostium-500-xau-d1-overlay-and-generation-2026-08",
+  "observed_at": "2026-08-08",
+  "campaign": "ostium-500-volatility-expansion-d1-v1",
+  "incident": {
+    "original_symptom": "XAUUSD remained at running_status 50 with zero generated strategies and no engine progress.",
+    "fresh_runtime_reproduction": {"generated": 0, "timeout_seconds": 120, "control_applied": true},
+    "observed_files_before": ["M1.dat", "H1.dat", "H4.dat"],
+    "missing_file": "XAUUSD_M1_dukasXAUUSD_M1_dukas_NYclose_D1.dat",
+    "constraint": "The global History mount was read-only.",
+    "root_cause": "SQ needed to create the derived D1 cache but the symbol directory was read-only."
+  },
+  "resolution": {
+    "global_history": "kept read-only",
+    "writable_scope": "only the XAUUSD symbol directory copied under academia/runtime/history-overlays",
+    "bytes_copied_approx": 184000000,
+    "derived_file_created": true,
+    "derived_file_sha256": "49fcc3cb6d522fda5272f7fd6772a086bf43d53358685405067d776bac961009"
+  },
+  "generation": {
+    "attempt_budget": 500,
+    "preventive_watermark": 450,
+    "generated": 450,
+    "accepted": 0,
+    "rejected": 450,
+    "failed": 0,
+    "reason": "ATTEMPT_WATERMARK",
+    "control_applied": true,
+    "budget_compliant": true
+  },
+  "separation_of_claims": {
+    "operational": "The symbol-level writable overlay fixes D1 cache generation without making the full history writable.",
+    "market": "With the operational issue removed, this frozen XAUUSD D1 volatility-expansion search produced no candidate in 450 attempts.",
+    "not_proven": "This does not prove that every XAUUSD volatility-expansion formulation lacks edge."
+  },
+  "holdout_accessed": false,
+  "decision": "CLOSE_XAU_BRANCH_NO_CANDIDATE",
+  "evidence": [
+    {"path": "academia/runtime/ostium-pilot/xauusd-d1-vol-exp-repro-controller.jsonl", "sha256": "350f13b9b83c68d2b3800e72754d0679394f2f7b39bc6e36bebd35ba75b699b8"},
+    {"path": "academia/runtime/ostium-pilot/xauusd-d1-vol-exp-overlay-controller.jsonl", "sha256": "f73e1cc4c74d743e64a330f49ef35803e64417674c70d1d70f870e4831335985"},
+    {"path": "academia/runtime/build143-final-capability-tests/user/projects/ACADEMIA_OSTIUM_XAUUSD_D1_VOL_EXP_V1/log/global_log_20260808_065917.log", "sha256": "1c1571350ec56d79363bc4752f382976adad0d49dde942c3245a9abc2bd71c33"}
+  ],
+  "next": "Do not spend validation or robustness budget on this branch; choose a genuinely different mechanism while preserving the cache-overlay preflight."
+}

@@ -25,3 +25,11 @@ un runtime copy-on-write i no convertir-la en servei permanent.
 La paritat no és «el codi compila». Exportar ordres SQ i ordres del motor destí,
 i executar `academia/tools/compare_order_parity.py` amb toleràncies declarades.
 Qualsevol diferència de senyal, temps, preu o mida és una fallada a explicar.
+
+Quan `History` es munta read-only, comprovar abans d'executar que existeix el
+fitxer del timeframe derivat (`H4.dat`, `D1.dat`, etc.). Si falta, no fer writable
+tot l'històric: copiar només el directori del símbol a `academia/runtime/`, muntar
+aquest fill com a overlay writable i mantenir el pare read-only. Verificar que SQ
+crea el fitxer derivat abans d'interpretar el resultat. Un projecte aturat a
+`running_status=50`, zero intents i CPU gairebé inactiva és incidència operativa,
+no una prova que la família falli.

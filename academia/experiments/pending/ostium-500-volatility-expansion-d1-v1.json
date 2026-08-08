@@ -82,5 +82,10 @@
     "cancelled": true,
     "reason": "El candidat falla abans el criteri preregistrat de concentració per any i direcció."
   },
-  "status": "EURUSD_REJECTED_BEFORE_VALIDATION_XAU_OPERATIONALLY_UNRESOLVED"
+  "status": "CLOSED_NO_CANDIDATE",
+  "final_decision": {
+    "EURUSD": "REJECTED_BEFORE_VALIDATION_COST_AND_CONCENTRATION",
+    "XAUUSD": "NO_ACCEPTED_STRATEGY_IN_450_BUDGETED_ATTEMPTS",
+    "holdout_accessed": false
+  }
 }

@@ -29,18 +29,26 @@ el rebut, els hashes i els experiments reproduïbles.
 
 ### Economia Ostium confirmada
 
-- Comissió d'obertura publicada: 3 bps sobre nocional.
+- La consulta anterior de documentació indicava 3 bps i 200x; queda **obsoleta**
+  per a decisions actuals.
+- Captura read-only de l'SDK oficial `@ostium/builder-sdk 0.7.0` el 08/08/2026:
+  fee d'obertura 1 bp, tancament 0, leverage màxim 100x, mínim nocional 5 USD i
+  `overnightMaxLeverage=0` (cap restricció overnight segons els tipus de l'SDK).
 - Comissió de tancament: 0 bps.
 - Oracle: 0,10 USDC; es retorna després d'un tancament complet reeixit.
 - Execució bid/ask: el spread s'ha d'afegir al backtest.
 - Rollover continu: per als índexs depèn de SOFR més prima de carry.
-- Palanquejament màxim publicat: 200x. És un límit del venue, no una recomanació.
+- En la captura amb mercat tancat: spread 0,9672 bps i impacte simulat 0,4836
+  bps entre 10 i 1.000 USD de nocional. Són una observació, no percentils de sessió.
+- Rollover live per 8 h en aquella captura: long −0,0052122% (cobra) i short
+  +0,00154884% (paga); pot canviar amb el mercat.
 - Horari publicat: diumenge 18:00 ET fins divendres 17:00 ET, amb pausa diària
   17:00–18:00 ET. La sèrie Dukascopy disponible és principalment sessió americana.
 
-Per a recerca s'han congelat escenaris totals de 8, 15 i 30 bps. Encara falten
-spread i slippage observats per franja, `getPairs()` normalitzat i rollover
-long/short live abans de paper.
+Per a recerca es mantenen els escenaris totals conservadors de 8, 15 i 30 bps.
+`getPairs()`, slippage i rollover ja es capturen, però encara falten almenys 30
+mostres amb mercat obert, tres dies i sis hores UTC diferents abans de congelar
+percentils base/conservador/estrès. Paper continua bloquejat.
 
 ## Famílies provades
 
@@ -111,11 +119,9 @@ fins tenir expectativa OOS neta, drawdown, freqüència i risc de ruïna.
 
 **Mesurar l'economia live d'SPX/USD abans d'obrir una quarta família:**
 
-1. capturar `getPairs()` normalitzat;
-2. registrar bid, ask i spread per franges de sessió;
-3. consultar slippage simulat als notionals previstos;
-4. capturar rollover long/short;
-5. congelar aquests valors en els escenaris base, conservador i estrès.
+1. executar `scripts/capture_ostium_spx_economics.sh` durant mercat obert;
+2. arribar a 30 mostres, tres dies i sis hores UTC diferents;
+3. congelar p50/p95/màxim de spread i slippage en els escenaris de costos.
 
 Després cal formular un mecanisme econòmic nou. No s'han de tornar a ajustar RSI,
 EMA, gap, opening drive o compressió per rescatar els experiments descartats.
@@ -125,6 +131,8 @@ EMA, gap, opening drive o compressió per rescatar els experiments descartats.
 - Dades: `lab/sq_bridge/evidence/sp_m1_dukas_utc_2012_2026_source.json`
 - Mapping: `lab/sq_bridge/evidence/spxusd_sq_ostium_parity_2026_extended_common.json`
 - Economia: `lab/sq_bridge/spxusd_execution_economics.py`
+- Capturador: `scripts/capture_ostium_spx_economics.sh`
+- Gate agregat: `lab/sq_bridge/evidence/spxusd_ostium_execution_summary_latest.json`
 - Sessió v1: `lab/sq_bridge/spx_m15_session_screen_v1.py`
 - Compressió v2: `lab/sq_bridge/spx_m15_compression_expansion_v2.py`
 - Pullback v3: `lab/sq_bridge/spx_m15_trend_pullback_v3.py`
@@ -135,6 +143,5 @@ EMA, gap, opening drive o compressió per rescatar els experiments descartats.
 1. Llegir aquest document i `docs/ESTAT.md`.
 2. No executar les tres famílies descartades amb paràmetres nous.
 3. Verificar que l'exportació/parquet coincideixi amb els hashes versionats.
-4. Completar la captura live d'economia d'execució.
+4. Completar el gate de captures amb mercat obert; no comptar mostres tancades.
 5. Preregistrar una sola hipòtesi nova abans de consultar 2019–2022 o 2026.
-

@@ -1,0 +1,133 @@
+{
+  "captured_at": "2026-08-08T19:32:36.727Z",
+  "fees": {
+    "close_fee_bps": 0.0,
+    "open_fee_bps": 1.0,
+    "rollover_fee_per_block_native": "2.93447699e-10",
+    "rollover_long_pct_per_8h": -0.0052121974924799995,
+    "rollover_short_pct_per_8h": 0.00154883749248
+  },
+  "instrument": {
+    "category": "indices",
+    "pair_from": "US500",
+    "pair_id": "10",
+    "pair_to": "USD"
+  },
+  "interpretation": {
+    "paper_gate": "BLOCKED_UNTIL_OPEN_MARKET_TIME_SERIES",
+    "slippage_unit_status": "VERIFIED_PERCENT_FROM_SDK_TYPES_AND_FORMULAE",
+    "spread_status": "OBSERVED_SINGLE_SNAPSHOT"
+  },
+  "limits": {
+    "max_buy_size": 3760.938689514797,
+    "max_leverage": 100.0,
+    "max_short_size": 3779.159469627751,
+    "min_notional_usd": 5.0,
+    "min_size": 0.000644803251461147,
+    "overnight_max_leverage": 0.0,
+    "overnight_zero_means_unrestricted": true
+  },
+  "market_state": {
+    "is_day_trading_closed": true,
+    "is_market_open": false,
+    "schedule": {
+      "id": 5,
+      "openingHours": [
+        "Mo-Th 00:00-16:59,18:00-24:00",
+        "Fr 00:00-16:59",
+        "Su 18:00-24:00"
+      ],
+      "timezone": "America/New_York"
+    },
+    "seconds_to_toggle_day_trading": -1
+  },
+  "quote": {
+    "ask": 7754.67833,
+    "bid": 7753.92833,
+    "mid": 7754.30333,
+    "spread_bps": 0.9672048771917207
+  },
+  "schema_version": 1,
+  "simulated_slippage": {
+    "long": [
+      {
+        "notional_usd": 10.0,
+        "slippage_bps": 0.48360243859585994,
+        "slippage_pct": 0.0048360243859586
+      },
+      {
+        "notional_usd": 20.0,
+        "slippage_bps": 0.48360243859585994,
+        "slippage_pct": 0.0048360243859586
+      },
+      {
+        "notional_usd": 50.0,
+        "slippage_bps": 0.48360243859585994,
+        "slippage_pct": 0.0048360243859586
+      },
+      {
+        "notional_usd": 100.0,
+        "slippage_bps": 0.48360243859585994,
+        "slippage_pct": 0.0048360243859586
+      },
+      {
+        "notional_usd": 200.0,
+        "slippage_bps": 0.48360243859585994,
+        "slippage_pct": 0.0048360243859586
+      },
+      {
+        "notional_usd": 500.0,
+        "slippage_bps": 0.48360243859585994,
+        "slippage_pct": 0.0048360243859586
+      },
+      {
+        "notional_usd": 1000.0,
+        "slippage_bps": 0.48360243859585994,
+        "slippage_pct": 0.0048360243859586
+      }
+    ],
+    "short": [
+      {
+        "notional_usd": 10.0,
+        "slippage_bps": 0.48360243859585994,
+        "slippage_pct": 0.0048360243859586
+      },
+      {
+        "notional_usd": 20.0,
+        "slippage_bps": 0.48360243859585994,
+        "slippage_pct": 0.0048360243859586
+      },
+      {
+        "notional_usd": 50.0,
+        "slippage_bps": 0.48360243859585994,
+        "slippage_pct": 0.0048360243859586
+      },
+      {
+        "notional_usd": 100.0,
+        "slippage_bps": 0.48360243859585994,
+        "slippage_pct": 0.0048360243859586
+      },
+      {
+        "notional_usd": 200.0,
+        "slippage_bps": 0.48360243859585994,
+        "slippage_pct": 0.0048360243859586
+      },
+      {
+        "notional_usd": 500.0,
+        "slippage_bps": 0.48360243859585994,
+        "slippage_pct": 0.0048360243859586
+      },
+      {
+        "notional_usd": 1000.0,
+        "slippage_bps": 0.48360243859585994,
+        "slippage_pct": 0.0048360243859586
+      }
+    ]
+  },
+  "source": {
+    "mode": "read-only",
+    "package": "@ostium/builder-sdk",
+    "raw_sha256": "ec69cec6c333f7931418742ac81fcfc3279eb4d3ce3f28ec47d045533dac1c89",
+    "version": "0.7.0"
+  }
+}

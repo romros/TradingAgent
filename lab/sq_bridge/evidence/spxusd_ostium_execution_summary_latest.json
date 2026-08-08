@@ -1,0 +1,35 @@
+{
+  "all_valid_snapshots": 3,
+  "gate": {
+    "checks": {
+      "distinct_utc_days": {
+        "actual": 0,
+        "pass": false,
+        "required": 3
+      },
+      "distinct_utc_hours": {
+        "actual": 0,
+        "pass": false,
+        "required": 6
+      },
+      "open_samples": {
+        "actual": 0,
+        "pass": false,
+        "required": 30
+      }
+    },
+    "execution_economics": "INSUFFICIENT_OPEN_MARKET_EVIDENCE",
+    "paper": "BLOCKED"
+  },
+  "instrument": "Ostium US500/USD (pair 10)",
+  "observed_utc_days": [],
+  "observed_utc_hours": [],
+  "open_market_snapshots": 0,
+  "schema_version": 1,
+  "slippage_by_notional": {},
+  "spread_bps": {
+    "max": null,
+    "p50": null,
+    "p95": null
+  }
+}

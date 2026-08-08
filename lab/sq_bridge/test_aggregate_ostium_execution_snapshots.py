@@ -1,0 +1,42 @@
+import unittest
+
+from aggregate_ostium_execution_snapshots import aggregate, percentile
+
+
+def snapshot(at, opened, spread, slippage):
+    return {
+        "captured_at": at,
+        "instrument": {"pair_id": "10"},
+        "market_state": {"is_market_open": opened},
+        "quote": {"spread_bps": spread},
+        "simulated_slippage": {
+            "long": [{"notional_usd": 200, "slippage_bps": slippage}],
+            "short": [{"notional_usd": 200, "slippage_bps": slippage + 1}],
+        },
+    }
+
+
+class AggregateExecutionSnapshotsTest(unittest.TestCase):
+    def test_percentile_interpolates(self):
+        self.assertEqual(percentile([1, 2, 3], .5), 2)
+        self.assertEqual(percentile([], .95), None)
+
+    def test_closed_samples_do_not_satisfy_gate(self):
+        result = aggregate([snapshot("2026-08-08T10:00:00Z", False, 2, 1)],
+                           min_open_samples=1, min_days=1, min_utc_hours=1)
+        self.assertEqual(result["open_market_snapshots"], 0)
+        self.assertEqual(result["gate"]["execution_economics"], "INSUFFICIENT_OPEN_MARKET_EVIDENCE")
+
+    def test_diverse_open_samples_pass(self):
+        rows = [
+            snapshot("2026-08-08T10:00:00Z", True, 1, .5),
+            snapshot("2026-08-09T11:00:00Z", True, 3, 1.5),
+        ]
+        result = aggregate(rows, min_open_samples=2, min_days=2, min_utc_hours=2)
+        self.assertEqual(result["spread_bps"]["p50"], 2)
+        self.assertEqual(result["slippage_by_notional"]["200"]["long"]["p50_bps"], 1)
+        self.assertEqual(result["gate"]["execution_economics"], "PASS")
+
+
+if __name__ == "__main__":
+    unittest.main()

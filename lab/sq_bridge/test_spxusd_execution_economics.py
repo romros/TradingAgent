@@ -15,13 +15,17 @@ class SpxusdExecutionEconomicsTest(unittest.TestCase):
         self.assertEqual(row["risk_usdc"], 2)
         self.assertEqual(row["notional_usdc"], 400)
         self.assertEqual(row["effective_leverage_if_all_capital"], 2)
-        self.assertEqual(row["opening_fee_usdc"], 0.12)
-        self.assertEqual(row["breakeven_stress_oracle_not_refunded_bps"], 5.5)
+        self.assertEqual(row["opening_fee_usdc"], 0.04)
+        self.assertEqual(row["breakeven_stress_oracle_not_refunded_bps"], 3.5)
+        self.assertAlmostEqual(row["single_closed_snapshot_entry_cost_bps"], 2.450807)
 
-    def test_unknown_live_fields_block_paper(self):
+    def test_single_closed_snapshot_still_blocks_paper(self):
         result = audit()
         self.assertEqual(result["gates"]["paper"], "BLOCKED")
-        self.assertIsNone(result["scenario_assumptions"]["spread_bps"])
+        self.assertAlmostEqual(
+            result["scenario_assumptions"]["single_closed_snapshot_spread_bps"], 0.9672048772
+        )
+        self.assertIn("measured bid-ask distribution", " ".join(result["gates"]["missing"]))
 
 
 if __name__ == "__main__":

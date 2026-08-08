@@ -2,11 +2,14 @@
   "schema_version": 1,
   "instrument": "Ostium SPX/USD (UI: US500/USD)",
   "facts": {
-    "opening_fee_bps": 3.0,
+    "opening_fee_bps": 1.0,
     "closing_fee_bps": 0.0,
     "oracle_fee_usdc": 0.1,
     "oracle_refund_condition": "successful full close",
-    "documented_max_leverage": 200.0,
+    "live_snapshot_max_leverage": 100.0,
+    "live_snapshot_min_notional_usd": 5.0,
+    "live_snapshot_overnight_max_leverage": 0.0,
+    "overnight_zero_means_unrestricted": true,
     "bid_ask_execution": true,
     "market_schedule_et": "Sunday 18:00 through Friday 17:00; daily 17:00-18:00 break"
   },
@@ -17,8 +20,9 @@
       5.6
     ],
     "rollover_basis": "SOFR 3.60% snapshot + documented 1-2% carry premium; not a live pair rate",
-    "spread_bps": null,
-    "slippage_bps": null
+    "single_closed_snapshot_spread_bps": 0.9672048772,
+    "single_closed_snapshot_slippage_bps": 0.4836024386,
+    "snapshot_warning": "market closed; do not use as an open-session distribution"
   },
   "sizing_examples": [
     {
@@ -28,12 +32,13 @@
       "notional_usdc": 200.0,
       "collateral_if_all_capital_usdc": 200.0,
       "effective_leverage_if_all_capital": 1.0,
-      "opening_fee_usdc": 0.06,
+      "opening_fee_usdc": 0.02,
       "oracle_fee_refunded_full_close_usdc": 0.0,
       "oracle_fee_failed_or_partial_action_usdc": 0.1,
-      "breakeven_confirmed_cost_bps": 3.0,
-      "breakeven_stress_oracle_not_refunded_bps": 8.0,
-      "liquidation_distance_pct": 99.875
+      "breakeven_confirmed_cost_bps": 1.0,
+      "single_closed_snapshot_entry_cost_bps": 2.450807,
+      "breakeven_stress_oracle_not_refunded_bps": 6.0,
+      "liquidation_distance_pct": 99.75
     },
     {
       "capital_usdc": 200.0,
@@ -42,12 +47,13 @@
       "notional_usdc": 400.0,
       "collateral_if_all_capital_usdc": 200.0,
       "effective_leverage_if_all_capital": 2.0,
-      "opening_fee_usdc": 0.12,
+      "opening_fee_usdc": 0.04,
       "oracle_fee_refunded_full_close_usdc": 0.0,
       "oracle_fee_failed_or_partial_action_usdc": 0.1,
-      "breakeven_confirmed_cost_bps": 3.0,
-      "breakeven_stress_oracle_not_refunded_bps": 5.5,
-      "liquidation_distance_pct": 49.875
+      "breakeven_confirmed_cost_bps": 1.0,
+      "single_closed_snapshot_entry_cost_bps": 2.450807,
+      "breakeven_stress_oracle_not_refunded_bps": 3.5,
+      "liquidation_distance_pct": 49.75
     },
     {
       "capital_usdc": 200.0,
@@ -56,12 +62,13 @@
       "notional_usdc": 800.0,
       "collateral_if_all_capital_usdc": 200.0,
       "effective_leverage_if_all_capital": 4.0,
-      "opening_fee_usdc": 0.24,
+      "opening_fee_usdc": 0.08,
       "oracle_fee_refunded_full_close_usdc": 0.0,
       "oracle_fee_failed_or_partial_action_usdc": 0.1,
-      "breakeven_confirmed_cost_bps": 3.0,
-      "breakeven_stress_oracle_not_refunded_bps": 4.25,
-      "liquidation_distance_pct": 24.875
+      "breakeven_confirmed_cost_bps": 1.0,
+      "single_closed_snapshot_entry_cost_bps": 2.450807,
+      "breakeven_stress_oracle_not_refunded_bps": 2.25,
+      "liquidation_distance_pct": 24.75
     },
     {
       "capital_usdc": 500.0,
@@ -70,12 +77,13 @@
       "notional_usdc": 500.0,
       "collateral_if_all_capital_usdc": 500.0,
       "effective_leverage_if_all_capital": 1.0,
-      "opening_fee_usdc": 0.15,
+      "opening_fee_usdc": 0.05,
       "oracle_fee_refunded_full_close_usdc": 0.0,
       "oracle_fee_failed_or_partial_action_usdc": 0.1,
-      "breakeven_confirmed_cost_bps": 3.0,
-      "breakeven_stress_oracle_not_refunded_bps": 5.0,
-      "liquidation_distance_pct": 99.875
+      "breakeven_confirmed_cost_bps": 1.0,
+      "single_closed_snapshot_entry_cost_bps": 2.450807,
+      "breakeven_stress_oracle_not_refunded_bps": 3.0,
+      "liquidation_distance_pct": 99.75
     },
     {
       "capital_usdc": 500.0,
@@ -84,12 +92,13 @@
       "notional_usdc": 1000.0,
       "collateral_if_all_capital_usdc": 500.0,
       "effective_leverage_if_all_capital": 2.0,
-      "opening_fee_usdc": 0.3,
+      "opening_fee_usdc": 0.1,
       "oracle_fee_refunded_full_close_usdc": 0.0,
       "oracle_fee_failed_or_partial_action_usdc": 0.1,
-      "breakeven_confirmed_cost_bps": 3.0,
-      "breakeven_stress_oracle_not_refunded_bps": 4.0,
-      "liquidation_distance_pct": 49.875
+      "breakeven_confirmed_cost_bps": 1.0,
+      "single_closed_snapshot_entry_cost_bps": 2.450807,
+      "breakeven_stress_oracle_not_refunded_bps": 2.0,
+      "liquidation_distance_pct": 49.75
     },
     {
       "capital_usdc": 500.0,
@@ -98,12 +107,13 @@
       "notional_usdc": 2000.0,
       "collateral_if_all_capital_usdc": 500.0,
       "effective_leverage_if_all_capital": 4.0,
-      "opening_fee_usdc": 0.6,
+      "opening_fee_usdc": 0.2,
       "oracle_fee_refunded_full_close_usdc": 0.0,
       "oracle_fee_failed_or_partial_action_usdc": 0.1,
-      "breakeven_confirmed_cost_bps": 3.0,
-      "breakeven_stress_oracle_not_refunded_bps": 3.5,
-      "liquidation_distance_pct": 24.875
+      "breakeven_confirmed_cost_bps": 1.0,
+      "single_closed_snapshot_entry_cost_bps": 2.450807,
+      "breakeven_stress_oracle_not_refunded_bps": 1.5,
+      "liquidation_distance_pct": 24.75
     }
   ],
   "carry_examples": [
@@ -143,10 +153,8 @@
     "paper": "BLOCKED",
     "live": "BLOCKED",
     "missing": [
-      "normalized live getPairs minSz/minNtl/maxLeverage/overnightMaxLeverage",
       "measured bid-ask distribution by session",
-      "measured slippage for intended notionals",
-      "live long/short rollover rate and direction",
+      "measured slippage distribution for intended notionals",
       "strategy stop distance and OOS MAE distribution"
     ]
   },

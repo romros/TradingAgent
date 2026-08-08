@@ -18,7 +18,7 @@
   ],
   "portfolio_sizes": [3, 4],
   "periods": {
-    "development": "2019-01-01/2021-12-31",
+    "development": "2019-10-01/2021-12-31",
     "validation": "2022-01-01/2025-07-31",
     "sealed_holdout": "2025-08-01/2026-07-31"
   },
@@ -26,7 +26,7 @@
     "search_may_start": true,
     "blocking_items": [],
     "us500_scope": "M15 research only; H1/H4, paper and live remain blocked",
-    "btc_scope": "M15 research from 2019 using a bounded non-redistributed exchange source; Ostium execution parity uses only the stable post-2024-10-02 segment",
+    "btc_scope": "M15 research from 2019-10-01 using the available SQ BTCUSDT series and bounded non-redistributed exchange corroboration; Ostium execution parity uses only the stable post-2024-10-02 segment",
     "btc_builder_history_policy": "Do not repair or use Ostium BTC daily candles before 2024-10-02; two independent exchanges reproduce the one-day mismatch against that segment.",
     "same_calendar_and_timezone": true,
     "continuity_and_duplicate_audit": true,

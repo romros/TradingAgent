@@ -12,7 +12,7 @@
   },
   "decision": "PASS_BTC_RESEARCH_FROM_2019_WITH_SOURCE_BOUNDARY",
   "reasoning": "Two independent exchanges agree during the usable development period and independently show the same discontinuity against old Ostium Builder candles. The anomaly is not repaired or used. Current execution parity is anchored only to the stable modern Ostium segment.",
-  "campaign_change": "Common development becomes 2019-01-01/2021-12-31 for all four assets.",
+  "campaign_change": "External source parity supports 2019 onward; the subsequent SQ catalog audit fixes the executable common development window to 2019-10-01/2021-12-31 because BTCUSDT starts on 2019-09-25.",
   "limitations": [
     "Discovery data is not execution data.",
     "Raw exchange candles are not redistributed or committed.",

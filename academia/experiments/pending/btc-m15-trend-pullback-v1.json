@@ -1,0 +1,30 @@
+{
+  "id": "btc-m15-trend-pullback-v1",
+  "family": "trend_pullback_ma_rsi",
+  "symbol": "BTCUSDT mapped to Ostium BTC/USD",
+  "timeframe": "M15",
+  "direction": "both",
+  "engine": "MetaTrader4 compatibility; Ostium costs repriced externally",
+  "periods": {"development": "2019-10-01/2021-12-31", "validation": "2022-01-01/2025-07-31", "sealed_holdout": "2025-08-01/2026-07-31"},
+  "mechanism": "Trade a short RSI pullback only in the direction of a moving-average state; use market entry, ATR-scaled protection and a bounded bar exit.",
+  "architecture": {"required_signal_families": ["MA", "RSI"], "entry": "market", "stop_loss": "ATR", "profit_target": "ATR", "time_exit_bars": [8, 32], "conditions": 2},
+  "builder_costs": {"spread_price_units": 5, "slippage_price_units": 5, "purpose": "non-zero cheap gate only"},
+  "external_costs": {"opening_fee_bps": 5, "oracle_fee_usdc": 0.1, "spread_slippage": "measured base and 2x stress", "rollover": "required by holding duration"},
+  "capital": {"amount": 500, "currency": "USDC", "risk_per_trade_pct": 1, "maximum_drawdown_pct": 15},
+  "attempt_budget": 300,
+  "attempt_control_watermark": 260,
+  "maximum_accepted": 20,
+  "minimum_trades_development": 150,
+  "cheap_gate": {"minimum_profit_factor": 1.1, "minimum_return_drawdown": 1.0},
+  "falsifier": "No artifact contains both MA and RSI semantics and survives development plus current Ostium base costs.",
+  "discard_criteria": [
+    "attempt budget cannot be observed and controlled",
+    "artifact lacks either MA or RSI semantics",
+    "artifact changes to a non-market entry or fixed-distance risk",
+    "fewer than 150 development trades",
+    "non-positive expectancy after current base costs",
+    "validation or sealed holdout is accessed during Builder"
+  ],
+  "prior_failures_avoided": ["intraday_fx_six_families_20260801", "ostium_500_atr_stop_channel_20260806", "spx_m15_compression_expansion_20260808"],
+  "frozen": true
+}

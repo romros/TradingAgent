@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "observation_id": "btc-m15-trend-pullback-preflight-2026-08",
+  "observed_at": "2026-08-08",
+  "campaign": "btc-m15-trend-pullback-v1",
+  "stage": "SQ_PROJECT_PREFLIGHT",
+  "prepared_project": "ACADEMIA_BTC_M15_TREND_PULLBACK_V1",
+  "runtime": "isolated copy-on-write under academia/runtime; global History read-only with BTCUSDT-only writable overlay",
+  "checks": {
+    "tasks": 1,
+    "attempt_budget": 300,
+    "attempt_control_watermark": 260,
+    "architecture_tokens_present": ["BTCUSDT", "BTCUSDOST", "M15", "MA", "RSI", "EnterAtMarket"],
+    "has_unresolved_resources": true
+  },
+  "diagnosis": {
+    "catalog_contract": "BTCUSDT is stored as a History M1 series with broker=-1 and orderSizeStep=0.",
+    "attempt_1": "Removed four inherited tasks from the template; tasks became exactly one but resources remained unresolved.",
+    "attempt_2": "Removed inherited additional charts; resources remained unresolved.",
+    "attempt_3": "Embedded an Ostium broker-12 BTCUSDOST execution instrument while retaining BTCUSDT as the data symbol; resources remained unresolved.",
+    "attempt_4": "Mapped BTCUSDT to BTCUSDOST and broker 12 only inside the copy-on-write data.db, without modifying prices or the global catalog; resources remained unresolved."
+  },
+  "decision": "BLOCKED_BEFORE_BUILDER",
+  "reason": "SQ explicitly reports unresolved resources; the operational contract forbids starting generation.",
+  "next": "Export/import BTC through SQ Data Manager as a native custom symbol in the isolated runtime, rather than patching catalog metadata; then require hasUnresolvedResources=false before reusing this frozen project.",
+  "attempts_observed": 0,
+  "validation_accessed": false,
+  "holdout_accessed": false,
+  "global_catalog_modified": false
+}

@@ -63,8 +63,8 @@ Quatre actius no són més diversos si comparteixen driver o si les comissions f
 el marge impedeixen executar-los. El manifest inicial és
 `experiments/pending/ostium-500-portfolio-3v4-v1.json`. Els manifests 3-vs-6 i 3-vs-5 es conserven com a traça de les decisions, no com a experiments actius.
 
-El període comú de desenvolupament comença el 2019 perquè BTC no té la mateixa
-cobertura 2017-2018. No s'omple el buit ni es compara una cartera de quatre actius
+El període comú de desenvolupament executable comença el 2019-10-01 perquè la
+sèrie BTC del catàleg SQ comença el 2019-09-25. No s'omple el buit ni es compara una cartera de quatre actius
 amb una de tres sobre finestres diferents. Per BTC, la font de descobriment ha de
 passar paritat creuada entre exchanges; el tram Ostium anterior a 2024-10-02 queda
 exclòs perquè dues fonts independents hi detecten el mateix canvi d'etiqueta diària.

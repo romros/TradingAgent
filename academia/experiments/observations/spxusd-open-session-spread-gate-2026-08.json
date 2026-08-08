@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "spxusd-open-session-spread-gate-2026-08",
+  "date": "2026-08-08",
+  "question": "Do available observations establish executable US500/USD spread costs across the trading session?",
+  "evidence": {
+    "stored_candles": "/mnt/volume-SQ/dev/BrokerageService/datafiles/realtime_datalayer/candles/SPXUSD/America_New_York/2026/07.csv",
+    "stored_fields": ["timestamp", "open", "high", "low", "close", "volume"],
+    "bid_ask_history_present": false,
+    "existing_snapshot_count": 1,
+    "existing_snapshot_market_state": "closed",
+    "existing_snapshot_spread_bps": 0.967204877,
+    "holdout_accessed": false
+  },
+  "finding": "OHLC candles cannot reconstruct executable bid/ask spread. One closed-market snapshot cannot estimate an open-session distribution.",
+  "frozen_collection_protocol": {
+    "instrument": "US500/USD",
+    "market_open_required": true,
+    "minimum_distinct_open_days": 3,
+    "session_windows": ["open", "midday", "close"],
+    "minimum_samples_per_window": 20,
+    "statistics": ["median", "p90", "p95", "maximum"],
+    "base_cost_input": "p50 spread plus confirmed fees and measured slippage",
+    "stress_cost_input": "max(2 * p50, p95) spread plus stressed fees/slippage",
+    "raw_feed_versioned": false,
+    "normalized_aggregate_versioned": true
+  },
+  "attempts": {"market_tests": 0, "reason": "measurement gate only; Saturday samples excluded"},
+  "decision": "BLOCK_NEW_SPX_SEARCH_UNTIL_MEASURED",
+  "next_test": "During the next three open US500 sessions, collect at least 20 normalized bid/mid/ask samples in each frozen session window and summarize them with academia/tools/summarize_execution_quotes.py."
+}

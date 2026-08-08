@@ -1,0 +1,19 @@
+{
+  "id": "eia_wti_front_future_2026",
+  "kind": "documentation",
+  "title": "EIA Cushing WTI crude oil future contract 1",
+  "url": "https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?f=d&n=pet&s=rclc1",
+  "author": "U.S. Energy Information Administration",
+  "published_at": null,
+  "accessed_at": "2026-08-08",
+  "language": "en",
+  "sq_version": null,
+  "source_level": "A_PRIMARY",
+  "domain": "market-data",
+  "rights_policy": "transformative_notes",
+  "metadata": {"keyless_xls": "https://www.eia.gov/dnav/pet/hist_xls/RCLC1d.xls", "observed_last_date": "2024-04-04"},
+  "chunks": [
+    {"locator": "series:identity", "heading": "Series identity", "body": "EIA identifies RCLC1 as Cushing, Oklahoma crude oil future contract 1 in dollars per barrel and exposes a keyless XLS history.", "evidence_status": "captured"},
+    {"locator": "local:coverage", "heading": "Campaign coverage failure", "body": "The downloaded daily workbook returned only 66 observations in 2024 through April 4 and none in the second validation window, so it cannot support the portfolio campaign.", "evidence_status": "captured"}
+  ]
+}

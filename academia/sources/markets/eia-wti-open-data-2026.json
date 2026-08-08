@@ -11,9 +11,9 @@
   "source_level": "A_PRIMARY",
   "domain": "market-data",
   "rights_policy": "transformative_notes",
-  "metadata": {"candidate_series": "DCOILWTICO / EIA WTI Cushing spot", "api_key_required_for_api_v2": true},
+  "metadata": {"candidate_series": "DCOILWTICO / EIA WTI Cushing spot", "api_key_required_for_api_v2": true, "keyless_xls": "https://www.eia.gov/dnav/pet/hist_xls/RWTCd.xls"},
   "chunks": [
     {"locator": "section:petroleum", "heading": "Coverage", "body": "EIA Open Data includes daily petroleum spot and futures prices and presents the service as free open data subject to its reuse policy.", "evidence_status": "captured"},
-    {"locator": "section:fit", "heading": "Campaign fit", "body": "WTI Cushing daily spot is a defensible discovery proxy for the economic driver, but it still requires overlap parity against Ostium CL-USD before candidate promotion.", "evidence_status": "captured"}
+    {"locator": "section:fit", "heading": "Campaign fit", "body": "WTI Cushing daily spot is downloadable without an API key, but the two-window audit failed parity against Ostium CL-USD. It must not be promoted as campaign OHLC.", "evidence_status": "captured"}
   ]
 }

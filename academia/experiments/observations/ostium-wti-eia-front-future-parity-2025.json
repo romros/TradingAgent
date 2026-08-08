@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "asset": "WTI/USD",
+  "proxy_source": "https://www.eia.gov/dnav/pet/hist_xls/RCLC1d.xls",
+  "proxy_series": "front-future",
+  "target_source": "https://builder.prod.bedrock.ostium.io/v1/ohlc",
+  "requested_window": "2024-10-02/2025-07-28",
+  "metrics": {
+    "proxy_count": 0,
+    "ostium_count": 254,
+    "common_days": 0,
+    "first_common": null,
+    "last_common": null,
+    "close_absolute_difference_bps_median": null,
+    "close_absolute_difference_bps_p95": null,
+    "daily_return_correlation": null,
+    "daily_return_correlation_by_target_day_lag": {
+      "-2": null,
+      "-1": null,
+      "0": null,
+      "1": null,
+      "2": null
+    },
+    "best_target_day_lag": null,
+    "aligned_daily_return_correlation": null,
+    "aligned_close_absolute_difference_bps_median": null,
+    "aligned_close_absolute_difference_bps_p95": null
+  },
+  "decision": "NO_OVERLAP",
+  "promotion_gate": "PENDING_THRESHOLDS_AND_SECOND_WINDOW",
+  "raw_candles_persisted": false,
+  "holdout_accessed": false
+}

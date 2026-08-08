@@ -29,7 +29,7 @@
     "raw_third_party_data_versioned": false,
     "us500_requires_rights_safe_source": true,
     "proxy_promotion_thresholds": {
-      "minimum_common_days_per_window": 250,
+      "minimum_common_days_per_window": {"continuous_markets": 250, "weekday_markets": 180},
       "minimum_aligned_daily_return_correlation": 0.95,
       "maximum_aligned_close_difference_bps_median": 100,
       "maximum_aligned_close_difference_bps_p95": 200,

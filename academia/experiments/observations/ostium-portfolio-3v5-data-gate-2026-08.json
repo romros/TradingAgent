@@ -26,9 +26,11 @@
     "interpretation": "The proxy is extremely close to Ostium in the later window, but Ostium's 2024 labels require a one-day shift and have materially wider price differences. Do not splice or normalize the history until the provider/session boundary is evidenced independently."
   },
   "wti": {
-    "source": "EIA WTI Cushing daily spot",
-    "gate": "BLOCKED_EIA_API_KEY_MISSING",
-    "next": "Run the same two-window in-memory parity audit when EIA_API_KEY is available; spot remains a discovery proxy, never execution OHLC."
+    "sources_tested": ["EIA WTI Cushing daily spot keyless XLS", "EIA Cushing crude oil future contract 1 keyless XLS"],
+    "gate": "FAIL_NO_KEY_ALTERNATIVES",
+    "spot_result": "Full coverage but failed correlation and price-distance thresholds in both windows.",
+    "front_future_result": "Semantically closer to CL-USD but the official workbook stopped at 2024-04-04 and has no second-window coverage.",
+    "next": "Seek another authorized continuous futures source or reduce the active universe again; an EIA API key is no longer requested."
   },
   "us500": {
     "gate": "BLOCKED_RIGHTS_SAFE_HISTORY_MISSING"

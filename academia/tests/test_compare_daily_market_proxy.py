@@ -1,5 +1,6 @@
 import sys
 import unittest
+from datetime import datetime
 from pathlib import Path
 
 
@@ -29,6 +30,18 @@ class CompareDailyMarketProxyTest(unittest.TestCase):
         result = proxy.compare({"2024-01-01": 100}, {"2024-01-01": 101})
         self.assertNotIn("candles", result)
         self.assertNotIn("closes", result)
+
+    def test_eia_sheet_parser_reads_excel_dates_and_filters_window(self):
+        serial = (datetime(2024, 1, 2).date() - datetime(1899, 12, 30).date()).days
+        xml = f'''<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetData>
+          <row r="1"><c r="A1" t="s"><v>1</v></c><c r="B1" t="s"><v>2</v></c></row>
+          <row r="2"><c r="A2" t="n"><v>{serial}</v></c><c r="B2" t="n"><v>72.5</v></c></row>
+        </sheetData></worksheet>'''.encode()
+        self.assertEqual(proxy.parse_eia_sheet(xml, "2024-01-01", "2024-01-03"), {"2024-01-02": 72.5})
+        self.assertEqual(proxy.parse_eia_sheet(xml, "2024-02-01", "2024-02-03"), {})
+
+    def test_no_overlap_is_not_reported_as_aligned(self):
+        self.assertEqual(proxy.alignment_decision(proxy.compare({}, {})), "NO_OVERLAP")
 
 
 if __name__ == "__main__":

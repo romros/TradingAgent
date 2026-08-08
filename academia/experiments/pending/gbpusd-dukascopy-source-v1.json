@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "campaign_id": "gbpusd-dukascopy-source-v1",
-  "status": "BLOCKED_SOURCE_ACCESS_OR_SQ_LICENSE",
+  "status": "SOURCE_READY_PRICE_MAPPING_PASS_EXECUTION_COVERAGE_BLOCK",
   "symbol": "GBPUSD",
   "purpose": "Prepare discovery, validation and OOS data without loading the sealed holdout.",
   "source": {
@@ -16,8 +16,8 @@
     "sealed_holdout": ["2024-01-01", "2026-08-01"]
   },
   "storage": {
-    "root": "data/research/dukascopy_m1",
-    "partition": "GBPUSD/tf=1m/year=YYYY/month=MM/data.csv.gz",
+    "root": "lab/out/market_sources",
+    "partition": "gbpusd_sq_m1_utc_2007_2023.parquet",
     "atomic": true,
     "resume": true,
     "sha256_per_month": true,
@@ -26,11 +26,13 @@
   "runner": "lab/sq_bridge/dukascopy_m1_archive.py",
   "command": "python3 lab/sq_bridge/dukascopy_m1_archive.py --root data/research/dukascopy_m1 --symbol GBPUSD --from-year 2007 --to-year 2023 --workers 4 --journal data/research/dukascopy_m1/GBPUSD/download.jsonl",
   "preflight_evidence": {
-    "sqcli_export": "blocked because installed trial license is expired",
+    "sqcli_export": "new trial validated; 6,357,261 M1 rows exported from GBPUSD_M1_dukas_M1_UTCMinus05 for 2007-2023",
     "existing_bs_history": "one consolidated month only",
     "ostium_parity_pilot": "M15 close p95 difference 0.82 bps and return correlation 0.989 over two days; extension still required",
-    "dukascopy_smoke_2023_01": "failed atomically after conservative retries because the public endpoint returned HTTP 503 and read timeouts; no incomplete partition was written"
+    "dukascopy_smoke_2023_01": "fallback failed atomically after conservative retries because the public endpoint returned HTTP 503 and read timeouts; no incomplete partition was written",
+    "normalized_source": "DST-aware America/New_York to UTC epoch; 0 duplicate timestamps and 0 invalid OHLC; receipt lab/sq_bridge/evidence/gbpusd_sq_m1_utc_2007_2023_source.json",
+    "venue_overlap": "Matched prices pass strongly (M15 corr 0.995/p95 0.98 bps; H1 corr 0.999/p95 0.89 bps), but clean-union coverage is only 83% M15 and 78% H1 because old Ostium quarantine removed whole days."
   },
   "research_authorized": false,
-  "next_gate": "Renew SQCLI license and export the existing GBPUSD .dat, or resume the archive when Dukascopy is stable; then audit continuity and extend Ostium overlap before performance search."
+  "next_gate": "Rebuild at least 30 clean overlap days from raw Ostium with bucket-level quarantine and require >=95% coverage before performance search."
 }

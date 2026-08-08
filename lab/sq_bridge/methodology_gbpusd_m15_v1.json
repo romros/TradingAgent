@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "methodology_id": "alquimia-gbpusd-m15-v1",
+  "status": "PREREGISTERED",
+  "data": "StrategyQuant Dukascopy GBPUSD M1 normalized to UTC and aggregated to complete M15 bars; venue mapping certified against raw Ostium July 2026",
+  "families": ["asian_range_breakout", "vol_expansion_continuation", "vol_expansion_reversal"],
+  "pilot_variants": "10 frozen representative variants: both breakout directions and London/US-overlap x long/short for each expansion family",
+  "splits": {
+    "train": ["2007-01-01", "2013-12-31"],
+    "validation": ["2014-01-01", "2018-12-31"],
+    "oos": ["2019-01-01", "2023-12-31"],
+    "sealed_holdout": ["2024-01-01", "2026-08-01"]
+  },
+  "holdout_policy": "sealed unless exactly one finalist passes every pre-holdout gate",
+  "cost_bps_round_trip": {"base": 8, "conservative": 15, "stress": 30},
+  "capital_usdc": 200,
+  "risk_per_trade_usdc": 2,
+  "effective_leverage_cap": 20,
+  "gates": {
+    "minimum_trades_validation": 100,
+    "minimum_trades_oos": 100,
+    "minimum_pf_base": 1.2,
+    "minimum_pf_stress": 1.05,
+    "minimum_positive_year_ratio": 0.6,
+    "minimum_ev_usdc_stress": 0.1
+  },
+  "sq_policy": "run SQCLI only if a family passes all Python pre-holdout gates",
+  "venue_evidence": "lab/sq_bridge/evidence/gbpusd_dukas_ostium_parity_2026_07_symmetric_clean.json"
+}

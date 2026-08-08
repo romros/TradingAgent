@@ -1,6 +1,6 @@
 from lab.sq_bridge.intraday_source_parity import (
-    aggregate_close, compare, compare_ohlcv, decide, decide_complete_ohlcv_timeframe,
-    decide_research_timeframe,
+    aggregate_close, apply_symmetric_bucket_exclusions, compare, compare_ohlcv,
+    decide, decide_complete_ohlcv_timeframe, decide_research_timeframe,
 )
 
 
@@ -71,3 +71,13 @@ def test_complete_ohlcv_gate_does_not_pass_partial_bucket_coverage():
     result = decide_complete_ohlcv_timeframe(metrics, 40)
     assert result["pass"] is False
     assert "UNION_COVERAGE_LT_0_95" in result["reasons"]
+
+
+def test_bucket_quarantine_is_applied_symmetrically():
+    reference = [{"ts": ts} for ts in (0, 60, 3600, 3660)]
+    ostium = [{"ts": ts} for ts in (0, 60, 3600)]
+    clean_reference, clean_ostium = apply_symmetric_bucket_exclusions(
+        reference, ostium, bucket_starts={0}, bucket_minutes=60,
+    )
+    assert [row["ts"] for row in clean_reference] == [3600, 3660]
+    assert [row["ts"] for row in clean_ostium] == [3600]

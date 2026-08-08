@@ -58,6 +58,31 @@ def load_ohlcv_parquet(paths: list[Path]) -> list[dict]:
     ]
 
 
+def apply_symmetric_bucket_exclusions(
+    reference_rows: list[dict], ostium_rows: list[dict], *,
+    bucket_starts: set[int], bucket_minutes: int,
+) -> tuple[list[dict], list[dict]]:
+    """Apply an Ostium-internal quarantine to both feeds before comparison."""
+    if bucket_minutes < 1:
+        raise ValueError("bucket_minutes must be positive")
+    seconds = bucket_minutes * 60
+    keep = lambda row: (int(row["ts"]) // seconds) * seconds not in bucket_starts
+    return ([row for row in reference_rows if keep(row)],
+            [row for row in ostium_rows if keep(row)])
+
+
+def load_bucket_exclusions(path: Path) -> tuple[set[int], int, dict]:
+    receipt = json.loads(path.read_text())
+    policy = receipt.get("policy") or {}
+    if policy.get("reference_market_used_for_detection") is not False:
+        raise ValueError("quarantine must be detected without reference-market prices")
+    minutes = policy.get("quarantine_bucket_minutes")
+    starts = receipt.get("quarantined_utc_bucket_starts")
+    if not isinstance(minutes, int) or minutes < 1 or not isinstance(starts, list):
+        raise ValueError("invalid bucket-quarantine receipt")
+    return {int(value) for value in starts}, minutes, receipt
+
+
 def aggregate_close(rows: dict[int, float], timeframe_minutes: int) -> dict[int, float]:
     bucket_seconds = timeframe_minutes * 60
     aggregated = {}
@@ -187,9 +212,30 @@ def main() -> None:
     parser.add_argument("--reference", type=Path, nargs="+", required=True)
     parser.add_argument("--ostium", type=Path, nargs="+", required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument(
+        "--symmetric-bucket-quarantine", type=Path,
+        help="Ostium-internal receipt whose UTC buckets are excluded from both feeds",
+    )
     args = parser.parse_args()
     reference_rows = load_ohlcv_parquet(args.reference)
     ostium_rows = load_ohlcv_parquet(args.ostium)
+    quarantine = None
+    if args.symmetric_bucket_quarantine:
+        starts, minutes, receipt = load_bucket_exclusions(args.symmetric_bucket_quarantine)
+        before = {"reference_rows": len(reference_rows), "ostium_rows": len(ostium_rows)}
+        reference_rows, ostium_rows = apply_symmetric_bucket_exclusions(
+            reference_rows, ostium_rows, bucket_starts=starts, bucket_minutes=minutes,
+        )
+        quarantine = {
+            "receipt": str(args.symmetric_bucket_quarantine),
+            "detector": receipt["policy"].get("detector"),
+            "reference_market_used_for_detection": False,
+            "bucket_minutes": minutes,
+            "bucket_starts": sorted(starts),
+            "before": before,
+            "after": {"reference_rows": len(reference_rows), "ostium_rows": len(ostium_rows)},
+            "application": "SYMMETRIC_BEFORE_COMPARISON",
+        }
     reference = {row["ts"]: row["close"] for row in reference_rows}
     ostium = {row["ts"]: row["close"] for row in ostium_rows}
     timeframes = {}
@@ -230,6 +276,7 @@ def main() -> None:
               "timeframe_decisions": timeframe_decisions,
               "decision": overall,
               "reasons": [] if h1_pass else timeframe_decisions["H1"]["reasons"],
+              "symmetric_bucket_quarantine": quarantine,
               "scope": "H1_MAPPING_PILOT_ONLY_EXTEND_TO_30_DAYS_BEFORE_RESEARCH"}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2) + "\n")

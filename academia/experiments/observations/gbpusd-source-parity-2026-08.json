@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "campaign_id": "gbpusd-source-parity-2026-08",
-  "decision": "PRICE_MAPPING_PASS_EXECUTION_COVERAGE_BLOCK",
+  "decision": "M15_PRICE_AND_COVERAGE_PASS_H1_H4_BLOCK",
   "facts": {
     "history": {
       "symbol": "GBPUSD_M1_dukas_M1_UTCMinus05",
@@ -11,20 +11,28 @@
       "invalid_ohlc": 0,
       "timezone": "America/New_York with US DST, normalized to UTC epoch"
     },
-    "common_overlap": {
+    "legacy_common_overlap": {
       "period": ["2026-02-18", "2026-03-13"],
       "m15": {"aligned_complete_bars": 1351, "correlation": 0.9953839299825409, "close_p95_bps": 0.9784367591159082, "coverage": 0.8303626306084819},
       "h1": {"aligned_complete_bars": 316, "correlation": 0.9988339347817845, "close_p95_bps": 0.88769871505745, "coverage": 0.7821782178217822}
+    },
+    "raw_july_symmetric_quarantine": {
+      "policy": "Ostium-only NY-roll detector; five H1 UTC buckets removed symmetrically from both feeds",
+      "m15": {"aligned_complete_bars": 2071, "correlation": 0.9921369939131456, "close_p95_bps": 0.7511229287793242, "coverage": 0.956581986143187},
+      "h1": {"aligned_complete_bars": 490, "correlation": 0.998963837509597, "close_p95_bps": 0.6766154193149632, "coverage": 0.9090909090909091}
     }
   },
-  "inference": "The SQ/Dukascopy price mapping is accurate where both feeds exist. Existing Ostium clean partitions are too sparse to prove executable continuity because their historical policy removed whole dates.",
+  "inference": "The SQ/Dukascopy price mapping is accurate and raw Ostium continuity is sufficient for M15 research when a predeclared source-internal rollover quarantine is applied symmetrically. H1/H4 still lack complete-bar coverage.",
   "policy": {
-    "performance_search": "BLOCKED",
+    "performance_search": "M15_ONLY_AFTER_PREREGISTRATION",
     "paper_or_live": "BLOCKED",
-    "required_next_gate": "raw Ostium rebuild with bucket quarantine and >=95% common-span coverage"
+    "required_next_gate": "a pre-holdout M15 family must pass frozen Python gates before SQ Builder"
   },
   "evidence": [
     "lab/sq_bridge/evidence/gbpusd_sq_m1_utc_2007_2023_source.json",
-    "lab/sq_bridge/evidence/gbpusd_sq_ostium_parity_2026_common_v3.json"
+    "lab/sq_bridge/evidence/gbpusd_sq_ostium_parity_2026_common_v3.json",
+    "lab/sq_bridge/evidence/gbpusd_ostium_2026_07_h1_bucket_quarantine.json",
+    "lab/sq_bridge/evidence/gbpusd_dukas_ostium_parity_2026_07_symmetric_clean.json",
+    "lab/sq_bridge/evidence/gbpusd_m15_v1_preflight.json"
   ]
 }

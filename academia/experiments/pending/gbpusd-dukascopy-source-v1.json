@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "campaign_id": "gbpusd-dukascopy-source-v1",
-  "status": "SOURCE_READY_PRICE_MAPPING_PASS_EXECUTION_COVERAGE_BLOCK",
+  "status": "SOURCE_READY_M15_MAPPING_PASS_H1_H4_COVERAGE_BLOCK",
   "symbol": "GBPUSD",
   "purpose": "Prepare discovery, validation and OOS data without loading the sealed holdout.",
   "source": {
@@ -31,8 +31,9 @@
     "ostium_parity_pilot": "M15 close p95 difference 0.82 bps and return correlation 0.989 over two days; extension still required",
     "dukascopy_smoke_2023_01": "fallback failed atomically after conservative retries because the public endpoint returned HTTP 503 and read timeouts; no incomplete partition was written",
     "normalized_source": "DST-aware America/New_York to UTC epoch; 0 duplicate timestamps and 0 invalid OHLC; receipt lab/sq_bridge/evidence/gbpusd_sq_m1_utc_2007_2023_source.json",
-    "venue_overlap": "Matched prices pass strongly (M15 corr 0.995/p95 0.98 bps; H1 corr 0.999/p95 0.89 bps), but clean-union coverage is only 83% M15 and 78% H1 because old Ostium quarantine removed whole days."
+    "venue_overlap": "A raw July rebuild with source-internal symmetric H1-bucket quarantine passes M15: 2,071 aligned complete bars, 95.66% coverage, return correlation 0.9921 and close p95 0.75 bps. H1/H4 remain blocked on complete-bar coverage.",
+    "first_m15_screen": "Ten frozen variants across Asian-range breakout and volatility-expansion continuation/reversal all failed train, validation and OOS after 8/15/30 bps round-trip costs; no SQ Builder run authorized."
   },
-  "research_authorized": false,
-  "next_gate": "Rebuild at least 30 clean overlap days from raw Ostium with bucket-level quarantine and require >=95% coverage before performance search."
+  "research_authorized": "M15_ONLY",
+  "next_gate": "Preregister and cheaply falsify one structurally distinct GBPUSD M15 mechanism; do not optimize the rejected session-breakout/expansion families."
 }

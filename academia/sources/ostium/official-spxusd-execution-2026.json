@@ -1,20 +1,23 @@
 {
   "id": "ostium_official_spxusd_execution_2026",
-  "kind": "documentation_and_read_only_probe",
+  "kind": "documentation",
   "title": "Ostium SPX/USD execution contract",
+  "url": "https://docs.ostium.com/traders/reference/markets",
   "author": "Ostium",
+  "published_at": null,
   "accessed_at": "2026-08-08",
+  "language": "en",
+  "sq_version": null,
   "source_level": "A_PRIMARY",
   "domain": "execution-economics",
   "rights_policy": "transformative_notes",
-  "urls": [
-    "https://docs.ostium.com/traders/reference/markets",
-    "https://docs.ostium.com/traders/reference/fees",
-    "https://docs.ostium.com/traders/trading/liquidation",
-    "https://docs.ostium.com/developer/reference/get-pairs",
-    "https://docs.ostium.com/developer/client-modes/read-only"
-  ],
-  "facts": {
+  "metadata": {
+    "additional_urls": [
+      "https://docs.ostium.com/traders/reference/fees",
+      "https://docs.ostium.com/traders/trading/liquidation",
+      "https://docs.ostium.com/developer/reference/get-pairs",
+      "https://docs.ostium.com/developer/client-modes/read-only"
+    ],
     "pair": "SPX/USD",
     "ui_market": "US500/USD",
     "pair_id": 10,
@@ -22,15 +25,13 @@
     "documented_opening_fee_bps": 3,
     "closing_fee_bps": 0,
     "oracle_fee_usdc": 0.1,
-    "oracle_refund": "successful full close",
-    "execution": "bid_ask",
-    "schedule_et": "Sunday 18:00 through Friday 17:00; daily 17:00-18:00 break",
-    "rollover": "continuous per block; indices use SOFR plus carry premium"
+    "probe_endpoint": "https://builder.prod.bedrock.ostium.io/v1/subgraph/gn",
+    "probe_mode": "public GraphQL read only"
   },
-  "probe": {
-    "endpoint": "https://builder.prod.bedrock.ostium.io/v1/subgraph/gn",
-    "mode": "public GraphQL read only",
-    "observed_pair": {"id": "10", "from": "SPX", "to": "USD", "group": "indices"},
-    "warning": "Raw subgraph numeric fields are scaled and getPairs derives normalized values. Never feed raw values directly into sizing."
-  }
+  "chunks": [
+    {"locator": "markets:spx-usd", "heading": "Market contract", "body": "Ostium identifies pair 10 as SPX/USD in the indices group and presents it as US500/USD in the trading interface. Current documentation publishes maximum leverage of 200x; this venue ceiling is not a safe sizing recommendation.", "evidence_status": "captured"},
+    {"locator": "fees:index", "heading": "Fees", "body": "US500/USD has a documented opening fee of 3 basis points and no closing fee. Entry and exit still execute at bid and ask, and an oracle request costs 0.10 USDC unless refunded after a successful full close.", "evidence_status": "captured"},
+    {"locator": "markets:schedule", "heading": "Schedule and rollover", "body": "The documented index schedule runs Sunday 18:00 through Friday 17:00 Eastern Time with a daily 17:00-18:00 break. Rollover accrues continuously per block and indices use SOFR plus a carry premium.", "evidence_status": "captured"},
+    {"locator": "probe:pair-10", "heading": "Read-only probe warning", "body": "The public read-only subgraph returned pair 10 as SPX/USD. Raw subgraph numeric fields are scaled and getPairs derives normalized values, so raw values must never be fed directly into sizing.", "evidence_status": "tested"}
+  ]
 }

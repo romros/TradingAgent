@@ -14,9 +14,14 @@
   "excluded_universe": ["WTI/USD", "TLT/USD"],
   "status": "PREREGISTERED_BUT_DATA_BLOCKED",
   "remaining_blockers": [
-    "Obtain a rights-safe continuous US500 discovery history and prove Ostium overlap parity.",
     "Explain the BTC Ostium session-label boundary or approve a replacement discovery source through the same two-window gate."
   ],
+  "new_evidence_after_preregistration": {
+    "US500/USD": "Dukascopy-derived SQ history passed M15 Ostium overlap parity; use is research-only and raw redistribution is not assumed.",
+    "allowed_timeframe": "M15",
+    "blocked_timeframes": ["H1", "H4"],
+    "paper_or_live": "blocked"
+  },
   "sqcli_needed_now": false,
   "raw_market_data_persisted": false,
   "holdout_accessed": false

@@ -8,7 +8,7 @@
   "horizon": {"target_months": 12, "paper_forward_months_if_finalist": 12},
   "universe": [
     {"symbol": "EUR/USD", "class": "forex", "driver": "tipus i divises", "opening_fee_bps": 3, "data_status": "candidate"},
-    {"symbol": "US500/USD", "class": "index", "driver": "renda variable agregada", "opening_fee_bps": 3, "data_status": "blocked_rights_safe_history"},
+    {"symbol": "US500/USD", "class": "index", "driver": "renda variable agregada", "opening_fee_bps": 3, "data_status": "m15_research_only_parity_passed"},
     {"symbol": "XAU/USD", "class": "commodity", "driver": "tipus reals, crisi i flux oficial", "opening_fee_bps": 3, "data_status": "candidate"},
     {"symbol": "BTC/USD", "class": "crypto", "driver": "liquiditat cripto", "opening_fee_bps": 5, "data_status": "blocked_session_boundary"}
   ],
@@ -24,7 +24,8 @@
   },
   "data_gates": {
     "search_may_start": false,
-    "blocking_items": ["US500 rights-safe continuous history", "BTC session-boundary evidence or a replacement source"],
+    "blocking_items": ["BTC session-boundary evidence or a replacement source"],
+    "us500_scope": "M15 research only; H1/H4, paper and live remain blocked",
     "same_calendar_and_timezone": true,
     "continuity_and_duplicate_audit": true,
     "ostium_overlap_parity_required": true,

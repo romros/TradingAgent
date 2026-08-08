@@ -58,16 +58,14 @@ Després calcular el collateral com `notional / leverage`. Augmentar leverage re
 marge requerit però no pot augmentar el nocional decidit pel risc. A cada entrada
 cal recomputar equity realitzada, free margin, risc simultani i leverage efectiu.
 
-La comparació activa 3-vs-4 ha d'usar el mateix univers congelat i simular ordres omeses. WTI i TLT queden fora fins que existeixi història negociable autoritzada i amb paritat; DGS20 només pot etiquetar règims.
-Quatre actius no són més diversos si comparteixen driver o si les comissions fixes i
+La campanya activa usa un univers fix de tres actius: EUR/USD, US500/USD i XAU/USD. BTC queda fora per decisió explícita d'abast; WTI i TLT queden fora per dades. Això no autoritza afirmar que tres actius superen quatre o sis.
+Tres actius no són més diversos si comparteixen driver o si les comissions fixes i
 el marge impedeixen executar-los. El manifest inicial és
-`experiments/pending/ostium-500-portfolio-3v4-v1.json`. Els manifests 3-vs-6 i 3-vs-5 es conserven com a traça de les decisions, no com a experiments actius.
+`experiments/pending/ostium-500-portfolio-3asset-v1.json`. Els manifests 3-vs-6, 3-vs-5 i 3-vs-4 es conserven com a traça de les decisions, no com a experiments actius.
 
-El període comú de desenvolupament executable comença el 2019-10-01 perquè la
-sèrie BTC del catàleg SQ comença el 2019-09-25. No s'omple el buit ni es compara una cartera de quatre actius
-amb una de tres sobre finestres diferents. Per BTC, la font de descobriment ha de
-passar paritat creuada entre exchanges; el tram Ostium anterior a 2024-10-02 queda
-exclòs perquè dues fonts independents hi detecten el mateix canvi d'etiqueta diària.
+Sense BTC, el període comú de desenvolupament torna a 2017-01-01/2021-12-31.
+Qualsevol reintroducció futura d'un actiu exigeix una campanya nova; no s'afegeix
+després de veure els resultats de la cartera de tres.
 
 Abans del Builder, executar `audit_portfolio_data.py` contra una còpia de només
 lectura del catàleg SQ. Una coincidència de nom i dates només autoritza preparar

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "observation_id": "ostium-portfolio-user-scope-3asset-2026-08",
+  "observed_at": "2026-08-08",
+  "decision": "FIX_UNIVERSE_TO_EUR_US500_XAU",
+  "authority": "Explicit user instruction: no BTC",
+  "active_campaign": "ostium-500-portfolio-3asset-v1",
+  "superseded_campaign": "ostium-500-portfolio-3v4-v1",
+  "btc_campaign": "CANCELLED_USER_SCOPE",
+  "interpretation": "BTC is removed from the objective. Its data preflight is retained as operational learning and must not be recorded as a market-family failure.",
+  "active_assets": ["EUR/USD", "US500/USD", "XAU/USD"],
+  "comparison_not_allowed": "Do not claim this fixed three-asset portfolio beats a blocked or excluded four/six-asset portfolio.",
+  "next_gate": "Identify one non-rejected component family per asset before composing the portfolio.",
+  "holdout_accessed": false,
+  "live_trading": false
+}

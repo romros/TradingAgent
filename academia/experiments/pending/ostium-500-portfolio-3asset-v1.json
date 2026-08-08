@@ -1,0 +1,55 @@
+{
+  "id": "ostium-500-portfolio-3asset-v1",
+  "preregistered_at": "2026-08-08",
+  "supersedes": "ostium-500-portfolio-3v4-v1",
+  "amendment_reason": "The user explicitly excludes BTC from scope. This is a portfolio objective decision, not evidence that BTC strategies fail.",
+  "question": "Quina combinació i assignació de risc entre EUR/USD, US500/USD i XAU/USD conserva millor creixement compost net, supervivència i diversificació durant dotze mesos amb 500 USDC a Ostium?",
+  "capital": {"amount": 500, "currency": "USDC", "simulation_only": true},
+  "universe": [
+    {"symbol": "EUR/USD", "class": "forex", "driver": "tipus i divises", "opening_fee_bps": 3},
+    {"symbol": "US500/USD", "class": "index", "driver": "renda variable agregada", "opening_fee_bps": 3, "scope": "M15 research only"},
+    {"symbol": "XAU/USD", "class": "commodity", "driver": "tipus reals, crisi i flux oficial", "opening_fee_bps": 3}
+  ],
+  "excluded": [
+    {"symbol": "BTC/USD", "reason": "USER_SCOPE_EXCLUSION; no inference about edge."},
+    {"symbol": "WTI/USD", "reason": "EIA spot failed parity; EIA front future lacks continuous validation coverage."},
+    {"symbol": "TLT/USD", "reason": "No equivalent authorized tradable history and no common holdout."}
+  ],
+  "portfolio_size": 3,
+  "comparison_claim": "No claim that three assets outperform four or six; this campaign optimizes only the fixed three-asset scope.",
+  "periods": {"development": "2017-01-01/2021-12-31", "validation": "2022-01-01/2025-07-31", "sealed_holdout": "2025-08-01/2026-07-31"},
+  "data_gates": {"search_may_start": true, "same_calendar_and_timezone": true, "continuity_and_duplicate_audit": true, "ostium_overlap_parity_required": true, "raw_third_party_data_versioned": false},
+  "risk": {
+    "risk_per_trade_pct_range": [0.5, 1.0],
+    "maximum_simultaneous_risk_pct": 3.0,
+    "maximum_portfolio_effective_leverage": 5.0,
+    "maximum_drawdown_pct": 15.0,
+    "maximum_single_asset_profit_contribution_pct": 50,
+    "sizing": "equity_percent_from_stop_distance"
+  },
+  "cost_model": {
+    "opening_fee_bps": 3,
+    "oracle_fee_usdc_per_open": 0.1,
+    "spread_slippage": "measured bid/ask base plus 2x stress",
+    "rollover": "measured by side and holding interval plus adverse stress",
+    "closing_fee": 0
+  },
+  "selection": {
+    "primary": "net compounded return subject to survival gates",
+    "secondary": ["maximum drawdown", "expected shortfall", "regime correlation", "profit concentration", "margin utilization", "turnover"],
+    "required_comparisons": ["fixed_size_unlevered", "risk_sized_no_compounding", "risk_sized_compounding", "compounding_with_ostium_margin_and_costs"]
+  },
+  "component_gate": "Each asset must have positive net expectancy under current base costs before portfolio inclusion.",
+  "discard_criteria": [
+    "any included component has non-positive net expectancy under current base costs",
+    "maximum drawdown above 15 percent",
+    "more than 50 percent of net profit comes from one asset",
+    "diversification disappears in adverse regimes",
+    "edge exists only with compounding or higher leverage",
+    "minimum size or free margin causes systematic skipped orders",
+    "sealed holdout was used before final selection"
+  ],
+  "holdout_policy": {"maximum_reads": 1, "open_only_after_individual_and_portfolio_gates": true, "no_refit_after_result": true},
+  "live_trading": false,
+  "frozen": true
+}

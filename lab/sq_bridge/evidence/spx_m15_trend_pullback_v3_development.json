@@ -1,0 +1,859 @@
+{
+  "schema_version": 1,
+  "family": "spx-m15-trend-pullback-v3",
+  "attempted": 1944,
+  "passes": 0,
+  "passing": [],
+  "top_20": [
+    {
+      "parameters": {
+        "side": "short",
+        "trend_ema_bars": 100,
+        "rsi_bars": 5,
+        "rsi_extreme": 20,
+        "stop_atr": 2.0,
+        "target_atr": 1.5,
+        "hold_bars": 24,
+        "entry_window_ny": [
+          12,
+          14
+        ]
+      },
+      "metrics": {
+        "base": {
+          "trades": 20,
+          "expectancy_usdc": 0.277186,
+          "profit_factor": 1.304429,
+          "net_pct": 2.771861,
+          "drawdown_pct": 2.788432,
+          "positive_year_ratio": 0.5
+        },
+        "conservative": {
+          "trades": 20,
+          "expectancy_usdc": -0.112582,
+          "profit_factor": 0.894198,
+          "net_pct": -1.125824,
+          "drawdown_pct": 4.364191,
+          "positive_year_ratio": 0.333333
+        },
+        "stress": {
+          "trades": 20,
+          "expectancy_usdc": -0.947801,
+          "profit_factor": 0.38248,
+          "net_pct": -9.478007,
+          "drawdown_pct": 9.478007,
+          "positive_year_ratio": 0.166667
+        }
+      },
+      "passes": false
+    },
+    {
+      "parameters": {
+        "side": "short",
+        "trend_ema_bars": 100,
+        "rsi_bars": 5,
+        "rsi_extreme": 20,
+        "stop_atr": 2.0,
+        "target_atr": 1.5,
+        "hold_bars": 16,
+        "entry_window_ny": [
+          12,
+          14
+        ]
+      },
+      "metrics": {
+        "base": {
+          "trades": 21,
+          "expectancy_usdc": 0.168757,
+          "profit_factor": 1.175353,
+          "net_pct": 1.771943,
+          "drawdown_pct": 2.788432,
+          "positive_year_ratio": 0.333333
+        },
+        "conservative": {
+          "trades": 21,
+          "expectancy_usdc": -0.227545,
+          "profit_factor": 0.799296,
+          "net_pct": -2.389225,
+          "drawdown_pct": 5.048555,
+          "positive_year_ratio": 0.333333
+        },
+        "stress": {
+          "trades": 21,
+          "expectancy_usdc": -1.076763,
+          "profit_factor": 0.341775,
+          "net_pct": -11.306013,
+          "drawdown_pct": 11.306013,
+          "positive_year_ratio": 0.166667
+        }
+      },
+      "passes": false
+    },
+    {
+      "parameters": {
+        "side": "short",
+        "trend_ema_bars": 100,
+        "rsi_bars": 5,
+        "rsi_extreme": 20,
+        "stop_atr": 2.0,
+        "target_atr": 1.0,
+        "hold_bars": 24,
+        "entry_window_ny": [
+          12,
+          14
+        ]
+      },
+      "metrics": {
+        "base": {
+          "trades": 28,
+          "expectancy_usdc": 0.326007,
+          "profit_factor": 1.712231,
+          "net_pct": 4.564091,
+          "drawdown_pct": 1.950506,
+          "positive_year_ratio": 0.571429
+        },
+        "conservative": {
+          "trades": 28,
+          "expectancy_usdc": -0.065385,
+          "profit_factor": 0.889499,
+          "net_pct": -0.915392,
+          "drawdown_pct": 4.460177,
+          "positive_year_ratio": 0.428571
+        },
+        "stress": {
+          "trades": 28,
+          "expectancy_usdc": -0.904082,
+          "profit_factor": 0.297531,
+          "net_pct": -12.657143,
+          "drawdown_pct": 12.657143,
+          "positive_year_ratio": 0.142857
+        }
+      },
+      "passes": false
+    },
+    {
+      "parameters": {
+        "side": "short",
+        "trend_ema_bars": 100,
+        "rsi_bars": 5,
+        "rsi_extreme": 20,
+        "stop_atr": 2.0,
+        "target_atr": 1.0,
+        "hold_bars": 16,
+        "entry_window_ny": [
+          12,
+          14
+        ]
+      },
+      "metrics": {
+        "base": {
+          "trades": 29,
+          "expectancy_usdc": 0.245805,
+          "profit_factor": 1.48112,
+          "net_pct": 3.564174,
+          "drawdown_pct": 2.22385,
+          "positive_year_ratio": 0.571429
+        },
+        "conservative": {
+          "trades": 29,
+          "expectancy_usdc": -0.150262,
+          "profit_factor": 0.771793,
+          "net_pct": -2.178793,
+          "drawdown_pct": 5.542502,
+          "positive_year_ratio": 0.428571
+        },
+        "stress": {
+          "trades": 29,
+          "expectancy_usdc": -0.998976,
+          "profit_factor": 0.270126,
+          "net_pct": -14.485149,
+          "drawdown_pct": 14.485149,
+          "positive_year_ratio": 0.142857
+        }
+      },
+      "passes": false
+    },
+    {
+      "parameters": {
+        "side": "short",
+        "trend_ema_bars": 100,
+        "rsi_bars": 5,
+        "rsi_extreme": 20,
+        "stop_atr": 2.0,
+        "target_atr": 1.5,
+        "hold_bars": 8,
+        "entry_window_ny": [
+          12,
+          14
+        ]
+      },
+      "metrics": {
+        "base": {
+          "trades": 27,
+          "expectancy_usdc": -0.100086,
+          "profit_factor": 0.891982,
+          "net_pct": -1.351164,
+          "drawdown_pct": 4.810909,
+          "positive_year_ratio": 0.166667
+        },
+        "conservative": {
+          "trades": 27,
+          "expectancy_usdc": -0.526171,
+          "profit_factor": 0.562443,
+          "net_pct": -7.103309,
+          "drawdown_pct": 7.103309,
+          "positive_year_ratio": 0.166667
+        },
+        "stress": {
+          "trades": 27,
+          "expectancy_usdc": -1.43921,
+          "profit_factor": 0.231809,
+          "net_pct": -19.429334,
+          "drawdown_pct": 19.429334,
+          "positive_year_ratio": 0.166667
+        }
+      },
+      "passes": false
+    },
+    {
+      "parameters": {
+        "side": "short",
+        "trend_ema_bars": 100,
+        "rsi_bars": 5,
+        "rsi_extreme": 20,
+        "stop_atr": 2.0,
+        "target_atr": 1.0,
+        "hold_bars": 8,
+        "entry_window_ny": [
+          12,
+          14
+        ]
+      },
+      "metrics": {
+        "base": {
+          "trades": 32,
+          "expectancy_usdc": 0.146959,
+          "profit_factor": 1.278667,
+          "net_pct": 2.351339,
+          "drawdown_pct": 2.663837,
+          "positive_year_ratio": 0.428571
+        },
+        "conservative": {
+          "trades": 32,
+          "expectancy_usdc": -0.267805,
+          "profit_factor": 0.632311,
+          "net_pct": -4.284872,
+          "drawdown_pct": 5.521286,
+          "positive_year_ratio": 0.428571
+        },
+        "stress": {
+          "trades": 32,
+          "expectancy_usdc": -1.156583,
+          "profit_factor": 0.224624,
+          "net_pct": -18.505324,
+          "drawdown_pct": 18.505324,
+          "positive_year_ratio": 0.142857
+        }
+      },
+      "passes": false
+    },
+    {
+      "parameters": {
+        "side": "short",
+        "trend_ema_bars": 100,
+        "rsi_bars": 5,
+        "rsi_extreme": 20,
+        "stop_atr": 1.5,
+        "target_atr": 1.0,
+        "hold_bars": 16,
+        "entry_window_ny": [
+          12,
+          14
+        ]
+      },
+      "metrics": {
+        "base": {
+          "trades": 31,
+          "expectancy_usdc": 0.124648,
+          "profit_factor": 1.152857,
+          "net_pct": 1.932037,
+          "drawdown_pct": 4.444785,
+          "positive_year_ratio": 0.285714
+        },
+        "conservative": {
+          "trades": 31,
+          "expectancy_usdc": -0.429695,
+          "profit_factor": 0.596227,
+          "net_pct": -6.660265,
+          "drawdown_pct": 7.49161,
+          "positive_year_ratio": 0.285714
+        },
+        "stress": {
+          "trades": 31,
+          "expectancy_usdc": -1.61757,
+          "profit_factor": 0.222649,
+          "net_pct": -25.072341,
+          "drawdown_pct": 25.072341,
+          "positive_year_ratio": 0.142857
+        }
+      },
+      "passes": false
+    },
+    {
+      "parameters": {
+        "side": "short",
+        "trend_ema_bars": 100,
+        "rsi_bars": 5,
+        "rsi_extreme": 20,
+        "stop_atr": 1.5,
+        "target_atr": 1.0,
+        "hold_bars": 24,
+        "entry_window_ny": [
+          12,
+          14
+        ]
+      },
+      "metrics": {
+        "base": {
+          "trades": 31,
+          "expectancy_usdc": 0.124648,
+          "profit_factor": 1.152857,
+          "net_pct": 1.932037,
+          "drawdown_pct": 4.444785,
+          "positive_year_ratio": 0.285714
+        },
+        "conservative": {
+          "trades": 31,
+          "expectancy_usdc": -0.429695,
+          "profit_factor": 0.596227,
+          "net_pct": -6.660265,
+          "drawdown_pct": 7.49161,
+          "positive_year_ratio": 0.285714
+        },
+        "stress": {
+          "trades": 31,
+          "expectancy_usdc": -1.61757,
+          "profit_factor": 0.222649,
+          "net_pct": -25.072341,
+          "drawdown_pct": 25.072341,
+          "positive_year_ratio": 0.142857
+        }
+      },
+      "passes": false
+    },
+    {
+      "parameters": {
+        "side": "short",
+        "trend_ema_bars": 100,
+        "rsi_bars": 5,
+        "rsi_extreme": 20,
+        "stop_atr": 1.5,
+        "target_atr": 1.0,
+        "hold_bars": 8,
+        "entry_window_ny": [
+          12,
+          14
+        ]
+      },
+      "metrics": {
+        "base": {
+          "trades": 32,
+          "expectancy_usdc": 0.149054,
+          "profit_factor": 1.199973,
+          "net_pct": 2.384863,
+          "drawdown_pct": 3.778135,
+          "positive_year_ratio": 0.285714
+        },
+        "conservative": {
+          "trades": 32,
+          "expectancy_usdc": -0.403964,
+          "profit_factor": 0.603429,
+          "net_pct": -6.463418,
+          "drawdown_pct": 7.961413,
+          "positive_year_ratio": 0.285714
+        },
+        "stress": {
+          "trades": 32,
+          "expectancy_usdc": -1.589001,
+          "profit_factor": 0.220248,
+          "net_pct": -25.42402,
+          "drawdown_pct": 25.42402,
+          "positive_year_ratio": 0.142857
+        }
+      },
+      "passes": false
+    },
+    {
+      "parameters": {
+        "side": "short",
+        "trend_ema_bars": 100,
+        "rsi_bars": 3,
+        "rsi_extreme": 10,
+        "stop_atr": 2.0,
+        "target_atr": 1.5,
+        "hold_bars": 24,
+        "entry_window_ny": [
+          12,
+          14
+        ]
+      },
+      "metrics": {
+        "base": {
+          "trades": 28,
+          "expectancy_usdc": -0.238893,
+          "profit_factor": 0.791182,
+          "net_pct": -3.344503,
+          "drawdown_pct": 6.710079,
+          "positive_year_ratio": 0.285714
+        },
+        "conservative": {
+          "trades": 28,
+          "expectancy_usdc": -0.647491,
+          "profit_factor": 0.519271,
+          "net_pct": -9.064868,
+          "drawdown_pct": 10.059911,
+          "positive_year_ratio": 0.142857
+        },
+        "stress": {
+          "trades": 28,
+          "expectancy_usdc": -1.523057,
+          "profit_factor": 0.220122,
+          "net_pct": -21.322794,
+          "drawdown_pct": 21.322794,
+          "positive_year_ratio": 0.142857
+        }
+      },
+      "passes": false
+    },
+    {
+      "parameters": {
+        "side": "short",
+        "trend_ema_bars": 100,
+        "rsi_bars": 5,
+        "rsi_extreme": 20,
+        "stop_atr": 1.5,
+        "target_atr": 1.5,
+        "hold_bars": 8,
+        "entry_window_ny": [
+          12,
+          14
+        ]
+      },
+      "metrics": {
+        "base": {
+          "trades": 30,
+          "expectancy_usdc": -0.172017,
+          "profit_factor": 0.859072,
+          "net_pct": -2.580249,
+          "drawdown_pct": 7.520484,
+          "positive_year_ratio": 0.142857
+        },
+        "conservative": {
+          "trades": 30,
+          "expectancy_usdc": -0.730867,
+          "profit_factor": 0.537048,
+          "net_pct": -10.963008,
+          "drawdown_pct": 10.963008,
+          "positive_year_ratio": 0.142857
+        },
+        "stress": {
+          "trades": 30,
+          "expectancy_usdc": -1.928404,
+          "profit_factor": 0.214891,
+          "net_pct": -28.926064,
+          "drawdown_pct": 28.926064,
+          "positive_year_ratio": 0.142857
+        }
+      },
+      "passes": false
+    },
+    {
+      "parameters": {
+        "side": "short",
+        "trend_ema_bars": 100,
+        "rsi_bars": 5,
+        "rsi_extreme": 20,
+        "stop_atr": 1.5,
+        "target_atr": 1.5,
+        "hold_bars": 16,
+        "entry_window_ny": [
+          12,
+          14
+        ]
+      },
+      "metrics": {
+        "base": {
+          "trades": 29,
+          "expectancy_usdc": -0.305927,
+          "profit_factor": 0.790004,
+          "net_pct": -4.435938,
+          "drawdown_pct": 8.55845,
+          "positive_year_ratio": 0.142857
+        },
+        "conservative": {
+          "trades": 29,
+          "expectancy_usdc": -0.866394,
+          "profit_factor": 0.513566,
+          "net_pct": -12.562718,
+          "drawdown_pct": 12.562718,
+          "positive_year_ratio": 0.142857
+        },
+        "stress": {
+          "trades": 29,
+          "expectancy_usdc": -2.067396,
+          "profit_factor": 0.209139,
+          "net_pct": -29.977248,
+          "drawdown_pct": 29.977248,
+          "positive_year_ratio": 0.142857
+        }
+      },
+      "passes": false
+    },
+    {
+      "parameters": {
+        "side": "short",
+        "trend_ema_bars": 100,
+        "rsi_bars": 5,
+        "rsi_extreme": 20,
+        "stop_atr": 1.5,
+        "target_atr": 1.5,
+        "hold_bars": 24,
+        "entry_window_ny": [
+          12,
+          14
+        ]
+      },
+      "metrics": {
+        "base": {
+          "trades": 29,
+          "expectancy_usdc": -0.305927,
+          "profit_factor": 0.790004,
+          "net_pct": -4.435938,
+          "drawdown_pct": 8.55845,
+          "positive_year_ratio": 0.142857
+        },
+        "conservative": {
+          "trades": 29,
+          "expectancy_usdc": -0.866394,
+          "profit_factor": 0.513566,
+          "net_pct": -12.562718,
+          "drawdown_pct": 12.562718,
+          "positive_year_ratio": 0.142857
+        },
+        "stress": {
+          "trades": 29,
+          "expectancy_usdc": -2.067396,
+          "profit_factor": 0.209139,
+          "net_pct": -29.977248,
+          "drawdown_pct": 29.977248,
+          "positive_year_ratio": 0.142857
+        }
+      },
+      "passes": false
+    },
+    {
+      "parameters": {
+        "side": "short",
+        "trend_ema_bars": 100,
+        "rsi_bars": 3,
+        "rsi_extreme": 10,
+        "stop_atr": 2.0,
+        "target_atr": 1.5,
+        "hold_bars": 16,
+        "entry_window_ny": [
+          12,
+          14
+        ]
+      },
+      "metrics": {
+        "base": {
+          "trades": 29,
+          "expectancy_usdc": -0.295875,
+          "profit_factor": 0.747072,
+          "net_pct": -4.290186,
+          "drawdown_pct": 6.688277,
+          "positive_year_ratio": 0.285714
+        },
+        "conservative": {
+          "trades": 29,
+          "expectancy_usdc": -0.708554,
+          "profit_factor": 0.487979,
+          "net_pct": -10.274034,
+          "drawdown_pct": 10.680043,
+          "positive_year_ratio": 0.142857
+        },
+        "stress": {
+          "trades": 29,
+          "expectancy_usdc": -1.592867,
+          "profit_factor": 0.206712,
+          "net_pct": -23.096565,
+          "drawdown_pct": 23.096565,
+          "positive_year_ratio": 0.142857
+        }
+      },
+      "passes": false
+    },
+    {
+      "parameters": {
+        "side": "short",
+        "trend_ema_bars": 100,
+        "rsi_bars": 3,
+        "rsi_extreme": 10,
+        "stop_atr": 2.0,
+        "target_atr": 1.5,
+        "hold_bars": 24,
+        "entry_window_ny": [
+          10,
+          12
+        ]
+      },
+      "metrics": {
+        "base": {
+          "trades": 28,
+          "expectancy_usdc": -0.583474,
+          "profit_factor": 0.596216,
+          "net_pct": -8.168631,
+          "drawdown_pct": 9.988731,
+          "positive_year_ratio": 0.285714
+        },
+        "conservative": {
+          "trades": 28,
+          "expectancy_usdc": -1.020661,
+          "profit_factor": 0.408321,
+          "net_pct": -14.289247,
+          "drawdown_pct": 15.261061,
+          "positive_year_ratio": 0.285714
+        },
+        "stress": {
+          "trades": 28,
+          "expectancy_usdc": -1.957489,
+          "profit_factor": 0.189599,
+          "net_pct": -27.404853,
+          "drawdown_pct": 27.94848,
+          "positive_year_ratio": 0.285714
+        }
+      },
+      "passes": false
+    },
+    {
+      "parameters": {
+        "side": "short",
+        "trend_ema_bars": 100,
+        "rsi_bars": 3,
+        "rsi_extreme": 10,
+        "stop_atr": 2.0,
+        "target_atr": 1.0,
+        "hold_bars": 24,
+        "entry_window_ny": [
+          12,
+          14
+        ]
+      },
+      "metrics": {
+        "base": {
+          "trades": 37,
+          "expectancy_usdc": -0.012562,
+          "profit_factor": 0.980211,
+          "net_pct": -0.232403,
+          "drawdown_pct": 4.392232,
+          "positive_year_ratio": 0.428571
+        },
+        "conservative": {
+          "trades": 37,
+          "expectancy_usdc": -0.443382,
+          "profit_factor": 0.481819,
+          "net_pct": -8.20257,
+          "drawdown_pct": 8.931435,
+          "positive_year_ratio": 0.142857
+        },
+        "stress": {
+          "trades": 37,
+          "expectancy_usdc": -1.366567,
+          "profit_factor": 0.174373,
+          "net_pct": -25.281499,
+          "drawdown_pct": 25.281499,
+          "positive_year_ratio": 0.142857
+        }
+      },
+      "passes": false
+    },
+    {
+      "parameters": {
+        "side": "short",
+        "trend_ema_bars": 100,
+        "rsi_bars": 3,
+        "rsi_extreme": 10,
+        "stop_atr": 2.0,
+        "target_atr": 1.5,
+        "hold_bars": 16,
+        "entry_window_ny": [
+          10,
+          12
+        ]
+      },
+      "metrics": {
+        "base": {
+          "trades": 30,
+          "expectancy_usdc": -0.634566,
+          "profit_factor": 0.558922,
+          "net_pct": -9.518487,
+          "drawdown_pct": 10.690121,
+          "positive_year_ratio": 0.285714
+        },
+        "conservative": {
+          "trades": 30,
+          "expectancy_usdc": -1.08129,
+          "profit_factor": 0.378103,
+          "net_pct": -16.219348,
+          "drawdown_pct": 17.191162,
+          "positive_year_ratio": 0.285714
+        },
+        "stress": {
+          "trades": 30,
+          "expectancy_usdc": -2.038556,
+          "profit_factor": 0.173332,
+          "net_pct": -30.578336,
+          "drawdown_pct": 31.121963,
+          "positive_year_ratio": 0.285714
+        }
+      },
+      "passes": false
+    },
+    {
+      "parameters": {
+        "side": "short",
+        "trend_ema_bars": 100,
+        "rsi_bars": 5,
+        "rsi_extreme": 20,
+        "stop_atr": 2.0,
+        "target_atr": 1.5,
+        "hold_bars": 24,
+        "entry_window_ny": [
+          10,
+          12
+        ]
+      },
+      "metrics": {
+        "base": {
+          "trades": 31,
+          "expectancy_usdc": -0.665656,
+          "profit_factor": 0.544889,
+          "net_pct": -10.317665,
+          "drawdown_pct": 11.295948,
+          "positive_year_ratio": 0.428571
+        },
+        "conservative": {
+          "trades": 31,
+          "expectancy_usdc": -1.102818,
+          "profit_factor": 0.3653,
+          "net_pct": -17.093686,
+          "drawdown_pct": 17.467521,
+          "positive_year_ratio": 0.428571
+        },
+        "stress": {
+          "trades": 31,
+          "expectancy_usdc": -2.039595,
+          "profit_factor": 0.167677,
+          "net_pct": -31.61373,
+          "drawdown_pct": 31.661401,
+          "positive_year_ratio": 0.142857
+        }
+      },
+      "passes": false
+    },
+    {
+      "parameters": {
+        "side": "short",
+        "trend_ema_bars": 100,
+        "rsi_bars": 3,
+        "rsi_extreme": 10,
+        "stop_atr": 1.5,
+        "target_atr": 1.5,
+        "hold_bars": 8,
+        "entry_window_ny": [
+          10,
+          12
+        ]
+      },
+      "metrics": {
+        "base": {
+          "trades": 35,
+          "expectancy_usdc": -0.623399,
+          "profit_factor": 0.571364,
+          "net_pct": -10.909484,
+          "drawdown_pct": 13.583162,
+          "positive_year_ratio": 0.285714
+        },
+        "conservative": {
+          "trades": 35,
+          "expectancy_usdc": -1.211749,
+          "profit_factor": 0.3702,
+          "net_pct": -21.20561,
+          "drawdown_pct": 22.534695,
+          "positive_year_ratio": 0.285714
+        },
+        "stress": {
+          "trades": 35,
+          "expectancy_usdc": -2.472499,
+          "profit_factor": 0.166933,
+          "net_pct": -43.268739,
+          "drawdown_pct": 44.026909,
+          "positive_year_ratio": 0.285714
+        }
+      },
+      "passes": false
+    },
+    {
+      "parameters": {
+        "side": "short",
+        "trend_ema_bars": 100,
+        "rsi_bars": 3,
+        "rsi_extreme": 10,
+        "stop_atr": 2.0,
+        "target_atr": 1.0,
+        "hold_bars": 16,
+        "entry_window_ny": [
+          10,
+          12
+        ]
+      },
+      "metrics": {
+        "base": {
+          "trades": 31,
+          "expectancy_usdc": -0.358842,
+          "profit_factor": 0.647269,
+          "net_pct": -5.562052,
+          "drawdown_pct": 8.860863,
+          "positive_year_ratio": 0.571429
+        },
+        "conservative": {
+          "trades": 31,
+          "expectancy_usdc": -0.803212,
+          "profit_factor": 0.368727,
+          "net_pct": -12.449781,
+          "drawdown_pct": 12.955349,
+          "positive_year_ratio": 0.428571
+        },
+        "stress": {
+          "trades": 31,
+          "expectancy_usdc": -1.755432,
+          "profit_factor": 0.166773,
+          "net_pct": -27.2092,
+          "drawdown_pct": 27.455157,
+          "positive_year_ratio": 0.142857
+        }
+      },
+      "passes": false
+    }
+  ],
+  "diagnostics": {
+    "maximum_trades": 1465,
+    "points_with_minimum_trades": 790,
+    "best_stress_pf_with_minimum_trades": 0.075728,
+    "best_base_pf_with_minimum_trades": 0.512288
+  },
+  "validation_accessed": false,
+  "holdout_accessed": false,
+  "sqcli_executed": false,
+  "decision": "REJECT_FAMILY_BEFORE_SQ"
+}

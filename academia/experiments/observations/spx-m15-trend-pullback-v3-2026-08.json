@@ -1,0 +1,20 @@
+{
+  "id": "spx-m15-trend-pullback-v3-2026-08",
+  "date": "2026-08-08",
+  "family": "short_rsi_pullback_inside_long_trend",
+  "stage": "development_only",
+  "contract": {"attempted": 1944, "period": "2012-2018", "costs_bps": [8, 15, 30], "capital_usdc": 200, "risk_per_trade_pct": 1},
+  "result": {
+    "point_gate_passes": 0,
+    "maximum_trades": 1465,
+    "points_with_at_least_100_trades": 790,
+    "best_base_profit_factor_among_100_trade_points": 0.512288,
+    "best_stress_profit_factor_among_100_trade_points": 0.075728,
+    "validation_accessed": false,
+    "holdout_accessed": false,
+    "sqcli_executed": false
+  },
+  "interpretation": "The failure is not only low sample: 790 points have at least 100 trades, yet even the best base-cost profit factor is 0.51. Sparse short peaks with 20-37 trades are not promotable.",
+  "decision": "REJECT_FAMILY_BEFORE_SQ",
+  "next": "Stop opening new SPX M15 parameter grids until the execution spread is measured and a new economic mechanism is preregistered."
+}

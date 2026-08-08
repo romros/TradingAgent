@@ -1,0 +1,24 @@
+{
+  "id": "spx-m15-trend-pullback-v3",
+  "family": "short_rsi_pullback_inside_long_trend",
+  "symbol": "SP_M1_dukas mapped to Ostium SPX/USD",
+  "timeframe": "M15",
+  "periods": {"development": "2012-2018", "validation": "2019-2022", "contaminated_oos": "2023-2025", "sealed_holdout": "2026"},
+  "grid": {
+    "side": ["long", "short"],
+    "trend_ema_bars": [50, 100],
+    "rsi_bars": [2, 3, 5],
+    "rsi_extreme": [5, 10, 20],
+    "stop_atr": [1.5, 2.0],
+    "target_atr": [0.5, 1.0, 1.5],
+    "hold_bars": [8, 16, 24],
+    "entry_window_ny": [[10, 12], [10, 14], [12, 14]]
+  },
+  "attempt_budget": 1944,
+  "costs_bps": {"base": 8, "conservative": 15, "stress": 30},
+  "small_account": {"capital_usdc": 200, "risk_per_trade_pct": 1, "maximum_margin_pct": 35, "venue_max_leverage": 200, "liquidation_buffer_over_stop": 1.5},
+  "development_gate": {"minimum_trades": 100, "minimum_stress_profit_factor": 1.1, "minimum_positive_year_ratio": 0.57, "maximum_stress_drawdown_pct": 20, "minimum_stress_expectancy_usdc": 0.1},
+  "falsifier": "No parameter point passes the frozen development stress gate.",
+  "intrabar_policy": "If stop and target are both touched in one M15 bar, count the stop first.",
+  "frozen": true
+}

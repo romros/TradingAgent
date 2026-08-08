@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "campaign_id": "gbpusd-dukascopy-source-v1",
+  "status": "BLOCKED_SOURCE_ACCESS_OR_SQ_LICENSE",
+  "symbol": "GBPUSD",
+  "purpose": "Prepare discovery, validation and OOS data without loading the sealed holdout.",
+  "source": {
+    "provider": "Dukascopy public M1 BID",
+    "url_pattern": "https://datafeed.dukascopy.com/datafeed/GBPUSD/{YEAR}/{MONTH_0IDX}/{DAY}/BID_candles_min_1.bi5",
+    "format": "LZMA standalone, big-endian 24-byte M1 records",
+    "price_scale": 100000,
+    "timezone": "UTC"
+  },
+  "periods": {
+    "download": ["2007-01-01", "2023-12-31"],
+    "sealed_holdout": ["2024-01-01", "2026-08-01"]
+  },
+  "storage": {
+    "root": "data/research/dukascopy_m1",
+    "partition": "GBPUSD/tf=1m/year=YYYY/month=MM/data.csv.gz",
+    "atomic": true,
+    "resume": true,
+    "sha256_per_month": true,
+    "git_ignored": true
+  },
+  "runner": "lab/sq_bridge/dukascopy_m1_archive.py",
+  "command": "python3 lab/sq_bridge/dukascopy_m1_archive.py --root data/research/dukascopy_m1 --symbol GBPUSD --from-year 2007 --to-year 2023 --workers 4 --journal data/research/dukascopy_m1/GBPUSD/download.jsonl",
+  "preflight_evidence": {
+    "sqcli_export": "blocked because installed trial license is expired",
+    "existing_bs_history": "one consolidated month only",
+    "ostium_parity_pilot": "M15 close p95 difference 0.82 bps and return correlation 0.989 over two days; extension still required",
+    "dukascopy_smoke_2023_01": "failed atomically after conservative retries because the public endpoint returned HTTP 503 and read timeouts; no incomplete partition was written"
+  },
+  "research_authorized": false,
+  "next_gate": "Renew SQCLI license and export the existing GBPUSD .dat, or resume the archive when Dukascopy is stable; then audit continuity and extend Ostium overlap before performance search."
+}

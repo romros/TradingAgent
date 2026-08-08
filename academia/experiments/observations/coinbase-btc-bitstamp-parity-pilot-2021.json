@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "asset": "BTC/USD",
+  "proxy_source": "https://www.bitstamp.net/api/v2/ohlc/btcusd/",
+  "proxy_series": "bitstamp",
+  "target_source": "https://api.exchange.coinbase.com/products/BTC-USD/candles",
+  "requested_window": "2021-01-01/2021-10-01",
+  "metrics": {
+    "proxy_count": 274,
+    "common_days": 274,
+    "first_common": "2021-01-01",
+    "last_common": "2021-10-01",
+    "close_absolute_difference_bps_median": 2.323314637877605,
+    "close_absolute_difference_bps_p95": 10.251151104863077,
+    "daily_return_correlation": 0.9998861054672775,
+    "daily_return_correlation_by_target_day_lag": {
+      "-2": 0.01574143762700009,
+      "-1": -0.07248350071672667,
+      "0": 0.9998861054672775,
+      "1": -0.07306511438677894,
+      "2": 0.01503815873132339
+    },
+    "best_target_day_lag": 0,
+    "aligned_daily_return_correlation": 0.9998861054672775,
+    "aligned_close_absolute_difference_bps_median": 2.323314637877605,
+    "aligned_close_absolute_difference_bps_p95": 10.251151104863077,
+    "target_count": 274
+  },
+  "decision": "DATE_ALIGNED",
+  "promotion_gate": "PENDING_THRESHOLDS_AND_SECOND_WINDOW",
+  "raw_candles_persisted": false,
+  "holdout_accessed": false
+}

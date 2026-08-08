@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "observation_id": "ostium-btc-source-boundary-resolution-2026-08",
+  "observed_at": "2026-08-08",
+  "question": "Can BTC enter the 3-vs-4 research universe without silently correcting Ostium's historical daily candles?",
+  "evidence": {
+    "coinbase_vs_bitstamp_2019": {"common_days": 274, "lag": 0, "return_correlation": 0.999787213301627, "median_bps": 3.7088636582960355, "p95_bps": 11.60038797284102},
+    "coinbase_vs_bitstamp_2021": {"common_days": 274, "lag": 0, "return_correlation": 0.9998861054672775, "median_bps": 2.323314637877605, "p95_bps": 10.251151104863077},
+    "bitstamp_vs_ostium_old_segment": {"period": "2024-01-01/2024-10-01", "best_lag": -1, "return_correlation": 0.9677336268151796},
+    "coinbase_vs_ostium_old_segment": {"period": "2024-01-01/2024-10-01", "best_lag": -1, "return_correlation": 0.9676804345518827},
+    "bitstamp_vs_ostium_stable_segment": {"period": "2024-10-02/2025-07-28", "best_lag": 0, "return_correlation": 0.9995868102448441, "p95_bps": 3.5992800277662163}
+  },
+  "decision": "PASS_BTC_RESEARCH_FROM_2019_WITH_SOURCE_BOUNDARY",
+  "reasoning": "Two independent exchanges agree during the usable development period and independently show the same discontinuity against old Ostium Builder candles. The anomaly is not repaired or used. Current execution parity is anchored only to the stable modern Ostium segment.",
+  "campaign_change": "Common development becomes 2019-01-01/2021-12-31 for all four assets.",
+  "limitations": [
+    "Discovery data is not execution data.",
+    "Raw exchange candles are not redistributed or committed.",
+    "Paper and live remain blocked until strategy, costs, order parity and final holdout gates pass."
+  ],
+  "raw_market_data_persisted": false,
+  "holdout_accessed": false
+}

@@ -12,15 +12,16 @@
   ],
   "active_universe": ["EUR/USD", "US500/USD", "XAU/USD", "BTC/USD"],
   "excluded_universe": ["WTI/USD", "TLT/USD"],
-  "status": "PREREGISTERED_BUT_DATA_BLOCKED",
-  "remaining_blockers": [
-    "Explain the BTC Ostium session-label boundary or approve a replacement discovery source through the same two-window gate."
-  ],
+  "status": "PREREGISTERED_DATA_GATE_OPEN",
+  "remaining_blockers": [],
   "new_evidence_after_preregistration": {
     "US500/USD": "Dukascopy-derived SQ history passed M15 Ostium overlap parity; use is research-only and raw redistribution is not assumed.",
     "allowed_timeframe": "M15",
     "blocked_timeframes": ["H1", "H4"],
-    "paper_or_live": "blocked"
+    "paper_or_live": "blocked",
+    "BTC/USD": "Coinbase and Bitstamp pass cross-exchange parity in 2019 and 2021. Both independently reproduce Ostium's pre-2024-10-02 one-day anomaly, isolating it to the old Builder segment.",
+    "development_amendment": "The common development period starts in 2019 instead of filling unavailable BTC history for 2017-2018.",
+    "btc_execution_reference": "Use Ostium candles only from 2024-10-02 for venue parity and current economics; do not splice the anomalous older segment."
   },
   "sqcli_needed_now": false,
   "raw_market_data_persisted": false,

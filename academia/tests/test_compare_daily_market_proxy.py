@@ -43,6 +43,13 @@ class CompareDailyMarketProxyTest(unittest.TestCase):
     def test_no_overlap_is_not_reported_as_aligned(self):
         self.assertEqual(proxy.alignment_decision(proxy.compare({}, {})), "NO_OVERLAP")
 
+    def test_bitstamp_endpoint_is_public_ohlc(self):
+        self.assertEqual(proxy.BITSTAMP_ENDPOINT, "https://www.bitstamp.net/api/v2/ohlc/btcusd/")
+
+    def test_ostium_parser_keeps_close_without_external_window_state(self):
+        payload = {"data": [{"time": 1704067200000, "close": "42000.5"}]}
+        self.assertEqual(proxy.ostium_closes(payload), {"2024-01-01": 42000.5})
+
 
 if __name__ == "__main__":
     unittest.main()

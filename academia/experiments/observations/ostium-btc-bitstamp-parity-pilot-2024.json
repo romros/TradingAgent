@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "asset": "BTC/USD",
+  "proxy_source": "https://www.bitstamp.net/api/v2/ohlc/btcusd/",
+  "proxy_series": "bitstamp",
+  "target_source": "https://builder.prod.bedrock.ostium.io/v1/ohlc",
+  "requested_window": "2024-01-01/2024-10-01",
+  "metrics": {
+    "proxy_count": 275,
+    "ostium_count": 275,
+    "common_days": 275,
+    "first_common": "2024-01-01",
+    "last_common": "2024-10-01",
+    "close_absolute_difference_bps_median": 152.16716839509647,
+    "close_absolute_difference_bps_p95": 648.1614501891264,
+    "daily_return_correlation": -0.05669563779535765,
+    "daily_return_correlation_by_target_day_lag": {
+      "-2": -0.10345080330866312,
+      "-1": 0.9677336268151796,
+      "0": -0.05669563779535765,
+      "1": 0.09655268217547895,
+      "2": -0.019849523678320834
+    },
+    "best_target_day_lag": -1,
+    "aligned_daily_return_correlation": 0.9677336268151796,
+    "aligned_close_absolute_difference_bps_median": 68.26208895227893,
+    "aligned_close_absolute_difference_bps_p95": 108.75950123458323
+  },
+  "decision": "SESSION_ALIGNMENT_REQUIRED",
+  "promotion_gate": "PENDING_THRESHOLDS_AND_SECOND_WINDOW",
+  "raw_candles_persisted": false,
+  "holdout_accessed": false
+}

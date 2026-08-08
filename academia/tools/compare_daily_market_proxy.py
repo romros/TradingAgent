@@ -20,6 +20,7 @@ from probe_ostium_ohlc import fetch as fetch_ostium
 
 
 COINBASE_ENDPOINT = "https://api.exchange.coinbase.com/products/BTC-USD/candles"
+BITSTAMP_ENDPOINT = "https://www.bitstamp.net/api/v2/ohlc/btcusd/"
 EIA_WTI_XLS = "https://www.eia.gov/dnav/pet/hist_xls/RWTCd.xls"
 EIA_WTI_FRONT_FUTURE_XLS = "https://www.eia.gov/dnav/pet/hist_xls/RCLC1d.xls"
 XML_NS = "{http://schemas.openxmlformats.org/spreadsheetml/2006/main}"
@@ -115,6 +116,23 @@ def fetch_coinbase(start: str, end: str, timeout: int = 30) -> list[list[float]]
         return json.load(response)
 
 
+def fetch_bitstamp(start: str, end: str, timeout: int = 30) -> dict[str, float]:
+    start_ts = int(datetime.fromisoformat(start).replace(tzinfo=UTC).timestamp())
+    end_ts = int(datetime.fromisoformat(end).replace(tzinfo=UTC).timestamp())
+    query = urllib.parse.urlencode({"step": 86400, "limit": 1000, "start": start_ts, "end": end_ts, "exclude_current_candle": "true"})
+    request = urllib.request.Request(f"{BITSTAMP_ENDPOINT}?{query}", headers={"user-agent": "alquimia-academia/1"})
+    with urllib.request.urlopen(request, timeout=timeout) as response:
+        payload = json.load(response)
+    result = {}
+    for candle in payload.get("data", {}).get("ohlc", []):
+        day = datetime.fromtimestamp(int(candle["timestamp"]), UTC).date().isoformat()
+        if day in result:
+            raise ValueError(f"duplicate Bitstamp daily candle: {day}")
+        if start <= day <= end:
+            result[day] = float(candle["close"])
+    return result
+
+
 def parse_eia_sheet(xml: bytes, start: str, end: str) -> dict[str, float]:
     result = {}
     for row in ET.fromstring(xml).iter(f"{XML_NS}row"):
@@ -154,17 +172,30 @@ def fetch_eia_wti(start: str, end: str, source_url: str = EIA_WTI_XLS, timeout: 
             return parse_eia_sheet(workbook.read("xl/worksheets/sheet2.xml"), start, end)
 
 
-def run_btc(start: str, end: str) -> dict:
+def run_btc(start: str, end: str, source: str = "coinbase", target_name: str = "ostium") -> dict:
     start_ts = int(datetime.fromisoformat(start).replace(tzinfo=UTC).timestamp())
     end_ts = int(datetime.fromisoformat(end).replace(tzinfo=UTC).timestamp())
-    proxy = daily_closes(fetch_coinbase(start, end))
-    target = ostium_closes(fetch_ostium("BTC-USD", start_ts, end_ts))
+    if source == "coinbase":
+        proxy = daily_closes(fetch_coinbase(start, end))
+        source_url = COINBASE_ENDPOINT
+    else:
+        proxy = fetch_bitstamp(start, end)
+        source_url = BITSTAMP_ENDPOINT
+    if target_name == "ostium":
+        target = ostium_closes(fetch_ostium("BTC-USD", start_ts, end_ts))
+        target_url = "https://builder.prod.bedrock.ostium.io/v1/ohlc"
+    else:
+        target = daily_closes(fetch_coinbase(start, end))
+        target_url = COINBASE_ENDPOINT
     metrics = compare(proxy, target)
+    if target_name != "ostium":
+        metrics["target_count"] = metrics.pop("ostium_count")
     return {
         "schema_version": 1,
         "asset": "BTC/USD",
-        "proxy_source": COINBASE_ENDPOINT,
-        "target_source": "https://builder.prod.bedrock.ostium.io/v1/ohlc",
+        "proxy_source": source_url,
+        "proxy_series": source,
+        "target_source": target_url,
         "requested_window": f"{start}/{end}",
         "metrics": metrics,
         "decision": alignment_decision(metrics),
@@ -199,12 +230,14 @@ def run_wti(start: str, end: str, series: str = "front-future") -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--asset", choices=["BTC/USD", "WTI/USD"], default="BTC/USD")
+    parser.add_argument("--btc-source", choices=["coinbase", "bitstamp"], default="coinbase")
+    parser.add_argument("--btc-target", choices=["ostium", "coinbase"], default="ostium")
     parser.add_argument("--wti-series", choices=["front-future", "spot"], default="front-future")
     parser.add_argument("--start", required=True)
     parser.add_argument("--end", required=True)
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
-    result = run_btc(args.start, args.end) if args.asset == "BTC/USD" else run_wti(args.start, args.end, args.wti_series)
+    result = run_btc(args.start, args.end, args.btc_source, args.btc_target) if args.asset == "BTC/USD" else run_wti(args.start, args.end, args.wti_series)
     rendered = json.dumps(result, indent=2, ensure_ascii=False) + "\n"
     if args.output:
         args.output.write_text(rendered)

@@ -10,7 +10,7 @@
     {"symbol": "EUR/USD", "class": "forex", "driver": "tipus i divises", "opening_fee_bps": 3, "data_status": "candidate"},
     {"symbol": "US500/USD", "class": "index", "driver": "renda variable agregada", "opening_fee_bps": 3, "data_status": "m15_research_only_parity_passed"},
     {"symbol": "XAU/USD", "class": "commodity", "driver": "tipus reals, crisi i flux oficial", "opening_fee_bps": 3, "data_status": "candidate"},
-    {"symbol": "BTC/USD", "class": "crypto", "driver": "liquiditat cripto", "opening_fee_bps": 5, "data_status": "blocked_session_boundary"}
+    {"symbol": "BTC/USD", "class": "crypto", "driver": "liquiditat cripto", "opening_fee_bps": 5, "data_status": "research_source_passed_from_2019"}
   ],
   "excluded": [
     {"symbol": "WTI/USD", "reason": "EIA spot failed parity; EIA front future lacks continuous validation coverage."},
@@ -18,14 +18,16 @@
   ],
   "portfolio_sizes": [3, 4],
   "periods": {
-    "development": "2017-01-01/2021-12-31",
+    "development": "2019-01-01/2021-12-31",
     "validation": "2022-01-01/2025-07-31",
     "sealed_holdout": "2025-08-01/2026-07-31"
   },
   "data_gates": {
-    "search_may_start": false,
-    "blocking_items": ["BTC session-boundary evidence or a replacement source"],
+    "search_may_start": true,
+    "blocking_items": [],
     "us500_scope": "M15 research only; H1/H4, paper and live remain blocked",
+    "btc_scope": "M15 research from 2019 using a bounded non-redistributed exchange source; Ostium execution parity uses only the stable post-2024-10-02 segment",
+    "btc_builder_history_policy": "Do not repair or use Ostium BTC daily candles before 2024-10-02; two independent exchanges reproduce the one-day mismatch against that segment.",
     "same_calendar_and_timezone": true,
     "continuity_and_duplicate_audit": true,
     "ostium_overlap_parity_required": true,

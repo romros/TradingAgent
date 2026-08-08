@@ -1,0 +1,19 @@
+{
+  "id": "bitstamp_btcusd_ohlc_2026",
+  "kind": "documentation",
+  "title": "Bitstamp Public API v2: BTC/USD OHLC",
+  "url": "https://www.bitstamp.net/api/",
+  "author": "Bitstamp",
+  "published_at": null,
+  "accessed_at": "2026-08-08",
+  "language": "en",
+  "sq_version": null,
+  "source_level": "A_PRIMARY",
+  "domain": "market-data",
+  "rights_policy": "transformative_notes",
+  "metadata": {"endpoint": "https://www.bitstamp.net/api/v2/ohlc/btcusd/", "authentication": "not required for public OHLC", "raw_redistribution": "not assumed"},
+  "chunks": [
+    {"locator": "api:ohlc", "heading": "Public OHLC", "body": "Bitstamp exposes public BTC/USD OHLC data with explicit step, limit, start and end controls. The academy queries bounded windows in memory and stores only parity statistics.", "evidence_status": "captured"},
+    {"locator": "api:rights", "heading": "Use boundary", "body": "Bitstamp directs commercial exchange-data users to a data license agreement. This academy does not redistribute raw candles and treats the feed only as a candidate research proxy pending parity gates.", "evidence_status": "captured"}
+  ]
+}

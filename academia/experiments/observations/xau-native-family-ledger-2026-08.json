@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "id": "xau-native-family-ledger-2026-08",
+  "date": "2026-08-08",
+  "purpose": "Transfer completed native XAU experiments into the academy's operational memory before proposing another family.",
+  "holdout_accessed": false,
+  "families": [
+    {
+      "family": "H4 liquidity sweep and reclaim",
+      "stage_reached": "discovery",
+      "attempts": 1350,
+      "result": "REJECT",
+      "decisive_evidence": "0 stress-gate passes and 0 stable-region members; neutral seed stress PF 0.529 and expectancy -24.26 bps.",
+      "source": "lab/sq_bridge/evidence/xau_h4_sweep_reclaim_v5_train_preflight_summary.json"
+    },
+    {
+      "family": "H1 session displacement",
+      "stage_reached": "discovery",
+      "attempts": 5184,
+      "result": "REJECT",
+      "decisive_evidence": "0 stress-gate passes and 0 stable-region members.",
+      "source": "lab/sq_bridge/evidence/xau_h1_displacement_v6_train_summary.json"
+    },
+    {
+      "family": "H1 late-session bearish displacement reversal",
+      "stage_reached": "independent temporal validation",
+      "attempts": 1,
+      "result": "REJECT",
+      "decisive_evidence": "Discovery stress PF 1.84 became validation stress PF 0.85 with only 20 trades; validation expectancy -2.11 bps.",
+      "source": "lab/sq_bridge/evidence/xau_h1_late_reversal_v7_validation.json"
+    },
+    {
+      "family": "D1 inside-bar breakout",
+      "stage_reached": "discovery",
+      "attempts": 1944,
+      "result": "REJECT",
+      "decisive_evidence": "0 point-gate passes; best diagnostic stress PF 1.003, stress return -2.49% and only 5/12 positive years.",
+      "source": "lab/sq_bridge/evidence/xau_d1_inside_breakout_v9_train.json"
+    },
+    {
+      "family": "D1 short-RSI pullback in long trend",
+      "stage_reached": "independent temporal validation",
+      "attempts": 1,
+      "result": "REJECT",
+      "decisive_evidence": "Selected candidate produced 11 validation trades, PF 0.152 base, PF 0.097 stress and no positive year.",
+      "source": "lab/sq_bridge/evidence/xau_d1_trend_pullback_v10_validation.json"
+    }
+  ],
+  "insights": [
+    "A very strong discovery result is not transferable evidence: the late-reversal family lost its edge in the next untouched period.",
+    "Increasing a grid from 1,350 to 5,184 variants did not create a stable cost-resistant region.",
+    "ATR normalization solves price-scale comparability, but it does not create expectancy or regime stability.",
+    "The next XAU proposal must state a different economic cause, not merely change timeframe, indicator threshold, stop or target."
+  ],
+  "decision": "DO_NOT_REPEAT_THESE_XAU_MECHANISMS",
+  "next_test": "Before any new XAU SQ generation, preregister one mechanism whose causal premise uses information absent from these five families, and falsify its frequency and cost coverage on development data first."
+}

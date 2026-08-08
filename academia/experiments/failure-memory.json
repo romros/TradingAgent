@@ -96,6 +96,16 @@
       "do_not_repeat": "Do not tune RSI, EMA, target, stop, holding time or session windows to rescue this family.",
       "next_direction": "Measure live session spread first, then require a distinct economic mechanism before another SPX M15 grid.",
       "evidence": "academia/experiments/observations/spx-m15-trend-pullback-v3-2026-08.json"
+    },
+    {
+      "id": "xau_native_family_ledger_20260808",
+      "family": "xau_multi_timeframe_price_only_mechanisms",
+      "decision": "REJECT",
+      "failure_code": "DISCOVERY_OR_TEMPORAL_FAIL",
+      "lesson": "Sweep/reclaim, session displacement, late-session reversal, D1 inside breakout and D1 short-RSI trend pullback all failed either the frozen cost gate or independent temporal validation; 8,480 grid points plus two selected validations produced no promotable family.",
+      "do_not_repeat": "Do not relabel these mechanisms by changing timeframe, indicator threshold, stop or target; do not infer that ATR normalization creates an edge.",
+      "next_direction": "Require a genuinely new economic input or causal premise, then falsify frequency and costs before SQ generation.",
+      "evidence": "academia/experiments/observations/xau-native-family-ledger-2026-08.json"
     }
   ]
 }

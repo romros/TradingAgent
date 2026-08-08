@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "observation_id": "ostium-portfolio-universe-amendment-3v4-2026-08",
+  "observed_at": "2026-08-08",
+  "previous_campaign": "ostium-500-portfolio-3v5-v1",
+  "active_campaign": "ostium-500-portfolio-3v4-v1",
+  "decision": "EXCLUDE_WTI_AND_PREREGISTER_3_VS_4",
+  "evidence": [
+    "EIA WTI spot failed the frozen correlation and price-distance parity gates in both validation windows.",
+    "EIA WTI front-future history ended on 2024-04-04 and provided no second-window observations.",
+    "No API key or package installation is needed or requested."
+  ],
+  "active_universe": ["EUR/USD", "US500/USD", "XAU/USD", "BTC/USD"],
+  "excluded_universe": ["WTI/USD", "TLT/USD"],
+  "status": "PREREGISTERED_BUT_DATA_BLOCKED",
+  "remaining_blockers": [
+    "Obtain a rights-safe continuous US500 discovery history and prove Ostium overlap parity.",
+    "Explain the BTC Ostium session-label boundary or approve a replacement discovery source through the same two-window gate."
+  ],
+  "sqcli_needed_now": false,
+  "raw_market_data_persisted": false,
+  "holdout_accessed": false
+}

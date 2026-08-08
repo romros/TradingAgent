@@ -1,0 +1,75 @@
+{
+  "id": "ostium-500-portfolio-3v4-v1",
+  "preregistered_at": "2026-08-08",
+  "supersedes": "ostium-500-portfolio-3v5-v1",
+  "amendment_reason": "WTI spot failed Ostium parity and the official EIA front-future workbook lacks the required history; TLT was already excluded for lack of authorized tradable history.",
+  "question": "Quina cartera de 3 o 4 actius conserva millor creixement compost net, supervivència i diversificació durant dotze mesos amb 500 USDC a Ostium?",
+  "capital": {"amount": 500, "currency": "USDC", "simulation_only": true},
+  "horizon": {"target_months": 12, "paper_forward_months_if_finalist": 12},
+  "universe": [
+    {"symbol": "EUR/USD", "class": "forex", "driver": "tipus i divises", "opening_fee_bps": 3, "data_status": "candidate"},
+    {"symbol": "US500/USD", "class": "index", "driver": "renda variable agregada", "opening_fee_bps": 3, "data_status": "blocked_rights_safe_history"},
+    {"symbol": "XAU/USD", "class": "commodity", "driver": "tipus reals, crisi i flux oficial", "opening_fee_bps": 3, "data_status": "candidate"},
+    {"symbol": "BTC/USD", "class": "crypto", "driver": "liquiditat cripto", "opening_fee_bps": 5, "data_status": "blocked_session_boundary"}
+  ],
+  "excluded": [
+    {"symbol": "WTI/USD", "reason": "EIA spot failed parity; EIA front future lacks continuous validation coverage."},
+    {"symbol": "TLT/USD", "reason": "No equivalent authorized tradable history and no common holdout; DGS20 may label regimes only."}
+  ],
+  "portfolio_sizes": [3, 4],
+  "periods": {
+    "development": "2017-01-01/2021-12-31",
+    "validation": "2022-01-01/2025-07-31",
+    "sealed_holdout": "2025-08-01/2026-07-31"
+  },
+  "data_gates": {
+    "search_may_start": false,
+    "blocking_items": ["US500 rights-safe continuous history", "BTC session-boundary evidence or a replacement source"],
+    "same_calendar_and_timezone": true,
+    "continuity_and_duplicate_audit": true,
+    "ostium_overlap_parity_required": true,
+    "raw_third_party_data_versioned": false,
+    "proxy_promotion_thresholds": {
+      "minimum_common_days_per_window": {"continuous_markets": 250, "weekday_markets": 180},
+      "minimum_aligned_daily_return_correlation": 0.95,
+      "maximum_aligned_close_difference_bps_median": 100,
+      "maximum_aligned_close_difference_bps_p95": 200,
+      "session_lag_must_be_consistent_across_two_validation_windows": true,
+      "scope": "discovery data only; execution economics always use Ostium evidence"
+    }
+  },
+  "risk": {
+    "risk_per_trade_pct_range": [0.5, 1.0],
+    "maximum_simultaneous_risk_pct": 4.0,
+    "maximum_portfolio_effective_leverage": 5.0,
+    "maximum_drawdown_pct": 15.0,
+    "sizing": "equity_percent_from_stop_distance",
+    "deleveraging": "automatic because size is recalculated from current realized equity"
+  },
+  "cost_model": {
+    "opening_fee": "pair-specific 3 or 5 bps on notional",
+    "oracle_fee_usdc_per_open": 0.1,
+    "spread_slippage": "measured bid/ask base plus 2x stress; never zero by default",
+    "rollover": "measured by side and holding interval, plus adverse stress",
+    "closing_fee": 0,
+    "failed_order_oracle_cost": "included when represented in execution evidence"
+  },
+  "families": ["atr_breakout", "filtered_trend", "range_reversion", "session_effect", "volatility_expansion"],
+  "selection": {
+    "primary": "net compounded return subject to survival gates",
+    "secondary": ["maximum drawdown", "expected shortfall", "regime correlation", "profit concentration", "margin utilization", "turnover"],
+    "required_comparisons": ["fixed_size_unlevered", "risk_sized_no_compounding", "risk_sized_compounding", "compounding_with_ostium_margin_and_costs"]
+  },
+  "discard_criteria": [
+    "non-positive net expectancy under current base costs",
+    "maximum drawdown above 15 percent",
+    "required leverage above the preregistered portfolio cap",
+    "more than 50 percent of net profit from one asset",
+    "diversification disappears in adverse regimes",
+    "edge exists only with compounding or higher leverage",
+    "minimum size or free margin causes systematic skipped orders",
+    "sealed holdout was used before final selection"
+  ],
+  "holdout_policy": {"maximum_reads": 1, "open_only_after_individual_and_portfolio_gates": true, "no_refit_after_result": true},
+  "live_trading": false
+}

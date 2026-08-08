@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "instrument": "Ostium SPX/USD (UI: US500/USD)",
+  "facts": {
+    "opening_fee_bps": 3.0,
+    "closing_fee_bps": 0.0,
+    "oracle_fee_usdc": 0.1,
+    "oracle_refund_condition": "successful full close",
+    "documented_max_leverage": 200.0,
+    "bid_ask_execution": true,
+    "market_schedule_et": "Sunday 18:00 through Friday 17:00; daily 17:00-18:00 break"
+  },
+  "scenario_assumptions": {
+    "risk_per_trade_pct": 1.0,
+    "annual_rollover_pct": [
+      4.6,
+      5.6
+    ],
+    "rollover_basis": "SOFR 3.60% snapshot + documented 1-2% carry premium; not a live pair rate",
+    "spread_bps": null,
+    "slippage_bps": null
+  },
+  "sizing_examples": [
+    {
+      "capital_usdc": 200.0,
+      "risk_usdc": 2.0,
+      "stop_distance_pct": 1.0,
+      "notional_usdc": 200.0,
+      "collateral_if_all_capital_usdc": 200.0,
+      "effective_leverage_if_all_capital": 1.0,
+      "opening_fee_usdc": 0.06,
+      "oracle_fee_refunded_full_close_usdc": 0.0,
+      "oracle_fee_failed_or_partial_action_usdc": 0.1,
+      "breakeven_confirmed_cost_bps": 3.0,
+      "breakeven_stress_oracle_not_refunded_bps": 8.0,
+      "liquidation_distance_pct": 99.875
+    },
+    {
+      "capital_usdc": 200.0,
+      "risk_usdc": 2.0,
+      "stop_distance_pct": 0.5,
+      "notional_usdc": 400.0,
+      "collateral_if_all_capital_usdc": 200.0,
+      "effective_leverage_if_all_capital": 2.0,
+      "opening_fee_usdc": 0.12,
+      "oracle_fee_refunded_full_close_usdc": 0.0,
+      "oracle_fee_failed_or_partial_action_usdc": 0.1,
+      "breakeven_confirmed_cost_bps": 3.0,
+      "breakeven_stress_oracle_not_refunded_bps": 5.5,
+      "liquidation_distance_pct": 49.875
+    },
+    {
+      "capital_usdc": 200.0,
+      "risk_usdc": 2.0,
+      "stop_distance_pct": 0.25,
+      "notional_usdc": 800.0,
+      "collateral_if_all_capital_usdc": 200.0,
+      "effective_leverage_if_all_capital": 4.0,
+      "opening_fee_usdc": 0.24,
+      "oracle_fee_refunded_full_close_usdc": 0.0,
+      "oracle_fee_failed_or_partial_action_usdc": 0.1,
+      "breakeven_confirmed_cost_bps": 3.0,
+      "breakeven_stress_oracle_not_refunded_bps": 4.25,
+      "liquidation_distance_pct": 24.875
+    },
+    {
+      "capital_usdc": 500.0,
+      "risk_usdc": 5.0,
+      "stop_distance_pct": 1.0,
+      "notional_usdc": 500.0,
+      "collateral_if_all_capital_usdc": 500.0,
+      "effective_leverage_if_all_capital": 1.0,
+      "opening_fee_usdc": 0.15,
+      "oracle_fee_refunded_full_close_usdc": 0.0,
+      "oracle_fee_failed_or_partial_action_usdc": 0.1,
+      "breakeven_confirmed_cost_bps": 3.0,
+      "breakeven_stress_oracle_not_refunded_bps": 5.0,
+      "liquidation_distance_pct": 99.875
+    },
+    {
+      "capital_usdc": 500.0,
+      "risk_usdc": 5.0,
+      "stop_distance_pct": 0.5,
+      "notional_usdc": 1000.0,
+      "collateral_if_all_capital_usdc": 500.0,
+      "effective_leverage_if_all_capital": 2.0,
+      "opening_fee_usdc": 0.3,
+      "oracle_fee_refunded_full_close_usdc": 0.0,
+      "oracle_fee_failed_or_partial_action_usdc": 0.1,
+      "breakeven_confirmed_cost_bps": 3.0,
+      "breakeven_stress_oracle_not_refunded_bps": 4.0,
+      "liquidation_distance_pct": 49.875
+    },
+    {
+      "capital_usdc": 500.0,
+      "risk_usdc": 5.0,
+      "stop_distance_pct": 0.25,
+      "notional_usdc": 2000.0,
+      "collateral_if_all_capital_usdc": 500.0,
+      "effective_leverage_if_all_capital": 4.0,
+      "opening_fee_usdc": 0.6,
+      "oracle_fee_refunded_full_close_usdc": 0.0,
+      "oracle_fee_failed_or_partial_action_usdc": 0.1,
+      "breakeven_confirmed_cost_bps": 3.0,
+      "breakeven_stress_oracle_not_refunded_bps": 3.5,
+      "liquidation_distance_pct": 24.875
+    }
+  ],
+  "carry_examples": [
+    {
+      "annual_rollover_pct": 4.6,
+      "holding_days": 0.25,
+      "cost_bps_on_notional": 0.314853
+    },
+    {
+      "annual_rollover_pct": 4.6,
+      "holding_days": 1.0,
+      "cost_bps_on_notional": 1.259411
+    },
+    {
+      "annual_rollover_pct": 4.6,
+      "holding_days": 5.0,
+      "cost_bps_on_notional": 6.297057
+    },
+    {
+      "annual_rollover_pct": 5.6,
+      "holding_days": 0.25,
+      "cost_bps_on_notional": 0.383299
+    },
+    {
+      "annual_rollover_pct": 5.6,
+      "holding_days": 1.0,
+      "cost_bps_on_notional": 1.533196
+    },
+    {
+      "annual_rollover_pct": 5.6,
+      "holding_days": 5.0,
+      "cost_bps_on_notional": 7.665982
+    }
+  ],
+  "gates": {
+    "research_m15": "PASS_WITH_COST_STRESS_GRID",
+    "paper": "BLOCKED",
+    "live": "BLOCKED",
+    "missing": [
+      "normalized live getPairs minSz/minNtl/maxLeverage/overnightMaxLeverage",
+      "measured bid-ask distribution by session",
+      "measured slippage for intended notionals",
+      "live long/short rollover rate and direction",
+      "strategy stop distance and OOS MAE distribution"
+    ]
+  },
+  "decision": "Costs can be modelled for research; no safe leverage or paper authorization exists yet."
+}

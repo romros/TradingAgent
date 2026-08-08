@@ -1,0 +1,36 @@
+{
+  "id": "ostium_official_spxusd_execution_2026",
+  "kind": "documentation_and_read_only_probe",
+  "title": "Ostium SPX/USD execution contract",
+  "author": "Ostium",
+  "accessed_at": "2026-08-08",
+  "source_level": "A_PRIMARY",
+  "domain": "execution-economics",
+  "rights_policy": "transformative_notes",
+  "urls": [
+    "https://docs.ostium.com/traders/reference/markets",
+    "https://docs.ostium.com/traders/reference/fees",
+    "https://docs.ostium.com/traders/trading/liquidation",
+    "https://docs.ostium.com/developer/reference/get-pairs",
+    "https://docs.ostium.com/developer/client-modes/read-only"
+  ],
+  "facts": {
+    "pair": "SPX/USD",
+    "ui_market": "US500/USD",
+    "pair_id": 10,
+    "documented_max_leverage": 200,
+    "documented_opening_fee_bps": 3,
+    "closing_fee_bps": 0,
+    "oracle_fee_usdc": 0.1,
+    "oracle_refund": "successful full close",
+    "execution": "bid_ask",
+    "schedule_et": "Sunday 18:00 through Friday 17:00; daily 17:00-18:00 break",
+    "rollover": "continuous per block; indices use SOFR plus carry premium"
+  },
+  "probe": {
+    "endpoint": "https://builder.prod.bedrock.ostium.io/v1/subgraph/gn",
+    "mode": "public GraphQL read only",
+    "observed_pair": {"id": "10", "from": "SPX", "to": "USD", "group": "indices"},
+    "warning": "Raw subgraph numeric fields are scaled and getPairs derives normalized values. Never feed raw values directly into sizing."
+  }
+}

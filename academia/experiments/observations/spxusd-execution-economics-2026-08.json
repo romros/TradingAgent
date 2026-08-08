@@ -1,0 +1,25 @@
+{
+  "id": "spxusd_execution_economics_2026_08",
+  "date": "2026-08-08",
+  "question": "Is SPX/USD economically and operationally ready for a 200-500 USDC account?",
+  "facts": [
+    "Official current documentation publishes 200x maximum leverage and a 3 bps opening fee for US500/USD.",
+    "There is no closing fee, but both entry and exit execute at bid/ask.",
+    "The 0.10 USDC oracle fee is refunded only after a successful full close.",
+    "Index rollover accrues continuously and depends on SOFR plus a carry premium.",
+    "The public subgraph identifies pair 10 as SPX/USD in the indices group, but raw numeric fields are scaled and are not a sizing interface."
+  ],
+  "inference": [
+    "For one-percent risk and stops from 1.0% to 0.25%, illustrative notionals are 200-800 USDC on a 200 USDC account and 500-2000 USDC on a 500 USDC account.",
+    "At those notionals the confirmed opening fee is 0.06-0.24 USDC and 0.15-0.60 USDC respectively.",
+    "If an oracle request is not refunded, opening-plus-oracle break-even rises from 3 bps to 8-4.25 bps for the 200 USDC examples and 5-3.5 bps for the 500 USDC examples.",
+    "The venue maximum of 200x is not evidence that the strategy can safely use 200x."
+  ],
+  "recommendation": "Allow only M15 research with explicit base/conservative/stress costs. Keep paper and live blocked until normalized getPairs metadata, session spread/slippage, live directional rollover, and OOS stop/MAE evidence are captured.",
+  "artifacts": [
+    "lab/sq_bridge/spxusd_execution_economics.py",
+    "lab/sq_bridge/evidence/spxusd_execution_economics_2026.json",
+    "academia/sources/ostium/official-spxusd-execution-2026.json"
+  ],
+  "verdict": "RESEARCH_ONLY"
+}

@@ -58,10 +58,10 @@ Després calcular el collateral com `notional / leverage`. Augmentar leverage re
 marge requerit però no pot augmentar el nocional decidit pel risc. A cada entrada
 cal recomputar equity realitzada, free margin, risc simultani i leverage efectiu.
 
-La comparació 3-vs-6 ha d'usar el mateix univers congelat i simular ordres omeses.
-Sis actius no són més diversos si comparteixen driver o si les comissions fixes i
+La comparació activa 3-vs-5 ha d'usar el mateix univers congelat i simular ordres omeses. TLT queda fora fins que existeixi una història negociable autoritzada; DGS20 només pot etiquetar règims.
+Cinc actius no són més diversos si comparteixen driver o si les comissions fixes i
 el marge impedeixen executar-los. El manifest inicial és
-`experiments/pending/ostium-500-portfolio-3v6-v1.json`.
+`experiments/pending/ostium-500-portfolio-3v5-v1.json`. El manifest 3-vs-6 anterior es conserva com a traça de la decisió, no com a experiment actiu.
 
 Abans del Builder, executar `audit_portfolio_data.py` contra una còpia de només
 lectura del catàleg SQ. Una coincidència de nom i dates només autoritza preparar

@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "observation_id": "ostium-portfolio-3v5-data-gate-2026-08",
+  "observed_at": "2026-08-08",
+  "campaign": "ostium-500-portfolio-3v5-v1",
+  "decision": "PORTFOLIO_SEARCH_REMAINS_BLOCKED",
+  "btc": {
+    "source": "Coinbase Exchange BTC-USD daily candles",
+    "window_1": {
+      "period": "2024-01-01/2024-10-01",
+      "common_days": 275,
+      "best_target_day_lag": -1,
+      "aligned_return_correlation": 0.9676804345518827,
+      "aligned_close_difference_bps_median": 68.05517751613866,
+      "aligned_close_difference_bps_p95": 107.80560341684398
+    },
+    "window_2": {
+      "period": "2024-10-02/2025-07-28",
+      "common_days": 300,
+      "best_target_day_lag": 0,
+      "aligned_return_correlation": 0.9996104575241054,
+      "aligned_close_difference_bps_median": 0.5297314354124616,
+      "aligned_close_difference_bps_p95": 1.9964324272336853
+    },
+    "gate": "FAIL_SESSION_LAG_INCONSISTENT",
+    "interpretation": "The proxy is extremely close to Ostium in the later window, but Ostium's 2024 labels require a one-day shift and have materially wider price differences. Do not splice or normalize the history until the provider/session boundary is evidenced independently."
+  },
+  "wti": {
+    "source": "EIA WTI Cushing daily spot",
+    "gate": "BLOCKED_EIA_API_KEY_MISSING",
+    "next": "Run the same two-window in-memory parity audit when EIA_API_KEY is available; spot remains a discovery proxy, never execution OHLC."
+  },
+  "us500": {
+    "gate": "BLOCKED_RIGHTS_SAFE_HISTORY_MISSING"
+  },
+  "allowed_now": [
+    "Keep building and testing the source-parity tooling with synthetic fixtures.",
+    "Request an EIA Open Data API key for the WTI pilot.",
+    "Investigate the BTC session-label boundary using provider documentation or independent metadata only."
+  ],
+  "not_allowed": [
+    "Start the five-asset search with incomplete or semantically mismatched histories.",
+    "Treat the 2024 BTC one-day shift as a harmless timezone adjustment without evidence.",
+    "Open the sealed holdout."
+  ],
+  "raw_market_data_persisted": false,
+  "holdout_accessed": false
+}

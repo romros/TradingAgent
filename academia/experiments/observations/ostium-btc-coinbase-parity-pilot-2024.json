@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "asset": "BTC/USD",
+  "proxy_source": "https://api.exchange.coinbase.com/products/BTC-USD/candles",
+  "target_source": "https://builder.prod.bedrock.ostium.io/v1/ohlc",
+  "requested_window": "2024-01-01/2024-10-01",
+  "metrics": {
+    "proxy_count": 275,
+    "ostium_count": 275,
+    "common_days": 275,
+    "first_common": "2024-01-01",
+    "last_common": "2024-10-01",
+    "close_absolute_difference_bps_median": 150.86409548739522,
+    "close_absolute_difference_bps_p95": 648.6416316852739,
+    "daily_return_correlation": -0.05547100235130775,
+    "daily_return_correlation_by_target_day_lag": {
+      "-2": -0.103436239037245,
+      "-1": 0.9676804345518827,
+      "0": -0.05547100235130775,
+      "1": 0.09606190680535541,
+      "2": -0.020209132329084854
+    },
+    "best_target_day_lag": -1,
+    "aligned_daily_return_correlation": 0.9676804345518827,
+    "aligned_close_absolute_difference_bps_median": 68.05517751613866,
+    "aligned_close_absolute_difference_bps_p95": 107.80560341684398
+  },
+  "decision": "SESSION_ALIGNMENT_REQUIRED",
+  "promotion_gate": "PENDING_THRESHOLDS_AND_SECOND_WINDOW",
+  "raw_candles_persisted": false,
+  "holdout_accessed": false
+}

@@ -1,5 +1,7 @@
 # Alquímia — laboratori quantitatiu SQ → Ostium
 
+> Estat específic d'SPX/USD M15: [SPX_M15_RESEARCH_AUDIT.md](SPX_M15_RESEARCH_AUDIT.md).
+
 **Data:** 2026-08-02
 **Estat:** MVP en construcció; validació XAU H4 executada
 **Capital canònic:** 200 USDC

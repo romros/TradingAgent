@@ -1,0 +1,25 @@
+{
+  "id": "spx-m15-compression-expansion-v2-2026-08",
+  "date": "2026-08-08",
+  "family": "compression_then_channel_expansion",
+  "stage": "development_only",
+  "contract": {
+    "attempted": 1728,
+    "period": "2012-2018",
+    "costs_bps": {"base": 8, "conservative": 15, "stress": 30},
+    "capital_usdc": 200,
+    "risk_per_trade_pct": 1,
+    "maximum_margin_pct": 35
+  },
+  "result": {
+    "point_gate_passes": 0,
+    "best_apparent_profit_factor_stress": 3.159467,
+    "best_apparent_trades": 5,
+    "validation_accessed": false,
+    "holdout_accessed": false,
+    "sqcli_executed": false
+  },
+  "interpretation": "The apparently profitable points contain only 3-5 trades over seven years. Requiring a prior compression, channel break and exact signal hour makes the mechanism too sparse for the small-investor evidence gate.",
+  "decision": "REJECT_FAMILY_BEFORE_SQ",
+  "next": "Change mechanism rather than widening the inspected hours or lowering the minimum trade count post hoc."
+}

@@ -1,0 +1,24 @@
+{
+  "id": "spx-m15-compression-expansion-v2",
+  "family": "compression_then_channel_expansion",
+  "symbol": "SP_M1_dukas mapped to Ostium SPX/USD",
+  "timeframe": "M15",
+  "direction": ["long", "short"],
+  "periods": {"development": "2012-2018", "validation": "2019-2022", "contaminated_oos": "2023-2025", "sealed_holdout": "2026"},
+  "grid": {
+    "side": ["long", "short"],
+    "compression_lookback_bars": [32, 64],
+    "compression_quantile": [0.1, 0.2],
+    "channel_bars": [8, 16, 32],
+    "stop_atr": [1.5, 2.0],
+    "hold_bars": [8, 16, 24],
+    "signal_hour_ny": [10, 11, 12, 13],
+    "day_filter": ["all", "no_monday", "no_friday"]
+  },
+  "attempt_budget": 1728,
+  "costs_bps": {"base": 8, "conservative": 15, "stress": 30},
+  "small_account": {"capital_usdc": 200, "risk_per_trade_pct": 1, "maximum_margin_pct": 35, "venue_max_leverage": 200, "liquidation_buffer_over_stop": 1.5},
+  "development_gate": {"minimum_trades": 80, "minimum_stress_profit_factor": 1.1, "minimum_positive_year_ratio": 0.57, "maximum_stress_drawdown_pct": 20, "minimum_stress_expectancy_usdc": 0.1, "minimum_passing_neighbours": 2},
+  "falsifier": "No connected parameter region passes the frozen development stress gate.",
+  "frozen": true
+}

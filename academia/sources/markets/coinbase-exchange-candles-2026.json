@@ -1,0 +1,19 @@
+{
+  "id": "coinbase_exchange_candles_2026",
+  "kind": "documentation",
+  "title": "Coinbase Exchange API: product candles",
+  "url": "https://docs.cdp.coinbase.com/api-reference/exchange-api/rest-api/products/get-product-candles",
+  "author": "Coinbase",
+  "published_at": null,
+  "accessed_at": "2026-08-08",
+  "language": "en",
+  "sq_version": null,
+  "source_level": "A_PRIMARY",
+  "domain": "market-data",
+  "rights_policy": "transformative_notes",
+  "metadata": {"candidate_product": "BTC-USD", "maximum_candles_per_request": 300, "daily_granularity_seconds": 86400},
+  "chunks": [
+    {"locator": "section:max-candles", "heading": "Pagination", "body": "The Exchange endpoint returns at most 300 candles per request, so a long archive must use bounded non-overlapping windows and deduplicate timestamps.", "evidence_status": "captured"},
+    {"locator": "section:completeness", "heading": "Completeness warning", "body": "Coinbase states that historical rates may be incomplete and omits intervals without ticks; continuity and duplicate checks are mandatory before research use.", "evidence_status": "captured"}
+  ]
+}

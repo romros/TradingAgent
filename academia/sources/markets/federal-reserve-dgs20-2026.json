@@ -1,0 +1,19 @@
+{
+  "id": "federal_reserve_dgs20_2026",
+  "kind": "documentation",
+  "title": "20-Year Treasury constant maturity yield",
+  "url": "https://fred.stlouisfed.org/series/DGS20",
+  "author": "Board of Governors of the Federal Reserve System (US)",
+  "published_at": null,
+  "accessed_at": "2026-08-08",
+  "language": "en",
+  "sq_version": null,
+  "source_level": "A_PRIMARY",
+  "domain": "market-data",
+  "rights_policy": "transformative_notes",
+  "metadata": {"frequency": "daily", "units": "percent", "rights": "public domain; citation requested"},
+  "chunks": [
+    {"locator": "series:definition", "heading": "What it measures", "body": "DGS20 is the daily 20-year constant-maturity Treasury yield quoted on an investment basis, sourced from the Federal Reserve H.15 release.", "evidence_status": "captured"},
+    {"locator": "series:not-tlt", "heading": "Non-equivalence", "body": "A yield series is not a TLT total-return or tradable price series: duration, convexity, coupon income, fund fees and rebalancing are absent. It may label regimes, but must not replace TLT OHLC in a strategy backtest.", "evidence_status": "captured"}
+  ]
+}

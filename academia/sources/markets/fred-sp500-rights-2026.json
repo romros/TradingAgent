@@ -1,0 +1,19 @@
+{
+  "id": "fred_sp500_rights_2026",
+  "kind": "documentation",
+  "title": "FRED S&P 500 daily series and reuse notice",
+  "url": "https://fred.stlouisfed.org/series/SP500",
+  "author": "S&P Dow Jones Indices LLC / Federal Reserve Bank of St. Louis",
+  "published_at": null,
+  "accessed_at": "2026-08-08",
+  "language": "en",
+  "sq_version": null,
+  "source_level": "A_PRIMARY",
+  "domain": "market-data",
+  "rights_policy": "metadata_only",
+  "metadata": {"frequency": "daily close", "history_policy": "10 years", "redistribution": "prior written permission required"},
+  "chunks": [
+    {"locator": "notes:coverage", "heading": "Coverage", "body": "FRED provides ten years of daily S&P 500 close history under its agreement with S&P Dow Jones Indices.", "evidence_status": "captured"},
+    {"locator": "notes:copyright", "heading": "Rights gate", "body": "The series notes prohibit reproduction without prior written permission. Keep only metadata and transformed audit findings; do not incorporate or version the raw series until use rights are resolved.", "evidence_status": "captured"}
+  ]
+}

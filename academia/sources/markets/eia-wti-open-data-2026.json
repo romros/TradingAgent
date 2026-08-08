@@ -1,0 +1,19 @@
+{
+  "id": "eia_wti_open_data_2026",
+  "kind": "documentation",
+  "title": "EIA Open Data: petroleum daily prices",
+  "url": "https://www.eia.gov/opendata/index.php/api",
+  "author": "U.S. Energy Information Administration",
+  "published_at": null,
+  "accessed_at": "2026-08-08",
+  "language": "en",
+  "sq_version": null,
+  "source_level": "A_PRIMARY",
+  "domain": "market-data",
+  "rights_policy": "transformative_notes",
+  "metadata": {"candidate_series": "DCOILWTICO / EIA WTI Cushing spot", "api_key_required_for_api_v2": true},
+  "chunks": [
+    {"locator": "section:petroleum", "heading": "Coverage", "body": "EIA Open Data includes daily petroleum spot and futures prices and presents the service as free open data subject to its reuse policy.", "evidence_status": "captured"},
+    {"locator": "section:fit", "heading": "Campaign fit", "body": "WTI Cushing daily spot is a defensible discovery proxy for the economic driver, but it still requires overlap parity against Ostium CL-USD before candidate promotion.", "evidence_status": "captured"}
+  ]
+}

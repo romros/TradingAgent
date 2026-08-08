@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "observation_id": "ostium-portfolio-source-rights-audit-2026-08",
+  "observed_at": "2026-08-08",
+  "question": "Quines fonts oficials poden desbloquejar l'univers 3-vs-6 sense confondre proxies ni incorporar dades amb drets no resolts?",
+  "assets": {
+    "WTI/USD": {
+      "candidate": "EIA WTI Cushing daily spot",
+      "status": "ACQUISITION_FEASIBLE_NEEDS_OSTIUM_PARITY",
+      "rights": "free open data subject to EIA reuse policy and citation",
+      "limitation": "spot proxy, not identical to Ostium CL-USD execution series"
+    },
+    "BTC/USD": {
+      "candidate": "Coinbase Exchange BTC-USD daily candles",
+      "status": "ACQUISITION_FEASIBLE_NEEDS_GAP_AUDIT_AND_OSTIUM_PARITY",
+      "rights": "official API; raw redistribution not assumed",
+      "limitation": "300-candle pagination and explicit incomplete-history warning"
+    },
+    "US500/USD": {
+      "candidate": "FRED SP500 daily close",
+      "status": "COVERAGE_FEASIBLE_RIGHTS_BLOCKED",
+      "rights": "reproduction requires prior written permission",
+      "limitation": "daily close price index without dividends; not Ostium bid/ask"
+    },
+    "TLT/USD": {
+      "candidate": "Federal Reserve DGS20 as regime context only",
+      "status": "NO_EQUIVALENT_TRADABLE_HISTORY_APPROVED",
+      "rights": "DGS20 public domain with citation requested",
+      "limitation": "yield is not TLT price or total return and cannot be substituted mechanically"
+    }
+  },
+  "decision": "SIX_ASSET_COMPARISON_REMAINS_BLOCKED",
+  "inference": "WTI and BTC can be advanced with small provenance pilots. TLT remains the decisive blocker; using DGS20 as if it were TLT would invalidate strategy PnL. SP500 also needs a rights-safe source or explicit permission.",
+  "allowed_next_actions": [
+    "Acquire a small EIA WTI pilot and compare the overlap with Ostium CL-USD.",
+    "Acquire a small Coinbase BTC pilot with continuity checks and compare the overlap with Ostium BTC-USD.",
+    "Use DGS20 only as a regime label, never as TLT strategy OHLC."
+  ],
+  "decision_required_before_search": {
+    "recommended": "Preregister a 3-vs-5 comparison excluding TLT, while retaining TLT as a future expansion package.",
+    "alternative": "Keep 3-vs-6 blocked until an authorized TLT price/total-return source and a common holdout exist.",
+    "not_allowed": "Silently replace TLT with DGS20 or evaluate different universes and call the result 3-vs-6."
+  },
+  "raw_market_data_persisted": false,
+  "holdout_accessed": false
+}

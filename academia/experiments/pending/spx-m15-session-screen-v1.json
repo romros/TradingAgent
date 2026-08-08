@@ -1,0 +1,19 @@
+{
+  "id": "spx-m15-session-screen-v1",
+  "family": "session_gap_and_opening_drive",
+  "symbol": "SP_M1_dukas mapped to Ostium SPX/USD",
+  "timeframe": "M15 decisions from M1 source",
+  "mechanisms": ["gap continuation/fade", "opening 30/60-minute drive continuation/fade"],
+  "directions": ["both", "long_only", "short_only"],
+  "day_filters": ["all", "no_monday", "no_friday", "tue_thu"],
+  "exits_ny": ["15:30", "15:59"],
+  "periods": {"development": "2012-2018", "validation": "2019-2022", "oos": "2023-2025", "sealed_holdout": "2026-01-01/2026-07-08"},
+  "costs_bps": [8, 15, 30],
+  "selection_cost_bps": 15,
+  "attempt_budget": 144,
+  "development_gate": {"minimum_trades": 300, "minimum_profit_factor": 1.15, "minimum_positive_years": 5},
+  "validation_gate": {"minimum_trades": 150, "minimum_profit_factor": 1.10, "minimum_positive_years": 3},
+  "falsifier": "No variant passes both frozen development and validation gates at 15 bps.",
+  "difference_from_prior": "Session-conditioned close-to-close mechanism on SPX M15; not the rejected H4 ATR stop-channel.",
+  "frozen": true
+}

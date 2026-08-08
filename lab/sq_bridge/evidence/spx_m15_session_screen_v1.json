@@ -1,0 +1,357 @@
+{
+  "schema_version": 1,
+  "family": "spx_m15_session_gap_and_opening_drive_v1",
+  "source": "lab/out/market_sources/sp_m1_dukas_utc_2012_2026.parquet",
+  "attempted": 144,
+  "costs_bps": [
+    8.0,
+    15.0,
+    30.0
+  ],
+  "periods": {
+    "development": [
+      2012,
+      2018
+    ],
+    "validation": [
+      2019,
+      2022
+    ]
+  },
+  "sealed_holdout": "2026-01-01/2026-07-08 (not evaluated)",
+  "oos_policy": "2023-2025 is evaluated only for validation survivors",
+  "audit_warning": "An initial local run evaluated 2023-2025 for all variants; those numbers were discarded and the period is contaminated for this family.",
+  "development_survivors": 0,
+  "validation_survivors": 0,
+  "top_five": [
+    {
+      "id": "gap_1530_continuation_long_only_no_friday",
+      "mechanism": "gap",
+      "entry": "open_0930",
+      "exit": "close_1530",
+      "style": "continuation",
+      "direction": "long_only",
+      "days": "no_friday",
+      "periods": {
+        "development": {
+          "8.0": {
+            "trades": 550,
+            "mean_net_bps": -4.781267,
+            "profit_factor": 0.789674,
+            "net_return_sum_pct": -26.296966,
+            "positive_years": 1,
+            "years": 6
+          },
+          "15.0": {
+            "trades": 550,
+            "mean_net_bps": -11.781267,
+            "profit_factor": 0.558878,
+            "net_return_sum_pct": -64.796966,
+            "positive_years": 0,
+            "years": 6
+          },
+          "30.0": {
+            "trades": 550,
+            "mean_net_bps": -26.781267,
+            "profit_factor": 0.268327,
+            "net_return_sum_pct": -147.296966,
+            "positive_years": 0,
+            "years": 6
+          }
+        },
+        "validation": {
+          "8.0": {
+            "trades": 349,
+            "mean_net_bps": -0.786882,
+            "profit_factor": 0.973714,
+            "net_return_sum_pct": -2.746219,
+            "positive_years": 2,
+            "years": 4
+          },
+          "15.0": {
+            "trades": 349,
+            "mean_net_bps": -7.786882,
+            "profit_factor": 0.768809,
+            "net_return_sum_pct": -27.176219,
+            "positive_years": 0,
+            "years": 4
+          },
+          "30.0": {
+            "trades": 349,
+            "mean_net_bps": -22.786882,
+            "profit_factor": 0.469024,
+            "net_return_sum_pct": -79.526219,
+            "positive_years": 0,
+            "years": 4
+          }
+        }
+      },
+      "development_pass": false,
+      "validation_pass": false
+    },
+    {
+      "id": "gap_1530_continuation_long_only_tue_thu",
+      "mechanism": "gap",
+      "entry": "open_0930",
+      "exit": "close_1530",
+      "style": "continuation",
+      "direction": "long_only",
+      "days": "tue_thu",
+      "periods": {
+        "development": {
+          "8.0": {
+            "trades": 464,
+            "mean_net_bps": -5.330682,
+            "profit_factor": 0.776806,
+            "net_return_sum_pct": -24.734367,
+            "positive_years": 1,
+            "years": 6
+          },
+          "15.0": {
+            "trades": 464,
+            "mean_net_bps": -12.330682,
+            "profit_factor": 0.556325,
+            "net_return_sum_pct": -57.214367,
+            "positive_years": 0,
+            "years": 6
+          },
+          "30.0": {
+            "trades": 464,
+            "mean_net_bps": -27.330682,
+            "profit_factor": 0.273129,
+            "net_return_sum_pct": -126.814367,
+            "positive_years": 0,
+            "years": 6
+          }
+        },
+        "validation": {
+          "8.0": {
+            "trades": 349,
+            "mean_net_bps": -0.786882,
+            "profit_factor": 0.973714,
+            "net_return_sum_pct": -2.746219,
+            "positive_years": 2,
+            "years": 4
+          },
+          "15.0": {
+            "trades": 349,
+            "mean_net_bps": -7.786882,
+            "profit_factor": 0.768809,
+            "net_return_sum_pct": -27.176219,
+            "positive_years": 0,
+            "years": 4
+          },
+          "30.0": {
+            "trades": 349,
+            "mean_net_bps": -22.786882,
+            "profit_factor": 0.469024,
+            "net_return_sum_pct": -79.526219,
+            "positive_years": 0,
+            "years": 4
+          }
+        }
+      },
+      "development_pass": false,
+      "validation_pass": false
+    },
+    {
+      "id": "drive_1000_1530_fade_long_only_tue_thu",
+      "mechanism": "drive_1000",
+      "entry": "close_1000",
+      "exit": "close_1530",
+      "style": "fade",
+      "direction": "long_only",
+      "days": "tue_thu",
+      "periods": {
+        "development": {
+          "8.0": {
+            "trades": 425,
+            "mean_net_bps": -4.331846,
+            "profit_factor": 0.822268,
+            "net_return_sum_pct": -18.410345,
+            "positive_years": 2,
+            "years": 6
+          },
+          "15.0": {
+            "trades": 425,
+            "mean_net_bps": -11.331846,
+            "profit_factor": 0.600085,
+            "net_return_sum_pct": -48.160345,
+            "positive_years": 0,
+            "years": 6
+          },
+          "30.0": {
+            "trades": 425,
+            "mean_net_bps": -26.331846,
+            "profit_factor": 0.315018,
+            "net_return_sum_pct": -111.910345,
+            "positive_years": 0,
+            "years": 6
+          }
+        },
+        "validation": {
+          "8.0": {
+            "trades": 288,
+            "mean_net_bps": -1.463302,
+            "profit_factor": 0.954772,
+            "net_return_sum_pct": -4.21431,
+            "positive_years": 1,
+            "years": 4
+          },
+          "15.0": {
+            "trades": 288,
+            "mean_net_bps": -8.463302,
+            "profit_factor": 0.767161,
+            "net_return_sum_pct": -24.37431,
+            "positive_years": 0,
+            "years": 4
+          },
+          "30.0": {
+            "trades": 288,
+            "mean_net_bps": -23.463302,
+            "profit_factor": 0.49094,
+            "net_return_sum_pct": -67.57431,
+            "positive_years": 0,
+            "years": 4
+          }
+        }
+      },
+      "development_pass": false,
+      "validation_pass": false
+    },
+    {
+      "id": "drive_1000_1530_fade_long_only_no_friday",
+      "mechanism": "drive_1000",
+      "entry": "close_1000",
+      "exit": "close_1530",
+      "style": "fade",
+      "direction": "long_only",
+      "days": "no_friday",
+      "periods": {
+        "development": {
+          "8.0": {
+            "trades": 549,
+            "mean_net_bps": -7.005635,
+            "profit_factor": 0.714509,
+            "net_return_sum_pct": -38.460936,
+            "positive_years": 1,
+            "years": 6
+          },
+          "15.0": {
+            "trades": 549,
+            "mean_net_bps": -14.005635,
+            "profit_factor": 0.511268,
+            "net_return_sum_pct": -76.890936,
+            "positive_years": 0,
+            "years": 6
+          },
+          "30.0": {
+            "trades": 549,
+            "mean_net_bps": -29.005635,
+            "profit_factor": 0.260618,
+            "net_return_sum_pct": -159.240936,
+            "positive_years": 0,
+            "years": 6
+          }
+        },
+        "validation": {
+          "8.0": {
+            "trades": 388,
+            "mean_net_bps": -3.308986,
+            "profit_factor": 0.895931,
+            "net_return_sum_pct": -12.838865,
+            "positive_years": 1,
+            "years": 4
+          },
+          "15.0": {
+            "trades": 388,
+            "mean_net_bps": -10.308986,
+            "profit_factor": 0.71247,
+            "net_return_sum_pct": -39.998865,
+            "positive_years": 0,
+            "years": 4
+          },
+          "30.0": {
+            "trades": 388,
+            "mean_net_bps": -25.308986,
+            "profit_factor": 0.448222,
+            "net_return_sum_pct": -98.198865,
+            "positive_years": 0,
+            "years": 4
+          }
+        }
+      },
+      "development_pass": false,
+      "validation_pass": false
+    },
+    {
+      "id": "gap_1530_continuation_long_only_all",
+      "mechanism": "gap",
+      "entry": "open_0930",
+      "exit": "close_1530",
+      "style": "continuation",
+      "direction": "long_only",
+      "days": "all",
+      "periods": {
+        "development": {
+          "8.0": {
+            "trades": 699,
+            "mean_net_bps": -5.73628,
+            "profit_factor": 0.750345,
+            "net_return_sum_pct": -40.096597,
+            "positive_years": 1,
+            "years": 6
+          },
+          "15.0": {
+            "trades": 699,
+            "mean_net_bps": -12.73628,
+            "profit_factor": 0.528737,
+            "net_return_sum_pct": -89.026597,
+            "positive_years": 0,
+            "years": 6
+          },
+          "30.0": {
+            "trades": 699,
+            "mean_net_bps": -27.73628,
+            "profit_factor": 0.251615,
+            "net_return_sum_pct": -193.876597,
+            "positive_years": 0,
+            "years": 6
+          }
+        },
+        "validation": {
+          "8.0": {
+            "trades": 458,
+            "mean_net_bps": -3.475491,
+            "profit_factor": 0.891463,
+            "net_return_sum_pct": -15.91775,
+            "positive_years": 1,
+            "years": 4
+          },
+          "15.0": {
+            "trades": 458,
+            "mean_net_bps": -10.475491,
+            "profit_factor": 0.707236,
+            "net_return_sum_pct": -47.97775,
+            "positive_years": 0,
+            "years": 4
+          },
+          "30.0": {
+            "trades": 458,
+            "mean_net_bps": -25.475491,
+            "profit_factor": 0.433685,
+            "net_return_sum_pct": -116.67775,
+            "positive_years": 0,
+            "years": 4
+          }
+        }
+      },
+      "development_pass": false,
+      "validation_pass": false
+    }
+  ],
+  "candidates": [],
+  "decision": "REJECT_FAMILY_BEFORE_SQ",
+  "sqcli_executed": false,
+  "paper_or_live_authorized": false
+}

@@ -1,0 +1,30 @@
+{
+  "id": "spx-m15-session-screen-v1-2026-08",
+  "date": "2026-08-08",
+  "family": "session_gap_and_opening_drive",
+  "source": {
+    "rows": 3977597,
+    "first_utc": "2012-01-19T16:20:00Z",
+    "last_utc": "2026-07-08T20:14:00Z",
+    "csv_sha256": "9fccccbffc2860cab7e788dc608374baf4f81d5e203915955021249efd54b289",
+    "timezone": "broker clock America/New_York+07 normalized to UTC"
+  },
+  "contract": {
+    "attempted": 144,
+    "costs_bps": [8, 15, 30],
+    "selection_cost_bps": 15,
+    "development": "2012-2018",
+    "validation": "2019-2022",
+    "sealed_holdout": "2026-01-01/2026-07-08"
+  },
+  "result": {
+    "development_survivors": 0,
+    "validation_survivors": 0,
+    "sqcli_executed": false,
+    "holdout_accessed": false
+  },
+  "audit_incident": "The first local implementation calculated the declared 2023-2025 OOS for all variants before applying the development gate. Those values were discarded; 2023-2025 is now treated as contaminated for this family. The 2026 holdout was not evaluated.",
+  "interpretation": "Simple gap/opening-drive continuation or fade cannot cover the frozen small-account cost gate. Leverage cannot repair negative expectancy.",
+  "decision": "REJECT_FAMILY_BEFORE_SQ",
+  "next": "Change mechanism; do not tune session hours or relax costs to rescue this family."
+}

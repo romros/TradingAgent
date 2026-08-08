@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "source": "/mnt/volume-SQ/user/exports/alquimia_spx_full_m1/20260808SP_M1_dukas-M1-No Session.csv",
+  "source_sha256": "9fccccbffc2860cab7e788dc608374baf4f81d5e203915955021249efd54b289",
+  "output": "lab/out/market_sources/sp_m1_dukas_utc_2012_2026.parquet",
+  "output_sha256": "4db2d26f6965e58a2f868d46aac2f87573934b511c3fda8e582613019e03f9e0",
+  "source_timezone": "America/New_York+07",
+  "broker_utc_offset_hours": null,
+  "normalization": "broker clock America/New_York+07 => New York local => UTC using US DST rules",
+  "rows": 3977597,
+  "first_ts_utc": "2012-01-19T16:20:00+00:00",
+  "last_ts_utc": "2026-07-08T20:14:00+00:00",
+  "duplicate_timestamps": 0,
+  "invalid_ohlc": 0,
+  "gaps_over_one_minute": 120722,
+  "max_gap_minutes": 127822.0,
+  "created_at": "2026-08-08T13:17:42.119798+00:00"
+}

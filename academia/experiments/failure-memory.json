@@ -56,6 +56,16 @@
       "do_not_repeat": "No generar més variants del mateix stop-channel, no augmentar leverage o capital per declarar-lo viable i no obrir el holdout 2025-08/2026-07.",
       "next_direction": "Preregistrar una família diferent amb més moviment esperat per operació i comprovar costos abans de les proves cares.",
       "evidence": "academia/experiments/observations/ostium-500-atr-risk1-reprice-v3-2026-08.json"
+    },
+    {
+      "id": "ostium_500_eurusd_d1_vol_expansion_20260806",
+      "family": "eurusd_d1_volatility_expansion",
+      "decision": "REJECT",
+      "failure_code": "LOW_SAMPLE_OR_VALIDATION_FAIL",
+      "lesson": "Només 1 de 11 artifacts contractuals passa costos base a 500 USDC i cap passa estrès; l'únic supervivent obté el 73,5% del benefici dels anys positius el 2017 i la cama Buy perd diners.",
+      "do_not_repeat": "No validar, fer Monte Carlo o obrir holdout per rescatar 0.292; no relaxar PF 1.10 per incloure el near-miss 0.206.",
+      "next_direction": "Canviar mecanisme o mercat i exigir repartiment per anys i direccions abans de la validació temporal cara.",
+      "evidence": "academia/experiments/observations/ostium-500-volatility-expansion-d1-cost-gate-2026-08.json"
     }
   ]
 }

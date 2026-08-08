@@ -68,5 +68,19 @@
     "required_risk_tokens": ["ATR", "StopLoss"],
     "note": "Els blocs permesos limiten la cerca, però cada artifact s'ha d'inspeccionar: disponibilitat no demostra que el mecanisme s'hagi usat."
   },
-  "status": "EURUSD_CHEAP_GENERATION_COMPLETE_XAU_OPERATIONALLY_BLOCKED"
+  "cheap_cost_gate": {
+    "evaluated": 11,
+    "base_passed": ["EURUSD Strategy 0.292"],
+    "stress_passed": [],
+    "cost_gate_sha256": "7ae2069aa19a8a8c1a2b6887ab47f9aeb424aec030ce2d38f73668c13e63515b"
+  },
+  "validation_project": {
+    "name": "ACADEMIA_OSTIUM_EURUSD_D1_VOL_EXP_VALIDATION_V2",
+    "sha256": "c1a0ba8bea28ab501f2d7fa6b92ff7c08aaaf9231417acb0b57bd254ad14d5dc",
+    "candidate": "Strategy 0.292",
+    "executed": false,
+    "cancelled": true,
+    "reason": "El candidat falla abans el criteri preregistrat de concentració per any i direcció."
+  },
+  "status": "EURUSD_REJECTED_BEFORE_VALIDATION_XAU_OPERATIONALLY_UNRESOLVED"
 }

@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "observation_id": "ostium-500-volatility-expansion-d1-cost-gate-2026-08",
+  "observed_at": "2026-08-06",
+  "campaign": "ostium-500-volatility-expansion-d1-v1",
+  "input_contract": {
+    "artifacts_generated": 15,
+    "semantic_contract_passed": 11,
+    "orders_exported_by": "SQCLI 143.2708 tools action=orderstocsv",
+    "full_order_csv_versioned": false
+  },
+  "economics": {
+    "capital_usdc": 500,
+    "risk_per_trade_pct": 1,
+    "maximum_effective_leverage": 5,
+    "source_equity_usdc": 10000,
+    "sizing": "preserve relative SQ sizing, capped by MAE99 risk notional and leverage notional",
+    "base_costs": {"roundtrip_bps": 4.5, "oracle_usdc_per_open": 0.1, "annual_rollover_pct": 4},
+    "conservative_costs": {"roundtrip_bps": 7, "oracle_usdc_per_open": 0.1, "annual_rollover_pct": 8},
+    "stress_costs": {"roundtrip_bps": 10, "oracle_usdc_per_open": 0.1, "annual_rollover_pct": 12}
+  },
+  "result": {
+    "evaluated": 11,
+    "base_passed": 1,
+    "stress_passed": 0,
+    "sole_base_survivor": {
+      "candidate": "Strategy 0.292",
+      "trades": 64,
+      "selected_notional_usdc": 237.53808152,
+      "mae99_pct": 2.10492565,
+      "base": {"net_pnl_usdc": 2.89714431, "net_expectancy_usdc": 0.04526788, "profit_factor": 1.20506751, "max_drawdown_usdc": 3.56013495},
+      "conservative": {"net_pnl_usdc": -0.83496871, "net_expectancy_usdc": -0.01304639, "profit_factor": 0.94761097},
+      "stress": {"net_pnl_usdc": -4.77586366, "net_expectancy_usdc": -0.07462287, "profit_factor": 0.73462344}
+    },
+    "near_miss_not_promoted": {
+      "candidate": "Strategy 0.206",
+      "base_net_pnl_usdc": 0.95813115,
+      "base_profit_factor": 1.08983926,
+      "reason": "PF inferior al llindar preregistrat 1.10; no es relaxa post hoc."
+    },
+    "sole_survivor_concentration": {
+      "yearly_base_net_usdc": {"2017": 4.37340512, "2018": 0.99556254, "2019": -0.7621473, "2020": 0.58072867, "2021": -2.29040486},
+      "positive_years": 3,
+      "years_observed": 5,
+      "best_year_share_of_positive_year_net": 0.73506359,
+      "direction_base_net_usdc": {"Buy": -2.66148788, "Sell": 5.55863204},
+      "holding_days": {"minimum": 3.412, "mean": 5.832, "maximum": 7.0},
+      "preregistered_discard_triggered": "profit depends on one year or one direction"
+    }
+  },
+  "decision": "REJECT_EURUSD_BEFORE_VALIDATION",
+  "interpretation": "0.292 supera per poc el cost base, però el benefici depèn de vendes i està concentrat el 2017. Falla un criteri preregistrat abans de validació; no mereix Monte Carlo, holdout ni paper trading.",
+  "validation": {
+    "project": "ACADEMIA_OSTIUM_EURUSD_D1_VOL_EXP_VALIDATION_V2",
+    "project_sha256": "c1a0ba8bea28ab501f2d7fa6b92ff7c08aaaf9231417acb0b57bd254ad14d5dc",
+    "period": "2022-01-01/2025-07-31",
+    "holdout_accessed": false,
+    "executed": false,
+    "cancelled": true,
+    "cancelled_reason": "El diagnòstic de concentració sobre desenvolupament activa un criteri de descart preregistrat; executar validació ja no canviaria aquesta porta."
+  },
+  "evidence": [
+    {"path": "academia/runtime/ostium-pilot/eurusd-d1-vol-exp-cost-gate.json", "sha256": "7ae2069aa19a8a8c1a2b6887ab47f9aeb424aec030ce2d38f73668c13e63515b"},
+    {"path": "academia/runtime/build143-final-capability-tests/user/projects/ACADEMIA_OSTIUM_EURUSD_D1_VOL_EXP_V1/orders-csv/Strategy 0.292.csv", "sha256": "f8647238ed070b65f3b1f32619eb0a1a0638234c804a5858597e23a2c22896dd"},
+    {"path": "academia/runtime/build143-final-capability-tests/user/projects/ACADEMIA_OSTIUM_EURUSD_D1_VOL_EXP_V1/databanks/Results/Strategy 0.292.sqx", "sha256": "9ee121b32eae29570e10da12e329de609b7a65b2f643b294a5e54e8653b5d7cc"}
+  ],
+  "next": "No executar el projecte de validació ni obrir holdout. Registrar el fracàs EURUSD; mantenir XAU com a incidència operativa separada, no com a candidat."
+}

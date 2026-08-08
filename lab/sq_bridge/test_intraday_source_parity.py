@@ -1,6 +1,7 @@
 from lab.sq_bridge.intraday_source_parity import (
     aggregate_close, apply_symmetric_bucket_exclusions, compare, compare_ohlcv,
     decide, decide_complete_ohlcv_timeframe, decide_research_timeframe,
+    restrict_to_common_span,
 )
 
 
@@ -81,3 +82,12 @@ def test_bucket_quarantine_is_applied_symmetrically():
     )
     assert [row["ts"] for row in clean_reference] == [3600, 3660]
     assert [row["ts"] for row in clean_ostium] == [3600]
+
+
+def test_common_span_removes_only_tails_not_internal_gaps():
+    reference = [{"ts": value} for value in (0, 60, 120, 180)]
+    ostium = [{"ts": value} for value in (60, 180, 240)]
+    left, right, span = restrict_to_common_span(reference, ostium)
+    assert [row["ts"] for row in left] == [60, 120, 180]
+    assert [row["ts"] for row in right] == [60, 180]
+    assert span == {"from_ts": 60, "to_ts": 180}

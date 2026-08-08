@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "observation_id": "spxusd-sq-ostium-parity-2026-08",
+  "observed_at": "2026-08-08",
+  "decision": "PASS_M15_RESEARCH_ONLY_H1_H4_BLOCK",
+  "source": {
+    "sq_symbol": "SP_M1_dukas",
+    "instrument": "USA500.IDX_dukascopy",
+    "coverage_after_update": "2012-01-19/2026-07-08",
+    "timezone": "broker clock America/New_York+07, normalized with US DST",
+    "raw_redistribution": "not authorized or assumed"
+  },
+  "venue": {
+    "ostium_symbol": "SPXUSD",
+    "common_span": "2026-03-15T22:00:00Z/2026-07-08T20:14:00Z",
+    "input": "native BrokerageService recorder CSV; read-only"
+  },
+  "results": {
+    "M15": {"aligned_complete_bars": 7176, "coverage": 0.9580774365821095, "return_correlation": 0.9894649740341602, "direction_match": 0.9670548139733031, "close_p95_bps": 8.785567388580606, "pass": true},
+    "H1": {"aligned_complete_bars": 1733, "coverage": 0.9475123018042646, "return_correlation": 0.9982044731876238, "close_p95_bps": 8.720871550653708, "pass": false},
+    "H4": {"aligned_complete_bars": 373, "coverage": 0.9097560975609756, "return_correlation": 0.9988742750108078, "close_p95_bps": 9.127305098393101, "pass": false}
+  },
+  "policy": {
+    "performance_research": "M15_ONLY_AFTER_PREREGISTRATION_AND_EXECUTION_SCHEDULE_AUDIT",
+    "paper_or_live": "BLOCKED",
+    "holdout_accessed": false,
+    "next_gate": "Confirm Ostium SPXUSD market hours, close behavior, fees, oracle cost and leverage before testing one low-turnover M15 family."
+  },
+  "evidence": [
+    "lab/sq_bridge/evidence/sp_m1_dukas_utc_2026_extended_source.json",
+    "lab/sq_bridge/evidence/spxusd_sq_ostium_parity_2026_extended_common.json"
+  ]
+}

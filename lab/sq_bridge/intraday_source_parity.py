@@ -46,11 +46,18 @@ def load_parquet(paths: list[Path]) -> dict[int, float]:
 def load_ohlcv_parquet(paths: list[Path]) -> list[dict]:
     if not paths:
         return []
-    rows = duckdb.connect(":memory:").execute(
-        'SELECT "ts", "open", "high", "low", "close", '
-        'coalesce("volume", 0) FROM read_parquet(?) ORDER BY "ts"',
-        [[str(path) for path in paths]],
-    ).fetchall()
+    suffixes = {path.suffix.lower() for path in paths}
+    if suffixes == {".parquet"}:
+        query = ('SELECT "ts", "open", "high", "low", "close", '
+                 'coalesce("volume", 0) FROM read_parquet(?) ORDER BY "ts"')
+    elif suffixes == {".csv"}:
+        query = ("SELECT cast(column0 AS BIGINT), cast(column1 AS DOUBLE), "
+                 "cast(column2 AS DOUBLE), cast(column3 AS DOUBLE), "
+                 "cast(column4 AS DOUBLE), cast(column5 AS DOUBLE) "
+                 "FROM read_csv(?, header=false, all_varchar=true) ORDER BY 1")
+    else:
+        raise ValueError("inputs must be uniformly parquet or canonical six-column CSV")
+    rows = duckdb.connect(":memory:").execute(query, [[str(path) for path in paths]]).fetchall()
     return [
         {"ts": int(ts), "open": float(open_), "high": float(high),
          "low": float(low), "close": float(close), "volume": float(volume or 0)}
@@ -69,6 +76,21 @@ def apply_symmetric_bucket_exclusions(
     keep = lambda row: (int(row["ts"]) // seconds) * seconds not in bucket_starts
     return ([row for row in reference_rows if keep(row)],
             [row for row in ostium_rows if keep(row)])
+
+
+def restrict_to_common_span(reference_rows: list[dict], ostium_rows: list[dict]):
+    """Trim only non-overlapping tails; preserve every internal gap."""
+    if not reference_rows or not ostium_rows:
+        return [], [], None
+    start = max(min(int(row["ts"]) for row in reference_rows),
+                min(int(row["ts"]) for row in ostium_rows))
+    end = min(max(int(row["ts"]) for row in reference_rows),
+              max(int(row["ts"]) for row in ostium_rows))
+    if start > end:
+        return [], [], None
+    within = lambda row: start <= int(row["ts"]) <= end
+    return ([row for row in reference_rows if within(row)],
+            [row for row in ostium_rows if within(row)], {"from_ts": start, "to_ts": end})
 
 
 def load_bucket_exclusions(path: Path) -> tuple[set[int], int, dict]:
@@ -216,9 +238,14 @@ def main() -> None:
         "--symmetric-bucket-quarantine", type=Path,
         help="Ostium-internal receipt whose UTC buckets are excluded from both feeds",
     )
+    parser.add_argument("--common-span", action="store_true",
+                        help="Trim non-overlapping tails before comparing internal coverage")
     args = parser.parse_args()
     reference_rows = load_ohlcv_parquet(args.reference)
     ostium_rows = load_ohlcv_parquet(args.ostium)
+    common_span = None
+    if args.common_span:
+        reference_rows, ostium_rows, common_span = restrict_to_common_span(reference_rows, ostium_rows)
     quarantine = None
     if args.symmetric_bucket_quarantine:
         starts, minutes, receipt = load_bucket_exclusions(args.symmetric_bucket_quarantine)
@@ -276,6 +303,7 @@ def main() -> None:
               "timeframe_decisions": timeframe_decisions,
               "decision": overall,
               "reasons": [] if h1_pass else timeframe_decisions["H1"]["reasons"],
+              "common_span": common_span,
               "symmetric_bucket_quarantine": quarantine,
               "scope": "H1_MAPPING_PILOT_ONLY_EXTEND_TO_30_DAYS_BEFORE_RESEARCH"}
     args.output.parent.mkdir(parents=True, exist_ok=True)

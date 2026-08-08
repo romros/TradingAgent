@@ -32,3 +32,16 @@ def test_normalizes_new_york_with_dst():
             "SELECT ts FROM read_parquet(?) ORDER BY ts", [str(output)]).fetchall()]
         assert timestamps == [1672696800, 1688418000]
         assert "DST rules" in result["normalization"]
+
+
+def test_normalizes_broker_clock_seven_hours_ahead_of_new_york():
+    pytest.importorskip("duckdb")
+    with tempfile.TemporaryDirectory() as tmp:
+        source, output, receipt = Path(tmp)/"input.csv", Path(tmp)/"out.parquet", Path(tmp)/"receipt.json"
+        source.write_text("2026.03.08,08:59,1,1,1,1,1\n2026.03.08,10:00,1,1,1,1,1\n")
+        result = normalize(source, output, receipt, source_timezone="America/New_York+07")
+        import duckdb
+        timestamps = [row[0] for row in duckdb.connect().execute(
+            "SELECT ts FROM read_parquet(?) ORDER BY ts", [str(output)]).fetchall()]
+        assert timestamps == [1772953140, 1772953200]
+        assert "New_York+07" in result["source_timezone"]

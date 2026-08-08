@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "methodology_id": "alquimia-gbpusd-m15-slow-breakout-v3",
+  "status": "PREREGISTERED_AFTER_V2_REJECTION",
+  "hypothesis": "The v2 Donchian failure was caused by four-hour median turnover; forcing a one-to-two-day minimum hold on genuinely multi-day breakouts may expose moves large enough to survive costs.",
+  "variants": "12 frozen variants: entry channel 192/384/768 M15 bars x minimum hold 96/192 bars x long/short; ATR stop fixed at 3, exit half-channel, maximum hold 960 bars",
+  "splits": {"train": ["2007-01-01", "2013-12-31"], "validation": ["2014-01-01", "2018-12-31"], "oos": ["2019-01-01", "2023-12-31"], "sealed_holdout": ["2024-01-01", "2026-08-01"]},
+  "selection": "One train winner per direction; frozen before validation/OOS",
+  "cost_bps_round_trip": {"base": 8, "conservative": 15, "stress": 30},
+  "sizing": {"capital_usdc": 200, "risk_usdc": 2, "maximum_effective_leverage": 20},
+  "gates": {"minimum_trades_validation": 25, "minimum_trades_oos": 25, "minimum_pf_base": 1.2, "minimum_pf_stress": 1.05, "minimum_positive_year_ratio": 0.6, "minimum_ev_usdc_stress": 0.1, "maximum_drawdown_pct_base": 25},
+  "holdout_policy": "Do not evaluate during this screen."
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "observation_id": "gbpusd-m15-breakout-failures-2026-08",
+  "decision": "REJECT_BREAKOUT_BRANCH_NO_SQCLI",
+  "holdout_evaluated": false,
+  "attempts": [
+    {
+      "methodology": "alquimia-gbpusd-m15-donchian-v2",
+      "variants": 12,
+      "result": "Both train-selected directions fail train, validation and OOS at base cost; median duration about four hours.",
+      "evidence": "lab/sq_bridge/evidence/gbpusd_m15_donchian_v2_preflight.json"
+    },
+    {
+      "methodology": "alquimia-gbpusd-m15-slow-breakout-v3",
+      "variants": 12,
+      "result": "Forcing a 24/48-hour minimum channel hold does not repair the edge because 3-ATR stops close trades after roughly 10-15 hours; both directions remain negative at base cost in every split.",
+      "evidence": "lab/sq_bridge/evidence/gbpusd_m15_slow_breakout_v3_preflight.json"
+    }
+  ],
+  "inference": "The tested GBPUSD M15 breakout mechanisms have no gross edge large enough for Ostium-compatible execution. Parameter expansion would be post-hoc rescue, not independent evidence.",
+  "policy": {
+    "sq_builder": "BLOCKED_FOR_THESE_FAMILIES",
+    "holdout": "REMAINS_SEALED",
+    "next_action": "Deprioritize GBPUSD and test a distinct low-turnover mechanism or another already mapped Ostium market under a new preregistration."
+  }
+}

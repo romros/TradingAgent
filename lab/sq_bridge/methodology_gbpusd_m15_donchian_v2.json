@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "methodology_id": "alquimia-gbpusd-m15-donchian-v2",
+  "status": "PREREGISTERED",
+  "hypothesis": "Medium-horizon GBPUSD breakouts can persist long enough that low turnover survives Ostium-compatible costs; direction asymmetry is evaluated explicitly.",
+  "data": "Frozen GBPUSD M1 2007-2023 aggregated to complete UTC M15 bars",
+  "variants": "12 fixed variants: Donchian 96/192/384 bars x ATR stop 2/3 x long/short; exit channel is half the entry channel, EMA192 trend filter, maximum hold 960 bars",
+  "splits": {
+    "train": ["2007-01-01", "2013-12-31"],
+    "validation": ["2014-01-01", "2018-12-31"],
+    "oos": ["2019-01-01", "2023-12-31"],
+    "sealed_holdout": ["2024-01-01", "2026-08-01"]
+  },
+  "selection": "Select one train winner independently for long and short; do not tune after validation/OOS",
+  "execution": "Signal at M15 close, entry at next open; adverse intrabar stop precedence; channel exit at next open; 8/15/30 bps round-trip cost",
+  "sizing": {"capital_usdc": 200, "risk_usdc": 2, "maximum_effective_leverage": 20},
+  "gates": {
+    "minimum_trades_validation": 35,
+    "minimum_trades_oos": 35,
+    "minimum_pf_base": 1.2,
+    "minimum_pf_stress": 1.05,
+    "minimum_positive_year_ratio": 0.6,
+    "minimum_ev_usdc_stress": 0.1,
+    "maximum_drawdown_pct_base": 25
+  },
+  "sq_policy": "Only a direction passing every frozen pre-holdout gate may receive a bounded SQ retest/optimization campaign.",
+  "holdout_policy": "Do not evaluate during this screen."
+}

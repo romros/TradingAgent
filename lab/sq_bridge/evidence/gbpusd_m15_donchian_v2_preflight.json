@@ -1,0 +1,242 @@
+{
+  "methodology": "methodology_gbpusd_m15_donchian_v2.json",
+  "source": "lab/out/market_sources/gbpusd_sq_m1_utc_2007_2023.parquet",
+  "attempted_variants": 12,
+  "holdout_evaluated": false,
+  "families": [
+    {
+      "family": "donchian_trend_long",
+      "selected_on_train": {
+        "channel": 96,
+        "atr_multiple": 2.0
+      },
+      "train_selection_metric_at_15bps": {
+        "n": 964,
+        "pf": 0.2796994424372399,
+        "ev_usdc": -2.2517627784442165,
+        "net_usdc": -2170.6993184202247,
+        "dd_pct": 1086.7460767551172,
+        "positive_year_ratio": 0.0,
+        "median_hours": 4.5,
+        "max_leverage": 16.960199359201923
+      },
+      "periods": {
+        "train": {
+          "base": {
+            "n": 964,
+            "pf": 0.4511819199037869,
+            "ev_usdc": -1.2742156364457362,
+            "net_usdc": -1228.3438735336897,
+            "dd_pct": 613.3404244761635,
+            "positive_year_ratio": 0.0,
+            "median_hours": 4.5,
+            "max_leverage": 16.960199359201923
+          },
+          "conservative": {
+            "n": 964,
+            "pf": 0.2796994424372399,
+            "ev_usdc": -2.2517627784442165,
+            "net_usdc": -2170.6993184202247,
+            "dd_pct": 1086.7460767551172,
+            "positive_year_ratio": 0.0,
+            "median_hours": 4.5,
+            "max_leverage": 16.960199359201923
+          },
+          "stress": {
+            "n": 964,
+            "pf": 0.11921620570217588,
+            "ev_usdc": -4.346506654155246,
+            "net_usdc": -4190.032414605657,
+            "dd_pct": 2125.149285960455,
+            "positive_year_ratio": 0.0,
+            "median_hours": 4.5,
+            "max_leverage": 16.960199359201923
+          }
+        },
+        "validation": {
+          "base": {
+            "n": 634,
+            "pf": 0.4646064772030132,
+            "ev_usdc": -1.3785557958967678,
+            "net_usdc": -874.0043745985508,
+            "dd_pct": 443.40381160421776,
+            "positive_year_ratio": 0.0,
+            "median_hours": 4.0,
+            "max_leverage": 20.0
+          },
+          "conservative": {
+            "n": 634,
+            "pf": 0.29298770683367825,
+            "ev_usdc": -2.4931738724317247,
+            "net_usdc": -1580.6722351217136,
+            "dd_pct": 808.9118422082233,
+            "positive_year_ratio": 0.0,
+            "median_hours": 4.0,
+            "max_leverage": 20.0
+          },
+          "stress": {
+            "n": 634,
+            "pf": 0.1309964987622001,
+            "ev_usdc": -4.881641179292348,
+            "net_usdc": -3094.9605076713488,
+            "dd_pct": 1611.5808086653058,
+            "positive_year_ratio": 0.0,
+            "median_hours": 4.0,
+            "max_leverage": 20.0
+          }
+        },
+        "oos": {
+          "base": {
+            "n": 674,
+            "pf": 0.5569637731321716,
+            "ev_usdc": -1.0526734815311047,
+            "net_usdc": -709.5019265519646,
+            "dd_pct": 387.6434657815801,
+            "positive_year_ratio": 0.0,
+            "median_hours": 3.875,
+            "max_leverage": 17.025335515548424
+          },
+          "conservative": {
+            "n": 674,
+            "pf": 0.35675202340782713,
+            "ev_usdc": -2.061020782291859,
+            "net_usdc": -1389.1280072647128,
+            "dd_pct": 720.0686738925256,
+            "positive_year_ratio": 0.0,
+            "median_hours": 3.875,
+            "max_leverage": 17.025335515548424
+          },
+          "stress": {
+            "n": 674,
+            "pf": 0.16402844185862975,
+            "ev_usdc": -4.22176499820776,
+            "net_usdc": -2845.46960879203,
+            "dd_pct": 1438.8521272294656,
+            "positive_year_ratio": 0.0,
+            "median_hours": 3.875,
+            "max_leverage": 17.025335515548424
+          }
+        }
+      },
+      "passes_pre_holdout": false
+    },
+    {
+      "family": "donchian_trend_short",
+      "selected_on_train": {
+        "channel": 96,
+        "atr_multiple": 2.0
+      },
+      "train_selection_metric_at_15bps": {
+        "n": 941,
+        "pf": 0.37075777165233753,
+        "ev_usdc": -1.995162392944649,
+        "net_usdc": -1877.4478117609146,
+        "dd_pct": 807.108559344622,
+        "positive_year_ratio": 0.0,
+        "median_hours": 4.25,
+        "max_leverage": 15.4030278884443
+      },
+      "periods": {
+        "train": {
+          "base": {
+            "n": 941,
+            "pf": 0.5660198564181479,
+            "ev_usdc": -1.024498436263404,
+            "net_usdc": -964.0530285238631,
+            "dd_pct": 420.04309962807156,
+            "positive_year_ratio": 0.0,
+            "median_hours": 4.25,
+            "max_leverage": 15.4030278884443
+          },
+          "conservative": {
+            "n": 941,
+            "pf": 0.37075777165233753,
+            "ev_usdc": -1.995162392944649,
+            "net_usdc": -1877.4478117609146,
+            "dd_pct": 807.108559344622,
+            "positive_year_ratio": 0.0,
+            "median_hours": 4.25,
+            "max_leverage": 15.4030278884443
+          },
+          "stress": {
+            "n": 941,
+            "pf": 0.18173527619907848,
+            "ev_usdc": -4.075156585833032,
+            "net_usdc": -3834.7223472688825,
+            "dd_pct": 1653.3348577015865,
+            "positive_year_ratio": 0.0,
+            "median_hours": 4.25,
+            "max_leverage": 15.4030278884443
+          }
+        },
+        "validation": {
+          "base": {
+            "n": 676,
+            "pf": 0.5360291530454535,
+            "ev_usdc": -1.1471523606498675,
+            "net_usdc": -775.4749957993105,
+            "dd_pct": 384.8150397169752,
+            "positive_year_ratio": 0.0,
+            "median_hours": 4.125,
+            "max_leverage": 20.0
+          },
+          "conservative": {
+            "n": 676,
+            "pf": 0.3282300094781915,
+            "ev_usdc": -2.2891933852574606,
+            "net_usdc": -1547.4947284340433,
+            "dd_pct": 766.7112010853313,
+            "positive_year_ratio": 0.0,
+            "median_hours": 4.125,
+            "max_leverage": 20.0
+          },
+          "stress": {
+            "n": 676,
+            "pf": 0.14359079209984466,
+            "ev_usdc": -4.736424152273731,
+            "net_usdc": -3201.822726937042,
+            "dd_pct": 1603.5462227624187,
+            "positive_year_ratio": 0.0,
+            "median_hours": 4.125,
+            "max_leverage": 20.0
+          }
+        },
+        "oos": {
+          "base": {
+            "n": 693,
+            "pf": 0.5262371227421906,
+            "ev_usdc": -1.135164625162904,
+            "net_usdc": -786.6690852378924,
+            "dd_pct": 381.0550565038523,
+            "positive_year_ratio": 0.2,
+            "median_hours": 4.0,
+            "max_leverage": 14.983228289631988
+          },
+          "conservative": {
+            "n": 693,
+            "pf": 0.3369021160121137,
+            "ev_usdc": -2.148281089196412,
+            "net_usdc": -1488.7587948131136,
+            "dd_pct": 719.7473738554878,
+            "positive_year_ratio": 0.0,
+            "median_hours": 4.0,
+            "max_leverage": 14.983228289631988
+          },
+          "stress": {
+            "n": 693,
+            "pf": 0.15872628583427598,
+            "ev_usdc": -4.319244940696786,
+            "net_usdc": -2993.2367439028726,
+            "dd_pct": 1454.2430148551266,
+            "positive_year_ratio": 0.0,
+            "median_hours": 4.0,
+            "max_leverage": 14.983228289631988
+          }
+        }
+      },
+      "passes_pre_holdout": false
+    }
+  ],
+  "eligible": [],
+  "decision": "REJECT_NO_SQCLI"
+}

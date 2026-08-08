@@ -32,8 +32,9 @@
     "dukascopy_smoke_2023_01": "fallback failed atomically after conservative retries because the public endpoint returned HTTP 503 and read timeouts; no incomplete partition was written",
     "normalized_source": "DST-aware America/New_York to UTC epoch; 0 duplicate timestamps and 0 invalid OHLC; receipt lab/sq_bridge/evidence/gbpusd_sq_m1_utc_2007_2023_source.json",
     "venue_overlap": "A raw July rebuild with source-internal symmetric H1-bucket quarantine passes M15: 2,071 aligned complete bars, 95.66% coverage, return correlation 0.9921 and close p95 0.75 bps. H1/H4 remain blocked on complete-bar coverage.",
-    "first_m15_screen": "Ten frozen variants across Asian-range breakout and volatility-expansion continuation/reversal all failed train, validation and OOS after 8/15/30 bps round-trip costs; no SQ Builder run authorized."
+    "first_m15_screen": "Ten frozen variants across Asian-range breakout and volatility-expansion continuation/reversal all failed train, validation and OOS after 8/15/30 bps round-trip costs; no SQ Builder run authorized.",
+    "breakout_followups": "Donchian v2 and slow-breakout v3 tested 12 variants each. Both long and short fail every split even at base cost; the branch is rejected without SQCLI."
   },
   "research_authorized": "M15_ONLY",
-  "next_gate": "Preregister and cheaply falsify one structurally distinct GBPUSD M15 mechanism; do not optimize the rejected session-breakout/expansion families."
+  "next_gate": "GBPUSD data remains reusable, but deprioritize performance search; do not optimize the rejected session or breakout families."
 }

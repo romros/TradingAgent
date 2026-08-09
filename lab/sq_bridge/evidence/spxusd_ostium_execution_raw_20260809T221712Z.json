@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-08-09T22:17:19.236Z",
+  "source": {
+    "package": "@ostium/builder-sdk",
+    "version": "0.7.0",
+    "mode": "read-only"
+  },
+  "requestedNotionalsUsd": [
+    "10",
+    "20",
+    "50",
+    "100",
+    "200",
+    "500",
+    "1000"
+  ],
+  "pair": {
+    "pairId": "10",
+    "pairTo": "USD",
+    "pairFrom": "US500",
+    "minSz": "0.0006454569512486365",
+    "maxBSz": "3764.7515189577707",
+    "maxSSz": "3782.9907712481854",
+    "minNtl": "5.0",
+    "maxLeverage": 100,
+    "overnightMaxLeverage": 0,
+    "rolloverFeePerBlock": "2.93447699e-10",
+    "openInterest": "1531791.7360340734",
+    "buyOpenInterest": "836540.5959695763",
+    "sellOpenInterest": "695251.1400644971",
+    "maxOpenInterest": "30000000",
+    "category": "indices",
+    "rolloverRate": {
+      "long": "-0.0052121974924799995",
+      "short": "0.00154883749248"
+    },
+    "midPx": "7746.45",
+    "askPx": "7746.9",
+    "bidPx": "7745.999999999999",
+    "isMarketOpen": true,
+    "isDayTradingClosed": false,
+    "secondsToToggleIsDayTradingClosed": -1,
+    "schedule": {
+      "id": 2,
+      "timezone": "America/New_York",
+      "openingHours": [
+        "Mo-Th 00:00-16:59,18:00-24:00",
+        "Fr 00:00-16:59",
+        "Su 18:00-24:00"
+      ]
+    },
+    "openFee": 1,
+    "closeFee": 0
+  },
+  "simulatedSlippage": {
+    "long": [
+      {
+        "ntl": "10",
+        "slippage": "0.0061323160143883"
+      },
+      {
+        "ntl": "20",
+        "slippage": "0.0061323160143883"
+      },
+      {
+        "ntl": "50",
+        "slippage": "0.0061323160143883"
+      },
+      {
+        "ntl": "100",
+        "slippage": "0.0061323160143883"
+      },
+      {
+        "ntl": "200",
+        "slippage": "0.0061323160143883"
+      },
+      {
+        "ntl": "500",
+        "slippage": "0.0061323160143883"
+      },
+      {
+        "ntl": "1000",
+        "slippage": "0.0061323160143883"
+      }
+    ],
+    "short": [
+      {
+        "ntl": "10",
+        "slippage": "0.0061323160143883"
+      },
+      {
+        "ntl": "20",
+        "slippage": "0.0061323160143883"
+      },
+      {
+        "ntl": "50",
+        "slippage": "0.0061323160143883"
+      },
+      {
+        "ntl": "100",
+        "slippage": "0.0061323160143883"
+      },
+      {
+        "ntl": "200",
+        "slippage": "0.0061323160143883"
+      },
+      {
+        "ntl": "500",
+        "slippage": "0.0061323160143883"
+      },
+      {
+        "ntl": "1000",
+        "slippage": "0.0061323160143883"
+      }
+    ]
+  }
+}

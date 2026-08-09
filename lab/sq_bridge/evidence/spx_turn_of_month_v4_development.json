@@ -1,0 +1,210 @@
+{
+  "schema_version": 1,
+  "family": "spx_turn_of_month_institutional_flow_v4",
+  "hypothesis": "Predictable month-end rebalancing and contribution flows create a positive SPX close-to-close return around the turn of the month.",
+  "source": "lab/out/market_sources/sp_m1_dukas_utc_2012_2026.parquet",
+  "development": "2012-01-01/2018-12-31",
+  "validation": "2019-01-01/2022-12-31 (not loaded)",
+  "contaminated_prior_period": "2023-01-01/2025-12-31 (not loaded)",
+  "sealed_holdout": "2026-01-01/2026-07-08 (not loaded)",
+  "attempted": 20,
+  "numeric_passes": 0,
+  "stable_passes": 0,
+  "top_five": [
+    {
+      "parameters": {
+        "entry_from_month_end": -3,
+        "exit_day_next_month": 4
+      },
+      "metrics": {
+        "base": {
+          "trades": 80,
+          "profit_factor": 1.434662,
+          "mean_net_bps": 23.220986,
+          "net_return_sum_pct": 18.576789,
+          "positive_years": 4,
+          "years": 7,
+          "mean_holding_days": 9.9
+        },
+        "conservative": {
+          "trades": 80,
+          "profit_factor": 1.28763,
+          "mean_net_bps": 16.220986,
+          "net_return_sum_pct": 12.976789,
+          "positive_years": 4,
+          "years": 7,
+          "mean_holding_days": 9.9
+        },
+        "stress": {
+          "trades": 80,
+          "profit_factor": 1.019297,
+          "mean_net_bps": 1.220986,
+          "net_return_sum_pct": 0.976789,
+          "positive_years": 3,
+          "years": 7,
+          "mean_holding_days": 9.9
+        }
+      },
+      "passes_numeric_gate": false,
+      "has_passing_neighbour": false,
+      "passes_stability_gate": false
+    },
+    {
+      "parameters": {
+        "entry_from_month_end": -3,
+        "exit_day_next_month": 5
+      },
+      "metrics": {
+        "base": {
+          "trades": 80,
+          "profit_factor": 1.311512,
+          "mean_net_bps": 18.991759,
+          "net_return_sum_pct": 15.193407,
+          "positive_years": 4,
+          "years": 7,
+          "mean_holding_days": 11.262
+        },
+        "conservative": {
+          "trades": 80,
+          "profit_factor": 1.187297,
+          "mean_net_bps": 11.991759,
+          "net_return_sum_pct": 9.593407,
+          "positive_years": 4,
+          "years": 7,
+          "mean_holding_days": 11.262
+        },
+        "stress": {
+          "trades": 80,
+          "profit_factor": 0.957696,
+          "mean_net_bps": -3.008241,
+          "net_return_sum_pct": -2.406593,
+          "positive_years": 3,
+          "years": 7,
+          "mean_holding_days": 11.262
+        }
+      },
+      "passes_numeric_gate": false,
+      "has_passing_neighbour": false,
+      "passes_stability_gate": false
+    },
+    {
+      "parameters": {
+        "entry_from_month_end": -3,
+        "exit_day_next_month": 1
+      },
+      "metrics": {
+        "base": {
+          "trades": 80,
+          "profit_factor": 1.405221,
+          "mean_net_bps": 17.286607,
+          "net_return_sum_pct": 13.829286,
+          "positive_years": 4,
+          "years": 7,
+          "mean_holding_days": 5.9
+        },
+        "conservative": {
+          "trades": 80,
+          "profit_factor": 1.224603,
+          "mean_net_bps": 10.286607,
+          "net_return_sum_pct": 8.229286,
+          "positive_years": 4,
+          "years": 7,
+          "mean_holding_days": 5.9
+        },
+        "stress": {
+          "trades": 80,
+          "profit_factor": 0.91112,
+          "mean_net_bps": -4.713393,
+          "net_return_sum_pct": -3.770714,
+          "positive_years": 4,
+          "years": 7,
+          "mean_holding_days": 5.9
+        }
+      },
+      "passes_numeric_gate": false,
+      "has_passing_neighbour": false,
+      "passes_stability_gate": false
+    },
+    {
+      "parameters": {
+        "entry_from_month_end": -3,
+        "exit_day_next_month": 3
+      },
+      "metrics": {
+        "base": {
+          "trades": 80,
+          "profit_factor": 1.2547,
+          "mean_net_bps": 13.963677,
+          "net_return_sum_pct": 11.170941,
+          "positive_years": 3,
+          "years": 7,
+          "mean_holding_days": 8.575
+        },
+        "conservative": {
+          "trades": 80,
+          "profit_factor": 1.120218,
+          "mean_net_bps": 6.963677,
+          "net_return_sum_pct": 5.570941,
+          "positive_years": 3,
+          "years": 7,
+          "mean_holding_days": 8.575
+        },
+        "stress": {
+          "trades": 80,
+          "profit_factor": 0.875754,
+          "mean_net_bps": -8.036323,
+          "net_return_sum_pct": -6.429059,
+          "positive_years": 3,
+          "years": 7,
+          "mean_holding_days": 8.575
+        }
+      },
+      "passes_numeric_gate": false,
+      "has_passing_neighbour": false,
+      "passes_stability_gate": false
+    },
+    {
+      "parameters": {
+        "entry_from_month_end": -2,
+        "exit_day_next_month": 4
+      },
+      "metrics": {
+        "base": {
+          "trades": 80,
+          "profit_factor": 1.118372,
+          "mean_net_bps": 7.979077,
+          "net_return_sum_pct": 6.383261,
+          "positive_years": 5,
+          "years": 7,
+          "mean_holding_days": 8.588
+        },
+        "conservative": {
+          "trades": 80,
+          "profit_factor": 1.013818,
+          "mean_net_bps": 0.979077,
+          "net_return_sum_pct": 0.783261,
+          "positive_years": 4,
+          "years": 7,
+          "mean_holding_days": 8.588
+        },
+        "stress": {
+          "trades": 80,
+          "profit_factor": 0.821116,
+          "mean_net_bps": -14.020923,
+          "net_return_sum_pct": -11.216739,
+          "positive_years": 3,
+          "years": 7,
+          "mean_holding_days": 8.588
+        }
+      },
+      "passes_numeric_gate": false,
+      "has_passing_neighbour": false,
+      "passes_stability_gate": false
+    }
+  ],
+  "passing": [],
+  "validation_accessed": false,
+  "holdout_accessed": false,
+  "sqcli_executed": false,
+  "decision": "REJECT_FAMILY_BEFORE_VALIDATION"
+}

@@ -2,6 +2,16 @@
   "schema_version": 1,
   "entries": [
     {
+      "id": "spx_turn_of_month_v4_20260809",
+      "family": "spx_turn_of_month_institutional_flow",
+      "decision": "REJECT",
+      "failure_code": "COST_AND_YEAR_STABILITY_FAIL",
+      "lesson": "The best of 20 development-only points has PF 1.43 at 8 bps, but only 4/7 positive years; at 30 bps it falls to PF 1.019 and 3/7 positive years.",
+      "do_not_repeat": "Do not relax the positive-year or stress gates, tune dates after seeing 2012-2018, or load 2019-2022 to rescue the family.",
+      "next_direction": "Require a genuinely new external economic input such as a preregistered volatility regime before another SPX family.",
+      "evidence": "academia/experiments/observations/spx-turn-of-month-v4-2026-08.json"
+    },
+    {
       "id": "eurusd_london_orb_v25_20260806",
       "family": "eurusd_london_opening_range_breakout",
       "decision": "REJECT",

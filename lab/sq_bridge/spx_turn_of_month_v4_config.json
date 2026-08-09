@@ -1,0 +1,28 @@
+{
+  "id": "spx_turn_of_month_institutional_flow_v4",
+  "hypothesis": "Predictable month-end rebalancing and contribution flows create a positive SPX close-to-close return around the turn of the month.",
+  "direction": "long_only",
+  "entry": "15:59 America/New_York close on a trading day near month-end",
+  "exit": "15:59 America/New_York close on trading day 1-5 of the next month",
+  "grid": {
+    "entry_from_month_end": [-3, -2, -1, 0],
+    "exit_day_next_month": [1, 2, 3, 4, 5]
+  },
+  "costs_bps": {
+    "base": 8.0,
+    "conservative": 15.0,
+    "stress": 30.0
+  },
+  "development_gate": {
+    "minimum_trades": 60,
+    "minimum_positive_years": 5,
+    "minimum_base_profit_factor": 1.25,
+    "minimum_stress_profit_factor": 1.05,
+    "minimum_base_mean_net_bps": 5.0,
+    "requires_passing_grid_neighbour": true
+  },
+  "attempt_budget": 20,
+  "falsifier": "Reject before validation if no adjacent parameter region passes the frozen development gate.",
+  "validation_policy": "Load 2019-2022 only if development has a stable passing region; never use 2023-2025 for this family.",
+  "holdout_policy": "Keep 2026 sealed until a final candidate passes validation, costs, robustness and SQ-Python parity."
+}

@@ -57,8 +57,9 @@ percentils base/conservador/estrès. Paper continua bloquejat.
 | Gap i opening drive | 144 | 0 passen desenvolupament a 15 bps | Descartar |
 | Compressió → ruptura de canal | 1.728 | 0 passen; els pics tenen només 3–5 trades | Descartar |
 | Pullback RSI dins tendència EMA | 1.944 | 0 passen; 790 punts tenen ≥100 trades, millor PF base 0,51 | Descartar |
+| Flux final/inici de mes | 20 | 0 passen; millor PF base 1,43 però només 4/7 anys, estrès PF 1,019 i 3/7 anys | Descartar |
 
-Total: **3.816 configuracions deterministes**, sense comptar SQ Builder perquè cap
+Total: **3.836 configuracions deterministes**, sense comptar SQ Builder perquè cap
 família va superar el filtre Python previ.
 
 ### 1. Gap i opening drive
@@ -123,8 +124,13 @@ fins tenir expectativa OOS neta, drawdown, freqüència i risc de ruïna.
 2. arribar a 30 mostres, tres dies i sis hores UTC diferents;
 3. congelar p50/p95/màxim de spread i slippage en els escenaris de costos.
 
-Després cal formular un mecanisme econòmic nou. No s'han de tornar a ajustar RSI,
-EMA, gap, opening drive o compressió per rescatar els experiments descartats.
+El collector automàtic s'instal·la amb `scripts/install_ostium_spx_capture_cron.sh`.
+Mostreja cada dues hores de dilluns a divendres, usa un lock anti-solapament i
+desa dades regenerables a `data/ostium_economics/`, fora de Git.
+
+Després cal formular un mecanisme econòmic nou amb un input extern justificat,
+per exemple règim de volatilitat preregistrat. No s'han de tornar a ajustar RSI,
+EMA, gap, opening drive, compressió o dies de final de mes per rescatar experiments.
 
 ## Artifacts reproduïbles
 
@@ -136,6 +142,7 @@ EMA, gap, opening drive o compressió per rescatar els experiments descartats.
 - Sessió v1: `lab/sq_bridge/spx_m15_session_screen_v1.py`
 - Compressió v2: `lab/sq_bridge/spx_m15_compression_expansion_v2.py`
 - Pullback v3: `lab/sq_bridge/spx_m15_trend_pullback_v3.py`
+- Turn-of-month v4: `lab/sq_bridge/spx_turn_of_month_v4.py`
 - Memòria de fracassos: `academia/experiments/failure-memory.json`
 
 ## Com reprendre en una sessió nova

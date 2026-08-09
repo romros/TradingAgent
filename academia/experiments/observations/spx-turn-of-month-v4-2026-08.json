@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "date": "2026-08-09",
+  "family": "spx_turn_of_month_institutional_flow_v4",
+  "hypothesis": "Month-end rebalancing and contribution flows create a positive SPX return around the turn of the month.",
+  "data": "SP_M1_dukas normalized to UTC; New York 15:59 closes; development rows restricted in SQL to 2012-2018.",
+  "attempted": 20,
+  "numeric_passes": 0,
+  "stable_passes": 0,
+  "best": {
+    "entry_from_month_end": -3,
+    "exit_day_next_month": 4,
+    "trades": 80,
+    "base_profit_factor": 1.434662,
+    "base_mean_net_bps": 23.220986,
+    "base_positive_years": "4/7",
+    "stress_profit_factor": 1.019297,
+    "stress_mean_net_bps": 1.220986,
+    "stress_positive_years": "3/7",
+    "mean_holding_days": 9.9
+  },
+  "decision": "REJECT_FAMILY_BEFORE_VALIDATION",
+  "reason": "No point passes the frozen 5/7 positive-year and stress PF 1.05 gates; therefore no stable adjacent region exists.",
+  "validation_accessed": false,
+  "contaminated_2023_2025_accessed": false,
+  "holdout_2026_accessed": false,
+  "sqcli_executed": false,
+  "next_direction": "Require a genuinely new external economic input, such as a preregistered volatility-regime variable, before another SPX family."
+}

@@ -95,7 +95,12 @@ la MAE; exigeix una distància efectiva d'almenys 1,5 vegades el stop. El trace
 Monte Carlo ha de declarar costat i durada fins a cada MAE. Això maximitza leverage
 dins del risc; no confon leverage amb augmentar arbitràriament el nocional.
 El nocional queda fixat per `200 × risc% / stop%`; canviar leverage només canvia
-el col·lateral requerit. La graella arriba a 200× perquè els màxims 150× i 200×
+el col·lateral requerit. Abans de calcular la reserva es bloqueja també
+`notional × stress_roundtrip_bps / 10.000` com a buffer de caixa d'entrada. És
+més advers que el fee inicial real perquè usa el round-trip complet, inclòs
+l'oracle d'estrès; impedeix declarar reserva ≥40% i gastar-la després en
+friccions. Col·lateral, buffer, capital compromès i reserva passen al paquet de
+paper amb hashes. La graella arriba a 200× perquè els màxims 150× i 200×
 del venue també s'hagin d'avaluar i rebutjar explícitament quan no superin
 robustesa, marge, reserva o distància de liquidació; no es poden ometre. Cada
 candidata aporta almenys 30 trades nets sota base,

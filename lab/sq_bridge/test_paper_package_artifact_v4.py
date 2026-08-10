@@ -57,6 +57,8 @@ def test_paper_package_binds_ostium_risk_ir_and_parity_without_signer(tmp_path):
     config = json.loads((tmp_path / "paper.json").read_text())
     assert config["ostium_pair_id"] == "control-pair"
     assert config["selected_leverage"] == 5
+    assert config["capital_committed_usdc"] == 60
+    assert config["reserve_usdc"] == 140
     assert config["risk_per_trade_pct"] == 1.5
     assert config["stop_loss_required"] is True
     assert config["mode"] == "paper"

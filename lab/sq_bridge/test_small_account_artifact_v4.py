@@ -79,6 +79,10 @@ def test_small_account_recomputes_performance_sizing_and_real_contract(tmp_path)
     assert artifact["cost_roundtrip_bps_by_scenario"] == {
         "base": 0, "conservative": 1, "stress": 2}
     assert artifact["collateral_usdc"] == 60
+    assert artifact["entry_cost_buffer_usdc"] == pytest.approx(.06)
+    assert artifact["capital_committed_usdc"] == pytest.approx(60.06)
+    assert artifact["reserve_usdc"] == pytest.approx(139.94)
+    assert artifact["reserve_pct"] == pytest.approx(69.97)
     assert artifact["nominal_liquidation_distance_pct"] == pytest.approx(19.75)
     assert artifact["liquidation_cost_erosion_pct"] == pytest.approx(.02)
     assert artifact["liquidation_distance_pct"] == pytest.approx(19.73)
@@ -155,6 +159,27 @@ def test_eurusd_venue_maximum_is_evaluated_and_must_be_rejected_explicitly(tmp_p
     assert set(result["higher_leverage_rejection_reasons"]) >= {"150", "200"}
     assert "exceeds_robustness_tested_leverage" in result[
         "higher_leverage_rejection_reasons"]["200"]
+
+
+def test_upfront_stress_cost_consumes_reserve_before_leverage_selection(tmp_path):
+    methodology = json.loads((ROOT / "methodology_v4.json").read_text())
+    trace = _trace()
+    trace["risk_per_trade_pct"] = 1.0  # 200 USDC notional at a 1% stop
+    costs = _cost_model(tmp_path)
+    model = json.loads(costs.read_text())
+    model["by_notional"]["500"]["stress_roundtrip_bps"] = 1100
+    costs.write_text(json.dumps(model, sort_keys=True) + "\n")
+    trace["cost_model_sha256"] = hashlib.sha256(costs.read_bytes()).hexdigest()
+    result = evaluate_trace(
+        trace, methodology["small_account"],
+        {"tested_leverage": 2, "venue_max_leverage": 100},
+        model, trace["cost_model_sha256"])
+    # At 2x collateral alone leaves 50% reserve. The 22 USDC stress entry
+    # buffer reduces it to 39%, so the candidate must not select 2x.
+    assert result["leverage_evaluations"]["2"]["reserve_pct"] == pytest.approx(39)
+    assert "reserve_below_limit" in result["leverage_evaluations"]["2"][
+        "rejection_reasons"]
+    assert result["selected_leverage"] is None
 
 
 def test_notional_above_measured_cost_grid_fails_closed(tmp_path):

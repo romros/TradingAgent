@@ -763,6 +763,7 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
         venue_max = artifact.get("venue_max_leverage")
         notional = artifact.get("position_notional_usdc")
         collateral = artifact.get("collateral_usdc")
+        entry_cost_buffer = artifact.get("entry_cost_buffer_usdc")
         stop_distance = artifact.get("stop_distance_pct")
         liquidation_distance = artifact.get("liquidation_distance_pct")
         evaluated = artifact.get("evaluated_leverage_grid")
@@ -775,6 +776,12 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
         rejections = artifact.get("higher_leverage_rejection_reasons")
         computed_margin = (collateral / capital * 100
                            if _at_least(collateral, 0) and _at_least(capital, 1) else None)
+        computed_committed = (collateral + entry_cost_buffer
+                              if _at_least(collateral, 0)
+                              and _at_least(entry_cost_buffer, 0) else None)
+        computed_committed_pct = (computed_committed / capital * 100
+                                  if computed_committed is not None
+                                  and _at_least(capital, 1) else None)
         computed_risk = (notional * stop_distance / capital
                          if _at_least(notional, 0) and _at_least(stop_distance, 0)
                          and _at_least(capital, 1) else None)
@@ -786,6 +793,9 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                                and leverage_numeric and leverage >= 1 else None)
         reported_margin = artifact.get("portfolio_margin_pct")
         reported_reserve = artifact.get("reserve_pct")
+        reported_reserve_usdc = artifact.get("reserve_usdc")
+        reported_committed = artifact.get("capital_committed_usdc")
+        reported_committed_pct = artifact.get("capital_committed_pct")
         reported_risk = artifact.get("risk_per_trade_pct")
         reported_buffer = artifact.get("stop_to_liquidation_buffer_ratio")
         checks = {
@@ -841,6 +851,8 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                         "selected_leverage", "venue_max_leverage",
                         "evaluated_leverage_grid", "higher_leverage_rejection_reasons",
                         "position_notional_usdc", "collateral_usdc",
+                        "entry_cost_buffer_usdc", "capital_committed_usdc",
+                        "capital_committed_pct", "reserve_usdc",
                         "stop_distance_pct", "liquidation_distance_pct",
                         "stop_to_liquidation_buffer_ratio")),
                 "VENUE_LEVERAGE": leverage_numeric and venue_numeric and venue_max >= leverage,
@@ -862,7 +874,18 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                     and abs(computed_margin - reported_margin) <= 1e-9,
                 "RESERVE_RECOMPUTES": computed_margin is not None
                     and _at_least(reported_reserve, 0)
-                    and abs((100 - computed_margin) - reported_reserve) <= 1e-9,
+                    and _at_least(reported_reserve_usdc, 0)
+                    and computed_committed is not None
+                    and abs((capital - computed_committed) - reported_reserve_usdc) <= 1e-9
+                    and abs(((capital - computed_committed) / capital * 100)
+                            - reported_reserve) <= 1e-9,
+                "COMMITTED_CAPITAL_RECOMPUTES": computed_committed is not None
+                    and computed_committed_pct is not None
+                    and _at_least(reported_committed, 0)
+                    and _at_least(reported_committed_pct, 0)
+                    and abs(computed_committed - reported_committed) <= 1e-9
+                    and abs(computed_committed_pct - reported_committed_pct) <= 1e-9
+                    and computed_committed <= capital,
                 "RISK_RECOMPUTES": computed_risk is not None
                     and _at_least(reported_risk, 0)
                     and abs(computed_risk - reported_risk) <= 1e-9,

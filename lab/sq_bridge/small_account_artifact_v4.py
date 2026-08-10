@@ -136,10 +136,17 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
     grid = [value for value in gate["leverage_grid"] if value <= venue_max]
     evaluations, safe = {}, []
     worst_liquidation_erosion = max(liquidation_erosions)
+    # Reserve the full stress round-trip (including the stress oracle policy)
+    # before sizing. This is stricter than the actual entry cash charge and
+    # prevents a 200 USDC account from spending its declared reserve on fees.
+    entry_cost_buffer_usdc = notional * cost_bps["stress"] / 10_000
     for leverage in grid:
         collateral = notional / leverage
         margin_pct = collateral / capital * 100
-        reserve_pct = 100 - margin_pct
+        capital_committed_usdc = collateral + entry_cost_buffer_usdc
+        capital_committed_pct = capital_committed_usdc / capital * 100
+        reserve_usdc = capital - capital_committed_usdc
+        reserve_pct = reserve_usdc / capital * 100
         nominal_liquidation_distance = liquidation_distance_pct(leverage, venue_max)
         liquidation_distance = max(
             0.0, nominal_liquidation_distance - worst_liquidation_erosion)
@@ -151,13 +158,18 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
             reasons.append("portfolio_margin_above_limit")
         if reserve_pct < gate["minimum_reserve_pct"]:
             reasons.append("reserve_below_limit")
+        if capital_committed_usdc > capital:
+            reasons.append("upfront_cash_above_capital")
         if buffer < gate["minimum_stop_to_liquidation_buffer_ratio"]:
             reasons.append("liquidation_buffer_below_limit")
         if maximum_loss_pct > gate["maximum_single_trade_loss_pct"]:
             reasons.append("realized_trade_loss_above_limit")
         evaluations[str(leverage)] = {
             "collateral_usdc": collateral, "portfolio_margin_pct": margin_pct,
-            "reserve_pct": reserve_pct,
+            "entry_cost_buffer_usdc": entry_cost_buffer_usdc,
+            "capital_committed_usdc": capital_committed_usdc,
+            "capital_committed_pct": capital_committed_pct,
+            "reserve_usdc": reserve_usdc, "reserve_pct": reserve_pct,
             "nominal_liquidation_distance_pct": nominal_liquidation_distance,
             "liquidation_cost_erosion_pct": worst_liquidation_erosion,
             "liquidation_distance_pct": liquidation_distance,
@@ -192,6 +204,13 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
         "evaluated_leverage_grid": grid, "leverage_evaluations": evaluations,
         "selected_leverage": selected_leverage,
         "collateral_usdc": selected["collateral_usdc"] if selected else None,
+        "entry_cost_buffer_usdc": (
+            selected["entry_cost_buffer_usdc"] if selected else None),
+        "capital_committed_usdc": (
+            selected["capital_committed_usdc"] if selected else None),
+        "capital_committed_pct": (
+            selected["capital_committed_pct"] if selected else None),
+        "reserve_usdc": selected["reserve_usdc"] if selected else None,
         "portfolio_margin_pct": selected["portfolio_margin_pct"] if selected else None,
         "reserve_pct": selected["reserve_pct"] if selected else None,
         "liquidation_distance_pct": selected["liquidation_distance_pct"] if selected else None,
@@ -275,6 +294,10 @@ def build_artifact(*, campaign_id: str, trace_paths: list[Path],
             "cost_notional_bucket_usdc": row["cost_notional_bucket_usdc"],
             "cost_roundtrip_bps_by_scenario": row["cost_roundtrip_bps_by_scenario"],
             "collateral_usdc": row["collateral_usdc"],
+            "entry_cost_buffer_usdc": row["entry_cost_buffer_usdc"],
+            "capital_committed_usdc": row["capital_committed_usdc"],
+            "capital_committed_pct": row["capital_committed_pct"],
+            "reserve_usdc": row["reserve_usdc"],
             "stop_distance_pct": row["stop_distance_pct"],
             "liquidation_distance_pct": row["liquidation_distance_pct"],
             "stop_to_liquidation_buffer_ratio": row["stop_to_liquidation_buffer_ratio"],

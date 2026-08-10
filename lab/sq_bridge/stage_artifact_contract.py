@@ -78,10 +78,17 @@ def _verified_json(path_value: Any, digest: Any, artifact_path: str) -> dict | N
     return value if isinstance(value, dict) else None
 
 
-def _verified_temporal_sources(paths: Any, hashes: Any, reported: Any,
-                               artifact_path: str) -> bool:
+def _verified_temporal_sources(artifact: dict, reported: Any,
+                               artifact_path: str, gate: dict) -> bool:
+    paths, hashes = artifact.get("temporal_trace_paths"), artifact.get(
+        "temporal_trace_sha256")
     if not isinstance(reported, dict) or not _verified_files(
             paths, hashes, sorted(reported), artifact_path):
+        return False
+    cost_model = _verified_json(
+        artifact.get("cost_model_path"), artifact.get("cost_model_sha256"),
+        artifact_path)
+    if cost_model is None:
         return False
     base = Path(artifact_path).resolve().parent
     recomputed = {}
@@ -89,7 +96,9 @@ def _verified_temporal_sources(paths: Any, hashes: Any, reported: Any,
         for candidate_id, value in paths.items():
             path = Path(value)
             path = path if path.is_absolute() else base / path
-            metrics = evaluate_temporal_trace(json.loads(path.read_text()))
+            metrics = evaluate_temporal_trace(
+                json.loads(path.read_text()), gate, cost_model,
+                artifact.get("cost_model_sha256"))
             if metrics.pop("candidate_id") != candidate_id:
                 return False
             recomputed[candidate_id] = metrics
@@ -592,9 +601,7 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                 "CANDIDATE_METRICS": valid,
                 "EVALUATED_METRICS": evaluated_valid,
                 "TRACE_CONTRACT": _verified_temporal_sources(
-                    artifact.get("temporal_trace_paths"),
-                    artifact.get("temporal_trace_sha256"), evaluated,
-                    receipt.get("artifact", ""))
+                    artifact, evaluated, receipt.get("artifact", ""), temporal)
                     if provenance != "synthetic_control" else True,
                 "SELECTION_METRIC": artifact.get("selection_metric")
                     == temporal["selection_metric"],

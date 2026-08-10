@@ -10,6 +10,8 @@ import os
 from datetime import datetime
 from pathlib import Path
 
+from lab.sq_bridge.small_account_artifact_v4 import select_cost_envelope
+
 
 def _sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -32,7 +34,8 @@ def _utc(value: object) -> datetime:
 
 
 def _trade_pnl(rows: object, seen: set[str], after: datetime | None,
-               before: datetime | None) -> tuple[list[float], list[datetime]]:
+               before: datetime | None, notional: float, base_bps: float,
+               carry: dict) -> tuple[list[float], list[datetime]]:
     if not isinstance(rows, list):
         raise ValueError("Trades temporals absents")
     pnl, timestamps = [], []
@@ -48,16 +51,26 @@ def _trade_pnl(rows: object, seen: set[str], after: datetime | None,
             raise ValueError("Trades temporals no ordenats")
         if before and timestamp > before:
             raise ValueError("Trade fora de la seva finestra temporal")
-        value = row.get("net_pnl_usdc")
-        if (not isinstance(value, (int, float)) or isinstance(value, bool)
-                or not math.isfinite(value)):
-            raise ValueError("PnL temporal invalid")
-        pnl.append(float(value))
+        gross = row.get("gross_return_pct")
+        holding_days, side = row.get("holding_days"), row.get("side")
+        if (not isinstance(gross, (int, float)) or isinstance(gross, bool)
+                or not math.isfinite(gross)
+                or not isinstance(holding_days, (int, float))
+                or isinstance(holding_days, bool) or not math.isfinite(holding_days)
+                or holding_days < 0 or side not in {"long", "short"}):
+            raise ValueError("Retorn brut, costat o durada temporal invalid")
+        annual = (carry.get(side) or {}).get("base_annual_cost_pct")
+        if (not isinstance(annual, (int, float)) or isinstance(annual, bool)
+                or not math.isfinite(annual)):
+            raise ValueError("Carry base temporal absent")
+        net_pct = float(gross) - base_bps / 100 - float(annual) * float(holding_days) / 365.25
+        pnl.append(notional * net_pct / 100)
         timestamps.append(timestamp)
     return pnl, timestamps
 
 
-def evaluate_trace(trace: dict) -> dict:
+def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
+                   expected_cost_hash: str) -> dict:
     if (trace.get("schema_version") != 1
             or trace.get("trace_type") != "temporal_validation_trade_trace"):
         raise ValueError("Schema de trace temporal invalid")
@@ -68,15 +81,18 @@ def evaluate_trace(trace: dict) -> dict:
         raise ValueError("Trace temporal ha d'usar 200 USDC sense obrir holdout")
     if trace.get("cost_scenario") != "base":
         raise ValueError("La seleccio temporal requereix el cost base congelat")
-    cost_hash = trace.get("cost_model_sha256")
-    if (not isinstance(cost_hash, str) or len(cost_hash) != 64
-            or any(char not in "0123456789abcdef" for char in cost_hash)):
-        raise ValueError("Hash del model de costos temporal invalid")
+    if trace.get("cost_model_sha256") != expected_cost_hash:
+        raise ValueError("Hash del model de costos temporal no coincideix")
+    notional = trace.get("evaluation_notional_usdc")
+    if notional != gate["evaluation_notional_usdc"]:
+        raise ValueError("Nocional temporal canonic invalid")
+    cost_bucket, cost_bps, carry = select_cost_envelope(cost_model, float(notional))
 
     train_end = _utc(trace.get("train_end_utc"))
     seen: set[str] = set()
     train, train_timestamps = _trade_pnl(
-        trace.get("train_trades"), seen, None, train_end)
+        trace.get("train_trades"), seen, None, train_end, notional,
+        cost_bps["base"], carry)
     if not train:
         raise ValueError("Train temporal buit")
     train_expectancy = sum(train) / len(train)
@@ -95,7 +111,8 @@ def evaluate_trace(trace: dict) -> dict:
         start, end = _utc(window.get("start_utc")), _utc(window.get("end_utc"))
         if not window_id or window_id in window_ids or start <= previous_end or end <= start:
             raise ValueError("Finestres OOS duplicades, solapades o desordenades")
-        values, _ = _trade_pnl(window.get("trades"), seen, start, end)
+        values, _ = _trade_pnl(window.get("trades"), seen, start, end, notional,
+                               cost_bps["base"], carry)
         window_ids.append(window_id)
         all_oos.extend(values)
         window_totals.append(sum(values))
@@ -117,6 +134,9 @@ def evaluate_trace(trace: dict) -> dict:
         maximum_drawdown = max(maximum_drawdown, (peak - equity) / peak * 100)
     return {
         "candidate_id": candidate_id,
+        "evaluation_notional_usdc": notional,
+        "cost_notional_bucket_usdc": cost_bucket,
+        "base_roundtrip_bps": cost_bps["base"],
         "oos_trades": len(all_oos),
         "positive_windows_ratio": sum(value > 0 for value in window_totals) / len(window_totals),
         "oos_profit_factor": wins / losses,
@@ -144,13 +164,17 @@ def pareto(metrics: dict[str, dict]) -> list[str]:
 
 
 def build_artifact(*, campaign_id: str, trace_paths: list[Path],
-                   methodology_path: Path, artifact_path: Path) -> dict:
+                   cost_model_path: Path, methodology_path: Path,
+                   artifact_path: Path) -> dict:
     methodology = json.loads(methodology_path.read_text())
     gate = methodology["temporal_validation"]
+    cost_model = json.loads(cost_model_path.read_text())
+    cost_hash = _sha(cost_model_path)
     evaluated, paths, hashes = {}, {}, {}
     base = artifact_path.resolve().parent
     for path in trace_paths:
-        metrics = evaluate_trace(json.loads(path.read_text()))
+        metrics = evaluate_trace(json.loads(path.read_text()), gate,
+                                 cost_model, cost_hash)
         candidate_id = metrics.pop("candidate_id")
         if candidate_id in evaluated:
             raise ValueError("candidate_id temporal duplicat")
@@ -177,6 +201,8 @@ def build_artifact(*, campaign_id: str, trace_paths: list[Path],
         "candidate_temporal_metrics": selected_metrics,
         "pareto_candidate_ids": selected,
         "temporal_trace_paths": paths, "temporal_trace_sha256": hashes,
+        "cost_model_path": _relative(cost_model_path, base),
+        "cost_model_sha256": cost_hash,
     }
     if selected:
         artifact.update({
@@ -199,12 +225,14 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--campaign-id", required=True)
     parser.add_argument("--trace", action="append", required=True, type=Path)
+    parser.add_argument("--cost-model", required=True, type=Path)
     parser.add_argument("--methodology", type=Path,
                         default=Path(__file__).with_name("methodology_v4.json"))
     parser.add_argument("--artifact-output", required=True, type=Path)
     args = parser.parse_args()
     artifact = build_artifact(
         campaign_id=args.campaign_id, trace_paths=args.trace,
+        cost_model_path=args.cost_model,
         methodology_path=args.methodology, artifact_path=args.artifact_output)
     print(json.dumps({"decision": artifact["decision"],
                       "candidate_ids": artifact["candidate_ids"]}, indent=2))

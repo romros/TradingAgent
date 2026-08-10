@@ -49,6 +49,7 @@
     "robustness_during_generation": false
   },
   "temporal_validation": {
+    "evaluation_notional_usdc": 200,
     "selection_metric": "pareto_net_expectancy_drawdown_window_stability",
     "minimum_trades_oos": 30,
     "minimum_positive_windows_ratio": 0.6,

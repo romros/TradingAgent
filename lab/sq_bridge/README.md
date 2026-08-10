@@ -301,8 +301,9 @@ drawdown OOS i estabilitat entre finestres. El rebut temporal ha d'incloure
 l'univers complet rebut d'SQ i el validador recalcula tant els dominats com els
 IDs seleccionats.
 
-Cada candidat aporta un trace `temporal_validation_trade_trace` amb capital 200,
-hash del model de costos base, trades train i finestres OOS UTC no solapades.
+Cada candidat aporta un trace `temporal_validation_trade_trace` amb capital i
+nocional comparatiu de 200, retorn brut, costat, durada, trades train i
+finestres OOS UTC no solapades.
 L'artefacte no s'edita manualment:
 
 ```bash
@@ -310,10 +311,12 @@ PYTHONPATH=../.. python3 temporal_validation_artifact_v4.py \
   --campaign-id CAMPAIGN_ID \
   --trace /path/to/candidate-a.temporal.trace.json \
   --trace /path/to/candidate-b.temporal.trace.json \
+  --cost-model /path/to/eurusd_costs_frozen_v4.json \
   --artifact-output /path/to/state/artifacts/04_temporal_validation.json
 ```
 
-El constructor recomputa trades, PF, EV neta, drawdown, finestres positives i
+El constructor verifica el SHA-256 dels costos, deriva PnL base incloent carry i
+recomputa trades, PF, EV neta, drawdown, finestres positives i
 decay train→OOS; després aplica els gates i forma el front Pareto. Modificar un
 trace, ometre un candidat rebut d'SQ o declarar accés al holdout invalida el
 rebut.

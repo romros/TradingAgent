@@ -132,10 +132,13 @@ if stage == 'sq_generation':
 if stage == 'temporal_validation':
     from datetime import datetime, timedelta, timezone
     base = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent
+    cost_path = base / 'costs.json'
+    cost_hash = hashlib.sha256(cost_path.read_bytes()).hexdigest()
     start = datetime(2020, 1, 1, tzinfo=timezone.utc)
     train = [{'trade_id': f'train-{index:02d}',
               'exit_timestamp': (start + timedelta(days=index + 1)).isoformat(),
-              'net_pnl_usdc': 1.0 if index < 18 else -.5}
+              'gross_return_pct': .5 if index < 18 else -.25,
+              'side': 'long' if index % 2 == 0 else 'short', 'holding_days': 1}
              for index in range(30)]
     windows = []
     for window_index in range(3):
@@ -146,18 +149,21 @@ if stage == 'temporal_validation':
             'end_utc': (window_start + timedelta(days=11)).isoformat(),
             'trades': [{'trade_id': f'oos-{window_index}-{index:02d}',
                         'exit_timestamp': (window_start + timedelta(days=index + 1)).isoformat(),
-                        'net_pnl_usdc': 1.0 if index < 6 else -.5}
+                        'gross_return_pct': .5 if index < 6 else -.25,
+                        'side': 'long' if index % 2 == 0 else 'short',
+                        'holding_days': 1}
                        for index in range(10)]})
     trace_path = base / 'runner-sqx-001.temporal.trace.json'
     trace_path.write_text(json.dumps({
         'schema_version': 1, 'trace_type': 'temporal_validation_trade_trace',
         'candidate_id': 'runner-sqx-001', 'capital_usdc': 200,
         'holdout_accessed': False, 'cost_scenario': 'base',
-        'cost_model_sha256': 'a' * 64,
+        'cost_model_sha256': cost_hash, 'evaluation_notional_usdc': 200,
         'train_end_utc': (start + timedelta(days=31)).isoformat(),
         'train_trades': train, 'oos_windows': windows}))
     artifact = build_temporal(
         campaign_id='runner-test', trace_paths=[trace_path],
+        cost_model_path=cost_path,
         methodology_path=Path(sys.argv[2]),
         artifact_path=Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']))
 if stage == 'robustness':

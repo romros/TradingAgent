@@ -70,6 +70,8 @@ def validate(config: dict) -> list[str]:
         if generation.get("search_method") != "genetic_evolution":
             errors.append("sq_generation: cerca genetica obligatoria")
         temporal = config.get("temporal_validation", {})
+        if temporal.get("evaluation_notional_usdc") != config.get("capital_usdc"):
+            errors.append("temporal_validation: nocional canonic ha de ser el capital")
         if temporal.get("selection_metric") != "pareto_net_expectancy_drawdown_window_stability":
             errors.append("temporal_validation: seleccio Pareto obligatoria")
         if temporal.get("minimum_trades_oos", 0) < 30:

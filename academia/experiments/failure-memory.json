@@ -2,6 +2,16 @@
   "schema_version": 1,
   "entries": [
     {
+      "id": "xauusd_real_yield_dollar_v30b_20260810",
+      "family": "xauusd_weekly_real_yield_broad_dollar_execution_sensitivity",
+      "decision": "REJECT",
+      "failure_code": "TEMPORAL_PASS_COST_FAIL",
+      "lesson": "Macro frequency is structurally adequate (417/417 train weeks; 13/27 stable frequency points), and the best train point has PF 1.61 base and 1.22 conservative. At frozen stress it falls to PF 1.016, EV +0.014 USDC and only 3/8 positive years; the long side supplies +9.68 USDC while short loses -9.18.",
+      "do_not_repeat": "Do not remove the short side post hoc, count current long rollover credit as historical profit, lower carry or execution stress, tune macro thresholds, or inspect 2015-2026 to rescue v30b or the primary v30.",
+      "next_direction": "Use a genuinely different causal flow or positioning input; retain delayed-publication timing and the macro-only frequency preflight.",
+      "evidence": "academia/experiments/observations/xauusd-real-yield-dollar-v30b-2026-08.json"
+    },
+    {
       "id": "xauusd_fomc_reaction_v29_20260810",
       "family": "xauusd_scheduled_fomc_reaction",
       "decision": "REJECT",

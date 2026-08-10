@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "id": "xauusd_real_yield_dollar_v30b_20260810",
+  "family": "xauusd_weekly_real_yield_broad_dollar_execution_sensitivity",
+  "relationship_to_primary_v30": "Independent concurrent audit with a different execution contract; both reject. This artifact cannot rescue or supersede primary v30.",
+  "market": "XAUUSD",
+  "capital_usdc": 200,
+  "stage": "train_performance",
+  "decision": "REJECT_NO_SQ",
+  "failure_code": "TEMPORAL_PASS_COST_FAIL",
+  "observed": {
+    "macro_train_weeks_complete": 417,
+    "macro_frequency_attempts": 27,
+    "macro_frequency_survivors": 13,
+    "performance_attempts": 13,
+    "performance_survivors": 0,
+    "best_parameters": {
+      "lookback_weeks": 13,
+      "real_yield_change_threshold_bps": 25,
+      "broad_dollar_change_threshold_pct": 0.5
+    },
+    "best_trades": 36,
+    "best_base_profit_factor": 1.6133736193564312,
+    "best_base_expectancy_usdc": 0.436757696906711,
+    "best_conservative_profit_factor": 1.2210472534793066,
+    "best_conservative_expectancy_usdc": 0.1762180854778701,
+    "best_stress_profit_factor": 1.0162837559488482,
+    "best_stress_expectancy_usdc": 0.013988410217394177,
+    "best_stress_positive_year_ratio": 0.375,
+    "best_stress_max_drawdown_pct": 7.18436665030503,
+    "best_stress_liquidations": 0,
+    "best_stress_long_net_pnl_usdc": 9.681296929741272,
+    "best_stress_short_net_pnl_usdc": -9.177714161915084
+  },
+  "inference": "A plausible gross macro relationship exists but is directionally and temporally concentrated; costs and carry leave no robust component for the 200-USDC catalog.",
+  "do_not_repeat": "No long-only rescue, lower carry, threshold tuning or future-period access for v30b or primary v30.",
+  "evidence": {
+    "config": "lab/sq_bridge/family_xauusd_real_yield_dollar_v30b.json",
+    "macro_preflight": "lab/sq_bridge/evidence/xauusd_real_yield_dollar_v30b_macro_preflight.json",
+    "train": "lab/sq_bridge/evidence/xauusd_real_yield_dollar_v30b_train.json",
+    "chain": "lab/sq_bridge/evidence/xauusd_real_yield_dollar_v30b_chain.json",
+    "audit": "docs/XAUUSD_REAL_YIELD_DOLLAR_V30B_AUDIT.md"
+  },
+  "validation_accessed": false,
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "sqcli_used": false,
+  "live_authorized": false
+}

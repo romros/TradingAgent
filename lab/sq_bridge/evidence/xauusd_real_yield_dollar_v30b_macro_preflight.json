@@ -1,0 +1,925 @@
+{
+  "all_results": [
+    {
+      "exposed_week_ratio": 0.324455205811138,
+      "long_entry_years": 8,
+      "long_episodes": 40,
+      "maximum_episode_weeks": 8,
+      "median_episode_weeks": 1.0,
+      "parameter_tuple": [
+        4,
+        10,
+        0.5
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 0.5,
+        "lookback_weeks": 4,
+        "real_yield_change_threshold_bps": 10
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 8,
+      "short_episodes": 24,
+      "stable_neighbors": 3
+    },
+    {
+      "exposed_week_ratio": 0.23002421307506055,
+      "long_entry_years": 7,
+      "long_episodes": 28,
+      "maximum_episode_weeks": 5,
+      "median_episode_weeks": 1,
+      "parameter_tuple": [
+        4,
+        10,
+        1.0
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 1.0,
+        "lookback_weeks": 4,
+        "real_yield_change_threshold_bps": 10
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 7,
+      "short_episodes": 21,
+      "stable_neighbors": 3
+    },
+    {
+      "exposed_week_ratio": 0.09927360774818401,
+      "long_entry_years": 6,
+      "long_episodes": 11,
+      "maximum_episode_weeks": 5,
+      "median_episode_weeks": 2.0,
+      "parameter_tuple": [
+        4,
+        10,
+        2.0
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 2.0,
+        "lookback_weeks": 4,
+        "real_yield_change_threshold_bps": 10
+      },
+      "passes_macro_frequency_gate": false,
+      "passes_numeric_frequency_gate": false,
+      "short_entry_years": 6,
+      "short_episodes": 11,
+      "stable_neighbors": 2
+    },
+    {
+      "exposed_week_ratio": 0.15738498789346247,
+      "long_entry_years": 7,
+      "long_episodes": 20,
+      "maximum_episode_weeks": 6,
+      "median_episode_weeks": 1.5,
+      "parameter_tuple": [
+        4,
+        25,
+        0.5
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 0.5,
+        "lookback_weeks": 4,
+        "real_yield_change_threshold_bps": 25
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 5,
+      "short_episodes": 10,
+      "stable_neighbors": 3
+    },
+    {
+      "exposed_week_ratio": 0.11380145278450363,
+      "long_entry_years": 7,
+      "long_episodes": 15,
+      "maximum_episode_weeks": 5,
+      "median_episode_weeks": 1,
+      "parameter_tuple": [
+        4,
+        25,
+        1.0
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 1.0,
+        "lookback_weeks": 4,
+        "real_yield_change_threshold_bps": 25
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 5,
+      "short_episodes": 10,
+      "stable_neighbors": 3
+    },
+    {
+      "exposed_week_ratio": 0.053268765133171914,
+      "long_entry_years": 5,
+      "long_episodes": 6,
+      "maximum_episode_weeks": 5,
+      "median_episode_weeks": 2,
+      "parameter_tuple": [
+        4,
+        25,
+        2.0
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 2.0,
+        "lookback_weeks": 4,
+        "real_yield_change_threshold_bps": 25
+      },
+      "passes_macro_frequency_gate": false,
+      "passes_numeric_frequency_gate": false,
+      "short_entry_years": 4,
+      "short_episodes": 5,
+      "stable_neighbors": 1
+    },
+    {
+      "exposed_week_ratio": 0.03631961259079903,
+      "long_entry_years": 4,
+      "long_episodes": 5,
+      "maximum_episode_weeks": 4,
+      "median_episode_weeks": 1.5,
+      "parameter_tuple": [
+        4,
+        50,
+        0.5
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 0.5,
+        "lookback_weeks": 4,
+        "real_yield_change_threshold_bps": 50
+      },
+      "passes_macro_frequency_gate": false,
+      "passes_numeric_frequency_gate": false,
+      "short_entry_years": 2,
+      "short_episodes": 3,
+      "stable_neighbors": 1
+    },
+    {
+      "exposed_week_ratio": 0.03389830508474576,
+      "long_entry_years": 4,
+      "long_episodes": 5,
+      "maximum_episode_weeks": 4,
+      "median_episode_weeks": 1,
+      "parameter_tuple": [
+        4,
+        50,
+        1.0
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 1.0,
+        "lookback_weeks": 4,
+        "real_yield_change_threshold_bps": 50
+      },
+      "passes_macro_frequency_gate": false,
+      "passes_numeric_frequency_gate": false,
+      "short_entry_years": 2,
+      "short_episodes": 4,
+      "stable_neighbors": 1
+    },
+    {
+      "exposed_week_ratio": 0.026634382566585957,
+      "long_entry_years": 4,
+      "long_episodes": 4,
+      "maximum_episode_weeks": 4,
+      "median_episode_weeks": 1.5,
+      "parameter_tuple": [
+        4,
+        50,
+        2.0
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 2.0,
+        "lookback_weeks": 4,
+        "real_yield_change_threshold_bps": 50
+      },
+      "passes_macro_frequency_gate": false,
+      "passes_numeric_frequency_gate": false,
+      "short_entry_years": 2,
+      "short_episodes": 2,
+      "stable_neighbors": 0
+    },
+    {
+      "exposed_week_ratio": 0.4132029339853301,
+      "long_entry_years": 8,
+      "long_episodes": 26,
+      "maximum_episode_weeks": 16,
+      "median_episode_weeks": 2,
+      "parameter_tuple": [
+        8,
+        10,
+        0.5
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 0.5,
+        "lookback_weeks": 8,
+        "real_yield_change_threshold_bps": 10
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 7,
+      "short_episodes": 23,
+      "stable_neighbors": 4
+    },
+    {
+      "exposed_week_ratio": 0.33007334963325186,
+      "long_entry_years": 8,
+      "long_episodes": 26,
+      "maximum_episode_weeks": 10,
+      "median_episode_weeks": 2,
+      "parameter_tuple": [
+        8,
+        10,
+        1.0
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 1.0,
+        "lookback_weeks": 8,
+        "real_yield_change_threshold_bps": 10
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 6,
+      "short_episodes": 19,
+      "stable_neighbors": 5
+    },
+    {
+      "exposed_week_ratio": 0.1980440097799511,
+      "long_entry_years": 7,
+      "long_episodes": 16,
+      "maximum_episode_weeks": 10,
+      "median_episode_weeks": 2.0,
+      "parameter_tuple": [
+        8,
+        10,
+        2.0
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 2.0,
+        "lookback_weeks": 8,
+        "real_yield_change_threshold_bps": 10
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 5,
+      "short_episodes": 10,
+      "stable_neighbors": 2
+    },
+    {
+      "exposed_week_ratio": 0.2396088019559902,
+      "long_entry_years": 8,
+      "long_episodes": 25,
+      "maximum_episode_weeks": 10,
+      "median_episode_weeks": 2.0,
+      "parameter_tuple": [
+        8,
+        25,
+        0.5
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 0.5,
+        "lookback_weeks": 8,
+        "real_yield_change_threshold_bps": 25
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 5,
+      "short_episodes": 11,
+      "stable_neighbors": 4
+    },
+    {
+      "exposed_week_ratio": 0.20048899755501223,
+      "long_entry_years": 8,
+      "long_episodes": 24,
+      "maximum_episode_weeks": 10,
+      "median_episode_weeks": 2.0,
+      "parameter_tuple": [
+        8,
+        25,
+        1.0
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 1.0,
+        "lookback_weeks": 8,
+        "real_yield_change_threshold_bps": 25
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 5,
+      "short_episodes": 10,
+      "stable_neighbors": 3
+    },
+    {
+      "exposed_week_ratio": 0.12224938875305623,
+      "long_entry_years": 7,
+      "long_episodes": 15,
+      "maximum_episode_weeks": 10,
+      "median_episode_weeks": 2.0,
+      "parameter_tuple": [
+        8,
+        25,
+        2.0
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 2.0,
+        "lookback_weeks": 8,
+        "real_yield_change_threshold_bps": 25
+      },
+      "passes_macro_frequency_gate": false,
+      "passes_numeric_frequency_gate": false,
+      "short_entry_years": 4,
+      "short_episodes": 5,
+      "stable_neighbors": 2
+    },
+    {
+      "exposed_week_ratio": 0.09046454767726161,
+      "long_entry_years": 5,
+      "long_episodes": 9,
+      "maximum_episode_weeks": 7,
+      "median_episode_weeks": 2,
+      "parameter_tuple": [
+        8,
+        50,
+        0.5
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 0.5,
+        "lookback_weeks": 8,
+        "real_yield_change_threshold_bps": 50
+      },
+      "passes_macro_frequency_gate": false,
+      "passes_numeric_frequency_gate": false,
+      "short_entry_years": 3,
+      "short_episodes": 4,
+      "stable_neighbors": 1
+    },
+    {
+      "exposed_week_ratio": 0.08068459657701711,
+      "long_entry_years": 4,
+      "long_episodes": 9,
+      "maximum_episode_weeks": 7,
+      "median_episode_weeks": 2,
+      "parameter_tuple": [
+        8,
+        50,
+        1.0
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 1.0,
+        "lookback_weeks": 8,
+        "real_yield_change_threshold_bps": 50
+      },
+      "passes_macro_frequency_gate": false,
+      "passes_numeric_frequency_gate": false,
+      "short_entry_years": 3,
+      "short_episodes": 4,
+      "stable_neighbors": 1
+    },
+    {
+      "exposed_week_ratio": 0.05134474327628362,
+      "long_entry_years": 4,
+      "long_episodes": 6,
+      "maximum_episode_weeks": 7,
+      "median_episode_weeks": 1.5,
+      "parameter_tuple": [
+        8,
+        50,
+        2.0
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 2.0,
+        "lookback_weeks": 8,
+        "real_yield_change_threshold_bps": 50
+      },
+      "passes_macro_frequency_gate": false,
+      "passes_numeric_frequency_gate": false,
+      "short_entry_years": 2,
+      "short_episodes": 2,
+      "stable_neighbors": 0
+    },
+    {
+      "exposed_week_ratio": 0.44801980198019803,
+      "long_entry_years": 8,
+      "long_episodes": 22,
+      "maximum_episode_weeks": 19,
+      "median_episode_weeks": 3,
+      "parameter_tuple": [
+        13,
+        10,
+        0.5
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 0.5,
+        "lookback_weeks": 13,
+        "real_yield_change_threshold_bps": 10
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 6,
+      "short_episodes": 19,
+      "stable_neighbors": 3
+    },
+    {
+      "exposed_week_ratio": 0.38366336633663367,
+      "long_entry_years": 8,
+      "long_episodes": 19,
+      "maximum_episode_weeks": 19,
+      "median_episode_weeks": 2.5,
+      "parameter_tuple": [
+        13,
+        10,
+        1.0
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 1.0,
+        "lookback_weeks": 13,
+        "real_yield_change_threshold_bps": 10
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 5,
+      "short_episodes": 15,
+      "stable_neighbors": 3
+    },
+    {
+      "exposed_week_ratio": 0.28465346534653463,
+      "long_entry_years": 7,
+      "long_episodes": 14,
+      "maximum_episode_weeks": 16,
+      "median_episode_weeks": 3.5,
+      "parameter_tuple": [
+        13,
+        10,
+        2.0
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 2.0,
+        "lookback_weeks": 13,
+        "real_yield_change_threshold_bps": 10
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 5,
+      "short_episodes": 10,
+      "stable_neighbors": 2
+    },
+    {
+      "exposed_week_ratio": 0.2896039603960396,
+      "long_entry_years": 7,
+      "long_episodes": 21,
+      "maximum_episode_weeks": 19,
+      "median_episode_weeks": 1,
+      "parameter_tuple": [
+        13,
+        25,
+        0.5
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 0.5,
+        "lookback_weeks": 13,
+        "real_yield_change_threshold_bps": 25
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 5,
+      "short_episodes": 16,
+      "stable_neighbors": 2
+    },
+    {
+      "exposed_week_ratio": 0.2623762376237624,
+      "long_entry_years": 7,
+      "long_episodes": 16,
+      "maximum_episode_weeks": 19,
+      "median_episode_weeks": 2,
+      "parameter_tuple": [
+        13,
+        25,
+        1.0
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 1.0,
+        "lookback_weeks": 13,
+        "real_yield_change_threshold_bps": 25
+      },
+      "passes_macro_frequency_gate": false,
+      "passes_numeric_frequency_gate": false,
+      "short_entry_years": 4,
+      "short_episodes": 13,
+      "stable_neighbors": 3
+    },
+    {
+      "exposed_week_ratio": 0.20544554455445543,
+      "long_entry_years": 6,
+      "long_episodes": 15,
+      "maximum_episode_weeks": 14,
+      "median_episode_weeks": 2.0,
+      "parameter_tuple": [
+        13,
+        25,
+        2.0
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 2.0,
+        "lookback_weeks": 13,
+        "real_yield_change_threshold_bps": 25
+      },
+      "passes_macro_frequency_gate": false,
+      "passes_numeric_frequency_gate": false,
+      "short_entry_years": 4,
+      "short_episodes": 9,
+      "stable_neighbors": 1
+    },
+    {
+      "exposed_week_ratio": 0.13366336633663367,
+      "long_entry_years": 5,
+      "long_episodes": 10,
+      "maximum_episode_weeks": 12,
+      "median_episode_weeks": 2.0,
+      "parameter_tuple": [
+        13,
+        50,
+        0.5
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 0.5,
+        "lookback_weeks": 13,
+        "real_yield_change_threshold_bps": 50
+      },
+      "passes_macro_frequency_gate": false,
+      "passes_numeric_frequency_gate": false,
+      "short_entry_years": 3,
+      "short_episodes": 6,
+      "stable_neighbors": 1
+    },
+    {
+      "exposed_week_ratio": 0.12376237623762376,
+      "long_entry_years": 5,
+      "long_episodes": 9,
+      "maximum_episode_weeks": 12,
+      "median_episode_weeks": 2.0,
+      "parameter_tuple": [
+        13,
+        50,
+        1.0
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 1.0,
+        "lookback_weeks": 13,
+        "real_yield_change_threshold_bps": 50
+      },
+      "passes_macro_frequency_gate": false,
+      "passes_numeric_frequency_gate": false,
+      "short_entry_years": 2,
+      "short_episodes": 5,
+      "stable_neighbors": 0
+    },
+    {
+      "exposed_week_ratio": 0.09900990099009901,
+      "long_entry_years": 5,
+      "long_episodes": 8,
+      "maximum_episode_weeks": 12,
+      "median_episode_weeks": 2,
+      "parameter_tuple": [
+        13,
+        50,
+        2.0
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 2.0,
+        "lookback_weeks": 13,
+        "real_yield_change_threshold_bps": 50
+      },
+      "passes_macro_frequency_gate": false,
+      "passes_numeric_frequency_gate": false,
+      "short_entry_years": 2,
+      "short_episodes": 3,
+      "stable_neighbors": 0
+    }
+  ],
+  "attempted": 27,
+  "campaign_id": "xauusd-real-yield-dollar-v30b-execution-sensitivity",
+  "complete_common_train_weeks": 417,
+  "complete_week_ratio": 1.0,
+  "config_sha256": "5c6564f13464f3834b34e6b6fce4dfdf19177569549a5090b11cc635a2c36a65",
+  "decision": "PASS_TO_TRAIN_PERFORMANCE",
+  "expected_train_weeks": 417,
+  "first_common_friday": "2007-01-05",
+  "holdout_accessed": false,
+  "information_timing": {
+    "earliest_decision": "Wednesday 00:00 UTC after the observation week",
+    "h10_release": "Monday 16:15 America/New_York, next business day after a Monday holiday",
+    "lookahead_policy": "A full publication buffer is mandatory; same-week or Monday entries are prohibited.",
+    "weekly_observation_cutoff": "Friday"
+  },
+  "last_common_friday": "2014-12-26",
+  "live_authorized": false,
+  "oos_accessed": false,
+  "paper_authorized": false,
+  "schema_version": 1,
+  "source_files": [
+    {
+      "path": "lab/out/macro_sources/DFII10.csv",
+      "sha256": "b1fa53e40ec476b26a1f05de5bb22f8caa592779b5e2d8103b29b6870057c7c3"
+    },
+    {
+      "path": "lab/out/macro_sources/DTWEXBGS.csv",
+      "sha256": "88db7d787e99129e671015fcc581f3507d0a2c527804c285ab555c2b83cd8054"
+    }
+  ],
+  "sqcli_used": false,
+  "stage": "macro_frequency_preflight",
+  "survivor_count": 13,
+  "survivors": [
+    {
+      "exposed_week_ratio": 0.324455205811138,
+      "long_entry_years": 8,
+      "long_episodes": 40,
+      "maximum_episode_weeks": 8,
+      "median_episode_weeks": 1.0,
+      "parameter_tuple": [
+        4,
+        10,
+        0.5
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 0.5,
+        "lookback_weeks": 4,
+        "real_yield_change_threshold_bps": 10
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 8,
+      "short_episodes": 24,
+      "stable_neighbors": 3
+    },
+    {
+      "exposed_week_ratio": 0.23002421307506055,
+      "long_entry_years": 7,
+      "long_episodes": 28,
+      "maximum_episode_weeks": 5,
+      "median_episode_weeks": 1,
+      "parameter_tuple": [
+        4,
+        10,
+        1.0
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 1.0,
+        "lookback_weeks": 4,
+        "real_yield_change_threshold_bps": 10
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 7,
+      "short_episodes": 21,
+      "stable_neighbors": 3
+    },
+    {
+      "exposed_week_ratio": 0.15738498789346247,
+      "long_entry_years": 7,
+      "long_episodes": 20,
+      "maximum_episode_weeks": 6,
+      "median_episode_weeks": 1.5,
+      "parameter_tuple": [
+        4,
+        25,
+        0.5
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 0.5,
+        "lookback_weeks": 4,
+        "real_yield_change_threshold_bps": 25
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 5,
+      "short_episodes": 10,
+      "stable_neighbors": 3
+    },
+    {
+      "exposed_week_ratio": 0.11380145278450363,
+      "long_entry_years": 7,
+      "long_episodes": 15,
+      "maximum_episode_weeks": 5,
+      "median_episode_weeks": 1,
+      "parameter_tuple": [
+        4,
+        25,
+        1.0
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 1.0,
+        "lookback_weeks": 4,
+        "real_yield_change_threshold_bps": 25
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 5,
+      "short_episodes": 10,
+      "stable_neighbors": 3
+    },
+    {
+      "exposed_week_ratio": 0.4132029339853301,
+      "long_entry_years": 8,
+      "long_episodes": 26,
+      "maximum_episode_weeks": 16,
+      "median_episode_weeks": 2,
+      "parameter_tuple": [
+        8,
+        10,
+        0.5
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 0.5,
+        "lookback_weeks": 8,
+        "real_yield_change_threshold_bps": 10
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 7,
+      "short_episodes": 23,
+      "stable_neighbors": 4
+    },
+    {
+      "exposed_week_ratio": 0.33007334963325186,
+      "long_entry_years": 8,
+      "long_episodes": 26,
+      "maximum_episode_weeks": 10,
+      "median_episode_weeks": 2,
+      "parameter_tuple": [
+        8,
+        10,
+        1.0
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 1.0,
+        "lookback_weeks": 8,
+        "real_yield_change_threshold_bps": 10
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 6,
+      "short_episodes": 19,
+      "stable_neighbors": 5
+    },
+    {
+      "exposed_week_ratio": 0.1980440097799511,
+      "long_entry_years": 7,
+      "long_episodes": 16,
+      "maximum_episode_weeks": 10,
+      "median_episode_weeks": 2.0,
+      "parameter_tuple": [
+        8,
+        10,
+        2.0
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 2.0,
+        "lookback_weeks": 8,
+        "real_yield_change_threshold_bps": 10
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 5,
+      "short_episodes": 10,
+      "stable_neighbors": 2
+    },
+    {
+      "exposed_week_ratio": 0.2396088019559902,
+      "long_entry_years": 8,
+      "long_episodes": 25,
+      "maximum_episode_weeks": 10,
+      "median_episode_weeks": 2.0,
+      "parameter_tuple": [
+        8,
+        25,
+        0.5
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 0.5,
+        "lookback_weeks": 8,
+        "real_yield_change_threshold_bps": 25
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 5,
+      "short_episodes": 11,
+      "stable_neighbors": 4
+    },
+    {
+      "exposed_week_ratio": 0.20048899755501223,
+      "long_entry_years": 8,
+      "long_episodes": 24,
+      "maximum_episode_weeks": 10,
+      "median_episode_weeks": 2.0,
+      "parameter_tuple": [
+        8,
+        25,
+        1.0
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 1.0,
+        "lookback_weeks": 8,
+        "real_yield_change_threshold_bps": 25
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 5,
+      "short_episodes": 10,
+      "stable_neighbors": 3
+    },
+    {
+      "exposed_week_ratio": 0.44801980198019803,
+      "long_entry_years": 8,
+      "long_episodes": 22,
+      "maximum_episode_weeks": 19,
+      "median_episode_weeks": 3,
+      "parameter_tuple": [
+        13,
+        10,
+        0.5
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 0.5,
+        "lookback_weeks": 13,
+        "real_yield_change_threshold_bps": 10
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 6,
+      "short_episodes": 19,
+      "stable_neighbors": 3
+    },
+    {
+      "exposed_week_ratio": 0.38366336633663367,
+      "long_entry_years": 8,
+      "long_episodes": 19,
+      "maximum_episode_weeks": 19,
+      "median_episode_weeks": 2.5,
+      "parameter_tuple": [
+        13,
+        10,
+        1.0
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 1.0,
+        "lookback_weeks": 13,
+        "real_yield_change_threshold_bps": 10
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 5,
+      "short_episodes": 15,
+      "stable_neighbors": 3
+    },
+    {
+      "exposed_week_ratio": 0.28465346534653463,
+      "long_entry_years": 7,
+      "long_episodes": 14,
+      "maximum_episode_weeks": 16,
+      "median_episode_weeks": 3.5,
+      "parameter_tuple": [
+        13,
+        10,
+        2.0
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 2.0,
+        "lookback_weeks": 13,
+        "real_yield_change_threshold_bps": 10
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 5,
+      "short_episodes": 10,
+      "stable_neighbors": 2
+    },
+    {
+      "exposed_week_ratio": 0.2896039603960396,
+      "long_entry_years": 7,
+      "long_episodes": 21,
+      "maximum_episode_weeks": 19,
+      "median_episode_weeks": 1,
+      "parameter_tuple": [
+        13,
+        25,
+        0.5
+      ],
+      "parameters": {
+        "broad_dollar_change_threshold_pct": 0.5,
+        "lookback_weeks": 13,
+        "real_yield_change_threshold_bps": 25
+      },
+      "passes_macro_frequency_gate": true,
+      "passes_numeric_frequency_gate": true,
+      "short_entry_years": 5,
+      "short_episodes": 16,
+      "stable_neighbors": 2
+    }
+  ],
+  "train_window": [
+    "2007-01-01",
+    "2014-12-31"
+  ],
+  "validation_accessed": false,
+  "xau_performance_accessed": false
+}

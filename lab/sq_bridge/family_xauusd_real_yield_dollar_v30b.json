@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "campaign_id": "xauusd-real-yield-dollar-v30b-execution-sensitivity",
+  "relationship_to_primary_v30": "Independent concurrent execution-sensitivity audit. It did not use primary-v30 results and cannot rescue or supersede its terminal rejection.",
+  "as_of": "2026-08-10",
+  "hypothesis": "Gold has a causal tailwind when both US 10-year real yields and the broad trade-weighted dollar fall, and a headwind when both rise.",
+  "falsifier": "Reject before XAU performance if the frozen states are too rare, one-sided, concentrated in a few years, or isolated in parameter space.",
+  "instrument": "XAU/USD",
+  "venue": "Ostium",
+  "capital_usdc": 200,
+  "macro_sources": {
+    "real_yield": {
+      "series": "DFII10",
+      "path": "lab/out/macro_sources/DFII10.csv",
+      "authority": "Federal Reserve Bank of St. Louis FRED; source U.S. Treasury",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DFII10"
+    },
+    "broad_dollar": {
+      "series": "DTWEXBGS",
+      "path": "lab/out/macro_sources/DTWEXBGS.csv",
+      "authority": "Federal Reserve Board H.10 via FRED",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DTWEXBGS"
+    }
+  },
+  "information_timing": {
+    "weekly_observation_cutoff": "Friday",
+    "h10_release": "Monday 16:15 America/New_York, next business day after a Monday holiday",
+    "earliest_decision": "Wednesday 00:00 UTC after the observation week",
+    "lookahead_policy": "A full publication buffer is mandatory; same-week or Monday entries are prohibited."
+  },
+  "splits": {
+    "train": ["2007-01-01", "2014-12-31"],
+    "validation": ["2015-01-01", "2018-12-31"],
+    "oos": ["2019-01-01", "2022-12-31"],
+    "sealed_holdout": ["2023-01-01", "2026-08-10"]
+  },
+  "search": {
+    "lookback_weeks": [4, 8, 13],
+    "real_yield_change_threshold_bps": [10, 25, 50],
+    "broad_dollar_change_threshold_pct": [0.5, 1.0, 2.0],
+    "attempt_budget": 27,
+    "state_rule": "long if both changes <= negative thresholds; short if both >= positive thresholds; otherwise flat",
+    "position_rule": "one position per contiguous state; remain open until the state becomes flat or reverses"
+  },
+  "xau_source": {
+    "root": "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet",
+    "symbol": "XAUUSD",
+    "execution_timeframe": "M15",
+    "venue_overlap_evidence": "lab/sq_bridge/evidence/xauusd_dukas_ostium_parity_2026_feb_symmetric_clean_v3.json",
+    "mapping_scope": "research only; paper and live remain blocked"
+  },
+  "execution": {
+    "entry": "M15 open at Wednesday 00:00 UTC after the macro observation week",
+    "exit": "5% protective stop or M15 open when the weekly macro state becomes flat or reverses",
+    "stop_fraction": 0.05,
+    "intrabar_policy": "gap liquidation, gap stop, then the nearer of dynamic liquidation and fixed stop, then time exit",
+    "position_overlap": "none; a state reversal closes the old episode before opening the opposite side",
+    "data_policy": "A Dukascopy M15 bar is usable with at least one observed M1 quote; absent no-tick minutes are not imputed. Gaps are evaluated at the next observed open.",
+    "maximum_allowed_source_gap_hours": 74
+  },
+  "economics": {
+    "capital_usdc": 200,
+    "risk_per_trade_pct": 1.5,
+    "risk_usdc": 3,
+    "notional_usdc": 60,
+    "effective_exposure_multiple": 0.3,
+    "venue_max_leverage": 50,
+    "selected_venue_leverage": 14,
+    "margin_usdc": 4.2857142857,
+    "margin_pct_of_capital": 2.1428571429,
+    "oracle_net_cost_usdc_per_trade": 0.1,
+    "execution_snapshot": "lab/sq_bridge/evidence/ostium_execution_universe_smoke_20260810.json",
+    "execution_snapshot_status": "single open snapshot; provisional research input, never paper authorization",
+    "roundtrip_bps": {"base": 4.1800745292, "conservative": 8, "stress": 15},
+    "annual_rollover_cost_pct": {
+      "base": {"long": 0, "short": 0.3572830855},
+      "conservative": {"long": 8, "short": 8},
+      "stress": {"long": 12, "short": 12}
+    },
+    "rollover_credit_policy": "Never count the current negative long rate as historical profit.",
+    "maximum_effective_leverage": 5,
+    "maximum_margin_pct": 35
+  },
+  "macro_frequency_gate": {
+    "minimum_complete_week_ratio": 0.95,
+    "minimum_episodes_per_side": 8,
+    "minimum_entry_years_per_side": 5,
+    "minimum_exposed_week_ratio": 0.10,
+    "maximum_exposed_week_ratio": 0.70,
+    "maximum_median_episode_weeks": 12,
+    "minimum_stable_neighbors": 2
+  },
+  "train_performance_gate": {
+    "minimum_trades": 30,
+    "maximum_skipped_episode_ratio": 0.05,
+    "minimum_base_profit_factor": 1.2,
+    "minimum_conservative_profit_factor": 1.1,
+    "minimum_stress_profit_factor": 1.05,
+    "minimum_stress_expectancy_usdc": 0.1,
+    "minimum_stress_positive_year_ratio": 0.75,
+    "maximum_stress_drawdown_pct": 15,
+    "maximum_liquidations": 0,
+    "minimum_stable_neighbors": 2
+  },
+  "stage": "macro_frequency_preflight",
+  "xau_performance_accessed": false,
+  "validation_accessed": false,
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "sqcli_authorized": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

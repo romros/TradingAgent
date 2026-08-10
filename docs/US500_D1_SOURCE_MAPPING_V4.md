@@ -75,3 +75,10 @@ La regla US500+VIX continua sense definir. Primer han de completar-se tres dies
 open/midday/close de costos reals d'Ostium. Després es podrà formular una única
 hipòtesi D1 de baixa rotació, amb VIX de la sessió anterior, i executar-la sota
 la cadena v4.
+
+El compositor `lab/sq_bridge/us500_d1_market_preflight_v4.py` comprova els
+quatre artefactes i els seus hashes amb la configuració estable
+`lab/sq_bridge/us500_d1_market_preflight_v4_config.json`. Mentre falti el fitxer
+de costos o digui `BLOCK_INSUFFICIENT_EXECUTION_COVERAGE`, produeix `BLOCK`, no
+inventa costos i manté `sqcli_authorized=false`. Un `PASS` només autoritza el
+següent `hypothesis_screen`; SQCLI continua requerint que aquest segon gate passi.

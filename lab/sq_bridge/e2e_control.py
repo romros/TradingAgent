@@ -42,6 +42,10 @@ def payload(stage: str, candidate_ids: list[str], holdout: bool) -> dict:
                               "minimum_selected_train_profit_factor": 1.2,
                               "stable_region_pass": True, "all_cost_scenarios_applied": True,
                               "minimum_selected_stable_neighbors": 2,
+                              "selected_hypothesis_metrics": {"hypothesis-control": {
+                                  "train_trades": 50, "stable_neighbor_count": 2,
+                                  "profit_factor_by_cost": {
+                                      "base": 1.3, "conservative": 1.25, "stress": 1.2}}},
                               "applied_cost_scenarios": ["base", "conservative", "stress"],
                               "train_only": True, "future_periods_accessed": False},
         "sq_generation": {"generator": "StrategyQuant", "search_method": "genetic_evolution",
@@ -52,10 +56,19 @@ def payload(stage: str, candidate_ids: list[str], holdout: bool) -> dict:
                           "rules_per_candidate": {candidate: 3 for candidate in candidate_ids},
                           "sq_config_sha256": "b" * 64},
         "temporal_validation": {"oos_trades": 30, "positive_windows_ratio": 0.6, "oos_profit_factor": 1.15,
-                                "oos_drawdown_pct": 20, "train_oos_expectancy_decay_pct": 50},
+                                "oos_drawdown_pct": 20, "train_oos_expectancy_decay_pct": 50,
+                                "candidate_temporal_metrics": {candidate: {
+                                    "oos_trades": 30, "positive_windows_ratio": .6,
+                                    "oos_profit_factor": 1.15, "oos_drawdown_pct": 20,
+                                    "train_oos_expectancy_decay_pct": 50}
+                                    for candidate in candidate_ids}},
         "robustness": {"monte_carlo_runs": 1000, "profitable_monte_carlo_ratio": 0.7,
                        "parameter_perturbation_pct": 10, "cost_stress_multiplier": 2,
-                       "stress_profit_factor": 1.05, "liquidation_probability": 0.001},
+                       "stress_profit_factor": 1.05, "liquidation_probability": 0.001,
+                       "candidate_robustness_metrics": {candidate: {
+                           "monte_carlo_runs": 1000, "profitable_monte_carlo_ratio": .7,
+                           "stress_profit_factor": 1.05, "liquidation_probability": .001}
+                           for candidate in candidate_ids}},
         "small_account_economics": {"capital_usdc": 200, "net_expectancy_usdc": 0.1,
                                     "net_profit_factor": 1.1, "risk_per_trade_pct": 1.5,
                                     "portfolio_margin_pct": 30, "reserve_pct": 70,

@@ -77,3 +77,10 @@ artefacte SQ ha d'indicar les hipòtesis font aprovades, el hash de cada candida
 i el nombre de regles (1–3). El verificador de cadena comprova que aquestes
 hipòtesis són un subconjunt exacte de les que van passar `hypothesis_screen`;
 un candidat d'una família diferent queda invàlid encara que tingui bon PnL.
+
+El screen, la validació temporal i la robustesa publiquen mètriques individuals
+per cada hipòtesi/candidat. Els camps agregats són sempre el pitjor cas
+(mínims de trades, PF i finestres positives; màxims de drawdown, decay i
+liquidació) i el verificador els recalcula. NaN, infinits i probabilitats fora
+de `[0,1]` fallen tancat. L'economia de 200 USDC rep un sol candidat per
+campanya; la diversificació combina després diverses cadenes ja aprovades.

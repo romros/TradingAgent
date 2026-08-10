@@ -68,6 +68,28 @@ def test_v4_screen_must_prove_sample_pf_neighbors_costs_and_sealed_futures():
     assert expected <= {error.rsplit(":", 1)[-1] for error in errors}
 
 
+def test_v4_screen_recomputes_worst_selected_hypothesis_metrics():
+    artifact = payload("hypothesis_screen", [], False)
+    artifact.update({"campaign_id": "v4", "evidence_class": "observed"})
+    artifact.pop("control_purpose", None)
+    artifact["selected_hypothesis_ids"] = ["h1", "h2"]
+    artifact["selected_hypothesis_metrics"] = {
+        "h1": {"train_trades": 80, "stable_neighbor_count": 3,
+               "profit_factor_by_cost": {"base": 1.5, "conservative": 1.35, "stress": 1.25}},
+        "h2": {"train_trades": 60, "stable_neighbor_count": 2,
+               "profit_factor_by_cost": {"base": 1.4, "conservative": 1.3, "stress": 1.2}},
+    }
+    artifact.update({"minimum_selected_train_trades": 80,
+                     "minimum_selected_train_profit_factor": 1.25,
+                     "minimum_selected_stable_neighbors": 3})
+    receipt = {"decision": "PASS", "candidate_ids": [], "holdout_accessed": False}
+    errors = validate_stage_artifact(
+        "hypothesis_screen", artifact, receipt, METHODOLOGY, "v4", "alquimia_native")
+    assert "STAGE_ARTIFACT:hypothesis_screen:TRAIN_TRADES_RECOMPUTES" in errors
+    assert "STAGE_ARTIFACT:hypothesis_screen:TRAIN_PF_RECOMPUTES" in errors
+    assert "STAGE_ARTIFACT:hypothesis_screen:STABLE_NEIGHBORS_RECOMPUTES" in errors
+
+
 def test_v4_sq_generation_cannot_exceed_frozen_attempt_budget():
     artifact = payload("sq_generation", ["candidate"], False)
     artifact["campaign_id"] = "v4"
@@ -172,6 +194,40 @@ def test_v4_small_account_malformed_sizing_fails_closed_without_crashing():
         "v4", "alquimia_native")
     assert "STAGE_ARTIFACT:small_account_economics:LEVERAGE" in errors
     assert "STAGE_ARTIFACT:small_account_economics:COLLATERAL_RECOMPUTES" in errors
+
+
+def test_v4_temporal_and_robustness_aggregates_must_equal_worst_candidate():
+    receipt = {"decision": "PASS", "candidate_ids": ["a", "b"],
+               "holdout_accessed": False}
+    temporal = payload("temporal_validation", ["a", "b"], False)
+    temporal.update({"campaign_id": "v4", "evidence_class": "observed"})
+    temporal.pop("control_purpose", None)
+    temporal["candidate_temporal_metrics"] = {
+        "a": {"oos_trades": 40, "positive_windows_ratio": .7,
+              "oos_profit_factor": 1.3, "oos_drawdown_pct": 12,
+              "train_oos_expectancy_decay_pct": 30},
+        "b": {"oos_trades": 30, "positive_windows_ratio": .6,
+              "oos_profit_factor": 1.15, "oos_drawdown_pct": 20,
+              "train_oos_expectancy_decay_pct": 50},
+    }
+    temporal["oos_trades"] = 40
+    errors = validate_stage_artifact(
+        "temporal_validation", temporal, receipt, METHODOLOGY, "v4", "alquimia_native")
+    assert "STAGE_ARTIFACT:temporal_validation:OOS_TRADES_RECOMPUTES" in errors
+
+    robust = payload("robustness", ["a", "b"], False)
+    robust.update({"campaign_id": "v4", "evidence_class": "observed"})
+    robust.pop("control_purpose", None)
+    robust["candidate_robustness_metrics"] = {
+        "a": {"monte_carlo_runs": 1000, "profitable_monte_carlo_ratio": .8,
+              "stress_profit_factor": 1.2, "liquidation_probability": 0},
+        "b": {"monte_carlo_runs": 1000, "profitable_monte_carlo_ratio": .7,
+              "stress_profit_factor": 1.05, "liquidation_probability": .001},
+    }
+    robust["stress_profit_factor"] = 1.2
+    errors = validate_stage_artifact(
+        "robustness", robust, receipt, METHODOLOGY, "v4", "alquimia_native")
+    assert "STAGE_ARTIFACT:robustness:STRESS_PF_RECOMPUTES" in errors
 
 
 def test_v4_full_control_wires_nine_stages_without_becoming_promotable(tmp_path):

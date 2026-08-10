@@ -2,15 +2,25 @@
 """Strict, deterministic contracts for Alquimia v3 stage evidence artifacts."""
 from __future__ import annotations
 
+import math
 from typing import Any
 
 
+def _number(value: Any) -> bool:
+    return (isinstance(value, (int, float)) and not isinstance(value, bool)
+            and math.isfinite(value))
+
+
 def _at_least(value: Any, threshold: float) -> bool:
-    return isinstance(value, (int, float)) and not isinstance(value, bool) and value >= threshold
+    return _number(value) and value >= threshold
 
 
 def _at_most(value: Any, threshold: float) -> bool:
-    return isinstance(value, (int, float)) and not isinstance(value, bool) and value <= threshold
+    return _number(value) and value <= threshold
+
+
+def _between(value: Any, minimum: float, maximum: float) -> bool:
+    return _number(value) and minimum <= value <= maximum
 
 
 def _ids(value: Any) -> list[str] | None:
@@ -106,22 +116,56 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
     elif stage == "hypothesis_screen":
         screen = methodology["hypothesis_screen"]
         applied_costs = artifact.get("applied_cost_scenarios")
+        selected_hypotheses = _ids(artifact.get("selected_hypothesis_ids"))
+        hypothesis_metrics = artifact.get("selected_hypothesis_metrics")
+        metrics_valid = (selected_hypotheses is not None and bool(selected_hypotheses)
+                         and isinstance(hypothesis_metrics, dict)
+                         and set(hypothesis_metrics) == set(selected_hypotheses))
+        metric_trades: list[float] = []
+        metric_profit_factors: list[float] = []
+        metric_neighbors: list[float] = []
+        if metrics_valid:
+            for metric in hypothesis_metrics.values():
+                if not isinstance(metric, dict):
+                    metrics_valid = False
+                    break
+                costs = metric.get("profit_factor_by_cost")
+                if (not isinstance(costs, dict)
+                        or set(costs) != set(screen["cost_scenarios_required"])
+                        or any(not _at_least(value, 0) for value in costs.values())
+                        or not _at_least(metric.get("train_trades"), 0)
+                        or not _at_least(metric.get("stable_neighbor_count"), 0)):
+                    metrics_valid = False
+                    break
+                metric_trades.append(metric["train_trades"])
+                metric_profit_factors.extend(costs.values())
+                metric_neighbors.append(metric["stable_neighbor_count"])
+        computed_min_trades = min(metric_trades) if metrics_valid else None
+        computed_min_pf = min(metric_profit_factors) if metrics_valid else None
+        computed_min_neighbors = min(metric_neighbors) if metrics_valid else None
         checks = {
             "GENERATOR": artifact.get("generator") == "deterministic_pre_sq_screen",
             "ATTEMPTED": _at_least(artifact.get("attempted"), 1),
             "ATTEMPT_LIMIT": _at_most(
                 artifact.get("attempted"), screen["maximum_attempts"]),
-            "HYPOTHESES": bool(_ids(artifact.get("selected_hypothesis_ids"))),
+            "HYPOTHESES": bool(selected_hypotheses),
+            "HYPOTHESIS_METRICS": metrics_valid,
             "TRAIN_TRADES": _at_least(
                 artifact.get("minimum_selected_train_trades"),
                 screen["minimum_trades_train"]),
+            "TRAIN_TRADES_RECOMPUTES": computed_min_trades is not None
+                and artifact.get("minimum_selected_train_trades") == computed_min_trades,
             "TRAIN_PF": _at_least(
                 artifact.get("minimum_selected_train_profit_factor"),
                 screen["minimum_profit_factor_train"]),
+            "TRAIN_PF_RECOMPUTES": computed_min_pf is not None
+                and artifact.get("minimum_selected_train_profit_factor") == computed_min_pf,
             "STABLE_REGION": artifact.get("stable_region_pass") is True,
             "STABLE_NEIGHBORS": _at_least(
                 artifact.get("minimum_selected_stable_neighbors"),
                 screen["minimum_stable_neighbors"]),
+            "STABLE_NEIGHBORS_RECOMPUTES": computed_min_neighbors is not None
+                and artifact.get("minimum_selected_stable_neighbors") == computed_min_neighbors,
             "COSTS": artifact.get("all_cost_scenarios_applied") is True,
             "COST_SET": isinstance(applied_costs, list)
                 and set(applied_costs) == set(screen["cost_scenarios_required"]),
@@ -154,6 +198,7 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
             "NO_HOLDOUT": artifact.get("holdout_accessed") is False,
         }
     elif stage == "temporal_validation":
+        candidate_metrics = artifact.get("candidate_temporal_metrics")
         checks = {
             "OOS_TRADES": _at_least(artifact.get("oos_trades"), temporal["minimum_trades_oos"]),
             "POSITIVE_WINDOWS": _at_least(artifact.get("positive_windows_ratio"), temporal["minimum_positive_windows_ratio"]),
@@ -162,7 +207,36 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
             "EXPECTANCY_DECAY": _at_most(artifact.get("train_oos_expectancy_decay_pct"), temporal["maximum_train_oos_expectancy_decay_pct"]),
             "NO_HOLDOUT": artifact.get("holdout_accessed") is False,
         }
+        if methodology.get("schema_version", 1) >= 4:
+            ids = receipt.get("candidate_ids", [])
+            valid = (isinstance(candidate_metrics, dict) and bool(candidate_metrics)
+                     and set(candidate_metrics) == set(ids)
+                     and all(isinstance(metric, dict) for metric in candidate_metrics.values()))
+            valid = valid and all(
+                _at_least(metric.get("oos_trades"), 0)
+                and _between(metric.get("positive_windows_ratio"), 0, 1)
+                and _at_least(metric.get("oos_profit_factor"), 0)
+                and _between(metric.get("oos_drawdown_pct"), 0, 100)
+                and _number(metric.get("train_oos_expectancy_decay_pct"))
+                for metric in candidate_metrics.values())
+            checks.update({
+                "CANDIDATE_METRICS": valid,
+                "OOS_TRADES_RECOMPUTES": valid and artifact.get("oos_trades")
+                    == min(metric["oos_trades"] for metric in candidate_metrics.values()),
+                "POSITIVE_WINDOWS_RECOMPUTES": valid
+                    and artifact.get("positive_windows_ratio") == min(
+                        metric["positive_windows_ratio"] for metric in candidate_metrics.values()),
+                "OOS_PF_RECOMPUTES": valid and artifact.get("oos_profit_factor")
+                    == min(metric["oos_profit_factor"] for metric in candidate_metrics.values()),
+                "OOS_DD_RECOMPUTES": valid and artifact.get("oos_drawdown_pct")
+                    == max(metric["oos_drawdown_pct"] for metric in candidate_metrics.values()),
+                "EXPECTANCY_DECAY_RECOMPUTES": valid
+                    and artifact.get("train_oos_expectancy_decay_pct") == max(
+                        metric["train_oos_expectancy_decay_pct"]
+                        for metric in candidate_metrics.values()),
+            })
     elif stage == "robustness":
+        candidate_metrics = artifact.get("candidate_robustness_metrics")
         checks = {
             "MC_RUNS": _at_least(artifact.get("monte_carlo_runs"), robust["monte_carlo_runs"]),
             "MC_PROFITABLE": _at_least(artifact.get("profitable_monte_carlo_ratio"), robust["minimum_profitable_monte_carlo_ratio"]),
@@ -172,6 +246,30 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
             "LIQUIDATION": _at_most(artifact.get("liquidation_probability"), robust["maximum_liquidation_probability"]),
             "NO_HOLDOUT": artifact.get("holdout_accessed") is False,
         }
+        if methodology.get("schema_version", 1) >= 4:
+            ids = receipt.get("candidate_ids", [])
+            valid = (isinstance(candidate_metrics, dict) and bool(candidate_metrics)
+                     and set(candidate_metrics) == set(ids)
+                     and all(isinstance(metric, dict) for metric in candidate_metrics.values()))
+            valid = valid and all(
+                _at_least(metric.get("monte_carlo_runs"), 0)
+                and _between(metric.get("profitable_monte_carlo_ratio"), 0, 1)
+                and _at_least(metric.get("stress_profit_factor"), 0)
+                and _between(metric.get("liquidation_probability"), 0, 1)
+                for metric in candidate_metrics.values())
+            checks.update({
+                "CANDIDATE_METRICS": valid,
+                "MC_RUNS_RECOMPUTES": valid and artifact.get("monte_carlo_runs")
+                    == min(metric["monte_carlo_runs"] for metric in candidate_metrics.values()),
+                "MC_PROFITABLE_RECOMPUTES": valid
+                    and artifact.get("profitable_monte_carlo_ratio") == min(
+                        metric["profitable_monte_carlo_ratio"]
+                        for metric in candidate_metrics.values()),
+                "STRESS_PF_RECOMPUTES": valid and artifact.get("stress_profit_factor")
+                    == min(metric["stress_profit_factor"] for metric in candidate_metrics.values()),
+                "LIQUIDATION_RECOMPUTES": valid and artifact.get("liquidation_probability")
+                    == max(metric["liquidation_probability"] for metric in candidate_metrics.values()),
+            })
     elif stage == "small_account_economics":
         capital = artifact.get("capital_usdc")
         leverage = artifact.get("selected_leverage")
@@ -215,6 +313,7 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
         }
         if methodology.get("schema_version", 1) >= 4:
             checks.update({
+                "SINGLE_CANDIDATE": len(receipt.get("candidate_ids", [])) == 1,
                 "VENUE_LEVERAGE": leverage_numeric and venue_numeric and venue_max >= leverage,
                 "LEVERAGE_POLICY": artifact.get("leverage_selection_policy")
                     == small["leverage_selection_policy"],

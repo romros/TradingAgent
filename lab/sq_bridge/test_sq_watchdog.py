@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from sq_watchdog import Limits, evaluate, inventory_sqx, load_limits, run_monitor
+from sq_watchdog import Limits, evaluate, gui_snapshot, inventory_sqx, load_limits, run_monitor
 
 
 def status(generated=1, accepted=0):
@@ -75,3 +75,15 @@ def test_monitor_error_cannot_control_sq(tmp_path):
     )
     assert result["reason"] == "MONITOR_ERROR"
     assert calls == []
+
+
+def test_gui_snapshot_maps_single_task_stats_without_text_parsing(tmp_path, monkeypatch):
+    monkeypatch.setattr("sq_watchdog.gui_project_stats", lambda *_: {
+        "projectName": "P", "strategies": 5, "runningStatus": 1,
+        "tasksIterations": [{"taskName": "Build", "iterations": 200}]})
+    value = gui_snapshot("http://sq:8080", "P", tmp_path)
+    assert value["generated"] == 200
+    assert value["in_databank"] == 5
+    assert value["accepted_pct"] == 2.5
+    assert value["running_status"] == 1
+    assert value["status_source"] == "sq_gui_subscribed_websocket"

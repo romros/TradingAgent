@@ -109,10 +109,20 @@ Projecte: `ALQUIMIA_XAU_H4_DISCOVERY`.
 ## Controlador implementat
 
 `lab/sq_bridge/sq_watchdog.py` carrega els límits del manifest, compta els intents
-reals exposats com `Strategies generated`, desa journal JSONL append-only i una
-vista atòmica, i inventaria els `.sqx` sense modificar-los. Per defecte és només
-lectura. `--allow-control` és obligatori perquè un gate terminal executi primer
-`pause` i després `stop`; un error del monitor mai envia control a SQ.
+reals quan SQ publica `tasksIterations`, desa journal JSONL append-only i una
+vista atòmica, i inventaria els `.sqx` sense modificar-los. En SQX 143.2708 el
+CLI HTTP no implementa `project status` i el broadcast TaskManager pot quedar
+silenciós amb projectes aturats. En aquest cas el transport GUI conserva només
+identitat/databank via REST, marca `generated=null` i no activa el gate d'intents.
+Per defecte és només lectura. `--allow-control` és obligatori perquè un gate
+terminal executi primer `pause` i després `stop`; un error del monitor mai envia
+control a SQ.
+
+Les campanyes genètiques noves incorporen una segona barrera al CFX:
+`illes × població × generacions <= attempt_budget`, decimació 1 i sense reinici
+automàtic. Això evita una cerca infinita encara que el WebSocket falli. El
+comptador observat continua sent l'autoritat final: la cota nominal no substitueix
+el snapshot i un overshoot no es maquilla.
 
 En projectes d'una sola tasca, declarar `attempt_budget_per_project`. Si el
 manifest només té un pressupost total divisible pel nombre de símbols, el

@@ -11,10 +11,15 @@ import shutil
 import time
 import urllib.parse
 import urllib.request
+from functools import partial
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable
+
+from lab.sq_bridge.sqcli_transport import (
+    docker_exec_http_call, gui_project_action_from_cli, gui_project_stats,
+)
 
 
 def sq_call(base_url: str, command: str) -> str:
@@ -88,8 +93,9 @@ def load_limits(manifest: Path, *, per_project_attempt_budget: int | None = None
     )
 
 
-def snapshot(base_url: str, project: str, disk_path: Path, artifacts: Path | None = None) -> dict:
-    raw = sq_call(base_url, f"-project action=status name={project}")
+def snapshot(base_url: str, project: str, disk_path: Path, artifacts: Path | None = None,
+             *, call_fn: Callable[[str, str], str] = sq_call) -> dict:
+    raw = call_fn(base_url, f"-project action=status name={project}")
     disk = shutil.disk_usage(disk_path)
     return {
         "observed_at": datetime.now(timezone.utc).isoformat(),
@@ -104,6 +110,43 @@ def snapshot(base_url: str, project: str, disk_path: Path, artifacts: Path | Non
         "artifacts": inventory_sqx(artifacts),
         "raw_status": raw,
     }
+
+
+def gui_snapshot(base_url: str, project: str, disk_path: Path,
+                 artifacts: Path | None = None) -> dict:
+    row = gui_project_stats(base_url, project)
+    tasks = row.get("tasksIterations")
+    task = tasks[0] if isinstance(tasks, list) and len(tasks) == 1 else {}
+    engine = row.get("_engine", {})
+    generated, accepted = task.get("iterations"), row["strategies"]
+    disk = shutil.disk_usage(disk_path)
+    return {
+        "observed_at": datetime.now(timezone.utc).isoformat(),
+        "project": project, "generated": generated,
+        "accepted_pct": (accepted / generated * 100 if generated else None),
+        "in_databank": accepted,
+        "failed": engine.get("strategiesFailed"),
+        "strategies_per_hour": _finite_number(engine.get("strategiesPerHour")),
+        "backtests_performed": engine.get("backtestsPerformed"),
+        "job_exceptions": engine.get("jobExceptionsCount"),
+        "running_status": row["runningStatus"],
+        "task_name": task.get("taskName"),
+        "attempt_counter_source": ("taskmanager.tasksIterations"
+                                   if generated is not None else None),
+        "memory_available_bytes": memory_available_bytes(),
+        "disk_free_bytes": disk.free, "artifacts": inventory_sqx(artifacts),
+        "raw_status": json.dumps(row, sort_keys=True),
+        "status_source": ("sq_gui_subscribed_websocket"
+                          if generated is not None else "sq_gui_rest_degraded"),
+    }
+
+
+def _finite_number(value: object) -> float | None:
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return None
+    return number if number == number and abs(number) != float("inf") else None
 
 
 def evaluate(current: dict, history: list[dict], limits: Limits, elapsed_seconds: float) -> tuple[str, str | None]:
@@ -186,7 +229,11 @@ def run_monitor(
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--base-url", required=True)
+    parser.add_argument("--transport", choices=("gui-websocket", "http", "docker-exec"),
+                        default="gui-websocket")
+    parser.add_argument("--base-url", default="http://127.0.0.1:5050")
+    parser.add_argument("--container", default="sqcli-docker")
+    parser.add_argument("--api-port", type=int, default=5050)
     parser.add_argument("--project", required=True)
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--attempt-budget", type=int, help="Explicit per-project override")
@@ -199,11 +246,22 @@ def main() -> int:
     parser.add_argument("--once", action="store_true")
     args = parser.parse_args()
     limits = load_limits(args.manifest, per_project_attempt_budget=args.attempt_budget)
+    if args.transport == "gui-websocket":
+        caller = gui_project_action_from_cli
+        snapshot_with_transport = gui_snapshot
+    elif args.transport == "http":
+        caller = sq_call
+        snapshot_with_transport = partial(snapshot, call_fn=caller)
+    else:
+        caller = lambda _base_url, command: docker_exec_http_call(
+            args.container, command, api_port=args.api_port)
+        snapshot_with_transport = partial(snapshot, call_fn=caller)
     run_monitor(
         base_url=args.base_url, project=args.project, limits=limits,
         status_file=args.status_file, journal_file=args.journal_file,
         disk_path=args.disk_path, artifacts=args.artifacts, interval=args.interval,
         allow_control=args.allow_control, once=args.once,
+        snapshot_fn=snapshot_with_transport, call_fn=caller,
     )
     return 0
 

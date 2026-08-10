@@ -138,6 +138,30 @@ def _validate_generation_contract(
             f"V4_ATTEMPT_BUDGET must be 1..{generation['maximum_attempts']}")
 
 
+def _bounded_genetic_shape(attempt_budget: int) -> dict[str, int]:
+    """Choose the largest SQ island population that cannot exceed the budget.
+
+    SQ defines population per island, so nominal evaluations are islands times
+    population times generations.  Prefer four islands for diversity when an
+    exact representation exists, then larger per-island populations.
+    """
+    if (not isinstance(attempt_budget, int) or isinstance(attempt_budget, bool)
+            or attempt_budget < 1):
+        raise ValueError("attempt_budget must be a positive integer")
+    choices = []
+    for islands in range(1, 5):
+        for population in range(1, 101):
+            generations = min(100, attempt_budget // (islands * population))
+            if generations:
+                nominal = islands * population * generations
+                choices.append((nominal, nominal == attempt_budget, islands,
+                                population, generations))
+    nominal, _exact, islands, population, generations = max(
+        choices, key=lambda row: (row[0], row[1], row[2], row[3]))
+    return {"islands": islands, "population_per_island": population,
+            "max_generations": generations, "nominal_evaluations": nominal}
+
+
 def _validate_v4_prerequisites(methodology: dict, methodology_path: Path,
                                chain_path: Path | None, campaign_id: str | None,
                                hypothesis_id: str | None, market_key: str) -> dict:
@@ -252,6 +276,7 @@ def _condition(column: str, fmt: str, threshold: float) -> ET.Element:
 def _configure_build(xml: bytes, market: dict, periods: dict, methodology: dict,
                      accepted_limit: int, search_profile: str = "generic_translatable",
                      generation_type: str = "random-generation",
+                     attempt_budget: int | None = None,
                      wall_time_minutes: int = 0,
                      market_side: str = "both") -> tuple[bytes, dict]:
     root = ET.fromstring(xml)
@@ -293,6 +318,9 @@ def _configure_build(xml: bytes, market: dict, periods: dict, methodology: dict,
     symmetric = "true" if market_side == "both" else "false"
     _set_text(root, "./WhatToBuild/MarketSides/EntrySymmetry", symmetric)
     _set_text(root, "./WhatToBuild/MarketSides/ExitSymmetry", symmetric)
+    genetic_shape = (_bounded_genetic_shape(attempt_budget)
+                     if generation_type == "genetic-evolution" and attempt_budget is not None
+                     else None)
     for path, value in {
         "./WhatToBuild/SLPTOptions/SLRequired": "true",
         "./WhatToBuild/SLPTOptions/SLATR": "true",
@@ -302,9 +330,12 @@ def _configure_build(xml: bytes, market: dict, periods: dict, methodology: dict,
         "./WhatToBuild/SLPTOptions/MaxSLATRPeriod": "50",
         "./WhatToBuild/SLPTOptions/PTRequired": "false",
         "./WhatToBuild/SLPTOptions/PTATR": "true",
-        "./WhatToBuild/BuildMode/PopulationSize": "100",
-        "./WhatToBuild/BuildMode/MaxGenerations": "100",
-        "./WhatToBuild/BuildMode/Islands": "4",
+        "./WhatToBuild/BuildMode/PopulationSize": str(
+            genetic_shape["population_per_island"] if genetic_shape else 100),
+        "./WhatToBuild/BuildMode/MaxGenerations": str(
+            genetic_shape["max_generations"] if genetic_shape else 100),
+        "./WhatToBuild/BuildMode/Islands": str(
+            genetic_shape["islands"] if genetic_shape else 4),
         "./WhatToBuild/BuildMode/EvoInSamplePeriod": "100",
         "./RiskMoneyManagement/MoneyManagement/InitialCapital": "10000",
         "./Rankings/MaxStrategies": accepted_limit,
@@ -378,6 +409,14 @@ def _configure_build(xml: bytes, market: dict, periods: dict, methodology: dict,
     if generation_type not in {"random-generation", "genetic-evolution"}:
         raise ValueError(f"GENERATION_TYPE_INVALID: {generation_type}")
     build_mode.set("generationType", generation_type)
+    if genetic_shape is not None:
+        _set_text(root, "./WhatToBuild/BuildMode/DecimationCoef", "1")
+        for path in ("./WhatToBuild/BuildMode/EvoRestartOnFinish",
+                     "./WhatToBuild/BuildMode/EvoRestartOnStagnation"):
+            node = root.find(path)
+            if node is None:
+                raise ValueError(f"Camp SQ absent: {path}")
+            node.set("status", "false")
     counts = {"enabled": 0, "disabled": 0}
     for block in root.findall(".//Block"):
         enabled = block.get("key") in allowed_blocks
@@ -443,7 +482,8 @@ def build(source: Path, output: Path, project_name: str, market_key: str,
         task_file = build_tasks[0].get("taskXMLFile")
         build_xml, block_counts = _configure_build(src.read(task_file), market, periods,
                                                     methodology, accepted_limit, search_profile,
-                                                    generation_type, wall_time_minutes, market_side)
+                                                    generation_type, attempt_budget,
+                                                    wall_time_minutes, market_side)
     config_xml = ET.tostring(config, encoding="utf-8")
     output.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED) as dst:
@@ -465,6 +505,9 @@ def build(source: Path, output: Path, project_name: str, market_key: str,
         "market_side": market_side,
         "attempt_budget": attempt_budget, "wall_time_budget_minutes": wall_time_minutes,
         "stagnation_attempts": stagnation_attempts,
+        "sq_genetic_shape": (_bounded_genetic_shape(attempt_budget)
+                             if generation_type == "genetic-evolution"
+                             and attempt_budget is not None else None),
         "canonical_evaluation_capital": methodology["capital_usdc"], "periods": periods,
         "blocks": block_counts, "holdout_sealed": True}
     manifest.update(prerequisites)

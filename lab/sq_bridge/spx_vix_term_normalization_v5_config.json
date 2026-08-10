@@ -1,0 +1,31 @@
+{
+  "id": "spx_vix9d_vix3m_normalization_v5",
+  "hypothesis": "When immediate SPX option fear normalizes, measured by VIX9D/VIX3M crossing from above 1 to at or below 1, the short-horizon SPX equity premium is positive after conservative Ostium costs.",
+  "signal": "VIX9D_CLOSE / VIX3M_CLOSE crosses from >1.0 to <=1.0",
+  "direction": "long_only",
+  "entry": "next available SPX trading session at 15:45 America/New_York",
+  "exit": "15:45 America/New_York after 1, 3 or 5 additional SPX sessions",
+  "overlap_policy": "one position maximum; ignore signals whose entry is not after the prior exit",
+  "grid": {
+    "holding_sessions": [1, 3, 5]
+  },
+  "costs_bps": {
+    "base": 8.0,
+    "conservative": 15.0,
+    "stress": 30.0
+  },
+  "development_gate": {
+    "minimum_trades": 40,
+    "minimum_positive_years": 5,
+    "minimum_base_profit_factor": 1.25,
+    "minimum_stress_profit_factor": 1.05,
+    "minimum_base_mean_net_bps": 5.0,
+    "requires_two_adjacent_holding_periods": true
+  },
+  "attempt_budget": 3,
+  "falsifier": "Reject before validation unless at least two adjacent holding periods pass every frozen development gate.",
+  "leverage_policy": "No leverage selection in discovery; if the family passes, calculate OOS MAE and liquidation-safe leverage separately.",
+  "validation_policy": "Load 2019-2022 only after a stable development pass.",
+  "contamination_policy": "Never use 2023-2025 for this SPX research line.",
+  "holdout_policy": "Keep 2026 sealed until validation, robustness, cost and parity gates pass."
+}

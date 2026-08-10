@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "date": "2026-08-10",
+  "family": "spx_vix9d_vix3m_normalization_v5",
+  "hypothesis": "A VIX9D/VIX3M transition from inversion (>1) to normal (<=1) predicts positive short-horizon SPX returns after costs.",
+  "sources": [
+    "https://www.cboe.com/tradable-products/vix/term-structure",
+    "https://cdn.cboe.com/api/global/us_indices/daily_prices/VIX9D_History.csv",
+    "https://cdn.cboe.com/api/global/us_indices/daily_prices/VIX3M_History.csv"
+  ],
+  "development": "2012-01-01/2018-12-31",
+  "signal_events": 69,
+  "attempted": 3,
+  "numeric_passes": 0,
+  "stable_region_pass": false,
+  "results": {
+    "hold_1": {"trades": 62, "base_pf": 0.870475, "base_mean_net_bps": -5.586976, "stress_pf": 0.493103},
+    "hold_3": {"trades": 58, "base_pf": 1.128647, "base_mean_net_bps": 8.852373, "base_positive_years": "6/7", "stress_pf": 0.832883, "stress_mean_net_bps": -13.147627},
+    "hold_5": {"trades": 50, "base_pf": 1.012868, "base_mean_net_bps": 1.098433, "stress_pf": 0.778828}
+  },
+  "decision": "REJECT_FAMILY_BEFORE_VALIDATION",
+  "reason": "No holding period reaches base PF 1.25 or stress PF 1.05; the isolated three-session gross tendency disappears under stress.",
+  "validation_accessed": false,
+  "contaminated_2023_2025_accessed": false,
+  "holdout_2026_accessed": false,
+  "sqcli_executed": false,
+  "leverage_selected": false,
+  "next_direction": "Stop new SPX timing families; retain VIX only as a preregistered risk variable if a different independently justified mechanism requires it."
+}

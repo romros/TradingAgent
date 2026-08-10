@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "family": "spx_vix9d_vix3m_normalization_v5",
+  "hypothesis": "When immediate SPX option fear normalizes, measured by VIX9D/VIX3M crossing from above 1 to at or below 1, the short-horizon SPX equity premium is positive after conservative Ostium costs.",
+  "source_spx": "lab/out/market_sources/sp_m1_dukas_utc_2012_2026.parquet",
+  "source_vix_root": "lab/out/market_sources/vix_cboe",
+  "development": "2012-01-01/2018-12-31",
+  "signal_events": 69,
+  "attempted": 3,
+  "results": [
+    {
+      "holding_sessions": 1,
+      "metrics": {
+        "base": {
+          "trades": 62,
+          "profit_factor": 0.870475,
+          "mean_net_bps": -5.586976,
+          "net_return_sum_pct": -3.463925,
+          "positive_years": 5,
+          "years": 7,
+          "mean_holding_calendar_days": 1.468,
+          "worst_net_trade_pct": -2.529085
+        },
+        "conservative": {
+          "trades": 62,
+          "profit_factor": 0.729644,
+          "mean_net_bps": -12.586976,
+          "net_return_sum_pct": -7.803925,
+          "positive_years": 5,
+          "years": 7,
+          "mean_holding_calendar_days": 1.468,
+          "worst_net_trade_pct": -2.599085
+        },
+        "stress": {
+          "trades": 62,
+          "profit_factor": 0.493103,
+          "mean_net_bps": -27.586976,
+          "net_return_sum_pct": -17.103925,
+          "positive_years": 1,
+          "years": 7,
+          "mean_holding_calendar_days": 1.468,
+          "worst_net_trade_pct": -2.749085
+        }
+      },
+      "passes_numeric_gate": false
+    },
+    {
+      "holding_sessions": 3,
+      "metrics": {
+        "base": {
+          "trades": 58,
+          "profit_factor": 1.128647,
+          "mean_net_bps": 8.852373,
+          "net_return_sum_pct": 5.134376,
+          "positive_years": 6,
+          "years": 7,
+          "mean_holding_calendar_days": 4.586,
+          "worst_net_trade_pct": -4.430996
+        },
+        "conservative": {
+          "trades": 58,
+          "profit_factor": 1.025746,
+          "mean_net_bps": 1.852373,
+          "net_return_sum_pct": 1.074376,
+          "positive_years": 5,
+          "years": 7,
+          "mean_holding_calendar_days": 4.586,
+          "worst_net_trade_pct": -4.500996
+        },
+        "stress": {
+          "trades": 58,
+          "profit_factor": 0.832883,
+          "mean_net_bps": -13.147627,
+          "net_return_sum_pct": -7.625624,
+          "positive_years": 4,
+          "years": 7,
+          "mean_holding_calendar_days": 4.586,
+          "worst_net_trade_pct": -4.650996
+        }
+      },
+      "passes_numeric_gate": false
+    },
+    {
+      "holding_sessions": 5,
+      "metrics": {
+        "base": {
+          "trades": 50,
+          "profit_factor": 1.012868,
+          "mean_net_bps": 1.098433,
+          "net_return_sum_pct": 0.549217,
+          "positive_years": 5,
+          "years": 7,
+          "mean_holding_calendar_days": 7.7,
+          "worst_net_trade_pct": -7.620482
+        },
+        "conservative": {
+          "trades": 50,
+          "profit_factor": 0.932971,
+          "mean_net_bps": -5.901567,
+          "net_return_sum_pct": -2.950783,
+          "positive_years": 5,
+          "years": 7,
+          "mean_holding_calendar_days": 7.7,
+          "worst_net_trade_pct": -7.690482
+        },
+        "stress": {
+          "trades": 50,
+          "profit_factor": 0.778828,
+          "mean_net_bps": -20.901567,
+          "net_return_sum_pct": -10.450783,
+          "positive_years": 4,
+          "years": 7,
+          "mean_holding_calendar_days": 7.7,
+          "worst_net_trade_pct": -7.840482
+        }
+      },
+      "passes_numeric_gate": false
+    }
+  ],
+  "numeric_passes": 0,
+  "stable_region_pass": false,
+  "validation": "2019-2022 (not loaded)",
+  "contaminated_prior_period": "2023-2025 (not loaded)",
+  "sealed_holdout": "2026 (not loaded)",
+  "validation_accessed": false,
+  "holdout_accessed": false,
+  "sqcli_executed": false,
+  "leverage_selected": false,
+  "decision": "REJECT_FAMILY_BEFORE_VALIDATION"
+}

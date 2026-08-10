@@ -58,8 +58,9 @@ percentils base/conservador/estrès. Paper continua bloquejat.
 | Compressió → ruptura de canal | 1.728 | 0 passen; els pics tenen només 3–5 trades | Descartar |
 | Pullback RSI dins tendència EMA | 1.944 | 0 passen; 790 punts tenen ≥100 trades, millor PF base 0,51 | Descartar |
 | Flux final/inici de mes | 20 | 0 passen; millor PF base 1,43 però només 4/7 anys, estrès PF 1,019 i 3/7 anys | Descartar |
+| Normalització VIX9D/VIX3M | 3 | 0 passen; hold 3 PF base 1,13, però estrès PF 0,83 i −13,15 bps/trade | Descartar |
 
-Total: **3.836 configuracions deterministes**, sense comptar SQ Builder perquè cap
+Total: **3.839 configuracions deterministes**, sense comptar SQ Builder perquè cap
 família va superar el filtre Python previ.
 
 ### 1. Gap i opening drive
@@ -128,9 +129,10 @@ El collector automàtic s'instal·la amb `scripts/install_ostium_spx_capture_cro
 Mostreja cada dues hores de dilluns a divendres, usa un lock anti-solapament i
 desa dades regenerables a `data/ostium_economics/`, fora de Git.
 
-Després cal formular un mecanisme econòmic nou amb un input extern justificat,
-per exemple règim de volatilitat preregistrat. No s'han de tornar a ajustar RSI,
-EMA, gap, opening drive, compressió o dies de final de mes per rescatar experiments.
+La normalització de la corba VIX també ha fallat el gate de costos. S'aturen noves
+famílies de timing d'SPX; el collector d'economia continua fins completar el gate.
+No s'han de tornar a ajustar RSI, EMA, gap, opening drive, compressió, calendari
+o llindars VIX per rescatar experiments.
 
 ## Artifacts reproduïbles
 
@@ -144,6 +146,7 @@ EMA, gap, opening drive, compressió o dies de final de mes per rescatar experim
 - Compressió v2: `lab/sq_bridge/spx_m15_compression_expansion_v2.py`
 - Pullback v3: `lab/sq_bridge/spx_m15_trend_pullback_v3.py`
 - Turn-of-month v4: `lab/sq_bridge/spx_turn_of_month_v4.py`
+- VIX term normalization v5: `lab/sq_bridge/spx_vix_term_normalization_v5.py`
 - Memòria de fracassos: `academia/experiments/failure-memory.json`
 
 ## Com reprendre en una sessió nova

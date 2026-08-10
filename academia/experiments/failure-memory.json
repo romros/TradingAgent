@@ -2,6 +2,16 @@
   "schema_version": 1,
   "entries": [
     {
+      "id": "spx_vix_term_normalization_v5_20260810",
+      "family": "spx_vix9d_vix3m_normalization",
+      "decision": "REJECT",
+      "failure_code": "COST_FAIL",
+      "lesson": "The fixed VIX9D/VIX3M normalization signal has 69 development events. Hold 3 shows a mild base tendency (PF 1.13, 6/7 positive years) but stress is negative (PF 0.83, -13.15 bps/trade); holds 1 and 5 are worse.",
+      "do_not_repeat": "Do not optimize the structural 1.0 threshold, add VIX levels, change entry timing or open 2019-2022 to rescue this signal.",
+      "next_direction": "Stop new SPX timing families; use VIX only as a frozen risk variable inside a genuinely different mechanism if independently justified.",
+      "evidence": "academia/experiments/observations/spx-vix-term-normalization-v5-2026-08.json"
+    },
+    {
       "id": "spx_turn_of_month_v4_20260809",
       "family": "spx_turn_of_month_institutional_flow",
       "decision": "REJECT",

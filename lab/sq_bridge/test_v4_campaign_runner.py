@@ -242,22 +242,33 @@ if stage == 'python_translation':
     artifact['canonical_ir_sha256'] = hashlib.sha256(ir_path.read_bytes()).hexdigest()
 if stage == 'final_holdout_validation':
     base = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent
+    sizing_path = base / '06_small_account_economics.json'
+    sizing = json.loads(sizing_path.read_text())
+    cost_path = base / 'frozen-costs.json'
+    cost_hash = hashlib.sha256(cost_path.read_bytes()).hexdigest()
+    sizing_hash = hashlib.sha256(sizing_path.read_bytes()).hexdigest()
     trace_path = base / 'runner-sqx-001.holdout.trace.json'
     trades = []
     for index in range(20):
         win = index < 12
-        trades.append({'trade_id': f't{index:02d}', 'net_pnl_usdc_by_cost': {
-            'base': 1.0 if win else -.3,
-            'conservative': .8 if win else -.4,
-            'stress': .7 if win else -.5}})
+        trades.append({'trade_id': f't{index:02d}',
+                       'gross_return_pct': .5 if win else -.15,
+                       'side': 'long' if index % 2 == 0 else 'short',
+                       'holding_days': 1})
     trace_path.write_text(json.dumps({
         'schema_version': 1, 'trace_type': 'final_holdout_trade_trace',
         'candidate_id': 'runner-sqx-001', 'capital_usdc': 200,
         'selection_frozen_before_holdout': True,
         'parameters_changed_after_holdout': False,
-        'holdout_evaluation_count': 1, 'trades': trades}))
+        'holdout_evaluation_count': 1,
+        'position_notional_usdc': sizing['position_notional_usdc'],
+        'selected_leverage': sizing['selected_leverage'],
+        'cost_model_sha256': cost_hash,
+        'small_account_artifact_sha256': sizing_hash,
+        'trades': trades}))
     artifact = build_holdout(
         campaign_id='runner-test', candidate_id='runner-sqx-001', trace_path=trace_path,
+        small_account_artifact_path=sizing_path, cost_model_path=cost_path,
         methodology_path=Path(sys.argv[2]),
         artifact_path=Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']))
 if stage == 'parity':

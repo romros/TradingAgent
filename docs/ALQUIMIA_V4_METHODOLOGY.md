@@ -112,6 +112,11 @@ fix de 200 USDC i aplica el pitjor entre l'escenari stress congelat i 2×base.
 El PF estressat es deriva de trades bruts individuals; les liquidacions es
 deriven de l'excursió adversa i del model Ostium.
 
+El holdout final hereta, sense poder-los editar, candidat, nocional i leverage
+del PASS de `small_account_economics`. Els trades futurs només aporten retorn
+brut, costat i durada; sizing i model de costos es verifiquen per SHA-256 abans
+de derivar els tres escenaris. Només es permet una avaluació.
+
 La generació usa `genetic_evolution`, no una cerca oberta sense filiació. Cada
 artefacte SQ ha d'indicar les hipòtesis font aprovades, el hash de cada candidat
 i el nombre de regles (1–3). El verificador de cadena comprova que aquestes

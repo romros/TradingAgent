@@ -366,19 +366,23 @@ de sol per política determinista: màxima EV del pitjor cost, després PF i ID.
 
 El 10% final no s'obre durant traducció, paritat o paper. Després que robustesa
 i economia de 200 USDC deixin un sol candidat congelat, es crea una única
-avaluació amb un trace de trades ordenats i PnL net per cost:
+avaluació amb un trace de trades bruts ordenats:
 
 ```bash
 PYTHONPATH=../.. python3 final_holdout_artifact_v4.py \
   --campaign-id CAMPAIGN_ID \
   --candidate-id EXACT_STRATEGY_NAME \
   --trace /path/to/final-holdout.trace.json \
+  --small-account-artifact /path/to/state/artifacts/06_small_account_economics.json \
+  --cost-model /path/to/eurusd_costs_frozen_v4.json \
   --artifact-output /path/to/state/artifacts/07_final_holdout_validation.json
 ```
 
 El trace exigeix capital 200 USDC, selecció congelada, zero canvis de
-paràmetres, `holdout_evaluation_count=1` i exactament els costos base,
-conservador i estrès. El gate recalcula sobre almenys 20 trades PF ≥1,10,
+paràmetres i `holdout_evaluation_count=1`. Nocional i leverage s'hereten del
+rebut de compte petit; cada trade aporta retorn brut, costat i durada. El gate
+verifica amb SHA-256 sizing i costos, deriva base/conservador/estrès i recalcula
+sobre almenys 20 trades PF ≥1,10,
 esperança neta ≥0,10 USDC per trade i drawdown ≤20% en el pitjor escenari. No
 s'accepta PF no estimable sense cap trade perdedor. Qualsevol reavaluació,
 retuneig, hash alterat o resum que no coincideixi amb els trades invalida la

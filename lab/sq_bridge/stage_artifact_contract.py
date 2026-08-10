@@ -884,15 +884,31 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
             holdout_trace = _verified_json(
                 artifact.get("holdout_trace_path"), artifact.get("holdout_trace_sha256"),
                 receipt.get("artifact", ""))
+            sizing = _verified_json(
+                artifact.get("small_account_artifact_path"),
+                artifact.get("small_account_artifact_sha256"),
+                receipt.get("artifact", ""))
+            cost_model = _verified_json(
+                artifact.get("cost_model_path"), artifact.get("cost_model_sha256"),
+                receipt.get("artifact", ""))
             recomputed = None
-            if holdout_trace is not None:
+            sources_match = (sizing is not None and cost_model is not None
+                and sizing.get("stage") == "small_account_economics"
+                and sizing.get("decision") == "PASS"
+                and sizing.get("campaign_id") == campaign_id
+                and sizing.get("candidate_ids") == ids
+                and sizing.get("cost_model_sha256") == artifact.get("cost_model_sha256"))
+            if holdout_trace is not None and sources_match:
                 try:
                     recomputed = evaluate_holdout_trace(
-                        holdout_trace, gate["cost_scenarios_required"])
+                        holdout_trace, gate["cost_scenarios_required"], cost_model,
+                        artifact.get("cost_model_sha256"), sizing,
+                        artifact.get("small_account_artifact_sha256"))
                 except (TypeError, ValueError):
                     recomputed = None
             checks.update({
                 "TRACE_FILE": holdout_trace is not None,
+                "FROZEN_SIZING_AND_COSTS": sources_match,
                 "TRACE_CONTRACT": recomputed is not None and len(ids) == 1
                     and recomputed.get("candidate_id") == ids[0]
                     and metrics_by_candidate == {ids[0]: recomputed}

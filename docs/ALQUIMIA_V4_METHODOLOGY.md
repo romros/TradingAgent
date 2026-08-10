@@ -52,3 +52,6 @@ python -m lab.sq_bridge.evidence_chain verify \
 El control esperat té nou rebuts PASS, `operational_control_complete=true`, però
 `promotable=false`, `paper_ready=false` i `live_authorized=false` perquè és
 sintètic.
+
+L'execució reprenable d'una campanya real està documentada a
+[`ALQUIMIA_V4_RUNNER.md`](ALQUIMIA_V4_RUNNER.md).

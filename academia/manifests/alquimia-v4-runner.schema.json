@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Alquimia v4 checkpointed campaign runner",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "campaign_id", "hypothesis_id", "market",
+    "methodology", "state_dir", "stages"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "campaign_id": {"type": "string", "minLength": 1},
+    "hypothesis_id": {"type": "string", "minLength": 1},
+    "market": {"type": "string", "minLength": 1},
+    "methodology": {"type": "string", "minLength": 1},
+    "state_dir": {"type": "string", "minLength": 1},
+    "stages": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "market_preflight", "hypothesis_screen", "sq_generation",
+        "temporal_validation", "robustness", "small_account_economics",
+        "python_translation", "parity", "paper"
+      ],
+      "properties": {
+        "market_preflight": {"$ref": "#/$defs/stage"},
+        "hypothesis_screen": {"$ref": "#/$defs/stage"},
+        "sq_generation": {"$ref": "#/$defs/stage"},
+        "temporal_validation": {"$ref": "#/$defs/stage"},
+        "robustness": {"$ref": "#/$defs/stage"},
+        "small_account_economics": {"$ref": "#/$defs/stage"},
+        "python_translation": {"$ref": "#/$defs/stage"},
+        "parity": {"$ref": "#/$defs/stage"},
+        "paper": {"$ref": "#/$defs/stage"}
+      }
+    }
+  },
+  "$defs": {
+    "stage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["command", "timeout_seconds"],
+      "properties": {
+        "command": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "timeout_seconds": {"type": "integer", "minimum": 1},
+        "cwd": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

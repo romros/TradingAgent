@@ -309,6 +309,24 @@ PF estressat i liquidacions. Aquestes últimes no són booleans acceptats de la
 font: es deriven de l'excursió adversa, leverage i límit del mercat. El sizing
 posterior no pot usar més leverage ni un límit de venue diferent del provat.
 
+`small_account_economics` parteix de retorns nets trade a trade per als tres
+costos i del rebut de robustesa anterior:
+
+```bash
+PYTHONPATH=../.. python3 small_account_artifact_v4.py \
+  --campaign-id CAMPAIGN_ID \
+  --trace /path/to/candidate-a.small-account.trace.json \
+  --robustness-artifact /path/to/state/artifacts/05_robustness.json \
+  --artifact-output /path/to/state/artifacts/06_small_account_economics.json
+```
+
+Amb 200 USDC, el nocional es deriva de `capital × risc% / stop%`. El leverage
+no augmenta aquest nocional: només redueix col·lateral fins al màxim que encara
+respecta marge, reserva, buffer de liquidació i l'envelope provat a robustesa.
+El constructor recalcula PF i EV en USDC sota base/conservador/estrès, rebutja
+pèrdues individuals >3% i avalua tots els candidats supervivents. En congela un
+de sol per política determinista: màxima EV del pitjor cost, després PF i ID.
+
 ## Holdout final v4
 
 El 10% final no s'obre durant traducció, paritat o paper. Després que robustesa

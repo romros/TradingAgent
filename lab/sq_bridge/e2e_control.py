@@ -107,7 +107,39 @@ def payload(stage: str, candidate_ids: list[str], holdout: bool) -> dict:
                                     "collateral_usdc": 60, "stop_distance_pct": 1,
                                     "liquidation_distance_pct": 19,
                                     "stop_to_liquidation_buffer_ratio": 19,
-                                    "liquidation_model": "ostium_exact"},
+                                    "liquidation_model": "ostium_exact",
+                                    "candidate_selection_policy":
+                                        "max_worst_cost_expectancy_then_profit_factor_then_candidate_id",
+                                    "evaluated_candidate_small_account_metrics": {
+                                        candidate: {
+                                            "trades": 30,
+                                            "profit_factor_by_cost": {
+                                                "base": 1.2, "conservative": 1.15,
+                                                "stress": 1.1},
+                                            "net_expectancy_usdc_by_cost": {
+                                                "base": .2, "conservative": .15,
+                                                "stress": .1},
+                                            "net_profit_factor": 1.1,
+                                            "net_expectancy_usdc": .1,
+                                            "maximum_single_trade_loss_pct": 1.5,
+                                            "risk_per_trade_pct": 1.5,
+                                            "stop_distance_pct": 1,
+                                            "position_notional_usdc": 300,
+                                            "venue_max_leverage": 100,
+                                            "robustness_tested_leverage": 5,
+                                            "evaluated_leverage_grid": [
+                                                1, 2, 3, 5, 8, 10, 15, 20, 30, 50, 75, 100],
+                                            "leverage_evaluations": {},
+                                            "selected_leverage": 5,
+                                            "collateral_usdc": 60,
+                                            "portfolio_margin_pct": 30,
+                                            "reserve_pct": 70,
+                                            "liquidation_distance_pct": 19,
+                                            "stop_to_liquidation_buffer_ratio": 19,
+                                            "higher_leverage_rejection_reasons": {
+                                                str(value): "synthetic risk constraint"
+                                                for value in (8, 10, 15, 20, 30, 50, 75, 100)},
+                                        } for candidate in candidate_ids}},
         "final_holdout_validation": {
             "selection_frozen_before_holdout": True, "holdout_evaluation_count": 1,
             "parameters_changed_after_holdout": False,

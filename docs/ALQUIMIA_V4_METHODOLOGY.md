@@ -25,7 +25,7 @@ US500+VIX l'haurà d'utilitzar quan el gate de tres dies permeti formular-la.
 5. `robustness`: 1.000 Monte Carlo, ≥4 veïns a ±10%, estrès 2× i
    liquidació recalculada amb excursió adversa i leverage Ostium provat.
 6. `small_account_economics`: 200 USDC, nocional, risc, marge, reserva i
-   apalancament admès.
+   apalancament admès; PF i EV es deriven de trades als tres costos.
 7. `final_holdout_validation`: una sola obertura del 10% final amb candidat i
    paràmetres congelats, sense retuneig.
 8. `python_translation`: IR exacta i subset suportat.
@@ -75,6 +75,11 @@ El verificador recalcula `collateral=notional/leverage`, marge, reserva i risc a
 stop, exigeix stop obligatori, model de liquidació exacte d'Ostium i una
 distància de liquidació d'almenys 1,5 vegades el stop. Això maximitza leverage
 dins del risc; no confon leverage amb augmentar arbitràriament el nocional.
+El nocional queda fixat per `200 × risc% / stop%`; canviar leverage només canvia
+el col·lateral. Cada candidata aporta almenys 30 trades nets sota base,
+conservador i estrès. Es recalculen PF≥1,10, EV≥0,10 USDC i pèrdua individual
+≤3%. Si en sobreviu més d'una, es congela la de millor EV del pitjor escenari,
+després millor PF i finalment ID lexicogràfic; no es consulta el holdout.
 
 La generació usa `genetic_evolution`, no una cerca oberta sense filiació. Cada
 artefacte SQ ha d'indicar les hipòtesis font aprovades, el hash de cada candidat

@@ -18,6 +18,7 @@ from lab.sq_bridge.temporal_validation_artifact_v4 import (
     pareto as temporal_pareto,
 )
 from lab.sq_bridge.robustness_artifact_v4 import evaluate_trace as evaluate_robustness_trace
+from lab.sq_bridge.small_account_artifact_v4 import evaluate_trace as evaluate_small_trace
 
 
 def _number(value: Any) -> bool:
@@ -109,6 +110,39 @@ def _verified_robustness_sources(paths: Any, hashes: Any, reported: Any,
             if trace.get("candidate_id") != candidate_id:
                 return False
             recomputed[candidate_id] = evaluate_robustness_trace(trace, gate)
+    except (OSError, KeyError, TypeError, ValueError):
+        return False
+    return recomputed == reported
+
+
+def _verified_small_account_sources(artifact: dict, reported: Any,
+                                    artifact_path: str, gate: dict,
+                                    campaign_id: str) -> bool:
+    robust = _verified_json(
+        artifact.get("robustness_artifact_path"),
+        artifact.get("robustness_artifact_sha256"), artifact_path)
+    if (robust is None or robust.get("stage") != "robustness"
+            or robust.get("decision") != "PASS"
+            or robust.get("campaign_id") != campaign_id):
+        return False
+    robust_metrics = robust.get("candidate_robustness_metrics")
+    paths, hashes = artifact.get("small_account_trace_paths"), artifact.get(
+        "small_account_trace_sha256")
+    if (not isinstance(reported, dict) or not isinstance(robust_metrics, dict)
+            or set(reported) != set(robust_metrics)
+            or not _verified_files(paths, hashes, sorted(reported), artifact_path)):
+        return False
+    base = Path(artifact_path).resolve().parent
+    recomputed = {}
+    try:
+        for candidate_id, value in paths.items():
+            path = Path(value)
+            path = path if path.is_absolute() else base / path
+            trace = json.loads(path.read_text())
+            if trace.get("candidate_id") != candidate_id:
+                return False
+            recomputed[candidate_id] = evaluate_small_trace(
+                trace, gate, robust_metrics[candidate_id])
     except (OSError, KeyError, TypeError, ValueError):
         return False
     return recomputed == reported
@@ -637,8 +671,50 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
             "NO_HOLDOUT": artifact.get("holdout_accessed") is False,
         }
         if methodology.get("schema_version", 1) >= 4:
+            candidate_evaluated = artifact.get("evaluated_candidate_small_account_metrics")
+            candidate_evaluated_valid = (isinstance(candidate_evaluated, dict)
+                and bool(candidate_evaluated)
+                and all(isinstance(metric, dict) for metric in candidate_evaluated.values()))
+            passing = ({key: metric for key, metric in candidate_evaluated.items()
+                if metric.get("selected_leverage") is not None
+                and _at_least(metric.get("trades"), small["minimum_trades"])
+                and _at_least(metric.get("net_expectancy_usdc"),
+                              small["minimum_net_expectancy_usdc"])
+                and _at_least(metric.get("net_profit_factor"),
+                              small["minimum_net_profit_factor"])
+                and _at_most(metric.get("maximum_single_trade_loss_pct"),
+                             small["maximum_single_trade_loss_pct"])}
+                if candidate_evaluated_valid else {})
+            ranked = sorted(passing, key=lambda key: (
+                -passing[key]["net_expectancy_usdc"],
+                -passing[key]["net_profit_factor"], key))
+            selected_id = ranked[0] if ranked else None
+            selected_metric = (candidate_evaluated.get(selected_id)
+                               if selected_id is not None else None)
             checks.update({
                 "SINGLE_CANDIDATE": len(receipt.get("candidate_ids", [])) == 1,
+                "CANDIDATE_SELECTION_POLICY": artifact.get("candidate_selection_policy")
+                    == small["candidate_selection_policy"],
+                "EVALUATED_CANDIDATES": candidate_evaluated_valid,
+                "CANDIDATE_SELECTION_RECOMPUTES": selected_id is not None
+                    and receipt.get("candidate_ids") == [selected_id],
+                "SOURCE_TRACE_CONTRACT": _verified_small_account_sources(
+                    artifact, candidate_evaluated, receipt.get("artifact", ""),
+                    small, campaign_id)
+                    if provenance != "synthetic_control" else True,
+                "PERFORMANCE_RECOMPUTES": isinstance(selected_metric, dict)
+                    and artifact.get("net_expectancy_usdc")
+                        == selected_metric.get("net_expectancy_usdc")
+                    and artifact.get("net_profit_factor")
+                        == selected_metric.get("net_profit_factor"),
+                "SIZING_SOURCE_RECOMPUTES": isinstance(selected_metric, dict)
+                    and all(artifact.get(key) == selected_metric.get(key) for key in (
+                        "risk_per_trade_pct", "portfolio_margin_pct", "reserve_pct",
+                        "selected_leverage", "venue_max_leverage",
+                        "evaluated_leverage_grid", "higher_leverage_rejection_reasons",
+                        "position_notional_usdc", "collateral_usdc",
+                        "stop_distance_pct", "liquidation_distance_pct",
+                        "stop_to_liquidation_buffer_ratio")),
                 "VENUE_LEVERAGE": leverage_numeric and venue_numeric and venue_max >= leverage,
                 "LEVERAGE_POLICY": artifact.get("leverage_selection_policy")
                     == small["leverage_selection_policy"],

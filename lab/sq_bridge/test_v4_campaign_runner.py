@@ -23,6 +23,7 @@ from lab.sq_bridge.final_holdout_artifact_v4 import build_artifact as build_hold
 from lab.sq_bridge.paper_package_artifact_v4 import build_artifact as build_paper
 from lab.sq_bridge.temporal_validation_artifact_v4 import build_artifact as build_temporal
 from lab.sq_bridge.robustness_artifact_v4 import build_artifact as build_robustness
+from lab.sq_bridge.small_account_artifact_v4 import build_artifact as build_small_account
 
 stage = os.environ['ALQUIMIA_STAGE']
 decision = sys.argv[1] if len(sys.argv) > 1 else 'PASS'
@@ -125,6 +126,26 @@ if stage == 'robustness':
         'stress_trade_pnl_usdc': [1.0 if index < 18 else -.5 for index in range(30)]}))
     artifact = build_robustness(
         campaign_id='runner-test', trace_paths=[trace_path],
+        methodology_path=Path(sys.argv[2]),
+        artifact_path=Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']))
+if stage == 'small_account_economics':
+    base = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent
+    trace_path = base / 'runner-sqx-001.small-account.trace.json'
+    trace_path.write_text(json.dumps({
+        'schema_version': 1, 'trace_type': 'small_account_trade_trace',
+        'candidate_id': 'runner-sqx-001', 'capital_usdc': 200,
+        'holdout_accessed': False, 'stop_loss_required': True,
+        'risk_per_trade_pct': 1.5, 'stop_distance_pct': 1,
+        'venue_max_leverage': 100, 'cost_model_sha256': 'a' * 64,
+        'trades': [
+            {'trade_id': f'trade-{index:02d}', 'net_return_pct_by_cost': {
+                'base': .5 if index < 18 else -.2,
+                'conservative': .4 if index < 18 else -.225,
+                'stress': .3 if index < 18 else -.25}}
+            for index in range(30)]}))
+    artifact = build_small_account(
+        campaign_id='runner-test', trace_paths=[trace_path],
+        robustness_artifact_path=base / '05_robustness.json',
         methodology_path=Path(sys.argv[2]),
         artifact_path=Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']))
 if stage == 'python_translation':

@@ -252,7 +252,10 @@ def test_v4_methodology_cannot_be_weakened_to_force_a_pass():
     weakened["small_account"].update({
         "maximum_risk_per_trade_pct": 10, "maximum_portfolio_margin_pct": 100,
         "minimum_reserve_pct": 0, "minimum_net_expectancy_usdc": 0,
-        "minimum_net_profit_factor": 1,
+        "minimum_net_profit_factor": 1, "minimum_trades": 1,
+        "cost_scenarios_required": ["base"],
+        "maximum_single_trade_loss_pct": 100,
+        "candidate_selection_policy": "best_backtest_profit",
     })
     weakened["parity"].update({
         "minimum_matched_signals": 1, "minimum_matched_trades": 1,
@@ -278,19 +281,17 @@ def test_v4_methodology_cannot_be_weakened_to_force_a_pass():
 def test_v4_small_account_proves_maximum_safe_leverage_and_recomputes_risk():
     artifact = payload("small_account_economics", ["candidate"], False)
     artifact["campaign_id"] = "v4"
-    artifact["evidence_class"] = "observed"
-    artifact.pop("control_purpose", None)
     receipt = {"decision": "PASS", "candidate_ids": ["candidate"],
                "holdout_accessed": False}
     assert validate_stage_artifact(
         "small_account_economics", artifact, receipt, METHODOLOGY,
-        "v4", "alquimia_native") == []
+        "v4", "synthetic_control") == []
     del artifact["higher_leverage_rejection_reasons"]["100"]
     artifact["portfolio_margin_pct"] = 20
     artifact["reserve_pct"] = 60
     errors = validate_stage_artifact(
         "small_account_economics", artifact, receipt, METHODOLOGY,
-        "v4", "alquimia_native")
+        "v4", "synthetic_control")
     assert "STAGE_ARTIFACT:small_account_economics:MAXIMUM_SAFE" in errors
     assert "STAGE_ARTIFACT:small_account_economics:MARGIN_RECOMPUTES" in errors
     assert "STAGE_ARTIFACT:small_account_economics:RESERVE_RECOMPUTES" in errors

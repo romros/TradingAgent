@@ -80,6 +80,16 @@ def verify(chain,methodology_path):
      else: robustness_metrics=evaluated
     if (m.get("schema_version",1)>=4
         and r.get("stage")=="small_account_economics" and r.get("decision")=="PASS"):
+     evaluated=artifact.get("evaluated_candidate_small_account_metrics")
+     if not isinstance(evaluated,dict) or set(evaluated)!=set(previous_ids):
+      errors.append("SMALL_ACCOUNT_EVALUATED_LINEAGE")
+     if chain.get("provenance")!="synthetic_control":
+      prior_robustness=next((item for item in chain["receipts"][:i]
+                             if item.get("stage")=="robustness"),None)
+      if (not isinstance(prior_robustness,dict)
+          or artifact.get("robustness_artifact_sha256")
+             !=prior_robustness.get("artifact_sha256")):
+       errors.append("SMALL_ACCOUNT_ROBUSTNESS_SOURCE_LINEAGE")
      candidate_ids=normalized_ids(r.get("candidate_ids"))
      metric=robustness_metrics.get(candidate_ids[0]) if len(candidate_ids)==1 else None
      selected_leverage=artifact.get("selected_leverage")

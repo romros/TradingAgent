@@ -141,6 +141,16 @@ def validate(config: dict) -> list[str]:
             errors.append("small_account: expectativa neta massa baixa")
         if small.get("minimum_net_profit_factor", 0) < 1.1:
             errors.append("small_account: PF net massa feble")
+        if small.get("minimum_trades", 0) < 30:
+            errors.append("small_account: mostra de trades massa petita")
+        if set(small.get("cost_scenarios_required", [])) != {
+                "base", "conservative", "stress"}:
+            errors.append("small_account: costos incomplets")
+        if small.get("maximum_single_trade_loss_pct", 100) > 3:
+            errors.append("small_account: perdua maxima per trade massa alta")
+        if small.get("candidate_selection_policy") != (
+                "max_worst_cost_expectancy_then_profit_factor_then_candidate_id"):
+            errors.append("small_account: seleccio de candidat no determinista")
         if small.get("leverage_selection_policy") != "maximum_safe_in_grid_up_to_venue_limit":
             errors.append("small_account: politica de leverage maxim segur obligatoria")
         if small.get("required_stop_loss") is not True:

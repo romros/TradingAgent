@@ -1,0 +1,240 @@
+#!/usr/bin/env python3
+"""Avalua i selecciona una candidata v4 per a un compte Ostium de 200 USDC."""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import math
+import os
+from pathlib import Path
+
+
+def _sha(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _relative(path: Path, base: Path) -> str:
+    return os.path.relpath(path.resolve(), base.resolve())
+
+
+def _number(value: object, message: str) -> float:
+    if (not isinstance(value, (int, float)) or isinstance(value, bool)
+            or not math.isfinite(value)):
+        raise ValueError(message)
+    return float(value)
+
+
+def liquidation_distance_pct(leverage: float, venue_max_leverage: float) -> float:
+    return (100.0 - leverage / venue_max_leverage * 25.0) / leverage
+
+
+def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict) -> dict:
+    if (trace.get("schema_version") != 1
+            or trace.get("trace_type") != "small_account_trade_trace"):
+        raise ValueError("Schema de trace de compte petit invalid")
+    candidate_id = trace.get("candidate_id")
+    if not isinstance(candidate_id, str) or not candidate_id:
+        raise ValueError("candidate_id de compte petit absent")
+    capital = trace.get("capital_usdc")
+    if capital != gate["canonical_capital_usdc"] or trace.get("holdout_accessed") is not False:
+        raise ValueError("Compte petit ha d'usar 200 USDC sense obrir holdout")
+    if trace.get("stop_loss_required") is not True:
+        raise ValueError("Stop loss obligatori")
+    risk_pct = _number(trace.get("risk_per_trade_pct"), "Risc per trade invalid")
+    stop_pct = _number(trace.get("stop_distance_pct"), "Distancia de stop invalida")
+    if not 0 < risk_pct <= gate["maximum_risk_per_trade_pct"] or stop_pct <= 0:
+        raise ValueError("Risc o stop fora del contracte")
+    venue_max = _number(trace.get("venue_max_leverage"), "Limit Ostium invalid")
+    tested_leverage = _number(
+        robustness_metric.get("tested_leverage"), "Envelope de robustesa absent")
+    if (venue_max != robustness_metric.get("venue_max_leverage")
+            or tested_leverage > venue_max):
+        raise ValueError("Envelope Ostium no coincideix amb robustesa")
+    cost_hash = trace.get("cost_model_sha256")
+    if (not isinstance(cost_hash, str) or len(cost_hash) != 64
+            or any(char not in "0123456789abcdef" for char in cost_hash)):
+        raise ValueError("Hash de costos de compte petit invalid")
+
+    scenarios = gate["cost_scenarios_required"]
+    trades = trace.get("trades")
+    if not isinstance(trades, list) or len(trades) < gate["minimum_trades"]:
+        raise ValueError("Trades de compte petit insuficients")
+    trade_ids, returns = [], {scenario: [] for scenario in scenarios}
+    for row in trades:
+        if not isinstance(row, dict) or not isinstance(row.get("trade_id"), str):
+            raise ValueError("Trade de compte petit invalid")
+        trade_ids.append(row["trade_id"])
+        values = row.get("net_return_pct_by_cost")
+        if not isinstance(values, dict) or set(values) != set(scenarios):
+            raise ValueError("Escenaris de cost incomplets")
+        for scenario in scenarios:
+            returns[scenario].append(_number(values[scenario], "Retorn net invalid"))
+    if trade_ids != sorted(set(trade_ids)):
+        raise ValueError("trade_id de compte petit ha de ser unic i ordenat")
+
+    notional = capital * risk_pct / stop_pct
+    pnl = {scenario: [notional * value / 100.0 for value in values]
+           for scenario, values in returns.items()}
+    profit_factors, expectancy = {}, {}
+    maximum_loss_pct = 0.0
+    for scenario, values in pnl.items():
+        wins = sum(value for value in values if value > 0)
+        losses = -sum(value for value in values if value < 0)
+        if losses <= 0:
+            raise ValueError(f"Profit factor no estimable: {scenario}")
+        profit_factors[scenario] = wins / losses
+        expectancy[scenario] = sum(values) / len(values)
+        maximum_loss_pct = max(maximum_loss_pct, -min(values) / capital * 100)
+
+    grid = [value for value in gate["leverage_grid"] if value <= venue_max]
+    evaluations, safe = {}, []
+    for leverage in grid:
+        collateral = notional / leverage
+        margin_pct = collateral / capital * 100
+        reserve_pct = 100 - margin_pct
+        liquidation_distance = liquidation_distance_pct(leverage, venue_max)
+        buffer = liquidation_distance / stop_pct
+        reasons = []
+        if leverage > tested_leverage:
+            reasons.append("exceeds_robustness_tested_leverage")
+        if margin_pct > gate["maximum_portfolio_margin_pct"]:
+            reasons.append("portfolio_margin_above_limit")
+        if reserve_pct < gate["minimum_reserve_pct"]:
+            reasons.append("reserve_below_limit")
+        if buffer < gate["minimum_stop_to_liquidation_buffer_ratio"]:
+            reasons.append("liquidation_buffer_below_limit")
+        if maximum_loss_pct > gate["maximum_single_trade_loss_pct"]:
+            reasons.append("realized_trade_loss_above_limit")
+        evaluations[str(leverage)] = {
+            "collateral_usdc": collateral, "portfolio_margin_pct": margin_pct,
+            "reserve_pct": reserve_pct,
+            "liquidation_distance_pct": liquidation_distance,
+            "stop_to_liquidation_buffer_ratio": buffer,
+            "safe": not reasons, "rejection_reasons": reasons,
+        }
+        if not reasons:
+            safe.append(leverage)
+    if not safe:
+        selected_leverage = None
+        selected = None
+    else:
+        selected_leverage = max(safe)
+        selected = evaluations[str(selected_leverage)]
+    higher_rejections = ({str(value): ";".join(evaluations[str(value)]["rejection_reasons"])
+                          for value in grid if selected_leverage is not None
+                          and value > selected_leverage}
+                         if selected_leverage is not None else {})
+    return {
+        "candidate_id": candidate_id, "trades": len(trades),
+        "profit_factor_by_cost": profit_factors,
+        "net_expectancy_usdc_by_cost": expectancy,
+        "net_profit_factor": min(profit_factors.values()),
+        "net_expectancy_usdc": min(expectancy.values()),
+        "maximum_single_trade_loss_pct": maximum_loss_pct,
+        "risk_per_trade_pct": risk_pct, "stop_distance_pct": stop_pct,
+        "position_notional_usdc": notional, "venue_max_leverage": venue_max,
+        "robustness_tested_leverage": tested_leverage,
+        "evaluated_leverage_grid": grid, "leverage_evaluations": evaluations,
+        "selected_leverage": selected_leverage,
+        "collateral_usdc": selected["collateral_usdc"] if selected else None,
+        "portfolio_margin_pct": selected["portfolio_margin_pct"] if selected else None,
+        "reserve_pct": selected["reserve_pct"] if selected else None,
+        "liquidation_distance_pct": selected["liquidation_distance_pct"] if selected else None,
+        "stop_to_liquidation_buffer_ratio": (
+            selected["stop_to_liquidation_buffer_ratio"] if selected else None),
+        "higher_leverage_rejection_reasons": higher_rejections,
+    }
+
+
+def build_artifact(*, campaign_id: str, trace_paths: list[Path],
+                   robustness_artifact_path: Path, methodology_path: Path,
+                   artifact_path: Path) -> dict:
+    methodology = json.loads(methodology_path.read_text())
+    gate = methodology["small_account"]
+    robustness = json.loads(robustness_artifact_path.read_text())
+    robust_metrics = robustness.get("candidate_robustness_metrics")
+    if (robustness.get("stage") != "robustness" or robustness.get("decision") != "PASS"
+            or robustness.get("campaign_id") != campaign_id
+            or not isinstance(robust_metrics, dict)):
+        raise ValueError("Artefacte de robustesa invalid o aliè")
+    evaluated, paths, hashes = {}, {}, {}
+    base = artifact_path.resolve().parent
+    for path in trace_paths:
+        trace = json.loads(path.read_text())
+        candidate_id = trace.get("candidate_id")
+        if candidate_id not in robust_metrics or candidate_id in evaluated:
+            raise ValueError("Filiacio de candidat de compte petit invalida")
+        evaluated[candidate_id] = evaluate_trace(trace, gate, robust_metrics[candidate_id])
+        paths[candidate_id] = _relative(path, base)
+        hashes[candidate_id] = _sha(path)
+    if set(evaluated) != set(robust_metrics):
+        raise ValueError("Cal avaluar tots els candidats que superen robustesa")
+    passing = {key: row for key, row in evaluated.items()
+               if row["selected_leverage"] is not None
+               and row["trades"] >= gate["minimum_trades"]
+               and row["net_expectancy_usdc"] >= gate["minimum_net_expectancy_usdc"]
+               and row["net_profit_factor"] >= gate["minimum_net_profit_factor"]
+               and row["maximum_single_trade_loss_pct"]
+                   <= gate["maximum_single_trade_loss_pct"]}
+    ranked = sorted(passing, key=lambda key: (
+        -passing[key]["net_expectancy_usdc"],
+        -passing[key]["net_profit_factor"], key))
+    selected_id = ranked[0] if ranked else None
+    artifact = {
+        "schema_version": 1, "stage": "small_account_economics",
+        "campaign_id": campaign_id, "decision": "PASS" if selected_id else "REJECT",
+        "candidate_ids": [selected_id] if selected_id else [],
+        "holdout_accessed": False, "evidence_class": "observed",
+        "candidate_selection_policy": gate["candidate_selection_policy"],
+        "evaluated_candidate_small_account_metrics": evaluated,
+        "small_account_trace_paths": paths, "small_account_trace_sha256": hashes,
+        "robustness_artifact_path": _relative(robustness_artifact_path, base),
+        "robustness_artifact_sha256": _sha(robustness_artifact_path),
+    }
+    if selected_id:
+        row = evaluated[selected_id]
+        artifact.update({
+            "capital_usdc": gate["canonical_capital_usdc"],
+            "net_expectancy_usdc": row["net_expectancy_usdc"],
+            "net_profit_factor": row["net_profit_factor"],
+            "risk_per_trade_pct": row["risk_per_trade_pct"],
+            "portfolio_margin_pct": row["portfolio_margin_pct"],
+            "reserve_pct": row["reserve_pct"],
+            "selected_leverage": row["selected_leverage"],
+            "venue_max_leverage": row["venue_max_leverage"],
+            "leverage_selection_policy": gate["leverage_selection_policy"],
+            "evaluated_leverage_grid": row["evaluated_leverage_grid"],
+            "higher_leverage_rejection_reasons": row["higher_leverage_rejection_reasons"],
+            "stop_loss_required": True,
+            "position_notional_usdc": row["position_notional_usdc"],
+            "collateral_usdc": row["collateral_usdc"],
+            "stop_distance_pct": row["stop_distance_pct"],
+            "liquidation_distance_pct": row["liquidation_distance_pct"],
+            "stop_to_liquidation_buffer_ratio": row["stop_to_liquidation_buffer_ratio"],
+            "liquidation_model": "ostium_exact",
+        })
+    artifact_path.parent.mkdir(parents=True, exist_ok=True)
+    artifact_path.write_text(json.dumps(artifact, indent=2, sort_keys=True) + "\n")
+    return artifact
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--campaign-id", required=True)
+    parser.add_argument("--trace", action="append", required=True, type=Path)
+    parser.add_argument("--robustness-artifact", required=True, type=Path)
+    parser.add_argument("--methodology", type=Path,
+                        default=Path(__file__).with_name("methodology_v4.json"))
+    parser.add_argument("--artifact-output", required=True, type=Path)
+    args = parser.parse_args()
+    artifact = build_artifact(
+        campaign_id=args.campaign_id, trace_paths=args.trace,
+        robustness_artifact_path=args.robustness_artifact,
+        methodology_path=args.methodology, artifact_path=args.artifact_output)
+    print(json.dumps({"decision": artifact["decision"],
+                      "candidate_ids": artifact["candidate_ids"]}, indent=2))
+
+
+if __name__ == "__main__":
+    main()

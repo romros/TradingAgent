@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "campaign_id": "xauusd-cftc-release-ledger-v33",
+  "as_of": "2026-08-10",
+  "instrument": "XAU/USD",
+  "source_glob": "lab/out/cftc_cot/fut_disagg_txt_*.zip",
+  "expected_years": [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026],
+  "expected_identity": {
+    "market_and_exchange_name": "GOLD - COMMODITY EXCHANGE INC.",
+    "cftc_contract_market_code": "088691",
+    "cftc_commodity_code": "088"
+  },
+  "expected_sha256": {
+    "2010": "fef4827fbaa1a2a72ad3fe7ef0ca659ee4c85bc6857fdc096f4320b8a096322b",
+    "2011": "9e47499610532150edddc1f43f8fc37cd87718d70022a6db9284f0152f815cf3",
+    "2012": "79db37521556a5aa8acc84bd3ca86aa6bf80fb4c5d4a8013dfb215fc760f1e95",
+    "2013": "c9bc647013b9b2f1c18e96fdaed95dc94af57c3a949e9fe7dd94aee06f3837bc",
+    "2014": "a29872d680f595078062130274374ecb38dc2a24d86f1531a59f52b8abca7eea",
+    "2015": "36aacb4389831a89996ba5366c91eedeaa32a55abca8265325bc52d74b06ca34",
+    "2016": "50f52674fd924d24c794b921c29342be7d35cbe0a241ac823925ccf43ca1a6d2",
+    "2017": "6fc467b989df527a4fbea4ba07185e8951f35cb72563f156488904a37c100e43",
+    "2018": "df4bf7d72e8984d6ea04087f793c9f2bf3503ea8c2149f4b01eedeef4fbe40a8",
+    "2019": "942a438bcc6f66e65aaf594a1a1fdb8c1505fe4a0feece77a1fd97270317e753",
+    "2020": "0aa03c0fd6360f56b6897b6eaff30e8dba774c826bf93cac61598312e19bd1cd",
+    "2021": "12d5d49a8963367fd3439050e3e20e6a5338757dfa083432795c5556827ff8ae",
+    "2022": "74205d75d4d7b75a9f4159ef2e6abed53eeb4771a74e5a4bf78bc0451410ab7f",
+    "2023": "9fe75dba0256819d476bb0d01f9e8e5ac6ec2c4390f609a7e3259e85796b79ce",
+    "2024": "5e40f60993120d26c116ab347beaf93702f5da60c7bdccbbee43cb3d0a91d01a",
+    "2025": "17ac2fef1b53303d01e486bbf5768a4e062308a3c34a2970871f3eab89829cbc",
+    "2026": "84bc5e876efd1c22ab1330385c8779cac25e287d4a27e346d1559888c4d02aa9"
+  },
+  "availability_policy": {
+    "lag_calendar_days": 7,
+    "time_local": "15:30:00",
+    "timezone": "America/New_York",
+    "rationale": "CFTC normally releases on Friday and says holidays may delay one or two days; seven calendar days after report_date is deliberately later than the normal or holiday schedule.",
+    "source": "https://www.cftc.gov/MarketReports/CommitmentsofTraders/index.htm"
+  },
+  "exclusions": [
+    {
+      "start": "2018-12-24", "end": "2019-03-05",
+      "reason": "2018-2019 appropriations lapse and catch-up sequence; exclude rather than infer exact actual timestamps.",
+      "source": "https://www.cftc.gov/PressRoom/PressReleases/7864-19"
+    },
+    {
+      "start": "2019-03-26", "end": "2019-03-26",
+      "reason": "CMX Gold positions were corrected after the original publication.",
+      "source": "https://www.cftc.gov/MarketReports/CommitmentsofTraders/HistoricalSpecialAnnouncements/index.htm"
+    },
+    {
+      "start": "2023-01-31", "end": "2023-03-14",
+      "reason": "ION cyber incident delayed and backlogged COT publications.",
+      "source": "https://www.cftc.gov/MarketReports/CommitmentsofTraders/HistoricalSpecialAnnouncements/index.htm"
+    },
+    {
+      "start": "2025-09-30", "end": "2025-12-16",
+      "reason": "2025 appropriations lapse interrupted publication and created a catch-up schedule.",
+      "source": "https://www.cftc.gov/MarketReports/CommitmentsofTraders/HistoricalSpecialAnnouncements/index.htm"
+    }
+  ],
+  "strategy_rule_defined": false,
+  "xau_performance_accessed": false,
+  "validation_accessed": false,
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "sqcli_authorized": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

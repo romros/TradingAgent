@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "id": "xau-cftc-release-ledger-v33-2026-08",
+  "campaign": "xauusd-cftc-release-ledger-v33",
+  "as_of": "2026-08-10",
+  "decision": "PASS_CONSERVATIVE_LEDGER",
+  "facts": {
+    "official_archives": 17,
+    "coverage": "2010-01-05 through 2026-08-04",
+    "gold_reports": 866,
+    "available_conservative": 835,
+    "excluded": 31,
+    "availability_rule": "report_date + 7 calendar days at 15:30 America/New_York",
+    "identity": "GOLD - COMMODITY EXCHANGE INC. / 088691 / 088",
+    "performance_accessed": false
+  },
+  "interpretation": "The historical look-ahead blocker is removed by a deliberately late lag and official incident exclusions. This is a data-timing pass only.",
+  "permitted_next_action": "preregister exactly one CFTC positioning-flow rule on development data without opening validation/OOS/holdout",
+  "evidence": {
+    "artifact": "lab/sq_bridge/evidence/xauusd_cftc_release_ledger_v33.json",
+    "audit": "docs/CFTC_GOLD_RELEASE_LEDGER_V33.md"
+  }
+}

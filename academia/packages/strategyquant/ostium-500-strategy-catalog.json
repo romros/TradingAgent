@@ -54,12 +54,12 @@
         "reported central-bank gold-flow timing signal"
       ],
       "dominant_failure": "price-only and event-reaction families fail stress costs or temporal transfer",
-      "open_data_gate": "CFTC Gold positioning identity/schema pass, but historical publication availability is blocked until a sourced release/exclusion ledger exists",
+      "open_data_gate": "PASS: CFTC Gold positioning identity/schema and a conservative 2010-2026 availability ledger are frozen; no strategy performance has been accessed",
       "new_driver_backlog": [],
       "context_only": [
         "reported central-bank gold flows may label slow regimes from publication onward but cannot trigger entries because standard data arrive about two months late"
       ],
-      "next_action": "build a sourced CFTC report-date to publication-date ledger before defining any official-flow strategy rule"
+      "next_action": "preregister one low-turnover CFTC positioning-flow rule and its finite train-only neighborhood before accessing XAU performance"
     }
   ],
   "portfolio_status": "BLOCKED_NO_POSITIVE_NET_COMPONENTS",
@@ -75,6 +75,7 @@
     "experiments/observations/spxusd-midday-spread-sample-2026-08-10.json",
     "experiments/observations/xau-cftc-flow-preflight-v32-2026-08.json",
     "experiments/observations/xau-official-flow-timeliness-audit-2026-08.json",
-    "experiments/observations/eurusd-macro-surprise-data-gate-2026-08.json"
+    "experiments/observations/eurusd-macro-surprise-data-gate-2026-08.json",
+    "experiments/observations/xau-cftc-release-ledger-v33-2026-08.json"
   ]
 }

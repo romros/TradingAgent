@@ -267,6 +267,33 @@ hashes del databank a aquest snapshot. El validador torna a obrir els SQX i
 recalcula l'inventari: alterar el JSON o afegir/treure un fitxer després no pot
 fer passar una execució diferent.
 
+## Traducció SQX a Python v4
+
+El perfil `generic_translatable` només habilita blocs que comparteixen
+extractor i runtime Python. Operadors amb semàntica encara no provada, com
+`Highest`, `Lowest`, `ADX`, Bollinger, desviació, `Not` o comparadors inclusius,
+queden fora i no poden consumir una campanya v4. Qualsevol indicador amb un
+`ComputedFrom` diferent del close canònic també falla tancat.
+
+Després que un únic candidat superi temporalitat, robustesa i economia del
+compte petit, la traducció i el seu rebut es creen junts:
+
+```bash
+PYTHONPATH=../.. python3 python_translation_artifact_v4.py \
+  --campaign-id CAMPAIGN_ID \
+  --candidate-id EXACT_STRATEGY_NAME \
+  --sqx /path/to/candidate.sqx \
+  --ir-output /path/to/candidate.ir.json \
+  --artifact-output /path/to/state/artifacts/07_python_translation.json
+```
+
+L'IR conserva senyals, accions, execució, hashes i complexitat, i
+`strategy_ir_runtime.py` executa els senyals sobre OHLC amb un índex temporal
+creixent. La traducció no consulta el holdout. El verificador reconstrueix l'IR
+des del SQX i exigeix coincidència exacta, però això encara no prova que els
+càlculs numèrics siguin idèntics als d'SQ: la paritat posterior de senyals,
+trades i PnL continua sent obligatòria.
+
 Proves:
 
 ```bash

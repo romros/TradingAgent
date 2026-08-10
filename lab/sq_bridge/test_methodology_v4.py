@@ -1,5 +1,6 @@
 import json
 import hashlib
+import zipfile
 from copy import deepcopy
 from pathlib import Path
 
@@ -7,6 +8,8 @@ from lab.sq_bridge.e2e_control import generate, payload
 from lab.sq_bridge.evidence_chain import append_receipt, new_chain, verify
 from lab.sq_bridge.methodology import validate
 from lab.sq_bridge.stage_artifact_contract import validate_stage_artifact
+from lab.sq_bridge.sqx_to_ir import translate
+from lab.sq_bridge.test_sqx_extract import SETTINGS, STRATEGY
 
 
 ROOT = Path(__file__).parent
@@ -117,7 +120,11 @@ def test_v4_sq_generation_requires_genetic_search_and_rule_limit():
 
 def test_v4_recomputes_sq_and_translation_file_hashes(tmp_path):
     sqx = tmp_path / "candidate.sqx"
-    sqx.write_bytes(b"real-sqx")
+    settings = SETTINGS.replace(b'>T</StrategyName>', b'>candidate</StrategyName>')
+    with zipfile.ZipFile(sqx, "w") as archive:
+        archive.writestr("strategy_Portfolio.xml", STRATEGY)
+        archive.writestr("settings.xml", settings)
+        archive.writestr("version.txt", "3")
     generation = payload("sq_generation", ["candidate"], False)
     generation.update({"campaign_id": "v4", "evidence_class": "observed",
                        "candidate_artifact_paths": {"candidate": sqx.name}})
@@ -144,7 +151,7 @@ def test_v4_recomputes_sq_and_translation_file_hashes(tmp_path):
     assert "STAGE_ARTIFACT:sq_generation:PROJECT_MANIFEST_CONTRACT" in errors
 
     ir = tmp_path / "candidate.ir.json"
-    ir.write_text("{}")
+    translate(sqx, ir)
     translation = payload("python_translation", ["candidate"], True)
     translation.update({
         "campaign_id": "v4", "evidence_class": "observed",

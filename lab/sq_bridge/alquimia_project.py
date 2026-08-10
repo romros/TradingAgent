@@ -14,16 +14,15 @@ from xml.etree import ElementTree as ET
 from methodology import validate
 
 TRANSLATABLE_BLOCKS = {
-    "Prices.Open", "Prices.High", "Prices.Low", "Prices.Close",
+    "Prices.High", "Prices.Low", "Prices.Close",
     "Indicators.talib_SMA", "Indicators.talib_EMA", "Indicators.talib_RSI",
-    "Indicators.talib_ATR", "Indicators.talib_ADX", "Indicators.talib_ROC",
-    "Indicators.talib_BBANDS", "Indicators.talib_STDDEV",
-    "Indicators.SMA", "Indicators.EMA", "Indicators.RSI", "Indicators.ATR",
-    "Indicators.ADX", "Indicators.ROC",
-    "IsLower", "IsLowerOrEqual", "IsGreater", "IsGreaterOrEqual",
-    "CrossesAbove", "CrossesBelow", "IsFalling", "IsRising", "Not",
+    "Indicators.talib_ROC", "Indicators.SMA", "Indicators.EMA",
+    "Indicators.RSI", "Indicators.ROC",
+    "IsLower", "IsGreater", "CrossesAbove", "CrossesBelow", "IsFalling", "IsRising",
+    "BarDayOfWeekIs", "BarDayOfMonth", "IsMonthFirstTradingDay",
+    "IsMonthLastTradingDay",
     "EnterAtMarket", "ExitAfterBars.ExitAfterBars", "ProfitTarget.ProfitTarget",
-    "StopLoss.StopLoss", "_ExitRule_",
+    "StopLoss.StopLoss",
 }
 
 SEARCH_PROFILES = {
@@ -170,7 +169,8 @@ def _configure_build(xml: bytes, market: dict, periods: dict, methodology: dict,
     ET.SubElement(complexity, "Chart", {"name": "Main chart",
         "minConditions": "0" if search_profile == "xau_h4_stop_channel_breakout_v2" else "1",
         "maxConditions": "1" if is_stop_channel_profile else ("2" if search_profile == "xau_h4_channel_breakout_v1" or is_sweep_profile else "3"),
-        "minExitConditions": "0", "maxExitConditions": "0" if is_channel_profile else "1",
+        "minExitConditions": "0", "maxExitConditions": "0" if (
+            is_channel_profile or search_profile == "generic_translatable") else "1",
         "minExitTypes": "1", "maxExitTypes": "2",
         "minPeriod": "10" if is_channel_profile else "5",
         "maxPeriod": "120" if is_channel_profile else "250",

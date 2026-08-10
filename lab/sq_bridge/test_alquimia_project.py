@@ -6,6 +6,13 @@ from pathlib import Path
 
 from alquimia_project import SEARCH_PROFILES, _split_dates, _validate_generation_contract
 
+generic = SEARCH_PROFILES["generic_translatable"]
+assert {"Prices.Close", "Indicators.SMA", "Indicators.EMA", "Indicators.RSI",
+        "Indicators.ROC", "EnterAtMarket", "StopLoss.StopLoss"}.issubset(generic)
+assert {"Prices.Open", "Indicators.ADX", "Indicators.ATR", "Indicators.talib_BBANDS",
+        "Indicators.talib_STDDEV", "Not", "IsLowerOrEqual", "IsGreaterOrEqual",
+        "_ExitRule_"}.isdisjoint(generic)
+
 breakout = SEARCH_PROFILES["xau_h4_channel_breakout_v1"]
 assert "Indicators.Highest" in breakout and "Indicators.Lowest" in breakout
 assert "Indicators.SMA" not in breakout and "Indicators.EMA" not in breakout

@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from lab.sq_bridge.sqx_extract import extract as extract_sqx
+from lab.sq_bridge.sqx_to_ir import canonical_ir
 
 
 def _number(value: Any) -> bool:
@@ -492,12 +493,28 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
             "IR_HASH": isinstance(artifact.get("canonical_ir_sha256"), str) and len(artifact["canonical_ir_sha256"]) == 64,
         }
         if methodology.get("schema_version", 1) >= 4:
+            verified_ir = _verified_json(
+                artifact.get("canonical_ir_path"), artifact.get("canonical_ir_sha256"),
+                receipt.get("artifact", ""))
             checks.update({
                 "SQX_FILE": _verified_files(
                     source_paths, source_hashes, ["candidate"], receipt.get("artifact", "")),
                 "IR_FILE": _verified_files(
                     ir_paths, ir_hashes, ["candidate"], receipt.get("artifact", "")),
             })
+            if provenance != "synthetic_control":
+                exact_ir = False
+                try:
+                    sqx_value = Path(artifact.get("sqx_path", ""))
+                    sqx_value = (sqx_value if sqx_value.is_absolute()
+                                 else Path(receipt.get("artifact", "")).resolve().parent / sqx_value)
+                    contract = extract_sqx(sqx_value)
+                    exact_ir = (verified_ir == canonical_ir(contract)
+                                and len(receipt.get("candidate_ids", [])) == 1
+                                and contract.get("strategy_name") == receipt["candidate_ids"][0])
+                except Exception:  # frontera de fitxers SQX/JSON no fiables
+                    exact_ir = False
+                checks["CANONICAL_IR"] = exact_ir
     elif stage == "parity":
         report = _verified_json(
             artifact.get("parity_report_path"), artifact.get("parity_report_sha256"),

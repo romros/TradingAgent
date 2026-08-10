@@ -17,6 +17,7 @@ from pathlib import Path
 sys.path.insert(0, sys.argv[3])
 from lab.sq_bridge.e2e_control import payload
 from lab.sq_bridge.test_sqx_extract import STRATEGY, SETTINGS
+from lab.sq_bridge.sqx_to_ir import translate
 
 stage = os.environ['ALQUIMIA_STAGE']
 decision = sys.argv[1] if len(sys.argv) > 1 else 'PASS'
@@ -70,7 +71,7 @@ if stage == 'python_translation':
     base = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent
     sqx_path = base / 'runner-sqx-001.sqx'
     ir_path = base / 'runner-sqx-001.ir.json'
-    ir_path.write_text('{"runner_test":true}')
+    translate(sqx_path, ir_path)
     artifact['sqx_path'] = sqx_path.name
     artifact['sqx_sha256'] = hashlib.sha256(sqx_path.read_bytes()).hexdigest()
     artifact['canonical_ir_path'] = ir_path.name

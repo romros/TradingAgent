@@ -84,5 +84,23 @@ class SqxExtractTest(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "AND sense condicions"):
                 extract(self._write_sqx(tmp, strategy))
 
+    def test_rejects_indicator_semantics_not_implemented_in_python(self):
+        strategy = STRATEGY.replace(
+            b'<Item key="Boolean"><Param key="#Value#">true</Param></Item>',
+            b'<Item key="Highest"><Param key="#ComputedFrom#">4</Param></Item>', 1)
+        with tempfile.TemporaryDirectory() as tmp:
+            result = extract(self._write_sqx(tmp, strategy))
+        self.assertFalse(result["supported"])
+        self.assertIn("Highest", result["unsupported_nodes_or_formulas"])
+
+    def test_rejects_roc_from_unknown_price_source(self):
+        strategy = STRATEGY.replace(
+            b'<Item key="Boolean"><Param key="#Value#">true</Param></Item>',
+            b'<Item key="IsRising"><Block><Item key="ROC"><Param key="#ComputedFrom#">6</Param></Item></Block></Item>', 1)
+        with tempfile.TemporaryDirectory() as tmp:
+            result = extract(self._write_sqx(tmp, strategy))
+        self.assertFalse(result["supported"])
+        self.assertIn("NON_CLOSE_COMPUTED_FROM", result["unsupported_nodes_or_formulas"])
+
 
 if __name__ == "__main__": unittest.main()

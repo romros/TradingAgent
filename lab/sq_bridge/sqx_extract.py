@@ -12,8 +12,8 @@ from xml.etree import ElementTree as ET
 SUPPORTED_SIGNAL_NODES = {
     "AND", "IsRising", "IsFalling", "CrossesAbove", "CrossesBelow",
     "IsGreater", "IsLower", "Close", "Low", "High", "SMA", "EMA", "RSI",
-    "ROC", "Highest", "Lowest", "BarDayOfMonth", "BarDayOfWeekIs", "IsMonthFirstTradingDay",
-    "IsMonthLastTradingDay", "ADX", "Number", "Boolean",
+    "ROC", "BarDayOfMonth", "BarDayOfWeekIs", "IsMonthFirstTradingDay",
+    "IsMonthLastTradingDay", "Number", "Boolean",
 }
 SUPPORTED_ENTRY = {"EnterAtMarket"}
 SUPPORTED_FORMULAS = {
@@ -122,7 +122,7 @@ def extract(path: Path) -> dict:
             raise ValueError(f"{rule_name} referencia un signal inexistent: {signal_id}")
         signal = signals[signal_id]
         unsupported.update(_ops(signal) - SUPPORTED_SIGNAL_NODES)
-        if any(node["op"] in {"SMA", "EMA", "RSI"}
+        if any(node["op"] in {"SMA", "EMA", "RSI", "ROC"}
                and node.get("params", {}).get("#ComputedFrom#", 0) != 0
                for node in _nodes(signal)):
             unsupported.add("NON_CLOSE_COMPUTED_FROM")

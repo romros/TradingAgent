@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "id": "xau-weekly-real-yield-dollar-v30",
+  "status": "PREREGISTERED",
+  "objective": "Cheaply falsify whether a macro regime absent from prior price-only XAU families has enough gross weekly edge to justify implementation or SQ work.",
+  "asset": "XAU/USD",
+  "causal_premise": "Falling US real yields and a weakening broad dollar reduce the opportunity and currency cost of gold; simultaneous rises imply the opposite regime.",
+  "data": {
+    "gold": "LBMA PM USD price; temporary raw download, aggregate evidence only",
+    "real_yield": "FRED DFII10",
+    "dollar": "FRED DTWEXBGS",
+    "train": ["2006-01-01", "2018-12-31"],
+    "validation": ["2019-01-01", "2023-12-31"],
+    "modern_challenge": ["2024-01-01", "2025-07-31"],
+    "sealed_holdout": ["2025-08-01", "2026-07-31"]
+  },
+  "frozen_rule": {
+    "frequency": "weekly Friday using last observation known within the week",
+    "lookback_weeks": 13,
+    "long": "13-week change in DFII10 < 0 and 13-week return in DTWEXBGS < 0",
+    "short": "13-week change in DFII10 > 0 and 13-week return in DTWEXBGS > 0",
+    "flat": "otherwise",
+    "publication_lag": "macro observations from week t may only affect an entry at the close of week t+1",
+    "execution_proxy": "gold return from week t+1 close to t+2 close; deliberately later than the known H.10 publication buffer",
+    "stress_cost_bps_per_trade": 35
+  },
+  "train_gate": {
+    "minimum_trades": 80,
+    "minimum_profit_factor_after_stress_cost": 1.2,
+    "minimum_positive_year_share": 0.6,
+    "net_return_after_stress_cost_must_be_positive": true
+  },
+  "decision_order": [
+    "Run train only",
+    "Reject permanently if train gate fails",
+    "Open validation only if train passes without changing the rule",
+    "Use modern challenge only after validation passes",
+    "Never calculate a result on sealed holdout dates in this screen"
+  ],
+  "stop_condition": "No threshold, lookback, direction, cost or split tuning after observing results.",
+  "sqcli_required": false
+}

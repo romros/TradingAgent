@@ -48,14 +48,14 @@
         "H4 Bollinger long",
         "H4 ATR stop-channel breakout",
         "D1 volatility expansion",
-        "scheduled FOMC reaction"
+        "scheduled FOMC reaction",
+        "weekly real-yield and broad-dollar direction regime"
       ],
       "dominant_failure": "price-only and event-reaction families fail stress costs or temporal transfer",
       "new_driver_backlog": [
-        "low-frequency real-yield and dollar regime",
         "official-flow regime used ex ante rather than as post-hoc explanation"
       ],
-      "next_action": "preregister and cheap-screen a real-yield/dollar regime with a distinct causal input"
+      "next_action": "audit whether official-flow data is timely and tradable before defining any strategy rule"
     }
   ],
   "portfolio_status": "BLOCKED_NO_POSITIVE_NET_COMPONENTS",
@@ -65,6 +65,7 @@
     "experiments/failure-memory.json",
     "experiments/observations/xau-native-family-ledger-2026-08.json",
     "experiments/observations/ostium-portfolio-user-scope-3asset-2026-08.json",
-    "experiments/observations/spxusd-open-session-spread-gate-2026-08.json"
+    "experiments/observations/spxusd-open-session-spread-gate-2026-08.json",
+    "experiments/observations/xau-weekly-real-yield-dollar-v30-2026-08.json"
   ]
 }

@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "id": "xau-weekly-real-yield-dollar-v30-2026-08",
+  "campaign": "xau-weekly-real-yield-dollar-v30",
+  "question": "Does the direction of US 10-year real yields plus the broad dollar create a sufficiently stable weekly XAU edge to justify SQ work?",
+  "sources": [
+    {
+      "series": "LBMA Gold Price PM USD",
+      "url": "https://prices.lbma.org.uk/json/gold_pm.json",
+      "temporary_raw_sha256": "745e14e82b2973bbcbbeb6db3c5109aca7629af5eeb287cd7f3edfe54ab8ad2"
+    },
+    {
+      "series": "FRED DFII10",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DFII10",
+      "temporary_raw_sha256": "b1fa53e40ec476b26a1f05de5bb22f8caa592779b5e2d8103b29b6870057c7c3"
+    },
+    {
+      "series": "FRED DTWEXBGS",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DTWEXBGS",
+      "temporary_raw_sha256": "88db7d787e99129e671015fcc581f3507d0a2c527804c285ab555c2b83cd8054"
+    }
+  ],
+  "timing": {
+    "factor_observation": "week t",
+    "publication_buffer": "one full week",
+    "entry_proxy": "week t+1 close",
+    "exit_proxy": "week t+2 close",
+    "lookahead": false
+  },
+  "train": ["2006-01-01", "2018-12-31"],
+  "stress_cost_bps": 35,
+  "result": {
+    "trades": 413,
+    "long_trades": 220,
+    "short_trades": 193,
+    "gross_return_sum_pct": -4.911513,
+    "net_return_sum_pct": -149.461513,
+    "mean_net_bps": -36.189228,
+    "profit_factor_after_cost": 0.686789,
+    "positive_years": 4,
+    "years": 13,
+    "positive_year_share": 0.307692
+  },
+  "decision": "REJECT_BEFORE_SQ",
+  "interpretation": "The intuitive macro relationship is explanatory context, not an executable weekly rule. It loses gross before costs once publication timing is respected and is negative in nine of thirteen train years.",
+  "do_not_repeat": "Do not tune lookback, thresholds, direction or publication lag to rescue this family; do not open validation, modern challenge or sealed Ostium holdout.",
+  "sealed_ostium_holdout_accessed": false,
+  "raw_market_data_versioned": false,
+  "sqcli_used": false,
+  "next": "Audit official-flow data feasibility before defining another XAU rule."
+}

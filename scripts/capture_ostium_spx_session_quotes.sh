@@ -5,7 +5,6 @@ ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 IMAGE=${OSTIUM_READONLY_IMAGE:-tradingagent-ostium-readonly:0.7.0-viem2.55.11}
 DATA_DIR=${OSTIUM_QUOTE_DIR:-$ROOT/data/ostium_execution_quotes}
 RAW="$DATA_DIR/spxusd_quotes.jsonl"
-LOCAL_DAY=$(TZ=America/New_York date +%F)
 LOCAL_HM=$(TZ=America/New_York date +%H%M)
 
 case "$LOCAL_HM" in
@@ -16,11 +15,6 @@ case "$LOCAL_HM" in
 esac
 
 mkdir -p "$DATA_DIR"
-MARKER="$DATA_DIR/${LOCAL_DAY}_${WINDOW}.done"
-if [ -e "$MARKER" ]; then
-  exit 0
-fi
-
 if ! docker image inspect "$IMAGE" >/dev/null 2>&1; then
   docker build --tag "$IMAGE" "$ROOT/lab/ostium_readonly"
 fi
@@ -31,8 +25,7 @@ docker run --rm --network bridge \
   --mount "type=bind,src=$ROOT/academia/tools/collect_ostium_execution_quotes.mjs,dst=/app/collect_quotes.mjs,readonly" \
   --mount "type=bind,src=$DATA_DIR,dst=/quotes" \
   "$IMAGE" /app/collect_quotes.mjs \
-  "--output=/quotes/spxusd_quotes.jsonl" --count=20 --interval-ms=2000 "--window=$WINDOW"
+  "--output=/quotes/spxusd_quotes.jsonl" --count=2 --interval-ms=2000 "--window=$WINDOW"
 
 python3 "$ROOT/academia/tools/summarize_execution_quotes.py" "$RAW" \
   --output "$DATA_DIR/summary_latest.json"
-touch "$MARKER"

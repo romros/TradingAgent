@@ -2,7 +2,12 @@ from lab.sq_bridge.spxusd_small_account_cost_gate import derive
 
 
 def measured_summary():
-    return {"decision": "MEASURED", "frozen_coverage_gate": {"pass": True},
+    return {"schema_version": 2, "decision": "MEASURED",
+            "statistics_scope": "qualifying_complete_days_only",
+            "frozen_coverage_gate": {
+                "pass": True, "minimum_distinct_open_days": 3,
+                "minimum_samples_per_window_per_day": 20,
+                "minimum_span_minutes_per_window_per_day": 30},
             "qualifying_complete_days": ["a", "b", "c"],
             "roundtrip_proxy_bps_by_notional": {
                 str(notional): {"median": 3, "p95": 5, "maximum": 7}
@@ -51,3 +56,14 @@ def test_invalid_percentiles_fail_closed():
         assert "p95" in str(exc)
     else:
         raise AssertionError("an invalid percentile ordering must not freeze costs")
+
+
+def test_old_summary_without_temporal_coverage_contract_fails_closed():
+    summary = measured_summary()
+    summary["schema_version"] = 1
+    try:
+        derive(summary)
+    except ValueError as exc:
+        assert "version 2" in str(exc)
+    else:
+        raise AssertionError("an old count-only summary must not freeze costs")

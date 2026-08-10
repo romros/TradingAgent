@@ -10,6 +10,9 @@ from pathlib import Path
 from typing import Any
 
 TARGET_NOTIONALS_USDC = (60, 100, 200, 400, 500)
+MINIMUM_DAYS = 3
+MINIMUM_SAMPLES_PER_WINDOW = 20
+MINIMUM_WINDOW_SPAN_MINUTES = 30.0
 
 
 def _finite_nonnegative(value: Any, name: str) -> float:
@@ -30,6 +33,25 @@ def derive(summary: dict[str, Any], *, oracle_locked_usdc: float = 0.10) -> dict
         return {"schema_version": 1, "decision": "BLOCK_INSUFFICIENT_EXECUTION_COVERAGE",
                 "costs_frozen": False, "source_decision": summary.get("decision"),
                 "qualifying_complete_days": summary.get("qualifying_complete_days", [])}
+    if summary.get("schema_version") != 2:
+        raise ValueError("measured summary must use execution-summary schema version 2")
+    contract = {
+        "minimum_distinct_open_days": MINIMUM_DAYS,
+        "minimum_samples_per_window_per_day": MINIMUM_SAMPLES_PER_WINDOW,
+        "minimum_span_minutes_per_window_per_day": MINIMUM_WINDOW_SPAN_MINUTES,
+    }
+    for key, minimum in contract.items():
+        try:
+            actual = float(coverage.get(key))
+        except (TypeError, ValueError) as exc:
+            raise ValueError(f"coverage contract is missing {key}") from exc
+        if actual < minimum:
+            raise ValueError(f"coverage contract {key} is weaker than {minimum}")
+    qualifying_days = summary.get("qualifying_complete_days") or []
+    if len(qualifying_days) < MINIMUM_DAYS:
+        raise ValueError("measured summary has fewer than three qualifying complete days")
+    if summary.get("statistics_scope") != "qualifying_complete_days_only":
+        raise ValueError("measured statistics must exclude partial days")
     raw = summary.get("roundtrip_proxy_bps_by_notional") or {}
     scenarios = {}
     missing = [str(notional) for notional in TARGET_NOTIONALS_USDC
@@ -82,7 +104,7 @@ def derive(summary: dict[str, Any], *, oracle_locked_usdc: float = 0.10) -> dict
         "credit_policy": "negative current rollover is capped at zero; no historical credit inferred"
     }
     return {"schema_version": 1, "decision": "PASS_COSTS_FROZEN",
-            "costs_frozen": True, "qualifying_complete_days": summary["qualifying_complete_days"],
+            "costs_frozen": True, "qualifying_complete_days": qualifying_days,
             "scenario_definition": {
                 "base": "median measured roundtrip proxy; successful full-close oracle refund",
                 "conservative": "p95 measured roundtrip proxy; successful full-close oracle refund",

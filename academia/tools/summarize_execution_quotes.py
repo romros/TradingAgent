@@ -40,7 +40,10 @@ def percentile(values: list[float], probability: float) -> float:
     return ordered[lower] + (ordered[upper] - ordered[lower]) * (position - lower)
 
 
-def summarize(rows: list[dict], *, min_days: int = 3, min_per_window: int = 20) -> dict:
+def summarize(rows: list[dict], *, min_days: int = 3, min_per_window: int = 20,
+              min_window_span_minutes: float = 30.0) -> dict:
+    if min_days <= 0 or min_per_window <= 0 or min_window_span_minutes < 0:
+        raise ValueError("coverage thresholds must be positive (span may be zero)")
     accepted: list[dict] = []
     rejected = Counter()
     for row in rows:
@@ -81,6 +84,7 @@ def summarize(rows: list[dict], *, min_days: int = 3, min_per_window: int = 20) 
             continue
         spread_bps = (ask - bid) / mid * 10_000
         accepted.append({
+            "captured": captured,
             "day": captured.astimezone(NEW_YORK).date().isoformat(),
             "window": window,
             "spread_bps": spread_bps,
@@ -96,16 +100,29 @@ def summarize(rows: list[dict], *, min_days: int = 3, min_per_window: int = 20) 
             },
         })
 
-    spreads = [row["spread_bps"] for row in accepted]
     window_counts = Counter(row["window"] for row in accepted)
     cell_counts = Counter((row["day"], row["window"]) for row in accepted)
     days = sorted({row["day"] for row in accepted})
+    cell_spans = {}
+    for day in days:
+        for window in REQUIRED_WINDOWS:
+            timestamps = [row["captured"] for row in accepted
+                          if row["day"] == day and row["window"] == window]
+            cell_spans[(day, window)] = ((max(timestamps) - min(timestamps)).total_seconds() / 60
+                                         if timestamps else 0.0)
     qualifying_days = [day for day in days if all(
-        cell_counts[(day, window)] >= min_per_window for window in REQUIRED_WINDOWS)]
+        cell_counts[(day, window)] >= min_per_window
+        and cell_spans[(day, window)] >= min_window_span_minutes
+        for window in REQUIRED_WINDOWS)]
     coverage_pass = len(qualifying_days) >= min_days
+    # Once coverage passes, a later partial day cannot alter frozen estimates.
+    # Before that, accepted rows remain explicitly provisional diagnostics.
+    statistical_rows = ([row for row in accepted if row["day"] in qualifying_days]
+                        if coverage_pass else accepted)
+    spreads = [row["spread_bps"] for row in statistical_rows]
     by_window = {}
     for window in sorted(REQUIRED_WINDOWS):
-        values = [row["spread_bps"] for row in accepted if row["window"] == window]
+        values = [row["spread_bps"] for row in statistical_rows if row["window"] == window]
         by_window[window] = None if not values else {
             "median": median(values), "p90": percentile(values, 0.90),
             "p95": percentile(values, 0.95), "maximum": max(values)}
@@ -115,20 +132,23 @@ def summarize(rows: list[dict], *, min_days: int = 3, min_per_window: int = 20) 
         label = str(int(notional))
         slippage_summary[label] = {}
         for side in ("long", "short"):
-            values = [row["slippage_bps"][side][notional] for row in accepted]
+            values = [row["slippage_bps"][side][notional] for row in statistical_rows]
             slippage_summary[label][side] = None if not values else {
                 "median": median(values), "p95": percentile(values, 0.95), "maximum": max(values)}
-        values = [row["roundtrip_proxy_bps"][notional] for row in accepted]
+        values = [row["roundtrip_proxy_bps"][notional] for row in statistical_rows]
         roundtrip_summary[label] = None if not values else {
             "median": median(values), "p95": percentile(values, 0.95), "maximum": max(values)}
     rollover_summary = {}
     for side in ("long", "short"):
-        values = [row[f"rollover_{side}_pct_per_8h"] for row in accepted]
+        values = [row[f"rollover_{side}_pct_per_8h"] for row in statistical_rows]
         rollover_summary[side] = None if not values else {
             "median": median(values), "minimum": min(values), "maximum": max(values)}
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "accepted_samples": len(accepted),
+        "statistical_samples": len(statistical_rows),
+        "statistics_scope": ("qualifying_complete_days_only" if coverage_pass
+                             else "all_accepted_provisional"),
         "rejected_samples": dict(sorted(rejected.items())),
         "distinct_open_days": len(days),
         "samples_by_window": {window: window_counts[window] for window in sorted(REQUIRED_WINDOWS)},
@@ -136,10 +156,15 @@ def summarize(rows: list[dict], *, min_days: int = 3, min_per_window: int = 20) 
             day: {window: cell_counts[(day, window)] for window in sorted(REQUIRED_WINDOWS)}
             for day in days
         },
+        "span_minutes_by_day_and_window": {
+            day: {window: cell_spans[(day, window)] for window in sorted(REQUIRED_WINDOWS)}
+            for day in days
+        },
         "qualifying_complete_days": qualifying_days,
         "frozen_coverage_gate": {
             "minimum_distinct_open_days": min_days,
             "minimum_samples_per_window_per_day": min_per_window,
+            "minimum_span_minutes_per_window_per_day": min_window_span_minutes,
             "pass": coverage_pass,
         },
         "spread_bps": None if not spreads else {
@@ -163,9 +188,11 @@ def main() -> None:
     parser.add_argument("--output", type=Path)
     parser.add_argument("--min-days", type=int, default=3)
     parser.add_argument("--min-per-window", type=int, default=20)
+    parser.add_argument("--min-window-span-minutes", type=float, default=30.0)
     args = parser.parse_args()
     rows = [json.loads(line) for line in args.input.read_text().splitlines() if line.strip()]
-    result = summarize(rows, min_days=args.min_days, min_per_window=args.min_per_window)
+    result = summarize(rows, min_days=args.min_days, min_per_window=args.min_per_window,
+                       min_window_span_minutes=args.min_window_span_minutes)
     rendered = json.dumps(result, indent=2, ensure_ascii=False) + "\n"
     if args.output:
         args.output.write_text(rendered)

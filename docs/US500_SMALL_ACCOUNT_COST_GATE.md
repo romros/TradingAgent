@@ -4,7 +4,8 @@
 
 `BLOCK_INSUFFICIENT_EXECUTION_COVERAGE`. El transformador està preregistrat,
 però no pot congelar cap cost fins que el resum d'Ostium contingui 20 quotes a
-open, midday i close en cadascun de tres dies complets de Nova York.
+open, midday i close, distribuïdes durant almenys 30 minuts, en cadascun de tres
+dies complets de Nova York.
 
 ## Entrada i sortida
 
@@ -13,6 +14,10 @@ read-only de l'SDK oficial. `lab/sq_bridge/spxusd_small_account_cost_gate.py`
 consumeix aquest resum i falla tancat si no té cobertura o si falta qualsevol
 dels nocionals 60, 100, 200, 400 i 500 USDC. La sortida no autoritza mai paper
 ni live; només congela inputs reproduïbles per al backtest posterior.
+
+El cron captura dues quotes cada cinc minuts. Això evita confondre vint lectures
+en quaranta segons amb vint observacions de la finestra. Quan el gate ja passa,
+els dies parcials posteriors queden fora de les estadístiques congelades.
 
 Per cada nocional, el proxy round-trip mesurat és:
 

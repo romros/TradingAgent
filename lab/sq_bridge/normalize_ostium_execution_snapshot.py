@@ -20,14 +20,19 @@ def _number(value: Any, field: str) -> float:
     return result
 
 
-def normalize(payload: dict[str, Any], *, source_sha256: str | None = None) -> dict[str, Any]:
+def normalize(payload: dict[str, Any], *, source_sha256: str | None = None,
+              expected_pair: tuple[str, str] | None = None) -> dict[str, Any]:
     source = payload.get("source") or {}
     if source.get("mode") != "read-only":
         raise ValueError("snapshot source must be read-only")
     pair = payload.get("pair") or {}
     pair_from = str(pair.get("pairFrom", "")).upper()
     pair_to = str(pair.get("pairTo", "")).upper()
-    if (pair_from, pair_to) not in {("US500", "USD"), ("SPX", "USD")}:
+    if expected_pair:
+        normalized_expected = tuple(value.upper() for value in expected_pair)
+        if (pair_from, pair_to) != normalized_expected:
+            raise ValueError(f"snapshot is not {normalized_expected[0]}/{normalized_expected[1]}")
+    elif (pair_from, pair_to) not in {("US500", "USD"), ("SPX", "USD")}:
         raise ValueError("snapshot is not SPX/USD or US500/USD")
 
     mid = _number(pair.get("midPx"), "midPx")
@@ -109,9 +114,15 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("raw", type=Path)
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--pair-from")
+    parser.add_argument("--pair-to")
     args = parser.parse_args()
     raw_bytes = args.raw.read_bytes()
-    result = normalize(json.loads(raw_bytes), source_sha256=hashlib.sha256(raw_bytes).hexdigest())
+    if bool(args.pair_from) != bool(args.pair_to):
+        parser.error("--pair-from and --pair-to must be supplied together")
+    expected = (args.pair_from, args.pair_to) if args.pair_from else None
+    result = normalize(json.loads(raw_bytes), source_sha256=hashlib.sha256(raw_bytes).hexdigest(),
+                       expected_pair=expected)
     text = json.dumps(result, indent=2, sort_keys=True) + "\n"
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)

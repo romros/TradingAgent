@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "source": "/mnt/volume-SQ/user/exports/alquimia_usdjpy_source/USDJPY_M1_dukas-M1-No Session.csv",
+  "source_sha256": "7efdc6b3ff3b389043944e1a31dc5aad3c709693bf09516bc68f798a88b31dd2",
+  "output": "lab/out/market_sources/usdjpy_sq_m1_utc_2007_2026.parquet",
+  "output_sha256": "061a9dd69136f7e77d9239ec30f957cbfe55f9d8400c146c4fbeee721a387593",
+  "source_timezone": "Europe/Helsinki",
+  "broker_utc_offset_hours": null,
+  "normalization": "Europe/Helsinki EET/EEST local => UTC using IANA timezone rules",
+  "rows": 7170956,
+  "first_ts_utc": "2006-12-31T22:00:00+00:00",
+  "last_ts_utc": "2026-03-13T21:59:00+00:00",
+  "duplicate_timestamps": 0,
+  "invalid_ohlc": 0,
+  "gaps_over_one_minute": 14010,
+  "max_gap_minutes": 4321.0,
+  "created_at": "2026-08-10T15:12:15.291448+00:00"
+}

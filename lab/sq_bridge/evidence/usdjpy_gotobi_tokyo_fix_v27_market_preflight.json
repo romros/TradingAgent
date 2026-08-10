@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "stage": "market_preflight",
+  "campaign_id": "usdjpy-gotobi-tokyo-fix-v27",
+  "decision": "PASS",
+  "candidate_ids": [],
+  "holdout_accessed": false,
+  "evidence_class": "observed",
+  "market_executable": true,
+  "data_gate": "PASS",
+  "ostium_pair_id": "4",
+  "ostium_pair": "USD/JPY",
+  "timeframe": "M15",
+  "source_sha256": "061a9dd69136f7e77d9239ec30f957cbfe55f9d8400c146c4fbeee721a387593",
+  "venue_overlap_evidence": "lab/sq_bridge/evidence/usdjpy_sq_ostium_parity_2026_02_symmetric_clean_v2.json",
+  "m15_aligned_complete_bars": 656,
+  "m15_union_coverage_ratio": 0.9835082458770614,
+  "m15_return_correlation": 0.9961046252099206,
+  "m15_direction_match_ratio": 0.984472049689441,
+  "m15_close_p95_bps": 0.9171810799757374,
+  "live_authorized": false
+}

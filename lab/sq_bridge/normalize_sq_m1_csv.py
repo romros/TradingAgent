@@ -20,20 +20,24 @@ def normalize(source: Path, output: Path, receipt: Path, *, source_timezone: str
         raise ValueError("Specify exactly one source timezone or fixed UTC offset")
     parsed = "strptime(column0 || ' ' || column1, '%Y.%m.%d %H:%M')"
     if source_timezone:
-        if source_timezone not in {"America/New_York", "America/New_York+07"}:
-            raise ValueError("Supported zones: America/New_York and America/New_York+07")
-        local_ny = parsed if source_timezone == "America/New_York" else f"({parsed} - INTERVAL '7 hours')"
-        year = f"year({local_ny})"
-        march_anchor = f"make_date({year}, 3, 8)"
-        november_anchor = f"make_date({year}, 11, 1)"
-        dst_start = f"({march_anchor} + ((7-dayofweek({march_anchor}))%7)*INTERVAL '1 day' + INTERVAL '2 hours')"
-        dst_end = f"({november_anchor} + ((7-dayofweek({november_anchor}))%7)*INTERVAL '1 day' + INTERVAL '2 hours')"
-        timestamp_sql = (f"CASE WHEN {year} < 2007 THEN error('US DST normalization requires year >= 2007') "
-                         f"WHEN {local_ny} >= {dst_start} AND {local_ny} < {dst_end} "
-                         f"THEN {local_ny} + INTERVAL '4 hours' ELSE {local_ny} + INTERVAL '5 hours' END")
-        normalization = ("America/New_York local => UTC using US DST rules effective 2007"
-                         if source_timezone == "America/New_York" else
-                         "broker clock America/New_York+07 => New York local => UTC using US DST rules")
+        if source_timezone == "Europe/Helsinki":
+            timestamp_sql = f"timezone('Europe/Helsinki', {parsed})"
+            normalization = "Europe/Helsinki EET/EEST local => UTC using IANA timezone rules"
+        else:
+            if source_timezone not in {"America/New_York", "America/New_York+07"}:
+                raise ValueError("Supported zones: America/New_York, America/New_York+07 and Europe/Helsinki")
+            local_ny = parsed if source_timezone == "America/New_York" else f"({parsed} - INTERVAL '7 hours')"
+            year = f"year({local_ny})"
+            march_anchor = f"make_date({year}, 3, 8)"
+            november_anchor = f"make_date({year}, 11, 1)"
+            dst_start = f"({march_anchor} + ((7-dayofweek({march_anchor}))%7)*INTERVAL '1 day' + INTERVAL '2 hours')"
+            dst_end = f"({november_anchor} + ((7-dayofweek({november_anchor}))%7)*INTERVAL '1 day' + INTERVAL '2 hours')"
+            timestamp_sql = (f"CASE WHEN {year} < 2007 THEN error('US DST normalization requires year >= 2007') "
+                             f"WHEN {local_ny} >= {dst_start} AND {local_ny} < {dst_end} "
+                             f"THEN {local_ny} + INTERVAL '4 hours' ELSE {local_ny} + INTERVAL '5 hours' END")
+            normalization = ("America/New_York local => UTC using US DST rules effective 2007"
+                             if source_timezone == "America/New_York" else
+                             "broker clock America/New_York+07 => New York local => UTC using US DST rules")
     else:
         offset = -int(broker_utc_offset_hours)
         timestamp_sql = f"{parsed} + INTERVAL '{offset} hours'"

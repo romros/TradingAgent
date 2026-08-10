@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-08-10T15:13:28.056623+00:00",
+  "symbol": "USDJPY",
+  "policy": {
+    "detector": "NY_ROLL_WINDOW_CLOSE_JUMP",
+    "window_new_york": "16:55-17:35",
+    "threshold_bps_strictly_greater_than": 8.0,
+    "action": "EXCLUDE_INTERSECTING_UTC_BUCKET_NO_PRICE_CORRECTION",
+    "quarantine_bucket_minutes": 60,
+    "reference_market_used_for_detection": false
+  },
+  "input": {
+    "path": "/mnt/volume-SQ/dev/BrokerageService/datafiles/realtime_datalayer/candles/USDJPY/America_New_York/2026/02.csv",
+    "sha256": "dc53ca167a1f6e466583b57e45502a1d3ebe1ccc000733d6d9a5128973688ba5",
+    "rows": 10056
+  },
+  "output": {
+    "path": "lab/out/market_sources/usdjpy_ostium_2026_02_h1_bucket_quarantine.parquet",
+    "sha256": "e4d29a5efe86ce79066c9c089cab6c1eb9a3f7aa52698a3f6d3c579ce798f5ae",
+    "rows": 9996
+  },
+  "quarantined_local_dates": [
+    "2026-02-27"
+  ],
+  "quarantined_utc_bucket_starts": [
+    1772226000
+  ],
+  "quarantined_rows": 60,
+  "receipts": [
+    {
+      "reason": "NY_ROLL_WINDOW_CLOSE_JUMP",
+      "local_date": "2026-02-27",
+      "timestamp_utc": "2026-02-27T21:59:00+00:00",
+      "timestamp_new_york": "2026-02-27T16:59:00-05:00",
+      "jump_bps": 216.50103479871063,
+      "threshold_bps": 8.0
+    }
+  ],
+  "scope": "DATA_QUALITY_PILOT_NOT_RESEARCH_PAPER_OR_LIVE_AUTHORIZATION"
+}

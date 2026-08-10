@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-08-10T15:16:56.933Z",
+  "source": {
+    "package": "@ostium/builder-sdk",
+    "version": "0.7.0",
+    "mode": "read-only"
+  },
+  "requestedNotionalsUsd": [
+    "10",
+    "20",
+    "50",
+    "100",
+    "200",
+    "500",
+    "1000"
+  ],
+  "requestedPairSymbols": [
+    "USD/JPY"
+  ],
+  "pair": {
+    "pairId": "4",
+    "pairTo": "JPY",
+    "pairFrom": "USD",
+    "minSz": "0.03146078727474076",
+    "maxBSz": "148893.46873872395",
+    "maxSSz": "146993.60797787894",
+    "minNtl": "5.0",
+    "maxLeverage": 100,
+    "overnightMaxLeverage": 0,
+    "rolloverFeePerBlock": "-2.27337251e-10",
+    "openInterest": "2975258.671583737",
+    "buyOpenInterest": "1336658.8002920793",
+    "sellOpenInterest": "1638599.8712916574",
+    "maxOpenInterest": "25000000",
+    "category": "forex",
+    "rolloverRate": {
+      "long": "0.0012480451315200001",
+      "short": "-0.0039898051315200005"
+    },
+    "midPx": "158.928",
+    "askPx": "158.93621459170373",
+    "bidPx": "158.91928540829625",
+    "isMarketOpen": true,
+    "isDayTradingClosed": false,
+    "secondsToToggleIsDayTradingClosed": -1,
+    "schedule": {
+      "id": 7,
+      "timezone": "America/New_York",
+      "openingHours": [
+        "Mo-Th 00:00-24:00",
+        "Fr 00:00-16:59",
+        "Su 17:00-24:00"
+      ]
+    },
+    "openFee": 2,
+    "closeFee": 0
+  },
+  "simulatedSlippage": {
+    "long": [
+      {
+        "ntl": "10",
+        "slippage": "0.0054833867369444"
+      },
+      {
+        "ntl": "20",
+        "slippage": "0.0054833867369444"
+      },
+      {
+        "ntl": "50",
+        "slippage": "0.0054833867369444"
+      },
+      {
+        "ntl": "100",
+        "slippage": "0.0054833867369444"
+      },
+      {
+        "ntl": "200",
+        "slippage": "0.0054833867369444"
+      },
+      {
+        "ntl": "500",
+        "slippage": "0.0054833867369444"
+      },
+      {
+        "ntl": "1000",
+        "slippage": "0.0054833867369444"
+      }
+    ],
+    "short": [
+      {
+        "ntl": "10",
+        "slippage": "0.0054833867369444"
+      },
+      {
+        "ntl": "20",
+        "slippage": "0.0054833867369444"
+      },
+      {
+        "ntl": "50",
+        "slippage": "0.0054833867369444"
+      },
+      {
+        "ntl": "100",
+        "slippage": "0.0054833867369444"
+      },
+      {
+        "ntl": "200",
+        "slippage": "0.0054833867369444"
+      },
+      {
+        "ntl": "500",
+        "slippage": "0.0054833867369444"
+      },
+      {
+        "ntl": "1000",
+        "slippage": "0.0054833867369444"
+      }
+    ]
+  }
+}

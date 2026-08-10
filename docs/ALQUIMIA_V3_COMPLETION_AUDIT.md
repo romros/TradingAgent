@@ -38,6 +38,10 @@ antigues més enllà d'exemples tècnics.
   preflight M15 i queda `REJECT` terminal a discovery amb 0/12 punts train.
   Prova el camí real de descart abans d'SQCLI; validació, OOS i holdout romanen
   intactes. No prova encara el camí real de promoció.
+- Segona cadena real v2: USDJPY Gotobi v27 incorpora export SQCLI nou, zona
+  EET/EEST demostrada, paritat M15 Ostium, snapshot econòmic actual i rebuig
+  train-only 0/8. Confirma que els gates de mapping i costos també funcionen en
+  un mercat nou, però encara no prova un `discovery PASS` real.
 - Regressió completa del pont: 211 proves superades. També s'ha alineat una
   prova antiga amb el fee cripto conservador canònic de 10 bps del registre.
 - XAU H4 R2 importat exclusivament com a control negatiu: cadena íntegra i

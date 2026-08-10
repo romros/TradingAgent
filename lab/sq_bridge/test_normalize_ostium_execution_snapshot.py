@@ -44,6 +44,14 @@ class NormalizeOstiumSnapshotTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "ordering"):
             normalize(payload)
 
+    def test_normalizes_an_explicit_non_spx_pair_only_when_expected(self):
+        payload = self.fixture()
+        payload["pair"].update({"pairId": "2", "pairFrom": "USD", "pairTo": "JPY"})
+        result = normalize(payload, expected_pair=("USD", "JPY"))
+        self.assertEqual(result["instrument"]["pair_from"], "USD")
+        with self.assertRaisesRegex(ValueError, "SPX/USD"):
+            normalize(payload)
+
 
 if __name__ == "__main__":
     unittest.main()

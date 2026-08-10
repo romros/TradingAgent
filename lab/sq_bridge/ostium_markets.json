@@ -73,6 +73,22 @@
       "live_eligible": false,
       "warning": "Cal recertificar paritat BS abans de paper/live."
     },
+    "USDJPY": {
+      "category": "forex",
+      "ostium_pair": "USD/JPY",
+      "ostium_pair_id": "4",
+      "ostium_asset": "USDJPY",
+      "bs_symbol": "USDJPY",
+      "sq_symbol": "USDJPY_M1_dukas",
+      "sq_source_timezone": "Europe/Helsinki",
+      "discovery_timeframe": "M15",
+      "venue_max_leverage": 100,
+      "opening_fee_bps": 2,
+      "research_eligible": true,
+      "live_eligible": false,
+      "fee_source_checked_utc": "2026-08-10",
+      "warning": "M15 mapping PASS after symmetric Ostium-only quarantine; H1/H4 and paper/live remain blocked."
+    },
     "BTCUSD": {
       "category": "crypto",
       "ostium_pair": "BTC/USD",

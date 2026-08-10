@@ -45,3 +45,16 @@ def test_normalizes_broker_clock_seven_hours_ahead_of_new_york():
             "SELECT ts FROM read_parquet(?) ORDER BY ts", [str(output)]).fetchall()]
         assert timestamps == [1772953140, 1772953200]
         assert "New_York+07" in result["source_timezone"]
+
+
+def test_normalizes_helsinki_winter_and_summer_offsets():
+    pytest.importorskip("duckdb")
+    with tempfile.TemporaryDirectory() as tmp:
+        source, output, receipt = Path(tmp)/"input.csv", Path(tmp)/"out.parquet", Path(tmp)/"receipt.json"
+        source.write_text("2026.01.05,00:00,1,1,1,1,1\n2026.07.06,00:00,1,1,1,1,1\n")
+        result = normalize(source, output, receipt, source_timezone="Europe/Helsinki")
+        import duckdb
+        timestamps = [row[0] for row in duckdb.connect().execute(
+            "SELECT ts FROM read_parquet(?) ORDER BY ts", [str(output)]).fetchall()]
+        assert timestamps == [1767564000, 1783285200]
+        assert "EET/EEST" in result["normalization"]

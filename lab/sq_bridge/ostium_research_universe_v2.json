@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "as_of": "2026-08-04",
+  "as_of": "2026-08-10",
   "source": "https://docs.ostium.com/traders/reference/markets",
   "policy": "Universe preflight only. Venue leverage is never approved leverage. No performance search before source, mapping, parity, execution and small-account cost gates.",
   "flat_oracle_fee_usdc": 0.10,
@@ -8,7 +8,7 @@
     {"symbol":"EURUSD","class":"forex","ostium_pair":"EUR/USD","venue_max_leverage":200,"opening_fee_bps":3,"dukascopy":"ready","local_history":"ready","mapping":"known","parity":"refresh_required","priority":1},
     {"symbol":"XAUUSD","class":"metal","ostium_pair":"XAU/USD","venue_max_leverage":50,"opening_fee_bps":3,"dukascopy":"ready","local_history":"ready","mapping":"known","parity":"refresh_required","priority":1},
     {"symbol":"GBPUSD","class":"forex","ostium_pair":"GBP/USD","venue_max_leverage":200,"opening_fee_bps":3,"dukascopy":"verified_available","local_history":"pilot_1_month","ostium_recorder_m1":169299,"ostium_clean_m1":2880,"mapping":"known_bs","parity":"pilot_h1_pass_extend_30d","priority":1},
-    {"symbol":"USDJPY","class":"forex","ostium_pair":"USD/JPY","venue_max_leverage":100,"opening_fee_bps":3,"dukascopy":"verified_available","local_history":"missing","ostium_recorder_m1":169296,"ostium_clean_m1":1440,"mapping":"known_bs","parity":"missing","priority":1},
+    {"symbol":"USDJPY","class":"forex","ostium_pair":"USD/JPY","ostium_pair_id":"4","venue_max_leverage":100,"opening_fee_bps":2,"dukascopy":"ready","local_history":"ready_2007_2026_m1","ostium_recorder":"ready_2026_02_08","mapping":"known_bs","parity":"M15_pass_H1_H4_blocked","execution_snapshot":"2026-08-10","priority":1},
     {"symbol":"AUDUSD","class":"forex","ostium_pair":"AUD/USD","venue_max_leverage":100,"opening_fee_bps":3,"dukascopy":"verified_available","local_history":"missing","mapping":"known_bs","parity":"missing","priority":1},
 
     {"symbol":"USDCHF","class":"forex","ostium_pair":"USD/CHF","venue_max_leverage":200,"opening_fee_bps":3,"dukascopy":"verify","local_history":"missing","mapping":"needs_contract","parity":"missing","priority":2},

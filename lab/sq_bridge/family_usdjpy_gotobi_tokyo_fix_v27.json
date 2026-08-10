@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "campaign_id": "usdjpy-gotobi-tokyo-fix-v27",
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "hypothesis": "Structural importer demand for US dollars before the 09:55 JST Tokyo fixing produces a capturable positive USDJPY return on calendar days divisible by five.",
+  "falsifier": "Reject before StrategyQuant unless a stable train region survives current Ostium costs, 200-USDC sizing, year stability and an excess-return comparison against non-event days.",
+  "inspiration_not_evidence": [
+    "Ito and Yamada, Journal of International Economics 109 (2017), DOI 10.1016/j.jinteco.2017.09.005",
+    "Bessho, Sugimoto and Suzuki, arXiv:2301.13204",
+    "Krohn, Mueller and Whelan, Journal of Finance (2024), DOI 10.1111/jofi.13306"
+  ],
+  "market": "USDJPY",
+  "ostium_pair_id": "4",
+  "timeframe": "M15",
+  "direction": "long_usd_short_jpy",
+  "entry": "M15 open at 07:00 or 08:00 Asia/Tokyo on a preregistered Gotobi event day",
+  "exit": "protective stop or 10:00 Asia/Tokyo M15 open after the 09:55 fixing",
+  "source": "lab/out/market_sources/usdjpy_sq_m1_utc_2007_2026.parquet",
+  "source_manifest": "lab/sq_bridge/evidence/usdjpy_sq_m1_utc_2007_2026_source.json",
+  "venue_overlap_evidence": "lab/sq_bridge/evidence/usdjpy_sq_ostium_parity_2026_02_symmetric_clean_v2.json",
+  "execution_snapshot": "lab/sq_bridge/evidence/usdjpy_ostium_execution_normalized_20260810T151649Z.json",
+  "splits": {
+    "train": ["2007-01-01", "2014-12-31"],
+    "validation": ["2015-01-01", "2019-12-31"],
+    "oos": ["2020-01-01", "2023-12-31"],
+    "sealed_holdout": ["2024-01-01", "2026-12-31"]
+  },
+  "search": {
+    "event_mode": ["exact_calendar", "weekend_previous_business_day"],
+    "entry_jst_hour": [7, 8],
+    "stop_fraction": [0.0015, 0.0025],
+    "exit_jst_hour": 10,
+    "attempt_budget": 8
+  },
+  "economics": {
+    "capital_usdc": 200,
+    "risk_per_trade_pct": 1.0,
+    "venue_max_leverage": 100,
+    "research_leverage_cap": 10,
+    "maximum_margin_pct": 35,
+    "minimum_reserve_pct": 40,
+    "oracle_locked_usdc": 0.10,
+    "oracle_refund_condition": "successful full close",
+    "roundtrip_bps": {"base": 5, "conservative": 8, "stress": 15},
+    "oracle_net_cost_usdc": {"base": 0, "conservative": 0, "stress": 0.10}
+  },
+  "train_gate": {
+    "minimum_trades": 200,
+    "minimum_base_profit_factor": 1.15,
+    "minimum_stress_profit_factor": 1.05,
+    "minimum_stress_expectancy_usdc": 0.10,
+    "minimum_positive_year_ratio": 0.60,
+    "maximum_drawdown_pct": 20,
+    "minimum_gross_excess_vs_non_event_bps": 1.0,
+    "minimum_stable_neighbors": 1
+  },
+  "sq_if_pass": {
+    "role": "candidate_generator_only",
+    "generator": "StrategyQuant",
+    "fixed_mechanism": "Gotobi calendar plus pre-fix long window",
+    "maximum_rules": 3,
+    "attempt_budget": 1000,
+    "holdout_allowed": false
+  },
+  "validation_accessed": false,
+  "oos_accessed": false,
+  "holdout_evaluated": false,
+  "live_authorized": false
+}

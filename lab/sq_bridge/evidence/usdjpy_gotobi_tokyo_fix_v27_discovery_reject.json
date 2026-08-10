@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "stage": "discovery",
+  "campaign_id": "usdjpy-gotobi-tokyo-fix-v27",
+  "decision": "REJECT",
+  "candidate_ids": [],
+  "holdout_accessed": false,
+  "evidence_class": "observed",
+  "generator": "pre_sq_deterministic_falsification",
+  "attempted": 8,
+  "selected_candidate_ids": [],
+  "reason": "0/8 frozen train-only points pass current Ostium costs and stability gates",
+  "best_point": {
+    "event_mode": "weekend_previous_business_day",
+    "entry_jst_hour": 7,
+    "stop_fraction": 0.0025,
+    "trades": 565,
+    "event_gross_bps": 1.859,
+    "gross_excess_vs_non_event_bps": 0.771,
+    "base_profit_factor": 0.6204,
+    "base_expectancy_usdc": -0.2513,
+    "stress_profit_factor": 0.1240,
+    "stress_expectancy_usdc": -1.1513,
+    "stress_positive_year_ratio": 0.0
+  },
+  "source_result": "lab/sq_bridge/evidence/usdjpy_gotobi_tokyo_fix_v27_train.json",
+  "validation_accessed": false,
+  "oos_accessed": false,
+  "live_authorized": false
+}

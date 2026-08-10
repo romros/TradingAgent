@@ -1,0 +1,38 @@
+{
+  "schema_version": 2,
+  "campaign_id": "usdjpy-gotobi-tokyo-fix-v27",
+  "hypothesis_id": "structural-usd-demand-before-tokyo-fix",
+  "market": "USDJPY",
+  "capital_usdc": 200,
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "methodology_sha256": "ea4c6512d10f21e9550789615c41eb8b12228916ac668373fbb3afc9f905aeab",
+  "provenance": "alquimia_native",
+  "legacy_quantitative_inputs": [],
+  "receipts": [
+    {
+      "stage": "market_preflight",
+      "decision": "PASS",
+      "artifact": "lab/sq_bridge/evidence/usdjpy_gotobi_tokyo_fix_v27_market_preflight.json",
+      "artifact_sha256": "1df01507ac98fe625f9938a2d56ffc802f65a0e2888930ca00c6366666a2482f",
+      "candidate_ids": [],
+      "holdout_accessed": false,
+      "translation_exact": null,
+      "parity_pass": null,
+      "previous_receipt_sha256": null,
+      "receipt_sha256": "eb1912390953750283e4da1bc0d435b56a1229e17692ecef82f20973d7dbfd0c"
+    },
+    {
+      "stage": "discovery",
+      "decision": "REJECT",
+      "artifact": "lab/sq_bridge/evidence/usdjpy_gotobi_tokyo_fix_v27_discovery_reject.json",
+      "artifact_sha256": "edf1f21e05fffd7f226eedf459c5d1fe1af134645bc3a154dc2cd8691fa0a51c",
+      "candidate_ids": [],
+      "holdout_accessed": false,
+      "translation_exact": null,
+      "parity_pass": null,
+      "previous_receipt_sha256": "eb1912390953750283e4da1bc0d435b56a1229e17692ecef82f20973d7dbfd0c",
+      "receipt_sha256": "cbdc31f82d7bcc22f5d2f831f380dd0ce37f41edd9ee52d20a240ec350fbbf36"
+    }
+  ],
+  "live_authorized": false
+}

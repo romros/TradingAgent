@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "usdjpy_gotobi_tokyo_fix_v27_20260810",
+  "family": "usdjpy_gotobi_pre_tokyo_fix",
+  "market": "USDJPY",
+  "timeframe": "M15",
+  "stage": "train_only_pre_sq_falsification",
+  "attempts": 8,
+  "observed": {
+    "train_window": ["2007-01-01", "2014-12-31"],
+    "survivors": 0,
+    "best_trades": 565,
+    "best_event_gross_bps": 1.859,
+    "best_excess_vs_non_event_bps": 0.771,
+    "best_base_profit_factor": 0.6204,
+    "best_base_expectancy_usdc": -0.2513,
+    "best_stress_profit_factor": 0.1240,
+    "best_stress_expectancy_usdc": -1.1513
+  },
+  "decision": "REJECT",
+  "failure_code": "COST_FAIL",
+  "inference": "The preregistered Gotobi window exhibits a small positive gross pattern, but its magnitude is below the observed executable cost envelope on Ostium.",
+  "do_not_repeat": "Do not tune Gotobi date rules, entry hour, stop or costs; do not inspect 2015-2023 to rescue the pre-fix long family.",
+  "next_direction": "Require a mechanism with a substantially larger movement per trade; StrategyQuant cannot manufacture net edge from this sub-cost anomaly.",
+  "validation_accessed": false,
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "evidence": "lab/sq_bridge/evidence/usdjpy_gotobi_tokyo_fix_v27_train.json"
+}

@@ -2,11 +2,21 @@
   "schema_version": 1,
   "entries": [
     {
+      "id": "usdjpy_gotobi_tokyo_fix_v27_20260810",
+      "family": "usdjpy_gotobi_pre_tokyo_fix",
+      "decision": "REJECT",
+      "failure_code": "COST_FAIL",
+      "lesson": "The best of 8 frozen train-only points has 565 trades and +1.86 gross bps (+0.77 bps versus non-event days), but current 5 bps base execution reduces it to PF 0.62 and -0.25 USDC/trade; 0 points survive.",
+      "do_not_repeat": "Do not tune Gotobi date rules, entry hour, stop or costs, and do not open 2015-2023 to rescue the pre-fix long family.",
+      "next_direction": "Require a mechanism with substantially larger movement per trade before StrategyQuant generation.",
+      "evidence": "academia/experiments/observations/usdjpy-gotobi-tokyo-fix-v27-2026-08.json"
+    },
+    {
       "id": "gbpusd_london_fix_reversal_v26_20260810",
       "family": "gbpusd_post_london_fix_reversal",
       "decision": "REJECT",
-      "failure_code": "TEMPORAL_PASS_COST_FAIL",
-      "lesson": "The most selective of 12 frozen train-only points has 428 trades and a small frictionless tendency (PF 1.063, +0.031 USDC/trade), but the fixed 0.10 USDC oracle already makes it negative; base execution costs reduce it to PF 0.21 and -0.78 USDC/trade.",
+      "failure_code": "COST_FAIL",
+      "lesson": "The most selective of 12 frozen train-only points has 428 trades and a small frictionless tendency (PF 1.063, +0.031 USDC/trade), but 8 bps base execution reduces it to PF 0.21 and -0.78 USDC/trade. Erratum: the 0.10 USDC oracle is normally refunded after a successful full close and is not the primary falsifier.",
       "do_not_repeat": "Do not optimize thresholds, stops or exit hours, invert direction post hoc, or open 2014-2023 to rescue this family.",
       "next_direction": "Require a genuinely different mechanism with larger movement per trade or materially lower fixed-cost sensitivity.",
       "evidence": "academia/experiments/observations/gbpusd-london-fix-reversal-v26-2026-08.json"

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "usdjpy_post_tokyo_fix_reversal_v28_20260810",
+  "family": "usdjpy_post_tokyo_fix_reversal",
+  "market": "USDJPY",
+  "timeframe": "M15",
+  "stage": "train_only_pre_sq_falsification",
+  "attempts": 6,
+  "observed": {
+    "train_window": ["2015-01-01", "2018-12-31"],
+    "survivors": 0,
+    "trades_range": [1038, 1039],
+    "gross_return_bps_range": [0.8610, 1.8055],
+    "best_base_profit_factor": 0.6785,
+    "best_base_expectancy_usdc": -0.1809,
+    "best_stress_profit_factor": 0.2248,
+    "best_stress_expectancy_usdc": -0.7809,
+    "stress_positive_year_ratio": 0.0
+  },
+  "decision": "REJECT",
+  "failure_code": "TEMPORAL_PASS_COST_FAIL",
+  "inference": "The unconditional post-fix short has a small positive gross tendency across the frozen grid, but every point is net negative under observed Ostium economics and none has a positive stress year.",
+  "do_not_repeat": "Do not tune post-fix exit hours, stops, weekdays, Gotobi filters or costs; do not inspect 2019-2026 to rescue any Tokyo-fix timing variant.",
+  "next_direction": "Close the whole Tokyo-fix timing line and require a distinct mechanism with substantially larger movement per trade before StrategyQuant generation.",
+  "validation_accessed": false,
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "evidence": "lab/sq_bridge/evidence/usdjpy_post_tokyo_fix_reversal_v28_train.json"
+}

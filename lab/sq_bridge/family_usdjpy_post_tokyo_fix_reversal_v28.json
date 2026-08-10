@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "campaign_id": "usdjpy-post-tokyo-fix-reversal-v28",
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "hypothesis": "Temporary structural demand for US dollars at the 09:55 JST Tokyo fix reverses afterwards, producing a capturable short-USDJPY return during the following Tokyo hours.",
+  "falsifier": "Reject the entire Tokyo-fix line before StrategyQuant unless a connected train region survives current Ostium costs, 200-USDC sizing and year stability.",
+  "independence_from_v27": "V27 evaluated pre-fix long returns in 2007-2014. V28 uses post-fix short returns and a fresh 2015-2018 development window.",
+  "inspiration_not_evidence": [
+    "Ito and Yamada, Journal of International Economics 109 (2017), DOI 10.1016/j.jinteco.2017.09.005",
+    "Krohn, Mueller and Whelan, Journal of Finance (2024), DOI 10.1111/jofi.13306"
+  ],
+  "market": "USDJPY",
+  "ostium_pair_id": "4",
+  "timeframe": "M15",
+  "direction": "short_usd_long_jpy",
+  "entry": "M15 open at 10:00 Asia/Tokyo, immediately after the 09:55 fixing",
+  "exit": "protective stop or fixed 14:00/16:00 Asia/Tokyo M15 open",
+  "source": "lab/out/market_sources/usdjpy_sq_m1_utc_2007_2026.parquet",
+  "source_manifest": "lab/sq_bridge/evidence/usdjpy_sq_m1_utc_2007_2026_source.json",
+  "venue_overlap_evidence": "lab/sq_bridge/evidence/usdjpy_sq_ostium_parity_2026_02_symmetric_clean_v2.json",
+  "execution_snapshot": "lab/sq_bridge/evidence/usdjpy_ostium_execution_normalized_20260810T151649Z.json",
+  "splits": {
+    "train": ["2015-01-01", "2018-12-31"],
+    "validation": ["2019-01-01", "2021-12-31"],
+    "oos": ["2022-01-01", "2023-12-31"],
+    "sealed_holdout": ["2024-01-01", "2026-12-31"]
+  },
+  "search": {
+    "entry_jst_hour": 10,
+    "exit_jst_hour": [14, 16],
+    "stop_fraction": [0.002, 0.003, 0.004],
+    "attempt_budget": 6
+  },
+  "economics": {
+    "capital_usdc": 200,
+    "risk_per_trade_pct": 1.0,
+    "venue_max_leverage": 100,
+    "research_leverage_cap": 10,
+    "maximum_margin_pct": 35,
+    "minimum_reserve_pct": 40,
+    "oracle_locked_usdc": 0.10,
+    "oracle_refund_condition": "successful full close",
+    "roundtrip_bps": {"base": 5, "conservative": 8, "stress": 15},
+    "oracle_net_cost_usdc": {"base": 0, "conservative": 0, "stress": 0.10}
+  },
+  "train_gate": {
+    "minimum_trades": 700,
+    "minimum_base_profit_factor": 1.15,
+    "minimum_stress_profit_factor": 1.05,
+    "minimum_stress_expectancy_usdc": 0.10,
+    "minimum_positive_year_ratio": 0.75,
+    "maximum_drawdown_pct": 20,
+    "minimum_gross_return_bps": 1.0,
+    "minimum_stable_neighbors": 1
+  },
+  "sq_if_pass": {
+    "role": "candidate_generator_only",
+    "generator": "StrategyQuant",
+    "fixed_mechanism": "unconditional post-Tokyo-fix short window",
+    "maximum_rules": 3,
+    "attempt_budget": 1000,
+    "holdout_allowed": false
+  },
+  "validation_accessed": false,
+  "oos_accessed": false,
+  "holdout_evaluated": false,
+  "live_authorized": false
+}

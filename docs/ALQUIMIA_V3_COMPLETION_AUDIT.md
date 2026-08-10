@@ -42,7 +42,11 @@ antigues més enllà d'exemples tècnics.
   EET/EEST demostrada, paritat M15 Ostium, snapshot econòmic actual i rebuig
   train-only 0/8. Confirma que els gates de mapping i costos també funcionen en
   un mercat nou, però encara no prova un `discovery PASS` real.
-- Regressió completa del pont: 211 proves superades. També s'ha alineat una
+- Tercera cadena real v2: USDJPY post-Tokyo-fix v28 prova sis punts sobre un
+  desenvolupament nou 2015–2018. El patró brut és positiu però tots els punts
+  fallen els costos base i estrès; la cadena queda terminal a discovery, els
+  trams 2019–2026 intactes i tota la línia Tokyo-fix queda tancada.
+- Regressió completa del pont i Academia: 342 proves i 16 subtests superats. També s'ha alineat una
   prova antiga amb el fee cripto conservador canònic de 10 bps del registre.
 - XAU H4 R2 importat exclusivament com a control negatiu: cadena íntegra i
   terminal a economia de 200 USDC; no promocionable.

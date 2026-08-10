@@ -1,0 +1,38 @@
+{
+  "schema_version": 2,
+  "campaign_id": "usdjpy-post-tokyo-fix-reversal-v28",
+  "hypothesis_id": "structural-usd-demand-reverses-after-tokyo-fix",
+  "market": "USDJPY",
+  "capital_usdc": 200,
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "methodology_sha256": "ea4c6512d10f21e9550789615c41eb8b12228916ac668373fbb3afc9f905aeab",
+  "provenance": "alquimia_native",
+  "legacy_quantitative_inputs": [],
+  "receipts": [
+    {
+      "stage": "market_preflight",
+      "decision": "PASS",
+      "artifact": "lab/sq_bridge/evidence/usdjpy_post_tokyo_fix_reversal_v28_market_preflight.json",
+      "artifact_sha256": "6b64e6aacbce10995f87d40ebeaecf07d916c991bbc6a542786d2fc1753af5f1",
+      "candidate_ids": [],
+      "holdout_accessed": false,
+      "translation_exact": null,
+      "parity_pass": null,
+      "previous_receipt_sha256": null,
+      "receipt_sha256": "b1ad4af4208f5f0d85f577f3de4ee684e54206be682df5055df538d54f4c47ce"
+    },
+    {
+      "stage": "discovery",
+      "decision": "REJECT",
+      "artifact": "lab/sq_bridge/evidence/usdjpy_post_tokyo_fix_reversal_v28_discovery_reject.json",
+      "artifact_sha256": "251e4cb3fbfc35c8c6dad425b3730a90e2eba7adfa1dc85ec83947384266c99f",
+      "candidate_ids": [],
+      "holdout_accessed": false,
+      "translation_exact": null,
+      "parity_pass": null,
+      "previous_receipt_sha256": "b1ad4af4208f5f0d85f577f3de4ee684e54206be682df5055df538d54f4c47ce",
+      "receipt_sha256": "21b2c5d0d7ac9a7b3bf9daad43cd1d04cb4fdb542f133499dac45fd20d812a3d"
+    }
+  ],
+  "live_authorized": false
+}

@@ -2,6 +2,16 @@
   "schema_version": 1,
   "entries": [
     {
+      "id": "usdjpy_post_tokyo_fix_reversal_v28_20260810",
+      "family": "usdjpy_post_tokyo_fix_reversal",
+      "decision": "REJECT",
+      "failure_code": "TEMPORAL_PASS_COST_FAIL",
+      "lesson": "All 6 frozen train-only points have 1,038-1,039 trades and a small +0.86 to +1.81 gross bps tendency, but current 5 bps base execution leaves every point negative (best PF 0.68 and EV -0.18 USDC/trade); stress has zero positive years.",
+      "do_not_repeat": "Do not tune post-fix exit hours, stops, weekdays, Gotobi filters or costs, and do not inspect 2019-2026 to rescue any Tokyo-fix timing variant.",
+      "next_direction": "Close the entire Tokyo-fix timing line and require a distinct mechanism with substantially larger movement per trade before StrategyQuant generation.",
+      "evidence": "academia/experiments/observations/usdjpy-post-tokyo-fix-reversal-v28-2026-08.json"
+    },
+    {
       "id": "usdjpy_gotobi_tokyo_fix_v27_20260810",
       "family": "usdjpy_gotobi_pre_tokyo_fix",
       "decision": "REJECT",

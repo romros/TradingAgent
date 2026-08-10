@@ -69,3 +69,17 @@ def test_preflight_writer_replaces_atomically(tmp_path):
     write_atomic(target, {"decision": "PASS"})
     assert json.loads(target.read_text()) == {"decision": "PASS"}
     assert list(tmp_path.iterdir()) == [target]
+
+
+def test_preflight_contract_reopens_config_and_detects_input_tampering(tmp_path):
+    config = fixture(tmp_path, measured=True)
+    artifact = compose(config)
+    write(tmp_path / "mapping.json", {
+        "decision": "PASS_D1_SOURCE_MAPPING", "performance_accessed": False,
+        "common_complete_session_coverage_ratio": .5,
+        "d1_close_return_correlation": .1})
+    receipt = {"decision": "PASS", "candidate_ids": [], "holdout_accessed": False}
+    errors = validate_stage_artifact(
+        "market_preflight", artifact, receipt, METHODOLOGY,
+        "us500-test", "alquimia_native")
+    assert "STAGE_ARTIFACT:market_preflight:SOURCE_CONTRACT" in errors

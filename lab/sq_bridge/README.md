@@ -259,6 +259,12 @@ Només train és visible. El constructor recompte els intents reals, recalcula P
 per variant i exigeix que la central i almenys dos veïns superin 50 trades i PF
 1,20 sota tots tres costos. Una hipòtesi rebutjada no arriba a SQCLI.
 
+El `market_preflight` observat que precedeix aquest screen no es valida només
+amb els seus totals. Conserva `campaign_config_path` i SHA-256; el contracte
+reexecuta el compositor sobre cobertura històrica, mapping i costos congelats.
+VIX o un altre estat de règim és opcional, però quan existeix també forma part
+de les fonts hashades i ha de respectar el timing anti-look-ahead.
+
 Per a una campanya v4, el rebut de `sq_generation` no s'escriu a mà. Després de
 congelar el databank i el recompte real d'intents, es genera així:
 

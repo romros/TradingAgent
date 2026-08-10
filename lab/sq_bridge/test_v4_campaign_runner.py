@@ -25,6 +25,7 @@ from lab.sq_bridge.temporal_validation_artifact_v4 import build_artifact as buil
 from lab.sq_bridge.robustness_artifact_v4 import build_artifact as build_robustness
 from lab.sq_bridge.small_account_artifact_v4 import build_artifact as build_small_account
 from lab.sq_bridge.hypothesis_screen_artifact_v4 import build_artifact as build_screen
+from lab.sq_bridge.us500_d1_market_preflight_v4 import compose as compose_preflight
 
 stage = os.environ['ALQUIMIA_STAGE']
 decision = sys.argv[1] if len(sys.argv) > 1 else 'PASS'
@@ -36,6 +37,28 @@ artifact['campaign_id'] = 'runner-test'
 artifact['evidence_class'] = 'observed'
 artifact.pop('control_purpose', None)
 artifact['decision'] = decision
+if stage == 'market_preflight':
+    base = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent
+    (base / 'coverage.json').write_text(json.dumps({
+        'decision': 'PASS_HISTORICAL_COVERAGE', 'performance_accessed': False,
+        'historical_coverage_pass': True, 'historical_expected_observations': 100,
+        'historical_complete_observations': 95, 'historical_overall_coverage_ratio': .95,
+        'historical_minimum_period_coverage_ratio': .85,
+        'historical_period_coverage': {'train-a': .85, 'train-b': .95}}))
+    (base / 'mapping.json').write_text(json.dumps({
+        'decision': 'PASS_D1_SOURCE_MAPPING', 'performance_accessed': False,
+        'common_complete_session_coverage_ratio': .99,
+        'd1_close_return_correlation': .999}))
+    (base / 'costs.json').write_text(json.dumps({
+        'decision': 'PASS_COSTS_FROZEN', 'costs_frozen': True,
+        'by_notional': {'200': {'base_roundtrip_bps': 3}},
+        'paper_authorized': False, 'live_authorized': False}))
+    config_path = base / 'preflight-config.json'
+    config_path.write_text(json.dumps({
+        'schema_version': 1, 'campaign_id': 'runner-test',
+        'ostium_pair_id': 'control-pair', 'coverage': 'coverage.json',
+        'mapping': 'mapping.json', 'costs': 'costs.json'}))
+    artifact = compose_preflight(config_path)
 if stage == 'hypothesis_screen':
     base = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent
     trace_path = base / 'hypothesis-screen.trace.json'

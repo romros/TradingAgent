@@ -20,6 +20,7 @@ from lab.sq_bridge.temporal_validation_artifact_v4 import (
 from lab.sq_bridge.robustness_artifact_v4 import evaluate_trace as evaluate_robustness_trace
 from lab.sq_bridge.small_account_artifact_v4 import evaluate_trace as evaluate_small_trace
 from lab.sq_bridge.hypothesis_screen_artifact_v4 import evaluate_trace as evaluate_screen_trace
+from lab.sq_bridge.us500_d1_market_preflight_v4 import compose as compose_market_preflight
 
 
 def _number(value: Any) -> bool:
@@ -171,6 +172,21 @@ def _verified_hypothesis_screen_source(artifact: dict, artifact_path: str,
             and artifact.get("evaluated_hypothesis_metrics") == evaluated
             and artifact.get("selected_hypothesis_ids") == selected
             and artifact.get("selected_hypothesis_metrics") == selected_metrics)
+
+
+def _verified_market_preflight_source(artifact: dict, artifact_path: str) -> bool:
+    value, digest = artifact.get("campaign_config_path"), artifact.get(
+        "campaign_config_sha256")
+    if not isinstance(value, str) or not value or not isinstance(digest, str):
+        return False
+    path = Path(value)
+    path = path if path.is_absolute() else Path(artifact_path).resolve().parent / path
+    try:
+        if hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+            return False
+        return compose_market_preflight(path) == artifact
+    except (OSError, KeyError, TypeError, ValueError, json.JSONDecodeError):
+        return False
 
 
 def _verified_sqx_contracts(paths: Any, expected_ids: list[str], artifact_path: str,
@@ -347,6 +363,9 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                 "FUTURES_SEALED": artifact.get("future_periods_sealed") is True,
                 "CONFIG_HASH": isinstance(artifact.get("campaign_config_sha256"), str)
                                and len(artifact["campaign_config_sha256"]) == 64,
+                "SOURCE_CONTRACT": _verified_market_preflight_source(
+                    artifact, receipt.get("artifact", ""))
+                    if provenance != "synthetic_control" else True,
             })
     elif stage == "discovery":
         checks = {

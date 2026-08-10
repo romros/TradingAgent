@@ -55,7 +55,7 @@ def read_input(base: Path, value: str, label: str, reasons: list[str]) -> tuple[
 def compose(config_path: Path) -> dict[str, Any]:
     config_path = config_path.resolve()
     config = json.loads(config_path.read_text())
-    required = ("campaign_id", "ostium_pair_id", "coverage", "mapping", "vix", "costs")
+    required = ("campaign_id", "ostium_pair_id", "coverage", "mapping", "costs")
     missing = [name for name in required if not config.get(name)]
     if missing:
         raise ValueError(f"preflight config missing: {', '.join(missing)}")
@@ -64,12 +64,16 @@ def compose(config_path: Path) -> dict[str, Any]:
     reasons: list[str] = []
     inputs = {}
     loaded = {}
-    for label in ("coverage", "mapping", "vix", "costs"):
+    labels = ["coverage", "mapping", "costs"]
+    if config.get("vix"):
+        labels.append("vix")
+    for label in labels:
         loaded[label], inputs[label] = read_input(
             config_path.parent, config[label], label, reasons)
 
-    coverage, mapping, vix, costs = (loaded[name] for name in (
-        "coverage", "mapping", "vix", "costs"))
+    coverage, mapping, costs = (loaded[name] for name in (
+        "coverage", "mapping", "costs"))
+    vix = loaded.get("vix")
     if coverage.get("decision") != "PASS_HISTORICAL_COVERAGE":
         reasons.append("HISTORICAL_COVERAGE_NOT_PASS")
     if coverage.get("performance_accessed") is not False:
@@ -78,13 +82,14 @@ def compose(config_path: Path) -> dict[str, Any]:
         reasons.append("D1_MAPPING_NOT_PASS")
     if mapping.get("performance_accessed") is not False:
         reasons.append("MAPPING_ACCESSED_PERFORMANCE")
-    if vix.get("decision") != "PASS_VIX_DATA_TIMING":
-        reasons.append("VIX_TIMING_NOT_PASS")
-    timing = vix.get("timing_policy") or {}
-    if (vix.get("spx_performance_accessed") is not False
-            or vix.get("strategy_rule_defined") is not False
-            or timing.get("same_session_use_allowed") is not False):
-        reasons.append("VIX_ANTI_LOOKAHEAD_NOT_PROVEN")
+    timing = (vix.get("timing_policy") or {}) if vix else {}
+    if vix:
+        if vix.get("decision") != "PASS_VIX_DATA_TIMING":
+            reasons.append("VIX_TIMING_NOT_PASS")
+        if (vix.get("spx_performance_accessed") is not False
+                or vix.get("strategy_rule_defined") is not False
+                or timing.get("same_session_use_allowed") is not False):
+            reasons.append("VIX_ANTI_LOOKAHEAD_NOT_PROVEN")
     if costs.get("decision") != "PASS_COSTS_FROZEN" or costs.get("costs_frozen") is not True:
         reasons.append("EXECUTION_COSTS_NOT_FROZEN")
     if not (costs.get("by_notional") or {}).get("200"):
@@ -112,9 +117,11 @@ def compose(config_path: Path) -> dict[str, Any]:
         "return_correlation": mapping.get("d1_close_return_correlation"),
         "execution_economics_complete": costs.get("costs_frozen") is True,
         "future_periods_sealed": True,
+        "campaign_config_path": str(config_path),
         "campaign_config_sha256": sha256(config_path),
-        "risk_state_timing_pass": vix.get("decision") == "PASS_VIX_DATA_TIMING",
-        "vix_earliest_use": timing.get("earliest_use"),
+        "risk_state_timing_pass": (
+            vix.get("decision") == "PASS_VIX_DATA_TIMING" if vix else None),
+        "vix_earliest_use": timing.get("earliest_use") if vix else None,
         "cost_notional_usdc": 200,
         "input_receipts": inputs,
         "blocking_reasons": sorted(set(reasons)),

@@ -41,6 +41,11 @@ La cobertura no és un booleà de confiança: el verificador recalcula la ràtio
 global amb observacions completes/esperades i el mínim del diccionari de
 períodes. Qualsevol resum que no coincideixi matemàticament amb aquests detalls
 invalida el rebut.
+Un preflight observat conserva també la ruta i el hash de la configuració. El
+verificador torna a executar el compositor sobre cobertura, mapping i costos i
+exigeix igualtat completa amb l'artefacte rebut. Un input de règim com VIX és
+opcional per altres mercats, però si es declara ha de provar l'anti-look-ahead.
+Modificar qualsevol font després del rebut invalida la cadena.
 
 ## Controls reproduïbles
 

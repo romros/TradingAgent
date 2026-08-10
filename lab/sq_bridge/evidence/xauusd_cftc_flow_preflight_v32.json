@@ -1,0 +1,126 @@
+{
+  "archives": [
+    {
+      "date_field": "Report_Date_as_MM_DD_YYYY",
+      "duplicate_report_dates": 0,
+      "exact_identity_pass": true,
+      "expected_sha256": "fef4827fbaa1a2a72ad3fe7ef0ca659ee4c85bc6857fdc096f4320b8a096322b",
+      "field_count": 191,
+      "first_report_date": "2010-01-05",
+      "gold_rows": 52,
+      "identities": [
+        [
+          "GOLD - COMMODITY EXCHANGE INC.",
+          "088691",
+          "088"
+        ]
+      ],
+      "invalid_numeric_positions": 0,
+      "last_report_date": "2010-12-28",
+      "minimum_gold_rows": 50,
+      "missing_required_fields": [],
+      "non_tuesday_report_dates": [],
+      "path": "lab/out/cftc_cot/fut_disagg_txt_2010.zip",
+      "row_count_pass": true,
+      "sha256": "fef4827fbaa1a2a72ad3fe7ef0ca659ee4c85bc6857fdc096f4320b8a096322b",
+      "sha256_matches": true,
+      "url": "https://www.cftc.gov/files/dea/history/fut_disagg_txt_2010.zip",
+      "year": 2010,
+      "zip_member": "f_year.txt"
+    },
+    {
+      "date_field": "Report_Date_as_YYYY-MM-DD",
+      "duplicate_report_dates": 0,
+      "exact_identity_pass": true,
+      "expected_sha256": "df4bf7d72e8984d6ea04087f793c9f2bf3503ea8c2149f4b01eedeef4fbe40a8",
+      "field_count": 191,
+      "first_report_date": "2018-01-02",
+      "gold_rows": 53,
+      "identities": [
+        [
+          "GOLD - COMMODITY EXCHANGE INC.",
+          "088691",
+          "088"
+        ]
+      ],
+      "invalid_numeric_positions": 0,
+      "last_report_date": "2018-12-31",
+      "minimum_gold_rows": 50,
+      "missing_required_fields": [],
+      "non_tuesday_report_dates": [
+        "2018-12-24",
+        "2018-12-31"
+      ],
+      "path": "lab/out/cftc_cot/fut_disagg_txt_2018.zip",
+      "row_count_pass": true,
+      "sha256": "df4bf7d72e8984d6ea04087f793c9f2bf3503ea8c2149f4b01eedeef4fbe40a8",
+      "sha256_matches": true,
+      "url": "https://www.cftc.gov/files/dea/history/fut_disagg_txt_2018.zip",
+      "year": 2018,
+      "zip_member": "f_year.txt"
+    },
+    {
+      "date_field": "Report_Date_as_YYYY-MM-DD",
+      "duplicate_report_dates": 0,
+      "exact_identity_pass": true,
+      "expected_sha256": "84bc5e876efd1c22ab1330385c8779cac25e287d4a27e346d1559888c4d02aa9",
+      "field_count": 191,
+      "first_report_date": "2026-01-06",
+      "gold_rows": 31,
+      "identities": [
+        [
+          "GOLD - COMMODITY EXCHANGE INC.",
+          "088691",
+          "088"
+        ]
+      ],
+      "invalid_numeric_positions": 0,
+      "last_report_date": "2026-08-04",
+      "minimum_gold_rows": 30,
+      "missing_required_fields": [],
+      "non_tuesday_report_dates": [],
+      "path": "lab/out/cftc_cot/fut_disagg_txt_2026.zip",
+      "row_count_pass": true,
+      "sha256": "84bc5e876efd1c22ab1330385c8779cac25e287d4a27e346d1559888c4d02aa9",
+      "sha256_matches": true,
+      "url": "https://www.cftc.gov/files/dea/history/fut_disagg_txt_2026.zip",
+      "year": 2026,
+      "zip_member": "f_year.txt"
+    }
+  ],
+  "availability_gate": {
+    "historical_release_date_list_available": false,
+    "known_exception_evidence": "CFTC historical special announcements include premature, delayed and multiweek interruption cases.",
+    "normal_schedule": "Friday 15:30 America/New_York for positions as of the preceding Tuesday",
+    "required_before_strategy_rule": "BLOCK until an explicit release ledger or a separately justified conservative lag plus exclusion ledger exists.",
+    "status": "BLOCK_HISTORICAL_RELEASE_LEDGER"
+  },
+  "campaign_id": "xauusd-cftc-official-flow-preflight-v32",
+  "config_sha256": "d185ae1898309666b818304e7e9d8577b8ea81b77eb04bf07915ffd990bfd9c9",
+  "data_gate": {
+    "checks": {
+      "hashes": true,
+      "identity": true,
+      "numeric_positions": true,
+      "row_counts": true,
+      "sample_archives": true,
+      "schema": true,
+      "unique_dates": true
+    },
+    "status": "PASS"
+  },
+  "decision": "BLOCK_RELEASE_LEDGER",
+  "holdout_accessed": false,
+  "instrument": "XAU/USD",
+  "live_authorized": false,
+  "oos_accessed": false,
+  "paper_authorized": false,
+  "permitted_next_action": "BUILD_RELEASE_LEDGER_ONLY",
+  "report": "CFTC Disaggregated Commitments of Traders, Futures Only",
+  "schema_version": 1,
+  "sqcli_used": false,
+  "stage": "official_flow_data_preflight",
+  "strategy_rule_defined": false,
+  "validation_accessed": false,
+  "xau_performance_accessed": false
+}

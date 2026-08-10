@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "id": "xau_cftc_flow_preflight_v32_20260810",
+  "family": "xauusd_official_cftc_positioning_data",
+  "stage": "data_preflight",
+  "decision": "BLOCK_RELEASE_LEDGER",
+  "observed": {
+    "report": "CFTC Disaggregated Commitments of Traders, Futures Only",
+    "gold_market_name": "GOLD - COMMODITY EXCHANGE INC.",
+    "cftc_contract_market_code": "088691",
+    "cftc_commodity_code": "088",
+    "sample_years": [2010, 2018, 2026],
+    "sample_gold_rows": 136,
+    "field_count_each_archive": 191,
+    "duplicate_dates": 0,
+    "invalid_numeric_positions": 0,
+    "data_gate": "PASS",
+    "availability_gate": "BLOCK_HISTORICAL_RELEASE_LEDGER"
+  },
+  "inference": "The official positioning feed is structurally usable, but report_date is not an availability timestamp and historical exceptions are large enough to create look-ahead.",
+  "next": "Build a sourced historical release/exclusion ledger before defining any COT strategy rule.",
+  "evidence": {
+    "config": "lab/sq_bridge/family_xauusd_cftc_flow_preflight_v32.json",
+    "result": "lab/sq_bridge/evidence/xauusd_cftc_flow_preflight_v32.json",
+    "audit": "docs/CFTC_GOLD_FLOW_V32_PREFLIGHT.md"
+  },
+  "strategy_rule_defined": false,
+  "xau_performance_accessed": false,
+  "validation_accessed": false,
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "sqcli_used": false,
+  "live_authorized": false
+}

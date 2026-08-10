@@ -2,12 +2,13 @@
 """Strict, deterministic contracts for Alquimia v3 stage evidence artifacts."""
 from __future__ import annotations
 
-import math
 import hashlib
 import json
+import math
 from pathlib import Path
 from typing import Any
 
+from lab.sq_bridge.sq_project_contract import verify_genetic_project
 from lab.sq_bridge.sqx_extract import extract as extract_sqx
 from lab.sq_bridge.sqx_to_ir import canonical_ir, validate_executable_ir
 from lab.sq_bridge.parity_artifact_v4 import compare_traces
@@ -80,6 +81,21 @@ def _verified_json(path_value: Any, digest: Any, artifact_path: str) -> dict | N
     except (OSError, ValueError):
         return None
     return value if isinstance(value, dict) else None
+
+
+def _verified_sq_project(path_value: Any, digest: Any, artifact_path: str,
+                         manifest: dict | None, reported_shape: Any) -> bool:
+    if (manifest is None or not isinstance(path_value, str) or not path_value
+            or not isinstance(digest, str)):
+        return False
+    path = Path(path_value)
+    path = path if path.is_absolute() else Path(artifact_path).resolve().parent / path
+    if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+        return False
+    try:
+        return verify_genetic_project(path, manifest) == reported_shape
+    except (OSError, TypeError, ValueError):
+        return False
 
 
 def _verified_temporal_sources(artifact: dict, reported: Any,
@@ -657,6 +673,10 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
         }
         if methodology.get("schema_version", 1) >= 4 and provenance != "synthetic_control":
             checks.update({
+                "CONFIG_CONTRACT": _verified_sq_project(
+                    artifact.get("sq_config_path"), artifact.get("sq_config_sha256"),
+                    receipt.get("artifact", ""), project_manifest,
+                    artifact.get("sq_genetic_shape")),
                 "PREREQUISITE_CHAIN": project_manifest is not None
                     and _verified_sq_prerequisite_chain(
                         artifact, project_manifest, receipt.get("artifact", ""), campaign_id),

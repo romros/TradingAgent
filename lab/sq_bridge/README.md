@@ -326,6 +326,10 @@ individus per illa i 25 generacions. El manifest desa aquesta forma perquè una
 auditoria no depengui només del valor declarat a la línia de comandes. És una
 cota nominal d'SQ; el recompte observat continua sent l'evidència final i un
 overshoot invalida el contracte.
+L'ingestor no confia en aquest objecte del manifest: reobre `config.xml` i
+l'únic `Build-Task*.xml` del CFX, recalcula el producte, verifica decimació,
+reinicis i `StopCondition`, i publica la ruta/hash del CFX perquè el validador
+de cadena repeteixi la comprovació independentment.
 
 En v4 força spread, comissió i slippage d'SQ a zero i ho registra al manifest:
 la descoberta produeix retorn brut i el model Ostium congelat aplica els costos

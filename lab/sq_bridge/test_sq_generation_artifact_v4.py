@@ -31,7 +31,19 @@ def _fixture(tmp_path, strategy=STRATEGY, settings=SETTINGS):
         archive.writestr("settings.xml", settings)
         archive.writestr("version.txt", "3")
     cfx = tmp_path / "project.cfx"
-    cfx.write_bytes(b"frozen-cfx")
+    config = b'''<Project><Tasks><Task type="Build" name="Build"
+      taskXMLFile="Build-Task1.xml" /></Tasks></Project>'''
+    task = b'''<Settings><WhatToBuild><BuildMode generationType="genetic-evolution">
+      <PopulationSize>25</PopulationSize><MaxGenerations>1</MaxGenerations>
+      <Islands>4</Islands><DecimationCoef>1</DecimationCoef>
+      <EvoRestartOnFinish status="false" />
+      <EvoRestartOnStagnation status="false" />
+      </BuildMode></WhatToBuild><Rankings>
+      <StopCondition type="databank-full" passedStrategies="100" restartCount="0"
+        days="0" hours="0" minutes="0" /></Rankings></Settings>'''
+    with zipfile.ZipFile(cfx, "w") as archive:
+        archive.writestr("config.xml", config)
+        archive.writestr("Build-Task1.xml", task)
     methodology = json.loads((ROOT / "methodology_v4.json").read_text())
     chain = tmp_path / "chain.json"
     chain.write_text(json.dumps({
@@ -46,6 +58,11 @@ def _fixture(tmp_path, strategy=STRATEGY, settings=SETTINGS):
         "methodology_id": methodology["methodology_id"],
         "generation_type": "genetic-evolution",
         "attempt_budget": 100,
+        "accepted_limit": 100,
+        "wall_time_budget_minutes": 0,
+        "sq_genetic_shape": {"islands": 4, "population_per_island": 25,
+                             "max_generations": 1,
+                             "nominal_evaluations": 100},
         "output_sha256": hashlib.sha256(cfx.read_bytes()).hexdigest(),
         "canonical_evaluation_capital": 200,
         "sq_discovery_spread": 0, "sq_discovery_commission": 0,
@@ -83,6 +100,15 @@ def _build(tmp_path, **overrides):
         methodology_path=ROOT / "methodology_v4.json", output_path=tmp_path / "artifact.json")
     params.update(overrides)
     return build_artifact(**params)
+
+
+def _rewrite_cfx_task(cfx, old: bytes, new: bytes):
+    with zipfile.ZipFile(cfx) as archive:
+        config = archive.read("config.xml")
+        task = archive.read("Build-Task1.xml").replace(old, new)
+    with zipfile.ZipFile(cfx, "w") as archive:
+        archive.writestr("config.xml", config)
+        archive.writestr("Build-Task1.xml", task)
 
 
 def test_builds_generation_evidence_from_actual_sqx(tmp_path):
@@ -204,6 +230,43 @@ def test_rejects_tampered_project_config(tmp_path):
             project_cfx=cfx, project_manifest_path=manifest,
             methodology_path=ROOT / "methodology_v4.json",
             output_path=tmp_path / "artifact.json")
+
+
+@pytest.mark.parametrize(("old", "new", "message"), [
+    (b'<EvoRestartOnFinish status="false" />',
+     b'<EvoRestartOnFinish status="true" />', "RESTARTONFINISH"),
+    (b'<MaxGenerations>1</MaxGenerations>',
+     b'<MaxGenerations>2</MaxGenerations>', "BUDGET_MISMATCH"),
+    (b'<DecimationCoef>1</DecimationCoef>',
+     b'<DecimationCoef>2</DecimationCoef>', "DECIMATION"),
+])
+def test_reopens_hashed_cfx_and_rejects_unsafe_genetic_settings(
+        tmp_path, old, new, message):
+    databank, cfx, manifest_path, watchdog = _fixture(tmp_path)
+    _rewrite_cfx_task(cfx, old, new)
+    manifest = json.loads(manifest_path.read_text())
+    manifest["output_sha256"] = hashlib.sha256(cfx.read_bytes()).hexdigest()
+    manifest_path.write_text(json.dumps(manifest))
+    with pytest.raises(ValueError, match=message):
+        build_artifact(
+            campaign_id="campaign-v4", source_hypothesis_ids=["hypothesis-1"],
+            databank_dir=databank, watchdog_status_path=watchdog,
+            project_cfx=cfx, project_manifest_path=manifest_path,
+            methodology_path=ROOT / "methodology_v4.json",
+            output_path=tmp_path / "artifact.json")
+
+
+def test_stage_contract_reopens_cfx_and_rejects_spoofed_shape(tmp_path):
+    artifact = _build(tmp_path)
+    artifact["sq_genetic_shape"]["nominal_evaluations"] = 99
+    methodology = json.loads((ROOT / "methodology_v4.json").read_text())
+    receipt = {"decision": "PASS", "candidate_ids": ["T"],
+               "holdout_accessed": False,
+               "artifact": str(tmp_path / "artifact.json")}
+    errors = validate_stage_artifact(
+        "sq_generation", artifact, receipt, methodology,
+        "campaign-v4", "alquimia_native")
+    assert "STAGE_ARTIFACT:sq_generation:CONFIG_CONTRACT" in errors
 
 
 def test_rejects_databank_changed_after_watchdog_snapshot(tmp_path):

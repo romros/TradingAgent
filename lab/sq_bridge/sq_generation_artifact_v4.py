@@ -9,6 +9,7 @@ import os
 from pathlib import Path
 
 from lab.sq_bridge.evidence_chain import verify as verify_chain
+from lab.sq_bridge.sq_project_contract import verify_genetic_project
 from lab.sq_bridge.temporal_split_contract_v4 import digest as temporal_digest, sq_periods
 
 try:
@@ -129,6 +130,7 @@ def build_artifact(*, campaign_id: str, source_hypothesis_ids: list[str],
     if (not isinstance(budget, int) or isinstance(budget, bool)
             or attempted > budget or budget > generation["maximum_attempts"]):
         raise ValueError("L'execucio supera el pressupost congelat del projecte")
+    genetic_shape = verify_genetic_project(project_cfx, manifest)
 
     sqx_paths = sorted(databank_dir.rglob("*.sqx"))
     if not sqx_paths:
@@ -198,6 +200,8 @@ def build_artifact(*, campaign_id: str, source_hypothesis_ids: list[str],
         "stop_loss_required_satisfied_per_candidate": {
             key: True for key in candidate_ids},
         "sq_config_sha256": _sha256(project_cfx),
+        "sq_config_path": _relative(project_cfx, output_base),
+        "sq_genetic_shape": genetic_shape,
         "sq_project_manifest_path": _relative(project_manifest_path, output_base),
         "sq_project_manifest_sha256": _sha256(project_manifest_path),
         "sq_watchdog_status_path": _relative(watchdog_status_path, output_base),

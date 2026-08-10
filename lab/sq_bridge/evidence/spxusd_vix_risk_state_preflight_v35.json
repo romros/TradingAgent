@@ -1,0 +1,43 @@
+{
+  "campaign_id": "spxusd-vix-risk-state-preflight-v35",
+  "checks": {
+    "columns": true,
+    "first_date": true,
+    "last_date": true,
+    "minimum_rows": true,
+    "no_same_session_use": true,
+    "sha256": true,
+    "unique_dates": true,
+    "valid_close": true,
+    "weekdays": true
+  },
+  "config_sha256": "e39e5a9fbf66eb9e745fd74c1e688b2dab0d4982ec1a7bca6885f55613650809",
+  "decision": "PASS_VIX_DATA_TIMING",
+  "duplicate_dates": 0,
+  "first_date": "1990-01-02",
+  "holdout_accessed": false,
+  "invalid_close_rows": 0,
+  "last_date": "2026-08-07",
+  "live_authorized": false,
+  "maximum_calendar_gap_days": 7,
+  "oos_accessed": false,
+  "paper_authorized": false,
+  "permitted_next_action": "WAIT_FOR_US500_EXECUTION_COST_GATE",
+  "quarantined_inconsistent_non_close_ohlc_rows": 47,
+  "rows": 9246,
+  "schema_version": 1,
+  "source_sha256": "94dc475a4aac34afbeb96cc392b4d85c97097fa980781a663387d3e2aaf58d8d",
+  "spx_performance_accessed": false,
+  "sqcli_used": false,
+  "stage": "risk_state_data_preflight",
+  "strategy_rule_defined": false,
+  "timing_policy": {
+    "earliest_use": "first US500 session open strictly after the VIX observation date",
+    "intraday_reconstruction_allowed": false,
+    "observation": "official daily VIX close",
+    "rule": "join by prior completed VIX session, never by same calendar row",
+    "same_session_use_allowed": false
+  },
+  "validation_accessed": false,
+  "weekend_rows": 0
+}

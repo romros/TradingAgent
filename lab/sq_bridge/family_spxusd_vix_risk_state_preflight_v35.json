@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "campaign_id": "spxusd-vix-risk-state-preflight-v35",
+  "as_of": "2026-08-10",
+  "purpose": "Verify official VIX daily data and freeze point-in-time use before defining a low-turnover US500 equity-risk-premium rule.",
+  "instrument": "US500/USD",
+  "risk_state": "Cboe VIX Index daily close",
+  "source": {
+    "authority": "Cboe Global Markets",
+    "url": "https://cdn.cboe.com/api/global/us_indices/daily_prices/VIX_History.csv",
+    "landing_page": "https://www.cboe.com/tradable-products/vix/vix-historical-data",
+    "path": "lab/out/vix/VIX_History_20260810.csv",
+    "sha256": "94dc475a4aac34afbeb96cc392b4d85c97097fa980781a663387d3e2aaf58d8d",
+    "expected_columns": ["DATE", "OPEN", "HIGH", "LOW", "CLOSE"]
+  },
+  "timing_policy": {
+    "observation": "official daily VIX close",
+    "earliest_use": "first US500 session open strictly after the VIX observation date",
+    "same_session_use_allowed": false,
+    "intraday_reconstruction_allowed": false,
+    "rule": "join by prior completed VIX session, never by same calendar row"
+  },
+  "gate": {
+    "minimum_first_date": "1990-01-02",
+    "minimum_last_date": "2026-08-07",
+    "minimum_rows": 9000,
+    "require_unique_dates": true,
+    "require_weekdays": true,
+    "require_valid_close": true,
+    "quarantine_inconsistent_non_close_ohlc": true
+  },
+  "strategy_rule_defined": false,
+  "spx_performance_accessed": false,
+  "validation_accessed": false,
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "sqcli_authorized": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

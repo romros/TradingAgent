@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "id": "spxusd-vix-risk-state-preflight-v35-2026-08",
+  "campaign": "spxusd-vix-risk-state-preflight-v35",
+  "as_of": "2026-08-10",
+  "decision": "PASS_VIX_DATA_TIMING",
+  "facts": {
+    "authority": "Cboe Global Markets",
+    "daily_rows": 9246,
+    "coverage": "1990-01-02 through 2026-08-07",
+    "duplicate_dates": 0,
+    "weekend_rows": 0,
+    "invalid_close_rows": 0,
+    "quarantined_inconsistent_non_close_ohlc_rows": 47,
+    "earliest_use": "first US500 session strictly after the VIX close",
+    "spx_performance_accessed": false
+  },
+  "interpretation": "Official VIX close is usable as a frozen prior-session risk state, not as a same-session or intraday trigger.",
+  "permitted_next_action": "wait for the three-day Ostium US500 execution-cost gate before defining a low-turnover rule",
+  "evidence": {
+    "artifact": "lab/sq_bridge/evidence/spxusd_vix_risk_state_preflight_v35.json",
+    "audit": "docs/US500_VIX_RISK_STATE_V35_PREFLIGHT.md"
+  }
+}

@@ -150,15 +150,15 @@ def build_artifact(*, campaign_id: str, source_hypothesis_ids: list[str],
         if not contract["supported"]:
             raise ValueError(
                 f"SQX no traduible {candidate_id}: {contract['unsupported_nodes_or_formulas']}")
+        count = contract["maximum_entry_conditions"]
+        if not 1 <= count <= generation["max_rules"]:
+            raise ValueError(
+                f"Complexitat fora del contracte {candidate_id}: {count}")
         try:
             validate_executable_ir(canonical_ir(contract))
         except ValueError as error:
             raise ValueError(
                 f"SQX no executable amb risc controlat {candidate_id}: {error}") from error
-        count = contract["maximum_entry_conditions"]
-        if not 1 <= count <= generation["max_rules"]:
-            raise ValueError(
-                f"Complexitat fora del contracte {candidate_id}: {count}")
         expected_symbol = manifest.get("sq_symbol")
         expected_timeframe = manifest.get("timeframe")
         if expected_symbol and contract["market"]["symbol"] != expected_symbol:

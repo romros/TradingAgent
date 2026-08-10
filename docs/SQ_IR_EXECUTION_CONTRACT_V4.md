@@ -13,6 +13,8 @@ reproduir la gestió del trade.
 - Profit target opcional: ATR, percentatge o desactivat.
 - `ExitAfterBars` enter no negatiu; zero significa desactivat.
 - `ExitAtEndOfDay=false` i `ExitOnFriday=false` explícits.
+- Qualsevol preu o indicador d'entrada té `Shift` efectiu mínim 1: només pot
+  usar candles completades abans de l'open d'entrada.
 - Trailing stop, move-to-break-even i exit signals dinàmics no formen part del
   subset actual.
 
@@ -20,6 +22,10 @@ SQ serialitza aquestes accions a l'SQX. `sqx_extract.py` les extreu,
 `sqx_to_ir.py` les normalitza i `validate_executable_ir()` imposa el contracte.
 Tant `sq_generation` com `python_translation` tornen a obrir els fitxers i el
 revaliden; els booleans declarats a l'artefacte no són suficients per passar.
+El constructor d'SQ fixa `minShift=1`, però el verificador torna a caminar l'AST
+de cada SQX per impedir que una importació o manipulació amb `Shift=0` eludi la
+configuració. `IsMonthLastTradingDay` queda fora de l'execució fins disposar
+d'un calendari causal explícit en lloc d'inferir-lo de la següent fila.
 
 ## Semàntica determinista del runtime
 

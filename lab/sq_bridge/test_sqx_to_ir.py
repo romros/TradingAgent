@@ -3,7 +3,8 @@ import zipfile
 
 import pytest
 
-from lab.sq_bridge.sqx_to_ir import translate, validate_executable_ir
+from lab.sq_bridge.sqx_to_ir import canonical_ir, translate, validate_executable_ir
+from lab.sq_bridge.sqx_extract import extract
 from lab.sq_bridge.stage_artifact_contract import validate_stage_artifact
 from lab.sq_bridge.test_sqx_extract import SETTINGS, STRATEGY
 
@@ -41,6 +42,26 @@ def test_translation_rejects_operator_outside_supported_subset(tmp_path):
     strategy = STRATEGY.replace(b'<Item key="Boolean">', b'<Item key="FutureLeak">', 1)
     with pytest.raises(ValueError, match="fora del subset"):
         translate(_sqx(tmp_path, strategy), tmp_path / "candidate.ir.json")
+
+
+def test_translation_rejects_same_candle_price_at_open_as_lookahead(tmp_path):
+    strategy = STRATEGY.replace(
+        b'<Item key="Boolean"><Param key="#Value#">true</Param></Item>',
+        b'<Item key="IsGreater"><Block><Item key="Close"><Param key="#Shift#">0</Param></Item></Block><Block><Item key="Number"><Param key="#Value#">1</Param></Item></Block></Item>',
+        1)
+    with pytest.raises(ValueError, match="Look-ahead"):
+        translate(_sqx(tmp_path, strategy), tmp_path / "candidate.ir.json")
+
+
+def test_parent_shift_makes_nested_indicator_causal(tmp_path):
+    strategy = STRATEGY.replace(
+        b'<Item key="Boolean"><Param key="#Value#">true</Param></Item>',
+        b'<Item key="IsRising"><Param key="#Shift#">1</Param><Block><Item key="RSI"><Param key="#Period#">14</Param><Param key="#Shift#">0</Param></Item></Block></Item>',
+        1)
+    ir = canonical_ir(extract(_sqx(tmp_path, strategy)))
+    contract = validate_executable_ir(ir)
+    assert contract["causal_entry_signals"] is True
+    assert contract["minimum_market_data_shift"] == 1
 
 
 def test_v4_contract_recomputes_ir_and_rejects_arbitrary_hashed_json(tmp_path):

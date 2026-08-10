@@ -50,6 +50,7 @@ def validate_executable_ir(ir: dict, *, require_stop_loss: bool = True) -> dict:
     active = {direction: plan for direction, plan in plans.items() if plan is not None}
     if not active:
         raise ValueError("L'estrategia no te cap direccio executable")
+    minimum_shifts = []
     for direction, plan in active.items():
         if (plan.get("entry_order") != "market_at_signal_bar_open"
                 or plan.get("allow_duplicate_trades") is not False):
@@ -59,13 +60,48 @@ def validate_executable_ir(ir: dict, *, require_stop_loss: bool = True) -> dict:
             raise ValueError(f"Stop no normalitzat per {direction}")
         if require_stop_loss and stop["type"] == "none":
             raise ValueError(f"Stop loss obligatori absent per {direction}")
+        signal = ir.get("entries", {}).get(direction, {}).get("signal")
+        if not isinstance(signal, dict):
+            raise ValueError(f"Senyal absent per {direction}")
+        shift = _validate_causal_signal(signal)
+        if shift is not None:
+            minimum_shifts.append(shift)
     return {
         "active_directions": sorted(active),
         "stop_loss_required": require_stop_loss,
         "stop_loss_present_all_directions": all(
             plan["stop_loss"]["type"] != "none" for plan in active.values()),
         "timed_session_exits_disabled": True,
+        "causal_entry_signals": True,
+        "minimum_market_data_shift": min(minimum_shifts) if minimum_shifts else None,
     }
+
+
+_MARKET_DATA_NODES = {
+    "Close", "High", "Low", "SMA", "EMA", "RSI", "ROC", "Highest", "Lowest",
+}
+
+
+def _validate_causal_signal(node: dict, inherited_shift: int = 0) -> int | None:
+    op = node.get("op")
+    params = node.get("params", {})
+    own_shift = params.get("#Shift#", 0) or 0
+    if not isinstance(own_shift, int) or isinstance(own_shift, bool) or own_shift < 0:
+        raise ValueError(f"Shift invalid al node {op}")
+    propagated = inherited_shift + (own_shift if op in {"IsRising", "IsFalling"} else 0)
+    observed = []
+    if op in _MARKET_DATA_NODES:
+        effective = inherited_shift + own_shift
+        if effective < 1:
+            raise ValueError(f"Look-ahead: {op} usa la candle d'entrada Shift=0")
+        observed.append(effective)
+    if op == "IsMonthLastTradingDay":
+        raise ValueError("IsMonthLastTradingDay no es causal al runtime actual")
+    for child in node.get("children", []):
+        value = _validate_causal_signal(child, propagated)
+        if value is not None:
+            observed.append(value)
+    return min(observed) if observed else None
 
 
 def _range_plan(value: object, label: str) -> dict:

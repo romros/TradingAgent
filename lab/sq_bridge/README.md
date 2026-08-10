@@ -463,6 +463,10 @@ de l'última candle completada, gaps a preu real d'open, i stop/target actius a
 la candle d'entrada. Si stop i target són tocats dins la mateixa OHLC i l'ordre
 no és demostrable, no inventa un resultat: rebutja el trace.
 
+Com que l'entrada és a l'open, cada preu o indicador del senyal ha de tenir
+`Shift` efectiu ≥1. El projecte SQ ho configura així i la traducció ho recalcula
+des de l'AST; un SQX amb `Close[0]` o indicador equivalent falla per look-ahead.
+
 La traducció no consulta el holdout. El verificador reconstrueix l'IR des del
 SQX i exigeix coincidència exacta. Aquesta especificació executable continua
 sense assumir que SQ calcula cada detall igual: la paritat posterior de

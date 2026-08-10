@@ -12,6 +12,7 @@ from pathlib import Path
 from xml.etree import ElementTree as ET
 
 from methodology import validate
+from lab.sq_bridge.evidence_chain import verify as verify_chain
 
 TRANSLATABLE_BLOCKS = {
     "Prices.High", "Prices.Low", "Prices.Close",
@@ -99,6 +100,41 @@ def _validate_generation_contract(
             or not 1 <= attempt_budget <= generation["maximum_attempts"]):
         raise ValueError(
             f"V4_ATTEMPT_BUDGET must be 1..{generation['maximum_attempts']}")
+
+
+def _validate_v4_prerequisites(methodology: dict, methodology_path: Path,
+                               chain_path: Path | None, campaign_id: str | None,
+                               hypothesis_id: str | None, market_key: str) -> dict:
+    if methodology.get("schema_version", 1) < 4:
+        return {}
+    if chain_path is None or not campaign_id or not hypothesis_id:
+        raise ValueError("V4_SQ_PREREQUISITES_REQUIRED")
+    chain = json.loads(chain_path.read_text())
+    verification = verify_chain(chain, methodology_path)
+    if (not verification.get("valid") or verification.get("terminal")
+            or verification.get("next_stage") != "sq_generation"
+            or verification.get("promotable") is not True):
+        raise ValueError("V4_SQ_CHAIN_NOT_READY: " + ";".join(
+            verification.get("errors", [])))
+    if (chain.get("campaign_id"), chain.get("hypothesis_id"), chain.get("market")) != (
+            campaign_id, hypothesis_id, market_key):
+        raise ValueError("V4_SQ_CHAIN_IDENTITY_MISMATCH")
+    receipts = chain.get("receipts")
+    if (not isinstance(receipts, list) or [row.get("stage") for row in receipts]
+            != ["market_preflight", "hypothesis_screen"]
+            or any(row.get("decision") != "PASS" for row in receipts)):
+        raise ValueError("V4_SQ_PREREQUISITE_RECEIPTS_INVALID")
+    screen_path = Path(receipts[-1]["artifact"])
+    screen = json.loads(screen_path.read_text())
+    if hypothesis_id not in screen.get("selected_hypothesis_ids", []):
+        raise ValueError("V4_SQ_HYPOTHESIS_NOT_SCREENED")
+    return {
+        "campaign_id": campaign_id, "source_hypothesis_id": hypothesis_id,
+        "evidence_chain_path": str(chain_path.resolve()),
+        "evidence_chain_sha256": _sha256(chain_path.read_bytes()),
+        "market_preflight_receipt_sha256": receipts[0]["receipt_sha256"],
+        "hypothesis_screen_receipt_sha256": receipts[1]["receipt_sha256"],
+    }
 
 def _require_resource_symbol(root: ET.Element, symbol: str, market: dict) -> None:
     resources = root.findall("./Resources/Symbols/Symbol")
@@ -286,12 +322,16 @@ def build(source: Path, output: Path, project_name: str, market_key: str,
           accepted_limit: int, search_profile: str = "generic_translatable",
           generation_type: str = "random-generation", attempt_budget: int | None = None,
           wall_time_minutes: int = 0, stagnation_attempts: int | None = None,
-          market_side: str = "both") -> dict:
+          market_side: str = "both", evidence_chain_path: Path | None = None,
+          campaign_id: str | None = None, source_hypothesis_id: str | None = None) -> dict:
     methodology = json.loads(methodology_path.read_text())
     errors = validate(methodology)
     if errors:
         raise ValueError("Metodologia invalida: " + "; ".join(errors))
     _validate_generation_contract(methodology, generation_type, attempt_budget)
+    prerequisites = _validate_v4_prerequisites(
+        methodology, methodology_path, evidence_chain_path, campaign_id,
+        source_hypothesis_id, market_key)
     registry = json.loads(registry_path.read_text())
     market = registry["markets"].get(market_key)
     if not market or not market.get("research_eligible"):
@@ -328,6 +368,7 @@ def build(source: Path, output: Path, project_name: str, market_key: str,
         "stagnation_attempts": stagnation_attempts,
         "canonical_evaluation_capital": methodology["capital_usdc"], "periods": periods,
         "blocks": block_counts, "holdout_sealed": True}
+    manifest.update(prerequisites)
     output.with_suffix(".manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
     return manifest
 
@@ -350,11 +391,15 @@ def main() -> None:
     parser.add_argument("--wall-time-minutes", type=int, default=0)
     parser.add_argument("--market-side", choices=("long", "short", "both"), default="both")
     parser.add_argument("--stagnation-attempts", type=int)
+    parser.add_argument("--evidence-chain", type=Path)
+    parser.add_argument("--campaign-id")
+    parser.add_argument("--source-hypothesis-id")
     args = parser.parse_args()
     print(json.dumps(build(args.source, args.output, args.name, args.market, args.registry,
         args.methodology, args.date_from, args.date_to, args.accepted_limit,
         args.search_profile, args.generation_type, args.attempt_budget,
-        args.wall_time_minutes, args.stagnation_attempts, args.market_side), indent=2))
+        args.wall_time_minutes, args.stagnation_attempts, args.market_side,
+        args.evidence_chain, args.campaign_id, args.source_hypothesis_id), indent=2))
 
 if __name__ == "__main__":
     main()

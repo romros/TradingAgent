@@ -268,8 +268,24 @@ reexecuta el compositor sobre cobertura històrica, mapping i costos congelats.
 VIX o un altre estat de règim és opcional, però quan existeix també forma part
 de les fonts hashades i ha de respectar el timing anti-look-ahead.
 
-Per a una campanya v4, el rebut de `sq_generation` no s'escriu a mà. Després de
-congelar el databank i el recompte real d'intents, es genera així:
+El CFX que s'executa s'ha d'haver creat amb la cadena preparada exactament per
+a generació:
+
+```bash
+PYTHONPATH=../.. python3 alquimia_project.py \
+  --source /path/to/technical-scaffold.cfx \
+  --output /path/to/project.cfx --name PROJECT_NAME --market EURUSD \
+  --methodology methodology_v4.json --date-from YYYY-MM-DD --date-to YYYY-MM-DD \
+  --generation-type genetic-evolution --attempt-budget 10000 \
+  --evidence-chain /path/to/state/chain.json \
+  --campaign-id CAMPAIGN_ID --source-hypothesis-id HYPOTHESIS_ID
+```
+
+El constructor revalida la cadena i només accepta `next_stage=sq_generation`.
+El scaffold continua aportant únicament format XML, mai evidència quantitativa.
+
+Per a una campanya v4, el rebut de `sq_generation` tampoc s'escriu a mà. Després
+de congelar el databank i el recompte real d'intents, es genera així:
 
 ```bash
 PYTHONPATH=../.. python3 sq_generation_artifact_v4.py \

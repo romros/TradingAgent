@@ -4,7 +4,11 @@ import json
 import pytest
 from pathlib import Path
 
-from alquimia_project import SEARCH_PROFILES, _split_dates, _validate_generation_contract
+import alquimia_project
+from alquimia_project import (
+    SEARCH_PROFILES, _split_dates, _validate_generation_contract,
+    _validate_v4_prerequisites,
+)
 
 generic = SEARCH_PROFILES["generic_translatable"]
 assert {"Prices.Close", "Indicators.SMA", "Indicators.EMA", "Indicators.RSI",
@@ -52,3 +56,49 @@ def test_v4_requires_genetic_evolution_and_bounded_attempts():
 def test_v3_keeps_legacy_generation_compatibility():
     methodology = json.loads(Path(__file__).with_name("methodology_v3.json").read_text())
     _validate_generation_contract(methodology, "random-generation", None)
+
+
+def _ready_chain(tmp_path, selected=("hypothesis",)):
+    screen = tmp_path / "screen.json"
+    screen.write_text(json.dumps({"selected_hypothesis_ids": list(selected)}))
+    chain = tmp_path / "chain.json"
+    chain.write_text(json.dumps({
+        "campaign_id": "campaign", "hypothesis_id": "hypothesis", "market": "EURUSD",
+        "receipts": [
+            {"stage": "market_preflight", "decision": "PASS",
+             "receipt_sha256": "a" * 64},
+            {"stage": "hypothesis_screen", "decision": "PASS",
+             "receipt_sha256": "b" * 64, "artifact": str(screen)},
+        ]}))
+    return chain
+
+
+def test_v4_project_requires_verified_chain_at_sq_generation(tmp_path, monkeypatch):
+    methodology_path = Path(__file__).with_name("methodology_v4.json")
+    methodology = json.loads(methodology_path.read_text())
+    with pytest.raises(ValueError, match="PREREQUISITES_REQUIRED"):
+        _validate_v4_prerequisites(
+            methodology, methodology_path, None, None, None, "EURUSD")
+    monkeypatch.setattr(alquimia_project, "verify_chain", lambda *_: {
+        "valid": True, "terminal": False, "next_stage": "sq_generation",
+        "promotable": True, "errors": []})
+    chain = _ready_chain(tmp_path)
+    result = _validate_v4_prerequisites(
+        methodology, methodology_path, chain, "campaign", "hypothesis", "EURUSD")
+    assert result["source_hypothesis_id"] == "hypothesis"
+    assert result["evidence_chain_sha256"]
+
+
+def test_v4_project_rejects_unscreened_hypothesis_or_wrong_identity(tmp_path, monkeypatch):
+    methodology_path = Path(__file__).with_name("methodology_v4.json")
+    methodology = json.loads(methodology_path.read_text())
+    monkeypatch.setattr(alquimia_project, "verify_chain", lambda *_: {
+        "valid": True, "terminal": False, "next_stage": "sq_generation",
+        "promotable": True, "errors": []})
+    chain = _ready_chain(tmp_path, selected=("other",))
+    with pytest.raises(ValueError, match="HYPOTHESIS_NOT_SCREENED"):
+        _validate_v4_prerequisites(
+            methodology, methodology_path, chain, "campaign", "hypothesis", "EURUSD")
+    with pytest.raises(ValueError, match="IDENTITY_MISMATCH"):
+        _validate_v4_prerequisites(
+            methodology, methodology_path, chain, "wrong", "hypothesis", "EURUSD")

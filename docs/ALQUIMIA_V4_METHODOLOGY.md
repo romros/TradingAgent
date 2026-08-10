@@ -79,6 +79,12 @@ també rebutja qualsevol metodologia v4 nova que relaxi aquests mínims, els 1.0
 Monte Carlo, la probabilitat de liquidació ≤0,1%, el risc ≤1,5% o la reserva
 ≥40% del compte de 200 USDC.
 
+El constructor de projectes SQ v4 no es pot invocar fora de la cadena. Exigeix
+`--evidence-chain`, `--campaign-id` i `--source-hypothesis-id`; revalida hashes i
+artefactes, exigeix dos PASS (`market_preflight`, `hypothesis_screen`) i
+`next_stage=sq_generation`. Campanya, mercat i hipòtesi han de coincidir. El
+manifest CFX conserva el hash de la cadena i els hashes dels dos rebuts.
+
 L'etapa de compte petit ha d'avaluar la graella completa
 `1,2,3,5,8,10,15,20,30,50,75,100,150,200` fins al límit vigent del mercat i seleccionar
 el valor segur més alt. Cada leverage superior ha de tenir un motiu de rebuig.

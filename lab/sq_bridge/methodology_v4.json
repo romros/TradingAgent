@@ -59,6 +59,8 @@
     "monte_carlo_runs": 1000,
     "minimum_profitable_monte_carlo_ratio": 0.7,
     "parameter_perturbation_pct": 10,
+    "minimum_parameter_variants": 4,
+    "minimum_profitable_parameter_variants_ratio": 0.75,
     "cost_stress_multiplier": 2,
     "minimum_stress_profit_factor": 1.05,
     "maximum_liquidation_probability": 0.001

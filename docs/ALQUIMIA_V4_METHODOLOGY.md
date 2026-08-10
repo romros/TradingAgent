@@ -22,7 +22,8 @@ US500+VIX l'haurà d'utilitzar quan el gate de tres dies permeti formular-la.
    per primera vegada i cada artefacte SQ queda lligat per SHA-256.
 4. `temporal_validation`: finestres independents, degradació limitada i front
    Pareto recomputat sobre expectativa neta, drawdown i estabilitat.
-5. `robustness`: Monte Carlo, perturbació, estrès i liquidació.
+5. `robustness`: 1.000 Monte Carlo, ≥4 veïns a ±10%, estrès 2× i
+   liquidació recalculada amb excursió adversa i leverage Ostium provat.
 6. `small_account_economics`: 200 USDC, nocional, risc, marge, reserva i
    apalancament admès.
 7. `final_holdout_validation`: una sola obertura del 10% final amb candidat i
@@ -96,6 +97,13 @@ per cada hipòtesi/candidat. Els camps agregats són sempre el pitjor cas
 liquidació) i el verificador els recalcula. NaN, infinits i probabilitats fora
 de `[0,1]` fallen tancat. L'economia de 200 USDC rep un sol candidat per
 campanya; la diversificació combina després diverses cadenes ja aprovades.
+
+Robustesa rep obligatòriament tots els candidats aprovats temporalment. Com a
+mínim el 70% dels 1.000 runs i el 75% de quatre veïns paramètrics han de ser
+rendibles; el PF amb costos 2× ha de ser ≥1,05. La probabilitat de liquidació
+≤0,1% es calcula des de l'excursió adversa de cada run, no des d'un camp
+`liquidated`. El leverage de `small_account_economics` queda limitat pel que
+aquell mateix candidat va superar aquí, amb el mateix màxim vigent d'Ostium.
 
 Els hashes SQ i de traducció no són camps decoratius. `sq_generation` ha de
 referenciar cada `.sqx`; `python_translation` ha de referenciar el `.sqx` font i

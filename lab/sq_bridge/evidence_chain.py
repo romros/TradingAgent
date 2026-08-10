@@ -47,6 +47,7 @@ def verify(chain,methodology_path):
  if chain.get("live_authorized") is not False: errors.append("LIVE_MUST_REQUIRE_EXTERNAL_AUTHORIZATION")
  if chain.get("legacy_quantitative_inputs"): errors.append("LEGACY_QUANTITATIVE_INPUTS_FORBIDDEN")
  previous_ids=[]; previous_hash=None; terminal=False; screened_hypotheses=[]
+ robustness_metrics={}
  for i,r in enumerate(chain.get("receipts",[])):
   if i>=len(stages) or r.get("stage")!=stages[i]: errors.append(f"STAGE_ORDER:{i}")
   if terminal: errors.append(f"RECEIPT_AFTER_TERMINAL:{r.get('stage')}")
@@ -71,6 +72,24 @@ def verify(chain,methodology_path):
      evaluated=artifact.get("evaluated_candidate_temporal_metrics")
      if not isinstance(evaluated,dict) or set(evaluated)!=set(previous_ids):
       errors.append("TEMPORAL_EVALUATED_LINEAGE")
+    if (m.get("schema_version",1)>=4
+        and r.get("stage")=="robustness" and r.get("decision")=="PASS"):
+     evaluated=artifact.get("evaluated_candidate_robustness_metrics")
+     if not isinstance(evaluated,dict) or set(evaluated)!=set(previous_ids):
+      errors.append("ROBUSTNESS_EVALUATED_LINEAGE")
+     else: robustness_metrics=evaluated
+    if (m.get("schema_version",1)>=4
+        and r.get("stage")=="small_account_economics" and r.get("decision")=="PASS"):
+     candidate_ids=normalized_ids(r.get("candidate_ids"))
+     metric=robustness_metrics.get(candidate_ids[0]) if len(candidate_ids)==1 else None
+     selected_leverage=artifact.get("selected_leverage")
+     selected_venue_max=artifact.get("venue_max_leverage")
+     tested_leverage=metric.get("tested_leverage") if isinstance(metric,dict) else None
+     tested_venue_max=metric.get("venue_max_leverage") if isinstance(metric,dict) else None
+     if (not isinstance(selected_leverage,(int,float)) or isinstance(selected_leverage,bool)
+         or not isinstance(tested_leverage,(int,float)) or isinstance(tested_leverage,bool)
+         or selected_leverage>tested_leverage or selected_venue_max!=tested_venue_max):
+      errors.append("SMALL_ACCOUNT_EXCEEDS_ROBUSTNESS_LEVERAGE")
     if (m.get("schema_version",1)>=4 and chain.get("provenance")!="synthetic_control"
         and r.get("stage")=="paper"
         and r.get("decision")=="PASS"):

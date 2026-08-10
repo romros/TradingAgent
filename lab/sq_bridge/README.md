@@ -292,6 +292,23 @@ decay train→OOS; després aplica els gates i forma el front Pareto. Modificar 
 trace, ometre un candidat rebut d'SQ o declarar accés al holdout invalida el
 rebut.
 
+La robustesa v4 tampoc accepta resums manuals. Cada candidat aporta un
+`robustness_simulation_trace` amb exactament 1.000 runs Monte Carlo, quatre o
+més veïns paramètrics a ±10%, PnL trade a trade amb costos 2×, leverage provat,
+límit Ostium i excursió adversa màxima de cada run:
+
+```bash
+PYTHONPATH=../.. python3 robustness_artifact_v4.py \
+  --campaign-id CAMPAIGN_ID \
+  --trace /path/to/candidate-a.robustness.trace.json \
+  --artifact-output /path/to/state/artifacts/05_robustness.json
+```
+
+El constructor recomputa proporció Monte Carlo rendible, estabilitat dels veïns,
+PF estressat i liquidacions. Aquestes últimes no són booleans acceptats de la
+font: es deriven de l'excursió adversa, leverage i límit del mercat. El sizing
+posterior no pot usar més leverage ni un límit de venue diferent del provat.
+
 ## Holdout final v4
 
 El 10% final no s'obre durant traducció, paritat o paper. Després que robustesa

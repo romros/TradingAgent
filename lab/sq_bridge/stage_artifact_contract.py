@@ -17,6 +17,7 @@ from lab.sq_bridge.temporal_validation_artifact_v4 import (
     evaluate_trace as evaluate_temporal_trace,
     pareto as temporal_pareto,
 )
+from lab.sq_bridge.robustness_artifact_v4 import evaluate_trace as evaluate_robustness_trace
 
 
 def _number(value: Any) -> bool:
@@ -89,6 +90,26 @@ def _verified_temporal_sources(paths: Any, hashes: Any, reported: Any,
                 return False
             recomputed[candidate_id] = metrics
     except (OSError, TypeError, ValueError):
+        return False
+    return recomputed == reported
+
+
+def _verified_robustness_sources(paths: Any, hashes: Any, reported: Any,
+                                 artifact_path: str, gate: dict) -> bool:
+    if not isinstance(reported, dict) or not _verified_files(
+            paths, hashes, sorted(reported), artifact_path):
+        return False
+    base = Path(artifact_path).resolve().parent
+    recomputed = {}
+    try:
+        for candidate_id, value in paths.items():
+            path = Path(value)
+            path = path if path.is_absolute() else base / path
+            trace = json.loads(path.read_text())
+            if trace.get("candidate_id") != candidate_id:
+                return False
+            recomputed[candidate_id] = evaluate_robustness_trace(trace, gate)
+    except (OSError, KeyError, TypeError, ValueError):
         return False
     return recomputed == reported
 
@@ -497,27 +518,82 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
         }
         if methodology.get("schema_version", 1) >= 4:
             ids = receipt.get("candidate_ids", [])
+            evaluated = artifact.get("evaluated_candidate_robustness_metrics")
             valid = (isinstance(candidate_metrics, dict) and bool(candidate_metrics)
                      and set(candidate_metrics) == set(ids)
                      and all(isinstance(metric, dict) for metric in candidate_metrics.values()))
             valid = valid and all(
                 _at_least(metric.get("monte_carlo_runs"), 0)
                 and _between(metric.get("profitable_monte_carlo_ratio"), 0, 1)
+                and _at_least(metric.get("parameter_variant_count"), 0)
+                and _between(metric.get("profitable_parameter_variants_ratio"), 0, 1)
                 and _at_least(metric.get("stress_profit_factor"), 0)
                 and _between(metric.get("liquidation_probability"), 0, 1)
+                and metric.get("tested_leverage") in small["leverage_grid"]
+                and _at_least(metric.get("venue_max_leverage"), metric.get("tested_leverage", 0))
+                and _at_least(metric.get("liquidation_distance_pct"), 0)
                 for metric in candidate_metrics.values())
+            evaluated_valid = (isinstance(evaluated, dict) and bool(evaluated)
+                and all(isinstance(metric, dict) for metric in evaluated.values())
+                and all(
+                    _at_least(metric.get("monte_carlo_runs"), 0)
+                    and _between(metric.get("profitable_monte_carlo_ratio"), 0, 1)
+                    and _at_least(metric.get("parameter_variant_count"), 0)
+                    and _between(metric.get("profitable_parameter_variants_ratio"), 0, 1)
+                    and _at_least(metric.get("stress_profit_factor"), 0)
+                    and _between(metric.get("liquidation_probability"), 0, 1)
+                    and metric.get("tested_leverage") in small["leverage_grid"]
+                    and _at_least(metric.get("venue_max_leverage"), metric.get("tested_leverage", 0))
+                    and _at_least(metric.get("liquidation_distance_pct"), 0)
+                    for metric in evaluated.values()))
+            selected = (sorted(key for key, metric in evaluated.items()
+                if metric["monte_carlo_runs"] >= robust["monte_carlo_runs"]
+                and metric["profitable_monte_carlo_ratio"]
+                    >= robust["minimum_profitable_monte_carlo_ratio"]
+                and metric["parameter_variant_count"] >= robust["minimum_parameter_variants"]
+                and metric["profitable_parameter_variants_ratio"]
+                    >= robust["minimum_profitable_parameter_variants_ratio"]
+                and metric["stress_profit_factor"] >= robust["minimum_stress_profit_factor"]
+                and metric["liquidation_probability"]
+                    <= robust["maximum_liquidation_probability"])
+                if evaluated_valid else [])
+            source_gate = {**robust, "allowed_leverage_grid": small["leverage_grid"]}
             checks.update({
                 "CANDIDATE_METRICS": valid,
+                "EVALUATED_METRICS": evaluated_valid,
+                "PARAMETER_VARIANTS": _at_least(
+                    artifact.get("minimum_parameter_variant_count"),
+                    robust["minimum_parameter_variants"]),
+                "PARAMETER_VARIANT_PROFITABLE": _at_least(
+                    artifact.get("profitable_parameter_variants_ratio"),
+                    robust["minimum_profitable_parameter_variants_ratio"]),
+                "SELECTION_RECOMPUTES": evaluated_valid and ids == selected
+                    and candidate_metrics == {key: evaluated[key] for key in selected},
+                "TRACE_CONTRACT": _verified_robustness_sources(
+                    artifact.get("robustness_trace_paths"),
+                    artifact.get("robustness_trace_sha256"), evaluated,
+                    receipt.get("artifact", ""), source_gate)
+                    if provenance != "synthetic_control" else True,
                 "MC_RUNS_RECOMPUTES": valid and artifact.get("monte_carlo_runs")
                     == min(metric["monte_carlo_runs"] for metric in candidate_metrics.values()),
                 "MC_PROFITABLE_RECOMPUTES": valid
                     and artifact.get("profitable_monte_carlo_ratio") == min(
                         metric["profitable_monte_carlo_ratio"]
                         for metric in candidate_metrics.values()),
+                "PARAMETER_VARIANT_COUNT_RECOMPUTES": valid
+                    and artifact.get("minimum_parameter_variant_count") == min(
+                        metric["parameter_variant_count"] for metric in candidate_metrics.values()),
+                "PARAMETER_VARIANT_PROFITABLE_RECOMPUTES": valid
+                    and artifact.get("profitable_parameter_variants_ratio") == min(
+                        metric["profitable_parameter_variants_ratio"]
+                        for metric in candidate_metrics.values()),
                 "STRESS_PF_RECOMPUTES": valid and artifact.get("stress_profit_factor")
                     == min(metric["stress_profit_factor"] for metric in candidate_metrics.values()),
                 "LIQUIDATION_RECOMPUTES": valid and artifact.get("liquidation_probability")
                     == max(metric["liquidation_probability"] for metric in candidate_metrics.values()),
+                "TESTED_LEVERAGE_RECOMPUTES": valid
+                    and artifact.get("maximum_tested_leverage") == min(
+                        metric["tested_leverage"] for metric in candidate_metrics.values()),
             })
     elif stage == "small_account_economics":
         capital = artifact.get("capital_usdc")

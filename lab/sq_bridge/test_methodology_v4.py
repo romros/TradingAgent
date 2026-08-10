@@ -245,6 +245,8 @@ def test_v4_methodology_cannot_be_weakened_to_force_a_pass():
     })
     weakened["robustness"].update({
         "monte_carlo_runs": 10, "minimum_profitable_monte_carlo_ratio": .1,
+        "parameter_perturbation_pct": 1, "minimum_parameter_variants": 1,
+        "minimum_profitable_parameter_variants_ratio": .1,
         "cost_stress_multiplier": 1, "maximum_liquidation_probability": .2,
     })
     weakened["small_account"].update({
@@ -308,6 +310,33 @@ def test_v4_small_account_malformed_sizing_fails_closed_without_crashing():
         "v4", "alquimia_native")
     assert "STAGE_ARTIFACT:small_account_economics:LEVERAGE" in errors
     assert "STAGE_ARTIFACT:small_account_economics:COLLATERAL_RECOMPUTES" in errors
+
+
+def test_v4_small_account_cannot_exceed_leverage_tested_in_robustness(tmp_path):
+    campaign = "leverage-lineage"
+    chain = new_chain(
+        METHODOLOGY_PATH, campaign, "hypothesis", "SYNTHETIC", "synthetic_control")
+    for stage in METHODOLOGY["stages"][:6]:
+        ids = ["candidate"] if stage in {
+            "sq_generation", "temporal_validation", "robustness",
+            "small_account_economics"} else []
+        artifact = payload(stage, ids, False)
+        artifact["campaign_id"] = campaign
+        if stage == "small_account_economics":
+            artifact.update({
+                "selected_leverage": 8, "collateral_usdc": 37.5,
+                "portfolio_margin_pct": 18.75, "reserve_pct": 81.25,
+                "higher_leverage_rejection_reasons": {
+                    str(value): "synthetic risk constraint"
+                    for value in (10, 15, 20, 30, 50, 75, 100)},
+            })
+        path = tmp_path / f"{stage}.json"
+        path.write_text(json.dumps(artifact))
+        chain = append_receipt(
+            chain, METHODOLOGY, stage, path, "PASS", ids,
+            holdout_accessed=False)
+    result = verify(chain, METHODOLOGY_PATH)
+    assert "SMALL_ACCOUNT_EXCEEDS_ROBUSTNESS_LEVERAGE" in result["errors"]
 
 
 def test_v4_temporal_and_robustness_aggregates_must_equal_worst_candidate():

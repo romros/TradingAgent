@@ -83,6 +83,12 @@ def validate(config: dict) -> list[str]:
             errors.append("robustness: Monte Carlo insuficient")
         if robust.get("minimum_profitable_monte_carlo_ratio", 0) < .7:
             errors.append("robustness: probabilitat rendible massa baixa")
+        if robust.get("parameter_perturbation_pct") != 10:
+            errors.append("robustness: pertorbacio parametrica ha de ser 10%")
+        if robust.get("minimum_parameter_variants", 0) < 4:
+            errors.append("robustness: massa pocs veins parametritzats")
+        if robust.get("minimum_profitable_parameter_variants_ratio", 0) < .75:
+            errors.append("robustness: regio parametrica massa inestable")
         if robust.get("cost_stress_multiplier", 0) < 2:
             errors.append("robustness: estres de costos massa feble")
         if robust.get("maximum_liquidation_probability", 1) > .001:

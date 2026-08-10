@@ -22,6 +22,7 @@ from lab.sq_bridge.parity_artifact_v4 import build_artifact as build_parity
 from lab.sq_bridge.final_holdout_artifact_v4 import build_artifact as build_holdout
 from lab.sq_bridge.paper_package_artifact_v4 import build_artifact as build_paper
 from lab.sq_bridge.temporal_validation_artifact_v4 import build_artifact as build_temporal
+from lab.sq_bridge.robustness_artifact_v4 import build_artifact as build_robustness
 
 stage = os.environ['ALQUIMIA_STAGE']
 decision = sys.argv[1] if len(sys.argv) > 1 else 'PASS'
@@ -99,6 +100,30 @@ if stage == 'temporal_validation':
         'train_end_utc': (start + timedelta(days=31)).isoformat(),
         'train_trades': train, 'oos_windows': windows}))
     artifact = build_temporal(
+        campaign_id='runner-test', trace_paths=[trace_path],
+        methodology_path=Path(sys.argv[2]),
+        artifact_path=Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']))
+if stage == 'robustness':
+    base = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent
+    trace_path = base / 'runner-sqx-001.robustness.trace.json'
+    trace_path.write_text(json.dumps({
+        'schema_version': 1, 'trace_type': 'robustness_simulation_trace',
+        'candidate_id': 'runner-sqx-001', 'capital_usdc': 200,
+        'holdout_accessed': False, 'tested_leverage': 5,
+        'venue_max_leverage': 100,
+        'liquidation_model': 'ostium_exact', 'cost_stress_multiplier': 2,
+        'cost_model_sha256': 'a' * 64,
+        'monte_carlo_runs': [
+            {'run_id': f'run-{index:04d}',
+             'net_pnl_usdc': 1.0 if index < 700 else -1.0,
+             'maximum_adverse_excursion_pct': 2.0} for index in range(1000)],
+        'parameter_variants': [
+            {'variant_id': f'variant-{index}',
+             'perturbation_pct': -10 if index % 2 == 0 else 10,
+             'net_pnl_usdc': 1.0 if index < 3 else -1.0}
+            for index in range(4)],
+        'stress_trade_pnl_usdc': [1.0 if index < 18 else -.5 for index in range(30)]}))
+    artifact = build_robustness(
         campaign_id='runner-test', trace_paths=[trace_path],
         methodology_path=Path(sys.argv[2]),
         artifact_path=Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']))

@@ -53,6 +53,32 @@ SHA-256 de cada captura.
 Implementació: `lab/sq_bridge/eurusd_d1_bridge_mapping_v4.py`. Evidència:
 `lab/sq_bridge/evidence/eurusd_d1_bridge_mapping_v4.json`.
 
+## Cobertura històrica
+
+Una auditoria independent llegeix només timestamps dels 274 Parquet mensuals
+Dukascopy. Reconstrueix la sessió Forex de 17:00 a 17:00 `America/New_York`,
+inclòs el canvi DST, i considera completa una sessió amb almenys el 95% de
+1.440 minuts. Els dies laborables inclouen festius al denominador, una decisió
+conservadora.
+
+- tram seleccionat sense mirar rendiment: **05/05/2003–27/02/2026**;
+- 5.884 sessions completes de 5.955 esperades;
+- cobertura global: **98,8077%**;
+- pitjor segment anual: **91,9231%** (mínim 80%).
+
+Decisió: `PASS_HISTORICAL_COVERAGE`. El rebut inclou el manifest i SHA-256 de
+cada partició. Aquesta cobertura autoritza dissenyar train/validation/OOS i un
+holdout segellat, però no afirma que un edge antic continuï vigent. La robustesa
+temporal i els règims recents ho hauran de demostrar més endavant.
+
+El CSV SQ emprat al pont acaba el gener de 2026: certifica identitat, no prova
+que el recurs instal·lat a SQ contingui tot el tram. Abans d'una campanya caldrà
+construir/importar un recurs SQ des d'aquestes particions i verificar-ne dates i
+hash independentment.
+
+Implementació: `lab/sq_bridge/eurusd_d1_historical_coverage_v4.py`. Evidència:
+`lab/sq_bridge/evidence/eurusd_d1_historical_coverage_v4.json`.
+
 ## Següent gate
 
 Esperar que `ostium_research_universe_economics_collector.py` completi almenys

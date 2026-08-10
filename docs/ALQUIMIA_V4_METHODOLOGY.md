@@ -79,14 +79,17 @@ Monte Carlo, la probabilitat de liquidació ≤0,1%, el risc ≤1,5% o la reserv
 ≥40% del compte de 200 USDC.
 
 L'etapa de compte petit ha d'avaluar la graella completa
-`1,2,3,5,8,10,15,20,30,50,75,100` fins al límit vigent del mercat i seleccionar
+`1,2,3,5,8,10,15,20,30,50,75,100,150,200` fins al límit vigent del mercat i seleccionar
 el valor segur més alt. Cada leverage superior ha de tenir un motiu de rebuig.
 El verificador recalcula `collateral=notional/leverage`, marge, reserva i risc al
 stop, exigeix stop obligatori, model de liquidació exacte d'Ostium i una
 distància de liquidació d'almenys 1,5 vegades el stop. Això maximitza leverage
 dins del risc; no confon leverage amb augmentar arbitràriament el nocional.
 El nocional queda fixat per `200 × risc% / stop%`; canviar leverage només canvia
-el col·lateral. Cada candidata aporta almenys 30 trades nets sota base,
+el col·lateral requerit. La graella arriba a 200× perquè els màxims 150× i 200×
+del venue també s'hagin d'avaluar i rebutjar explícitament quan no superin
+robustesa, marge, reserva o distància de liquidació; no es poden ometre. Cada
+candidata aporta almenys 30 trades nets sota base,
 conservador i estrès. Es recalculen PF≥1,10, EV≥0,10 USDC i pèrdua individual
 ≤3%. Si en sobreviu més d'una, es congela la de millor EV del pitjor escenari,
 després millor PF i finalment ID lexicogràfic; no es consulta el holdout.

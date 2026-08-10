@@ -139,3 +139,8 @@ long+short; base usa mediana, conservador p95 i estrès el màxim de 2× mediana
 p95 més 0,10 USDC d'oracle no reemborsat. Amb cobertura immadura no conserva
 cap valor provisional com a cost congelat. Un `PASS` del preflight només
 autoritza `hypothesis_screen`; `sqcli_authorized` continua sent fals.
+
+Cada captura mesura també la graella de nocional de 10 a 14.000 USDC. Aquest
+últim valor és el màxim matemàtic amb 200 USDC, marge màxim del 35% i sostre
+Ostium de 200×. El gate exigeix 30 observacions a **cada** nivell: tenir 30
+quotes petites no pot certificar el slippage d'una posició apalancada gran.

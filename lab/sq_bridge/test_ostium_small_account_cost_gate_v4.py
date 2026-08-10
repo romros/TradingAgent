@@ -1,6 +1,8 @@
 import pytest
 
-from lab.sq_bridge.ostium_small_account_cost_gate_v4 import derive
+from lab.sq_bridge.ostium_small_account_cost_gate_v4 import (
+    REQUIRED_NOTIONALS_USDC, derive,
+)
 
 
 def summary(*, samples=30, days=3, hours=6):
@@ -15,9 +17,10 @@ def summary(*, samples=30, days=3, hours=6):
                             "distinct_utc_days": {"actual": days},
                             "distinct_utc_hours": {"actual": hours}}},
         "roundtrip_proxy_bps_by_notional": {
-            "200": {"direction_neutral": distribution,
+            str(notional): {"direction_neutral": dict(distribution),
                     "long": {**distribution, "p50": 3.5},
-                    "short": {**distribution, "p50": 4.5}}},
+                    "short": {**distribution, "p50": 4.5}}
+            for notional in REQUIRED_NOTIONALS_USDC},
         "fees": {"rollover_long_pct_per_8h": {"p50": -.002},
                  "rollover_short_pct_per_8h": {"p50": .002}},
         "limits": {"max_leverage": {"p50": 200}, "min_notional_usd": {"p50": 5}},
@@ -50,3 +53,12 @@ def test_identity_and_invalid_percentiles_fail_closed():
     invalid["roundtrip_proxy_bps_by_notional"]["200"]["direction_neutral"]["p95"] = 2
     with pytest.raises(ValueError, match="below p50"):
         derive(invalid, expected_pair_id="2", expected_pair=("EUR", "USD"))
+
+
+def test_global_maturity_cannot_hide_missing_high_notional_samples():
+    value = summary()
+    value["roundtrip_proxy_bps_by_notional"]["14000"]["direction_neutral"]["n"] = 29
+    result = derive(value, expected_pair_id="2", expected_pair=("EUR", "USD"))
+    assert result["decision"] == "BLOCK_INSUFFICIENT_NOTIONAL_COVERAGE"
+    assert result["notional_observations"]["14000"] == 29
+    assert "by_notional" not in result

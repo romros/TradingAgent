@@ -16,7 +16,7 @@ SUMMARY="$EVIDENCE_DIR/${SLUG}_ostium_execution_summary_latest.json"
 mkdir -p "$EVIDENCE_DIR"
 docker image inspect "$IMAGE" >/dev/null
 docker run --rm --network bridge --env "OSTIUM_PAIR=$PAIR" \
-  --env "OSTIUM_NOTIONALS=${OSTIUM_NOTIONALS:-10,20,50,100,200,500,1000}" \
+  --env "OSTIUM_NOTIONALS=${OSTIUM_NOTIONALS:-10,20,50,100,200,500,1000,2000,5000,10000,14000}" \
   "$IMAGE" > "$RAW"
 python3 "$ROOT/lab/sq_bridge/normalize_ostium_execution_snapshot.py" \
   "$RAW" --output "$NORMALIZED" --pair-from "$PAIR_FROM" --pair-to "$PAIR_TO" >/dev/null

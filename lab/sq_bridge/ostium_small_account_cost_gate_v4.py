@@ -15,6 +15,7 @@ from lab.sq_bridge.us500_d1_market_preflight_v4 import write_atomic
 MINIMUM_SAMPLES = 30
 MINIMUM_DAYS = 3
 MINIMUM_UTC_HOURS = 6
+REQUIRED_NOTIONALS_USDC = (10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 14000)
 
 
 def number(value: Any, label: str, *, nonnegative: bool = True) -> float:
@@ -48,8 +49,23 @@ def derive(summary: dict[str, Any], *, expected_pair_id: str,
         raise ValueError("execution summary must use schema_version=1")
     oracle = number(oracle_locked_usdc, "oracle_locked_usdc")
     raw = summary.get("roundtrip_proxy_bps_by_notional") or {}
-    if "200" not in raw:
-        raise ValueError("200 USDC roundtrip measurement is required")
+    notional_coverage = {
+        str(notional): int((((raw.get(str(notional)) or {}).get("direction_neutral") or {})
+                           .get("n", 0)))
+        for notional in REQUIRED_NOTIONALS_USDC
+    }
+    if any(count < MINIMUM_SAMPLES for count in notional_coverage.values()):
+        return {
+            "schema_version": 1,
+            "decision": "BLOCK_INSUFFICIENT_NOTIONAL_COVERAGE",
+            "costs_frozen": False,
+            "coverage": actual,
+            "required_notional_observations": MINIMUM_SAMPLES,
+            "notional_observations": notional_coverage,
+            "maximum_feasible_notional_usdc": max(REQUIRED_NOTIONALS_USDC),
+            "paper_authorized": False,
+            "live_authorized": False,
+        }
     scenarios = {}
     for label, routes in raw.items():
         notional = number(label, f"notional {label}")
@@ -88,6 +104,8 @@ def derive(summary: dict[str, Any], *, expected_pair_id: str,
             "conservative": "p95 measured direction-neutral roundtrip; oracle refunded",
             "stress": "max(2*median,p95) plus non-refunded 0.10 USDC oracle",
         },
+        "required_notional_grid_usdc": list(REQUIRED_NOTIONALS_USDC),
+        "maximum_feasible_notional_usdc": max(REQUIRED_NOTIONALS_USDC),
         "by_notional": scenarios, "carry": carry,
         "venue_limits": summary.get("limits"),
         "credit_policy": "negative rollover is capped at zero; no historical credit inferred",

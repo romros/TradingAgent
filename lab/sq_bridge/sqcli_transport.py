@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import re
 import asyncio
+import hashlib
 import json
 import subprocess
 import urllib.parse
@@ -15,6 +16,7 @@ import websockets
 
 
 CONTAINER_NAME = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]*$")
+SAFE_PROJECT_NAME = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]*$")
 PROJECT_COMMAND = re.compile(
     r"^-project action=(pause|resume|stop) name=(.+)$")
 PROJECT_CHANNELS = ("engine-channel", "progress-channel")
@@ -60,6 +62,63 @@ def docker_exec_http_call(
     if match is None or int(match.group(1)) != 200:
         raise RuntimeError(f"SQCLI returned HTTP status: {first}")
     return body
+
+
+def parse_project_final_log(text: str) -> dict:
+    """Derive exact counters from a completed SQ global project log."""
+    if not isinstance(text, str) or "TASK FINISHED" not in text:
+        raise RuntimeError("SQCLI latest project run is not finished")
+    rows = re.findall(
+        r"Strategies generated:\s*(\d+).*?Accepted:\s*(\d+),\s*Rejected:\s*(\d+)",
+        text, re.DOTALL)
+    if not rows:
+        raise RuntimeError("SQCLI final strategy counters missing")
+    generated, accepted, rejected = map(int, rows[-1])
+    if generated < 1 or accepted + rejected != generated:
+        raise RuntimeError("SQCLI final strategy counters inconsistent")
+    return {"generated": generated, "accepted": accepted, "rejected": rejected}
+
+
+def docker_project_final_stats(
+    container: str, project: str, *, timeout_seconds: int = 20,
+    runner: Callable[..., subprocess.CompletedProcess] = subprocess.run,
+) -> dict:
+    """Read the newest completed SQ project log and derive exact final counters."""
+    if not CONTAINER_NAME.fullmatch(container):
+        raise ValueError("invalid SQCLI container name")
+    if not isinstance(project, str) or not SAFE_PROJECT_NAME.fullmatch(project):
+        raise ValueError("invalid SQCLI project name")
+    log_dir = f"/home/squser/SQ/user/projects/{project}/log"
+    listed = runner(
+        ["docker", "exec", container, "find", log_dir, "-maxdepth", "1",
+         "-type", "f", "-name", "global_log_*.log", "-printf", "%T@ %p\n"],
+        capture_output=True, text=True, timeout=timeout_seconds, check=False)
+    if listed.returncode != 0:
+        raise RuntimeError("SQCLI project log listing failed")
+    candidates = []
+    for line in listed.stdout.splitlines():
+        stamp, separator, path = line.partition(" ")
+        if separator and path.startswith(log_dir + "/"):
+            try:
+                candidates.append((float(stamp), path))
+            except ValueError:
+                continue
+    if not candidates:
+        raise RuntimeError("SQCLI project has no run log")
+    log_path = max(candidates)[1]
+    completed = runner(
+        ["docker", "exec", container, "cat", log_path], capture_output=True,
+        text=True, timeout=timeout_seconds, check=False)
+    if completed.returncode != 0:
+        raise RuntimeError("SQCLI project log read failed")
+    text = completed.stdout
+    return {
+        **parse_project_final_log(text),
+        "log_path": log_path,
+        "log_sha256": hashlib.sha256(text.encode()).hexdigest(),
+        "log_text": text,
+        "attempt_counter_source": "sq_project_final_log",
+    }
 
 
 def select_project_stats(payload: object, project: str) -> dict:

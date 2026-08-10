@@ -1,10 +1,13 @@
 import subprocess
+import hashlib
+import json
+from pathlib import Path
 
 import pytest
 
 from lab.sq_bridge.sqcli_transport import (
-    docker_exec_http_call, gui_project_action, project_listing, select_project_stats,
-    trigger_project_listing,
+    docker_exec_http_call, docker_project_final_stats, gui_project_action,
+    parse_project_final_log, project_listing, select_project_stats, trigger_project_listing,
 )
 
 
@@ -91,3 +94,46 @@ def test_project_listing_trigger_requires_exact_project():
         "projectName": "P"}
     with pytest.raises(ValueError, match="not unique"):
         trigger_project_listing("http://sq:8080", "Q", opener=lambda *_1, **_2: Response())
+
+
+def test_final_log_parser_requires_completed_consistent_exact_counters():
+    log = """TASK FINISHED at 2026.08.10 23:30:18.050 in 32 s.
+Strategies generated: 192, Time per strategy: 136 ms., Accepted: 10, Rejected: 182,
+"""
+    assert parse_project_final_log(log) == {
+        "generated": 192, "accepted": 10, "rejected": 182}
+    with pytest.raises(RuntimeError, match="not finished"):
+        parse_project_final_log(log.replace("TASK FINISHED", "TASK STARTED"))
+    with pytest.raises(RuntimeError, match="inconsistent"):
+        parse_project_final_log(log.replace("Rejected: 182", "Rejected: 181"))
+
+
+def test_docker_final_stats_selects_newest_log_without_shell_interpolation():
+    calls = []
+    log = "TASK FINISHED\nStrategies generated: 12, Accepted: 2, Rejected: 10\n"
+
+    def runner(args, **kwargs):
+        calls.append(args)
+        if "find" in args:
+            return subprocess.CompletedProcess(
+                args, 0, "1.0 /logs/ignored\n2.0 /home/squser/SQ/user/projects/P/log/global_log_2.log\n", "")
+        return subprocess.CompletedProcess(args, 0, log, "")
+
+    value = docker_project_final_stats("sqcli-docker", "P", runner=runner)
+    assert value["generated"] == 12
+    assert value["log_text"] == log
+    assert calls[1] == ["docker", "exec", "sqcli-docker", "cat",
+                        "/home/squser/SQ/user/projects/P/log/global_log_2.log"]
+    with pytest.raises(ValueError, match="project"):
+        docker_project_final_stats("sqcli-docker", "P;bad", runner=runner)
+
+
+def test_observed_genetic_budget_smoke_is_bound_to_exact_sq_log():
+    root = Path(__file__).with_name("evidence")
+    receipt = json.loads((root / "sq_genetic_budget_smoke_20260810.json").read_text())
+    log = root / receipt["final"]["log_path"]
+    assert hashlib.sha256(log.read_bytes()).hexdigest() == receipt["final"]["log_sha256"]
+    assert parse_project_final_log(log.read_text()) == {
+        key: receipt["final"][key] for key in ("generated", "accepted", "rejected")}
+    assert receipt["decision"] == "REJECT_AS_SCIENTIFIC_RUN"
+    assert receipt["candidate_ids_promoted"] == []

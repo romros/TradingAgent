@@ -64,6 +64,23 @@ def test_control_requires_opt_in_and_is_audited(tmp_path):
     assert json.loads((tmp_path / "journal.jsonl").read_text().splitlines()[-1])["event"] == "CONTROL_APPLIED"
 
 
+def test_terminal_snapshot_is_replaced_by_exact_persisted_sq_log(tmp_path):
+    result = run_monitor(
+        base_url="http://sq", project="P", limits=Limits(100),
+        status_file=tmp_path / "latest.json", journal_file=tmp_path / "journal.jsonl",
+        disk_path=tmp_path, artifacts=None, interval=1, allow_control=True, once=True,
+        snapshot_fn=lambda *_: status(101, 2), call_fn=lambda *_: "ok",
+        final_stats_fn=lambda _: {
+            "generated": 107, "accepted": 3, "rejected": 104,
+            "log_path": "/inside/global.log", "log_sha256": "a" * 64,
+            "log_text": "TASK FINISHED\nStrategies generated: 107, Accepted: 3, Rejected: 104\n",
+            "attempt_counter_source": "sq_project_final_log"})
+    assert result["generated"] == 107
+    assert result["attempt_counter_source"] == "sq_project_final_log"
+    assert Path(result["sq_final_log_path"]).read_text().startswith("TASK FINISHED")
+    assert json.loads((tmp_path / "latest.json").read_text())["generated"] == 107
+
+
 def test_monitor_error_cannot_control_sq(tmp_path):
     calls = []
     result = run_monitor(
@@ -80,10 +97,13 @@ def test_monitor_error_cannot_control_sq(tmp_path):
 def test_gui_snapshot_maps_single_task_stats_without_text_parsing(tmp_path, monkeypatch):
     monkeypatch.setattr("sq_watchdog.gui_project_stats", lambda *_: {
         "projectName": "P", "strategies": 5, "runningStatus": 1,
-        "tasksIterations": [{"taskName": "Build", "iterations": 200}]})
+        "tasksIterations": [{"taskName": "Build", "iterations": 2}],
+        "_engine": {"totalJobsDone": 200}})
     value = gui_snapshot("http://sq:8080", "P", tmp_path)
     assert value["generated"] == 200
     assert value["in_databank"] == 5
     assert value["accepted_pct"] == 2.5
     assert value["running_status"] == 1
+    assert value["task_iterations"] == 2
+    assert value["attempt_counter_source"] == "engine.totalJobsDone_live_lower_bound"
     assert value["status_source"] == "sq_gui_subscribed_websocket"

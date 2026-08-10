@@ -18,7 +18,8 @@ from pathlib import Path
 from typing import Callable
 
 from lab.sq_bridge.sqcli_transport import (
-    docker_exec_http_call, gui_project_action_from_cli, gui_project_stats,
+    docker_exec_http_call, docker_project_final_stats,
+    gui_project_action_from_cli, gui_project_stats,
 )
 
 
@@ -118,7 +119,10 @@ def gui_snapshot(base_url: str, project: str, disk_path: Path,
     tasks = row.get("tasksIterations")
     task = tasks[0] if isinstance(tasks, list) and len(tasks) == 1 else {}
     engine = row.get("_engine", {})
-    generated, accepted = task.get("iterations"), row["strategies"]
+    live_jobs = engine.get("totalJobsDone")
+    generated = (live_jobs if isinstance(live_jobs, int)
+                 and not isinstance(live_jobs, bool) and live_jobs >= 0 else None)
+    accepted = row["strategies"]
     disk = shutil.disk_usage(disk_path)
     return {
         "observed_at": datetime.now(timezone.utc).isoformat(),
@@ -131,7 +135,8 @@ def gui_snapshot(base_url: str, project: str, disk_path: Path,
         "job_exceptions": engine.get("jobExceptionsCount"),
         "running_status": row["runningStatus"],
         "task_name": task.get("taskName"),
-        "attempt_counter_source": ("taskmanager.tasksIterations"
+        "task_iterations": task.get("iterations"),
+        "attempt_counter_source": ("engine.totalJobsDone_live_lower_bound"
                                    if generated is not None else None),
         "memory_available_bytes": memory_available_bytes(),
         "disk_free_bytes": disk.free, "artifacts": inventory_sqx(artifacts),
@@ -185,12 +190,20 @@ def write_atomic(path: Path, data: dict) -> None:
     temporary.replace(path)
 
 
+def write_text_atomic(path: Path, text: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(text, encoding="utf-8")
+    temporary.replace(path)
+
+
 def run_monitor(
     *, base_url: str, project: str, limits: Limits, status_file: Path,
     journal_file: Path, disk_path: Path, artifacts: Path | None, interval: int,
     allow_control: bool, once: bool = False,
     snapshot_fn: Callable[..., dict] = snapshot,
     call_fn: Callable[[str, str], str] = sq_call,
+    final_stats_fn: Callable[[str], dict] | None = None,
 ) -> dict:
     started = time.monotonic()
     history: list[dict] = []
@@ -221,6 +234,27 @@ def run_monitor(
                 status["stop_response"] = call_fn(base_url, f"-project action=stop name={project}")
                 append_jsonl(journal_file, {**status, "event": "CONTROL_APPLIED"})
                 write_atomic(status_file, status)
+            if final_stats_fn is not None:
+                try:
+                    final = final_stats_fn(project)
+                except Exception as exc:
+                    status["final_stats_error"] = repr(exc)
+                else:
+                    final_log_path = status_file.with_suffix(
+                        status_file.suffix + ".sq-final.log")
+                    write_text_atomic(final_log_path, final.pop("log_text"))
+                    status.update({
+                        "generated": final["generated"],
+                        "in_databank": final["accepted"],
+                        "rejected": final["rejected"],
+                        "attempt_counter_source": final["attempt_counter_source"],
+                        "sq_final_log_path": str(final_log_path.resolve()),
+                        "sq_container_log_path": final["log_path"],
+                        "sq_final_log_sha256": final["log_sha256"],
+                    })
+                    status["artifacts"] = inventory_sqx(artifacts)
+                append_jsonl(journal_file, {**status, "event": "FINAL_STATS"})
+                write_atomic(status_file, status)
             return status
         if once:
             return status
@@ -249,19 +283,23 @@ def main() -> int:
     if args.transport == "gui-websocket":
         caller = gui_project_action_from_cli
         snapshot_with_transport = gui_snapshot
+        finalizer = partial(docker_project_final_stats, args.container)
     elif args.transport == "http":
         caller = sq_call
         snapshot_with_transport = partial(snapshot, call_fn=caller)
+        finalizer = None
     else:
         caller = lambda _base_url, command: docker_exec_http_call(
             args.container, command, api_port=args.api_port)
         snapshot_with_transport = partial(snapshot, call_fn=caller)
+        finalizer = partial(docker_project_final_stats, args.container)
     run_monitor(
         base_url=args.base_url, project=args.project, limits=limits,
         status_file=args.status_file, journal_file=args.journal_file,
         disk_path=args.disk_path, artifacts=args.artifacts, interval=args.interval,
         allow_control=args.allow_control, once=args.once,
         snapshot_fn=snapshot_with_transport, call_fn=caller,
+        final_stats_fn=finalizer,
     )
     return 0
 

@@ -7,7 +7,7 @@ from pathlib import Path
 
 import alquimia_project
 from alquimia_project import (
-    SEARCH_PROFILES, _bounded_genetic_shape, _split_dates, _sq_discovery_slippage,
+    SEARCH_PROFILES, _nominal_genetic_shape, _split_dates, _sq_discovery_slippage,
     _validate_generation_contract, _write_reproducible_cfx,
     _validate_v4_prerequisites,
     _validated_v4_periods,
@@ -66,11 +66,11 @@ def test_v4_requires_genetic_evolution_and_bounded_attempts():
 
 
 def test_genetic_shape_embeds_attempt_ceiling_and_preserves_four_islands():
-    shape = _bounded_genetic_shape(10_000)
+    shape = _nominal_genetic_shape(10_000)
     assert shape == {"islands": 4, "population_per_island": 100,
                      "max_generations": 25, "nominal_evaluations": 10_000}
     for budget in (1, 17, 999, 9_973, 10_000):
-        value = _bounded_genetic_shape(budget)
+        value = _nominal_genetic_shape(budget)
         assert value["nominal_evaluations"] <= budget
         assert value["nominal_evaluations"] == (
             value["islands"] * value["population_per_island"]

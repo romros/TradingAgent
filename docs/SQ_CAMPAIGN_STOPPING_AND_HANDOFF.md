@@ -108,8 +108,11 @@ Projecte: `ALQUIMIA_XAU_H4_DISCOVERY`.
 
 ## Controlador implementat
 
-`lab/sq_bridge/sq_watchdog.py` carrega els límits del manifest, compta els intents
-reals quan SQ publica `tasksIterations`, desa journal JSONL append-only i una
+`lab/sq_bridge/sq_watchdog.py` carrega els límits del manifest. Durant l'execució
+usa `engine.totalJobsDone` com a límit inferior dels intents acabats; no confon
+`tasksIterations` (generacions/cicles) amb estratègies. Després de stop/final
+reobre el `global_log`, deriva el `Strategies generated` exacte, en conserva una
+còpia hashada i refresca l'inventari. Desa journal JSONL append-only i una
 vista atòmica, i inventaria els `.sqx` sense modificar-los. En SQX 143.2708 el
 CLI HTTP no implementa `project status` i el broadcast TaskManager pot quedar
 silenciós amb projectes aturats. En aquest cas el transport GUI conserva només
@@ -118,11 +121,12 @@ Per defecte és només lectura. `--allow-control` és obligatori perquè un gate
 terminal executi primer `pause` i després `stop`; un error del monitor mai envia
 control a SQ.
 
-Les campanyes genètiques noves incorporen una segona barrera al CFX:
+Les campanyes genètiques noves incorporen una mida nominal al CFX:
 `illes × població × generacions <= attempt_budget`, decimació 1 i sense reinici
-automàtic. Això evita una cerca infinita encara que el WebSocket falli. El
-comptador observat continua sent l'autoritat final: la cota nominal no substitueix
-el snapshot i un overshoot no es maquilla.
+automàtic. Evita repeticions infinites, però **no és un límit dur d'intents**:
+els filtres de població inicial poden obligar SQ a generar reemplaçaments. El
+watchdog actiu és qui aplica el pressupost; el log final és l'autoritat i un
+overshoot no es maquilla.
 
 En projectes d'una sola tasca, declarar `attempt_budget_per_project`. Si el
 manifest només té un pressupost total divisible pel nombre de símbols, el

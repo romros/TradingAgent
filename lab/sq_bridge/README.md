@@ -336,13 +336,14 @@ PYTHONPATH=../.. python3 alquimia_project.py \
 
 El constructor revalida la cadena i només accepta `next_stage=sq_generation`.
 El scaffold continua aportant únicament format XML, mai evidència quantitativa.
-El pressupost genètic també queda incorporat al CFX: `Islands × PopulationSize
+La mida genètica nominal queda incorporada al CFX: `Islands × PopulationSize
 × MaxGenerations <= attempt_budget`, amb decimació 1 i els reinicis en acabar o
 per estancament desactivats. Per al pressupost v4 de 10.000 són 4 illes, 100
 individus per illa i 25 generacions. El manifest desa aquesta forma perquè una
-auditoria no depengui només del valor declarat a la línia de comandes. És una
-cota nominal d'SQ; el recompte observat continua sent l'evidència final i un
-overshoot invalida el contracte.
+auditoria no depengui només del valor declarat a la línia de comandes. No és una
+cota dura: SQ pot generar reemplaçaments per omplir la població inicial filtrada.
+El watchdog aplica el pressupost sobre `engine.totalJobsDone` i el log final
+`Strategies generated` és l'evidència exacta; un overshoot invalida el contracte.
 L'ingestor no confia en aquest objecte del manifest: reobre `config.xml` i
 l'únic `Build-Task*.xml` del CFX, recalcula el producte, verifica decimació,
 reinicis i `StopCondition`, i publica la ruta/hash del CFX perquè el validador
@@ -381,12 +382,13 @@ fer passar una execució diferent.
 En SQX 143.2708 el port CLI 5050 respon `Not implemented` a `project status`.
 La GUI 8080 ofereix `taskmanager/listProjects` i els canals WebSocket oficials
 `engine-channel`/`progress-channel`; el TaskManager només publica
-`tasksIterations` de manera fiable mentre hi ha activitat. El watchdog se
-subscriu com la GUI, però si SQ resta silenciós retorna telemetria REST degradada
+`tasksIterations`, que compta cicles i no estratègies, mentre hi ha activitat. El
+watchdog se subscriu com la GUI i usa `engine.totalJobsDone` com a límit inferior
+viu; si SQ resta silenciós retorna telemetria REST degradada
 amb `generated=null`: no inventa intents i no pot activar el gate d'intents.
 Pausa i stop són sempre opt-in (`--allow-control`) i reprodueixen els GET de la
-GUI oficial. El límit dins el CFX és la primera defensa; el journal és la prova
-externa quan el comptador és present.
+GUI oficial. En finalitzar copia i hasha el log global, en deriva el recompte
+exacte i refresca l'inventari SQX. Sense aquest log, `sq_generation` v4 no passa.
 
 `sq_generation` conserva tots els candidats únics que compleixen el subset de
 traducció i el límit estructural; no declara un fals «millor candidat» a partir

@@ -2,6 +2,7 @@ import hashlib
 import json
 import zipfile
 from datetime import date, timedelta
+from pathlib import Path
 
 import pytest
 
@@ -12,7 +13,7 @@ from lab.sq_bridge.test_sqx_extract import SETTINGS, STRATEGY
 from lab.sq_bridge.temporal_split_contract_v4 import build_contract, digest, sq_periods
 
 
-ROOT = __import__("pathlib").Path(__file__).parent
+ROOT = Path(__file__).parent
 
 
 @pytest.fixture(autouse=True)
@@ -81,8 +82,15 @@ def _fixture(tmp_path, strategy=STRATEGY, settings=SETTINGS):
         "hypothesis_screen_receipt_sha256": "b" * 64,
     }))
     watchdog = tmp_path / "watchdog-status.json"
+    final_log = tmp_path / "watchdog-status.json.sq-final.log"
+    final_log.write_text(
+        "TASK FINISHED\nStrategies generated: 80, Accepted: 1, Rejected: 79\n")
     watchdog.write_text(json.dumps({
         "project": "PROJECT_V4", "generated": 80,
+        "in_databank": 1, "rejected": 79,
+        "attempt_counter_source": "sq_project_final_log",
+        "sq_final_log_path": str(final_log),
+        "sq_final_log_sha256": hashlib.sha256(final_log.read_bytes()).hexdigest(),
         "state": "BUDGET_REACHED", "reason": "ACCEPTED_TARGET",
         "artifacts": [{"path": "candidate.sqx",
                        "sha256": hashlib.sha256(sqx.read_bytes()).hexdigest()}],
@@ -287,6 +295,20 @@ def test_rejects_watchdog_that_has_not_reached_a_frozen_gate(tmp_path):
     status.update({"state": "HEALTHY", "reason": None})
     watchdog.write_text(json.dumps(status))
     with pytest.raises(ValueError, match="gate congelat"):
+        build_artifact(
+            campaign_id="campaign-v4", source_hypothesis_ids=["hypothesis-1"],
+            databank_dir=databank, watchdog_status_path=watchdog,
+            project_cfx=cfx, project_manifest_path=manifest,
+            methodology_path=ROOT / "methodology_v4.json",
+            output_path=tmp_path / "artifact.json")
+
+
+def test_rejects_watchdog_without_untampered_exact_final_sq_log(tmp_path):
+    databank, cfx, manifest, watchdog = _fixture(tmp_path)
+    status = json.loads(watchdog.read_text())
+    Path(status["sq_final_log_path"]).write_text(
+        "TASK FINISHED\nStrategies generated: 79, Accepted: 1, Rejected: 78\n")
+    with pytest.raises(ValueError, match="log final exacte"):
         build_artifact(
             campaign_id="campaign-v4", source_hypothesis_ids=["hypothesis-1"],
             databank_dir=databank, watchdog_status_path=watchdog,

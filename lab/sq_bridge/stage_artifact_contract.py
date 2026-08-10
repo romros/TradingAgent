@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from lab.sq_bridge.sq_project_contract import verify_genetic_project
+from lab.sq_bridge.sqcli_transport import parse_project_final_log
 from lab.sq_bridge.sqx_extract import extract as extract_sqx
 from lab.sq_bridge.sqx_to_ir import canonical_ir, validate_executable_ir
 from lab.sq_bridge.parity_artifact_v4 import compare_traces
@@ -96,6 +97,26 @@ def _verified_sq_project(path_value: Any, digest: Any, artifact_path: str,
         return verify_genetic_project(path, manifest) == reported_shape
     except (OSError, TypeError, ValueError):
         return False
+
+
+def _verified_sq_final_log(watchdog: dict | None, artifact_path: str) -> bool:
+    if watchdog is None or watchdog.get("attempt_counter_source") != "sq_project_final_log":
+        return False
+    value, digest = watchdog.get("sq_final_log_path"), watchdog.get(
+        "sq_final_log_sha256")
+    if not isinstance(value, str) or not value or not isinstance(digest, str):
+        return False
+    path = Path(value)
+    path = path if path.is_absolute() else Path(artifact_path).resolve().parent / path
+    if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+        return False
+    try:
+        stats = parse_project_final_log(path.read_text())
+    except (OSError, RuntimeError):
+        return False
+    return (stats.get("generated") == watchdog.get("generated")
+            and stats.get("accepted") == watchdog.get("in_databank")
+            and stats.get("rejected") == watchdog.get("rejected"))
 
 
 def _verified_temporal_sources(artifact: dict, reported: Any,
@@ -682,6 +703,8 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                         artifact, project_manifest, receipt.get("artifact", ""), campaign_id),
                 "DATABANK_INVENTORY": databank_valid,
                 "WATCHDOG_FILE": watchdog_status is not None,
+                "WATCHDOG_FINAL_LOG": _verified_sq_final_log(
+                    watchdog_status, receipt.get("artifact", "")),
                 "WATCHDOG_CONTRACT": watchdog_status is not None
                     and project_manifest is not None
                     and watchdog_status.get("project") == project_manifest.get("project_name")

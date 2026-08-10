@@ -149,12 +149,12 @@ def _validate_generation_contract(
             f"V4_ATTEMPT_BUDGET must be 1..{generation['maximum_attempts']}")
 
 
-def _bounded_genetic_shape(attempt_budget: int) -> dict[str, int]:
-    """Choose the largest SQ island population that cannot exceed the budget.
+def _nominal_genetic_shape(attempt_budget: int) -> dict[str, int]:
+    """Choose an SQ genetic shape whose nominal population fits the budget.
 
-    SQ defines population per island, so nominal evaluations are islands times
-    population times generations.  Prefer four islands for diversity when an
-    exact representation exists, then larger per-island populations.
+    This product is not a hard attempt ceiling: SQ may generate replacements
+    while filling the filtered initial population.  Prefer four islands for
+    diversity when an exact nominal representation exists.
     """
     if (not isinstance(attempt_budget, int) or isinstance(attempt_budget, bool)
             or attempt_budget < 1):
@@ -329,7 +329,7 @@ def _configure_build(xml: bytes, market: dict, periods: dict, methodology: dict,
     symmetric = "true" if market_side == "both" else "false"
     _set_text(root, "./WhatToBuild/MarketSides/EntrySymmetry", symmetric)
     _set_text(root, "./WhatToBuild/MarketSides/ExitSymmetry", symmetric)
-    genetic_shape = (_bounded_genetic_shape(attempt_budget)
+    genetic_shape = (_nominal_genetic_shape(attempt_budget)
                      if generation_type == "genetic-evolution" and attempt_budget is not None
                      else None)
     for path, value in {
@@ -514,7 +514,7 @@ def build(source: Path, output: Path, project_name: str, market_key: str,
         "market_side": market_side,
         "attempt_budget": attempt_budget, "wall_time_budget_minutes": wall_time_minutes,
         "stagnation_attempts": stagnation_attempts,
-        "sq_genetic_shape": (_bounded_genetic_shape(attempt_budget)
+        "sq_genetic_shape": (_nominal_genetic_shape(attempt_budget)
                              if generation_type == "genetic-evolution"
                              and attempt_budget is not None else None),
         "canonical_evaluation_capital": methodology["capital_usdc"], "periods": periods,

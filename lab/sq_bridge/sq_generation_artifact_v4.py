@@ -10,6 +10,7 @@ from pathlib import Path
 
 from lab.sq_bridge.evidence_chain import verify as verify_chain
 from lab.sq_bridge.sq_project_contract import verify_genetic_project
+from lab.sq_bridge.sqcli_transport import parse_project_final_log
 from lab.sq_bridge.temporal_split_contract_v4 import digest as temporal_digest, sq_periods
 
 try:
@@ -124,6 +125,22 @@ def build_artifact(*, campaign_id: str, source_hypothesis_ids: list[str],
     if watchdog.get("state") != "BUDGET_REACHED" or watchdog.get("reason") not in {
             "ATTEMPT_BUDGET", "ACCEPTED_TARGET", "WALL_TIME_BUDGET"}:
         raise ValueError("L'execucio SQ no consta finalitzada per un gate congelat")
+    log_value = watchdog.get("sq_final_log_path")
+    log_path = Path(log_value) if isinstance(log_value, str) else Path()
+    if log_value and not log_path.is_absolute():
+        log_path = watchdog_status_path.resolve().parent / log_path
+    if (watchdog.get("attempt_counter_source") != "sq_project_final_log"
+            or not log_value or not log_path.is_file()
+            or watchdog.get("sq_final_log_sha256") != _sha256(log_path)):
+        raise ValueError("El watchdog no conserva el log final exacte d'SQ")
+    try:
+        final_stats = parse_project_final_log(log_path.read_text())
+    except RuntimeError as exc:
+        raise ValueError("El log final d'SQ no es valid") from exc
+    if (final_stats["generated"] != attempted
+            or final_stats["accepted"] != watchdog.get("in_databank")
+            or final_stats["rejected"] != watchdog.get("rejected")):
+        raise ValueError("Els comptadors del watchdog no coincideixen amb el log d'SQ")
     if manifest.get("output_sha256") != _sha256(project_cfx):
         raise ValueError("El hash del CFX no coincideix amb el manifest")
     budget = manifest.get("attempt_budget")

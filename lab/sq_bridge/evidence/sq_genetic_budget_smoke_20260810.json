@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "evidence_class": "observed_operational_smoke",
+  "decision": "REJECT_AS_SCIENTIFIC_RUN",
+  "project": "ALQUIMIA_REPRO_SMOKE",
+  "sq_build": "143.2708",
+  "started_at": "2026-08-10T23:29:45.401Z",
+  "finished_at": "2026-08-10T23:30:18.050Z",
+  "source_cfx_sha256": "40916ebd142d23c258779301e630d3dd5cdb49fa580a896d36924832290f2835",
+  "sq_imported_cfx_sha256": "3a6872a09c5bfbe5bfee206a40e56de63fc53eb9c20c19dd5ccee3bcd84c5d13",
+  "import_preserved_scientific_fields": true,
+  "configured": {
+    "islands": 4,
+    "population_per_island": 25,
+    "max_generations": 1,
+    "nominal_evaluations": 100,
+    "decimation": 1,
+    "accepted_target": 10,
+    "wall_time_minutes": 7,
+    "restart_on_finish": false,
+    "restart_on_stagnation": false
+  },
+  "live_observations": [
+    {
+      "tasks_iterations": 1,
+      "total_jobs_done": 40,
+      "backtests_performed": 41,
+      "accepted": 0
+    },
+    {
+      "tasks_iterations": 1,
+      "total_jobs_done": 157,
+      "backtests_performed": 158,
+      "accepted": 5
+    }
+  ],
+  "final": {
+    "generated": 192,
+    "accepted": 10,
+    "rejected": 182,
+    "duration_seconds": 32,
+    "job_exceptions": 0,
+    "log_path": "sq_genetic_budget_smoke_20260810.log",
+    "log_sha256": "3054f1eaa07bf171f600cdccb82d6683943bb72f2144e8864a3fc122a4db1b2d"
+  },
+  "finding": "islands*population*generations sizes the qualified genetic population but is not a hard generated-strategy ceiling because initial-population filtering generates replacements",
+  "watchdog_contract": {
+    "tasksIterations_is_attempts": false,
+    "live_lower_bound": "engine.totalJobsDone",
+    "final_authority": "project global log Strategies generated",
+    "attempt_budget_requires_active_watchdog_control": true
+  },
+  "candidate_ids_promoted": [],
+  "sqcli_started_for_scientific_campaign": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

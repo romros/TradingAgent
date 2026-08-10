@@ -18,7 +18,7 @@ def _positive_int(text: str | None, label: str) -> int:
 
 
 def verify_genetic_project(path: Path, manifest: dict) -> dict[str, int]:
-    """Reopen a CFX and prove its genetic ceiling matches the frozen manifest."""
+    """Reopen a CFX and prove its nominal genetic shape matches the manifest."""
     try:
         with zipfile.ZipFile(path) as archive:
             names = archive.namelist()

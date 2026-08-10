@@ -34,6 +34,26 @@ abans de costos. L'ATR és Wilder: mitjana aritmètica inicial del true range i
 recurrència posterior. Per no mirar dins la candle del senyal, l'stop ATR usa
 l'ATR de l'última candle completada.
 
+SMA, EMA, RSI, ROC, Highest i Lowest reprodueixen també el warm-up dels
+calculadors Java instal·lats d'SQ: EMA se sembra amb la primera barra; SMA i els
+extrems usen el prefix disponible; RSI i ROC retornen zero fins arribar al seu
+període. Aquesta semàntica evita que NaN artificials eliminin senyals inicials.
+
+La implementació es va contrastar el 2026-08-10 amb els snippets de la
+instal·lació SQCLI activa. Hashes SHA-256: `AverageCalculator.java`
+`ad89dce741ec64365a01541bc241ba8e5a0ec1493b249a58d3c1601f5a4438df`,
+`RSICalculator.java`
+`820f62497fc004146ea01d2fa20fa77b51715bd8466a0e088e404f5a0397aa70`,
+`HighestCalculator.java`
+`9a4be83ad0af74d1507e3a4cbdfe7b23702afbf535cb1279018b158ce6d8725b`,
+`LowestCalculator.java`
+`0111ddb8842eb903bece3481ac3483aad74115fe183578befc8deb4039a9eb91`,
+`ROC.java` `e852479c8cdf2f06c2bdadb9fa84b06b348c826e37389d93ba50a0e99baf6e64`
+i `EMA.java`
+`f241d8259b60e17818015522a3648368369ea34f0917151033083e1ca534e2f9`.
+Un canvi futur en qualsevol d'aquests snippets obliga a reauditar els vectors i
+repetir la paritat observada.
+
 Una sortida temporal s'executa a l'open després del nombre configurat de
 candles. Stops i targets entren en vigor després de l'entrada i poden executar
 dins la mateixa candle. Un gap advers de stop s'executa a l'open real, no al

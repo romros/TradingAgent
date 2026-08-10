@@ -22,6 +22,48 @@ def _param(node: dict, key: str, default=0):
     return node.get("params", {}).get(key, default)
 
 
+def sq_sma(values: pd.Series, period: int) -> pd.Series:
+    """Exact warm-up semantics of SQ AverageCalculator.SMA."""
+    return values.rolling(period, min_periods=1).mean()
+
+
+def sq_ema(values: pd.Series, period: int) -> pd.Series:
+    """SQ seeds EMA with bar zero, then applies alpha=2/(period+1)."""
+    return values.ewm(span=period, adjust=False, min_periods=1).mean()
+
+
+def sq_roc(values: pd.Series, period: int) -> pd.Series:
+    previous = values.shift(period)
+    result = (values - previous) / previous * 100
+    return result.mask(previous.isna() | previous.eq(0), 0.0)
+
+
+def sq_rsi(values: pd.Series, period: int) -> pd.Series:
+    """Literal vector equivalent of the installed SQ RSICalculator.java."""
+    result = pd.Series(0.0, index=values.index, dtype=float)
+    if len(values) <= period:
+        return result
+    delta = values.diff()
+    ups = delta.clip(lower=0).fillna(0.0)
+    downs = (-delta.clip(upper=0)).fillna(0.0)
+    avg_up = float(ups.iloc[1:period + 1].mean())
+    avg_down = float(downs.iloc[1:period + 1].mean())
+
+    def value() -> float:
+        if avg_down != 0:
+            return 100 - 100 / (1 + avg_up / avg_down)
+        if avg_up != 0:
+            return 100.0
+        return 50.0
+
+    result.iloc[period] = value()
+    for index in range(period + 1, len(values)):
+        avg_up = (avg_up * (period - 1) + float(ups.iloc[index])) / period
+        avg_down = (avg_down * (period - 1) + float(downs.iloc[index])) / period
+        result.iloc[index] = value()
+    return result
+
+
 class SignalRuntime:
     def __init__(self, frame: pd.DataFrame):
         if not isinstance(frame.index, pd.DatetimeIndex) or not frame.index.is_monotonic_increasing:
@@ -71,28 +113,21 @@ class SignalRuntime:
                 raise ValueError(f"Periode invalid per {op}: {period}")
             close = self.frame["close"]
             if op == "SMA":
-                result = close.rolling(period, min_periods=period).mean()
+                result = sq_sma(close, period)
             elif op == "EMA":
-                result = close.ewm(span=period, adjust=False, min_periods=period).mean()
+                result = sq_ema(close, period)
             elif op == "ROC":
-                result = (close / close.shift(period) - 1.0) * 100
+                result = sq_roc(close, period)
             else:
-                delta = close.diff()
-                avg_gain = delta.clip(lower=0).ewm(
-                    alpha=1 / period, adjust=False, min_periods=period).mean()
-                avg_loss = (-delta.clip(upper=0)).ewm(
-                    alpha=1 / period, adjust=False, min_periods=period).mean()
-                ratio = avg_gain / avg_loss.replace(0, np.nan)
-                result = 100 - 100 / (1 + ratio)
-                result = result.mask((avg_loss == 0) & (avg_gain > 0), 100.0)
-                result = result.mask((avg_loss == 0) & (avg_gain == 0), 50.0)
+                result = sq_rsi(close, period)
             result = result.shift(shift)
         elif op in {"Highest", "Lowest"}:
             period = int(_param(node, "#Period#", 14))
             if period < 1:
                 raise ValueError(f"Periode invalid per {op}: {period}")
             source = self._price(int(_param(node, "#ComputedFrom#", 0)))
-            window = source.rolling(period, min_periods=period)
+            # SQ Highest/Lowest calculators use the available prefix while warming up.
+            window = source.rolling(period, min_periods=1)
             result = (window.max() if op == "Highest" else window.min()).shift(shift)
         elif op == "AND":
             if not children:

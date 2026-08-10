@@ -4,7 +4,7 @@ import pytest
 from lab.sq_bridge.sqx_extract import SUPPORTED_SIGNAL_NODES
 from lab.sq_bridge.strategy_ir_runtime import (
     RUNTIME_SIGNAL_NODES, SignalRuntime, evaluate_entries, simulate_trade_trace,
-    wilder_atr,
+    sq_ema, sq_roc, sq_rsi, sq_sma, wilder_atr,
 )
 
 
@@ -19,7 +19,7 @@ def test_extractor_and_runtime_support_exactly_the_same_signal_nodes():
     assert RUNTIME_SIGNAL_NODES == SUPPORTED_SIGNAL_NODES
 
 
-def test_runtime_evaluates_composed_signal_without_lookahead_at_dataset_edges():
+def test_runtime_evaluates_composed_signal_with_sq_warmup_at_dataset_edges():
     runtime = SignalRuntime(_frame())
     node = {"op": "AND", "children": [
         {"op": "IsGreater", "children": [
@@ -28,7 +28,7 @@ def test_runtime_evaluates_composed_signal_without_lookahead_at_dataset_edges():
          "children": [{"op": "ROC", "params": {"#Period#": 1}}]},
     ]}
     result = runtime.evaluate(node)
-    assert list(result.astype(bool)) == [False, False, False, False, True, False, False, True]
+    assert list(result.astype(bool)) == [False, True, False, False, True, False, False, True]
     first = runtime.evaluate({"op": "IsMonthFirstTradingDay"})
     last = runtime.evaluate({"op": "IsMonthLastTradingDay"})
     assert not bool(first.iloc[0])
@@ -51,13 +51,24 @@ def test_runtime_reproduces_sq_highest_lowest_and_all_price_sources():
         "#Period#": 3, "#Shift#": 1, "#ComputedFrom#": 2}})
     lowest = runtime.evaluate({"op": "Lowest", "params": {
         "#Period#": 2, "#ComputedFrom#": 3}})
-    assert pd.isna(highest.iloc[:3]).all()
+    assert pd.isna(highest.iloc[0])
+    assert highest.iloc[1:3].tolist() == [11, 12]
     assert highest.iloc[3] == 13
     assert lowest.iloc[1] == 9
     weighted = runtime.evaluate({"op": "Highest", "params": {
         "#Period#": 1, "#ComputedFrom#": 6}})
     expected = (_frame().high + _frame().low + 2 * _frame().close) / 4
     pd.testing.assert_series_equal(weighted, expected)
+
+
+def test_highest_lowest_use_available_prefix_during_sq_warmup():
+    runtime = SignalRuntime(_frame())
+    highest = runtime.evaluate({"op": "Highest", "params": {
+        "#Period#": 3, "#ComputedFrom#": 0}})
+    lowest = runtime.evaluate({"op": "Lowest", "params": {
+        "#Period#": 3, "#ComputedFrom#": 0}})
+    assert highest.iloc[:4].tolist() == [10, 11, 12, 12]
+    assert lowest.iloc[:4].tolist() == [10, 10, 10, 11]
 
 
 def _execution_ir(*, direction="long", stop=None, target=None, exit_after=0):
@@ -116,3 +127,27 @@ def test_wilder_atr_is_seeded_by_arithmetic_mean_then_recursive():
     assert pd.isna(result.iloc[:2]).all()
     assert result.iloc[2] == pytest.approx((3 + 4 + 3) / 3)
     assert result.iloc[3] == pytest.approx(((3 + 4 + 3) / 3 * 2 + 5) / 3)
+
+
+def test_sq_sma_and_ema_match_installed_average_calculator_warmup():
+    values = pd.Series([10.0, 20.0, 30.0, 40.0])
+    assert sq_sma(values, 3).tolist() == pytest.approx([10, 15, 20, 30])
+    # SQ: seed first input; alpha=2/(3+1)=0.5 from the second bar onward.
+    assert sq_ema(values, 3).tolist() == pytest.approx([10, 15, 22.5, 31.25])
+
+
+def test_sq_roc_returns_zero_until_period_like_installed_java_block():
+    values = pd.Series([100.0, 110.0, 121.0, 133.1])
+    assert sq_roc(values, 2).tolist() == pytest.approx([0, 0, 21, 21])
+
+
+def test_sq_rsi_matches_installed_java_seed_and_wilder_recursion():
+    values = pd.Series([10.0, 12.0, 11.0, 14.0, 13.0])
+    result = sq_rsi(values, 3)
+    # Bars 0..2 are explicitly zero. At bar 3: ups=(2+0+3)/3,
+    # downs=(0+1+0)/3. Bar 4 then uses Wilder smoothing.
+    assert result.iloc[:3].tolist() == [0, 0, 0]
+    assert result.iloc[3] == pytest.approx(100 - 100 / (1 + 5))
+    avg_up = ((5 / 3) * 2 + 0) / 3
+    avg_down = ((1 / 3) * 2 + 1) / 3
+    assert result.iloc[4] == pytest.approx(100 - 100 / (1 + avg_up / avg_down))

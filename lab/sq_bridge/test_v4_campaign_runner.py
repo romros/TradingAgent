@@ -19,12 +19,13 @@ from lab.sq_bridge.e2e_control import payload
 from lab.sq_bridge.test_sqx_extract import STRATEGY, SETTINGS
 from lab.sq_bridge.sqx_to_ir import translate
 from lab.sq_bridge.parity_artifact_v4 import build_artifact as build_parity
+from lab.sq_bridge.final_holdout_artifact_v4 import build_artifact as build_holdout
 
 stage = os.environ['ALQUIMIA_STAGE']
 decision = sys.argv[1] if len(sys.argv) > 1 else 'PASS'
 stages = json.loads(Path(sys.argv[2]).read_text())['stages']
 ids = ['runner-sqx-001'] if stages.index(stage) >= stages.index('sq_generation') else []
-holdout = stage in {'python_translation', 'parity', 'paper'}
+holdout = stage == 'final_holdout_validation'
 artifact = payload(stage, ids, holdout)
 artifact['campaign_id'] = 'runner-test'
 artifact['evidence_class'] = 'observed'
@@ -77,6 +78,26 @@ if stage == 'python_translation':
     artifact['sqx_sha256'] = hashlib.sha256(sqx_path.read_bytes()).hexdigest()
     artifact['canonical_ir_path'] = ir_path.name
     artifact['canonical_ir_sha256'] = hashlib.sha256(ir_path.read_bytes()).hexdigest()
+if stage == 'final_holdout_validation':
+    base = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent
+    trace_path = base / 'runner-sqx-001.holdout.trace.json'
+    trades = []
+    for index in range(20):
+        win = index < 12
+        trades.append({'trade_id': f't{index:02d}', 'net_pnl_usdc_by_cost': {
+            'base': 1.0 if win else -.3,
+            'conservative': .8 if win else -.4,
+            'stress': .7 if win else -.5}})
+    trace_path.write_text(json.dumps({
+        'schema_version': 1, 'trace_type': 'final_holdout_trade_trace',
+        'candidate_id': 'runner-sqx-001', 'capital_usdc': 200,
+        'selection_frozen_before_holdout': True,
+        'parameters_changed_after_holdout': False,
+        'holdout_evaluation_count': 1, 'trades': trades}))
+    artifact = build_holdout(
+        campaign_id='runner-test', candidate_id='runner-sqx-001', trace_path=trace_path,
+        methodology_path=Path(sys.argv[2]),
+        artifact_path=Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']))
 if stage == 'parity':
     base = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent
     from datetime import datetime, timedelta, timezone
@@ -181,15 +202,15 @@ def test_failed_stage_keeps_chain_unchanged_and_is_retryable(tmp_path):
     assert chain["receipts"] == []
 
 
-def test_runner_can_checkpoint_all_nine_native_stages(tmp_path):
+def test_runner_can_checkpoint_all_ten_native_stages(tmp_path):
     manifest = make_manifest(tmp_path)
-    results = [run_next(manifest) for _ in range(9)]
+    results = [run_next(manifest) for _ in range(10)]
     assert all(result["status"] == "STAGE_RECORDED" for result in results)
     final = status(manifest)
     assert final["status"] == "COMPLETE"
     assert final["paper_ready"] is True
     assert final["live_authorized"] is False
-    assert len(json.loads((tmp_path / "state/chain.json").read_text())["receipts"]) == 9
+    assert len(json.loads((tmp_path / "state/chain.json").read_text())["receipts"]) == 10
 
 
 def test_manifest_change_requires_a_new_campaign_state(tmp_path):

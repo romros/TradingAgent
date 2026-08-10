@@ -14,7 +14,7 @@
   "stages": [
     "market_preflight", "hypothesis_screen", "sq_generation",
     "temporal_validation", "robustness", "small_account_economics",
-    "python_translation", "parity", "paper"
+    "final_holdout_validation", "python_translation", "parity", "paper"
   ],
   "market_preflight": {
     "minimum_overall_observation_coverage_ratio": 0.9,
@@ -74,6 +74,14 @@
     "leverage_selection_policy": "maximum_safe_in_grid_up_to_venue_limit",
     "required_stop_loss": true,
     "minimum_stop_to_liquidation_buffer_ratio": 1.5
+  },
+  "final_holdout_validation": {
+    "minimum_trades": 20,
+    "minimum_profit_factor": 1.1,
+    "maximum_drawdown_pct": 20,
+    "minimum_net_expectancy_usdc": 0.1,
+    "cost_scenarios_required": ["base", "conservative", "stress"],
+    "maximum_evaluations": 1
   },
   "parity": {
     "minimum_matched_signals": 30,

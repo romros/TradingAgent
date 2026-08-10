@@ -267,6 +267,29 @@ hashes del databank a aquest snapshot. El validador torna a obrir els SQX i
 recalcula l'inventari: alterar el JSON o afegir/treure un fitxer després no pot
 fer passar una execució diferent.
 
+## Holdout final v4
+
+El 10% final no s'obre durant traducció, paritat o paper. Després que robustesa
+i economia de 200 USDC deixin un sol candidat congelat, es crea una única
+avaluació amb un trace de trades ordenats i PnL net per cost:
+
+```bash
+PYTHONPATH=../.. python3 final_holdout_artifact_v4.py \
+  --campaign-id CAMPAIGN_ID \
+  --candidate-id EXACT_STRATEGY_NAME \
+  --trace /path/to/final-holdout.trace.json \
+  --artifact-output /path/to/state/artifacts/07_final_holdout_validation.json
+```
+
+El trace exigeix capital 200 USDC, selecció congelada, zero canvis de
+paràmetres, `holdout_evaluation_count=1` i exactament els costos base,
+conservador i estrès. El gate recalcula sobre almenys 20 trades PF ≥1,10,
+esperança neta ≥0,10 USDC per trade i drawdown ≤20% en el pitjor escenari. No
+s'accepta PF no estimable sense cap trade perdedor. Qualsevol reavaluació,
+retuneig, hash alterat o resum que no coincideixi amb els trades invalida la
+cadena. Si falla, la família queda terminal: el holdout no es reutilitza per
+buscar una variant de rescat.
+
 ## Traducció SQX a Python v4
 
 El perfil `generic_translatable` només habilita blocs que comparteixen
@@ -284,7 +307,7 @@ PYTHONPATH=../.. python3 python_translation_artifact_v4.py \
   --candidate-id EXACT_STRATEGY_NAME \
   --sqx /path/to/candidate.sqx \
   --ir-output /path/to/candidate.ir.json \
-  --artifact-output /path/to/state/artifacts/07_python_translation.json
+  --artifact-output /path/to/state/artifacts/08_python_translation.json
 ```
 
 L'IR conserva senyals, accions, execució, hashes i complexitat, i
@@ -309,7 +332,7 @@ PYTHONPATH=../.. python3 parity_artifact_v4.py \
   --sq-trace /path/to/sq.trace.json \
   --python-trace /path/to/python.trace.json \
   --report-output /path/to/parity.report.json \
-  --artifact-output /path/to/state/artifacts/08_parity.json
+  --artifact-output /path/to/state/artifacts/09_parity.json
 ```
 
 El gate exigeix com a mínim 30 senyals i 30 trades coincidents, coincidència

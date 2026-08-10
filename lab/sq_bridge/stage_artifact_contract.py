@@ -11,6 +11,7 @@ from typing import Any
 from lab.sq_bridge.sqx_extract import extract as extract_sqx
 from lab.sq_bridge.sqx_to_ir import canonical_ir
 from lab.sq_bridge.parity_artifact_v4 import compare_traces
+from lab.sq_bridge.final_holdout_artifact_v4 import evaluate_trace as evaluate_holdout_trace
 
 
 def _number(value: Any) -> bool:
@@ -529,6 +530,75 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                     and _at_least(reported_buffer, 0)
                     and abs(computed_buffer - reported_buffer) <= 1e-9
                     and computed_buffer >= small["minimum_stop_to_liquidation_buffer_ratio"],
+            })
+    elif stage == "final_holdout_validation":
+        gate = methodology["final_holdout_validation"]
+        ids = receipt.get("candidate_ids", [])
+        metrics_by_candidate = artifact.get("candidate_holdout_metrics")
+        metric = (metrics_by_candidate.get(ids[0])
+                  if isinstance(metrics_by_candidate, dict) and len(ids) == 1 else None)
+        costs = metric.get("profit_factor_by_cost") if isinstance(metric, dict) else None
+        expectancy = (metric.get("net_expectancy_usdc_by_cost")
+                      if isinstance(metric, dict) else None)
+        required_costs = set(gate["cost_scenarios_required"])
+        valid = (isinstance(metrics_by_candidate, dict) and set(metrics_by_candidate) == set(ids)
+                 and isinstance(metric, dict)
+                 and isinstance(costs, dict) and set(costs) == required_costs
+                 and isinstance(expectancy, dict) and set(expectancy) == required_costs
+                 and _at_least(metric.get("trades"), 0)
+                 and all(_at_least(value, 0) for value in costs.values())
+                 and all(_number(value) for value in expectancy.values())
+                 and _between(metric.get("drawdown_pct"), 0, 100))
+        minimum_pf = min(costs.values()) if valid else None
+        minimum_expectancy = min(expectancy.values()) if valid else None
+        checks = {
+            "SINGLE_FROZEN_CANDIDATE": len(ids) == 1
+                and artifact.get("selection_frozen_before_holdout") is True,
+            "ONE_EVALUATION": artifact.get("holdout_evaluation_count")
+                == gate["maximum_evaluations"],
+            "NO_RETUNING": artifact.get("parameters_changed_after_holdout") is False,
+            "HOLDOUT_OPENED": artifact.get("holdout_accessed") is True,
+            "CANDIDATE_METRICS": valid,
+            "TRADES": valid and metric["trades"] >= gate["minimum_trades"],
+            "TRADES_RECOMPUTES": valid
+                and artifact.get("holdout_trades") == metric["trades"],
+            "PROFIT_FACTOR": valid and minimum_pf >= gate["minimum_profit_factor"],
+            "PROFIT_FACTOR_RECOMPUTES": valid
+                and artifact.get("minimum_holdout_profit_factor") == minimum_pf,
+            "DRAWDOWN": valid
+                and metric["drawdown_pct"] <= gate["maximum_drawdown_pct"],
+            "DRAWDOWN_RECOMPUTES": valid
+                and artifact.get("holdout_drawdown_pct") == metric["drawdown_pct"],
+            "EXPECTANCY": valid
+                and minimum_expectancy >= gate["minimum_net_expectancy_usdc"],
+            "EXPECTANCY_RECOMPUTES": valid
+                and artifact.get("minimum_holdout_net_expectancy_usdc")
+                    == minimum_expectancy,
+            "COST_SET": isinstance(artifact.get("applied_cost_scenarios"), list)
+                and set(artifact["applied_cost_scenarios"]) == required_costs,
+        }
+        if methodology.get("schema_version", 1) >= 4 and provenance != "synthetic_control":
+            holdout_trace = _verified_json(
+                artifact.get("holdout_trace_path"), artifact.get("holdout_trace_sha256"),
+                receipt.get("artifact", ""))
+            recomputed = None
+            if holdout_trace is not None:
+                try:
+                    recomputed = evaluate_holdout_trace(
+                        holdout_trace, gate["cost_scenarios_required"])
+                except (TypeError, ValueError):
+                    recomputed = None
+            checks.update({
+                "TRACE_FILE": holdout_trace is not None,
+                "TRACE_CONTRACT": recomputed is not None and len(ids) == 1
+                    and recomputed.get("candidate_id") == ids[0]
+                    and metrics_by_candidate == {ids[0]: recomputed}
+                    and artifact.get("holdout_trades") == recomputed["trades"]
+                    and artifact.get("minimum_holdout_profit_factor")
+                        == min(recomputed["profit_factor_by_cost"].values())
+                    and artifact.get("holdout_drawdown_pct") == recomputed["drawdown_pct"]
+                    and artifact.get("minimum_holdout_net_expectancy_usdc")
+                        == min(recomputed["net_expectancy_usdc_by_cost"].values()),
             })
     elif stage == "python_translation":
         source_paths = {"candidate": artifact.get("sqx_path")}

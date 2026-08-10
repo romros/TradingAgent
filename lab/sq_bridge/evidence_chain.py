@@ -72,6 +72,10 @@ def verify(chain,methodology_path):
   ids=r.get("candidate_ids",[])
   if previous_ids and not set(ids).issubset(previous_ids): errors.append(f"CANDIDATE_LINEAGE:{i}")
   if r.get("holdout_accessed") and i<stages.index("small_account_economics")+1: errors.append(f"EARLY_HOLDOUT:{i}")
+  if m.get("schema_version",1)>=4:
+   expected_holdout=r.get("stage")=="final_holdout_validation"
+   if bool(r.get("holdout_accessed")) is not expected_holdout:
+    errors.append(f"HOLDOUT_STAGE_CONTRACT:{i}")
   if r.get("stage")=="python_translation" and r.get("decision")=="PASS" and r.get("translation_exact") is not True: errors.append("TRANSLATION_NOT_EXACT")
   if r.get("stage")=="parity" and r.get("decision")=="PASS" and r.get("parity_pass") is not True: errors.append("PARITY_NOT_PASS")
   previous_ids=ids; previous_hash=stored; terminal=r.get("decision") in {"REJECT","BLOCK"}

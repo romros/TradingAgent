@@ -152,7 +152,7 @@ def test_v4_recomputes_sq_and_translation_file_hashes(tmp_path):
 
     ir = tmp_path / "candidate.ir.json"
     translate(sqx, ir)
-    translation = payload("python_translation", ["candidate"], True)
+    translation = payload("python_translation", ["candidate"], False)
     translation.update({
         "campaign_id": "v4", "evidence_class": "observed",
         "sqx_path": sqx.name, "sqx_sha256": hashlib.sha256(sqx.read_bytes()).hexdigest(),
@@ -161,7 +161,7 @@ def test_v4_recomputes_sq_and_translation_file_hashes(tmp_path):
     })
     translation.pop("control_purpose", None)
     receipt = {"decision": "PASS", "candidate_ids": ["candidate"],
-               "holdout_accessed": True, "artifact": str(tmp_path / "translation.json"),
+               "holdout_accessed": False, "artifact": str(tmp_path / "translation.json"),
                "translation_exact": True}
     assert validate_stage_artifact(
         "python_translation", translation, receipt, METHODOLOGY,
@@ -187,7 +187,7 @@ def test_v4_parity_and_paper_verify_hashed_json_contents(tmp_path):
     })
     parity.pop("control_purpose", None)
     receipt = {"decision": "PASS", "candidate_ids": ["candidate"],
-               "holdout_accessed": True, "artifact": str(tmp_path / "parity-stage.json"),
+               "holdout_accessed": False, "artifact": str(tmp_path / "parity-stage.json"),
                "parity_pass": True}
     errors = validate_stage_artifact(
         "parity", parity, receipt, METHODOLOGY, "v4", "alquimia_native")
@@ -205,7 +205,7 @@ def test_v4_parity_and_paper_verify_hashed_json_contents(tmp_path):
     })
     paper.pop("control_purpose", None)
     receipt = {"decision": "PASS", "candidate_ids": ["candidate"],
-               "holdout_accessed": True, "artifact": str(tmp_path / "paper-stage.json")}
+               "holdout_accessed": False, "artifact": str(tmp_path / "paper-stage.json")}
     errors = validate_stage_artifact(
         "paper", paper, receipt, METHODOLOGY, "v4", "alquimia_native")
     assert "STAGE_ARTIFACT:paper:CONFIG_CONTRACT" in errors
@@ -256,12 +256,18 @@ def test_v4_methodology_cannot_be_weakened_to_force_a_pass():
         "maximum_pnl_mean_absolute_error_usdc": 1,
         "maximum_pnl_absolute_error_usdc": 5,
     })
+    weakened["final_holdout_validation"].update({
+        "minimum_trades": 1, "minimum_profit_factor": 1.01,
+        "maximum_drawdown_pct": 80, "minimum_net_expectancy_usdc": 0,
+        "cost_scenarios_required": ["base"], "maximum_evaluations": 5,
+    })
     errors = validate(weakened)
     assert len(errors) >= 18
     assert any("pressupost d'intents" in error for error in errors)
     assert any("risc per trade" in error for error in errors)
     assert any("Monte Carlo" in error for error in errors)
     assert sum(error.startswith("parity:") for error in errors) == 8
+    assert sum(error.startswith("final_holdout:") for error in errors) == 6
 
 
 def test_v4_small_account_proves_maximum_safe_leverage_and_recomputes_risk():
@@ -335,9 +341,28 @@ def test_v4_temporal_and_robustness_aggregates_must_equal_worst_candidate():
     assert "STAGE_ARTIFACT:robustness:STRESS_PF_RECOMPUTES" in errors
 
 
-def test_v4_full_control_wires_nine_stages_without_becoming_promotable(tmp_path):
+def test_v4_full_control_wires_ten_stages_without_becoming_promotable(tmp_path):
     result = generate(METHODOLOGY_PATH, tmp_path)
     assert result["valid"] is True
     assert result["operational_control_complete"] is True
     assert result["paper_ready"] is False
-    assert len(list(tmp_path.glob("[0-9][0-9]_*.json"))) == 9
+    assert len(list(tmp_path.glob("[0-9][0-9]_*.json"))) == 10
+
+
+def test_v4_final_holdout_is_single_frozen_evaluation_with_recomputed_worst_cost():
+    artifact = payload("final_holdout_validation", ["candidate"], True)
+    artifact.update({"campaign_id": "v4"})
+    receipt = {"decision": "PASS", "candidate_ids": ["candidate"],
+               "holdout_accessed": True}
+    assert validate_stage_artifact(
+        "final_holdout_validation", artifact, receipt, METHODOLOGY,
+        "v4", "synthetic_control") == []
+    artifact["minimum_holdout_profit_factor"] = 1.2
+    artifact["parameters_changed_after_holdout"] = True
+    artifact["holdout_evaluation_count"] = 2
+    errors = validate_stage_artifact(
+        "final_holdout_validation", artifact, receipt, METHODOLOGY,
+        "v4", "synthetic_control")
+    assert "STAGE_ARTIFACT:final_holdout_validation:PROFIT_FACTOR_RECOMPUTES" in errors
+    assert "STAGE_ARTIFACT:final_holdout_validation:NO_RETUNING" in errors
+    assert "STAGE_ARTIFACT:final_holdout_validation:ONE_EVALUATION" in errors

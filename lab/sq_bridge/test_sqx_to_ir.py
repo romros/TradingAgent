@@ -48,7 +48,7 @@ def test_v4_contract_recomputes_ir_and_rejects_arbitrary_hashed_json(tmp_path):
     artifact = {
         "schema_version": 1, "stage": "python_translation",
         "campaign_id": "campaign", "decision": "PASS", "candidate_ids": ["T"],
-        "holdout_accessed": True, "evidence_class": "observed",
+        "holdout_accessed": False, "evidence_class": "observed",
         "translation_exact": True, "supported_subset": True,
         "sqx_path": source.name,
         "sqx_sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
@@ -56,7 +56,7 @@ def test_v4_contract_recomputes_ir_and_rejects_arbitrary_hashed_json(tmp_path):
         "canonical_ir_sha256": hashlib.sha256(ir.read_bytes()).hexdigest(),
     }
     receipt = {"decision": "PASS", "candidate_ids": ["T"],
-               "holdout_accessed": True, "translation_exact": True,
+               "holdout_accessed": False, "translation_exact": True,
                "artifact": str(tmp_path / "artifact.json")}
     assert validate_stage_artifact(
         "python_translation", artifact, receipt, methodology,

@@ -85,6 +85,19 @@ def payload(stage: str, candidate_ids: list[str], holdout: bool) -> dict:
                                     "liquidation_distance_pct": 19,
                                     "stop_to_liquidation_buffer_ratio": 19,
                                     "liquidation_model": "ostium_exact"},
+        "final_holdout_validation": {
+            "selection_frozen_before_holdout": True, "holdout_evaluation_count": 1,
+            "parameters_changed_after_holdout": False,
+            "candidate_holdout_metrics": {candidate: {
+                "trades": 20, "drawdown_pct": 20,
+                "profit_factor_by_cost": {
+                    "base": 1.2, "conservative": 1.15, "stress": 1.1},
+                "net_expectancy_usdc_by_cost": {
+                    "base": .2, "conservative": .15, "stress": .1},
+            } for candidate in candidate_ids},
+            "holdout_trades": 20, "minimum_holdout_profit_factor": 1.1,
+            "holdout_drawdown_pct": 20, "minimum_holdout_net_expectancy_usdc": .1,
+            "applied_cost_scenarios": ["base", "conservative", "stress"]},
         "python_translation": {"translation_exact": True, "supported_subset": True,
                                "sqx_sha256": "a" * 64, "canonical_ir_sha256": "b" * 64},
         "parity": {"parity_pass": True, "signal_match_rate": 1.0, "trade_match_rate": 1.0,
@@ -103,7 +116,7 @@ def generate(methodology_path: Path, output_dir: Path) -> dict:
     for index, stage in enumerate(methodology["stages"], 1):
         if stage in {"discovery", "sq_generation"}:
             ids = [CANDIDATE]
-        holdout = stage in {"python_translation", "parity", "paper"}
+        holdout = stage == "final_holdout_validation"
         stage_payload = payload(stage, ids, holdout)
         if stage == "sq_generation":
             paths, hashes = {}, {}

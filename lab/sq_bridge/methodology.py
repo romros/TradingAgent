@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 
 EXPECTED_STAGES_V3 = ["market_preflight", "discovery", "temporal_validation", "robustness", "small_account_economics", "python_translation", "parity", "paper"]
-EXPECTED_STAGES_V4 = ["market_preflight", "hypothesis_screen", "sq_generation", "temporal_validation", "robustness", "small_account_economics", "python_translation", "parity", "paper"]
+EXPECTED_STAGES_V4 = ["market_preflight", "hypothesis_screen", "sq_generation", "temporal_validation", "robustness", "small_account_economics", "final_holdout_validation", "python_translation", "parity", "paper"]
 
 
 def validate(config: dict) -> list[str]:
@@ -102,6 +102,20 @@ def validate(config: dict) -> list[str]:
             errors.append("parity: error mitja de PnL massa alt")
         if parity.get("maximum_pnl_absolute_error_usdc", 1) > .01:
             errors.append("parity: error maxim de PnL massa alt")
+        holdout = config.get("final_holdout_validation", {})
+        if holdout.get("minimum_trades", 0) < 20:
+            errors.append("final_holdout: mostra massa petita")
+        if holdout.get("minimum_profit_factor", 0) < 1.1:
+            errors.append("final_holdout: PF massa feble")
+        if holdout.get("maximum_drawdown_pct", 100) > 20:
+            errors.append("final_holdout: drawdown massa alt")
+        if holdout.get("minimum_net_expectancy_usdc", 0) < .1:
+            errors.append("final_holdout: expectativa neta massa baixa")
+        if set(holdout.get("cost_scenarios_required", [])) != {
+                "base", "conservative", "stress"}:
+            errors.append("final_holdout: costos incomplets")
+        if holdout.get("maximum_evaluations") != 1:
+            errors.append("final_holdout: nomes es permet una avaluacio")
     small = config.get("small_account", {})
     if small.get("canonical_capital_usdc") != config.get("capital_usdc"):
         errors.append("small_account: capital canonic inconsistent")

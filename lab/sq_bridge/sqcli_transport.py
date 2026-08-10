@@ -5,6 +5,7 @@ from __future__ import annotations
 import re
 import asyncio
 import hashlib
+import gzip
 import json
 import subprocess
 import urllib.parse
@@ -17,6 +18,7 @@ import websockets
 
 CONTAINER_NAME = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]*$")
 SAFE_PROJECT_NAME = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]*$")
+CONTAINER_IMPORT_PATH = re.compile(r"^/tmp/[A-Za-z0-9][A-Za-z0-9_.-]*\.cfx$")
 PROJECT_COMMAND = re.compile(
     r"^-project action=(pause|resume|stop) name=(.+)$")
 PROJECT_CHANNELS = ("engine-channel", "progress-channel")
@@ -152,6 +154,48 @@ def project_listing(base_url: str, project: str,
     if len(matches) != 1:
         raise ValueError(f"SQCLI project listing not unique: {project}")
     return matches[0]
+
+
+def list_projects(base_url: str, *, timeout_seconds: int = 15,
+                  opener: Callable[..., object] = urllib.request.urlopen) -> list[dict]:
+    with opener(f"{base_url.rstrip('/')}/taskmanager/listProjects",
+                timeout=timeout_seconds) as response:
+        payload = json.loads(response.read().decode("utf-8"))
+    projects = payload.get("projects") if isinstance(payload, dict) else None
+    if not isinstance(projects, list) or any(not isinstance(row, dict) for row in projects):
+        raise RuntimeError("SQCLI returned an invalid project listing")
+    return projects
+
+
+def gui_open_project(base_url: str, container_path: str,
+                     *, timeout_seconds: int = 30,
+                     opener: Callable[..., object] = urllib.request.urlopen) -> dict:
+    if (not isinstance(container_path, str)
+            or not CONTAINER_IMPORT_PATH.fullmatch(container_path)):
+        raise ValueError("invalid SQCLI import path")
+    query = urllib.parse.urlencode({"file": container_path, "loadAsIs": "true"})
+    with opener(f"{base_url.rstrip('/')}/taskmanager/openProject?{query}",
+                timeout=timeout_seconds) as response:
+        payload = json.loads(response.read().decode("utf-8"))
+    if not isinstance(payload, dict) or payload.get("success") is None:
+        raise RuntimeError(f"SQCLI project import failed: {payload}")
+    return payload
+
+
+def gui_start_project(base_url: str, project: str, *, timeout_seconds: int = 30,
+                      opener: Callable[..., object] = urllib.request.urlopen) -> dict:
+    if not isinstance(project, str) or not SAFE_PROJECT_NAME.fullmatch(project):
+        raise ValueError("invalid SQCLI project name")
+    data = gzip.compress(urllib.parse.urlencode({"projectName": project}).encode())
+    request = urllib.request.Request(
+        f"{base_url.rstrip('/')}/project/start", data=data,
+        headers={"Content-Type": "application/json; charset=x-user-defined-binary",
+                 "Content-Encoding": "gzip"}, method="POST")
+    with opener(request, timeout=timeout_seconds) as response:
+        payload = json.loads(response.read().decode("utf-8"))
+    if not isinstance(payload, dict) or payload.get("success") is None:
+        raise RuntimeError(f"SQCLI project start failed: {payload}")
+    return payload
 
 
 def trigger_project_listing(base_url: str, project: str,

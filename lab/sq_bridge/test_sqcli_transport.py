@@ -1,5 +1,6 @@
 import subprocess
 import hashlib
+import gzip
 import json
 from pathlib import Path
 
@@ -7,7 +8,8 @@ import pytest
 
 from lab.sq_bridge.sqcli_transport import (
     docker_exec_http_call, docker_project_final_stats, gui_project_action,
-    parse_project_final_log, project_listing, select_project_stats, trigger_project_listing,
+    gui_open_project, gui_start_project, list_projects, parse_project_final_log,
+    project_listing, select_project_stats, trigger_project_listing,
 )
 
 
@@ -137,3 +139,42 @@ def test_observed_genetic_budget_smoke_is_bound_to_exact_sq_log():
         key: receipt["final"][key] for key in ("generated", "accepted", "rejected")}
     assert receipt["decision"] == "REJECT_AS_SCIENTIFIC_RUN"
     assert receipt["candidate_ids_promoted"] == []
+
+
+def test_gui_open_and_start_match_official_sq_protocols():
+    calls = []
+
+    class Response:
+        def __init__(self, payload): self.payload = payload
+        def __enter__(self): return self
+        def __exit__(self, *_): return None
+        def read(self): return json.dumps(self.payload).encode()
+
+    def opener(request, **kwargs):
+        calls.append((request, kwargs))
+        return Response({"success": "ok", "projectName": "P"})
+
+    assert gui_open_project(
+        "http://sq:8080", "/tmp/project.cfx", opener=opener)["projectName"] == "P"
+    assert "file=%2Ftmp%2Fproject.cfx" in calls[0][0]
+    gui_start_project("http://sq:8080", "P", opener=opener)
+    request = calls[1][0]
+    assert request.method == "POST"
+    assert request.headers["Content-encoding"] == "gzip"
+    assert gzip.decompress(request.data) == b"projectName=P"
+    with pytest.raises(ValueError, match="import path"):
+        gui_open_project("http://sq:8080", "/tmp/../project.cfx", opener=opener)
+
+
+def test_list_projects_rejects_malformed_payload():
+    class Response:
+        def __init__(self, payload): self.payload = payload
+        def __enter__(self): return self
+        def __exit__(self, *_): return None
+        def read(self): return self.payload
+
+    assert list_projects(
+        "http://sq", opener=lambda *_1, **_2: Response(b'{"projects":[{"projectName":"P"}]}')) == [
+            {"projectName": "P"}]
+    with pytest.raises(RuntimeError, match="invalid project listing"):
+        list_projects("http://sq", opener=lambda *_1, **_2: Response(b'{"projects":{}}'))

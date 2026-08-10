@@ -314,6 +314,20 @@ manifest són byte-reproduïbles: dues compilacions amb les mateixes entrades
 produeixen el mateix SHA-256; timestamps operatius pertanyen al journal, no al
 contracte científic.
 
+La importació també és una fase separada de l'inici:
+
+```bash
+PYTHONPATH=../.. python3 sqcli_import_batch.py \
+  --batch /path/to/state/eurusd-v4-projects/project_batch.json \
+  --output-dir /path/to/state/eurusd-v4-import
+```
+
+Abans de mutar SQ valida tots els hashes/CFX i rebutja noms ja existents. Usa un
+fitxer temporal restringit dins el contenidor, crida `taskmanager/openProject`,
+elimina el temporal, torna a exportar el CFX reserialitzat per SQ i verifica de
+nou forma genètica, stop i recursos resolts. El rebut conserva ambdós hashes i
+sempre declara `sqcli_started=false`; iniciar és una operació posterior.
+
 El `market_preflight` observat que precedeix aquest screen no es valida només
 amb els seus totals. Conserva `campaign_config_path` i SHA-256; el contracte
 reexecuta el compositor sobre cobertura històrica, mapping i costos congelats.

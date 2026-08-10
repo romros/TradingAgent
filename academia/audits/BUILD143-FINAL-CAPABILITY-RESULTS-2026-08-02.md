@@ -8,6 +8,7 @@
 - **Improver exit-only: capacitat provada el 2026-08-03.** Una base verificada va produir 178 variants en 2m11s i un SQX desat. Entrada, direcció i mida es van preservar; les sortides van canviar. El supervivent no es promociona: només té IS i la sortida de regla incorpora una branca `AND false` sospitosa.
 - **Improver entry-only: capacitat provada el 2026-08-04, sense supervivents.** Amb ordre i exits congelats es van generar 302 variants: 180 amb massa pocs trades, 72 sense trades i 50 rebutjades pels gates quantitatius. No es relaxen filtres després del resultat.
 - **Improver SL/PT estret: execució provada, aïllament encara no provat.** Build 143 obliga a habilitar `OrderTypes`; limitant blocs a `EnterAtMarket`, SL i PT es van generar 173 variants i totes van fallar PF 1,30. Sense artefacte desat no es pot provar que direcció, mida i símbol no derivin.
+- **Improver SL/PT, segon intent 2026-08-10: aturat sense relaxar gates.** Dues bases noves van generar 134 i 137 variants; les 271 van fallar PF 1,30. L'acumulat és 444/0. Benefici agregat o supervivència en una altra finestra no substitueixen un pretest idèntic.
 
 ## Aprenentatge operatiu
 
@@ -25,6 +26,7 @@
 12. Restringir `PartsToImprove` és necessari però no suficient: cal comparar semànticament entrada/ordres i rebutjar sortides degenerades encara que SQ les accepti.
 13. Zero supervivents també és informació: en entry-only, el patró dominant va ser destruir la freqüència de trading. Ampliar blocs o abaixar gates per salvar la base seria una campanya nova, no continuació neutral.
 14. Una configuració estreta no és encara un contracte: si SQ no desa cap variant, el log prova execució i rebuig, però no l'aïllament estructural anunciat. Per SL/PT cal un SQX auditable i el lint `--allow-slpt-change` ha d'exigir un canvi SL/PT real.
+15. Abans de consumir l'Improver, retestar la base amb la mateixa finestra, dades, costos i gate. Seleccionar-la per benefici total o perquè apareix en un Databank de validació diferent va produir 271 rebutjos homogenis i cap artifact útil.
 
 ## Decisió de cobertura
 

@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "id": "build143-improver-slpt-artifact-attempt-2026-08-10",
+  "observed_at": "2026-08-10",
+  "target_build": "143.2708",
+  "scope": "second attempt to obtain an auditable SL/PT-only survivor; no profitability claim",
+  "environment": {
+    "isolation": "two ephemeral Docker runs; separate academia user runtime; History read-only",
+    "cpu_limit": 2,
+    "memory_limit_gib": 12,
+    "main_sqcli_touched": false,
+    "holdout_access": false,
+    "live_trading_access": false
+  },
+  "configuration": {
+    "project_sha256": "6b7bb67a4ce740403dc48764e183fa14abc7b65fd1ba5b01b63f080d51265efa",
+    "data": "EURUSD_M1_dukas_M1_UTCMinus05 / H4 / 2016-01-16 to 2020-01-20",
+    "entry_rules": "frozen",
+    "exit_rules": "frozen",
+    "order_types": "EnterAtMarket with SL/PT only",
+    "profit_factor_gate": 1.3,
+    "stop_condition": "time-limit 2 minutes per run"
+  },
+  "runs": [
+    {
+      "base": "Strategy 0.101",
+      "base_sha256": "c711a47023b28e8605d4513f2616a401da790cbcf69d024320c3f7ebd2eec95c",
+      "selection_context": "positive aggregate result: 278 trades and profit 7250 in its stored artifact",
+      "runtime": "2m 14s",
+      "generated": 134,
+      "accepted": 0,
+      "rejected_profit_factor_below_1_30": 134
+    },
+    {
+      "base": "Strategy 0.19 validation artifact",
+      "base_sha256": "6b0a8095529439692ceec700f3c6ea353fafd16ea9f8e8ca61e7a861d2120c22",
+      "selection_context": "saved survivor from a validation Databank",
+      "runtime": "2m 14s",
+      "generated": 137,
+      "accepted": 0,
+      "rejected_profit_factor_below_1_30": 137
+    }
+  ],
+  "aggregate": {
+    "generated_this_attempt": 271,
+    "accepted_this_attempt": 0,
+    "generated_all_slpt_narrow_runs": 444,
+    "accepted_all_slpt_narrow_runs": 0
+  },
+  "interpretation": {
+    "observed": "Both bases loaded and backtested successfully, but every generated variant failed the unchanged PF gate.",
+    "not_proven": "No saved artifact exists, so SL/PT-only structural isolation remains unproven.",
+    "lesson": "Aggregate profit or survival in another Databank does not establish PF eligibility in the exact Improver window. Pretest the base under the identical data and configuration before another run.",
+    "decision": "Stop this search direction, keep the gate unchanged, and do not claim SL/PT-only support."
+  }
+}

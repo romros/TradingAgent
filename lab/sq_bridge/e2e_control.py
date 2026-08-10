@@ -113,7 +113,7 @@ def payload(stage: str, candidate_ids: list[str], holdout: bool) -> dict:
                                     "collateral_usdc": 60, "stop_distance_pct": 1,
                                     "liquidation_distance_pct": 19,
                                     "stop_to_liquidation_buffer_ratio": 19,
-                                    "liquidation_model": "ostium_exact",
+                                    "liquidation_model": "ostium_threshold_cost_buffered",
                                     "candidate_selection_policy":
                                         "max_worst_cost_expectancy_then_profit_factor_then_candidate_id",
                                     "evaluated_candidate_small_account_metrics": {

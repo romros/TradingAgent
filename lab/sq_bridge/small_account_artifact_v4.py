@@ -29,6 +29,20 @@ def liquidation_distance_pct(leverage: float, venue_max_leverage: float) -> floa
     return (100.0 - leverage / venue_max_leverage * 25.0) / leverage
 
 
+def liquidation_cost_erosion_pct(roundtrip_bps: float, annual_cost_pct: float,
+                                 holding_days: float) -> float:
+    """Conservative notional-return erosion before the adverse excursion."""
+    return roundtrip_bps / 100.0 + annual_cost_pct * holding_days / 365.25
+
+
+def cost_buffered_liquidation_distance_pct(
+        leverage: float, venue_max_leverage: float, roundtrip_bps: float,
+        annual_cost_pct: float, holding_days: float) -> float:
+    return max(0.0, liquidation_distance_pct(leverage, venue_max_leverage)
+               - liquidation_cost_erosion_pct(
+                   roundtrip_bps, annual_cost_pct, holding_days))
+
+
 def select_cost_envelope(cost_model: dict, notional: float) -> tuple[float, dict, dict]:
     if (cost_model.get("decision") != "PASS_COSTS_FROZEN"
             or cost_model.get("costs_frozen") is not True):
@@ -84,6 +98,7 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
     if not isinstance(trades, list) or len(trades) < gate["minimum_trades"]:
         raise ValueError("Trades de compte petit insuficients")
     trade_ids, returns = [], {scenario: [] for scenario in scenarios}
+    liquidation_erosions = []
     for row in trades:
         if not isinstance(row, dict) or not isinstance(row.get("trade_id"), str):
             raise ValueError("Trade de compte petit invalid")
@@ -93,6 +108,10 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
         holding_days = _number(row.get("holding_days"), "Durada de trade invalida")
         if side not in {"long", "short"} or holding_days < 0:
             raise ValueError("Costat o durada de trade invalid")
+        stress_annual = _number((carry.get(side) or {}).get(
+            "stress_annual_cost_pct"), "Carry stress anual absent")
+        liquidation_erosions.append(liquidation_cost_erosion_pct(
+            cost_bps["stress"], stress_annual, holding_days))
         for scenario in scenarios:
             annual = _number((carry.get(side) or {}).get(
                 f"{scenario}_annual_cost_pct"), "Carry anual absent")
@@ -116,11 +135,14 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
 
     grid = [value for value in gate["leverage_grid"] if value <= venue_max]
     evaluations, safe = {}, []
+    worst_liquidation_erosion = max(liquidation_erosions)
     for leverage in grid:
         collateral = notional / leverage
         margin_pct = collateral / capital * 100
         reserve_pct = 100 - margin_pct
-        liquidation_distance = liquidation_distance_pct(leverage, venue_max)
+        nominal_liquidation_distance = liquidation_distance_pct(leverage, venue_max)
+        liquidation_distance = max(
+            0.0, nominal_liquidation_distance - worst_liquidation_erosion)
         buffer = liquidation_distance / stop_pct
         reasons = []
         if leverage > tested_leverage:
@@ -136,6 +158,8 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
         evaluations[str(leverage)] = {
             "collateral_usdc": collateral, "portfolio_margin_pct": margin_pct,
             "reserve_pct": reserve_pct,
+            "nominal_liquidation_distance_pct": nominal_liquidation_distance,
+            "liquidation_cost_erosion_pct": worst_liquidation_erosion,
             "liquidation_distance_pct": liquidation_distance,
             "stop_to_liquidation_buffer_ratio": buffer,
             "safe": not reasons, "rejection_reasons": reasons,
@@ -164,12 +188,17 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
         "cost_notional_bucket_usdc": cost_bucket,
         "cost_roundtrip_bps_by_scenario": cost_bps,
         "robustness_tested_leverage": tested_leverage,
+        "liquidation_model": gate["liquidation_model"],
         "evaluated_leverage_grid": grid, "leverage_evaluations": evaluations,
         "selected_leverage": selected_leverage,
         "collateral_usdc": selected["collateral_usdc"] if selected else None,
         "portfolio_margin_pct": selected["portfolio_margin_pct"] if selected else None,
         "reserve_pct": selected["reserve_pct"] if selected else None,
         "liquidation_distance_pct": selected["liquidation_distance_pct"] if selected else None,
+        "nominal_liquidation_distance_pct": (
+            selected["nominal_liquidation_distance_pct"] if selected else None),
+        "liquidation_cost_erosion_pct": (
+            selected["liquidation_cost_erosion_pct"] if selected else None),
         "stop_to_liquidation_buffer_ratio": (
             selected["stop_to_liquidation_buffer_ratio"] if selected else None),
         "higher_leverage_rejection_reasons": higher_rejections,
@@ -249,7 +278,9 @@ def build_artifact(*, campaign_id: str, trace_paths: list[Path],
             "stop_distance_pct": row["stop_distance_pct"],
             "liquidation_distance_pct": row["liquidation_distance_pct"],
             "stop_to_liquidation_buffer_ratio": row["stop_to_liquidation_buffer_ratio"],
-            "liquidation_model": "ostium_exact",
+            "nominal_liquidation_distance_pct": row["nominal_liquidation_distance_pct"],
+            "liquidation_cost_erosion_pct": row["liquidation_cost_erosion_pct"],
+            "liquidation_model": gate["liquidation_model"],
         })
     artifact_path.parent.mkdir(parents=True, exist_ok=True)
     artifact_path.write_text(json.dumps(artifact, indent=2, sort_keys=True) + "\n")

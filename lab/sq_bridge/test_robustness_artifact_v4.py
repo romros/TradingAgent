@@ -18,14 +18,17 @@ def _trace(candidate_id="candidate", *, profitable_runs=700,
         "candidate_id": candidate_id, "capital_usdc": 200,
         "holdout_accessed": False, "tested_leverage": tested_leverage,
         "venue_max_leverage": 100,
-        "liquidation_model": "ostium_exact", "cost_stress_multiplier": 2,
+        "liquidation_model": "ostium_threshold_cost_buffered", "cost_stress_multiplier": 2,
         "cost_model_sha256": "", "evaluation_notional_usdc": 200,
         "monte_carlo_runs": [
             {"run_id": f"run-{index:04d}",
              "gross_pnl_usdc": 1.0 if index < profitable_runs else -1.0,
              "trade_count": 30, "long_holding_days": 15,
              "short_holding_days": 15,
-             "maximum_adverse_excursion_pct": 2.0} for index in range(1000)],
+             "maximum_adverse_excursion_pct": 2.0,
+             "maximum_adverse_excursion_side": "long" if index % 2 == 0 else "short",
+             "maximum_adverse_excursion_holding_days": 1.0}
+            for index in range(1000)],
         "parameter_variants": [
             {"variant_id": f"variant-{index}",
              "perturbation_pct": -10 if index % 2 == 0 else 10,
@@ -133,6 +136,26 @@ def test_liquidation_probability_is_derived_from_adverse_excursion(tmp_path):
         methodology_path=ROOT / "methodology_v4.json",
         artifact_path=tmp_path / "two-liquidations.json")
     assert artifact["decision"] == "REJECT"
+
+
+def test_execution_cost_buffer_can_turn_nominally_safe_mae_into_liquidation(tmp_path):
+    costs = _cost_model(tmp_path)
+    model = json.loads(costs.read_text())
+    model["by_notional"]["200"]["stress_roundtrip_bps"] = 10
+    costs.write_text(json.dumps(model, sort_keys=True) + "\n")
+    trace = _trace()
+    # Nominal distance at 5x / venue 100x is 19.75%; the conservative
+    # full-roundtrip buffer reduces it to 19.65%.
+    trace["monte_carlo_runs"][0]["maximum_adverse_excursion_pct"] = 19.70
+    artifact = build_artifact(
+        campaign_id="campaign", trace_paths=[_write(tmp_path, trace, costs)],
+        cost_model_path=costs,
+        methodology_path=ROOT / "methodology_v4.json",
+        artifact_path=tmp_path / "cost-buffered-liquidation.json")
+    metrics = artifact["evaluated_candidate_robustness_metrics"]["candidate"]
+    assert metrics["nominal_liquidation_distance_pct"] == pytest.approx(19.75)
+    assert metrics["liquidation_distance_pct"] == pytest.approx(19.65)
+    assert metrics["liquidation_probability"] == .001
 
 
 def test_robustness_rejects_unregistered_leverage_and_early_holdout(tmp_path):

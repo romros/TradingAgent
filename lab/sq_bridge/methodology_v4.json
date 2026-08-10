@@ -65,6 +65,7 @@
     "minimum_parameter_variants": 4,
     "minimum_profitable_parameter_variants_ratio": 0.75,
     "cost_stress_multiplier": 2,
+    "liquidation_model": "ostium_threshold_cost_buffered",
     "minimum_stress_profit_factor": 1.05,
     "maximum_liquidation_probability": 0.001
   },
@@ -83,6 +84,7 @@
     "leverage_grid": [1, 2, 3, 5, 8, 10, 15, 20, 30, 50, 75, 100, 150, 200],
     "leverage_selection_policy": "maximum_safe_in_grid_up_to_venue_limit",
     "required_stop_loss": true,
+    "liquidation_model": "ostium_threshold_cost_buffered",
     "minimum_stop_to_liquidation_buffer_ratio": 1.5
   },
   "final_holdout_validation": {

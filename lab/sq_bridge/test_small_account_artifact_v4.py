@@ -79,6 +79,10 @@ def test_small_account_recomputes_performance_sizing_and_real_contract(tmp_path)
     assert artifact["cost_roundtrip_bps_by_scenario"] == {
         "base": 0, "conservative": 1, "stress": 2}
     assert artifact["collateral_usdc"] == 60
+    assert artifact["nominal_liquidation_distance_pct"] == pytest.approx(19.75)
+    assert artifact["liquidation_cost_erosion_pct"] == pytest.approx(.02)
+    assert artifact["liquidation_distance_pct"] == pytest.approx(19.73)
+    assert artifact["liquidation_model"] == "ostium_threshold_cost_buffered"
     assert set(artifact["higher_leverage_rejection_reasons"]) == {
         "8", "10", "15", "20", "30", "50", "75", "100"}
     methodology = json.loads((ROOT / "methodology_v4.json").read_text())

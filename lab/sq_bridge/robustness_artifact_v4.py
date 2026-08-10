@@ -9,7 +9,12 @@ import math
 import os
 from pathlib import Path
 
-from lab.sq_bridge.small_account_artifact_v4 import select_cost_envelope
+from lab.sq_bridge.small_account_artifact_v4 import (
+    cost_buffered_liquidation_distance_pct,
+    liquidation_cost_erosion_pct,
+    liquidation_distance_pct,
+    select_cost_envelope,
+)
 
 
 def _sha(path: Path) -> str:
@@ -60,10 +65,10 @@ def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
         trace.get("venue_max_leverage"), "Limit de leverage Ostium invalid")
     if venue_max_leverage < leverage:
         raise ValueError("Leverage provat superior al limit Ostium")
-    if trace.get("liquidation_model") != "ostium_exact":
-        raise ValueError("La liquidacio ha d'usar el model exacte d'Ostium")
-    loss_threshold_pct = 100.0 - leverage / venue_max_leverage * 25.0
-    liquidation_distance_pct = loss_threshold_pct / leverage
+    if trace.get("liquidation_model") != gate.get("liquidation_model"):
+        raise ValueError("La liquidacio ha d'usar el llindar Ostium amb buffer de costos")
+    nominal_liquidation_distance = liquidation_distance_pct(
+        leverage, venue_max_leverage)
     if trace.get("cost_stress_multiplier") != gate["cost_stress_multiplier"]:
         raise ValueError("Multiplicador de costos de robustesa invalid")
     if trace.get("cost_model_sha256") != expected_cost_hash:
@@ -79,6 +84,7 @@ def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
     if not isinstance(runs, list) or len(runs) != gate["monte_carlo_runs"]:
         raise ValueError("Nombre de simulacions Monte Carlo invalid")
     run_ids, profitable, liquidated = [], 0, 0
+    effective_distances, liquidation_erosions = [], []
     for row in runs:
         if not isinstance(row, dict) or not isinstance(row.get("run_id"), str):
             raise ValueError("Simulacio Monte Carlo invalida")
@@ -88,8 +94,20 @@ def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
             row.get("maximum_adverse_excursion_pct"), "Excursio adversa Monte Carlo invalida")
         if adverse_excursion < 0:
             raise ValueError("Excursio adversa Monte Carlo negativa")
+        mae_side = row.get("maximum_adverse_excursion_side")
+        mae_days = _number(row.get("maximum_adverse_excursion_holding_days"),
+                           "Durada fins MAE Monte Carlo invalida")
+        if mae_side not in {"long", "short"} or mae_days < 0:
+            raise ValueError("Costat o durada fins MAE Monte Carlo invalid")
+        annual = _number((carry.get(mae_side) or {}).get("stress_annual_cost_pct"),
+                         "Carry stress fins MAE absent")
+        erosion = liquidation_cost_erosion_pct(robust_bps, annual, mae_days)
+        effective_distance = cost_buffered_liquidation_distance_pct(
+            leverage, venue_max_leverage, robust_bps, annual, mae_days)
+        liquidation_erosions.append(erosion)
+        effective_distances.append(effective_distance)
         profitable += pnl > 0
-        liquidated += adverse_excursion >= liquidation_distance_pct
+        liquidated += adverse_excursion >= effective_distance
     if run_ids != sorted(set(run_ids)):
         raise ValueError("run_id Monte Carlo ha de ser unic i ordenat")
 
@@ -138,7 +156,11 @@ def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
         "liquidation_probability": liquidated / len(runs),
         "tested_leverage": leverage,
         "venue_max_leverage": venue_max_leverage,
-        "liquidation_distance_pct": liquidation_distance_pct,
+        "liquidation_model": "ostium_threshold_cost_buffered",
+        "nominal_liquidation_distance_pct": nominal_liquidation_distance,
+        "minimum_cost_buffered_liquidation_distance_pct": min(effective_distances),
+        "maximum_liquidation_cost_erosion_pct": max(liquidation_erosions),
+        "liquidation_distance_pct": min(effective_distances),
         "evaluation_notional_usdc": notional,
         "cost_notional_bucket_usdc": cost_bucket,
         "robust_roundtrip_bps": robust_bps,

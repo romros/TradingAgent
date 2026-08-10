@@ -251,6 +251,7 @@ def test_v4_methodology_cannot_be_weakened_to_force_a_pass():
         "parameter_perturbation_pct": 1, "minimum_parameter_variants": 1,
         "minimum_profitable_parameter_variants_ratio": .1,
         "cost_stress_multiplier": 1, "maximum_liquidation_probability": .2,
+        "liquidation_model": "ostium_nominal_only",
     })
     weakened["small_account"].update({
         "maximum_risk_per_trade_pct": 10, "maximum_portfolio_margin_pct": 100,
@@ -259,6 +260,7 @@ def test_v4_methodology_cannot_be_weakened_to_force_a_pass():
         "cost_scenarios_required": ["base"],
         "maximum_single_trade_loss_pct": 100,
         "candidate_selection_policy": "best_backtest_profit",
+        "liquidation_model": "ostium_nominal_only",
     })
     weakened["parity"].update({
         "minimum_matched_signals": 1, "minimum_matched_trades": 1,

@@ -99,6 +99,8 @@ def validate(config: dict) -> list[str]:
             errors.append("robustness: estres de costos massa feble")
         if robust.get("maximum_liquidation_probability", 1) > .001:
             errors.append("robustness: probabilitat de liquidacio massa alta")
+        if robust.get("liquidation_model") != "ostium_threshold_cost_buffered":
+            errors.append("robustness: llindar de liquidacio ha d'incloure costos")
         parity = config.get("parity", {})
         if parity.get("minimum_matched_signals", 0) < 30:
             errors.append("parity: mostra de senyals massa petita")
@@ -163,6 +165,8 @@ def validate(config: dict) -> list[str]:
             errors.append("small_account: stop obligatori")
         if small.get("minimum_stop_to_liquidation_buffer_ratio", 0) < 1.5:
             errors.append("small_account: buffer de liquidacio insuficient")
+        if small.get("liquidation_model") != "ostium_threshold_cost_buffered":
+            errors.append("small_account: llindar de liquidacio ha d'incloure costos")
     return errors
 
 

@@ -866,7 +866,9 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                 "RISK_RECOMPUTES": computed_risk is not None
                     and _at_least(reported_risk, 0)
                     and abs(computed_risk - reported_risk) <= 1e-9,
-                "LIQUIDATION_MODEL": artifact.get("liquidation_model") == "ostium_exact",
+                "LIQUIDATION_MODEL": artifact.get("liquidation_model")
+                    == small.get("liquidation_model")
+                    == "ostium_threshold_cost_buffered",
                 "LIQUIDATION_BUFFER": computed_buffer is not None
                     and _at_least(reported_buffer, 0)
                     and abs(computed_buffer - reported_buffer) <= 1e-9

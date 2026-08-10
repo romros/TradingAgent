@@ -188,14 +188,17 @@ if stage == 'robustness':
         'candidate_id': 'runner-sqx-001', 'capital_usdc': 200,
         'holdout_accessed': False, 'tested_leverage': 5,
         'venue_max_leverage': 100,
-        'liquidation_model': 'ostium_exact', 'cost_stress_multiplier': 2,
+        'liquidation_model': 'ostium_threshold_cost_buffered', 'cost_stress_multiplier': 2,
         'cost_model_sha256': cost_hash, 'evaluation_notional_usdc': 200,
         'monte_carlo_runs': [
             {'run_id': f'run-{index:04d}',
              'gross_pnl_usdc': 3.0 if index < 700 else -1.0,
              'trade_count': 30, 'long_holding_days': 15,
              'short_holding_days': 15,
-             'maximum_adverse_excursion_pct': 2.0} for index in range(1000)],
+             'maximum_adverse_excursion_pct': 2.0,
+             'maximum_adverse_excursion_side': 'long' if index % 2 == 0 else 'short',
+             'maximum_adverse_excursion_holding_days': 1.0}
+            for index in range(1000)],
         'parameter_variants': [
             {'variant_id': f'variant-{index}',
              'perturbation_pct': -10 if index % 2 == 0 else 10,

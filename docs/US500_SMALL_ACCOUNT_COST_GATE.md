@@ -52,7 +52,8 @@ mantenen els falsadors preregistrats del 8% i 12% anual com a mínim.
 
 Aquest gate estima fricció sobre el nocional de la posició, no decideix
 apalancament. La selecció posterior haurà de limitar el nocional simultàniament
-per risc a stop/MAE, marge disponible, liquidació exacta d'Ostium i el màxim
+per risc a stop/MAE, marge disponible, llindar de liquidació Ostium amb buffer
+de costos i el màxim
 vigent del venue. Que Ostium permeti 100x no converteix 100x en apalancament
 segur ni rendible.
 

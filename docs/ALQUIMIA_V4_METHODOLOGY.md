@@ -89,8 +89,10 @@ L'etapa de compte petit ha d'avaluar la graella completa
 `1,2,3,5,8,10,15,20,30,50,75,100,150,200` fins al límit vigent del mercat i seleccionar
 el valor segur més alt. Cada leverage superior ha de tenir un motiu de rebuig.
 El verificador recalcula `collateral=notional/leverage`, marge, reserva i risc al
-stop, exigeix stop obligatori, model de liquidació exacte d'Ostium i una
-distància de liquidació d'almenys 1,5 vegades el stop. Això maximitza leverage
+stop i exigeix stop obligatori. Parteix del llindar de manteniment d'Ostium i
+el redueix amb el round-trip estressat complet i el rollover estressat fins a
+la MAE; exigeix una distància efectiva d'almenys 1,5 vegades el stop. El trace
+Monte Carlo ha de declarar costat i durada fins a cada MAE. Això maximitza leverage
 dins del risc; no confon leverage amb augmentar arbitràriament el nocional.
 El nocional queda fixat per `200 × risc% / stop%`; canviar leverage només canvia
 el col·lateral requerit. La graella arriba a 200× perquè els màxims 150× i 200×
@@ -106,6 +108,13 @@ costat i durada. El constructor verifica el SHA-256 del model de costos
 congelat, escull el primer bucket mesurat igual o superior al nocional i resta
 round-trip més carry. Un nocional superior a la graella o un hash diferent
 invalida l'etapa.
+
+El model es diu `ostium_threshold_cost_buffered`, no `ostium_exact`: la fórmula
+de manteniment és la publicada per Ostium, però usar el round-trip complet abans
+de la MAE és un buffer conservador. L'etiqueta evita afirmar una exactitud de
+fills o timing intrabar que el backtest no pot demostrar.
+La derivació completa és a
+[`OSTIUM_LIQUIDATION_MODEL_V4.md`](OSTIUM_LIQUIDATION_MODEL_V4.md).
 
 La validació temporal aplica el mateix principi sobre train i les finestres
 OOS: nocional comparatiu fix de 200 USDC, retorn brut, costat i durada. El PnL

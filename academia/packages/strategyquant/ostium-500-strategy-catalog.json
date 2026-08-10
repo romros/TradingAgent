@@ -1,0 +1,70 @@
+{
+  "id": "ostium-500-strategy-catalog-v1",
+  "as_of": "2026-08-10",
+  "capital_usdc": 500,
+  "assets": [
+    {
+      "asset": "EUR/USD",
+      "promotable_components": [],
+      "rejected_families": [
+        "London opening-range breakout",
+        "H4 trend/reversion",
+        "H4 ATR stop-channel breakout",
+        "D1 volatility expansion"
+      ],
+      "dominant_failure": "movement per trade does not survive current costs or temporal validation",
+      "new_driver_backlog": [
+        "low-turnover weekly rate-differential regime",
+        "macro-surprise continuation with event-time cost precheck"
+      ],
+      "next_action": "falsify frequency and gross movement of the weekly rate-differential regime before SQ generation"
+    },
+    {
+      "asset": "US500/USD",
+      "promotable_components": [],
+      "rejected_families": [
+        "M15 session gap/open drive",
+        "M15 compression expansion",
+        "M15 RSI trend pullback",
+        "turn-of-month flow",
+        "VIX term normalization timing"
+      ],
+      "dominant_failure": "timing effects fail costs, year stability or untouched validation",
+      "open_data_gate": "three open sessions of measured bid/mid/ask quotes are still required",
+      "new_driver_backlog": [
+        "low-turnover equity risk-premium regime with volatility used only as frozen risk state"
+      ],
+      "next_action": "finish the preregistered open-session spread measurement before testing another component"
+    },
+    {
+      "asset": "XAU/USD",
+      "promotable_components": [],
+      "rejected_families": [
+        "H4 liquidity sweep/reclaim",
+        "H1 session displacement",
+        "H1 late-session reversal",
+        "D1 inside-bar breakout",
+        "D1 RSI trend pullback",
+        "H4 Bollinger long",
+        "H4 ATR stop-channel breakout",
+        "D1 volatility expansion",
+        "scheduled FOMC reaction"
+      ],
+      "dominant_failure": "price-only and event-reaction families fail stress costs or temporal transfer",
+      "new_driver_backlog": [
+        "low-frequency real-yield and dollar regime",
+        "official-flow regime used ex ante rather than as post-hoc explanation"
+      ],
+      "next_action": "preregister and cheap-screen a real-yield/dollar regime with a distinct causal input"
+    }
+  ],
+  "portfolio_status": "BLOCKED_NO_POSITIVE_NET_COMPONENTS",
+  "holdout_status": "SEALED",
+  "x2_status": "UNTESTABLE_UNTIL_COMPONENT_GATE_PASSES",
+  "evidence": [
+    "experiments/failure-memory.json",
+    "experiments/observations/xau-native-family-ledger-2026-08.json",
+    "experiments/observations/ostium-portfolio-user-scope-3asset-2026-08.json",
+    "experiments/observations/spxusd-open-session-spread-gate-2026-08.json"
+  ]
+}

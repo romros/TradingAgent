@@ -1,0 +1,33 @@
+{
+  "id": "ostium-500-catalog-x2-v1",
+  "as_of": "2026-08-10",
+  "objective": "Construir un catàleg de components operables i una cartera per intentar convertir 500 USDC en 1000 USDC a Ostium aproximadament en dotze mesos.",
+  "capital_usdc": {"minimum": 200, "primary": 500},
+  "target": {"ending_equity_usdc": 1000, "horizon_months": 12, "kind": "research_target_not_promise"},
+  "active_assets": ["EUR/USD", "US500/USD", "XAU/USD"],
+  "required_component_gate": "positive net expectancy under current base costs",
+  "risk_limits": {
+    "maximum_drawdown_pct": 15,
+    "maximum_simultaneous_risk_pct": 3,
+    "maximum_effective_leverage": 5,
+    "maximum_single_asset_profit_contribution_pct": 50
+  },
+  "success_report": [
+    "probability_of_reaching_1000_within_12_months",
+    "time_to_target_percentiles",
+    "probability_of_20_and_30_pct_loss",
+    "risk_of_ruin",
+    "maximum_drawdown_distribution",
+    "net_result_after_ostium_costs_margin_and_skipped_orders"
+  ],
+  "allowed_work": ["new_component", "data_gate", "execution_cost", "portfolio_simulation", "parity", "failure_memory"],
+  "non_objectives": [
+    "prove every StrategyQuant feature",
+    "repeat rejected parameter families",
+    "optimize headline backtest profit",
+    "promise x2",
+    "open sealed holdout before component and portfolio gates"
+  ],
+  "active_campaign": "experiments/pending/ostium-500-portfolio-3asset-v1.json",
+  "frozen": true
+}

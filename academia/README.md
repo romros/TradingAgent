@@ -6,6 +6,15 @@ promeses de rendibilitat ni participa en l'execució de trading.
 
 ## Objectius
 
+Objectiu operatiu d'Alquímia: construir un catàleg de components per EUR/USD,
+US500/USD i XAU/USD operables amb 200–500 USDC a Ostium, i avaluar si una cartera
+pot aspirar a 500→1.000 USDC aproximadament en dotze mesos sense superar els
+gates de risc congelats. És un target de recerca, no una promesa. Consultar sempre:
+
+```bash
+python3 academia/tools/ostium_objective_status.py
+```
+
 - respondre preguntes de SQ amb font, versió i nivell de confiança;
 - convertir manuals i vídeos en coneixement verificat amb timestamps;
 - provar localment les configuracions sobre SQX 143.2708;

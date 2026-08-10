@@ -47,6 +47,12 @@ def payload(stage: str, candidate_ids: list[str], holdout: bool) -> dict:
                                   "train_trades": 50, "stable_neighbor_count": 2,
                                   "profit_factor_by_cost": {
                                       "base": 1.3, "conservative": 1.25, "stress": 1.2}}},
+                              "evaluated_hypothesis_metrics": {"hypothesis-control": {
+                                  "train_trades": 50, "stable_neighbor_count": 2,
+                                  "profit_factor_by_cost": {
+                                      "base": 1.3, "conservative": 1.25, "stress": 1.2},
+                                  "central_variant_id": "central", "variant_count": 3,
+                                  "central_pass": True}},
                               "applied_cost_scenarios": ["base", "conservative", "stress"],
                               "train_only": True, "future_periods_accessed": False},
         "sq_generation": {"generator": "StrategyQuant", "search_method": "genetic_evolution",

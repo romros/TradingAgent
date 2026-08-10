@@ -17,7 +17,8 @@ US500+VIX l'haurà d'utilitzar quan el gate de tres dies permeti formular-la.
    global ≥90%, cobertura mínima de cada període ≥80%, hash de configuració i
    zero accés a rendiment.
 2. `hypothesis_screen`: grid finit determinista, només train, costos
-   base/conservador/estrès i regió estable. No produeix estratègies SQ.
+   base/conservador/estrès i regió estable recalculada des de trades de la
+   central i els seus veïns. No produeix estratègies SQ.
 3. `sq_generation`: projecte StrategyQuant nou; els candidats apareixen aquí
    per primera vegada i cada artefacte SQ queda lligat per SHA-256.
 4. `temporal_validation`: finestres independents, degradació limitada i front
@@ -63,6 +64,10 @@ L'execució reprenable d'una campanya real està documentada a
 El `hypothesis_screen` no pot passar amb una simple etiqueta: l'artefacte ha de
 provar almenys 50 trades train, PF train ≥1,20, dos veïns estables, aplicació
 exacta dels costos base/conservador/estrès, futurs segellats i ≤5.000 intents.
+Els intents són les variants reals del trace congelat. Cada variant aporta
+trades i PnL per cost; la topologia identifica explícitament la central i els
+veïns. El validador reobre el trace, recalcula tots els PF i impedeix comptar
+com a estable una configuració aliena o consultar períodes futurs.
 La generació SQ queda limitada a 10.000 intents i tres regles. El validador
 també rebutja qualsevol metodologia v4 nova que relaxi aquests mínims, els 1.000
 Monte Carlo, la probabilitat de liquidació ≤0,1%, el risc ≤1,5% o la reserva

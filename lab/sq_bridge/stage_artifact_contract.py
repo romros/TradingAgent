@@ -19,6 +19,7 @@ from lab.sq_bridge.temporal_validation_artifact_v4 import (
 )
 from lab.sq_bridge.robustness_artifact_v4 import evaluate_trace as evaluate_robustness_trace
 from lab.sq_bridge.small_account_artifact_v4 import evaluate_trace as evaluate_small_trace
+from lab.sq_bridge.hypothesis_screen_artifact_v4 import evaluate_trace as evaluate_screen_trace
 
 
 def _number(value: Any) -> bool:
@@ -146,6 +147,30 @@ def _verified_small_account_sources(artifact: dict, reported: Any,
     except (OSError, KeyError, TypeError, ValueError):
         return False
     return recomputed == reported
+
+
+def _verified_hypothesis_screen_source(artifact: dict, artifact_path: str,
+                                       gate: dict) -> bool:
+    trace = _verified_json(
+        artifact.get("hypothesis_screen_trace_path"),
+        artifact.get("hypothesis_screen_trace_sha256"), artifact_path)
+    if trace is None:
+        return False
+    try:
+        result = evaluate_screen_trace(trace, gate)
+    except (KeyError, TypeError, ValueError):
+        return False
+    selected = result["selected_hypothesis_ids"]
+    evaluated = result["evaluated_hypothesis_metrics"]
+    selected_metrics = {key: {
+        "train_trades": evaluated[key]["train_trades"],
+        "profit_factor_by_cost": evaluated[key]["profit_factor_by_cost"],
+        "stable_neighbor_count": evaluated[key]["stable_neighbor_count"],
+    } for key in selected}
+    return (artifact.get("attempted") == result["attempted"]
+            and artifact.get("evaluated_hypothesis_metrics") == evaluated
+            and artifact.get("selected_hypothesis_ids") == selected
+            and artifact.get("selected_hypothesis_metrics") == selected_metrics)
 
 
 def _verified_sqx_contracts(paths: Any, expected_ids: list[str], artifact_path: str,
@@ -390,6 +415,16 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
             "FUTURES_SEALED": artifact.get("future_periods_accessed") is False,
             "NO_HOLDOUT": artifact.get("holdout_accessed") is False,
         }
+        if methodology.get("schema_version", 1) >= 4:
+            evaluated_hypotheses = artifact.get("evaluated_hypothesis_metrics")
+            checks.update({
+                "EVALUATED_HYPOTHESES": isinstance(evaluated_hypotheses, dict)
+                    and bool(evaluated_hypotheses)
+                    and set(selected_hypotheses or []).issubset(evaluated_hypotheses),
+                "TRACE_CONTRACT": _verified_hypothesis_screen_source(
+                    artifact, receipt.get("artifact", ""), screen)
+                    if provenance != "synthetic_control" else True,
+            })
     elif stage == "sq_generation":
         generation = methodology["sq_generation"]
         hashes = artifact.get("candidate_artifact_hashes")

@@ -24,6 +24,7 @@ from lab.sq_bridge.paper_package_artifact_v4 import build_artifact as build_pape
 from lab.sq_bridge.temporal_validation_artifact_v4 import build_artifact as build_temporal
 from lab.sq_bridge.robustness_artifact_v4 import build_artifact as build_robustness
 from lab.sq_bridge.small_account_artifact_v4 import build_artifact as build_small_account
+from lab.sq_bridge.hypothesis_screen_artifact_v4 import build_artifact as build_screen
 
 stage = os.environ['ALQUIMIA_STAGE']
 decision = sys.argv[1] if len(sys.argv) > 1 else 'PASS'
@@ -35,6 +36,30 @@ artifact['campaign_id'] = 'runner-test'
 artifact['evidence_class'] = 'observed'
 artifact.pop('control_purpose', None)
 artifact['decision'] = decision
+if stage == 'hypothesis_screen':
+    base = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent
+    trace_path = base / 'hypothesis-screen.trace.json'
+    variants = []
+    for variant_id in ('central', 'neighbor-a', 'neighbor-b'):
+        variants.append({
+            'variant_id': variant_id,
+            'neighbor_of': None if variant_id == 'central' else 'central',
+            'trades': [{'trade_id': f'{variant_id}-trade-{index:02d}',
+                        'net_pnl_usdc_by_cost': {
+                            'base': 1.0 if index < 30 else -.5,
+                            'conservative': .8 if index < 30 else -.5,
+                            'stress': .7 if index < 30 else -.5}}
+                       for index in range(50)]})
+    trace_path.write_text(json.dumps({
+        'schema_version': 1, 'trace_type': 'hypothesis_screen_grid_trace',
+        'train_only': True, 'future_periods_accessed': False,
+        'holdout_accessed': False, 'cost_model_sha256': 'a' * 64,
+        'hypotheses': [{'hypothesis_id': 'hypothesis-control',
+                        'central_variant_id': 'central', 'variants': variants}]}))
+    artifact = build_screen(
+        campaign_id='runner-test', trace_path=trace_path,
+        methodology_path=Path(sys.argv[2]),
+        artifact_path=Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']))
 if stage == 'sq_generation':
     paths, hashes = {}, {}
     for candidate in ids:
@@ -217,7 +242,8 @@ if stage == 'paper':
 if decision == 'BAD':
     artifact['decision'] = 'PASS'
     artifact.pop('historical_period_coverage', None)
-if decision != 'PASS':
+if decision in {'REJECT', 'BLOCK'}:
+    artifact['decision'] = decision
     artifact['candidate_ids'] = []
 Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).write_text(json.dumps(artifact))
 print('license code: RUNNER-SECRET-123')

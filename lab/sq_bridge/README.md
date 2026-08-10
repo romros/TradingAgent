@@ -242,6 +242,23 @@ També calcula un front de Pareto descriptiu IS. No és un gate de promoció: no
 marca candidats no dominats en les mètriques observades. Validació temporal,
 costos, règims i Ostium continuen sent obligatoris.
 
+## Screen determinista v4 abans d'SQ
+
+Una campanya v4 no escriu a mà els PF train ni el nombre de veïns. Congela una
+graella finita `hypothesis_screen_grid_trace` amb variants centrals, topologia de
+veïnat i trades nets pels costos base/conservador/estrès, i construeix el rebut:
+
+```bash
+PYTHONPATH=../.. python3 hypothesis_screen_artifact_v4.py \
+  --campaign-id CAMPAIGN_ID \
+  --trace /path/to/hypothesis-screen.trace.json \
+  --artifact-output /path/to/state/artifacts/02_hypothesis_screen.json
+```
+
+Només train és visible. El constructor recompte els intents reals, recalcula PF
+per variant i exigeix que la central i almenys dos veïns superin 50 trades i PF
+1,20 sota tots tres costos. Una hipòtesi rebutjada no arriba a SQCLI.
+
 Per a una campanya v4, el rebut de `sq_generation` no s'escriu a mà. Després de
 congelar el databank i el recompte real d'intents, es genera així:
 

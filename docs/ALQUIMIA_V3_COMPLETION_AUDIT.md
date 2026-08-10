@@ -46,11 +46,15 @@ antigues més enllà d'exemples tècnics.
   desenvolupament nou 2015–2018. El patró brut és positiu però tots els punts
   fallen els costos base i estrès; la cadena queda terminal a discovery, els
   trams 2019–2026 intactes i tota la línia Tokyo-fix queda tancada.
+- Quarta cadena real v2: XAUUSD FOMC v29 afegeix calendari oficial amb hora
+  corroborada, mapping M15 netejat simètricament i sizing 200 USDC amb leverage
+  venue separat de l'exposició. La continuació passa 8/15 bps però falla 30 bps;
+  rebuig terminal 0/16 sense obrir 2019–2026 ni SQCLI.
 - Gate econòmic multi-mercat: snapshots read-only separats per parell, identitat
   fail-closed, fee/spread/slippage/rollover long-short/leverage/mínim nocional i
   promoció bloquejada fins 30 mostres obertes, 3 dies i 6 hores UTC. Smoke 5/5
   tokens; cap encara preparat per multidia o paper.
-- Regressió completa del pont i Academia: 347 proves i 16 subtests superats. També s'ha alineat una
+- Regressió completa del pont i Academia: 358 proves i 17 subtests superats. També s'ha alineat una
   prova antiga amb el fee cripto conservador canònic de 10 bps del registre.
 - XAU H4 R2 importat exclusivament com a control negatiu: cadena íntegra i
   terminal a economia de 200 USDC; no promocionable.

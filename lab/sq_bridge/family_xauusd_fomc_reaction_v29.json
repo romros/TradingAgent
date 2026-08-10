@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "campaign_id": "xauusd-fomc-reaction-v29",
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "hypothesis": "After a scheduled regular FOMC statement, the observed XAUUSD price reaction contains either short-lived underreaction or overreaction that remains capturable intraday after current Ostium costs.",
+  "falsifier": "Reject before StrategyQuant unless a connected train region survives conservative event execution, stress costs, year stability and 200-USDC risk sizing.",
+  "independence": "New external-event mechanism. No thresholds, performance results or candidate artifacts from prior XAU price-only grids are reused; only audited data-loading and accounting patterns may be technical references.",
+  "external_evidence": [
+    "Federal Reserve official FOMC calendars and statement pages",
+    "Gurkaynak, Sack and Swanson (2005), International Journal of Central Banking, Do Actions Speak Louder Than Words?"
+  ],
+  "market": "XAUUSD",
+  "ostium_pair_id": "5",
+  "timeframe": "M15",
+  "direction": "reaction_conditioned_long_or_short",
+  "event_calendar": "lab/sq_bridge/evidence/fomc_regular_statement_calendar_2015_2026.json",
+  "event": "scheduled regular FOMC statement at 14:00 America/New_York",
+  "source_root": "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet",
+  "venue_overlap_evidence": "lab/sq_bridge/evidence/xauusd_dukas_ostium_parity_2026_feb_symmetric_clean_v3.json",
+  "execution_snapshot": "lab/sq_bridge/evidence/ostium_execution_universe_smoke_20260810.json",
+  "splits": {
+    "train": ["2015-01-01", "2018-12-31"],
+    "validation": ["2019-01-01", "2021-12-31"],
+    "oos": ["2022-01-01", "2023-12-31"],
+    "sealed_holdout": ["2024-01-01", "2026-12-31"]
+  },
+  "search": {
+    "reaction_minutes": [15, 30],
+    "mechanism": ["continuation", "reversal"],
+    "holding_minutes": [60, 120],
+    "stop_fraction": [0.005, 0.0075],
+    "attempt_budget": 16
+  },
+  "execution": {
+    "signal": "direction of XAUUSD open-to-open move from 14:00 ET through the frozen reaction window",
+    "entry": "M15 open immediately after the 15/30-minute reaction window",
+    "exit": "protective stop or M15 open after 60/120 minutes",
+    "intrabar_policy": "gap liquidation check, then gap stop, then stop before time exit",
+    "no_overnight": true
+  },
+  "economics": {
+    "capital_usdc": 200,
+    "risk_per_trade_pct": 1.5,
+    "venue_max_leverage": 50,
+    "liquidation_buffer_multiple_of_stop": 1.25,
+    "maximum_margin_pct": 35,
+    "minimum_reserve_pct": 40,
+    "oracle_locked_usdc": 0.10,
+    "oracle_refund_condition": "successful full close",
+    "roundtrip_bps": {"base": 8, "conservative": 15, "stress": 30},
+    "oracle_net_cost_usdc": {"base": 0, "conservative": 0, "stress": 0.10}
+  },
+  "train_gate": {
+    "minimum_complete_event_windows": 24,
+    "minimum_trades": 24,
+    "minimum_base_profit_factor": 1.20,
+    "minimum_stress_profit_factor": 1.05,
+    "minimum_stress_expectancy_usdc": 0.10,
+    "minimum_positive_year_ratio": 0.75,
+    "maximum_drawdown_pct": 20,
+    "maximum_liquidations": 0,
+    "minimum_stable_neighbors": 1
+  },
+  "sq_if_pass": {
+    "role": "candidate_generator_only",
+    "generator": "StrategyQuant",
+    "fixed_mechanism": "immutable FOMC calendar plus observed post-statement reaction direction",
+    "custom_calendar_required": true,
+    "maximum_rules": 3,
+    "attempt_budget": 1000,
+    "holdout_allowed": false
+  },
+  "validation_accessed": false,
+  "oos_accessed": false,
+  "holdout_evaluated": false,
+  "live_authorized": false
+}

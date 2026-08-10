@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "id": "xauusd_fomc_reaction_v29_20260810",
+  "family": "xauusd_scheduled_fomc_reaction",
+  "market": "XAUUSD",
+  "timeframe": "M15",
+  "stage": "train_only_pre_sq_falsification",
+  "attempts": 16,
+  "observed": {
+    "train_window": ["2015-01-01", "2018-12-31"],
+    "calendar_events": 32,
+    "complete_event_windows": 30,
+    "survivors": 0,
+    "best_parameters": {"reaction_minutes": 15, "mechanism": "continuation", "holding_minutes": 120, "stop_fraction": 0.0075},
+    "best_base_profit_factor": 2.3488,
+    "best_base_expectancy_usdc": 0.5875,
+    "best_conservative_profit_factor": 1.5616,
+    "best_conservative_expectancy_usdc": 0.3075,
+    "best_stress_profit_factor": 0.5719,
+    "best_stress_expectancy_usdc": -0.3925,
+    "best_stress_positive_year_ratio": 0.5,
+    "liquidations": 0
+  },
+  "decision": "REJECT",
+  "failure_code": "TEMPORAL_PASS_COST_FAIL",
+  "inference": "Scheduled FOMC reactions show consistent short-horizon continuation at base and conservative costs, but the edge is not large enough to survive the preregistered event-execution stress envelope.",
+  "do_not_repeat": "Do not lower the 30-bps stress gate, tune reaction windows, holds, stops or meeting types, add direction filters, or inspect 2019-2026 to rescue this family.",
+  "next_direction": "Require a larger-magnitude event mechanism, or collect event-time execution evidence before preregistering a genuinely new campaign with a new development period.",
+  "validation_accessed": false,
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "evidence": "lab/sq_bridge/evidence/xauusd_fomc_reaction_v29_train.json"
+}

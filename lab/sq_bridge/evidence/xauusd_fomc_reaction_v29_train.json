@@ -1,0 +1,951 @@
+{
+  "all_results": [
+    {
+      "parameter_tuple": [
+        15,
+        "continuation",
+        60,
+        0.005
+      ],
+      "parameters": {
+        "holding_minutes": 60,
+        "mechanism": "continuation",
+        "reaction_minutes": 15,
+        "stop_fraction": 0.005
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": 0.33753619932751894,
+          "exposure_multiple": 3.0,
+          "liquidation_count": 0,
+          "margin_pct": 6.0,
+          "max_drawdown_pct": 5.243862006444122,
+          "net_pnl_usdc": 10.463622179153088,
+          "positive_year_ratio": 0.75,
+          "profit_factor": 1.464225802787104,
+          "selected_venue_leverage": 50.0,
+          "trades": 31
+        },
+        "conservative": {
+          "expectancy_usdc": -0.08246380067248088,
+          "exposure_multiple": 3.0,
+          "liquidation_count": 0,
+          "margin_pct": 6.0,
+          "max_drawdown_pct": 7.265606995394879,
+          "net_pnl_usdc": -2.5563778208469072,
+          "positive_year_ratio": 0.5,
+          "profit_factor": 0.9102458179794732,
+          "selected_venue_leverage": 50.0,
+          "trades": 31
+        },
+        "stress": {
+          "expectancy_usdc": -1.0824638006724807,
+          "exposure_multiple": 3.0,
+          "liquidation_count": 0,
+          "margin_pct": 6.0,
+          "max_drawdown_pct": 15.101062786748177,
+          "net_pnl_usdc": -33.556377820846905,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.28432435342367335,
+          "selected_venue_leverage": 50.0,
+          "trades": 31
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "parameter_tuple": [
+        15,
+        "continuation",
+        60,
+        0.0075
+      ],
+      "parameters": {
+        "holding_minutes": 60,
+        "mechanism": "continuation",
+        "reaction_minutes": 15,
+        "stop_fraction": 0.0075
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": 0.2955769703441774,
+          "exposure_multiple": 2.0,
+          "liquidation_count": 0,
+          "margin_pct": 4.0,
+          "max_drawdown_pct": 2.8977538686317916,
+          "net_pnl_usdc": 9.1628860806695,
+          "positive_year_ratio": 0.75,
+          "profit_factor": 1.7136487941320826,
+          "selected_venue_leverage": 50.0,
+          "trades": 31
+        },
+        "conservative": {
+          "expectancy_usdc": 0.015576970344177588,
+          "exposure_multiple": 2.0,
+          "liquidation_count": 0,
+          "margin_pct": 4.0,
+          "max_drawdown_pct": 4.203070854313573,
+          "net_pnl_usdc": 0.4828860806695052,
+          "positive_year_ratio": 0.5,
+          "profit_factor": 1.0287417543528719,
+          "selected_venue_leverage": 50.0,
+          "trades": 31
+        },
+        "stress": {
+          "expectancy_usdc": -0.6844230296558225,
+          "exposure_multiple": 2.0,
+          "liquidation_count": 0,
+          "margin_pct": 4.0,
+          "max_drawdown_pct": 9.691815724332542,
+          "net_pnl_usdc": -21.217113919330497,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.2865316429544302,
+          "selected_venue_leverage": 50.0,
+          "trades": 31
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "parameter_tuple": [
+        15,
+        "continuation",
+        120,
+        0.005
+      ],
+      "parameters": {
+        "holding_minutes": 120,
+        "mechanism": "continuation",
+        "reaction_minutes": 15,
+        "stop_fraction": 0.005
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": 0.7864611509951458,
+          "exposure_multiple": 3.0,
+          "liquidation_count": 0,
+          "margin_pct": 6.0,
+          "max_drawdown_pct": 5.580996932960747,
+          "net_pnl_usdc": 23.593834529854373,
+          "positive_year_ratio": 0.75,
+          "profit_factor": 2.05109571429859,
+          "selected_venue_leverage": 50.0,
+          "trades": 30
+        },
+        "conservative": {
+          "expectancy_usdc": 0.3664611509951464,
+          "exposure_multiple": 3.0,
+          "liquidation_count": 0,
+          "margin_pct": 6.0,
+          "max_drawdown_pct": 7.27716077925582,
+          "net_pnl_usdc": 10.993834529854393,
+          "positive_year_ratio": 0.5,
+          "profit_factor": 1.3999664116181096,
+          "selected_venue_leverage": 50.0,
+          "trades": 30
+        },
+        "stress": {
+          "expectancy_usdc": -0.6335388490048538,
+          "exposure_multiple": 3.0,
+          "liquidation_count": 0,
+          "margin_pct": 6.0,
+          "max_drawdown_pct": 12.187971989353441,
+          "net_pnl_usdc": -19.006165470145614,
+          "positive_year_ratio": 0.5,
+          "profit_factor": 0.5595424627444066,
+          "selected_venue_leverage": 50.0,
+          "trades": 30
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "parameter_tuple": [
+        15,
+        "continuation",
+        120,
+        0.0075
+      ],
+      "parameters": {
+        "holding_minutes": 120,
+        "mechanism": "continuation",
+        "reaction_minutes": 15,
+        "stop_fraction": 0.0075
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": 0.5875329060626691,
+          "exposure_multiple": 2.0,
+          "liquidation_count": 0,
+          "margin_pct": 4.0,
+          "max_drawdown_pct": 3.5697208449310236,
+          "net_pnl_usdc": 17.62598718188007,
+          "positive_year_ratio": 0.75,
+          "profit_factor": 2.348807286306655,
+          "selected_venue_leverage": 50.0,
+          "trades": 30
+        },
+        "conservative": {
+          "expectancy_usdc": 0.3075329060626693,
+          "exposure_multiple": 2.0,
+          "liquidation_count": 0,
+          "margin_pct": 4.0,
+          "max_drawdown_pct": 4.68721789773282,
+          "net_pnl_usdc": 9.225987181880079,
+          "positive_year_ratio": 0.75,
+          "profit_factor": 1.561607101507647,
+          "selected_venue_leverage": 50.0,
+          "trades": 30
+        },
+        "stress": {
+          "expectancy_usdc": -0.39246709393733104,
+          "exposure_multiple": 2.0,
+          "liquidation_count": 0,
+          "margin_pct": 4.0,
+          "max_drawdown_pct": 7.9718877221775735,
+          "net_pnl_usdc": -11.774012818119932,
+          "positive_year_ratio": 0.5,
+          "profit_factor": 0.5719144111420692,
+          "selected_venue_leverage": 50.0,
+          "trades": 30
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "parameter_tuple": [
+        15,
+        "reversal",
+        60,
+        0.005
+      ],
+      "parameters": {
+        "holding_minutes": 60,
+        "mechanism": "reversal",
+        "reaction_minutes": 15,
+        "stop_fraction": 0.005
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": -1.4735913819021011,
+          "exposure_multiple": 3.0,
+          "liquidation_count": 0,
+          "margin_pct": 6.0,
+          "max_drawdown_pct": 24.591124475427595,
+          "net_pnl_usdc": -45.68133283896513,
+          "positive_year_ratio": 0.25,
+          "profit_factor": 0.16839479846278207,
+          "selected_venue_leverage": 50.0,
+          "trades": 31
+        },
+        "conservative": {
+          "expectancy_usdc": -1.893591381902101,
+          "exposure_multiple": 3.0,
+          "liquidation_count": 0,
+          "margin_pct": 6.0,
+          "max_drawdown_pct": 29.73519035321093,
+          "net_pnl_usdc": -58.701332838965136,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.09174994032705533,
+          "selected_venue_leverage": 50.0,
+          "trades": 31
+        },
+        "stress": {
+          "expectancy_usdc": -2.8935913819021004,
+          "exposure_multiple": 3.0,
+          "liquidation_count": 0,
+          "margin_pct": 6.0,
+          "max_drawdown_pct": 44.876711987090346,
+          "net_pnl_usdc": -89.70133283896512,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.011018925298979782,
+          "selected_venue_leverage": 50.0,
+          "trades": 31
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "parameter_tuple": [
+        15,
+        "reversal",
+        60,
+        0.0075
+      ],
+      "parameters": {
+        "holding_minutes": 60,
+        "mechanism": "reversal",
+        "reaction_minutes": 15,
+        "stop_fraction": 0.0075
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": -1.0543083194988145,
+          "exposure_multiple": 2.0,
+          "liquidation_count": 0,
+          "margin_pct": 4.0,
+          "max_drawdown_pct": 17.54432556351867,
+          "net_pnl_usdc": -32.68355790446325,
+          "positive_year_ratio": 0.25,
+          "profit_factor": 0.15873185764327763,
+          "selected_venue_leverage": 50.0,
+          "trades": 31
+        },
+        "conservative": {
+          "expectancy_usdc": -1.3343083194988148,
+          "exposure_multiple": 2.0,
+          "liquidation_count": 0,
+          "margin_pct": 4.0,
+          "max_drawdown_pct": 20.9701061704625,
+          "net_pnl_usdc": -41.363557904463256,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.08723635383814267,
+          "selected_venue_leverage": 50.0,
+          "trades": 31
+        },
+        "stress": {
+          "expectancy_usdc": -2.0343083194988143,
+          "exposure_multiple": 2.0,
+          "liquidation_count": 0,
+          "margin_pct": 4.0,
+          "max_drawdown_pct": 31.541933411463596,
+          "net_pnl_usdc": -63.06355790446324,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.00889964895293384,
+          "selected_venue_leverage": 50.0,
+          "trades": 31
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "parameter_tuple": [
+        15,
+        "reversal",
+        120,
+        0.005
+      ],
+      "parameters": {
+        "holding_minutes": 120,
+        "mechanism": "reversal",
+        "reaction_minutes": 15,
+        "stop_fraction": 0.005
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": -1.624762416279779,
+          "exposure_multiple": 3.0,
+          "liquidation_count": 0,
+          "margin_pct": 6.0,
+          "max_drawdown_pct": 27.229674304978314,
+          "net_pnl_usdc": -48.74287248839337,
+          "positive_year_ratio": 0.25,
+          "profit_factor": 0.18143534916110612,
+          "selected_venue_leverage": 50.0,
+          "trades": 30
+        },
+        "conservative": {
+          "expectancy_usdc": -2.044762416279779,
+          "exposure_multiple": 3.0,
+          "liquidation_count": 0,
+          "margin_pct": 6.0,
+          "max_drawdown_pct": 32.31747893507878,
+          "net_pnl_usdc": -61.34287248839337,
+          "positive_year_ratio": 0.25,
+          "profit_factor": 0.11530457150028005,
+          "selected_venue_leverage": 50.0,
+          "trades": 30
+        },
+        "stress": {
+          "expectancy_usdc": -3.044762416279778,
+          "exposure_multiple": 3.0,
+          "liquidation_count": 0,
+          "margin_pct": 6.0,
+          "max_drawdown_pct": 45.49938704291547,
+          "net_pnl_usdc": -91.34287248839334,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.03408839754124039,
+          "selected_venue_leverage": 50.0,
+          "trades": 30
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "parameter_tuple": [
+        15,
+        "reversal",
+        120,
+        0.0075
+      ],
+      "parameters": {
+        "holding_minutes": 120,
+        "mechanism": "reversal",
+        "reaction_minutes": 15,
+        "stop_fraction": 0.0075
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": -1.221272923380632,
+          "exposure_multiple": 2.0,
+          "liquidation_count": 0,
+          "margin_pct": 4.0,
+          "max_drawdown_pct": 20.24295244325295,
+          "net_pnl_usdc": -36.638187701418964,
+          "positive_year_ratio": 0.25,
+          "profit_factor": 0.16428976764156025,
+          "selected_venue_leverage": 50.0,
+          "trades": 30
+        },
+        "conservative": {
+          "expectancy_usdc": -1.501272923380632,
+          "exposure_multiple": 2.0,
+          "liquidation_count": 0,
+          "margin_pct": 4.0,
+          "max_drawdown_pct": 23.627134163154594,
+          "net_pnl_usdc": -45.038187701418956,
+          "positive_year_ratio": 0.25,
+          "profit_factor": 0.10582040978205458,
+          "selected_venue_leverage": 50.0,
+          "trades": 30
+        },
+        "stress": {
+          "expectancy_usdc": -2.2012729233806323,
+          "exposure_multiple": 2.0,
+          "liquidation_count": 0,
+          "margin_pct": 4.0,
+          "max_drawdown_pct": 32.8666191477634,
+          "net_pnl_usdc": -66.03818770141896,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.029619842153922833,
+          "selected_venue_leverage": 50.0,
+          "trades": 30
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "parameter_tuple": [
+        30,
+        "continuation",
+        60,
+        0.005
+      ],
+      "parameters": {
+        "holding_minutes": 60,
+        "mechanism": "continuation",
+        "reaction_minutes": 30,
+        "stop_fraction": 0.005
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": 0.4226103729535518,
+          "exposure_multiple": 3.0,
+          "liquidation_count": 0,
+          "margin_pct": 6.0,
+          "max_drawdown_pct": 4.290296121027226,
+          "net_pnl_usdc": 13.100921561560106,
+          "positive_year_ratio": 0.75,
+          "profit_factor": 1.593724432370422,
+          "selected_venue_leverage": 50.0,
+          "trades": 31
+        },
+        "conservative": {
+          "expectancy_usdc": 0.0026103729535520677,
+          "exposure_multiple": 3.0,
+          "liquidation_count": 0,
+          "margin_pct": 6.0,
+          "max_drawdown_pct": 6.154737567846724,
+          "net_pnl_usdc": 0.0809215615601141,
+          "positive_year_ratio": 0.75,
+          "profit_factor": 1.0028809371932332,
+          "selected_venue_leverage": 50.0,
+          "trades": 31
+        },
+        "stress": {
+          "expectancy_usdc": -0.997389627046448,
+          "exposure_multiple": 3.0,
+          "liquidation_count": 0,
+          "margin_pct": 6.0,
+          "max_drawdown_pct": 14.786720134019593,
+          "net_pnl_usdc": -30.919078438439886,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.33237703654328127,
+          "selected_venue_leverage": 50.0,
+          "trades": 31
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "parameter_tuple": [
+        30,
+        "continuation",
+        60,
+        0.0075
+      ],
+      "parameters": {
+        "holding_minutes": 60,
+        "mechanism": "continuation",
+        "reaction_minutes": 30,
+        "stop_fraction": 0.0075
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": 0.34543013773416215,
+          "exposure_multiple": 2.0,
+          "liquidation_count": 0,
+          "margin_pct": 4.0,
+          "max_drawdown_pct": 3.1941239351093387,
+          "net_pnl_usdc": 10.708334269759026,
+          "positive_year_ratio": 0.75,
+          "profit_factor": 1.8249500057096368,
+          "selected_venue_leverage": 50.0,
+          "trades": 31
+        },
+        "conservative": {
+          "expectancy_usdc": 0.06543013773416233,
+          "exposure_multiple": 2.0,
+          "liquidation_count": 0,
+          "margin_pct": 4.0,
+          "max_drawdown_pct": 4.4170250307838055,
+          "net_pnl_usdc": 2.028334269759032,
+          "positive_year_ratio": 0.75,
+          "profit_factor": 1.121084731925652,
+          "selected_venue_leverage": 50.0,
+          "trades": 31
+        },
+        "stress": {
+          "expectancy_usdc": -0.6345698622658379,
+          "exposure_multiple": 2.0,
+          "liquidation_count": 0,
+          "margin_pct": 4.0,
+          "max_drawdown_pct": 9.343525482712046,
+          "net_pnl_usdc": -19.671665730240974,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.33392561463160025,
+          "selected_venue_leverage": 50.0,
+          "trades": 31
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "parameter_tuple": [
+        30,
+        "continuation",
+        120,
+        0.005
+      ],
+      "parameters": {
+        "holding_minutes": 120,
+        "mechanism": "continuation",
+        "reaction_minutes": 30,
+        "stop_fraction": 0.005
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": 0.5879071541306382,
+          "exposure_multiple": 3.0,
+          "liquidation_count": 0,
+          "margin_pct": 6.0,
+          "max_drawdown_pct": 4.628307674422427,
+          "net_pnl_usdc": 17.637214623919146,
+          "positive_year_ratio": 0.75,
+          "profit_factor": 1.7583232003646796,
+          "selected_venue_leverage": 50.0,
+          "trades": 30
+        },
+        "conservative": {
+          "expectancy_usdc": 0.1679071541306384,
+          "exposure_multiple": 3.0,
+          "liquidation_count": 0,
+          "margin_pct": 6.0,
+          "max_drawdown_pct": 6.353462430147072,
+          "net_pnl_usdc": 5.0372146239191515,
+          "positive_year_ratio": 0.75,
+          "profit_factor": 1.175401619718639,
+          "selected_venue_leverage": 50.0,
+          "trades": 30
+        },
+        "stress": {
+          "expectancy_usdc": -0.8320928458693615,
+          "exposure_multiple": 3.0,
+          "liquidation_count": 0,
+          "margin_pct": 6.0,
+          "max_drawdown_pct": 12.097443447624034,
+          "net_pnl_usdc": -24.962785376080845,
+          "positive_year_ratio": 0.5,
+          "profit_factor": 0.4351978976706873,
+          "selected_venue_leverage": 50.0,
+          "trades": 30
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "parameter_tuple": [
+        30,
+        "continuation",
+        120,
+        0.0075
+      ],
+      "parameters": {
+        "holding_minutes": 120,
+        "mechanism": "continuation",
+        "reaction_minutes": 30,
+        "stop_fraction": 0.0075
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": 0.3906740540704844,
+          "exposure_multiple": 2.0,
+          "liquidation_count": 0,
+          "margin_pct": 4.0,
+          "max_drawdown_pct": 3.6447477490217484,
+          "net_pnl_usdc": 11.720221622114531,
+          "positive_year_ratio": 0.75,
+          "profit_factor": 1.754033385862514,
+          "selected_venue_leverage": 50.0,
+          "trades": 30
+        },
+        "conservative": {
+          "expectancy_usdc": 0.11067405407048456,
+          "exposure_multiple": 2.0,
+          "liquidation_count": 0,
+          "margin_pct": 4.0,
+          "max_drawdown_pct": 4.795811611126089,
+          "net_pnl_usdc": 3.320221622114537,
+          "positive_year_ratio": 0.75,
+          "profit_factor": 1.1730780998776376,
+          "selected_venue_leverage": 50.0,
+          "trades": 30
+        },
+        "stress": {
+          "expectancy_usdc": -0.5893259459295158,
+          "exposure_multiple": 2.0,
+          "liquidation_count": 0,
+          "margin_pct": 4.0,
+          "max_drawdown_pct": 8.543087352189927,
+          "net_pnl_usdc": -17.679778377885473,
+          "positive_year_ratio": 0.5,
+          "profit_factor": 0.4133372922502233,
+          "selected_venue_leverage": 50.0,
+          "trades": 30
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "parameter_tuple": [
+        30,
+        "reversal",
+        60,
+        0.005
+      ],
+      "parameters": {
+        "holding_minutes": 60,
+        "mechanism": "reversal",
+        "reaction_minutes": 30,
+        "stop_fraction": 0.005
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": -1.4585137787997686,
+          "exposure_multiple": 3.0,
+          "liquidation_count": 0,
+          "margin_pct": 6.0,
+          "max_drawdown_pct": 23.371560396391043,
+          "net_pnl_usdc": -45.213927142792826,
+          "positive_year_ratio": 0.25,
+          "profit_factor": 0.19135070345772895,
+          "selected_venue_leverage": 50.0,
+          "trades": 31
+        },
+        "conservative": {
+          "expectancy_usdc": -1.8785137787997683,
+          "exposure_multiple": 3.0,
+          "liquidation_count": 0,
+          "margin_pct": 6.0,
+          "max_drawdown_pct": 28.681615250303683,
+          "net_pnl_usdc": -58.233927142792815,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.1174221852122474,
+          "selected_venue_leverage": 50.0,
+          "trades": 31
+        },
+        "stress": {
+          "expectancy_usdc": -2.878513778799767,
+          "exposure_multiple": 3.0,
+          "liquidation_count": 0,
+          "margin_pct": 6.0,
+          "max_drawdown_pct": 43.995068398071744,
+          "net_pnl_usdc": -89.23392714279278,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.04248134752134009,
+          "selected_venue_leverage": 50.0,
+          "trades": 31
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "parameter_tuple": [
+        30,
+        "reversal",
+        60,
+        0.0075
+      ],
+      "parameters": {
+        "holding_minutes": 60,
+        "mechanism": "reversal",
+        "reaction_minutes": 30,
+        "stop_fraction": 0.0075
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": -0.9766219093137145,
+          "exposure_multiple": 2.0,
+          "liquidation_count": 0,
+          "margin_pct": 4.0,
+          "max_drawdown_pct": 15.488846771140864,
+          "net_pnl_usdc": -30.27527918872515,
+          "positive_year_ratio": 0.25,
+          "profit_factor": 0.1906721095031906,
+          "selected_venue_leverage": 50.0,
+          "trades": 31
+        },
+        "conservative": {
+          "expectancy_usdc": -1.256621909313714,
+          "exposure_multiple": 2.0,
+          "liquidation_count": 0,
+          "margin_pct": 4.0,
+          "max_drawdown_pct": 19.148612552158607,
+          "net_pnl_usdc": -38.955279188725136,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.11706912066050101,
+          "selected_venue_leverage": 50.0,
+          "trades": 31
+        },
+        "stress": {
+          "expectancy_usdc": -1.9566219093137147,
+          "exposure_multiple": 2.0,
+          "liquidation_count": 0,
+          "margin_pct": 4.0,
+          "max_drawdown_pct": 29.796230143104918,
+          "net_pnl_usdc": -60.65527918872515,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.04018233917027873,
+          "selected_venue_leverage": 50.0,
+          "trades": 31
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "parameter_tuple": [
+        30,
+        "reversal",
+        120,
+        0.005
+      ],
+      "parameters": {
+        "holding_minutes": 120,
+        "mechanism": "reversal",
+        "reaction_minutes": 30,
+        "stop_fraction": 0.005
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": -1.4669669767309297,
+          "exposure_multiple": 3.0,
+          "liquidation_count": 0,
+          "margin_pct": 6.0,
+          "max_drawdown_pct": 23.861292632908004,
+          "net_pnl_usdc": -44.00900930192789,
+          "positive_year_ratio": 0.25,
+          "profit_factor": 0.22114648168132486,
+          "selected_venue_leverage": 50.0,
+          "trades": 30
+        },
+        "conservative": {
+          "expectancy_usdc": -1.8869669767309292,
+          "exposure_multiple": 3.0,
+          "liquidation_count": 0,
+          "margin_pct": 6.0,
+          "max_drawdown_pct": 28.874744889115654,
+          "net_pnl_usdc": -56.60900930192788,
+          "positive_year_ratio": 0.25,
+          "profit_factor": 0.1389280667450524,
+          "selected_venue_leverage": 50.0,
+          "trades": 30
+        },
+        "stress": {
+          "expectancy_usdc": -2.8869669767309296,
+          "exposure_multiple": 3.0,
+          "liquidation_count": 0,
+          "margin_pct": 6.0,
+          "max_drawdown_pct": 42.84710276433745,
+          "net_pnl_usdc": -86.60900930192788,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.04839103046276915,
+          "selected_venue_leverage": 50.0,
+          "trades": 30
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "parameter_tuple": [
+        30,
+        "reversal",
+        120,
+        0.0075
+      ],
+      "parameters": {
+        "holding_minutes": 120,
+        "mechanism": "reversal",
+        "reaction_minutes": 30,
+        "stop_fraction": 0.0075
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": -1.1298690546144456,
+          "exposure_multiple": 2.0,
+          "liquidation_count": 0,
+          "margin_pct": 4.0,
+          "max_drawdown_pct": 18.12129685001128,
+          "net_pnl_usdc": -33.89607163843337,
+          "positive_year_ratio": 0.25,
+          "profit_factor": 0.1972822742481802,
+          "selected_venue_leverage": 50.0,
+          "trades": 30
+        },
+        "conservative": {
+          "expectancy_usdc": -1.4098690546144454,
+          "exposure_multiple": 2.0,
+          "liquidation_count": 0,
+          "margin_pct": 4.0,
+          "max_drawdown_pct": 21.513458059213974,
+          "net_pnl_usdc": -42.29607163843336,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.12584431661611756,
+          "selected_venue_leverage": 50.0,
+          "trades": 30
+        },
+        "stress": {
+          "expectancy_usdc": -2.109869054614445,
+          "exposure_multiple": 2.0,
+          "liquidation_count": 0,
+          "margin_pct": 4.0,
+          "max_drawdown_pct": 31.269876869310288,
+          "net_pnl_usdc": -63.29607163843336,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.04288604539568357,
+          "selected_venue_leverage": 50.0,
+          "trades": 30
+        }
+      },
+      "stable_neighbors": 0
+    }
+  ],
+  "attempted": 16,
+  "calendar_sha256": "ed029efc7b115e7689e1337453e44d88fc74f9f338eae6ff9e3f60cdd8591bde",
+  "campaign_id": "xauusd-fomc-reaction-v29",
+  "config_sha256": "5ea9fd5eed6294bee9921e5b6028142b76795298232326b66b807a7fd49f0908",
+  "decision": "REJECT_NO_SQ",
+  "holdout_accessed": false,
+  "live_authorized": false,
+  "oos_accessed": false,
+  "schema_version": 1,
+  "source_files": [
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2015/month=01/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2015/month=02/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2015/month=03/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2015/month=04/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2015/month=05/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2015/month=06/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2015/month=07/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2015/month=08/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2015/month=09/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2015/month=10/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2015/month=11/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2015/month=12/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2016/month=01/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2016/month=02/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2016/month=03/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2016/month=04/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2016/month=05/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2016/month=06/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2016/month=07/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2016/month=08/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2016/month=09/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2016/month=10/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2016/month=11/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2016/month=12/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2017/month=01/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2017/month=02/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2017/month=03/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2017/month=04/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2017/month=05/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2017/month=06/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2017/month=07/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2017/month=08/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2017/month=09/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2017/month=10/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2017/month=11/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2017/month=12/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2018/month=01/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2018/month=02/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2018/month=03/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2018/month=04/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2018/month=05/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2018/month=06/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2018/month=07/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2018/month=08/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2018/month=09/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2018/month=10/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2018/month=11/data.parquet",
+    "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m/year=2018/month=12/data.parquet"
+  ],
+  "stage": "pre_sq_falsification",
+  "survivor_count": 0,
+  "survivors": [],
+  "train_window": [
+    "2015-01-01",
+    "2018-12-31"
+  ],
+  "validation_accessed": false
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": 2,
+  "campaign_id": "xauusd-fomc-reaction-v29",
+  "hypothesis_id": "scheduled-fomc-observed-reaction-continuation-or-reversal",
+  "market": "XAUUSD",
+  "capital_usdc": 200,
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "methodology_sha256": "ea4c6512d10f21e9550789615c41eb8b12228916ac668373fbb3afc9f905aeab",
+  "provenance": "alquimia_native",
+  "legacy_quantitative_inputs": [],
+  "receipts": [
+    {
+      "stage": "market_preflight",
+      "decision": "PASS",
+      "artifact": "lab/sq_bridge/evidence/xauusd_fomc_reaction_v29_market_preflight.json",
+      "artifact_sha256": "0221152d636c3a574d4d9d92876f4a8603cc43da9acb1bd8dfd273e50316c98a",
+      "candidate_ids": [],
+      "holdout_accessed": false,
+      "translation_exact": null,
+      "parity_pass": null,
+      "previous_receipt_sha256": null,
+      "receipt_sha256": "cc0f01246630834a1d3eeef2eb21d25dccb8d55b4e62980103a3c781773b686f"
+    },
+    {
+      "stage": "discovery",
+      "decision": "REJECT",
+      "artifact": "lab/sq_bridge/evidence/xauusd_fomc_reaction_v29_discovery_reject.json",
+      "artifact_sha256": "cb97480e4ef963a9e1472762f023086ca07956c638ac4e0508f775458a2a47f7",
+      "candidate_ids": [],
+      "holdout_accessed": false,
+      "translation_exact": null,
+      "parity_pass": null,
+      "previous_receipt_sha256": "cc0f01246630834a1d3eeef2eb21d25dccb8d55b4e62980103a3c781773b686f",
+      "receipt_sha256": "22d8cb7505cd0d1c88a190b43cd8c44c8b4f7e25e2568f197c59902cdca930ca"
+    }
+  ],
+  "live_authorized": false
+}

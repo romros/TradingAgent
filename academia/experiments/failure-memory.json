@@ -2,6 +2,16 @@
   "schema_version": 1,
   "entries": [
     {
+      "id": "xauusd_fomc_reaction_v29_20260810",
+      "family": "xauusd_scheduled_fomc_reaction",
+      "decision": "REJECT",
+      "failure_code": "TEMPORAL_PASS_COST_FAIL",
+      "lesson": "The best of 16 frozen train-only points has 30 trades and a coherent continuation tendency (8 bps PF 2.35/EV +0.59 USDC; 15 bps PF 1.56/EV +0.31), but 30-bps event stress falls to PF 0.57 and EV -0.39; 0 points survive.",
+      "do_not_repeat": "Do not lower event stress, tune reaction windows, holds, stops or meeting types, add direction filters, or inspect 2019-2026 to rescue the FOMC-reaction family.",
+      "next_direction": "Require a larger-magnitude event mechanism, or measure event-time execution before a genuinely new preregistered campaign with a new development period.",
+      "evidence": "academia/experiments/observations/xauusd-fomc-reaction-v29-2026-08.json"
+    },
+    {
       "id": "usdjpy_post_tokyo_fix_reversal_v28_20260810",
       "family": "usdjpy_post_tokyo_fix_reversal",
       "decision": "REJECT",

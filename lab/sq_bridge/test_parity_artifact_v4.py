@@ -36,8 +36,30 @@ def _write(path, value):
 
 def _build(tmp_path, sq=None, python=None):
     sq_path, py_path = tmp_path / "sq.trace.json", tmp_path / "python.trace.json"
-    _write(sq_path, sq or _trace("strategyquant"))
-    _write(py_path, python or _trace("python"))
+    orders, signals, market, ir = (tmp_path / name for name in (
+        "orders.csv", "signals.csv", "market.csv", "candidate.ir.json"))
+    for path, value in ((orders, "orders"), (signals, "signals"),
+                        (market, "market"), (ir, "ir")):
+        path.write_text(value + "\n")
+    sq_value, py_value = sq or _trace("strategyquant"), python or _trace("python")
+    sq_value.update({
+        "orders_path": orders.name,
+        "orders_sha256": hashlib.sha256(orders.read_bytes()).hexdigest(),
+        "signals_path": signals.name,
+        "signals_sha256": hashlib.sha256(signals.read_bytes()).hexdigest(),
+        "market_data_path": market.name,
+        "market_data_sha256": hashlib.sha256(market.read_bytes()).hexdigest(),
+        "source_timezone": "UTC",
+        "pnl_semantics": "recomputed_from_prices_at_fixed_notional_before_costs",
+    })
+    py_value.update({
+        "canonical_ir_path": ir.name,
+        "canonical_ir_sha256": hashlib.sha256(ir.read_bytes()).hexdigest(),
+        "market_data_path": market.name,
+        "market_data_sha256": hashlib.sha256(market.read_bytes()).hexdigest(),
+    })
+    _write(sq_path, sq_value)
+    _write(py_path, py_value)
     artifact_path = tmp_path / "artifact.json"
     artifact = build_artifact(
         campaign_id="campaign", candidate_id="candidate",
@@ -108,6 +130,19 @@ def test_hashed_but_forged_report_is_recomputed_and_rejected(tmp_path):
     _write(report_path, report)
     artifact["matched_trade_count"] = 999
     artifact["parity_report_sha256"] = hashlib.sha256(report_path.read_bytes()).hexdigest()
+    methodology = json.loads((ROOT / "methodology_v4.json").read_text())
+    receipt = {"decision": "PASS", "candidate_ids": ["candidate"],
+               "holdout_accessed": False, "parity_pass": True,
+               "artifact": str(artifact_path)}
+    errors = validate_stage_artifact(
+        "parity", artifact, receipt, methodology,
+        "campaign", "alquimia_native")
+    assert "STAGE_ARTIFACT:parity:TRACE_CONTRACT" in errors
+
+
+def test_trace_source_changed_after_capture_invalidates_parity(tmp_path):
+    artifact, artifact_path = _build(tmp_path)
+    (tmp_path / "signals.csv").write_text("tampered\n")
     methodology = json.loads((ROOT / "methodology_v4.json").read_text())
     receipt = {"decision": "PASS", "candidate_ids": ["candidate"],
                "holdout_accessed": False, "parity_pass": True,

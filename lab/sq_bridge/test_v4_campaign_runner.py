@@ -334,8 +334,25 @@ if stage == 'parity':
                     'pnl': float(index % 5 - 2)} for index in range(30)]}
     sq_trace = base / 'runner-sqx-001.sq.trace.json'
     python_trace = base / 'runner-sqx-001.python.trace.json'
-    sq_trace.write_text(json.dumps({**common, 'source': 'strategyquant'}))
-    python_trace.write_text(json.dumps({**common, 'source': 'python'}))
+    orders_path, signals_path = base / 'orders.csv', base / 'signals.csv'
+    market_path, ir_path = base / 'market.csv', base / 'runner-sqx-001.ir.json'
+    orders_path.write_text('observed orders fixture')
+    signals_path.write_text('observed signals fixture')
+    market_path.write_text('common market fixture')
+    sq_trace.write_text(json.dumps({**common, 'source': 'strategyquant',
+        'orders_path': orders_path.name,
+        'orders_sha256': hashlib.sha256(orders_path.read_bytes()).hexdigest(),
+        'signals_path': signals_path.name,
+        'signals_sha256': hashlib.sha256(signals_path.read_bytes()).hexdigest(),
+        'market_data_path': market_path.name,
+        'market_data_sha256': hashlib.sha256(market_path.read_bytes()).hexdigest(),
+        'source_timezone': 'UTC',
+        'pnl_semantics': 'recomputed_from_prices_at_fixed_notional_before_costs'}))
+    python_trace.write_text(json.dumps({**common, 'source': 'python',
+        'canonical_ir_path': ir_path.name,
+        'canonical_ir_sha256': hashlib.sha256(ir_path.read_bytes()).hexdigest(),
+        'market_data_path': market_path.name,
+        'market_data_sha256': hashlib.sha256(market_path.read_bytes()).hexdigest()}))
     report_path = base / 'runner-sqx-001.parity.json'
     artifact = build_parity(
         campaign_id='runner-test', candidate_id='runner-sqx-001',

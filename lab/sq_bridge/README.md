@@ -488,7 +488,9 @@ PYTHONPATH=../.. python3 sq_parity_trace_v4.py \
 
 No s'infereixen els senyals a partir de les ordres, perquè un senyal pot quedar
 inhibit mentre ja hi ha una posició. Sense ambdues fonts observades no hi ha
-paritat completa.
+paritat completa. El gate reobre també `orders.csv`, el log de senyals, les
+candles i l'IR pels hashes declarats dins dels traces; una font desapareguda o
+alterada invalida la paritat encara que el report agregat continuï intacte.
 
 ```bash
 PYTHONPATH=../.. python3 parity_artifact_v4.py \

@@ -61,7 +61,9 @@ PYTHONPATH=../.. python3 sq_parity_trace_v4.py \
 
 Si SQ no ha produït el log de senyals, l'adaptador es nega a crear evidència de
 paritat completa. Una llista d'ordres sola pot servir per diagnosticar execució,
-però no per superar el gate de senyals.
+però no per superar el gate de senyals. El verificador reobre també ordres,
+senyals, candles i IR i recalcula els seus SHA-256; conservar només el trace
+després de substituir una font invalida la cadena.
 
 ## Què demostra i què no
 

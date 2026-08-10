@@ -358,6 +358,31 @@ def _verified_parity_sources(report: dict | None, report_path_value: Any,
     report_path = (report_path if report_path.is_absolute()
                    else Path(artifact_path).resolve().parent / report_path)
     traces = []
+
+    def source_lineage(trace: dict, trace_path: Path, source: str) -> bool:
+        required = ({"orders": "orders_sha256", "signals": "signals_sha256",
+                     "market_data": "market_data_sha256"}
+                    if source == "sq" else
+                    {"canonical_ir": "canonical_ir_sha256",
+                     "market_data": "market_data_sha256"})
+        for prefix, digest_key in required.items():
+            value, expected = trace.get(f"{prefix}_path"), trace.get(digest_key)
+            if not isinstance(value, str) or not value or not isinstance(expected, str):
+                return False
+            source_path = Path(value)
+            source_path = (source_path if source_path.is_absolute()
+                           else trace_path.resolve().parent / source_path)
+            try:
+                if hashlib.sha256(source_path.read_bytes()).hexdigest() != expected:
+                    return False
+            except OSError:
+                return False
+        if source == "sq":
+            return (trace.get("pnl_semantics")
+                    == "recomputed_from_prices_at_fixed_notional_before_costs"
+                    and isinstance(trace.get("source_timezone"), str)
+                    and bool(trace["source_timezone"]))
+        return True
     for source in ("sq", "python"):
         value, digest = report.get(f"{source}_trace_path"), report.get(f"{source}_trace_sha256")
         if not isinstance(value, str) or not value or not isinstance(digest, str):
@@ -369,6 +394,8 @@ def _verified_parity_sources(report: dict | None, report_path_value: Any,
                 return False
             trace = json.loads(path.read_text())
         except (OSError, ValueError):
+            return False
+        if not source_lineage(trace, path, source):
             return False
         traces.append(trace)
     try:

@@ -15,6 +15,8 @@ const output = options.output;
 const count = Number(options.count ?? 20);
 const intervalMs = Number(options['interval-ms'] ?? 2000);
 const sessionWindow = options.window ?? 'unknown';
+const notionals = (options.notionals ?? '60,100,200,400,500')
+  .split(',').map((value) => value.trim()).filter(Boolean);
 if (!output) throw new Error('--output is required');
 
 const client = await OstiumClient.createReadOnly();
@@ -24,7 +26,7 @@ const pair = pairs.find((row) => {
   return symbol === 'SPX/USD' || symbol === 'USD/SPX' || symbol === 'US500/USD' || symbol === 'USD/US500';
 });
 if (!pair) throw new Error(`SPX/USD pair not found; available=${JSON.stringify(pairs.map((row) => [row.pairId, row.pairFrom, row.pairTo]))}`);
-const simulated = await client.getSimSlippage({ pairIds: [pair.pairId], ntls: ['500', '1000'] });
+const simulated = await client.getSimSlippage({ pairIds: [pair.pairId], ntls: notionals });
 
 for (let index = 0; index < count; index += 1) {
   const { prices } = await client.getAllPrices();

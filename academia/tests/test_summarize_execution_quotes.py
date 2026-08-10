@@ -16,6 +16,14 @@ def quote(day: int, window: str, *, open_: bool = True) -> dict:
         "mid": 7500,
         "bid": 7499.5,
         "ask": 7500.5,
+        "open_fee_bps": 1,
+        "close_fee_bps": 0,
+        "rollover_rate": {"long": "-0.005", "short": "0.002"},
+        "simulated_slippage": {
+            side: [{"ntl": str(notional), "slippage": "0.004"}
+                   for notional in (60, 100, 200, 400, 500)]
+            for side in ("long", "short")
+        },
     }
 
 
@@ -26,6 +34,8 @@ class SummarizeExecutionQuotesTest(unittest.TestCase):
         result = summarize_execution_quotes.summarize(rows, min_days=3, min_per_window=3)
         self.assertEqual(result["decision"], "MEASURED")
         self.assertAlmostEqual(result["spread_bps"]["p95"], 1.3333333333333333)
+        self.assertAlmostEqual(result["roundtrip_proxy_bps_by_notional"]["200"]["median"],
+                               3.1333333333333333)
         self.assertEqual(result["qualifying_complete_days"],
                          ["2026-08-01", "2026-08-02", "2026-08-03"])
 
@@ -43,6 +53,13 @@ class SummarizeExecutionQuotesTest(unittest.TestCase):
         self.assertEqual(result["accepted_samples"], 0)
         self.assertEqual(result["rejected_samples"], {"invalid_quote": 1, "market_closed": 1})
         self.assertEqual(result["decision"], "INSUFFICIENT_OPEN_SESSION_COVERAGE")
+
+    def test_missing_small_notional_slippage_is_rejected(self):
+        row = quote(1, "open")
+        row["simulated_slippage"]["long"] = row["simulated_slippage"]["long"][-1:]
+        result = summarize_execution_quotes.summarize([row], min_days=1, min_per_window=1)
+        self.assertEqual(result["accepted_samples"], 0)
+        self.assertEqual(result["rejected_samples"], {"invalid_quote": 1})
 
 
 if __name__ == "__main__":

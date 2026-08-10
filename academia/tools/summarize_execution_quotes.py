@@ -15,6 +15,7 @@ from zoneinfo import ZoneInfo
 
 REQUIRED_WINDOWS = {"open", "midday", "close"}
 NEW_YORK = ZoneInfo("America/New_York")
+TARGET_NOTIONALS = (60.0, 100.0, 200.0, 400.0, 500.0)
 
 
 def _finite(value: object, name: str) -> float:
@@ -58,16 +59,41 @@ def summarize(rows: list[dict], *, min_days: int = 3, min_per_window: int = 20) 
             mid = _finite(row.get("mid"), "mid")
             bid = _finite(row.get("bid"), "bid")
             ask = _finite(row.get("ask"), "ask")
+            open_fee = _finite(row.get("open_fee_bps"), "open_fee_bps")
+            close_fee = _finite(row.get("close_fee_bps"), "close_fee_bps")
+            rollover = row.get("rollover_rate") or {}
+            rollover_long = _finite(rollover.get("long"), "rollover.long")
+            rollover_short = _finite(rollover.get("short"), "rollover.short")
+            simulated = row.get("simulated_slippage") or {}
+            impacts = {}
+            for side in ("long", "short"):
+                by_notional = {_finite(item.get("ntl"), f"{side}.ntl"):
+                               _finite(item.get("slippage"), f"{side}.slippage") * 100
+                               for item in simulated.get(side, [])}
+                if any(notional not in by_notional for notional in TARGET_NOTIONALS):
+                    raise ValueError(f"missing {side} target notional")
+                impacts[side] = by_notional
         except (KeyError, ValueError):
             rejected["invalid_quote"] += 1
             continue
         if not 0 < bid <= mid <= ask:
             rejected["invalid_quote"] += 1
             continue
+        spread_bps = (ask - bid) / mid * 10_000
         accepted.append({
             "day": captured.astimezone(NEW_YORK).date().isoformat(),
             "window": window,
-            "spread_bps": (ask - bid) / mid * 10_000,
+            "spread_bps": spread_bps,
+            "open_fee_bps": open_fee,
+            "close_fee_bps": close_fee,
+            "rollover_long_pct_per_8h": rollover_long,
+            "rollover_short_pct_per_8h": rollover_short,
+            "slippage_bps": impacts,
+            "roundtrip_proxy_bps": {
+                notional: spread_bps + open_fee + close_fee
+                + impacts["long"][notional] + impacts["short"][notional]
+                for notional in TARGET_NOTIONALS
+            },
         })
 
     spreads = [row["spread_bps"] for row in accepted]
@@ -83,6 +109,23 @@ def summarize(rows: list[dict], *, min_days: int = 3, min_per_window: int = 20) 
         by_window[window] = None if not values else {
             "median": median(values), "p90": percentile(values, 0.90),
             "p95": percentile(values, 0.95), "maximum": max(values)}
+    slippage_summary = {}
+    roundtrip_summary = {}
+    for notional in TARGET_NOTIONALS:
+        label = str(int(notional))
+        slippage_summary[label] = {}
+        for side in ("long", "short"):
+            values = [row["slippage_bps"][side][notional] for row in accepted]
+            slippage_summary[label][side] = None if not values else {
+                "median": median(values), "p95": percentile(values, 0.95), "maximum": max(values)}
+        values = [row["roundtrip_proxy_bps"][notional] for row in accepted]
+        roundtrip_summary[label] = None if not values else {
+            "median": median(values), "p95": percentile(values, 0.95), "maximum": max(values)}
+    rollover_summary = {}
+    for side in ("long", "short"):
+        values = [row[f"rollover_{side}_pct_per_8h"] for row in accepted]
+        rollover_summary[side] = None if not values else {
+            "median": median(values), "minimum": min(values), "maximum": max(values)}
     return {
         "schema_version": 1,
         "accepted_samples": len(accepted),
@@ -106,6 +149,10 @@ def summarize(rows: list[dict], *, min_days: int = 3, min_per_window: int = 20) 
             "maximum": max(spreads),
         },
         "spread_bps_by_window": by_window,
+        "slippage_bps_by_notional_and_side": slippage_summary,
+        "roundtrip_proxy_bps_by_notional": roundtrip_summary,
+        "roundtrip_proxy_definition": "full bid-ask spread + open fee + close fee + long entry impact + short entry impact; carry and refundable oracle fee excluded",
+        "rollover_pct_per_8h": rollover_summary,
         "decision": "MEASURED" if coverage_pass else "INSUFFICIENT_OPEN_SESSION_COVERAGE",
     }
 

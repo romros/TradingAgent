@@ -20,7 +20,7 @@ STRATEGY = b'''<StrategyFile><Strategy><Rules><Events><Event key="OnBarUpdate">
 <Rule type="IfThen" name="Long entry"><If><Item><Param key="#Variable#">L</Param></Item></If><Then><Item key="EnterAtMarket"><Param key="#Direction#">1</Param><Param key="#AllowDuplicateTrades#">false</Param><Param key="#ExitAfterBars.ExitAfterBars#">5</Param><Param key="#StopLoss.StopLoss#"><Formula key="SQ.Formulas.SLPT.ATRBasedValue"><Param key="#Value#">2</Param><Param key="#AtrPeriod#">14</Param></Formula></Param><Param key="#ProfitTarget.ProfitTarget#"><Formula key="SQ.Formulas.SLPT.None"/></Param></Item></Then></Rule>
 <Rule type="IfThen" name="Short entry"><If><Item><Param key="#Variable#">S</Param></Item></If><Then><Item key="EnterAtMarket"><Param key="#Direction#">-1</Param><Param key="#AllowDuplicateTrades#">false</Param><Param key="#ExitAfterBars.ExitAfterBars#">5</Param><Param key="#StopLoss.StopLoss#"><Formula key="SQ.Formulas.SLPT.ATRBasedValue"><Param key="#Value#">2</Param><Param key="#AtrPeriod#">14</Param></Formula></Param><Param key="#ProfitTarget.ProfitTarget#"><Formula key="SQ.Formulas.SLPT.None"/></Param></Item></Then></Rule>
 </Event></Events></Rules></Strategy></StrategyFile>'''
-SETTINGS = b'''<ResultsGroup><ValuesMap><StrategyName key="StrategyName">T</StrategyName><Symbol key="Symbol">NVDA</Symbol><Timeframe key="Timeframe">M15</Timeframe><E key="ExitAtEndOfDay.ExitAtEndOfDay">false</E><T key="ExitAtEndOfDay.EODExitTime">1530</T><F key="ExitOnFriday.ExitOnFriday">false</F><FT key="ExitOnFriday.FridayExitTime">1600</FT><S key="Slippage">0.0</S></ValuesMap></ResultsGroup>'''
+SETTINGS = b'''<ResultsGroup><ResultsMap><Results><Result><ValuesMap><StrategyName key="StrategyName">T</StrategyName><Symbol key="Symbol">NVDA</Symbol><Timeframe key="Timeframe">M15</Timeframe></ValuesMap><SettingsMap><E key="ExitAtEndOfDay.ExitAtEndOfDay">false</E><T key="ExitAtEndOfDay.EODExitTime">1530</T><F key="ExitOnFriday.ExitOnFriday">false</F><FT key="ExitOnFriday.FridayExitTime">1600</FT><S key="Slippage">0.0</S><Swap><Swap use="false" type="money" long="0" short="0"/></Swap></SettingsMap></Result></Results></ResultsMap><SymbolsMap><SymbolInfo symbolName="NVDA"><InstrumentInfo instrument="NVDA" defaultSpread="0" commissions="&lt;Method type=&quot;None&quot; use=&quot;true&quot;&gt;&lt;Params/&gt;&lt;/Method&gt;" swap="&lt;Swap use=&quot;false&quot; type=&quot;money&quot; long=&quot;0&quot; short=&quot;0&quot;/&gt;"/></SymbolInfo></SymbolsMap></ResultsGroup>'''
 
 
 class SqxExtractTest(unittest.TestCase):
@@ -37,6 +37,10 @@ class SqxExtractTest(unittest.TestCase):
             result = extract(self._write_sqx(tmp))
             self.assertTrue(result["supported"])
             self.assertEqual(result["execution"]["eod_exit_time_hhmm"], 1530)
+            self.assertEqual(result["execution"]["spread_in_sq"], 0.0)
+            self.assertFalse(result["execution"]["commission_enabled"])
+            self.assertEqual(result["execution"]["commission_method"], "None")
+            self.assertFalse(result["execution"]["swap_enabled"])
             self.assertEqual(result["entry_condition_counts"], {"long": 1, "short": 1})
             self.assertEqual(result["maximum_entry_conditions"], 1)
 
@@ -111,6 +115,27 @@ class SqxExtractTest(unittest.TestCase):
             result = extract(self._write_sqx(tmp, strategy))
         self.assertFalse(result["supported"])
         self.assertIn("NON_CLOSE_COMPUTED_FROM", result["unsupported_nodes_or_formulas"])
+
+    def test_extracts_nonzero_realistic_execution_costs(self):
+        settings = SETTINGS.replace(b'defaultSpread="0"', b'defaultSpread="0.8"')
+        settings = settings.replace(b'type=&quot;None&quot;', b'type=&quot;PerTrade&quot;')
+        settings = settings.replace(
+            b'&lt;Params/&gt;',
+            b'&lt;Params&gt;&lt;Param key=&quot;Commission&quot;&gt;0.42&lt;/Param&gt;&lt;/Params&gt;')
+        settings = settings.replace(b'<S key="Slippage">0.0</S>', b'<S key="Slippage">0.5</S>')
+        settings = settings.replace(b'<Swap use="false" type="money"', b'<Swap use="true" type="money"', 1)
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "costly.sqx"
+            with zipfile.ZipFile(path, "w") as archive:
+                archive.writestr("strategy_Portfolio.xml", STRATEGY)
+                archive.writestr("settings.xml", settings)
+                archive.writestr("version.txt", "3")
+            execution = extract(path)["execution"]
+        self.assertEqual(execution["spread_in_sq"], 0.8)
+        self.assertEqual(execution["slippage_in_sq"], 0.5)
+        self.assertTrue(execution["commission_enabled"])
+        self.assertEqual(execution["commission_value"], 0.42)
+        self.assertTrue(execution["swap_enabled"])
 
 
 if __name__ == "__main__": unittest.main()

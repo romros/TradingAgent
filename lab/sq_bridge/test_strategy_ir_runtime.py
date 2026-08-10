@@ -79,7 +79,9 @@ def _execution_ir(*, direction="long", stop=None, target=None, exit_after=0):
             "stop_loss": stop or {"type": "percent", "percent": 50},
             "profit_target": target or {"type": "none"}}
     return {"ir_type": "alquimia_strategy_ir", "strategy_id": "candidate",
-            "execution": {"exit_at_end_of_day": False, "exit_on_friday": False},
+            "execution": {"exit_at_end_of_day": False, "exit_on_friday": False,
+                          "spread_in_sq": 0, "slippage_in_sq": 0,
+                          "commission_enabled": False, "swap_enabled": False},
             "entries": {direction: entry, inactive: None},
             "trade_plans": {direction: plan, inactive: None}}
 

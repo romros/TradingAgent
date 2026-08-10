@@ -53,6 +53,22 @@ def test_translation_rejects_same_candle_price_at_open_as_lookahead(tmp_path):
         translate(_sqx(tmp_path, strategy), tmp_path / "candidate.ir.json")
 
 
+@pytest.mark.parametrize("old,new,error", [
+    (b'defaultSpread="0"', b'defaultSpread="0.8"', "spread_in_sq"),
+    (b'<S key="Slippage">0.0</S>', b'<S key="Slippage">0.5</S>', "slippage_in_sq"),
+    (b'type=&quot;None&quot;', b'type=&quot;PerTrade&quot;', "comissio SQ"),
+    (b'<Swap use="false" type="money"', b'<Swap use="true" type="money"', "swap SQ"),
+])
+def test_translation_rejects_sq_embedded_venue_costs(tmp_path, old, new, error):
+    path = tmp_path / "costly.sqx"
+    with zipfile.ZipFile(path, "w") as archive:
+        archive.writestr("strategy_Portfolio.xml", STRATEGY)
+        archive.writestr("settings.xml", SETTINGS.replace(old, new, 1))
+        archive.writestr("version.txt", "3")
+    with pytest.raises(ValueError, match=error):
+        translate(path, tmp_path / "candidate.ir.json")
+
+
 def test_parent_shift_makes_nested_indicator_causal(tmp_path):
     strategy = STRATEGY.replace(
         b'<Item key="Boolean"><Param key="#Value#">true</Param></Item>',

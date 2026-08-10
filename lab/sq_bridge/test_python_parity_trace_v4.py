@@ -17,7 +17,9 @@ def _write(tmp_path: Path):
     ir = tmp_path / "ir.json"
     ir.write_text(json.dumps({
         "ir_type": "alquimia_strategy_ir", "strategy_id": "candidate",
-        "execution": {"exit_at_end_of_day": False, "exit_on_friday": False},
+        "execution": {"exit_at_end_of_day": False, "exit_on_friday": False,
+                      "spread_in_sq": 0, "slippage_in_sq": 0,
+                      "commission_enabled": False, "swap_enabled": False},
         "entries": {
             "long": {"signal": {"op": "Boolean", "params": {"#Value#": True}}},
             "short": None},

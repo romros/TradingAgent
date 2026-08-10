@@ -171,6 +171,7 @@ def test_v4_recomputes_sq_and_translation_file_hashes(tmp_path):
             "stop_loss_required": True,
             "stop_loss_present_all_directions": True,
             "timed_session_exits_disabled": True,
+            "sq_venue_costs_disabled": True,
             "causal_entry_signals": True,
             "minimum_market_data_shift": None,
         },

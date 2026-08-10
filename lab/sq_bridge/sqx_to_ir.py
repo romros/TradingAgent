@@ -44,6 +44,15 @@ def validate_executable_ir(ir: dict, *, require_stop_loss: bool = True) -> dict:
         raise ValueError("ExitAtEndOfDay ha d'estar explicitament desactivat")
     if execution.get("exit_on_friday") is not False:
         raise ValueError("ExitOnFriday ha d'estar explicitament desactivat")
+    for field in ("spread_in_sq", "slippage_in_sq"):
+        value = execution.get(field)
+        if (not isinstance(value, (int, float)) or isinstance(value, bool)
+                or float(value) != 0.0):
+            raise ValueError(f"{field} ha de ser explicitament zero")
+    if execution.get("commission_enabled") is not False:
+        raise ValueError("La comissio SQ ha d'estar explicitament desactivada")
+    if execution.get("swap_enabled") is not False:
+        raise ValueError("El swap SQ ha d'estar explicitament desactivat")
     plans = ir.get("trade_plans")
     if not isinstance(plans, dict) or set(plans) != {"long", "short"}:
         raise ValueError("Plans de trade normalitzats absents")
@@ -72,6 +81,7 @@ def validate_executable_ir(ir: dict, *, require_stop_loss: bool = True) -> dict:
         "stop_loss_present_all_directions": all(
             plan["stop_loss"]["type"] != "none" for plan in active.values()),
         "timed_session_exits_disabled": True,
+        "sq_venue_costs_disabled": True,
         "causal_entry_signals": True,
         "minimum_market_data_shift": min(minimum_shifts) if minimum_shifts else None,
     }

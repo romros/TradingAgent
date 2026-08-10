@@ -13,6 +13,11 @@ reproduir la gestió del trade.
 - Profit target opcional: ATR, percentatge o desactivat.
 - `ExitAfterBars` enter no negatiu; zero significa desactivat.
 - `ExitAtEndOfDay=false` i `ExitOnFriday=false` explícits.
+- Spread i slippage efectius d'SQ iguals a zero; comissió i swap explícitament
+  desactivats. No n'hi ha prou que el manifest del projecte ho declari:
+  l'extractor ho torna a llegir de `SettingsMap` i de l'`InstrumentInfo`
+  incrustat en cada SQX final. Un camp absent, ambigu o diferent de zero falla
+  tancat.
 - Qualsevol preu o indicador d'entrada té `Shift` efectiu mínim 1: només pot
   usar candles completades abans de l'open d'entrada.
 - Trailing stop, move-to-break-even i exit signals dinàmics no formen part del
@@ -67,7 +72,9 @@ nivell teòric; un gap favorable de target també conserva el preu d'open. Si un
 sola OHLC toca stop i target i no permet provar quin va passar primer, el
 runtime falla tancat.
 
-El PnL del trace és brut: `notional_usdc × retorn del preu`. Els costos Ostium,
+El PnL del trace és brut: `notional_usdc × retorn del preu`. La comprovació dels
+quatre costos dins l'SQX evita tant resultats bruts falsos com comptabilització
+doble. Els costos Ostium,
 carry, sizing per risc i leverage s'apliquen a les etapes econòmiques
 posteriors, amb el model de costos congelat.
 

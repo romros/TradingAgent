@@ -88,6 +88,57 @@ def _setting(root: ET.Element, key: str):
     return _value(node) if node is not None else None
 
 
+def _bool_attribute(element: ET.Element | None, key: str) -> bool | None:
+    if element is None or key not in element.attrib:
+        return None
+    raw = element.attrib[key].strip().lower()
+    if raw not in {"true", "false"}:
+        return None
+    return raw == "true"
+
+
+def _instrument_info(settings: ET.Element, symbol: object) -> ET.Element | None:
+    """Return the exact instrument snapshot used by the SQ result."""
+    matches = [node.find("InstrumentInfo") for node in settings.findall(".//SymbolInfo")
+               if node.attrib.get("symbolName") == symbol]
+    matches = [node for node in matches if node is not None]
+    if len(matches) == 1:
+        return matches[0]
+    return None
+
+
+def _embedded_xml_attribute(element: ET.Element | None, key: str) -> ET.Element | None:
+    if element is None or not element.attrib.get(key):
+        return None
+    try:
+        return ET.fromstring(element.attrib[key])
+    except ET.ParseError:
+        return None
+
+
+def _commission_contract(instrument: ET.Element | None) -> dict:
+    method = _embedded_xml_attribute(instrument, "commissions")
+    if method is None or method.tag != "Method":
+        return {"commission_enabled": None, "commission_method": None,
+                "commission_value": None}
+    use = _bool_attribute(method, "use")
+    method_type = method.attrib.get("type")
+    value_node = method.find("./Params/Param[@key='Commission']")
+    value = _value(value_node) if value_node is not None else None
+    enabled = None if use is None or method_type is None else use and method_type != "None"
+    return {"commission_enabled": enabled, "commission_method": method_type,
+            "commission_value": value}
+
+
+def _swap_enabled(settings: ET.Element, instrument: ET.Element | None) -> bool | None:
+    # SettingsMap is the authoritative effective result setting. InstrumentInfo
+    # is only a fallback for older SQX variants.
+    swap = settings.find(".//SettingsMap/Swap/Swap")
+    if swap is None:
+        swap = _embedded_xml_attribute(instrument, "swap")
+    return _bool_attribute(swap, "use")
+
+
 def extract(path: Path) -> dict:
     with zipfile.ZipFile(path) as archive:
         names = set(archive.namelist())
@@ -151,20 +202,31 @@ def extract(path: Path) -> dict:
         direction: entry["condition_count"] if entry is not None else 0
         for direction, entry in entries.items()
     }
+    symbol = _setting(settings, "Symbol")
+    instrument = _instrument_info(settings, symbol)
+    commission = _commission_contract(instrument)
+    spread = None
+    if instrument is not None and "defaultSpread" in instrument.attrib:
+        try:
+            spread = float(instrument.attrib["defaultSpread"])
+        except ValueError:
+            pass
     contract = {
         "schema_version": 1,
         "source": str(path),
         "source_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
         "strategy_xml_sha256": hashlib.sha256(strategy_raw).hexdigest(),
         "strategy_name": _setting(settings, "StrategyName"),
-        "market": {"symbol": _setting(settings, "Symbol"), "timeframe": _setting(settings, "Timeframe")},
+        "market": {"symbol": symbol, "timeframe": _setting(settings, "Timeframe")},
         "execution": {
             "exit_at_end_of_day": _setting(settings, "ExitAtEndOfDay.ExitAtEndOfDay"),
             "eod_exit_time_hhmm": _setting(settings, "ExitAtEndOfDay.EODExitTime"),
             "exit_on_friday": _setting(settings, "ExitOnFriday.ExitOnFriday"),
             "friday_exit_time_hhmm": _setting(settings, "ExitOnFriday.FridayExitTime"),
+            "spread_in_sq": spread,
             "slippage_in_sq": _setting(settings, "Slippage"),
-            "swap_enabled": False,
+            **commission,
+            "swap_enabled": _swap_enabled(settings, instrument),
         },
         "entries": entries,
         "entry_condition_counts": entry_condition_counts,

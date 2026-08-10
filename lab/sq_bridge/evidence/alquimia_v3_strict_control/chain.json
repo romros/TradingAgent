@@ -1,0 +1,124 @@
+{
+  "campaign_id": "alquimia-v3-strict-control",
+  "capital_usdc": 200,
+  "hypothesis_id": "wiring-control",
+  "legacy_quantitative_inputs": [],
+  "live_authorized": false,
+  "market": "SYNTHETIC",
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "methodology_sha256": "ea4c6512d10f21e9550789615c41eb8b12228916ac668373fbb3afc9f905aeab",
+  "provenance": "synthetic_control",
+  "receipts": [
+    {
+      "artifact": "lab/sq_bridge/evidence/alquimia_v3_strict_control/01_market_preflight.json",
+      "artifact_sha256": "90d47e6c2eac34325ffb21ba3c8b3254d8dda92a62784e59bcad2602415d1546",
+      "candidate_ids": [],
+      "decision": "PASS",
+      "holdout_accessed": false,
+      "parity_pass": null,
+      "previous_receipt_sha256": null,
+      "receipt_sha256": "46f7b46ec00f379b0aafdc192f53edd4946b462eeb91aeff8a800e1c3ad1564d",
+      "stage": "market_preflight",
+      "translation_exact": null
+    },
+    {
+      "artifact": "lab/sq_bridge/evidence/alquimia_v3_strict_control/02_discovery.json",
+      "artifact_sha256": "21e8387e88195b0588e8d79728f22adc989363a9e652d8e46d5458a7623da8e5",
+      "candidate_ids": [
+        "synthetic-sqx-control-001"
+      ],
+      "decision": "PASS",
+      "holdout_accessed": false,
+      "parity_pass": null,
+      "previous_receipt_sha256": "46f7b46ec00f379b0aafdc192f53edd4946b462eeb91aeff8a800e1c3ad1564d",
+      "receipt_sha256": "e2b1e50a7ec79a0e71ee365210d59930e004f53338f0f56dc482f479ff92ca1f",
+      "stage": "discovery",
+      "translation_exact": null
+    },
+    {
+      "artifact": "lab/sq_bridge/evidence/alquimia_v3_strict_control/03_temporal_validation.json",
+      "artifact_sha256": "5ad1e1b2791c71b6049b03cd51fff96ebcbe89b014d7f472e2a23a1827a18932",
+      "candidate_ids": [
+        "synthetic-sqx-control-001"
+      ],
+      "decision": "PASS",
+      "holdout_accessed": false,
+      "parity_pass": null,
+      "previous_receipt_sha256": "e2b1e50a7ec79a0e71ee365210d59930e004f53338f0f56dc482f479ff92ca1f",
+      "receipt_sha256": "f4602879abc531188f813543294626819a067b9c1c9b08b40f6f6cae08e231e7",
+      "stage": "temporal_validation",
+      "translation_exact": null
+    },
+    {
+      "artifact": "lab/sq_bridge/evidence/alquimia_v3_strict_control/04_robustness.json",
+      "artifact_sha256": "f4026b01357d7102fe3972a26433d1fd0d1746652d45730cd6c876d828793b7e",
+      "candidate_ids": [
+        "synthetic-sqx-control-001"
+      ],
+      "decision": "PASS",
+      "holdout_accessed": false,
+      "parity_pass": null,
+      "previous_receipt_sha256": "f4602879abc531188f813543294626819a067b9c1c9b08b40f6f6cae08e231e7",
+      "receipt_sha256": "2c3941cbdfadfbdfdf6def64cf13d1d1d6e9f12cc13974b8fa5d88cd793dd89a",
+      "stage": "robustness",
+      "translation_exact": null
+    },
+    {
+      "artifact": "lab/sq_bridge/evidence/alquimia_v3_strict_control/05_small_account_economics.json",
+      "artifact_sha256": "986d82bc2384e6b3dfecd81d7d3236a3d80b1d90dbd7c6ce764979a828ccdfd1",
+      "candidate_ids": [
+        "synthetic-sqx-control-001"
+      ],
+      "decision": "PASS",
+      "holdout_accessed": false,
+      "parity_pass": null,
+      "previous_receipt_sha256": "2c3941cbdfadfbdfdf6def64cf13d1d1d6e9f12cc13974b8fa5d88cd793dd89a",
+      "receipt_sha256": "62c4bd7f2ad23d01fec806eb87987a34e9c4c3560a7523c44d56f47c321bee9d",
+      "stage": "small_account_economics",
+      "translation_exact": null
+    },
+    {
+      "artifact": "lab/sq_bridge/evidence/alquimia_v3_strict_control/06_python_translation.json",
+      "artifact_sha256": "4edcd1826c6169037dcdb5a69e65776c3a0502eee13767f5eb487dc3414f5644",
+      "candidate_ids": [
+        "synthetic-sqx-control-001"
+      ],
+      "decision": "PASS",
+      "holdout_accessed": true,
+      "parity_pass": null,
+      "previous_receipt_sha256": "62c4bd7f2ad23d01fec806eb87987a34e9c4c3560a7523c44d56f47c321bee9d",
+      "receipt_sha256": "d3f4f700ed81b606e375cc028d51e0f271089071766f543c6d7e4064b3243aff",
+      "stage": "python_translation",
+      "translation_exact": true
+    },
+    {
+      "artifact": "lab/sq_bridge/evidence/alquimia_v3_strict_control/07_parity.json",
+      "artifact_sha256": "f520e4bb5f443114fbf27198a364646e2922826e996b92899d225278cd338143",
+      "candidate_ids": [
+        "synthetic-sqx-control-001"
+      ],
+      "decision": "PASS",
+      "holdout_accessed": true,
+      "parity_pass": true,
+      "previous_receipt_sha256": "d3f4f700ed81b606e375cc028d51e0f271089071766f543c6d7e4064b3243aff",
+      "receipt_sha256": "58b311aec19c15d22566a9112f2169dc64ecc2f27ef89f8eb7bcaeec09c1a71f",
+      "stage": "parity",
+      "translation_exact": null
+    },
+    {
+      "artifact": "lab/sq_bridge/evidence/alquimia_v3_strict_control/08_paper.json",
+      "artifact_sha256": "0ca991159fb5620899b816a378087edf610eebbdf86e8d938ae27dabc08037a0",
+      "candidate_ids": [
+        "synthetic-sqx-control-001"
+      ],
+      "decision": "PASS",
+      "holdout_accessed": true,
+      "parity_pass": null,
+      "previous_receipt_sha256": "58b311aec19c15d22566a9112f2169dc64ecc2f27ef89f8eb7bcaeec09c1a71f",
+      "receipt_sha256": "52ad11215b9dc44ec391d255515f3476672ffefcaf9f0941f88b3f407b8a263e",
+      "stage": "paper",
+      "translation_exact": null
+    }
+  ],
+  "schema_version": 2
+}

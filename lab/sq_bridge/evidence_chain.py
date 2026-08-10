@@ -5,6 +5,7 @@ import argparse, hashlib, json
 from copy import deepcopy
 from datetime import datetime, timezone
 from pathlib import Path
+from lab.sq_bridge.stage_artifact_contract import validate_stage_artifact
 
 DECISIONS={"PASS","REJECT","BLOCK"}
 
@@ -14,7 +15,7 @@ def sha_file(path): return sha_bytes(Path(path).read_bytes())
 
 def new_chain(methodology_path, campaign_id, hypothesis_id, market, provenance="alquimia_native"):
  mpath=Path(methodology_path); m=json.loads(mpath.read_text())
- return {"schema_version":1,"campaign_id":campaign_id,"hypothesis_id":hypothesis_id,"market":market,
+ return {"schema_version":2,"campaign_id":campaign_id,"hypothesis_id":hypothesis_id,"market":market,
   "capital_usdc":m["capital_usdc"],"methodology_id":m["methodology_id"],
   "methodology_sha256":sha_file(mpath),"provenance":provenance,
   "legacy_quantitative_inputs":[],"receipts":[],"live_authorized":False}
@@ -38,7 +39,7 @@ def append_receipt(chain,methodology,stage,artifact,decision,candidate_ids=(),ho
  out["receipts"].append(receipt); return out
 
 def verify(chain,methodology_path):
- errors=[]; mpath=Path(methodology_path); m=json.loads(mpath.read_text()); stages=m["stages"]
+ errors=[]; warnings=[]; mpath=Path(methodology_path); m=json.loads(mpath.read_text()); stages=m["stages"]
  if chain.get("methodology_sha256")!=sha_file(mpath): errors.append("METHODOLOGY_HASH_MISMATCH")
  if chain.get("capital_usdc")!=200 or m.get("capital_usdc")!=200: errors.append("CAPITAL_NOT_200")
  if chain.get("live_authorized") is not False: errors.append("LIVE_MUST_REQUIRE_EXTERNAL_AUTHORIZATION")
@@ -50,6 +51,12 @@ def verify(chain,methodology_path):
   if r.get("decision") not in DECISIONS: errors.append(f"INVALID_DECISION:{i}")
   path=Path(r.get("artifact",""))
   if not path.is_file() or r.get("artifact_sha256")!=(sha_file(path) if path.is_file() else None): errors.append(f"ARTIFACT_HASH:{i}")
+  if chain.get("schema_version",1)>=2 and path.is_file():
+   try:
+    artifact=json.loads(path.read_text())
+    if not isinstance(artifact,dict): raise ValueError("not object")
+   except Exception: errors.append(f"STAGE_ARTIFACT:{r.get('stage')}:NOT_JSON_OBJECT")
+   else: errors.extend(validate_stage_artifact(r.get("stage"),artifact,r,m,chain.get("campaign_id"),chain.get("provenance")))
   check=dict(r); stored=check.pop("receipt_sha256",None)
   if stored!=sha_bytes(canonical(check)): errors.append(f"RECEIPT_HASH:{i}")
   if r.get("previous_receipt_sha256")!=previous_hash: errors.append(f"CHAIN_LINK:{i}")
@@ -59,11 +66,15 @@ def verify(chain,methodology_path):
   if r.get("stage")=="python_translation" and r.get("decision")=="PASS" and r.get("translation_exact") is not True: errors.append("TRANSLATION_NOT_EXACT")
   if r.get("stage")=="parity" and r.get("decision")=="PASS" and r.get("parity_pass") is not True: errors.append("PARITY_NOT_PASS")
   previous_ids=ids; previous_hash=stored; terminal=r.get("decision") in {"REJECT","BLOCK"}
+ if chain.get("schema_version",1)<2: warnings.append("LEGACY_CHAIN_WITHOUT_STRICT_STAGE_ARTIFACT_CONTRACT")
  if chain.get("provenance")=="legacy_example" and chain.get("receipts") and chain["receipts"][-1]["decision"]=="PASS": errors.append("LEGACY_EXAMPLE_CANNOT_PROMOTE")
  receipts=chain.get("receipts",[]); next_stage=None if terminal or len(receipts)>=len(stages) else stages[len(receipts)]
  promotable=bool(receipts) and not errors and receipts[-1]["decision"]=="PASS" and next_stage is not None
- paper_ready=not errors and len(receipts)==len(stages) and all(r["decision"]=="PASS" for r in receipts)
- return {"valid":not errors,"errors":errors,"terminal":terminal,"next_stage":next_stage,"promotable":promotable,"paper_ready":paper_ready,"live_authorized":False}
+ control_only=chain.get("provenance")=="synthetic_control"
+ operational_control_complete=control_only and not errors and len(receipts)==len(stages) and all(r["decision"]=="PASS" for r in receipts)
+ if control_only: promotable=False
+ paper_ready=not control_only and not errors and len(receipts)==len(stages) and all(r["decision"]=="PASS" for r in receipts)
+ return {"valid":not errors,"errors":errors,"warnings":warnings,"terminal":terminal,"next_stage":next_stage,"promotable":promotable,"paper_ready":paper_ready,"control_only":control_only,"operational_control_complete":operational_control_complete,"live_authorized":False}
 
 def main():
  p=argparse.ArgumentParser(); sub=p.add_subparsers(dest="cmd",required=True)

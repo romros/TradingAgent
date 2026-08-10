@@ -1,0 +1,19 @@
+{
+  "campaign_id": "alquimia-v3-strict-control",
+  "candidate_ids": [
+    "synthetic-sqx-control-001"
+  ],
+  "capital_usdc": 200,
+  "control_purpose": "pipeline_wiring_only",
+  "decision": "PASS",
+  "evidence_class": "synthetic_control",
+  "holdout_accessed": false,
+  "net_expectancy_usdc": 0.1,
+  "net_profit_factor": 1.1,
+  "portfolio_margin_pct": 35,
+  "reserve_pct": 40,
+  "risk_per_trade_pct": 1.5,
+  "schema_version": 1,
+  "selected_leverage": 5,
+  "stage": "small_account_economics"
+}

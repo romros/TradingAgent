@@ -1,0 +1,17 @@
+{
+  "campaign_id": "alquimia-v3-strict-control",
+  "candidate_ids": [
+    "synthetic-sqx-control-001"
+  ],
+  "candle_coverage_pct": 95,
+  "control_purpose": "pipeline_wiring_only",
+  "decision": "PASS",
+  "evidence_class": "synthetic_control",
+  "holdout_accessed": true,
+  "parity_pass": true,
+  "pnl_correlation": 0.99,
+  "schema_version": 1,
+  "signal_match_rate": 1.0,
+  "stage": "parity",
+  "trade_match_rate": 1.0
+}

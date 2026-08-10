@@ -35,6 +35,6 @@ def test_cli_can_persist_preflight_receipt(tmp_path):
 
 def test_crypto_registry_matches_current_ostium_caps_and_remains_not_live():
     eth = validate(registry, "ETHUSD"); sol = validate(registry, "SOLUSD")
-    assert eth["mapping"]["opening_fee_bps"] == 5 and eth["mapping"]["venue_max_leverage"] == 200
-    assert sol["mapping"]["opening_fee_bps"] == 5 and sol["mapping"]["venue_max_leverage"] == 150
+    assert eth["mapping"]["opening_fee_bps"] == 10 and eth["mapping"]["venue_max_leverage"] == 200
+    assert sol["mapping"]["opening_fee_bps"] == 10 and sol["mapping"]["venue_max_leverage"] == 150
     assert eth["live_authorized"] is False and sol["live_authorized"] is False

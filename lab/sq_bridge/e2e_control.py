@@ -38,8 +38,12 @@ def payload(stage: str, candidate_ids: list[str], holdout: bool) -> dict:
         "discovery": {"generator": "StrategyQuant", "attempted": 1, "selected_candidate_ids": candidate_ids},
         "hypothesis_screen": {"generator": "deterministic_pre_sq_screen", "attempted": 1,
                               "selected_hypothesis_ids": ["hypothesis-control"],
+                              "minimum_selected_train_trades": 50,
+                              "minimum_selected_train_profit_factor": 1.2,
                               "stable_region_pass": True, "all_cost_scenarios_applied": True,
-                              "train_only": True},
+                              "minimum_selected_stable_neighbors": 2,
+                              "applied_cost_scenarios": ["base", "conservative", "stress"],
+                              "train_only": True, "future_periods_accessed": False},
         "sq_generation": {"generator": "StrategyQuant", "attempted": 1,
                           "selected_candidate_ids": candidate_ids,
                           "candidate_artifact_hashes": {candidate: "a" * 64

@@ -55,3 +55,11 @@ sintètic.
 
 L'execució reprenable d'una campanya real està documentada a
 [`ALQUIMIA_V4_RUNNER.md`](ALQUIMIA_V4_RUNNER.md).
+
+El `hypothesis_screen` no pot passar amb una simple etiqueta: l'artefacte ha de
+provar almenys 50 trades train, PF train ≥1,20, dos veïns estables, aplicació
+exacta dels costos base/conservador/estrès, futurs segellats i ≤5.000 intents.
+La generació SQ queda limitada a 10.000 intents i tres regles. El validador
+també rebutja qualsevol metodologia v4 nova que relaxi aquests mínims, els 1.000
+Monte Carlo, la probabilitat de liquidació ≤0,1%, el risc ≤1,5% o la reserva
+≥40% del compte de 200 USDC.

@@ -44,14 +44,62 @@ def validate(config: dict) -> list[str]:
         screen = config.get("hypothesis_screen", {})
         if screen.get("future_periods_accessed") is not False:
             errors.append("hypothesis_screen: futurs han d'estar segellats")
-        if screen.get("minimum_stable_neighbors", 0) < 1:
+        attempts = screen.get("maximum_attempts")
+        if not isinstance(attempts, int) or isinstance(attempts, bool) or not 1 <= attempts <= 5_000:
+            errors.append("hypothesis_screen: pressupost d'intents invalid")
+        if screen.get("minimum_trades_train", 0) < 50:
+            errors.append("hypothesis_screen: mostra train massa petita")
+        if screen.get("minimum_profit_factor_train", 0) < 1.2:
+            errors.append("hypothesis_screen: PF train massa feble")
+        if screen.get("minimum_stable_neighbors", 0) < 2:
             errors.append("hypothesis_screen: regio estable obligatoria")
+        if set(screen.get("cost_scenarios_required", [])) != {"base", "conservative", "stress"}:
+            errors.append("hypothesis_screen: escenaris de costos incomplets")
+        sq_attempts = generation.get("maximum_attempts")
+        if (not isinstance(sq_attempts, int) or isinstance(sq_attempts, bool)
+                or not 1 <= sq_attempts <= 10_000):
+            errors.append("sq_generation: pressupost d'intents invalid")
+        max_rules = generation.get("max_rules")
+        if (not isinstance(max_rules, int) or isinstance(max_rules, bool)
+                or not 1 <= max_rules <= 3):
+            errors.append("sq_generation: massa regles")
+        if generation.get("selection_metric") != "pareto_net_expectancy_drawdown_stability":
+            errors.append("sq_generation: seleccio Pareto obligatoria")
+        temporal = config.get("temporal_validation", {})
+        if temporal.get("minimum_trades_oos", 0) < 30:
+            errors.append("temporal_validation: mostra OOS massa petita")
+        if temporal.get("minimum_positive_windows_ratio", 0) < .6:
+            errors.append("temporal_validation: finestres positives insuficients")
+        if temporal.get("minimum_oos_profit_factor", 0) < 1.15:
+            errors.append("temporal_validation: PF OOS massa feble")
+        if temporal.get("maximum_oos_drawdown_pct", 100) > 20:
+            errors.append("temporal_validation: drawdown OOS massa alt")
+        robust = config.get("robustness", {})
+        if robust.get("monte_carlo_runs", 0) < 1_000:
+            errors.append("robustness: Monte Carlo insuficient")
+        if robust.get("minimum_profitable_monte_carlo_ratio", 0) < .7:
+            errors.append("robustness: probabilitat rendible massa baixa")
+        if robust.get("cost_stress_multiplier", 0) < 2:
+            errors.append("robustness: estres de costos massa feble")
+        if robust.get("maximum_liquidation_probability", 1) > .001:
+            errors.append("robustness: probabilitat de liquidacio massa alta")
     small = config.get("small_account", {})
     if small.get("canonical_capital_usdc") != config.get("capital_usdc"):
         errors.append("small_account: capital canonic inconsistent")
     grid = small.get("leverage_grid", [])
     if not grid or grid != sorted(set(grid)) or min(grid) < 1:
         errors.append("small_account: leverage_grid invalid")
+    if config.get("schema_version", 1) >= 4:
+        if small.get("maximum_risk_per_trade_pct", 100) > 1.5:
+            errors.append("small_account: risc per trade massa alt")
+        if small.get("maximum_portfolio_margin_pct", 100) > 35:
+            errors.append("small_account: marge de cartera massa alt")
+        if small.get("minimum_reserve_pct", 0) < 40:
+            errors.append("small_account: reserva insuficient")
+        if small.get("minimum_net_expectancy_usdc", 0) < .1:
+            errors.append("small_account: expectativa neta massa baixa")
+        if small.get("minimum_net_profit_factor", 0) < 1.1:
+            errors.append("small_account: PF net massa feble")
     return errors
 
 

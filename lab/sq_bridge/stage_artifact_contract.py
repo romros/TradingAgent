@@ -104,20 +104,39 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
             "NO_HOLDOUT": artifact.get("holdout_accessed") is False,
         }
     elif stage == "hypothesis_screen":
+        screen = methodology["hypothesis_screen"]
+        applied_costs = artifact.get("applied_cost_scenarios")
         checks = {
             "GENERATOR": artifact.get("generator") == "deterministic_pre_sq_screen",
             "ATTEMPTED": _at_least(artifact.get("attempted"), 1),
+            "ATTEMPT_LIMIT": _at_most(
+                artifact.get("attempted"), screen["maximum_attempts"]),
             "HYPOTHESES": bool(_ids(artifact.get("selected_hypothesis_ids"))),
+            "TRAIN_TRADES": _at_least(
+                artifact.get("minimum_selected_train_trades"),
+                screen["minimum_trades_train"]),
+            "TRAIN_PF": _at_least(
+                artifact.get("minimum_selected_train_profit_factor"),
+                screen["minimum_profit_factor_train"]),
             "STABLE_REGION": artifact.get("stable_region_pass") is True,
+            "STABLE_NEIGHBORS": _at_least(
+                artifact.get("minimum_selected_stable_neighbors"),
+                screen["minimum_stable_neighbors"]),
             "COSTS": artifact.get("all_cost_scenarios_applied") is True,
+            "COST_SET": isinstance(applied_costs, list)
+                and set(applied_costs) == set(screen["cost_scenarios_required"]),
             "TRAIN_ONLY": artifact.get("train_only") is True,
+            "FUTURES_SEALED": artifact.get("future_periods_accessed") is False,
             "NO_HOLDOUT": artifact.get("holdout_accessed") is False,
         }
     elif stage == "sq_generation":
+        generation = methodology["sq_generation"]
         hashes = artifact.get("candidate_artifact_hashes")
         checks = {
             "SQ_SOURCE": artifact.get("generator") == "StrategyQuant",
             "ATTEMPTED": _at_least(artifact.get("attempted"), 1),
+            "ATTEMPT_LIMIT": _at_most(
+                artifact.get("attempted"), generation["maximum_attempts"]),
             "SELECTED": _ids(artifact.get("selected_candidate_ids")) == receipt.get("candidate_ids", []),
             "ARTIFACT_HASHES": isinstance(hashes, dict) and bool(hashes)
                                and set(hashes) == set(receipt.get("candidate_ids", []))

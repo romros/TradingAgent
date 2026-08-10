@@ -63,11 +63,13 @@ def validate(config: dict) -> list[str]:
         if (not isinstance(max_rules, int) or isinstance(max_rules, bool)
                 or not 1 <= max_rules <= 3):
             errors.append("sq_generation: massa regles")
-        if generation.get("selection_metric") != "pareto_net_expectancy_drawdown_stability":
-            errors.append("sq_generation: seleccio Pareto obligatoria")
+        if generation.get("selection_policy") != "all_supported_translatable_unique_candidates":
+            errors.append("sq_generation: s'han de conservar tots els candidats traduibles")
         if generation.get("search_method") != "genetic_evolution":
             errors.append("sq_generation: cerca genetica obligatoria")
         temporal = config.get("temporal_validation", {})
+        if temporal.get("selection_metric") != "pareto_net_expectancy_drawdown_window_stability":
+            errors.append("temporal_validation: seleccio Pareto obligatoria")
         if temporal.get("minimum_trades_oos", 0) < 30:
             errors.append("temporal_validation: mostra OOS massa petita")
         if temporal.get("minimum_positive_windows_ratio", 0) < .6:

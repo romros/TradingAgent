@@ -21,6 +21,7 @@ from lab.sq_bridge.sqx_to_ir import translate
 from lab.sq_bridge.parity_artifact_v4 import build_artifact as build_parity
 from lab.sq_bridge.final_holdout_artifact_v4 import build_artifact as build_holdout
 from lab.sq_bridge.paper_package_artifact_v4 import build_artifact as build_paper
+from lab.sq_bridge.temporal_validation_artifact_v4 import build_artifact as build_temporal
 
 stage = os.environ['ALQUIMIA_STAGE']
 decision = sys.argv[1] if len(sys.argv) > 1 else 'PASS'
@@ -70,6 +71,37 @@ if stage == 'sq_generation':
         'holdout_sealed': True, 'source_role': 'xml_format_scaffold_only'}))
     artifact['sq_project_manifest_path'] = manifest_path.name
     artifact['sq_project_manifest_sha256'] = hashlib.sha256(manifest_path.read_bytes()).hexdigest()
+if stage == 'temporal_validation':
+    from datetime import datetime, timedelta, timezone
+    base = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent
+    start = datetime(2020, 1, 1, tzinfo=timezone.utc)
+    train = [{'trade_id': f'train-{index:02d}',
+              'exit_timestamp': (start + timedelta(days=index + 1)).isoformat(),
+              'net_pnl_usdc': 1.0 if index < 18 else -.5}
+             for index in range(30)]
+    windows = []
+    for window_index in range(3):
+        window_start = start + timedelta(days=40 + window_index * 20)
+        windows.append({
+            'window_id': f'w{window_index + 1}',
+            'start_utc': window_start.isoformat(),
+            'end_utc': (window_start + timedelta(days=11)).isoformat(),
+            'trades': [{'trade_id': f'oos-{window_index}-{index:02d}',
+                        'exit_timestamp': (window_start + timedelta(days=index + 1)).isoformat(),
+                        'net_pnl_usdc': 1.0 if index < 6 else -.5}
+                       for index in range(10)]})
+    trace_path = base / 'runner-sqx-001.temporal.trace.json'
+    trace_path.write_text(json.dumps({
+        'schema_version': 1, 'trace_type': 'temporal_validation_trade_trace',
+        'candidate_id': 'runner-sqx-001', 'capital_usdc': 200,
+        'holdout_accessed': False, 'cost_scenario': 'base',
+        'cost_model_sha256': 'a' * 64,
+        'train_end_utc': (start + timedelta(days=31)).isoformat(),
+        'train_trades': train, 'oos_windows': windows}))
+    artifact = build_temporal(
+        campaign_id='runner-test', trace_paths=[trace_path],
+        methodology_path=Path(sys.argv[2]),
+        artifact_path=Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']))
 if stage == 'python_translation':
     base = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent
     sqx_path = base / 'runner-sqx-001.sqx'

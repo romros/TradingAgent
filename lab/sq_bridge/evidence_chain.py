@@ -66,6 +66,11 @@ def verify(chain,methodology_path):
      source_hypotheses=normalized_ids(artifact.get("source_hypothesis_ids"))
      if not screened_hypotheses or not set(source_hypotheses).issubset(screened_hypotheses):
       errors.append("SQ_HYPOTHESIS_LINEAGE")
+    if (m.get("schema_version",1)>=4
+        and r.get("stage")=="temporal_validation" and r.get("decision")=="PASS"):
+     evaluated=artifact.get("evaluated_candidate_temporal_metrics")
+     if not isinstance(evaluated,dict) or set(evaluated)!=set(previous_ids):
+      errors.append("TEMPORAL_EVALUATED_LINEAGE")
     if (m.get("schema_version",1)>=4 and chain.get("provenance")!="synthetic_control"
         and r.get("stage")=="paper"
         and r.get("decision")=="PASS"):

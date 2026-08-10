@@ -44,10 +44,11 @@
     "search_method": "genetic_evolution",
     "maximum_attempts": 10000,
     "max_rules": 3,
-    "selection_metric": "pareto_net_expectancy_drawdown_stability",
+    "selection_policy": "all_supported_translatable_unique_candidates",
     "robustness_during_generation": false
   },
   "temporal_validation": {
+    "selection_metric": "pareto_net_expectancy_drawdown_window_stability",
     "minimum_trades_oos": 30,
     "minimum_positive_windows_ratio": 0.6,
     "minimum_oos_profit_factor": 1.15,

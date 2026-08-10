@@ -235,10 +235,13 @@ def test_v4_methodology_cannot_be_weakened_to_force_a_pass():
         "minimum_profit_factor_train": 1.01, "minimum_stable_neighbors": 1,
         "cost_scenarios_required": ["base"],
     })
-    weakened["sq_generation"].update({"maximum_attempts": 100_000, "max_rules": 20})
+    weakened["sq_generation"].update({
+        "maximum_attempts": 100_000, "max_rules": 20,
+        "selection_policy": "pick_best_is_fitness"})
     weakened["temporal_validation"].update({
         "minimum_trades_oos": 5, "minimum_positive_windows_ratio": .1,
         "minimum_oos_profit_factor": 1.01, "maximum_oos_drawdown_pct": 80,
+        "selection_metric": "best_profit_only",
     })
     weakened["robustness"].update({
         "monte_carlo_runs": 10, "minimum_profitable_monte_carlo_ratio": .1,
@@ -339,6 +342,46 @@ def test_v4_temporal_and_robustness_aggregates_must_equal_worst_candidate():
     errors = validate_stage_artifact(
         "robustness", robust, receipt, METHODOLOGY, "v4", "alquimia_native")
     assert "STAGE_ARTIFACT:robustness:STRESS_PF_RECOMPUTES" in errors
+
+
+def test_v4_temporal_selection_recomputes_pareto_and_rejects_dominated_candidate():
+    evaluated = {
+        "a": {"oos_trades": 40, "positive_windows_ratio": .7,
+              "oos_profit_factor": 1.3, "oos_drawdown_pct": 10,
+              "train_oos_expectancy_decay_pct": 30,
+              "net_expectancy_usdc": .2},
+        "b": {"oos_trades": 35, "positive_windows_ratio": .6,
+              "oos_profit_factor": 1.2, "oos_drawdown_pct": 15,
+              "train_oos_expectancy_decay_pct": 40,
+              "net_expectancy_usdc": .1},
+        "c": {"oos_trades": 30, "positive_windows_ratio": .6,
+              "oos_profit_factor": 1.15, "oos_drawdown_pct": 8,
+              "train_oos_expectancy_decay_pct": 50,
+              "net_expectancy_usdc": .3},
+    }
+    artifact = payload("temporal_validation", ["a", "c"], False)
+    artifact.update({
+        "campaign_id": "v4",
+        "evaluated_candidate_temporal_metrics": evaluated,
+        "candidate_temporal_metrics": {key: evaluated[key] for key in ("a", "c")},
+        "pareto_candidate_ids": ["a", "c"],
+        "oos_trades": 30, "positive_windows_ratio": .6,
+        "oos_profit_factor": 1.15, "oos_drawdown_pct": 10,
+        "train_oos_expectancy_decay_pct": 50,
+    })
+    receipt = {"decision": "PASS", "candidate_ids": ["a", "c"],
+               "holdout_accessed": False}
+    assert validate_stage_artifact(
+        "temporal_validation", artifact, receipt, METHODOLOGY,
+        "v4", "synthetic_control") == []
+
+    artifact["candidate_temporal_metrics"] = {"b": evaluated["b"]}
+    artifact["pareto_candidate_ids"] = ["b"]
+    receipt["candidate_ids"] = ["b"]
+    errors = validate_stage_artifact(
+        "temporal_validation", artifact, receipt, METHODOLOGY,
+        "v4", "synthetic_control")
+    assert "STAGE_ARTIFACT:temporal_validation:PARETO_RECOMPUTES" in errors
 
 
 def test_v4_full_control_wires_ten_stages_without_becoming_promotable(tmp_path):

@@ -20,13 +20,16 @@ US500+VIX l'haurà d'utilitzar quan el gate de tres dies permeti formular-la.
    base/conservador/estrès i regió estable. No produeix estratègies SQ.
 3. `sq_generation`: projecte StrategyQuant nou; els candidats apareixen aquí
    per primera vegada i cada artefacte SQ queda lligat per SHA-256.
-4. `temporal_validation`: finestres independents i degradació limitada.
+4. `temporal_validation`: finestres independents, degradació limitada i front
+   Pareto recomputat sobre expectativa neta, drawdown i estabilitat.
 5. `robustness`: Monte Carlo, perturbació, estrès i liquidació.
 6. `small_account_economics`: 200 USDC, nocional, risc, marge, reserva i
    apalancament admès.
-7. `python_translation`: IR exacta i subset suportat.
-8. `parity`: senyals/trades 100%, candles ≥95% i PnL correlacionat ≥0,99.
-9. `paper`: configuració paper explícita; live continua requerint autorització
+7. `final_holdout_validation`: una sola obertura del 10% final amb candidat i
+   paràmetres congelats, sense retuneig.
+8. `python_translation`: IR exacta i subset suportat.
+9. `parity`: senyals/trades 100%, candles ≥95% i PnL correlacionat ≥0,99.
+10. `paper`: configuració paper explícita; live continua requerint autorització
    humana externa.
 
 `REJECT` i `BLOCK` són terminals. Una cadena sintètica pot demostrar que els
@@ -49,7 +52,7 @@ python -m lab.sq_bridge.evidence_chain verify \
   --methodology lab/sq_bridge/methodology_v4.json
 ```
 
-El control esperat té nou rebuts PASS, `operational_control_complete=true`, però
+El control esperat té deu rebuts PASS, `operational_control_complete=true`, però
 `promotable=false`, `paper_ready=false` i `live_authorized=false` perquè és
 sintètic.
 
@@ -77,6 +80,15 @@ artefacte SQ ha d'indicar les hipòtesis font aprovades, el hash de cada candida
 i el nombre de regles (1–3). El verificador de cadena comprova que aquestes
 hipòtesis són un subconjunt exacte de les que van passar `hypothesis_screen`;
 un candidat d'una família diferent queda invàlid encara que tingui bon PnL.
+SQ conserva tots els candidats únics, estructuralment admesos i traduïbles: el
+seu `fitness` no coneix encara tota l'economia Ostium ni l'estabilitat temporal
+i, per tant, no és el nostre selector final.
+
+El front Pareto es forma després, a `temporal_validation`, només entre candidats
+que superen els mínims OOS. Maximitza expectativa neta i proporció de finestres
+positives, i minimitza drawdown OOS. L'artefacte ha d'incloure les mètriques de
+tot l'univers rebut de `sq_generation`; el verificador recalcula dominància,
+impedeix ometre un rival i rebutja la promoció d'un candidat dominat.
 
 El screen, la validació temporal i la robustesa publiquen mètriques individuals
 per cada hipòtesi/candidat. Els camps agregats són sempre el pitjor cas

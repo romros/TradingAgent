@@ -13,6 +13,10 @@ from lab.sq_bridge.sqx_to_ir import canonical_ir
 from lab.sq_bridge.parity_artifact_v4 import compare_traces
 from lab.sq_bridge.final_holdout_artifact_v4 import evaluate_trace as evaluate_holdout_trace
 from lab.sq_bridge.paper_package_artifact_v4 import verify_package
+from lab.sq_bridge.temporal_validation_artifact_v4 import (
+    evaluate_trace as evaluate_temporal_trace,
+    pareto as temporal_pareto,
+)
 
 
 def _number(value: Any) -> bool:
@@ -67,6 +71,26 @@ def _verified_json(path_value: Any, digest: Any, artifact_path: str) -> dict | N
     except (OSError, ValueError):
         return None
     return value if isinstance(value, dict) else None
+
+
+def _verified_temporal_sources(paths: Any, hashes: Any, reported: Any,
+                               artifact_path: str) -> bool:
+    if not isinstance(reported, dict) or not _verified_files(
+            paths, hashes, sorted(reported), artifact_path):
+        return False
+    base = Path(artifact_path).resolve().parent
+    recomputed = {}
+    try:
+        for candidate_id, value in paths.items():
+            path = Path(value)
+            path = path if path.is_absolute() else base / path
+            metrics = evaluate_temporal_trace(json.loads(path.read_text()))
+            if metrics.pop("candidate_id") != candidate_id:
+                return False
+            recomputed[candidate_id] = metrics
+    except (OSError, TypeError, ValueError):
+        return False
+    return recomputed == reported
 
 
 def _verified_sqx_contracts(paths: Any, expected_ids: list[str], artifact_path: str,
@@ -334,6 +358,8 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
         checks = {
             "SQ_SOURCE": artifact.get("generator") == "StrategyQuant",
             "SEARCH_METHOD": artifact.get("search_method") == generation["search_method"],
+            "SELECTION_POLICY": artifact.get("selection_policy")
+                == generation["selection_policy"],
             "ATTEMPTED": _at_least(artifact.get("attempted"), 1),
             "ATTEMPT_LIMIT": _at_most(
                 artifact.get("attempted"), generation["maximum_attempts"]),
@@ -398,6 +424,7 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
         }
         if methodology.get("schema_version", 1) >= 4:
             ids = receipt.get("candidate_ids", [])
+            evaluated = artifact.get("evaluated_candidate_temporal_metrics")
             valid = (isinstance(candidate_metrics, dict) and bool(candidate_metrics)
                      and set(candidate_metrics) == set(ids)
                      and all(isinstance(metric, dict) for metric in candidate_metrics.values()))
@@ -407,9 +434,42 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                 and _at_least(metric.get("oos_profit_factor"), 0)
                 and _between(metric.get("oos_drawdown_pct"), 0, 100)
                 and _number(metric.get("train_oos_expectancy_decay_pct"))
+                and _number(metric.get("net_expectancy_usdc"))
                 for metric in candidate_metrics.values())
+            evaluated_valid = (isinstance(evaluated, dict) and bool(evaluated)
+                and all(isinstance(metric, dict) for metric in evaluated.values())
+                and all(
+                    _at_least(metric.get("oos_trades"), 0)
+                    and _between(metric.get("positive_windows_ratio"), 0, 1)
+                    and _at_least(metric.get("oos_profit_factor"), 0)
+                    and _between(metric.get("oos_drawdown_pct"), 0, 100)
+                    and _number(metric.get("train_oos_expectancy_decay_pct"))
+                    and _number(metric.get("net_expectancy_usdc"))
+                    for metric in evaluated.values()))
+            passing = ({key: metric for key, metric in evaluated.items()
+                        if metric["oos_trades"] >= temporal["minimum_trades_oos"]
+                        and metric["positive_windows_ratio"]
+                            >= temporal["minimum_positive_windows_ratio"]
+                        and metric["oos_profit_factor"] >= temporal["minimum_oos_profit_factor"]
+                        and metric["oos_drawdown_pct"] <= temporal["maximum_oos_drawdown_pct"]
+                        and metric["train_oos_expectancy_decay_pct"]
+                            <= temporal["maximum_train_oos_expectancy_decay_pct"]}
+                       if evaluated_valid else {})
+            pareto = temporal_pareto(passing) if passing else []
             checks.update({
                 "CANDIDATE_METRICS": valid,
+                "EVALUATED_METRICS": evaluated_valid,
+                "TRACE_CONTRACT": _verified_temporal_sources(
+                    artifact.get("temporal_trace_paths"),
+                    artifact.get("temporal_trace_sha256"), evaluated,
+                    receipt.get("artifact", ""))
+                    if provenance != "synthetic_control" else True,
+                "SELECTION_METRIC": artifact.get("selection_metric")
+                    == temporal["selection_metric"],
+                "PARETO_RECOMPUTES": evaluated_valid
+                    and artifact.get("pareto_candidate_ids") == pareto
+                    and ids == pareto
+                    and candidate_metrics == {key: evaluated[key] for key in pareto},
                 "OOS_TRADES_RECOMPUTES": valid and artifact.get("oos_trades")
                     == min(metric["oos_trades"] for metric in candidate_metrics.values()),
                 "POSITIVE_WINDOWS_RECOMPUTES": valid

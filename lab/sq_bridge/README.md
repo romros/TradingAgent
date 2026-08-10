@@ -267,6 +267,31 @@ hashes del databank a aquest snapshot. El validador torna a obrir els SQX i
 recalcula l'inventari: alterar el JSON o afegir/treure un fitxer després no pot
 fer passar una execució diferent.
 
+`sq_generation` conserva tots els candidats únics que compleixen el subset de
+traducció i el límit estructural; no declara un fals «millor candidat» a partir
+del fitness intern d'SQ. El front Pareto promocionable es calcula a
+`temporal_validation`, quan ja existeixen expectativa neta amb costos,
+drawdown OOS i estabilitat entre finestres. El rebut temporal ha d'incloure
+l'univers complet rebut d'SQ i el validador recalcula tant els dominats com els
+IDs seleccionats.
+
+Cada candidat aporta un trace `temporal_validation_trade_trace` amb capital 200,
+hash del model de costos base, trades train i finestres OOS UTC no solapades.
+L'artefacte no s'edita manualment:
+
+```bash
+PYTHONPATH=../.. python3 temporal_validation_artifact_v4.py \
+  --campaign-id CAMPAIGN_ID \
+  --trace /path/to/candidate-a.temporal.trace.json \
+  --trace /path/to/candidate-b.temporal.trace.json \
+  --artifact-output /path/to/state/artifacts/04_temporal_validation.json
+```
+
+El constructor recomputa trades, PF, EV neta, drawdown, finestres positives i
+decay train→OOS; després aplica els gates i forma el front Pareto. Modificar un
+trace, ometre un candidat rebut d'SQ o declarar accés al holdout invalida el
+rebut.
+
 ## Holdout final v4
 
 El 10% final no s'obre durant traducció, paritat o paper. Després que robustesa

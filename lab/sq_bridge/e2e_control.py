@@ -50,6 +50,7 @@ def payload(stage: str, candidate_ids: list[str], holdout: bool) -> dict:
                               "applied_cost_scenarios": ["base", "conservative", "stress"],
                               "train_only": True, "future_periods_accessed": False},
         "sq_generation": {"generator": "StrategyQuant", "search_method": "genetic_evolution",
+                          "selection_policy": "all_supported_translatable_unique_candidates",
                           "attempted": 1, "source_hypothesis_ids": ["hypothesis-control"],
                           "selected_candidate_ids": candidate_ids,
                           "candidate_artifact_hashes": {candidate: "a" * 64
@@ -62,8 +63,17 @@ def payload(stage: str, candidate_ids: list[str], holdout: bool) -> dict:
                                 "candidate_temporal_metrics": {candidate: {
                                     "oos_trades": 30, "positive_windows_ratio": .6,
                                     "oos_profit_factor": 1.15, "oos_drawdown_pct": 20,
-                                    "train_oos_expectancy_decay_pct": 50}
-                                    for candidate in candidate_ids}},
+                                    "train_oos_expectancy_decay_pct": 50,
+                                    "net_expectancy_usdc": .1}
+                                    for candidate in candidate_ids},
+                                "evaluated_candidate_temporal_metrics": {candidate: {
+                                    "oos_trades": 30, "positive_windows_ratio": .6,
+                                    "oos_profit_factor": 1.15, "oos_drawdown_pct": 20,
+                                    "train_oos_expectancy_decay_pct": 50,
+                                    "net_expectancy_usdc": .1}
+                                    for candidate in candidate_ids},
+                                "pareto_candidate_ids": candidate_ids,
+                                "selection_metric": "pareto_net_expectancy_drawdown_window_stability"},
         "robustness": {"monte_carlo_runs": 1000, "profitable_monte_carlo_ratio": 0.7,
                        "parameter_perturbation_pct": 10, "cost_stress_multiplier": 2,
                        "stress_profit_factor": 1.05, "liquidation_probability": 0.001,

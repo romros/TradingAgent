@@ -42,7 +42,11 @@ def evaluate_trace(trace: dict, scenarios: list[str], cost_model: dict,
             or notional <= 0 or not isinstance(leverage, (int, float))
             or isinstance(leverage, bool) or leverage <= 0):
         raise ValueError("Sizing del holdout diferent del compte petit congelat")
-    cost_bucket, cost_bps, carry = select_cost_envelope(cost_model, float(notional))
+    cost_bucket, variable_bps, fixed_usdc, carry = select_cost_envelope(
+        cost_model, float(notional))
+    cost_bps = {scenario: variable_bps[scenario]
+                + fixed_usdc[scenario] / float(notional) * 10_000
+                for scenario in variable_bps}
     if trace.get("selection_frozen_before_holdout") is not True:
         raise ValueError("Seleccio no congelada abans del holdout")
     if trace.get("parameters_changed_after_holdout") is not False:
@@ -94,6 +98,8 @@ def evaluate_trace(trace: dict, scenarios: list[str], cost_model: dict,
         "selected_leverage": leverage,
         "cost_notional_bucket_usdc": cost_bucket,
         "cost_roundtrip_bps_by_scenario": cost_bps,
+        "cost_variable_roundtrip_bps_by_scenario": variable_bps,
+        "cost_fixed_usdc_by_scenario": fixed_usdc,
         "trades": len(trades),
         "profit_factor_by_cost": profit_factors,
         "net_expectancy_usdc_by_cost": expectancy,

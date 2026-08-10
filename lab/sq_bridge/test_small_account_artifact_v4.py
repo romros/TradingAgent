@@ -4,7 +4,9 @@ from pathlib import Path
 
 import pytest
 
-from lab.sq_bridge.small_account_artifact_v4 import build_artifact, evaluate_trace
+from lab.sq_bridge.small_account_artifact_v4 import (
+    build_artifact, evaluate_trace, select_cost_envelope,
+)
 from lab.sq_bridge.stage_artifact_contract import validate_stage_artifact
 
 
@@ -95,6 +97,36 @@ def test_small_account_recomputes_performance_sizing_and_real_contract(tmp_path)
     assert validate_stage_artifact(
         "small_account_economics", artifact, receipt, methodology,
         "campaign", "alquimia_native") == []
+
+
+def test_fixed_oracle_is_not_scaled_down_from_larger_cost_bucket(tmp_path):
+    costs = _cost_model(tmp_path)
+    model = json.loads(costs.read_text())
+    row = model["by_notional"]["500"]
+    row.update({
+        "stress_variable_roundtrip_bps": 2,
+        "oracle_net_usdc": {"base": 0, "conservative": 0, "stress": .1},
+        # 2 variable bps + 2 bucket-equivalent bps for the fixed oracle.
+        "stress_roundtrip_bps": 4,
+    })
+    bucket, variable, fixed, _ = select_cost_envelope(model, 300)
+    assert bucket == 500
+    assert variable["stress"] == 2
+    assert fixed["stress"] == pytest.approx(.1)
+    effective_bps = variable["stress"] + fixed["stress"] / 300 * 10_000
+    assert effective_bps == pytest.approx(5.333333333333333)
+    assert 300 * variable["stress"] / 10_000 + fixed["stress"] == pytest.approx(.16)
+    costs.write_text(json.dumps(model, sort_keys=True) + "\n")
+    trace = _trace()
+    digest = hashlib.sha256(costs.read_bytes()).hexdigest()
+    trace["cost_model_sha256"] = digest
+    result = evaluate_trace(
+        trace, json.loads((ROOT / "methodology_v4.json").read_text())["small_account"],
+        {"tested_leverage": 5, "venue_max_leverage": 100}, model, digest)
+    assert result["entry_cost_buffer_usdc"] == pytest.approx(.16)
+    assert result["cost_fixed_usdc_by_scenario"]["stress"] == pytest.approx(.1)
+    assert result["cost_roundtrip_bps_by_scenario"]["stress"] == pytest.approx(
+        5.333333333333333)
 
 
 def test_small_account_selects_best_worst_cost_expectancy_deterministically(tmp_path):

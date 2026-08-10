@@ -96,7 +96,9 @@ Monte Carlo ha de declarar costat i durada fins a cada MAE. Això maximitza leve
 dins del risc; no confon leverage amb augmentar arbitràriament el nocional.
 El nocional queda fixat per `200 × risc% / stop%`; canviar leverage només canvia
 el col·lateral requerit. Abans de calcular la reserva es bloqueja també
-`notional × stress_roundtrip_bps / 10.000` com a buffer de caixa d'entrada. És
+`notional × stress_variable_roundtrip_bps / 10.000 + stress_fixed_cost_usdc`
+com a buffer de caixa d'entrada. Els costos fixos (com l'oracle no retornat)
+mai es reescalen amb els bps del bucket superior: es mantenen en USDC. És
 més advers que el fee inicial real perquè usa el round-trip complet, inclòs
 l'oracle d'estrès; impedeix declarar reserva ≥40% i gastar-la després en
 friccions. Col·lateral, buffer, capital compromès i reserva passen al paquet de

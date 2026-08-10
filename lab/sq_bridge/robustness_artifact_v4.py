@@ -32,7 +32,8 @@ def _number(value: object, message: str) -> float:
     return float(value)
 
 
-def _aggregate_net(row: dict, notional: float, roundtrip_bps: float,
+def _aggregate_net(row: dict, notional: float, variable_roundtrip_bps: float,
+                   fixed_cost_usdc: float,
                    carry: dict, label: str) -> float:
     gross = _number(row.get("gross_pnl_usdc"), f"PnL brut {label} invalid")
     trades = _number(row.get("trade_count"), f"Nombre de trades {label} invalid")
@@ -45,7 +46,8 @@ def _aggregate_net(row: dict, notional: float, roundtrip_bps: float,
                 "Carry stress long absent") * long_days
         + _number((carry.get("short") or {}).get("stress_annual_cost_pct"),
                   "Carry stress short absent") * short_days)
-    return gross - trades * notional * roundtrip_bps / 10_000 - carry_cost
+    return (gross - trades * (notional * variable_roundtrip_bps / 10_000
+                              + fixed_cost_usdc) - carry_cost)
 
 
 def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
@@ -76,9 +78,14 @@ def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
     notional = trace.get("evaluation_notional_usdc")
     if notional != gate["evaluation_notional_usdc"]:
         raise ValueError("Nocional canonic de robustesa invalid")
-    cost_bucket, cost_bps, carry = select_cost_envelope(cost_model, float(notional))
-    robust_bps = max(cost_bps["stress"],
-                     gate["cost_stress_multiplier"] * cost_bps["base"])
+    cost_bucket, variable_bps, fixed_usdc, carry = select_cost_envelope(
+        cost_model, float(notional))
+    robust_variable_bps = max(
+        variable_bps["stress"],
+        gate["cost_stress_multiplier"] * variable_bps["base"])
+    robust_fixed_usdc = fixed_usdc["stress"]
+    robust_bps = (robust_variable_bps
+                  + robust_fixed_usdc / float(notional) * 10_000)
 
     runs = trace.get("monte_carlo_runs")
     if not isinstance(runs, list) or len(runs) != gate["monte_carlo_runs"]:
@@ -89,7 +96,8 @@ def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
         if not isinstance(row, dict) or not isinstance(row.get("run_id"), str):
             raise ValueError("Simulacio Monte Carlo invalida")
         run_ids.append(row["run_id"])
-        pnl = _aggregate_net(row, notional, robust_bps, carry, "Monte Carlo")
+        pnl = _aggregate_net(row, notional, robust_variable_bps,
+                             robust_fixed_usdc, carry, "Monte Carlo")
         adverse_excursion = _number(
             row.get("maximum_adverse_excursion_pct"), "Excursio adversa Monte Carlo invalida")
         if adverse_excursion < 0:
@@ -123,7 +131,8 @@ def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
         if abs(perturbation) != gate["parameter_perturbation_pct"]:
             raise ValueError("La variant no aplica la pertorbacio preregistrada")
         profitable_variants += _aggregate_net(
-            row, notional, robust_bps, carry, "de variant") > 0
+            row, notional, robust_variable_bps, robust_fixed_usdc,
+            carry, "de variant") > 0
     if variant_ids != sorted(set(variant_ids)):
         raise ValueError("variant_id ha de ser unic i ordenat")
 
@@ -164,6 +173,8 @@ def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
         "evaluation_notional_usdc": notional,
         "cost_notional_bucket_usdc": cost_bucket,
         "robust_roundtrip_bps": robust_bps,
+        "robust_variable_roundtrip_bps": robust_variable_bps,
+        "robust_fixed_cost_usdc": robust_fixed_usdc,
     }
 
 

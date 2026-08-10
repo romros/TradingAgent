@@ -72,7 +72,11 @@ def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
     notional = _number(trace.get("screen_notional_usdc"))
     if notional != gate["screen_notional_usdc"]:
         raise ValueError("Nocional canonic del screen invalid")
-    cost_bucket, cost_bps, carry = select_cost_envelope(cost_model, notional)
+    cost_bucket, variable_bps, fixed_usdc, carry = select_cost_envelope(
+        cost_model, notional)
+    cost_bps = {scenario: variable_bps[scenario]
+                + fixed_usdc[scenario] / notional * 10_000
+                for scenario in variable_bps}
     hypotheses = trace.get("hypotheses")
     if not isinstance(hypotheses, list) or not hypotheses:
         raise ValueError("Hipotesis del screen absents")
@@ -128,6 +132,8 @@ def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
             "screen_notional_usdc": notional,
             "cost_notional_bucket_usdc": cost_bucket,
             "cost_roundtrip_bps_by_scenario": cost_bps,
+            "cost_variable_roundtrip_bps_by_scenario": variable_bps,
+            "cost_fixed_usdc_by_scenario": fixed_usdc,
             "selected_hypothesis_ids": selected}
 
 
@@ -161,6 +167,9 @@ def build_artifact(*, campaign_id: str, trace_path: Path,
         "screen_notional_usdc": result["screen_notional_usdc"],
         "cost_notional_bucket_usdc": result["cost_notional_bucket_usdc"],
         "cost_roundtrip_bps_by_scenario": result["cost_roundtrip_bps_by_scenario"],
+        "cost_variable_roundtrip_bps_by_scenario": (
+            result["cost_variable_roundtrip_bps_by_scenario"]),
+        "cost_fixed_usdc_by_scenario": result["cost_fixed_usdc_by_scenario"],
         "cost_model_path": _relative(cost_model_path, artifact_path.resolve().parent),
         "cost_model_sha256": cost_hash,
         "hypothesis_screen_trace_path": _relative(trace_path, artifact_path.resolve().parent),

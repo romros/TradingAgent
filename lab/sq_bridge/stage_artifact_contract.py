@@ -207,7 +207,11 @@ def _verified_hypothesis_screen_source(artifact: dict, artifact_path: str,
             and artifact.get("cost_notional_bucket_usdc")
                 == result["cost_notional_bucket_usdc"]
             and artifact.get("cost_roundtrip_bps_by_scenario")
-                == result["cost_roundtrip_bps_by_scenario"])
+                == result["cost_roundtrip_bps_by_scenario"]
+            and artifact.get("cost_variable_roundtrip_bps_by_scenario")
+                == result["cost_variable_roundtrip_bps_by_scenario"]
+            and artifact.get("cost_fixed_usdc_by_scenario")
+                == result["cost_fixed_usdc_by_scenario"])
 
 
 def _verified_market_preflight_source(artifact: dict, artifact_path: str) -> bool:

@@ -21,7 +21,8 @@ distància és aproximadament 4,875%.
 El backtest redueix aquesta distància amb una erosió conservadora:
 
 ```text
-execution_erosion_pct = stress_roundtrip_bps / 100
+execution_erosion_pct = (stress_variable_roundtrip_bps
+                         + stress_fixed_cost_usdc / actual_notional * 10_000) / 100
 carry_erosion_pct = stress_annual_cost_pct(side) × days_to_MAE / 365.25
 effective_distance_pct = max(0,
     nominal_distance_pct - execution_erosion_pct - carry_erosion_pct)

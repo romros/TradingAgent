@@ -86,7 +86,11 @@ def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
     notional = trace.get("evaluation_notional_usdc")
     if notional != gate["evaluation_notional_usdc"]:
         raise ValueError("Nocional temporal canonic invalid")
-    cost_bucket, cost_bps, carry = select_cost_envelope(cost_model, float(notional))
+    cost_bucket, variable_bps, fixed_usdc, carry = select_cost_envelope(
+        cost_model, float(notional))
+    cost_bps = {scenario: variable_bps[scenario]
+                + fixed_usdc[scenario] / float(notional) * 10_000
+                for scenario in variable_bps}
 
     train_end = _utc(trace.get("train_end_utc"))
     seen: set[str] = set()
@@ -137,6 +141,8 @@ def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
         "evaluation_notional_usdc": notional,
         "cost_notional_bucket_usdc": cost_bucket,
         "base_roundtrip_bps": cost_bps["base"],
+        "base_variable_roundtrip_bps": variable_bps["base"],
+        "base_fixed_cost_usdc": fixed_usdc["base"],
         "oos_trades": len(all_oos),
         "positive_windows_ratio": sum(value > 0 for value in window_totals) / len(window_totals),
         "oos_profit_factor": wins / losses,

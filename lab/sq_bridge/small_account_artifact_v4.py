@@ -43,7 +43,18 @@ def cost_buffered_liquidation_distance_pct(
                    roundtrip_bps, annual_cost_pct, holding_days))
 
 
-def select_cost_envelope(cost_model: dict, notional: float) -> tuple[float, dict, dict]:
+def select_cost_envelope(
+        cost_model: dict, notional: float) -> tuple[float, dict, dict, dict]:
+    """Select a conservative measured bucket without scaling fixed costs.
+
+    The measured variable execution rate may safely come from the next-higher
+    notional bucket.  A fixed oracle charge must still be charged in USDC at
+    its original amount; converting it to bucket bps and applying those bps to
+    a smaller actual notional would undercharge it.
+    """
+    notional = _number(notional, "Nocional de costos invalid")
+    if notional <= 0:
+        raise ValueError("Nocional de costos ha de ser positiu")
     if (cost_model.get("decision") != "PASS_COSTS_FROZEN"
             or cost_model.get("costs_frozen") is not True):
         raise ValueError("Model de costos no congelat")
@@ -55,13 +66,34 @@ def select_cost_envelope(cost_model: dict, notional: float) -> tuple[float, dict
     if bucket is None:
         raise ValueError("Nocional fora de la graella de costos mesurada")
     row = rows[format(bucket, "g")]
-    bps = {scenario: _number(row.get(f"{scenario}_roundtrip_bps"),
-                             f"Cost {scenario} absent")
-           for scenario in ("base", "conservative", "stress")}
+    scenarios = ("base", "conservative", "stress")
+    fixed = row.get("oracle_net_usdc", {})
+    if not isinstance(fixed, dict):
+        raise ValueError("Costos fixos d'oracle invalids")
+    fixed_usdc = {scenario: _number(fixed.get(scenario, 0.0),
+                                    f"Cost fix {scenario} invalid")
+                  for scenario in scenarios}
+    variable_bps = {}
+    for scenario in scenarios:
+        total = _number(row.get(f"{scenario}_roundtrip_bps"),
+                        f"Cost {scenario} absent")
+        explicit = row.get(f"{scenario}_variable_roundtrip_bps")
+        if explicit is None:
+            # Backward-compatible interpretation of already frozen evidence.
+            # The total field was expressed at the measured bucket.
+            variable = total - fixed_usdc[scenario] / bucket * 10_000
+        else:
+            variable = _number(explicit, f"Cost variable {scenario} invalid")
+            expected_total = variable + fixed_usdc[scenario] / bucket * 10_000
+            if not math.isclose(total, expected_total, rel_tol=1e-9, abs_tol=1e-9):
+                raise ValueError(f"Descomposicio de cost {scenario} inconsistent")
+        if variable < 0:
+            raise ValueError(f"Cost variable {scenario} negatiu")
+        variable_bps[scenario] = variable
     carry = cost_model.get("carry")
     if not isinstance(carry, dict):
         raise ValueError("Carry de costos absent")
-    return bucket, bps, carry
+    return bucket, variable_bps, fixed_usdc, carry
 
 
 def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
@@ -91,7 +123,11 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
         raise ValueError("Hash de costos de compte petit no coincideix")
 
     notional = capital * risk_pct / stop_pct
-    cost_bucket, cost_bps, carry = select_cost_envelope(cost_model, notional)
+    cost_bucket, variable_bps, fixed_usdc, carry = select_cost_envelope(
+        cost_model, notional)
+    cost_bps = {scenario: variable_bps[scenario]
+                + fixed_usdc[scenario] / notional * 10_000
+                for scenario in variable_bps}
 
     scenarios = gate["cost_scenarios_required"]
     trades = trace.get("trades")
@@ -139,7 +175,8 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
     # Reserve the full stress round-trip (including the stress oracle policy)
     # before sizing. This is stricter than the actual entry cash charge and
     # prevents a 200 USDC account from spending its declared reserve on fees.
-    entry_cost_buffer_usdc = notional * cost_bps["stress"] / 10_000
+    entry_cost_buffer_usdc = (notional * variable_bps["stress"] / 10_000
+                              + fixed_usdc["stress"])
     for leverage in grid:
         collateral = notional / leverage
         margin_pct = collateral / capital * 100
@@ -199,6 +236,8 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
         "position_notional_usdc": notional, "venue_max_leverage": venue_max,
         "cost_notional_bucket_usdc": cost_bucket,
         "cost_roundtrip_bps_by_scenario": cost_bps,
+        "cost_variable_roundtrip_bps_by_scenario": variable_bps,
+        "cost_fixed_usdc_by_scenario": fixed_usdc,
         "robustness_tested_leverage": tested_leverage,
         "liquidation_model": gate["liquidation_model"],
         "evaluated_leverage_grid": grid, "leverage_evaluations": evaluations,
@@ -293,6 +332,9 @@ def build_artifact(*, campaign_id: str, trace_paths: list[Path],
             "position_notional_usdc": row["position_notional_usdc"],
             "cost_notional_bucket_usdc": row["cost_notional_bucket_usdc"],
             "cost_roundtrip_bps_by_scenario": row["cost_roundtrip_bps_by_scenario"],
+            "cost_variable_roundtrip_bps_by_scenario": (
+                row["cost_variable_roundtrip_bps_by_scenario"]),
+            "cost_fixed_usdc_by_scenario": row["cost_fixed_usdc_by_scenario"],
             "collateral_usdc": row["collateral_usdc"],
             "entry_cost_buffer_usdc": row["entry_cost_buffer_usdc"],
             "capital_committed_usdc": row["capital_committed_usdc"],

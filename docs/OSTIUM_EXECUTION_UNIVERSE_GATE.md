@@ -21,6 +21,11 @@ Cada parell manté raw, normalitzat i resum. El resum inclou fee, spread,
 slippage per nocional, cost roundtrip calculat captura per captura, rollover
 separat long/short, leverage i mínim nocional.
 
+`getSimSlippage().slippage` és `priceImpactP`: ja inclou el component bid/ask.
+El round-trip suma fee + impacte long-open + impacte short-open; el spread
+observat es conserva com a diagnòstic i no es duplica. Derivació completa a
+[`OSTIUM_SLIPPAGE_SEMANTICS_AUDIT.md`](OSTIUM_SLIPPAGE_SEMANTICS_AUDIT.md).
+
 ## Primer smoke observat
 
 El 2026-08-10 els cinc tokens van respondre amb mercat obert. Els fees observats

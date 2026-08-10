@@ -7,6 +7,7 @@ class NormalizeOstiumSnapshotTest(unittest.TestCase):
     def fixture(self):
         return {
             "capturedAt": "2026-08-08T12:00:00Z",
+            "requestedNotionalsUsd": ["10", "200"],
             "source": {"package": "@ostium/builder-sdk", "version": "0.7.0", "mode": "read-only"},
             "pair": {
                 "pairId": "10", "pairFrom": "US500", "pairTo": "USD", "category": "Indices",
@@ -19,7 +20,8 @@ class NormalizeOstiumSnapshotTest(unittest.TestCase):
             },
             "simulatedSlippage": {
                 "long": [{"ntl": "200", "slippage": "0.02"}, {"ntl": "10", "slippage": "0.01"}],
-                "short": [{"ntl": "10", "slippage": "0.03"}],
+                "short": [{"ntl": "10", "slippage": "0.03"},
+                          {"ntl": "200", "slippage": "0.04"}],
             },
         }
 
@@ -50,6 +52,16 @@ class NormalizeOstiumSnapshotTest(unittest.TestCase):
         result = normalize(payload, expected_pair=("USD", "JPY"))
         self.assertEqual(result["instrument"]["pair_from"], "USD")
         with self.assertRaisesRegex(ValueError, "SPX/USD"):
+            normalize(payload)
+
+    def test_rejects_negative_duplicate_or_missing_slippage_points(self):
+        payload = self.fixture()
+        payload["simulatedSlippage"]["long"][0]["slippage"] = "-0.01"
+        with self.assertRaisesRegex(ValueError, "non-negative"):
+            normalize(payload)
+        payload = self.fixture()
+        payload["simulatedSlippage"]["short"].pop()
+        with self.assertRaisesRegex(ValueError, "do not match"):
             normalize(payload)
 
 

@@ -81,14 +81,17 @@ def aggregate(
         if set(row_points["long"]) != set(row_points["short"]):
             raise ValueError("long/short slippage notionals do not match")
         fees = float(row["fees"]["open_fee_bps"]) + float(row["fees"]["close_fee_bps"])
-        spread = float(row["quote"]["spread_bps"])
         for key in row_points["long"]:
             long_slip, short_slip = row_points["long"][key], row_points["short"][key]
             routes = roundtrip_by_notional.setdefault(
                 key, {"direction_neutral": [], "long": [], "short": []})
-            routes["direction_neutral"].append(fees + spread + long_slip + short_slip)
-            routes["long"].append(fees + spread + 2 * long_slip)
-            routes["short"].append(fees + spread + 2 * short_slip)
+            # SDK priceImpactP already contains the bid/ask component. An open
+            # and its eventual close consume opposing execution sides, so the
+            # only observable round-trip proxy is long-open + short-open.
+            roundtrip = fees + long_slip + short_slip
+            routes["direction_neutral"].append(roundtrip)
+            routes["long"].append(roundtrip)
+            routes["short"].append(roundtrip)
     slippage = {}
     for notional, sides in sorted(by_notional.items(), key=lambda item: float(item[0])):
         slippage[notional] = {
@@ -135,8 +138,9 @@ def aggregate(
         },
         "cost_model": {
             "unit": "basis_points_of_notional",
-            "direction_neutral_formula": "open_fee + close_fee + spread + long_simulated_slippage + short_simulated_slippage",
-            "route_formula": "open_fee + close_fee + spread + 2 * same_side_simulated_slippage",
+            "direction_neutral_formula": "open_fee + close_fee + long_open_price_impact + short_open_price_impact",
+            "route_formula": "same opposing-side proxy for long and short round-trips",
+            "spread_semantics": "SDK priceImpactP already includes its bid/ask component; separately observed spread is diagnostic only",
             "limitation": "SDK quote and simulated-slippage proxy, not observed fills",
         },
     }

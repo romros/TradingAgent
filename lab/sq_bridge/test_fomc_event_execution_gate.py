@@ -47,7 +47,7 @@ def test_gate_is_fail_closed_and_cost_formula_is_a_proxy():
     result = evaluate(rows, event_date=date(2026, 9, 16))
     assert result["gate"]["status"] == "EVENT_EXECUTION_EVIDENCE_READY"
     assert result["phases"]["pre"]["estimated_cost_by_notional"]["200"][
-        "direction_neutral_roundtrip_proxy_bps"]["p50"] == 5
+        "direction_neutral_roundtrip_proxy_bps"]["p50"] == 4
     assert result["cost_model"]["limitation"].endswith("not observed fills.")
     assert result["live_authorized"] is False
     rows.pop()

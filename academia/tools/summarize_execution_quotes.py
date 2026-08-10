@@ -113,7 +113,7 @@ def summarize(rows: list[dict], *, min_days: int = 3, min_per_window: int = 20,
             "rollover_short_pct_per_8h": rollover_short,
             "slippage_bps": impacts,
             "roundtrip_proxy_bps": {
-                notional: spread_bps + open_fee + close_fee
+                notional: open_fee + close_fee
                 + impacts["long"][notional] + impacts["short"][notional]
                 for notional in TARGET_NOTIONALS
             },
@@ -195,7 +195,7 @@ def summarize(rows: list[dict], *, min_days: int = 3, min_per_window: int = 20,
         "spread_bps_by_window": by_window,
         "slippage_bps_by_notional_and_side": slippage_summary,
         "roundtrip_proxy_bps_by_notional": roundtrip_summary,
-        "roundtrip_proxy_definition": "full bid-ask spread + open fee + close fee + long entry impact + short entry impact; carry and refundable oracle fee excluded",
+        "roundtrip_proxy_definition": "open fee + close fee + long-open SDK price impact + short-open SDK price impact; price impact already contains bid/ask, carry and refundable oracle excluded",
         "rollover_pct_per_8h": rollover_summary,
         "decision": "MEASURED" if coverage_pass else "INSUFFICIENT_OPEN_SESSION_COVERAGE",
     }

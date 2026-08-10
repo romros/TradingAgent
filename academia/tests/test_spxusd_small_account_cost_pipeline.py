@@ -46,9 +46,9 @@ class SpxSmallAccountCostPipelineTest(unittest.TestCase):
         self.assertEqual(costs["qualifying_complete_days"],
                          ["2026-08-01", "2026-08-02", "2026-08-03"])
         self.assertAlmostEqual(costs["by_notional"]["200"]["base_roundtrip_bps"],
-                               3.1333333333333333)
+                               1.8)
         self.assertAlmostEqual(costs["by_notional"]["200"]["stress_roundtrip_bps"],
-                               11.266666666666666)
+                               8.6)
         self.assertFalse(costs["paper_authorized"])
         self.assertFalse(costs["live_authorized"])
 

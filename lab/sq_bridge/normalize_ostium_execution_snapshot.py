@@ -43,16 +43,30 @@ def normalize(payload: dict[str, Any], *, source_sha256: str | None = None,
     spread_bps = (ask - bid) / mid * 10_000.0
 
     sim = payload.get("simulatedSlippage") or {}
+    requested = [_number(value, "requestedNotionalsUsd")
+                 for value in payload.get("requestedNotionalsUsd", [])]
+    if (not requested or any(value <= 0 for value in requested)
+            or len(set(requested)) != len(requested)):
+        raise ValueError("requestedNotionalsUsd must contain unique positive notionals")
     normalized_sim: dict[str, list[dict[str, float]]] = {}
     for side in ("long", "short"):
         rows = []
+        seen: set[float] = set()
         for row in sim.get(side, []):
             slippage_pct = _number(row.get("slippage"), f"{side}.slippage")
+            notional = _number(row.get("ntl"), f"{side}.ntl")
+            if notional <= 0 or notional in seen:
+                raise ValueError(f"{side} slippage notionals must be unique and positive")
+            if slippage_pct < 0:
+                raise ValueError(f"{side}.slippage must be non-negative")
+            seen.add(notional)
             rows.append({
-                "notional_usd": _number(row.get("ntl"), f"{side}.ntl"),
+                "notional_usd": notional,
                 "slippage_pct": slippage_pct,
                 "slippage_bps": slippage_pct * 100.0,
             })
+        if seen != set(requested):
+            raise ValueError(f"{side} slippage notionals do not match requestedNotionalsUsd")
         normalized_sim[side] = sorted(rows, key=lambda row: row["notional_usd"])
 
     rollover = pair.get("rolloverRate") or {}
@@ -105,6 +119,7 @@ def normalize(payload: dict[str, Any], *, source_sha256: str | None = None,
         "interpretation": {
             "spread_status": "OBSERVED_SINGLE_SNAPSHOT",
             "slippage_unit_status": "VERIFIED_PERCENT_FROM_SDK_TYPES_AND_FORMULAE",
+            "slippage_spread_semantics": "PRICE_IMPACT_ALREADY_INCLUDES_BID_ASK_COMPONENT",
             "paper_gate": "BLOCKED_UNTIL_OPEN_MARKET_TIME_SERIES",
         },
     }

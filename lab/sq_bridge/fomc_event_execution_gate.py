@@ -109,12 +109,12 @@ def evaluate(snapshots: list[dict[str, Any]], *, event_date: date,
             short_routes = []
             for row in rows:
                 fees = float(row["fees"]["open_fee_bps"]) + float(row["fees"]["close_fee_bps"])
-                spread = float(row["quote"]["spread_bps"])
                 long_slip = _slippage(row, "long", notional)
                 short_slip = _slippage(row, "short", notional)
-                costs.append(fees + spread + long_slip + short_slip)
-                long_routes.append(fees + spread + 2 * long_slip)
-                short_routes.append(fees + spread + 2 * short_slip)
+                roundtrip = fees + long_slip + short_slip
+                costs.append(roundtrip)
+                long_routes.append(roundtrip)
+                short_routes.append(roundtrip)
             by_notional[format(notional, "g")] = {
                 "direction_neutral_roundtrip_proxy_bps": _distribution(costs),
                 "long_roundtrip_proxy_bps": _distribution(long_routes),
@@ -155,8 +155,9 @@ def evaluate(snapshots: list[dict[str, Any]], *, event_date: date,
         },
         "cost_model": {
             "unit": "basis_points_of_notional",
-            "direction_neutral_formula": "open_fee + close_fee + spread + long_simulated_slippage + short_simulated_slippage",
-            "route_formula": "open_fee + close_fee + spread + 2 * same_side_simulated_slippage",
+            "direction_neutral_formula": "open_fee + close_fee + long_open_price_impact + short_open_price_impact",
+            "route_formula": "same opposing-side proxy for long and short round-trips",
+            "spread_semantics": "SDK priceImpactP already includes bid/ask; separately observed spread is diagnostic only",
             "limitation": "SDK quote and simulated-slippage proxy, not observed fills.",
         },
         "read_only": True,

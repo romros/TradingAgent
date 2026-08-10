@@ -28,7 +28,10 @@ paper o live directament.
 
 Per cada nocional, el proxy round-trip mesurat és:
 
-`spread complet + fee d'obertura + fee de tancament + impacte long + impacte short`
+`fee d'obertura + fee de tancament + priceImpactP long-open + priceImpactP short-open`
+
+`priceImpactP` ja incorpora el component bid/ask segons la fórmula de l'SDK.
+El spread capturat es conserva com a diagnòstic i no se suma una segona vegada.
 
 Els escenaris preregistrats són:
 

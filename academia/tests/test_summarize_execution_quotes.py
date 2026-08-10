@@ -43,7 +43,7 @@ class SummarizeExecutionQuotesTest(unittest.TestCase):
         self.assertEqual(result["decision"], "MEASURED")
         self.assertAlmostEqual(result["spread_bps"]["p95"], 1.3333333333333333)
         self.assertAlmostEqual(result["roundtrip_proxy_bps_by_notional"]["200"]["median"],
-                               3.1333333333333333)
+                               1.8)
         self.assertEqual(result["qualifying_complete_days"],
                          ["2026-08-01", "2026-08-02", "2026-08-03"])
 

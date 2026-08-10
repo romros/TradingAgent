@@ -10,6 +10,9 @@ multidia o qualsevol gate de paper.
 
 El collector és estrictament read-only. Consulta `getPairs()` i
 `getSimSlippage()`; no signa, no envia ordres i no té credencials de trading.
+Crida explícitament `getPairs({builderFeeBps: 0})`; el normalitzador rebutja
+qualsevol recàrrec de builder perquè els costos de recerca no depenguin d'una
+configuració implícita del client.
 
 ## Univers monitoritzat
 

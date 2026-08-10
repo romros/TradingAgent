@@ -25,6 +25,9 @@ def normalize(payload: dict[str, Any], *, source_sha256: str | None = None,
     source = payload.get("source") or {}
     if source.get("mode") != "read-only":
         raise ValueError("snapshot source must be read-only")
+    builder_fee_bps = _number(source.get("builderFeeBps", 0), "source.builderFeeBps")
+    if builder_fee_bps != 0:
+        raise ValueError("research snapshots must use builderFeeBps=0")
     pair = payload.get("pair") or {}
     pair_from = str(pair.get("pairFrom", "")).upper()
     pair_to = str(pair.get("pairTo", "")).upper()
@@ -77,6 +80,7 @@ def normalize(payload: dict[str, Any], *, source_sha256: str | None = None,
             "package": source.get("package"),
             "version": source.get("version"),
             "mode": source.get("mode"),
+            "builder_fee_bps": builder_fee_bps,
             "raw_sha256": source_sha256,
         },
         "instrument": {

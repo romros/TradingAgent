@@ -8,7 +8,8 @@ class NormalizeOstiumSnapshotTest(unittest.TestCase):
         return {
             "capturedAt": "2026-08-08T12:00:00Z",
             "requestedNotionalsUsd": ["10", "200"],
-            "source": {"package": "@ostium/builder-sdk", "version": "0.7.0", "mode": "read-only"},
+            "source": {"package": "@ostium/builder-sdk", "version": "0.7.0",
+                       "mode": "read-only", "builderFeeBps": 0},
             "pair": {
                 "pairId": "10", "pairFrom": "US500", "pairTo": "USD", "category": "Indices",
                 "minSz": "0.001", "minNtl": "10", "maxBSz": "100", "maxSSz": "90",
@@ -33,11 +34,18 @@ class NormalizeOstiumSnapshotTest(unittest.TestCase):
         self.assertEqual(result["simulated_slippage"]["long"][0]["slippage_bps"], 1.0)
         self.assertTrue(result["limits"]["overnight_zero_means_unrestricted"])
         self.assertEqual(result["source"]["raw_sha256"], "abc")
+        self.assertEqual(result["source"]["builder_fee_bps"], 0)
 
     def test_rejects_non_read_only(self):
         payload = self.fixture()
         payload["source"]["mode"] = "self-and-self"
         with self.assertRaisesRegex(ValueError, "read-only"):
+            normalize(payload)
+
+    def test_rejects_builder_surcharge_in_research_capture(self):
+        payload = self.fixture()
+        payload["source"]["builderFeeBps"] = 1
+        with self.assertRaisesRegex(ValueError, "builderFeeBps=0"):
             normalize(payload)
 
     def test_rejects_bad_quote_order(self):

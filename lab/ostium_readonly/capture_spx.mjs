@@ -8,7 +8,8 @@ const requestedSymbols = (process.env.OSTIUM_PAIR || 'US500/USD,SPX/USD')
 const client = await OstiumClient.createReadOnly();
 if (!client.isReadOnly()) throw new Error('OSTIUM_CLIENT_NOT_READ_ONLY');
 
-const all = await client.getPairs();
+const builderFeeBps = 0;
+const all = await client.getPairs({ builderFeeBps });
 const pair = all.pairs.find((item) => {
   const symbol = `${item.pairFrom}/${item.pairTo}`.toUpperCase();
   return requestedSymbols.includes(symbol);
@@ -27,6 +28,7 @@ process.stdout.write(JSON.stringify({
     package: '@ostium/builder-sdk',
     version: '0.7.0',
     mode: 'read-only',
+    builderFeeBps,
   },
   requestedNotionalsUsd: notionals,
   requestedPairSymbols: requestedSymbols,

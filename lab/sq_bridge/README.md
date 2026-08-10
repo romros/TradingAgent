@@ -246,7 +246,18 @@ costos, règims i Ostium continuen sent obligatoris.
 
 Una campanya v4 no escriu a mà els PF train ni el nombre de veïns. Congela una
 graella finita `hypothesis_screen_grid_trace` amb variants centrals, topologia de
-veïnat i trades bruts amb costat i durada, i construeix el rebut:
+veïnat i trades bruts amb costat i durada. Per a EURUSD D1, el productor
+preregistrat crea aquesta graella només després de congelar costos:
+
+```bash
+PYTHONPATH=../.. python3 eurusd_d1_hypothesis_trace_v4.py \
+  --source /mnt/volume-SQ/user/imports/alquimia_eurusd_v4/EURUSD_ALQ_NY17_D1.csv \
+  --cost-model /path/to/eurusd_costs_frozen_v4.json \
+  --output /path/to/hypothesis-screen.trace.json
+```
+
+El trace queda lligat per SHA-256 al CSV canònic, al tall posicional de train i
+a totes les dates d'entrada i sortida. Després es construeix el rebut:
 
 ```bash
 PYTHONPATH=../.. python3 hypothesis_screen_artifact_v4.py \

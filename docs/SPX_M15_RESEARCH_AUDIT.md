@@ -139,6 +139,7 @@ EMA, gap, opening drive, compressió o dies de final de mes per rescatar experim
 - Economia: `lab/sq_bridge/spxusd_execution_economics.py`
 - Capturador: `scripts/capture_ostium_spx_economics.sh`
 - Gate agregat: `lab/sq_bridge/evidence/spxusd_ostium_execution_summary_latest.json`
+- Preflight VIX Cboe: `lab/sq_bridge/evidence/cboe_volatility_preflight_20260810.json`
 - Sessió v1: `lab/sq_bridge/spx_m15_session_screen_v1.py`
 - Compressió v2: `lab/sq_bridge/spx_m15_compression_expansion_v2.py`
 - Pullback v3: `lab/sq_bridge/spx_m15_trend_pullback_v3.py`

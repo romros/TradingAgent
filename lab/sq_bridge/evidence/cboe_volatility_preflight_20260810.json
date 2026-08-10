@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "authority": "Cboe official historical volatility index CSV endpoints",
+  "purpose": "external volatility-regime research input; not a tradable Ostium price",
+  "development": "2012-01-01/2018-12-31",
+  "series": [
+    {
+      "symbol": "VIX",
+      "source_url": "https://cdn.cboe.com/api/global/us_indices/daily_prices/VIX_History.csv",
+      "file": "lab/out/market_sources/vix_cboe/VIX_History.csv",
+      "sha256": "94dc475a4aac34afbeb96cc392b4d85c97097fa980781a663387d3e2aaf58d8d",
+      "bytes": 471289,
+      "rows": 9246,
+      "first_date": "1990-01-02",
+      "last_date": "2026-08-07",
+      "duplicate_dates": 0,
+      "invalid_ohlc_total": 47,
+      "invalid_ohlc_development": 0,
+      "development_2012_2018_rows": 1760,
+      "gate": "PASS"
+    },
+    {
+      "symbol": "VIX9D",
+      "source_url": "https://cdn.cboe.com/api/global/us_indices/daily_prices/VIX9D_History.csv",
+      "file": "lab/out/market_sources/vix_cboe/VIX9D_History.csv",
+      "sha256": "610cc52fde504451a2f194997bc24e6c0841cc1be26bb007c93355b39823aa7b",
+      "bytes": 199163,
+      "rows": 3921,
+      "first_date": "2011-01-04",
+      "last_date": "2026-08-07",
+      "duplicate_dates": 0,
+      "invalid_ohlc_total": 0,
+      "invalid_ohlc_development": 0,
+      "development_2012_2018_rows": 1760,
+      "gate": "PASS"
+    },
+    {
+      "symbol": "VIX3M",
+      "source_url": "https://cdn.cboe.com/api/global/us_indices/daily_prices/VIX3M_History.csv",
+      "file": "lab/out/market_sources/vix_cboe/VIX3M_History.csv",
+      "sha256": "bb9fd149de44a27856621934173461e42500eb5039607764ae5d3a8de154c381",
+      "bytes": 216622,
+      "rows": 4247,
+      "first_date": "2009-09-18",
+      "last_date": "2026-08-07",
+      "duplicate_dates": 0,
+      "invalid_ohlc_total": 0,
+      "invalid_ohlc_development": 0,
+      "development_2012_2018_rows": 1760,
+      "gate": "PASS"
+    }
+  ],
+  "gate": "PASS",
+  "performance_accessed": false,
+  "spx_validation_accessed": false,
+  "spx_holdout_accessed": false
+}

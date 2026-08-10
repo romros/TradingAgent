@@ -104,8 +104,9 @@ def derive(summary: dict[str, Any], *, oracle_locked_usdc: float = 0.10) -> dict
         stats = rollover.get(side)
         if not stats:
             raise ValueError(f"missing rollover statistics for {side}")
-        # Official Ostium semantics: negative rate is a credit. Historical
-        # research never counts today's credit as a backtest profit.
+        # Builder SDK getPairs() exposes display/PnL rate = -contract fee.
+        # Negative display is therefore a cost; positive display is a credit.
+        # Historical research never counts today's credit as backtest profit.
         rate = stats.get("median")
         try:
             rate = float(rate)
@@ -113,14 +114,15 @@ def derive(summary: dict[str, Any], *, oracle_locked_usdc: float = 0.10) -> dict
             raise ValueError(f"rollover {side} median must be numeric") from exc
         if not math.isfinite(rate):
             raise ValueError(f"rollover {side} median must be finite")
-        current_annual_cost_pct[side] = max(0.0, rate) * 3 * 365.25
+        current_annual_cost_pct[side] = max(0.0, -rate) * 3 * 365.25
     carry = {
         "base_annual_cost_pct": current_annual_cost_pct,
         "conservative_annual_cost_pct": {
             side: max(8.0, value) for side, value in current_annual_cost_pct.items()},
         "stress_annual_cost_pct": {
             side: max(12.0, value) for side, value in current_annual_cost_pct.items()},
-        "credit_policy": "negative current rollover is capped at zero; no historical credit inferred"
+        "rollover_sign_semantics": "builder SDK display/PnL rate = negative contract fee",
+        "credit_policy": "positive SDK display rate is capped at zero cost; no historical credit inferred"
     }
     return {"schema_version": 1, "decision": "PASS_COSTS_FROZEN",
             "costs_frozen": True, "qualifying_complete_days": qualifying_days,

@@ -1,3 +1,5 @@
+import pytest
+
 from lab.sq_bridge.spxusd_small_account_cost_gate import derive, write_atomic
 
 
@@ -30,7 +32,7 @@ def test_atomic_writer_leaves_only_complete_target(tmp_path):
     assert list(tmp_path.iterdir()) == [target]
 
 
-def test_measured_summary_refunds_oracle_except_under_stress_and_caps_credit():
+def test_measured_summary_refunds_oracle_and_converts_sdk_display_sign():
     result = derive(measured_summary())
     assert result["decision"] == "PASS_COSTS_FROZEN"
     assert result["by_notional"]["100"]["base_roundtrip_bps"] == 3
@@ -39,8 +41,8 @@ def test_measured_summary_refunds_oracle_except_under_stress_and_caps_credit():
     assert result["by_notional"]["200"]["stress_roundtrip_bps"] == 11
     assert result["by_notional"]["200"]["oracle_net_usdc"] == {
         "base": 0, "conservative": 0, "stress": 0.1}
-    assert result["carry"]["base_annual_cost_pct"]["long"] == 0
-    assert round(result["carry"]["base_annual_cost_pct"]["short"], 4) == 2.1915
+    assert result["carry"]["base_annual_cost_pct"]["long"] == pytest.approx(5.47875)
+    assert result["carry"]["base_annual_cost_pct"]["short"] == 0
 
 
 def test_measured_summary_without_200_usdc_notional_fails_closed():

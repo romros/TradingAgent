@@ -98,11 +98,17 @@ def derive(summary: dict[str, Any], *, expected_pair_id: str,
     for side in ("long", "short"):
         rate = number((fees.get(f"rollover_{side}_pct_per_8h") or {}).get("p50"),
                       f"rollover_{side}", nonnegative=False)
+        # Builder SDK getPairs() exposes a display/PnL rate, not the signed
+        # contract fee: its formatter explicitly uses display = -contract.
+        # Therefore a negative display rate is a cost and a positive one a
+        # credit. Never extrapolate a current credit backwards as alpha.
+        cost_rate = max(0.0, -rate)
         carry[side] = {
-            "observed_pct_per_8h": rate,
-            "base_annual_cost_pct": max(0.0, rate) * 3 * 365.25,
-            "conservative_annual_cost_pct": max(8.0, max(0.0, rate) * 3 * 365.25),
-            "stress_annual_cost_pct": max(12.0, max(0.0, rate) * 3 * 365.25),
+            "sdk_display_pnl_pct_per_8h": rate,
+            "derived_cost_pct_per_8h": cost_rate,
+            "base_annual_cost_pct": cost_rate * 3 * 365.25,
+            "conservative_annual_cost_pct": max(8.0, cost_rate * 3 * 365.25),
+            "stress_annual_cost_pct": max(12.0, cost_rate * 3 * 365.25),
         }
     return {
         "schema_version": 1, "decision": "PASS_COSTS_FROZEN", "costs_frozen": True,
@@ -116,7 +122,8 @@ def derive(summary: dict[str, Any], *, expected_pair_id: str,
         "maximum_feasible_notional_usdc": max(REQUIRED_NOTIONALS_USDC),
         "by_notional": scenarios, "carry": carry,
         "venue_limits": summary.get("limits"),
-        "credit_policy": "negative rollover is capped at zero; no historical credit inferred",
+        "rollover_sign_semantics": "builder SDK display/PnL rate = negative contract fee",
+        "credit_policy": "positive SDK display rate is capped at zero cost; no historical credit inferred",
         "paper_authorized": False, "live_authorized": False,
     }
 

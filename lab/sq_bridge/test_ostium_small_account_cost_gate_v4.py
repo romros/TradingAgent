@@ -52,7 +52,10 @@ def test_mature_evidence_freezes_small_account_scenarios_and_oracle_semantics():
     assert costs["conservative_roundtrip_bps"] == 6
     assert costs["stress_roundtrip_bps"] == 13  # 2*4 + 5 bps oracle
     assert costs["oracle_net_usdc"] == {"base": 0, "conservative": 0, "stress": .1}
-    assert result["carry"]["long"]["base_annual_cost_pct"] == 0
+    assert result["carry"]["long"]["sdk_display_pnl_pct_per_8h"] == -.002
+    assert result["carry"]["long"]["derived_cost_pct_per_8h"] == .002
+    assert round(result["carry"]["long"]["base_annual_cost_pct"], 4) == 2.1915
+    assert result["carry"]["short"]["base_annual_cost_pct"] == 0
     assert result["paper_authorized"] is False
 
 

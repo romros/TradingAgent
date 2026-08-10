@@ -29,8 +29,12 @@ van ser 2 bps per USDJPY, GBPUSD, EURUSD i XAUUSD, i 1 bp per US500. Els antics
 una sola mostra no els substitueix encara en backtests canònics.
 
 Els rollovers tenen signe i magnitud diferents per costat. No es pot aplicar un
-percentatge anual únic a long i short. El signe s'ha de validar contra la
-convenció de càrrec/rebate del contracte abans de calcular PnL.
+percentatge anual únic a long i short. `getPairs().rolloverRate` és la taxa de
+display/PnL per 8 hores: l'SDK calcula explícitament `display = -feeContracte`.
+Per tant, display negatiu és cost i display positiu és crèdit. El model cobra
+el negatiu amb signe invertit i limita qualsevol crèdit actual a zero.
+La derivació i les fonts primàries queden congelades a
+[`OSTIUM_ROLLOVER_SIGN_AUDIT.md`](OSTIUM_ROLLOVER_SIGN_AUDIT.md).
 
 ## Operació
 

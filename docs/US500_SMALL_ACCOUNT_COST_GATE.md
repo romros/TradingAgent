@@ -39,9 +39,11 @@ Els escenaris preregistrats són:
 
 L'oracle es considera reemborsat en base i conservador després d'un full close
 correcte. Cobrar-lo sempre seria una penalització falsa, especialment a 200
-USDC; l'estrès sí que modela una fallada del reemborsament. El rollover negatiu
-observat no es converteix en benefici històric: es limita a zero. Conservador i
-estrès mantenen els falsadors preregistrats del 8% i 12% anual com a mínim.
+USDC; l'estrès sí que modela una fallada del reemborsament. A
+`getPairs().rolloverRate`, un valor negatiu és pèrdua de PnL i, per tant, cost;
+l'SDK aplica `display = -feeContracte`. Un valor positiu és crèdit i no es
+converteix en benefici històric: es limita a zero. Conservador i estrès
+mantenen els falsadors preregistrats del 8% i 12% anual com a mínim.
 
 ## Separació respecte de l'apalancament
 

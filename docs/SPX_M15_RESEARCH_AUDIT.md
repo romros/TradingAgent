@@ -40,8 +40,9 @@ el rebut, els hashes i els experiments reproduïbles.
 - Rollover continu: per als índexs depèn de SOFR més prima de carry.
 - En la captura amb mercat tancat: spread 0,9672 bps i impacte simulat 0,4836
   bps entre 10 i 1.000 USD de nocional. Són una observació, no percentils de sessió.
-- Rollover live per 8 h en aquella captura: long −0,0052122% (cobra) i short
-  +0,00154884% (paga); pot canviar amb el mercat.
+- Rollover display/PnL live per 8 h en aquella captura: long −0,0052122%
+  (paga) i short +0,00154884% (cobra). L'SDK aplica `display = -feeContracte`;
+  pot canviar amb el mercat i els crèdits no s'extrapolen històricament.
 - Horari publicat: diumenge 18:00 ET fins divendres 17:00 ET, amb pausa diària
   17:00–18:00 ET. La sèrie Dukascopy disponible és principalment sessió americana.
 

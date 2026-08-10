@@ -85,6 +85,9 @@ def load_contract(manifest_path: Path) -> tuple[dict, Path, dict, Path]:
     missing = [key for key in required if not manifest.get(key)]
     if missing:
         raise ValueError(f"manifest missing: {', '.join(missing)}")
+    provenance = manifest.get("provenance", "alquimia_native")
+    if provenance not in {"alquimia_native", "synthetic_control"}:
+        raise ValueError("runner provenance must be alquimia_native or synthetic_control")
     methodology_path = resolve(manifest_path.parent, manifest["methodology"])
     methodology = json.loads(methodology_path.read_text())
     errors = validate_methodology(methodology)
@@ -113,7 +116,7 @@ def initialize(manifest: dict, methodology_path: Path, state_dir: Path) -> dict:
     if path.exists():
         return json.loads(path.read_text())
     chain = new_chain(methodology_path, manifest["campaign_id"], manifest["hypothesis_id"],
-                      manifest["market"], "alquimia_native")
+                      manifest["market"], manifest.get("provenance", "alquimia_native"))
     atomic_json(path, chain)
     return chain
 

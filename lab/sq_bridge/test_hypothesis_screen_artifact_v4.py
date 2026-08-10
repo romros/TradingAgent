@@ -99,9 +99,11 @@ def test_screen_recomputes_grid_pf_neighbors_and_real_contract(tmp_path):
     methodology = json.loads((ROOT / "methodology_v4.json").read_text())
     receipt = {"decision": "PASS", "candidate_ids": [],
                "holdout_accessed": False, "artifact": str(artifact_path)}
-    assert validate_stage_artifact(
+    errors = validate_stage_artifact(
         "hypothesis_screen", artifact, receipt, methodology,
-        "campaign", "alquimia_native") == []
+        "campaign", "alquimia_native")
+    assert "STAGE_ARTIFACT:hypothesis_screen:TRACE_CONTRACT" in errors
+    assert artifact["source_trade_replay_verified"] is False
 
 
 def test_screen_trace_tampering_is_detected(tmp_path):

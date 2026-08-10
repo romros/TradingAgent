@@ -19,7 +19,10 @@ from lab.sq_bridge.temporal_validation_artifact_v4 import (
 )
 from lab.sq_bridge.robustness_artifact_v4 import evaluate_trace as evaluate_robustness_trace
 from lab.sq_bridge.small_account_artifact_v4 import evaluate_trace as evaluate_small_trace
-from lab.sq_bridge.hypothesis_screen_artifact_v4 import evaluate_trace as evaluate_screen_trace
+from lab.sq_bridge.hypothesis_screen_artifact_v4 import (
+    evaluate_trace as evaluate_screen_trace,
+    verify_source_trade_replay,
+)
 from lab.sq_bridge.us500_d1_market_preflight_v4 import compose as compose_us500_preflight
 from lab.sq_bridge.eurusd_d1_market_preflight_v4 import compose as compose_eurusd_preflight
 from lab.sq_bridge.temporal_split_contract_v4 import digest as temporal_digest, sq_periods
@@ -200,7 +203,10 @@ def _verified_hypothesis_screen_source(artifact: dict, artifact_path: str,
         "profit_factor_by_cost": evaluated[key]["profit_factor_by_cost"],
         "stable_neighbor_count": evaluated[key]["stable_neighbor_count"],
     } for key in selected}
-    return (artifact.get("attempted") == result["attempted"]
+    return (artifact.get("producer_id") == trace.get("producer_id")
+            and artifact.get("source_trade_replay_verified") is True
+            and verify_source_trade_replay(trace)
+            and artifact.get("attempted") == result["attempted"]
             and artifact.get("evaluated_hypothesis_metrics") == evaluated
             and artifact.get("selected_hypothesis_ids") == selected
             and artifact.get("selected_hypothesis_metrics") == selected_metrics

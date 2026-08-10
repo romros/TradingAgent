@@ -35,8 +35,6 @@ ids = ['runner-sqx-001'] if stages.index(stage) >= stages.index('sq_generation')
 holdout = stage == 'final_holdout_validation'
 artifact = payload(stage, ids, holdout)
 artifact['campaign_id'] = 'runner-test'
-artifact['evidence_class'] = 'observed'
-artifact.pop('control_purpose', None)
 artifact['decision'] = decision
 if stage == 'market_preflight':
     base = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent
@@ -378,6 +376,8 @@ if stage == 'paper':
 if decision == 'BAD':
     artifact['decision'] = 'PASS'
     artifact.pop('historical_period_coverage', None)
+artifact['evidence_class'] = 'synthetic_control'
+artifact['control_purpose'] = 'pipeline_wiring_only'
 if decision in {'REJECT', 'BLOCK'}:
     artifact['decision'] = decision
     artifact['candidate_ids'] = []
@@ -406,6 +406,7 @@ def make_manifest(tmp_path: Path, *, reject_stage: str | None = None,
     manifest.write_text(json.dumps({
         "schema_version": 1, "campaign_id": "runner-test",
         "hypothesis_id": "hypothesis-control", "market": "XAUUSD",
+        "provenance": "synthetic_control",
         "methodology": str(METHODOLOGY), "state_dir": str(tmp_path / "state"),
         "stages": stages,
     }))
@@ -448,13 +449,15 @@ def test_failed_stage_keeps_chain_unchanged_and_is_retryable(tmp_path):
     assert chain["receipts"] == []
 
 
-def test_runner_can_checkpoint_all_ten_native_stages(tmp_path):
+def test_runner_can_checkpoint_all_ten_synthetic_control_stages_without_promotion(tmp_path):
     manifest = make_manifest(tmp_path)
     results = [run_next(manifest) for _ in range(10)]
     assert all(result["status"] == "STAGE_RECORDED" for result in results)
     final = status(manifest)
     assert final["status"] == "COMPLETE"
-    assert final["paper_ready"] is True
+    assert final["operational_control_complete"] is True
+    assert final["promotable"] is False
+    assert final["paper_ready"] is False
     assert final["live_authorized"] is False
     assert len(json.loads((tmp_path / "state/chain.json").read_text())["receipts"]) == 10
 

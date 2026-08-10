@@ -175,6 +175,14 @@ les etapes posteriors mitjançant el model Ostium congelat i hashat. El manifest
 fixa els tres zeros i `venue_cost_application_stage`, de manera que un default
 legacy —com els antics 400 punts de slippage— no pot duplicar costos.
 
+El screen EURUSD D1 és també reproduïble des de la font: el verificador reobre
+el CSV canònic, refà les nou variants preregistrades i exigeix igualtat exacta
+de tots els trades. Un trace amb mètriques recalculables però trades inventats
+no és promocionable. Els stops del screen usen la mateixa ATR d'SQ (warm-up per
+mitjana del prefix i recurrència Wilder, arrodonida a sis decimals abans del
+múltiple). No s'obre cap trade si el seu horitzó temporal complet no cap dins
+del train; truncar-lo al límit seria censura favorable o desfavorable desconeguda.
+
 Els hashes SQ i de traducció no són camps decoratius. `sq_generation` ha de
 referenciar cada `.sqx`; `python_translation` ha de referenciar el `.sqx` font i
 la representació intermèdia canònica. El verificador obre aquests fitxers i en

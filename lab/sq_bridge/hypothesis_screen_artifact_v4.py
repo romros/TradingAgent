@@ -12,6 +12,20 @@ from pathlib import Path
 
 from lab.sq_bridge.small_account_artifact_v4 import select_cost_envelope
 from lab.sq_bridge.temporal_split_contract_v4 import digest as temporal_contract_digest
+from lab.sq_bridge.eurusd_d1_hypothesis_trace_v4 import (
+    PRODUCER_ID as EURUSD_D1_PRODUCER_ID,
+    replay_matches as replay_eurusd_d1,
+)
+
+
+SOURCE_TRADE_REPLAY_VERIFIERS = {
+    EURUSD_D1_PRODUCER_ID: replay_eurusd_d1,
+}
+
+
+def verify_source_trade_replay(trace: dict) -> bool:
+    verifier = SOURCE_TRADE_REPLAY_VERIFIERS.get(trace.get("producer_id"))
+    return verifier is not None and verifier(trace)
 
 
 def _sha(path: Path) -> str:
@@ -205,7 +219,8 @@ def build_artifact(*, campaign_id: str, trace_path: Path,
             "temporal_split": methodology["temporal_split"]}
     cost_model = json.loads(cost_model_path.read_text())
     cost_hash = _sha(cost_model_path)
-    result = evaluate_trace(json.loads(trace_path.read_text()), gate,
+    trace = json.loads(trace_path.read_text())
+    result = evaluate_trace(trace, gate,
                             cost_model, cost_hash)
     selected = result["selected_hypothesis_ids"]
     evaluated = result["evaluated_hypothesis_metrics"]
@@ -219,6 +234,8 @@ def build_artifact(*, campaign_id: str, trace_path: Path,
         "campaign_id": campaign_id, "decision": "PASS" if selected else "REJECT",
         "candidate_ids": [], "holdout_accessed": False, "evidence_class": "observed",
         "generator": "deterministic_pre_sq_screen", "attempted": result["attempted"],
+        "producer_id": trace.get("producer_id"),
+        "source_trade_replay_verified": verify_source_trade_replay(trace),
         "selected_hypothesis_ids": selected,
         "evaluated_hypothesis_metrics": evaluated,
         "selected_hypothesis_metrics": selected_metrics,

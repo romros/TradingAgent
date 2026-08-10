@@ -43,6 +43,7 @@ FAMILIES = (
         ("shock_1_75", {"shock_atr": 1.75, "hold_bars": 5, "stop_atr": 2.0}),
     )),
 )
+PRODUCER_ID = "eurusd_d1_preregistered_hypotheses_v4"
 
 
 def sha256(path: Path) -> str:
@@ -77,18 +78,24 @@ def true_ranges(bars: list[Bar]) -> list[float]:
     return result
 
 
-def atr_at(ranges: list[float], index: int, length: int = 20) -> float | None:
-    if index < length:
-        return None
-    value = sum(ranges[index - length + 1:index + 1]) / length
-    return value if value > 0 else None
+def sq_atr_values(ranges: list[float], length: int = 20) -> list[float]:
+    """Replicate SQ ATR.java: prefix mean, then Wilder recurrence."""
+    if length < 1:
+        raise ValueError("ATR length must be positive")
+    if not ranges:
+        return []
+    values = [float(ranges[0])]
+    for index, current in enumerate(ranges[1:], 1):
+        divisor = min(index + 1, length)
+        values.append(((divisor - 1) * values[-1] + current) / divisor)
+    return values
 
 
-def signal(bars: list[Bar], ranges: list[float], index: int,
+def signal(bars: list[Bar], atrs: list[float], index: int,
            family: str, params: dict) -> str | None:
-    atr = atr_at(ranges, index)
-    if atr is None:
+    if index < 20:
         return None
+    atr = atrs[index]
     if family == "breakout":
         lookback = params["lookback"]
         if index < lookback:
@@ -120,20 +127,22 @@ def signal(bars: list[Bar], ranges: list[float], index: int,
 
 def simulate(bars: list[Bar], family: str, params: dict,
              variant_id: str) -> list[dict]:
-    ranges = true_ranges(bars)
+    atrs = sq_atr_values(true_ranges(bars))
     trades, index = [], 20
-    while index < len(bars) - 1:
-        side = signal(bars, ranges, index, family, params)
+    # A signal is admissible only when its complete preregistered holding
+    # horizon fits inside train. Truncating at the train boundary would count
+    # a censored outcome as though it were a genuine timed exit.
+    while index + 1 + params["hold_bars"] < len(bars):
+        side = signal(bars, atrs, index, family, params)
         if side is None:
             index += 1
             continue
         entry_index = index + 1
-        atr = atr_at(ranges, index)
-        assert atr is not None
+        atr = round(atrs[index], 6)
         entry = bars[entry_index].open
         stop = (entry - params["stop_atr"] * atr if side == "long"
                 else entry + params["stop_atr"] * atr)
-        scheduled = min(entry_index + params["hold_bars"], len(bars) - 1)
+        scheduled = entry_index + params["hold_bars"]
         exit_index, exit_price, reason = scheduled, bars[scheduled].open, "time"
         for cursor in range(entry_index, scheduled):
             bar = bars[cursor]
@@ -157,17 +166,7 @@ def simulate(bars: list[Bar], family: str, params: dict,
     return trades
 
 
-def build(source: Path, cost_model: Path, methodology: Path) -> dict:
-    rules = json.loads(methodology.read_text())
-    if rules.get("schema_version") != 4:
-        raise ValueError("hypothesis producer requires methodology v4")
-    costs = json.loads(cost_model.read_text())
-    if costs.get("decision") != "PASS_COSTS_FROZEN" or costs.get("costs_frozen") is not True:
-        raise ValueError("execution costs must be frozen before performance screening")
-    bars = read_bars(source)
-    temporal_contract = build_temporal_contract(source, methodology)
-    train_rows = temporal_contract["segments"]["train"]["last_row_index"] + 1
-    train = bars[:train_rows]
+def build_hypotheses(train: list[Bar]) -> list[dict]:
     hypotheses = []
     for hypothesis_id, family, definitions in FAMILIES:
         central = f"{hypothesis_id}__central"
@@ -187,12 +186,42 @@ def build(source: Path, cost_model: Path, methodology: Path) -> dict:
                                "momentum": "medium-horizon currency trend persistence",
                                "shock_reversion": "short-horizon liquidity shock normalization",
                            }[family], "variants": variants})
+    return hypotheses
+
+
+def replay_matches(trace: dict) -> bool:
+    """Reopen canonical candles and reproduce every declared trade exactly."""
+    if trace.get("producer_id") != PRODUCER_ID:
+        return False
+    source = Path(str(trace.get("source_path", "")))
+    train_rows = trace.get("train_rows")
+    if not isinstance(train_rows, int) or isinstance(train_rows, bool) or train_rows < 1:
+        return False
+    try:
+        bars = read_bars(source)
+    except (OSError, ValueError):
+        return False
+    return trace.get("hypotheses") == build_hypotheses(bars[:train_rows])
+
+
+def build(source: Path, cost_model: Path, methodology: Path) -> dict:
+    rules = json.loads(methodology.read_text())
+    if rules.get("schema_version") != 4:
+        raise ValueError("hypothesis producer requires methodology v4")
+    costs = json.loads(cost_model.read_text())
+    if costs.get("decision") != "PASS_COSTS_FROZEN" or costs.get("costs_frozen") is not True:
+        raise ValueError("execution costs must be frozen before performance screening")
+    bars = read_bars(source)
+    temporal_contract = build_temporal_contract(source, methodology)
+    train_rows = temporal_contract["segments"]["train"]["last_row_index"] + 1
+    train = bars[:train_rows]
+    hypotheses = build_hypotheses(train)
     attempted = sum(len(row["variants"]) for row in hypotheses)
     if attempted > rules["hypothesis_screen"]["maximum_attempts"]:
         raise ValueError("preregistered grid exceeds screen attempt budget")
     return {
         "schema_version": 1, "trace_type": "hypothesis_screen_grid_trace",
-        "producer_id": "eurusd_d1_preregistered_hypotheses_v4",
+        "producer_id": PRODUCER_ID,
         "train_only": True, "future_periods_accessed": False,
         "holdout_accessed": False,
         "cost_model_sha256": sha256(cost_model),

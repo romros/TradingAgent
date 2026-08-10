@@ -6,7 +6,9 @@ from pathlib import Path
 
 import pytest
 
-from lab.sq_bridge.eurusd_d1_hypothesis_trace_v4 import build
+from lab.sq_bridge.eurusd_d1_hypothesis_trace_v4 import (
+    Bar, build, simulate, sq_atr_values,
+)
 from lab.sq_bridge.hypothesis_screen_artifact_v4 import build_artifact
 
 
@@ -84,9 +86,44 @@ def test_produced_trace_satisfies_real_screen_contract(tmp_path):
     assert artifact["attempted"] == 9
     assert set(artifact["evaluated_hypothesis_metrics"]) == {
         "d1_breakout", "d1_momentum", "d1_shock_reversion"}
+    assert artifact["source_trade_replay_verified"] is True
+
+
+def test_producer_replay_rejects_forged_trade_before_stage_promotion(tmp_path):
+    source, costs = _source(tmp_path), _costs(tmp_path)
+    trace = build(source, costs, ROOT / "methodology_v4.json")
+    trace["hypotheses"][0]["variants"][0]["trades"][0]["gross_return_pct"] += 1
+    trace_path = tmp_path / "forged.trace.json"
+    trace_path.write_text(json.dumps(trace, indent=2, sort_keys=True) + "\n")
+    artifact = build_artifact(
+        campaign_id="campaign", trace_path=trace_path, cost_model_path=costs,
+        methodology_path=ROOT / "methodology_v4.json",
+        artifact_path=tmp_path / "forged.artifact.json")
+    assert artifact["source_trade_replay_verified"] is False
 
 
 def test_producer_refuses_performance_before_costs_are_frozen(tmp_path):
     with pytest.raises(ValueError, match="must be frozen"):
         build(_source(tmp_path), _costs(tmp_path, frozen=False),
               ROOT / "methodology_v4.json")
+
+
+def test_screen_atr_matches_sq_prefix_then_wilder_semantics():
+    assert sq_atr_values([1.0, 2.0, 3.0, 4.0], 3) == pytest.approx(
+        [1.0, 1.5, 2.0, 8 / 3])
+
+
+def test_screen_does_not_truncate_trade_at_train_boundary():
+    start = date(2020, 1, 1)
+    bars = [Bar(start + timedelta(days=index), 1 + index * .01,
+                1.011 + index * .01, .999 + index * .01, 1.01 + index * .01)
+            for index in range(40)]
+    trades = simulate(
+        bars, "momentum", {"lookback": 1, "hold_bars": 5, "stop_atr": 100},
+        "boundary")
+    positions = {bar.day.isoformat(): index for index, bar in enumerate(bars)}
+    assert trades
+    assert all(positions[row["exit_timestamp"][:10]]
+               == positions[row["entry_timestamp"][:10]] + 5
+               for row in trades)
+    assert max(positions[row["entry_timestamp"][:10]] for row in trades) + 5 < len(bars)

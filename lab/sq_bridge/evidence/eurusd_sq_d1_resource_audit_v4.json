@@ -1,0 +1,65 @@
+{
+  "aggregation_timezone": "fixed UTC-05:00",
+  "bars_below_95pct_minutes": 1324,
+  "checks": {
+    "complete_daily_bars": false,
+    "minimum_rows": true,
+    "no_sunday_fragments": false,
+    "ohlc_match": false,
+    "source_coverage": true
+  },
+  "common_rows": 7101,
+  "decision": "BLOCK_SQ_D1_RESOURCE_SESSION",
+  "live_authorized": false,
+  "low_minute_examples": [
+    "2006-11-30",
+    "2006-12-31",
+    "2007-01-01",
+    "2007-01-09",
+    "2007-01-12",
+    "2007-01-14",
+    "2007-01-19",
+    "2007-01-21",
+    "2007-01-26",
+    "2007-01-28",
+    "2007-02-02",
+    "2007-02-04"
+  ],
+  "maximum_ohlc_delta": 0.02093999999999996,
+  "ohlc_match_ratio": 0.23292494014927476,
+  "paper_authorized": false,
+  "performance_accessed": false,
+  "research_authorized": false,
+  "schema_version": 1,
+  "source": {
+    "bytes": 183817844,
+    "files": 274,
+    "manifest_sha256": "d5c27c6207380fe03429d7ec6978e50e49c31a912b9acf27e936e98d62a535d8",
+    "root": "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/EURUSD/tf=1m"
+  },
+  "source_coverage_ratio": 0.9943985436213415,
+  "source_rows": 7650,
+  "sq_export": {
+    "bytes": 442158,
+    "path": "/mnt/volume-SQ/user/exports/alquimia_eurusd_v4_d1_full/EURUSD_M1_dukas_M1_UTCMinus05-D1-No Session.csv",
+    "sha256": "a4163bb8bf23bbf4d8986b475ff7c513021681f29ada288b0a1df0702a40d120"
+  },
+  "sq_rows": 7141,
+  "sunday_fragment_bars": 1188,
+  "sunday_fragment_examples": [
+    "2003-05-11",
+    "2003-05-18",
+    "2003-05-25",
+    "2003-06-01",
+    "2003-06-08",
+    "2003-06-15",
+    "2003-06-22",
+    "2003-06-29",
+    "2003-07-06",
+    "2003-07-13",
+    "2003-07-20",
+    "2003-07-27"
+  ],
+  "symbol": "EURUSD_M1_dukas_M1_UTCMinus05",
+  "timeframe": "D1"
+}

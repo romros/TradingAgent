@@ -19,12 +19,15 @@ de retorn 0,9999996, direcció 100% i close p95 0 bps. Decisió
 `PASS_D1_SOURCE_MAPPING`, sense consultar rendiment. No autoritza SQCLI: falta el
 gate de 30 quotes, 3 dies i 6 hores UTC de costos EURUSD per a 200 USDC. La font
 Dukascopy també passa cobertura 2003-05-05–2026-02-27: 5.884/5.955 sessions,
-98,81% global i 91,92% al pitjor any. El recurs SQ complet encara s'ha de
-construir i certificar. Detall a
+98,81% global i 91,92% al pitjor any. L'export D1 completa del recurs SQ antic
+queda rebutjada: només 23,29% OHLC exactes, màxim 209,4 bps, 1.188 fragments de
+diumenge i 1.324 barres incompletes. Cal construir un símbol nou des dels
+Parquet hashejats i certificar-ne el roundtrip. Detall a
 [`EURUSD_D1_SOURCE_MAPPING_V4.md`](EURUSD_D1_SOURCE_MAPPING_V4.md).
 El job multi-mercat ja recalcula automàticament el freezer i el preflight EURUSD
 després de cada captura. Amb 2/30 mostres, 1/3 dies i 2/6 hores retorna `BLOCK`;
-un futur PASS només podrà obrir `hypothesis_screen`, mai SQCLI o paper directes.
+el preflight també bloqueja el recurs SQ antic. Només costos i recurs PASS podran
+obrir `hypothesis_screen`, mai SQCLI o paper directes.
 
 Arquitectura a [`docs/ALQUIMIA.md`](ALQUIMIA.md). Pilot `TA_SQ_PILOT`: NVDA/USD M1/tick, límit 20, manifest amb hashes i originals intactes. Eines a `lab/sq_bridge/`: preparador CFX, allowlist/gate Ostium, estat compacte i watchdog. Generació correcta i sense errors tècnics; acceptació inicial 0%. Watchdog: stop a 1.000 candidates sense acceptades, RAM host <1 GB o disc <2 GB.
 

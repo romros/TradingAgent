@@ -71,20 +71,40 @@ cada partició. Aquesta cobertura autoritza dissenyar train/validation/OOS i un
 holdout segellat, però no afirma que un edge antic continuï vigent. La robustesa
 temporal i els règims recents ho hauran de demostrar més endavant.
 
-El CSV SQ emprat al pont acaba el gener de 2026: certifica identitat, no prova
-que el recurs instal·lat a SQ contingui tot el tram. Abans d'una campanya caldrà
-construir/importar un recurs SQ des d'aquestes particions i verificar-ne dates i
-hash independentment.
+El CSV SQ emprat al pont acaba el gener de 2026: certifica que una exportació M1
+recent pot coincidir exactament, no que el recurs complet sigui vàlid.
 
 Implementació: `lab/sq_bridge/eurusd_d1_historical_coverage_v4.py`. Evidència:
 `lab/sq_bridge/evidence/eurusd_d1_historical_coverage_v4.json`.
+
+## Auditoria del recurs SQ existent
+
+SQCLI 143.2708 va exportar el recurs complet
+`EURUSD_M1_dukas_M1_UTCMinus05` a D1, del 05/05/2003 al 27/02/2026. El control
+positiu de gener 2026 funciona i la GUI va quedar reiniciada després del one-off.
+El resultat complet és un bloqueig, no una certificació:
+
+- 7.141 barres SQ i 7.101 dates comunes amb la font actual (99,44%);
+- només 23,29% de les OHLC coincideixen dins `1e-5`;
+- diferència OHLC màxima 0,02094, és a dir 209,4 bps;
+- 1.188 barres dominicals fragmentades;
+- 1.324 dates comunes tenen menys del 95% de 1.440 minuts.
+
+Decisió: `BLOCK_SQ_D1_RESOURCE_SESSION`. No es permet rescatar-lo simplement
+filtrant entrades de diumenge, perquè els fragments també contaminarien ATR,
+mitjanes i patrons dels dies següents. Cal crear un símbol nou des dels Parquet
+hashejats, amb frontera de sessió explícita, reexportar-lo complet i exigir
+paritat abans d'obrir `hypothesis_screen`.
+
+Implementació: `lab/sq_bridge/eurusd_sq_d1_resource_audit_v4.py`. Evidència:
+`lab/sq_bridge/evidence/eurusd_sq_d1_resource_audit_v4.json`.
 
 ## Següent gate
 
 Esperar que `scripts/capture_ostium_research_universe_economics.sh` completi almenys
 30 observacions, tres dies laborables i sis hores UTC per EURUSD. Només aleshores
 es congelaran costos base, conservadors i d'estrès per a 200 USDC. Si aquests
-costos passen, el següent pas és una única família D1 preregistrada i un screen
+costos passen **i el recurs SQ nou passa**, el següent pas és una única família D1 preregistrada i un screen
 train-only v4; no una exploració retrospectiva de resultats antics.
 
 Després de cada captura, `scripts/refresh_eurusd_v4_preflight.sh` recompòn dos

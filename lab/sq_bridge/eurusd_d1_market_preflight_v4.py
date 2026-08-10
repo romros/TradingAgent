@@ -39,15 +39,17 @@ def read_input(base: Path, value: str, label: str,
 def compose(config_path: Path) -> dict[str, Any]:
     config_path = config_path.resolve()
     config = json.loads(config_path.read_text())
-    required = ("campaign_id", "ostium_pair_id", "coverage", "mapping", "costs")
+    required = ("campaign_id", "ostium_pair_id", "coverage", "mapping",
+                "sq_resource", "costs")
     missing = [name for name in required if not config.get(name)]
     if config.get("schema_version") != 1 or missing:
         raise ValueError(f"invalid preflight config; missing: {', '.join(missing)}")
     reasons, loaded, receipts = [], {}, {}
-    for label in ("coverage", "mapping", "costs"):
+    for label in ("coverage", "mapping", "sq_resource", "costs"):
         loaded[label], receipts[label] = read_input(
             config_path.parent, config[label], label, reasons)
-    coverage, mapping, costs = (loaded[key] for key in ("coverage", "mapping", "costs"))
+    coverage, mapping, resource, costs = (loaded[key] for key in (
+        "coverage", "mapping", "sq_resource", "costs"))
     if (coverage.get("symbol"), coverage.get("timeframe")) != ("EURUSD", "D1"):
         reasons.append("COVERAGE_IDENTITY_INVALID")
     if (coverage.get("decision") != "PASS_HISTORICAL_COVERAGE"
@@ -61,6 +63,10 @@ def compose(config_path: Path) -> dict[str, Any]:
         reasons.append("D1_MAPPING_NOT_PASS")
     if mapping.get("performance_accessed") is not False:
         reasons.append("MAPPING_ACCESSED_PERFORMANCE")
+    if resource.get("decision") != "PASS_SQ_D1_RESOURCE":
+        reasons.append("SQ_D1_RESOURCE_NOT_PASS")
+    if resource.get("performance_accessed") is not False:
+        reasons.append("SQ_RESOURCE_ACCESSED_PERFORMANCE")
     if costs.get("decision") != "PASS_COSTS_FROZEN" or costs.get("costs_frozen") is not True:
         reasons.append("EXECUTION_COSTS_NOT_FROZEN")
     if not (costs.get("by_notional") or {}).get("200"):
@@ -89,6 +95,9 @@ def compose(config_path: Path) -> dict[str, Any]:
         "historical_minimum_period_coverage_ratio": coverage.get("historical_minimum_period_coverage_ratio"),
         "historical_period_coverage": coverage.get("historical_period_coverage"),
         "source_mapping_pass": mapping.get("decision") == "PASS_D1_SOURCE_MAPPING",
+        "sq_resource_pass": resource.get("decision") == "PASS_SQ_D1_RESOURCE",
+        "sq_resource_ohlc_match_ratio": resource.get("ohlc_match_ratio"),
+        "sq_resource_sunday_fragment_bars": resource.get("sunday_fragment_bars"),
         "proxy_candle_coverage_pct": mapping_metrics.get("common_day_coverage_ratio", 0) * 100,
         "return_correlation": mapping_metrics.get("d1_close_return_correlation"),
         "execution_economics_complete": costs.get("costs_frozen") is True,

@@ -71,3 +71,9 @@ El verificador recalcula `collateral=notional/leverage`, marge, reserva i risc a
 stop, exigeix stop obligatori, model de liquidació exacte d'Ostium i una
 distància de liquidació d'almenys 1,5 vegades el stop. Això maximitza leverage
 dins del risc; no confon leverage amb augmentar arbitràriament el nocional.
+
+La generació usa `genetic_evolution`, no una cerca oberta sense filiació. Cada
+artefacte SQ ha d'indicar les hipòtesis font aprovades, el hash de cada candidat
+i el nombre de regles (1–3). El verificador de cadena comprova que aquestes
+hipòtesis són un subconjunt exacte de les que van passar `hypothesis_screen`;
+un candidat d'una família diferent queda invàlid encara que tingui bon PnL.

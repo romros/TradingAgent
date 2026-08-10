@@ -44,10 +44,12 @@ def payload(stage: str, candidate_ids: list[str], holdout: bool) -> dict:
                               "minimum_selected_stable_neighbors": 2,
                               "applied_cost_scenarios": ["base", "conservative", "stress"],
                               "train_only": True, "future_periods_accessed": False},
-        "sq_generation": {"generator": "StrategyQuant", "attempted": 1,
+        "sq_generation": {"generator": "StrategyQuant", "search_method": "genetic_evolution",
+                          "attempted": 1, "source_hypothesis_ids": ["hypothesis-control"],
                           "selected_candidate_ids": candidate_ids,
                           "candidate_artifact_hashes": {candidate: "a" * 64
                                                         for candidate in candidate_ids},
+                          "rules_per_candidate": {candidate: 3 for candidate in candidate_ids},
                           "sq_config_sha256": "b" * 64},
         "temporal_validation": {"oos_trades": 30, "positive_windows_ratio": 0.6, "oos_profit_factor": 1.15,
                                 "oos_drawdown_pct": 20, "train_oos_expectancy_decay_pct": 50},

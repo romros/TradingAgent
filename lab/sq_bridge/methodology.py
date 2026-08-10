@@ -65,6 +65,8 @@ def validate(config: dict) -> list[str]:
             errors.append("sq_generation: massa regles")
         if generation.get("selection_metric") != "pareto_net_expectancy_drawdown_stability":
             errors.append("sq_generation: seleccio Pareto obligatoria")
+        if generation.get("search_method") != "genetic_evolution":
+            errors.append("sq_generation: cerca genetica obligatoria")
         temporal = config.get("temporal_validation", {})
         if temporal.get("minimum_trades_oos", 0) < 30:
             errors.append("temporal_validation: mostra OOS massa petita")

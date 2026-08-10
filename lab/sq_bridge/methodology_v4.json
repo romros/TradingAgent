@@ -41,6 +41,7 @@
   },
   "sq_generation": {
     "generator": "StrategyQuant",
+    "search_method": "genetic_evolution",
     "maximum_attempts": 10000,
     "max_rules": 3,
     "selection_metric": "pareto_net_expectancy_drawdown_stability",

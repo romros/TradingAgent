@@ -3,6 +3,7 @@ from copy import deepcopy
 from pathlib import Path
 
 from lab.sq_bridge.e2e_control import generate, payload
+from lab.sq_bridge.evidence_chain import append_receipt, new_chain, verify
 from lab.sq_bridge.methodology import validate
 from lab.sq_bridge.stage_artifact_contract import validate_stage_artifact
 
@@ -76,6 +77,36 @@ def test_v4_sq_generation_cannot_exceed_frozen_attempt_budget():
     errors = validate_stage_artifact(
         "sq_generation", artifact, receipt, METHODOLOGY, "v4", "alquimia_native")
     assert "STAGE_ARTIFACT:sq_generation:ATTEMPT_LIMIT" in errors
+
+
+def test_v4_sq_generation_requires_genetic_search_and_rule_limit():
+    artifact = payload("sq_generation", ["candidate"], False)
+    artifact["campaign_id"] = "v4"
+    artifact["search_method"] = "random_search"
+    artifact["rules_per_candidate"]["candidate"] = 4
+    receipt = {"decision": "PASS", "candidate_ids": ["candidate"],
+               "holdout_accessed": False}
+    errors = validate_stage_artifact(
+        "sq_generation", artifact, receipt, METHODOLOGY, "v4", "synthetic_control")
+    assert "STAGE_ARTIFACT:sq_generation:SEARCH_METHOD" in errors
+    assert "STAGE_ARTIFACT:sq_generation:RULE_COUNTS" in errors
+
+
+def test_v4_chain_rejects_sq_candidates_from_an_unscreened_hypothesis(tmp_path):
+    chain = new_chain(METHODOLOGY_PATH, "lineage", "approved", "US500")
+    specifications = [
+        ("market_preflight", [], {}),
+        ("hypothesis_screen", [], {"selected_hypothesis_ids": ["approved"]}),
+        ("sq_generation", ["candidate"], {"source_hypothesis_ids": ["different"]}),
+    ]
+    for index, (stage, ids, changes) in enumerate(specifications):
+        artifact = payload(stage, ids, False)
+        artifact.update({"campaign_id": "lineage", "evidence_class": "observed", **changes})
+        artifact.pop("control_purpose", None)
+        path = tmp_path / f"{index}_{stage}.json"
+        path.write_text(json.dumps(artifact))
+        chain = append_receipt(chain, METHODOLOGY, stage, path, "PASS", ids)
+    assert "SQ_HYPOTHESIS_LINEAGE" in verify(chain, METHODOLOGY_PATH)["errors"]
 
 
 def test_v4_methodology_cannot_be_weakened_to_force_a_pass():

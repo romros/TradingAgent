@@ -12,6 +12,8 @@ DECISIONS={"PASS","REJECT","BLOCK"}
 def canonical(value): return json.dumps(value,sort_keys=True,separators=(",",":"),ensure_ascii=False).encode()
 def sha_bytes(value): return hashlib.sha256(value).hexdigest()
 def sha_file(path): return sha_bytes(Path(path).read_bytes())
+def normalized_ids(value):
+ return sorted(set(value)) if isinstance(value,list) and all(isinstance(item,str) and item for item in value) else []
 
 def new_chain(methodology_path, campaign_id, hypothesis_id, market, provenance="alquimia_native"):
  mpath=Path(methodology_path); m=json.loads(mpath.read_text())
@@ -44,7 +46,7 @@ def verify(chain,methodology_path):
  if chain.get("capital_usdc")!=200 or m.get("capital_usdc")!=200: errors.append("CAPITAL_NOT_200")
  if chain.get("live_authorized") is not False: errors.append("LIVE_MUST_REQUIRE_EXTERNAL_AUTHORIZATION")
  if chain.get("legacy_quantitative_inputs"): errors.append("LEGACY_QUANTITATIVE_INPUTS_FORBIDDEN")
- previous_ids=[]; previous_hash=None; terminal=False
+ previous_ids=[]; previous_hash=None; terminal=False; screened_hypotheses=[]
  for i,r in enumerate(chain.get("receipts",[])):
   if i>=len(stages) or r.get("stage")!=stages[i]: errors.append(f"STAGE_ORDER:{i}")
   if terminal: errors.append(f"RECEIPT_AFTER_TERMINAL:{r.get('stage')}")
@@ -56,7 +58,14 @@ def verify(chain,methodology_path):
     artifact=json.loads(path.read_text())
     if not isinstance(artifact,dict): raise ValueError("not object")
    except Exception: errors.append(f"STAGE_ARTIFACT:{r.get('stage')}:NOT_JSON_OBJECT")
-   else: errors.extend(validate_stage_artifact(r.get("stage"),artifact,r,m,chain.get("campaign_id"),chain.get("provenance")))
+   else:
+    errors.extend(validate_stage_artifact(r.get("stage"),artifact,r,m,chain.get("campaign_id"),chain.get("provenance")))
+    if r.get("stage")=="hypothesis_screen" and r.get("decision")=="PASS":
+     screened_hypotheses=normalized_ids(artifact.get("selected_hypothesis_ids"))
+    if r.get("stage")=="sq_generation" and r.get("decision")=="PASS":
+     source_hypotheses=normalized_ids(artifact.get("source_hypothesis_ids"))
+     if not screened_hypotheses or not set(source_hypotheses).issubset(screened_hypotheses):
+      errors.append("SQ_HYPOTHESIS_LINEAGE")
   check=dict(r); stored=check.pop("receipt_sha256",None)
   if stored!=sha_bytes(canonical(check)): errors.append(f"RECEIPT_HASH:{i}")
   if r.get("previous_receipt_sha256")!=previous_hash: errors.append(f"CHAIN_LINK:{i}")

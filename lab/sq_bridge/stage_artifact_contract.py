@@ -132,16 +132,23 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
     elif stage == "sq_generation":
         generation = methodology["sq_generation"]
         hashes = artifact.get("candidate_artifact_hashes")
+        rules = artifact.get("rules_per_candidate")
         checks = {
             "SQ_SOURCE": artifact.get("generator") == "StrategyQuant",
+            "SEARCH_METHOD": artifact.get("search_method") == generation["search_method"],
             "ATTEMPTED": _at_least(artifact.get("attempted"), 1),
             "ATTEMPT_LIMIT": _at_most(
                 artifact.get("attempted"), generation["maximum_attempts"]),
             "SELECTED": _ids(artifact.get("selected_candidate_ids")) == receipt.get("candidate_ids", []),
+            "SOURCE_HYPOTHESES": bool(_ids(artifact.get("source_hypothesis_ids"))),
             "ARTIFACT_HASHES": isinstance(hashes, dict) and bool(hashes)
                                and set(hashes) == set(receipt.get("candidate_ids", []))
                                and all(isinstance(value, str) and len(value) == 64
                                        for value in hashes.values()),
+            "RULE_COUNTS": isinstance(rules, dict) and bool(rules)
+                and set(rules) == set(receipt.get("candidate_ids", []))
+                and all(isinstance(value, int) and not isinstance(value, bool)
+                        and 1 <= value <= generation["max_rules"] for value in rules.values()),
             "CONFIG_HASH": isinstance(artifact.get("sq_config_sha256"), str)
                            and len(artifact["sq_config_sha256"]) == 64,
             "NO_HOLDOUT": artifact.get("holdout_accessed") is False,

@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "stage": "discovery",
+  "campaign_id": "xauusd-abnormal-day-momentum-v36",
+  "decision": "BLOCK",
+  "candidate_ids": [],
+  "holdout_accessed": false,
+  "evidence_class": "observed",
+  "generator": "pre_sq_deterministic_data_coverage_gate",
+  "attempted": 0,
+  "selected_candidate_ids": [],
+  "reason": "INSUFFICIENT_HISTORICAL_SESSION_COVERAGE",
+  "coverage_contract": {
+    "minimum_overall_ratio": 0.9,
+    "minimum_each_year_ratio": 0.8
+  },
+  "coverage": {
+    "10:00": {
+      "expected_sessions": 2022,
+      "complete_sessions": 855,
+      "ratio": 0.4228486646884273,
+      "complete_by_year": {"2007": 6, "2008": 30, "2009": 22, "2010": 51, "2011": 210, "2012": 246, "2013": 123, "2014": 167}
+    },
+    "12:00": {
+      "expected_sessions": 2023,
+      "complete_sessions": 859,
+      "ratio": 0.4246169055857637,
+      "complete_by_year": {"2007": 7, "2008": 30, "2009": 22, "2010": 52, "2011": 210, "2012": 246, "2013": 123, "2014": 169}
+    }
+  },
+  "discarded_diagnostic": {
+    "occurred": true,
+    "description": "An unversioned local run evaluated the 36 train points before the missing historical coverage gate was noticed. It produced zero formal survivors but is invalid, is not an evidence input and cannot be used to rescue or refine this mechanism.",
+    "future_family_reuse_forbidden": true
+  },
+  "reproduction": "python -m lab.sq_bridge.xauusd_abnormal_day_momentum_v36_train --config lab/sq_bridge/family_xauusd_abnormal_day_momentum_v36.json --cache-root lab/out/xauusd_m15_cache_v1 --output /tmp/xauusd_abnormal_day_momentum_v36_block.json",
+  "authoritative_run_performance_accessed": false,
+  "validation_accessed": false,
+  "oos_accessed": false,
+  "live_authorized": false
+}

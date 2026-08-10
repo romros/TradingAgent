@@ -57,3 +57,17 @@ un PASS de recerca no podria autoritzar paper.
 
 Configuració definitiva preregistrada SHA-256:
 `342c5b0a9dabd7a63310e1678b1a0f241957c6b1d2aca21bb32159c8313787da`.
+
+## Resultat de la porta històrica
+
+`BLOCK_DATA_COVERAGE`, abans de discovery vàlida. De 2.022/2.023 sessions amb
+els quatre timestamps estructurals, només 855/859 conserven tots els M15
+complets necessaris: 42,28%/42,46%. El problema és especialment greu entre
+2007–2010 (6–52 sessions anuals) i reapareix el 2013. El contracte mínim és 90%
+global i 80% a cada any; no passa.
+
+Un primer càlcul local no versionat va arribar indegudament a les 36 mètriques
+abans que detectéssim aquesta mancança. Va donar zero supervivents formals, però
+queda invalidat i no s'utilitza ni per rebutjar ni per ajustar la hipòtesi. No es
+canvia la font, el split o els llindars després d'haver-lo vist. La cadena v36
+queda terminal `BLOCK`; validació, OOS, holdout, SQCLI i paper continuen intactes.

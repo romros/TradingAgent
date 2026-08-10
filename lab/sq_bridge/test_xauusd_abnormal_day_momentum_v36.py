@@ -24,12 +24,14 @@ def test_v36_grid_and_future_periods_are_frozen_before_performance():
     assert FAMILY["independence"].startswith("New campaign")
 
 
-def test_v36_chain_is_native_and_ready_only_for_discovery():
+def test_v36_chain_is_native_and_terminal_on_data_coverage():
     result = verify(
         json.loads((ROOT / "evidence/xauusd_abnormal_day_momentum_v36_chain.json").read_text()),
         ROOT / "methodology_v3.json",
     )
     assert result["valid"] is True
-    assert result["next_stage"] == "discovery"
+    assert result["terminal"] is True
+    assert result["next_stage"] is None
+    assert result["promotable"] is False
     assert result["paper_ready"] is False
     assert result["live_authorized"] is False

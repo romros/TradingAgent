@@ -249,11 +249,19 @@ def test_v4_methodology_cannot_be_weakened_to_force_a_pass():
         "minimum_reserve_pct": 0, "minimum_net_expectancy_usdc": 0,
         "minimum_net_profit_factor": 1,
     })
+    weakened["parity"].update({
+        "minimum_matched_signals": 1, "minimum_matched_trades": 1,
+        "minimum_signal_match_rate": .9, "minimum_trade_match_rate": .9,
+        "minimum_candle_coverage_pct": 50, "minimum_pnl_correlation": .5,
+        "maximum_pnl_mean_absolute_error_usdc": 1,
+        "maximum_pnl_absolute_error_usdc": 5,
+    })
     errors = validate(weakened)
     assert len(errors) >= 18
     assert any("pressupost d'intents" in error for error in errors)
     assert any("risc per trade" in error for error in errors)
     assert any("Monte Carlo" in error for error in errors)
+    assert sum(error.startswith("parity:") for error in errors) == 8
 
 
 def test_v4_small_account_proves_maximum_safe_leverage_and_recomputes_risk():

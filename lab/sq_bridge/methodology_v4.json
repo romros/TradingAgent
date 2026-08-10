@@ -75,6 +75,16 @@
     "required_stop_loss": true,
     "minimum_stop_to_liquidation_buffer_ratio": 1.5
   },
+  "parity": {
+    "minimum_matched_signals": 30,
+    "minimum_matched_trades": 30,
+    "minimum_signal_match_rate": 1.0,
+    "minimum_trade_match_rate": 1.0,
+    "minimum_candle_coverage_pct": 95.0,
+    "minimum_pnl_correlation": 0.99,
+    "maximum_pnl_mean_absolute_error_usdc": 0.005,
+    "maximum_pnl_absolute_error_usdc": 0.01
+  },
   "evidence_chain": {
     "hash_algorithm": "sha256",
     "candidate_lineage": "SQ candidate ids may first appear at sq_generation and must then only shrink",

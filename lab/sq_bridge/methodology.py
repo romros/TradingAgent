@@ -85,6 +85,23 @@ def validate(config: dict) -> list[str]:
             errors.append("robustness: estres de costos massa feble")
         if robust.get("maximum_liquidation_probability", 1) > .001:
             errors.append("robustness: probabilitat de liquidacio massa alta")
+        parity = config.get("parity", {})
+        if parity.get("minimum_matched_signals", 0) < 30:
+            errors.append("parity: mostra de senyals massa petita")
+        if parity.get("minimum_matched_trades", 0) < 30:
+            errors.append("parity: mostra de trades massa petita")
+        if parity.get("minimum_signal_match_rate", 0) < 1:
+            errors.append("parity: senyals no exigeixen coincidencia exacta")
+        if parity.get("minimum_trade_match_rate", 0) < 1:
+            errors.append("parity: trades no exigeixen coincidencia exacta")
+        if parity.get("minimum_candle_coverage_pct", 0) < 95:
+            errors.append("parity: cobertura de candles massa baixa")
+        if parity.get("minimum_pnl_correlation", 0) < .99:
+            errors.append("parity: correlacio PnL massa baixa")
+        if parity.get("maximum_pnl_mean_absolute_error_usdc", 1) > .005:
+            errors.append("parity: error mitja de PnL massa alt")
+        if parity.get("maximum_pnl_absolute_error_usdc", 1) > .01:
+            errors.append("parity: error maxim de PnL massa alt")
     small = config.get("small_account", {})
     if small.get("canonical_capital_usdc") != config.get("capital_usdc"):
         errors.append("small_account: capital canonic inconsistent")

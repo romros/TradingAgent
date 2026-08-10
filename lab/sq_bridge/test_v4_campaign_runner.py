@@ -18,6 +18,7 @@ sys.path.insert(0, sys.argv[3])
 from lab.sq_bridge.e2e_control import payload
 from lab.sq_bridge.test_sqx_extract import STRATEGY, SETTINGS
 from lab.sq_bridge.sqx_to_ir import translate
+from lab.sq_bridge.parity_artifact_v4 import build_artifact as build_parity
 
 stage = os.environ['ALQUIMIA_STAGE']
 decision = sys.argv[1] if len(sys.argv) > 1 else 'PASS'
@@ -78,13 +79,28 @@ if stage == 'python_translation':
     artifact['canonical_ir_sha256'] = hashlib.sha256(ir_path.read_bytes()).hexdigest()
 if stage == 'parity':
     base = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent
+    from datetime import datetime, timedelta, timezone
+    start = datetime(2024, 1, 1, tzinfo=timezone.utc)
+    candles = [(start + timedelta(days=index)).isoformat() for index in range(60)]
+    common = {
+        'schema_version': 1, 'trace_type': 'strategy_parity_trace',
+        'candidate_id': 'runner-sqx-001', 'candles': candles,
+        'signals': [{'timestamp': candles[index],
+                     'direction': 'long' if index % 2 == 0 else 'short'}
+                    for index in range(30)],
+        'trades': [{'entry_timestamp': candles[index], 'exit_timestamp': candles[index + 1],
+                    'direction': 'long' if index % 2 == 0 else 'short',
+                    'pnl': float(index % 5 - 2)} for index in range(30)]}
+    sq_trace = base / 'runner-sqx-001.sq.trace.json'
+    python_trace = base / 'runner-sqx-001.python.trace.json'
+    sq_trace.write_text(json.dumps({**common, 'source': 'strategyquant'}))
+    python_trace.write_text(json.dumps({**common, 'source': 'python'}))
     report_path = base / 'runner-sqx-001.parity.json'
-    report_path.write_text(json.dumps({
-        'schema_version': 1, 'candidate_id': 'runner-sqx-001',
-        'signal_match_rate': 1.0, 'trade_match_rate': 1.0,
-        'candle_coverage_pct': 95, 'pnl_correlation': .99}))
-    artifact['parity_report_path'] = report_path.name
-    artifact['parity_report_sha256'] = hashlib.sha256(report_path.read_bytes()).hexdigest()
+    artifact = build_parity(
+        campaign_id='runner-test', candidate_id='runner-sqx-001',
+        sq_trace_path=sq_trace, python_trace_path=python_trace,
+        methodology_path=Path(sys.argv[2]), report_path=report_path,
+        artifact_path=Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']))
 if stage == 'paper':
     base = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent
     config_path = base / 'runner-sqx-001.paper.json'

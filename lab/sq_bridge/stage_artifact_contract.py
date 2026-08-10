@@ -10,6 +10,7 @@ from typing import Any
 
 from lab.sq_bridge.sqx_extract import extract as extract_sqx
 from lab.sq_bridge.sqx_to_ir import canonical_ir
+from lab.sq_bridge.parity_artifact_v4 import compare_traces
 
 
 def _number(value: Any) -> bool:
@@ -114,6 +115,54 @@ def _verified_databank(path_value: Any, expected_count: Any, expected_digest: An
     digest = hashlib.sha256("".join(
         f"{row['path']}:{row['sha256']}\n" for row in rows).encode()).hexdigest()
     return len(rows) == expected_count and digest == expected_digest, rows
+
+
+def _verified_parity_sources(report: dict | None, report_path_value: Any,
+                             artifact_path: str, gate: dict) -> bool:
+    if report is None or report.get("schema_version") != 2:
+        return False
+    report_path = Path(report_path_value)
+    report_path = (report_path if report_path.is_absolute()
+                   else Path(artifact_path).resolve().parent / report_path)
+    traces = []
+    for source in ("sq", "python"):
+        value, digest = report.get(f"{source}_trace_path"), report.get(f"{source}_trace_sha256")
+        if not isinstance(value, str) or not value or not isinstance(digest, str):
+            return False
+        path = Path(value)
+        path = path if path.is_absolute() else report_path.resolve().parent / path
+        try:
+            if hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+                return False
+            trace = json.loads(path.read_text())
+        except (OSError, ValueError):
+            return False
+        traces.append(trace)
+    try:
+        metrics = compare_traces(traces[0], traces[1])
+    except (TypeError, ValueError):
+        return False
+    metric_keys = {
+        "candidate_id", "sq_candle_count", "python_candle_count", "common_candle_count",
+        "candle_coverage_pct", "sq_signal_count", "python_signal_count",
+        "matched_signal_count", "signal_match_rate", "sq_trade_count",
+        "python_trade_count", "matched_trade_count", "trade_match_rate", "pnl_correlation",
+        "pnl_mean_absolute_error_usdc", "pnl_max_absolute_error_usdc",
+    }
+    if any(report.get(key) != metrics[key] for key in metric_keys):
+        return False
+    expected_pass = (
+        metrics["matched_signal_count"] >= gate["minimum_matched_signals"]
+        and metrics["matched_trade_count"] >= gate["minimum_matched_trades"]
+        and metrics["signal_match_rate"] >= gate["minimum_signal_match_rate"]
+        and metrics["trade_match_rate"] >= gate["minimum_trade_match_rate"]
+        and metrics["candle_coverage_pct"] >= gate["minimum_candle_coverage_pct"]
+        and metrics["pnl_correlation"] >= gate["minimum_pnl_correlation"]
+        and metrics["pnl_mean_absolute_error_usdc"]
+            <= gate["maximum_pnl_mean_absolute_error_usdc"]
+        and metrics["pnl_max_absolute_error_usdc"]
+            <= gate["maximum_pnl_absolute_error_usdc"])
+    return report.get("parity_pass") is expected_pass
 
 
 def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodology: dict,
@@ -531,13 +580,31 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
             checks.update({
                 "REPORT_FILE": report is not None,
                 "REPORT_CONTRACT": report is not None and len(ids) == 1
-                    and report.get("schema_version") == 1
+                    and report.get("schema_version") in {1, 2}
                     and report.get("candidate_id") == ids[0]
                     and report.get("signal_match_rate") == artifact.get("signal_match_rate")
                     and report.get("trade_match_rate") == artifact.get("trade_match_rate")
                     and report.get("candle_coverage_pct") == artifact.get("candle_coverage_pct")
-                    and report.get("pnl_correlation") == artifact.get("pnl_correlation"),
+                    and report.get("pnl_correlation") == artifact.get("pnl_correlation")
+                    and report.get("pnl_mean_absolute_error_usdc")
+                        == artifact.get("pnl_mean_absolute_error_usdc")
+                    and report.get("pnl_max_absolute_error_usdc")
+                        == artifact.get("pnl_max_absolute_error_usdc")
+                    and (report.get("schema_version") == 1 or (
+                        report.get("matched_signal_count") == artifact.get("matched_signal_count")
+                        and report.get("matched_trade_count") == artifact.get("matched_trade_count")
+                        and report.get("parity_pass") == artifact.get("parity_pass"))),
             })
+            if provenance != "synthetic_control":
+                checks.update({
+                    "SIGNAL_SAMPLE": artifact.get("matched_signal_count", 0)
+                        >= methodology["parity"]["minimum_matched_signals"],
+                    "TRADE_SAMPLE": artifact.get("matched_trade_count", 0)
+                        >= methodology["parity"]["minimum_matched_trades"],
+                    "TRACE_CONTRACT": _verified_parity_sources(
+                        report, artifact.get("parity_report_path"),
+                        receipt.get("artifact", ""), methodology["parity"]),
+                })
     elif stage == "paper":
         paper_config = _verified_json(
             artifact.get("paper_config_path"), artifact.get("paper_config_sha256"),

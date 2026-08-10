@@ -294,6 +294,31 @@ des del SQX i exigeix coincidència exacta, però això encara no prova que els
 càlculs numèrics siguin idèntics als d'SQ: la paritat posterior de senyals,
 trades i PnL continua sent obligatòria.
 
+## Paritat SQ ↔ Python v4
+
+La paritat observada es calcula exclusivament des de dos traces JSON congelats.
+Cada trace identifica candidat i font (`strategyquant` o `python`) i conté
+candles UTC ordenades, senyals directionals i trades amb entrada, sortida,
+direcció i PnL en USDC. No s'accepten timestamps sense zona, duplicats, events
+fora de les candles ni PnL no finit.
+
+```bash
+PYTHONPATH=../.. python3 parity_artifact_v4.py \
+  --campaign-id CAMPAIGN_ID \
+  --candidate-id EXACT_STRATEGY_NAME \
+  --sq-trace /path/to/sq.trace.json \
+  --python-trace /path/to/python.trace.json \
+  --report-output /path/to/parity.report.json \
+  --artifact-output /path/to/state/artifacts/08_parity.json
+```
+
+El gate exigeix com a mínim 30 senyals i 30 trades coincidents, coincidència
+exacta dels conjunts de senyals/trades, ≥95% de candles comunes i correlació de
+PnL ≥0,99. La correlació sola no basta: l'error absolut mitjà ha de ser ≤0,005
+USDC i el màxim ≤0,01 USDC per trade. L'informe guarda els dos hashes i la
+cadena reobre els traces i recalcula totes les mètriques. Mostres buides o
+petites, PnL simplement escalat i reports manuals queden rebutjats.
+
 Proves:
 
 ```bash

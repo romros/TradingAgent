@@ -1,4 +1,5 @@
 import json
+import hashlib
 from copy import deepcopy
 from pathlib import Path
 
@@ -112,6 +113,42 @@ def test_v4_sq_generation_requires_genetic_search_and_rule_limit():
         "sq_generation", artifact, receipt, METHODOLOGY, "v4", "synthetic_control")
     assert "STAGE_ARTIFACT:sq_generation:SEARCH_METHOD" in errors
     assert "STAGE_ARTIFACT:sq_generation:RULE_COUNTS" in errors
+
+
+def test_v4_recomputes_sq_and_translation_file_hashes(tmp_path):
+    sqx = tmp_path / "candidate.sqx"
+    sqx.write_bytes(b"real-sqx")
+    generation = payload("sq_generation", ["candidate"], False)
+    generation.update({"campaign_id": "v4", "evidence_class": "observed",
+                       "candidate_artifact_paths": {"candidate": sqx.name}})
+    generation.pop("control_purpose", None)
+    receipt = {"decision": "PASS", "candidate_ids": ["candidate"],
+               "holdout_accessed": False, "artifact": str(tmp_path / "generation.json")}
+    errors = validate_stage_artifact(
+        "sq_generation", generation, receipt, METHODOLOGY, "v4", "alquimia_native")
+    assert "STAGE_ARTIFACT:sq_generation:ARTIFACT_FILES" in errors
+
+    ir = tmp_path / "candidate.ir.json"
+    ir.write_text("{}")
+    translation = payload("python_translation", ["candidate"], True)
+    translation.update({
+        "campaign_id": "v4", "evidence_class": "observed",
+        "sqx_path": sqx.name, "sqx_sha256": hashlib.sha256(sqx.read_bytes()).hexdigest(),
+        "canonical_ir_path": ir.name,
+        "canonical_ir_sha256": hashlib.sha256(ir.read_bytes()).hexdigest(),
+    })
+    translation.pop("control_purpose", None)
+    receipt = {"decision": "PASS", "candidate_ids": ["candidate"],
+               "holdout_accessed": True, "artifact": str(tmp_path / "translation.json"),
+               "translation_exact": True}
+    assert validate_stage_artifact(
+        "python_translation", translation, receipt, METHODOLOGY,
+        "v4", "alquimia_native") == []
+    ir.write_text('{"tampered":true}')
+    errors = validate_stage_artifact(
+        "python_translation", translation, receipt, METHODOLOGY,
+        "v4", "alquimia_native")
+    assert "STAGE_ARTIFACT:python_translation:IR_FILE" in errors
 
 
 def test_v4_chain_rejects_sq_candidates_from_an_unscreened_hypothesis(tmp_path):

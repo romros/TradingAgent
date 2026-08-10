@@ -12,7 +12,7 @@ METHODOLOGY = ROOT / "methodology_v4.json"
 def make_helper(tmp_path: Path) -> Path:
     helper = tmp_path / "stage_helper.py"
     helper.write_text("""
-import json, os, sys
+import hashlib, json, os, sys
 from pathlib import Path
 sys.path.insert(0, sys.argv[3])
 from lab.sq_bridge.e2e_control import payload
@@ -27,6 +27,24 @@ artifact['campaign_id'] = 'runner-test'
 artifact['evidence_class'] = 'observed'
 artifact.pop('control_purpose', None)
 artifact['decision'] = decision
+if stage == 'sq_generation':
+    paths, hashes = {}, {}
+    for candidate in ids:
+        candidate_path = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent / f'{candidate}.sqx'
+        candidate_path.write_bytes(f'runner-test:{candidate}'.encode())
+        paths[candidate] = candidate_path.name
+        hashes[candidate] = hashlib.sha256(candidate_path.read_bytes()).hexdigest()
+    artifact['candidate_artifact_paths'] = paths
+    artifact['candidate_artifact_hashes'] = hashes
+if stage == 'python_translation':
+    base = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent
+    sqx_path = base / 'runner-sqx-001.sqx'
+    ir_path = base / 'runner-sqx-001.ir.json'
+    ir_path.write_text('{"runner_test":true}')
+    artifact['sqx_path'] = sqx_path.name
+    artifact['sqx_sha256'] = hashlib.sha256(sqx_path.read_bytes()).hexdigest()
+    artifact['canonical_ir_path'] = ir_path.name
+    artifact['canonical_ir_sha256'] = hashlib.sha256(ir_path.read_bytes()).hexdigest()
 if decision == 'BAD':
     artifact['decision'] = 'PASS'
     artifact.pop('historical_period_coverage', None)

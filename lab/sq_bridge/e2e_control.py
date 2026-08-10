@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 
@@ -102,8 +103,30 @@ def generate(methodology_path: Path, output_dir: Path) -> dict:
         if stage in {"discovery", "sq_generation"}:
             ids = [CANDIDATE]
         holdout = stage in {"python_translation", "parity", "paper"}
+        stage_payload = payload(stage, ids, holdout)
+        if stage == "sq_generation":
+            paths, hashes = {}, {}
+            for candidate in ids:
+                candidate_path = output_dir / f"{candidate}.sqx"
+                candidate_path.write_bytes(f"synthetic-control:{candidate}".encode())
+                paths[candidate] = candidate_path.name
+                hashes[candidate] = hashlib.sha256(candidate_path.read_bytes()).hexdigest()
+            stage_payload["candidate_artifact_paths"] = paths
+            stage_payload["candidate_artifact_hashes"] = hashes
+        if stage == "python_translation":
+            sqx_path = output_dir / f"{CANDIDATE}.sqx"
+            ir_path = output_dir / f"{CANDIDATE}.ir.json"
+            if not sqx_path.exists():
+                sqx_path.write_bytes(f"synthetic-control:{CANDIDATE}".encode())
+            ir_path.write_text('{"synthetic_control":true}\n')
+            stage_payload.update({
+                "sqx_path": sqx_path.name,
+                "sqx_sha256": hashlib.sha256(sqx_path.read_bytes()).hexdigest(),
+                "canonical_ir_path": ir_path.name,
+                "canonical_ir_sha256": hashlib.sha256(ir_path.read_bytes()).hexdigest(),
+            })
         artifact = output_dir / f"{index:02d}_{stage}.json"
-        artifact.write_text(json.dumps(payload(stage, ids, holdout), indent=2, sort_keys=True) + "\n")
+        artifact.write_text(json.dumps(stage_payload, indent=2, sort_keys=True) + "\n")
         chain = append_receipt(
             chain, methodology, stage, artifact, "PASS", ids,
             holdout_accessed=holdout,

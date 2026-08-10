@@ -84,3 +84,9 @@ per cada hipòtesi/candidat. Els camps agregats són sempre el pitjor cas
 liquidació) i el verificador els recalcula. NaN, infinits i probabilitats fora
 de `[0,1]` fallen tancat. L'economia de 200 USDC rep un sol candidat per
 campanya; la diversificació combina després diverses cadenes ja aprovades.
+
+Els hashes SQ i de traducció no són camps decoratius. `sq_generation` ha de
+referenciar cada `.sqx`; `python_translation` ha de referenciar el `.sqx` font i
+la representació intermèdia canònica. El verificador obre aquests fitxers i en
+recalcula SHA-256 respecte del directori de l'artefacte. Un fitxer absent,
+substituït o alterat invalida la cadena abans de paritat.

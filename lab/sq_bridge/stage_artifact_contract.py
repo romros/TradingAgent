@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import math
+import hashlib
+from pathlib import Path
 from typing import Any
 
 
@@ -27,6 +29,23 @@ def _ids(value: Any) -> list[str] | None:
     if not isinstance(value, list) or any(not isinstance(item, str) or not item for item in value):
         return None
     return sorted(set(value))
+
+
+def _verified_files(paths: Any, hashes: Any, expected_ids: list[str], artifact_path: str) -> bool:
+    if (not isinstance(paths, dict) or not isinstance(hashes, dict)
+            or set(paths) != set(expected_ids) or set(hashes) != set(expected_ids)):
+        return False
+    base = Path(artifact_path).resolve().parent
+    for candidate_id in expected_ids:
+        value = paths.get(candidate_id)
+        digest = hashes.get(candidate_id)
+        if not isinstance(value, str) or not value or not isinstance(digest, str):
+            return False
+        path = Path(value)
+        path = path if path.is_absolute() else base / path
+        if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+            return False
+    return True
 
 
 def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodology: dict,
@@ -176,7 +195,9 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
     elif stage == "sq_generation":
         generation = methodology["sq_generation"]
         hashes = artifact.get("candidate_artifact_hashes")
+        paths = artifact.get("candidate_artifact_paths")
         rules = artifact.get("rules_per_candidate")
+        candidate_ids = receipt.get("candidate_ids", [])
         checks = {
             "SQ_SOURCE": artifact.get("generator") == "StrategyQuant",
             "SEARCH_METHOD": artifact.get("search_method") == generation["search_method"],
@@ -186,9 +207,11 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
             "SELECTED": _ids(artifact.get("selected_candidate_ids")) == receipt.get("candidate_ids", []),
             "SOURCE_HYPOTHESES": bool(_ids(artifact.get("source_hypothesis_ids"))),
             "ARTIFACT_HASHES": isinstance(hashes, dict) and bool(hashes)
-                               and set(hashes) == set(receipt.get("candidate_ids", []))
+                               and set(hashes) == set(candidate_ids)
                                and all(isinstance(value, str) and len(value) == 64
                                        for value in hashes.values()),
+            "ARTIFACT_FILES": _verified_files(
+                paths, hashes, candidate_ids, receipt.get("artifact", "")),
             "RULE_COUNTS": isinstance(rules, dict) and bool(rules)
                 and set(rules) == set(receipt.get("candidate_ids", []))
                 and all(isinstance(value, int) and not isinstance(value, bool)
@@ -344,12 +367,23 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                     and computed_buffer >= small["minimum_stop_to_liquidation_buffer_ratio"],
             })
     elif stage == "python_translation":
+        source_paths = {"candidate": artifact.get("sqx_path")}
+        source_hashes = {"candidate": artifact.get("sqx_sha256")}
+        ir_paths = {"candidate": artifact.get("canonical_ir_path")}
+        ir_hashes = {"candidate": artifact.get("canonical_ir_sha256")}
         checks = {
             "EXACT": artifact.get("translation_exact") is True and receipt.get("translation_exact") is True,
             "SUPPORTED": artifact.get("supported_subset") is True,
             "SQX_HASH": isinstance(artifact.get("sqx_sha256"), str) and len(artifact["sqx_sha256"]) == 64,
             "IR_HASH": isinstance(artifact.get("canonical_ir_sha256"), str) and len(artifact["canonical_ir_sha256"]) == 64,
         }
+        if methodology.get("schema_version", 1) >= 4:
+            checks.update({
+                "SQX_FILE": _verified_files(
+                    source_paths, source_hashes, ["candidate"], receipt.get("artifact", "")),
+                "IR_FILE": _verified_files(
+                    ir_paths, ir_hashes, ["candidate"], receipt.get("artifact", "")),
+            })
     elif stage == "parity":
         checks = {
             "PASS": artifact.get("parity_pass") is True and receipt.get("parity_pass") is True,

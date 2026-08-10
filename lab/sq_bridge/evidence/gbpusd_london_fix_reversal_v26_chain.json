@@ -1,0 +1,38 @@
+{
+  "schema_version": 2,
+  "campaign_id": "gbpusd-london-fix-reversal-v26",
+  "hypothesis_id": "post-london-fix-temporary-flow-reversal",
+  "market": "GBPUSD",
+  "capital_usdc": 200,
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "methodology_sha256": "ea4c6512d10f21e9550789615c41eb8b12228916ac668373fbb3afc9f905aeab",
+  "provenance": "alquimia_native",
+  "legacy_quantitative_inputs": [],
+  "receipts": [
+    {
+      "stage": "market_preflight",
+      "decision": "PASS",
+      "artifact": "lab/sq_bridge/evidence/gbpusd_london_fix_reversal_v26_market_preflight.json",
+      "artifact_sha256": "2348f2a8e0d7ab1bcdbfffa32a1b1071aa9386c7d27ad906a06674f84922ffda",
+      "candidate_ids": [],
+      "holdout_accessed": false,
+      "translation_exact": null,
+      "parity_pass": null,
+      "previous_receipt_sha256": null,
+      "receipt_sha256": "8bd3308c822852953cdaea5eb362fc4fd748a1b9a385b1d91910c10a21372483"
+    },
+    {
+      "stage": "discovery",
+      "decision": "REJECT",
+      "artifact": "lab/sq_bridge/evidence/gbpusd_london_fix_reversal_v26_discovery_reject.json",
+      "artifact_sha256": "269701ba00a5573df5297a899a0f7cb2efb6629ddc0e5660817b58df8171bc60",
+      "candidate_ids": [],
+      "holdout_accessed": false,
+      "translation_exact": null,
+      "parity_pass": null,
+      "previous_receipt_sha256": "8bd3308c822852953cdaea5eb362fc4fd748a1b9a385b1d91910c10a21372483",
+      "receipt_sha256": "3bd2290ae4d19b127afea00258599189fd2d4ccc67fc024ac20910a35feee61c"
+    }
+  ],
+  "live_authorized": false
+}

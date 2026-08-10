@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "campaign_id": "gbpusd-london-fix-reversal-v26",
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "hypothesis": "An unusually large GBPUSD move into the 16:00 Europe/London benchmark window partially reverses after the fix because benchmark-driven flow is temporary.",
+  "falsifier": "Reject before StrategyQuant if no preregistered parameter point has sufficient train trades, positive stress expectancy, PF and year stability after small-account costs.",
+  "market": "GBPUSD",
+  "timeframe": "M15",
+  "direction": "contrarian_long_and_short",
+  "entry": "next M15 open at 16:00 Europe/London after observing the 15:00-16:00 close-to-close move",
+  "exit": "protective stop or fixed same-day London time",
+  "source": "lab/out/market_sources/gbpusd_sq_m1_utc_2007_2023.parquet",
+  "source_manifest": "lab/sq_bridge/evidence/gbpusd_sq_m1_utc_2007_2023_source.json",
+  "venue_overlap_evidence": "lab/sq_bridge/evidence/gbpusd_dukas_ostium_parity_2026_07_symmetric_clean.json",
+  "splits": {
+    "train": ["2007-01-01", "2013-12-31"],
+    "validation": ["2014-01-01", "2018-12-31"],
+    "oos": ["2019-01-01", "2023-12-31"],
+    "sealed_holdout": ["2024-01-01", "2026-12-31"]
+  },
+  "search": {
+    "shock_multiple_of_20d_median": [1.0, 1.5, 2.0],
+    "stop_multiple_of_signal_move": [0.5, 1.0],
+    "exit_london_hour": [17, 18],
+    "attempt_budget": 12
+  },
+  "economics": {
+    "capital_usdc": 200,
+    "risk_per_trade_pct": 1.0,
+    "venue_max_leverage": 200,
+    "research_leverage_cap": 10,
+    "maximum_margin_pct": 35,
+    "minimum_reserve_pct": 40,
+    "opening_oracle_usdc": 0.10,
+    "roundtrip_bps": {"base": 8, "conservative": 15, "stress": 30}
+  },
+  "train_gate": {
+    "minimum_trades": 120,
+    "minimum_base_profit_factor": 1.15,
+    "minimum_stress_profit_factor": 1.05,
+    "minimum_stress_expectancy_usdc": 0.10,
+    "minimum_positive_year_ratio": 0.60,
+    "maximum_drawdown_pct": 20,
+    "minimum_stable_neighbors": 1
+  },
+  "sq_if_pass": {
+    "role": "candidate_generator_only",
+    "maximum_rules": 3,
+    "attempt_budget": 1000,
+    "holdout_allowed": false
+  },
+  "holdout_evaluated": false,
+  "live_authorized": false
+}

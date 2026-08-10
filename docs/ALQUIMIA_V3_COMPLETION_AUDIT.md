@@ -14,7 +14,7 @@ antigues més enllà d'exemples tècnics.
 | Hipòtesi semàntica, no només blocs | gate AST sweep/reclaim | PROVAT AMB SQX REAL V5 |
 | Llinatge immutable de candidats | rebuts encadenats, hash d'artefacte i subset obligatori | PROVAT AMB TESTS I CONTROL E2E |
 | Holdout segellat | split/manifest + rebuig `EARLY_HOLDOUT` | PROVAT AMB TESTS |
-| Semàntica dels artefactes per etapa | contracte estricte v2, camps i llindars verificats | PROVAT AMB CONTROL E2E; PENDENT EVIDÈNCIA REAL |
+| Semàntica dels artefactes per etapa | contracte estricte v2, camps i llindars verificats | PROVAT AMB CONTROL E2E I REBUIG REAL; PENDENT PASS REAL |
 | Validació temporal SQ independent | rebut `temporal_validation` | CABLEJAT PROVAT; PENDENT CANDIDAT V3 REAL |
 | Robustesa/Monte Carlo | rebut `robustness` | CABLEJAT PROVAT; PENDENT CANDIDAT V3 REAL |
 | Economia Ostium 200 | rebut `small_account_economics` | CONTROL NEGATIU PROVAT; PENDENT PASS V3 |
@@ -34,6 +34,10 @@ antigues més enllà d'exemples tècnics.
   `lab/sq_bridge/evidence/alquimia_v3_strict_control`: `valid=true` i
   `operational_control_complete=true`, però obligatòriament
   `promotable=false`, `paper_ready=false` i `live_authorized=false`.
+- Primera cadena v2 amb evidència de mercat real: GBPUSD post-fix v26 supera
+  preflight M15 i queda `REJECT` terminal a discovery amb 0/12 punts train.
+  Prova el camí real de descart abans d'SQCLI; validació, OOS i holdout romanen
+  intactes. No prova encara el camí real de promoció.
 - Regressió completa del pont: 211 proves superades. També s'ha alineat una
   prova antiga amb el fee cripto conservador canònic de 10 bps del registre.
 - XAU H4 R2 importat exclusivament com a control negatiu: cadena íntegra i

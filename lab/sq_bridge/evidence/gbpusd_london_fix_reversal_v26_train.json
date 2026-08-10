@@ -1,0 +1,708 @@
+{
+  "all_results": [
+    {
+      "gross_no_cost_no_oracle_diagnostic": {
+        "expectancy_usdc": -0.033221831797655074,
+        "liquidation_count": 0,
+        "max_drawdown_pct": 46.070405893258226,
+        "maximum_effective_leverage": 10.0,
+        "net_pnl_usdc": -30.29831059946143,
+        "positive_year_ratio": 0.42857142857142855,
+        "profit_factor": 0.9562763870875128,
+        "trades": 912
+      },
+      "parameter_tuple": [
+        1.0,
+        0.5,
+        17
+      ],
+      "parameters": {
+        "exit_london_hour": 17,
+        "shock_multiple": 1.0,
+        "stop_multiple": 0.5
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": -1.482874916743048,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 681.3701139867064,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -1352.3819240696598,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.16108460093698898,
+          "trades": 912
+        },
+        "conservative": {
+          "expectancy_usdc": -2.6638213660702665,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 1232.7224904083841,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -2429.405085856083,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.04456931527295079,
+          "trades": 912
+        },
+        "stress": {
+          "expectancy_usdc": -5.194420900342878,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 2441.013202734026,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -4737.311861112705,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.005633524004968193,
+          "trades": 912
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "gross_no_cost_no_oracle_diagnostic": {
+        "expectancy_usdc": 0.02635492702511094,
+        "liquidation_count": 0,
+        "max_drawdown_pct": 53.732702615323056,
+        "maximum_effective_leverage": 10.0,
+        "net_pnl_usdc": 24.035693446901178,
+        "positive_year_ratio": 0.7142857142857143,
+        "profit_factor": 1.0306438806658766,
+        "trades": 912
+      },
+      "parameter_tuple": [
+        1.0,
+        0.5,
+        18
+      ],
+      "parameters": {
+        "exit_london_hour": 18,
+        "shock_multiple": 1.0,
+        "stop_multiple": 0.5
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": -1.423298157920282,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 652.8479840380973,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -1298.0479200232971,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.22956426518428852,
+          "trades": 912
+        },
+        "conservative": {
+          "expectancy_usdc": -2.6042446072475003,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 1202.8843313150671,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -2375.0710818097205,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.08055607523970122,
+          "trades": 912
+        },
+        "stress": {
+          "expectancy_usdc": -5.134844141520112,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 2408.2360850239743,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -4682.977857066342,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.013383498409877822,
+          "trades": 912
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "gross_no_cost_no_oracle_diagnostic": {
+        "expectancy_usdc": -0.043168880084063554,
+        "liquidation_count": 0,
+        "max_drawdown_pct": 37.15060901237,
+        "maximum_effective_leverage": 10.0,
+        "net_pnl_usdc": -39.37001863666596,
+        "positive_year_ratio": 0.5714285714285714,
+        "profit_factor": 0.9202757468237203,
+        "trades": 912
+      },
+      "parameter_tuple": [
+        1.0,
+        1.0,
+        17
+      ],
+      "parameters": {
+        "exit_london_hour": 17,
+        "shock_multiple": 1.0,
+        "stop_multiple": 1.0
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": -1.0456729892342742,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 480.2140304354996,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -953.653766181658,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.14175579045642886,
+          "trades": 912
+        },
+        "conservative": {
+          "expectancy_usdc": -1.8353640847407082,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 848.8389480308275,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -1673.852045283526,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.038387299158118574,
+          "trades": 912
+        },
+        "stress": {
+          "expectancy_usdc": -3.527559289397353,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 1656.6817783328638,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -3217.1340719303857,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.005038572248161383,
+          "trades": 912
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "gross_no_cost_no_oracle_diagnostic": {
+        "expectancy_usdc": 0.01722281185492535,
+        "liquidation_count": 0,
+        "max_drawdown_pct": 33.13477858610233,
+        "maximum_effective_leverage": 10.0,
+        "net_pnl_usdc": 15.707204411691919,
+        "positive_year_ratio": 0.7142857142857143,
+        "profit_factor": 1.0273453766077303,
+        "trades": 912
+      },
+      "parameter_tuple": [
+        1.0,
+        1.0,
+        18
+      ],
+      "parameters": {
+        "exit_london_hour": 18,
+        "shock_multiple": 1.0,
+        "stop_multiple": 1.0
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": -0.9852812972952852,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 451.7211102766391,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -898.5765431333001,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.22516343978110298,
+          "trades": 912
+        },
+        "conservative": {
+          "expectancy_usdc": -1.7749723928017191,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 819.3992574282103,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -1618.774822235168,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.07754435754018917,
+          "trades": 912
+        },
+        "stress": {
+          "expectancy_usdc": -3.467167597458364,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 1625.1305543936182,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -3162.056848882028,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.013207359584258473,
+          "trades": 912
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "gross_no_cost_no_oracle_diagnostic": {
+        "expectancy_usdc": 0.005454517809559879,
+        "liquidation_count": 0,
+        "max_drawdown_pct": 25.2434401046721,
+        "maximum_effective_leverage": 10.0,
+        "net_pnl_usdc": 3.414528148784484,
+        "positive_year_ratio": 0.42857142857142855,
+        "profit_factor": 1.0075419458652692,
+        "trades": 626
+      },
+      "parameter_tuple": [
+        1.5,
+        0.5,
+        17
+      ],
+      "parameters": {
+        "exit_london_hour": 17,
+        "shock_multiple": 1.5,
+        "stop_multiple": 0.5
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": -1.3733841336688635,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 432.8342975045125,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -859.7384676767085,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.16501324777971194,
+          "trades": 626
+        },
+        "conservative": {
+          "expectancy_usdc": -2.4923679537124834,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 791.1056430001621,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -1560.2223390240147,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.044459340831875985,
+          "trades": 626
+        },
+        "stress": {
+          "expectancy_usdc": -4.890190425234527,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 1576.2585828756291,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -3061.259206196814,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.006733833389565754,
+          "trades": 626
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "gross_no_cost_no_oracle_diagnostic": {
+        "expectancy_usdc": 0.05111518757915177,
+        "liquidation_count": 0,
+        "max_drawdown_pct": 34.13292934204789,
+        "maximum_effective_leverage": 10.0,
+        "net_pnl_usdc": 31.99810742454901,
+        "positive_year_ratio": 0.5714285714285714,
+        "profit_factor": 1.060445045332308,
+        "trades": 626
+      },
+      "parameter_tuple": [
+        1.5,
+        0.5,
+        18
+      ],
+      "parameters": {
+        "exit_london_hour": 18,
+        "shock_multiple": 1.5,
+        "stop_multiple": 0.5
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": -1.3277234638992714,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 417.7754825680555,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -831.154888400944,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.24075874392973468,
+          "trades": 626
+        },
+        "conservative": {
+          "expectancy_usdc": -2.4467072839428914,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 775.216334482376,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -1531.63875974825,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.0856405876990682,
+          "trades": 626
+        },
+        "stress": {
+          "expectancy_usdc": -4.844529755464935,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 1558.513583537053,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -3032.675626921049,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.01626166170974764,
+          "trades": 626
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "gross_no_cost_no_oracle_diagnostic": {
+        "expectancy_usdc": -0.0518748677522835,
+        "liquidation_count": 0,
+        "max_drawdown_pct": 23.62027254227217,
+        "maximum_effective_leverage": 10.0,
+        "net_pnl_usdc": -32.47366721292947,
+        "positive_year_ratio": 0.42857142857142855,
+        "profit_factor": 0.8930927270418051,
+        "trades": 626
+      },
+      "parameter_tuple": [
+        1.5,
+        1.0,
+        17
+      ],
+      "parameters": {
+        "exit_london_hour": 17,
+        "shock_multiple": 1.5,
+        "stop_multiple": 1.0
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": -0.9303881047731631,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 292.93020089505404,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -582.4229535880002,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.13160720918356603,
+          "trades": 626
+        },
+        "conservative": {
+          "expectancy_usdc": -1.6115871871664325,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 510.9646319466601,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -1008.8535791661867,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.03484623114746271,
+          "trades": 626
+        },
+        "stress": {
+          "expectancy_usdc": -3.0712995065805813,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 988.7878703566726,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -1922.633491119444,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.00507051101312661,
+          "trades": 626
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "gross_no_cost_no_oracle_diagnostic": {
+        "expectancy_usdc": 0.006665673828496138,
+        "liquidation_count": 0,
+        "max_drawdown_pct": 25.874452808675873,
+        "maximum_effective_leverage": 10.0,
+        "net_pnl_usdc": 4.172711816638582,
+        "positive_year_ratio": 0.5714285714285714,
+        "profit_factor": 1.0120645595887816,
+        "trades": 626
+      },
+      "parameter_tuple": [
+        1.5,
+        1.0,
+        18
+      ],
+      "parameters": {
+        "exit_london_hour": 18,
+        "shock_multiple": 1.5,
+        "stop_multiple": 1.0
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": -0.8718475631923834,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 274.09247691865073,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -545.776574558432,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.21087928007920353,
+          "trades": 626
+        },
+        "conservative": {
+          "expectancy_usdc": -1.5530466455856529,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 491.552822655687,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -972.2072001366187,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.07056585233399908,
+          "trades": 626
+        },
+        "stress": {
+          "expectancy_usdc": -3.012758964999802,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 968.0962554559468,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -1885.987112089876,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.012480914259756521,
+          "trades": 626
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "gross_no_cost_no_oracle_diagnostic": {
+        "expectancy_usdc": 0.06911827940129234,
+        "liquidation_count": 0,
+        "max_drawdown_pct": 13.747821521343962,
+        "maximum_effective_leverage": 10.0,
+        "net_pnl_usdc": 29.582623583753122,
+        "positive_year_ratio": 0.7142857142857143,
+        "profit_factor": 1.1047380282090105,
+        "trades": 428
+      },
+      "parameter_tuple": [
+        2.0,
+        0.5,
+        17
+      ],
+      "parameters": {
+        "exit_london_hour": 17,
+        "shock_multiple": 2.0,
+        "stop_multiple": 0.5
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": -1.238375178373386,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 266.49551816105804,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -530.0245763438093,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.16787898055510106,
+          "trades": 428
+        },
+        "conservative": {
+          "expectancy_usdc": -2.294931953926229,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 497.4380931828085,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -982.2308762804262,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.03662224640024994,
+          "trades": 428
+        },
+        "stress": {
+          "expectancy_usdc": -4.5589821872537515,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 1003.5495754446238,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -1951.2443761446057,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.003311749337684326,
+          "trades": 428
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "gross_no_cost_no_oracle_diagnostic": {
+        "expectancy_usdc": 0.11592173831496948,
+        "liquidation_count": 0,
+        "max_drawdown_pct": 22.46104448487627,
+        "maximum_effective_leverage": 10.0,
+        "net_pnl_usdc": 49.61450399880694,
+        "positive_year_ratio": 0.8571428571428571,
+        "profit_factor": 1.1480174991255896,
+        "trades": 428
+      },
+      "parameter_tuple": [
+        2.0,
+        0.5,
+        18
+      ],
+      "parameters": {
+        "exit_london_hour": 18,
+        "shock_multiple": 2.0,
+        "stop_multiple": 0.5
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": -1.1915717194597089,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 256.0759178953786,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -509.9926959287554,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.2527511544660874,
+          "trades": 428
+        },
+        "conservative": {
+          "expectancy_usdc": -2.248128495012552,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 486.4780957800145,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -962.1989958653724,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.08143352175362768,
+          "trades": 428
+        },
+        "stress": {
+          "expectancy_usdc": -4.512178728340074,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 991.3823090133175,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -1931.2124957295516,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.009070929020993037,
+          "trades": 428
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "gross_no_cost_no_oracle_diagnostic": {
+        "expectancy_usdc": -0.02214247233257791,
+        "liquidation_count": 0,
+        "max_drawdown_pct": 10.38402972698802,
+        "maximum_effective_leverage": 10.0,
+        "net_pnl_usdc": -9.476978158343345,
+        "positive_year_ratio": 0.42857142857142855,
+        "profit_factor": 0.9485345730823158,
+        "trades": 428
+      },
+      "parameter_tuple": [
+        2.0,
+        1.0,
+        17
+      ],
+      "parameters": {
+        "exit_london_hour": 17,
+        "shock_multiple": 2.0,
+        "stop_multiple": 1.0
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": -0.8376644125727685,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 179.97262264039477,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -358.5203685811449,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.12576124344092823,
+          "trades": 428
+        },
+        "conservative": {
+          "expectancy_usdc": -1.4637461102829348,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 316.6888685378394,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -626.4833352010961,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.02669110658308949,
+          "trades": 428
+        },
+        "stress": {
+          "expectancy_usdc": -2.8053497482332923,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 616.303012243952,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -1200.689692243849,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.0024619125370949732,
+          "trades": 428
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "gross_no_cost_no_oracle_diagnostic": {
+        "expectancy_usdc": 0.031193885490310908,
+        "liquidation_count": 0,
+        "max_drawdown_pct": 11.97595982255355,
+        "maximum_effective_leverage": 10.0,
+        "net_pnl_usdc": 13.350982989853069,
+        "positive_year_ratio": 0.7142857142857143,
+        "profit_factor": 1.0630815724288931,
+        "trades": 428
+      },
+      "parameter_tuple": [
+        2.0,
+        1.0,
+        18
+      ],
+      "parameters": {
+        "exit_london_hour": 18,
+        "shock_multiple": 2.0,
+        "stop_multiple": 1.0
+      },
+      "passes_numeric_gate": false,
+      "passes_train_gate": false,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": -0.7843280547498797,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 168.31876144074855,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -335.69240743294847,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.21120046940769502,
+          "trades": 428
+        },
+        "conservative": {
+          "expectancy_usdc": -1.4104097524600463,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 304.676155651731,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -603.6553740528998,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.06554595989425473,
+          "trades": 428
+        },
+        "stress": {
+          "expectancy_usdc": -2.7520133904104034,
+          "liquidation_count": 0,
+          "max_drawdown_pct": 603.4902704953503,
+          "maximum_effective_leverage": 10.0,
+          "net_pnl_usdc": -1177.8617310956527,
+          "positive_year_ratio": 0.0,
+          "profit_factor": 0.006719163255616189,
+          "trades": 428
+        }
+      },
+      "stable_neighbors": 0
+    }
+  ],
+  "attempted": 12,
+  "bars_loaded": 175162,
+  "campaign_id": "gbpusd-london-fix-reversal-v26",
+  "config_sha256": "8f8bc603f6742151a9d7b5cb48cef4dfa76046d670559969e9738afb41df8a73",
+  "daily_observations": 1824,
+  "decision": "REJECT_NO_SQ",
+  "holdout_accessed": false,
+  "live_authorized": false,
+  "oos_accessed": false,
+  "schema_version": 1,
+  "source": "lab/out/market_sources/gbpusd_sq_m1_utc_2007_2023.parquet",
+  "source_sha256": "8e5cc736f052d404f6a278f9c80f89ea2216fff9f05951744d2b86c30cfa5f58",
+  "stage": "pre_sq_falsification",
+  "survivor_count": 0,
+  "survivors": [],
+  "train_window": [
+    "2007-01-01",
+    "2013-12-31"
+  ],
+  "validation_accessed": false
+}

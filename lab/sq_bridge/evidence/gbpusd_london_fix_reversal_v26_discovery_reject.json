@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "stage": "discovery",
+  "campaign_id": "gbpusd-london-fix-reversal-v26",
+  "decision": "REJECT",
+  "candidate_ids": [],
+  "holdout_accessed": false,
+  "evidence_class": "observed",
+  "generator": "pre_sq_deterministic_falsification",
+  "attempted": 12,
+  "selected_candidate_ids": [],
+  "reason": "0/12 frozen train-only points pass small-account cost and stability gates",
+  "best_point": {
+    "shock_multiple": 2.0,
+    "stop_multiple": 1.0,
+    "exit_london_hour": 18,
+    "trades": 428,
+    "gross_no_cost_no_oracle_profit_factor": 1.0631,
+    "gross_no_cost_no_oracle_expectancy_usdc": 0.0312,
+    "base_profit_factor": 0.2112,
+    "base_expectancy_usdc": -0.7843,
+    "stress_profit_factor": 0.0067,
+    "stress_expectancy_usdc": -2.7520,
+    "positive_year_ratio_stress": 0.0
+  },
+  "source_result": "lab/sq_bridge/evidence/gbpusd_london_fix_reversal_v26_train.json",
+  "validation_accessed": false,
+  "oos_accessed": false,
+  "live_authorized": false
+}

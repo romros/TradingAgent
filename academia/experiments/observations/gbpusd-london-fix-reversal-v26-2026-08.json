@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "gbpusd_london_fix_reversal_v26_20260810",
+  "family": "gbpusd_post_london_fix_reversal",
+  "market": "GBPUSD",
+  "timeframe": "M15",
+  "stage": "train_only_pre_sq_falsification",
+  "attempts": 12,
+  "observed": {
+    "train_window": ["2007-01-01", "2013-12-31"],
+    "bars": 175162,
+    "daily_observations": 1824,
+    "survivors": 0,
+    "best_trades": 428,
+    "best_gross_no_cost_no_oracle_profit_factor": 1.0631,
+    "best_gross_no_cost_no_oracle_expectancy_usdc": 0.0312,
+    "best_base_profit_factor": 0.2112,
+    "best_base_expectancy_usdc": -0.7843,
+    "best_stress_profit_factor": 0.0067,
+    "best_stress_expectancy_usdc": -2.7520
+  },
+  "decision": "REJECT",
+  "failure_code": "TEMPORAL_PASS_COST_FAIL",
+  "inference": "A small gross tendency exists at the most selective point, but it is weaker than the fixed oracle cost for a 200 USDC account and collapses after executable cost scenarios.",
+  "do_not_repeat": "Do not optimize the shock threshold, stop, exit time, reverse direction post hoc or open validation to rescue the family.",
+  "next_direction": "Choose a genuinely different mechanism with larger expected movement per trade or lower fixed-cost sensitivity.",
+  "validation_accessed": false,
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "evidence": "lab/sq_bridge/evidence/gbpusd_london_fix_reversal_v26_train.json"
+}

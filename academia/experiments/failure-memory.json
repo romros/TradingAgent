@@ -2,6 +2,16 @@
   "schema_version": 1,
   "entries": [
     {
+      "id": "gbpusd_london_fix_reversal_v26_20260810",
+      "family": "gbpusd_post_london_fix_reversal",
+      "decision": "REJECT",
+      "failure_code": "TEMPORAL_PASS_COST_FAIL",
+      "lesson": "The most selective of 12 frozen train-only points has 428 trades and a small frictionless tendency (PF 1.063, +0.031 USDC/trade), but the fixed 0.10 USDC oracle already makes it negative; base execution costs reduce it to PF 0.21 and -0.78 USDC/trade.",
+      "do_not_repeat": "Do not optimize thresholds, stops or exit hours, invert direction post hoc, or open 2014-2023 to rescue this family.",
+      "next_direction": "Require a genuinely different mechanism with larger movement per trade or materially lower fixed-cost sensitivity.",
+      "evidence": "academia/experiments/observations/gbpusd-london-fix-reversal-v26-2026-08.json"
+    },
+    {
       "id": "spx_vix_term_normalization_v5_20260810",
       "family": "spx_vix9d_vix3m_normalization",
       "decision": "REJECT",

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import math
 import hashlib
+import json
 from pathlib import Path
 from typing import Any
 
@@ -46,6 +47,20 @@ def _verified_files(paths: Any, hashes: Any, expected_ids: list[str], artifact_p
         if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != digest:
             return False
     return True
+
+
+def _verified_json(path_value: Any, digest: Any, artifact_path: str) -> dict | None:
+    if not isinstance(path_value, str) or not path_value or not isinstance(digest, str):
+        return None
+    path = Path(path_value)
+    path = path if path.is_absolute() else Path(artifact_path).resolve().parent / path
+    if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+        return None
+    try:
+        value = json.loads(path.read_text())
+    except (OSError, ValueError):
+        return None
+    return value if isinstance(value, dict) else None
 
 
 def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodology: dict,
@@ -385,6 +400,9 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                     ir_paths, ir_hashes, ["candidate"], receipt.get("artifact", "")),
             })
     elif stage == "parity":
+        report = _verified_json(
+            artifact.get("parity_report_path"), artifact.get("parity_report_sha256"),
+            receipt.get("artifact", ""))
         checks = {
             "PASS": artifact.get("parity_pass") is True and receipt.get("parity_pass") is True,
             "SIGNALS": artifact.get("signal_match_rate") == 1.0,
@@ -392,12 +410,39 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
             "CANDLE_COVERAGE": _at_least(artifact.get("candle_coverage_pct"), 95.0),
             "PNL_CORRELATION": _at_least(artifact.get("pnl_correlation"), 0.99),
         }
+        if methodology.get("schema_version", 1) >= 4:
+            ids = receipt.get("candidate_ids", [])
+            checks.update({
+                "REPORT_FILE": report is not None,
+                "REPORT_CONTRACT": report is not None and len(ids) == 1
+                    and report.get("schema_version") == 1
+                    and report.get("candidate_id") == ids[0]
+                    and report.get("signal_match_rate") == artifact.get("signal_match_rate")
+                    and report.get("trade_match_rate") == artifact.get("trade_match_rate")
+                    and report.get("candle_coverage_pct") == artifact.get("candle_coverage_pct")
+                    and report.get("pnl_correlation") == artifact.get("pnl_correlation"),
+            })
     elif stage == "paper":
+        paper_config = _verified_json(
+            artifact.get("paper_config_path"), artifact.get("paper_config_sha256"),
+            receipt.get("artifact", ""))
         checks = {
             "MODE": artifact.get("mode") == "paper",
             "PROBE": artifact.get("paper_probe_configured") is True,
             "LIVE_FALSE": artifact.get("live_authorized") is False,
         }
+        if methodology.get("schema_version", 1) >= 4:
+            ids = receipt.get("candidate_ids", [])
+            checks.update({
+                "CONFIG_FILE": paper_config is not None,
+                "CONFIG_CONTRACT": paper_config is not None and len(ids) == 1
+                    and paper_config.get("schema_version") == 1
+                    and paper_config.get("candidate_id") == ids[0]
+                    and paper_config.get("capital_usdc") == 200
+                    and paper_config.get("mode") == "paper"
+                    and paper_config.get("live_authorized") is False
+                    and paper_config.get("signer_enabled") is False,
+            })
     else:
         checks = {"KNOWN_STAGE": False}
     errors.extend(f"{prefix}:{name}" for name, passed in checks.items() if not passed)

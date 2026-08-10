@@ -151,6 +151,44 @@ def test_v4_recomputes_sq_and_translation_file_hashes(tmp_path):
     assert "STAGE_ARTIFACT:python_translation:IR_FILE" in errors
 
 
+def test_v4_parity_and_paper_verify_hashed_json_contents(tmp_path):
+    parity_report = tmp_path / "parity.json"
+    parity_report.write_text(json.dumps({
+        "schema_version": 1, "candidate_id": "wrong",
+        "signal_match_rate": 1.0, "trade_match_rate": 1.0,
+        "candle_coverage_pct": 95, "pnl_correlation": .99}))
+    parity = payload("parity", ["candidate"], True)
+    parity.update({
+        "campaign_id": "v4", "evidence_class": "observed",
+        "parity_report_path": parity_report.name,
+        "parity_report_sha256": hashlib.sha256(parity_report.read_bytes()).hexdigest(),
+    })
+    parity.pop("control_purpose", None)
+    receipt = {"decision": "PASS", "candidate_ids": ["candidate"],
+               "holdout_accessed": True, "artifact": str(tmp_path / "parity-stage.json"),
+               "parity_pass": True}
+    errors = validate_stage_artifact(
+        "parity", parity, receipt, METHODOLOGY, "v4", "alquimia_native")
+    assert "STAGE_ARTIFACT:parity:REPORT_CONTRACT" in errors
+
+    paper_config = tmp_path / "paper.json"
+    paper_config.write_text(json.dumps({
+        "schema_version": 1, "candidate_id": "candidate", "capital_usdc": 200,
+        "mode": "paper", "live_authorized": False, "signer_enabled": True}))
+    paper = payload("paper", ["candidate"], True)
+    paper.update({
+        "campaign_id": "v4", "evidence_class": "observed",
+        "paper_config_path": paper_config.name,
+        "paper_config_sha256": hashlib.sha256(paper_config.read_bytes()).hexdigest(),
+    })
+    paper.pop("control_purpose", None)
+    receipt = {"decision": "PASS", "candidate_ids": ["candidate"],
+               "holdout_accessed": True, "artifact": str(tmp_path / "paper-stage.json")}
+    errors = validate_stage_artifact(
+        "paper", paper, receipt, METHODOLOGY, "v4", "alquimia_native")
+    assert "STAGE_ARTIFACT:paper:CONFIG_CONTRACT" in errors
+
+
 def test_v4_chain_rejects_sq_candidates_from_an_unscreened_hypothesis(tmp_path):
     chain = new_chain(METHODOLOGY_PATH, "lineage", "approved", "US500")
     specifications = [

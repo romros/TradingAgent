@@ -90,3 +90,10 @@ referenciar cada `.sqx`; `python_translation` ha de referenciar el `.sqx` font i
 la representació intermèdia canònica. El verificador obre aquests fitxers i en
 recalcula SHA-256 respecte del directori de l'artefacte. Un fitxer absent,
 substituït o alterat invalida la cadena abans de paritat.
+
+Paritat i paper també tenen fitxers JSON hashats. L'informe de paritat ha de
+coincidir amb el candidat i amb totes les mètriques declarades. La configuració
+paper ha de fixar candidat, capital 200 USDC, `mode=paper`,
+`live_authorized=false` i `signer_enabled=false`. Recalcular correctament el hash
+d'un JSON amb candidat diferent o signer actiu no el fa vàlid: el contingut
+també es comprova.

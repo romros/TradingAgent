@@ -45,6 +45,23 @@ if stage == 'python_translation':
     artifact['sqx_sha256'] = hashlib.sha256(sqx_path.read_bytes()).hexdigest()
     artifact['canonical_ir_path'] = ir_path.name
     artifact['canonical_ir_sha256'] = hashlib.sha256(ir_path.read_bytes()).hexdigest()
+if stage == 'parity':
+    base = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent
+    report_path = base / 'runner-sqx-001.parity.json'
+    report_path.write_text(json.dumps({
+        'schema_version': 1, 'candidate_id': 'runner-sqx-001',
+        'signal_match_rate': 1.0, 'trade_match_rate': 1.0,
+        'candle_coverage_pct': 95, 'pnl_correlation': .99}))
+    artifact['parity_report_path'] = report_path.name
+    artifact['parity_report_sha256'] = hashlib.sha256(report_path.read_bytes()).hexdigest()
+if stage == 'paper':
+    base = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent
+    config_path = base / 'runner-sqx-001.paper.json'
+    config_path.write_text(json.dumps({
+        'schema_version': 1, 'candidate_id': 'runner-sqx-001', 'capital_usdc': 200,
+        'mode': 'paper', 'live_authorized': False, 'signer_enabled': False}))
+    artifact['paper_config_path'] = config_path.name
+    artifact['paper_config_sha256'] = hashlib.sha256(config_path.read_bytes()).hexdigest()
 if decision == 'BAD':
     artifact['decision'] = 'PASS'
     artifact.pop('historical_period_coverage', None)

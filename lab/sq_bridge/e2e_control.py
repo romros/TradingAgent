@@ -125,6 +125,27 @@ def generate(methodology_path: Path, output_dir: Path) -> dict:
                 "canonical_ir_path": ir_path.name,
                 "canonical_ir_sha256": hashlib.sha256(ir_path.read_bytes()).hexdigest(),
             })
+        if stage == "parity":
+            report_path = output_dir / f"{CANDIDATE}.parity.json"
+            report_path.write_text(json.dumps({
+                "schema_version": 1, "candidate_id": CANDIDATE,
+                "signal_match_rate": 1.0, "trade_match_rate": 1.0,
+                "candle_coverage_pct": 95, "pnl_correlation": .99,
+            }, sort_keys=True) + "\n")
+            stage_payload.update({
+                "parity_report_path": report_path.name,
+                "parity_report_sha256": hashlib.sha256(report_path.read_bytes()).hexdigest(),
+            })
+        if stage == "paper":
+            config_path = output_dir / f"{CANDIDATE}.paper.json"
+            config_path.write_text(json.dumps({
+                "schema_version": 1, "candidate_id": CANDIDATE, "capital_usdc": 200,
+                "mode": "paper", "live_authorized": False, "signer_enabled": False,
+            }, sort_keys=True) + "\n")
+            stage_payload.update({
+                "paper_config_path": config_path.name,
+                "paper_config_sha256": hashlib.sha256(config_path.read_bytes()).hexdigest(),
+            })
         artifact = output_dir / f"{index:02d}_{stage}.json"
         artifact.write_text(json.dumps(stage_payload, indent=2, sort_keys=True) + "\n")
         chain = append_receipt(

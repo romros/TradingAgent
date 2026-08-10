@@ -297,6 +297,23 @@ pressupost màxim de 10.000 intents. `Highest` i `Lowest` formen part del subset
 SQX→IR→Python provat; ATR es manté com a fórmula de stop, no com a operador de
 senyal no reproduït.
 
+No cal traslladar aquests plans a mà. Quan el bootstrap tingui branques, el batch
+recompila independentment cada pla des del screen i la cadena, genera tots els
+CFX i els reobre amb el contracte genètic:
+
+```bash
+PYTHONPATH=../.. python3 eurusd_v4_project_batch.py \
+  --bootstrap /path/to/state/eurusd-v4-screen/bootstrap.json \
+  --scaffold /path/to/technical-scaffold.cfx \
+  --output-dir /path/to/state/eurusd-v4-projects
+```
+
+El resultat `project_batch.json` lliga bootstrap, scaffold, CFX i manifests per
+ruta/hash i manté `sqcli_started=false`. No importa ni inicia projectes. CFX i
+manifest són byte-reproduïbles: dues compilacions amb les mateixes entrades
+produeixen el mateix SHA-256; timestamps operatius pertanyen al journal, no al
+contracte científic.
+
 El `market_preflight` observat que precedeix aquest screen no es valida només
 amb els seus totals. Conserva `campaign_config_path` i SHA-256; el contracte
 reexecuta el compositor sobre cobertura històrica, mapping i costos congelats.

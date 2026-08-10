@@ -7,7 +7,7 @@ import argparse
 import hashlib
 import json
 import zipfile
-from datetime import date, datetime, timedelta, timezone
+from datetime import date, timedelta
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
@@ -106,6 +106,17 @@ V4_HYPOTHESIS_SEARCH_PROFILES = {
 
 def _sha256(payload: bytes) -> str:
     return hashlib.sha256(payload).hexdigest()
+
+
+def _write_reproducible_cfx(path: Path, members: dict[str, bytes]) -> None:
+    """Write byte-identical CFX archives for identical XML members."""
+    with zipfile.ZipFile(path, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+        for name, payload in members.items():
+            info = zipfile.ZipInfo(name, date_time=(1980, 1, 1, 0, 0, 0))
+            info.compress_type = zipfile.ZIP_DEFLATED
+            info.create_system = 3
+            info.external_attr = 0o100600 << 16
+            archive.writestr(info, payload)
 
 
 def _set_text(root: ET.Element, path: str, value: object) -> None:
@@ -486,11 +497,9 @@ def build(source: Path, output: Path, project_name: str, market_key: str,
                                                     wall_time_minutes, market_side)
     config_xml = ET.tostring(config, encoding="utf-8")
     output.parent.mkdir(parents=True, exist_ok=True)
-    with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED) as dst:
-        dst.writestr("config.xml", config_xml)
-        dst.writestr(task_file, build_xml)
+    _write_reproducible_cfx(output, {"config.xml": config_xml, task_file: build_xml})
     payload = output.read_bytes()
-    manifest = {"schema_version": 1, "created_at": datetime.now(timezone.utc).isoformat(),
+    manifest = {"schema_version": 1, "build_reproducible": True,
         "project_name": project_name, "market": market_key, "methodology_id": methodology["methodology_id"],
         "sq_symbol": market["sq_symbol"], "timeframe": market.get("discovery_timeframe", "M15"),
         "methodology_sha256": _sha256(methodology_path.read_bytes()), "source_role": "xml_format_scaffold_only",

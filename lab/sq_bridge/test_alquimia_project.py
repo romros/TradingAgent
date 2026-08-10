@@ -2,12 +2,13 @@
 from datetime import date, timedelta
 import json
 import pytest
+import zipfile
 from pathlib import Path
 
 import alquimia_project
 from alquimia_project import (
     SEARCH_PROFILES, _bounded_genetic_shape, _split_dates, _sq_discovery_slippage,
-    _validate_generation_contract,
+    _validate_generation_contract, _write_reproducible_cfx,
     _validate_v4_prerequisites,
     _validated_v4_periods,
 )
@@ -74,6 +75,18 @@ def test_genetic_shape_embeds_attempt_ceiling_and_preserves_four_islands():
         assert value["nominal_evaluations"] == (
             value["islands"] * value["population_per_island"]
             * value["max_generations"])
+
+
+def test_cfx_writer_is_byte_reproducible_and_uses_canonical_metadata(tmp_path):
+    first, second = tmp_path / "first.cfx", tmp_path / "second.cfx"
+    members = {"config.xml": b"<Project/>", "Build-Task1.xml": b"<Settings/>"}
+    _write_reproducible_cfx(first, members)
+    _write_reproducible_cfx(second, members)
+    assert first.read_bytes() == second.read_bytes()
+    with zipfile.ZipFile(first) as archive:
+        assert archive.namelist() == list(members)
+        assert all(info.date_time == (1980, 1, 1, 0, 0, 0)
+                   for info in archive.infolist())
 
 
 def test_v3_keeps_legacy_generation_compatibility():

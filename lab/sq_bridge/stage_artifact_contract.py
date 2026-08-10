@@ -454,7 +454,8 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
             "NO_HOLDOUT": artifact.get("holdout_accessed") is False,
         }
     elif stage == "hypothesis_screen":
-        screen = methodology["hypothesis_screen"]
+        screen = {**methodology["hypothesis_screen"],
+                  "temporal_split": methodology["temporal_split"]}
         applied_costs = artifact.get("applied_cost_scenarios")
         selected_hypotheses = _ids(artifact.get("selected_hypothesis_ids"))
         hypothesis_metrics = artifact.get("selected_hypothesis_metrics")

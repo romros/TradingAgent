@@ -7,6 +7,7 @@ import hashlib
 import json
 import math
 import os
+from datetime import datetime
 from pathlib import Path
 
 from lab.sq_bridge.small_account_artifact_v4 import select_cost_envelope
@@ -27,16 +28,55 @@ def _number(value: object) -> float:
     return float(value)
 
 
+def _utc(value: object, label: str) -> datetime:
+    if not isinstance(value, str) or not value.endswith("+00:00"):
+        raise ValueError(f"Timestamp {label} no UTC")
+    try:
+        parsed = datetime.fromisoformat(value)
+    except ValueError as exc:
+        raise ValueError(f"Timestamp {label} invalid") from exc
+    if parsed.utcoffset() is None or parsed.utcoffset().total_seconds() != 0:
+        raise ValueError(f"Timestamp {label} no UTC")
+    return parsed
+
+
+def _validate_source_lineage(trace: dict, temporal_split: dict) -> datetime:
+    path_value = trace.get("source_path")
+    if not isinstance(path_value, str) or not Path(path_value).is_absolute():
+        raise ValueError("Font canonica del screen ha de ser absoluta")
+    path = Path(path_value)
+    if not path.is_file() or trace.get("source_sha256") != _sha(path):
+        raise ValueError("Hash de la font canonica del screen no coincideix")
+    lines = path.read_text().splitlines()
+    source_rows = trace.get("source_rows")
+    train_rows = trace.get("train_rows")
+    expected_train = math.floor(len(lines) * temporal_split["train_pct"] / 100)
+    if (source_rows != len(lines) or train_rows != expected_train
+            or trace.get("temporal_split") != temporal_split or expected_train < 1):
+        raise ValueError("Tall train del screen no coincideix amb metodologia")
+    first = lines[0].split(",", 1)[0].replace(".", "-")
+    train_end = lines[expected_train - 1].split(",", 1)[0].replace(".", "-")
+    if (trace.get("source_first_utc") != f"{first}T00:00:00+00:00"
+            or trace.get("train_end_utc") != f"{train_end}T00:00:00+00:00"):
+        raise ValueError("Fronteres temporals del screen no coincideixen amb la font")
+    return _utc(trace["train_end_utc"], "final train")
+
+
 def _variant_metrics(variant: dict, scenarios: list[str], notional: float,
-                     cost_bps: dict, carry: dict) -> dict:
+                     cost_bps: dict, carry: dict, train_end: datetime) -> dict:
     trades = variant.get("trades")
     if not isinstance(trades, list):
         raise ValueError("Trades de variant absents")
-    ids, pnl = [], {scenario: [] for scenario in scenarios}
+    ids, pnl, previous_exit = [], {scenario: [] for scenario in scenarios}, None
     for row in trades:
         if not isinstance(row, dict) or not isinstance(row.get("trade_id"), str):
             raise ValueError("Trade del screen invalid")
         ids.append(row["trade_id"])
+        entry = _utc(row.get("entry_timestamp"), "entrada screen")
+        exit_ = _utc(row.get("exit_timestamp"), "sortida screen")
+        if exit_ < entry or exit_ > train_end or (previous_exit and entry < previous_exit):
+            raise ValueError("Trade del screen fora de train o solapat")
+        previous_exit = exit_
         gross = _number(row.get("gross_return_pct"))
         side, holding_days = row.get("side"), _number(row.get("holding_days"))
         if side not in {"long", "short"} or holding_days < 0:
@@ -69,6 +109,10 @@ def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
         raise ValueError("El screen nomes pot veure train")
     if trace.get("cost_model_sha256") != expected_cost_hash:
         raise ValueError("Hash de costos del screen no coincideix")
+    temporal_split = gate.get("temporal_split")
+    if not isinstance(temporal_split, dict):
+        raise ValueError("Split temporal del screen absent")
+    train_end = _validate_source_lineage(trace, temporal_split)
     notional = _number(trace.get("screen_notional_usdc"))
     if notional != gate["screen_notional_usdc"]:
         raise ValueError("Nocional canonic del screen invalid")
@@ -98,7 +142,7 @@ def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
             variant_id = variant["variant_id"]
             variant_ids.append(variant_id)
             metrics[variant_id] = _variant_metrics(
-                variant, scenarios, notional, cost_bps, carry)
+                variant, scenarios, notional, cost_bps, carry, train_end)
             attempted += 1
         if variant_ids != sorted(set(variant_ids)):
             raise ValueError("variant_id del screen ha de ser unic i ordenat")
@@ -141,7 +185,8 @@ def build_artifact(*, campaign_id: str, trace_path: Path,
                    cost_model_path: Path, methodology_path: Path,
                    artifact_path: Path) -> dict:
     methodology = json.loads(methodology_path.read_text())
-    gate = methodology["hypothesis_screen"]
+    gate = {**methodology["hypothesis_screen"],
+            "temporal_split": methodology["temporal_split"]}
     cost_model = json.loads(cost_model_path.read_text())
     cost_hash = _sha(cost_model_path)
     result = evaluate_trace(json.loads(trace_path.read_text()), gate,

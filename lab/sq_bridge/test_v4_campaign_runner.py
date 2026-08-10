@@ -65,16 +65,30 @@ if stage == 'market_preflight':
         'mapping': 'mapping.json', 'costs': 'costs.json'}))
     artifact = compose_preflight(config_path)
 if stage == 'hypothesis_screen':
+    from datetime import date, timedelta
     base = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent
     cost_path = base / 'costs.json'
     cost_hash = hashlib.sha256(cost_path.read_bytes()).hexdigest()
     trace_path = base / 'hypothesis-screen.trace.json'
+    source_path = base / 'canonical-control.csv'
+    source_rows, source_day = [], date(2000, 1, 3)
+    while len(source_rows) < 500:
+        if source_day.weekday() < 5:
+            source_rows.append(f'{source_day:%Y.%m.%d},00:00,1,1.1,.9,1,1')
+        source_day += timedelta(days=1)
+    source_path.write_text('\\n'.join(source_rows) + '\\n')
+    split = json.loads(Path(sys.argv[2]).read_text())['temporal_split']
+    train_rows = len(source_rows) * split['train_pct'] // 100
     variants = []
     for variant_id in ('central', 'neighbor-a', 'neighbor-b'):
         variants.append({
             'variant_id': variant_id,
             'neighbor_of': None if variant_id == 'central' else 'central',
             'trades': [{'trade_id': f'{variant_id}-trade-{index:02d}',
+                        'entry_timestamp': (date(2000, 1, 3)
+                            + timedelta(days=index * 2)).isoformat() + 'T00:00:00+00:00',
+                        'exit_timestamp': (date(2000, 1, 4)
+                            + timedelta(days=index * 2)).isoformat() + 'T00:00:00+00:00',
                         'gross_return_pct': .5 if index < 30 else -.25,
                         'side': 'long' if index % 2 == 0 else 'short',
                         'holding_days': 1}
@@ -84,6 +98,13 @@ if stage == 'hypothesis_screen':
         'train_only': True, 'future_periods_accessed': False,
         'holdout_accessed': False, 'cost_model_sha256': cost_hash,
         'screen_notional_usdc': 200,
+        'source_path': str(source_path.resolve()),
+        'source_sha256': hashlib.sha256(source_path.read_bytes()).hexdigest(),
+        'source_rows': len(source_rows), 'train_rows': train_rows,
+        'source_first_utc': '2000-01-03T00:00:00+00:00',
+        'train_end_utc': source_rows[train_rows - 1].split(',', 1)[0].replace('.', '-')
+            + 'T00:00:00+00:00',
+        'temporal_split': split,
         'hypotheses': [{'hypothesis_id': 'hypothesis-control',
                         'central_variant_id': 'central', 'variants': variants}]}))
     artifact = build_screen(

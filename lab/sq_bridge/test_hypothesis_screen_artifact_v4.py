@@ -1,5 +1,6 @@
 import json
 import hashlib
+from datetime import date, timedelta
 from pathlib import Path
 
 import pytest
@@ -14,6 +15,12 @@ ROOT = Path(__file__).parent
 def _variant(variant_id, *, wins=30, neighbor_of="central"):
     return {"variant_id": variant_id, "neighbor_of": neighbor_of,
             "trades": [{"trade_id": f"{variant_id}-trade-{index:02d}",
+                        "entry_timestamp": (
+                            date(2000, 1, 3) + timedelta(days=index * 2)).isoformat()
+                            + "T00:00:00+00:00",
+                        "exit_timestamp": (
+                            date(2000, 1, 4) + timedelta(days=index * 2)).isoformat()
+                            + "T00:00:00+00:00",
                         "gross_return_pct": .5 if index < wins else -.25,
                         "side": "long" if index % 2 == 0 else "short",
                         "holding_days": 1}
@@ -48,6 +55,26 @@ def _cost_model(tmp_path):
 
 
 def _write(tmp_path, trace, costs):
+    source = tmp_path / "canonical.csv"
+    if not source.exists():
+        rows, day = [], date(2000, 1, 3)
+        while len(rows) < 500:
+            if day.weekday() < 5:
+                rows.append(f"{day:%Y.%m.%d},00:00,1.0,1.1,0.9,1.0,1")
+            day += timedelta(days=1)
+        source.write_text("\n".join(rows) + "\n")
+    lines = source.read_text().splitlines()
+    train_rows = len(lines) // 2
+    trace.update({
+        "source_path": str(source.resolve()),
+        "source_sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
+        "source_rows": len(lines), "train_rows": train_rows,
+        "source_first_utc": "2000-01-03T00:00:00+00:00",
+        "train_end_utc": lines[train_rows - 1].split(",", 1)[0].replace(".", "-")
+            + "T00:00:00+00:00",
+        "temporal_split": json.loads((ROOT / "methodology_v4.json").read_text())[
+            "temporal_split"],
+    })
     trace["cost_model_sha256"] = hashlib.sha256(costs.read_bytes()).hexdigest()
     path = tmp_path / "screen.trace.json"
     path.write_text(json.dumps(trace, indent=2, sort_keys=True) + "\n")
@@ -151,3 +178,26 @@ def test_screen_cost_tampering_and_noncanonical_notional_fail_closed(tmp_path):
             campaign_id="campaign", trace_path=_write(tmp_path, value, costs),
             cost_model_path=costs, methodology_path=ROOT / "methodology_v4.json",
             artifact_path=tmp_path / "wrong-notional.json")
+
+
+def test_screen_rejects_source_tampering_and_trade_after_train(tmp_path):
+    costs = _cost_model(tmp_path)
+    trace_value = _trace()
+    trace = _write(tmp_path, trace_value, costs)
+    source = Path(trace_value["source_path"])
+    source.write_text(source.read_text() + "2002.01.01,00:00,1,1,1,1,1\n")
+    with pytest.raises(ValueError, match="Hash de la font"):
+        build_artifact(
+            campaign_id="campaign", trace_path=trace, cost_model_path=costs,
+            methodology_path=ROOT / "methodology_v4.json",
+            artifact_path=tmp_path / "tampered-source.json")
+
+    trace_value = _trace()
+    trace_value["hypotheses"][0]["variants"][0]["trades"][0][
+        "exit_timestamp"] = "2030-01-01T00:00:00+00:00"
+    trace = _write(tmp_path, trace_value, costs)
+    with pytest.raises(ValueError, match="fora de train"):
+        build_artifact(
+            campaign_id="campaign", trace_path=trace, cost_model_path=costs,
+            methodology_path=ROOT / "methodology_v4.json",
+            artifact_path=tmp_path / "future-trade.json")

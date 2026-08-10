@@ -1,0 +1,65 @@
+{
+  "cache_receipts": {
+    "mapping_dukascopy": {
+      "path": "/mnt/volume-SQ/dev/TradingAgent/data/alquimia_sources/eurusd_d1_bridge_v4/eurusd_mapping_dukascopy.json.gz",
+      "rows": 173559,
+      "sha256": "d0c56967822a69ad322b7f41708d089ffb8b00cc26df86b573e404c2bbbde46d"
+    },
+    "mapping_ostium": {
+      "path": "/mnt/volume-SQ/dev/TradingAgent/data/alquimia_sources/eurusd_d1_bridge_v4/eurusd_mapping_ostium.json.gz",
+      "rows": 173528,
+      "sha256": "640f59dd406827c758402163d491304cde77b1de15f8e3e2085a41bc69e16f95"
+    },
+    "sq_leg_dukascopy": {
+      "path": "/mnt/volume-SQ/dev/TradingAgent/data/alquimia_sources/eurusd_d1_bridge_v4/eurusd_sq_leg_dukascopy.json.gz",
+      "rows": 10066,
+      "sha256": "076d2338a10d42479f0b8028667fe59cfe1088bd5829e615257b647130992692"
+    }
+  },
+  "checks": {
+    "close_difference": true,
+    "direction_agreement": true,
+    "mapping_coverage": true,
+    "mapping_days": true,
+    "return_correlation": true,
+    "sq_coverage": true,
+    "sq_ohlc_match": true,
+    "sq_rows": true
+  },
+  "decision": "PASS_D1_SOURCE_MAPPING",
+  "dukascopy_ostium_mapping": {
+    "common_complete_days": 122,
+    "common_day_coverage_ratio": 1.0,
+    "d1_close_difference_p95_bps": 0.0,
+    "d1_close_return_correlation": 0.9999996041623487,
+    "d1_return_direction_agreement_ratio": 1.0,
+    "dukascopy_complete_days": 122,
+    "ostium_complete_days": 122
+  },
+  "performance_accessed": false,
+  "schema_version": 1,
+  "sq_csv": {
+    "path": "/mnt/volume-SQ/user/t915_export/EURUSD_M1_dukas_M1_UTCMinus05-M1-No Session.csv",
+    "sha256": "b6b9f64c3a938f2938ea3b39af297ee1b9069e9af1aa3eee0d97f0011f61ea5c"
+  },
+  "sq_dukascopy_bridge": {
+    "common_rows": 9827,
+    "dukascopy_rows": 10066,
+    "maximum_ohlc_delta": 0.0,
+    "ohlc_match_ratio": 1.0,
+    "sq_coverage_ratio": 1.0,
+    "sq_rows": 9827
+  },
+  "symbol": "EURUSD",
+  "timeframe": "D1",
+  "windows": {
+    "mapping": [
+      "2026-02-19T00:00:00",
+      "2026-08-08T00:00:00"
+    ],
+    "sq_bridge": [
+      "2026-01-20T00:00:00",
+      "2026-01-29T00:00:00"
+    ]
+  }
+}

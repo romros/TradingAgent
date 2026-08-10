@@ -4,13 +4,21 @@ Operativa diària i evidència. Actualitzar a cada canvi significatiu.
 
 ---
 
-## Estat actual (2026-08-03)
+## Estat actual (2026-08-10)
 
 ### Continuïtat SQ / DuckDB / Ostium
 
 Pla canònic per automatitzar campanyes SQ, validar preus i operacions amb DuckDB/BS i calcular mida, collateral i leverage segur per Ostium: [`docs/SQ_AUTOMATION_OSTIUM_PLAN.md`](SQ_AUTOMATION_OSTIUM_PLAN.md). SQCLI torna a tenir una trial activa.
 
 ### Alquímia — laboratori quantitatiu
+
+**EURUSD D1 v4 — dades certificades, costos en maduració:** el pont nou de dues
+potes evita exigir un solapament inexistent: SQ↔Dukascopy coincideix en 9.827 M1
+amb OHLC 100%, i Dukascopy↔Ostium coincideix en 122 dies complets amb correlació
+de retorn 0,9999996, direcció 100% i close p95 0 bps. Decisió
+`PASS_D1_SOURCE_MAPPING`, sense consultar rendiment. No autoritza SQCLI: falta el
+gate de 30 quotes, 3 dies i 6 hores UTC de costos EURUSD per a 200 USDC. Detall a
+[`EURUSD_D1_SOURCE_MAPPING_V4.md`](EURUSD_D1_SOURCE_MAPPING_V4.md).
 
 Arquitectura a [`docs/ALQUIMIA.md`](ALQUIMIA.md). Pilot `TA_SQ_PILOT`: NVDA/USD M1/tick, límit 20, manifest amb hashes i originals intactes. Eines a `lab/sq_bridge/`: preparador CFX, allowlist/gate Ostium, estat compacte i watchdog. Generació correcta i sense errors tècnics; acceptació inicial 0%. Watchdog: stop a 1.000 candidates sense acceptades, RAM host <1 GB o disc <2 GB.
 

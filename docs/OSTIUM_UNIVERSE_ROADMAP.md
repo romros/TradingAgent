@@ -38,9 +38,13 @@ d'Alquímia.
 
 ## Estat actual
 
-Cap mercat nou queda autoritzat automàticament. `EURUSD` i `XAUUSD` necessiten
-paritat recent; els altres necessiten dades o mapping. Aquest bloqueig deliberat
-evita repetir una campanya sobre un preu que després no es pot executar a Ostium.
+`EURUSD` ja passa el pont D1 SQ→Dukascopy→Ostium amb 122 dies complets,
+correlació 0,9999996 i direcció 100%; vegeu
+[`EURUSD_D1_SOURCE_MAPPING_V4.md`](EURUSD_D1_SOURCE_MAPPING_V4.md). Això només
+autoritza el proxy de dades. EURUSD continua bloquejat fins que maduri el gate
+de costos executables. `XAUUSD` encara necessita renovació de paritat; els altres
+necessiten dades o mapping. Aquest bloqueig evita una campanya sobre un preu o
+una economia que després no es pugui executar a Ostium.
 
 ## Incidència del primer pilot GBPUSD
 

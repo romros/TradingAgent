@@ -257,6 +257,41 @@ def _verified_sqx_contracts(paths: Any, expected_ids: list[str], artifact_path: 
     return True
 
 
+def _verified_sq_prerequisite_chain(artifact: dict, manifest: dict,
+                                    artifact_path: str, campaign_id: str) -> bool:
+    value, digest = artifact.get("prerequisite_evidence_chain_path"), artifact.get(
+        "prerequisite_evidence_chain_sha256")
+    if not isinstance(value, str) or not isinstance(digest, str):
+        return False
+    path = Path(value)
+    path = path if path.is_absolute() else Path(artifact_path).resolve().parent / path
+    try:
+        if hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+            return False
+        chain = json.loads(path.read_text())
+    except (OSError, ValueError, json.JSONDecodeError):
+        return False
+    receipts = chain.get("receipts")
+    manifest_path = Path(str(manifest.get("evidence_chain_path", "")))
+    try:
+        same_path = manifest_path.resolve() == path.resolve()
+    except OSError:
+        same_path = False
+    return (same_path and manifest.get("evidence_chain_sha256") == digest
+        and chain.get("campaign_id") == campaign_id
+        and manifest.get("campaign_id") == campaign_id
+        and chain.get("hypothesis_id") == manifest.get("source_hypothesis_id")
+        and artifact.get("source_hypothesis_ids") == [chain.get("hypothesis_id")]
+        and isinstance(receipts, list) and len(receipts) == 2
+        and [row.get("stage") for row in receipts]
+            == ["market_preflight", "hypothesis_screen"]
+        and all(row.get("decision") == "PASS" for row in receipts)
+        and manifest.get("market_preflight_receipt_sha256")
+            == receipts[0].get("receipt_sha256")
+        and manifest.get("hypothesis_screen_receipt_sha256")
+            == receipts[1].get("receipt_sha256"))
+
+
 def _verified_databank(path_value: Any, expected_count: Any, expected_digest: Any,
                        artifact_path: str) -> tuple[bool, list[dict]]:
     if (not isinstance(path_value, str) or not path_value
@@ -547,6 +582,9 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
         }
         if methodology.get("schema_version", 1) >= 4 and provenance != "synthetic_control":
             checks.update({
+                "PREREQUISITE_CHAIN": project_manifest is not None
+                    and _verified_sq_prerequisite_chain(
+                        artifact, project_manifest, receipt.get("artifact", ""), campaign_id),
                 "DATABANK_INVENTORY": databank_valid,
                 "WATCHDOG_FILE": watchdog_status is not None,
                 "WATCHDOG_CONTRACT": watchdog_status is not None

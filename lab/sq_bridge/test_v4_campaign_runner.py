@@ -121,14 +121,26 @@ if stage == 'sq_generation':
     artifact['databank_candidate_count'] = len(inventory)
     artifact['databank_inventory_sha256'] = inventory_digest
     manifest_path = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent / 'runner-project.manifest.json'
+    chain_path = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent.parent / 'chain.json'
+    chain = json.loads(chain_path.read_text())
+    prerequisite_chain_path = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent / 'runner-project.prerequisites.json'
+    prerequisite_chain_path.write_text(json.dumps(chain, indent=2, sort_keys=True) + '\\n')
     manifest_path.write_text(json.dumps({
         'schema_version': 1, 'methodology_id': 'alquimia-v4-coverage-before-performance',
         'project_name': 'RUNNER_PROJECT',
         'generation_type': 'genetic-evolution', 'attempt_budget': 1,
         'output_sha256': 'b' * 64, 'canonical_evaluation_capital': 200,
-        'holdout_sealed': True, 'source_role': 'xml_format_scaffold_only'}))
+        'holdout_sealed': True, 'source_role': 'xml_format_scaffold_only',
+        'campaign_id': 'runner-test', 'source_hypothesis_id': 'hypothesis-control',
+        'evidence_chain_path': str(prerequisite_chain_path),
+        'evidence_chain_sha256': hashlib.sha256(prerequisite_chain_path.read_bytes()).hexdigest(),
+        'market_preflight_receipt_sha256': chain['receipts'][0]['receipt_sha256'],
+        'hypothesis_screen_receipt_sha256': chain['receipts'][1]['receipt_sha256']}))
     artifact['sq_project_manifest_path'] = manifest_path.name
     artifact['sq_project_manifest_sha256'] = hashlib.sha256(manifest_path.read_bytes()).hexdigest()
+    artifact['prerequisite_evidence_chain_path'] = str(prerequisite_chain_path)
+    artifact['prerequisite_evidence_chain_sha256'] = hashlib.sha256(
+        prerequisite_chain_path.read_bytes()).hexdigest()
 if stage == 'temporal_validation':
     from datetime import datetime, timedelta, timezone
     base = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent
@@ -338,7 +350,7 @@ def make_manifest(tmp_path: Path, *, reject_stage: str | None = None,
     manifest = tmp_path / "campaign.json"
     manifest.write_text(json.dumps({
         "schema_version": 1, "campaign_id": "runner-test",
-        "hypothesis_id": "runner-hypothesis", "market": "XAUUSD",
+        "hypothesis_id": "hypothesis-control", "market": "XAUUSD",
         "methodology": str(METHODOLOGY), "state_dir": str(tmp_path / "state"),
         "stages": stages,
     }))

@@ -8,6 +8,8 @@ import json
 import os
 from pathlib import Path
 
+from lab.sq_bridge.evidence_chain import verify as verify_chain
+
 try:
     from lab.sq_bridge.sqx_extract import extract
 except ModuleNotFoundError:  # execució directa des de lab/sq_bridge
@@ -30,6 +32,35 @@ def _inventory(paths: list[Path], root: Path) -> tuple[list[dict], str]:
     return rows, digest
 
 
+def _validate_project_chain(manifest: dict, methodology_path: Path,
+                            campaign_id: str, source_hypothesis_ids: list[str]) -> dict:
+    path_value = manifest.get("evidence_chain_path")
+    if not isinstance(path_value, str) or not path_value:
+        raise ValueError("El manifest SQ no referencia la cadena v4")
+    path = Path(path_value)
+    if (not path.is_file() or manifest.get("evidence_chain_sha256") != _sha256(path)):
+        raise ValueError("La cadena v4 del manifest no coincideix amb el seu hash")
+    chain = json.loads(path.read_text())
+    result = verify_chain(chain, methodology_path)
+    if (not result.get("valid") or result.get("terminal")
+            or result.get("next_stage") != "sq_generation"
+            or result.get("promotable") is not True):
+        raise ValueError("La cadena v4 ja no autoritza generacio SQ")
+    if (manifest.get("campaign_id") != campaign_id
+            or chain.get("campaign_id") != campaign_id
+            or manifest.get("source_hypothesis_id") != chain.get("hypothesis_id")
+            or source_hypothesis_ids != [chain.get("hypothesis_id")]):
+        raise ValueError("La filiacio campanya/hipotesi del projecte SQ no coincideix")
+    receipts = chain.get("receipts") or []
+    if (len(receipts) != 2
+            or manifest.get("market_preflight_receipt_sha256")
+                != receipts[0].get("receipt_sha256")
+            or manifest.get("hypothesis_screen_receipt_sha256")
+                != receipts[1].get("receipt_sha256")):
+        raise ValueError("Els rebuts prerequisit del manifest SQ no coincideixen")
+    return {"path": str(path), "sha256": _sha256(path)}
+
+
 def build_artifact(*, campaign_id: str, source_hypothesis_ids: list[str],
                    databank_dir: Path, watchdog_status_path: Path,
                    project_cfx: Path, project_manifest_path: Path,
@@ -46,6 +77,8 @@ def build_artifact(*, campaign_id: str, source_hypothesis_ids: list[str],
                    for value in source_hypothesis_ids)
             or len(set(source_hypothesis_ids)) != len(source_hypothesis_ids)):
         raise ValueError("source_hypothesis_ids han de ser unics i no buits")
+    chain_receipt = _validate_project_chain(
+        manifest, methodology_path, campaign_id, source_hypothesis_ids)
     watchdog = json.loads(watchdog_status_path.read_text())
     attempted = watchdog.get("generated")
     if (not isinstance(attempted, int) or isinstance(attempted, bool)
@@ -137,6 +170,9 @@ def build_artifact(*, campaign_id: str, source_hypothesis_ids: list[str],
         "databank_inventory_sha256": inventory_sha256,
         "databank_frozen": True,
         "future_periods_accessed": False,
+        "prerequisite_evidence_chain_path": _relative(
+            Path(chain_receipt["path"]), output_base),
+        "prerequisite_evidence_chain_sha256": chain_receipt["sha256"],
     }
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(artifact, indent=2, sort_keys=True) + "\n")

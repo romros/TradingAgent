@@ -134,6 +134,7 @@ def _validate_v4_prerequisites(methodology: dict, methodology_path: Path,
         "evidence_chain_sha256": _sha256(chain_path.read_bytes()),
         "market_preflight_receipt_sha256": receipts[0]["receipt_sha256"],
         "hypothesis_screen_receipt_sha256": receipts[1]["receipt_sha256"],
+        "_prerequisite_chain_snapshot": chain,
     }
 
 def _require_resource_symbol(root: ET.Element, symbol: str, market: dict) -> None:
@@ -332,6 +333,13 @@ def build(source: Path, output: Path, project_name: str, market_key: str,
     prerequisites = _validate_v4_prerequisites(
         methodology, methodology_path, evidence_chain_path, campaign_id,
         source_hypothesis_id, market_key)
+    if prerequisites:
+        snapshot_value = prerequisites.pop("_prerequisite_chain_snapshot")
+        snapshot_path = output.with_suffix(".prerequisites.json")
+        snapshot_path.parent.mkdir(parents=True, exist_ok=True)
+        snapshot_path.write_text(json.dumps(snapshot_value, indent=2, sort_keys=True) + "\n")
+        prerequisites["evidence_chain_path"] = str(snapshot_path.resolve())
+        prerequisites["evidence_chain_sha256"] = _sha256(snapshot_path.read_bytes())
     registry = json.loads(registry_path.read_text())
     market = registry["markets"].get(market_key)
     if not market or not market.get("research_eligible"):

@@ -14,7 +14,8 @@ programes deterministes que produeixen els nou artefactes d'evidència.
 - lock contra dues execucions simultànies;
 - timeout per etapa;
 - stdout/stderr resumits per mida i SHA-256, amb cua limitada a 16 KiB i secrets
-  convencionals ocults (la sortida completa no es persisteix);
+  convencionals ocults; es processen mitjançant fitxers temporals, de manera que
+  una execució llarga no acumula tota la sortida a RAM ni la persisteix;
 - artefacte `.pending`, validació completa i reemplaçament atòmic;
 - una ordre o artefacte fallit deixa `chain.json` intacte i és reprenable;
 - `latest.json` és una projecció per a monitoratge o una futura API;

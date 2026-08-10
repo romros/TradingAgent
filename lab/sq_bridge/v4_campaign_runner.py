@@ -34,19 +34,21 @@ def redact(value: str) -> str:
     return SECRET_PATTERN.sub(r"\1\2***", value)
 
 
-def output_summary(value: str | bytes | None) -> dict[str, Any]:
-    """Persist bounded diagnostics plus a hash, never the complete process output."""
-    if value is None:
-        raw = b""
-    elif isinstance(value, bytes):
-        raw = value
-    else:
-        raw = value.encode("utf-8", errors="replace")
-    tail = raw[-OUTPUT_TAIL_BYTES:].decode("utf-8", errors="replace")
+def output_summary(handle: Any) -> dict[str, Any]:
+    """Hash a seekable binary stream and retain only its bounded diagnostic tail."""
+    handle.flush()
+    handle.seek(0)
+    digest = hashlib.sha256()
+    size = 0
+    while chunk := handle.read(1024 * 1024):
+        digest.update(chunk)
+        size += len(chunk)
+    handle.seek(max(0, size - OUTPUT_TAIL_BYTES))
+    tail = handle.read(OUTPUT_TAIL_BYTES).decode("utf-8", errors="replace")
     return {
-        "bytes": len(raw),
-        "sha256": hashlib.sha256(raw).hexdigest(),
-        "truncated": len(raw) > OUTPUT_TAIL_BYTES,
+        "bytes": size,
+        "sha256": digest.hexdigest(),
+        "truncated": size > OUTPUT_TAIL_BYTES,
         "redacted_tail": redact(tail),
     }
 
@@ -189,24 +191,28 @@ def run_next(manifest_path: Path) -> dict[str, Any]:
         command = render_command(spec["command"], stage=stage, artifact=pending,
                                  state_dir=state_dir, manifest_path=manifest_path)
         started = now()
-        try:
-            completed = subprocess.run(
-                command, cwd=resolve(manifest_path.resolve().parent, spec.get("cwd", ".")),
-                capture_output=True, text=True, timeout=spec.get("timeout_seconds", 3600),
-                check=False, env={**os.environ, "ALQUIMIA_STAGE": stage,
-                                  "ALQUIMIA_STAGE_ARTIFACT": str(pending)},
-            )
-            timed_out = False
-        except subprocess.TimeoutExpired as exc:
-            completed, timed_out = exc, True
-        log = {
-            "schema_version": 1, "stage": stage, "started_at": started,
-            "finished_at": now(), "command": [redact(item) for item in command],
-            "timed_out": timed_out,
-            "returncode": None if timed_out else completed.returncode,
-            "stdout_summary": output_summary(completed.stdout),
-            "stderr_summary": output_summary(completed.stderr),
-        }
+        with tempfile.TemporaryFile(mode="w+b") as stdout_handle, \
+                tempfile.TemporaryFile(mode="w+b") as stderr_handle:
+            try:
+                completed = subprocess.run(
+                    command,
+                    cwd=resolve(manifest_path.resolve().parent, spec.get("cwd", ".")),
+                    stdout=stdout_handle, stderr=stderr_handle,
+                    timeout=spec.get("timeout_seconds", 3600), check=False,
+                    env={**os.environ, "ALQUIMIA_STAGE": stage,
+                         "ALQUIMIA_STAGE_ARTIFACT": str(pending)},
+                )
+                timed_out = False
+            except subprocess.TimeoutExpired:
+                completed, timed_out = None, True
+            log = {
+                "schema_version": 1, "stage": stage, "started_at": started,
+                "finished_at": now(), "command": [redact(item) for item in command],
+                "timed_out": timed_out,
+                "returncode": None if timed_out else completed.returncode,
+                "stdout_summary": output_summary(stdout_handle),
+                "stderr_summary": output_summary(stderr_handle),
+            }
         atomic_json(logs / f"{len(chain['receipts']) + 1:02d}_{stage}.json", log)
         if timed_out or completed.returncode != 0:
             pending.unlink(missing_ok=True)

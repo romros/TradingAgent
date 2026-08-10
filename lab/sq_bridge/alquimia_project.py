@@ -18,7 +18,7 @@ TRANSLATABLE_BLOCKS = {
     "Prices.High", "Prices.Low", "Prices.Close",
     "Indicators.talib_SMA", "Indicators.talib_EMA", "Indicators.talib_RSI",
     "Indicators.talib_ROC", "Indicators.SMA", "Indicators.EMA",
-    "Indicators.RSI", "Indicators.ROC",
+    "Indicators.RSI", "Indicators.ROC", "Indicators.Highest", "Indicators.Lowest",
     "IsLower", "IsGreater", "CrossesAbove", "CrossesBelow", "IsFalling", "IsRising",
     "BarDayOfWeekIs", "BarDayOfMonth", "IsMonthFirstTradingDay",
     "IsMonthLastTradingDay",
@@ -72,6 +72,24 @@ SEARCH_PROFILES = {
         "BarDayOfWeekIs", "BarDayOfMonth",
         "IsMonthFirstTradingDay", "IsMonthLastTradingDay", "EnterAtMarket",
         "ExitAfterBars.ExitAfterBars", "ProfitTarget.ProfitTarget", "StopLoss.StopLoss",
+    },
+    "eurusd_d1_breakout_v4": {
+        "Prices.Close", "Prices.High", "Prices.Low",
+        "Indicators.Highest", "Indicators.Lowest",
+        "IsGreater", "IsLower", "CrossesAbove", "CrossesBelow",
+        "EnterAtMarket", "ExitAfterBars.ExitAfterBars", "StopLoss.StopLoss",
+    },
+    "eurusd_d1_momentum_v4": {
+        "Prices.Close", "Indicators.SMA", "Indicators.EMA", "Indicators.ROC",
+        "IsGreater", "IsLower", "CrossesAbove", "CrossesBelow",
+        "IsRising", "IsFalling", "EnterAtMarket",
+        "ExitAfterBars.ExitAfterBars", "StopLoss.StopLoss",
+    },
+    "eurusd_d1_shock_reversion_v4": {
+        "Prices.Close", "Indicators.RSI", "Indicators.ROC",
+        "IsGreater", "IsLower", "CrossesAbove", "CrossesBelow",
+        "IsRising", "IsFalling", "EnterAtMarket",
+        "ExitAfterBars.ExitAfterBars", "StopLoss.StopLoss",
     },
 }
 

@@ -10,7 +10,7 @@ import pandas as pd
 RUNTIME_SIGNAL_NODES = {
     "AND", "IsRising", "IsFalling", "CrossesAbove", "CrossesBelow",
     "IsGreater", "IsLower", "Close", "Low", "High", "SMA", "EMA", "RSI",
-    "ROC", "BarDayOfMonth", "BarDayOfWeekIs", "IsMonthFirstTradingDay",
+    "ROC", "Highest", "Lowest", "BarDayOfMonth", "BarDayOfWeekIs", "IsMonthFirstTradingDay",
     "IsMonthLastTradingDay", "Number", "Boolean",
 }
 
@@ -28,6 +28,24 @@ class SignalRuntime:
             raise ValueError("OHLC incomplet o amb NaN")
         self.frame = frame
         self.cache: dict[str, pd.Series] = {}
+
+    def _price(self, computed_from: int) -> pd.Series:
+        if computed_from == 0:
+            return self.frame["close"]
+        if computed_from == 1:
+            return self.frame["open"]
+        if computed_from == 2:
+            return self.frame["high"]
+        if computed_from == 3:
+            return self.frame["low"]
+        if computed_from == 4:
+            return (self.frame["high"] + self.frame["low"]) / 2
+        if computed_from == 5:
+            return (self.frame["high"] + self.frame["low"] + self.frame["close"]) / 3
+        if computed_from == 6:
+            return (self.frame["high"] + self.frame["low"]
+                    + 2 * self.frame["close"]) / 4
+        raise ValueError(f"ComputedFrom SQ invalid: {computed_from}")
 
     def evaluate(self, node: dict) -> pd.Series:
         key = json.dumps(node, sort_keys=True, separators=(",", ":"))
@@ -66,6 +84,13 @@ class SignalRuntime:
                 result = result.mask((avg_loss == 0) & (avg_gain > 0), 100.0)
                 result = result.mask((avg_loss == 0) & (avg_gain == 0), 50.0)
             result = result.shift(shift)
+        elif op in {"Highest", "Lowest"}:
+            period = int(_param(node, "#Period#", 14))
+            if period < 1:
+                raise ValueError(f"Periode invalid per {op}: {period}")
+            source = self._price(int(_param(node, "#ComputedFrom#", 0)))
+            window = source.rolling(period, min_periods=period)
+            result = (window.max() if op == "Highest" else window.min()).shift(shift)
         elif op == "AND":
             if not children:
                 raise ValueError("AND IR sense fills")

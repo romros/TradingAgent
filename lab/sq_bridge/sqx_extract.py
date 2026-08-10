@@ -12,7 +12,7 @@ from xml.etree import ElementTree as ET
 SUPPORTED_SIGNAL_NODES = {
     "AND", "IsRising", "IsFalling", "CrossesAbove", "CrossesBelow",
     "IsGreater", "IsLower", "Close", "Low", "High", "SMA", "EMA", "RSI",
-    "ROC", "BarDayOfMonth", "BarDayOfWeekIs", "IsMonthFirstTradingDay",
+    "ROC", "Highest", "Lowest", "BarDayOfMonth", "BarDayOfWeekIs", "IsMonthFirstTradingDay",
     "IsMonthLastTradingDay", "Number", "Boolean",
 }
 SUPPORTED_ENTRY = {"EnterAtMarket"}
@@ -126,6 +126,11 @@ def extract(path: Path) -> dict:
                and node.get("params", {}).get("#ComputedFrom#", 0) != 0
                for node in _nodes(signal)):
             unsupported.add("NON_CLOSE_COMPUTED_FROM")
+        if any(node["op"] in {"Highest", "Lowest"}
+               and node.get("params", {}).get("#ComputedFrom#", 0)
+                   not in {0, 1, 2, 3, 4, 5, 6}
+               for node in _nodes(signal)):
+            unsupported.add("INVALID_PRICE_COMPUTED_FROM")
         if action.attrib["key"] not in SUPPORTED_ENTRY: unsupported.add(action.attrib["key"])
         action_ast = _item(action)
         for formula in action.findall(".//Formula"):

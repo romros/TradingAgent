@@ -40,3 +40,18 @@ def test_ir_entry_api_preserves_inactive_direction():
     result = evaluate_entries(ir, _frame())
     assert result["long"].all()
     assert result["short"] is None
+
+
+def test_runtime_reproduces_sq_highest_lowest_and_all_price_sources():
+    runtime = SignalRuntime(_frame())
+    highest = runtime.evaluate({"op": "Highest", "params": {
+        "#Period#": 3, "#Shift#": 1, "#ComputedFrom#": 2}})
+    lowest = runtime.evaluate({"op": "Lowest", "params": {
+        "#Period#": 2, "#ComputedFrom#": 3}})
+    assert pd.isna(highest.iloc[:3]).all()
+    assert highest.iloc[3] == 13
+    assert lowest.iloc[1] == 9
+    weighted = runtime.evaluate({"op": "Highest", "params": {
+        "#Period#": 1, "#ComputedFrom#": 6}})
+    expected = (_frame().high + _frame().low + 2 * _frame().close) / 4
+    pd.testing.assert_series_equal(weighted, expected)

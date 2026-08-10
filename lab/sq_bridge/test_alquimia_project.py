@@ -31,6 +31,14 @@ sweep = SEARCH_PROFILES["xau_h4_sweep_reclaim_v4"]
 assert {"Prices.Close", "Prices.High", "Prices.Low", "Indicators.Highest",
         "Indicators.Lowest", "EnterAtMarket"}.issubset(sweep)
 assert "EnterAtStop" not in sweep and "Indicators.SMA" not in sweep
+eurusd_breakout = SEARCH_PROFILES["eurusd_d1_breakout_v4"]
+assert {"Indicators.Highest", "Indicators.Lowest", "EnterAtMarket"}.issubset(
+    eurusd_breakout)
+assert "Indicators.ATR" not in eurusd_breakout and "Indicators.ADX" not in eurusd_breakout
+assert {"Indicators.ROC", "Indicators.SMA", "Indicators.EMA"}.issubset(
+    SEARCH_PROFILES["eurusd_d1_momentum_v4"])
+assert {"Indicators.ROC", "Indicators.RSI"}.issubset(
+    SEARCH_PROFILES["eurusd_d1_shock_reversion_v4"])
 
 split = _split_dates(date(2017, 1, 26), date(2026, 3, 13),
     {"train_pct": 50, "validation_pct": 20, "oos_pct": 20, "final_holdout_pct": 10})

@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "campaign_id": "xauusd-abnormal-day-momentum-v36",
+  "methodology_id": "alquimia-v3-native-evidence-chain",
+  "hypothesis": "When XAUUSD has already moved an abnormal volatility-scaled distance during its executable Ostium session, price discovery can continue in the same direction into the late session.",
+  "falsifier": "Reject before StrategyQuant unless a connected train region remains profitable after 8/15/30 bps, exact 200-USDC sizing, year stability and zero simulated liquidations.",
+  "independence": "New campaign and finite grid. No quantitative output, thresholds, candidates or performance from previous Alquimia campaigns are inputs. Existing loaders, M15 parity evidence and accounting conventions are technical infrastructure only.",
+  "external_evidence": [
+    {
+      "source": "Caporale and Plastun (2021), Gold and oil prices: abnormal returns, momentum and contrarian effects",
+      "url": "https://doi.org/10.1007/s11408-021-00380-w",
+      "usable_claim": "Same-day momentum after abnormal gold moves was reported over 2009-2020.",
+      "limitations": [
+        "MetaQuotes hourly data in GMT+3, not Dukascopy or Ostium",
+        "timing parameters and expected hourly returns were estimated over the full sample",
+        "trading simulation omitted spreads, fees and swaps",
+        "no walk-forward, StrategyQuant robustness or 200-USDC liquidation model"
+      ]
+    },
+    {
+      "source": "Caporale et al. (2014), Intraday Anomalies and Market Efficiency: A Trading Robot Analysis",
+      "url": "https://www.ifo.de/en/cesifo/publications/2014/working-paper/intraday-anomalies-and-market-efficiency-trading-robot-analysis",
+      "usable_claim": "A related study found generic intraday patterns did not survive variable spreads.",
+      "role": "negative prior requiring executable cost falsification"
+    }
+  ],
+  "rejected_external_branch": "The paper's next-day gold contrarian result is not researched: its gold trading result was not statistically different from random trading and is too small before Ostium costs.",
+  "market": "XAUUSD",
+  "ostium_pair": "XAU/USD",
+  "ostium_pair_id": "5",
+  "timeframe": "M15",
+  "source_root": "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/XAUUSD/tf=1m",
+  "venue_overlap_evidence": "lab/sq_bridge/evidence/xauusd_dukas_ostium_parity_2026_feb_symmetric_clean_v3.json",
+  "execution_snapshot": "data/ostium_economics_universe/xauusd_ostium_execution_normalized_20260810T163720Z.json",
+  "splits": {
+    "train": ["2007-01-01", "2014-12-31"],
+    "validation": ["2015-01-01", "2018-12-31"],
+    "oos": ["2019-01-01", "2022-12-31"],
+    "sealed_holdout": ["2023-01-01", "2026-12-31"]
+  },
+  "session": {
+    "timezone": "America/New_York",
+    "anchor": "first complete M15 bar at 18:15 after the 16:59-18:10 Ostium closure",
+    "detection_times": ["10:00", "12:00"],
+    "time_exit": "16:45",
+    "overnight_position": false,
+    "reason": "DST-aware venue clock; exit precedes the 16:59 daily closure"
+  },
+  "signal": {
+    "completed_session_return": "18:15 previous session through 16:45",
+    "current_partial_return": "18:15 previous session through detection-time M15 open",
+    "threshold": "rolling mean completed-session return plus/minus k times sample standard deviation, using only prior completed sessions",
+    "direction": "continuation: long above upper threshold, short below lower threshold",
+    "one_trade_per_session": true
+  },
+  "search": {
+    "lookback_sessions": [40, 80, 120],
+    "standard_deviations": [1.5, 2.0, 2.5],
+    "detection_time": ["10:00", "12:00"],
+    "stop_fraction": [0.0075, 0.01],
+    "attempt_budget": 36
+  },
+  "execution": {
+    "entry": "M15 open at the frozen detection time after signal calculation from earlier bars",
+    "exit": "protective stop or 16:45 America/New_York M15 open",
+    "intrabar_policy": "gap liquidation, gap stop, then stop before time exit",
+    "same_bar_signal_entry_forbidden": true
+  },
+  "economics": {
+    "capital_usdc": 200,
+    "risk_per_trade_pct": 1.5,
+    "venue_max_leverage": 50,
+    "maximum_margin_pct": 35,
+    "minimum_reserve_pct": 40,
+    "liquidation_buffer_multiple_of_stop": 1.25,
+    "oracle_locked_usdc": 0.1,
+    "oracle_net_cost_usdc": {"base": 0, "conservative": 0, "stress": 0.1},
+    "roundtrip_bps": {"base": 8, "conservative": 15, "stress": 30},
+    "cost_status": "frozen conservative falsifiers while XAU multidday execution gate remains provisional"
+  },
+  "train_gate": {
+    "minimum_trades": 40,
+    "minimum_base_profit_factor": 1.2,
+    "minimum_stress_profit_factor": 1.05,
+    "minimum_stress_expectancy_usdc": 0.1,
+    "minimum_positive_year_ratio": 0.75,
+    "maximum_drawdown_pct": 20,
+    "maximum_liquidations": 0,
+    "minimum_stable_neighbors": 2
+  },
+  "sq_if_pass": {
+    "role": "candidate_generator_only",
+    "generator": "StrategyQuant",
+    "fixed_mechanism": "volatility-scaled abnormal partial-session return followed by same-direction late-session hold",
+    "maximum_rules": 3,
+    "attempt_budget": 1000,
+    "holdout_allowed": false
+  },
+  "performance_accessed": false,
+  "validation_accessed": false,
+  "oos_accessed": false,
+  "holdout_evaluated": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

@@ -1,4 +1,4 @@
-from lab.sq_bridge.spxusd_small_account_cost_gate import derive
+from lab.sq_bridge.spxusd_small_account_cost_gate import derive, write_atomic
 
 
 def measured_summary():
@@ -21,6 +21,13 @@ def test_incomplete_summary_blocks_without_costs():
                      "frozen_coverage_gate": {"pass": False}})
     assert result["decision"] == "BLOCK_INSUFFICIENT_EXECUTION_COVERAGE"
     assert result["costs_frozen"] is False
+
+
+def test_atomic_writer_leaves_only_complete_target(tmp_path):
+    target = tmp_path / "costs.json"
+    write_atomic(target, '{"costs_frozen": false}\n')
+    assert target.read_text() == '{"costs_frozen": false}\n'
+    assert list(tmp_path.iterdir()) == [target]
 
 
 def test_measured_summary_refunds_oracle_except_under_stress_and_caps_credit():

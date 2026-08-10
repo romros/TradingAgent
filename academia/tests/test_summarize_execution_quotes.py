@@ -1,4 +1,5 @@
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -28,6 +29,13 @@ def quote(day: int, window: str, *, minute: int = 0, open_: bool = True) -> dict
 
 
 class SummarizeExecutionQuotesTest(unittest.TestCase):
+    def test_atomic_writer_leaves_only_complete_target(self):
+        with tempfile.TemporaryDirectory() as directory:
+            target = Path(directory) / "summary.json"
+            summarize_execution_quotes.write_atomic(target, '{"ok": true}\n')
+            self.assertEqual(target.read_text(), '{"ok": true}\n')
+            self.assertEqual(list(Path(directory).iterdir()), [target])
+
     def test_requires_three_days_and_all_session_windows(self):
         rows = [quote(day, window, minute=minute) for day in range(1, 4)
                 for window in ("open", "midday", "close") for minute in (0, 20, 40)]

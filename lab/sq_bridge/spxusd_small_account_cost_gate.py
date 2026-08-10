@@ -6,6 +6,8 @@ import argparse
 import hashlib
 import json
 import math
+import os
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -13,6 +15,23 @@ TARGET_NOTIONALS_USDC = (60, 100, 200, 400, 500)
 MINIMUM_DAYS = 3
 MINIMUM_SAMPLES_PER_WINDOW = 20
 MINIMUM_WINDOW_SPAN_MINUTES = 30.0
+
+
+def write_atomic(path: Path, content: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary: Path | None = None
+    try:
+        with tempfile.NamedTemporaryFile(
+                mode="w", encoding="utf-8", dir=path.parent,
+                prefix=f".{path.name}.", delete=False) as handle:
+            temporary = Path(handle.name)
+            handle.write(content)
+            handle.flush()
+            os.fsync(handle.fileno())
+        temporary.replace(path)
+    finally:
+        if temporary is not None and temporary.exists():
+            temporary.unlink()
 
 
 def _finite_nonnegative(value: Any, name: str) -> float:
@@ -123,8 +142,7 @@ def main() -> None:
     raw = args.summary.read_bytes()
     result = derive(json.loads(raw), oracle_locked_usdc=args.oracle_locked_usdc)
     result["source_sha256"] = hashlib.sha256(raw).hexdigest()
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+    write_atomic(args.output, json.dumps(result, indent=2, sort_keys=True) + "\n")
     print(json.dumps({"decision": result["decision"],
                       "costs_frozen": result["costs_frozen"]}, indent=2))
 

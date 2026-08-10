@@ -5,6 +5,8 @@ ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 IMAGE=${OSTIUM_READONLY_IMAGE:-tradingagent-ostium-readonly:0.7.0-viem2.55.11}
 DATA_DIR=${OSTIUM_QUOTE_DIR:-$ROOT/data/ostium_execution_quotes}
 RAW="$DATA_DIR/spxusd_quotes.jsonl"
+SUMMARY="$DATA_DIR/summary_latest.json"
+COSTS="$DATA_DIR/costs_latest.json"
 LOCAL_HM=$(TZ=America/New_York date +%H%M)
 
 case "$LOCAL_HM" in
@@ -28,4 +30,6 @@ docker run --rm --network bridge \
   "--output=/quotes/spxusd_quotes.jsonl" --count=2 --interval-ms=2000 "--window=$WINDOW"
 
 python3 "$ROOT/academia/tools/summarize_execution_quotes.py" "$RAW" \
-  --output "$DATA_DIR/summary_latest.json"
+  --output "$SUMMARY"
+python3 "$ROOT/lab/sq_bridge/spxusd_small_account_cost_gate.py" \
+  --summary "$SUMMARY" --output "$COSTS"

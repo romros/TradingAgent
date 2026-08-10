@@ -18,6 +18,9 @@ ni live; només congela inputs reproduïbles per al backtest posterior.
 El cron captura dues quotes cada cinc minuts. Això evita confondre vint lectures
 en quaranta segons amb vint observacions de la finestra. Quan el gate ja passa,
 els dies parcials posteriors queden fora de les estadístiques congelades.
+Després de cada captura, el cron regenera automàticament `summary_latest.json` i
+`costs_latest.json`. Ambdós es publiquen mitjançant reemplaçament atòmic: una
+interrupció conserva l'últim JSON complet en lloc de deixar-ne un de truncat.
 
 Per cada nocional, el proxy round-trip mesurat és:
 

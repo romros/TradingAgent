@@ -6,6 +6,8 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import os
+import tempfile
 from collections import Counter
 from datetime import datetime
 from pathlib import Path
@@ -16,6 +18,23 @@ from zoneinfo import ZoneInfo
 REQUIRED_WINDOWS = {"open", "midday", "close"}
 NEW_YORK = ZoneInfo("America/New_York")
 TARGET_NOTIONALS = (60.0, 100.0, 200.0, 400.0, 500.0)
+
+
+def write_atomic(path: Path, content: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary: Path | None = None
+    try:
+        with tempfile.NamedTemporaryFile(
+                mode="w", encoding="utf-8", dir=path.parent,
+                prefix=f".{path.name}.", delete=False) as handle:
+            temporary = Path(handle.name)
+            handle.write(content)
+            handle.flush()
+            os.fsync(handle.fileno())
+        temporary.replace(path)
+    finally:
+        if temporary is not None and temporary.exists():
+            temporary.unlink()
 
 
 def _finite(value: object, name: str) -> float:
@@ -195,7 +214,7 @@ def main() -> None:
                        min_window_span_minutes=args.min_window_span_minutes)
     rendered = json.dumps(result, indent=2, ensure_ascii=False) + "\n"
     if args.output:
-        args.output.write_text(rendered)
+        write_atomic(args.output, rendered)
     else:
         print(rendered, end="")
 

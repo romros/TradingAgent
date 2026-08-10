@@ -166,6 +166,36 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
             "NO_HOLDOUT": artifact.get("holdout_accessed") is False,
         }
     elif stage == "small_account_economics":
+        capital = artifact.get("capital_usdc")
+        leverage = artifact.get("selected_leverage")
+        venue_max = artifact.get("venue_max_leverage")
+        notional = artifact.get("position_notional_usdc")
+        collateral = artifact.get("collateral_usdc")
+        stop_distance = artifact.get("stop_distance_pct")
+        liquidation_distance = artifact.get("liquidation_distance_pct")
+        evaluated = artifact.get("evaluated_leverage_grid")
+        leverage_numeric = isinstance(leverage, (int, float)) and not isinstance(leverage, bool)
+        venue_numeric = isinstance(venue_max, (int, float)) and not isinstance(venue_max, bool)
+        expected_grid = ([value for value in small["leverage_grid"] if value <= venue_max]
+                         if venue_numeric else None)
+        higher = ([value for value in expected_grid if value > leverage]
+                  if expected_grid is not None and leverage in expected_grid else None)
+        rejections = artifact.get("higher_leverage_rejection_reasons")
+        computed_margin = (collateral / capital * 100
+                           if _at_least(collateral, 0) and _at_least(capital, 1) else None)
+        computed_risk = (notional * stop_distance / capital
+                         if _at_least(notional, 0) and _at_least(stop_distance, 0)
+                         and _at_least(capital, 1) else None)
+        computed_buffer = (liquidation_distance / stop_distance
+                           if _at_least(liquidation_distance, 0)
+                           and _at_least(stop_distance, 0.0000001) else None)
+        computed_collateral = (notional / leverage
+                               if _at_least(notional, 0.0000001)
+                               and leverage_numeric and leverage >= 1 else None)
+        reported_margin = artifact.get("portfolio_margin_pct")
+        reported_reserve = artifact.get("reserve_pct")
+        reported_risk = artifact.get("risk_per_trade_pct")
+        reported_buffer = artifact.get("stop_to_liquidation_buffer_ratio")
         checks = {
             "CAPITAL": artifact.get("capital_usdc") == small["canonical_capital_usdc"],
             "EXPECTANCY": _at_least(artifact.get("net_expectancy_usdc"), small["minimum_net_expectancy_usdc"]),
@@ -173,9 +203,40 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
             "RISK": _at_most(artifact.get("risk_per_trade_pct"), small["maximum_risk_per_trade_pct"]),
             "MARGIN": _at_most(artifact.get("portfolio_margin_pct"), small["maximum_portfolio_margin_pct"]),
             "RESERVE": _at_least(artifact.get("reserve_pct"), small["minimum_reserve_pct"]),
-            "LEVERAGE": artifact.get("selected_leverage") in small["leverage_grid"],
+            "LEVERAGE": leverage in small["leverage_grid"],
             "NO_HOLDOUT": artifact.get("holdout_accessed") is False,
         }
+        if methodology.get("schema_version", 1) >= 4:
+            checks.update({
+                "VENUE_LEVERAGE": leverage_numeric and venue_numeric and venue_max >= leverage,
+                "LEVERAGE_POLICY": artifact.get("leverage_selection_policy")
+                    == small["leverage_selection_policy"],
+                "LEVERAGE_GRID": expected_grid is not None and evaluated == expected_grid,
+                "MAXIMUM_SAFE": higher is not None and isinstance(rejections, dict)
+                    and set(rejections) == {str(value) for value in higher}
+                    and all(isinstance(reason, str) and bool(reason.strip())
+                            for reason in rejections.values()),
+                "STOP_REQUIRED": artifact.get("stop_loss_required") is True
+                    and small.get("required_stop_loss") is True,
+                "NOTIONAL": _at_least(notional, 0.0000001),
+                "COLLATERAL_RECOMPUTES": computed_collateral is not None
+                    and _at_least(collateral, 0)
+                    and abs(collateral - computed_collateral) <= 1e-9,
+                "MARGIN_RECOMPUTES": computed_margin is not None
+                    and _at_least(reported_margin, 0)
+                    and abs(computed_margin - reported_margin) <= 1e-9,
+                "RESERVE_RECOMPUTES": computed_margin is not None
+                    and _at_least(reported_reserve, 0)
+                    and abs((100 - computed_margin) - reported_reserve) <= 1e-9,
+                "RISK_RECOMPUTES": computed_risk is not None
+                    and _at_least(reported_risk, 0)
+                    and abs(computed_risk - reported_risk) <= 1e-9,
+                "LIQUIDATION_MODEL": artifact.get("liquidation_model") == "ostium_exact",
+                "LIQUIDATION_BUFFER": computed_buffer is not None
+                    and _at_least(reported_buffer, 0)
+                    and abs(computed_buffer - reported_buffer) <= 1e-9
+                    and computed_buffer >= small["minimum_stop_to_liquidation_buffer_ratio"],
+            })
     elif stage == "python_translation":
         checks = {
             "EXACT": artifact.get("translation_exact") is True and receipt.get("translation_exact") is True,

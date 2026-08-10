@@ -69,7 +69,10 @@
     "minimum_reserve_pct": 40,
     "minimum_net_expectancy_usdc": 0.1,
     "minimum_net_profit_factor": 1.1,
-    "leverage_grid": [1, 2, 3, 5, 8, 10, 15, 20, 30, 50]
+    "leverage_grid": [1, 2, 3, 5, 8, 10, 15, 20, 30, 50, 75, 100],
+    "leverage_selection_policy": "maximum_safe_in_grid_up_to_venue_limit",
+    "required_stop_loss": true,
+    "minimum_stop_to_liquidation_buffer_ratio": 1.5
   },
   "evidence_chain": {
     "hash_algorithm": "sha256",

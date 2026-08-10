@@ -106,6 +106,43 @@ def test_v4_methodology_cannot_be_weakened_to_force_a_pass():
     assert any("Monte Carlo" in error for error in errors)
 
 
+def test_v4_small_account_proves_maximum_safe_leverage_and_recomputes_risk():
+    artifact = payload("small_account_economics", ["candidate"], False)
+    artifact["campaign_id"] = "v4"
+    artifact["evidence_class"] = "observed"
+    artifact.pop("control_purpose", None)
+    receipt = {"decision": "PASS", "candidate_ids": ["candidate"],
+               "holdout_accessed": False}
+    assert validate_stage_artifact(
+        "small_account_economics", artifact, receipt, METHODOLOGY,
+        "v4", "alquimia_native") == []
+    del artifact["higher_leverage_rejection_reasons"]["100"]
+    artifact["portfolio_margin_pct"] = 20
+    artifact["reserve_pct"] = 60
+    errors = validate_stage_artifact(
+        "small_account_economics", artifact, receipt, METHODOLOGY,
+        "v4", "alquimia_native")
+    assert "STAGE_ARTIFACT:small_account_economics:MAXIMUM_SAFE" in errors
+    assert "STAGE_ARTIFACT:small_account_economics:MARGIN_RECOMPUTES" in errors
+    assert "STAGE_ARTIFACT:small_account_economics:RESERVE_RECOMPUTES" in errors
+
+
+def test_v4_small_account_malformed_sizing_fails_closed_without_crashing():
+    artifact = payload("small_account_economics", ["candidate"], False)
+    artifact["campaign_id"] = "v4"
+    artifact["evidence_class"] = "observed"
+    artifact.pop("control_purpose", None)
+    artifact.update({"selected_leverage": "100x", "venue_max_leverage": "100",
+                     "position_notional_usdc": "all", "collateral_usdc": None})
+    receipt = {"decision": "PASS", "candidate_ids": ["candidate"],
+               "holdout_accessed": False}
+    errors = validate_stage_artifact(
+        "small_account_economics", artifact, receipt, METHODOLOGY,
+        "v4", "alquimia_native")
+    assert "STAGE_ARTIFACT:small_account_economics:LEVERAGE" in errors
+    assert "STAGE_ARTIFACT:small_account_economics:COLLATERAL_RECOMPUTES" in errors
+
+
 def test_v4_full_control_wires_nine_stages_without_becoming_promotable(tmp_path):
     result = generate(METHODOLOGY_PATH, tmp_path)
     assert result["valid"] is True

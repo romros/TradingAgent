@@ -100,6 +100,12 @@ def validate(config: dict) -> list[str]:
             errors.append("small_account: expectativa neta massa baixa")
         if small.get("minimum_net_profit_factor", 0) < 1.1:
             errors.append("small_account: PF net massa feble")
+        if small.get("leverage_selection_policy") != "maximum_safe_in_grid_up_to_venue_limit":
+            errors.append("small_account: politica de leverage maxim segur obligatoria")
+        if small.get("required_stop_loss") is not True:
+            errors.append("small_account: stop obligatori")
+        if small.get("minimum_stop_to_liquidation_buffer_ratio", 0) < 1.5:
+            errors.append("small_account: buffer de liquidacio insuficient")
     return errors
 
 

@@ -63,3 +63,11 @@ La generació SQ queda limitada a 10.000 intents i tres regles. El validador
 també rebutja qualsevol metodologia v4 nova que relaxi aquests mínims, els 1.000
 Monte Carlo, la probabilitat de liquidació ≤0,1%, el risc ≤1,5% o la reserva
 ≥40% del compte de 200 USDC.
+
+L'etapa de compte petit ha d'avaluar la graella completa
+`1,2,3,5,8,10,15,20,30,50,75,100` fins al límit vigent del mercat i seleccionar
+el valor segur més alt. Cada leverage superior ha de tenir un motiu de rebuig.
+El verificador recalcula `collateral=notional/leverage`, marge, reserva i risc al
+stop, exigeix stop obligatori, model de liquidació exacte d'Ostium i una
+distància de liquidació d'almenys 1,5 vegades el stop. Això maximitza leverage
+dins del risc; no confon leverage amb augmentar arbitràriament el nocional.

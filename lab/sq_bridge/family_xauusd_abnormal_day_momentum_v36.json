@@ -41,14 +41,15 @@
   "session": {
     "timezone": "America/New_York",
     "anchor": "first complete M15 bar at 18:15 after the 16:59-18:10 Ostium closure",
-    "detection_times": ["10:00", "12:00"],
+    "signal_cutoff_times": ["09:45", "11:45"],
+    "entry_times": ["10:00", "12:00"],
     "time_exit": "16:45",
     "overnight_position": false,
     "reason": "DST-aware venue clock; exit precedes the 16:59 daily closure"
   },
   "signal": {
     "completed_session_return": "18:15 previous session through 16:45",
-    "current_partial_return": "18:15 previous session through detection-time M15 open",
+    "current_partial_return": "18:15 session open through close of the M15 bar immediately preceding entry",
     "threshold": "rolling mean completed-session return plus/minus k times sample standard deviation, using only prior completed sessions",
     "direction": "continuation: long above upper threshold, short below lower threshold",
     "one_trade_per_session": true
@@ -56,12 +57,13 @@
   "search": {
     "lookback_sessions": [40, 80, 120],
     "standard_deviations": [1.5, 2.0, 2.5],
-    "detection_time": ["10:00", "12:00"],
+    "entry_time": ["10:00", "12:00"],
     "stop_fraction": [0.0075, 0.01],
     "attempt_budget": 36
   },
   "execution": {
-    "entry": "M15 open at the frozen detection time after signal calculation from earlier bars",
+    "signal_cutoff": "close of 09:45/11:45 M15 bar, using only completed bars",
+    "entry": "next M15 open at 10:00/12:00 America/New_York",
     "exit": "protective stop or 16:45 America/New_York M15 open",
     "intrabar_policy": "gap liquidation, gap stop, then stop before time exit",
     "same_bar_signal_entry_forbidden": true

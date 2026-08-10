@@ -6,6 +6,10 @@
 família congelada, però no StrategyQuant, validació, OOS, holdout o paper. En
 aquest preflight no s'ha llegit rendiment XAU històric.
 
+Errata executable, congelada encara sense rendiment: el senyal es calcula amb
+el close M15 complet de 09:45/11:45 i l'ordre entra al següent open de
+10:00/12:00. Així no s'utilitza el mateix preu futur per detectar i omplir.
+
 ## Per què aquesta hipòtesi
 
 Caporale i Plastun documenten continuació durant les últimes hores de jornades
@@ -33,9 +37,9 @@ Fonts:
 
 La sessió segueix el rellotge executable d'Ostium a Nova York: comença amb el
 primer M15 complet de les 18:15, després de la pausa diària, i acaba abans de la
-pausa següent. A les 10:00 o 12:00 es compara el retorn parcial amb la mitjana i
+pausa següent. Amb el close de 09:45 o 11:45 es compara el retorn parcial amb la mitjana i
 desviació estàndard de 40/80/120 sessions ja completades. Només si supera
-`mitjana ± 1,5/2/2,5σ` s'entra en continuació. Sortida a stop 0,75%/1% o 16:45.
+`mitjana ± 1,5/2/2,5σ` s'entra al següent open en continuació. Sortida a stop 0,75%/1% o 16:45.
 Són exactament 36 punts; no se n'afegiran després de veure train.
 
 Train queda limitat a 2007–2014. Validació 2015–2018, OOS 2019–2022 i holdout
@@ -50,3 +54,6 @@ correlació de retorn 0,9979 i diferència close p95 1,87 bps. La captura live
 observa fee 2 bps, spread 1,27 bps i impacte 0,68 bps a 200 USDC; encara és només
 una instantània provisional. Per això els 8/15/30 bps són falsadors prudents i
 un PASS de recerca no podria autoritzar paper.
+
+Configuració definitiva preregistrada SHA-256:
+`342c5b0a9dabd7a63310e1678b1a0f241957c6b1d2aca21bb32159c8313787da`.

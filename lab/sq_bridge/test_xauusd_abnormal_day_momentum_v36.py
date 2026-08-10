@@ -12,7 +12,7 @@ def test_v36_grid_and_future_periods_are_frozen_before_performance():
     search = FAMILY["search"]
     attempts = (len(search["lookback_sessions"])
                 * len(search["standard_deviations"])
-                * len(search["detection_time"])
+                * len(search["entry_time"])
                 * len(search["stop_fraction"]))
     assert attempts == search["attempt_budget"] == 36
     assert FAMILY["splits"]["train"] == ["2007-01-01", "2014-12-31"]

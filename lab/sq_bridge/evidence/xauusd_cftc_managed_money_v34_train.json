@@ -1,0 +1,272 @@
+{
+  "all_results": [
+    {
+      "missing_scenarios": 0,
+      "parameter_tuple": [
+        2,
+        2.0,
+        1
+      ],
+      "passes_numeric_train_gate": false,
+      "passes_train_gate": false,
+      "planned_trades": 281,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": -0.1912498661962631,
+          "gross_pnl_usdc": -18.02093893830022,
+          "liquidation_count": 0,
+          "long_net_pnl_usdc": -23.292849149613854,
+          "max_drawdown_pct": 27.546988435899312,
+          "mean_holding_days": 6.938871589561091,
+          "net_pnl_usdc": -53.74121240114993,
+          "observed_years": 8,
+          "positive_year_ratio": 0.125,
+          "positive_years": 1,
+          "profit_factor": 0.6857945331122379,
+          "short_net_pnl_usdc": -30.448363251536072,
+          "trades": 281
+        },
+        "conservative": {
+          "expectancy_usdc": -0.3033199115042265,
+          "gross_pnl_usdc": -18.02093893830022,
+          "liquidation_count": 0,
+          "long_net_pnl_usdc": -39.325738130764876,
+          "max_drawdown_pct": 43.11597158185961,
+          "mean_holding_days": 6.938871589561091,
+          "net_pnl_usdc": -85.23289513268764,
+          "observed_years": 8,
+          "positive_year_ratio": 0.125,
+          "positive_years": 1,
+          "profit_factor": 0.5482578290459899,
+          "short_net_pnl_usdc": -45.907157001922776,
+          "trades": 281
+        },
+        "stress": {
+          "expectancy_usdc": -0.39091413960811855,
+          "gross_pnl_usdc": -18.02093893830022,
+          "liquidation_count": 0,
+          "long_net_pnl_usdc": -51.64835414719196,
+          "max_drawdown_pct": 55.296330769247426,
+          "mean_holding_days": 6.938871589561091,
+          "net_pnl_usdc": -109.84687322988131,
+          "observed_years": 8,
+          "positive_year_ratio": 0.125,
+          "positive_years": 1,
+          "profit_factor": 0.4591804372519531,
+          "short_net_pnl_usdc": -58.19851908268936,
+          "trades": 281
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "missing_scenarios": 0,
+      "parameter_tuple": [
+        2,
+        3.0,
+        1
+      ],
+      "passes_numeric_train_gate": false,
+      "passes_train_gate": false,
+      "planned_trades": 217,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": -0.18804039786243756,
+          "gross_pnl_usdc": -13.230928489533007,
+          "liquidation_count": 0,
+          "long_net_pnl_usdc": -17.42297137991681,
+          "max_drawdown_pct": 21.76932920543705,
+          "mean_holding_days": 6.947676651305684,
+          "net_pnl_usdc": -40.80476633614895,
+          "observed_years": 8,
+          "positive_year_ratio": 0.25,
+          "positive_years": 2,
+          "profit_factor": 0.6967651982153974,
+          "short_net_pnl_usdc": -23.381794956232145,
+          "trades": 217
+        },
+        "conservative": {
+          "expectancy_usdc": -0.30027619023397195,
+          "gross_pnl_usdc": -13.230928489533007,
+          "liquidation_count": 0,
+          "long_net_pnl_usdc": -30.143828510531243,
+          "max_drawdown_pct": 32.57996664038596,
+          "mean_holding_days": 6.947676651305684,
+          "net_pnl_usdc": -65.15993328077191,
+          "observed_years": 8,
+          "positive_year_ratio": 0.125,
+          "positive_years": 1,
+          "profit_factor": 0.5602326988117426,
+          "short_net_pnl_usdc": -35.016104770240666,
+          "trades": 217
+        },
+        "stress": {
+          "expectancy_usdc": -0.38792827500641164,
+          "gross_pnl_usdc": -13.230928489533007,
+          "liquidation_count": 0,
+          "long_net_pnl_usdc": -39.924762117649635,
+          "max_drawdown_pct": 42.090217838195656,
+          "mean_holding_days": 6.947676651305684,
+          "net_pnl_usdc": -84.18043567639133,
+          "observed_years": 8,
+          "positive_year_ratio": 0.0,
+          "positive_years": 0,
+          "profit_factor": 0.4714488859069789,
+          "short_net_pnl_usdc": -44.25567355874168,
+          "trades": 217
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "missing_scenarios": 0,
+      "parameter_tuple": [
+        2,
+        3.0,
+        2
+      ],
+      "passes_numeric_train_gate": false,
+      "passes_train_gate": false,
+      "planned_trades": 127,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": -0.23531028526205455,
+          "gross_pnl_usdc": -13.514173368892752,
+          "liquidation_count": 0,
+          "long_net_pnl_usdc": -9.112437280411783,
+          "max_drawdown_pct": 16.285421916592867,
+          "mean_holding_days": 13.495734908136482,
+          "net_pnl_usdc": -29.884406228280927,
+          "observed_years": 8,
+          "positive_year_ratio": 0.25,
+          "positive_years": 2,
+          "profit_factor": 0.7295801009099279,
+          "short_net_pnl_usdc": -20.77196894786915,
+          "trades": 127
+        },
+        "conservative": {
+          "expectancy_usdc": -0.4317674944458943,
+          "gross_pnl_usdc": -13.514173368892752,
+          "liquidation_count": 0,
+          "long_net_pnl_usdc": -22.289330367806834,
+          "max_drawdown_pct": 27.417235897314285,
+          "mean_holding_days": 13.495734908136482,
+          "net_pnl_usdc": -54.83447179462858,
+          "observed_years": 8,
+          "positive_year_ratio": 0.0,
+          "positive_years": 0,
+          "profit_factor": 0.5597666333508164,
+          "short_net_pnl_usdc": -32.54514142682173,
+          "trades": 127
+        },
+        "stress": {
+          "expectancy_usdc": -0.5624458347046963,
+          "gross_pnl_usdc": -13.514173368892752,
+          "liquidation_count": 0,
+          "long_net_pnl_usdc": -30.893431668285945,
+          "max_drawdown_pct": 35.71531050374821,
+          "mean_holding_days": 13.495734908136482,
+          "net_pnl_usdc": -71.43062100749644,
+          "observed_years": 8,
+          "positive_year_ratio": 0.0,
+          "positive_years": 0,
+          "profit_factor": 0.46919064846595265,
+          "short_net_pnl_usdc": -40.53718933921049,
+          "trades": 127
+        }
+      },
+      "stable_neighbors": 0
+    },
+    {
+      "missing_scenarios": 3,
+      "parameter_tuple": [
+        4,
+        3.0,
+        1
+      ],
+      "passes_numeric_train_gate": false,
+      "passes_train_gate": false,
+      "planned_trades": 267,
+      "scenarios": {
+        "base": {
+          "expectancy_usdc": -0.19435488181672184,
+          "gross_pnl_usdc": -17.851825201848087,
+          "liquidation_count": 0,
+          "long_net_pnl_usdc": -14.133259101779547,
+          "max_drawdown_pct": 29.47637067236434,
+          "mean_holding_days": 6.93640350877193,
+          "net_pnl_usdc": -51.698398563248006,
+          "observed_years": 8,
+          "positive_year_ratio": 0.375,
+          "positive_years": 3,
+          "profit_factor": 0.6783529742255698,
+          "short_net_pnl_usdc": -37.56513946146846,
+          "trades": 266
+        },
+        "conservative": {
+          "expectancy_usdc": -0.30626814628949195,
+          "gross_pnl_usdc": -17.851825201848087,
+          "liquidation_count": 0,
+          "long_net_pnl_usdc": -28.389774366191695,
+          "max_drawdown_pct": 42.2417904022309,
+          "mean_holding_days": 6.93640350877193,
+          "net_pnl_usdc": -81.46732691300485,
+          "observed_years": 8,
+          "positive_year_ratio": 0.125,
+          "positive_years": 1,
+          "profit_factor": 0.5417426653066703,
+          "short_net_pnl_usdc": -53.077552546813166,
+          "trades": 266
+        },
+        "stress": {
+          "expectancy_usdc": -0.3938461570247489,
+          "gross_pnl_usdc": -17.851825201848087,
+          "liquidation_count": 0,
+          "long_net_pnl_usdc": -39.366100170435345,
+          "max_drawdown_pct": 52.68021965562736,
+          "mean_holding_days": 6.93640350877193,
+          "net_pnl_usdc": -104.7630777685832,
+          "observed_years": 8,
+          "positive_year_ratio": 0.125,
+          "positive_years": 1,
+          "profit_factor": 0.45368962019250136,
+          "short_net_pnl_usdc": -65.39697759814784,
+          "trades": 266
+        }
+      },
+      "stable_neighbors": 0
+    }
+  ],
+  "attempted": 4,
+  "campaign_id": "xauusd-cftc-managed-money-flow-v34",
+  "config_sha256": "8766c60c8cbfb47632906f533352695f121e28a10d59b9909b2ec2d638c74189",
+  "decision": "REJECT_NO_SQ",
+  "frequency_sha256": "39d474896fead75322aecf661cf7cb400a6c6da49c507bf0f50bddac700ef5ab",
+  "holdout_accessed": false,
+  "ledger_sha256": "d1e2f36e235d031d45daa3ab52c5b28eb3d27bb966ec0e7617878da10de9e21d",
+  "live_authorized": false,
+  "m15_bars": 196763,
+  "oos_accessed": false,
+  "paper_authorized": false,
+  "schema_version": 1,
+  "source_files": [
+    "lab/out/xauusd_m15_cache_v1/year=2010/data.parquet",
+    "lab/out/xauusd_m15_cache_v1/year=2011/data.parquet",
+    "lab/out/xauusd_m15_cache_v1/year=2012/data.parquet",
+    "lab/out/xauusd_m15_cache_v1/year=2013/data.parquet",
+    "lab/out/xauusd_m15_cache_v1/year=2014/data.parquet",
+    "lab/out/xauusd_m15_cache_v1/year=2015/data.parquet",
+    "lab/out/xauusd_m15_cache_v1/year=2016/data.parquet",
+    "lab/out/xauusd_m15_cache_v1/year=2017/data.parquet"
+  ],
+  "sqcli_used": false,
+  "stage": "train_performance",
+  "survivor_count": 0,
+  "survivors": [],
+  "train_window": [
+    "2010-01-01",
+    "2017-12-31"
+  ],
+  "validation_accessed": false,
+  "xau_performance_accessed": true
+}

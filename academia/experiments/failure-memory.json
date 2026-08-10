@@ -2,6 +2,16 @@
   "schema_version": 1,
   "entries": [
     {
+      "id": "xauusd_cftc_managed_money_v34_20260810",
+      "family": "xauusd_cftc_managed_money_positioning_change_continuation",
+      "decision": "REJECT",
+      "failure_code": "GROSS_AND_COST_FAIL",
+      "lesson": "The CFTC-only frequency gate leaves one stable center with 219 symmetric signals, but all four center/neighbor points lose gross and net in train. The central executable sample has 217 trades, gross -13.23 USDC, base PF 0.697/PnL -40.80 and stress PF 0.471/PnL -84.18.",
+      "do_not_repeat": "Do not invert direction, remove one side, tune lookback/threshold/hold, increase leverage, or inspect 2018-2026 to rescue managed-money positioning-change continuation.",
+      "next_direction": "Close this CFTC continuation rule. A future XAU family must use a distinct mechanism rather than a transformation of the same positioning change.",
+      "evidence": "academia/experiments/observations/xau-cftc-managed-money-v34-2026-08.json"
+    },
+    {
       "id": "xauusd_real_yield_dollar_v30b_20260810",
       "family": "xauusd_weekly_real_yield_broad_dollar_execution_sensitivity",
       "decision": "REJECT",

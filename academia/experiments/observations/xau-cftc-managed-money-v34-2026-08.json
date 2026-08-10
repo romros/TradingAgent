@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "id": "xau-cftc-managed-money-v34-2026-08",
+  "campaign": "xauusd-cftc-managed-money-flow-v34",
+  "as_of": "2026-08-10",
+  "decision": "REJECT_NO_SQ",
+  "failure_code": "GROSS_AND_COST_FAIL",
+  "facts": {
+    "frequency_attempts": 27,
+    "frequency_survivors": 1,
+    "train_performance_points": 4,
+    "train_survivors": 0,
+    "central_point": [2, 3.0, 1],
+    "central_trades": 217,
+    "central_gross_pnl_usdc": -13.2309,
+    "central_base_profit_factor": 0.697,
+    "central_base_expectancy_usdc": -0.188,
+    "central_base_net_pnl_usdc": -40.80,
+    "central_stress_profit_factor": 0.471,
+    "central_stress_net_pnl_usdc": -84.18,
+    "central_base_positive_years": "2/8",
+    "central_stress_positive_years": "0/8",
+    "liquidations": 0,
+    "validation_oos_holdout_accessed": false,
+    "sqcli_used": false
+  },
+  "lesson": "Managed-money positioning-change continuation is frequent and symmetric, but all four stable-region points lose gross and net in train.",
+  "do_not_repeat": "Do not invert direction, remove one side, tune lookback/threshold/hold, increase leverage, or inspect 2018-2026 to rescue this family.",
+  "evidence": {
+    "frequency": "lab/sq_bridge/evidence/xauusd_cftc_managed_money_v34_frequency.json",
+    "train": "lab/sq_bridge/evidence/xauusd_cftc_managed_money_v34_train.json",
+    "audit": "docs/XAUUSD_CFTC_MANAGED_MONEY_V34_AUDIT.md"
+  }
+}

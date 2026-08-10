@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "campaign_id": "xauusd-cftc-managed-money-flow-v34",
+  "as_of": "2026-08-10",
+  "hypothesis": "A large multiweek change in managed-money net Gold futures positioning, normalized by open interest and observed only after conservative CFTC availability, has short-horizon continuation in XAU/USD.",
+  "falsifier": "Reject before price if signals are sparse, one-sided, concentrated by year or isolated in parameter space; reject before SQ if train economics fail frozen Ostium stress costs.",
+  "instrument": "XAU/USD",
+  "venue": "Ostium",
+  "capital_usdc": 200,
+  "position_source_glob": "lab/out/cftc_cot/fut_disagg_txt_*.zip",
+  "availability_ledger": "lab/sq_bridge/evidence/xauusd_cftc_release_ledger_v33.json",
+  "expected_identity": {
+    "market_and_exchange_name": "GOLD - COMMODITY EXCHANGE INC.",
+    "cftc_contract_market_code": "088691",
+    "cftc_commodity_code": "088"
+  },
+  "splits": {
+    "train": ["2010-01-01", "2017-12-31"],
+    "validation": ["2018-01-01", "2020-12-31"],
+    "oos": ["2021-01-01", "2023-12-31"],
+    "sealed_holdout": ["2024-01-01", "2026-08-10"]
+  },
+  "search": {
+    "lookback_weeks": [2, 4, 8],
+    "net_change_threshold_open_interest_pct_points": [1.0, 2.0, 3.0],
+    "hold_weeks": [1, 2, 4],
+    "attempt_budget": 27,
+    "signal_rule": "long when managed-money net/OI change is >= threshold; short when <= -threshold; otherwise flat",
+    "overlap_policy": "one position only; ignore new signals during a fixed holding period",
+    "missing_policy": "a signal is invalid if current/prior reports or any intervening report are excluded",
+    "performance_points_policy": "test each frequency survivor plus its adjacent numeric-frequency-pass neighbors so train stability can be measured without opening the full rejected grid"
+  },
+  "frequency_gate": {
+    "minimum_trades": 24,
+    "minimum_trades_per_side": 8,
+    "minimum_entry_years_per_side": 5,
+    "maximum_exposed_week_ratio": 0.7,
+    "minimum_stable_neighbors": 2
+  },
+  "xau_source": {
+    "root": "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet",
+    "m15_cache_root": "lab/out/xauusd_m15_cache_v1",
+    "symbol": "XAUUSD",
+    "execution_timeframe": "M15",
+    "venue_overlap_evidence": "lab/sq_bridge/evidence/xauusd_dukas_ostium_parity_2026_feb_symmetric_clean_v3.json"
+  },
+  "execution": {
+    "entry": "first observed M15 open at or after conservative available_at",
+    "exit": "first observed M15 open at or after fixed hold_weeks, or 5% protective stop",
+    "stop_fraction": 0.05,
+    "maximum_entry_delay_hours": 72,
+    "maximum_allowed_source_gap_hours": 74
+  },
+  "economics": {
+    "capital_usdc": 200,
+    "risk_per_trade_pct": 1.5,
+    "risk_usdc": 3,
+    "notional_usdc": 60,
+    "effective_exposure_multiple": 0.3,
+    "venue_max_leverage": 50,
+    "selected_venue_leverage": 14,
+    "margin_usdc": 4.2857142857,
+    "oracle_net_cost_usdc_per_trade": 0.1,
+    "roundtrip_bps": {"base": 4.1800745292, "conservative": 8, "stress": 15},
+    "annual_rollover_cost_pct": {
+      "base": {"long": 0, "short": 0.3572830855},
+      "conservative": {"long": 8, "short": 8},
+      "stress": {"long": 12, "short": 12}
+    },
+    "rollover_credit_policy": "never count current long rollover credit as historical profit"
+  },
+  "train_performance_gate": {
+    "minimum_trades": 24,
+    "minimum_base_profit_factor": 1.2,
+    "minimum_conservative_profit_factor": 1.1,
+    "minimum_stress_profit_factor": 1.05,
+    "minimum_stress_expectancy_usdc": 0.1,
+    "minimum_stress_positive_year_ratio": 0.75,
+    "maximum_stress_drawdown_pct": 15,
+    "maximum_liquidations": 0,
+    "minimum_stable_neighbors": 2
+  },
+  "stage": "positioning_frequency_preflight",
+  "xau_performance_accessed": false,
+  "validation_accessed": false,
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "sqcli_authorized": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

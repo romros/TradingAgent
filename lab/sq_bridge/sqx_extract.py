@@ -66,6 +66,21 @@ def _nodes(node: dict):
         yield from _nodes(child)
 
 
+def _entry_condition_count(node: dict) -> int:
+    """Compta predicats d'entrada SQ, no els indicadors que els componen.
+
+    StrategyQuant limita les condicions per gràfic. Un AND és un contenidor de
+    regles i, per tant, suma els seus fills; qualsevol altre node arrel és un
+    únic predicat encara que contingui operands (SMA, Number, Close...).
+    """
+    if node.get("op") == "AND":
+        children = node.get("children", [])
+        if not children:
+            raise ValueError("Signal AND sense condicions")
+        return sum(_entry_condition_count(child) for child in children)
+    return 1
+
+
 def _setting(root: ET.Element, key: str):
     node = root.find(f".//*[@key='{key}']")
     if node is None:
@@ -102,7 +117,10 @@ def extract(path: Path) -> dict:
             entries[direction] = None
             continue
         if variable is None: raise ValueError(f"{rule_name} no interpretable")
-        signal_id = str(_value(variable)); signal = signals[signal_id]
+        signal_id = str(_value(variable))
+        if signal_id not in signals:
+            raise ValueError(f"{rule_name} referencia un signal inexistent: {signal_id}")
+        signal = signals[signal_id]
         unsupported.update(_ops(signal) - SUPPORTED_SIGNAL_NODES)
         if any(node["op"] in {"SMA", "EMA", "RSI"}
                and node.get("params", {}).get("#ComputedFrom#", 0) != 0
@@ -112,7 +130,11 @@ def extract(path: Path) -> dict:
         action_ast = _item(action)
         for formula in action.findall(".//Formula"):
             formulas.add(formula.attrib["key"])
-        entries[direction] = {"signal": signal, "action": action_ast}
+        entries[direction] = {
+            "signal": signal,
+            "action": action_ast,
+            "condition_count": _entry_condition_count(signal),
+        }
     unsupported.update(formulas - SUPPORTED_FORMULAS)
     exit_signal_values = {}
     for signal_id, node in signals.items():
@@ -120,6 +142,10 @@ def extract(path: Path) -> dict:
             exit_signal_values[signal_id] = node
             if node != {"op": "Boolean", "params": {"#Value#": False}}:
                 unsupported.add("NON_FALSE_EXIT_SIGNAL")
+    entry_condition_counts = {
+        direction: entry["condition_count"] if entry is not None else 0
+        for direction, entry in entries.items()
+    }
     contract = {
         "schema_version": 1,
         "source": str(path),
@@ -134,6 +160,8 @@ def extract(path: Path) -> dict:
             "swap_enabled": False,
         },
         "entries": entries,
+        "entry_condition_counts": entry_condition_counts,
+        "maximum_entry_conditions": max(entry_condition_counts.values()),
         "exit_signals": exit_signal_values,
         "supported": not unsupported,
         "unsupported_nodes_or_formulas": sorted(unsupported),

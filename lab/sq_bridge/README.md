@@ -242,6 +242,28 @@ També calcula un front de Pareto descriptiu IS. No és un gate de promoció: no
 marca candidats no dominats en les mètriques observades. Validació temporal,
 costos, règims i Ostium continuen sent obligatoris.
 
+Per a una campanya v4, el rebut de `sq_generation` no s'escriu a mà. Després de
+congelar el databank i el recompte real d'intents, es genera així:
+
+```bash
+PYTHONPATH=../.. python3 sq_generation_artifact_v4.py \
+  --campaign-id CAMPAIGN_ID \
+  --source-hypothesis-id HYPOTHESIS_ID \
+  --attempted 10000 \
+  --databank-dir /path/to/frozen/databank \
+  --project-cfx /path/to/project.cfx \
+  --project-manifest /path/to/project.manifest.json \
+  --output /path/to/state/artifacts/03_sq_generation.json
+```
+
+L'ingestor reobre cada SQX i en deriva el `StrategyName`, SHA-256, subset
+traduïble i condicions d'entrada long/short. Un `AND` suma predicats, però els
+indicadors operands d'un predicat no compten com regles addicionals. La
+complexitat és el màxim de les dues direccions actives i v4 rebutja més de tres.
+També verifica que el CFX coincideix amb el manifest genètic preregistrat. El
+validador de la cadena torna a obrir els SQX: alterar només el JSON no pot fer
+passar una estratègia diferent.
+
 Proves:
 
 ```bash

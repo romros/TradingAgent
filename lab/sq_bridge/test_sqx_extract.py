@@ -3,7 +3,10 @@ import unittest
 import zipfile
 from pathlib import Path
 
-from sqx_extract import extract
+try:
+    from lab.sq_bridge.sqx_extract import extract
+except ModuleNotFoundError:
+    from sqx_extract import extract
 
 
 STRATEGY = b'''<StrategyFile><Strategy><Rules><Events><Event key="OnBarUpdate">
@@ -20,16 +23,66 @@ SETTINGS = b'''<ResultsGroup><ValuesMap><StrategyName key="StrategyName">T</Stra
 
 
 class SqxExtractTest(unittest.TestCase):
+    def _write_sqx(self, directory, strategy=STRATEGY):
+        path = Path(directory) / "x.sqx"
+        with zipfile.ZipFile(path, "w") as archive:
+            archive.writestr("strategy_Portfolio.xml", strategy)
+            archive.writestr("settings.xml", SETTINGS)
+            archive.writestr("version.txt", "3")
+        return path
+
     def test_supported_contract(self):
         with tempfile.TemporaryDirectory() as tmp:
-            path = Path(tmp) / "x.sqx"
-            with zipfile.ZipFile(path, "w") as archive:
-                archive.writestr("strategy_Portfolio.xml", STRATEGY)
-                archive.writestr("settings.xml", SETTINGS)
-                archive.writestr("version.txt", "3")
-            result = extract(path)
+            result = extract(self._write_sqx(tmp))
             self.assertTrue(result["supported"])
             self.assertEqual(result["execution"]["eod_exit_time_hhmm"], 1530)
+            self.assertEqual(result["entry_condition_counts"], {"long": 1, "short": 1})
+            self.assertEqual(result["maximum_entry_conditions"], 1)
+
+    def test_counts_predicates_but_not_their_indicator_operands(self):
+        long_signal = b'''<Item key="AND">
+          <Item key="IsGreater"><Block><Item key="SMA"/></Block><Block><Item key="Number"/></Block></Item>
+          <Item key="IsRising"><Block><Item key="RSI"/></Block></Item>
+        </Item>'''
+        short_signal = b'''<Item key="AND">
+          <Item key="IsLower"><Block><Item key="Close"/></Block><Block><Item key="SMA"/></Block></Item>
+          <Item key="CrossesBelow"><Block><Item key="EMA"/></Block><Block><Item key="EMA"/></Block></Item>
+          <Item key="BarDayOfWeekIs"/>
+        </Item>'''
+        strategy = STRATEGY.replace(
+            b'<Item key="Boolean"><Param key="#Value#">true</Param></Item>', long_signal, 1
+        ).replace(
+            b'<Item key="Boolean"><Param key="#Value#">true</Param></Item>', short_signal, 1
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            result = extract(self._write_sqx(tmp, strategy))
+        self.assertEqual(result["entry_condition_counts"], {"long": 2, "short": 3})
+        self.assertEqual(result["maximum_entry_conditions"], 3)
+
+    def test_inactive_direction_counts_zero(self):
+        strategy = STRATEGY.replace(
+            b'<Rule type="IfThen" name="Short entry"><If><Item><Param key="#Variable#">S</Param></Item></If><Then><Item key="EnterAtMarket"/></Then></Rule>',
+            b'<Rule type="IfThen" name="Short entry"><If><Item><Param key="#Variable#">S</Param></Item></If><Then/></Rule>',
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            result = extract(self._write_sqx(tmp, strategy))
+        self.assertEqual(result["entry_condition_counts"], {"long": 1, "short": 0})
+        self.assertEqual(result["maximum_entry_conditions"], 1)
+
+    def test_rejects_missing_signal_reference(self):
+        strategy = STRATEGY.replace(b'>L</Param>', b'>MISSING</Param>', 1)
+        with tempfile.TemporaryDirectory() as tmp:
+            with self.assertRaisesRegex(ValueError, "signal inexistent"):
+                extract(self._write_sqx(tmp, strategy))
+
+    def test_rejects_empty_and(self):
+        strategy = STRATEGY.replace(
+            b'<Item key="Boolean"><Param key="#Value#">true</Param></Item>',
+            b'<Item key="AND"/>', 1,
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            with self.assertRaisesRegex(ValueError, "AND sense condicions"):
+                extract(self._write_sqx(tmp, strategy))
 
 
 if __name__ == "__main__": unittest.main()

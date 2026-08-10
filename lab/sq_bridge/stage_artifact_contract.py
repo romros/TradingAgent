@@ -8,6 +8,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from lab.sq_bridge.sqx_extract import extract as extract_sqx
+
 
 def _number(value: Any) -> bool:
     return (isinstance(value, (int, float)) and not isinstance(value, bool)
@@ -61,6 +63,34 @@ def _verified_json(path_value: Any, digest: Any, artifact_path: str) -> dict | N
     except (OSError, ValueError):
         return None
     return value if isinstance(value, dict) else None
+
+
+def _verified_sqx_contracts(paths: Any, expected_ids: list[str], artifact_path: str,
+                            reported_rules: Any, reported_counts: Any,
+                            max_rules: int) -> bool:
+    if (not isinstance(paths, dict) or set(paths) != set(expected_ids)
+            or not isinstance(reported_rules, dict) or set(reported_rules) != set(expected_ids)
+            or not isinstance(reported_counts, dict) or set(reported_counts) != set(expected_ids)):
+        return False
+    base = Path(artifact_path).resolve().parent
+    for candidate_id in expected_ids:
+        if not isinstance(paths[candidate_id], str) or not paths[candidate_id]:
+            return False
+        path = Path(paths[candidate_id])
+        path = path if path.is_absolute() else base / path
+        try:
+            contract = extract_sqx(path)
+        except Exception:  # fitxer SQX no fiable: qualsevol error de parseig falla tancat
+            return False
+        condition_count = contract.get("maximum_entry_conditions")
+        if (contract.get("strategy_name") != candidate_id
+                or contract.get("translation_status") != "SUPPORTED_SUBSET"
+                or not isinstance(condition_count, int) or isinstance(condition_count, bool)
+                or condition_count != reported_rules[candidate_id]
+                or contract.get("entry_condition_counts") != reported_counts[candidate_id]
+                or not 1 <= condition_count <= max_rules):
+            return False
+    return True
 
 
 def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodology: dict,
@@ -212,6 +242,7 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
         hashes = artifact.get("candidate_artifact_hashes")
         paths = artifact.get("candidate_artifact_paths")
         rules = artifact.get("rules_per_candidate")
+        entry_counts = artifact.get("entry_condition_counts_per_candidate")
         candidate_ids = receipt.get("candidate_ids", [])
         project_manifest = _verified_json(
             artifact.get("sq_project_manifest_path"),
@@ -234,6 +265,8 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                 and set(rules) == set(receipt.get("candidate_ids", []))
                 and all(isinstance(value, int) and not isinstance(value, bool)
                         and 1 <= value <= generation["max_rules"] for value in rules.values()),
+            "DATABANK_FROZEN": artifact.get("databank_frozen") is True,
+            "FUTURES_SEALED": artifact.get("future_periods_accessed") is False,
             "CONFIG_HASH": isinstance(artifact.get("sq_config_sha256"), str)
                            and len(artifact["sq_config_sha256"]) == 64,
             "PROJECT_MANIFEST_FILE": project_manifest is not None,
@@ -253,6 +286,10 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                 and project_manifest.get("source_role") == "xml_format_scaffold_only",
             "NO_HOLDOUT": artifact.get("holdout_accessed") is False,
         }
+        if methodology.get("schema_version", 1) >= 4 and provenance != "synthetic_control":
+            checks["SQX_CONTRACTS"] = _verified_sqx_contracts(
+                paths, candidate_ids, receipt.get("artifact", ""), rules, entry_counts,
+                generation["max_rules"])
     elif stage == "temporal_validation":
         candidate_metrics = artifact.get("candidate_temporal_metrics")
         checks = {

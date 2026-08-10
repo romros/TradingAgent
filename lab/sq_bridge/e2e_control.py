@@ -55,6 +55,7 @@ def payload(stage: str, candidate_ids: list[str], holdout: bool) -> dict:
                           "candidate_artifact_hashes": {candidate: "a" * 64
                                                         for candidate in candidate_ids},
                           "rules_per_candidate": {candidate: 3 for candidate in candidate_ids},
+                          "databank_frozen": True, "future_periods_accessed": False,
                           "sq_config_sha256": "b" * 64},
         "temporal_validation": {"oos_trades": 30, "positive_windows_ratio": 0.6, "oos_profit_factor": 1.15,
                                 "oos_drawdown_pct": 20, "train_oos_expectancy_decay_pct": 50,

@@ -12,10 +12,11 @@ METHODOLOGY = ROOT / "methodology_v4.json"
 def make_helper(tmp_path: Path) -> Path:
     helper = tmp_path / "stage_helper.py"
     helper.write_text("""
-import hashlib, json, os, sys
+import hashlib, json, os, sys, zipfile
 from pathlib import Path
 sys.path.insert(0, sys.argv[3])
 from lab.sq_bridge.e2e_control import payload
+from lab.sq_bridge.test_sqx_extract import STRATEGY, SETTINGS
 
 stage = os.environ['ALQUIMIA_STAGE']
 decision = sys.argv[1] if len(sys.argv) > 1 else 'PASS'
@@ -31,11 +32,19 @@ if stage == 'sq_generation':
     paths, hashes = {}, {}
     for candidate in ids:
         candidate_path = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent / f'{candidate}.sqx'
-        candidate_path.write_bytes(f'runner-test:{candidate}'.encode())
+        settings = SETTINGS.replace(b'>T</StrategyName>',
+                                    f'>{candidate}</StrategyName>'.encode())
+        with zipfile.ZipFile(candidate_path, 'w') as archive:
+            archive.writestr('strategy_Portfolio.xml', STRATEGY)
+            archive.writestr('settings.xml', settings)
+            archive.writestr('version.txt', '3')
         paths[candidate] = candidate_path.name
         hashes[candidate] = hashlib.sha256(candidate_path.read_bytes()).hexdigest()
     artifact['candidate_artifact_paths'] = paths
     artifact['candidate_artifact_hashes'] = hashes
+    artifact['rules_per_candidate'] = {candidate: 1 for candidate in ids}
+    artifact['entry_condition_counts_per_candidate'] = {
+        candidate: {'long': 1, 'short': 1} for candidate in ids}
     manifest_path = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent / 'runner-project.manifest.json'
     manifest_path.write_text(json.dumps({
         'schema_version': 1, 'methodology_id': 'alquimia-v4-coverage-before-performance',

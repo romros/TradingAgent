@@ -192,7 +192,8 @@ def evaluate_entries(ir: dict, frame: pd.DataFrame) -> dict[str, pd.Series | Non
     }
 
 
-def wilder_atr(frame: pd.DataFrame, period: int) -> pd.Series:
+def sq_atr(frame: pd.DataFrame, period: int) -> pd.Series:
+    """Exact prefix warm-up and Wilder recurrence of SQ ATR.java."""
     if period < 1:
         raise ValueError("Periode ATR invalid")
     previous = frame["close"].shift(1)
@@ -202,12 +203,13 @@ def wilder_atr(frame: pd.DataFrame, period: int) -> pd.Series:
         (frame["low"] - previous).abs(),
     ], axis=1).max(axis=1)
     result = pd.Series(np.nan, index=frame.index, dtype=float)
-    if len(frame) < period:
+    if frame.empty:
         return result
-    result.iloc[period - 1] = ranges.iloc[:period].mean()
-    for index in range(period, len(frame)):
-        result.iloc[index] = ((period - 1) * result.iloc[index - 1]
-                              + ranges.iloc[index]) / period
+    result.iloc[0] = ranges.iloc[0]
+    for index in range(1, len(frame)):
+        divisor = min(index + 1, period)
+        result.iloc[index] = ((divisor - 1) * result.iloc[index - 1]
+                              + ranges.iloc[index]) / divisor
     return result
 
 
@@ -249,7 +251,7 @@ def simulate_trade_trace(ir: dict, frame: pd.DataFrame,
         for key in ("stop_loss", "profit_target"):
             spec = plan[key]
             if spec["type"] == "atr":
-                atrs[spec["period"]] = wilder_atr(frame, spec["period"])
+                atrs[spec["period"]] = sq_atr(frame, spec["period"])
     candles = [timestamp.isoformat().replace("+00:00", "Z")
                for timestamp in frame.index]
     signals = []
@@ -314,6 +316,11 @@ def simulate_trade_trace(ir: dict, frame: pd.DataFrame,
                         if stop_spec["type"] == "atr" and index > 0 else None)
             target_atr = (atrs[target_spec["period"]].iloc[index - 1]
                           if target_spec["type"] == "atr" and index > 0 else None)
+            # SQ ATRBasedValue rounds ATR itself to six decimals before scaling.
+            if stop_atr is not None:
+                stop_atr = round(float(stop_atr), 6)
+            if target_atr is not None:
+                target_atr = round(float(target_atr), 6)
             stop_distance = _distance(stop_spec, entry, stop_atr)
             target_distance = _distance(target_spec, entry, target_atr)
             if stop_spec["type"] != "none" and stop_distance is None:

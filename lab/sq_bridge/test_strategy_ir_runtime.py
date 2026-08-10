@@ -4,7 +4,7 @@ import pytest
 from lab.sq_bridge.sqx_extract import SUPPORTED_SIGNAL_NODES
 from lab.sq_bridge.strategy_ir_runtime import (
     RUNTIME_SIGNAL_NODES, SignalRuntime, evaluate_entries, simulate_trade_trace,
-    sq_ema, sq_roc, sq_rsi, sq_sma, wilder_atr,
+    sq_atr, sq_ema, sq_roc, sq_rsi, sq_sma,
 )
 
 
@@ -120,13 +120,27 @@ def test_trade_runtime_fails_closed_on_ambiguous_intrabar_order():
         simulate_trade_trace(ir, frame, 200)
 
 
-def test_wilder_atr_is_seeded_by_arithmetic_mean_then_recursive():
+def test_sq_atr_uses_prefix_mean_then_wilder_recursion():
     frame = _utc_frame([(10, 12, 9, 11), (11, 14, 10, 13),
                         (13, 15, 12, 14), (14, 18, 13, 17)])
-    result = wilder_atr(frame, 3)
-    assert pd.isna(result.iloc[:2]).all()
+    result = sq_atr(frame, 3)
+    assert result.iloc[0] == 3
+    assert result.iloc[1] == pytest.approx((3 + 4) / 2)
     assert result.iloc[2] == pytest.approx((3 + 4 + 3) / 3)
     assert result.iloc[3] == pytest.approx(((3 + 4 + 3) / 3 * 2 + 5) / 3)
+
+
+def test_atr_stop_uses_previous_bar_and_sq_six_decimal_rounding():
+    frame = _utc_frame([
+        (1.0, 1.123456789, 1.0, 1.1),
+        (1.1, 1.2, .95, 1.05),
+    ])
+    trace = simulate_trade_trace(
+        _execution_ir(stop={"type": "atr", "multiple": 1, "period": 14}),
+        frame, 200)
+    first = trace["trades"][0]
+    assert first["exit_reason"] == "stop"
+    assert first["exit_price"] == pytest.approx(1.1 - round(.123456789, 6))
 
 
 def test_sq_sma_and_ema_match_installed_average_calculator_warmup():

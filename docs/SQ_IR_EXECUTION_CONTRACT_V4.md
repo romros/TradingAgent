@@ -30,9 +30,11 @@ d'un calendari causal explícit en lloc d'inferir-lo de la següent fila.
 ## Semàntica determinista del runtime
 
 El trace Python usa candles OHLC úniques, creixents i UTC, i nocional constant
-abans de costos. L'ATR és Wilder: mitjana aritmètica inicial del true range i
-recurrència posterior. Per no mirar dins la candle del senyal, l'stop ATR usa
-l'ATR de l'última candle completada.
+abans de costos. L'ATR replica `ATR.java`: `High-Low` a la primera barra,
+mitjana acumulada del true range mentre escalfa i recurrència Wilder quan arriba
+al període. Per no mirar dins la candle del senyal, `ATRBasedValue.java` usa
+l'ATR de l'última candle completada i l'arrodoneix a sis decimals abans de
+multiplicar-lo.
 
 SMA, EMA, RSI, ROC, Highest i Lowest reprodueixen també el warm-up dels
 calculadors Java instal·lats d'SQ: EMA se sembra amb la primera barra; SMA i els
@@ -51,6 +53,10 @@ instal·lació SQCLI activa. Hashes SHA-256: `AverageCalculator.java`
 `ROC.java` `e852479c8cdf2f06c2bdadb9fa84b06b348c826e37389d93ba50a0e99baf6e64`
 i `EMA.java`
 `f241d8259b60e17818015522a3648368369ea34f0917151033083e1ca534e2f9`.
+Per a stops, `ATR.java` és
+`feee1fdc1bdd6389396499af8af12feed97e5fa357858f994c847ba4431fbe80` i
+`SLPT/ATRBasedValue.java` és
+`b50af2952fcd332e3f8071c14e5a6b4bf2eca30ce87baa947ab5fc5be458dbe1`.
 Un canvi futur en qualsevol d'aquests snippets obliga a reauditar els vectors i
 repetir la paritat observada.
 

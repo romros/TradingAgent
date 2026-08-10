@@ -1,0 +1,89 @@
+{
+  "aligned_complete_sessions": 77,
+  "common_complete_session_coverage_ratio": 0.9746835443037974,
+  "common_observed_span": {
+    "first": "2026-03-16",
+    "last": "2026-07-08"
+  },
+  "d1_close_return_correlation": 0.9988136401860196,
+  "d1_return_direction_match_ratio": 1.0,
+  "decision": "PASS_D1_SOURCE_MAPPING",
+  "difference_bps": {
+    "close": {
+      "maximum": 23.718768786231692,
+      "median": 4.135014644564006,
+      "p95": 10.343036464350421
+    },
+    "high": {
+      "maximum": 9.645033608647324,
+      "median": 3.779104023879931,
+      "p95": 7.727969481036823
+    },
+    "low": {
+      "maximum": 10.480050046437484,
+      "median": 5.082703253458387,
+      "p95": 9.512761635418698
+    },
+    "open": {
+      "maximum": 16.29932347745111,
+      "median": 4.767086666066511,
+      "p95": 11.42301607167262
+    }
+  },
+  "first_aligned_session": "2026-03-16",
+  "last_aligned_session": "2026-07-08",
+  "live_authorized": false,
+  "ostium_complete_sessions_in_common_span": 77,
+  "ostium_files": [
+    {
+      "bytes": 1796990,
+      "path": "/mnt/volume-SQ/dev/BrokerageService/datafiles/realtime_datalayer/candles/SPXUSD/America_New_York/2026/03.csv",
+      "sha256": "a965c99ce5be6b4b31014004e1c0ab07ec4d86b96804f0ec33d9e38bfd55a1cd"
+    },
+    {
+      "bytes": 1775028,
+      "path": "/mnt/volume-SQ/dev/BrokerageService/datafiles/realtime_datalayer/candles/SPXUSD/America_New_York/2026/04.csv",
+      "sha256": "6e890ae18c9e00c8af506be9973716b37c45e598ff5c77f42d0fcba686f5fd04"
+    },
+    {
+      "bytes": 1705186,
+      "path": "/mnt/volume-SQ/dev/BrokerageService/datafiles/realtime_datalayer/candles/SPXUSD/America_New_York/2026/05.csv",
+      "sha256": "f60c9ebcc3a70e4fb02f9910658666a7a0e91ad118c2842b35b1a14bb576496b"
+    },
+    {
+      "bytes": 1779693,
+      "path": "/mnt/volume-SQ/dev/BrokerageService/datafiles/realtime_datalayer/candles/SPXUSD/America_New_York/2026/06.csv",
+      "sha256": "7704b49dbee27459a9463cf98defaf8c7a8b6284f75aa3f29e84dbc665a460f2"
+    },
+    {
+      "bytes": 1836292,
+      "path": "/mnt/volume-SQ/dev/BrokerageService/datafiles/realtime_datalayer/candles/SPXUSD/America_New_York/2026/07.csv",
+      "sha256": "165148604b95ab0e47d41a5c1f9b172080e56c3d631c64980fc9e726f93e3fb5"
+    }
+  ],
+  "ostium_sessions_complete": 103,
+  "ostium_sessions_observed": 109,
+  "paper_authorized": false,
+  "performance_accessed": false,
+  "reasons": [],
+  "reference_complete_sessions_in_common_span": 79,
+  "reference_files": [
+    {
+      "bytes": 1549353,
+      "path": "lab/out/market_sources/sp_m1_dukas_utc_2026_extended.parquet",
+      "sha256": "97f2a7af858e25961b091ef2041eafc6853d1347ba14ff1c7fa4d9ef117da9bd"
+    }
+  ],
+  "reference_sessions_complete": 79,
+  "reference_sessions_observed": 82,
+  "research_only": true,
+  "return_pairs": 76,
+  "schema_version": 1,
+  "session": {
+    "end_exclusive": "16:00",
+    "expected_minutes": 390,
+    "minimum_session_coverage_ratio": 0.95,
+    "start": "09:30",
+    "timezone": "America/New_York"
+  }
+}

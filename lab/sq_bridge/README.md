@@ -342,6 +342,31 @@ USDC i el màxim ≤0,01 USDC per trade. L'informe guarda els dos hashes i la
 cadena reobre els traces i recalcula totes les mètriques. Mostres buides o
 petites, PnL simplement escalat i reports manuals queden rebutjats.
 
+## Paquet paper v4
+
+L'última etapa no desplega ni firma ordres. Construeix una configuració paper
+schema v2 a partir dels artefactes PASS de preflight, economia de 200 USDC,
+holdout final, traducció i paritat:
+
+```bash
+PYTHONPATH=../.. python3 paper_package_artifact_v4.py \
+  --campaign-id CAMPAIGN_ID --candidate-id EXACT_STRATEGY_NAME \
+  --market-preflight /path/to/01_market_preflight.json \
+  --small-account-economics /path/to/06_small_account_economics.json \
+  --final-holdout-validation /path/to/07_final_holdout_validation.json \
+  --python-translation /path/to/08_python_translation.json \
+  --parity /path/to/09_parity.json \
+  --config-output /path/to/candidate.paper.json \
+  --artifact-output /path/to/state/artifacts/10_paper.json
+```
+
+El paquet copia i lliga per SHA-256 el parell Ostium, leverage màxim segur,
+nocional, col·lateral, risc, marge, reserva, stop, IR i report de paritat. Tots
+els artefactes han de pertànyer a la mateixa campanya i candidat. La cadena
+compara aquests hashes amb els rebuts reals anteriors, així que no es poden
+substituir per altres JSON marcats manualment com PASS. `mode=paper`,
+`live_authorized=false` i `signer_enabled=false` són obligatoris.
+
 Proves:
 
 ```bash

@@ -12,6 +12,7 @@ from lab.sq_bridge.sqx_extract import extract as extract_sqx
 from lab.sq_bridge.sqx_to_ir import canonical_ir
 from lab.sq_bridge.parity_artifact_v4 import compare_traces
 from lab.sq_bridge.final_holdout_artifact_v4 import evaluate_trace as evaluate_holdout_trace
+from lab.sq_bridge.paper_package_artifact_v4 import verify_package
 
 
 def _number(value: Any) -> bool:
@@ -689,13 +690,20 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
             checks.update({
                 "CONFIG_FILE": paper_config is not None,
                 "CONFIG_CONTRACT": paper_config is not None and len(ids) == 1
-                    and paper_config.get("schema_version") == 1
+                    and paper_config.get("schema_version") in {1, 2}
                     and paper_config.get("candidate_id") == ids[0]
                     and paper_config.get("capital_usdc") == 200
                     and paper_config.get("mode") == "paper"
                     and paper_config.get("live_authorized") is False
                     and paper_config.get("signer_enabled") is False,
             })
+            if provenance != "synthetic_control":
+                config_value = Path(artifact.get("paper_config_path", ""))
+                config_value = (config_value if config_value.is_absolute()
+                                else Path(receipt.get("artifact", "")).resolve().parent
+                                / config_value)
+                checks["PACKAGE_CONTRACT"] = paper_config is not None and verify_package(
+                    paper_config, config_value)
     else:
         checks = {"KNOWN_STAGE": False}
     errors.extend(f"{prefix}:{name}" for name, passed in checks.items() if not passed)

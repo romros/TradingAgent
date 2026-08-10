@@ -66,6 +66,21 @@ def verify(chain,methodology_path):
      source_hypotheses=normalized_ids(artifact.get("source_hypothesis_ids"))
      if not screened_hypotheses or not set(source_hypotheses).issubset(screened_hypotheses):
       errors.append("SQ_HYPOTHESIS_LINEAGE")
+    if (m.get("schema_version",1)>=4 and chain.get("provenance")!="synthetic_control"
+        and r.get("stage")=="paper"
+        and r.get("decision")=="PASS"):
+     try:
+      config_path=Path(artifact["paper_config_path"])
+      config_path=config_path if config_path.is_absolute() else path.resolve().parent/config_path
+      config=json.loads(config_path.read_text())
+      refs=config["source_artifacts"]
+      prior={item["stage"]:item["artifact_sha256"] for item in chain["receipts"][:i]}
+      roles=("market_preflight","small_account_economics","final_holdout_validation",
+             "python_translation","parity")
+      if any(refs[role]["sha256"]!=prior.get(role) for role in roles):
+       errors.append("PAPER_SOURCE_RECEIPT_LINEAGE")
+     except (KeyError,OSError,TypeError,ValueError,json.JSONDecodeError):
+      errors.append("PAPER_SOURCE_RECEIPT_LINEAGE")
   check=dict(r); stored=check.pop("receipt_sha256",None)
   if stored!=sha_bytes(canonical(check)): errors.append(f"RECEIPT_HASH:{i}")
   if r.get("previous_receipt_sha256")!=previous_hash: errors.append(f"CHAIN_LINK:{i}")

@@ -20,6 +20,7 @@ from lab.sq_bridge.test_sqx_extract import STRATEGY, SETTINGS
 from lab.sq_bridge.sqx_to_ir import translate
 from lab.sq_bridge.parity_artifact_v4 import build_artifact as build_parity
 from lab.sq_bridge.final_holdout_artifact_v4 import build_artifact as build_holdout
+from lab.sq_bridge.paper_package_artifact_v4 import build_artifact as build_paper
 
 stage = os.environ['ALQUIMIA_STAGE']
 decision = sys.argv[1] if len(sys.argv) > 1 else 'PASS'
@@ -125,11 +126,16 @@ if stage == 'parity':
 if stage == 'paper':
     base = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent
     config_path = base / 'runner-sqx-001.paper.json'
-    config_path.write_text(json.dumps({
-        'schema_version': 1, 'candidate_id': 'runner-sqx-001', 'capital_usdc': 200,
-        'mode': 'paper', 'live_authorized': False, 'signer_enabled': False}))
-    artifact['paper_config_path'] = config_path.name
-    artifact['paper_config_sha256'] = hashlib.sha256(config_path.read_bytes()).hexdigest()
+    artifact = build_paper(
+        campaign_id='runner-test', candidate_id='runner-sqx-001',
+        source_artifact_paths={
+            'market_preflight': base / '01_market_preflight.json',
+            'small_account_economics': base / '06_small_account_economics.json',
+            'final_holdout_validation': base / '07_final_holdout_validation.json',
+            'python_translation': base / '08_python_translation.json',
+            'parity': base / '09_parity.json'},
+        config_path=config_path,
+        artifact_path=Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']))
 if decision == 'BAD':
     artifact['decision'] = 'PASS'
     artifact.pop('historical_period_coverage', None)

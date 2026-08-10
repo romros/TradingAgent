@@ -66,12 +66,13 @@
       "ostium_pair": "EUR/USD",
       "ostium_asset": "EURUSD",
       "bs_symbol": "EURUSD",
-      "sq_symbol": "EURUSD_M1_dukas_M1_UTCMinus05",
+      "sq_symbol": "EURUSD_ALQ_NY17_D1",
+      "discovery_timeframe": "D1",
       "venue_max_leverage": 200,
       "opening_fee_bps": 3,
       "research_eligible": true,
       "live_eligible": false,
-      "warning": "Cal recertificar paritat BS abans de paper/live."
+      "warning": "Recurs SQ NY17 D1 certificat per recerca; costos 200 USDC i paritat BS continuen obligatoris abans de paper/live."
     },
     "USDJPY": {
       "category": "forex",

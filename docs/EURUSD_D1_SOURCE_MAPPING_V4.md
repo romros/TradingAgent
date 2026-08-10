@@ -107,16 +107,22 @@ S'ha generat de manera determinista `EURUSD_ALQ_NY17_D1.csv` directament dels
 143.2708 l'ha importat com a recurs D1 nadiu `EURUSD_ALQ_NY17_D1`; el catàleg
 confirma exactament les 5.884 files i les dates esperades.
 
-Aquesta versió de la CLI, però, finalitza l'ordre d'exportació del recurs D1
-nadiu sense crear cap CSV. També s'ha falsat i descartat el workaround de
-presentar una barra diària com M1: no permet reconstruir D1 i alteraria la
-semàntica temporal. Per tant la presència al catàleg **no** es promociona a
-paritat OHLC. Decisió provisional: `BLOCK_SQ_D1_ROUNDTRIP_UNAVAILABLE` fins que
-un export complet o una prova controlada equivalent permeti executar
-`eurusd_sq_d1_resource_audit_v4.py` sobre el recurs nou.
+Aquesta versió de la CLI va informar `Completed` abans que el CSV fos visible;
+l'export complet va aparèixer amb retard. L'auditoria posterior prova 5.884
+dates idèntiques i coincidència exacta de totes les OHLC. SQ només normalitza
+un volum zero (01/01/2013) a volum 1; aquesta és l'única diferència i està
+acceptada explícitament, no mitjançant una tolerància genèrica. Decisió:
+`PASS_SQ_D1_RESOURCE`, exclusivament per a recerca.
 
-Implementació de font i rebut fail-closed:
-`eurusd_sq_d1_source_v4.py` i `eurusd_sq_d1_import_receipt_v4.py`.
+També s'ha falsat i descartat el workaround de presentar una barra diària com
+M1: el resultat exportat coincidia, però alterava la semàntica temporal i no és
+necessari. El registre de mercats ara apunta EURUSD exclusivament al recurs
+canònic `EURUSD_ALQ_NY17_D1`; els projectes futurs no poden recaure en el recurs
+antic de manera silenciosa.
+
+Implementació de font, rebut fail-closed i auditoria:
+`eurusd_sq_d1_source_v4.py`, `eurusd_sq_d1_import_receipt_v4.py` i
+`eurusd_sq_d1_canonical_resource_audit_v4.py`.
 
 ## Següent gate
 

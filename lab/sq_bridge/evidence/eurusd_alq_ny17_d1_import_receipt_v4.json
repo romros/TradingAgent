@@ -1,7 +1,5 @@
 {
-  "blocking_reasons": [
-    "SQ_D1_ROUNDTRIP_UNAVAILABLE"
-  ],
+  "blocking_reasons": [],
   "catalog_observation": {
     "first": "2003-05-05",
     "instrument": "EURUSD",
@@ -21,13 +19,13 @@
     "catalog_symbol": true,
     "catalog_timeframe": true,
     "catalog_timezone": true,
-    "full_sq_ohlc_roundtrip_available": false,
+    "full_sq_ohlc_roundtrip_available": true,
     "source_csv_hash_present": true,
     "source_dates": true,
     "source_has_no_weekends": true,
     "source_rows": true
   },
-  "decision": "BLOCK_SQ_D1_ROUNDTRIP_UNAVAILABLE",
+  "decision": "READY_FOR_SQ_D1_RESOURCE_AUDIT",
   "import_commands": {
     "path": "lab/sq_bridge/eurusd_alq_ny17_d1_import.commands",
     "sha256": "f72a3c223a4bd1d4259d7ac597cd2da6ebc39660fd1944a9aea09a82b0d96a6e"
@@ -36,7 +34,7 @@
   "paper_authorized": false,
   "performance_accessed": false,
   "research_authorized": false,
-  "roundtrip_export": null,
+  "roundtrip_export": "/mnt/volume-SQ/user/exports/alquimia_eurusd_v4_ny17_roundtrip/EURUSD_ALQ_NY17_D1-D1-No Session.csv",
   "schema_version": 1,
   "session_boundary": "17:00",
   "session_timezone": "America/New_York",

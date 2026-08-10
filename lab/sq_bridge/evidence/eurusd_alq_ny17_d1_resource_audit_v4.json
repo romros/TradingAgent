@@ -1,0 +1,45 @@
+{
+  "checks": {
+    "exact_ohlc_roundtrip": true,
+    "expected_row_count": true,
+    "identical_dates": true,
+    "only_zero_volume_normalized": true,
+    "source_hash_matches_receipt": true,
+    "source_receipt_pass": true
+  },
+  "common_rows": 5884,
+  "decision": "PASS_SQ_D1_RESOURCE",
+  "instrument": "EURUSD",
+  "live_authorized": false,
+  "maximum_ohlc_delta": 0.0,
+  "ohlc_match_ratio": 1.0,
+  "paper_authorized": false,
+  "performance_accessed": false,
+  "research_authorized": true,
+  "schema_version": 1,
+  "session_boundary": "17:00",
+  "session_timezone": "America/New_York",
+  "source_csv": {
+    "bytes": 329914,
+    "path": "/mnt/volume-SQ/user/imports/alquimia_eurusd_v4/EURUSD_ALQ_NY17_D1.csv",
+    "sha256": "0abdc43594d0d030d2c75c55b88b6ec3e8315c4d49888a9c3ab3061b8a831493"
+  },
+  "source_rows": 5884,
+  "sq_export": {
+    "bytes": 329914,
+    "path": "/mnt/volume-SQ/user/exports/alquimia_eurusd_v4_ny17_roundtrip/EURUSD_ALQ_NY17_D1-D1-No Session.csv",
+    "sha256": "8851f29c8fd8b06ce6de835e74fcf42bb77649d384d25d8ea47cfee677398108"
+  },
+  "sq_rows": 5884,
+  "sq_version": "143.2708",
+  "sunday_fragment_bars": 0,
+  "symbol": "EURUSD_ALQ_NY17_D1",
+  "timeframe": "D1",
+  "volume_normalizations": [
+    {
+      "day": "2013.01.01",
+      "source": 0,
+      "sq_export": 1
+    }
+  ]
+}

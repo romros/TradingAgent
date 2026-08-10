@@ -38,22 +38,29 @@ def derive(summary: dict[str, Any], *, expected_pair_id: str,
     requirements = {"open_samples": MINIMUM_SAMPLES, "distinct_utc_days": MINIMUM_DAYS,
                     "distinct_utc_hours": MINIMUM_UTC_HOURS}
     actual = {key: int((checks.get(key) or {}).get("actual", 0)) for key in requirements}
-    mature = ((summary.get("gate") or {}).get("execution_economics") == "PASS"
-              and all(actual[key] >= minimum for key, minimum in requirements.items()))
-    if not mature:
-        return {"schema_version": 1, "decision": "BLOCK_INSUFFICIENT_EXECUTION_COVERAGE",
-                "costs_frozen": False, "coverage": {key: {"actual": actual[key],
-                "required": requirements[key]} for key in requirements},
-                "paper_authorized": False, "live_authorized": False}
-    if summary.get("schema_version") != 1:
-        raise ValueError("execution summary must use schema_version=1")
-    oracle = number(oracle_locked_usdc, "oracle_locked_usdc")
     raw = summary.get("roundtrip_proxy_bps_by_notional") or {}
     notional_coverage = {
         str(notional): int((((raw.get(str(notional)) or {}).get("direction_neutral") or {})
                            .get("n", 0)))
         for notional in REQUIRED_NOTIONALS_USDC
     }
+    remaining_complete_captures = max(
+        max(0, MINIMUM_SAMPLES - actual["open_samples"]),
+        *(max(0, MINIMUM_SAMPLES - count) for count in notional_coverage.values()),
+    )
+    mature = ((summary.get("gate") or {}).get("execution_economics") == "PASS"
+              and all(actual[key] >= minimum for key, minimum in requirements.items()))
+    if not mature:
+        return {"schema_version": 1, "decision": "BLOCK_INSUFFICIENT_EXECUTION_COVERAGE",
+                "costs_frozen": False, "coverage": {key: {"actual": actual[key],
+                "required": requirements[key]} for key in requirements},
+                "required_notional_observations": MINIMUM_SAMPLES,
+                "notional_observations": notional_coverage,
+                "remaining_complete_captures_lower_bound": remaining_complete_captures,
+                "paper_authorized": False, "live_authorized": False}
+    if summary.get("schema_version") != 1:
+        raise ValueError("execution summary must use schema_version=1")
+    oracle = number(oracle_locked_usdc, "oracle_locked_usdc")
     if any(count < MINIMUM_SAMPLES for count in notional_coverage.values()):
         return {
             "schema_version": 1,
@@ -62,6 +69,7 @@ def derive(summary: dict[str, Any], *, expected_pair_id: str,
             "coverage": actual,
             "required_notional_observations": MINIMUM_SAMPLES,
             "notional_observations": notional_coverage,
+            "remaining_complete_captures_lower_bound": remaining_complete_captures,
             "maximum_feasible_notional_usdc": max(REQUIRED_NOTIONALS_USDC),
             "paper_authorized": False,
             "live_authorized": False,

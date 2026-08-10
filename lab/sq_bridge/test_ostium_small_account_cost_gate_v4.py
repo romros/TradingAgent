@@ -31,7 +31,17 @@ def test_incomplete_evidence_blocks_without_freezing_provisional_values():
     result = derive(summary(samples=29), expected_pair_id="2", expected_pair=("EUR", "USD"))
     assert result["decision"] == "BLOCK_INSUFFICIENT_EXECUTION_COVERAGE"
     assert result["costs_frozen"] is False
+    assert result["notional_observations"]["14000"] == 29
+    assert result["remaining_complete_captures_lower_bound"] == 1
     assert "by_notional" not in result
+
+
+def test_incomplete_evidence_exposes_the_slowest_notional_bucket():
+    value = summary(samples=12, days=1, hours=4)
+    value["roundtrip_proxy_bps_by_notional"]["14000"]["direction_neutral"]["n"] = 3
+    result = derive(value, expected_pair_id="2", expected_pair=("EUR", "USD"))
+    assert result["notional_observations"]["14000"] == 3
+    assert result["remaining_complete_captures_lower_bound"] == 27
 
 
 def test_mature_evidence_freezes_small_account_scenarios_and_oracle_semantics():

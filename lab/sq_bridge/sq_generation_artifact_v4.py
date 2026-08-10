@@ -22,8 +22,17 @@ def _relative(path: Path, base: Path) -> str:
     return os.path.relpath(path.resolve(), base.resolve())
 
 
-def build_artifact(*, campaign_id: str, source_hypothesis_ids: list[str], attempted: int,
-                   databank_dir: Path, project_cfx: Path, project_manifest_path: Path,
+def _inventory(paths: list[Path], root: Path) -> tuple[list[dict], str]:
+    rows = [{"path": path.relative_to(root).as_posix(), "sha256": _sha256(path)}
+            for path in paths]
+    digest = hashlib.sha256("".join(
+        f"{row['path']}:{row['sha256']}\n" for row in rows).encode()).hexdigest()
+    return rows, digest
+
+
+def build_artifact(*, campaign_id: str, source_hypothesis_ids: list[str],
+                   databank_dir: Path, watchdog_status_path: Path,
+                   project_cfx: Path, project_manifest_path: Path,
                    methodology_path: Path, output_path: Path) -> dict:
     methodology = json.loads(methodology_path.read_text())
     manifest = json.loads(project_manifest_path.read_text())
@@ -37,15 +46,22 @@ def build_artifact(*, campaign_id: str, source_hypothesis_ids: list[str], attemp
                    for value in source_hypothesis_ids)
             or len(set(source_hypothesis_ids)) != len(source_hypothesis_ids)):
         raise ValueError("source_hypothesis_ids han de ser unics i no buits")
+    watchdog = json.loads(watchdog_status_path.read_text())
+    attempted = watchdog.get("generated")
     if (not isinstance(attempted, int) or isinstance(attempted, bool)
             or not 1 <= attempted <= generation["maximum_attempts"]):
-        raise ValueError("attempted fora del pressupost metodologic")
+        raise ValueError("El watchdog no prova un recompte d'intents valid")
     if manifest.get("methodology_id") != methodology.get("methodology_id"):
         raise ValueError("El manifest no pertany a aquesta metodologia")
     if manifest.get("generation_type") != generation["search_method"].replace("_", "-"):
         raise ValueError("El projecte no usa la cerca genetica preregistrada")
     if manifest.get("holdout_sealed") is not True:
         raise ValueError("El holdout del projecte no consta segellat")
+    if watchdog.get("project") != manifest.get("project_name"):
+        raise ValueError("El snapshot del watchdog no correspon al projecte")
+    if watchdog.get("state") != "BUDGET_REACHED" or watchdog.get("reason") not in {
+            "ATTEMPT_BUDGET", "ACCEPTED_TARGET", "WALL_TIME_BUDGET"}:
+        raise ValueError("L'execucio SQ no consta finalitzada per un gate congelat")
     if manifest.get("output_sha256") != _sha256(project_cfx):
         raise ValueError("El hash del CFX no coincideix amb el manifest")
     budget = manifest.get("attempt_budget")
@@ -53,9 +69,15 @@ def build_artifact(*, campaign_id: str, source_hypothesis_ids: list[str], attemp
             or attempted > budget or budget > generation["maximum_attempts"]):
         raise ValueError("L'execucio supera el pressupost congelat del projecte")
 
-    sqx_paths = sorted(databank_dir.glob("*.sqx"))
+    sqx_paths = sorted(databank_dir.rglob("*.sqx"))
     if not sqx_paths:
         raise ValueError("El databank congelat no conte cap SQX")
+    inventory, inventory_sha256 = _inventory(sqx_paths, databank_dir)
+    watchdog_inventory = watchdog.get("artifacts")
+    if (not isinstance(watchdog_inventory, list)
+            or [{"path": row.get("path"), "sha256": row.get("sha256")}
+                for row in watchdog_inventory] != inventory):
+        raise ValueError("El databank actual no coincideix amb el snapshot final del watchdog")
     contracts: dict[str, tuple[Path, dict]] = {}
     for path in sqx_paths:
         contract = extract(path)
@@ -107,6 +129,11 @@ def build_artifact(*, campaign_id: str, source_hypothesis_ids: list[str], attemp
         "sq_config_sha256": _sha256(project_cfx),
         "sq_project_manifest_path": _relative(project_manifest_path, output_base),
         "sq_project_manifest_sha256": _sha256(project_manifest_path),
+        "sq_watchdog_status_path": _relative(watchdog_status_path, output_base),
+        "sq_watchdog_status_sha256": _sha256(watchdog_status_path),
+        "databank_path": _relative(databank_dir, output_base),
+        "databank_candidate_count": len(inventory),
+        "databank_inventory_sha256": inventory_sha256,
         "databank_frozen": True,
         "future_periods_accessed": False,
     }
@@ -119,8 +146,8 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--campaign-id", required=True)
     parser.add_argument("--source-hypothesis-id", action="append", required=True)
-    parser.add_argument("--attempted", required=True, type=int)
     parser.add_argument("--databank-dir", required=True, type=Path)
+    parser.add_argument("--watchdog-status", required=True, type=Path)
     parser.add_argument("--project-cfx", required=True, type=Path)
     parser.add_argument("--project-manifest", required=True, type=Path)
     parser.add_argument("--methodology", type=Path,
@@ -130,8 +157,8 @@ def main() -> None:
     artifact = build_artifact(
         campaign_id=args.campaign_id,
         source_hypothesis_ids=args.source_hypothesis_id,
-        attempted=args.attempted,
         databank_dir=args.databank_dir,
+        watchdog_status_path=args.watchdog_status,
         project_cfx=args.project_cfx,
         project_manifest_path=args.project_manifest,
         methodology_path=args.methodology,

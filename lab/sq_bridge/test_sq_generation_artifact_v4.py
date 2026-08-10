@@ -33,18 +33,27 @@ def _fixture(tmp_path, strategy=STRATEGY, settings=SETTINGS):
         "canonical_evaluation_capital": 200,
         "holdout_sealed": True,
         "source_role": "xml_format_scaffold_only",
+        "project_name": "PROJECT_V4",
         "sq_symbol": "NVDA",
         "timeframe": "M15",
     }))
-    return databank, cfx, manifest
+    watchdog = tmp_path / "watchdog-status.json"
+    watchdog.write_text(json.dumps({
+        "project": "PROJECT_V4", "generated": 80,
+        "state": "BUDGET_REACHED", "reason": "ACCEPTED_TARGET",
+        "artifacts": [{"path": "candidate.sqx",
+                       "sha256": hashlib.sha256(sqx.read_bytes()).hexdigest()}],
+    }))
+    return databank, cfx, manifest, watchdog
 
 
 def _build(tmp_path, **overrides):
-    databank, cfx, manifest = _fixture(
+    databank, cfx, manifest, watchdog = _fixture(
         tmp_path, overrides.pop("strategy", STRATEGY), overrides.pop("settings", SETTINGS))
     params = dict(
-        campaign_id="campaign-v4", source_hypothesis_ids=["hypothesis-1"], attempted=80,
-        databank_dir=databank, project_cfx=cfx, project_manifest_path=manifest,
+        campaign_id="campaign-v4", source_hypothesis_ids=["hypothesis-1"],
+        databank_dir=databank, watchdog_status_path=watchdog,
+        project_cfx=cfx, project_manifest_path=manifest,
         methodology_path=ROOT / "methodology_v4.json", output_path=tmp_path / "artifact.json")
     params.update(overrides)
     return build_artifact(**params)
@@ -57,6 +66,8 @@ def test_builds_generation_evidence_from_actual_sqx(tmp_path):
     assert artifact["entry_condition_counts_per_candidate"] == {
         "T": {"long": 1, "short": 1}}
     assert artifact["translation_status_per_candidate"] == {"T": "SUPPORTED_SUBSET"}
+    assert artifact["attempted"] == 80
+    assert artifact["databank_candidate_count"] == 1
     assert artifact["sq_config_sha256"] == json.loads(
         (tmp_path / "project.manifest.json").read_text())["output_sha256"]
     methodology = json.loads((ROOT / "methodology_v4.json").read_text())
@@ -96,11 +107,73 @@ def test_rejects_unsupported_sqx_instead_of_silently_selecting_it(tmp_path):
 
 
 def test_rejects_tampered_project_config(tmp_path):
-    databank, cfx, manifest = _fixture(tmp_path)
+    databank, cfx, manifest, watchdog = _fixture(tmp_path)
     cfx.write_bytes(b"tampered")
     with pytest.raises(ValueError, match="hash del CFX"):
         build_artifact(
-            campaign_id="campaign-v4", source_hypothesis_ids=["h"], attempted=1,
-            databank_dir=databank, project_cfx=cfx, project_manifest_path=manifest,
+            campaign_id="campaign-v4", source_hypothesis_ids=["h"],
+            databank_dir=databank, watchdog_status_path=watchdog,
+            project_cfx=cfx, project_manifest_path=manifest,
             methodology_path=ROOT / "methodology_v4.json",
             output_path=tmp_path / "artifact.json")
+
+
+def test_rejects_databank_changed_after_watchdog_snapshot(tmp_path):
+    databank, cfx, manifest, watchdog = _fixture(tmp_path)
+    (databank / "candidate.sqx").write_bytes(b"changed-after-stop")
+    with pytest.raises(ValueError, match="snapshot final"):
+        build_artifact(
+            campaign_id="campaign-v4", source_hypothesis_ids=["h"],
+            databank_dir=databank, watchdog_status_path=watchdog,
+            project_cfx=cfx, project_manifest_path=manifest,
+            methodology_path=ROOT / "methodology_v4.json",
+            output_path=tmp_path / "artifact.json")
+
+
+def test_rejects_watchdog_that_has_not_reached_a_frozen_gate(tmp_path):
+    databank, cfx, manifest, watchdog = _fixture(tmp_path)
+    status = json.loads(watchdog.read_text())
+    status.update({"state": "HEALTHY", "reason": None})
+    watchdog.write_text(json.dumps(status))
+    with pytest.raises(ValueError, match="gate congelat"):
+        build_artifact(
+            campaign_id="campaign-v4", source_hypothesis_ids=["h"],
+            databank_dir=databank, watchdog_status_path=watchdog,
+            project_cfx=cfx, project_manifest_path=manifest,
+            methodology_path=ROOT / "methodology_v4.json",
+            output_path=tmp_path / "artifact.json")
+
+
+def test_discovers_nested_strategyquant_databank_paths(tmp_path):
+    databank, cfx, manifest, watchdog = _fixture(tmp_path)
+    nested = databank / "Results"
+    nested.mkdir()
+    target = nested / "candidate.sqx"
+    (databank / "candidate.sqx").rename(target)
+    status = json.loads(watchdog.read_text())
+    status["artifacts"] = [{"path": "Results/candidate.sqx",
+                            "sha256": hashlib.sha256(target.read_bytes()).hexdigest()}]
+    watchdog.write_text(json.dumps(status))
+    artifact = build_artifact(
+        campaign_id="campaign-v4", source_hypothesis_ids=["h"],
+        databank_dir=databank, watchdog_status_path=watchdog,
+        project_cfx=cfx, project_manifest_path=manifest,
+        methodology_path=ROOT / "methodology_v4.json",
+        output_path=tmp_path / "artifact.json")
+    assert artifact["candidate_ids"] == ["T"]
+    assert artifact["candidate_artifact_paths"]["T"].endswith("Results/candidate.sqx")
+
+
+def test_chain_rejects_added_sqx_and_spoofed_attempt_count(tmp_path):
+    artifact = _build(tmp_path)
+    source = tmp_path / "databank/candidate.sqx"
+    (tmp_path / "databank/late.sqx").write_bytes(source.read_bytes())
+    artifact["attempted"] = 79
+    methodology = json.loads((ROOT / "methodology_v4.json").read_text())
+    receipt = {"decision": "PASS", "candidate_ids": ["T"],
+               "holdout_accessed": False, "artifact": str(tmp_path / "artifact.json")}
+    errors = validate_stage_artifact(
+        "sq_generation", artifact, receipt, methodology,
+        "campaign-v4", "alquimia_native")
+    assert "STAGE_ARTIFACT:sq_generation:DATABANK_INVENTORY" in errors
+    assert "STAGE_ARTIFACT:sq_generation:WATCHDOG_CONTRACT" in errors

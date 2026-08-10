@@ -93,6 +93,28 @@ def _verified_sqx_contracts(paths: Any, expected_ids: list[str], artifact_path: 
     return True
 
 
+def _verified_databank(path_value: Any, expected_count: Any, expected_digest: Any,
+                       artifact_path: str) -> tuple[bool, list[dict]]:
+    if (not isinstance(path_value, str) or not path_value
+            or not isinstance(expected_count, int) or isinstance(expected_count, bool)
+            or not isinstance(expected_digest, str)):
+        return False, []
+    root = Path(path_value)
+    root = root if root.is_absolute() else Path(artifact_path).resolve().parent / root
+    if not root.is_dir():
+        return False, []
+    rows = []
+    try:
+        for path in sorted(root.rglob("*.sqx")):
+            rows.append({"path": path.relative_to(root).as_posix(),
+                         "sha256": hashlib.sha256(path.read_bytes()).hexdigest()})
+    except OSError:
+        return False, []
+    digest = hashlib.sha256("".join(
+        f"{row['path']}:{row['sha256']}\n" for row in rows).encode()).hexdigest()
+    return len(rows) == expected_count and digest == expected_digest, rows
+
+
 def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodology: dict,
                             campaign_id: str, provenance: str) -> list[str]:
     errors: list[str] = []
@@ -247,6 +269,16 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
         project_manifest = _verified_json(
             artifact.get("sq_project_manifest_path"),
             artifact.get("sq_project_manifest_sha256"), receipt.get("artifact", ""))
+        watchdog_status = _verified_json(
+            artifact.get("sq_watchdog_status_path"),
+            artifact.get("sq_watchdog_status_sha256"), receipt.get("artifact", ""))
+        databank_valid, databank_rows = _verified_databank(
+            artifact.get("databank_path"), artifact.get("databank_candidate_count"),
+            artifact.get("databank_inventory_sha256"), receipt.get("artifact", ""))
+        watchdog_rows = ([{"path": row.get("path"), "sha256": row.get("sha256")}
+                          for row in watchdog_status.get("artifacts", [])]
+                         if watchdog_status is not None
+                         and isinstance(watchdog_status.get("artifacts"), list) else None)
         checks = {
             "SQ_SOURCE": artifact.get("generator") == "StrategyQuant",
             "SEARCH_METHOD": artifact.get("search_method") == generation["search_method"],
@@ -287,9 +319,21 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
             "NO_HOLDOUT": artifact.get("holdout_accessed") is False,
         }
         if methodology.get("schema_version", 1) >= 4 and provenance != "synthetic_control":
-            checks["SQX_CONTRACTS"] = _verified_sqx_contracts(
+            checks.update({
+                "DATABANK_INVENTORY": databank_valid,
+                "WATCHDOG_FILE": watchdog_status is not None,
+                "WATCHDOG_CONTRACT": watchdog_status is not None
+                    and project_manifest is not None
+                    and watchdog_status.get("project") == project_manifest.get("project_name")
+                    and watchdog_status.get("generated") == artifact.get("attempted")
+                    and watchdog_status.get("state") == "BUDGET_REACHED"
+                    and watchdog_status.get("reason") in {
+                        "ATTEMPT_BUDGET", "ACCEPTED_TARGET", "WALL_TIME_BUDGET"}
+                    and watchdog_rows == databank_rows,
+                "SQX_CONTRACTS": _verified_sqx_contracts(
                 paths, candidate_ids, receipt.get("artifact", ""), rules, entry_counts,
-                generation["max_rules"])
+                generation["max_rules"]),
+            })
     elif stage == "temporal_validation":
         candidate_metrics = artifact.get("candidate_temporal_metrics")
         checks = {

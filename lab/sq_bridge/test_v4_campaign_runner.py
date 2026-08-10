@@ -45,9 +45,22 @@ if stage == 'sq_generation':
     artifact['rules_per_candidate'] = {candidate: 1 for candidate in ids}
     artifact['entry_condition_counts_per_candidate'] = {
         candidate: {'long': 1, 'short': 1} for candidate in ids}
+    inventory = [{'path': paths[candidate], 'sha256': hashes[candidate]} for candidate in ids]
+    inventory_digest = hashlib.sha256(''.join(
+        f\"{row['path']}:{row['sha256']}\\n\" for row in inventory).encode()).hexdigest()
+    watchdog_path = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent / 'watchdog-status.json'
+    watchdog_path.write_text(json.dumps({
+        'project': 'RUNNER_PROJECT', 'generated': 1, 'state': 'BUDGET_REACHED',
+        'reason': 'ATTEMPT_BUDGET', 'artifacts': inventory}))
+    artifact['sq_watchdog_status_path'] = watchdog_path.name
+    artifact['sq_watchdog_status_sha256'] = hashlib.sha256(watchdog_path.read_bytes()).hexdigest()
+    artifact['databank_path'] = '.'
+    artifact['databank_candidate_count'] = len(inventory)
+    artifact['databank_inventory_sha256'] = inventory_digest
     manifest_path = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent / 'runner-project.manifest.json'
     manifest_path.write_text(json.dumps({
         'schema_version': 1, 'methodology_id': 'alquimia-v4-coverage-before-performance',
+        'project_name': 'RUNNER_PROJECT',
         'generation_type': 'genetic-evolution', 'attempt_budget': 1,
         'output_sha256': 'b' * 64, 'canonical_evaluation_capital': 200,
         'holdout_sealed': True, 'source_role': 'xml_format_scaffold_only'}))

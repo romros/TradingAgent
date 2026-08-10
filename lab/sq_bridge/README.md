@@ -249,8 +249,8 @@ congelar el databank i el recompte real d'intents, es genera així:
 PYTHONPATH=../.. python3 sq_generation_artifact_v4.py \
   --campaign-id CAMPAIGN_ID \
   --source-hypothesis-id HYPOTHESIS_ID \
-  --attempted 10000 \
   --databank-dir /path/to/frozen/databank \
+  --watchdog-status /path/to/final-watchdog-status.json \
   --project-cfx /path/to/project.cfx \
   --project-manifest /path/to/project.manifest.json \
   --output /path/to/state/artifacts/03_sq_generation.json
@@ -261,8 +261,11 @@ traduïble i condicions d'entrada long/short. Un `AND` suma predicats, però els
 indicadors operands d'un predicat no compten com regles addicionals. La
 complexitat és el màxim de les dues direccions actives i v4 rebutja més de tres.
 També verifica que el CFX coincideix amb el manifest genètic preregistrat. El
-validador de la cadena torna a obrir els SQX: alterar només el JSON no pot fer
-passar una estratègia diferent.
+recompte d'intents es deriva del snapshot final del watchdog, que ha d'haver
+arribat a un gate congelat. L'inventari és recursiu i lliga totes les rutes i
+hashes del databank a aquest snapshot. El validador torna a obrir els SQX i
+recalcula l'inventari: alterar el JSON o afegir/treure un fitxer després no pot
+fer passar una execució diferent.
 
 Proves:
 

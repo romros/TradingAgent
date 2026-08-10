@@ -273,6 +273,23 @@ els intents reals i recalcula PF
 per variant i exigeix que la central i almenys dos veïns superin 50 trades i PF
 1,20 sota tots tres costos. Una hipòtesi rebutjada no arriba a SQCLI.
 
+Quan la cadena queda exactament a `next_stage=sq_generation`, es compila el pla
+de la hipòtesi seleccionada i el contracte posicional compartit amb SQ:
+
+```bash
+PYTHONPATH=../.. python3 eurusd_sq_generation_plan_v4.py \
+  --screen /path/to/state/artifacts/02_hypothesis_screen.json \
+  --chain /path/to/state/chain.json \
+  --period-contract-output /path/to/state/eurusd-periods-v4.json \
+  --output /path/to/state/eurusd-sq-plan-v4.json
+```
+
+El pla assigna un perfil de blocs traduïbles diferent a `d1_breakout`,
+`d1_momentum` i `d1_shock_reversion`, exigeix cerca genètica i conserva el
+pressupost màxim de 10.000 intents. `Highest` i `Lowest` formen part del subset
+SQX→IR→Python provat; ATR es manté com a fórmula de stop, no com a operador de
+senyal no reproduït.
+
 El `market_preflight` observat que precedeix aquest screen no es valida només
 amb els seus totals. Conserva `campaign_config_path` i SHA-256; el contracte
 reexecuta el compositor sobre cobertura històrica, mapping i costos congelats.
@@ -288,6 +305,7 @@ PYTHONPATH=../.. python3 alquimia_project.py \
   --output /path/to/project.cfx --name PROJECT_NAME --market EURUSD \
   --methodology methodology_v4.json --date-from YYYY-MM-DD --date-to YYYY-MM-DD \
   --generation-type genetic-evolution --attempt-budget 10000 \
+  --period-contract /path/to/state/eurusd-periods-v4.json \
   --evidence-chain /path/to/state/chain.json \
   --campaign-id CAMPAIGN_ID --source-hypothesis-id HYPOTHESIS_ID
 ```

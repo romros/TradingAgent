@@ -11,6 +11,11 @@ from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
 
+from lab.sq_bridge.temporal_split_contract_v4 import (
+    build_contract as build_temporal_contract,
+    digest as temporal_contract_digest,
+)
+
 
 @dataclass(frozen=True)
 class Bar:
@@ -160,7 +165,8 @@ def build(source: Path, cost_model: Path, methodology: Path) -> dict:
     if costs.get("decision") != "PASS_COSTS_FROZEN" or costs.get("costs_frozen") is not True:
         raise ValueError("execution costs must be frozen before performance screening")
     bars = read_bars(source)
-    train_rows = math.floor(len(bars) * rules["temporal_split"]["train_pct"] / 100)
+    temporal_contract = build_temporal_contract(source, methodology)
+    train_rows = temporal_contract["segments"]["train"]["last_row_index"] + 1
     train = bars[:train_rows]
     hypotheses = []
     for hypothesis_id, family, definitions in FAMILIES:
@@ -196,6 +202,8 @@ def build(source: Path, cost_model: Path, methodology: Path) -> dict:
         "source_first_utc": f"{bars[0].day.isoformat()}T00:00:00+00:00",
         "train_end_utc": f"{train[-1].day.isoformat()}T00:00:00+00:00",
         "temporal_split": rules["temporal_split"],
+        "temporal_contract": temporal_contract,
+        "temporal_contract_sha256": temporal_contract_digest(temporal_contract),
         "attempted_variants": attempted, "hypotheses": hypotheses,
     }
 

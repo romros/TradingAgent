@@ -25,6 +25,7 @@ from lab.sq_bridge.temporal_validation_artifact_v4 import build_artifact as buil
 from lab.sq_bridge.robustness_artifact_v4 import build_artifact as build_robustness
 from lab.sq_bridge.small_account_artifact_v4 import build_artifact as build_small_account
 from lab.sq_bridge.hypothesis_screen_artifact_v4 import build_artifact as build_screen
+from lab.sq_bridge.temporal_split_contract_v4 import build_contract as build_split, digest as split_digest
 from lab.sq_bridge.us500_d1_market_preflight_v4 import compose as compose_preflight
 
 stage = os.environ['ALQUIMIA_STAGE']
@@ -78,6 +79,7 @@ if stage == 'hypothesis_screen':
         source_day += timedelta(days=1)
     source_path.write_text('\\n'.join(source_rows) + '\\n')
     split = json.loads(Path(sys.argv[2]).read_text())['temporal_split']
+    split_contract = build_split(source_path, Path(sys.argv[2]))
     train_rows = len(source_rows) * split['train_pct'] // 100
     variants = []
     for variant_id in ('central', 'neighbor-a', 'neighbor-b'):
@@ -105,6 +107,8 @@ if stage == 'hypothesis_screen':
         'train_end_utc': source_rows[train_rows - 1].split(',', 1)[0].replace('.', '-')
             + 'T00:00:00+00:00',
         'temporal_split': split,
+        'temporal_contract': split_contract,
+        'temporal_contract_sha256': split_digest(split_contract),
         'hypotheses': [{'hypothesis_id': 'hypothesis-control',
                         'central_variant_id': 'central', 'variants': variants}]}))
     artifact = build_screen(

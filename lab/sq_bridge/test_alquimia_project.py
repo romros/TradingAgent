@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from datetime import date
+from datetime import date, timedelta
 import json
 import pytest
 from pathlib import Path
@@ -8,7 +8,9 @@ import alquimia_project
 from alquimia_project import (
     SEARCH_PROFILES, _split_dates, _validate_generation_contract,
     _validate_v4_prerequisites,
+    _validated_v4_periods,
 )
+from lab.sq_bridge.temporal_split_contract_v4 import build_contract, digest
 
 generic = SEARCH_PROFILES["generic_translatable"]
 assert {"Prices.Close", "Indicators.SMA", "Indicators.EMA", "Indicators.RSI",
@@ -110,3 +112,23 @@ def test_v4_project_rejects_unscreened_hypothesis_or_wrong_identity(tmp_path, mo
     with pytest.raises(ValueError, match="IDENTITY_MISMATCH"):
         _validate_v4_prerequisites(
             methodology, methodology_path, chain, "wrong", "hypothesis", "EURUSD")
+
+
+def test_v4_sq_periods_use_exact_observation_contract_not_calendar_approximation(tmp_path):
+    source = tmp_path / "source.csv"
+    days = [date(2020, 1, 1) + timedelta(days=index) for index in range(200)]
+    source.write_text("\n".join(
+        f"{day:%Y.%m.%d},00:00,1,1,1,1,1" for day in days) + "\n")
+    methodology = Path(__file__).with_name("methodology_v4.json")
+    contract = build_contract(source, methodology)
+    contract_path = tmp_path / "periods.json"
+    contract_path.write_text(json.dumps(contract))
+    periods, evidence = _validated_v4_periods(
+        contract_path, digest(contract), methodology,
+        days[0], days[-1])
+    assert periods["train_to"] == contract["segments"]["train"]["to"]
+    assert evidence["temporal_split_contract_sha256"] == digest(contract)
+    with pytest.raises(ValueError, match="MISMATCH"):
+        _validated_v4_periods(
+            contract_path, "0" * 64, methodology,
+            days[0], days[-1])

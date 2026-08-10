@@ -11,6 +11,7 @@ from datetime import datetime
 from pathlib import Path
 
 from lab.sq_bridge.small_account_artifact_v4 import select_cost_envelope
+from lab.sq_bridge.temporal_split_contract_v4 import digest as temporal_contract_digest
 
 
 def _sha(path: Path) -> str:
@@ -51,6 +52,21 @@ def _validate_source_lineage(trace: dict, temporal_split: dict) -> datetime:
     source_rows = trace.get("source_rows")
     train_rows = trace.get("train_rows")
     expected_train = math.floor(len(lines) * temporal_split["train_pct"] / 100)
+    contract = trace.get("temporal_contract")
+    if (not isinstance(contract, dict)
+            or trace.get("temporal_contract_sha256") != temporal_contract_digest(contract)
+            or contract.get("source_sha256") != trace.get("source_sha256")
+            or contract.get("source_rows") != len(lines)
+            or contract.get("segments", {}).get("train", {}).get("last_row_index")
+                != expected_train - 1
+            or contract.get("segments", {}).get("train", {}).get("to")
+                != lines[expected_train - 1].split(",", 1)[0].replace(".", "-")
+            or contract.get("percentages") != {
+                name: temporal_split[f"{name}_pct"] for name in (
+                    "train", "validation", "oos", "final_holdout")}
+            or contract.get("embargo_bars_before_each_post_train_segment")
+                != temporal_split["embargo_bars"]):
+        raise ValueError("Contracte posicional del screen invalid")
     if (source_rows != len(lines) or train_rows != expected_train
             or trace.get("temporal_split") != temporal_split or expected_train < 1):
         raise ValueError("Tall train del screen no coincideix amb metodologia")

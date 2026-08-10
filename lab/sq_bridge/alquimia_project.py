@@ -13,6 +13,10 @@ from xml.etree import ElementTree as ET
 
 from methodology import validate
 from lab.sq_bridge.evidence_chain import verify as verify_chain
+from lab.sq_bridge.temporal_split_contract_v4 import (
+    digest as temporal_contract_digest,
+    sq_periods,
+)
 
 TRANSLATABLE_BLOCKS = {
     "Prices.High", "Prices.Low", "Prices.Close",
@@ -93,6 +97,12 @@ SEARCH_PROFILES = {
     },
 }
 
+V4_HYPOTHESIS_SEARCH_PROFILES = {
+    "d1_breakout": "eurusd_d1_breakout_v4",
+    "d1_momentum": "eurusd_d1_momentum_v4",
+    "d1_shock_reversion": "eurusd_d1_shock_reversion_v4",
+}
+
 
 def _sha256(payload: bytes) -> str:
     return hashlib.sha256(payload).hexdigest()
@@ -146,12 +156,26 @@ def _validate_v4_prerequisites(methodology: dict, methodology_path: Path,
     screen = json.loads(screen_path.read_text())
     if hypothesis_id not in screen.get("selected_hypothesis_ids", []):
         raise ValueError("V4_SQ_HYPOTHESIS_NOT_SCREENED")
+    expected_temporal_contract_sha256 = None
+    if market_key == "EURUSD" and hypothesis_id in V4_HYPOTHESIS_SEARCH_PROFILES:
+        trace_path = Path(screen.get("hypothesis_screen_trace_path", ""))
+        trace_path = (trace_path if trace_path.is_absolute()
+                      else screen_path.resolve().parent / trace_path)
+        if (not trace_path.is_file()
+                or screen.get("hypothesis_screen_trace_sha256")
+                    != _sha256(trace_path.read_bytes())):
+            raise ValueError("V4_SQ_SCREEN_TRACE_INVALID")
+        trace = json.loads(trace_path.read_text())
+        expected_temporal_contract_sha256 = trace.get("temporal_contract_sha256")
+        if not isinstance(expected_temporal_contract_sha256, str):
+            raise ValueError("V4_SQ_TEMPORAL_CONTRACT_MISSING")
     return {
         "campaign_id": campaign_id, "source_hypothesis_id": hypothesis_id,
         "evidence_chain_path": str(chain_path.resolve()),
         "evidence_chain_sha256": _sha256(chain_path.read_bytes()),
         "market_preflight_receipt_sha256": receipts[0]["receipt_sha256"],
         "hypothesis_screen_receipt_sha256": receipts[1]["receipt_sha256"],
+        "_expected_temporal_contract_sha256": expected_temporal_contract_sha256,
         "_prerequisite_chain_snapshot": chain,
     }
 
@@ -187,6 +211,25 @@ def _split_dates(start: date, end: date, split: dict) -> dict[str, str]:
             "oos_from": (validation_end + timedelta(days=1)).isoformat(),
             "oos_to": oos_end.isoformat(), "holdout_from": (oos_end + timedelta(days=1)).isoformat(),
             "holdout_to": end.isoformat()}
+
+
+def _validated_v4_periods(contract_path: Path | None, expected_digest: str,
+                          methodology_path: Path, date_from: date,
+                          date_to: date) -> tuple[dict[str, str], dict]:
+    if contract_path is None or not contract_path.is_file():
+        raise ValueError("V4_SQ_PERIOD_CONTRACT_REQUIRED")
+    contract = json.loads(contract_path.read_text())
+    if (temporal_contract_digest(contract) != expected_digest
+            or contract.get("methodology_sha256") != _sha256(methodology_path.read_bytes())
+            or contract.get("source_first") != date_from.isoformat()
+            or contract.get("source_last") != date_to.isoformat()):
+        raise ValueError("V4_SQ_PERIOD_CONTRACT_MISMATCH")
+    return sq_periods(contract), {
+        "temporal_split_contract_path": str(contract_path.resolve()),
+        "temporal_split_contract_sha256": expected_digest,
+        "temporal_source_sha256": contract["source_sha256"],
+        "temporal_split_policy": contract["rounding"],
+    }
 
 
 def _condition(column: str, fmt: str, threshold: float) -> ET.Element:
@@ -342,7 +385,8 @@ def build(source: Path, output: Path, project_name: str, market_key: str,
           generation_type: str = "random-generation", attempt_budget: int | None = None,
           wall_time_minutes: int = 0, stagnation_attempts: int | None = None,
           market_side: str = "both", evidence_chain_path: Path | None = None,
-          campaign_id: str | None = None, source_hypothesis_id: str | None = None) -> dict:
+          campaign_id: str | None = None, source_hypothesis_id: str | None = None,
+          period_contract_path: Path | None = None) -> dict:
     methodology = json.loads(methodology_path.read_text())
     errors = validate(methodology)
     if errors:
@@ -351,6 +395,8 @@ def build(source: Path, output: Path, project_name: str, market_key: str,
     prerequisites = _validate_v4_prerequisites(
         methodology, methodology_path, evidence_chain_path, campaign_id,
         source_hypothesis_id, market_key)
+    expected_temporal_digest = prerequisites.pop(
+        "_expected_temporal_contract_sha256", None)
     if prerequisites:
         snapshot_value = prerequisites.pop("_prerequisite_chain_snapshot")
         snapshot_path = output.with_suffix(".prerequisites.json")
@@ -363,6 +409,15 @@ def build(source: Path, output: Path, project_name: str, market_key: str,
     if not market or not market.get("research_eligible"):
         raise ValueError(f"Mercat no autoritzat per recerca: {market_key}")
     periods = _split_dates(date_from, date_to, methodology["temporal_split"])
+    period_evidence = {}
+    if expected_temporal_digest is not None:
+        expected_profile = V4_HYPOTHESIS_SEARCH_PROFILES[source_hypothesis_id]
+        if search_profile != expected_profile:
+            raise ValueError(
+                f"V4_SQ_PROFILE_MISMATCH expected={expected_profile} got={search_profile}")
+        periods, period_evidence = _validated_v4_periods(
+            period_contract_path, expected_temporal_digest,
+            methodology_path, date_from, date_to)
     with zipfile.ZipFile(source) as src:
         config = ET.fromstring(src.read("config.xml"))
         build_tasks = [task for task in config.findall("./Tasks/Task") if task.get("type") == "Build"]
@@ -395,6 +450,7 @@ def build(source: Path, output: Path, project_name: str, market_key: str,
         "canonical_evaluation_capital": methodology["capital_usdc"], "periods": periods,
         "blocks": block_counts, "holdout_sealed": True}
     manifest.update(prerequisites)
+    manifest.update(period_evidence)
     output.with_suffix(".manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
     return manifest
 
@@ -420,12 +476,14 @@ def main() -> None:
     parser.add_argument("--evidence-chain", type=Path)
     parser.add_argument("--campaign-id")
     parser.add_argument("--source-hypothesis-id")
+    parser.add_argument("--period-contract", type=Path)
     args = parser.parse_args()
     print(json.dumps(build(args.source, args.output, args.name, args.market, args.registry,
         args.methodology, args.date_from, args.date_to, args.accepted_limit,
         args.search_profile, args.generation_type, args.attempt_budget,
         args.wall_time_minutes, args.stagnation_attempts, args.market_side,
-        args.evidence_chain, args.campaign_id, args.source_hypothesis_id), indent=2))
+        args.evidence_chain, args.campaign_id, args.source_hypothesis_id,
+        args.period_contract), indent=2))
 
 if __name__ == "__main__":
     main()

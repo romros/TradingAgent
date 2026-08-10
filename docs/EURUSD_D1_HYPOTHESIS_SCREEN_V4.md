@@ -11,6 +11,9 @@ només rebrà les famílies que sobrevisquin costos i estabilitat local.
   final de train.
 - El tall és posicional i preregistrat: `floor(files × 50%)`; no depèn del
   rendiment.
+- El mateix contracte posicional alimenta SQ; no es torna a aproximar el 50%
+  amb dies de calendari. S'apliquen deu barres d'embargament abans de validació,
+  OOS i holdout.
 - Tota entrada usa informació disponible al tancament anterior i s’executa a
   l’obertura següent. Tota sortida ha de ser anterior o igual al final de train.
 - El productor es nega a calcular rendiment fins que el model d’execució
@@ -42,3 +45,19 @@ Aquest screen és un filtre barat d’hipòtesis. Un `PASS` no és evidència
 d’estratègia rendible: només autoritza que StrategyQuant generi implementacions
 limitades d’aquella família i que després passin validació temporal, Monte
 Carlo, compte de 200 USDC, holdout únic, traducció Python, paritat i paper.
+
+## Fronteres actuals del recurs canònic
+
+Amb les 5.884 sessions certificades, el contracte determinista és:
+
+| Segment | Files | Des de | Fins a |
+|---|---:|---|---|
+| train | 2.942 | 2003-05-05 | 2014-10-17 |
+| validation | 1.166 | 2014-11-03 | 2019-05-06 |
+| OOS | 1.167 | 2019-05-21 | 2023-11-15 |
+| final holdout | 579 | 2023-11-30 | 2026-02-26 |
+
+`eurusd_sq_generation_plan_v4.py` compila una hipòtesi seleccionada al seu
+perfil SQ exacte (`breakout`, `momentum` o `shock_reversion`), congela aquest
+contracte de dates i produeix els arguments per a `alquimia_project.py`. No
+calcula cap mètrica nova i no autoritza paper ni live.

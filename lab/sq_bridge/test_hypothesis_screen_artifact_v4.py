@@ -7,6 +7,7 @@ import pytest
 
 from lab.sq_bridge.hypothesis_screen_artifact_v4 import build_artifact
 from lab.sq_bridge.stage_artifact_contract import validate_stage_artifact
+from lab.sq_bridge.temporal_split_contract_v4 import build_contract, digest
 
 
 ROOT = Path(__file__).parent
@@ -56,15 +57,15 @@ def _cost_model(tmp_path):
 
 def _write(tmp_path, trace, costs):
     source = tmp_path / "canonical.csv"
-    if not source.exists():
-        rows, day = [], date(2000, 1, 3)
-        while len(rows) < 500:
-            if day.weekday() < 5:
-                rows.append(f"{day:%Y.%m.%d},00:00,1.0,1.1,0.9,1.0,1")
-            day += timedelta(days=1)
-        source.write_text("\n".join(rows) + "\n")
+    rows, day = [], date(2000, 1, 3)
+    while len(rows) < 500:
+        if day.weekday() < 5:
+            rows.append(f"{day:%Y.%m.%d},00:00,1.0,1.1,0.9,1.0,1")
+        day += timedelta(days=1)
+    source.write_text("\n".join(rows) + "\n")
     lines = source.read_text().splitlines()
     train_rows = len(lines) // 2
+    contract = build_contract(source, ROOT / "methodology_v4.json")
     trace.update({
         "source_path": str(source.resolve()),
         "source_sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
@@ -74,6 +75,8 @@ def _write(tmp_path, trace, costs):
             + "T00:00:00+00:00",
         "temporal_split": json.loads((ROOT / "methodology_v4.json").read_text())[
             "temporal_split"],
+        "temporal_contract": contract,
+        "temporal_contract_sha256": digest(contract),
     })
     trace["cost_model_sha256"] = hashlib.sha256(costs.read_bytes()).hexdigest()
     path = tmp_path / "screen.trace.json"

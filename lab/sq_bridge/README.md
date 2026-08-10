@@ -476,6 +476,20 @@ candles UTC ordenades, senyals directionals i trades amb entrada, sortida,
 direcció i PnL en USDC. No s'accepten timestamps sense zona, duplicats, events
 fora de les candles ni PnL no finit.
 
+El trace SQ es pot construir des de l'`orders.csv` real, un log independent de
+senyals `Timestamp;Direction`, les candles comunes i la zona horària explícita:
+
+```bash
+PYTHONPATH=../.. python3 sq_parity_trace_v4.py \
+  --candidate-id EXACT_STRATEGY_NAME --orders /path/to/orders.csv \
+  --signals /path/to/signals.csv --market-data /path/to/common-mt4.csv \
+  --source-timezone UTC --notional-usdc 200 --output /path/to/sq.trace.json
+```
+
+No s'infereixen els senyals a partir de les ordres, perquè un senyal pot quedar
+inhibit mentre ja hi ha una posició. Sense ambdues fonts observades no hi ha
+paritat completa.
+
 ```bash
 PYTHONPATH=../.. python3 parity_artifact_v4.py \
   --campaign-id CAMPAIGN_ID \

@@ -39,6 +39,30 @@ El PnL del trace és brut: `notional_usdc × retorn del preu`. Els costos Ostium
 carry, sizing per risc i leverage s'apliquen a les etapes econòmiques
 posteriors, amb el model de costos congelat.
 
+## Fonts observades de paritat SQ
+
+`sq_parity_trace_v4.py` transforma l'`orders.csv` real d'StrategyQuant, però no
+dedueix falsament tots els senyals a partir de les ordres executades. Exigeix un
+segon CSV independent amb capçalera `Timestamp;Direction`, més les mateixes
+candles MT4 i la zona horària IANA explícita de l'export SQ. Els timestamps han
+de coincidir exactament amb candles comunes. El PnL d'SQ es recalcula des dels
+preus d'entrada/sortida al mateix nocional fix que Python, abans de costos; la
+columna `Profit/Loss` d'SQ no pot introduir una escala de capital diferent.
+
+```bash
+PYTHONPATH=../.. python3 sq_parity_trace_v4.py \
+  --candidate-id EXACT_STRATEGY_NAME \
+  --orders /path/to/orders.csv \
+  --signals /path/to/signals.csv \
+  --market-data /path/to/common-mt4.csv \
+  --source-timezone UTC --notional-usdc 200 \
+  --output /path/to/sq.trace.json
+```
+
+Si SQ no ha produït el log de senyals, l'adaptador es nega a crear evidència de
+paritat completa. Una llista d'ordres sola pot servir per diagnosticar execució,
+però no per superar el gate de senyals.
+
 ## Què demostra i què no
 
 Els tests unitaris demostren que la nostra semàntica és determinista, que els

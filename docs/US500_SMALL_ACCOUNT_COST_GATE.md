@@ -54,3 +54,7 @@ python lab/sq_bridge/spxusd_small_account_cost_gate.py \
 
 Mentre `SUMMARY.json` no sigui `MEASURED`, la segona ordre produeix
 `BLOCK_INSUFFICIENT_EXECUTION_COVERAGE` i no fabrica valors substitutius.
+
+La regressió d'integració construeix 180 quotes sintètiques distribuïdes en
+tres dies i prova el recorregut raw → resum v2 → costos de 200 USDC. Un control
+negatiu amb el mateix recompte però timestamps simultanis queda bloquejat.

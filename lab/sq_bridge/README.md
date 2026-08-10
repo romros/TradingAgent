@@ -257,15 +257,22 @@ PYTHONPATH=../.. python3 eurusd_d1_hypothesis_trace_v4.py \
 ```
 
 El trace queda lligat per SHA-256 al CSV canònic, al tall posicional de train i
-a totes les dates d'entrada i sortida. Després es construeix el rebut:
+a totes les dates d'entrada i sortida. El gate reobre les candles i reexecuta
+les nou variants: el hash de la font sense replay exacte dels trades no basta.
+Quan el readiness autoritza el screen, el bootstrap executa trace i rebut una
+sola vegada i crea una cadena i un pla SQ separats per cada hipòtesi que passi:
 
 ```bash
-PYTHONPATH=../.. python3 hypothesis_screen_artifact_v4.py \
-  --campaign-id CAMPAIGN_ID \
-  --trace /path/to/hypothesis-screen.trace.json \
+PYTHONPATH=../.. python3 eurusd_v4_screen_bootstrap.py \
+  --preflight /path/to/eurusd_market_preflight_latest_v4.json \
+  --source /mnt/volume-SQ/user/imports/alquimia_eurusd_v4/EURUSD_ALQ_NY17_D1.csv \
   --cost-model /path/to/eurusd_costs_frozen_v4.json \
-  --artifact-output /path/to/state/artifacts/02_hypothesis_screen.json
+  --output-dir /path/to/state/eurusd-v4-screen
 ```
+
+El bootstrap recompon el contracte complet del preflight, exigeix que el seu
+hash de costos sigui exactament el model rebut i no inicia SQCLI. Si cap
+hipòtesi passa, escriu `REJECT_NO_HYPOTHESIS` sense crear branques.
 
 Només train és visible. El nocional canònic del screen és 200 USDC; el
 constructor verifica el model congelat, recomputa round-trip i carry, recompte

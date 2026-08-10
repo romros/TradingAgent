@@ -9,9 +9,9 @@ import os
 from pathlib import Path
 
 try:
-    from lab.sq_bridge.sqx_to_ir import translate
+    from lab.sq_bridge.sqx_to_ir import translate, validate_executable_ir
 except ModuleNotFoundError:
-    from sqx_to_ir import translate
+    from sqx_to_ir import translate, validate_executable_ir
 
 
 def _sha(path: Path) -> str:
@@ -25,6 +25,7 @@ def _relative(path: Path, base: Path) -> str:
 def build_artifact(*, campaign_id: str, candidate_id: str, sqx_path: Path,
                    ir_path: Path, artifact_path: Path) -> dict:
     ir = translate(sqx_path, ir_path)
+    execution_contract = validate_executable_ir(ir)
     if ir["strategy_id"] != candidate_id:
         ir_path.unlink(missing_ok=True)
         raise ValueError(
@@ -40,6 +41,9 @@ def build_artifact(*, campaign_id: str, candidate_id: str, sqx_path: Path,
         "evidence_class": "observed",
         "translation_exact": True,
         "supported_subset": True,
+        "trade_execution_normalized": True,
+        "stop_loss_required_satisfied": True,
+        "execution_contract": execution_contract,
         "sqx_path": _relative(sqx_path, base),
         "sqx_sha256": _sha(sqx_path),
         "canonical_ir_path": _relative(ir_path, base),

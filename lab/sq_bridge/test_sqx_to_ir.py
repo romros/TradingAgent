@@ -3,7 +3,7 @@ import zipfile
 
 import pytest
 
-from lab.sq_bridge.sqx_to_ir import translate
+from lab.sq_bridge.sqx_to_ir import translate, validate_executable_ir
 from lab.sq_bridge.stage_artifact_contract import validate_stage_artifact
 from lab.sq_bridge.test_sqx_extract import SETTINGS, STRATEGY
 
@@ -30,6 +30,11 @@ def test_translation_is_canonical_and_bound_to_source(tmp_path):
     assert result["strategy_id"] == "T"
     assert result["source_sqx_sha256"]
     assert result["entries"]["long"]["signal"]["op"] == "Boolean"
+    assert result["trade_plans"]["long"] == {
+        "entry_order": "market_at_signal_bar_open",
+        "allow_duplicate_trades": False, "exit_after_bars": 5,
+        "stop_loss": {"type": "atr", "multiple": 2.0, "period": 14},
+        "profit_target": {"type": "none"}}
 
 
 def test_translation_rejects_operator_outside_supported_subset(tmp_path):
@@ -50,6 +55,9 @@ def test_v4_contract_recomputes_ir_and_rejects_arbitrary_hashed_json(tmp_path):
         "campaign_id": "campaign", "decision": "PASS", "candidate_ids": ["T"],
         "holdout_accessed": False, "evidence_class": "observed",
         "translation_exact": True, "supported_subset": True,
+        "trade_execution_normalized": True,
+        "stop_loss_required_satisfied": True,
+        "execution_contract": validate_executable_ir(json.loads(ir.read_text())),
         "sqx_path": source.name,
         "sqx_sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
         "canonical_ir_path": ir.name,

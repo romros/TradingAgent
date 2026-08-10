@@ -168,6 +168,8 @@ def payload(stage: str, candidate_ids: list[str], holdout: bool) -> dict:
             "holdout_drawdown_pct": 20, "minimum_holdout_net_expectancy_usdc": .1,
             "applied_cost_scenarios": ["base", "conservative", "stress"]},
         "python_translation": {"translation_exact": True, "supported_subset": True,
+                               "trade_execution_normalized": True,
+                               "stop_loss_required_satisfied": True,
                                "sqx_sha256": "a" * 64, "canonical_ir_sha256": "b" * 64},
         "parity": {"parity_pass": True, "signal_match_rate": 1.0, "trade_match_rate": 1.0,
                    "candle_coverage_pct": 95, "pnl_correlation": 0.99},

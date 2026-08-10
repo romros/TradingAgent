@@ -1,8 +1,11 @@
 import pandas as pd
+import pytest
 
 from lab.sq_bridge.sqx_extract import SUPPORTED_SIGNAL_NODES
 from lab.sq_bridge.strategy_ir_runtime import (
-    RUNTIME_SIGNAL_NODES, SignalRuntime, evaluate_entries)
+    RUNTIME_SIGNAL_NODES, SignalRuntime, evaluate_entries, simulate_trade_trace,
+    wilder_atr,
+)
 
 
 def _frame():
@@ -55,3 +58,61 @@ def test_runtime_reproduces_sq_highest_lowest_and_all_price_sources():
         "#Period#": 1, "#ComputedFrom#": 6}})
     expected = (_frame().high + _frame().low + 2 * _frame().close) / 4
     pd.testing.assert_series_equal(weighted, expected)
+
+
+def _execution_ir(*, direction="long", stop=None, target=None, exit_after=0):
+    inactive = "short" if direction == "long" else "long"
+    entry = {"signal": {"op": "Boolean", "params": {"#Value#": True}}}
+    plan = {"entry_order": "market_at_signal_bar_open",
+            "allow_duplicate_trades": False, "exit_after_bars": exit_after,
+            "stop_loss": stop or {"type": "percent", "percent": 50},
+            "profit_target": target or {"type": "none"}}
+    return {"ir_type": "alquimia_strategy_ir", "strategy_id": "candidate",
+            "execution": {"exit_at_end_of_day": False, "exit_on_friday": False},
+            "entries": {direction: entry, inactive: None},
+            "trade_plans": {direction: plan, inactive: None}}
+
+
+def _utc_frame(rows):
+    index = pd.date_range("2024-01-01", periods=len(rows), freq="D", tz="UTC")
+    return pd.DataFrame(rows, columns=["open", "high", "low", "close"], index=index)
+
+
+def test_trade_runtime_applies_adverse_stop_gap_and_gross_notional_pnl():
+    frame = _utc_frame([(100, 101, 99, 100), (90, 92, 89, 91),
+                        (91, 92, 90, 91)])
+    trace = simulate_trade_trace(
+        _execution_ir(stop={"type": "percent", "percent": 5}), frame, 200)
+    first = trace["trades"][0]
+    assert first["exit_reason"] == "stop"
+    assert first["entry_price"] == 100
+    assert first["exit_price"] == 90
+    assert first["gross_return"] == pytest.approx(-.1)
+    assert first["pnl"] == pytest.approx(-20)
+    assert trace["costs_applied"] is False
+
+
+def test_trade_runtime_time_exit_can_reenter_only_at_a_bar_open():
+    frame = _utc_frame([(100, 101, 99, 100), (102, 103, 101, 102),
+                        (104, 105, 103, 104), (106, 107, 105, 106),
+                        (108, 109, 107, 108)])
+    trace = simulate_trade_trace(_execution_ir(exit_after=2), frame, 200)
+    assert [(row["entry_price"], row["exit_price"], row["exit_reason"])
+            for row in trace["trades"]] == [(100, 104, "time"), (104, 108, "time")]
+
+
+def test_trade_runtime_fails_closed_on_ambiguous_intrabar_order():
+    frame = _utc_frame([(100, 110, 90, 100), (100, 101, 99, 100)])
+    ir = _execution_ir(stop={"type": "percent", "percent": 5},
+                       target={"type": "percent", "percent": 5})
+    with pytest.raises(ValueError, match="ordre no demostrable"):
+        simulate_trade_trace(ir, frame, 200)
+
+
+def test_wilder_atr_is_seeded_by_arithmetic_mean_then_recursive():
+    frame = _utc_frame([(10, 12, 9, 11), (11, 14, 10, 13),
+                        (13, 15, 12, 14), (14, 18, 13, 17)])
+    result = wilder_atr(frame, 3)
+    assert pd.isna(result.iloc[:2]).all()
+    assert result.iloc[2] == pytest.approx((3 + 4 + 3) / 3)
+    assert result.iloc[3] == pytest.approx(((3 + 4 + 3) / 3 * 2 + 5) / 3)

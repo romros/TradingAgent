@@ -17,7 +17,7 @@ from pathlib import Path
 sys.path.insert(0, sys.argv[3])
 from lab.sq_bridge.e2e_control import payload
 from lab.sq_bridge.test_sqx_extract import STRATEGY, SETTINGS
-from lab.sq_bridge.sqx_to_ir import translate
+from lab.sq_bridge.sqx_to_ir import translate, validate_executable_ir
 from lab.sq_bridge.parity_artifact_v4 import build_artifact as build_parity
 from lab.sq_bridge.final_holdout_artifact_v4 import build_artifact as build_holdout
 from lab.sq_bridge.paper_package_artifact_v4 import build_artifact as build_paper
@@ -133,6 +133,10 @@ if stage == 'sq_generation':
     artifact['rules_per_candidate'] = {candidate: 1 for candidate in ids}
     artifact['entry_condition_counts_per_candidate'] = {
         candidate: {'long': 1, 'short': 1} for candidate in ids}
+    artifact['trade_execution_normalized_per_candidate'] = {
+        candidate: True for candidate in ids}
+    artifact['stop_loss_required_satisfied_per_candidate'] = {
+        candidate: True for candidate in ids}
     inventory = [{'path': paths[candidate], 'sha256': hashes[candidate]} for candidate in ids]
     inventory_digest = hashlib.sha256(''.join(
         f\"{row['path']}:{row['sha256']}\\n\" for row in inventory).encode()).hexdigest()
@@ -276,6 +280,9 @@ if stage == 'python_translation':
     sqx_path = base / 'runner-sqx-001.sqx'
     ir_path = base / 'runner-sqx-001.ir.json'
     translate(sqx_path, ir_path)
+    artifact['trade_execution_normalized'] = True
+    artifact['stop_loss_required_satisfied'] = True
+    artifact['execution_contract'] = validate_executable_ir(json.loads(ir_path.read_text()))
     artifact['sqx_path'] = sqx_path.name
     artifact['sqx_sha256'] = hashlib.sha256(sqx_path.read_bytes()).hexdigest()
     artifact['canonical_ir_path'] = ir_path.name

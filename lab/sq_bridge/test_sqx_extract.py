@@ -1,6 +1,7 @@
 import tempfile
 import unittest
 import zipfile
+import re
 from pathlib import Path
 
 try:
@@ -16,10 +17,10 @@ STRATEGY = b'''<StrategyFile><Strategy><Rules><Events><Event key="OnBarUpdate">
 <signal variable="33333333-1111-2222-3333-333333333333"><Item key="Boolean"><Param key="#Value#">false</Param></Item></signal>
 <signal variable="33333333-2222-2222-3333-333333333333"><Item key="Boolean"><Param key="#Value#">false</Param></Item></signal>
 </signals></Rule>
-<Rule type="IfThen" name="Long entry"><If><Item><Param key="#Variable#">L</Param></Item></If><Then><Item key="EnterAtMarket"/></Then></Rule>
-<Rule type="IfThen" name="Short entry"><If><Item><Param key="#Variable#">S</Param></Item></If><Then><Item key="EnterAtMarket"/></Then></Rule>
+<Rule type="IfThen" name="Long entry"><If><Item><Param key="#Variable#">L</Param></Item></If><Then><Item key="EnterAtMarket"><Param key="#Direction#">1</Param><Param key="#AllowDuplicateTrades#">false</Param><Param key="#ExitAfterBars.ExitAfterBars#">5</Param><Param key="#StopLoss.StopLoss#"><Formula key="SQ.Formulas.SLPT.ATRBasedValue"><Param key="#Value#">2</Param><Param key="#AtrPeriod#">14</Param></Formula></Param><Param key="#ProfitTarget.ProfitTarget#"><Formula key="SQ.Formulas.SLPT.None"/></Param></Item></Then></Rule>
+<Rule type="IfThen" name="Short entry"><If><Item><Param key="#Variable#">S</Param></Item></If><Then><Item key="EnterAtMarket"><Param key="#Direction#">-1</Param><Param key="#AllowDuplicateTrades#">false</Param><Param key="#ExitAfterBars.ExitAfterBars#">5</Param><Param key="#StopLoss.StopLoss#"><Formula key="SQ.Formulas.SLPT.ATRBasedValue"><Param key="#Value#">2</Param><Param key="#AtrPeriod#">14</Param></Formula></Param><Param key="#ProfitTarget.ProfitTarget#"><Formula key="SQ.Formulas.SLPT.None"/></Param></Item></Then></Rule>
 </Event></Events></Rules></Strategy></StrategyFile>'''
-SETTINGS = b'''<ResultsGroup><ValuesMap><StrategyName key="StrategyName">T</StrategyName><Symbol key="Symbol">NVDA</Symbol><Timeframe key="Timeframe">M15</Timeframe><E key="ExitAtEndOfDay.ExitAtEndOfDay">true</E><T key="ExitAtEndOfDay.EODExitTime">1530</T><S key="Slippage">0.0</S></ValuesMap></ResultsGroup>'''
+SETTINGS = b'''<ResultsGroup><ValuesMap><StrategyName key="StrategyName">T</StrategyName><Symbol key="Symbol">NVDA</Symbol><Timeframe key="Timeframe">M15</Timeframe><E key="ExitAtEndOfDay.ExitAtEndOfDay">false</E><T key="ExitAtEndOfDay.EODExitTime">1530</T><F key="ExitOnFriday.ExitOnFriday">false</F><FT key="ExitOnFriday.FridayExitTime">1600</FT><S key="Slippage">0.0</S></ValuesMap></ResultsGroup>'''
 
 
 class SqxExtractTest(unittest.TestCase):
@@ -60,9 +61,9 @@ class SqxExtractTest(unittest.TestCase):
         self.assertEqual(result["maximum_entry_conditions"], 3)
 
     def test_inactive_direction_counts_zero(self):
-        strategy = STRATEGY.replace(
-            b'<Rule type="IfThen" name="Short entry"><If><Item><Param key="#Variable#">S</Param></Item></If><Then><Item key="EnterAtMarket"/></Then></Rule>',
-            b'<Rule type="IfThen" name="Short entry"><If><Item><Param key="#Variable#">S</Param></Item></If><Then/></Rule>',
+        strategy = re.sub(
+            rb'(<Rule type="IfThen" name="Short entry"><If>.*?</If>)<Then>.*?</Then></Rule>',
+            rb'\1<Then/></Rule>', STRATEGY, count=1, flags=re.DOTALL,
         )
         with tempfile.TemporaryDirectory() as tmp:
             result = extract(self._write_sqx(tmp, strategy))

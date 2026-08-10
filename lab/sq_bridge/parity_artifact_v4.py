@@ -58,8 +58,8 @@ def validate_trace(trace: dict, expected_source: str | None = None) -> dict:
             raise ValueError("PnL de paritat invalid")
         identity = (_timestamp(row.get("entry_timestamp"), "trade.entry"),
                     _timestamp(row.get("exit_timestamp"), "trade.exit"), row["direction"])
-        if identity[0] >= identity[1]:
-            raise ValueError("Trade amb sortida no posterior a l'entrada")
+        if identity[0] > identity[1]:
+            raise ValueError("Trade amb sortida anterior a l'entrada")
         trades.append((identity, float(pnl)))
     identities = [identity for identity, _ in trades]
     if identities != sorted(set(identities)):

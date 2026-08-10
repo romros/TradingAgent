@@ -89,6 +89,8 @@ def test_builds_generation_evidence_from_actual_sqx(tmp_path):
     assert artifact["entry_condition_counts_per_candidate"] == {
         "T": {"long": 1, "short": 1}}
     assert artifact["translation_status_per_candidate"] == {"T": "SUPPORTED_SUBSET"}
+    assert artifact["trade_execution_normalized_per_candidate"] == {"T": True}
+    assert artifact["stop_loss_required_satisfied_per_candidate"] == {"T": True}
     assert artifact["attempted"] == 80
     assert artifact["databank_candidate_count"] == 1
     assert artifact["sq_config_sha256"] == json.loads(
@@ -171,6 +173,22 @@ def test_rejects_unsupported_sqx_instead_of_silently_selecting_it(tmp_path):
     strategy = STRATEGY.replace(b'<Item key="Boolean">', b'<Item key="FutureLeak">', 1)
     with pytest.raises(ValueError, match="SQX no traduible"):
         _build(tmp_path, strategy=strategy)
+
+
+def test_rejects_sq_candidate_without_protective_stop(tmp_path):
+    strategy = STRATEGY.replace(
+        b'<Formula key="SQ.Formulas.SLPT.ATRBasedValue"><Param key="#Value#">2</Param><Param key="#AtrPeriod#">14</Param></Formula>',
+        b'<Formula key="SQ.Formulas.SLPT.None"/>')
+    with pytest.raises(ValueError, match="no executable amb risc controlat"):
+        _build(tmp_path, strategy=strategy)
+
+
+def test_rejects_sq_candidate_with_friday_exit_semantics(tmp_path):
+    settings = SETTINGS.replace(
+        b'<F key="ExitOnFriday.ExitOnFriday">false</F>',
+        b'<F key="ExitOnFriday.ExitOnFriday">true</F>')
+    with pytest.raises(ValueError, match="ExitOnFriday"):
+        _build(tmp_path, settings=settings)
 
 
 def test_rejects_tampered_project_config(tmp_path):

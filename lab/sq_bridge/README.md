@@ -437,10 +437,10 @@ buscar una variant de rescat.
 ## Traducció SQX a Python v4
 
 El perfil `generic_translatable` només habilita blocs que comparteixen
-extractor i runtime Python. Operadors amb semàntica encara no provada, com
-`Highest`, `Lowest`, `ADX`, Bollinger, desviació, `Not` o comparadors inclusius,
-queden fora i no poden consumir una campanya v4. Qualsevol indicador amb un
-`ComputedFrom` diferent del close canònic també falla tancat.
+extractor i runtime Python. `Highest` i `Lowest` ja estan traduïts, incloent les
+set fonts SQ `ComputedFrom` (close, open, high, low, median, typical i weighted).
+Operadors amb semàntica encara no provada, com `ADX`, Bollinger, desviació,
+`Not` o comparadors inclusius, queden fora i no poden consumir una campanya v4.
 
 Després que un únic candidat superi temporalitat, robustesa i economia del
 compte petit, la traducció i el seu rebut es creen junts:
@@ -454,12 +454,19 @@ PYTHONPATH=../.. python3 python_translation_artifact_v4.py \
   --artifact-output /path/to/state/artifacts/08_python_translation.json
 ```
 
-L'IR conserva senyals, accions, execució, hashes i complexitat, i
-`strategy_ir_runtime.py` executa els senyals sobre OHLC amb un índex temporal
-creixent. La traducció no consulta el holdout. El verificador reconstrueix l'IR
-des del SQX i exigeix coincidència exacta, però això encara no prova que els
-càlculs numèrics siguin idèntics als d'SQ: la paritat posterior de senyals,
-trades i PnL continua sent obligatòria.
+L'IR conserva senyals, accions, execució, hashes i complexitat, i normalitza
+entrada a mercat, stop ATR/percentual, profit target i `ExitAfterBars`. Per risc
+controlat, tota direcció activa ha de tenir stop; trades duplicats, trailing,
+break-even dinàmic i sortides EOD/divendres fallen tancat. El runtime genera el
+trace brut de trades sobre OHLC UTC: entrada a l'open del senyal, ATR de Wilder
+de l'última candle completada, gaps a preu real d'open, i stop/target actius a
+la candle d'entrada. Si stop i target són tocats dins la mateixa OHLC i l'ordre
+no és demostrable, no inventa un resultat: rebutja el trace.
+
+La traducció no consulta el holdout. El verificador reconstrueix l'IR des del
+SQX i exigeix coincidència exacta. Aquesta especificació executable continua
+sense assumir que SQ calcula cada detall igual: la paritat posterior de
+senyals, trades i PnL contra un export real d'SQ és obligatòria.
 
 ## Paritat SQ ↔ Python v4
 

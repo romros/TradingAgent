@@ -247,6 +247,11 @@ def _configure_build(xml: bytes, market: dict, periods: dict, methodology: dict,
                      wall_time_minutes: int = 0,
                      market_side: str = "both") -> tuple[bytes, dict]:
     root = ET.fromstring(xml)
+    for key in ("ExitAtEndOfDay", "ExitOnFriday"):
+        option = root.find(f".//Param[@key='{key}']")
+        if option is None:
+            raise ValueError(f"Opcio SQ absent: {key}")
+        option.text = "false"
     strategy = root.find("./WhatToBuild/StrategyType")
     if strategy is None:
         raise ValueError("StrategyType absent")

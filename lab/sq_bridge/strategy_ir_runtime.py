@@ -2,9 +2,12 @@
 from __future__ import annotations
 
 import json
+import math
 
 import numpy as np
 import pandas as pd
+
+from lab.sq_bridge.sqx_to_ir import validate_executable_ir
 
 
 RUNTIME_SIGNAL_NODES = {
@@ -151,4 +154,164 @@ def evaluate_entries(ir: dict, frame: pd.DataFrame) -> dict[str, pd.Series | Non
     return {
         direction: (None if entry is None else runtime.evaluate(entry["signal"]).fillna(False).astype(bool))
         for direction, entry in ir["entries"].items()
+    }
+
+
+def wilder_atr(frame: pd.DataFrame, period: int) -> pd.Series:
+    if period < 1:
+        raise ValueError("Periode ATR invalid")
+    previous = frame["close"].shift(1)
+    ranges = pd.concat([
+        frame["high"] - frame["low"],
+        (frame["high"] - previous).abs(),
+        (frame["low"] - previous).abs(),
+    ], axis=1).max(axis=1)
+    result = pd.Series(np.nan, index=frame.index, dtype=float)
+    if len(frame) < period:
+        return result
+    result.iloc[period - 1] = ranges.iloc[:period].mean()
+    for index in range(period, len(frame)):
+        result.iloc[index] = ((period - 1) * result.iloc[index - 1]
+                              + ranges.iloc[index]) / period
+    return result
+
+
+def _distance(plan: dict, entry: float, atr_value: float | None) -> float | None:
+    kind = plan.get("type")
+    if kind == "none":
+        return None
+    if kind == "percent":
+        return entry * float(plan["percent"]) / 100
+    if kind == "atr" and atr_value is not None and math.isfinite(atr_value):
+        return float(plan["multiple"]) * atr_value
+    return None
+
+
+def simulate_trade_trace(ir: dict, frame: pd.DataFrame,
+                         notional_usdc: float) -> dict:
+    """Execute the normalized supported subset at bar opens, before costs."""
+    if (not isinstance(notional_usdc, (int, float)) or isinstance(notional_usdc, bool)
+            or not math.isfinite(notional_usdc) or notional_usdc <= 0):
+        raise ValueError("Nocional de paritat invalid")
+    if frame.index.tz is None or any(
+            timestamp.utcoffset().total_seconds() != 0 for timestamp in frame.index):
+        raise ValueError("La simulacio IR requereix candles UTC")
+    if not frame.index.is_unique:
+        raise ValueError("La simulacio IR requereix candles uniques")
+    if ((frame[["open", "high", "low", "close"]] <= 0).any().any()
+            or (frame["high"] < frame[["open", "close", "low"]].max(axis=1)).any()
+            or (frame["low"] > frame[["open", "close", "high"]].min(axis=1)).any()):
+        raise ValueError("OHLC invalid per a simulacio")
+    validate_executable_ir(ir)
+    entries = evaluate_entries(ir, frame)
+    plans = ir.get("trade_plans")
+    if not isinstance(plans, dict) or set(plans) != {"long", "short"}:
+        raise ValueError("Plans de trade IR absents")
+    atrs = {}
+    for plan in plans.values():
+        if plan is None:
+            continue
+        for key in ("stop_loss", "profit_target"):
+            spec = plan[key]
+            if spec["type"] == "atr":
+                atrs[spec["period"]] = wilder_atr(frame, spec["period"])
+    candles = [timestamp.isoformat().replace("+00:00", "Z")
+               for timestamp in frame.index]
+    signals = []
+    for index, timestamp in enumerate(candles):
+        for direction in ("long", "short"):
+            if entries[direction] is not None and bool(entries[direction].iloc[index]):
+                signals.append({"timestamp": timestamp, "direction": direction})
+    trades, position = [], None
+
+    def close(index: int, price: float, reason: str) -> None:
+        nonlocal position
+        sign = 1 if position["direction"] == "long" else -1
+        gross_return = sign * (price - position["entry_price"]) / position["entry_price"]
+        trades.append({
+            "entry_timestamp": candles[position["entry_index"]],
+            "exit_timestamp": candles[index], "direction": position["direction"],
+            "entry_price": position["entry_price"], "exit_price": price,
+            "gross_return": gross_return, "pnl": notional_usdc * gross_return,
+            "exit_reason": reason,
+        })
+        position = None
+
+    for index, row in enumerate(frame.itertuples()):
+        occupied_at_open = position is not None
+        time_exit_at_open = False
+        if position is not None:
+            elapsed = index - position["entry_index"]
+            if position["exit_after_bars"] and elapsed >= position["exit_after_bars"]:
+                close(index, float(row.open), "time")
+                time_exit_at_open = True
+            else:
+                long = position["direction"] == "long"
+                stop_hit = (position["stop"] is not None and
+                            (row.low <= position["stop"] if long
+                             else row.high >= position["stop"]))
+                target_hit = (position["target"] is not None and
+                              (row.high >= position["target"] if long
+                               else row.low <= position["target"]))
+                if stop_hit and target_hit:
+                    raise ValueError("Stop i target intrabar amb ordre no demostrable")
+                if stop_hit:
+                    price = (min(float(row.open), position["stop"]) if long
+                             else max(float(row.open), position["stop"]))
+                    close(index, price, "stop")
+                elif target_hit:
+                    price = (max(float(row.open), position["target"]) if long
+                             else min(float(row.open), position["target"]))
+                    close(index, price, "target")
+        active = [direction for direction in ("long", "short")
+                  if entries[direction] is not None and bool(entries[direction].iloc[index])]
+        may_enter_at_open = not occupied_at_open or time_exit_at_open
+        if position is None and may_enter_at_open and active:
+            if len(active) != 1:
+                raise ValueError("Senyals long i short simultanis")
+            direction = active[0]
+            plan = plans[direction]
+            if plan is None:
+                raise ValueError("Senyal sense pla de trade")
+            entry = float(row.open)
+            stop_spec, target_spec = plan["stop_loss"], plan["profit_target"]
+            stop_atr = (atrs[stop_spec["period"]].iloc[index - 1]
+                        if stop_spec["type"] == "atr" and index > 0 else None)
+            target_atr = (atrs[target_spec["period"]].iloc[index - 1]
+                          if target_spec["type"] == "atr" and index > 0 else None)
+            stop_distance = _distance(stop_spec, entry, stop_atr)
+            target_distance = _distance(target_spec, entry, target_atr)
+            if stop_spec["type"] != "none" and stop_distance is None:
+                continue
+            if target_spec["type"] != "none" and target_distance is None:
+                continue
+            sign = 1 if direction == "long" else -1
+            position = {
+                "direction": direction, "entry_index": index, "entry_price": entry,
+                "stop": None if stop_distance is None else entry - sign * stop_distance,
+                "target": None if target_distance is None else entry + sign * target_distance,
+                "exit_after_bars": plan["exit_after_bars"],
+            }
+            # Orders are active during the entry bar after execution at its open.
+            stop_hit = (position["stop"] is not None and
+                        (row.low <= position["stop"] if sign == 1
+                         else row.high >= position["stop"]))
+            target_hit = (position["target"] is not None and
+                          (row.high >= position["target"] if sign == 1
+                           else row.low <= position["target"]))
+            if stop_hit and target_hit:
+                raise ValueError("Stop i target intrabar amb ordre no demostrable")
+            if stop_hit:
+                price = (min(entry, position["stop"]) if sign == 1
+                         else max(entry, position["stop"]))
+                close(index, price, "stop")
+            elif target_hit:
+                price = (max(entry, position["target"]) if sign == 1
+                         else min(entry, position["target"]))
+                close(index, price, "target")
+    return {
+        "schema_version": 1, "trace_type": "strategy_parity_trace",
+        "source": "python", "candidate_id": ir["strategy_id"],
+        "candles": candles, "signals": signals, "trades": trades,
+        "notional_usdc": float(notional_usdc), "costs_applied": False,
     }

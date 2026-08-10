@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any
 
 from lab.sq_bridge.sqx_extract import extract as extract_sqx
-from lab.sq_bridge.sqx_to_ir import canonical_ir
+from lab.sq_bridge.sqx_to_ir import canonical_ir, validate_executable_ir
 from lab.sq_bridge.parity_artifact_v4 import compare_traces
 from lab.sq_bridge.final_holdout_artifact_v4 import evaluate_trace as evaluate_holdout_trace
 from lab.sq_bridge.paper_package_artifact_v4 import verify_package
@@ -249,6 +249,8 @@ def _verified_sqx_contracts(paths: Any, expected_ids: list[str], artifact_path: 
         path = path if path.is_absolute() else base / path
         try:
             contract = extract_sqx(path)
+            executable_ir = canonical_ir(contract)
+            validate_executable_ir(executable_ir)
         except Exception:  # fitxer SQX no fiable: qualsevol error de parseig falla tancat
             return False
         condition_count = contract.get("maximum_entry_conditions")
@@ -633,6 +635,12 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                 "SQX_CONTRACTS": _verified_sqx_contracts(
                 paths, candidate_ids, receipt.get("artifact", ""), rules, entry_counts,
                 generation["max_rules"]),
+                "EXECUTION_NORMALIZED": artifact.get(
+                    "trade_execution_normalized_per_candidate")
+                    == {candidate_id: True for candidate_id in candidate_ids},
+                "STOP_LOSS_REQUIRED": artifact.get(
+                    "stop_loss_required_satisfied_per_candidate")
+                    == {candidate_id: True for candidate_id in candidate_ids},
             })
     elif stage == "temporal_validation":
         candidate_metrics = artifact.get("candidate_temporal_metrics")
@@ -1033,6 +1041,8 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                 artifact.get("canonical_ir_path"), artifact.get("canonical_ir_sha256"),
                 receipt.get("artifact", ""))
             checks.update({
+                "EXECUTION_NORMALIZED": artifact.get("trade_execution_normalized") is True,
+                "STOP_LOSS_REQUIRED": artifact.get("stop_loss_required_satisfied") is True,
                 "SQX_FILE": _verified_files(
                     source_paths, source_hashes, ["candidate"], receipt.get("artifact", "")),
                 "IR_FILE": _verified_files(
@@ -1045,9 +1055,12 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                     sqx_value = (sqx_value if sqx_value.is_absolute()
                                  else Path(receipt.get("artifact", "")).resolve().parent / sqx_value)
                     contract = extract_sqx(sqx_value)
-                    exact_ir = (verified_ir == canonical_ir(contract)
+                    recomputed_ir = canonical_ir(contract)
+                    execution_contract = validate_executable_ir(recomputed_ir)
+                    exact_ir = (verified_ir == recomputed_ir
                                 and len(receipt.get("candidate_ids", [])) == 1
-                                and contract.get("strategy_name") == receipt["candidate_ids"][0])
+                                and contract.get("strategy_name") == receipt["candidate_ids"][0]
+                                and artifact.get("execution_contract") == execution_contract)
                 except Exception:  # frontera de fitxers SQX/JSON no fiables
                     exact_ir = False
                 checks["CANONICAL_IR"] = exact_ir

@@ -161,6 +161,8 @@ def extract(path: Path) -> dict:
         "execution": {
             "exit_at_end_of_day": _setting(settings, "ExitAtEndOfDay.ExitAtEndOfDay"),
             "eod_exit_time_hhmm": _setting(settings, "ExitAtEndOfDay.EODExitTime"),
+            "exit_on_friday": _setting(settings, "ExitOnFriday.ExitOnFriday"),
+            "friday_exit_time_hhmm": _setting(settings, "ExitOnFriday.FridayExitTime"),
             "slippage_in_sq": _setting(settings, "Slippage"),
             "swap_enabled": False,
         },

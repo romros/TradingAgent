@@ -158,9 +158,17 @@ def test_v4_recomputes_sq_and_translation_file_hashes(tmp_path):
     translation = payload("python_translation", ["candidate"], False)
     translation.update({
         "campaign_id": "v4", "evidence_class": "observed",
+        "trade_execution_normalized": True,
+        "stop_loss_required_satisfied": True,
         "sqx_path": sqx.name, "sqx_sha256": hashlib.sha256(sqx.read_bytes()).hexdigest(),
         "canonical_ir_path": ir.name,
         "canonical_ir_sha256": hashlib.sha256(ir.read_bytes()).hexdigest(),
+        "execution_contract": {
+            "active_directions": ["long", "short"],
+            "stop_loss_required": True,
+            "stop_loss_present_all_directions": True,
+            "timed_session_exits_disabled": True,
+        },
     })
     translation.pop("control_purpose", None)
     receipt = {"decision": "PASS", "candidate_ids": ["candidate"],

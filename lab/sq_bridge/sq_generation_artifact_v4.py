@@ -13,8 +13,10 @@ from lab.sq_bridge.temporal_split_contract_v4 import digest as temporal_digest, 
 
 try:
     from lab.sq_bridge.sqx_extract import extract
+    from lab.sq_bridge.sqx_to_ir import canonical_ir, validate_executable_ir
 except ModuleNotFoundError:  # execució directa des de lab/sq_bridge
     from sqx_extract import extract
+    from sqx_to_ir import canonical_ir, validate_executable_ir
 
 
 def _sha256(path: Path) -> str:
@@ -148,6 +150,11 @@ def build_artifact(*, campaign_id: str, source_hypothesis_ids: list[str],
         if not contract["supported"]:
             raise ValueError(
                 f"SQX no traduible {candidate_id}: {contract['unsupported_nodes_or_formulas']}")
+        try:
+            validate_executable_ir(canonical_ir(contract))
+        except ValueError as error:
+            raise ValueError(
+                f"SQX no executable amb risc controlat {candidate_id}: {error}") from error
         count = contract["maximum_entry_conditions"]
         if not 1 <= count <= generation["max_rules"]:
             raise ValueError(
@@ -186,6 +193,10 @@ def build_artifact(*, campaign_id: str, source_hypothesis_ids: list[str],
             key: contracts[key][1]["entry_condition_counts"] for key in candidate_ids},
         "translation_status_per_candidate": {
             key: contracts[key][1]["translation_status"] for key in candidate_ids},
+        "trade_execution_normalized_per_candidate": {
+            key: True for key in candidate_ids},
+        "stop_loss_required_satisfied_per_candidate": {
+            key: True for key in candidate_ids},
         "sq_config_sha256": _sha256(project_cfx),
         "sq_project_manifest_path": _relative(project_manifest_path, output_base),
         "sq_project_manifest_sha256": _sha256(project_manifest_path),

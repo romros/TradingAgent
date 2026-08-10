@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "id": "xau-gld-holdings-flow-v36",
+  "status": "PREREGISTERED",
+  "objective": "Falsify whether changes in physically backed GLD gold holdings provide a low-turnover XAU demand component before StrategyQuant.",
+  "asset": "XAU/USD",
+  "causal_premise": "Persistent creations or redemptions of shares in the largest physical gold ETF represent investor demand or supply that may continue beyond the contemporaneous price move.",
+  "data": {
+    "source": "Official SPDR Gold Shares NYSE Historical Archive XLSX",
+    "url": "https://api.spdrgoldshares.com/api/v1/historical-archive?exchange=NYSE&lang=en&product=gld",
+    "coverage_observed": ["2004-11-18", "2026-08-07"],
+    "train": ["2006-01-01", "2018-12-31"],
+    "validation": ["2019-01-01", "2023-12-31"],
+    "modern_challenge": ["2024-01-01", "2025-07-31"],
+    "sealed_holdout": ["2025-08-01", "2026-07-31"]
+  },
+  "frozen_rule": {
+    "frequency": "weekly last valid archive observation",
+    "lookback_weeks": 4,
+    "holdings_threshold_pct": 1.0,
+    "long": "four-week total-gold-ounces change >= +1%",
+    "short": "four-week total-gold-ounces change <= -1%",
+    "flat": "otherwise",
+    "publication_buffer": "one full weekly observation between holdings factor and entry",
+    "price_proxy": "GLD indicative price per share at 4:15pm New York",
+    "position": "one trade per contiguous non-flat state; close on flat or reversal"
+  },
+  "stress_economics": {
+    "roundtrip_execution_bps": 12,
+    "annual_financing_pct": 12
+  },
+  "train_gate": {
+    "minimum_closed_episodes": 30,
+    "gross_return_must_be_positive": true,
+    "net_return_after_stress_must_be_positive": true,
+    "minimum_profit_factor_after_stress": 1.2,
+    "minimum_positive_year_share": 0.6
+  },
+  "decision_order": [
+    "Run train only",
+    "Reject without tuning if any train gate fails",
+    "Open frozen validation only if all gates pass",
+    "Do not calculate modern challenge or sealed holdout early"
+  ],
+  "stop_condition": "Do not invert the signal or tune lookback, threshold, delay, costs or direction after seeing train.",
+  "sqcli_required": false
+}

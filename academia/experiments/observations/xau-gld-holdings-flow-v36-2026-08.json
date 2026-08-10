@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "id": "xau-gld-holdings-flow-v36-2026-08",
+  "campaign": "xau-gld-holdings-flow-v36",
+  "question": "Do delayed weekly changes in physical GLD holdings continue strongly enough to form a low-turnover XAU component?",
+  "source": {
+    "name": "SPDR Gold Shares NYSE Historical Archive",
+    "url": "https://api.spdrgoldshares.com/api/v1/historical-archive?exchange=NYSE&lang=en&product=gld",
+    "temporary_xlsx_sha256": "f6dffd6e2fd8460a903d2d203f9b19a872ee29da8929a6a1ab9d0bcc5bdf88a8",
+    "valid_daily_rows": 5666,
+    "coverage": ["2004-11-18", "2026-08-07"],
+    "raw_archive_versioned": false
+  },
+  "timing": {
+    "official_update_notes": "Holdings are updated during the New York day and around the close.",
+    "factor": "weekly last valid total ounces with four-week change",
+    "publication_buffer_weeks": 1,
+    "entry_price_proxy": "following weekly GLD indicative price at 4:15pm New York",
+    "lookahead": false
+  },
+  "train": ["2006-01-01", "2018-12-31"],
+  "stress_economics": {"roundtrip_execution_bps": 12, "annual_financing_pct": 12},
+  "result": {
+    "closed_episodes": 89,
+    "long_episodes": 43,
+    "short_episodes": 46,
+    "gross_return_sum_pct": -3.129598,
+    "net_return_sum_pct": -122.434256,
+    "profit_factor_after_stress": 0.552385,
+    "positive_years": 4,
+    "years": 13,
+    "positive_year_share": 0.307692
+  },
+  "decision": "REJECT_BEFORE_SQ",
+  "interpretation": "Physical ETF creations and redemptions are economically meaningful demand evidence, but their frozen delayed continuation rule loses gross. The flow is likely contemporaneous, anticipated or nonlinearly related rather than a simple follow-on edge.",
+  "do_not_repeat": "Do not invert direction, remove a side, tune the four-week lookback or one-percent threshold, shorten publication delay, or inspect validation to rescue the family.",
+  "sealed_ostium_holdout_accessed": false,
+  "archive_rows_outside_train_used_in_metrics": false,
+  "sqcli_used": false
+}

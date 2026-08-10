@@ -1,0 +1,40 @@
+{
+  "id": "gld_holdings_archive_2026",
+  "kind": "documentation",
+  "title": "SPDR Gold Shares historical physical holdings archive",
+  "url": "https://www.spdrgoldshares.com/usa/gld/",
+  "author": "World Gold Trust Services, LLC",
+  "published_at": null,
+  "accessed_at": "2026-08-10",
+  "language": "en",
+  "sq_version": null,
+  "source_level": "A_PRIMARY",
+  "domain": "market-reality",
+  "rights_policy": "metadata_only",
+  "metadata": {
+    "archive_url": "https://api.spdrgoldshares.com/api/v1/historical-archive?exchange=NYSE&lang=en&product=gld",
+    "archive_format": "XLSX",
+    "coverage_observed": "2004-11-18/2026-08-07",
+    "raw_archive_versioned": false
+  },
+  "chunks": [
+    {
+      "locator": "page:trust-information",
+      "heading": "Physical holdings fields",
+      "body": "The official archive exposes daily total ounces and tonnes of gold in the trust together with shares, NAV and indicative price fields. The observed archive contained 5,666 valid daily rows from November 2004.",
+      "evidence_status": "verified"
+    },
+    {
+      "locator": "page:update-times",
+      "heading": "Timing boundary",
+      "body": "Trust information is updated during the New York day and around the close. A causal test must delay execution beyond the observation rather than use same-day holdings against the same-day gold move.",
+      "evidence_status": "verified"
+    },
+    {
+      "locator": "experiment:v36",
+      "heading": "Delayed continuation rejected",
+      "body": "A preregistered four-week holdings-change continuation with one full week of publication buffer produced 89 train episodes but lost gross and net, so it was rejected before StrategyQuant or validation.",
+      "evidence_status": "tested"
+    }
+  ]
+}

@@ -65,6 +65,8 @@ def compose(config_path: Path) -> dict[str, Any]:
         reasons.append("MAPPING_ACCESSED_PERFORMANCE")
     if resource.get("decision") != "PASS_SQ_D1_RESOURCE":
         reasons.append("SQ_D1_RESOURCE_NOT_PASS")
+        reasons.extend(f"SQ_RESOURCE_{reason}" for reason in
+                       resource.get("blocking_reasons", []) if isinstance(reason, str))
     if resource.get("performance_accessed") is not False:
         reasons.append("SQ_RESOURCE_ACCESSED_PERFORMANCE")
     if costs.get("decision") != "PASS_COSTS_FROZEN" or costs.get("costs_frozen") is not True:

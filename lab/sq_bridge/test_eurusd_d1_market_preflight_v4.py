@@ -66,3 +66,14 @@ def test_failed_sq_resource_blocks_even_with_mature_costs(tmp_path):
     result = compose(config)
     assert result["decision"] == "BLOCK"
     assert "SQ_D1_RESOURCE_NOT_PASS" in result["blocking_reasons"]
+
+
+def test_sq_resource_exposes_specific_fail_closed_reason(tmp_path):
+    config = fixture(tmp_path, mature=True)
+    write(tmp_path / "resource.json", {
+        "decision": "BLOCK_SQ_D1_ROUNDTRIP_UNAVAILABLE",
+        "performance_accessed": False,
+        "blocking_reasons": ["SQ_D1_ROUNDTRIP_UNAVAILABLE"],
+    })
+    result = compose(config)
+    assert "SQ_RESOURCE_SQ_D1_ROUNDTRIP_UNAVAILABLE" in result["blocking_reasons"]

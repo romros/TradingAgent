@@ -1,0 +1,28 @@
+{
+  "decision": "PASS_CANONICAL_D1_IMPORT_SOURCE",
+  "first": "2003-05-05",
+  "last": "2026-02-26",
+  "live_authorized": false,
+  "minimum_complete_session_ratio": 0.95,
+  "output": {
+    "bytes": 329914,
+    "path": "/mnt/volume-SQ/user/imports/alquimia_eurusd_v4/EURUSD_ALQ_NY17_D1.csv",
+    "sha256": "0abdc43594d0d030d2c75c55b88b6ec3e8315c4d49888a9c3ab3061b8a831493"
+  },
+  "paper_authorized": false,
+  "performance_accessed": false,
+  "research_only": true,
+  "rows": 5884,
+  "schema_version": 1,
+  "session_boundary": "17:00",
+  "session_timezone": "America/New_York",
+  "source": {
+    "bytes": 183817844,
+    "files": 274,
+    "manifest_sha256": "d5c27c6207380fe03429d7ec6978e50e49c31a912b9acf27e936e98d62a535d8",
+    "root": "/mnt/volume-SQ/dev/BrokerageService/datafiles/historical_parquet/EURUSD/tf=1m"
+  },
+  "symbol": "EURUSD",
+  "timeframe": "D1",
+  "weekend_rows": 0
+}

@@ -99,6 +99,25 @@ paritat abans d'obrir `hypothesis_screen`.
 Implementació: `lab/sq_bridge/eurusd_sq_d1_resource_audit_v4.py`. Evidència:
 `lab/sq_bridge/evidence/eurusd_sq_d1_resource_audit_v4.json`.
 
+### Recurs canònic nou
+
+S'ha generat de manera determinista `EURUSD_ALQ_NY17_D1.csv` directament dels
+274 Parquet hashejats: 5.884 sessions, del 05/05/2003 al 26/02/2026, frontera
+17:00 `America/New_York`, almenys 95% dels minuts i cap cap de setmana. SQCLI
+143.2708 l'ha importat com a recurs D1 nadiu `EURUSD_ALQ_NY17_D1`; el catàleg
+confirma exactament les 5.884 files i les dates esperades.
+
+Aquesta versió de la CLI, però, finalitza l'ordre d'exportació del recurs D1
+nadiu sense crear cap CSV. També s'ha falsat i descartat el workaround de
+presentar una barra diària com M1: no permet reconstruir D1 i alteraria la
+semàntica temporal. Per tant la presència al catàleg **no** es promociona a
+paritat OHLC. Decisió provisional: `BLOCK_SQ_D1_ROUNDTRIP_UNAVAILABLE` fins que
+un export complet o una prova controlada equivalent permeti executar
+`eurusd_sq_d1_resource_audit_v4.py` sobre el recurs nou.
+
+Implementació de font i rebut fail-closed:
+`eurusd_sq_d1_source_v4.py` i `eurusd_sq_d1_import_receipt_v4.py`.
+
 ## Següent gate
 
 Esperar que `scripts/capture_ostium_research_universe_economics.sh` completi almenys

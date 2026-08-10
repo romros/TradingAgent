@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "id": "eurusd-weekly-policy-differential-v31-2026-08",
+  "campaign": "eurusd-weekly-policy-differential-v31",
+  "question": "Can a low-turnover change in the ECB-Fed policy-rate differential produce an EUR/USD edge large and stable enough for a 500 USDC Ostium account?",
+  "sources": [
+    {"series": "FRED DEXUSEU", "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DEXUSEU", "temporary_raw_sha256": "3a6f50f0a70093866819e3721ee928abfaa7f641ae2b13f64250bba3a214d5f0"},
+    {"series": "FRED ECBDFR", "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=ECBDFR", "temporary_raw_sha256": "99e72ab57362c73c19f18c374bc0c9a3c06a258886720f5bfccdfc7f13e4000f"},
+    {"series": "FRED DFF", "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DFF", "temporary_raw_sha256": "2dd189b50170ae2340ee92077d5872bedc403c91e6899bb06ae6b4326dfa217c"}
+  ],
+  "timing": {"factor_observation": "week t", "publication_buffer_weeks": 1, "lookahead": false},
+  "train": ["2006-01-01", "2018-12-31"],
+  "stress_economics": {"roundtrip_execution_bps": 12, "annual_financing_pct": 8},
+  "result": {
+    "closed_episodes": 41,
+    "long_episodes": 21,
+    "short_episodes": 20,
+    "gross_return_sum_pct": -15.569804,
+    "net_return_sum_pct": -58.845968,
+    "profit_factor_after_stress": 0.296489,
+    "positive_years": 1,
+    "active_years": 9,
+    "positive_year_share": 0.111111
+  },
+  "decision": "REJECT_BEFORE_SQ",
+  "interpretation": "The rate differential can explain currency context but its frozen change rule is not a tradable component. It loses before costs and is positive in only one active train year.",
+  "do_not_repeat": "Do not tune the 13-week lookback, 25 bp threshold, direction, financing or publication buffer; do not open validation or holdout.",
+  "sealed_ostium_holdout_accessed": false,
+  "raw_data_versioned": false,
+  "sqcli_used": false
+}

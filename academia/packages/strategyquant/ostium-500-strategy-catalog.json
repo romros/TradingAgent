@@ -10,14 +10,14 @@
         "London opening-range breakout",
         "H4 trend/reversion",
         "H4 ATR stop-channel breakout",
-        "D1 volatility expansion"
+        "D1 volatility expansion",
+        "weekly ECB-Fed policy-rate differential regime"
       ],
       "dominant_failure": "movement per trade does not survive current costs or temporal validation",
       "new_driver_backlog": [
-        "low-turnover weekly rate-differential regime",
         "macro-surprise continuation with event-time cost precheck"
       ],
-      "next_action": "falsify frequency and gross movement of the weekly rate-differential regime before SQ generation"
+      "next_action": "audit availability and event-time costs for macro-surprise data before defining a continuation rule"
     },
     {
       "asset": "US500/USD",
@@ -30,7 +30,7 @@
         "VIX term normalization timing"
       ],
       "dominant_failure": "timing effects fail costs, year stability or untouched validation",
-      "open_data_gate": "three open sessions of measured bid/mid/ask quotes are still required",
+      "open_data_gate": "one midday window is measured; open, close and two additional distinct days are still required",
       "new_driver_backlog": [
         "low-turnover equity risk-premium regime with volatility used only as frozen risk state"
       ],
@@ -66,6 +66,8 @@
     "experiments/observations/xau-native-family-ledger-2026-08.json",
     "experiments/observations/ostium-portfolio-user-scope-3asset-2026-08.json",
     "experiments/observations/spxusd-open-session-spread-gate-2026-08.json",
-    "experiments/observations/xau-weekly-real-yield-dollar-v30-2026-08.json"
+    "experiments/observations/xau-weekly-real-yield-dollar-v30-2026-08.json",
+    "experiments/observations/eurusd-weekly-policy-differential-v31-2026-08.json",
+    "experiments/observations/spxusd-midday-spread-sample-2026-08-10.json"
   ]
 }

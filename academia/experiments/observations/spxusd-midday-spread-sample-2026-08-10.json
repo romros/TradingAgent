@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "id": "spxusd-midday-spread-sample-2026-08-10",
+  "instrument": "US500/USD",
+  "ostium_pair": "SPX/USD",
+  "captured_interval_utc": ["2026-08-10T16:31:55.350Z", "2026-08-10T16:32:35.937Z"],
+  "session_window": "midday",
+  "collection": {
+    "samples": 20,
+    "distinct_open_days": 1,
+    "market_open": true,
+    "raw_jsonl_versioned": false,
+    "temporary_raw_sha256": "8fe5b998fbfca920ab7fd8be3160ef87982c705716398161e628d22afc227ea5"
+  },
+  "spread_bps": {
+    "median": 0.9738956984301221,
+    "p90": 1.1609390091829948,
+    "p95": 1.1744546427838434,
+    "maximum": 1.4190948239166035
+  },
+  "current_pair_metadata": {
+    "pair_id": 10,
+    "open_fee_bps": 1,
+    "close_fee_bps": 0,
+    "simulated_slippage_at_500_and_1000_notional": "0.0051547521015279 as returned by SDK; unit interpretation must remain SDK-defined until reconciled"
+  },
+  "tool_audit": {
+    "package": "@ostium/builder-sdk@0.7.0",
+    "authority": "official Ostium SDK",
+    "mode": "createReadOnly; no signer, private key, transaction build or submission",
+    "deployment": "ephemeral Docker node:22-alpine; no permanent installation or service",
+    "verdict": "ACCEPT_FOR_READ_ONLY_MEASUREMENT"
+  },
+  "decision": "PARTIAL_COVERAGE_KEEP_GATE_BLOCKED",
+  "interpretation": "The midday spread is now measured rather than assumed, but one tightly clustered sample window cannot represent open, close or day-to-day variation.",
+  "next": "Collect at least 20 samples in open and close windows and repeat all windows across two more distinct open days."
+}

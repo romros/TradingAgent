@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "id": "eurusd-weekly-policy-differential-v31",
+  "status": "PREREGISTERED",
+  "objective": "Falsify a low-turnover EUR/USD component driven by the change in the ECB-Fed policy-rate differential before using StrategyQuant.",
+  "asset": "EUR/USD",
+  "causal_premise": "A sustained improvement in the ECB deposit-rate minus effective-fed-funds differential should support EUR relative to USD; deterioration should do the reverse.",
+  "data": {
+    "price": "FRED DEXUSEU, USD per EUR",
+    "ecb_rate": "FRED ECBDFR",
+    "fed_rate": "FRED DFF",
+    "train": ["2006-01-01", "2018-12-31"],
+    "validation": ["2019-01-01", "2023-12-31"],
+    "modern_challenge": ["2024-01-01", "2025-07-31"],
+    "sealed_holdout": ["2025-08-01", "2026-07-31"]
+  },
+  "frozen_rule": {
+    "frequency": "weekly",
+    "lookback_weeks": 13,
+    "threshold_percentage_points": 0.25,
+    "long": "13-week change in (ECBDFR - DFF) >= +0.25 percentage points",
+    "short": "13-week change in (ECBDFR - DFF) <= -0.25 percentage points",
+    "flat": "otherwise",
+    "publication_buffer": "one full week between factor observation and executable state",
+    "position": "one trade per contiguous non-flat state; close on flat or reversal"
+  },
+  "stress_economics": {
+    "roundtrip_execution_bps": 12,
+    "annual_financing_pct": 8,
+    "note": "Deliberately charges adverse financing in both directions; exact Ostium directional rollover remains a later gate."
+  },
+  "train_gate": {
+    "minimum_closed_episodes": 30,
+    "minimum_profit_factor_after_stress": 1.2,
+    "minimum_positive_year_share": 0.6,
+    "net_return_after_stress_must_be_positive": true
+  },
+  "decision_order": [
+    "Run train only",
+    "Reject without tuning if train fails",
+    "Open frozen validation only if every train gate passes",
+    "Never calculate modern challenge or sealed holdout early"
+  ],
+  "stop_condition": "Do not tune threshold, lookback, direction, costs or state exit after seeing train.",
+  "sqcli_required": false
+}

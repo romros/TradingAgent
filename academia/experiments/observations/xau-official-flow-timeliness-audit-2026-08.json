@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "id": "xau-official-flow-timeliness-audit-2026-08",
+  "question": "Can reported central-bank gold buying be used ex ante as a direct XAU/USD trading signal?",
+  "facts": [
+    {
+      "source": "World Gold Council Gold Reserves by Country",
+      "url": "https://www.gold.org/goldhub/data/gold-reserves-by-country",
+      "finding": "Monthly files are normally updated during the first ten days of the month with data two months in arrears; late reporters can be older and known corrections supplement IMF IFS."
+    },
+    {
+      "source": "World Gold Council Central Bank Gold Reserves Survey 2026 methodology",
+      "url": "https://www.gold.org/goldhub/research/central-bank-gold-reserves-survey-2026/methodology",
+      "finding": "The intentions survey is annual, voluntary and anonymous; 2026 fieldwork ran from 5 February to 19 May and aggregated 76 eligible responses."
+    },
+    {
+      "source": "IMF COFER dataset",
+      "url": "https://data.imf.org/en/Datasets/COFER",
+      "finding": "COFER is quarterly, voluntary and reports foreign-exchange reserves rather than monetary gold; individual-country currency allocations remain confidential."
+    }
+  ],
+  "timing_assessment": {
+    "standard_monthly_lag": "about two months",
+    "late_reporter_risk": true,
+    "revision_risk": true,
+    "point_in_time_vintage_required_for_backtest": true,
+    "suitable_for_intraday_or_weekly_entry": false,
+    "suitable_for_slow_regime_context": true
+  },
+  "decision": "REJECT_AS_DIRECT_SIGNAL_ALLOW_AS_CONTEXT_ONLY",
+  "operational_rule": "An agent may use point-in-time official-flow releases to describe a slow regime from their actual publication date onward. It must not align purchases to the economic month as if known then, trigger short-horizon entries, or rescue a failed price strategy post hoc.",
+  "why_it_matters": "A backtest aligned to the month being reported would leak roughly two months of future information and manufacture an unrealistically timely relationship.",
+  "relationship_to_cftc_v32": "This audit covers central-bank reserve reporting. CFTC positioning is a separate, timelier dataset and remains blocked on its own publication ledger rather than rejected by this finding.",
+  "sqcli_used": false,
+  "market_holdout_accessed": false,
+  "raw_copyrighted_data_versioned": false,
+  "next": "Retain central-bank flow only as slow point-in-time context; keep the separate CFTC release-ledger gate unchanged."
+}

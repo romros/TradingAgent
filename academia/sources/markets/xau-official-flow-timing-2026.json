@@ -1,0 +1,41 @@
+{
+  "id": "xau_official_flow_timing_2026",
+  "kind": "web",
+  "title": "Official gold-flow publication timing and operational limits",
+  "url": "https://www.gold.org/goldhub/data/gold-reserves-by-country",
+  "author": "World Gold Council; IMF",
+  "published_at": "2026-07-02",
+  "accessed_at": "2026-08-10",
+  "language": "en",
+  "sq_version": null,
+  "source_level": "A_PRIMARY",
+  "domain": "market-reality",
+  "rights_policy": "transformative_notes",
+  "metadata": {
+    "additional_sources": [
+      "https://www.gold.org/goldhub/research/central-bank-gold-reserves-survey-2026/methodology",
+      "https://data.imf.org/en/Datasets/COFER"
+    ],
+    "role": "point-in-time availability audit"
+  },
+  "chunks": [
+    {
+      "locator": "wgc:update-schedule",
+      "heading": "Two-month reporting lag",
+      "body": "World Gold Council monthly official gold-reserve files are normally updated within the first ten days of a month with data two months in arrears; late reporters can refer to still earlier periods and corrections can alter the series.",
+      "evidence_status": "verified"
+    },
+    {
+      "locator": "wgc:survey-method",
+      "heading": "Intentions are not a live flow feed",
+      "body": "The central-bank intentions survey is annual, voluntary, anonymous and aggregated. It measures attitudes over a fieldwork window, not executable purchase timing by institution.",
+      "evidence_status": "verified"
+    },
+    {
+      "locator": "academy:operational-decision",
+      "heading": "Context only",
+      "body": "Reported central-bank gold flows may label a slow regime from their actual publication date onward. Aligning them to the reference month creates lookahead, so they cannot be used as contemporaneous weekly entry triggers or post-hoc rescue explanations.",
+      "evidence_status": "tested"
+    }
+  ]
+}

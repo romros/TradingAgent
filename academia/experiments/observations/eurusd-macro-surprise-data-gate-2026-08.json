@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "id": "eurusd-macro-surprise-data-gate-2026-08",
+  "question": "Can an EUR/USD macro-surprise continuation family be tested now without hindsight or an unsourced consensus archive?",
+  "requirements": [
+    "actual first-release value and exact UTC release timestamp",
+    "consensus forecast frozen before the release",
+    "previous value as known before the release and explicit revisions",
+    "point-in-time retrieval or immutable historical snapshot",
+    "license permitting internal research and storage of derived evidence",
+    "EUR/USD bid/ask observations around the event window"
+  ],
+  "source_audit": [
+    {
+      "source": "FRED/ALFRED",
+      "url": "https://fred.stlouisfed.org/docs/api/fred/realtime_period.html",
+      "capability": "Historical vintages identify what official observations were known during a past real-time period.",
+      "missing_for_surprise": "Does not supply the market consensus forecast needed to calculate actual-minus-expected surprise."
+    },
+    {
+      "source": "Trading Economics Calendar API",
+      "url": "https://tradingeconomics.com/api/calendar.aspx",
+      "capability": "Documents exact UTC event time, actual, previous, revised, survey consensus and point-in-time calendar retrieval.",
+      "boundary": "Requires API credentials and a license/subscription appropriate to PIT history and derived research; none is configured locally."
+    }
+  ],
+  "decision": "BLOCKED_ON_POINT_IN_TIME_CONSENSUS_DATA",
+  "not_a_rejection_of_mechanism": true,
+  "operational_rule": "Do not substitute revised actuals, vendor forecasts, current calendar pages or model-generated forecasts for the consensus that existed immediately before each release.",
+  "cheap_next_step": "Request or purchase only a small PIT pilot covering a few high-impact US and euro-area releases, then measure event frequency and gross post-release movement before any broad subscription or SQ generation.",
+  "services_installed": false,
+  "credentials_requested": false,
+  "sqcli_used": false,
+  "holdout_accessed": false
+}

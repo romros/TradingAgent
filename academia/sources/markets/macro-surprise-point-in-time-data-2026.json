@@ -1,0 +1,38 @@
+{
+  "id": "macro_surprise_point_in_time_data_2026",
+  "kind": "documentation",
+  "title": "Point-in-time requirements for macroeconomic surprise research",
+  "url": "https://fred.stlouisfed.org/docs/api/fred/realtime_period.html",
+  "author": "Federal Reserve Bank of St. Louis; Trading Economics",
+  "published_at": null,
+  "accessed_at": "2026-08-10",
+  "language": "en",
+  "sq_version": null,
+  "source_level": "A_PRIMARY",
+  "domain": "market-reality",
+  "rights_policy": "transformative_notes",
+  "metadata": {
+    "additional_source": "https://docs.tradingeconomics.com/economic_calendar/schema/",
+    "commercial_dependency": "Trading Economics credentials and suitable PIT-history license"
+  },
+  "chunks": [
+    {
+      "locator": "alfred:real-time-period",
+      "heading": "Official-data vintages",
+      "body": "ALFRED real-time periods reconstruct which official observations were known on past dates and prevent revised values from leaking into an event study. They do not provide the pre-release economist consensus.",
+      "evidence_status": "verified"
+    },
+    {
+      "locator": "te:calendar-schema",
+      "heading": "Consensus and event timing",
+      "body": "The documented calendar schema includes UTC release time, actual, previous, revised, consensus forecast and last-update timestamp. Trading Economics also documents point-in-time calendar retrieval, but access and storage remain subject to credentials and subscription rights.",
+      "evidence_status": "verified"
+    },
+    {
+      "locator": "academy:data-gate",
+      "heading": "No proxy consensus",
+      "body": "A macro surprise is actual minus the consensus frozen before release. A model forecast, revised actual, current calendar page or vendor forecast is a different variable and cannot silently replace that historical consensus.",
+      "evidence_status": "tested"
+    }
+  ]
+}

@@ -14,10 +14,11 @@
         "weekly ECB-Fed policy-rate differential regime"
       ],
       "dominant_failure": "movement per trade does not survive current costs or temporal validation",
+      "open_data_gate": "macro-surprise research requires point-in-time consensus forecasts and exact release timestamps; no licensed PIT calendar dataset is currently available locally",
       "new_driver_backlog": [
         "macro-surprise continuation with event-time cost precheck"
       ],
-      "next_action": "audit availability and event-time costs for macro-surprise data before defining a continuation rule"
+      "next_action": "obtain a small licensed point-in-time calendar sample or reject the data cost before defining a macro-surprise rule"
     },
     {
       "asset": "US500/USD",
@@ -49,12 +50,14 @@
         "H4 ATR stop-channel breakout",
         "D1 volatility expansion",
         "scheduled FOMC reaction",
-        "weekly real-yield and broad-dollar direction regime"
+        "weekly real-yield and broad-dollar direction regime",
+        "reported central-bank gold-flow timing signal"
       ],
       "dominant_failure": "price-only and event-reaction families fail stress costs or temporal transfer",
       "open_data_gate": "CFTC Gold positioning identity/schema pass, but historical publication availability is blocked until a sourced release/exclusion ledger exists",
-      "new_driver_backlog": [
-        "official-flow regime used ex ante rather than as post-hoc explanation"
+      "new_driver_backlog": [],
+      "context_only": [
+        "reported central-bank gold flows may label slow regimes from publication onward but cannot trigger entries because standard data arrive about two months late"
       ],
       "next_action": "build a sourced CFTC report-date to publication-date ledger before defining any official-flow strategy rule"
     }
@@ -70,6 +73,8 @@
     "experiments/observations/xau-weekly-real-yield-dollar-v30-2026-08.json",
     "experiments/observations/eurusd-weekly-policy-differential-v31-2026-08.json",
     "experiments/observations/spxusd-midday-spread-sample-2026-08-10.json",
-    "experiments/observations/xau-cftc-flow-preflight-v32-2026-08.json"
+    "experiments/observations/xau-cftc-flow-preflight-v32-2026-08.json",
+    "experiments/observations/xau-official-flow-timeliness-audit-2026-08.json",
+    "experiments/observations/eurusd-macro-surprise-data-gate-2026-08.json"
   ]
 }

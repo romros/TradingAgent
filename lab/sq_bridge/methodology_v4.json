@@ -1,0 +1,83 @@
+{
+  "schema_version": 4,
+  "methodology_id": "alquimia-v4-coverage-before-performance",
+  "ownership": "TradingAgent/Alquimia",
+  "capital_usdc": 200,
+  "principles": {
+    "sq_role": "candidate_generator_only",
+    "legacy_configs": "format_scaffold_only",
+    "legacy_quantitative_evidence": "forbidden_for_promotion",
+    "holdout_policy": "sealed_until_final_gate",
+    "live_policy": "explicit_human_authorization",
+    "coverage_policy": "historical_coverage_before_any_performance"
+  },
+  "stages": [
+    "market_preflight", "hypothesis_screen", "sq_generation",
+    "temporal_validation", "robustness", "small_account_economics",
+    "python_translation", "parity", "paper"
+  ],
+  "market_preflight": {
+    "minimum_overall_observation_coverage_ratio": 0.9,
+    "minimum_each_period_coverage_ratio": 0.8,
+    "minimum_proxy_candle_coverage_pct": 95,
+    "minimum_return_correlation": 0.99,
+    "performance_accessed": false,
+    "required_economics": ["fee", "spread", "slippage", "rollover", "minimum_notional", "venue_max_leverage"]
+  },
+  "temporal_split": {
+    "train_pct": 50,
+    "validation_pct": 20,
+    "oos_pct": 20,
+    "final_holdout_pct": 10,
+    "embargo_bars": 10
+  },
+  "hypothesis_screen": {
+    "maximum_attempts": 5000,
+    "minimum_trades_train": 50,
+    "minimum_profit_factor_train": 1.2,
+    "minimum_stable_neighbors": 2,
+    "cost_scenarios_required": ["base", "conservative", "stress"],
+    "future_periods_accessed": false
+  },
+  "sq_generation": {
+    "generator": "StrategyQuant",
+    "maximum_attempts": 10000,
+    "max_rules": 3,
+    "selection_metric": "pareto_net_expectancy_drawdown_stability",
+    "robustness_during_generation": false
+  },
+  "temporal_validation": {
+    "minimum_trades_oos": 30,
+    "minimum_positive_windows_ratio": 0.6,
+    "minimum_oos_profit_factor": 1.15,
+    "maximum_oos_drawdown_pct": 20,
+    "maximum_train_oos_expectancy_decay_pct": 50
+  },
+  "robustness": {
+    "monte_carlo_runs": 1000,
+    "minimum_profitable_monte_carlo_ratio": 0.7,
+    "parameter_perturbation_pct": 10,
+    "cost_stress_multiplier": 2,
+    "minimum_stress_profit_factor": 1.05,
+    "maximum_liquidation_probability": 0.001
+  },
+  "small_account": {
+    "capital_scenarios_usdc": [100, 200, 300, 500, 1000],
+    "canonical_capital_usdc": 200,
+    "maximum_risk_per_trade_pct": 1.5,
+    "maximum_portfolio_margin_pct": 35,
+    "minimum_reserve_pct": 40,
+    "minimum_net_expectancy_usdc": 0.1,
+    "minimum_net_profit_factor": 1.1,
+    "leverage_grid": [1, 2, 3, 5, 8, 10, 15, 20, 30, 50]
+  },
+  "evidence_chain": {
+    "hash_algorithm": "sha256",
+    "candidate_lineage": "SQ candidate ids may first appear at sq_generation and must then only shrink",
+    "promotion_rule": "only PASS may advance; REJECT and BLOCK are terminal",
+    "legacy_rule": "legacy_example receipts may prove rejection only and can never advance",
+    "artifact_rule": "every receipt hash and referenced artifact hash must verify",
+    "holdout_rule": "holdout cannot be accessed before robustness and small-account gates pass",
+    "paper_rule": "paper requires exact translation and execution parity receipts"
+  }
+}

@@ -25,8 +25,26 @@ def payload(stage: str, candidate_ids: list[str], holdout: bool) -> dict:
         "control_purpose": "pipeline_wiring_only",
     }
     fields = {
-        "market_preflight": {"market_executable": True, "data_gate": "PASS", "ostium_pair_id": "control-pair"},
+        "market_preflight": {"market_executable": True, "data_gate": "PASS", "ostium_pair_id": "control-pair",
+                             "performance_accessed": False, "historical_coverage_pass": True,
+                             "historical_expected_observations": 100,
+                             "historical_complete_observations": 95,
+                             "historical_overall_coverage_ratio": .95,
+                             "historical_minimum_period_coverage_ratio": .85,
+                             "historical_period_coverage": {"train-a": .85, "train-b": .95},
+                             "source_mapping_pass": True, "proxy_candle_coverage_pct": 99,
+                             "return_correlation": .999, "execution_economics_complete": True,
+                             "future_periods_sealed": True, "campaign_config_sha256": "c" * 64},
         "discovery": {"generator": "StrategyQuant", "attempted": 1, "selected_candidate_ids": candidate_ids},
+        "hypothesis_screen": {"generator": "deterministic_pre_sq_screen", "attempted": 1,
+                              "selected_hypothesis_ids": ["hypothesis-control"],
+                              "stable_region_pass": True, "all_cost_scenarios_applied": True,
+                              "train_only": True},
+        "sq_generation": {"generator": "StrategyQuant", "attempted": 1,
+                          "selected_candidate_ids": candidate_ids,
+                          "candidate_artifact_hashes": {candidate: "a" * 64
+                                                        for candidate in candidate_ids},
+                          "sq_config_sha256": "b" * 64},
         "temporal_validation": {"oos_trades": 30, "positive_windows_ratio": 0.6, "oos_profit_factor": 1.15,
                                 "oos_drawdown_pct": 20, "train_oos_expectancy_decay_pct": 50},
         "robustness": {"monte_carlo_runs": 1000, "profitable_monte_carlo_ratio": 0.7,
@@ -51,7 +69,7 @@ def generate(methodology_path: Path, output_dir: Path) -> dict:
     chain = new_chain(methodology_path, CAMPAIGN, "wiring-control", "SYNTHETIC", "synthetic_control")
     ids: list[str] = []
     for index, stage in enumerate(methodology["stages"], 1):
-        if stage == "discovery":
+        if stage in {"discovery", "sq_generation"}:
             ids = [CANDIDATE]
         holdout = stage in {"python_translation", "parity", "paper"}
         artifact = output_dir / f"{index:02d}_{stage}.json"

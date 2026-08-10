@@ -54,11 +54,77 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
             "DATA_GATE": artifact.get("data_gate") == "PASS",
             "OSTIUM_PAIR": bool(artifact.get("ostium_pair_id")),
         }
+        if methodology.get("schema_version", 1) >= 4:
+            preflight = methodology["market_preflight"]
+            expected = artifact.get("historical_expected_observations")
+            complete = artifact.get("historical_complete_observations")
+            reported_overall = artifact.get("historical_overall_coverage_ratio")
+            computed_overall = (complete / expected if _at_least(expected, 1)
+                                and _at_least(complete, 0) and complete <= expected else None)
+            periods = artifact.get("historical_period_coverage")
+            valid_periods = (isinstance(periods, dict) and bool(periods)
+                             and all(isinstance(value, (int, float))
+                                     and not isinstance(value, bool) and 0 <= value <= 1
+                                     for value in periods.values()))
+            computed_minimum = min(periods.values()) if valid_periods else None
+            checks.update({
+                "NO_PERFORMANCE": artifact.get("performance_accessed") is False,
+                "HISTORICAL_COVERAGE_PASS": artifact.get("historical_coverage_pass") is True,
+                "OVERALL_COVERAGE": _at_least(
+                    reported_overall,
+                    preflight["minimum_overall_observation_coverage_ratio"]),
+                "OVERALL_COUNTS": computed_overall is not None,
+                "OVERALL_RECOMPUTES": computed_overall is not None and _at_least(reported_overall, 0)
+                                      and abs(reported_overall - computed_overall) <= 1e-12,
+                "PERIOD_COVERAGE": _at_least(
+                    artifact.get("historical_minimum_period_coverage_ratio"),
+                    preflight["minimum_each_period_coverage_ratio"]),
+                "PERIODS_PRESENT": valid_periods,
+                "PERIOD_MINIMUM_RECOMPUTES": computed_minimum is not None
+                    and _at_least(artifact.get("historical_minimum_period_coverage_ratio"), 0)
+                    and abs(artifact.get("historical_minimum_period_coverage_ratio")
+                            - computed_minimum) <= 1e-12,
+                "SOURCE_MAPPING": artifact.get("source_mapping_pass") is True,
+                "PROXY_COVERAGE": _at_least(
+                    artifact.get("proxy_candle_coverage_pct"),
+                    preflight["minimum_proxy_candle_coverage_pct"]),
+                "RETURN_CORRELATION": _at_least(
+                    artifact.get("return_correlation"),
+                    preflight["minimum_return_correlation"]),
+                "ECONOMICS": artifact.get("execution_economics_complete") is True,
+                "FUTURES_SEALED": artifact.get("future_periods_sealed") is True,
+                "CONFIG_HASH": isinstance(artifact.get("campaign_config_sha256"), str)
+                               and len(artifact["campaign_config_sha256"]) == 64,
+            })
     elif stage == "discovery":
         checks = {
             "SQ_SOURCE": artifact.get("generator") == "StrategyQuant",
             "ATTEMPTED": _at_least(artifact.get("attempted"), 1),
             "SELECTED": _ids(artifact.get("selected_candidate_ids")) == receipt.get("candidate_ids", []),
+            "NO_HOLDOUT": artifact.get("holdout_accessed") is False,
+        }
+    elif stage == "hypothesis_screen":
+        checks = {
+            "GENERATOR": artifact.get("generator") == "deterministic_pre_sq_screen",
+            "ATTEMPTED": _at_least(artifact.get("attempted"), 1),
+            "HYPOTHESES": bool(_ids(artifact.get("selected_hypothesis_ids"))),
+            "STABLE_REGION": artifact.get("stable_region_pass") is True,
+            "COSTS": artifact.get("all_cost_scenarios_applied") is True,
+            "TRAIN_ONLY": artifact.get("train_only") is True,
+            "NO_HOLDOUT": artifact.get("holdout_accessed") is False,
+        }
+    elif stage == "sq_generation":
+        hashes = artifact.get("candidate_artifact_hashes")
+        checks = {
+            "SQ_SOURCE": artifact.get("generator") == "StrategyQuant",
+            "ATTEMPTED": _at_least(artifact.get("attempted"), 1),
+            "SELECTED": _ids(artifact.get("selected_candidate_ids")) == receipt.get("candidate_ids", []),
+            "ARTIFACT_HASHES": isinstance(hashes, dict) and bool(hashes)
+                               and set(hashes) == set(receipt.get("candidate_ids", []))
+                               and all(isinstance(value, str) and len(value) == 64
+                                       for value in hashes.values()),
+            "CONFIG_HASH": isinstance(artifact.get("sq_config_sha256"), str)
+                           and len(artifact["sq_config_sha256"]) == 64,
             "NO_HOLDOUT": artifact.get("holdout_accessed") is False,
         }
     elif stage == "temporal_validation":

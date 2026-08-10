@@ -72,3 +72,11 @@ La infraestructura metodològica i els seus bloquejos funcionen de punta a punta
 però l'objectiu global **encara no està complet**: falta que una candidata v3
 real generada per StrategyQuant superi amb dades observades els gates fins a
 paper. El control sintètic prova el cablejat; no prova cap edge ni rendiment.
+
+## Successora v4
+
+La incidència de cobertura de XAU v36 ha originat
+[`ALQUIMIA_V4_METHODOLOGY.md`](ALQUIMIA_V4_METHODOLOGY.md). La v4 conserva les
+cadenes v3, però separa `hypothesis_screen` de `sq_generation` i obliga a provar
+cobertura històrica abans de qualsevol rendiment. Les campanyes noves faran
+servir v4; aquesta auditoria v3 es manté immutable com a traçabilitat.

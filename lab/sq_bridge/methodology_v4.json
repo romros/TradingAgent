@@ -58,6 +58,7 @@
     "maximum_train_oos_expectancy_decay_pct": 50
   },
   "robustness": {
+    "evaluation_notional_usdc": 200,
     "monte_carlo_runs": 1000,
     "minimum_profitable_monte_carlo_ratio": 0.7,
     "parameter_perturbation_pct": 10,

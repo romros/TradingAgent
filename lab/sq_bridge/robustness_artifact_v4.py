@@ -9,6 +9,8 @@ import math
 import os
 from pathlib import Path
 
+from lab.sq_bridge.small_account_artifact_v4 import select_cost_envelope
+
 
 def _sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -25,7 +27,24 @@ def _number(value: object, message: str) -> float:
     return float(value)
 
 
-def evaluate_trace(trace: dict, gate: dict) -> dict:
+def _aggregate_net(row: dict, notional: float, roundtrip_bps: float,
+                   carry: dict, label: str) -> float:
+    gross = _number(row.get("gross_pnl_usdc"), f"PnL brut {label} invalid")
+    trades = _number(row.get("trade_count"), f"Nombre de trades {label} invalid")
+    long_days = _number(row.get("long_holding_days"), f"Dies long {label} invalid")
+    short_days = _number(row.get("short_holding_days"), f"Dies short {label} invalid")
+    if trades < 0 or not trades.is_integer() or long_days < 0 or short_days < 0:
+        raise ValueError(f"Exposicio {label} invalida")
+    carry_cost = notional / 100 / 365.25 * (
+        _number((carry.get("long") or {}).get("stress_annual_cost_pct"),
+                "Carry stress long absent") * long_days
+        + _number((carry.get("short") or {}).get("stress_annual_cost_pct"),
+                  "Carry stress short absent") * short_days)
+    return gross - trades * notional * roundtrip_bps / 10_000 - carry_cost
+
+
+def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
+                   expected_cost_hash: str) -> dict:
     if (trace.get("schema_version") != 1
             or trace.get("trace_type") != "robustness_simulation_trace"):
         raise ValueError("Schema de trace de robustesa invalid")
@@ -47,10 +66,14 @@ def evaluate_trace(trace: dict, gate: dict) -> dict:
     liquidation_distance_pct = loss_threshold_pct / leverage
     if trace.get("cost_stress_multiplier") != gate["cost_stress_multiplier"]:
         raise ValueError("Multiplicador de costos de robustesa invalid")
-    cost_hash = trace.get("cost_model_sha256")
-    if (not isinstance(cost_hash, str) or len(cost_hash) != 64
-            or any(char not in "0123456789abcdef" for char in cost_hash)):
-        raise ValueError("Hash del model de costos de robustesa invalid")
+    if trace.get("cost_model_sha256") != expected_cost_hash:
+        raise ValueError("Hash del model de costos de robustesa no coincideix")
+    notional = trace.get("evaluation_notional_usdc")
+    if notional != gate["evaluation_notional_usdc"]:
+        raise ValueError("Nocional canonic de robustesa invalid")
+    cost_bucket, cost_bps, carry = select_cost_envelope(cost_model, float(notional))
+    robust_bps = max(cost_bps["stress"],
+                     gate["cost_stress_multiplier"] * cost_bps["base"])
 
     runs = trace.get("monte_carlo_runs")
     if not isinstance(runs, list) or len(runs) != gate["monte_carlo_runs"]:
@@ -60,7 +83,7 @@ def evaluate_trace(trace: dict, gate: dict) -> dict:
         if not isinstance(row, dict) or not isinstance(row.get("run_id"), str):
             raise ValueError("Simulacio Monte Carlo invalida")
         run_ids.append(row["run_id"])
-        pnl = _number(row.get("net_pnl_usdc"), "PnL Monte Carlo invalid")
+        pnl = _aggregate_net(row, notional, robust_bps, carry, "Monte Carlo")
         adverse_excursion = _number(
             row.get("maximum_adverse_excursion_pct"), "Excursio adversa Monte Carlo invalida")
         if adverse_excursion < 0:
@@ -81,17 +104,29 @@ def evaluate_trace(trace: dict, gate: dict) -> dict:
         perturbation = _number(row.get("perturbation_pct"), "Pertorbacio invalida")
         if abs(perturbation) != gate["parameter_perturbation_pct"]:
             raise ValueError("La variant no aplica la pertorbacio preregistrada")
-        profitable_variants += _number(
-            row.get("net_pnl_usdc"), "PnL de variant invalid") > 0
+        profitable_variants += _aggregate_net(
+            row, notional, robust_bps, carry, "de variant") > 0
     if variant_ids != sorted(set(variant_ids)):
         raise ValueError("variant_id ha de ser unic i ordenat")
 
-    stress = trace.get("stress_trade_pnl_usdc")
+    stress = trace.get("stress_trades")
     if not isinstance(stress, list) or len(stress) < 30:
         raise ValueError("Mostra de trades amb costos estressats insuficient")
-    stress = [_number(value, "PnL estressat invalid") for value in stress]
-    wins = sum(value for value in stress if value > 0)
-    losses = -sum(value for value in stress if value < 0)
+    stress_pnl = []
+    for row in stress:
+        if not isinstance(row, dict):
+            raise ValueError("Trade estressat invalid")
+        gross = _number(row.get("gross_return_pct"), "Retorn brut estressat invalid")
+        days = _number(row.get("holding_days"), "Durada estressada invalida")
+        side = row.get("side")
+        if days < 0 or side not in {"long", "short"}:
+            raise ValueError("Costat o durada estressada invalida")
+        annual = _number((carry.get(side) or {}).get("stress_annual_cost_pct"),
+                         "Carry stress absent")
+        net_pct = gross - robust_bps / 100 - annual * days / 365.25
+        stress_pnl.append(notional * net_pct / 100)
+    wins = sum(value for value in stress_pnl if value > 0)
+    losses = -sum(value for value in stress_pnl if value < 0)
     if losses <= 0:
         raise ValueError("Profit factor estressat no estimable")
     return {
@@ -104,20 +139,26 @@ def evaluate_trace(trace: dict, gate: dict) -> dict:
         "tested_leverage": leverage,
         "venue_max_leverage": venue_max_leverage,
         "liquidation_distance_pct": liquidation_distance_pct,
+        "evaluation_notional_usdc": notional,
+        "cost_notional_bucket_usdc": cost_bucket,
+        "robust_roundtrip_bps": robust_bps,
     }
 
 
 def build_artifact(*, campaign_id: str, trace_paths: list[Path],
-                   methodology_path: Path, artifact_path: Path) -> dict:
+                   cost_model_path: Path, methodology_path: Path,
+                   artifact_path: Path) -> dict:
     methodology = json.loads(methodology_path.read_text())
     gate = {**methodology["robustness"],
             "allowed_leverage_grid": methodology["small_account"]["leverage_grid"]}
+    cost_model = json.loads(cost_model_path.read_text())
+    cost_hash = _sha(cost_model_path)
     evaluated, paths, hashes = {}, {}, {}
     base = artifact_path.resolve().parent
     for path in trace_paths:
         trace = json.loads(path.read_text())
         candidate_id = trace.get("candidate_id")
-        metrics = evaluate_trace(trace, gate)
+        metrics = evaluate_trace(trace, gate, cost_model, cost_hash)
         if candidate_id in evaluated:
             raise ValueError("candidate_id de robustesa duplicat")
         evaluated[candidate_id] = metrics
@@ -144,6 +185,8 @@ def build_artifact(*, campaign_id: str, trace_paths: list[Path],
         "evaluated_candidate_robustness_metrics": evaluated,
         "candidate_robustness_metrics": selected_metrics,
         "robustness_trace_paths": paths, "robustness_trace_sha256": hashes,
+        "cost_model_path": _relative(cost_model_path, base),
+        "cost_model_sha256": cost_hash,
     }
     if selected:
         artifact.update({
@@ -170,12 +213,14 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--campaign-id", required=True)
     parser.add_argument("--trace", action="append", required=True, type=Path)
+    parser.add_argument("--cost-model", required=True, type=Path)
     parser.add_argument("--methodology", type=Path,
                         default=Path(__file__).with_name("methodology_v4.json"))
     parser.add_argument("--artifact-output", required=True, type=Path)
     args = parser.parse_args()
     artifact = build_artifact(
         campaign_id=args.campaign_id, trace_paths=args.trace,
+        cost_model_path=args.cost_model,
         methodology_path=args.methodology, artifact_path=args.artifact_output)
     print(json.dumps({"decision": artifact["decision"],
                       "candidate_ids": artifact["candidate_ids"]}, indent=2))

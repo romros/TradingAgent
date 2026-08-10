@@ -168,6 +168,8 @@ if stage == 'temporal_validation':
         artifact_path=Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']))
 if stage == 'robustness':
     base = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent
+    cost_path = base / 'costs.json'
+    cost_hash = hashlib.sha256(cost_path.read_bytes()).hexdigest()
     trace_path = base / 'runner-sqx-001.robustness.trace.json'
     trace_path.write_text(json.dumps({
         'schema_version': 1, 'trace_type': 'robustness_simulation_trace',
@@ -175,19 +177,27 @@ if stage == 'robustness':
         'holdout_accessed': False, 'tested_leverage': 5,
         'venue_max_leverage': 100,
         'liquidation_model': 'ostium_exact', 'cost_stress_multiplier': 2,
-        'cost_model_sha256': 'a' * 64,
+        'cost_model_sha256': cost_hash, 'evaluation_notional_usdc': 200,
         'monte_carlo_runs': [
             {'run_id': f'run-{index:04d}',
-             'net_pnl_usdc': 1.0 if index < 700 else -1.0,
+             'gross_pnl_usdc': 3.0 if index < 700 else -1.0,
+             'trade_count': 30, 'long_holding_days': 15,
+             'short_holding_days': 15,
              'maximum_adverse_excursion_pct': 2.0} for index in range(1000)],
         'parameter_variants': [
             {'variant_id': f'variant-{index}',
              'perturbation_pct': -10 if index % 2 == 0 else 10,
-             'net_pnl_usdc': 1.0 if index < 3 else -1.0}
+             'gross_pnl_usdc': 3.0 if index < 3 else -1.0,
+             'trade_count': 30, 'long_holding_days': 15,
+             'short_holding_days': 15}
             for index in range(4)],
-        'stress_trade_pnl_usdc': [1.0 if index < 18 else -.5 for index in range(30)]}))
+        'stress_trades': [
+            {'gross_return_pct': .5 if index < 18 else -.25,
+             'side': 'long' if index % 2 == 0 else 'short', 'holding_days': 1}
+            for index in range(30)]}))
     artifact = build_robustness(
         campaign_id='runner-test', trace_paths=[trace_path],
+        cost_model_path=cost_path,
         methodology_path=Path(sys.argv[2]),
         artifact_path=Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']))
 if stage == 'small_account_economics':

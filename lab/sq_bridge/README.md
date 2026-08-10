@@ -323,18 +323,20 @@ rebut.
 
 La robustesa v4 tampoc accepta resums manuals. Cada candidat aporta un
 `robustness_simulation_trace` amb exactament 1.000 runs Monte Carlo, quatre o
-més veïns paramètrics a ±10%, PnL trade a trade amb costos 2×, leverage provat,
+més veïns paramètrics a ±10%, resultats bruts i exposició, leverage provat,
 límit Ostium i excursió adversa màxima de cada run:
 
 ```bash
 PYTHONPATH=../.. python3 robustness_artifact_v4.py \
   --campaign-id CAMPAIGN_ID \
   --trace /path/to/candidate-a.robustness.trace.json \
+  --cost-model /path/to/eurusd_costs_frozen_v4.json \
   --artifact-output /path/to/state/artifacts/05_robustness.json
 ```
 
-El constructor recomputa proporció Monte Carlo rendible, estabilitat dels veïns,
-PF estressat i liquidacions. Aquestes últimes no són booleans acceptats de la
+El constructor aplica al nocional fix de 200 USDC el pitjor entre `stress` i
+2×base, inclòs carry, i recomputa proporció Monte Carlo rendible, estabilitat
+dels veïns, PF estressat i liquidacions. Aquestes últimes no són booleans acceptats de la
 font: es deriven de l'excursió adversa, leverage i límit del mercat. El sizing
 posterior no pot usar més leverage ni un límit de venue diferent del provat.
 

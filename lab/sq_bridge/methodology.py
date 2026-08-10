@@ -83,6 +83,8 @@ def validate(config: dict) -> list[str]:
         if temporal.get("maximum_oos_drawdown_pct", 100) > 20:
             errors.append("temporal_validation: drawdown OOS massa alt")
         robust = config.get("robustness", {})
+        if robust.get("evaluation_notional_usdc") != config.get("capital_usdc"):
+            errors.append("robustness: nocional canonic ha de ser el capital")
         if robust.get("monte_carlo_runs", 0) < 1_000:
             errors.append("robustness: Monte Carlo insuficient")
         if robust.get("minimum_profitable_monte_carlo_ratio", 0) < .7:

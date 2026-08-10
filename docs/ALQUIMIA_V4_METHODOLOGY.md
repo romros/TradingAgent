@@ -106,6 +106,12 @@ OOS: nocional comparatiu fix de 200 USDC, retorn brut, costat i durada. El PnL
 base es deriva del mateix model congelat; el sizing no es pot optimitzar per
 candidat abans d'arribar al gate de compte petit.
 
+Robustesa conserva per cada run Monte Carlo i veí el PnL brut, nombre de trades
+i dies d'exposició long/short. El verificador recomputa costos amb un nocional
+fix de 200 USDC i aplica el pitjor entre l'escenari stress congelat i 2×base.
+El PF estressat es deriva de trades bruts individuals; les liquidacions es
+deriven de l'excursió adversa i del model Ostium.
+
 La generació usa `genetic_evolution`, no una cerca oberta sense filiació. Cada
 artefacte SQ ha d'indicar les hipòtesis font aprovades, el hash de cada candidat
 i el nombre de regles (1–3). El verificador de cadena comprova que aquestes

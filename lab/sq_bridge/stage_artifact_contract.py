@@ -107,10 +107,17 @@ def _verified_temporal_sources(artifact: dict, reported: Any,
     return recomputed == reported
 
 
-def _verified_robustness_sources(paths: Any, hashes: Any, reported: Any,
+def _verified_robustness_sources(artifact: dict, reported: Any,
                                  artifact_path: str, gate: dict) -> bool:
+    paths, hashes = artifact.get("robustness_trace_paths"), artifact.get(
+        "robustness_trace_sha256")
     if not isinstance(reported, dict) or not _verified_files(
             paths, hashes, sorted(reported), artifact_path):
+        return False
+    cost_model = _verified_json(
+        artifact.get("cost_model_path"), artifact.get("cost_model_sha256"),
+        artifact_path)
+    if cost_model is None:
         return False
     base = Path(artifact_path).resolve().parent
     recomputed = {}
@@ -121,7 +128,8 @@ def _verified_robustness_sources(paths: Any, hashes: Any, reported: Any,
             trace = json.loads(path.read_text())
             if trace.get("candidate_id") != candidate_id:
                 return False
-            recomputed[candidate_id] = evaluate_robustness_trace(trace, gate)
+            recomputed[candidate_id] = evaluate_robustness_trace(
+                trace, gate, cost_model, artifact.get("cost_model_sha256"))
     except (OSError, KeyError, TypeError, ValueError):
         return False
     return recomputed == reported
@@ -688,9 +696,7 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                 "SELECTION_RECOMPUTES": evaluated_valid and ids == selected
                     and candidate_metrics == {key: evaluated[key] for key in selected},
                 "TRACE_CONTRACT": _verified_robustness_sources(
-                    artifact.get("robustness_trace_paths"),
-                    artifact.get("robustness_trace_sha256"), evaluated,
-                    receipt.get("artifact", ""), source_gate)
+                    artifact, evaluated, receipt.get("artifact", ""), source_gate)
                     if provenance != "synthetic_control" else True,
                 "MC_RUNS_RECOMPUTES": valid and artifact.get("monte_carlo_runs")
                     == min(metric["monte_carlo_runs"] for metric in candidate_metrics.values()),

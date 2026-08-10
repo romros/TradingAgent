@@ -9,6 +9,8 @@ import math
 import os
 from pathlib import Path
 
+from lab.sq_bridge.small_account_artifact_v4 import select_cost_envelope
+
 
 def _sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -25,7 +27,8 @@ def _number(value: object) -> float:
     return float(value)
 
 
-def _variant_metrics(variant: dict, scenarios: list[str]) -> dict:
+def _variant_metrics(variant: dict, scenarios: list[str], notional: float,
+                     cost_bps: dict, carry: dict) -> dict:
     trades = variant.get("trades")
     if not isinstance(trades, list):
         raise ValueError("Trades de variant absents")
@@ -34,11 +37,15 @@ def _variant_metrics(variant: dict, scenarios: list[str]) -> dict:
         if not isinstance(row, dict) or not isinstance(row.get("trade_id"), str):
             raise ValueError("Trade del screen invalid")
         ids.append(row["trade_id"])
-        values = row.get("net_pnl_usdc_by_cost")
-        if not isinstance(values, dict) or set(values) != set(scenarios):
-            raise ValueError("Costos del screen incomplets")
+        gross = _number(row.get("gross_return_pct"))
+        side, holding_days = row.get("side"), _number(row.get("holding_days"))
+        if side not in {"long", "short"} or holding_days < 0:
+            raise ValueError("Costat o durada del screen invalid")
         for scenario in scenarios:
-            pnl[scenario].append(_number(values[scenario]))
+            annual = _number((carry.get(side) or {}).get(
+                f"{scenario}_annual_cost_pct"))
+            net_pct = gross - cost_bps[scenario] / 100 - annual * holding_days / 365.25
+            pnl[scenario].append(notional * net_pct / 100)
     if ids != sorted(set(ids)):
         raise ValueError("trade_id del screen ha de ser unic i ordenat")
     profit_factors = {}
@@ -51,7 +58,8 @@ def _variant_metrics(variant: dict, scenarios: list[str]) -> dict:
     return {"train_trades": len(trades), "profit_factor_by_cost": profit_factors}
 
 
-def evaluate_trace(trace: dict, gate: dict) -> dict:
+def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
+                   expected_cost_hash: str) -> dict:
     if (trace.get("schema_version") != 1
             or trace.get("trace_type") != "hypothesis_screen_grid_trace"):
         raise ValueError("Schema del trace de screen invalid")
@@ -59,10 +67,12 @@ def evaluate_trace(trace: dict, gate: dict) -> dict:
             or trace.get("future_periods_accessed") is not False
             or trace.get("holdout_accessed") is not False):
         raise ValueError("El screen nomes pot veure train")
-    cost_hash = trace.get("cost_model_sha256")
-    if (not isinstance(cost_hash, str) or len(cost_hash) != 64
-            or any(char not in "0123456789abcdef" for char in cost_hash)):
-        raise ValueError("Hash de costos del screen invalid")
+    if trace.get("cost_model_sha256") != expected_cost_hash:
+        raise ValueError("Hash de costos del screen no coincideix")
+    notional = _number(trace.get("screen_notional_usdc"))
+    if notional != gate["screen_notional_usdc"]:
+        raise ValueError("Nocional canonic del screen invalid")
+    cost_bucket, cost_bps, carry = select_cost_envelope(cost_model, notional)
     hypotheses = trace.get("hypotheses")
     if not isinstance(hypotheses, list) or not hypotheses:
         raise ValueError("Hipotesis del screen absents")
@@ -83,7 +93,8 @@ def evaluate_trace(trace: dict, gate: dict) -> dict:
                 raise ValueError("Variant del screen invalida")
             variant_id = variant["variant_id"]
             variant_ids.append(variant_id)
-            metrics[variant_id] = _variant_metrics(variant, scenarios)
+            metrics[variant_id] = _variant_metrics(
+                variant, scenarios, notional, cost_bps, carry)
             attempted += 1
         if variant_ids != sorted(set(variant_ids)):
             raise ValueError("variant_id del screen ha de ser unic i ordenat")
@@ -114,14 +125,21 @@ def evaluate_trace(trace: dict, gate: dict) -> dict:
         if row["central_pass"]
         and row["stable_neighbor_count"] >= gate["minimum_stable_neighbors"])
     return {"attempted": attempted, "evaluated_hypothesis_metrics": evaluated,
+            "screen_notional_usdc": notional,
+            "cost_notional_bucket_usdc": cost_bucket,
+            "cost_roundtrip_bps_by_scenario": cost_bps,
             "selected_hypothesis_ids": selected}
 
 
 def build_artifact(*, campaign_id: str, trace_path: Path,
-                   methodology_path: Path, artifact_path: Path) -> dict:
+                   cost_model_path: Path, methodology_path: Path,
+                   artifact_path: Path) -> dict:
     methodology = json.loads(methodology_path.read_text())
     gate = methodology["hypothesis_screen"]
-    result = evaluate_trace(json.loads(trace_path.read_text()), gate)
+    cost_model = json.loads(cost_model_path.read_text())
+    cost_hash = _sha(cost_model_path)
+    result = evaluate_trace(json.loads(trace_path.read_text()), gate,
+                            cost_model, cost_hash)
     selected = result["selected_hypothesis_ids"]
     evaluated = result["evaluated_hypothesis_metrics"]
     selected_metrics = {key: {
@@ -140,6 +158,11 @@ def build_artifact(*, campaign_id: str, trace_path: Path,
         "applied_cost_scenarios": gate["cost_scenarios_required"],
         "all_cost_scenarios_applied": True, "train_only": True,
         "future_periods_accessed": False,
+        "screen_notional_usdc": result["screen_notional_usdc"],
+        "cost_notional_bucket_usdc": result["cost_notional_bucket_usdc"],
+        "cost_roundtrip_bps_by_scenario": result["cost_roundtrip_bps_by_scenario"],
+        "cost_model_path": _relative(cost_model_path, artifact_path.resolve().parent),
+        "cost_model_sha256": cost_hash,
         "hypothesis_screen_trace_path": _relative(trace_path, artifact_path.resolve().parent),
         "hypothesis_screen_trace_sha256": _sha(trace_path),
     }
@@ -163,12 +186,14 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--campaign-id", required=True)
     parser.add_argument("--trace", required=True, type=Path)
+    parser.add_argument("--cost-model", required=True, type=Path)
     parser.add_argument("--methodology", type=Path,
                         default=Path(__file__).with_name("methodology_v4.json"))
     parser.add_argument("--artifact-output", required=True, type=Path)
     args = parser.parse_args()
     artifact = build_artifact(
         campaign_id=args.campaign_id, trace_path=args.trace,
+        cost_model_path=args.cost_model,
         methodology_path=args.methodology, artifact_path=args.artifact_output)
     print(json.dumps({"decision": artifact["decision"],
                       "selected_hypothesis_ids": artifact["selected_hypothesis_ids"]}, indent=2))

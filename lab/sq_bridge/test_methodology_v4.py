@@ -24,6 +24,7 @@ def test_v4_separates_pre_sq_screen_from_strategyquant_generation():
     assert METHODOLOGY["market_preflight"][
         "minimum_overall_observation_coverage_ratio"] == .9
     assert METHODOLOGY["market_preflight"]["performance_accessed"] is False
+    assert METHODOLOGY["hypothesis_screen"]["screen_notional_usdc"] == 200
 
 
 def test_v4_market_preflight_cannot_pass_on_mapping_without_history():

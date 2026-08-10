@@ -246,16 +246,19 @@ costos, règims i Ostium continuen sent obligatoris.
 
 Una campanya v4 no escriu a mà els PF train ni el nombre de veïns. Congela una
 graella finita `hypothesis_screen_grid_trace` amb variants centrals, topologia de
-veïnat i trades nets pels costos base/conservador/estrès, i construeix el rebut:
+veïnat i trades bruts amb costat i durada, i construeix el rebut:
 
 ```bash
 PYTHONPATH=../.. python3 hypothesis_screen_artifact_v4.py \
   --campaign-id CAMPAIGN_ID \
   --trace /path/to/hypothesis-screen.trace.json \
+  --cost-model /path/to/eurusd_costs_frozen_v4.json \
   --artifact-output /path/to/state/artifacts/02_hypothesis_screen.json
 ```
 
-Només train és visible. El constructor recompte els intents reals, recalcula PF
+Només train és visible. El nocional canònic del screen és 200 USDC; el
+constructor verifica el model congelat, recomputa round-trip i carry, recompte
+els intents reals i recalcula PF
 per variant i exigeix que la central i almenys dos veïns superin 50 trades i PF
 1,20 sota tots tres costos. Una hipòtesi rebutjada no arriba a SQCLI.
 

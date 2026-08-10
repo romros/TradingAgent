@@ -165,8 +165,14 @@ def _verified_hypothesis_screen_source(artifact: dict, artifact_path: str,
         artifact.get("hypothesis_screen_trace_sha256"), artifact_path)
     if trace is None:
         return False
+    cost_model = _verified_json(
+        artifact.get("cost_model_path"), artifact.get("cost_model_sha256"),
+        artifact_path)
+    if cost_model is None:
+        return False
     try:
-        result = evaluate_screen_trace(trace, gate)
+        result = evaluate_screen_trace(
+            trace, gate, cost_model, artifact.get("cost_model_sha256"))
     except (KeyError, TypeError, ValueError):
         return False
     selected = result["selected_hypothesis_ids"]
@@ -179,7 +185,12 @@ def _verified_hypothesis_screen_source(artifact: dict, artifact_path: str,
     return (artifact.get("attempted") == result["attempted"]
             and artifact.get("evaluated_hypothesis_metrics") == evaluated
             and artifact.get("selected_hypothesis_ids") == selected
-            and artifact.get("selected_hypothesis_metrics") == selected_metrics)
+            and artifact.get("selected_hypothesis_metrics") == selected_metrics
+            and artifact.get("screen_notional_usdc") == result["screen_notional_usdc"]
+            and artifact.get("cost_notional_bucket_usdc")
+                == result["cost_notional_bucket_usdc"]
+            and artifact.get("cost_roundtrip_bps_by_scenario")
+                == result["cost_roundtrip_bps_by_scenario"])
 
 
 def _verified_market_preflight_source(artifact: dict, artifact_path: str) -> bool:

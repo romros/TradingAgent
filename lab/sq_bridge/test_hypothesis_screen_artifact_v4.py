@@ -1,4 +1,5 @@
 import json
+import hashlib
 from pathlib import Path
 
 import pytest
@@ -13,17 +14,17 @@ ROOT = Path(__file__).parent
 def _variant(variant_id, *, wins=30, neighbor_of="central"):
     return {"variant_id": variant_id, "neighbor_of": neighbor_of,
             "trades": [{"trade_id": f"{variant_id}-trade-{index:02d}",
-                        "net_pnl_usdc_by_cost": {
-                            "base": 1.0 if index < wins else -.5,
-                            "conservative": .8 if index < wins else -.5,
-                            "stress": .7 if index < wins else -.5}}
+                        "gross_return_pct": .5 if index < wins else -.25,
+                        "side": "long" if index % 2 == 0 else "short",
+                        "holding_days": 1}
                        for index in range(50)]}
 
 
 def _trace(*, neighbor_wins=(30, 30)):
     return {"schema_version": 1, "trace_type": "hypothesis_screen_grid_trace",
             "train_only": True, "future_periods_accessed": False,
-            "holdout_accessed": False, "cost_model_sha256": "a" * 64,
+            "holdout_accessed": False, "cost_model_sha256": "",
+            "screen_notional_usdc": 200,
             "hypotheses": [{"hypothesis_id": "hypothesis",
                             "central_variant_id": "central",
                             "variants": [
@@ -33,17 +34,33 @@ def _trace(*, neighbor_wins=(30, 30)):
                             ]}]}
 
 
-def _write(tmp_path, trace):
+def _cost_model(tmp_path):
+    path = tmp_path / "costs.json"
+    carry = {scenario + "_annual_cost_pct": 0
+             for scenario in ("base", "conservative", "stress")}
+    path.write_text(json.dumps({
+        "decision": "PASS_COSTS_FROZEN", "costs_frozen": True,
+        "by_notional": {"200": {"base_roundtrip_bps": 0,
+                                  "conservative_roundtrip_bps": 1,
+                                  "stress_roundtrip_bps": 2}},
+        "carry": {"long": carry, "short": carry}}, sort_keys=True) + "\n")
+    return path
+
+
+def _write(tmp_path, trace, costs):
+    trace["cost_model_sha256"] = hashlib.sha256(costs.read_bytes()).hexdigest()
     path = tmp_path / "screen.trace.json"
     path.write_text(json.dumps(trace, indent=2, sort_keys=True) + "\n")
     return path
 
 
 def test_screen_recomputes_grid_pf_neighbors_and_real_contract(tmp_path):
-    trace = _write(tmp_path, _trace())
+    costs = _cost_model(tmp_path)
+    trace = _write(tmp_path, _trace(), costs)
     artifact_path = tmp_path / "screen.json"
     artifact = build_artifact(
         campaign_id="campaign", trace_path=trace,
+        cost_model_path=costs,
         methodology_path=ROOT / "methodology_v4.json", artifact_path=artifact_path)
     assert artifact["decision"] == "PASS"
     assert artifact["attempted"] == 3
@@ -59,13 +76,15 @@ def test_screen_recomputes_grid_pf_neighbors_and_real_contract(tmp_path):
 
 def test_screen_trace_tampering_is_detected(tmp_path):
     value = _trace()
-    trace = _write(tmp_path, value)
+    costs = _cost_model(tmp_path)
+    trace = _write(tmp_path, value, costs)
     artifact_path = tmp_path / "screen.json"
     artifact = build_artifact(
         campaign_id="campaign", trace_path=trace,
+        cost_model_path=costs,
         methodology_path=ROOT / "methodology_v4.json", artifact_path=artifact_path)
     value["hypotheses"][0]["variants"][0]["trades"][0][
-        "net_pnl_usdc_by_cost"]["stress"] = -100
+        "gross_return_pct"] = -100
     trace.write_text(json.dumps(value))
     methodology = json.loads((ROOT / "methodology_v4.json").read_text())
     receipt = {"decision": "PASS", "candidate_ids": [],
@@ -77,8 +96,11 @@ def test_screen_trace_tampering_is_detected(tmp_path):
 
 
 def test_screen_rejects_central_without_two_profitable_neighbors(tmp_path):
+    costs = _cost_model(tmp_path)
     artifact = build_artifact(
-        campaign_id="campaign", trace_path=_write(tmp_path, _trace(neighbor_wins=(10, 30))),
+        campaign_id="campaign", trace_path=_write(
+            tmp_path, _trace(neighbor_wins=(10, 30)), costs),
+        cost_model_path=costs,
         methodology_path=ROOT / "methodology_v4.json",
         artifact_path=tmp_path / "reject.json")
     assert artifact["decision"] == "REJECT"
@@ -86,17 +108,46 @@ def test_screen_rejects_central_without_two_profitable_neighbors(tmp_path):
 
 
 def test_screen_forbids_future_access_and_fake_neighbor_topology(tmp_path):
+    costs = _cost_model(tmp_path)
     value = _trace()
     value["future_periods_accessed"] = True
     with pytest.raises(ValueError, match="nomes pot veure train"):
         build_artifact(
-            campaign_id="campaign", trace_path=_write(tmp_path, value),
+            campaign_id="campaign", trace_path=_write(tmp_path, value, costs),
+            cost_model_path=costs,
             methodology_path=ROOT / "methodology_v4.json",
             artifact_path=tmp_path / "future.json")
     value = _trace()
     value["hypotheses"][0]["variants"][1]["neighbor_of"] = "someone-else"
     with pytest.raises(ValueError, match="Topologia"):
         build_artifact(
-            campaign_id="campaign", trace_path=_write(tmp_path, value),
+            campaign_id="campaign", trace_path=_write(tmp_path, value, costs),
+            cost_model_path=costs,
             methodology_path=ROOT / "methodology_v4.json",
             artifact_path=tmp_path / "neighbors.json")
+
+
+def test_screen_cost_tampering_and_noncanonical_notional_fail_closed(tmp_path):
+    costs = _cost_model(tmp_path)
+    trace = _write(tmp_path, _trace(), costs)
+    artifact_path = tmp_path / "screen.json"
+    artifact = build_artifact(
+        campaign_id="campaign", trace_path=trace, cost_model_path=costs,
+        methodology_path=ROOT / "methodology_v4.json", artifact_path=artifact_path)
+    costs.write_text("{}\n")
+    receipt = {"decision": "PASS", "candidate_ids": [],
+               "holdout_accessed": False, "artifact": str(artifact_path)}
+    errors = validate_stage_artifact(
+        "hypothesis_screen", artifact, receipt,
+        json.loads((ROOT / "methodology_v4.json").read_text()),
+        "campaign", "alquimia_native")
+    assert "STAGE_ARTIFACT:hypothesis_screen:TRACE_CONTRACT" in errors
+
+    costs = _cost_model(tmp_path)
+    value = _trace()
+    value["screen_notional_usdc"] = 201
+    with pytest.raises(ValueError, match="Nocional canonic"):
+        build_artifact(
+            campaign_id="campaign", trace_path=_write(tmp_path, value, costs),
+            cost_model_path=costs, methodology_path=ROOT / "methodology_v4.json",
+            artifact_path=tmp_path / "wrong-notional.json")

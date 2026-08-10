@@ -51,7 +51,12 @@ if stage == 'market_preflight':
         'd1_close_return_correlation': .999}))
     (base / 'costs.json').write_text(json.dumps({
         'decision': 'PASS_COSTS_FROZEN', 'costs_frozen': True,
-        'by_notional': {'200': {'base_roundtrip_bps': 3}},
+        'by_notional': {'200': {'base_roundtrip_bps': 0,
+                                'conservative_roundtrip_bps': 1,
+                                'stress_roundtrip_bps': 2}},
+        'carry': {side: {scenario + '_annual_cost_pct': 0
+                         for scenario in ('base', 'conservative', 'stress')}
+                  for side in ('long', 'short')},
         'paper_authorized': False, 'live_authorized': False}))
     config_path = base / 'preflight-config.json'
     config_path.write_text(json.dumps({
@@ -61,6 +66,8 @@ if stage == 'market_preflight':
     artifact = compose_preflight(config_path)
 if stage == 'hypothesis_screen':
     base = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent
+    cost_path = base / 'costs.json'
+    cost_hash = hashlib.sha256(cost_path.read_bytes()).hexdigest()
     trace_path = base / 'hypothesis-screen.trace.json'
     variants = []
     for variant_id in ('central', 'neighbor-a', 'neighbor-b'):
@@ -68,19 +75,20 @@ if stage == 'hypothesis_screen':
             'variant_id': variant_id,
             'neighbor_of': None if variant_id == 'central' else 'central',
             'trades': [{'trade_id': f'{variant_id}-trade-{index:02d}',
-                        'net_pnl_usdc_by_cost': {
-                            'base': 1.0 if index < 30 else -.5,
-                            'conservative': .8 if index < 30 else -.5,
-                            'stress': .7 if index < 30 else -.5}}
+                        'gross_return_pct': .5 if index < 30 else -.25,
+                        'side': 'long' if index % 2 == 0 else 'short',
+                        'holding_days': 1}
                        for index in range(50)]})
     trace_path.write_text(json.dumps({
         'schema_version': 1, 'trace_type': 'hypothesis_screen_grid_trace',
         'train_only': True, 'future_periods_accessed': False,
-        'holdout_accessed': False, 'cost_model_sha256': 'a' * 64,
+        'holdout_accessed': False, 'cost_model_sha256': cost_hash,
+        'screen_notional_usdc': 200,
         'hypotheses': [{'hypothesis_id': 'hypothesis-control',
                         'central_variant_id': 'central', 'variants': variants}]}))
     artifact = build_screen(
         campaign_id='runner-test', trace_path=trace_path,
+        cost_model_path=cost_path,
         methodology_path=Path(sys.argv[2]),
         artifact_path=Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']))
 if stage == 'sq_generation':

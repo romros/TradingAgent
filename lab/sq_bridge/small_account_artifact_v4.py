@@ -29,7 +29,7 @@ def liquidation_distance_pct(leverage: float, venue_max_leverage: float) -> floa
     return (100.0 - leverage / venue_max_leverage * 25.0) / leverage
 
 
-def _cost_envelope(cost_model: dict, notional: float) -> tuple[float, dict, dict]:
+def select_cost_envelope(cost_model: dict, notional: float) -> tuple[float, dict, dict]:
     if (cost_model.get("decision") != "PASS_COSTS_FROZEN"
             or cost_model.get("costs_frozen") is not True):
         raise ValueError("Model de costos no congelat")
@@ -77,7 +77,7 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
         raise ValueError("Hash de costos de compte petit no coincideix")
 
     notional = capital * risk_pct / stop_pct
-    cost_bucket, cost_bps, carry = _cost_envelope(cost_model, notional)
+    cost_bucket, cost_bps, carry = select_cost_envelope(cost_model, notional)
 
     scenarios = gate["cost_scenarios_required"]
     trades = trace.get("trades")

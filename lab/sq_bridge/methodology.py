@@ -44,6 +44,8 @@ def validate(config: dict) -> list[str]:
         screen = config.get("hypothesis_screen", {})
         if screen.get("future_periods_accessed") is not False:
             errors.append("hypothesis_screen: futurs han d'estar segellats")
+        if screen.get("screen_notional_usdc") != config.get("capital_usdc"):
+            errors.append("hypothesis_screen: nocional canonic ha de ser el capital")
         attempts = screen.get("maximum_attempts")
         if not isinstance(attempts, int) or isinstance(attempts, bool) or not 1 <= attempts <= 5_000:
             errors.append("hypothesis_screen: pressupost d'intents invalid")

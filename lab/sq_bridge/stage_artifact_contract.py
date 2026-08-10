@@ -213,6 +213,9 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
         paths = artifact.get("candidate_artifact_paths")
         rules = artifact.get("rules_per_candidate")
         candidate_ids = receipt.get("candidate_ids", [])
+        project_manifest = _verified_json(
+            artifact.get("sq_project_manifest_path"),
+            artifact.get("sq_project_manifest_sha256"), receipt.get("artifact", ""))
         checks = {
             "SQ_SOURCE": artifact.get("generator") == "StrategyQuant",
             "SEARCH_METHOD": artifact.get("search_method") == generation["search_method"],
@@ -233,6 +236,21 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                         and 1 <= value <= generation["max_rules"] for value in rules.values()),
             "CONFIG_HASH": isinstance(artifact.get("sq_config_sha256"), str)
                            and len(artifact["sq_config_sha256"]) == 64,
+            "PROJECT_MANIFEST_FILE": project_manifest is not None,
+            "PROJECT_MANIFEST_CONTRACT": project_manifest is not None
+                and project_manifest.get("schema_version") == 1
+                and project_manifest.get("methodology_id") == methodology["methodology_id"]
+                and project_manifest.get("generation_type")
+                    == generation["search_method"].replace("_", "-")
+                and isinstance(project_manifest.get("attempt_budget"), int)
+                and not isinstance(project_manifest.get("attempt_budget"), bool)
+                and _at_least(artifact.get("attempted"), 1)
+                and artifact.get("attempted") <= project_manifest["attempt_budget"]
+                    <= generation["maximum_attempts"]
+                and project_manifest.get("output_sha256") == artifact.get("sq_config_sha256")
+                and project_manifest.get("canonical_evaluation_capital") == 200
+                and project_manifest.get("holdout_sealed") is True
+                and project_manifest.get("source_role") == "xml_format_scaffold_only",
             "NO_HOLDOUT": artifact.get("holdout_accessed") is False,
         }
     elif stage == "temporal_validation":

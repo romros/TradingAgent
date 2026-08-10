@@ -36,6 +36,14 @@ if stage == 'sq_generation':
         hashes[candidate] = hashlib.sha256(candidate_path.read_bytes()).hexdigest()
     artifact['candidate_artifact_paths'] = paths
     artifact['candidate_artifact_hashes'] = hashes
+    manifest_path = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent / 'runner-project.manifest.json'
+    manifest_path.write_text(json.dumps({
+        'schema_version': 1, 'methodology_id': 'alquimia-v4-coverage-before-performance',
+        'generation_type': 'genetic-evolution', 'attempt_budget': 1,
+        'output_sha256': 'b' * 64, 'canonical_evaluation_capital': 200,
+        'holdout_sealed': True, 'source_role': 'xml_format_scaffold_only'}))
+    artifact['sq_project_manifest_path'] = manifest_path.name
+    artifact['sq_project_manifest_sha256'] = hashlib.sha256(manifest_path.read_bytes()).hexdigest()
 if stage == 'python_translation':
     base = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent
     sqx_path = base / 'runner-sqx-001.sqx'

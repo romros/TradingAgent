@@ -128,6 +128,21 @@ def test_v4_recomputes_sq_and_translation_file_hashes(tmp_path):
         "sq_generation", generation, receipt, METHODOLOGY, "v4", "alquimia_native")
     assert "STAGE_ARTIFACT:sq_generation:ARTIFACT_FILES" in errors
 
+    generation["candidate_artifact_hashes"] = {
+        "candidate": hashlib.sha256(sqx.read_bytes()).hexdigest()}
+    manifest = tmp_path / "project.manifest.json"
+    manifest.write_text(json.dumps({
+        "schema_version": 1, "methodology_id": METHODOLOGY["methodology_id"],
+        "generation_type": "random-generation", "attempt_budget": 1,
+        "output_sha256": "b" * 64, "canonical_evaluation_capital": 200,
+        "holdout_sealed": True, "source_role": "xml_format_scaffold_only"}))
+    generation.update({
+        "sq_project_manifest_path": manifest.name,
+        "sq_project_manifest_sha256": hashlib.sha256(manifest.read_bytes()).hexdigest()})
+    errors = validate_stage_artifact(
+        "sq_generation", generation, receipt, METHODOLOGY, "v4", "alquimia_native")
+    assert "STAGE_ARTIFACT:sq_generation:PROJECT_MANIFEST_CONTRACT" in errors
+
     ir = tmp_path / "candidate.ir.json"
     ir.write_text("{}")
     translation = payload("python_translation", ["candidate"], True)

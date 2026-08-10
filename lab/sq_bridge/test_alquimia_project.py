@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 from datetime import date
-from alquimia_project import SEARCH_PROFILES, _split_dates
+import json
+import pytest
+from pathlib import Path
+
+from alquimia_project import SEARCH_PROFILES, _split_dates, _validate_generation_contract
 
 breakout = SEARCH_PROFILES["xau_h4_channel_breakout_v1"]
 assert "Indicators.Highest" in breakout and "Indicators.Lowest" in breakout
@@ -25,3 +29,19 @@ assert split["oos_to"] == "2025-04-14"
 assert split["holdout_to"] == "2026-03-13"
 assert split["train_to"] < split["validation_from"] < split["oos_from"] < split["holdout_from"]
 print("PASS: sealed chronological split")
+
+
+def test_v4_requires_genetic_evolution_and_bounded_attempts():
+    methodology = json.loads(Path(__file__).with_name("methodology_v4.json").read_text())
+    _validate_generation_contract(methodology, "genetic-evolution", 10_000)
+    with pytest.raises(ValueError, match="V4_GENERATION_TYPE"):
+        _validate_generation_contract(methodology, "random-generation", 10_000)
+    with pytest.raises(ValueError, match="V4_ATTEMPT_BUDGET"):
+        _validate_generation_contract(methodology, "genetic-evolution", None)
+    with pytest.raises(ValueError, match="V4_ATTEMPT_BUDGET"):
+        _validate_generation_contract(methodology, "genetic-evolution", 10_001)
+
+
+def test_v3_keeps_legacy_generation_compatibility():
+    methodology = json.loads(Path(__file__).with_name("methodology_v3.json").read_text())
+    _validate_generation_contract(methodology, "random-generation", None)

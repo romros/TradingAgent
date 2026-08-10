@@ -86,6 +86,21 @@ def _set_text(root: ET.Element, path: str, value: object) -> None:
         raise ValueError(f"Camp SQ absent: {path}")
     node.text = str(value)
 
+
+def _validate_generation_contract(
+    methodology: dict, generation_type: str, attempt_budget: int | None,
+) -> None:
+    if methodology.get("schema_version", 1) < 4:
+        return
+    generation = methodology["sq_generation"]
+    expected = generation["search_method"].replace("_", "-")
+    if generation_type != expected:
+        raise ValueError(f"V4_GENERATION_TYPE expected={expected} got={generation_type}")
+    if (not isinstance(attempt_budget, int) or isinstance(attempt_budget, bool)
+            or not 1 <= attempt_budget <= generation["maximum_attempts"]):
+        raise ValueError(
+            f"V4_ATTEMPT_BUDGET must be 1..{generation['maximum_attempts']}")
+
 def _require_resource_symbol(root: ET.Element, symbol: str, market: dict) -> None:
     resources = root.findall("./Resources/Symbols/Symbol")
     matches = [node for node in resources if node.get("name") == symbol]
@@ -224,7 +239,9 @@ def _configure_build(xml: bytes, market: dict, periods: dict, methodology: dict,
         if parent is None:
             raise ValueError(f"Camp SQ absent: {parent_path}")
         parent.clear()
-    discovery_gate = methodology["discovery"]
+    discovery_gate = (methodology["hypothesis_screen"]
+                      if methodology.get("schema_version", 1) >= 4
+                      else methodology["discovery"])
     ranking_conditions = [
         _condition("NumberOfTrades", "Integer", discovery_gate["minimum_trades_train"]),
         _condition("ProfitFactor", "Decimal2", discovery_gate.get("minimum_profit_factor_train", 1.0)),
@@ -274,6 +291,7 @@ def build(source: Path, output: Path, project_name: str, market_key: str,
     errors = validate(methodology)
     if errors:
         raise ValueError("Metodologia invalida: " + "; ".join(errors))
+    _validate_generation_contract(methodology, generation_type, attempt_budget)
     registry = json.loads(registry_path.read_text())
     market = registry["markets"].get(market_key)
     if not market or not market.get("research_eligible"):

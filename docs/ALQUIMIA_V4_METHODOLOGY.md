@@ -97,3 +97,10 @@ paper ha de fixar candidat, capital 200 USDC, `mode=paper`,
 `live_authorized=false` i `signer_enabled=false`. Recalcular correctament el hash
 d'un JSON amb candidat diferent o signer actiu no el fa vàlid: el contingut
 també es comprova.
+
+El constructor de projectes rebutja v4 si rep `random-generation`, si no té
+pressupost d'intents o si supera 10.000. Per v4 usa els llindars de
+`hypothesis_screen` (el camp v3 `discovery` no existeix). El rebut de generació
+referencia també el manifest del projecte i en verifica hash, metodologia,
+`genetic-evolution`, pressupost, hash del CFX, capital canònic 200, scaffold amb
+rol només tècnic i holdout segellat.

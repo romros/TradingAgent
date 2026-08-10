@@ -113,6 +113,16 @@ def generate(methodology_path: Path, output_dir: Path) -> dict:
                 hashes[candidate] = hashlib.sha256(candidate_path.read_bytes()).hexdigest()
             stage_payload["candidate_artifact_paths"] = paths
             stage_payload["candidate_artifact_hashes"] = hashes
+            manifest_path = output_dir / "synthetic-project.manifest.json"
+            manifest_path.write_text(json.dumps({
+                "schema_version": 1, "methodology_id": methodology["methodology_id"],
+                "generation_type": "genetic-evolution", "attempt_budget": 1,
+                "output_sha256": "b" * 64, "canonical_evaluation_capital": 200,
+                "holdout_sealed": True, "source_role": "xml_format_scaffold_only",
+            }, sort_keys=True) + "\n")
+            stage_payload["sq_project_manifest_path"] = manifest_path.name
+            stage_payload["sq_project_manifest_sha256"] = hashlib.sha256(
+                manifest_path.read_bytes()).hexdigest()
         if stage == "python_translation":
             sqx_path = output_dir / f"{CANDIDATE}.sqx"
             ir_path = output_dir / f"{CANDIDATE}.ir.json"

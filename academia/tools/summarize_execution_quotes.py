@@ -10,9 +10,11 @@ from collections import Counter
 from datetime import datetime
 from pathlib import Path
 from statistics import median
+from zoneinfo import ZoneInfo
 
 
 REQUIRED_WINDOWS = {"open", "midday", "close"}
+NEW_YORK = ZoneInfo("America/New_York")
 
 
 def _finite(value: object, name: str) -> float:
@@ -63,26 +65,38 @@ def summarize(rows: list[dict], *, min_days: int = 3, min_per_window: int = 20) 
             rejected["invalid_quote"] += 1
             continue
         accepted.append({
-            "day": captured.date().isoformat(),
+            "day": captured.astimezone(NEW_YORK).date().isoformat(),
             "window": window,
             "spread_bps": (ask - bid) / mid * 10_000,
         })
 
     spreads = [row["spread_bps"] for row in accepted]
     window_counts = Counter(row["window"] for row in accepted)
+    cell_counts = Counter((row["day"], row["window"]) for row in accepted)
     days = sorted({row["day"] for row in accepted})
-    coverage_pass = len(days) >= min_days and all(
-        window_counts[window] >= min_per_window for window in REQUIRED_WINDOWS
-    )
+    qualifying_days = [day for day in days if all(
+        cell_counts[(day, window)] >= min_per_window for window in REQUIRED_WINDOWS)]
+    coverage_pass = len(qualifying_days) >= min_days
+    by_window = {}
+    for window in sorted(REQUIRED_WINDOWS):
+        values = [row["spread_bps"] for row in accepted if row["window"] == window]
+        by_window[window] = None if not values else {
+            "median": median(values), "p90": percentile(values, 0.90),
+            "p95": percentile(values, 0.95), "maximum": max(values)}
     return {
         "schema_version": 1,
         "accepted_samples": len(accepted),
         "rejected_samples": dict(sorted(rejected.items())),
         "distinct_open_days": len(days),
         "samples_by_window": {window: window_counts[window] for window in sorted(REQUIRED_WINDOWS)},
+        "samples_by_day_and_window": {
+            day: {window: cell_counts[(day, window)] for window in sorted(REQUIRED_WINDOWS)}
+            for day in days
+        },
+        "qualifying_complete_days": qualifying_days,
         "frozen_coverage_gate": {
             "minimum_distinct_open_days": min_days,
-            "minimum_samples_per_window": min_per_window,
+            "minimum_samples_per_window_per_day": min_per_window,
             "pass": coverage_pass,
         },
         "spread_bps": None if not spreads else {
@@ -91,6 +105,7 @@ def summarize(rows: list[dict], *, min_days: int = 3, min_per_window: int = 20) 
             "p95": percentile(spreads, 0.95),
             "maximum": max(spreads),
         },
+        "spread_bps_by_window": by_window,
         "decision": "MEASURED" if coverage_pass else "INSUFFICIENT_OPEN_SESSION_COVERAGE",
     }
 

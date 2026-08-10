@@ -21,10 +21,21 @@ def quote(day: int, window: str, *, open_: bool = True) -> dict:
 
 class SummarizeExecutionQuotesTest(unittest.TestCase):
     def test_requires_three_days_and_all_session_windows(self):
-        rows = [quote(day, window) for day in range(1, 4) for window in ("open", "midday", "close")]
+        rows = [quote(day, window) for day in range(1, 4)
+                for window in ("open", "midday", "close") for _ in range(3)]
         result = summarize_execution_quotes.summarize(rows, min_days=3, min_per_window=3)
         self.assertEqual(result["decision"], "MEASURED")
         self.assertAlmostEqual(result["spread_bps"]["p95"], 1.3333333333333333)
+        self.assertEqual(result["qualifying_complete_days"],
+                         ["2026-08-01", "2026-08-02", "2026-08-03"])
+
+    def test_aggregate_window_counts_cannot_hide_incomplete_days(self):
+        rows = ([quote(1, window) for window in ("open", "midday", "close") for _ in range(3)]
+                + [quote(2, "open") for _ in range(3)]
+                + [quote(3, "midday") for _ in range(3)])
+        result = summarize_execution_quotes.summarize(rows, min_days=3, min_per_window=3)
+        self.assertEqual(result["decision"], "INSUFFICIENT_OPEN_SESSION_COVERAGE")
+        self.assertEqual(result["qualifying_complete_days"], ["2026-08-01"])
 
     def test_closed_and_invalid_quotes_do_not_count(self):
         rows = [quote(1, "open", open_=False), {**quote(1, "midday"), "bid": 7600}]

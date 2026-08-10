@@ -69,19 +69,37 @@ def aggregate(
     }
 
     by_notional: dict[str, dict[str, list[float]]] = {}
+    roundtrip_by_notional: dict[str, dict[str, list[float]]] = {}
     for row in opened:
+        row_points: dict[str, dict[str, float]] = {"long": {}, "short": {}}
         for side in ("long", "short"):
             for point in row.get("simulated_slippage", {}).get(side, []):
                 key = format(float(point["notional_usd"]), "g")
-                by_notional.setdefault(key, {"long": [], "short": []})[side].append(
-                    float(point["slippage_bps"])
-                )
+                value = float(point["slippage_bps"])
+                by_notional.setdefault(key, {"long": [], "short": []})[side].append(value)
+                row_points[side][key] = value
+        if set(row_points["long"]) != set(row_points["short"]):
+            raise ValueError("long/short slippage notionals do not match")
+        fees = float(row["fees"]["open_fee_bps"]) + float(row["fees"]["close_fee_bps"])
+        spread = float(row["quote"]["spread_bps"])
+        for key in row_points["long"]:
+            long_slip, short_slip = row_points["long"][key], row_points["short"][key]
+            routes = roundtrip_by_notional.setdefault(
+                key, {"direction_neutral": [], "long": [], "short": []})
+            routes["direction_neutral"].append(fees + spread + long_slip + short_slip)
+            routes["long"].append(fees + spread + 2 * long_slip)
+            routes["short"].append(fees + spread + 2 * short_slip)
     slippage = {}
     for notional, sides in sorted(by_notional.items(), key=lambda item: float(item[0])):
         slippage[notional] = {
             side: {"p50_bps": percentile(values, .5), "p95_bps": percentile(values, .95), "n": len(values)}
             for side, values in sides.items()
         }
+    roundtrip = {
+        notional: {side: distribution(values) for side, values in sides.items()}
+        for notional, sides in sorted(
+            roundtrip_by_notional.items(), key=lambda item: float(item[0]))
+    }
 
     checks = {
         "open_samples": {"actual": len(opened), "required": min_open_samples, "pass": len(opened) >= min_open_samples},
@@ -107,12 +125,19 @@ def aggregate(
         "observed_utc_hours": hours,
         "spread_bps": {"p50": percentile(spreads, .5), "p95": percentile(spreads, .95), "max": max(spreads) if spreads else None},
         "slippage_by_notional": slippage,
+        "roundtrip_proxy_bps_by_notional": roundtrip,
         "fees": fee_distributions,
         "limits": limit_distributions,
         "gate": {
             "checks": checks,
             "execution_economics": "PASS" if gate_pass else "INSUFFICIENT_OPEN_MARKET_EVIDENCE",
             "paper": "BLOCKED" if not gate_pass else "REQUIRES_STRATEGY_OOS_AND_MAE_GATES",
+        },
+        "cost_model": {
+            "unit": "basis_points_of_notional",
+            "direction_neutral_formula": "open_fee + close_fee + spread + long_simulated_slippage + short_simulated_slippage",
+            "route_formula": "open_fee + close_fee + spread + 2 * same_side_simulated_slippage",
+            "limitation": "SDK quote and simulated-slippage proxy, not observed fills",
         },
     }
 

@@ -81,8 +81,16 @@ Implementació: `lab/sq_bridge/eurusd_d1_historical_coverage_v4.py`. Evidència:
 
 ## Següent gate
 
-Esperar que `ostium_research_universe_economics_collector.py` completi almenys
+Esperar que `scripts/capture_ostium_research_universe_economics.sh` completi almenys
 30 observacions, tres dies laborables i sis hores UTC per EURUSD. Només aleshores
 es congelaran costos base, conservadors i d'estrès per a 200 USDC. Si aquests
 costos passen, el següent pas és una única família D1 preregistrada i un screen
 train-only v4; no una exploració retrospectiva de resultats antics.
+
+Després de cada captura, `scripts/refresh_eurusd_v4_preflight.sh` recompòn dos
+artefactes regenerables a `data/ostium_economics_universe/`: costos i preflight.
+El cost es calcula captura per captura com fee open+close, spread i slippage
+long+short; base usa mediana, conservador p95 i estrès el màxim de 2× mediana o
+p95 més 0,10 USDC d'oracle no reemborsat. Amb cobertura immadura no conserva
+cap valor provisional com a cost congelat. Un `PASS` del preflight només
+autoritza `hypothesis_screen`; `sqcli_authorized` continua sent fals.

@@ -40,6 +40,14 @@ class AggregateExecutionSnapshotsTest(unittest.TestCase):
         result = aggregate(rows, min_open_samples=2, min_days=2, min_utc_hours=2)
         self.assertEqual(result["spread_bps"]["p50"], 2)
         self.assertEqual(result["slippage_by_notional"]["200"]["long"]["p50_bps"], 1)
+        self.assertEqual(
+            result["roundtrip_proxy_bps_by_notional"]["200"]["direction_neutral"]["p50"],
+            6,
+        )
+        self.assertEqual(
+            result["roundtrip_proxy_bps_by_notional"]["200"]["long"]["p50"], 5)
+        self.assertEqual(
+            result["roundtrip_proxy_bps_by_notional"]["200"]["short"]["p50"], 7)
         self.assertEqual(result["instrument"]["pair_id"], "10")
         self.assertEqual(result["fees"]["open_fee_bps"]["p95"], 1)
         self.assertEqual(result["gate"]["execution_economics"], "PASS")

@@ -13,12 +13,13 @@ El collector és estrictament read-only. Consulta `getPairs()` i
 
 ## Univers monitoritzat
 
-- `USD/JPY`, `GBP/USD`, `EUR/USD` i `XAU/USD`: cada quatre hores.
+- `USD/JPY`, `GBP/USD`, `EUR/USD` i `XAU/USD`: cada dues hores.
 - `US500/USD`: conserva el collector dedicat cada dues hores i no es duplica.
 
 Les dades regenerables viuen fora de Git a `data/ostium_economics_universe/`.
 Cada parell manté raw, normalitzat i resum. El resum inclou fee, spread,
-slippage per nocional, rollover separat long/short, leverage i mínim nocional.
+slippage per nocional, cost roundtrip calculat captura per captura, rollover
+separat long/short, leverage i mínim nocional.
 
 ## Primer smoke observat
 
@@ -37,6 +38,13 @@ convenció de càrrec/rebate del contracte abans de calcular PnL.
 scripts/capture_ostium_research_universe_economics.sh
 scripts/install_ostium_research_universe_capture_cron.sh
 ```
+
+Per EURUSD, el mateix job executa després
+`scripts/refresh_eurusd_v4_preflight.sh`. El freezer exigeix novament 30/3/6,
+identitat `pair_id=2 EUR/USD` i nocional 200; si falta qualsevol condició retorna
+`BLOCK_INSUFFICIENT_EXECUTION_COVERAGE` sense promocionar mediana o p95. Quan
+maduri construeix base/conservador/estrès, conserva l'oracle reemborsable separat i
+recompon el preflight v4 amb hashes dels tres inputs.
 
 `ostium_execution_universe_gate.py` combina els resums sense promocionar una
 mostra provisional. Fins al `PASS`, una observació serveix per diagnosticar i

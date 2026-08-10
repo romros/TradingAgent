@@ -20,7 +20,8 @@ from lab.sq_bridge.temporal_validation_artifact_v4 import (
 from lab.sq_bridge.robustness_artifact_v4 import evaluate_trace as evaluate_robustness_trace
 from lab.sq_bridge.small_account_artifact_v4 import evaluate_trace as evaluate_small_trace
 from lab.sq_bridge.hypothesis_screen_artifact_v4 import evaluate_trace as evaluate_screen_trace
-from lab.sq_bridge.us500_d1_market_preflight_v4 import compose as compose_market_preflight
+from lab.sq_bridge.us500_d1_market_preflight_v4 import compose as compose_us500_preflight
+from lab.sq_bridge.eurusd_d1_market_preflight_v4 import compose as compose_eurusd_preflight
 
 
 def _number(value: Any) -> bool:
@@ -184,7 +185,11 @@ def _verified_market_preflight_source(artifact: dict, artifact_path: str) -> boo
     try:
         if hashlib.sha256(path.read_bytes()).hexdigest() != digest:
             return False
-        return compose_market_preflight(path) == artifact
+        config = json.loads(path.read_text())
+        composers = {"us500_d1_v4": compose_us500_preflight,
+                     "eurusd_d1_v4": compose_eurusd_preflight}
+        composer = composers.get(config.get("preflight_composer", "us500_d1_v4"))
+        return composer is not None and composer(path) == artifact
     except (OSError, KeyError, TypeError, ValueError, json.JSONDecodeError):
         return False
 

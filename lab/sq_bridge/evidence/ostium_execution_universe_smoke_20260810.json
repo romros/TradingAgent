@@ -1,0 +1,133 @@
+{
+  "all_expected_present": true,
+  "decision": "COLLECT_MORE_OPEN_MARKET_EVIDENCE",
+  "execution_ready_symbols": [],
+  "expected_symbols": [
+    "EUR/USD",
+    "GBP/USD",
+    "US500/USD",
+    "USD/JPY",
+    "XAU/USD"
+  ],
+  "live_authorized": false,
+  "markets": {
+    "EUR/USD": {
+      "category": "forex",
+      "distinct_utc_days": 1,
+      "distinct_utc_hours": 1,
+      "execution_economics_gate": "INSUFFICIENT_OPEN_MARKET_EVIDENCE",
+      "first_open_capture_at": "2026-08-10T15:36:33.877Z",
+      "last_open_capture_at": "2026-08-10T15:36:33.877Z",
+      "min_notional_usd_p50": 5.0,
+      "multiday_research": "BLOCKED_ROLLOVER_SERIES",
+      "open_fee_bps_p50": 2.0,
+      "open_samples": 1,
+      "pair_id": "2",
+      "paper": "BLOCKED_EXECUTION_ECONOMICS",
+      "research_cost_observation": "OBSERVED_PROVISIONAL",
+      "rollover_long_pct_per_8h_p50": -0.00268409540736,
+      "rollover_short_pct_per_8h_p50": -5.7664592640000085e-05,
+      "source_raw_sha256": [
+        "fd03533890176bce9ec3b476cfda80158f8b87595d28ae7c6c88a55da35ede1c"
+      ],
+      "spread_p50_bps": 0.8662968261808482,
+      "spread_p95_bps": 0.8662968261808482,
+      "venue_max_leverage_p50": 200.0
+    },
+    "GBP/USD": {
+      "category": "forex",
+      "distinct_utc_days": 1,
+      "distinct_utc_hours": 1,
+      "execution_economics_gate": "INSUFFICIENT_OPEN_MARKET_EVIDENCE",
+      "first_open_capture_at": "2026-08-10T15:36:26.871Z",
+      "last_open_capture_at": "2026-08-10T15:36:26.871Z",
+      "min_notional_usd_p50": 5.0,
+      "multiday_research": "BLOCKED_ROLLOVER_SERIES",
+      "open_fee_bps_p50": 2.0,
+      "open_samples": 1,
+      "pair_id": "3",
+      "paper": "BLOCKED_EXECUTION_ECONOMICS",
+      "research_cost_observation": "OBSERVED_PROVISIONAL",
+      "rollover_long_pct_per_8h_p50": -0.00131596977024,
+      "rollover_short_pct_per_8h_p50": -0.00142579022976,
+      "source_raw_sha256": [
+        "8aabf50dc4eafffcbaebae65897c0acba040afedd6e1d07c08689344716f050a"
+      ],
+      "spread_p50_bps": 1.4124709816475491,
+      "spread_p95_bps": 1.4124709816475491,
+      "venue_max_leverage_p50": 200.0
+    },
+    "US500/USD": {
+      "category": "indices",
+      "distinct_utc_days": 1,
+      "distinct_utc_hours": 1,
+      "execution_economics_gate": "INSUFFICIENT_OPEN_MARKET_EVIDENCE",
+      "first_open_capture_at": "2026-08-10T15:36:44.632Z",
+      "last_open_capture_at": "2026-08-10T15:36:44.632Z",
+      "min_notional_usd_p50": 5.0,
+      "multiday_research": "BLOCKED_ROLLOVER_SERIES",
+      "open_fee_bps_p50": 1.0,
+      "open_samples": 1,
+      "pair_id": "10",
+      "paper": "BLOCKED_EXECUTION_ECONOMICS",
+      "research_cost_observation": "OBSERVED_PROVISIONAL",
+      "rollover_long_pct_per_8h_p50": -0.0052121974924799995,
+      "rollover_short_pct_per_8h_p50": 0.00154883749248,
+      "source_raw_sha256": [
+        "71b1dc80522cd058291b0d22bfb9101b5d30a2f4ddb42ceaf255681cc80ab13c"
+      ],
+      "spread_p50_bps": 0.9021335462243848,
+      "spread_p95_bps": 0.9021335462243848,
+      "venue_max_leverage_p50": 100.0
+    },
+    "USD/JPY": {
+      "category": "forex",
+      "distinct_utc_days": 1,
+      "distinct_utc_hours": 1,
+      "execution_economics_gate": "INSUFFICIENT_OPEN_MARKET_EVIDENCE",
+      "first_open_capture_at": "2026-08-10T15:36:20.041Z",
+      "last_open_capture_at": "2026-08-10T15:36:20.041Z",
+      "min_notional_usd_p50": 5.0,
+      "multiday_research": "BLOCKED_ROLLOVER_SERIES",
+      "open_fee_bps_p50": 2.0,
+      "open_samples": 1,
+      "pair_id": "4",
+      "paper": "BLOCKED_EXECUTION_ECONOMICS",
+      "research_cost_observation": "OBSERVED_PROVISIONAL",
+      "rollover_long_pct_per_8h_p50": 0.0012480451315200001,
+      "rollover_short_pct_per_8h_p50": -0.0039898051315200005,
+      "source_raw_sha256": [
+        "a325a6ece73ca8790bf40218f1065af97c853bf71e636707f37283dc74bd5977"
+      ],
+      "spread_p50_bps": 1.1910352336658616,
+      "spread_p95_bps": 1.1910352336658616,
+      "venue_max_leverage_p50": 100.0
+    },
+    "XAU/USD": {
+      "category": "commodities",
+      "distinct_utc_days": 1,
+      "distinct_utc_hours": 1,
+      "execution_economics_gate": "INSUFFICIENT_OPEN_MARKET_EVIDENCE",
+      "first_open_capture_at": "2026-08-10T15:36:39.219Z",
+      "last_open_capture_at": "2026-08-10T15:36:39.219Z",
+      "min_notional_usd_p50": 5.0,
+      "multiday_research": "BLOCKED_ROLLOVER_SERIES",
+      "open_fee_bps_p50": 2.0,
+      "open_samples": 1,
+      "pair_id": "5",
+      "paper": "BLOCKED_EXECUTION_ECONOMICS",
+      "research_cost_observation": "OBSERVED_PROVISIONAL",
+      "rollover_long_pct_per_8h_p50": -0.0058098068352,
+      "rollover_short_pct_per_8h_p50": 0.00032628683519999983,
+      "source_raw_sha256": [
+        "24fcfc11db65054ee345f369a2e8d1420eb745375953b3444846b25e501c19d0"
+      ],
+      "spread_p50_bps": 1.1811618431969513,
+      "spread_p95_bps": 1.1811618431969513,
+      "venue_max_leverage_p50": 50.0
+    }
+  },
+  "missing_symbols": [],
+  "schema_version": 1,
+  "unexpected_symbols": []
+}

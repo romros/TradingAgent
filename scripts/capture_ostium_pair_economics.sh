@@ -11,6 +11,7 @@ STAMP=$(date -u +%Y%m%dT%H%M%SZ)
 EVIDENCE_DIR=${OSTIUM_EVIDENCE_DIR:-$ROOT/lab/sq_bridge/evidence}
 RAW="$EVIDENCE_DIR/${SLUG}_ostium_execution_raw_${STAMP}.json"
 NORMALIZED="$EVIDENCE_DIR/${SLUG}_ostium_execution_normalized_${STAMP}.json"
+SUMMARY="$EVIDENCE_DIR/${SLUG}_ostium_execution_summary_latest.json"
 
 mkdir -p "$EVIDENCE_DIR"
 docker image inspect "$IMAGE" >/dev/null
@@ -19,5 +20,9 @@ docker run --rm --network bridge --env "OSTIUM_PAIR=$PAIR" \
   "$IMAGE" > "$RAW"
 python3 "$ROOT/lab/sq_bridge/normalize_ostium_execution_snapshot.py" \
   "$RAW" --output "$NORMALIZED" --pair-from "$PAIR_FROM" --pair-to "$PAIR_TO" >/dev/null
+PAIR_ID=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["instrument"]["pair_id"])' "$NORMALIZED")
+python3 "$ROOT/lab/sq_bridge/aggregate_ostium_execution_snapshots.py" \
+  "$EVIDENCE_DIR"/${SLUG}_ostium_execution_normalized_*.json \
+  --pair-id "$PAIR_ID" --output "$SUMMARY" >/dev/null
 
-printf '%s\n%s\n' "$RAW" "$NORMALIZED"
+printf '%s\n%s\n%s\n' "$RAW" "$NORMALIZED" "$SUMMARY"

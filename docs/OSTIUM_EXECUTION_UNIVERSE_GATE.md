@@ -41,10 +41,24 @@ scripts/install_ostium_research_universe_capture_cron.sh
 
 Per EURUSD, el mateix job executa després
 `scripts/refresh_eurusd_v4_preflight.sh`. El freezer exigeix novament 30/3/6,
-identitat `pair_id=2 EUR/USD` i nocional 200; si falta qualsevol condició retorna
+identitat `pair_id=2 EUR/USD` i 30 observacions en cada bucket de 10 a 14.000
+USDC; si falta qualsevol condició retorna
 `BLOCK_INSUFFICIENT_EXECUTION_COVERAGE` sense promocionar mediana o p95. Quan
 maduri construeix base/conservador/estrès, conserva l'oracle reemborsable separat i
 recompon el preflight v4 amb hashes dels tres inputs.
+
+L'estat fiable per consola o una futura API es recomputa amb:
+
+```bash
+.venv/bin/python -m lab.sq_bridge.eurusd_v4_readiness
+```
+
+No confia cegament en els fitxers `latest`: torna a derivar els costos des del
+resum, verifica el hash, la ruta congelada del config i recompòn el preflight.
+Retorna `COLLECTING_COSTS`, `INVALID_EVIDENCE` o
+`READY_HYPOTHESIS_SCREEN`, el bucket més endarrerit i el mínim de rondes que
+falten. Fins i tot l'últim estat manté `sqcli_authorized=false`: primer s'ha de
+crear i superar el screen determinista train-only.
 
 `ostium_execution_universe_gate.py` combina els resums sense promocionar una
 mostra provisional. Fins al `PASS`, una observació serveix per diagnosticar i

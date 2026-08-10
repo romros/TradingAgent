@@ -29,7 +29,29 @@ def liquidation_distance_pct(leverage: float, venue_max_leverage: float) -> floa
     return (100.0 - leverage / venue_max_leverage * 25.0) / leverage
 
 
-def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict) -> dict:
+def _cost_envelope(cost_model: dict, notional: float) -> tuple[float, dict, dict]:
+    if (cost_model.get("decision") != "PASS_COSTS_FROZEN"
+            or cost_model.get("costs_frozen") is not True):
+        raise ValueError("Model de costos no congelat")
+    rows = cost_model.get("by_notional")
+    if not isinstance(rows, dict) or not rows:
+        raise ValueError("Graella de costos absent")
+    available = sorted(float(value) for value in rows)
+    bucket = next((value for value in available if value >= notional), None)
+    if bucket is None:
+        raise ValueError("Nocional fora de la graella de costos mesurada")
+    row = rows[format(bucket, "g")]
+    bps = {scenario: _number(row.get(f"{scenario}_roundtrip_bps"),
+                             f"Cost {scenario} absent")
+           for scenario in ("base", "conservative", "stress")}
+    carry = cost_model.get("carry")
+    if not isinstance(carry, dict):
+        raise ValueError("Carry de costos absent")
+    return bucket, bps, carry
+
+
+def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
+                   cost_model: dict, expected_cost_hash: str) -> dict:
     if (trace.get("schema_version") != 1
             or trace.get("trace_type") != "small_account_trade_trace"):
         raise ValueError("Schema de trace de compte petit invalid")
@@ -51,10 +73,11 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict) -> dict:
     if (venue_max != robustness_metric.get("venue_max_leverage")
             or tested_leverage > venue_max):
         raise ValueError("Envelope Ostium no coincideix amb robustesa")
-    cost_hash = trace.get("cost_model_sha256")
-    if (not isinstance(cost_hash, str) or len(cost_hash) != 64
-            or any(char not in "0123456789abcdef" for char in cost_hash)):
-        raise ValueError("Hash de costos de compte petit invalid")
+    if trace.get("cost_model_sha256") != expected_cost_hash:
+        raise ValueError("Hash de costos de compte petit no coincideix")
+
+    notional = capital * risk_pct / stop_pct
+    cost_bucket, cost_bps, carry = _cost_envelope(cost_model, notional)
 
     scenarios = gate["cost_scenarios_required"]
     trades = trace.get("trades")
@@ -65,15 +88,19 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict) -> dict:
         if not isinstance(row, dict) or not isinstance(row.get("trade_id"), str):
             raise ValueError("Trade de compte petit invalid")
         trade_ids.append(row["trade_id"])
-        values = row.get("net_return_pct_by_cost")
-        if not isinstance(values, dict) or set(values) != set(scenarios):
-            raise ValueError("Escenaris de cost incomplets")
+        gross = _number(row.get("gross_return_pct"), "Retorn brut invalid")
+        side = row.get("side")
+        holding_days = _number(row.get("holding_days"), "Durada de trade invalida")
+        if side not in {"long", "short"} or holding_days < 0:
+            raise ValueError("Costat o durada de trade invalid")
         for scenario in scenarios:
-            returns[scenario].append(_number(values[scenario], "Retorn net invalid"))
+            annual = _number((carry.get(side) or {}).get(
+                f"{scenario}_annual_cost_pct"), "Carry anual absent")
+            returns[scenario].append(
+                gross - cost_bps[scenario] / 100.0 - annual * holding_days / 365.25)
     if trade_ids != sorted(set(trade_ids)):
         raise ValueError("trade_id de compte petit ha de ser unic i ordenat")
 
-    notional = capital * risk_pct / stop_pct
     pnl = {scenario: [notional * value / 100.0 for value in values]
            for scenario, values in returns.items()}
     profit_factors, expectancy = {}, {}
@@ -134,6 +161,8 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict) -> dict:
         "maximum_single_trade_loss_pct": maximum_loss_pct,
         "risk_per_trade_pct": risk_pct, "stop_distance_pct": stop_pct,
         "position_notional_usdc": notional, "venue_max_leverage": venue_max,
+        "cost_notional_bucket_usdc": cost_bucket,
+        "cost_roundtrip_bps_by_scenario": cost_bps,
         "robustness_tested_leverage": tested_leverage,
         "evaluated_leverage_grid": grid, "leverage_evaluations": evaluations,
         "selected_leverage": selected_leverage,
@@ -148,7 +177,8 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict) -> dict:
 
 
 def build_artifact(*, campaign_id: str, trace_paths: list[Path],
-                   robustness_artifact_path: Path, methodology_path: Path,
+                   robustness_artifact_path: Path, cost_model_path: Path,
+                   methodology_path: Path,
                    artifact_path: Path) -> dict:
     methodology = json.loads(methodology_path.read_text())
     gate = methodology["small_account"]
@@ -158,6 +188,8 @@ def build_artifact(*, campaign_id: str, trace_paths: list[Path],
             or robustness.get("campaign_id") != campaign_id
             or not isinstance(robust_metrics, dict)):
         raise ValueError("Artefacte de robustesa invalid o aliè")
+    cost_model = json.loads(cost_model_path.read_text())
+    cost_hash = _sha(cost_model_path)
     evaluated, paths, hashes = {}, {}, {}
     base = artifact_path.resolve().parent
     for path in trace_paths:
@@ -165,7 +197,8 @@ def build_artifact(*, campaign_id: str, trace_paths: list[Path],
         candidate_id = trace.get("candidate_id")
         if candidate_id not in robust_metrics or candidate_id in evaluated:
             raise ValueError("Filiacio de candidat de compte petit invalida")
-        evaluated[candidate_id] = evaluate_trace(trace, gate, robust_metrics[candidate_id])
+        evaluated[candidate_id] = evaluate_trace(
+            trace, gate, robust_metrics[candidate_id], cost_model, cost_hash)
         paths[candidate_id] = _relative(path, base)
         hashes[candidate_id] = _sha(path)
     if set(evaluated) != set(robust_metrics):
@@ -191,6 +224,8 @@ def build_artifact(*, campaign_id: str, trace_paths: list[Path],
         "small_account_trace_paths": paths, "small_account_trace_sha256": hashes,
         "robustness_artifact_path": _relative(robustness_artifact_path, base),
         "robustness_artifact_sha256": _sha(robustness_artifact_path),
+        "cost_model_path": _relative(cost_model_path, base),
+        "cost_model_sha256": cost_hash,
     }
     if selected_id:
         row = evaluated[selected_id]
@@ -208,6 +243,8 @@ def build_artifact(*, campaign_id: str, trace_paths: list[Path],
             "higher_leverage_rejection_reasons": row["higher_leverage_rejection_reasons"],
             "stop_loss_required": True,
             "position_notional_usdc": row["position_notional_usdc"],
+            "cost_notional_bucket_usdc": row["cost_notional_bucket_usdc"],
+            "cost_roundtrip_bps_by_scenario": row["cost_roundtrip_bps_by_scenario"],
             "collateral_usdc": row["collateral_usdc"],
             "stop_distance_pct": row["stop_distance_pct"],
             "liquidation_distance_pct": row["liquidation_distance_pct"],
@@ -224,6 +261,7 @@ def main() -> None:
     parser.add_argument("--campaign-id", required=True)
     parser.add_argument("--trace", action="append", required=True, type=Path)
     parser.add_argument("--robustness-artifact", required=True, type=Path)
+    parser.add_argument("--cost-model", required=True, type=Path)
     parser.add_argument("--methodology", type=Path,
                         default=Path(__file__).with_name("methodology_v4.json"))
     parser.add_argument("--artifact-output", required=True, type=Path)
@@ -231,6 +269,7 @@ def main() -> None:
     artifact = build_artifact(
         campaign_id=args.campaign_id, trace_paths=args.trace,
         robustness_artifact_path=args.robustness_artifact,
+        cost_model_path=args.cost_model,
         methodology_path=args.methodology, artifact_path=args.artifact_output)
     print(json.dumps({"decision": artifact["decision"],
                       "candidate_ids": artifact["candidate_ids"]}, indent=2))

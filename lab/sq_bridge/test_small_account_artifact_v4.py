@@ -1,5 +1,8 @@
 import json
+import hashlib
 from pathlib import Path
+
+import pytest
 
 from lab.sq_bridge.small_account_artifact_v4 import build_artifact, evaluate_trace
 from lab.sq_bridge.stage_artifact_contract import validate_stage_artifact
@@ -31,17 +34,30 @@ def _trace(candidate_id="candidate", *, win=.5, loss=-.25):
         "candidate_id": candidate_id, "capital_usdc": 200,
         "holdout_accessed": False, "stop_loss_required": True,
         "risk_per_trade_pct": 1.5, "stop_distance_pct": 1,
-        "venue_max_leverage": 100, "cost_model_sha256": "a" * 64,
+        "venue_max_leverage": 100, "cost_model_sha256": "",
         "trades": [{"trade_id": f"trade-{index:02d}",
-                    "net_return_pct_by_cost": {
-                        "base": win if index < 18 else loss,
-                        "conservative": win - .1 if index < 18 else loss - .025,
-                        "stress": win - .2 if index < 18 else loss - .05}}
+                    "gross_return_pct": win if index < 18 else loss,
+                    "side": "long" if index % 2 == 0 else "short",
+                    "holding_days": 1}
                    for index in range(30)],
     }
 
 
-def _write(tmp_path, trace):
+def _cost_model(tmp_path):
+    path = tmp_path / "costs.json"
+    row = {"base_roundtrip_bps": 0, "conservative_roundtrip_bps": 1,
+           "stress_roundtrip_bps": 2}
+    carry = {scenario + "_annual_cost_pct": 0
+             for scenario in ("base", "conservative", "stress")}
+    path.write_text(json.dumps({
+        "decision": "PASS_COSTS_FROZEN", "costs_frozen": True,
+        "by_notional": {"500": row},
+        "carry": {"long": carry, "short": carry}}, sort_keys=True) + "\n")
+    return path
+
+
+def _write(tmp_path, trace, cost_model):
+    trace["cost_model_sha256"] = hashlib.sha256(cost_model.read_bytes()).hexdigest()
     path = tmp_path / f"{trace['candidate_id']}.small-account.trace.json"
     path.write_text(json.dumps(trace, indent=2, sort_keys=True) + "\n")
     return path
@@ -49,15 +65,19 @@ def _write(tmp_path, trace):
 
 def test_small_account_recomputes_performance_sizing_and_real_contract(tmp_path):
     robustness = _robustness(tmp_path)
-    trace = _write(tmp_path, _trace())
+    costs = _cost_model(tmp_path)
+    trace = _write(tmp_path, _trace(), costs)
     artifact_path = tmp_path / "small.json"
     artifact = build_artifact(
         campaign_id="campaign", trace_paths=[trace],
-        robustness_artifact_path=robustness,
+        robustness_artifact_path=robustness, cost_model_path=costs,
         methodology_path=ROOT / "methodology_v4.json", artifact_path=artifact_path)
     assert artifact["decision"] == "PASS"
     assert artifact["selected_leverage"] == 5
     assert artifact["position_notional_usdc"] == 300
+    assert artifact["cost_notional_bucket_usdc"] == 500
+    assert artifact["cost_roundtrip_bps_by_scenario"] == {
+        "base": 0, "conservative": 1, "stress": 2}
     assert artifact["collateral_usdc"] == 60
     assert set(artifact["higher_leverage_rejection_reasons"]) == {
         "8", "10", "15", "20", "30", "50", "75", "100"}
@@ -71,11 +91,12 @@ def test_small_account_recomputes_performance_sizing_and_real_contract(tmp_path)
 
 def test_small_account_selects_best_worst_cost_expectancy_deterministically(tmp_path):
     robustness = _robustness(tmp_path, ("a", "b"))
+    costs = _cost_model(tmp_path)
     artifact = build_artifact(
         campaign_id="campaign",
-        trace_paths=[_write(tmp_path, _trace("a", win=.45)),
-                     _write(tmp_path, _trace("b", win=.55))],
-        robustness_artifact_path=robustness,
+        trace_paths=[_write(tmp_path, _trace("a", win=.45), costs),
+                     _write(tmp_path, _trace("b", win=.55), costs)],
+        robustness_artifact_path=robustness, cost_model_path=costs,
         methodology_path=ROOT / "methodology_v4.json",
         artifact_path=tmp_path / "selected.json")
     assert artifact["candidate_ids"] == ["b"]
@@ -84,14 +105,15 @@ def test_small_account_selects_best_worst_cost_expectancy_deterministically(tmp_
 
 def test_small_account_trace_tampering_is_detected(tmp_path):
     robustness = _robustness(tmp_path)
+    costs = _cost_model(tmp_path)
     value = _trace()
-    trace = _write(tmp_path, value)
+    trace = _write(tmp_path, value, costs)
     artifact_path = tmp_path / "small.json"
     artifact = build_artifact(
         campaign_id="campaign", trace_paths=[trace],
-        robustness_artifact_path=robustness,
+        robustness_artifact_path=robustness, cost_model_path=costs,
         methodology_path=ROOT / "methodology_v4.json", artifact_path=artifact_path)
-    value["trades"][0]["net_return_pct_by_cost"]["stress"] = 10
+    value["trades"][0]["gross_return_pct"] = 10
     trace.write_text(json.dumps(value))
     methodology = json.loads((ROOT / "methodology_v4.json").read_text())
     receipt = {"decision": "PASS", "candidate_ids": ["candidate"],
@@ -104,25 +126,59 @@ def test_small_account_trace_tampering_is_detected(tmp_path):
 
 def test_realized_gap_loss_above_three_percent_rejects_candidate(tmp_path):
     robustness = _robustness(tmp_path)
+    costs = _cost_model(tmp_path)
     trace = _trace(win=3, loss=-.25)
-    trace["trades"][-1]["net_return_pct_by_cost"] = {
-        "base": -3, "conservative": -3, "stress": -3}
+    trace["trades"][-1]["gross_return_pct"] = -3
     artifact = build_artifact(
-        campaign_id="campaign", trace_paths=[_write(tmp_path, trace)],
-        robustness_artifact_path=robustness,
+        campaign_id="campaign", trace_paths=[_write(tmp_path, trace, costs)],
+        robustness_artifact_path=robustness, cost_model_path=costs,
         methodology_path=ROOT / "methodology_v4.json",
         artifact_path=tmp_path / "reject.json")
     assert artifact["decision"] == "REJECT"
     assert artifact["candidate_ids"] == []
 
 
-def test_eurusd_venue_maximum_is_evaluated_and_must_be_rejected_explicitly():
+def test_eurusd_venue_maximum_is_evaluated_and_must_be_rejected_explicitly(tmp_path):
     methodology = json.loads((ROOT / "methodology_v4.json").read_text())
     trace = _trace()
     trace["venue_max_leverage"] = 200
+    costs = _cost_model(tmp_path)
+    trace["cost_model_sha256"] = hashlib.sha256(costs.read_bytes()).hexdigest()
     result = evaluate_trace(trace, methodology["small_account"], {
-        "tested_leverage": 100, "venue_max_leverage": 200})
+        "tested_leverage": 100, "venue_max_leverage": 200},
+        json.loads(costs.read_text()), trace["cost_model_sha256"])
     assert result["evaluated_leverage_grid"][-2:] == [150, 200]
     assert set(result["higher_leverage_rejection_reasons"]) >= {"150", "200"}
     assert "exceeds_robustness_tested_leverage" in result[
         "higher_leverage_rejection_reasons"]["200"]
+
+
+def test_notional_above_measured_cost_grid_fails_closed(tmp_path):
+    methodology = json.loads((ROOT / "methodology_v4.json").read_text())
+    trace = _trace()
+    trace["stop_distance_pct"] = .1  # 3,000 USDC > the synthetic 500 bucket.
+    costs = _cost_model(tmp_path)
+    digest = hashlib.sha256(costs.read_bytes()).hexdigest()
+    trace["cost_model_sha256"] = digest
+    with pytest.raises(ValueError, match="fora de la graella"):
+        evaluate_trace(trace, methodology["small_account"], {
+            "tested_leverage": 5, "venue_max_leverage": 100},
+            json.loads(costs.read_text()), digest)
+
+
+def test_cost_model_tampering_invalidates_source_contract(tmp_path):
+    robustness, costs = _robustness(tmp_path), _cost_model(tmp_path)
+    trace = _write(tmp_path, _trace(), costs)
+    artifact_path = tmp_path / "small.json"
+    artifact = build_artifact(
+        campaign_id="campaign", trace_paths=[trace],
+        robustness_artifact_path=robustness, cost_model_path=costs,
+        methodology_path=ROOT / "methodology_v4.json", artifact_path=artifact_path)
+    costs.write_text("{}\n")
+    receipt = {"decision": "PASS", "candidate_ids": ["candidate"],
+               "holdout_accessed": False, "artifact": str(artifact_path)}
+    errors = validate_stage_artifact(
+        "small_account_economics", artifact, receipt,
+        json.loads((ROOT / "methodology_v4.json").read_text()),
+        "campaign", "alquimia_native")
+    assert "STAGE_ARTIFACT:small_account_economics:SOURCE_TRACE_CONTRACT" in errors

@@ -94,6 +94,12 @@ conservador i estrès. Es recalculen PF≥1,10, EV≥0,10 USDC i pèrdua individ
 ≤3%. Si en sobreviu més d'una, es congela la de millor EV del pitjor escenari,
 després millor PF i finalment ID lexicogràfic; no es consulta el holdout.
 
+Els retorns nets no són una entrada confiada: cada trace aporta retorn brut,
+costat i durada. El constructor verifica el SHA-256 del model de costos
+congelat, escull el primer bucket mesurat igual o superior al nocional i resta
+round-trip més carry. Un nocional superior a la graella o un hash diferent
+invalida l'etapa.
+
 La generació usa `genetic_evolution`, no una cerca oberta sense filiació. Cada
 artefacte SQ ha d'indicar les hipòtesis font aprovades, el hash de cada candidat
 i el nombre de regles (1–3). El verificador de cadena comprova que aquestes

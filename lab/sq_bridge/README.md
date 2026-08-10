@@ -332,21 +332,25 @@ PF estressat i liquidacions. Aquestes últimes no són booleans acceptats de la
 font: es deriven de l'excursió adversa, leverage i límit del mercat. El sizing
 posterior no pot usar més leverage ni un límit de venue diferent del provat.
 
-`small_account_economics` parteix de retorns nets trade a trade per als tres
-costos i del rebut de robustesa anterior:
+`small_account_economics` parteix de retorns bruts trade a trade, costat i
+durada, del model de costos congelat i del rebut de robustesa anterior:
 
 ```bash
 PYTHONPATH=../.. python3 small_account_artifact_v4.py \
   --campaign-id CAMPAIGN_ID \
   --trace /path/to/candidate-a.small-account.trace.json \
   --robustness-artifact /path/to/state/artifacts/05_robustness.json \
+  --cost-model /path/to/eurusd_costs_frozen_v4.json \
   --artifact-output /path/to/state/artifacts/06_small_account_economics.json
 ```
 
 Amb 200 USDC, el nocional es deriva de `capital × risc% / stop%`. El leverage
 no augmenta aquest nocional: només redueix col·lateral fins al màxim que encara
 respecta marge, reserva, buffer de liquidació i l'envelope provat a robustesa.
-El constructor recalcula PF i EV en USDC sota base/conservador/estrès, rebutja
+El constructor comprova el SHA-256 del model, selecciona conservadorament el
+primer bucket de nocional mesurat igual o superior a la posició i resta
+round-trip i carry segons costat i dies. Recalcula PF i EV en USDC sota
+base/conservador/estrès, rebutja
 pèrdues individuals >3% i avalua tots els candidats supervivents. En congela un
 de sol per política determinista: màxima EV del pitjor cost, després PF i ID.
 

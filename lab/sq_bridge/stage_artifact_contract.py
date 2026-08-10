@@ -128,6 +128,13 @@ def _verified_small_account_sources(artifact: dict, reported: Any,
             or robust.get("decision") != "PASS"
             or robust.get("campaign_id") != campaign_id):
         return False
+    cost_model = _verified_json(
+        artifact.get("cost_model_path"), artifact.get("cost_model_sha256"),
+        artifact_path)
+    if (cost_model is None or cost_model.get("decision") != "PASS_COSTS_FROZEN"
+            or cost_model.get("costs_frozen") is not True):
+        return False
+    cost_hash = artifact.get("cost_model_sha256")
     robust_metrics = robust.get("candidate_robustness_metrics")
     paths, hashes = artifact.get("small_account_trace_paths"), artifact.get(
         "small_account_trace_sha256")
@@ -145,7 +152,7 @@ def _verified_small_account_sources(artifact: dict, reported: Any,
             if trace.get("candidate_id") != candidate_id:
                 return False
             recomputed[candidate_id] = evaluate_small_trace(
-                trace, gate, robust_metrics[candidate_id])
+                trace, gate, robust_metrics[candidate_id], cost_model, cost_hash)
     except (OSError, KeyError, TypeError, ValueError):
         return False
     return recomputed == reported

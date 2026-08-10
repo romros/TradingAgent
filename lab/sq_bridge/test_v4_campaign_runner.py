@@ -178,22 +178,33 @@ if stage == 'robustness':
         artifact_path=Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']))
 if stage == 'small_account_economics':
     base = Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']).parent
+    cost_path = base / 'frozen-costs.json'
+    carry = {scenario + '_annual_cost_pct': 0
+             for scenario in ('base', 'conservative', 'stress')}
+    cost_path.write_text(json.dumps({
+        'decision': 'PASS_COSTS_FROZEN', 'costs_frozen': True,
+        'by_notional': {'500': {'base_roundtrip_bps': 0,
+                                'conservative_roundtrip_bps': 1,
+                                'stress_roundtrip_bps': 2}},
+        'carry': {'long': carry, 'short': carry}}))
+    cost_hash = hashlib.sha256(cost_path.read_bytes()).hexdigest()
     trace_path = base / 'runner-sqx-001.small-account.trace.json'
     trace_path.write_text(json.dumps({
         'schema_version': 1, 'trace_type': 'small_account_trade_trace',
         'candidate_id': 'runner-sqx-001', 'capital_usdc': 200,
         'holdout_accessed': False, 'stop_loss_required': True,
         'risk_per_trade_pct': 1.5, 'stop_distance_pct': 1,
-        'venue_max_leverage': 100, 'cost_model_sha256': 'a' * 64,
+        'venue_max_leverage': 100, 'cost_model_sha256': cost_hash,
         'trades': [
-            {'trade_id': f'trade-{index:02d}', 'net_return_pct_by_cost': {
-                'base': .5 if index < 18 else -.2,
-                'conservative': .4 if index < 18 else -.225,
-                'stress': .3 if index < 18 else -.25}}
+            {'trade_id': f'trade-{index:02d}',
+             'gross_return_pct': .5 if index < 18 else -.2,
+             'side': 'long' if index % 2 == 0 else 'short',
+             'holding_days': 1}
             for index in range(30)]}))
     artifact = build_small_account(
         campaign_id='runner-test', trace_paths=[trace_path],
         robustness_artifact_path=base / '05_robustness.json',
+        cost_model_path=cost_path,
         methodology_path=Path(sys.argv[2]),
         artifact_path=Path(os.environ['ALQUIMIA_STAGE_ARTIFACT']))
 if stage == 'python_translation':

@@ -10,17 +10,22 @@ SLUG=$(printf '%s' "$PAIR_FROM$PAIR_TO" | tr '[:upper:]' '[:lower:]')
 STAMP=$(date -u +%Y%m%dT%H%M%SZ)
 EVIDENCE_DIR=${OSTIUM_EVIDENCE_DIR:-$ROOT/lab/sq_bridge/evidence}
 RAW="$EVIDENCE_DIR/${SLUG}_ostium_execution_raw_${STAMP}.json"
+RAW_PENDING="${RAW}.pending.$$"
 NORMALIZED="$EVIDENCE_DIR/${SLUG}_ostium_execution_normalized_${STAMP}.json"
+NORMALIZED_PENDING="${NORMALIZED}.pending.$$"
 SUMMARY="$EVIDENCE_DIR/${SLUG}_ostium_execution_summary_latest.json"
 
 mkdir -p "$EVIDENCE_DIR"
+trap 'rm -f "$RAW_PENDING" "$NORMALIZED_PENDING"' EXIT HUP INT TERM
 docker image inspect "$IMAGE" >/dev/null
 docker run --rm --network bridge --env "OSTIUM_PAIR=$PAIR" \
   --env "OSTIUM_NOTIONALS=${OSTIUM_NOTIONALS:-10,20,50,100,200,500,1000,2000,5000,10000,14000}" \
-  "$IMAGE" > "$RAW"
+  "$IMAGE" > "$RAW_PENDING"
 python3 "$ROOT/lab/sq_bridge/normalize_ostium_execution_snapshot.py" \
-  "$RAW" --output "$NORMALIZED" --pair-from "$PAIR_FROM" --pair-to "$PAIR_TO" >/dev/null
-PAIR_ID=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["instrument"]["pair_id"])' "$NORMALIZED")
+  "$RAW_PENDING" --output "$NORMALIZED_PENDING" --pair-from "$PAIR_FROM" --pair-to "$PAIR_TO" >/dev/null
+PAIR_ID=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["instrument"]["pair_id"])' "$NORMALIZED_PENDING")
+mv "$RAW_PENDING" "$RAW"
+mv "$NORMALIZED_PENDING" "$NORMALIZED"
 python3 "$ROOT/lab/sq_bridge/aggregate_ostium_execution_snapshots.py" \
   "$EVIDENCE_DIR"/${SLUG}_ostium_execution_normalized_*.json \
   --pair-id "$PAIR_ID" --output "$SUMMARY" >/dev/null

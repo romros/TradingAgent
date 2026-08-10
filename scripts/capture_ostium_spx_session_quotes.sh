@@ -7,6 +7,8 @@ DATA_DIR=${OSTIUM_QUOTE_DIR:-$ROOT/data/ostium_execution_quotes}
 RAW="$DATA_DIR/spxusd_quotes.jsonl"
 SUMMARY="$DATA_DIR/summary_latest.json"
 COSTS="$DATA_DIR/costs_latest.json"
+PREFLIGHT="$DATA_DIR/market_preflight_latest.json"
+PREFLIGHT_CONFIG="$ROOT/lab/sq_bridge/us500_d1_market_preflight_v4_config.json"
 LOCAL_HM=$(TZ=America/New_York date +%H%M)
 
 case "$LOCAL_HM" in
@@ -33,3 +35,5 @@ python3 "$ROOT/academia/tools/summarize_execution_quotes.py" "$RAW" \
   --output "$SUMMARY"
 python3 "$ROOT/lab/sq_bridge/spxusd_small_account_cost_gate.py" \
   --summary "$SUMMARY" --output "$COSTS"
+python3 "$ROOT/lab/sq_bridge/us500_d1_market_preflight_v4.py" \
+  --config "$PREFLIGHT_CONFIG" --output "$PREFLIGHT"

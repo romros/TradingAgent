@@ -6,12 +6,31 @@ import argparse
 import hashlib
 import json
 import os
+import tempfile
 from pathlib import Path
 from typing import Any
 
 
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def write_atomic(path: Path, value: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary: Path | None = None
+    try:
+        with tempfile.NamedTemporaryFile(
+                mode="w", encoding="utf-8", dir=path.parent,
+                prefix=f".{path.name}.", delete=False) as handle:
+            temporary = Path(handle.name)
+            json.dump(value, handle, indent=2, sort_keys=True)
+            handle.write("\n")
+            handle.flush()
+            os.fsync(handle.fileno())
+        temporary.replace(path)
+    finally:
+        if temporary is not None and temporary.exists():
+            temporary.unlink()
 
 
 def resolve(base: Path, value: str) -> Path:
@@ -116,8 +135,7 @@ def main() -> None:
     if args.output is None:
         raise SystemExit("--output or ALQUIMIA_STAGE_ARTIFACT is required")
     result = compose(args.config)
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
+    write_atomic(args.output, result)
     print(json.dumps({"decision": result["decision"],
                       "blocking_reasons": result["blocking_reasons"]}, indent=2))
 

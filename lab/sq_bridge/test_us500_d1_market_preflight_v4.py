@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 
 from lab.sq_bridge.stage_artifact_contract import validate_stage_artifact
-from lab.sq_bridge.us500_d1_market_preflight_v4 import compose
+from lab.sq_bridge.us500_d1_market_preflight_v4 import compose, write_atomic
 
 
 ROOT = Path(__file__).parent
@@ -61,3 +61,11 @@ def test_complete_inputs_produce_a_valid_v4_market_preflight(tmp_path):
     assert artifact["sqcli_authorized"] is False
     assert artifact["paper_authorized"] is False
     assert artifact["live_authorized"] is False
+
+
+def test_preflight_writer_replaces_atomically(tmp_path):
+    target = tmp_path / "preflight.json"
+    write_atomic(target, {"decision": "BLOCK"})
+    write_atomic(target, {"decision": "PASS"})
+    assert json.loads(target.read_text()) == {"decision": "PASS"}
+    assert list(tmp_path.iterdir()) == [target]

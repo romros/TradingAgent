@@ -18,9 +18,13 @@ ni live; només congela inputs reproduïbles per al backtest posterior.
 El cron captura dues quotes cada cinc minuts. Això evita confondre vint lectures
 en quaranta segons amb vint observacions de la finestra. Quan el gate ja passa,
 els dies parcials posteriors queden fora de les estadístiques congelades.
-Després de cada captura, el cron regenera automàticament `summary_latest.json` i
-`costs_latest.json`. Ambdós es publiquen mitjançant reemplaçament atòmic: una
+Després de cada captura, el cron regenera automàticament `summary_latest.json`,
+`costs_latest.json` i `market_preflight_latest.json`. Tots tres es publiquen
+mitjançant reemplaçament atòmic: una
 interrupció conserva l'últim JSON complet en lloc de deixar-ne un de truncat.
+El tercer artefacte combina cobertura, mapping, VIX i costos: abans del gate
+retorna `BLOCK`; un cop superat només autoritza `hypothesis_screen`, mai SQCLI,
+paper o live directament.
 
 Per cada nocional, el proxy round-trip mesurat és:
 

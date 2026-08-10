@@ -22,6 +22,7 @@ from lab.sq_bridge.small_account_artifact_v4 import evaluate_trace as evaluate_s
 from lab.sq_bridge.hypothesis_screen_artifact_v4 import evaluate_trace as evaluate_screen_trace
 from lab.sq_bridge.us500_d1_market_preflight_v4 import compose as compose_us500_preflight
 from lab.sq_bridge.eurusd_d1_market_preflight_v4 import compose as compose_eurusd_preflight
+from lab.sq_bridge.temporal_split_contract_v4 import digest as temporal_digest, sq_periods
 
 
 def _number(value: Any) -> bool:
@@ -281,7 +282,36 @@ def _verified_sq_prerequisite_chain(artifact: dict, manifest: dict,
         same_path = manifest_path.resolve() == path.resolve()
     except OSError:
         same_path = False
-    return (same_path and manifest.get("evidence_chain_sha256") == digest
+    temporal_valid = True
+    profiles = {
+        "d1_breakout": "eurusd_d1_breakout_v4",
+        "d1_momentum": "eurusd_d1_momentum_v4",
+        "d1_shock_reversion": "eurusd_d1_shock_reversion_v4",
+    }
+    source_id = manifest.get("source_hypothesis_id")
+    if manifest.get("market") == "EURUSD" and source_id in profiles:
+        try:
+            contract_path = Path(manifest["temporal_split_contract_path"])
+            contract = json.loads(contract_path.read_text())
+            screen_path = Path(receipts[1]["artifact"])
+            screen = json.loads(screen_path.read_text())
+            trace_path = Path(screen["hypothesis_screen_trace_path"])
+            trace_path = (trace_path if trace_path.is_absolute()
+                          else screen_path.resolve().parent / trace_path)
+            trace = json.loads(trace_path.read_text())
+            temporal_valid = (
+                manifest.get("search_profile") == profiles[source_id]
+                and manifest.get("temporal_split_contract_sha256")
+                    == temporal_digest(contract)
+                and manifest.get("temporal_source_sha256") == contract.get("source_sha256")
+                and manifest.get("periods") == sq_periods(contract)
+                and screen.get("hypothesis_screen_trace_sha256")
+                    == hashlib.sha256(trace_path.read_bytes()).hexdigest()
+                and trace.get("temporal_contract_sha256") == temporal_digest(contract))
+        except (KeyError, OSError, ValueError, json.JSONDecodeError):
+            temporal_valid = False
+    return (temporal_valid
+        and same_path and manifest.get("evidence_chain_sha256") == digest
         and chain.get("campaign_id") == campaign_id
         and manifest.get("campaign_id") == campaign_id
         and chain.get("hypothesis_id") == manifest.get("source_hypothesis_id")

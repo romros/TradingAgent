@@ -1,13 +1,15 @@
 import hashlib
 import json
 import zipfile
+from datetime import date, timedelta
 
 import pytest
 
 import lab.sq_bridge.sq_generation_artifact_v4 as generation_module
-from lab.sq_bridge.sq_generation_artifact_v4 import build_artifact
+from lab.sq_bridge.sq_generation_artifact_v4 import build_artifact, _validate_project_chain
 from lab.sq_bridge.stage_artifact_contract import validate_stage_artifact
 from lab.sq_bridge.test_sqx_extract import SETTINGS, STRATEGY
+from lab.sq_bridge.temporal_split_contract_v4 import build_contract, digest, sq_periods
 
 
 ROOT = __import__("pathlib").Path(__file__).parent
@@ -97,6 +99,50 @@ def test_builds_generation_evidence_from_actual_sqx(tmp_path):
     assert validate_stage_artifact(
         "sq_generation", artifact, receipt, methodology,
         "campaign-v4", "alquimia_native") == []
+
+
+def test_eurusd_generation_receipt_revalidates_profile_and_exact_period_contract(tmp_path):
+    methodology_path = ROOT / "methodology_v4.json"
+    source = tmp_path / "source.csv"
+    days = [date(2020, 1, 1) + timedelta(days=index) for index in range(200)]
+    source.write_text("\n".join(
+        f"{day:%Y.%m.%d},00:00,1,1,1,1,1" for day in days) + "\n")
+    contract = build_contract(source, methodology_path)
+    contract_path = tmp_path / "periods.json"
+    contract_path.write_text(json.dumps(contract))
+    trace = tmp_path / "trace.json"
+    trace.write_text(json.dumps({"temporal_contract_sha256": digest(contract)}))
+    screen = tmp_path / "screen.json"
+    screen.write_text(json.dumps({
+        "hypothesis_screen_trace_path": str(trace),
+        "hypothesis_screen_trace_sha256": hashlib.sha256(trace.read_bytes()).hexdigest()}))
+    chain = tmp_path / "chain-known.json"
+    chain.write_text(json.dumps({
+        "campaign_id": "campaign-v4", "hypothesis_id": "d1_breakout",
+        "receipts": [
+            {"stage": "market_preflight", "decision": "PASS",
+             "receipt_sha256": "a" * 64},
+            {"stage": "hypothesis_screen", "decision": "PASS",
+             "receipt_sha256": "b" * 64, "artifact": str(screen)}]}))
+    manifest = {
+        "campaign_id": "campaign-v4", "market": "EURUSD",
+        "source_hypothesis_id": "d1_breakout",
+        "search_profile": "eurusd_d1_breakout_v4",
+        "evidence_chain_path": str(chain),
+        "evidence_chain_sha256": hashlib.sha256(chain.read_bytes()).hexdigest(),
+        "market_preflight_receipt_sha256": "a" * 64,
+        "hypothesis_screen_receipt_sha256": "b" * 64,
+        "temporal_split_contract_path": str(contract_path),
+        "temporal_split_contract_sha256": digest(contract),
+        "temporal_source_sha256": contract["source_sha256"],
+        "periods": sq_periods(contract),
+    }
+    assert _validate_project_chain(
+        manifest, methodology_path, "campaign-v4", ["d1_breakout"])["sha256"]
+    manifest["periods"]["train_to"] = "2099-01-01"
+    with pytest.raises(ValueError, match="temporal/perfil"):
+        _validate_project_chain(
+            manifest, methodology_path, "campaign-v4", ["d1_breakout"])
 
 
 def test_contract_reopens_sqx_and_rejects_spoofed_rule_count(tmp_path):

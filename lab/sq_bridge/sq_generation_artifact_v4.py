@@ -9,6 +9,7 @@ import os
 from pathlib import Path
 
 from lab.sq_bridge.evidence_chain import verify as verify_chain
+from lab.sq_bridge.temporal_split_contract_v4 import digest as temporal_digest, sq_periods
 
 try:
     from lab.sq_bridge.sqx_extract import extract
@@ -58,6 +59,31 @@ def _validate_project_chain(manifest: dict, methodology_path: Path,
             or manifest.get("hypothesis_screen_receipt_sha256")
                 != receipts[1].get("receipt_sha256")):
         raise ValueError("Els rebuts prerequisit del manifest SQ no coincideixen")
+    profiles = {
+        "d1_breakout": "eurusd_d1_breakout_v4",
+        "d1_momentum": "eurusd_d1_momentum_v4",
+        "d1_shock_reversion": "eurusd_d1_shock_reversion_v4",
+    }
+    source_id = manifest.get("source_hypothesis_id")
+    if manifest.get("market") == "EURUSD" and source_id in profiles:
+        contract_path = Path(str(manifest.get("temporal_split_contract_path", "")))
+        if not contract_path.is_file():
+            raise ValueError("El contracte temporal SQ no existeix")
+        contract = json.loads(contract_path.read_text())
+        screen_path = Path(receipts[1]["artifact"])
+        screen = json.loads(screen_path.read_text())
+        trace_path = Path(str(screen.get("hypothesis_screen_trace_path", "")))
+        trace_path = (trace_path if trace_path.is_absolute()
+                      else screen_path.resolve().parent / trace_path)
+        trace = json.loads(trace_path.read_text()) if trace_path.is_file() else {}
+        if (manifest.get("search_profile") != profiles[source_id]
+                or manifest.get("temporal_split_contract_sha256")
+                    != temporal_digest(contract)
+                or manifest.get("temporal_source_sha256") != contract.get("source_sha256")
+                or manifest.get("periods") != sq_periods(contract)
+                or screen.get("hypothesis_screen_trace_sha256") != _sha256(trace_path)
+                or trace.get("temporal_contract_sha256") != temporal_digest(contract)):
+            raise ValueError("La filiacio temporal/perfil del projecte SQ no coincideix")
     return {"path": str(path), "sha256": _sha256(path)}
 
 

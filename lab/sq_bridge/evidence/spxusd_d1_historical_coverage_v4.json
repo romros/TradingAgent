@@ -1,0 +1,152 @@
+{
+  "available_observation_span": {
+    "first": "2012-01-19",
+    "last": "2026-07-08"
+  },
+  "coverage_by_calendar_year": {
+    "2012": {
+      "complete_sessions": 41,
+      "coverage_ratio": 0.16532258064516128,
+      "expected_weekdays": 248,
+      "from": "2012-01-19",
+      "to": "2012-12-31"
+    },
+    "2013": {
+      "complete_sessions": 58,
+      "coverage_ratio": 0.2222222222222222,
+      "expected_weekdays": 261,
+      "from": "2013-01-01",
+      "to": "2013-12-31"
+    },
+    "2014": {
+      "complete_sessions": 104,
+      "coverage_ratio": 0.39846743295019155,
+      "expected_weekdays": 261,
+      "from": "2014-01-01",
+      "to": "2014-12-31"
+    },
+    "2015": {
+      "complete_sessions": 237,
+      "coverage_ratio": 0.9080459770114943,
+      "expected_weekdays": 261,
+      "from": "2015-01-01",
+      "to": "2015-12-31"
+    },
+    "2016": {
+      "complete_sessions": 240,
+      "coverage_ratio": 0.9195402298850575,
+      "expected_weekdays": 261,
+      "from": "2016-01-01",
+      "to": "2016-12-31"
+    },
+    "2017": {
+      "complete_sessions": 170,
+      "coverage_ratio": 0.6538461538461539,
+      "expected_weekdays": 260,
+      "from": "2017-01-01",
+      "to": "2017-12-31"
+    },
+    "2018": {
+      "complete_sessions": 235,
+      "coverage_ratio": 0.9003831417624522,
+      "expected_weekdays": 261,
+      "from": "2018-01-01",
+      "to": "2018-12-31"
+    },
+    "2019": {
+      "complete_sessions": 233,
+      "coverage_ratio": 0.89272030651341,
+      "expected_weekdays": 261,
+      "from": "2019-01-01",
+      "to": "2019-12-31"
+    },
+    "2020": {
+      "complete_sessions": 250,
+      "coverage_ratio": 0.9541984732824428,
+      "expected_weekdays": 262,
+      "from": "2020-01-01",
+      "to": "2020-12-31"
+    },
+    "2021": {
+      "complete_sessions": 251,
+      "coverage_ratio": 0.9616858237547893,
+      "expected_weekdays": 261,
+      "from": "2021-01-01",
+      "to": "2021-12-31"
+    },
+    "2022": {
+      "complete_sessions": 249,
+      "coverage_ratio": 0.9576923076923077,
+      "expected_weekdays": 260,
+      "from": "2022-01-01",
+      "to": "2022-12-31"
+    },
+    "2023": {
+      "complete_sessions": 247,
+      "coverage_ratio": 0.95,
+      "expected_weekdays": 260,
+      "from": "2023-01-01",
+      "to": "2023-12-31"
+    },
+    "2024": {
+      "complete_sessions": 248,
+      "coverage_ratio": 0.9465648854961832,
+      "expected_weekdays": 262,
+      "from": "2024-01-01",
+      "to": "2024-12-31"
+    },
+    "2025": {
+      "complete_sessions": 247,
+      "coverage_ratio": 0.946360153256705,
+      "expected_weekdays": 261,
+      "from": "2025-01-01",
+      "to": "2025-12-31"
+    },
+    "2026": {
+      "complete_sessions": 128,
+      "coverage_ratio": 0.9481481481481482,
+      "expected_weekdays": 135,
+      "from": "2026-01-01",
+      "to": "2026-07-08"
+    }
+  },
+  "decision": "PASS_HISTORICAL_COVERAGE",
+  "historical_complete_observations": 2088,
+  "historical_coverage_pass": true,
+  "historical_expected_observations": 2223,
+  "historical_minimum_period_coverage_ratio": 0.89272030651341,
+  "historical_overall_coverage_ratio": 0.9392712550607287,
+  "historical_period_coverage": {
+    "2018": 0.9003831417624522,
+    "2019": 0.89272030651341,
+    "2020": 0.9541984732824428,
+    "2021": 0.9616858237547893,
+    "2022": 0.9576923076923077,
+    "2023": 0.95,
+    "2024": 0.9465648854961832,
+    "2025": 0.946360153256705,
+    "2026": 0.9481481481481482
+  },
+  "live_authorized": false,
+  "paper_authorized": false,
+  "performance_accessed": false,
+  "regular_session": {
+    "end_exclusive": "16:00",
+    "expected_minutes": 390,
+    "minimum_complete_session_ratio": 0.95,
+    "start": "09:30",
+    "timezone": "America/New_York"
+  },
+  "research_only": true,
+  "schema_version": 1,
+  "selected_research_span": {
+    "first": "2018-01-01",
+    "last": "2026-07-08"
+  },
+  "selection_policy": "longest suffix ending at latest observation with every calendar segment >= 0.80; no performance",
+  "source": {
+    "bytes": 54483764,
+    "path": "lab/out/market_sources/sp_m1_dukas_utc_2012_2026.parquet",
+    "sha256": "4db2d26f6965e58a2f868d46aac2f87573934b511c3fda8e582613019e03f9e0"
+  }
+}

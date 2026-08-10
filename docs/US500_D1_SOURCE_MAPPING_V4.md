@@ -50,6 +50,25 @@ python -m lab.sq_bridge.spx_d1_source_parity_v4 \
 Implementació: `lab/sq_bridge/spx_d1_source_parity_v4.py`. Evidència:
 `lab/sq_bridge/evidence/spxusd_d1_sq_ostium_parity_v4.json`.
 
+## Cobertura històrica executable
+
+El fitxer complet declara dades des de 2012, però això no equival a sessions D1
+completes. L'auditoria de cobertura —sense retorns— troba anys inacceptables:
+2012–2014 i 2017. Una regla determinista selecciona el sufix temporal més llarg
+acabat a l'última observació on cada any supera 80% i el conjunt supera 90%.
+
+El tram congelat resultant és **01/01/2018–08/07/2026**:
+
+- 2.088 sessions completes de 2.223 dies laborables conservadors;
+- cobertura global 93,927%;
+- pitjor cobertura anual 89,272% (2019);
+- els festius de mercat es mantenen al denominador, per tant la mesura és
+  conservadora;
+- cap mètrica de rendiment ha estat consultada.
+
+Evidència: `lab/sq_bridge/evidence/spxusd_d1_historical_coverage_v4.json`.
+Implementació: `lab/sq_bridge/spx_d1_historical_coverage_v4.py`.
+
 ## Següent gate
 
 La regla US500+VIX continua sense definir. Primer han de completar-se tres dies

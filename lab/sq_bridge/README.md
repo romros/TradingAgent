@@ -312,6 +312,10 @@ PYTHONPATH=../.. python3 alquimia_project.py \
 
 El constructor revalida la cadena i només accepta `next_stage=sq_generation`.
 El scaffold continua aportant únicament format XML, mai evidència quantitativa.
+En v4 força spread, comissió i slippage d'SQ a zero i ho registra al manifest:
+la descoberta produeix retorn brut i el model Ostium congelat aplica els costos
+una sola vegada després. Les metodologies legacy conserven el seu comportament
+històric, però no poden promocionar evidència v4.
 
 Per a una campanya v4, el rebut de `sq_generation` tampoc s'escriu a mà. Després
 de congelar el databank i el recompte real d'intents, es genera així:

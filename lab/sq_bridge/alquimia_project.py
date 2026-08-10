@@ -115,6 +115,14 @@ def _set_text(root: ET.Element, path: str, value: object) -> None:
     node.text = str(value)
 
 
+def _sq_discovery_slippage(market: dict, methodology: dict) -> float:
+    # V4 evaluates gross price returns. Venue costs are frozen and applied once
+    # downstream; embedding historical SQ slippage here would double charge it.
+    if methodology.get("schema_version", 1) >= 4:
+        return 0
+    return market.get("discovery_slippage", 400)
+
+
 def _validate_generation_contract(
     methodology: dict, generation_type: str, attempt_budget: int | None,
 ) -> None:
@@ -320,7 +328,7 @@ def _configure_build(xml: bytes, market: dict, periods: dict, methodology: dict,
     charts[0].set("timeframe", market.get("discovery_timeframe", "M15"))
     charts[0].set("spread", "0")
     setup.set("testPrecision", "2")
-    setup.set("slippage", str(market.get("discovery_slippage", 400)))
+    setup.set("slippage", str(_sq_discovery_slippage(market, methodology)))
     _require_resource_symbol(root, market["sq_symbol"], market)
     commission_methods = setup.findall("./Commissions/Method")
     if not commission_methods:
@@ -448,6 +456,11 @@ def build(source: Path, output: Path, project_name: str, market_key: str,
         "methodology_sha256": _sha256(methodology_path.read_bytes()), "source_role": "xml_format_scaffold_only",
         "source_sha256": _sha256(source.read_bytes()), "output_sha256": _sha256(payload),
         "accepted_limit": accepted_limit, "discovery_initial_capital": 10000,
+        "sq_discovery_spread": 0,
+        "sq_discovery_commission": 0,
+        "sq_discovery_slippage": _sq_discovery_slippage(market, methodology),
+        "venue_cost_application_stage": "post_sq_frozen_cost_model"
+            if methodology.get("schema_version", 1) >= 4 else "legacy_embedded_or_posthoc",
         "search_profile": search_profile, "generation_type": generation_type,
         "market_side": market_side,
         "attempt_budget": attempt_budget, "wall_time_budget_minutes": wall_time_minutes,

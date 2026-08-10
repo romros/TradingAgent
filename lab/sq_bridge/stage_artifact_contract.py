@@ -640,6 +640,11 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                     <= generation["maximum_attempts"]
                 and project_manifest.get("output_sha256") == artifact.get("sq_config_sha256")
                 and project_manifest.get("canonical_evaluation_capital") == 200
+                and project_manifest.get("sq_discovery_spread") == 0
+                and project_manifest.get("sq_discovery_commission") == 0
+                and project_manifest.get("sq_discovery_slippage") == 0
+                and project_manifest.get("venue_cost_application_stage")
+                    == "post_sq_frozen_cost_model"
                 and project_manifest.get("holdout_sealed") is True
                 and project_manifest.get("source_role") == "xml_format_scaffold_only",
             "NO_HOLDOUT": artifact.get("holdout_accessed") is False,

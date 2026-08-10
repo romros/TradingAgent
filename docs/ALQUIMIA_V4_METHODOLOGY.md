@@ -168,6 +168,13 @@ rendibles; el PF amb costos 2× ha de ser ≥1,05. La probabilitat de liquidaci�
 `liquidated`. El leverage de `small_account_economics` queda limitat pel que
 aquell mateix candidat va superar aquí, amb el mateix màxim vigent d'Ostium.
 
+La descoberta SQ v4 treballa sempre amb rendiment **brut**: spread, comissió i
+slippage d'SQ són zero. No és una hipòtesi de costos gratuïts; fee, spread,
+impacte/slippage, oracle i carry del venue s'apliquen exactament una vegada a
+les etapes posteriors mitjançant el model Ostium congelat i hashat. El manifest
+fixa els tres zeros i `venue_cost_application_stage`, de manera que un default
+legacy —com els antics 400 punts de slippage— no pot duplicar costos.
+
 Els hashes SQ i de traducció no són camps decoratius. `sq_generation` ha de
 referenciar cada `.sqx`; `python_translation` ha de referenciar el `.sqx` font i
 la representació intermèdia canònica. El verificador obre aquests fitxers i en

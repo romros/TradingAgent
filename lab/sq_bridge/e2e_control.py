@@ -203,6 +203,9 @@ def generate(methodology_path: Path, output_dir: Path) -> dict:
                 "schema_version": 1, "methodology_id": methodology["methodology_id"],
                 "generation_type": "genetic-evolution", "attempt_budget": 1,
                 "output_sha256": "b" * 64, "canonical_evaluation_capital": 200,
+                "sq_discovery_spread": 0, "sq_discovery_commission": 0,
+                "sq_discovery_slippage": 0,
+                "venue_cost_application_stage": "post_sq_frozen_cost_model",
                 "holdout_sealed": True, "source_role": "xml_format_scaffold_only",
             }, sort_keys=True) + "\n")
             stage_payload["sq_project_manifest_path"] = manifest_path.name

@@ -6,7 +6,7 @@ from pathlib import Path
 
 import alquimia_project
 from alquimia_project import (
-    SEARCH_PROFILES, _split_dates, _validate_generation_contract,
+    SEARCH_PROFILES, _split_dates, _sq_discovery_slippage, _validate_generation_contract,
     _validate_v4_prerequisites,
     _validated_v4_periods,
 )
@@ -66,6 +66,13 @@ def test_v4_requires_genetic_evolution_and_bounded_attempts():
 def test_v3_keeps_legacy_generation_compatibility():
     methodology = json.loads(Path(__file__).with_name("methodology_v3.json").read_text())
     _validate_generation_contract(methodology, "random-generation", None)
+
+
+def test_v4_sq_discovery_is_gross_and_cannot_double_charge_slippage():
+    assert _sq_discovery_slippage(
+        {"discovery_slippage": 400}, {"schema_version": 4}) == 0
+    assert _sq_discovery_slippage(
+        {"discovery_slippage": 400}, {"schema_version": 3}) == 400
 
 
 def _ready_chain(tmp_path, selected=("hypothesis",)):

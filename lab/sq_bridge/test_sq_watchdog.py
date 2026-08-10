@@ -19,9 +19,27 @@ def test_manifest_divides_total_budget_per_isolated_project(tmp_path):
     assert load_limits(manifest).attempt_budget == 1000
 
 
+def test_manifest_loads_reactive_guard_and_sq_accepted_limit(tmp_path):
+    manifest = tmp_path / "manifest.json"
+    manifest.write_text(json.dumps({
+        "attempt_budget_per_project": 10_000,
+        "attempt_stop_guard": 64,
+        "accepted_limit": 40,
+    }))
+    limits = load_limits(manifest)
+    assert limits.attempt_control_threshold == 9_936
+    assert limits.accepted_target == 40
+
+
 def test_budget_uses_generated_not_databank():
     assert evaluate(status(1000, 2), [], Limits(1000), 1) == ("BUDGET_REACHED", "ATTEMPT_BUDGET")
     assert evaluate(status(999, 40), [], Limits(1000), 1)[0] == "HEALTHY"
+
+
+def test_reactive_guard_stops_early_enough_for_inflight_attempts():
+    limits = Limits(100, attempt_stop_guard=64)
+    assert evaluate(status(35), [], limits, 1)[0] == "SELECTIVE"
+    assert evaluate(status(36), [], limits, 1) == ("BUDGET_REACHED", "ATTEMPT_BUDGET")
 
 
 def test_irregular_acceptance_is_not_false_stall():
@@ -81,6 +99,30 @@ def test_terminal_snapshot_is_replaced_by_exact_persisted_sq_log(tmp_path):
     assert json.loads((tmp_path / "latest.json").read_text())["generated"] == 107
 
 
+def test_final_log_is_retried_while_sq_finishes_stopping(tmp_path, monkeypatch):
+    attempts = []
+    monkeypatch.setattr("sq_watchdog.time.sleep", lambda *_: None)
+
+    def finalizer(_):
+        attempts.append(1)
+        if len(attempts) < 3:
+            raise RuntimeError("not finished yet")
+        return {
+            "generated": 90, "accepted": 2, "rejected": 88,
+            "log_path": "/inside/global.log", "log_sha256": "a" * 64,
+            "log_text": "TASK FINISHED\nStrategies generated: 90, Accepted: 2, Rejected: 88\n",
+            "attempt_counter_source": "sq_project_final_log"}
+
+    result = run_monitor(
+        base_url="http://sq", project="P", limits=Limits(100, attempt_stop_guard=10),
+        status_file=tmp_path / "latest.json", journal_file=tmp_path / "journal.jsonl",
+        disk_path=tmp_path, artifacts=None, interval=1, allow_control=True, once=True,
+        snapshot_fn=lambda *_: status(90, 2), call_fn=lambda *_: "ok",
+        final_stats_fn=finalizer, final_stats_timeout_seconds=1)
+    assert len(attempts) == 3
+    assert result["generated"] == 90
+
+
 def test_monitor_error_cannot_control_sq(tmp_path):
     calls = []
     result = run_monitor(
@@ -92,6 +134,42 @@ def test_monitor_error_cannot_control_sq(tmp_path):
     )
     assert result["reason"] == "MONITOR_ERROR"
     assert calls == []
+
+
+def test_started_project_natural_stop_is_finalized_without_redundant_control(tmp_path):
+    calls = []
+    result = run_monitor(
+        base_url="http://sq", project="P", limits=Limits(100),
+        status_file=tmp_path / "latest.json", journal_file=tmp_path / "journal.jsonl",
+        disk_path=tmp_path, artifacts=None, interval=1, allow_control=True, once=True,
+        snapshot_fn=lambda *_: {**status(None, 2), "running_status": 0},
+        call_fn=lambda *args: calls.append(args), started_project=True,
+        final_stats_fn=lambda _: {
+            "generated": 81, "accepted": 2, "rejected": 79,
+            "log_path": "/inside/global.log", "log_sha256": "a" * 64,
+            "log_text": "TASK FINISHED\nStrategies generated: 81, Accepted: 2, Rejected: 79\n",
+            "attempt_counter_source": "sq_project_final_log"})
+    assert result["reason"] == "SQ_PROJECT_STOPPED"
+    assert result["generated"] == 81
+    assert calls == []
+
+
+def test_repeated_monitor_errors_stop_a_started_run(tmp_path, monkeypatch):
+    calls = []
+    monkeypatch.setattr("sq_watchdog.time.sleep", lambda *_: None)
+    result = run_monitor(
+        base_url="http://sq", project="P", limits=Limits(100),
+        status_file=tmp_path / "latest.json", journal_file=tmp_path / "journal.jsonl",
+        disk_path=tmp_path, artifacts=None, interval=1, allow_control=True,
+        snapshot_fn=lambda *_: (_ for _ in ()).throw(ConnectionError("offline")),
+        call_fn=lambda *args: calls.append(args) or "ok", started_project=True,
+        final_stats_fn=lambda _: {
+            "generated": 20, "accepted": 0, "rejected": 20,
+            "log_path": "/inside/global.log", "log_sha256": "a" * 64,
+            "log_text": "TASK FINISHED\nStrategies generated: 20, Accepted: 0, Rejected: 20\n",
+            "attempt_counter_source": "sq_project_final_log"})
+    assert result["reason"] == "MONITOR_ERROR_BUDGET"
+    assert len(calls) == 2
 
 
 def test_gui_snapshot_maps_single_task_stats_without_text_parsing(tmp_path, monkeypatch):

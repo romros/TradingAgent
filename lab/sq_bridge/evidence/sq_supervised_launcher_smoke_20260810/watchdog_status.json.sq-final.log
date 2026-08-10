@@ -1,0 +1,22 @@
+Project: ALQUIMIA_REPRO_SMOKE
+Log file: /global_log_20260810_235147.log
+
+--------------------------------------------------------------------------------------------------------------------------
+TASK STARTED at 2026.08.10 23:51:47.102
+Task: Build strategies, Type: Build
+Databanks before start: Results (0), Existing portfolio (0), Last generation (0), Initial population (0), Strategies to improve (0), D1 (0), OLD (0), D1_OLD (0)
+
+TASK FINISHED at 2026.08.10 23:51:55.725 in 8 s.
+Databanks after finish: Results (0), Existing portfolio (0), Last generation (0), Initial population (0), Strategies to improve (0), D1 (0), OLD (0), D1_OLD (0)
+
+Strategies generated: 40, Time per strategy: 154 ms., Time per accepted strategy: 0 ms., Accepted: 0, Rejected: 40, Strategies per hour: 23237, Accepted strategies per hour: 0.00
+
+Time per strategy details:
+Main test: Count: 38, Avg. time: 1.1228 s., Total time: 42.6660 s., % of all: 100.00 %
+
+Rejected details:
+Automatic filter: too little trades, Count: 1, % of all: 2.5 %
+initial population, Count: 38, % of all: 95.0 %
+Automatic filter: no trades, Count: 1, % of all: 2.5 %
+
+Accepted details:

@@ -201,7 +201,8 @@ def generate(methodology_path: Path, output_dir: Path) -> dict:
             manifest_path = output_dir / "synthetic-project.manifest.json"
             manifest_path.write_text(json.dumps({
                 "schema_version": 1, "methodology_id": methodology["methodology_id"],
-                "generation_type": "genetic-evolution", "attempt_budget": 1,
+                "generation_type": "genetic-evolution", "attempt_budget": 100,
+                "attempt_stop_guard": methodology["sq_generation"]["attempt_stop_guard"],
                 "output_sha256": "b" * 64, "canonical_evaluation_capital": 200,
                 "sq_discovery_spread": 0, "sq_discovery_commission": 0,
                 "sq_discovery_slippage": 0,

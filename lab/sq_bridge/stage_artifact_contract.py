@@ -676,6 +676,8 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                 and project_manifest.get("methodology_id") == methodology["methodology_id"]
                 and project_manifest.get("generation_type")
                     == generation["search_method"].replace("_", "-")
+                and project_manifest.get("attempt_stop_guard")
+                    == generation["attempt_stop_guard"]
                 and isinstance(project_manifest.get("attempt_budget"), int)
                 and not isinstance(project_manifest.get("attempt_budget"), bool)
                 and _at_least(artifact.get("attempted"), 1)

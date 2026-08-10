@@ -44,6 +44,7 @@
     "generator": "StrategyQuant",
     "search_method": "genetic_evolution",
     "maximum_attempts": 10000,
+    "attempt_stop_guard": 64,
     "max_rules": 3,
     "selection_policy": "all_supported_translatable_unique_candidates",
     "robustness_during_generation": false

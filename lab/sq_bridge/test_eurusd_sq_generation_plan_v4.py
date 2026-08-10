@@ -62,6 +62,8 @@ def test_compiler_maps_screened_family_to_exact_sq_profile_and_periods(tmp_path,
     assert result["search_profile"] == "eurusd_d1_breakout_v4"
     assert result["generation_type"] == "genetic-evolution"
     assert result["attempt_budget"] == 10_000
+    assert result["attempt_stop_guard"] == 64
+    assert result["alquimia_project_arguments"]["attempt_stop_guard"] == 64
     assert result["periods"]["train_to"] == contract["segments"]["train"]["to"]
     assert result["periods"]["holdout_from"] == contract[
         "segments"]["final_holdout"]["from"]

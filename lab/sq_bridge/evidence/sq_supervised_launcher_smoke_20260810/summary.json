@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_OPERATIONAL_SMOKE_ONLY",
+  "project_name": "ALQUIMIA_REPRO_SMOKE",
+  "purpose": "validate_supervised_launcher_and_reactive_attempt_guard",
+  "research_evidence_authorized": false,
+  "candidate_promotion_authorized": false,
+  "paper_authorized": false,
+  "live_authorized": false,
+  "hard_attempt_budget": 100,
+  "attempt_stop_guard": 64,
+  "attempt_control_threshold": 36,
+  "live_counter_at_control": 40,
+  "final_generated": 40,
+  "final_accepted": 0,
+  "final_rejected": 40,
+  "within_hard_attempt_budget": true,
+  "attempt_counter_source": "sq_project_final_log",
+  "final_log_path": "watchdog_status.json.sq-final.log",
+  "final_log_sha256": "dcbde1dcdca31fcb443252186b5991e984bdf1fe6ff74969057d82ad78aa2398",
+  "watchdog_status_path": "watchdog_status.json",
+  "watchdog_status_sha256": "b56c19638e6dccb05f6a39e3fed9cdca8072356e32bb36516fc2f52fa84f645f",
+  "watchdog_journal_path": "watchdog_journal.jsonl",
+  "watchdog_journal_sha256": "ed72a52a8c1323b7f7d0692a8271b9e0b0540f8af35de61fb469effb2b1a2e67",
+  "comparison_without_guard": {
+    "evidence_path": "../sq_genetic_budget_smoke_20260810.json",
+    "nominal_attempt_budget": 100,
+    "final_generated": 192,
+    "overshoot": 92
+  },
+  "conclusion": "The 64-attempt reactive reserve kept the exact final count below the hard budget; the disposable v3 strategy output is not scientific evidence."
+}

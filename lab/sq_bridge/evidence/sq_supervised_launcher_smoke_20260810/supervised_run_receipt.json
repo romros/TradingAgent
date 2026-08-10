@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_SUPERVISED_SQ_RUN",
+  "hypothesis_id": "operational_smoke",
+  "project_name": "ALQUIMIA_REPRO_SMOKE",
+  "preflight_path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/sq_supervised_launcher_smoke_20260810/run_preflight.json",
+  "preflight_sha256": "11b8ed446876a2337543417b24aad19722003aad440160665fafe09162ed1d4f",
+  "watchdog_status_path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/sq_supervised_launcher_smoke_20260810/watchdog_status.json",
+  "watchdog_status_sha256": "b56c19638e6dccb05f6a39e3fed9cdca8072356e32bb36516fc2f52fa84f645f",
+  "watchdog_journal_path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/sq_supervised_launcher_smoke_20260810/watchdog_journal.jsonl",
+  "watchdog_journal_sha256": "ed72a52a8c1323b7f7d0692a8271b9e0b0540f8af35de61fb469effb2b1a2e67",
+  "generated": 40,
+  "accepted": 0,
+  "hard_attempt_budget": 100,
+  "attempt_stop_guard": 64,
+  "attempt_control_threshold": 36,
+  "exact_final_counters": true,
+  "within_hard_attempt_budget": true,
+  "paper_authorized": false,
+  "live_authorized": false
+}

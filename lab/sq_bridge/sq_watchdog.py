@@ -62,6 +62,7 @@ def inventory_sqx(root: Path | None) -> list[dict]:
 @dataclass(frozen=True)
 class Limits:
     attempt_budget: int
+    attempt_stop_guard: int = 0
     accepted_target: int | None = None
     wall_time_minutes: int | None = None
     stagnation_attempts: int | None = None
@@ -73,6 +74,14 @@ class Limits:
             value = getattr(self, name)
             if value is not None and value < 1:
                 raise ValueError(f"{name} must be positive")
+        if (not isinstance(self.attempt_stop_guard, int)
+                or isinstance(self.attempt_stop_guard, bool)
+                or not 0 <= self.attempt_stop_guard < self.attempt_budget):
+            raise ValueError("attempt_stop_guard must be non-negative and below attempt_budget")
+
+    @property
+    def attempt_control_threshold(self) -> int:
+        return self.attempt_budget - self.attempt_stop_guard
 
 
 def load_limits(manifest: Path, *, per_project_attempt_budget: int | None = None) -> Limits:
@@ -81,12 +90,18 @@ def load_limits(manifest: Path, *, per_project_attempt_budget: int | None = None
     if budget is None:
         projects = data.get("symbols", [])
         total = data.get("attempt_budget")
-        if not isinstance(total, int) or not projects or total % len(projects):
+        if not isinstance(total, int):
             raise ValueError("manifest must define an unambiguous per-project attempt budget")
-        budget = total // len(projects)
+        if projects:
+            if total % len(projects):
+                raise ValueError("manifest must define an unambiguous per-project attempt budget")
+            budget = total // len(projects)
+        else:
+            budget = total
     return Limits(
         attempt_budget=budget,
-        accepted_target=data.get("accepted_target"),
+        attempt_stop_guard=data.get("attempt_stop_guard", 0),
+        accepted_target=data.get("accepted_target", data.get("accepted_limit")),
         wall_time_minutes=data.get("wall_time_budget_minutes"),
         stagnation_attempts=data.get("stagnation_attempts"),
         min_free_memory_mib=data.get("min_free_memory_mib", 1024),
@@ -157,7 +172,7 @@ def _finite_number(value: object) -> float | None:
 def evaluate(current: dict, history: list[dict], limits: Limits, elapsed_seconds: float) -> tuple[str, str | None]:
     generated = current.get("generated")
     accepted = current.get("in_databank") or 0
-    if generated is not None and generated >= limits.attempt_budget:
+    if generated is not None and generated >= limits.attempt_control_threshold:
         return "BUDGET_REACHED", "ATTEMPT_BUDGET"
     if limits.accepted_target is not None and accepted >= limits.accepted_target:
         return "BUDGET_REACHED", "ACCEPTED_TARGET"
@@ -204,9 +219,13 @@ def run_monitor(
     snapshot_fn: Callable[..., dict] = snapshot,
     call_fn: Callable[[str, str], str] = sq_call,
     final_stats_fn: Callable[[str], dict] | None = None,
+    final_stats_timeout_seconds: int = 60,
+    started_project: bool = False,
+    monitor_error_budget: int = 3,
 ) -> dict:
     started = time.monotonic()
     history: list[dict] = []
+    consecutive_monitor_errors = 0
     while True:
         try:
             status = snapshot_fn(base_url, project, disk_path, artifacts)
@@ -216,9 +235,21 @@ def run_monitor(
                 "state": "BROKEN", "reason": "MONITOR_ERROR", "error": repr(exc),
                 "control_authorized": allow_control,
             }
+            consecutive_monitor_errors += 1
+            if (started_project and allow_control
+                    and consecutive_monitor_errors >= monitor_error_budget):
+                status.update({"state": "BROKEN", "reason": "MONITOR_ERROR_BUDGET"})
         else:
+            consecutive_monitor_errors = 0
             state, reason = evaluate(status, history, limits, time.monotonic() - started)
-            status.update({"state": state, "reason": reason, "control_authorized": allow_control})
+            if started_project and status.get("running_status") == 0:
+                state, reason = "BUDGET_REACHED", "SQ_PROJECT_STOPPED"
+            status.update({
+                "state": state, "reason": reason, "control_authorized": allow_control,
+                "hard_attempt_budget": limits.attempt_budget,
+                "attempt_stop_guard": limits.attempt_stop_guard,
+                "attempt_control_threshold": limits.attempt_control_threshold,
+            })
             history.append(status.copy())
         append_jsonl(journal_file, status)
         write_atomic(status_file, status)
@@ -227,19 +258,33 @@ def run_monitor(
         terminal = status.get("reason") in {
             "ATTEMPT_BUDGET", "ACCEPTED_TARGET", "WALL_TIME_BUDGET",
             "LOW_HOST_MEMORY", "LOW_DISK", "NO_ACCEPTED_WITHIN_STAGNATION_BUDGET",
+            "SQ_PROJECT_STOPPED", "MONITOR_ERROR_BUDGET",
         }
         if terminal:
-            if allow_control:
-                status["pause_response"] = call_fn(base_url, f"-project action=pause name={project}")
-                status["stop_response"] = call_fn(base_url, f"-project action=stop name={project}")
+            if allow_control and status.get("reason") != "SQ_PROJECT_STOPPED":
+                try:
+                    status["pause_response"] = call_fn(
+                        base_url, f"-project action=pause name={project}")
+                    status["stop_response"] = call_fn(
+                        base_url, f"-project action=stop name={project}")
+                except Exception as exc:
+                    status["control_error"] = repr(exc)
                 append_jsonl(journal_file, {**status, "event": "CONTROL_APPLIED"})
                 write_atomic(status_file, status)
             if final_stats_fn is not None:
-                try:
-                    final = final_stats_fn(project)
-                except Exception as exc:
-                    status["final_stats_error"] = repr(exc)
-                else:
+                deadline = time.monotonic() + final_stats_timeout_seconds
+                while True:
+                    try:
+                        final = final_stats_fn(project)
+                    except Exception as exc:
+                        if time.monotonic() >= deadline:
+                            status["final_stats_error"] = repr(exc)
+                            final = None
+                            break
+                        time.sleep(min(1, max(0, deadline - time.monotonic())))
+                    else:
+                        break
+                if final is not None:
                     final_log_path = status_file.with_suffix(
                         status_file.suffix + ".sq-final.log")
                     write_text_atomic(final_log_path, final.pop("log_text"))

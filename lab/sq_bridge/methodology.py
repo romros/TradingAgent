@@ -61,6 +61,11 @@ def validate(config: dict) -> list[str]:
         if (not isinstance(sq_attempts, int) or isinstance(sq_attempts, bool)
                 or not 1 <= sq_attempts <= 10_000):
             errors.append("sq_generation: pressupost d'intents invalid")
+        stop_guard = generation.get("attempt_stop_guard")
+        if (not isinstance(stop_guard, int) or isinstance(stop_guard, bool)
+                or not isinstance(sq_attempts, int) or isinstance(sq_attempts, bool)
+                or stop_guard != 64 or stop_guard >= sq_attempts):
+            errors.append("sq_generation: reserva de parada d'intents invalida")
         max_rules = generation.get("max_rules")
         if (not isinstance(max_rules, int) or isinstance(max_rules, bool)
                 or not 1 <= max_rules <= 3):

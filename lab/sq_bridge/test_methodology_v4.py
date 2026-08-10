@@ -253,7 +253,7 @@ def test_v4_methodology_cannot_be_weakened_to_force_a_pass():
         "cost_scenarios_required": ["base"],
     })
     weakened["sq_generation"].update({
-        "maximum_attempts": 100_000, "max_rules": 20,
+        "maximum_attempts": 100_000, "attempt_stop_guard": 1, "max_rules": 20,
         "selection_policy": "pick_best_is_fitness"})
     weakened["temporal_validation"].update({
         "minimum_trades_oos": 5, "minimum_positive_windows_ratio": .1,

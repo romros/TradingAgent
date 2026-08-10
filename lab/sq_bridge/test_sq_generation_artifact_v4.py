@@ -59,6 +59,7 @@ def _fixture(tmp_path, strategy=STRATEGY, settings=SETTINGS):
         "methodology_id": methodology["methodology_id"],
         "generation_type": "genetic-evolution",
         "attempt_budget": 100,
+        "attempt_stop_guard": 64,
         "accepted_limit": 100,
         "wall_time_budget_minutes": 0,
         "sq_genetic_shape": {"islands": 4, "population_per_island": 25,

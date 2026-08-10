@@ -55,8 +55,10 @@ def verify_genetic_project(path: Path, manifest: dict) -> dict[str, int]:
     shape = {"islands": islands, "population_per_island": population,
              "max_generations": generations, "nominal_evaluations": nominal}
     budget = manifest.get("attempt_budget")
+    guard = manifest.get("attempt_stop_guard")
     if (not isinstance(budget, int) or isinstance(budget, bool) or nominal > budget
-            or manifest.get("sq_genetic_shape") != shape):
+            or not isinstance(guard, int) or isinstance(guard, bool)
+            or not 0 <= guard < budget or manifest.get("sq_genetic_shape") != shape):
         raise ValueError("SQ_CFX_GENETIC_BUDGET_MISMATCH")
 
     stop = root.find("./Rankings/StopCondition")

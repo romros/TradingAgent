@@ -155,7 +155,8 @@ if stage == 'sq_generation':
     manifest_path.write_text(json.dumps({
         'schema_version': 1, 'methodology_id': 'alquimia-v4-coverage-before-performance',
         'project_name': 'RUNNER_PROJECT',
-        'generation_type': 'genetic-evolution', 'attempt_budget': 1,
+        'generation_type': 'genetic-evolution', 'attempt_budget': 100,
+        'attempt_stop_guard': 64,
         'output_sha256': 'b' * 64, 'canonical_evaluation_capital': 200,
         'sq_discovery_spread': 0, 'sq_discovery_commission': 0,
         'sq_discovery_slippage': 0,

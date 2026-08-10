@@ -513,6 +513,8 @@ def build(source: Path, output: Path, project_name: str, market_key: str,
         "search_profile": search_profile, "generation_type": generation_type,
         "market_side": market_side,
         "attempt_budget": attempt_budget, "wall_time_budget_minutes": wall_time_minutes,
+        "attempt_stop_guard": (methodology["sq_generation"]["attempt_stop_guard"]
+                               if methodology.get("schema_version", 1) >= 4 else 0),
         "stagnation_attempts": stagnation_attempts,
         "sq_genetic_shape": (_nominal_genetic_shape(attempt_budget)
                              if generation_type == "genetic-evolution"

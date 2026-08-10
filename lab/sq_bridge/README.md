@@ -328,6 +328,21 @@ elimina el temporal, torna a exportar el CFX reserialitzat per SQ i verifica de
 nou forma genètica, stop i recursos resolts. El rebut conserva ambdós hashes i
 sempre declara `sqcli_started=false`; iniciar és una operació posterior.
 
+L'inici també és una fase contractada i només admet una hipòtesi ja importada:
+
+```bash
+PYTHONPATH=../.. python3 sqcli_supervised_run.py \
+  --import-receipt /path/to/state/eurusd-v4-import/sqcli_import_receipt.json \
+  --hypothesis d1_breakout \
+  --output-dir /path/to/state/eurusd-v4-runs/d1_breakout
+```
+
+El llançador revalida el batch, manifest i CFX reserialitzat, rebutja qualsevol
+altre projecte SQ en execució i exigeix que el projecte objectiu estigui resolt
+i amb databank buit. Escriu el preflight abans de començar i entrega el control
+al watchdog fins que existeix el log final exacte; ni paper ni live queden
+autoritzats per una execució de generació.
+
 El `market_preflight` observat que precedeix aquest screen no es valida només
 amb els seus totals. Conserva `campaign_config_path` i SHA-256; el contracte
 reexecuta el compositor sobre cobertura històrica, mapping i costos congelats.
@@ -356,7 +371,9 @@ per estancament desactivats. Per al pressupost v4 de 10.000 són 4 illes, 100
 individus per illa i 25 generacions. El manifest desa aquesta forma perquè una
 auditoria no depengui només del valor declarat a la línia de comandes. No és una
 cota dura: SQ pot generar reemplaçaments per omplir la població inicial filtrada.
-El watchdog aplica el pressupost sobre `engine.totalJobsDone` i el log final
+Per absorbir treballs ja en vol, v4 congela `attempt_stop_guard=64`: amb pressupost
+10.000 el watchdog ordena parar quan el comptador live arriba a 9.936. El
+watchdog aplica aquest llindar sobre `engine.totalJobsDone` i el log final
 `Strategies generated` és l'evidència exacta; un overshoot invalida el contracte.
 L'ingestor no confia en aquest objecte del manifest: reobre `config.xml` i
 l'únic `Build-Task*.xml` del CFX, recalcula el producte, verifica decimació,

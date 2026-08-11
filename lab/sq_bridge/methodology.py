@@ -222,6 +222,19 @@ def validate(config: dict) -> list[str]:
             errors.append("small_account: buffer de liquidacio insuficient")
         if small.get("liquidation_model") != "ostium_threshold_cost_buffered":
             errors.append("small_account: llindar de liquidacio ha d'incloure costos")
+        portfolio = config.get("portfolio_construction") or {}
+        if (portfolio.get("minimum_strategies") != 4
+                or portfolio.get("maximum_strategies") != 8
+                or portfolio.get("maximum_candidate_pool") != 12
+                or portfolio.get("maximum_absolute_daily_stress_pnl_correlation") != .7
+                or portfolio.get("maximum_exit_date_jaccard") != .8
+                or portfolio.get("minimum_union_exit_dates") != 30
+                or portfolio.get("one_candidate_per_directed_hypothesis") is not True
+                or portfolio.get("selection_policy") != (
+                    "maximum_cardinality_then_worst_cost_expectancy_then_"
+                    "profit_factor_then_candidate_ids")
+                or portfolio.get("holdout_accessed") is not False):
+            errors.append("portfolio_construction: contracte diversificat invalid")
         paper = config.get("paper_execution") or {}
         if (paper.get("maximum_quote_age_seconds") != 10
                 or paper.get("maximum_future_clock_skew_seconds") != 2

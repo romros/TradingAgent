@@ -7,6 +7,7 @@ import hashlib
 import json
 import math
 import os
+from datetime import datetime
 from pathlib import Path
 
 from lab.sq_bridge.small_account_trace_v4 import rebuild_from_trace
@@ -174,6 +175,7 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
         raise ValueError("Trades de compte petit insuficients")
     trade_ids, pnl = [], {scenario: [] for scenario in scenarios}
     liquidation_erosions = []
+    exit_timestamps: list[str] = []
     notionals, stop_distances, cost_buckets = [], [], []
     cost_bps_rows, variable_bps_rows, fixed_usdc_rows = [], [], []
     for row in trades:
@@ -185,6 +187,18 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
         holding_days = _number(row.get("holding_days"), "Durada de trade invalida")
         if side not in {"long", "short"} or holding_days < 0:
             raise ValueError("Costat o durada de trade invalid")
+        if schema_version == 2:
+            exit_timestamp = row.get("exit_timestamp")
+            if not isinstance(exit_timestamp, str):
+                raise ValueError("Sortida temporal absent al trade de compte petit")
+            try:
+                exit_utc = datetime.fromisoformat(exit_timestamp)
+            except ValueError as exc:
+                raise ValueError("Sortida temporal invalida al compte petit") from exc
+            if (exit_utc.utcoffset() is None
+                    or exit_utc.utcoffset().total_seconds() != 0):
+                raise ValueError("Sortida temporal no UTC al compte petit")
+            exit_timestamps.append(exit_utc.isoformat())
         stop_pct = _number(
             row.get("initial_stop_distance_pct") if schema_version == 2
             else fixed_stop_pct, "Distancia inicial de stop invalida")
@@ -225,6 +239,11 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
         profit_factors[scenario] = wins / losses
         expectancy[scenario] = sum(values) / len(values)
         maximum_loss_pct = max(maximum_loss_pct, -min(values) / capital * 100)
+
+    stress_by_exit: dict[str, float] = {}
+    if schema_version == 2:
+        for timestamp, value in zip(exit_timestamps, pnl["stress"], strict=True):
+            stress_by_exit[timestamp] = stress_by_exit.get(timestamp, 0.0) + value
 
     execution_max = _number(
         gate.get("brokerage_api_max_leverage"), "Limit API broker invalid")
@@ -303,6 +322,10 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
         "net_profit_factor": min(profit_factors.values()),
         "net_expectancy_usdc": min(expectancy.values()),
         "maximum_single_trade_loss_pct": maximum_loss_pct,
+        "stress_pnl_by_exit_utc": [
+            {"exit_timestamp": timestamp, "pnl_usdc": stress_by_exit[timestamp]}
+            for timestamp in sorted(stress_by_exit)
+        ],
         "risk_per_trade_pct": risk_pct,
         "stop_distance_pct": max(stop_distances),
         "minimum_stop_distance_pct": min(stop_distances),

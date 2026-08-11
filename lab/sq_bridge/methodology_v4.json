@@ -142,6 +142,17 @@
     "liquidation_model": "ostium_threshold_cost_buffered",
     "minimum_stop_to_liquidation_buffer_ratio": 1.5
   },
+  "portfolio_construction": {
+    "minimum_strategies": 4,
+    "maximum_strategies": 8,
+    "maximum_candidate_pool": 12,
+    "maximum_absolute_daily_stress_pnl_correlation": 0.7,
+    "maximum_exit_date_jaccard": 0.8,
+    "minimum_union_exit_dates": 30,
+    "one_candidate_per_directed_hypothesis": true,
+    "selection_policy": "maximum_cardinality_then_worst_cost_expectancy_then_profit_factor_then_candidate_ids",
+    "holdout_accessed": false
+  },
   "final_holdout_validation": {
     "minimum_trades": 20,
     "minimum_profit_factor": 1.1,

@@ -114,6 +114,37 @@ def tick(*, small_account_worker_dir: Path, output_dir: Path,
 
     config_path = worker_config_path.resolve()
     config = _load(config_path)
+    portfolio_value = config.get("portfolio_artifact_path")
+    if not isinstance(portfolio_value, str) or not portfolio_value:
+        raise ValueError("portfolio construction path missing")
+    portfolio_path = Path(portfolio_value)
+    portfolio_path = (portfolio_path.resolve() if portfolio_path.is_absolute()
+                      else (config_path.parent / portfolio_path).resolve())
+    if not portfolio_path.is_file():
+        return {"schema_version": 1,
+                "decision": "WAITING_FOR_PORTFOLIO_CONSTRUCTION",
+                "campaign_id": campaign_id, "candidate_ids": [candidate_id],
+                "holdout_accessed": False, "holdout_evaluation_count": 0,
+                "sqcli_started": False, "paper_authorized": False,
+                "live_authorized": False}
+    portfolio = _load(portfolio_path)
+    if portfolio.get("decision") == "REJECT":
+        return {"schema_version": 1, "decision": "REJECT_PORTFOLIO_CONSTRUCTION",
+                "campaign_id": campaign_id, "candidate_ids": [],
+                "holdout_accessed": False, "holdout_evaluation_count": 0,
+                "sqcli_started": False, "paper_authorized": False,
+                "live_authorized": False}
+    portfolio_source = (portfolio.get("source_receipts") or {}).get(candidate_id)
+    if (portfolio.get("stage") != "portfolio_construction"
+            or portfolio.get("decision") != "PASS"
+            or portfolio.get("holdout_accessed") is not False
+            or candidate_id not in (portfolio.get("candidate_ids") or [])
+            or not isinstance(portfolio_source, dict)
+            or portfolio_source.get("campaign_id") != campaign_id
+            or Path(str(portfolio_source.get("artifact_path", ""))).resolve()
+                != sizing_path
+            or portfolio_source.get("artifact_sha256") != _sha(sizing_path)):
+        raise ValueError("portfolio construction does not authorize this candidate")
     candle_contract_path = _verified(
         config.get("small_account_candle_contract_path"),
         config.get("small_account_candle_contract_sha256"),
@@ -174,6 +205,8 @@ def tick(*, small_account_worker_dir: Path, output_dir: Path,
         "campaign_id": campaign_id, "candidate_ids": [candidate_id],
         "holdout_artifact_path": str(artifact_path),
         "holdout_artifact_sha256": _sha(artifact_path),
+        "portfolio_artifact_path": str(portfolio_path),
+        "portfolio_artifact_sha256": _sha(portfolio_path),
         "holdout_accessed": True, "holdout_evaluation_count": 1,
         "paper_authorized": False, "live_authorized": False,
     }

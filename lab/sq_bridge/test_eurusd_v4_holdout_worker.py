@@ -1,5 +1,8 @@
 import hashlib
 import json
+from pathlib import Path
+
+import pytest
 
 from lab.sq_bridge.candle_source_contract_v4 import build as build_candles
 from lab.sq_bridge.eurusd_v4_holdout_worker import tick
@@ -36,6 +39,12 @@ def _fixture(tmp_path, candle_day="2023.06.30"):
         "methodology_path": str(methodology), "methodology_sha256": _sha(methodology),
         "small_account_trace_paths": {"A": str(small_trace)},
         "small_account_trace_sha256": {"A": _sha(small_trace)}})
+    portfolio = _write(tmp_path / "portfolio.json", {
+        "schema_version": 1, "stage": "portfolio_construction",
+        "decision": "PASS", "candidate_ids": ["A", "B", "C", "D"],
+        "holdout_accessed": False,
+        "source_receipts": {"A": {"campaign_id": campaign,
+            "artifact_path": str(sizing), "artifact_sha256": _sha(sizing)}}})
     _write(small_dir / "small_account_worker_receipt.json", {
         "decision": "PASS_SMALL_ACCOUNT", "campaign_id": campaign,
         "candidate_ids": ["A"], "small_account_artifact_path": str(sizing),
@@ -51,7 +60,8 @@ def _fixture(tmp_path, candle_day="2023.06.30"):
     config = _write(tmp_path / "config.json", {
         "base_url": "http://sq", "host_projects_root": str(projects),
         "small_account_candle_contract_path": str(contract),
-        "small_account_candle_contract_sha256": _sha(contract)})
+        "small_account_candle_contract_sha256": _sha(contract),
+        "portfolio_artifact_path": str(portfolio)})
     return small_dir, output, config, projects
 
 
@@ -93,6 +103,27 @@ def test_complete_coverage_opens_once_and_replays_terminal_receipt(tmp_path):
     assert calls[0]["projects_root"] == projects
     assert tick(**common) == first
     assert len(calls) == 1
+
+
+def test_holdout_waits_for_portfolio_and_rejects_foreign_selection(tmp_path):
+    small, output, config, _ = _fixture(tmp_path, "2023.12.31")
+    config_value = json.loads(config.read_text())
+    portfolio = config_value["portfolio_artifact_path"]
+    Path(portfolio).unlink()
+    result = tick(small_account_worker_dir=small, output_dir=output,
+                  worker_config_path=config)
+    assert result["decision"] == "WAITING_FOR_PORTFOLIO_CONSTRUCTION"
+    assert result["holdout_accessed"] is False
+
+    sizing = small / "06_small_account_economics.json"
+    _write(Path(portfolio), {
+        "stage": "portfolio_construction", "decision": "PASS",
+        "candidate_ids": ["A", "B", "C", "D"], "holdout_accessed": False,
+        "source_receipts": {"A": {"campaign_id": "foreign",
+            "artifact_path": str(sizing), "artifact_sha256": _sha(sizing)}}})
+    with pytest.raises(ValueError, match="does not authorize"):
+        tick(small_account_worker_dir=small, output_dir=output,
+             worker_config_path=config)
 
 
 def test_foreign_sq_project_blocks_release_and_sizing_reject_is_terminal(tmp_path):

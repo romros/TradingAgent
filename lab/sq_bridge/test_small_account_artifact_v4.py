@@ -1,5 +1,6 @@
 import json
 import hashlib
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import pytest
@@ -185,6 +186,9 @@ def test_dynamic_stops_size_each_trade_and_use_worst_margin_envelope(tmp_path):
     trace.pop("stop_distance_pct")
     for index, trade in enumerate(trace["trades"]):
         trade["initial_stop_distance_pct"] = 1 if index < 15 else 2
+        trade["exit_timestamp"] = (
+            datetime(2000, 1, 1, tzinfo=timezone.utc) + timedelta(days=index)
+        ).isoformat()
     costs = _cost_model(tmp_path)
     digest = hashlib.sha256(costs.read_bytes()).hexdigest()
     trace["cost_model_sha256"] = digest
@@ -198,6 +202,9 @@ def test_dynamic_stops_size_each_trade_and_use_worst_margin_envelope(tmp_path):
     assert result["minimum_stop_distance_pct"] == 1
     assert result["maximum_stop_distance_pct"] == 2
     assert result["collateral_usdc"] == 60
+    assert len(result["stress_pnl_by_exit_utc"]) == 30
+    assert result["stress_pnl_by_exit_utc"] == sorted(
+        result["stress_pnl_by_exit_utc"], key=lambda row: row["exit_timestamp"])
 
 
 def test_position_below_observed_venue_minimum_is_rejected(tmp_path):

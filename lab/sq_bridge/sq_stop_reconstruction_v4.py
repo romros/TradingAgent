@@ -80,7 +80,7 @@ def reconstruct(*, candidate_id: str, source_trades: list[dict],
             raise ValueError("stop SQ no executable")
         trades.append({
             **{key: trade[key] for key in (
-                "trade_id", "entry_timestamp", "gross_return_pct",
+                "trade_id", "entry_timestamp", "exit_timestamp", "gross_return_pct",
                 "side", "holding_days")},
             "initial_stop_distance_pct": stop_pct,
         })

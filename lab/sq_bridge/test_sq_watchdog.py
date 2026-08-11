@@ -154,6 +154,38 @@ def test_started_project_natural_stop_is_finalized_without_redundant_control(tmp
     assert calls == []
 
 
+def test_started_project_natural_finish_status_four_uses_final_log(tmp_path):
+    calls = []
+    result = run_monitor(
+        base_url="http://sq", project="P", limits=Limits(1000),
+        status_file=tmp_path / "latest.json", journal_file=tmp_path / "journal.jsonl",
+        disk_path=tmp_path, artifacts=None, interval=1, allow_control=True,
+        snapshot_fn=lambda *_: {**status(None, 1), "running_status": 4},
+        call_fn=lambda *args: calls.append(args), started_project=True,
+        final_stats_fn=lambda _: {
+            "generated": 413, "accepted": 1, "rejected": 412,
+            "log_path": "/inside/global.log", "log_sha256": "b" * 64,
+            "log_text": "TASK FINISHED\nStrategies generated: 413, Accepted: 1, Rejected: 412\n",
+            "attempt_counter_source": "sq_project_final_log"})
+    assert result["reason"] == "SQ_PROJECT_FINISHED"
+    assert result["generated"] == 413
+    assert calls == []
+
+
+def test_started_project_failed_status_fifty_is_terminal_without_control(tmp_path):
+    calls = []
+    result = run_monitor(
+        base_url="http://sq", project="P", limits=Limits(1000),
+        status_file=tmp_path / "latest.json", journal_file=tmp_path / "journal.jsonl",
+        disk_path=tmp_path, artifacts=None, interval=1, allow_control=True,
+        snapshot_fn=lambda *_: {**status(None, 0), "running_status": 50},
+        call_fn=lambda *args: calls.append(args), started_project=True,
+        final_stats_fn=lambda _: (_ for _ in ()).throw(AssertionError("must not parse failed log")))
+    assert result["state"] == "BROKEN"
+    assert result["reason"] == "SQ_PROJECT_FAILED"
+    assert calls == []
+
+
 def test_repeated_monitor_errors_stop_a_started_run(tmp_path, monkeypatch):
     calls = []
     monkeypatch.setattr("sq_watchdog.time.sleep", lambda *_: None)

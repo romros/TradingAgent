@@ -1,0 +1,45 @@
+{
+  "inputs": {
+    "databank_inventory": [
+      {
+        "path": "/mnt/volume-SQ/user/projects/ALQUIMIA_CRYPTO_H4_CUSTOM_SIGNAL_SMOKE_2/databanks/Results/Strategy 3.1.101.sqx",
+        "sha256": "6c3952629d12e585ca4f5d6618d9c1d948e366fd3eed2943965463954410d434",
+        "size": 56408
+      }
+    ],
+    "final_log": {
+      "path": "/mnt/volume-SQ/user/projects/ALQUIMIA_CRYPTO_H4_CUSTOM_SIGNAL_SMOKE_2/log/global_log_20260811_124854.log",
+      "sha256": "d40c681c9828debd04ea77cd0d662d1629f2c1237a30692264ef0f2027576c24"
+    },
+    "manifest": {
+      "path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/crypto_h4_custom_signal_smoke_manifest_v4.json",
+      "sha256": "447a03a9835becaf56a60a731b02d166e7d0cf685b3cee34b5b5d46f550c883c"
+    },
+    "preregistration": {
+      "path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/crypto_h4_campaign_preregistration_v4.json",
+      "sha256": "bd417680428ef297f94d810439b4f57acbe8c3a1eea729e49011b488feff6c20"
+    },
+    "runtime_receipt": {
+      "path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/crypto_h4_custom_signal_runtime_smoke_v4.json",
+      "sha256": "f7634d65259b4b2249ba0b1afd034c93c32f5f7ede789bc2fbd9bbd7ba0557fc"
+    },
+    "source_receipt": {
+      "path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/btcusd_h4_canonical_source_v4.json",
+      "sha256": "689bbf1ddd1695c1c994799e4fbf73cfa911b4e88e06199c9e96383825c61fb4"
+    }
+  },
+  "proposals": {
+    "sqv4_6c3952629d12e585": {
+      "decision": "REJECT_SQ_PROPOSAL_CANONICAL_GROSS",
+      "normalized_path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/crypto_h4_custom_signal_smoke_filter_v4/sqv4_6c3952629d12e585/normalized.json",
+      "normalized_sha256": "72899c3e6a2449e10039222c5dbdf6028487f139fc5ffb847679a968dda20ae1",
+      "proposal_id": "sqv4_6c3952629d12e585",
+      "replay_path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/crypto_h4_custom_signal_smoke_filter_v4/sqv4_6c3952629d12e585/train_replay.json",
+      "replay_sha256": "310a574a0b183269030337efe8533253fa61a682136a5e1a5d8bfa99cf078a63",
+      "sqx_path": "/mnt/volume-SQ/user/projects/ALQUIMIA_CRYPTO_H4_CUSTOM_SIGNAL_SMOKE_2/databanks/Results/Strategy 3.1.101.sqx",
+      "sqx_sha256": "6c3952629d12e585ca4f5d6618d9c1d948e366fd3eed2943965463954410d434",
+      "state": "VERIFIED"
+    }
+  },
+  "schema_version": 1
+}

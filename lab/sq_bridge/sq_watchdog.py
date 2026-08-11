@@ -244,6 +244,10 @@ def run_monitor(
             state, reason = evaluate(status, history, limits, time.monotonic() - started)
             if started_project and status.get("running_status") == 0:
                 state, reason = "BUDGET_REACHED", "SQ_PROJECT_STOPPED"
+            elif started_project and status.get("running_status") == 4:
+                state, reason = "BUDGET_REACHED", "SQ_PROJECT_FINISHED"
+            elif started_project and status.get("running_status") == 50:
+                state, reason = "BROKEN", "SQ_PROJECT_FAILED"
             status.update({
                 "state": state, "reason": reason, "control_authorized": allow_control,
                 "hard_attempt_budget": limits.attempt_budget,
@@ -258,10 +262,12 @@ def run_monitor(
         terminal = status.get("reason") in {
             "ATTEMPT_BUDGET", "ACCEPTED_TARGET", "WALL_TIME_BUDGET",
             "LOW_HOST_MEMORY", "LOW_DISK", "NO_ACCEPTED_WITHIN_STAGNATION_BUDGET",
-            "SQ_PROJECT_STOPPED", "MONITOR_ERROR_BUDGET",
+            "SQ_PROJECT_STOPPED", "SQ_PROJECT_FINISHED", "SQ_PROJECT_FAILED",
+            "MONITOR_ERROR_BUDGET",
         }
         if terminal:
-            if allow_control and status.get("reason") != "SQ_PROJECT_STOPPED":
+            if allow_control and status.get("reason") not in {
+                    "SQ_PROJECT_STOPPED", "SQ_PROJECT_FINISHED", "SQ_PROJECT_FAILED"}:
                 try:
                     status["pause_response"] = call_fn(
                         base_url, f"-project action=pause name={project}")
@@ -271,7 +277,7 @@ def run_monitor(
                     status["control_error"] = repr(exc)
                 append_jsonl(journal_file, {**status, "event": "CONTROL_APPLIED"})
                 write_atomic(status_file, status)
-            if final_stats_fn is not None:
+            if final_stats_fn is not None and status.get("reason") != "SQ_PROJECT_FAILED":
                 deadline = time.monotonic() + final_stats_timeout_seconds
                 while True:
                     try:

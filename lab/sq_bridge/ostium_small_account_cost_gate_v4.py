@@ -134,12 +134,12 @@ def derive(summary: dict[str, Any], *, expected_pair_id: str,
     for side in ("long", "short"):
         rate = number((fees.get(f"rollover_{side}_pct_per_8h") or {}).get("p50"),
                       f"rollover_{side}", nonnegative=False)
-        # @ostium/builder-sdk 0.7.0 defines rolloverRate as an 8-hour
-        # percentage where negative means the trader earns and positive means
-        # the trader pays.  Its formatter negates the contract-side value to
-        # produce precisely these trader/display semantics.  Never extrapolate
-        # a current credit backwards as alpha.
-        cost_rate = max(0.0, rate)
+        # @ostium/builder-sdk 0.7.0 publishes display = -contractFee. Its
+        # bundled @ostium/formulae 1.6.3 then computes total profit as
+        # tradeProfit - rolloverFee - fundingFee. Therefore a negative display
+        # value is a trader cost and a positive value is a credit. Never
+        # extrapolate a current credit backwards as alpha.
+        cost_rate = max(0.0, -rate)
         carry[side] = {
             "sdk_display_pnl_pct_per_8h": rate,
             "derived_cost_pct_per_8h": cost_rate,
@@ -178,13 +178,14 @@ def derive(summary: dict[str, Any], *, expected_pair_id: str,
         "rollover_semantics_evidence": {
             "sdk_contract": (f"@ostium/builder-sdk {SUPPORTED_BUILDER_SDK_VERSION} "
                              "Pair.rolloverRate"),
+            "formulae_contract": "@ostium/formulae 1.6.3 CurrentTotalProfit",
             "unit": "percent_per_8h",
-            "negative": "trader_earns",
-            "positive": "trader_pays",
+            "negative": "trader_pays",
+            "positive": "trader_earns",
             "official_docs": "https://docs.ostium.com/traders/reference/fees",
         },
-        "rollover_sign_semantics": "negative trader credit; positive trader cost",
-        "credit_policy": "negative SDK display rate is capped at zero cost; no historical credit inferred",
+        "rollover_sign_semantics": "negative trader cost; positive trader credit",
+        "credit_policy": "positive SDK display rate is capped at zero cost; no historical credit inferred",
         "paper_authorized": False, "live_authorized": False,
     }
 

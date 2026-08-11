@@ -17,7 +17,9 @@ Per `@ostium/builder-sdk` 0.7.0, `getPairs().rolloverRate.{long,short}` és
 2. `getRolloverRateDisplay()` calcula primer el fee contractual per costat i
    després aplica `displayPerBlock = -contractFeePerBlock`; multiplica per
    `8 * 60 * 60 * 4 * 100` per produir percentatge per vuit hores.
-3. El contracte oficial, commit
+3. La dependència oficial inclosa `@ostium/formulae` 1.6.3 implementa
+   `CurrentTotalProfit = tradeProfit - rolloverFee - fundingFee`.
+4. El contracte oficial, commit
    `8390ce497f68fb128900840e0ec30683afa945d3`, acumula el fee signat i
    `getTradeValuePure()` calcula
    `collateral + pnl - rolloverFee - fundingFee`. Un fee contractual positiu
@@ -31,9 +33,12 @@ Fonts:
 - <https://github.com/0xOstium/smart-contracts-public/blob/8390ce497f68fb128900840e0ec30683afa945d3/src/OstiumPairInfos.sol#L733-L744>
 - <https://github.com/0xOstium/smart-contracts-public/blob/8390ce497f68fb128900840e0ec30683afa945d3/src/OstiumPairInfos.sol#L859-L868>
 
-La inspecció local es va fer contra la imatge immutable
-`tradingagent-ostium-readonly:0.7.0-generic`, que conté el paquet i lockfile
-utilitzats pel collector. Aquesta auditoria no autoritza paper ni live.
+La inspecció local es va fer contra la imatge
+`tradingagent-ostium-readonly:0.7.0-generic`, fixada durant l'auditoria pel
+digest `sha256:3b9c85ed65240797bb4b01ca30ec26e4618c7fcb528586315cb1de33aa9d0476`,
+que conté el paquet i lockfile utilitzats pel collector. Es van verificar directament
+`getRolloverRateDisplay()` de Builder SDK 0.7.0 i `CurrentTotalProfit()` de
+Formulae 1.6.3. Aquesta auditoria no autoritza paper ni live.
 
 ## Conseqüència observada per EUR/USD
 

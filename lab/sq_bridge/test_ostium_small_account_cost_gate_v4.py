@@ -81,13 +81,15 @@ def test_mature_evidence_freezes_small_account_scenarios_and_oracle_semantics():
         "sizing_policy": "never gross up from a stale fee observation",
     }
     assert result["carry"]["long"]["sdk_display_pnl_pct_per_8h"] == -.002
-    assert result["carry"]["long"]["derived_cost_pct_per_8h"] == 0
-    assert result["carry"]["long"]["base_annual_cost_pct"] == 0
-    assert result["carry"]["short"]["derived_cost_pct_per_8h"] == .002
-    assert round(result["carry"]["short"]["base_annual_cost_pct"], 4) == 2.1915
+    assert result["carry"]["long"]["derived_cost_pct_per_8h"] == .002
+    assert round(result["carry"]["long"]["base_annual_cost_pct"], 4) == 2.1915
+    assert result["carry"]["short"]["derived_cost_pct_per_8h"] == 0
+    assert result["carry"]["short"]["base_annual_cost_pct"] == 0
     assert result["rollover_semantics_evidence"]["unit"] == "percent_per_8h"
-    assert result["rollover_semantics_evidence"]["negative"] == "trader_earns"
-    assert result["rollover_semantics_evidence"]["positive"] == "trader_pays"
+    assert result["rollover_semantics_evidence"]["negative"] == "trader_pays"
+    assert result["rollover_semantics_evidence"]["positive"] == "trader_earns"
+    assert result["rollover_semantics_evidence"]["formulae_contract"] == (
+        "@ostium/formulae 1.6.3 CurrentTotalProfit")
     assert result["paper_authorized"] is False
 
 

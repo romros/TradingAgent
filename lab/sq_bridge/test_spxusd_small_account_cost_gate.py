@@ -41,10 +41,11 @@ def test_measured_summary_refunds_oracle_and_converts_sdk_display_sign():
     assert result["by_notional"]["200"]["stress_roundtrip_bps"] == 11
     assert result["by_notional"]["200"]["oracle_net_usdc"] == {
         "base": 0, "conservative": 0, "stress": 0.1}
-    assert result["carry"]["base_annual_cost_pct"]["long"] == 0
-    assert result["carry"]["base_annual_cost_pct"]["short"] == pytest.approx(2.1915)
+    assert result["carry"]["base_annual_cost_pct"]["long"] == pytest.approx(5.47875)
+    assert result["carry"]["base_annual_cost_pct"]["short"] == 0
     assert result["carry"]["rollover_semantics_evidence"]["unit"] == "percent_per_8h"
-    assert result["carry"]["rollover_semantics_evidence"]["negative"] == "trader_earns"
+    assert result["carry"]["rollover_semantics_evidence"]["negative"] == "trader_pays"
+    assert result["carry"]["rollover_semantics_evidence"]["positive"] == "trader_earns"
 
 
 def test_measured_summary_without_200_usdc_notional_fails_closed():

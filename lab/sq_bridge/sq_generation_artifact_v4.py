@@ -157,6 +157,13 @@ def build_artifact(*, campaign_id: str, source_hypothesis_ids: list[str],
             or final_stats["accepted"] != watchdog.get("in_databank")
             or final_stats["rejected"] != watchdog.get("rejected")):
         raise ValueError("Els comptadors del watchdog no coincideixen amb el log d'SQ")
+    accepted_limit = manifest.get("accepted_limit")
+    accepted_count = watchdog.get("in_databank")
+    if (not isinstance(accepted_limit, int) or isinstance(accepted_limit, bool)
+            or not isinstance(accepted_count, int) or isinstance(accepted_count, bool)
+            or accepted_limit < 1 or accepted_count < 0
+            or accepted_count > accepted_limit):
+        raise ValueError("SQ ha superat el pressupost acceptat de la branca")
     if manifest.get("output_sha256") != _sha256(project_cfx):
         raise ValueError("El hash del CFX no coincideix amb el manifest")
     budget = manifest.get("attempt_budget")
@@ -190,9 +197,11 @@ def build_artifact(*, campaign_id: str, source_hypothesis_ids: list[str],
     inventory, inventory_sha256 = _inventory(sqx_paths, databank_dir)
     watchdog_inventory = watchdog.get("artifacts")
     if (not isinstance(watchdog_inventory, list)
+            or len(inventory) != accepted_count
             or [{"path": row.get("path"), "sha256": row.get("sha256")}
                 for row in watchdog_inventory] != inventory):
-        raise ValueError("El databank actual no coincideix amb el snapshot final del watchdog")
+        raise ValueError(
+            "El databank actual no coincideix amb el recompte/snapshot final del watchdog")
     output_base = output_path.resolve().parent
     common = {
         "schema_version": 1, "stage": "sq_generation", "campaign_id": campaign_id,

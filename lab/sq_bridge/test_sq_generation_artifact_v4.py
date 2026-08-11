@@ -376,6 +376,52 @@ def test_rejects_databank_changed_after_watchdog_snapshot(tmp_path):
             output_path=tmp_path / "artifact.json")
 
 
+def test_rejects_late_sq_overshoot_beyond_branch_candidate_budget(tmp_path):
+    databank, cfx, manifest, watchdog = _fixture(tmp_path)
+    status = json.loads(watchdog.read_text())
+    final_log = Path(status["sq_final_log_path"])
+    final_log.write_text(
+        "TASK FINISHED\nStrategies generated: 80, Accepted: 61, Rejected: 19\n")
+    status.update({
+        "in_databank": 61, "rejected": 19,
+        "sq_final_log_sha256": hashlib.sha256(final_log.read_bytes()).hexdigest(),
+    })
+    watchdog.write_text(json.dumps(status))
+    receipt_path = tmp_path / "supervised_run_receipt.json"
+    receipt = json.loads(receipt_path.read_text())
+    receipt.update({
+        "accepted": 61,
+        "watchdog_status_sha256": hashlib.sha256(watchdog.read_bytes()).hexdigest(),
+    })
+    receipt_path.write_text(json.dumps(receipt))
+    with pytest.raises(ValueError, match="pressupost acceptat"):
+        build_artifact(
+            campaign_id="campaign-v4", source_hypothesis_ids=["hypothesis-1"],
+            databank_dir=databank, watchdog_status_path=watchdog,
+            project_cfx=cfx, project_manifest_path=manifest,
+            methodology_path=ROOT / "methodology_v4.json",
+            output_path=tmp_path / "artifact.json")
+
+
+def test_rejects_databank_count_different_from_exact_sq_accepted_count(tmp_path):
+    databank, cfx, manifest, watchdog = _fixture(tmp_path)
+    status = json.loads(watchdog.read_text())
+    status["artifacts"] = []
+    watchdog.write_text(json.dumps(status))
+    receipt_path = tmp_path / "supervised_run_receipt.json"
+    receipt = json.loads(receipt_path.read_text())
+    receipt["watchdog_status_sha256"] = hashlib.sha256(
+        watchdog.read_bytes()).hexdigest()
+    receipt_path.write_text(json.dumps(receipt))
+    with pytest.raises(ValueError, match="recompte/snapshot"):
+        build_artifact(
+            campaign_id="campaign-v4", source_hypothesis_ids=["hypothesis-1"],
+            databank_dir=databank, watchdog_status_path=watchdog,
+            project_cfx=cfx, project_manifest_path=manifest,
+            methodology_path=ROOT / "methodology_v4.json",
+            output_path=tmp_path / "artifact.json")
+
+
 def test_rejects_watchdog_that_has_not_reached_a_frozen_gate(tmp_path):
     databank, cfx, manifest, watchdog = _fixture(tmp_path)
     status = json.loads(watchdog.read_text())

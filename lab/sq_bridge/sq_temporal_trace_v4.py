@@ -129,6 +129,8 @@ def derive(*, candidate_id: str, orders_path: Path, temporal_contract_path: Path
         sign = 1 if side == "long" else -1
         buckets[segment].append({
             "trade_id": f"{candidate_id}:{ticket}",
+            "entry_timestamp": opened_utc.isoformat(),
+            "entry_price": entry,
             "exit_timestamp": closed_utc.isoformat(),
             "gross_return_pct": sign * (exit_price - entry) / entry * 100,
             "maximum_adverse_excursion_pct": mae_usdc / exposure * 100,

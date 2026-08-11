@@ -9,6 +9,8 @@ import math
 import os
 from pathlib import Path
 
+from lab.sq_bridge.small_account_trace_v4 import rebuild_from_trace
+
 
 def _sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -98,7 +100,8 @@ def select_cost_envelope(
 
 def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
                    cost_model: dict, expected_cost_hash: str) -> dict:
-    if (trace.get("schema_version") != 1
+    schema_version = trace.get("schema_version")
+    if (schema_version not in {1, 2}
             or trace.get("trace_type") != "small_account_trade_trace"):
         raise ValueError("Schema de trace de compte petit invalid")
     candidate_id = trace.get("candidate_id")
@@ -110,9 +113,12 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
     if trace.get("stop_loss_required") is not True:
         raise ValueError("Stop loss obligatori")
     risk_pct = _number(trace.get("risk_per_trade_pct"), "Risc per trade invalid")
-    stop_pct = _number(trace.get("stop_distance_pct"), "Distancia de stop invalida")
-    if not 0 < risk_pct <= gate["maximum_risk_per_trade_pct"] or stop_pct <= 0:
-        raise ValueError("Risc o stop fora del contracte")
+    if not 0 < risk_pct <= gate["maximum_risk_per_trade_pct"]:
+        raise ValueError("Risc fora del contracte")
+    fixed_stop_pct = (None if schema_version == 2 else _number(
+        trace.get("stop_distance_pct"), "Distancia de stop invalida"))
+    if fixed_stop_pct is not None and fixed_stop_pct <= 0:
+        raise ValueError("Stop fora del contracte")
     venue_max = _number(trace.get("venue_max_leverage"), "Limit Ostium invalid")
     tested_leverage = _number(
         robustness_metric.get("tested_leverage"), "Envelope de robustesa absent")
@@ -122,19 +128,14 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
     if trace.get("cost_model_sha256") != expected_cost_hash:
         raise ValueError("Hash de costos de compte petit no coincideix")
 
-    notional = capital * risk_pct / stop_pct
-    cost_bucket, variable_bps, fixed_usdc, carry = select_cost_envelope(
-        cost_model, notional)
-    cost_bps = {scenario: variable_bps[scenario]
-                + fixed_usdc[scenario] / notional * 10_000
-                for scenario in variable_bps}
-
     scenarios = gate["cost_scenarios_required"]
     trades = trace.get("trades")
     if not isinstance(trades, list) or len(trades) < gate["minimum_trades"]:
         raise ValueError("Trades de compte petit insuficients")
-    trade_ids, returns = [], {scenario: [] for scenario in scenarios}
+    trade_ids, pnl = [], {scenario: [] for scenario in scenarios}
     liquidation_erosions = []
+    notionals, stop_distances, cost_buckets = [], [], []
+    cost_bps_rows, variable_bps_rows, fixed_usdc_rows = [], [], []
     for row in trades:
         if not isinstance(row, dict) or not isinstance(row.get("trade_id"), str):
             raise ValueError("Trade de compte petit invalid")
@@ -144,6 +145,23 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
         holding_days = _number(row.get("holding_days"), "Durada de trade invalida")
         if side not in {"long", "short"} or holding_days < 0:
             raise ValueError("Costat o durada de trade invalid")
+        stop_pct = _number(
+            row.get("initial_stop_distance_pct") if schema_version == 2
+            else fixed_stop_pct, "Distancia inicial de stop invalida")
+        if stop_pct <= 0:
+            raise ValueError("Distancia inicial de stop no positiva")
+        notional = capital * risk_pct / stop_pct
+        cost_bucket, variable_bps, fixed_usdc, carry = select_cost_envelope(
+            cost_model, notional)
+        cost_bps = {scenario: variable_bps[scenario]
+                    + fixed_usdc[scenario] / notional * 10_000
+                    for scenario in variable_bps}
+        notionals.append(notional)
+        stop_distances.append(stop_pct)
+        cost_buckets.append(cost_bucket)
+        cost_bps_rows.append(cost_bps)
+        variable_bps_rows.append(variable_bps)
+        fixed_usdc_rows.append(fixed_usdc)
         stress_annual = _number((carry.get(side) or {}).get(
             "stress_annual_cost_pct"), "Carry stress anual absent")
         liquidation_erosions.append(liquidation_cost_erosion_pct(
@@ -151,13 +169,12 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
         for scenario in scenarios:
             annual = _number((carry.get(side) or {}).get(
                 f"{scenario}_annual_cost_pct"), "Carry anual absent")
-            returns[scenario].append(
-                gross - cost_bps[scenario] / 100.0 - annual * holding_days / 365.25)
+            net_return_pct = (gross - cost_bps[scenario] / 100.0
+                              - annual * holding_days / 365.25)
+            pnl[scenario].append(notional * net_return_pct / 100.0)
     if trade_ids != sorted(set(trade_ids)):
         raise ValueError("trade_id de compte petit ha de ser unic i ordenat")
 
-    pnl = {scenario: [notional * value / 100.0 for value in values]
-           for scenario, values in returns.items()}
     profit_factors, expectancy = {}, {}
     maximum_loss_pct = 0.0
     for scenario, values in pnl.items():
@@ -175,19 +192,25 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
     # Reserve the full stress round-trip (including the stress oracle policy)
     # before sizing. This is stricter than the actual entry cash charge and
     # prevents a 200 USDC account from spending its declared reserve on fees.
-    entry_cost_buffer_usdc = (notional * variable_bps["stress"] / 10_000
-                              + fixed_usdc["stress"])
     for leverage in grid:
-        collateral = notional / leverage
+        collateral = max(notional / leverage for notional in notionals)
         margin_pct = collateral / capital * 100
+        entry_cost_buffer_usdc = max(
+            notional * variable["stress"] / 10_000 + fixed["stress"]
+            for notional, variable, fixed in zip(
+                notionals, variable_bps_rows, fixed_usdc_rows, strict=True))
         capital_committed_usdc = collateral + entry_cost_buffer_usdc
         capital_committed_pct = capital_committed_usdc / capital * 100
         reserve_usdc = capital - capital_committed_usdc
         reserve_pct = reserve_usdc / capital * 100
         nominal_liquidation_distance = liquidation_distance_pct(leverage, venue_max)
-        liquidation_distance = max(
-            0.0, nominal_liquidation_distance - worst_liquidation_erosion)
-        buffer = liquidation_distance / stop_pct
+        liquidation_distances = [max(
+            0.0, nominal_liquidation_distance - erosion)
+            for erosion in liquidation_erosions]
+        buffers = [distance / stop for distance, stop in zip(
+            liquidation_distances, stop_distances, strict=True)]
+        liquidation_distance = min(liquidation_distances)
+        buffer = min(buffers)
         reasons = []
         if leverage > tested_leverage:
             reasons.append("exceeds_robustness_tested_leverage")
@@ -232,12 +255,24 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
         "net_profit_factor": min(profit_factors.values()),
         "net_expectancy_usdc": min(expectancy.values()),
         "maximum_single_trade_loss_pct": maximum_loss_pct,
-        "risk_per_trade_pct": risk_pct, "stop_distance_pct": stop_pct,
-        "position_notional_usdc": notional, "venue_max_leverage": venue_max,
-        "cost_notional_bucket_usdc": cost_bucket,
-        "cost_roundtrip_bps_by_scenario": cost_bps,
-        "cost_variable_roundtrip_bps_by_scenario": variable_bps,
-        "cost_fixed_usdc_by_scenario": fixed_usdc,
+        "risk_per_trade_pct": risk_pct,
+        "stop_distance_pct": max(stop_distances),
+        "minimum_stop_distance_pct": min(stop_distances),
+        "maximum_stop_distance_pct": max(stop_distances),
+        "position_notional_usdc": max(notionals),
+        "minimum_position_notional_usdc": min(notionals),
+        "maximum_position_notional_usdc": max(notionals),
+        "venue_max_leverage": venue_max,
+        "cost_notional_bucket_usdc": max(cost_buckets),
+        "cost_roundtrip_bps_by_scenario": {
+            scenario: max(row[scenario] for row in cost_bps_rows)
+            for scenario in scenarios},
+        "cost_variable_roundtrip_bps_by_scenario": {
+            scenario: max(row[scenario] for row in variable_bps_rows)
+            for scenario in scenarios},
+        "cost_fixed_usdc_by_scenario": {
+            scenario: max(row[scenario] for row in fixed_usdc_rows)
+            for scenario in scenarios},
         "robustness_tested_leverage": tested_leverage,
         "liquidation_model": gate["liquidation_model"],
         "evaluated_leverage_grid": grid, "leverage_evaluations": evaluations,
@@ -281,6 +316,8 @@ def build_artifact(*, campaign_id: str, trace_paths: list[Path],
     base = artifact_path.resolve().parent
     for path in trace_paths:
         trace = json.loads(path.read_text())
+        if trace.get("schema_version") == 2 and rebuild_from_trace(trace) != trace:
+            raise ValueError("Trace de compte petit no reproduible des de les fonts")
         candidate_id = trace.get("candidate_id")
         if candidate_id not in robust_metrics or candidate_id in evaluated:
             raise ValueError("Filiacio de candidat de compte petit invalida")

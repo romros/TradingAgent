@@ -208,19 +208,28 @@ def extract(path: Path) -> dict:
     spread = None
     point_value = None
     order_size_multiplier = None
+    tick_step = None
     if instrument is not None and "defaultSpread" in instrument.attrib:
         try:
             spread = float(instrument.attrib["defaultSpread"])
         except ValueError:
             pass
     if instrument is not None:
-        try:
-            point_value = float(instrument.attrib["pointValue"])
-            order_size_multiplier = float(
-                instrument.attrib.get("orderSizeMultiplier", "1"))
-        except (KeyError, ValueError):
-            point_value = None
-            order_size_multiplier = None
+        for key, default, assign in (
+                ("pointValue", None, "point_value"),
+                ("orderSizeMultiplier", "1", "order_size_multiplier"),
+                ("tickStep", None, "tick_step")):
+            raw = instrument.attrib.get(key, default)
+            try:
+                parsed = float(raw) if raw is not None else None
+            except ValueError:
+                parsed = None
+            if assign == "point_value":
+                point_value = parsed
+            elif assign == "order_size_multiplier":
+                order_size_multiplier = parsed
+            else:
+                tick_step = parsed
     contract = {
         "schema_version": 1,
         "source": str(path),
@@ -239,6 +248,7 @@ def extract(path: Path) -> dict:
             "swap_enabled": _swap_enabled(settings, instrument),
             "point_value": point_value,
             "order_size_multiplier": order_size_multiplier,
+            "tick_step": tick_step,
         },
         "entries": entries,
         "entry_condition_counts": entry_condition_counts,

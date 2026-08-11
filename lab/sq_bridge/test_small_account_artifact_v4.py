@@ -129,6 +129,28 @@ def test_fixed_oracle_is_not_scaled_down_from_larger_cost_bucket(tmp_path):
         5.333333333333333)
 
 
+def test_dynamic_stops_size_each_trade_and_use_worst_margin_envelope(tmp_path):
+    methodology = json.loads((ROOT / "methodology_v4.json").read_text())
+    trace = _trace()
+    trace["schema_version"] = 2
+    trace.pop("stop_distance_pct")
+    for index, trade in enumerate(trace["trades"]):
+        trade["initial_stop_distance_pct"] = 1 if index < 15 else 2
+    costs = _cost_model(tmp_path)
+    digest = hashlib.sha256(costs.read_bytes()).hexdigest()
+    trace["cost_model_sha256"] = digest
+    result = evaluate_trace(
+        trace, methodology["small_account"],
+        {"tested_leverage": 5, "venue_max_leverage": 100},
+        json.loads(costs.read_text()), digest)
+    assert result["minimum_position_notional_usdc"] == 150
+    assert result["maximum_position_notional_usdc"] == 300
+    assert result["position_notional_usdc"] == 300
+    assert result["minimum_stop_distance_pct"] == 1
+    assert result["maximum_stop_distance_pct"] == 2
+    assert result["collateral_usdc"] == 60
+
+
 def test_small_account_selects_best_worst_cost_expectancy_deterministically(tmp_path):
     robustness = _robustness(tmp_path, ("a", "b"))
     costs = _cost_model(tmp_path)

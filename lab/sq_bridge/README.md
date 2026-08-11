@@ -588,18 +588,35 @@ contracte reobre totes les traces de l'escaneig i recomputa que el leverage
 declarat sigui realment el màxim segur preregistrat.
 
 `small_account_economics` parteix de retorns bruts trade a trade, costat i
-durada, del model de costos congelat i del rebut de robustesa anterior:
+durada, del model de costos congelat i del rebut de robustesa anterior. Abans
+del sizing cal congelar l'export de candles usat per SQ i demostrar-ne la
+paritat OHLC amb Dukascopy, sense consultar rendiment:
 
 ```bash
-PYTHONPATH=../.. python3 small_account_artifact_v4.py \
+PYTHONPATH=../.. python3 candle_source_contract_v4.py \
+  --sq-candles /path/to/sq-candles.csv --sq-timezone UTC \
+  --dukascopy-candles /path/to/dukascopy-candles.csv \
+  --dukascopy-timezone UTC --symbol EURUSD --timeframe M15 \
+  --output /path/to/candle-parity.json
+
+PYTHONPATH=../.. python3 sq_small_account_stage_v4.py \
   --campaign-id CAMPAIGN_ID \
-  --trace /path/to/candidate-a.small-account.trace.json \
   --robustness-artifact /path/to/state/artifacts/05_robustness.json \
   --cost-model /path/to/eurusd_costs_frozen_v4.json \
+  --candles /path/to/sq-candles.csv --candle-timezone UTC \
+  --candle-contract /path/to/candle-parity.json \
+  --work-dir /path/to/state/small-account \
   --artifact-output /path/to/state/artifacts/06_small_account_economics.json
 ```
 
-Amb 200 USDC, el nocional es deriva de `capital × risc% / stop%`. El leverage
+L'stage reobre el SQX exacte del Retest, tradueix el seu stop i reconstrueix per
+cada trade l'ATR de la barra anterior amb les candles congelades. També exigeix
+timestamp i preu d'entrada coincidents dins del `tickStep` de l'instrument. Els
+stops percentuals es conserven directament; cap stop dinàmic es reemplaça per
+un escalar escrit a mà.
+
+Amb 200 USDC, el nocional de cada operació es deriva de
+`capital × risc% / stop_inicial%`. El leverage
 no augmenta aquest nocional: només redueix col·lateral fins al màxim que encara
 respecta marge, reserva, buffer de liquidació i l'envelope provat a robustesa.
 El constructor comprova el SHA-256 del model, selecciona conservadorament el

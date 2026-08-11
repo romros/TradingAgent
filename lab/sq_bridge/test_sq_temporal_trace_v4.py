@@ -107,6 +107,8 @@ def test_derives_train_and_annual_oos_windows_from_observed_sq_orders(tmp_path):
     assert trace["oos_windows"][0]["trades"][0]["gross_return_pct"] == pytest.approx(1)
     assert trace["oos_windows"][1]["trades"][0]["holding_days"] == 2
     assert trace["train_trades"][0]["maximum_adverse_excursion_pct"] == 2
+    assert trace["train_trades"][0]["entry_timestamp"] == "2020-01-02T10:00:00+00:00"
+    assert trace["train_trades"][0]["entry_price"] == 1
     assert rebuild_from_trace(trace) == trace
 
 

@@ -179,7 +179,10 @@ def test_worker_cron_is_separate_locked_and_non_overlapping():
     assert "eurusd_v4_temporal_worker" in runner
     assert "eurusd_v4_robustness_worker" in runner
     assert "eurusd_v4_small_account_worker" in runner
+    assert "portfolio_coordinator_v4" in runner
     assert "eurusd_v4_holdout_worker" in runner
+    assert runner.index("portfolio_coordinator_v4") < runner.index(
+        "eurusd_v4_holdout_worker")
     assert "eurusd_v4_translation_worker" in runner
     assert "eurusd_v4_parity_worker" in runner
     assert "eurusd_v4_paper_package_worker" in runner

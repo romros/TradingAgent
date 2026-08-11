@@ -28,6 +28,8 @@ PYTHONPATH="$ROOT" python3 -m lab.sq_bridge.eurusd_v4_small_account_worker \
   --robustness-worker-dir "$ROBUSTNESS_DIR" --worker-config "$CONFIG" \
   --output-dir "$SMALL_ACCOUNT_DIR"
 
+PYTHONPATH="$ROOT" python3 -m lab.sq_bridge.portfolio_coordinator_v4
+
 PYTHONPATH="$ROOT" python3 -m lab.sq_bridge.eurusd_v4_holdout_worker \
   --small-account-worker-dir "$SMALL_ACCOUNT_DIR" --worker-config "$CONFIG" \
   --output-dir "$HOLDOUT_DIR"

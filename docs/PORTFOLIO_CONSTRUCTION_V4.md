@@ -39,6 +39,32 @@ la projecció crea una tercera posició, supera el 3% de risc de stop, compromet
 més del 60% de l'equity actual o repeteix una candidata ja activa. Aquesta
 funció és pura: retorna `PASS` o `BLOCK`, però no envia cap ordre.
 
+## Registre global i terminalitat
+
+`portfolio_registry_v4.json` és l'inventari preregistrat de campanyes. Es pot
+ampliar només abans de consultar el rendiment de la campanya nova; una campanya
+ja registrada no s'elimina perquè fracassi. Mentre `registration_closed=false`,
+el coordinador publica `WAITING_FOR_REGISTRATION_CLOSE` i no crea cap manifest.
+
+Per cada `campaign_root`, `portfolio_coordinator_v4.py` recorre en ordre els
+rebuts SQ, temporal, robustesa i compte petit. Un rebuig en qualsevol etapa és
+terminal i forma part de l'evidència global. Només un `PASS_SMALL_ACCOUNT`
+aporta una candidata. El coordinador espera totes les campanyes registrades i
+rebutja rebuts posteriors a un rebuig terminal; així no es pot construir la
+cartera només amb els experiments favorables.
+
+Execució idempotent:
+
+```bash
+PYTHONPATH=. .venv/bin/python -m lab.sq_bridge.portfolio_coordinator_v4
+```
+
+La sortida durable és `data/alquimia_v4/portfolio/portfolio_coordinator_status.json`.
+Quan el registre està tancat i totes les campanyes són terminals, crea el
+manifest i executa automàticament la construcció de cartera. El worker de
+holdout reobre i recomputa l'artefacte, i exigeix que la candidata i el hash
+exacte del seu sizing constin en la cartera seleccionada.
+
 ## Manifest de campanya
 
 ```json
@@ -65,6 +91,5 @@ PYTHONPATH=. .venv/bin/python -m lab.sq_bridge.portfolio_construction_v4 \
   --output /ruta/portfolio_construction.json
 ```
 
-El manifest definitiu només es crearà quan hagin acabat totes les branques de
-compte petit. La integració del worker de holdout ha de comprovar que la seva
-candidata i el hash exacte del seu artefacte consten en aquesta selecció.
+El manifest definitiu només es crea quan el registre està tancat i totes les
+campanyes han arribat a PASS de compte petit o a un rebuig terminal anterior.

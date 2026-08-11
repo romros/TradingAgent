@@ -1,0 +1,49 @@
+{
+  "archive_chain": {
+    "archives": 90,
+    "decision": "PASS_ARCHIVE_CHAIN",
+    "mismatches": []
+  },
+  "bucket_alignment_hours_utc": [
+    0,
+    4,
+    8,
+    12,
+    16,
+    20
+  ],
+  "campaign_id": "ethusd-h4-alquimia-v4",
+  "canonical_path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/ethusd_h4_canonical_v4.csv",
+  "canonical_sha256": "9a1c1db40399fcd960b74eb36f415f26d06c716c92d2d30847b0e86cdacd7c66",
+  "complete_minutes_required_per_bar": 240,
+  "coverage_ratio": 0.9976868760652544,
+  "decision": "PASS_CANONICAL_H4_PROXY_SOURCE_NOT_RESEARCH_AUTHORIZED",
+  "dropped_incomplete_buckets": 38,
+  "first_bar_utc": "2019-01-01T00:00:00+00:00",
+  "holdout_accessed": false,
+  "last_bar_utc": "2026-06-30T20:00:00+00:00",
+  "live_authorized": false,
+  "manifest_path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/ethusdt_binance_full_source_manifest.json",
+  "manifest_sha256": "4049ae9403568698a7cca1f57af3bbf852ccbd11a223582937f5c860cef077c8",
+  "paper_authorized": false,
+  "performance_accessed": false,
+  "possible_buckets": 16428,
+  "proxy_mapping_required": true,
+  "research_authorized": false,
+  "research_symbol": "ETHUSD",
+  "rows": 16390,
+  "schema_version": 1,
+  "selection_basis": "provenance_continuity_and_coverage_only_no_returns",
+  "source_inventory": {
+    "first_utc": "2019-01-01T00:00:00+00:00",
+    "gap_intervals": 22,
+    "last_utc": "2026-06-30T23:59:00+00:00",
+    "missing_minutes": 4090,
+    "rows": 3938630
+  },
+  "source_path": "/mnt/volume-SQ/user/imports/alquimia_eth/ETHUSDT_BINANCE_M1_FULL.csv",
+  "source_sha256": "357a01c213204b7dd4f75d82ef0b82e5dd9e026660f3e2f1ef4093b2475f995a",
+  "source_symbol": "ETHUSDT",
+  "timeframe": "H4",
+  "timezone": "UTC"
+}

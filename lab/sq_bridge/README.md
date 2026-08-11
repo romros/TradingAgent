@@ -284,6 +284,27 @@ els intents reals i recalcula PF
 per variant i exigeix que la central i almenys dos veïns superin 50 trades i PF
 1,20 sota tots tres costos. Una hipòtesi rebutjada no arriba a SQCLI.
 
+BTCUSD i ETHUSD H4 parteixen d'una cadena separada i encara no autoritzen
+recerca. `crypto_h4_canonical_source_v4.py` reobre els manifests oficials
+Binance, verifica els 190 ZIP mensuals i els CSV M1 byte a byte, i només agrega
+blocs UTC 00/04/08/12/16/20 amb les 240 marques minutals exactes. El resultat
+actual és 18.215 barres BTC (99,73%; 49 blocs incomplets descartats) i 16.390
+ETH (99,77%; 38 descartats), fins al 30/06/2026. No s'omplen forats.
+
+El proxy Binance `*USDT` no s'equipara automàticament a Ostium `*USD`. El cron
+cripto captura un book ticker Binance abans i després de cada snapshot Ostium,
+interpola el preu al mateix instant i refresca
+`crypto_proxy_mapping_v4.py`. El gate exigeix com a mínim 240 parelles durant
+60 dies, 12 hores UTC diferents, bracket màxim de 45 s, base absoluta mediana
+≤10 bps i p95 ≤25 bps, correlació de retorns ≥0,999 i error de retorn p95 ≤10
+bps, a més de 60 dies de candles natives Ostium. Fins llavors la decisió és
+`WARMING`, `research_authorized=false` i SQCLI no rep aquests mercats.
+
+Les 18 hipòtesis crypto (tres mecanismes × both/long/short × dos mercats), els
+rangs, splits i holdout comú ja són tancats a
+`crypto_h4_campaign_preregistration_v4.json` abans de consultar rendiment. Les
+famílies antigues v11–v21 no són candidates ni evidència quantitativa v4.
+
 US500 D1 aplica el mateix contracte amb un productor, bootstrap i trigger
 independents. El cron de quotes de sessió recompon el preflight i invoca el
 trigger després de cada captura; mentre no hi ha 30 mostres en tres sessions

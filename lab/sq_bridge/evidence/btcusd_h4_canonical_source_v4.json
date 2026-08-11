@@ -1,0 +1,49 @@
+{
+  "archive_chain": {
+    "archives": 100,
+    "decision": "PASS_ARCHIVE_CHAIN",
+    "mismatches": []
+  },
+  "bucket_alignment_hours_utc": [
+    0,
+    4,
+    8,
+    12,
+    16,
+    20
+  ],
+  "campaign_id": "btcusd-h4-alquimia-v4",
+  "canonical_path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/btcusd_h4_canonical_v4.csv",
+  "canonical_sha256": "38940d8ab43029d14481a20feebf11b7f1b50b290e26ec6889433a23b97508db",
+  "complete_minutes_required_per_bar": 240,
+  "coverage_ratio": 0.997317126587823,
+  "decision": "PASS_CANONICAL_H4_PROXY_SOURCE_NOT_RESEARCH_AUTHORIZED",
+  "dropped_incomplete_buckets": 49,
+  "first_bar_utc": "2018-03-01T00:00:00+00:00",
+  "holdout_accessed": false,
+  "last_bar_utc": "2026-06-30T20:00:00+00:00",
+  "live_authorized": false,
+  "manifest_path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/btcusdt_binance_full_source_manifest.json",
+  "manifest_sha256": "690ec463d3c13619fea0a453c48a247bee9a2bea09fd199992f809851dbc3c91",
+  "paper_authorized": false,
+  "performance_accessed": false,
+  "possible_buckets": 18264,
+  "proxy_mapping_required": true,
+  "research_authorized": false,
+  "research_symbol": "BTCUSD",
+  "rows": 18215,
+  "schema_version": 1,
+  "selection_basis": "provenance_continuity_and_coverage_only_no_returns",
+  "source_inventory": {
+    "first_utc": "2018-03-01T00:00:00+00:00",
+    "gap_intervals": 27,
+    "last_utc": "2026-06-30T23:59:00+00:00",
+    "missing_minutes": 5881,
+    "rows": 4377479
+  },
+  "source_path": "/mnt/volume-SQ/user/imports/alquimia_btc/BTCUSDT_BINANCE_M1_FULL.csv",
+  "source_sha256": "ccc111b7925d29b8cab82195b467add2e9eed71bedb3461e9689fd1b62d2a40a",
+  "source_symbol": "BTCUSDT",
+  "timeframe": "H4",
+  "timezone": "UTC"
+}

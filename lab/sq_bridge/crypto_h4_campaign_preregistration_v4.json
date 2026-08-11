@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "preregistration_id": "crypto-h4-alquimia-v4",
+  "registered_at_utc": "2026-08-11T00:00:00Z",
+  "registration_closed": true,
+  "selection_basis": "mechanism_plausibility_data_coverage_and_ostium_availability_only",
+  "performance_accessed": false,
+  "legacy_candidates_reused": false,
+  "capital_usdc": 200,
+  "markets": {
+    "BTCUSD": {
+      "campaign_id": "btcusd-h4-alquimia-v4",
+      "research_proxy": "BTCUSDT Binance spot",
+      "canonical_source_receipt": "lab/sq_bridge/evidence/btcusd_h4_canonical_source_v4.json",
+      "temporal_split_utc": {
+        "train": ["2018-03-01", "2022-04-30"],
+        "validation": ["2022-05-01", "2023-12-31"],
+        "oos": ["2024-01-01", "2025-09-30"],
+        "final_holdout": ["2025-10-01", "2026-06-30"],
+        "embargo_bars": 10
+      }
+    },
+    "ETHUSD": {
+      "campaign_id": "ethusd-h4-alquimia-v4",
+      "research_proxy": "ETHUSDT Binance spot",
+      "canonical_source_receipt": "lab/sq_bridge/evidence/ethusd_h4_canonical_source_v4.json",
+      "temporal_split_utc": {
+        "train": ["2019-01-01", "2022-09-30"],
+        "validation": ["2022-10-01", "2024-03-31"],
+        "oos": ["2024-04-01", "2025-09-30"],
+        "final_holdout": ["2025-10-01", "2026-06-30"],
+        "embargo_bars": 10
+      }
+    }
+  },
+  "directed_hypotheses": {
+    "mechanisms": [
+      "channel_breakout",
+      "time_series_momentum",
+      "volatility_compression_breakout"
+    ],
+    "directions": ["both", "long", "short"],
+    "count_per_market": 9,
+    "count_total": 18
+  },
+  "profile_parameter_ranges": {
+    "crypto_h4_channel_breakout_v4": {
+      "indicator_period_min": 12,
+      "indicator_period_max": 120,
+      "shift_min": 1,
+      "shift_max": 2,
+      "exit_after_bars_min": 3,
+      "exit_after_bars_max": 30,
+      "exit_after_bars_step": 1,
+      "atr_stop_multiple_min": 1.0,
+      "atr_stop_multiple_max": 4.0,
+      "atr_stop_multiple_step": 0.25
+    },
+    "crypto_h4_time_series_momentum_v4": {
+      "indicator_period_min": 30,
+      "indicator_period_max": 180,
+      "shift_min": 1,
+      "shift_max": 2,
+      "exit_after_bars_min": 6,
+      "exit_after_bars_max": 30,
+      "exit_after_bars_step": 1,
+      "roc_threshold_min": -15,
+      "roc_threshold_max": 15,
+      "roc_threshold_step": 0.5,
+      "atr_stop_multiple_min": 1.0,
+      "atr_stop_multiple_max": 4.0,
+      "atr_stop_multiple_step": 0.25
+    },
+    "crypto_h4_volatility_compression_breakout_v4": {
+      "indicator_period_min": 12,
+      "indicator_period_max": 120,
+      "shift_min": 1,
+      "shift_max": 2,
+      "exit_after_bars_min": 3,
+      "exit_after_bars_max": 30,
+      "exit_after_bars_step": 1,
+      "compression_lookback_min": 12,
+      "compression_lookback_max": 72,
+      "compression_percentile_min": 10,
+      "compression_percentile_max": 40,
+      "compression_percentile_step": 5,
+      "atr_stop_multiple_min": 1.0,
+      "atr_stop_multiple_max": 4.0,
+      "atr_stop_multiple_step": 0.25
+    }
+  },
+  "budgets": {
+    "hypothesis_screen_attempts_per_directed_hypothesis": 5000,
+    "sq_generation_attempts_per_directed_hypothesis": 10000,
+    "accepted_candidates_global_budget_shared_with_all_v4_campaigns": 60,
+    "maximum_rules": 3
+  },
+  "required_preperformance_gates": [
+    "canonical_h4_source",
+    "binance_ostium_proxy_mapping_60d",
+    "ostium_small_account_costs",
+    "strategyquant_exact_ohlc_roundtrip"
+  ],
+  "current_state": "WAITING_PROXY_MAPPING_AND_COSTS",
+  "candidate_ids": [],
+  "holdout_accessed": false,
+  "research_authorized": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

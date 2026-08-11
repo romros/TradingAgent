@@ -65,6 +65,10 @@ def test_crypto_capture_is_hourly_every_day_and_separately_locked():
     installer = (root / "scripts/install_ostium_crypto_capture_cron.sh").read_text()
     assert 'OSTIUM_CRYPTO_PAIRS:-"BTC/USD ETH/USD"' in capture
     assert 'capture_ostium_economics_set.sh' in capture
+    assert "capture_binance_book_ticker_v4" in capture
+    assert "crypto_proxy_mapping_v4 observe" in capture
+    assert "crypto_proxy_mapping_v4 gate" in capture
+    assert "ostium_native_coverage_gate" in capture
     assert 'LINE="17 * * * * flock -n $LOCK ' in installer
     assert "tradingagent-ostium-crypto-economics.lock" in installer
 

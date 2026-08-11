@@ -96,8 +96,45 @@ continua només els intents propis que coincideixen en projecte i hash font.
 ## Paritat observada amb probe
 
 La paritat nativa ja no accepta traces preparats manualment. El Retest que
-captura els senyals s'executa amb el JAR instrumentat en un contenidor aïllat i
-el supervisor rep les dues opcions següents:
+captura els senyals s'executa amb el JAR instrumentat en un contenidor aïllat.
+El camí operatiu recomanat és un únic comandament recuperable:
+
+```bash
+PYTHONPATH=. .venv/bin/python -m lab.sq_bridge.sq_signal_probe_controller \
+  capture-retest \
+  --journal /state/parity/probe-controller/journal.json \
+  --capture-receipt /state/parity/probe-controller/capture.json \
+  --build-receipt /state/parity/probe-build/receipt.json \
+  --output-dir /state/parity/probe-output \
+  --raw-log /state/parity/probe-output/raw.log \
+  --cfx /state/parity/retest.cfx \
+  --manifest /state/parity/retest.manifest.json \
+  --retest-output-dir /state/parity/retest-run
+```
+
+El controlador comprova que SQ està globalment inactiu, escriu `PREPARED`
+abans de la primera mutació, atura el contenidor normal i crea el probe amb el
+mateix image ID, usuari i límits de CPU/memòria. `internal` queda read-only,
+`internal/tmp` i `testfiles` són tmpfs, només el JAR hashat se sobreposa
+read-only i el port es publica a `127.0.0.1`. Després del Retest verificat,
+elimina només el probe i restaura i verifica el SQCLI normal.
+
+Si el procés supervisor cau mentre SQ continua calculant, el controlador no
+restaura a cegues: conserva `PROBE_READY`, el contenidor i els rebuts per poder
+repetir exactament `capture-retest` i reprendre. L'estat es consulta amb:
+
+```bash
+PYTHONPATH=. .venv/bin/python -m lab.sq_bridge.sq_signal_probe_controller \
+  status --journal /state/parity/probe-controller/journal.json
+```
+
+`restore` és recuperació explícita i es nega a actuar si detecta projectes del
+probe encara en execució. Una captura completada és idempotent i revalida els
+hashes abans de retornar el mateix rebut. Errors del daemon o permisos Docker
+fallen tancats; només `no such object/container` significa absència.
+
+Per diagnosi o integració de baix nivell, el supervisor encara accepta les
+dues opcions següents:
 
 ```bash
 python -m lab.sq_bridge.sqcli_supervised_retest \
@@ -136,9 +173,9 @@ traces i artefacte en una sola invocació:
 
 El verificador reobre el `parity-source-bundle.json` i encreua traducció,
 Retest, JAR, raw log, parser, normalització, històric complet, IR i traces. Una
-modificació posterior de qualsevol font invalida la cadena. El contenidor
-aïllat és responsabilitat de l'orquestrador operatiu; el stage no atura ni
-substitueix silenciosament un SQCLI actiu.
+modificació posterior de qualsevol font invalida la cadena. El stage de paritat
+no substitueix silenciosament SQCLI: el cicle de vida queda separat i provat al
+controlador operatiu anterior.
 
 ## Límit actual
 

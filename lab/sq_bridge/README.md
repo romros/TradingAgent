@@ -759,6 +759,14 @@ l'error màxim a nocional 200 USDC és 0,00091 USDC; l'artefacte formal retorna
 `PASS`. Això certifica la traducció d'aquest subset, no la rendibilitat del
 candidat (el Retest SQ és perdedor i no es promociona).
 
+El cicle de vida segur del probe és a `sq_signal_probe_controller.py`. El
+subcomandament `capture-retest` fa start→Retest supervisat→verificació→restore
+amb journal durable; `status` no muta res i `restore` és la recuperació manual.
+Una interrupció del supervisor deixa deliberadament el probe actiu i el journal
+en `PROBE_READY`, de manera que repetir la mateixa captura reprèn la feina en
+lloc de perdre-la. El contenidor normal només es restaura automàticament després
+d'un Retest verificat o si falla la creació inicial del probe.
+
 Per regenerar la traça Python amb warm-up sense operar fora de la prova:
 
 ```bash

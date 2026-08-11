@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "checked_utc": "2026-08-11T11:42:25Z",
+  "decision": "PASS_SQCLI_MOMENTUM_STRUCTURAL_IMPORT",
+  "scope": "ROC momentum CFX structure and SQ resource resolution only",
+  "project_name": "ALQUIMIA_CRYPTO_H4_MOMENTUM_CFX_SMOKE",
+  "source_cfx_sha256": "c2c17d7335064b1fb67660cc14153f0d658599085039ffa53ec64125727c8c23",
+  "sq_imported_cfx_path": "/home/squser/SQ/user/projects/ALQUIMIA_CRYPTO_H4_MOMENTUM_CFX_SMOKE/project.cfx",
+  "sq_imported_cfx_sha256": "8821a39157fc6201fbc9b1effaae79f095877b7f7d0142a998bf002ba1c7dfe4",
+  "checks": {
+    "has_unresolved_resources": false,
+    "running_status": 0,
+    "strategies_present": 0,
+    "post_import_xml_contract_verified": true,
+    "genetic_shape": [4, 100, 25],
+    "enabled_signal_block": "ROCAboveLevel",
+    "money_management": "CryptoSizeByPrice",
+    "initial_capital_usdc": 200
+  },
+  "translation_scope": "sq_proposal_generation_only",
+  "known_semantic_differences": [
+    "SQ_NATIVE_ATR_WILDER_VS_ALQUIMIA_SMA14",
+    "SQ_INDICATORS_CROSS_CANONICAL_DATA_GAPS"
+  ],
+  "python_parity_required": true,
+  "strategy_promotion_authorized": false,
+  "performance_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

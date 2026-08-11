@@ -47,4 +47,7 @@ def test_crypto_h4_profiles_are_bounded_and_stop_protected():
         assert 2 <= values["exit_after_bars_min"] < values["exit_after_bars_max"] <= 30
         assert values["atr_stop_multiple_min"] >= 1
         assert values["atr_stop_multiple_max"] <= 4
+    momentum = profiles["crypto_h4_time_series_momentum_v4"]
+    assert momentum["roc_threshold_min"] == 0
+    assert momentum["roc_threshold_max"] == 15
     assert registration["budgets"]["accepted_candidates_global_budget_shared_with_all_v4_campaigns"] == 60

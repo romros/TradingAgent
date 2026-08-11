@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from lab.sq_bridge.crypto_h4_experiment_design_v4 import parameter_axes
 from lab.sq_bridge.crypto_h4_signal_semantics_v4 import verify as verify_semantics
 from lab.sq_bridge.us500_d1_market_preflight_v4 import write_atomic
 
@@ -48,9 +49,17 @@ def compile_plan(*, selector_path: Path, candidate_id: str, design_path: Path,
     selector, design, resource = (_load(path) for path in
                                   (selector_path, design_path, resource_path))
     semantics = verify_semantics(semantics_path)
+    replay = selector.get("replay_receipt") or {}
     if (selector.get("decision") != "PASS_STABLE_REGIONS"
             or selector.get("replay_verified") is not True
-            or not isinstance(selector.get("replay_receipt"), dict)
+            or not isinstance(replay.get("replayed_unique_points"), int)
+            or isinstance(replay.get("replayed_unique_points"), bool)
+            or replay.get("replayed_unique_points") < 3
+            or replay.get("design_sha256") != _sha(design_path)
+            or replay.get("semantics_sha256") != _sha(semantics_path)
+            or not isinstance(replay.get("sources"), dict) or not replay["sources"]
+            or not isinstance(replay.get("costs"), dict) or not replay["costs"]
+            or not isinstance(replay.get("chunks"), dict) or not replay["chunks"]
             or selector.get("validation_accessed") is not False
             or selector.get("oos_accessed") is not False
             or selector.get("holdout_accessed") is not False):
@@ -72,12 +81,28 @@ def compile_plan(*, selector_path: Path, candidate_id: str, design_path: Path,
     if len(branch_matches) != 1:
         raise ValueError("selected hypothesis absent from sealed design")
     branch = branch_matches[0]
+    if any(region.get(key) != branch.get(key) for key in (
+            "campaign_id", "market", "mechanism", "direction", "profile")):
+        raise ValueError("selected region identity differs from sealed branch")
     prereg_path = Path(design["preregistration"]["path"])
     if (not prereg_path.is_file()
             or design["preregistration"]["sha256"] != _sha(prereg_path)):
         raise ValueError("sealed crypto preregistration changed")
     prereg = _load(prereg_path)
     train = prereg["markets"][region["market"]]["temporal_split_utc"]["train"]
+    axes = parameter_axes(
+        branch["profile"], prereg["profile_parameter_ranges"][branch["profile"]])
+    members = region.get("member_parameters")
+    attempts = region.get("member_attempts")
+    central_key = str(region.get("central_attempt"))
+    if (not isinstance(members, dict) or not isinstance(attempts, list)
+            or sorted(members) != sorted(str(value) for value in attempts)
+            or central_key not in members
+            or region.get("central_parameters") != members[central_key]
+            or any(set(parameters) != set(axes)
+                   or any(parameters[name] not in values for name, values in axes.items())
+                   for parameters in members.values())):
+        raise ValueError("selected region parameters differ from sealed axes")
     sq = semantics["contract"]["strategyquant_generation_contract"]
     money = sq["money_management"]
     result = {

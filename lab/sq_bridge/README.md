@@ -378,14 +378,54 @@ El rebut `sq143_crypto_size_by_price_v4.json` forma part del contracte i una
 instal·lació SQ o font diferent invalida el pla abans de crear CFX.
 
 `crypto_h4_cfx_v4.py` materialitza una regió `channel_breakout` reproduïble en
-un CFX natiu SQ 143. Configura 4×100×25, 80/20, migració 5/10, sense reinicis,
+un CFX natiu SQ 143; `time_series_momentum` també queda suportat després
+d'hashar i reobrir la implementació ROC instal·lada. ROC és percentatge ×100,
+amb comparacions estrictes, i el preregistre exclou llindars negatius redundants
+(domini 0…15%, pas 0,5). Configura 4×100×25, 80/20, migració 5/10, sense reinicis,
 capital 200, `CryptoSizeByPrice`, stop ATR(14), sortida temporal, direcció
-congelada i només els nou blocs necessaris. Reobre el ZIP i verifica dates,
+congelada i només el subset mínim de blocs de cada mecanisme. Reobre el ZIP i verifica dates,
 recurs, genètica, costos grossos zero, stops, sortida, sides, sizing i límit de
 temps. El supervisor reserva un guard de 64 intents: el llindar efectiu és 9.936
 de 10.000, no un intent; el límit d'un acceptat és un contracte separat.
-`time_series_momentum` falla amb `ROC_UNIT_PROBE_REQUIRED` i compressió
-amb `ATR_PERCENTILE_CUSTOM_BLOCK_REQUIRED`: no es tradueixen aproximacions.
+Compressió falla amb `ATR_PERCENTILE_CUSTOM_BLOCK_REQUIRED`: no es tradueix
+una aproximació silenciosa.
+
+L'auditoria `sq143_atr_gap_difference_v4.json` impedeix, però, declarar paritat
+nativa completa: ATR de SQ és recursiu tipus Wilder, Alquímia usa SMA de 14 TR,
+i els canònics contenen 26 intervals no-H4 a BTC i 21 a ETH. Fins que existeixi
+un bloc ATR/gap-safe validat, aquests CFX només generen propostes. Cada manifest,
+batch i rebut d'import exigeix `translation_scope=sq_proposal_generation_only`,
+`python_parity_required=true` i `strategy_promotion_authorized=false`. El
+resultat SQ mai no pot promocionar un candidat sense reexecució canònica Python.
+
+Quan el selector global real existeixi, el batch complet és automàtic,
+recuperable i atòmic per candidat:
+
+```bash
+PYTHONPATH=. python3 -m lab.sq_bridge.crypto_h4_project_batch_v4 \
+  --selector /path/to/global_selector.json \
+  --design lab/sq_bridge/evidence/crypto_h4_experiment_design_v4.json \
+  --semantics lab/sq_bridge/crypto_h4_signal_semantics_v4.json \
+  --scaffold /mnt/volume-SQ/user/projects/ALQUIMIA_REPRO_SMOKE/project.cfx \
+  --btc-resource lab/sq_bridge/evidence/btcusd_alq_h4_sq_resource_v4.json \
+  --eth-resource lab/sq_bridge/evidence/ethusd_alq_h4_sq_resource_v4.json \
+  --output-dir /mnt/volume-SQ/user/alquimia_runtime/crypto_h4_projects_v4
+```
+
+El batch falla abans de crear projectes si algun seleccionat usa un mecanisme
+encara no traduït. L'import és una fase separada i no inicia SQCLI:
+
+```bash
+PYTHONPATH=. python3 -m lab.sq_bridge.crypto_h4_sqcli_import_v4 \
+  --batch /mnt/volume-SQ/user/alquimia_runtime/crypto_h4_projects_v4/crypto_h4_project_batch.json \
+  --output-dir /mnt/volume-SQ/user/alquimia_runtime/crypto_h4_import_v4
+```
+
+Abans i després de cada import comprova liveness autoritativa, col·lisions,
+recursos resolts, CFX reserialitzat i hashes. No hi ha cap crida `Start`.
+El rebut `crypto_h4_momentum_cfx_smoke_v4.json` prova que SQ 143 importa el
+subset ROC, el manté aturat, no crea estratègies i conserva el contracte després
+de reserialitzar-lo; és evidència estructural, no de rendiment.
 
 El smoke real `crypto_h4_cfx_smoke_v4.json` va detectar i corregir una distinció
 de SQ important: un recurs importat des de fitxer usa `source=1`, crypto usa

@@ -32,6 +32,7 @@ def verify(path: Path) -> dict[str, Any]:
     acceptance = value.get("screen_acceptance_contract") or {}
     temporal = value.get("temporal_contract") or {}
     gaps = value.get("data_gap_contract") or {}
+    momentum = (value.get("indicator_contract") or {}).get("time_series_momentum") or {}
     sq = value.get("strategyquant_generation_contract") or {}
     money = sq.get("money_management") or {}
     errors = []
@@ -80,6 +81,30 @@ def verify(path: Path) -> dict[str, Any]:
             or gaps.get("open_position_crossing_gap") != "exclude_trade"
             or gaps.get("gap_is_not_a_synthetic_exit") is not True):
         errors.append("DATA_GAPS")
+    roc_receipt_path = Path(str(momentum.get("sq_source_contract_path", "")))
+    if not roc_receipt_path.is_absolute():
+        roc_receipt_path = (path.parent / roc_receipt_path).resolve()
+    try:
+        roc_receipt = _load(roc_receipt_path) if roc_receipt_path.is_file() else {}
+    except (OSError, json.JSONDecodeError, ValueError):
+        roc_receipt = {}
+    roc_sources = roc_receipt.get("installed_sources") or {}
+    roc_sources_valid = True
+    for key in ("roc", "above", "below"):
+        source = roc_sources.get(key) or {}
+        source_path = Path(str(source.get("path", "")))
+        if not source_path.is_file() or source.get("sha256") != sha256(source_path):
+            roc_sources_valid = False
+    if (momentum.get("roc_threshold_domain_pct") != "0_to_15_inclusive_step_0.5"
+            or roc_receipt.get("decision") != "PASS_SQ_ROC_SOURCE_CONTRACT"
+            or not roc_sources_valid
+            or (roc_receipt.get("semantics") or {}).get("roc_pct") !=
+            "(current_close-close_period_bars_ago)/close_period_bars_ago*100"
+            or (roc_receipt.get("semantics") or {}).get("above_comparison") !=
+            "strict_greater_than"
+            or (roc_receipt.get("semantics") or {}).get("below_comparison") !=
+            "strict_less_than"):
+        errors.append("SQ_ROC_SEMANTICS")
     if (sq.get("version") != "143.2708"
             or sq.get("search_method") != "genetic_evolution"
             or sq.get("nominal_evaluations") != 10_000
@@ -101,8 +126,25 @@ def verify(path: Path) -> dict[str, Any]:
             or sq.get("sq_embedded_spread") != 0
             or sq.get("sq_embedded_commission") != 0
             or sq.get("external_ostium_cost_revalidation_required") is not True
+            or sq.get("sq_translation_scope") !=
+            "proposal_generation_only_until_python_parity"
             or sq.get("maximum_promoted_candidate_per_stable_region") != 1):
         errors.append("STRATEGYQUANT_GENERATION")
+    atr_difference_path = Path(str(sq.get("native_atr_difference_contract_path", "")))
+    if not atr_difference_path.is_absolute():
+        atr_difference_path = (path.parent / atr_difference_path).resolve()
+    try:
+        atr_difference = _load(atr_difference_path) if atr_difference_path.is_file() else {}
+    except (OSError, json.JSONDecodeError, ValueError):
+        atr_difference = {}
+    atr_source = Path(str((atr_difference.get("installed_atr_source") or {}).get(
+        "path", "")))
+    if (atr_difference.get("decision") != "BLOCK_NATIVE_SQ_ATR_FULL_PARITY"
+            or atr_difference.get("custom_gap_safe_atr_required_for_native_parity")
+            is not True or not atr_source.is_file()
+            or (atr_difference.get("installed_atr_source") or {}).get("sha256") !=
+            sha256(atr_source)):
+        errors.append("SQ_NATIVE_ATR_DIFFERENCE")
     money_path = Path(str(money.get("source_contract_path", "")))
     if not money_path.is_absolute():
         money_path = (path.parent / money_path).resolve()

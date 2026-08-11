@@ -111,7 +111,7 @@
       "attempts": 5000,
       "campaign_id": "btcusd-h4-alquimia-v4",
       "direction": "both",
-      "grid_cardinality": 5987150,
+      "grid_cardinality": 3042650,
       "hypothesis_id": "btcusd_time_series_momentum_both_v4",
       "market": "BTCUSD",
       "mechanism": "time_series_momentum",
@@ -132,9 +132,9 @@
           "minimum": 30
         },
         "roc_threshold_pct": {
-          "count": 61,
+          "count": 31,
           "maximum": 15.0,
-          "minimum": -15.0
+          "minimum": 0.0
         },
         "shift": {
           "count": 2,
@@ -142,7 +142,7 @@
           "minimum": 1
         }
       },
-      "points_sha256": "4f20b47eb5f5e3a89fac0130f6211e14cd0254934dea4463ceec3650384358f8",
+      "points_sha256": "c35991387010a3e3814d4f65408e395f62e942bc545116fb735f2d4c213a7b4b",
       "profile": "crypto_h4_time_series_momentum_v4",
       "seed": "crypto-h4-alquimia-v4|btcusd_time_series_momentum_both_v4",
       "timeframe": "H4"
@@ -151,7 +151,7 @@
       "attempts": 5000,
       "campaign_id": "btcusd-h4-alquimia-v4",
       "direction": "long",
-      "grid_cardinality": 5987150,
+      "grid_cardinality": 3042650,
       "hypothesis_id": "btcusd_time_series_momentum_long_v4",
       "market": "BTCUSD",
       "mechanism": "time_series_momentum",
@@ -172,9 +172,9 @@
           "minimum": 30
         },
         "roc_threshold_pct": {
-          "count": 61,
+          "count": 31,
           "maximum": 15.0,
-          "minimum": -15.0
+          "minimum": 0.0
         },
         "shift": {
           "count": 2,
@@ -182,7 +182,7 @@
           "minimum": 1
         }
       },
-      "points_sha256": "e2fe9aa2a24812f9089e8c52e39756a3636a02c97e35af99ba3da103abc06956",
+      "points_sha256": "d7849db8e66026d1d2806cd0540e314517f01fef2ad2ae253a698a376e0a43f8",
       "profile": "crypto_h4_time_series_momentum_v4",
       "seed": "crypto-h4-alquimia-v4|btcusd_time_series_momentum_long_v4",
       "timeframe": "H4"
@@ -191,7 +191,7 @@
       "attempts": 5000,
       "campaign_id": "btcusd-h4-alquimia-v4",
       "direction": "short",
-      "grid_cardinality": 5987150,
+      "grid_cardinality": 3042650,
       "hypothesis_id": "btcusd_time_series_momentum_short_v4",
       "market": "BTCUSD",
       "mechanism": "time_series_momentum",
@@ -212,9 +212,9 @@
           "minimum": 30
         },
         "roc_threshold_pct": {
-          "count": 61,
+          "count": 31,
           "maximum": 15.0,
-          "minimum": -15.0
+          "minimum": 0.0
         },
         "shift": {
           "count": 2,
@@ -222,7 +222,7 @@
           "minimum": 1
         }
       },
-      "points_sha256": "1ead5ca69268176bce13064365becebc5a06d0d0a7ae4872ca2ba747c1f1813d",
+      "points_sha256": "ba2748731f5d025a16c0644953a6295c86984d794451f5c4081bcf20915f0f01",
       "profile": "crypto_h4_time_series_momentum_v4",
       "seed": "crypto-h4-alquimia-v4|btcusd_time_series_momentum_short_v4",
       "timeframe": "H4"
@@ -471,7 +471,7 @@
       "attempts": 5000,
       "campaign_id": "ethusd-h4-alquimia-v4",
       "direction": "both",
-      "grid_cardinality": 5987150,
+      "grid_cardinality": 3042650,
       "hypothesis_id": "ethusd_time_series_momentum_both_v4",
       "market": "ETHUSD",
       "mechanism": "time_series_momentum",
@@ -492,9 +492,9 @@
           "minimum": 30
         },
         "roc_threshold_pct": {
-          "count": 61,
+          "count": 31,
           "maximum": 15.0,
-          "minimum": -15.0
+          "minimum": 0.0
         },
         "shift": {
           "count": 2,
@@ -502,7 +502,7 @@
           "minimum": 1
         }
       },
-      "points_sha256": "aff3d7e14dcb846ffb9cf1afe3d723aba6e2504d7e6a992279fdb06c1279e6e5",
+      "points_sha256": "1dc5dd8a0521f342fb006fa9ea2f7749a5179b8ab7148400b8915fa9b9c3add7",
       "profile": "crypto_h4_time_series_momentum_v4",
       "seed": "crypto-h4-alquimia-v4|ethusd_time_series_momentum_both_v4",
       "timeframe": "H4"
@@ -511,7 +511,7 @@
       "attempts": 5000,
       "campaign_id": "ethusd-h4-alquimia-v4",
       "direction": "long",
-      "grid_cardinality": 5987150,
+      "grid_cardinality": 3042650,
       "hypothesis_id": "ethusd_time_series_momentum_long_v4",
       "market": "ETHUSD",
       "mechanism": "time_series_momentum",
@@ -532,9 +532,9 @@
           "minimum": 30
         },
         "roc_threshold_pct": {
-          "count": 61,
+          "count": 31,
           "maximum": 15.0,
-          "minimum": -15.0
+          "minimum": 0.0
         },
         "shift": {
           "count": 2,
@@ -542,7 +542,7 @@
           "minimum": 1
         }
       },
-      "points_sha256": "8298bec1c6b725014c565fb715444ea61eedabd2f1b6d451bf90322b11ce4304",
+      "points_sha256": "7c9044ffde1e4bb8cfc970a919eb1fe4ad9d0b180d85cd4759163e67dbabffca",
       "profile": "crypto_h4_time_series_momentum_v4",
       "seed": "crypto-h4-alquimia-v4|ethusd_time_series_momentum_long_v4",
       "timeframe": "H4"
@@ -551,7 +551,7 @@
       "attempts": 5000,
       "campaign_id": "ethusd-h4-alquimia-v4",
       "direction": "short",
-      "grid_cardinality": 5987150,
+      "grid_cardinality": 3042650,
       "hypothesis_id": "ethusd_time_series_momentum_short_v4",
       "market": "ETHUSD",
       "mechanism": "time_series_momentum",
@@ -572,9 +572,9 @@
           "minimum": 30
         },
         "roc_threshold_pct": {
-          "count": 61,
+          "count": 31,
           "maximum": 15.0,
-          "minimum": -15.0
+          "minimum": 0.0
         },
         "shift": {
           "count": 2,
@@ -582,7 +582,7 @@
           "minimum": 1
         }
       },
-      "points_sha256": "a81108d4dd9b02ec4a05d52b6a9363da8a63b03300ecc19b346b7178f123606c",
+      "points_sha256": "4357186f9c942a482a21ffded9cd7d85859487e65820d06d6e909d424736db8f",
       "profile": "crypto_h4_time_series_momentum_v4",
       "seed": "crypto-h4-alquimia-v4|ethusd_time_series_momentum_short_v4",
       "timeframe": "H4"
@@ -724,7 +724,7 @@
     }
   ],
   "capital_usdc": 200,
-  "combined_points_sha256": "cfc7f3923aa14e9d27cc771c7eb4a6bde1e6ac44d70b860c2a9775a4e4cf5efb",
+  "combined_points_sha256": "6c9ed3e91781b80a5402687a91db1a1ce6547d1633bcbeabe021e7673bbfcd8d",
   "directed_hypotheses": 18,
   "holdout_accessed": false,
   "live_authorized": false,
@@ -733,7 +733,7 @@
   "performance_accessed": false,
   "preregistration": {
     "path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/crypto_h4_campaign_preregistration_v4.json",
-    "sha256": "6e9e9586fc3cf0bace2215fa6315898ba4363e513a05337ba45314b180f74939"
+    "sha256": "bd417680428ef297f94d810439b4f57acbe8c3a1eea729e49011b488feff6c20"
   },
   "research_authorized": false,
   "sampling_method": "sha256_seeded_unique_joint_grid_v1",

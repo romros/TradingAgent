@@ -30,6 +30,9 @@ def _plan(tmp_path, mechanism="channel_breakout"):
             "shift": {"minimum": 1, "maximum": 2},
             "exit_after_bars": {"minimum": 9, "maximum": 11},
             "atr_stop_multiple": {"minimum": 1.75, "maximum": 2.25}}}
+    if mechanism == "time_series_momentum":
+        plan["parameter_search_space"]["roc_threshold_pct"] = {
+            "minimum": 2.0, "maximum": 3.0}
     path = tmp_path / "plan.json"; path.write_text(json.dumps(plan)); return path
 
 
@@ -42,16 +45,29 @@ def test_compiles_real_sq_scaffold_with_crypto_sizing(tmp_path):
     assert verification["money_management"] == {
         "UseAccountBalance": "false", "MaxSize": "100", "Decimals": "4"}
     assert manifest["sqcli_authorized"] is False
+    assert manifest["python_parity_required"] is True
+    assert manifest["strategy_promotion_authorized"] is False
     normalized = output.with_name("normalized.cfx")
     normalized.write_bytes(output.read_bytes())
     assert verify_cfx(normalized, manifest, require_archive_hash=False)["valid"] is True
 
 
 @pytest.mark.skipif(not SCAFFOLD.is_file(), reason="real SQ 143 scaffold unavailable")
-def test_refuses_unproved_momentum_or_compression_translation(tmp_path):
-    with pytest.raises(ValueError, match="ROC_UNIT_PROBE_REQUIRED"):
-        compile_cfx(_plan(tmp_path, "time_series_momentum"), SCAFFOLD,
-                    tmp_path / "momentum.cfx")
+def test_compiles_source_verified_momentum_and_refuses_compression(tmp_path):
+    output = tmp_path / "momentum.cfx"
+    manifest = compile_cfx(_plan(tmp_path, "time_series_momentum"), SCAFFOLD, output)
+    verified = verify_cfx(output, manifest)
+    assert "ROCAboveLevel" in verified["enabled_blocks"]
+    assert "Indicators.Highest" not in verified["enabled_blocks"]
+    short_plan = _plan(tmp_path, "time_series_momentum")
+    short_value = json.loads(short_plan.read_text())
+    short_value["direction"] = "short"
+    short_value["project_name"] = "ALQ4_BTCUSD_SHORT_TEST"
+    short_plan.write_text(json.dumps(short_value))
+    short_output = tmp_path / "momentum-short.cfx"
+    short_manifest = compile_cfx(short_plan, SCAFFOLD, short_output)
+    assert "ROCBelowLevel" in verify_cfx(
+        short_output, short_manifest)["enabled_blocks"]
     with pytest.raises(ValueError, match="ATR_PERCENTILE_CUSTOM_BLOCK_REQUIRED"):
         compile_cfx(_plan(tmp_path, "volatility_compression_breakout"), SCAFFOLD,
                     tmp_path / "compression.cfx")

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_SQ_ROC_SOURCE_CONTRACT",
+  "sq_version": "143.2708",
+  "installed_sources": {
+    "roc": {
+      "path": "/home/roman/dockers-SQ/6ACC10/internal/extend/Snippets/SQ/Blocks/Indicators/ROC/ROC.java",
+      "sha256": "e852479c8cdf2f06c2bdadb9fa84b06b348c826e37389d93ba50a0e99baf6e64"
+    },
+    "above": {
+      "path": "/home/roman/dockers-SQ/6ACC10/internal/extend/Snippets/SQ/Blocks/Indicators/ROC/ROCAboveLevel.java",
+      "sha256": "55d6c2edef849ff7c25f4d67f6fcafcbdd5dd73272c5d872fdb25c9d41aeca9b"
+    },
+    "below": {
+      "path": "/home/roman/dockers-SQ/6ACC10/internal/extend/Snippets/SQ/Blocks/Indicators/ROC/ROCBelowLevel.java",
+      "sha256": "867eb1584a30f21de535ee25b1c24de7641bd6ff5be03270b27dbb474e419f14"
+    }
+  },
+  "semantics": {
+    "roc_pct": "(current_close-close_period_bars_ago)/close_period_bars_ago*100",
+    "warmup_value": 0,
+    "above_comparison": "strict_greater_than",
+    "below_comparison": "strict_less_than",
+    "opposite_blocks": ["ROCAboveLevel", "ROCBelowLevel"],
+    "opposite_oscillator_middle_value": 0
+  },
+  "selection_basis": "installed SQ source only; no strategy performance accessed",
+  "performance_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

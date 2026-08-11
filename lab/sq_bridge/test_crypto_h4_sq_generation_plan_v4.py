@@ -1,4 +1,5 @@
 import json
+import hashlib
 from pathlib import Path
 
 import pytest
@@ -28,7 +29,12 @@ def _selector(tmp_path, replay=True):
                         "exit_after_bars": 11, "atr_stop_multiple": 2.0}}}
     path = tmp_path / "selector.json"
     path.write_text(json.dumps({"decision": "PASS_STABLE_REGIONS",
-        "replay_verified": replay, "replay_receipt": {"sha256": "a" * 64},
+        "replay_verified": replay, "replay_receipt": {
+            "replayed_unique_points": 3,
+            "design_sha256": hashlib.sha256(DESIGN.read_bytes()).hexdigest(),
+            "semantics_sha256": hashlib.sha256(SEMANTICS.read_bytes()).hexdigest(),
+            "sources": {"BTCUSD": {}}, "costs": {"BTCUSD": {}},
+            "chunks": {"btcusd_channel_breakout_long_v4": {}}},
         "selected_regions": [region], "validation_accessed": False,
         "oos_accessed": False, "holdout_accessed": False}))
     return path
@@ -61,3 +67,25 @@ def test_refuses_region_without_deterministic_replay(tmp_path):
         compile_plan(selector_path=_selector(tmp_path, False), candidate_id="alq4_test",
             design_path=DESIGN, semantics_path=SEMANTICS, sq_resource_path=RESOURCE,
             output_path=tmp_path / "plan.json")
+
+
+def test_refuses_selected_region_identity_or_parameter_drift(tmp_path):
+    identity = _selector(tmp_path)
+    changed = json.loads(identity.read_text())
+    changed["selected_regions"][0]["mechanism"] = "time_series_momentum"
+    identity.write_text(json.dumps(changed))
+    with pytest.raises(ValueError, match="identity differs"):
+        compile_plan(selector_path=identity, candidate_id="alq4_test",
+            design_path=DESIGN, semantics_path=SEMANTICS, sq_resource_path=RESOURCE,
+            output_path=tmp_path / "identity-plan.json")
+
+    parameters = _selector(tmp_path)
+    changed = json.loads(parameters.read_text())
+    region = changed["selected_regions"][0]
+    region["central_parameters"]["indicator_period"] = 999
+    region["member_parameters"]["1"]["indicator_period"] = 999
+    parameters.write_text(json.dumps(changed))
+    with pytest.raises(ValueError, match="parameters differ"):
+        compile_plan(selector_path=parameters, candidate_id="alq4_test",
+            design_path=DESIGN, semantics_path=SEMANTICS, sq_resource_path=RESOURCE,
+            output_path=tmp_path / "parameter-plan.json")

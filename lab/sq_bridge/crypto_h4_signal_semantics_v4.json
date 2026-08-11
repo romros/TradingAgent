@@ -2,7 +2,7 @@
   "schema_version": 1,
   "semantics_id": "crypto-h4-signal-semantics-v4",
   "experiment_design_path": "evidence/crypto_h4_experiment_design_v4.json",
-  "experiment_design_sha256": "9aa19a1d263d337fb28091b2819754d6c0874ee6ec59bb62679cde22e8d36d58",
+  "experiment_design_sha256": "30aaee174b59f6635710f376832f2676937accde0b6047c8826acb1df85e29f5",
   "selected_before_performance": true,
   "bar_contract": {
     "timeframe": "H4",
@@ -29,6 +29,8 @@
       "roc_pct": "100*(endpoint_close/close_indicator_period_bars_before_endpoint-1)",
       "long": "roc_pct > roc_threshold_pct",
       "short": "roc_pct < -roc_threshold_pct",
+      "roc_threshold_domain_pct": "0_to_15_inclusive_step_0.5",
+      "sq_source_contract_path": "evidence/sq143_roc_semantics_v4.json",
       "ambiguous_both_signal": "skip"
     },
     "volatility_compression_breakout": {
@@ -148,6 +150,8 @@
     "sq_embedded_spread": 0,
     "sq_embedded_commission": 0,
     "external_ostium_cost_revalidation_required": true,
+    "native_atr_difference_contract_path": "evidence/sq143_atr_gap_difference_v4.json",
+    "sq_translation_scope": "proposal_generation_only_until_python_parity",
     "maximum_promoted_candidate_per_stable_region": 1,
     "leverage_stage": "after_temporal_robustness_and_python_parity"
   },

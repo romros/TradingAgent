@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "decision": "BLOCK_NATIVE_SQ_ATR_FULL_PARITY",
+  "sq_version": "143.2708",
+  "installed_atr_source": {
+    "path": "/home/roman/dockers-SQ/6ACC10/internal/extend/Snippets/SQ/Blocks/Indicators/ATR/ATR.java",
+    "sha256": "feee1fdc1bdd6389396499af8af12feed97e5fa357858f994c847ba4431fbe80",
+    "method": "recursive Wilder-style average after warmup"
+  },
+  "alquimia_contract": {
+    "method": "simple moving average of 14 true ranges",
+    "indicator_window_crossing_gap": "invalid",
+    "open_position_crossing_gap": "exclude_trade"
+  },
+  "canonical_gap_audit": {
+    "BTCUSD": {
+      "path": "evidence/btcusd_h4_canonical_v4.csv",
+      "sha256": "38940d8ab43029d14481a20feebf11b7f1b50b290e26ec6889433a23b97508db",
+      "non_h4_intervals": 26
+    },
+    "ETHUSD": {
+      "path": "evidence/ethusd_h4_canonical_v4.csv",
+      "sha256": "9a1c1db40399fcd960b74eb36f415f26d06c716c92d2d30847b0e86cdacd7c66",
+      "non_h4_intervals": 21
+    }
+  },
+  "allowed_use": "SQ proposal generation followed by mandatory canonical Python parity",
+  "forbidden_claim": "native SQ ATR backtest is execution-equivalent to Alquimia",
+  "custom_gap_safe_atr_required_for_native_parity": true,
+  "performance_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

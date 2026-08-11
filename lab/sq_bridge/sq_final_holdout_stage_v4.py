@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Callable
 
 from lab.sq_bridge.alquimia_retest import generate
+from lab.sq_bridge.candle_source_contract_v4 import verify as verify_candle_contract
 from lab.sq_bridge.final_holdout_artifact_v4 import build_artifact
 from lab.sq_bridge.final_holdout_trace_v4 import derive
 from lab.sq_bridge.small_account_trace_v4 import rebuild_from_trace as rebuild_small
@@ -84,6 +85,12 @@ def run_stage(*, campaign_id: str, small_account_artifact_path: Path,
     if temporal_contract.get("contract_type") != "observation_position_temporal_split_v4":
         raise ValueError("FINAL_HOLDOUT_TEMPORAL_CONTRACT_INVALID")
     segments = temporal_contract["segments"]
+    candle_contract = json.loads(candle_contract_path.read_text())
+    if (verify_candle_contract(candle_contract) != candle_contract
+            or candle_contract.get("decision") != "PASS_CANDLE_PARITY"
+            or candle_contract.get("last_common_timestamp_utc", "")[:10]
+                < segments["final_holdout"]["to"]):
+        raise ValueError("FINAL_HOLDOUT_CANDLE_COVERAGE_INCOMPLETE")
     periods = {
         "train_from": segments["train"]["from"], "train_to": segments["train"]["to"],
         "validation_from": segments["validation"]["from"],
@@ -114,7 +121,6 @@ def run_stage(*, campaign_id: str, small_account_artifact_path: Path,
     project_name = "ALQ_HOLDOUT_" + hashlib.sha256(
         f"{campaign_id}:{candidate_id}".encode()).hexdigest()[:16].upper()
     cfx = candidate_dir / "holdout.cfx"
-    candle_contract = json.loads(candle_contract_path.read_text())
     manifest = generate_fn(
         source=source_cfx, output=cfx, project_name=project_name,
         stage="holdout", manifest_path=release_manifest,
@@ -153,6 +159,8 @@ def run_stage(*, campaign_id: str, small_account_artifact_path: Path,
         "holdout_release_manifest_path": str(release_manifest.resolve()),
         "holdout_release_manifest_sha256": _sha(release_manifest),
         "native_sq_uncensored": manifest["performance_filters_applied_in_sq"] is False,
+        "methodology_path": str(methodology_path.resolve()),
+        "methodology_sha256": _sha(methodology_path),
     })
     write_atomic(artifact_path, artifact)
     return artifact

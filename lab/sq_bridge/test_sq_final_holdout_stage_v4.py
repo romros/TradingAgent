@@ -43,13 +43,16 @@ def _inputs(tmp_path):
             "final_holdout": {"from": "2023-01-01", "to": "2023-12-31"}}}))
     candles = tmp_path / "candles.csv"; candles.write_text("candles")
     candle_contract = tmp_path / "candle.json"
-    candle_contract.write_text(json.dumps({"symbol": "NVDA", "timeframe": "M15"}))
+    candle_contract.write_text(json.dumps({
+        "symbol": "NVDA", "timeframe": "M15", "decision": "PASS_CANDLE_PARITY",
+        "last_common_timestamp_utc": "2023-12-31T00:00:00+00:00"}))
     return costs, sizing, split, candles, candle_contract
 
 
 def test_orchestrates_exactly_one_native_uncensored_holdout(tmp_path, monkeypatch):
     costs, sizing, split, candles, candle_contract = _inputs(tmp_path)
     monkeypatch.setattr(module, "rebuild_small", lambda value: value)
+    monkeypatch.setattr(module, "verify_candle_contract", lambda value: value)
     calls = {"generate": 0, "supervise": 0, "derive": 0, "artifact": 0}
 
     def generate(**kwargs):
@@ -99,6 +102,7 @@ def test_orchestrates_exactly_one_native_uncensored_holdout(tmp_path, monkeypatc
 def test_release_intent_cannot_change_after_being_written(tmp_path, monkeypatch):
     costs, sizing, split, candles, candle_contract = _inputs(tmp_path)
     monkeypatch.setattr(module, "rebuild_small", lambda value: value)
+    monkeypatch.setattr(module, "verify_candle_contract", lambda value: value)
     candidate_dir = tmp_path / "work" / hashlib.sha256(b"T").hexdigest()[:16]
     candidate_dir.mkdir(parents=True)
     (candidate_dir / "holdout-release-manifest.json").write_text("{}")

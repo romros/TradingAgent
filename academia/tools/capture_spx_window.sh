@@ -23,6 +23,7 @@ sdk_workdir=/tmp/ostium-sdk-inspect
 raw="${stem}.jsonl"
 summary="${stem}-summary.json"
 log="${stem}.log"
+container_raw="/host-tmp/$(basename "$raw")"
 
 exec >>"$log" 2>&1
 echo "capture_start=$(date -u +%Y-%m-%dT%H:%M:%SZ) window=$window"
@@ -32,9 +33,15 @@ test -d "$sdk_workdir/node_modules/@ostium/builder-sdk"
 test ! -e "$raw"
 
 cd "$sdk_workdir"
-node "$workspace/academia/tools/collect_ostium_execution_quotes.mjs" \
-  "--output=$raw" "--window=$window" --count=20 --interval-ms=95000
-python3 "$workspace/academia/tools/summarize_execution_quotes.py" \
+/usr/bin/docker run --rm \
+  --volume "$workspace:/repo:ro" \
+  --volume "$sdk_workdir:/work:ro" \
+  --volume /tmp:/host-tmp \
+  --workdir /work \
+  node:22-alpine \
+  node /repo/academia/tools/collect_ostium_execution_quotes.mjs \
+  "--output=$container_raw" "--window=$window" --count=20 --interval-ms=95000
+/usr/bin/python3 "$workspace/academia/tools/summarize_execution_quotes.py" \
   "$raw" --output "$summary"
 sha256sum "$raw" "$summary"
 echo "capture_end=$(date -u +%Y-%m-%dT%H:%M:%SZ)"

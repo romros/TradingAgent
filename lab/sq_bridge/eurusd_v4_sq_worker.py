@@ -16,6 +16,7 @@ from lab.sq_bridge.eurusd_v4_screen_trigger import (
     _copy_atomic, verify_completed as verify_screen,
 )
 from lab.sq_bridge.sq_generation_stage_v4 import run_stage
+from lab.sq_bridge.sq_generation_universe_v4 import build_universe
 from lab.sq_bridge.sqcli_import_batch import import_batch
 from lab.sq_bridge.sqcli_transport import list_projects
 from lab.sq_bridge.us500_d1_market_preflight_v4 import write_atomic
@@ -99,6 +100,7 @@ def tick(
     compile_fn: Callable[..., dict] = compile_projects,
     import_fn: Callable[..., dict] = import_batch,
     run_fn: Callable[..., dict] = run_stage,
+    universe_fn: Callable[..., dict] = build_universe,
     screen_verify_fn: Callable[[Path], dict] = verify_screen,
     scaffold_validate_fn: Callable[..., dict] = validate_scaffold,
 ) -> dict[str, Any]:
@@ -147,6 +149,10 @@ def tick(
             path = Path(str(row.get("path", "")))
             if not path.is_file() or _sha(path) != row.get("sha256"):
                 raise ValueError("completed generation artifact changed")
+        universe_path = Path(str(result.get("global_generation_artifact_path", "")))
+        if (not universe_path.is_file()
+                or _sha(universe_path) != result.get("global_generation_artifact_sha256")):
+            raise ValueError("completed global generation artifact changed")
         return result
 
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -254,14 +260,24 @@ def tick(
         journal["phase"] = "IMPORTED"
         write_atomic(journal_path, journal)
 
-    candidates = sorted({candidate for row in artifacts.values()
-                         for candidate in row.get("candidate_ids", [])})
+    generation_paths = {
+        hypothesis_id: Path(row["path"])
+        for hypothesis_id, row in artifacts.items()
+    }
+    universe_path = output_dir / "global_sq_generation.json"
+    universe = universe_fn(
+        campaign_id=campaign_id,
+        generation_artifact_paths=generation_paths,
+        output_path=universe_path)
+    candidates = universe["candidate_ids"]
     result = {
         "schema_version": 1,
         "decision": ("PASS_SQ_GENERATION_ORCHESTRATED" if candidates
                      else "REJECT_NO_SQ_CANDIDATES"),
         "campaign_id": campaign_id, "selected_hypothesis_ids": sorted(selected),
         "generation_artifacts": artifacts, "candidate_ids": candidates,
+        "global_generation_artifact_path": str(universe_path.resolve()),
+        "global_generation_artifact_sha256": _sha(universe_path),
         "sqcli_import_receipt_path": str((output_dir / "sqcli_import" /
                                            "sqcli_import_receipt.json").resolve()),
         "paper_authorized": False, "live_authorized": False,

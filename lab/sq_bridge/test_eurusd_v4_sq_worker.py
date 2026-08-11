@@ -107,10 +107,16 @@ def test_runs_all_branches_sequentially_and_replays_final_receipt(tmp_path):
         kwargs["output_path"].write_text(json.dumps(value))
         return value
 
+    def universe_(**kwargs):
+        value = {"decision": "PASS", "candidate_ids": ["candidate-1"]}
+        kwargs["output_path"].write_text(json.dumps(value))
+        return value
+
     common = dict(
         screen_dir=screen, config_path=config, output_dir=tmp_path / "out",
         screen_verify_fn=lambda _: receipt, scaffold_validate_fn=_scaffold,
-        compile_fn=compile_, import_fn=import_, run_fn=run_, listing_fn=lambda _: [])
+        compile_fn=compile_, import_fn=import_, run_fn=run_, universe_fn=universe_,
+        listing_fn=lambda _: [])
     first = tick(**common)
     assert first["decision"] == "PASS_SQ_GENERATION_ORCHESTRATED"
     assert first["candidate_ids"] == ["candidate-1"]
@@ -144,10 +150,15 @@ def test_resumes_only_its_own_running_branch_after_interruption(tmp_path):
         kwargs["output_path"].write_text(json.dumps(value))
         return value
 
+    def universe_(**kwargs):
+        value = {"decision": "REJECT", "candidate_ids": []}
+        kwargs["output_path"].write_text(json.dumps(value))
+        return value
+
     common = dict(
         screen_dir=screen, config_path=config, output_dir=tmp_path / "out",
         screen_verify_fn=lambda _: receipt, scaffold_validate_fn=_scaffold,
-        compile_fn=compile_, import_fn=import_, run_fn=run_)
+        compile_fn=compile_, import_fn=import_, run_fn=run_, universe_fn=universe_)
     with pytest.raises(RuntimeError, match="interrupted"):
         tick(**common, listing_fn=lambda _: [])
     journal = json.loads((tmp_path / "out/worker_journal.json").read_text())

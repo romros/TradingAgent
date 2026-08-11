@@ -923,6 +923,24 @@ comprova l'`orders.bin` de sortida i invoca l'export oficial SQCLI
 Per executar tota l'etapa temporal sobre els candidats d'un artefacte
 `sq_generation` real:
 
+Quan la generació prové de diverses hipòtesis, primer es congela un únic
+univers global. Això evita calcular un Pareto per branca i promocionar un
+candidat que en realitat queda dominat per un rival d'una altra branca:
+
+```bash
+PYTHONPATH=../.. python3 sq_generation_universe_v4.py \
+  --campaign-id CAMPAIGN_ID \
+  --generation-artifact BREAKOUT /path/to/breakout/sq_generation.json \
+  --generation-artifact MOMENTUM /path/to/momentum/sq_generation.json \
+  --generation-artifact REVERSION /path/to/reversion/sq_generation.json \
+  --output /path/to/state/global_sq_generation.json
+```
+
+L'agregador reobre cada SQX, comprova identitat i hash, conserva també les
+branques `REJECT`, deduplica només SQX idèntics i rebutja una mateixa identitat
+amb bytes diferents. El worker EURUSD crea i hasha aquest artefacte
+automàticament abans de declarar completada la generació.
+
 ```bash
 PYTHONPATH=../.. python3 sq_temporal_stage_v4.py \
   --campaign-id CAMPAIGN_ID \

@@ -33,6 +33,12 @@ no tanca cap operació aquell dia.
 
 No s'accedeix al holdout final, ni s'autoritza paper o live.
 
+Els mateixos límits es tornen a calcular abans de cada ordre paper amb
+`portfolio_entry_admission_v4.py`. Una instrucció de sizing no pot avançar si
+la projecció crea una tercera posició, supera el 3% de risc de stop, compromet
+més del 60% de l'equity actual o repeteix una candidata ja activa. Aquesta
+funció és pura: retorna `PASS` o `BLOCK`, però no envia cap ordre.
+
 ## Manifest de campanya
 
 ```json

@@ -288,6 +288,13 @@ def build(*, manifest_path: Path, methodology_path: Path, output_path: Path) -> 
         "decision": "PASS" if selected else "REJECT", "candidate_ids": selected,
         "holdout_accessed": False, "paper_authorized": False, "live_authorized": False,
         "selection_policy": gate["selection_policy"],
+        "aggregate_risk_policy": {
+            "maximum_concurrent_positions": gate["maximum_concurrent_positions"],
+            "maximum_concurrent_stop_risk_pct": gate[
+                "maximum_concurrent_stop_risk_pct"],
+            "maximum_concurrent_capital_commitment_pct": gate[
+                "maximum_concurrent_capital_commitment_pct"],
+        },
         "evaluated_candidate_ids": [row["candidate_id"] for row in candidates],
         "selected_hypothesis_ids": [next(row["hypothesis_id"] for row in candidates
                                          if row["candidate_id"] == candidate)

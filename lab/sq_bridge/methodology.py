@@ -211,6 +211,8 @@ def validate(config: dict) -> list[str]:
             errors.append("small_account: politica de leverage maxim segur obligatoria")
         if small.get("required_stop_loss") is not True:
             errors.append("small_account: stop obligatori")
+        if small.get("require_observed_venue_minimum_notional") is not True:
+            errors.append("small_account: minim nocional observat obligatori")
         if small.get("minimum_stop_to_liquidation_buffer_ratio", 0) < 1.5:
             errors.append("small_account: buffer de liquidacio insuficient")
         if small.get("liquidation_model") != "ostium_threshold_cost_buffered":

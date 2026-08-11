@@ -98,6 +98,19 @@ def select_cost_envelope(
     return bucket, variable_bps, fixed_usdc, carry
 
 
+def venue_minimum_notional(cost_model: dict) -> float:
+    limits = cost_model.get("venue_limits")
+    distribution = (limits or {}).get("min_notional_usd")
+    if not isinstance(distribution, dict):
+        raise ValueError("Minim nocional Ostium absent del model congelat")
+    # A strategy must remain executable across every observed snapshot, so use
+    # the largest observed venue minimum rather than p50.
+    value = _number(distribution.get("max"), "Minim nocional Ostium invalid")
+    if value <= 0:
+        raise ValueError("Minim nocional Ostium ha de ser positiu")
+    return value
+
+
 def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
                    cost_model: dict, expected_cost_hash: str) -> dict:
     schema_version = trace.get("schema_version")
@@ -129,6 +142,7 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
         raise ValueError("Hash de costos de compte petit no coincideix")
 
     scenarios = gate["cost_scenarios_required"]
+    venue_min_notional = venue_minimum_notional(cost_model)
     trades = trace.get("trades")
     if not isinstance(trades, list) or len(trades) < gate["minimum_trades"]:
         raise ValueError("Trades de compte petit insuficients")
@@ -212,6 +226,8 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
         liquidation_distance = min(liquidation_distances)
         buffer = min(buffers)
         reasons = []
+        if min(notionals) < venue_min_notional:
+            reasons.append("position_notional_below_venue_minimum")
         if leverage > tested_leverage:
             reasons.append("exceeds_robustness_tested_leverage")
         if margin_pct > gate["maximum_portfolio_margin_pct"]:
@@ -262,6 +278,8 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
         "position_notional_usdc": max(notionals),
         "minimum_position_notional_usdc": min(notionals),
         "maximum_position_notional_usdc": max(notionals),
+        "venue_minimum_notional_usdc": venue_min_notional,
+        "minimum_notional_pass": min(notionals) >= venue_min_notional,
         "venue_max_leverage": venue_max,
         "cost_notional_bucket_usdc": max(cost_buckets),
         "cost_roundtrip_bps_by_scenario": {
@@ -329,6 +347,7 @@ def build_artifact(*, campaign_id: str, trace_paths: list[Path],
         raise ValueError("Cal avaluar tots els candidats que superen robustesa")
     passing = {key: row for key, row in evaluated.items()
                if row["selected_leverage"] is not None
+               and row["minimum_notional_pass"] is True
                and row["trades"] >= gate["minimum_trades"]
                and row["net_expectancy_usdc"] >= gate["minimum_net_expectancy_usdc"]
                and row["net_profit_factor"] >= gate["minimum_net_profit_factor"]
@@ -367,6 +386,7 @@ def build_artifact(*, campaign_id: str, trace_paths: list[Path],
             "higher_leverage_rejection_reasons": row["higher_leverage_rejection_reasons"],
             "stop_loss_required": True,
             "position_notional_usdc": row["position_notional_usdc"],
+            "venue_minimum_notional_usdc": row["venue_minimum_notional_usdc"],
             "cost_notional_bucket_usdc": row["cost_notional_bucket_usdc"],
             "cost_roundtrip_bps_by_scenario": row["cost_roundtrip_bps_by_scenario"],
             "cost_variable_roundtrip_bps_by_scenario": (

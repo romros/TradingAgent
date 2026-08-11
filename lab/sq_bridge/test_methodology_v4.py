@@ -32,6 +32,8 @@ def test_v4_separates_pre_sq_screen_from_strategyquant_generation():
         "migration_every_generations": 5, "migration_rate_pct": 10,
         "initial_population_mode": 2}
     assert METHODOLOGY["sq_generation"]["accepted_candidates_global_budget"] == 60
+    assert METHODOLOGY["small_account"][
+        "require_observed_venue_minimum_notional"] is True
 
 
 def test_v4_rejects_unregistered_genetic_or_profile_ranges():

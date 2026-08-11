@@ -53,6 +53,8 @@ if stage == 'market_preflight':
         'by_notional': {'200': {'base_roundtrip_bps': 0,
                                 'conservative_roundtrip_bps': 1,
                                 'stress_roundtrip_bps': 2}},
+        'venue_limits': {'min_notional_usd': {
+            'min': 10, 'p50': 10, 'p95': 10, 'max': 10, 'n': 30}},
         'carry': {side: {scenario + '_annual_cost_pct': 0
                          for scenario in ('base', 'conservative', 'stress')}
                   for side in ('long', 'short')},
@@ -263,6 +265,8 @@ if stage == 'small_account_economics':
         'by_notional': {'500': {'base_roundtrip_bps': 0,
                                 'conservative_roundtrip_bps': 1,
                                 'stress_roundtrip_bps': 2}},
+        'venue_limits': {'min_notional_usd': {
+            'min': 10, 'p50': 10, 'p95': 10, 'max': 10, 'n': 30}},
         'carry': {'long': carry, 'short': carry}}))
     cost_hash = hashlib.sha256(cost_path.read_bytes()).hexdigest()
     trace_path = base / 'runner-sqx-001.small-account.trace.json'

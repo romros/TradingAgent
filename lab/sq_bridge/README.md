@@ -1003,23 +1003,24 @@ entre el Pareto i les 1.000 variants natives d'SQ.
 
 Els supervivents passen automàticament a
 `eurusd_v4_small_account_worker.py`. El contracte
-`evidence/eurusd_d1_full_candle_parity_v4.json` reobre 5.884 sessions NY-17
-entre 2003-05-05 i 2026-02-26: l'export d'SQ i la font D1 construïda des del
+`evidence/eurusd_d1_full_candle_parity_v4_v3.json` reobre 5.993 sessions NY-17
+entre 2003-05-05 i 2026-07-31: l'export d'SQ i la font D1 construïda des del
 Parquet Dukascopy tenen cobertura OHLC i coincidència del 100%. SQ només canvia
-el volum 0 d'una sessió festiva a 1; el sizing no usa volum. Per cada trade es
+volums 0 a 1; el sizing no usa volum. Per cada trade es
 reconstrueix el stop inicial des de la regla SQ i la candle anterior, s'aplica
 1,5% de risc sobre 200 USDC i es comproven costos, marge ≤35%, reserva ≥40%,
 buffer stop→liquidació ≥1,5 i l'envelope de leverage que havia superat
-robustesa. Cap leverage superior al provat per Monte Carlo pot ser seleccionat.
+robustesa. També exigeix que cada nocional calculat superi el màxim `minNtl`
+observat en les captures Ostium congelades. Cap leverage superior al provat per
+Monte Carlo ni cap ordre inferior al mínim del venue pot ser seleccionat.
 
 `eurusd_v4_holdout_worker.py` és l'únic component que pot crear la intenció
 d'obertura del holdout. Exigeix exactament un candidat `PASS_SMALL_ACCOUNT`,
 fonts congelades i cobertura de candles fins al darrer dia del segment. A
-2026-08-11 el contracte verificat arriba a 2026-02-26 però el holdout acaba a
-2026-07-31; per tant retorna `WAITING_FOR_HOLDOUT_CANDLE_COVERAGE`, amb comptador
-d'avaluacions 0, i no genera ni importa cap CFX. Quan la font s'actualitzi,
-l'execució serà única, uncensored i reprenable; un resultat negatiu serà
-terminal i no permetrà retuning.
+2026-08-11 V3 ja cobreix exactament fins al 2026-07-31; el bloqueig vigent és la
+maduresa dels costos, molt abans d'aquest stage. Quan hi arribi un únic candidat,
+l'execució del holdout serà única, uncensored i reprenable; un resultat negatiu
+serà terminal i no permetrà retuning.
 
 Després d'un `PASS_FINAL_HOLDOUT`, el mateix worker cron executa dues portes
 addicionals, sense cap pas manual. `eurusd_v4_translation_worker.py` tradueix

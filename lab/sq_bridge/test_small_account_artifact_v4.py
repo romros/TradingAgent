@@ -54,6 +54,8 @@ def _cost_model(tmp_path):
     path.write_text(json.dumps({
         "decision": "PASS_COSTS_FROZEN", "costs_frozen": True,
         "by_notional": {"500": row},
+        "venue_limits": {"min_notional_usd": {
+            "min": 10, "p50": 10, "p95": 10, "max": 10, "n": 30}},
         "carry": {"long": carry, "short": carry}}, sort_keys=True) + "\n")
     return path
 
@@ -77,6 +79,7 @@ def test_small_account_recomputes_performance_sizing_and_real_contract(tmp_path)
     assert artifact["decision"] == "PASS"
     assert artifact["selected_leverage"] == 5
     assert artifact["position_notional_usdc"] == 300
+    assert artifact["venue_minimum_notional_usdc"] == 10
     assert artifact["cost_notional_bucket_usdc"] == 500
     assert artifact["cost_roundtrip_bps_by_scenario"] == {
         "base": 0, "conservative": 1, "stress": 2}
@@ -149,6 +152,25 @@ def test_dynamic_stops_size_each_trade_and_use_worst_margin_envelope(tmp_path):
     assert result["minimum_stop_distance_pct"] == 1
     assert result["maximum_stop_distance_pct"] == 2
     assert result["collateral_usdc"] == 60
+
+
+def test_position_below_observed_venue_minimum_is_rejected(tmp_path):
+    robustness = _robustness(tmp_path)
+    costs = _cost_model(tmp_path)
+    model = json.loads(costs.read_text())
+    model["venue_limits"]["min_notional_usd"]["max"] = 350
+    costs.write_text(json.dumps(model, sort_keys=True) + "\n")
+    artifact = build_artifact(
+        campaign_id="campaign",
+        trace_paths=[_write(tmp_path, _trace(), costs)],
+        robustness_artifact_path=robustness, cost_model_path=costs,
+        methodology_path=ROOT / "methodology_v4.json",
+        artifact_path=tmp_path / "below-minimum.json")
+    row = artifact["evaluated_candidate_small_account_metrics"]["candidate"]
+    assert artifact["decision"] == "REJECT"
+    assert row["minimum_notional_pass"] is False
+    assert all("position_notional_below_venue_minimum" in value["rejection_reasons"]
+               for value in row["leverage_evaluations"].values())
 
 
 def test_small_account_selects_best_worst_cost_expectancy_deterministically(tmp_path):

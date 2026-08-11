@@ -211,6 +211,39 @@ def test_small_account_selects_best_worst_cost_expectancy_deterministically(tmp_
     assert set(artifact["evaluated_candidate_small_account_metrics"]) == {"a", "b"}
 
 
+def test_artifact_validator_ranks_only_venue_executable_candidates(tmp_path):
+    robustness = _robustness(tmp_path, ("a", "b"))
+    costs = _cost_model(tmp_path)
+    model = json.loads(costs.read_text())
+    model["venue_limits"]["min_notional_usd"].update({
+        "min": 200, "p50": 200, "p95": 200, "max": 200})
+    costs.write_text(json.dumps(model, sort_keys=True) + "\n")
+
+    # Candidate a has the better expectancy but its 150 USDC notional is
+    # below Ostium's observed minimum. Candidate b is worse but executable.
+    a = _trace("a", win=.8)
+    a["stop_distance_pct"] = 2
+    b = _trace("b", win=.5)
+    b["stop_distance_pct"] = 1
+
+    artifact_path = tmp_path / "small.json"
+    artifact = build_artifact(
+        campaign_id="campaign",
+        trace_paths=[_write(tmp_path, a, costs), _write(tmp_path, b, costs)],
+        robustness_artifact_path=robustness, cost_model_path=costs,
+        methodology_path=ROOT / "methodology_v4.json",
+        artifact_path=artifact_path)
+    assert artifact["evaluated_candidate_small_account_metrics"]["a"][
+        "minimum_notional_pass"] is False
+    assert artifact["candidate_ids"] == ["b"]
+    receipt = {"decision": "PASS", "candidate_ids": ["b"],
+               "holdout_accessed": False, "artifact": str(artifact_path)}
+    methodology = json.loads((ROOT / "methodology_v4.json").read_text())
+    assert validate_stage_artifact(
+        "small_account_economics", artifact, receipt, methodology,
+        "campaign", "alquimia_native") == []
+
+
 def test_small_account_trace_tampering_is_detected(tmp_path):
     robustness = _robustness(tmp_path)
     costs = _cost_model(tmp_path)

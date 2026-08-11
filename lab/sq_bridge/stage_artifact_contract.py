@@ -1251,6 +1251,8 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                 and all(isinstance(metric, dict) for metric in candidate_evaluated.values()))
             passing = ({key: metric for key, metric in candidate_evaluated.items()
                 if metric.get("selected_leverage") is not None
+                and (provenance == "synthetic_control"
+                     or metric.get("minimum_notional_pass") is True)
                 and _at_least(metric.get("trades"), small["minimum_trades"])
                 and _at_least(metric.get("net_expectancy_usdc"),
                               small["minimum_net_expectancy_usdc"])

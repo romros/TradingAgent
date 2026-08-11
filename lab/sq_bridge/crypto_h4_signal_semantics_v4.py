@@ -31,6 +31,7 @@ def verify(path: Path) -> dict[str, Any]:
     economics = value.get("economics_contract") or {}
     acceptance = value.get("screen_acceptance_contract") or {}
     temporal = value.get("temporal_contract") or {}
+    gaps = value.get("data_gap_contract") or {}
     errors = []
     if value.get("schema_version") != 1: errors.append("SCHEMA")
     if value.get("semantics_id") != "crypto-h4-signal-semantics-v4": errors.append("ID")
@@ -60,6 +61,12 @@ def verify(path: Path) -> dict[str, Any]:
             or temporal.get("oos_accessed") is not False
             or temporal.get("final_holdout_accessed") is not False):
         errors.append("TEMPORAL_SEAL")
+    if (gaps.get("expected_bar_spacing_hours") != 4
+            or gaps.get("imputation_allowed") is not False
+            or gaps.get("indicator_window_crossing_gap") != "invalid"
+            or gaps.get("open_position_crossing_gap") != "exclude_trade"
+            or gaps.get("gap_is_not_a_synthetic_exit") is not True):
+        errors.append("DATA_GAPS")
     for key in ("market_data_accessed", "performance_accessed", "research_authorized",
                 "sqcli_authorized", "paper_authorized", "live_authorized"):
         if value.get(key) is not False:

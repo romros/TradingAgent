@@ -15,6 +15,7 @@ def test_real_semantics_is_sealed_and_bound_to_design():
     assert contract["economics_contract"]["account_usdc"] == 200
     assert contract["position_contract"]["same_bar_priority"] == ["stop", "time_exit"]
     assert contract["temporal_contract"]["validation_accessed"] is False
+    assert contract["data_gap_contract"]["imputation_allowed"] is False
     assert contract["performance_accessed"] is False
 
 

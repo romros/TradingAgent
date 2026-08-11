@@ -329,6 +329,14 @@ si coincideixen dins la mateixa barra. El screen usa 200 USDC a 1x amb costos i
 carry Ostium congelats; sizing, compounding i leverage només s'obren després de
 validació temporal i robustesa. Validation, OOS i holdout continuen segellats.
 
+`crypto_h4_train_engine_v4.py` és la primera implementació independent del
+contracte: llegeix OHLC només fins al final de train (de la primera barra futura
+només llegeix el timestamp per aturar-se), segmenta gaps H4, calcula senyals i
+simula stop/time-exit sense solapament. Recalcula PnL, PF, expectancy, drawdown i
+anys positius a 200 USDC per als tres escenaris Ostium. Anys train sense trades
+compten com a no positius. El motor no obre validation/OOS/holdout ni autoritza
+paper/live; el worker recuperable de 90.000 punts és el pas següent.
+
 US500 D1 aplica el mateix contracte amb un productor, bootstrap i trigger
 independents. El cron de quotes de sessió recompon el preflight i invoca el
 trigger després de cada captura; mentre no hi ha 30 mostres en tres sessions

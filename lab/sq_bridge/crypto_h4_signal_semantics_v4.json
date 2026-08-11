@@ -58,6 +58,14 @@
     "short": "only_short_signals",
     "both": "long_and_short_signals_but_skip_if_both_true_on_same_decision"
   },
+  "data_gap_contract": {
+    "expected_bar_spacing_hours": 4,
+    "imputation_allowed": false,
+    "indicator_window_crossing_gap": "invalid",
+    "entry_crossing_gap": "invalid",
+    "open_position_crossing_gap": "exclude_trade",
+    "gap_is_not_a_synthetic_exit": true
+  },
   "economics_contract": {
     "account_usdc": 200,
     "screen_notional_usdc": 200,

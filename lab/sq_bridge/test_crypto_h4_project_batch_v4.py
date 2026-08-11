@@ -18,9 +18,12 @@ CANDIDATE = "alq4_0123456789abcdef"
 
 def _selector(tmp_path, mechanism="channel_breakout"):
     momentum = mechanism == "time_series_momentum"
+    compression = mechanism == "volatility_compression_breakout"
     hypothesis = ("btcusd_time_series_momentum_both_v4" if momentum else
+                  "btcusd_volatility_compression_breakout_both_v4" if compression else
                   "btcusd_channel_breakout_both_v4")
     profile = ("crypto_h4_time_series_momentum_v4" if momentum else
+               "crypto_h4_volatility_compression_breakout_v4" if compression else
                "crypto_h4_channel_breakout_v4")
     first = {"indicator_period": 50, "shift": 1,
              "exit_after_bars": 10, "atr_stop_multiple": 2.0}
@@ -32,6 +35,10 @@ def _selector(tmp_path, mechanism="channel_breakout"):
         first["roc_threshold_pct"] = 2.0
         second["roc_threshold_pct"] = 2.5
         third["roc_threshold_pct"] = 2.0
+    if compression:
+        first.update({"compression_lookback": 24, "compression_percentile": 25})
+        second.update({"compression_lookback": 25, "compression_percentile": 25})
+        third.update({"compression_lookback": 24, "compression_percentile": 30})
     region = {"candidate_id": CANDIDATE,
         "campaign_id": "btcusd-h4-alquimia-v4",
         "hypothesis_id": hypothesis,
@@ -94,9 +101,9 @@ def test_compiles_source_verified_momentum_region(tmp_path):
 
 
 @pytest.mark.skipif(not SCAFFOLD.is_file(), reason="real SQ 143 scaffold unavailable")
-def test_refuses_untranslated_selected_family_before_creating_output(tmp_path):
+def test_compiles_source_verified_compression_region(tmp_path):
     output = tmp_path / "batch"
     selector = _selector(tmp_path, "volatility_compression_breakout")
-    with pytest.raises(ValueError, match="UNTRANSLATED_SELECTED_MECHANISMS"):
-        _compile(selector, output)
-    assert not output.exists()
+    result = _compile(selector, output)
+    row = result["projects"][CANDIDATE]
+    assert row["mechanism"] == "volatility_compression_breakout"

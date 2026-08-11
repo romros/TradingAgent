@@ -17,6 +17,7 @@ SUPPORTED_SIGNAL_NODES = {
     "IsMonthLastTradingDay", "Number", "Boolean",
     "AlquimiaH4MomentumAbove", "AlquimiaH4MomentumBelow",
     "AlquimiaH4ChannelAbove", "AlquimiaH4ChannelBelow",
+    "AlquimiaH4CompressionChannelAbove", "AlquimiaH4CompressionChannelBelow",
 }
 SUPPORTED_ENTRY = {"EnterAtMarket"}
 SUPPORTED_ACTION_PARAMS = {

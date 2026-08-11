@@ -62,14 +62,20 @@ public final class AlquimiaSignalParityHarness {
                 String[] f = line.split(";", -1);
                 int decision = Integer.parseInt(f[0]), period = Integer.parseInt(f[1]);
                 int shift = Integer.parseInt(f[2]); double level = Double.parseDouble(f[3]);
+                int compressionLookback = Integer.parseInt(f[4]);
+                double compressionPercentile = Double.parseDouble(f[5]);
                 cursor(chart, rows.size(), decision + 1);
                 boolean[] actual = {
                     AlquimiaH4Signals.momentumAbove(chart, period, level, shift),
                     AlquimiaH4Signals.momentumBelow(chart, period, level, shift),
                     AlquimiaH4Signals.channelAbove(chart, period, shift),
-                    AlquimiaH4Signals.channelBelow(chart, period, shift)};
+                    AlquimiaH4Signals.channelBelow(chart, period, shift),
+                    AlquimiaH4Signals.compressionChannelAbove(
+                        chart, period, compressionLookback, compressionPercentile, shift),
+                    AlquimiaH4Signals.compressionChannelBelow(
+                        chart, period, compressionLookback, compressionPercentile, shift)};
                 for (int index = 0; index < actual.length; index++) {
-                    boolean expected = Integer.parseInt(f[4 + index]) == 1;
+                    boolean expected = Integer.parseInt(f[6 + index]) == 1;
                     if (actual[index] != expected) {
                         differences++;
                         if (differences <= 10) System.err.printf(

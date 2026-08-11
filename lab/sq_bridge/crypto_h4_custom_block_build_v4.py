@@ -21,6 +21,8 @@ SOURCE_MEMBERS = (
     "SQ/Blocks/Alquimia/AlquimiaH4MomentumBelow.java",
     "SQ/Blocks/Alquimia/AlquimiaH4ChannelAbove.java",
     "SQ/Blocks/Alquimia/AlquimiaH4ChannelBelow.java",
+    "SQ/Blocks/Alquimia/AlquimiaH4CompressionChannelAbove.java",
+    "SQ/Blocks/Alquimia/AlquimiaH4CompressionChannelBelow.java",
     "SQ/Blocks/BarAndTime/AlquimiaH4WindowIsContinuous.java",
     INDICATOR_SOURCE_MEMBER,
     "SQ/Formulas/SLPT/AlquimiaH4GapSafeSMAATRValue.java",

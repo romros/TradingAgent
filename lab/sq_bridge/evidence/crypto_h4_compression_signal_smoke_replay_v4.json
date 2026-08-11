@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_TECHNICAL_GROSS_SMOKE_NOT_FORMAL_CANDIDATE",
+  "project_name": "ALQUIMIA_CRYPTO_H4_COMPRESSION_SIGNAL_SMOKE",
+  "sqx_path": "/mnt/volume-SQ/user/projects/ALQUIMIA_CRYPTO_H4_COMPRESSION_SIGNAL_SMOKE/databanks/Results/Strategy 1.1.100.sqx",
+  "sqx_sha256": "ea707c8ef4e3cd01c40995e03954a2237dd4e9b890e66433ac65f093396c3715",
+  "translation_status": "SUPPORTED_SUBSET",
+  "mechanism": "volatility_compression_breakout",
+  "direction": "long",
+  "parameters": {
+    "indicator_period": 27,
+    "shift": 1,
+    "compression_lookback": 16,
+    "compression_percentile": 20.0,
+    "exit_after_bars": 7,
+    "atr_stop_multiple": 3.0
+  },
+  "normalization_changed_parameters": [],
+  "train_period_utc": ["2018-03-01", "2022-04-30"],
+  "gross_train_metrics": {
+    "closed_trades": 78,
+    "net_pnl_usdc": 62.33926062306565,
+    "expectancy_usdc_per_trade": 0.7992212900393032,
+    "profit_factor": 1.2768297193425333,
+    "max_drawdown_usdc": 61.1010673954126,
+    "positive_calendar_years": 3,
+    "calendar_years": 5,
+    "positive_calendar_years_ratio": 0.6,
+    "notional_usdc": 200,
+    "roundtrip_bps": 0.0
+  },
+  "costs_accessed": false,
+  "validation_accessed": false,
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "formal_screen_member": false,
+  "performance_claim_authorized": false,
+  "strategy_promotion_authorized": false,
+  "reason_not_candidate": "FUNCTIONAL_SMOKE_CREATED_BEFORE_FORMAL_OSTIUM_PREFLIGHT"
+}

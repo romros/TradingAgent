@@ -91,6 +91,7 @@ _MARKET_DATA_NODES = {
     "Close", "High", "Low", "SMA", "EMA", "RSI", "ROC", "Highest", "Lowest",
     "AlquimiaH4MomentumAbove", "AlquimiaH4MomentumBelow",
     "AlquimiaH4ChannelAbove", "AlquimiaH4ChannelBelow",
+    "AlquimiaH4CompressionChannelAbove", "AlquimiaH4CompressionChannelBelow",
 }
 
 

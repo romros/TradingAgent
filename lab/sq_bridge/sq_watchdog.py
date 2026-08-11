@@ -148,7 +148,7 @@ def gui_snapshot(base_url: str, project: str, disk_path: Path,
         "strategies_per_hour": _finite_number(engine.get("strategiesPerHour")),
         "backtests_performed": engine.get("backtestsPerformed"),
         "job_exceptions": engine.get("jobExceptionsCount"),
-        "running_status": row["runningStatus"],
+        "running_status": row.get("runningStatus"),
         "task_name": task.get("taskName"),
         "task_iterations": task.get("iterations"),
         "attempt_counter_source": ("engine.totalJobsDone_live_lower_bound"
@@ -227,6 +227,7 @@ def run_monitor(
     history: list[dict] = []
     consecutive_monitor_errors = 0
     while True:
+        recovered_final = None
         try:
             status = snapshot_fn(base_url, project, disk_path, artifacts)
         except Exception as exc:  # monitoring must never stop SQ by accident
@@ -248,6 +249,21 @@ def run_monitor(
                 state, reason = "BUDGET_REACHED", "SQ_PROJECT_FINISHED"
             elif started_project and status.get("running_status") == 50:
                 state, reason = "BROKEN", "SQ_PROJECT_FAILED"
+            elif (started_project and status.get("running_status") is None
+                  and final_stats_fn is not None):
+                # SQ can stop emitting websocket snapshots immediately after a
+                # natural finish. The immutable project log is authoritative.
+                try:
+                    recovered_final = final_stats_fn(project)
+                except Exception:
+                    pass
+                else:
+                    state, reason = "BUDGET_REACHED", "SQ_PROJECT_FINISHED"
+                    status.update({"generated": recovered_final["generated"],
+                                   "in_databank": recovered_final["accepted"],
+                                   "rejected": recovered_final["rejected"],
+                                   "attempt_counter_source":
+                                       recovered_final["attempt_counter_source"]})
             status.update({
                 "state": state, "reason": reason, "control_authorized": allow_control,
                 "hard_attempt_budget": limits.attempt_budget,
@@ -279,17 +295,15 @@ def run_monitor(
                 write_atomic(status_file, status)
             if final_stats_fn is not None and status.get("reason") != "SQ_PROJECT_FAILED":
                 deadline = time.monotonic() + final_stats_timeout_seconds
-                while True:
+                final = recovered_final
+                while final is None:
                     try:
                         final = final_stats_fn(project)
                     except Exception as exc:
                         if time.monotonic() >= deadline:
                             status["final_stats_error"] = repr(exc)
-                            final = None
                             break
                         time.sleep(min(1, max(0, deadline - time.monotonic())))
-                    else:
-                        break
                 if final is not None:
                     final_log_path = status_file.with_suffix(
                         status_file.suffix + ".sq-final.log")
@@ -328,6 +342,8 @@ def main() -> int:
     parser.add_argument("--disk-path", type=Path, default=Path("/mnt/volume-SQ"))
     parser.add_argument("--interval", type=int, default=60)
     parser.add_argument("--allow-control", action="store_true", help="Permit pause+stop at a frozen terminal gate")
+    parser.add_argument("--started-project", action="store_true",
+                        help="This monitor owns a project already started by its caller")
     parser.add_argument("--once", action="store_true")
     args = parser.parse_args()
     limits = load_limits(args.manifest, per_project_attempt_budget=args.attempt_budget)
@@ -351,6 +367,7 @@ def main() -> int:
         allow_control=args.allow_control, once=args.once,
         snapshot_fn=snapshot_with_transport, call_fn=caller,
         final_stats_fn=finalizer,
+        started_project=args.started_project,
     )
     return 0
 

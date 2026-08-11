@@ -25,7 +25,11 @@ def _mechanism_blocks(plan: dict[str, Any]) -> set[str]:
     if plan["mechanism"] == "time_series_momentum":
         signal = "AlquimiaH4MomentumBelow" if plan["direction"] == "short" else "AlquimiaH4MomentumAbove"
         return COMMON_BLOCKS | {signal}
-    raise ValueError("ATR_PERCENTILE_CUSTOM_BLOCK_REQUIRED")
+    if plan["mechanism"] == "volatility_compression_breakout":
+        signal = ("AlquimiaH4CompressionChannelBelow" if plan["direction"] == "short"
+                  else "AlquimiaH4CompressionChannelAbove")
+        return COMMON_BLOCKS | {signal}
+    raise ValueError("CFX plan mechanism is unsupported")
 
 
 def _sha(path: Path) -> str:
@@ -74,6 +78,13 @@ def _ensure_custom_signal_block(root: ET.Element, key: str) -> ET.Element:
     if "Momentum" in key:
         ET.SubElement(generated, "Param", {"key": "#Level#", "name": "Level",
                                             "type": "double", "generation": "random"})
+    if "Compression" in key:
+        ET.SubElement(generated, "Param", {
+            "key": "#CompressionLookback#", "name": "CompressionLookback",
+            "type": "int", "generation": "random"})
+        ET.SubElement(generated, "Param", {
+            "key": "#CompressionPercentile#", "name": "CompressionPercentile",
+            "type": "double", "generation": "random"})
     ET.SubElement(generated, "Param", {"key": "#Shift#", "name": "Shift",
                                         "type": "int", "generation": "random"})
     ET.SubElement(block, "Predefined", {"changed": "true"})
@@ -170,9 +181,9 @@ def compile_cfx(plan_path: Path, scaffold_path: Path, output_path: Path) -> dict
     parity = _require_signal_parity()
     if plan.get("decision") != "PASS_SQ_PLAN_READY":
         raise ValueError("CFX plan is not replay verified")
-    if plan.get("mechanism") not in {"channel_breakout", "time_series_momentum"}:
-        if plan.get("mechanism") == "volatility_compression_breakout":
-            raise ValueError("ATR_PERCENTILE_CUSTOM_BLOCK_REQUIRED")
+    if plan.get("mechanism") not in {
+            "channel_breakout", "time_series_momentum",
+            "volatility_compression_breakout"}:
         raise ValueError("CFX plan mechanism is unsupported")
     if (plan.get("attempt_budget"), plan.get("sq_genetic_shape"),
             plan.get("initial_capital_usdc"), plan.get("discovery_leverage")) != (
@@ -269,6 +280,13 @@ def compile_cfx(plan_path: Path, scaffold_path: Path, output_path: Path) -> dict
     if plan["mechanism"] == "time_series_momentum":
         parameter_map["#Level#"] = (space["roc_threshold_pct"]["minimum"],
                                       space["roc_threshold_pct"]["maximum"], .5)
+    elif plan["mechanism"] == "volatility_compression_breakout":
+        parameter_map["#CompressionLookback#"] = (
+            space["compression_lookback"]["minimum"],
+            space["compression_lookback"]["maximum"], 1)
+        parameter_map["#CompressionPercentile#"] = (
+            space["compression_percentile"]["minimum"],
+            space["compression_percentile"]["maximum"], 5)
     for key, (minimum, maximum, step) in parameter_map.items():
         param = signal.find(f"./Generated/Param[@key='{key}']")
         if param is None: raise ValueError(f"SQ custom signal parameter missing: {key}")
@@ -391,6 +409,13 @@ def verify_cfx(path: Path, manifest: dict[str, Any], *,
     if manifest["mechanism"] == "time_series_momentum":
         expected_parameters["#Level#"] = (space["roc_threshold_pct"]["minimum"],
                                             space["roc_threshold_pct"]["maximum"], .5)
+    elif manifest["mechanism"] == "volatility_compression_breakout":
+        expected_parameters["#CompressionLookback#"] = (
+            space["compression_lookback"]["minimum"],
+            space["compression_lookback"]["maximum"], 1)
+        expected_parameters["#CompressionPercentile#"] = (
+            space["compression_percentile"]["minimum"],
+            space["compression_percentile"]["maximum"], 5)
     for key, (minimum, maximum, step) in expected_parameters.items():
             param = signal.find(f"./Generated/Param[@key='{key}']")
             if (param is None or param.get("generation") != "random"

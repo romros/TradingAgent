@@ -17,6 +17,7 @@ RUNTIME_SIGNAL_NODES = {
     "IsMonthLastTradingDay", "Number", "Boolean",
     "AlquimiaH4MomentumAbove", "AlquimiaH4MomentumBelow",
     "AlquimiaH4ChannelAbove", "AlquimiaH4ChannelBelow",
+    "AlquimiaH4CompressionChannelAbove", "AlquimiaH4CompressionChannelBelow",
 }
 
 
@@ -144,14 +145,40 @@ class SignalRuntime:
                 roc = 100 * (endpoint / first - 1)
                 level = float(_param(node, "#Level#", 0))
                 result = roc.gt(level) if op.endswith("Above") else roc.lt(-level)
-            elif op.endswith("Above"):
-                prior = pd.concat([self.frame["high"].shift(shift + offset)
-                                   for offset in range(1, period + 1)], axis=1).max(axis=1)
-                result = endpoint.gt(prior)
             else:
-                prior = pd.concat([self.frame["low"].shift(shift + offset)
-                                   for offset in range(1, period + 1)], axis=1).min(axis=1)
-                result = endpoint.lt(prior)
+                above = op.endswith("Above")
+                source = self.frame["high" if above else "low"]
+                prior_frame = pd.concat(
+                    [source.shift(shift + offset) for offset in range(1, period + 1)],
+                    axis=1)
+                prior = prior_frame.max(axis=1) if above else prior_frame.min(axis=1)
+                result = endpoint.gt(prior) if above else endpoint.lt(prior)
+                if "Compression" in op:
+                    lookback = int(_param(node, "#CompressionLookback#", 0))
+                    percentile = float(_param(node, "#CompressionPercentile#", -1))
+                    if lookback < 1 or not 0 <= percentile <= 100:
+                        raise ValueError("Parametres de compressio invalids")
+                    previous_close = self.frame["close"].shift(1)
+                    continuous_previous = spacing
+                    true_range = pd.concat([
+                        self.frame["high"] - self.frame["low"],
+                        (self.frame["high"] - previous_close).abs().where(
+                            continuous_previous),
+                        (self.frame["low"] - previous_close).abs().where(
+                            continuous_previous),
+                    ], axis=1).max(axis=1)
+                    atr = true_range.groupby(segment).rolling(
+                        14, min_periods=14).mean().reset_index(level=0, drop=True)
+                    normalized_atr = atr / self.frame["close"]
+                    prior_normalized = pd.concat([
+                        normalized_atr.shift(shift + offset)
+                        for offset in range(1, lookback + 1)], axis=1)
+                    threshold = prior_normalized.quantile(
+                        percentile / 100, axis=1, interpolation="linear")
+                    compression_continuous = endpoint_segment.eq(
+                        segment.shift(shift + lookback + 13))
+                    compressed = normalized_atr.shift(shift).le(threshold)
+                    result &= compressed & compression_continuous.fillna(False)
             result &= continuous.fillna(False)
         elif op == "AND":
             if not children:

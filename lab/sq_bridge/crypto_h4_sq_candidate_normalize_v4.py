@@ -17,6 +17,10 @@ MECHANISMS = {
     "AlquimiaH4MomentumBelow": ("time_series_momentum", "short"),
     "AlquimiaH4ChannelAbove": ("channel_breakout", "long"),
     "AlquimiaH4ChannelBelow": ("channel_breakout", "short"),
+    "AlquimiaH4CompressionChannelAbove": (
+        "volatility_compression_breakout", "long"),
+    "AlquimiaH4CompressionChannelBelow": (
+        "volatility_compression_breakout", "short"),
 }
 
 
@@ -58,6 +62,9 @@ def normalize(*, sqx: Path, manifest_path: Path, preregistration_path: Path) -> 
            "atr_stop_multiple": stop["params"]["#Value#"]}
     if mechanism == "time_series_momentum":
         raw["roc_threshold_pct"] = signal["params"]["#Level#"]
+    elif mechanism == "volatility_compression_breakout":
+        raw["compression_lookback"] = signal["params"]["#CompressionLookback#"]
+        raw["compression_percentile"] = signal["params"]["#CompressionPercentile#"]
     axes = {"indicator_period": ("indicator_period_min", "indicator_period_max", 1),
             "shift": ("shift_min", "shift_max", 1),
             "exit_after_bars": ("exit_after_bars_min", "exit_after_bars_max",
@@ -67,9 +74,17 @@ def normalize(*, sqx: Path, manifest_path: Path, preregistration_path: Path) -> 
     if mechanism == "time_series_momentum":
         axes["roc_threshold_pct"] = ("roc_threshold_min", "roc_threshold_max",
                                      profile["roc_threshold_step"])
+    elif mechanism == "volatility_compression_breakout":
+        axes["compression_lookback"] = (
+            "compression_lookback_min", "compression_lookback_max", 1)
+        axes["compression_percentile"] = (
+            "compression_percentile_min", "compression_percentile_max",
+            profile["compression_percentile_step"])
     normalized = {key: _nearest(raw[key], profile[lo], profile[hi], step)
                   for key, (lo, hi, step) in axes.items()}
-    for key in ("indicator_period", "shift", "exit_after_bars"):
+    for key in ("indicator_period", "shift", "exit_after_bars", "compression_lookback"):
+        if key not in normalized:
+            continue
         normalized[key] = int(normalized[key])
     local = manifest.get("parameter_search_space") or {}
     for key, value in normalized.items():

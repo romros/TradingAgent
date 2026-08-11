@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_SQ_COMPRESSION_SIGNALS_INSTALL_CATALOG_AND_RUNTIME",
+  "installed_at_utc": "2026-08-11T13:35:23Z",
+  "backup_path": "/mnt/volume-SQ/user/backups/alquimia_custom_blocks_v4/pre_compression_20260811T1335Z/Snippets.jar",
+  "backup_sha256": "269b2d06319b9ddea7f84465f8a50c56a2534ce23df73ab2c3fec59da9579d02",
+  "sq_snippets_jar_sha256_after_compile": "4e3afd2ff677657408d7bc60a720743da346051088d2be4532ddc8d8067194bc",
+  "official_compile_all": "PASS",
+  "official_reload_app": "PASS",
+  "catalog_sha256": "7b06df7badee787d6ba6b20bb6a7474595c67b1f1866a408ce725c7fb945acfd",
+  "catalog_entries": [
+    "AlquimiaH4CompressionChannelAbove",
+    "AlquimiaH4CompressionChannelBelow"
+  ],
+  "installed_source_sha256": {
+    "SQ/Utils/AlquimiaH4Signals.java": "12d6db8cfe427369f03a021b91f39bfadeff7518406a7d402bd657e5db8752b8",
+    "SQ/Blocks/Alquimia/AlquimiaH4CompressionChannelAbove.java": "a15d048a6b126081a9de90659be44a2cef46af3a180e41143308b5f6d15810f0",
+    "SQ/Blocks/Alquimia/AlquimiaH4CompressionChannelBelow.java": "41cb58270fcd6c4d2d843fa85d874217f497d5637ab58f12da73c4bbf95a590e"
+  },
+  "exact_signal_parity_path": "lab/sq_bridge/evidence/crypto_h4_sq_exact_signal_gap_parity_v4.json",
+  "exact_signal_comparisons": 32364,
+  "exact_signal_differences": 0,
+  "runtime_smoke_project": "ALQUIMIA_CRYPTO_H4_COMPRESSION_SIGNAL_SMOKE",
+  "runtime_generated": 560,
+  "runtime_accepted": 1,
+  "runtime_final_log_sha256": "2799d2235c2e5edbfe19c88f6969611834365f8a8fcf90c51484d8b7e01acf4a",
+  "performance_claim_authorized": false,
+  "strategy_promotion_authorized": false,
+  "remaining_gate": "FORMAL_PREFLIGHT_SCREEN_COSTS_TEMPORAL_ROBUSTNESS_AND_PARITY"
+}

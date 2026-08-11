@@ -34,12 +34,15 @@ running each continuous source segment independently and aggregating the
 trades.  Until that segmented runner is verified, these blocks do **not**
 authorize strategy promotion and SQ remains proposal-generation-only.
 
-The four `SQ/Blocks/Alquimia` condition blocks bind signal period and gap
-validation inside one generated node.  They also require the 14-bar ATR window
+The six `SQ/Blocks/Alquimia` condition blocks bind signal parameters and gap
+validation inside one generated node. The compression pair implements NumPy's
+linear percentile over prior normalized SMA-ATR14 values, excluding the endpoint.
+All blocks also require the 14-bar ATR window
 at the signal endpoint to be continuous, matching Python's signal eligibility.
 `AlquimiaSignalParityHarness` evaluates them with SQ's real shifted series at
 the next-bar entry event against Python expectations for multiple periods,
-shifts and ROC levels, including windows around a real Dukascopy data gap.
+shifts, ROC levels, compression lookbacks and percentiles, including windows
+around a real Dukascopy data gap.
 The ATR harness also checks the exact next-bar stop price for four multiples
 and both offset directions, using the prior decision bar's Python ATR.
 

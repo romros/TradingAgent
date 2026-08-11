@@ -15,7 +15,10 @@ from lab.sq_bridge.us500_d1_market_preflight_v4 import write_atomic
 
 
 CANDIDATE_ID = re.compile(r"^alq4_[0-9a-f]{16}$")
-SUPPORTED_MECHANISMS = {"channel_breakout", "time_series_momentum"}
+SUPPORTED_MECHANISMS = {
+    "channel_breakout", "time_series_momentum",
+    "volatility_compression_breakout",
+}
 
 
 def _sha(path: Path) -> str:

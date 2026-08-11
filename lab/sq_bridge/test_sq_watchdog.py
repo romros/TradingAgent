@@ -172,6 +172,25 @@ def test_started_project_natural_finish_status_four_uses_final_log(tmp_path):
     assert calls == []
 
 
+def test_silent_websocket_after_finish_recovers_from_exact_final_log(tmp_path):
+    calls = []
+    result = run_monitor(
+        base_url="http://sq", project="P", limits=Limits(1000),
+        status_file=tmp_path / "latest.json", journal_file=tmp_path / "journal.jsonl",
+        disk_path=tmp_path, artifacts=None, interval=1, allow_control=True,
+        snapshot_fn=lambda *_: {**status(None, 1), "running_status": None},
+        call_fn=lambda *args: calls.append(args), started_project=True,
+        final_stats_fn=lambda _: {
+            "generated": 560, "accepted": 1, "rejected": 559,
+            "log_path": "/inside/global.log", "log_sha256": "c" * 64,
+            "log_text": "TASK FINISHED\n",
+            "attempt_counter_source": "sq_project_final_log"})
+    assert result["reason"] == "SQ_PROJECT_FINISHED"
+    assert result["generated"] == 560 and result["in_databank"] == 1
+    assert Path(result["sq_final_log_path"]).read_text() == "TASK FINISHED\n"
+    assert calls == []
+
+
 def test_started_project_failed_status_fifty_is_terminal_without_control(tmp_path):
     calls = []
     result = run_monitor(

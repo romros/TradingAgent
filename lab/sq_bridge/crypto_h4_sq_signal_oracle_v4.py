@@ -14,8 +14,9 @@ import numpy as np
 from lab.sq_bridge.crypto_h4_train_engine_v4 import Bars, signals
 
 
-CASES = ((12, 1, 0.0), (12, 2, 3.5), (24, 1, 3.5),
-         (24, 2, 10.0), (55, 1, 0.0), (55, 2, 10.0))
+CASES = ((12, 1, 0.0, 12, 10.0), (12, 2, 3.5, 24, 25.0),
+         (24, 1, 3.5, 36, 40.0), (24, 2, 10.0, 55, 10.0),
+         (55, 1, 0.0, 24, 25.0), (55, 2, 10.0, 55, 40.0))
 
 
 def _sha(path: Path) -> str:
@@ -31,7 +32,7 @@ def _bars(path: Path, maximum_rows: int) -> Bars:
                 tzinfo=timezone.utc))
             for target, value in zip(columns, row[2:6]): target.append(float(value))
             if len(stamps) == maximum_rows: break
-    if len(stamps) < 57: raise ValueError("signal oracle source too short")
+    if len(stamps) < 70: raise ValueError("signal oracle source too short")
     segment = np.zeros(len(stamps), dtype=np.int64)
     current = 0
     for index in range(1, len(stamps)):
@@ -48,17 +49,27 @@ def build(*, source: Path, output: Path, maximum_rows: int = 512) -> dict:
     count = 0
     with output.open("w", newline="") as handle:
         writer = csv.writer(handle, delimiter=";", lineterminator="\n")
-        writer.writerow(("decision", "period", "shift", "level", "momentum_above",
-                         "momentum_below", "channel_above", "channel_below"))
-        for period, shift, level in CASES:
+        writer.writerow(("decision", "period", "shift", "level",
+                         "compression_lookback", "compression_percentile",
+                         "momentum_above", "momentum_below", "channel_above",
+                         "channel_below", "compression_above", "compression_below"))
+        for period, shift, level, compression_lookback, compression_percentile in CASES:
             momentum_up, momentum_down, _ = signals(bars, "time_series_momentum", "both", {
                 "indicator_period": period, "shift": shift, "roc_threshold_pct": level})
             channel_up, channel_down, _ = signals(bars, "channel_breakout", "both", {
                 "indicator_period": period, "shift": shift})
+            compression_up, compression_down, _ = signals(
+                bars, "volatility_compression_breakout", "both", {
+                    "indicator_period": period, "shift": shift,
+                    "compression_lookback": compression_lookback,
+                    "compression_percentile": compression_percentile})
             for decision in range(len(bars) - 1):
                 writer.writerow((decision, period, shift, level,
+                                 compression_lookback, compression_percentile,
                                  int(momentum_up[decision]), int(momentum_down[decision]),
-                                 int(channel_up[decision]), int(channel_down[decision])))
+                                 int(channel_up[decision]), int(channel_down[decision]),
+                                 int(compression_up[decision]),
+                                 int(compression_down[decision])))
                 count += 1
     return {"schema_version": 1, "decision": "PASS_PYTHON_SIGNAL_ORACLE_BUILT",
             "source_path": str(source), "source_sha256": _sha(source),

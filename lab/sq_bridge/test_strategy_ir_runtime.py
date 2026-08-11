@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 import pytest
 
@@ -114,6 +115,33 @@ def test_custom_h4_signal_runtime_binds_gap_period_shift_and_threshold():
     gapped = frame.drop(frame.index[10])
     after_gap = SignalRuntime(gapped).evaluate(node)
     assert not after_gap.iloc[-1]
+
+
+def test_custom_h4_compression_signal_matches_train_engine_exactly():
+    from lab.sq_bridge.crypto_h4_train_engine_v4 import Bars, signals
+
+    index = pd.date_range("2024-01-01", periods=100, freq="4h", tz="UTC")
+    close = pd.Series(100 + np.sin(np.arange(100) / 4) * 3
+                      + np.arange(100) * .08, index=index)
+    width = pd.Series(1 + np.cos(np.arange(100) / 7) * .4, index=index)
+    frame = pd.DataFrame({"open": close.shift(1).fillna(close.iloc[0]),
+                          "high": close + width, "low": close - width,
+                          "close": close})
+    parameters = {"indicator_period": 12, "shift": 1,
+                  "compression_lookback": 24, "compression_percentile": 25}
+    bars = Bars(tuple(index.to_pydatetime()), frame.open.to_numpy(),
+                frame.high.to_numpy(), frame.low.to_numpy(), frame.close.to_numpy(),
+                np.zeros(len(frame), dtype=np.int64))
+    expected_long, expected_short, _ = signals(
+        bars, "volatility_compression_breakout", "both", parameters)
+    common = {"#Period#": 12, "#Shift#": 1,
+              "#CompressionLookback#": 24, "#CompressionPercentile#": 25}
+    actual_long = SignalRuntime(frame).evaluate({
+        "op": "AlquimiaH4CompressionChannelAbove", "params": common})
+    actual_short = SignalRuntime(frame).evaluate({
+        "op": "AlquimiaH4CompressionChannelBelow", "params": common})
+    assert actual_long.iloc[1:].tolist() == expected_long[:-1].tolist()
+    assert actual_short.iloc[1:].tolist() == expected_short[:-1].tolist()
 
 
 def _execution_ir(*, direction="long", stop=None, target=None, exit_after=0):

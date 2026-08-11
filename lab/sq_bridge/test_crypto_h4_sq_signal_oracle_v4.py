@@ -18,7 +18,9 @@ def test_signal_oracle_is_deterministic_and_covers_shift_period_level(tmp_path: 
     output = tmp_path / "signals.csv"
     result = build(source=source, output=output, maximum_rows=80)
     rows = list(csv.reader(output.open(), delimiter=";"))
-    assert rows[0][:4] == ["decision", "period", "shift", "level"]
+    assert rows[0][:6] == ["decision", "period", "shift", "level",
+                           "compression_lookback", "compression_percentile"]
+    assert rows[0][-2:] == ["compression_above", "compression_below"]
     assert len(rows) == 1 + len(CASES) * 79
     assert result["expectations"] == len(CASES) * 79
     assert result["evaluation_timing"] == "entry_bar_with_sq_shift_1_or_2"

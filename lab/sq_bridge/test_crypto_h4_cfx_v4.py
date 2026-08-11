@@ -33,6 +33,11 @@ def _plan(tmp_path, mechanism="channel_breakout"):
     if mechanism == "time_series_momentum":
         plan["parameter_search_space"]["roc_threshold_pct"] = {
             "minimum": 2.0, "maximum": 3.0}
+    elif mechanism == "volatility_compression_breakout":
+        plan["parameter_search_space"]["compression_lookback"] = {
+            "minimum": 12, "maximum": 24}
+        plan["parameter_search_space"]["compression_percentile"] = {
+            "minimum": 10, "maximum": 40}
     path = tmp_path / "plan.json"; path.write_text(json.dumps(plan)); return path
 
 
@@ -53,7 +58,7 @@ def test_compiles_real_sq_scaffold_with_crypto_sizing(tmp_path):
 
 
 @pytest.mark.skipif(not SCAFFOLD.is_file(), reason="real SQ 143 scaffold unavailable")
-def test_compiles_source_verified_momentum_and_refuses_compression(tmp_path):
+def test_compiles_all_source_verified_signal_families(tmp_path):
     output = tmp_path / "momentum.cfx"
     manifest = compile_cfx(_plan(tmp_path, "time_series_momentum"), SCAFFOLD, output)
     verified = verify_cfx(output, manifest)
@@ -68,6 +73,9 @@ def test_compiles_source_verified_momentum_and_refuses_compression(tmp_path):
     short_manifest = compile_cfx(short_plan, SCAFFOLD, short_output)
     assert "AlquimiaH4MomentumBelow" in verify_cfx(
         short_output, short_manifest)["enabled_blocks"]
-    with pytest.raises(ValueError, match="ATR_PERCENTILE_CUSTOM_BLOCK_REQUIRED"):
-        compile_cfx(_plan(tmp_path, "volatility_compression_breakout"), SCAFFOLD,
-                    tmp_path / "compression.cfx")
+    compression_output = tmp_path / "compression.cfx"
+    compression = compile_cfx(
+        _plan(tmp_path, "volatility_compression_breakout"), SCAFFOLD,
+        compression_output)
+    assert "AlquimiaH4CompressionChannelAbove" in verify_cfx(
+        compression_output, compression)["enabled_blocks"]

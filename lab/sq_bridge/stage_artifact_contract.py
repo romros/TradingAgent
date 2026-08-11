@@ -183,6 +183,97 @@ def _verified_robustness_sources(artifact: dict, reported: Any,
     return recomputed == reported
 
 
+def _verified_robustness_leverage_scan(artifact: dict, reported: Any,
+                                       artifact_path: str, gate: dict) -> bool:
+    """Prove that the selected leverage is the highest preregistered safe one."""
+    paths = artifact.get("robustness_trace_paths")
+    if not isinstance(paths, dict) or not isinstance(reported, dict):
+        return False
+    base = Path(artifact_path).resolve().parent
+    # Synthetic unit controls predate the real orchestrator and cannot promote.
+    try:
+        sources = []
+        for value in paths.values():
+            path = Path(value)
+            path = path if path.is_absolute() else base / path
+            sources.append(json.loads(path.read_text()).get("source"))
+        if sources and all(source == "synthetic_control" for source in sources):
+            return True
+    except (OSError, TypeError, ValueError):
+        return False
+    evidence = artifact.get("supervised_monte_carlo_evidence")
+    if (artifact.get("leverage_selection_policy")
+            != "highest_preregistered_grid_value_passing_all_robustness_gates"
+            or not isinstance(evidence, dict) or set(evidence) != set(reported)):
+        return False
+    cost_model = _verified_json(
+        artifact.get("cost_model_path"), artifact.get("cost_model_sha256"),
+        artifact_path)
+    if cost_model is None:
+        return False
+
+    def passes(metric: dict) -> bool:
+        return (metric["monte_carlo_runs"] >= gate["monte_carlo_runs"]
+            and metric["profitable_monte_carlo_ratio"]
+                >= gate["minimum_profitable_monte_carlo_ratio"]
+            and metric["parameter_variant_count"] >= gate["minimum_parameter_variants"]
+            and metric["profitable_parameter_variants_ratio"]
+                >= gate["minimum_profitable_parameter_variants_ratio"]
+            and metric["stress_profit_factor"] >= gate["minimum_stress_profit_factor"]
+            and metric["liquidation_probability"]
+                <= gate["maximum_liquidation_probability"])
+    try:
+        for candidate_id, metric in reported.items():
+            candidate = evidence[candidate_id]
+            scans = candidate.get("leverage_scan")
+            if not isinstance(scans, list) or not scans:
+                return False
+            venue_max = metric["venue_max_leverage"]
+            expected = sorted((value for value in gate["allowed_leverage_grid"]
+                               if value <= venue_max), reverse=True)
+            observed_leverages = [row.get("leverage") for row in scans]
+            if observed_leverages != expected[:len(scans)]:
+                return False
+            recomputed_rows = []
+            for row in scans:
+                path = Path(row.get("trace_path", ""))
+                path = path if path.is_absolute() else base / path
+                if (not path.is_file()
+                        or row.get("trace_sha256")
+                            != hashlib.sha256(path.read_bytes()).hexdigest()):
+                    return False
+                trace = json.loads(path.read_text())
+                if (trace.get("candidate_id") != candidate_id
+                        or trace.get("tested_leverage") != row.get("leverage")
+                        or rebuild_robustness_trace(trace) != trace):
+                    return False
+                recomputed = evaluate_robustness_trace(
+                    trace, gate, cost_model, artifact["cost_model_sha256"])
+                if row.get("metrics") != recomputed or row.get("passes") != passes(recomputed):
+                    return False
+                recomputed_rows.append(recomputed)
+            any_pass = any(row["passes"] for row in scans)
+            if any_pass:
+                if not scans[-1]["passes"] or any(row["passes"] for row in scans[:-1]):
+                    return False
+            elif len(scans) != len(expected):
+                return False
+            selected_path = Path(candidate.get("selected_trace_path", ""))
+            selected_path = selected_path if selected_path.is_absolute() else base / selected_path
+            artifact_path_value = Path(paths[candidate_id])
+            artifact_path_value = (artifact_path_value if artifact_path_value.is_absolute()
+                                   else base / artifact_path_value)
+            if (selected_path.resolve() != Path(scans[-1]["trace_path"]).resolve()
+                    or selected_path.resolve() != artifact_path_value.resolve()
+                    or candidate.get("selected_trace_sha256")
+                        != hashlib.sha256(selected_path.read_bytes()).hexdigest()
+                    or recomputed_rows[-1] != metric):
+                return False
+    except (KeyError, OSError, TypeError, ValueError):
+        return False
+    return True
+
+
 def _verified_small_account_sources(artifact: dict, reported: Any,
                                     artifact_path: str, gate: dict,
                                     campaign_id: str) -> bool:
@@ -936,6 +1027,9 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                 "SELECTION_RECOMPUTES": evaluated_valid and ids == selected
                     and candidate_metrics == {key: evaluated[key] for key in selected},
                 "TRACE_CONTRACT": _verified_robustness_sources(
+                    artifact, evaluated, receipt.get("artifact", ""), source_gate)
+                    if provenance != "synthetic_control" else True,
+                "LEVERAGE_SCAN_CONTRACT": _verified_robustness_leverage_scan(
                     artifact, evaluated, receipt.get("artifact", ""), source_gate)
                     if provenance != "synthetic_control" else True,
                 "MC_RUNS_RECOMPUTES": (negative_robustness and no_selected_aggregates)

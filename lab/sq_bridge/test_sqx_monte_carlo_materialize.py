@@ -19,6 +19,8 @@ def test_materializes_reproducible_source_bound_sqx_per_native_run(tmp_path):
                          probability_pct=10, max_change_pct=10)
     assert len(result["runs"]) == 4
     assert verify_manifest(first_dir / "materialization.manifest.json") == result
+    assert materialize(source, first_dir, simulations=4,
+                       probability_pct=10, max_change_pct=10) == result
     with zipfile.ZipFile(result["runs"][2]["materialized_sqx_path"]) as archive:
         assert archive.read("orders.bin") == b"orders-2"
     second_dir = tmp_path / "second"

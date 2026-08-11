@@ -41,8 +41,18 @@ def materialize(source: Path, output_dir: Path, *, simulations: int,
                        probability_pct=probability_pct,
                        max_change_pct=max_change_pct)
     output_dir.mkdir(parents=True, exist_ok=True)
+    manifest = output_dir / "materialization.manifest.json"
+    if manifest.is_file():
+        existing = verify_manifest(manifest)
+        expected_receipt = (str(supervised_mc_receipt.resolve())
+                            if supervised_mc_receipt is not None else None)
+        if (existing.get("source_sqx_sha256") != _sha(source)
+                or existing.get("native_contract") != contract
+                or existing.get("supervised_mc_receipt_path") != expected_receipt):
+            raise ValueError("MONTE_CARLO_MATERIALIZATION_CHECKPOINT_MISMATCH")
+        return existing
     unexpected = [path for path in output_dir.iterdir()
-                  if path.name != "materialization.manifest.json"]
+                  if path.name != manifest.name]
     if unexpected:
         raise ValueError("MONTE_CARLO_MATERIALIZATION_DIRECTORY_NOT_EMPTY")
     with zipfile.ZipFile(source) as archive:
@@ -84,7 +94,6 @@ def materialize(source: Path, output_dir: Path, *, simulations: int,
             "supervised_mc_receipt_path": str(supervised_mc_receipt),
             "supervised_mc_receipt_sha256": _sha(supervised_mc_receipt),
         })
-    manifest = output_dir / "materialization.manifest.json"
     manifest.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
     return result
 

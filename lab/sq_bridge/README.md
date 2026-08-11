@@ -564,6 +564,29 @@ La traça temporal anterior conserva `MAE ($)` convertit a percentatge amb el
 el càlcul de liquidació no pot assumir erròniament que una mida FX en lots són
 unitats, ni accepta un multiplicador escrit a mà.
 
+La cadena completa per candidat temporalment promocionat s'executa amb un sol
+stage. Exigeix costos Ostium congelats, i tant el directori de treball com les
+SQX queden dins del mount de projectes d'SQCLI:
+
+```bash
+PYTHONPATH=../.. python3 sq_robustness_stage_v4.py \
+  --campaign-id CAMPAIGN_ID \
+  --temporal-artifact /path/to/04_temporal_validation.json \
+  --cost-model /path/to/costs-frozen-v4.json \
+  --work-dir /mnt/volume-SQ/user/projects/ALQUIMIA_ROBUSTNESS \
+  --host-projects-root /mnt/volume-SQ/user/projects \
+  --venue-max-leverage 100 \
+  --artifact-output /path/to/state/artifacts/05_robustness.json
+```
+
+Per cada candidat, genera/reprèn el CFX, supervisa el cross-check, materialitza
+i exporta els 1.000 runs, construeix la traça i prova la graella de leverage de
+més gran a més petita. Selecciona el primer valor que supera simultàniament
+Monte Carlo, estabilitat paramètrica, PF amb costos 2× i liquidació; si cap
+valor passa, conserva el leverage mínim com a evidència de `REJECT`. El
+contracte reobre totes les traces de l'escaneig i recomputa que el leverage
+declarat sigui realment el màxim segur preregistrat.
+
 `small_account_economics` parteix de retorns bruts trade a trade, costat i
 durada, del model de costos congelat i del rebut de robustesa anterior:
 

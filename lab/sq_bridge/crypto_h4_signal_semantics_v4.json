@@ -97,6 +97,9 @@
       "tie_break": "attempt_ascending"
     },
     "selection_unit": "stable_parameter_region_not_single_best_point",
+    "overlapping_region_policy": "greedy_ranked_keep_first_and_suppress_any_same_hypothesis_region_sharing_a_member_attempt",
+    "global_budget_application": "after_region_overlap_suppression",
+    "candidate_id": "sha256_of_hypothesis_central_and_sorted_member_attempts_first_16_hex",
     "ranking": [
       "stress_expectancy_usdc_per_trade_desc",
       "stress_profit_factor_desc",
@@ -112,6 +115,28 @@
     "oos_accessed": false,
     "final_holdout_accessed": false,
     "bars_after_train_end": "timestamp_may_be_used_only_to_stop_stream_before_OHLC_parse"
+  },
+  "strategyquant_generation_contract": {
+    "version": "143.2708",
+    "search_method": "genetic_evolution",
+    "nominal_evaluations": 10000,
+    "islands": 4,
+    "population_per_island": 100,
+    "max_generations": 25,
+    "crossover_probability_pct": 80,
+    "mutation_probability_pct": 20,
+    "migration_every_generations": 5,
+    "migration_rate_pct": 10,
+    "initial_population_mode": 2,
+    "maximum_rules": 3,
+    "initial_capital_usdc": 200,
+    "normalized_notional_usdc": 200,
+    "discovery_leverage": 1,
+    "sq_embedded_spread": 0,
+    "sq_embedded_commission": 0,
+    "external_ostium_cost_revalidation_required": true,
+    "maximum_promoted_candidate_per_stable_region": 1,
+    "leverage_stage": "after_temporal_robustness_and_python_parity"
   },
   "market_data_accessed": false,
   "performance_accessed": false,

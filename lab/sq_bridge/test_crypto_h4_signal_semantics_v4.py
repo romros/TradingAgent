@@ -18,6 +18,9 @@ def test_real_semantics_is_sealed_and_bound_to_design():
     assert contract["data_gap_contract"]["imputation_allowed"] is False
     assert contract["screen_acceptance_contract"]["neighbor_definition"][
         "maximum_normalized_distance"] == .15
+    sq = contract["strategyquant_generation_contract"]
+    assert sq["islands"] * sq["population_per_island"] * sq["max_generations"] == 10_000
+    assert sq["initial_capital_usdc"] == 200
     assert contract["performance_accessed"] is False
 
 

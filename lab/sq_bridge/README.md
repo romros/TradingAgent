@@ -347,6 +347,17 @@ directori. `run_crypto_h4_screen_workers.sh` és independent del collector i no
 conté cap operació SQCLI; el cron propi prova de reprendre cada 10 minuts amb
 `flock` i guarda estat a `/mnt/volume-SQ/user/alquimia_runtime/`.
 
+`crypto_h4_region_selector_v4.py` converteix punts PASS en regions: quatre
+veïns més propers dins radi Manhattan normalitzat 0,15, central+dos PASS, i
+supressió greedy de qualsevol regió del mateix hypothesis que comparteixi un
+membre amb una millor. El pressupost 60 s'aplica després de deduplicar.
+`crypto_h4_sq_generation_plan_v4.py` només accepta una regió amb replay
+determinista declarat i la lliga al recurs SQ exacte. La cerca preparada és
+genètica 4×100×25=10.000, 80/20, migració 5/10, màxim tres regles, capital i
+nocional 200 USDC a 1x, zero costos embeguts i revalidació Ostium externa
+obligatòria. Només un resultat per regió pot avançar; crear el pla encara no
+autoritza SQCLI.
+
 US500 D1 aplica el mateix contracte amb un productor, bootstrap i trigger
 independents. El cron de quotes de sessió recompon el preflight i invoca el
 trigger després de cada captura; mentre no hi ha 30 mostres en tres sessions

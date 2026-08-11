@@ -32,6 +32,7 @@ def verify(path: Path) -> dict[str, Any]:
     acceptance = value.get("screen_acceptance_contract") or {}
     temporal = value.get("temporal_contract") or {}
     gaps = value.get("data_gap_contract") or {}
+    sq = value.get("strategyquant_generation_contract") or {}
     errors = []
     if value.get("schema_version") != 1: errors.append("SCHEMA")
     if value.get("semantics_id") != "crypto-h4-signal-semantics-v4": errors.append("ID")
@@ -54,7 +55,11 @@ def verify(path: Path) -> dict[str, Any]:
     if (acceptance.get("minimum_closed_trades") != 50
             or acceptance.get("minimum_profit_factor_each_cost_scenario") != 1.2
             or acceptance.get("required_local_neighbors_passing_including_central") != 3
-            or acceptance.get("accepted_candidates_global_budget") != 60):
+            or acceptance.get("accepted_candidates_global_budget") != 60
+            or acceptance.get("overlapping_region_policy") !=
+            "greedy_ranked_keep_first_and_suppress_any_same_hypothesis_region_sharing_a_member_attempt"
+            or acceptance.get("global_budget_application") !=
+            "after_region_overlap_suppression"):
         errors.append("ACCEPTANCE")
     neighbor = acceptance.get("neighbor_definition") or {}
     if (neighbor.get("same_directed_hypothesis_required") is not True
@@ -74,6 +79,27 @@ def verify(path: Path) -> dict[str, Any]:
             or gaps.get("open_position_crossing_gap") != "exclude_trade"
             or gaps.get("gap_is_not_a_synthetic_exit") is not True):
         errors.append("DATA_GAPS")
+    if (sq.get("version") != "143.2708"
+            or sq.get("search_method") != "genetic_evolution"
+            or sq.get("nominal_evaluations") != 10_000
+            or (sq.get("islands"), sq.get("population_per_island"),
+                sq.get("max_generations")) != (4, 100, 25)
+            or sq.get("islands") * sq.get("population_per_island") *
+            sq.get("max_generations") != sq.get("nominal_evaluations")
+            or (sq.get("crossover_probability_pct"),
+                sq.get("mutation_probability_pct"),
+                sq.get("migration_every_generations"),
+                sq.get("migration_rate_pct"),
+                sq.get("initial_population_mode")) != (80, 20, 5, 10, 2)
+            or sq.get("maximum_rules") != 3
+            or sq.get("initial_capital_usdc") != 200
+            or sq.get("normalized_notional_usdc") != 200
+            or sq.get("discovery_leverage") != 1
+            or sq.get("sq_embedded_spread") != 0
+            or sq.get("sq_embedded_commission") != 0
+            or sq.get("external_ostium_cost_revalidation_required") is not True
+            or sq.get("maximum_promoted_candidate_per_stable_region") != 1):
+        errors.append("STRATEGYQUANT_GENERATION")
     for key in ("market_data_accessed", "performance_accessed", "research_authorized",
                 "sqcli_authorized", "paper_authorized", "live_authorized"):
         if value.get(key) is not False:

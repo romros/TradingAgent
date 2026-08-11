@@ -10,11 +10,18 @@ import zipfile
 from pathlib import Path
 
 
-SOURCE_MEMBER = (
+INDICATOR_SOURCE_MEMBER = (
     "SQ/Blocks/Indicators/AlquimiaH4GapSafeSMAATR/"
     "AlquimiaH4GapSafeSMAATR.java"
 )
-CLASS_MEMBER = SOURCE_MEMBER.removesuffix(".java") + ".class"
+SOURCE_MEMBERS = (
+    "SQ/Utils/AlquimiaGapSafeATR.java",
+    "SQ/Blocks/BarAndTime/AlquimiaH4WindowIsContinuous.java",
+    INDICATOR_SOURCE_MEMBER,
+    "SQ/Formulas/SLPT/AlquimiaH4GapSafeSMAATRValue.java",
+)
+CLASS_MEMBERS = tuple(member.removesuffix(".java") + ".class"
+                      for member in SOURCE_MEMBERS)
 
 
 def _sha(path: Path) -> str:
@@ -25,11 +32,12 @@ def build(*, source_root: Path, internal_root: Path, output_dir: Path,
           runner=subprocess.run, image: str = "eclipse-temurin:22-jdk") -> dict:
     source_root, internal_root, output_dir = (path.resolve() for path in
                                               (source_root, internal_root, output_dir))
-    source = source_root / SOURCE_MEMBER
+    sources = [source_root / member for member in SOURCE_MEMBERS]
     libs = internal_root / "libs"
-    if not source.is_file() or not (libs / "Snippets.jar").is_file():
+    if not all(source.is_file() for source in sources) or not (libs / "Snippets.jar").is_file():
         raise ValueError("custom source or SQ libraries missing")
     output_dir.mkdir(parents=True, exist_ok=True)
+    java_sources = " ".join(f"/src/{member}" for member in SOURCE_MEMBERS)
     command = [
         "docker", "run", "--rm", "--network", "none",
         "--mount", f"type=bind,src={internal_root},dst=/sq/internal,readonly",
@@ -42,29 +50,32 @@ def build(*, source_root: Path, internal_root: Path, output_dir: Path,
         "> /out/stubs/com/strategyquant/lib/snippets/ICustomClasses.java; "
         "javac --release 22 -cp '/sq/internal/libs/*' -d /out/classes "
         "/out/stubs/com/strategyquant/lib/snippets/ICustomClasses.java "
-        f"/src/{SOURCE_MEMBER}",
+        + java_sources,
     ]
     completed = runner(command, capture_output=True, text=True, timeout=300,
                        check=False)
     if completed.returncode:
         raise RuntimeError("custom block compilation failed: " + completed.stderr[-2000:])
-    compiled = output_dir / "classes" / CLASS_MEMBER
-    if not compiled.is_file():
+    compiled = [output_dir / "classes" / member for member in CLASS_MEMBERS]
+    if not all(path.is_file() for path in compiled):
         raise RuntimeError("compiled custom block missing")
-    header = compiled.read_bytes()[:8]
-    if header[:4] != b"\xca\xfe\xba\xbe" or int.from_bytes(header[6:8], "big") != 66:
-        raise RuntimeError("custom block is not a Java 22 class")
+    for path in compiled:
+        header = path.read_bytes()[:8]
+        if header[:4] != b"\xca\xfe\xba\xbe" or int.from_bytes(header[6:8], "big") != 66:
+            raise RuntimeError("custom block is not a Java 22 class")
     bundle = output_dir / "AlquimiaCryptoH4CustomBlocks-v4.jar"
-    info = zipfile.ZipInfo(CLASS_MEMBER, (2020, 1, 1, 0, 0, 0))
-    info.compress_type = zipfile.ZIP_DEFLATED
     with zipfile.ZipFile(bundle, "w") as archive:
-        archive.writestr(info, compiled.read_bytes())
+        for member, path in zip(CLASS_MEMBERS, compiled):
+            info = zipfile.ZipInfo(member, (2020, 1, 1, 0, 0, 0))
+            info.compress_type = zipfile.ZIP_DEFLATED
+            archive.writestr(info, path.read_bytes())
     return {
         "schema_version": 1,
         "decision": "PASS_COMPILE_ONLY_NOT_PARITY",
         "production_sq_modified": False,
         "network_used": False,
-        "source_sha256": _sha(source),
+        "source_sha256": {member: _sha(source_root / member)
+                          for member in SOURCE_MEMBERS},
         "sq_snippets_jar_sha256": _sha(libs / "Snippets.jar"),
         "class_major_version": 66,
         "bundle_path": str(bundle),
@@ -90,4 +101,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

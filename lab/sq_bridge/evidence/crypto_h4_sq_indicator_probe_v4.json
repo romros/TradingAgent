@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "decision": "INCOMPLETE_ZERO_DIFFERENCE_PROOF",
+  "indicator": "AlquimiaH4GapSafeSMAATR",
+  "engine": "MetaTrader5 (hedged)",
+  "market_sample": "BTCUSD_ALQ_H4 continuous segment beginning 2023-03-24",
+  "rows": 512,
+  "bars_to_reserve": 14,
+  "comparison_decimals": 10,
+  "corrected_oracle_sha256": "7f19cca8f1c2f5d5c3fc6a28411b54a05373a16d97357b56bfb762ae913241f7",
+  "sq_source_segment_sha256": "298e1c5faec2973818abadef1e872d5287b0537a0992f7dfd4d8f9c4a2648e51",
+  "sq_timeframe_recognized": "H4",
+  "runtime_exceptions_after_oracle_correction": 0,
+  "reported_difference_errors_after_oracle_correction": 0,
+  "limitation": "SQ143 IndicatorTester only throws after more than 150 differences and its final status is WebSocket-only; absence of an exception does not prove zero differences.",
+  "promotion_authorized": false,
+  "remaining_gate": "CAPTURE_EXACT_DIFFERENCE_COUNT_OR_TRADE_LEVEL_PARITY"
+}

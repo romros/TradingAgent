@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_SQ_INSTALL_AND_CATALOG_NOT_PARITY",
+  "installed_at_utc": "2026-08-11T12:03:16Z",
+  "sq_version": "143.2708",
+  "baseline_snippets_jar_sha256": "301174e658d8a61761c5e5d26647539f7bdceb259c531bfdc36cc2ceab76e42c",
+  "compiled_snippets_jar_sha256": "abfda14000ddb8996047a68d46c8ac92340ac05c61f288b7376b962a81b9c88e",
+  "backup_path": "/mnt/volume-SQ/user/backups/alquimia_custom_blocks_v4/baseline_20260811T120129Z/Snippets.jar",
+  "installed_source_sha256": {
+    "SQ/Blocks/BarAndTime/AlquimiaH4WindowIsContinuous.java": "8d01492993e69a5a5bf15cd720eb8c1345343f8cda56f393947759aa141a2bc9",
+    "SQ/Blocks/Indicators/AlquimiaH4GapSafeSMAATR/AlquimiaH4GapSafeSMAATR.java": "6cafd80720c825aa3c46052478a15e174f732f6ebebdd177402d8c2d7b447495",
+    "SQ/Formulas/SLPT/AlquimiaH4GapSafeSMAATRValue.java": "ad08962952465baffa357d91c9630cadf4b875e08b31c80c185d4e670deec88a",
+    "SQ/Utils/AlquimiaGapSafeATR.java": "56556927c8016dfbd1ee7fe5e935a971968f09dfc3d6083cddcfb6585079c0ce"
+  },
+  "catalog_entries_verified": [
+    "AlquimiaH4GapSafeSMAATR",
+    "AlquimiaH4GapSafeSMAATRValue",
+    "AlquimiaH4WindowIsContinuous"
+  ],
+  "jar_integrity_verified": true,
+  "http_health_verified": true,
+  "production_projects_modified": false,
+  "promotion_authorized": false,
+  "remaining_gate": "ZERO_DIFFERENCE_RUNTIME_PARITY_AND_CFX_TRADE_PARITY"
+}

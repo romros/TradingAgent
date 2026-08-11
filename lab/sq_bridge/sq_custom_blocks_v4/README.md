@@ -14,6 +14,12 @@ extensions.  It is not an installed production snippet bundle.
 - no warm-up value before 14 consecutive bars;
 - no imputation and no Wilder recurrence.
 
+The SLPT formula evaluates shift 1 because a market entry is placed on the bar
+after the decision.  It intentionally does not apply SQ's native six-decimal
+ATR rounding: the canonical Python stop uses the full SMA value.  The
+continuity condition takes a transition count; a signal lookback of `N` bars
+requires `N` transitions from its endpoint to its comparison bar.
+
 Signal lookbacks also need a separate continuity guard.  An open trade that
 later crosses a missing-data interval cannot be removed by an ordinary SQ
 strategy rule without future knowledge.  Exact evaluation therefore requires

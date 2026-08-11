@@ -1,5 +1,5 @@
 {
-  "bundle_sha256": "51a1de9a076c988bbe52a66f4585916561b27974da50003bb813a143587d69cd",
+  "bundle_sha256": "f3bfb4885783a4d2b6512e61fb2595da8856d4f79377bee956ca4e74520ae398",
   "class_major_version": 66,
   "decision": "PASS_COMPILE_ONLY_NOT_PARITY",
   "network_used": false,
@@ -7,6 +7,11 @@
   "promotion_authorized": false,
   "remaining_gate": "SQ_RUNTIME_NUMERIC_PARITY_AND_SEGMENTED_BACKTEST",
   "schema_version": 1,
-  "source_sha256": "5f73604edfb0f4d5c9bf6ac38a797687165812886dfa5ab893d6f0cedef49d11",
+  "source_sha256": {
+    "SQ/Blocks/BarAndTime/AlquimiaH4WindowIsContinuous.java": "8d01492993e69a5a5bf15cd720eb8c1345343f8cda56f393947759aa141a2bc9",
+    "SQ/Blocks/Indicators/AlquimiaH4GapSafeSMAATR/AlquimiaH4GapSafeSMAATR.java": "6cafd80720c825aa3c46052478a15e174f732f6ebebdd177402d8c2d7b447495",
+    "SQ/Formulas/SLPT/AlquimiaH4GapSafeSMAATRValue.java": "ad08962952465baffa357d91c9630cadf4b875e08b31c80c185d4e670deec88a",
+    "SQ/Utils/AlquimiaGapSafeATR.java": "56556927c8016dfbd1ee7fe5e935a971968f09dfc3d6083cddcfb6585079c0ce"
+  },
   "sq_snippets_jar_sha256": "dbca743b7d5371ab989935b146a270e4eb55d0f8f52088a219e1afc8db4554b4"
 }

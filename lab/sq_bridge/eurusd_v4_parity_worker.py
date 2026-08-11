@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from lab.sq_bridge.alquimia_retest import generate, verify_retest_project
+from lab.sq_bridge.campaign_market_contract_v4 import validate as validate_market
 from lab.sq_bridge.sq_parity_stage_v4 import run_stage
 from lab.sq_bridge.sq_signal_probe_controller import capture_retest
 from lab.sq_bridge.temporal_split_contract_v4 import sq_periods
@@ -130,10 +131,14 @@ def tick(*, translation_worker_dir: Path, output_dir: Path,
 
     config_path = worker_config_path.resolve()
     config = _load(config_path)
+    market = validate_market(config)
     candle_contract_path = _resolve(
         config_path.parent, config.get("small_account_candle_contract_path"),
         config.get("small_account_candle_contract_sha256"), "parity candle contract")
     candle_contract = _load(candle_contract_path)
+    if (candle_contract.get("symbol") != market["symbol"]
+            or candle_contract.get("timeframe") != market["timeframe"]):
+        raise ValueError("parity candles differ from campaign market contract")
     market_data_path = _resolve(
         candle_contract_path.parent, candle_contract.get("sq_candles_path"),
         candle_contract.get("sq_candles_sha256"), "full SQ parity market data")
@@ -189,7 +194,8 @@ def tick(*, translation_worker_dir: Path, output_dir: Path,
             source=source_cfx, output=cfx,
             project_name=f"ALQ4_PAR_{project_token.upper()}", stage="pre_holdout",
             manifest_path=periods_path, methodology_path=methodology_path,
-            symbol="EURUSD", timeframe="D1", candidate_sqx=candidate_sqx,
+            symbol=market["symbol"], timeframe=market["timeframe"],
+            candidate_sqx=candidate_sqx,
             candidate_id=candidate_id)
         if not cfx.is_file() or not manifest_path.is_file():
             raise ValueError("parity Retest generator did not produce its checkpoint")

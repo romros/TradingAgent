@@ -65,6 +65,16 @@ manifest i executa automàticament la construcció de cartera. El worker de
 holdout reobre i recomputa l'artefacte, i exigeix que la candidata i el hash
 exacte del seu sizing constin en la cartera seleccionada.
 
+Els workers post-SQ comparteixen un contracte de mercat obligatori dins la seva
+configuració: `symbol`, `timeframe`, `source_timezone`, `ostium_pair_id`,
+`ostium_pair_from`, `ostium_pair_to` i `ostium_category`. La validació temporal
+el contrasta amb el manifest CFX; sizing i paritat amb les candles; robustesa
+amb l'instrument observat als costos. Per forex, un `overnightMaxLeverage=0`
+significa absència de l'override d'accions. Per qualsevol altra categoria cal
+un límit overnight positiu observat i s'usa el mínim entre límit general i
+overnight. Això permet reutilitzar la cadena en altres tokens sense substituir
+manualment literals d'EURUSD ni assumir un apalancament incorrecte.
+
 ## Manifest de campanya
 
 ```json

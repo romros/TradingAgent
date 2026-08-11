@@ -78,6 +78,7 @@ def _fixture(tmp_path):
         "translation_artifact_sha256": _sha(translation)})
     candles = _write(tmp_path / "candles.csv", "date,open,high,low,close\n")
     candle_contract = _write(tmp_path / "candle-contract.json", {
+        "symbol": "EURUSD", "timeframe": "D1",
         "sq_candles_path": str(candles), "sq_candles_sha256": _sha(candles)})
     build = _write(tmp_path / "build.receipt.json", {})
     projects = tmp_path / "projects"
@@ -87,7 +88,11 @@ def _fixture(tmp_path):
         "small_account_candle_contract_sha256": _sha(candle_contract),
         "signal_probe_build_receipt_path": str(build),
         "signal_probe_build_receipt_sha256": _sha(build),
-        "host_projects_root": str(projects), "base_url": "http://sq"})
+        "host_projects_root": str(projects), "base_url": "http://sq",
+        "market": {"symbol": "EURUSD", "timeframe": "D1",
+                   "source_timezone": "Etc/UTC", "ostium_pair_id": "2",
+                   "ostium_pair_from": "EUR", "ostium_pair_to": "USD",
+                   "ostium_category": "forex"}})
     return translation_dir, tmp_path / "parity-worker", config, temporal
 
 

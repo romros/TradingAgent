@@ -1,6 +1,15 @@
 {
   "schema_version": 1,
   "campaign_id": "eurusd-d1-alquimia-v4",
+  "market": {
+    "symbol": "EURUSD",
+    "timeframe": "D1",
+    "source_timezone": "Etc/UTC",
+    "ostium_pair_id": "2",
+    "ostium_pair_from": "EUR",
+    "ostium_pair_to": "USD",
+    "ostium_category": "forex"
+  },
   "scaffold_path": "/mnt/volume-SQ/user/projects/EURUSD/project.cfx",
   "scaffold_sha256": "48a0484d858b9bfad883b0ae484970ed97eb67dcc716bf9d48dfecab5f13da5d",
   "scaffold_sq_version": "143.2708",

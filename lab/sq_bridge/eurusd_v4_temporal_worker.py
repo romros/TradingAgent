@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 from typing import Any, Callable
 
+from lab.sq_bridge.campaign_market_contract_v4 import validate as validate_market
 from lab.sq_bridge.sq_temporal_stage_v4 import run_stage
 from lab.sq_bridge.sqcli_transport import list_projects_with_status
 from lab.sq_bridge.temporal_split_contract_v4 import digest as temporal_digest
@@ -137,6 +138,7 @@ def tick(*, screen_dir: Path, sq_worker_dir: Path, output_dir: Path,
     discovery_manifest = _verified(
         first.get("project_manifest_path"), first.get("project_manifest_sha256"),
         "discovery manifest")
+    discovery = _load(discovery_manifest)
     resource_source = _verified(
         first.get("project_cfx_path"), first.get("project_cfx_sha256"),
         "discovery resource")
@@ -155,6 +157,10 @@ def tick(*, screen_dir: Path, sq_worker_dir: Path, output_dir: Path,
                     "accepted_candidates_global_budget")):
         raise ValueError("global SQ universe is not bound to frozen screen/budget")
     config = _load(worker_config_path.resolve())
+    market = validate_market(config)
+    if (discovery.get("market") != market["symbol"]
+            or discovery.get("timeframe") != market["timeframe"]):
+        raise ValueError("discovery manifest differs from campaign market contract")
     template = _verified(config.get("scaffold_path"), config.get("scaffold_sha256"),
                          "Retest template", worker_config_path.resolve().parent)
 
@@ -184,7 +190,8 @@ def tick(*, screen_dir: Path, sq_worker_dir: Path, output_dir: Path,
         retest_template_path=template, discovery_manifest_path=discovery_manifest,
         temporal_contract_path=temporal_contract_path,
         methodology_path=methodology_path, cost_model_path=cost_model_path,
-        symbol="EURUSD", timeframe="D1", source_timezone="Etc/UTC",
+        symbol=market["symbol"], timeframe=market["timeframe"],
+        source_timezone=market["source_timezone"],
         work_dir=work_dir, artifact_path=final_path,
         resource_source_path=resource_source, resource_task_file="Build-Task1.xml",
         slippage=0, test_precision=4)

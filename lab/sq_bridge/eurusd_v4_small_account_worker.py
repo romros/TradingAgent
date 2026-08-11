@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 from typing import Any, Callable
 
+from lab.sq_bridge.campaign_market_contract_v4 import validate as validate_market
 from lab.sq_bridge.candle_source_contract_v4 import verify as verify_candles
 from lab.sq_bridge.sq_small_account_stage_v4 import run_stage
 from lab.sq_bridge.us500_d1_market_preflight_v4 import write_atomic
@@ -69,6 +70,7 @@ def tick(*, robustness_worker_dir: Path, output_dir: Path,
         "frozen robustness methodology", robustness_path.parent)
     config_path = worker_config_path.resolve()
     config = _load(config_path)
+    market = validate_market(config)
     candle_contract_path = _verified(
         config.get("small_account_candle_contract_path"),
         config.get("small_account_candle_contract_sha256"),
@@ -77,10 +79,10 @@ def tick(*, robustness_worker_dir: Path, output_dir: Path,
     if verify_candles(candle_contract) != candle_contract:
         raise ValueError("small-account candle contract not reproducible")
     if (candle_contract.get("decision") != "PASS_CANDLE_PARITY"
-            or candle_contract.get("symbol") != "EURUSD"
-            or candle_contract.get("timeframe") != "D1"
+            or candle_contract.get("symbol") != market["symbol"]
+            or candle_contract.get("timeframe") != market["timeframe"]
             or candle_contract.get("performance_accessed") is not False):
-        raise ValueError("small-account EURUSD candle contract invalid")
+        raise ValueError("small-account campaign candle contract invalid")
     candles_path = _verified(
         candle_contract.get("sq_candles_path"),
         candle_contract.get("sq_candles_sha256"), "SQ sizing candles")

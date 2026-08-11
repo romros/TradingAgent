@@ -40,7 +40,11 @@ def _fixture(tmp_path):
         symbol="EURUSD", timeframe="D1"))
     config = _write(tmp_path / "config.json", {
         "small_account_candle_contract_path": str(contract),
-        "small_account_candle_contract_sha256": _sha(contract)})
+        "small_account_candle_contract_sha256": _sha(contract),
+        "market": {"symbol": "EURUSD", "timeframe": "D1",
+                   "source_timezone": "Etc/UTC", "ostium_pair_id": "2",
+                   "ostium_pair_from": "EUR", "ostium_pair_to": "USD",
+                   "ostium_category": "forex"}})
     return robustness_dir, output, config
 
 

@@ -46,7 +46,8 @@ def _fixture(tmp_path):
         "frozen_preflight_path": str(preflight),
         "frozen_preflight_sha256": _sha(preflight),
         "methodology_path": str(methodology), "methodology_sha256": _sha(methodology)})
-    manifest = _write(tmp_path / "project.manifest.json", {})
+    manifest = _write(tmp_path / "project.manifest.json", {
+        "market": "EURUSD", "timeframe": "D1"})
     cfx = tmp_path / "project.cfx"; cfx.write_bytes(b"project")
     _write(sq_dir / "cfx_batch/project_batch.json", {
         "decision": "PASS_CFX_BATCH_READY", "campaign_id": campaign,
@@ -67,7 +68,11 @@ def _fixture(tmp_path):
     scaffold = tmp_path / "scaffold.cfx"; scaffold.write_bytes(b"scaffold")
     config = _write(tmp_path / "worker_config.json", {
         "scaffold_path": str(scaffold), "scaffold_sha256": _sha(scaffold),
-        "base_url": "http://sq"})
+        "base_url": "http://sq", "market": {
+            "symbol": "EURUSD", "timeframe": "D1",
+            "source_timezone": "Etc/UTC", "ostium_pair_id": "2",
+            "ostium_pair_from": "EUR", "ostium_pair_to": "USD",
+            "ostium_category": "forex"}})
     return screen_dir, sq_dir, out, config
 
 

@@ -27,6 +27,13 @@ def _costs():
                          "overnight_max_leverage": zero}}
 
 
+def _market(category="forex"):
+    return {"symbol": "EURUSD", "timeframe": "D1",
+            "source_timezone": "Etc/UTC", "ostium_pair_id": "2",
+            "ostium_pair_from": "EUR", "ostium_pair_to": "USD",
+            "ostium_category": category}
+
+
 def _fixture(tmp_path):
     campaign = "eurusd-d1-alquimia-v4"
     temporal_dir, output = tmp_path / "temporal", tmp_path / "robust"
@@ -47,17 +54,28 @@ def _fixture(tmp_path):
     projects = tmp_path / "projects"; projects.mkdir()
     config = _write(tmp_path / "config.json", {
         "base_url": "http://sq", "host_projects_root": str(projects),
-        "brokerage_api_max_leverage": 100})
+        "brokerage_api_max_leverage": 100, "market": _market()})
     return temporal_dir, output, config, projects
 
 
 def test_derives_conservative_forex_limit_without_treating_zero_as_zero_leverage():
-    assert venue_max_leverage(_costs()) == 200
+    assert venue_max_leverage(_costs(), _market()) == 200
     weak = _costs(); weak["venue_limits"]["max_leverage"]["min"] = 100
-    assert venue_max_leverage(weak) == 100
+    assert venue_max_leverage(weak, _market()) == 100
     weak["venue_limits"]["overnight_max_leverage"]["p50"] = 50
     with pytest.raises(ValueError, match="EVIDENCE_INSUFFICIENT"):
-        venue_max_leverage(weak)
+        venue_max_leverage(weak, _market())
+
+
+def test_non_forex_uses_positive_overnight_cap_and_rejects_zero_semantics():
+    costs = _costs()
+    overnight = costs["venue_limits"]["overnight_max_leverage"]
+    overnight.update({"min": 20, "p50": 30, "p95": 40, "max": 50})
+    costs["instrument"]["category"] = "commodity"
+    assert venue_max_leverage(costs, _market("commodity")) == 20
+    overnight.update({"min": 0, "p50": 0, "p95": 0, "max": 0})
+    with pytest.raises(ValueError, match="SEMANTICS_UNPROVEN"):
+        venue_max_leverage(costs, _market("commodity"))
 
 
 def test_waits_for_temporal_and_terminal_reject_never_runs_sq(tmp_path):

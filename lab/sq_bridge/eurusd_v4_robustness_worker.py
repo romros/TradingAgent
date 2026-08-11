@@ -8,6 +8,9 @@ import json
 from pathlib import Path
 from typing import Any, Callable
 
+from lab.sq_bridge.campaign_market_contract_v4 import (
+    instrument_identity, validate as validate_market,
+)
 from lab.sq_bridge.sq_robustness_stage_v4 import run_stage
 from lab.sq_bridge.sqcli_transport import list_projects_with_status
 from lab.sq_bridge.us500_d1_market_preflight_v4 import write_atomic
@@ -35,13 +38,14 @@ def _verified(value: object, digest: object, label: str,
     return path
 
 
-def venue_max_leverage(cost_model: dict[str, Any]) -> float:
-    """Derive a conservative current EURUSD cap from frozen Ostium evidence."""
+def venue_max_leverage(cost_model: dict[str, Any],
+                       market: dict[str, str]) -> float:
+    """Derive a conservative all-session cap from frozen Ostium evidence."""
     instrument = cost_model.get("instrument") or {}
     if (str(instrument.get("pair_id")), instrument.get("pair_from"),
             instrument.get("pair_to"), instrument.get("category")) \
-            != ("2", "EUR", "USD", "forex"):
-        raise ValueError("EURUSD_OSTIUM_INSTRUMENT_IDENTITY_INVALID")
+            != instrument_identity(market):
+        raise ValueError("OSTIUM_INSTRUMENT_IDENTITY_INVALID")
     limits = cost_model.get("venue_limits") or {}
     leverage = limits.get("max_leverage") or {}
     overnight = limits.get("overnight_max_leverage") or {}
@@ -50,13 +54,19 @@ def venue_max_leverage(cost_model: dict[str, Any]) -> float:
     if (not all(isinstance(value, (int, float)) and not isinstance(value, bool)
                 and value > 0 for value in values)
             or not isinstance(leverage.get("n"), int) or leverage["n"] < 30
-            or not all(isinstance(value, (int, float)) and not isinstance(value, bool)
-                       and value == 0 for value in overnight_values)
             or not isinstance(overnight.get("n"), int) or overnight["n"] < 30):
-        raise ValueError("EURUSD_OSTIUM_LEVERAGE_EVIDENCE_INSUFFICIENT")
+        raise ValueError("OSTIUM_LEVERAGE_EVIDENCE_INSUFFICIENT")
     # overnightMaxLeverage is a stock day-trading override. Zero on a forex
     # pair means no special stock override; it must never replace maxLeverage.
-    return float(min(values))
+    if all(isinstance(value, (int, float)) and not isinstance(value, bool)
+           and value == 0 for value in overnight_values):
+        if market["ostium_category"] != "forex":
+            raise ValueError("OSTIUM_OVERNIGHT_LEVERAGE_SEMANTICS_UNPROVEN")
+        return float(min(values))
+    if not all(isinstance(value, (int, float)) and not isinstance(value, bool)
+               and value > 0 for value in overnight_values):
+        raise ValueError("OSTIUM_LEVERAGE_EVIDENCE_INSUFFICIENT")
+    return float(min(values + overnight_values))
 
 
 def _running(rows: list[dict]) -> list[str]:
@@ -112,11 +122,12 @@ def tick(*, temporal_worker_dir: Path, output_dir: Path,
     costs = _load(cost_path)
     if costs.get("decision") != "PASS_COSTS_FROZEN" or costs.get("costs_frozen") is not True:
         raise ValueError("robustness requires frozen costs")
-    max_leverage = venue_max_leverage(costs)
     methodology_path = _verified(
         temporal.get("methodology_path"), temporal.get("methodology_sha256"),
         "frozen temporal methodology", temporal_path.parent)
     config = _load(worker_config_path.resolve())
+    market = validate_market(config)
+    max_leverage = venue_max_leverage(costs, market)
     execution_max_leverage = config.get("brokerage_api_max_leverage")
     if (not isinstance(execution_max_leverage, (int, float))
             or isinstance(execution_max_leverage, bool)
@@ -167,7 +178,10 @@ def tick(*, temporal_worker_dir: Path, output_dir: Path,
         "temporal_artifact_sha256": _sha(temporal_path),
         "venue_max_leverage": max_leverage,
         "execution_max_leverage": float(execution_max_leverage),
-        "overnight_leverage_semantics": "zero_means_no_stock_day_trading_override_for_forex",
+        "overnight_leverage_semantics": (
+            "zero_means_no_stock_day_trading_override_for_forex"
+            if market["ostium_category"] == "forex"
+            else "positive_override_included_in_conservative_all_session_cap"),
         "holdout_accessed": False, "paper_authorized": False,
         "live_authorized": False,
     }

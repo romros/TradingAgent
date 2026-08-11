@@ -4,8 +4,9 @@ from datetime import datetime, timedelta, timezone
 
 import pytest
 
+import lab.sq_bridge.portfolio_construction_v4 as portfolio_module
 from lab.sq_bridge.portfolio_construction_v4 import (
-    _source_hypothesis, pair_metrics, portfolio_exposure, select,
+    _source_hypothesis, pair_metrics, portfolio_exposure, select, verify,
 )
 
 
@@ -106,3 +107,27 @@ def test_hypothesis_identity_is_derived_from_hashed_generation_lineage(tmp_path)
     generation.write_text("{}\n")
     with pytest.raises(ValueError, match="generation lineage"):
         _source_hypothesis(small, small_path, "candidate")
+
+
+def test_portfolio_verifier_rebuilds_sources_and_rejects_shaped_json(
+        tmp_path, monkeypatch):
+    manifest = tmp_path / "manifest.json"
+    methodology = tmp_path / "methodology.json"
+    manifest.write_text("{}\n")
+    methodology.write_text("{}\n")
+    artifact_path = tmp_path / "portfolio.json"
+    frozen = {
+        "stage": "portfolio_construction", "decision": "PASS",
+        "candidate_ids": ["A", "B", "C", "D"],
+        "manifest_path": str(manifest),
+        "manifest_sha256": hashlib.sha256(manifest.read_bytes()).hexdigest(),
+        "methodology_path": str(methodology),
+        "methodology_sha256": hashlib.sha256(methodology.read_bytes()).hexdigest(),
+    }
+    artifact_path.write_text(json.dumps(frozen))
+    monkeypatch.setattr(portfolio_module, "build", lambda **_kwargs: frozen)
+    assert verify(artifact_path) == frozen
+    shaped = {**frozen, "candidate_ids": ["A", "B", "C", "X"]}
+    artifact_path.write_text(json.dumps(shaped))
+    with pytest.raises(ValueError, match="does not reproduce"):
+        verify(artifact_path)

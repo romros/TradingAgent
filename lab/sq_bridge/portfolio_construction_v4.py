@@ -8,6 +8,7 @@ import itertools
 import json
 import math
 import re
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -310,6 +311,27 @@ def build(*, manifest_path: Path, methodology_path: Path, output_path: Path) -> 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(artifact, indent=2, sort_keys=True) + "\n")
     return artifact
+
+
+def verify(artifact_path: Path) -> dict:
+    """Rebuild a frozen portfolio from every source; reject shaped JSON."""
+    artifact_path = artifact_path.resolve()
+    stored = json.loads(artifact_path.read_text())
+    if not isinstance(stored, dict):
+        raise ValueError("portfolio artifact must be an object")
+    manifest_path = _resolve(
+        artifact_path.parent, stored.get("manifest_path"),
+        stored.get("manifest_sha256"), "portfolio manifest")
+    methodology_path = _resolve(
+        artifact_path.parent, stored.get("methodology_path"),
+        stored.get("methodology_sha256"), "portfolio methodology")
+    with tempfile.TemporaryDirectory(prefix="alquimia-portfolio-verify-") as directory:
+        rebuilt = build(
+            manifest_path=manifest_path, methodology_path=methodology_path,
+            output_path=Path(directory) / "portfolio.json")
+    if rebuilt != stored:
+        raise ValueError("portfolio artifact does not reproduce from frozen sources")
+    return stored
 
 
 def main() -> None:

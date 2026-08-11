@@ -18,6 +18,12 @@ def _write(path, value):
     return path
 
 
+def _tick(**kwargs):
+    kwargs.setdefault(
+        "portfolio_verify_fn", lambda path: json.loads(path.read_text()))
+    return tick(**kwargs)
+
+
 def _fixture(tmp_path, candle_day="2023.06.30"):
     campaign = "eurusd-d1-alquimia-v4"
     small_dir, output = tmp_path / "small", tmp_path / "holdout"
@@ -66,13 +72,13 @@ def _fixture(tmp_path, candle_day="2023.06.30"):
 
 
 def test_waits_for_sizing_and_incomplete_candles_do_not_open_holdout(tmp_path):
-    result = tick(
+    result = _tick(
         small_account_worker_dir=tmp_path / "absent", output_dir=tmp_path / "out",
         worker_config_path=tmp_path / "missing")
     assert result["decision"] == "WAITING_FOR_SMALL_ACCOUNT"
     small, output, config, _ = _fixture(tmp_path)
     called = []
-    result = tick(small_account_worker_dir=small, output_dir=output,
+    result = _tick(small_account_worker_dir=small, output_dir=output,
                   worker_config_path=config,
                   holdout_fn=lambda **kwargs: called.append(kwargs))
     assert result["decision"] == "WAITING_FOR_HOLDOUT_CANDLE_COVERAGE"
@@ -97,11 +103,11 @@ def test_complete_coverage_opens_once_and_replays_terminal_receipt(tmp_path):
     common = dict(small_account_worker_dir=small, output_dir=output,
                   worker_config_path=config, listing_fn=lambda _: [],
                   holdout_fn=holdout)
-    first = tick(**common)
+    first = _tick(**common)
     assert first["decision"] == "PASS_FINAL_HOLDOUT"
     assert first["holdout_evaluation_count"] == 1
     assert calls[0]["projects_root"] == projects
-    assert tick(**common) == first
+    assert _tick(**common) == first
     assert len(calls) == 1
 
 
@@ -110,7 +116,7 @@ def test_holdout_waits_for_portfolio_and_rejects_foreign_selection(tmp_path):
     config_value = json.loads(config.read_text())
     portfolio = config_value["portfolio_artifact_path"]
     Path(portfolio).unlink()
-    result = tick(small_account_worker_dir=small, output_dir=output,
+    result = _tick(small_account_worker_dir=small, output_dir=output,
                   worker_config_path=config)
     assert result["decision"] == "WAITING_FOR_PORTFOLIO_CONSTRUCTION"
     assert result["holdout_accessed"] is False
@@ -122,14 +128,14 @@ def test_holdout_waits_for_portfolio_and_rejects_foreign_selection(tmp_path):
         "source_receipts": {"A": {"campaign_id": "foreign",
             "artifact_path": str(sizing), "artifact_sha256": _sha(sizing)}}})
     with pytest.raises(ValueError, match="does not authorize"):
-        tick(small_account_worker_dir=small, output_dir=output,
+        _tick(small_account_worker_dir=small, output_dir=output,
              worker_config_path=config)
 
 
 def test_foreign_sq_project_blocks_release_and_sizing_reject_is_terminal(tmp_path):
     small, output, config, _ = _fixture(tmp_path, "2023.12.31")
     called = []
-    result = tick(
+    result = _tick(
         small_account_worker_dir=small, output_dir=output,
         worker_config_path=config,
         listing_fn=lambda _: [{"projectName": "ACADEMIA", "runningStatus": 1}],
@@ -142,7 +148,7 @@ def test_foreign_sq_project_blocks_release_and_sizing_reject_is_terminal(tmp_pat
     value = json.loads(receipt.read_text())
     value.update({"decision": "REJECT_SMALL_ACCOUNT", "candidate_ids": []})
     receipt.write_text(json.dumps(value))
-    result = tick(small_account_worker_dir=small, output_dir=output,
+    result = _tick(small_account_worker_dir=small, output_dir=output,
                   worker_config_path=config,
                   holdout_fn=lambda **kwargs: called.append(kwargs))
     assert result["decision"] == "REJECT_SMALL_ACCOUNT"

@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from lab.sq_bridge.candle_source_contract_v4 import verify as verify_candles
+from lab.sq_bridge.portfolio_construction_v4 import verify as verify_portfolio
 from lab.sq_bridge.sq_final_holdout_stage_v4 import run_stage
 from lab.sq_bridge.sqcli_transport import list_projects_with_status
 from lab.sq_bridge.us500_d1_market_preflight_v4 import write_atomic
@@ -58,7 +59,9 @@ def _own_resumable(work_dir: Path, running: list[str]) -> bool:
 def tick(*, small_account_worker_dir: Path, output_dir: Path,
          worker_config_path: Path,
          listing_fn: Callable[..., list[dict]] = list_projects_with_status,
-         holdout_fn: Callable[..., dict] = run_stage) -> dict[str, Any]:
+         holdout_fn: Callable[..., dict] = run_stage,
+         portfolio_verify_fn: Callable[[Path], dict] = verify_portfolio,
+         ) -> dict[str, Any]:
     sizing_receipt_path = (
         small_account_worker_dir.resolve() / "small_account_worker_receipt.json")
     if not sizing_receipt_path.is_file():
@@ -127,7 +130,7 @@ def tick(*, small_account_worker_dir: Path, output_dir: Path,
                 "holdout_accessed": False, "holdout_evaluation_count": 0,
                 "sqcli_started": False, "paper_authorized": False,
                 "live_authorized": False}
-    portfolio = _load(portfolio_path)
+    portfolio = portfolio_verify_fn(portfolio_path)
     if portfolio.get("decision") == "REJECT":
         return {"schema_version": 1, "decision": "REJECT_PORTFOLIO_CONSTRUCTION",
                 "campaign_id": campaign_id, "candidate_ids": [],

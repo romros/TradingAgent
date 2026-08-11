@@ -28,7 +28,19 @@ def _number(value: object, message: str) -> float:
 
 
 def liquidation_distance_pct(leverage: float, venue_max_leverage: float) -> float:
-    return (100.0 - leverage / venue_max_leverage * 25.0) / leverage
+    """Approximate adverse price move using Ostium's published threshold.
+
+    Ostium keeps a 25% collateral backstop at a pair's maximum leverage.
+    Lower leverage moves the liquidation threshold towards a total collateral
+    loss.  Fees and carry are applied separately by the buffered model below.
+    """
+    leverage = _number(leverage, "Leverage de liquidacio invalid")
+    venue_max_leverage = _number(
+        venue_max_leverage, "Limit de leverage de liquidacio invalid")
+    if leverage <= 0 or venue_max_leverage <= 0 or leverage > venue_max_leverage:
+        raise ValueError("Leverage de liquidacio fora dels limits Ostium")
+    loss_threshold_pct = 100.0 - leverage / venue_max_leverage * 25.0
+    return loss_threshold_pct / leverage
 
 
 def liquidation_cost_erosion_pct(roundtrip_bps: float, annual_cost_pct: float,

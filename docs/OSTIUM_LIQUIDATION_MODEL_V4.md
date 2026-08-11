@@ -45,6 +45,11 @@ la graella 1–200x, abans d'exigir un buffer liquidació/stop ≥1,5.
 
 ## Evidència primària
 
+Revalidat l'11 d'agost de 2026 contra la documentació oficial vigent. Els sis
+exemples publicats (5×, 10×, 20×, 50×, 100× i 200× amb `Lmax=200`) formen part
+de les proves de regressió locals. Entrades no finites, leverage no positiu o
+`L > Lmax` fallen tancades.
+
 - Ostium explica llindars, exemples per leverage i que el rollover acosta la
   liquidació: <https://docs.ostium.com/traders/trading/liquidation>
 - El contracte calcula el col·lateral després de marge de liquidació, rollover

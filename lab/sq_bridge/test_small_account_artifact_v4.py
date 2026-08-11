@@ -5,12 +5,36 @@ from pathlib import Path
 import pytest
 
 from lab.sq_bridge.small_account_artifact_v4 import (
-    build_artifact, evaluate_trace, select_cost_envelope,
+    build_artifact, evaluate_trace, liquidation_distance_pct,
+    select_cost_envelope,
 )
 from lab.sq_bridge.stage_artifact_contract import validate_stage_artifact
 
 
 ROOT = Path(__file__).parent
+
+
+@pytest.mark.parametrize(("leverage", "expected"), [
+    (5, 19.875),
+    (10, 9.875),
+    (20, 4.875),
+    (50, 1.875),
+    (100, .875),
+    (200, .375),
+])
+def test_liquidation_distance_matches_official_ostium_examples(
+        leverage, expected):
+    assert liquidation_distance_pct(leverage, 200) == pytest.approx(expected)
+
+
+@pytest.mark.parametrize(("leverage", "venue_max"), [
+    (0, 200), (-1, 200), (201, 200), (1, 0),
+    (float("nan"), 200), (1, float("inf")),
+])
+def test_liquidation_distance_rejects_invalid_venue_inputs(
+        leverage, venue_max):
+    with pytest.raises(ValueError, match="liquidacio"):
+        liquidation_distance_pct(leverage, venue_max)
 
 
 def _robustness(tmp_path, candidate_ids=("candidate",)):

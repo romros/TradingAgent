@@ -1,5 +1,17 @@
 #!/usr/bin/env node
 import { OstiumClient } from '@ostium/builder-sdk';
+import { readFileSync } from 'node:fs';
+
+const sdkPackage = JSON.parse(readFileSync(
+  '/app/node_modules/@ostium/builder-sdk/package.json', 'utf8'));
+const packageLock = JSON.parse(readFileSync('/app/package-lock.json', 'utf8'));
+const lockedSdk = packageLock.packages?.['node_modules/@ostium/builder-sdk'];
+if (!lockedSdk || sdkPackage.version !== lockedSdk.version) {
+  throw new Error('OSTIUM_SDK_RUNTIME_LOCK_MISMATCH');
+}
+if (typeof lockedSdk.integrity !== 'string' || !lockedSdk.integrity.startsWith('sha512-')) {
+  throw new Error('OSTIUM_SDK_LOCK_INTEGRITY_MISSING');
+}
 
 const notionals = (process.env.OSTIUM_NOTIONALS || '10,20,50,100,200,500,1000')
   .split(',').map((value) => value.trim()).filter(Boolean);
@@ -26,7 +38,7 @@ process.stdout.write(JSON.stringify({
   capturedAt: new Date().toISOString(),
   source: {
     package: '@ostium/builder-sdk',
-    version: '0.7.0',
+    version: sdkPackage.version,
     mode: 'read-only',
     builderFeeBps,
   },

@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 
 from lab.sq_bridge.ostium_small_account_cost_gate_v4 import REQUIRED_NOTIONALS_USDC
@@ -20,6 +21,19 @@ def test_raw_snapshot_is_published_atomically_only_after_docker_succeeds():
     assert '"$RAW_PENDING" --output "$NORMALIZED_PENDING"' in script
     assert 'mv "$RAW_PENDING" "$RAW"' in script
     assert 'mv "$NORMALIZED_PENDING" "$NORMALIZED"' in script
+
+
+def test_capture_reports_the_installed_sdk_and_verifies_lock_integrity():
+    root = Path(__file__).parents[2]
+    capture = (root / "lab" / "ostium_readonly" / "capture_spx.mjs").read_text()
+    lock = json.loads((root / "lab" / "ostium_readonly" / "package-lock.json").read_text())
+    sdk = lock["packages"]["node_modules/@ostium/builder-sdk"]
+    assert sdk["version"] == "0.7.0"
+    assert sdk["integrity"].startswith("sha512-")
+    assert "sdkPackage.version !== lockedSdk.version" in capture
+    assert "lockedSdk.integrity.startsWith('sha512-')" in capture
+    assert "version: sdkPackage.version" in capture
+    assert "version: '0.7.0'" not in capture
 
 
 def test_universe_capture_prioritizes_eurusd_and_is_failure_isolated():

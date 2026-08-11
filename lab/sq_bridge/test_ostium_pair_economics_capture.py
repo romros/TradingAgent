@@ -27,5 +27,8 @@ def test_universe_capture_prioritizes_eurusd_and_is_failure_isolated():
               "capture_ostium_research_universe_economics.sh").read_text()
     assert 'PAIRS=${OSTIUM_RESEARCH_PAIRS:-"EUR/USD ' in script
     assert 'CAPTURE_FAILED pair=%s' in script
+    assert 'ostium_small_account_cost_gate_v4' in script
+    assert '${SLUG}_costs_latest_v4.json' in script
+    assert 'COST_GATE_REFRESH_FAILED pair=%s' in script
     assert 'PREFLIGHT_REFRESH_FAILED pair=EUR/USD' in script
     assert 'exit "$STATUS"' in script

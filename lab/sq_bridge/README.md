@@ -398,6 +398,12 @@ També verifica que cada bloc habilitat tingui destí SQX→IR→runtime i que e
 traductor rebutgi qualsevol paràmetre d'acció desconegut, en lloc d'ignorar
 silenciosament una semàntica que Ostium no reproduiria.
 
+El sizing de 200 USDC no interpola costos optimísticament. Per una mida entre
+dos buckets observats tria el bucket superior i aplica, per escenari, el màxim
+cost variable i fix observat en tots els buckets fins aquell sostre. Això evita
+que soroll no monòton entre captures faci semblar artificialment barata una
+posició intermèdia; el cost fix d'oracle sempre es conserva en USDC.
+
 Aquesta última garantia és executable: `methodology_v4.json` preregistra
 genètica 80% crossover / 20% mutació i migració 5 generacions / 10%, i espais
 separats per família. Breakout usa períodes 20–100 i sortides 8–25 barres;

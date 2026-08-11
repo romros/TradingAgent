@@ -156,6 +156,28 @@ def test_fixed_oracle_is_not_scaled_down_from_larger_cost_bucket(tmp_path):
         5.333333333333333)
 
 
+def test_cost_envelope_cannot_understate_a_noisier_smaller_bucket(tmp_path):
+    model = json.loads(_cost_model(tmp_path).read_text())
+    smaller = dict(model["by_notional"]["500"])
+    smaller["conservative_roundtrip_bps"] = 7
+    smaller["stress_roundtrip_bps"] = 11
+    smaller["oracle_net_usdc"] = {
+        "base": 0, "conservative": 0, "stress": .2}
+    smaller["stress_variable_roundtrip_bps"] = 1
+    model["by_notional"]["200"] = smaller
+    ceiling = model["by_notional"]["500"]
+    ceiling["oracle_net_usdc"] = {
+        "base": 0, "conservative": 0, "stress": .1}
+    ceiling["stress_variable_roundtrip_bps"] = 2
+    ceiling["stress_roundtrip_bps"] = 4
+
+    bucket, variable, fixed, _ = select_cost_envelope(model, 300)
+
+    assert bucket == 500
+    assert variable == {"base": 0, "conservative": 7, "stress": 2}
+    assert fixed == {"base": 0, "conservative": 0, "stress": .2}
+
+
 def test_dynamic_stops_size_each_trade_and_use_worst_margin_envelope(tmp_path):
     methodology = json.loads((ROOT / "methodology_v4.json").read_text())
     trace = _trace()

@@ -59,12 +59,13 @@ def cost_buffered_liquidation_distance_pct(
 
 def select_cost_envelope(
         cost_model: dict, notional: float) -> tuple[float, dict, dict, dict]:
-    """Select a conservative measured bucket without scaling fixed costs.
+    """Select a cumulative conservative envelope without scaling fixed costs.
 
-    The measured variable execution rate may safely come from the next-higher
-    notional bucket.  A fixed oracle charge must still be charged in USDC at
-    its original amount; converting it to bucket bps and applying those bps to
-    a smaller actual notional would undercharge it.
+    The ceiling bucket covers the requested size, but sampling noise can make a
+    smaller measured bucket look more expensive.  Use the worst variable and
+    fixed observations across every measured size up to that ceiling.  A fixed
+    oracle charge remains in USDC; converting it to bucket bps and applying
+    those bps to a different actual notional would misprice it.
     """
     notional = _number(notional, "Nocional de costos invalid")
     if notional <= 0:
@@ -75,35 +76,48 @@ def select_cost_envelope(
     rows = cost_model.get("by_notional")
     if not isinstance(rows, dict) or not rows:
         raise ValueError("Graella de costos absent")
-    available = sorted(float(value) for value in rows)
+    parsed = sorted((float(label), label, row) for label, row in rows.items())
+    available = [value for value, _, _ in parsed]
+    if (any(not math.isfinite(value) or value <= 0 for value in available)
+            or len(available) != len(set(available))
+            or any(not isinstance(row, dict) for _, _, row in parsed)):
+        raise ValueError("Graella de costos invalida")
     bucket = next((value for value in available if value >= notional), None)
     if bucket is None:
         raise ValueError("Nocional fora de la graella de costos mesurada")
-    row = rows[format(bucket, "g")]
     scenarios = ("base", "conservative", "stress")
-    fixed = row.get("oracle_net_usdc", {})
-    if not isinstance(fixed, dict):
-        raise ValueError("Costos fixos d'oracle invalids")
-    fixed_usdc = {scenario: _number(fixed.get(scenario, 0.0),
-                                    f"Cost fix {scenario} invalid")
-                  for scenario in scenarios}
-    variable_bps = {}
-    for scenario in scenarios:
-        total = _number(row.get(f"{scenario}_roundtrip_bps"),
-                        f"Cost {scenario} absent")
-        explicit = row.get(f"{scenario}_variable_roundtrip_bps")
-        if explicit is None:
-            # Backward-compatible interpretation of already frozen evidence.
-            # The total field was expressed at the measured bucket.
-            variable = total - fixed_usdc[scenario] / bucket * 10_000
-        else:
-            variable = _number(explicit, f"Cost variable {scenario} invalid")
-            expected_total = variable + fixed_usdc[scenario] / bucket * 10_000
-            if not math.isclose(total, expected_total, rel_tol=1e-9, abs_tol=1e-9):
-                raise ValueError(f"Descomposicio de cost {scenario} inconsistent")
-        if variable < 0:
-            raise ValueError(f"Cost variable {scenario} negatiu")
-        variable_bps[scenario] = variable
+    variable_samples = {scenario: [] for scenario in scenarios}
+    fixed_samples = {scenario: [] for scenario in scenarios}
+    for measured, _, row in parsed:
+        if measured > bucket:
+            break
+        fixed = row.get("oracle_net_usdc", {})
+        if not isinstance(fixed, dict):
+            raise ValueError("Costos fixos d'oracle invalids")
+        for scenario in scenarios:
+            fixed_value = _number(
+                fixed.get(scenario, 0.0), f"Cost fix {scenario} invalid")
+            total = _number(row.get(f"{scenario}_roundtrip_bps"),
+                            f"Cost {scenario} absent")
+            explicit = row.get(f"{scenario}_variable_roundtrip_bps")
+            if explicit is None:
+                # Backward-compatible interpretation of already frozen evidence.
+                variable = total - fixed_value / measured * 10_000
+            else:
+                variable = _number(explicit, f"Cost variable {scenario} invalid")
+                expected_total = variable + fixed_value / measured * 10_000
+                if not math.isclose(
+                        total, expected_total, rel_tol=1e-9, abs_tol=1e-9):
+                    raise ValueError(
+                        f"Descomposicio de cost {scenario} inconsistent")
+            if variable < 0 or fixed_value < 0:
+                raise ValueError(f"Cost {scenario} negatiu")
+            variable_samples[scenario].append(variable)
+            fixed_samples[scenario].append(fixed_value)
+    variable_bps = {scenario: max(values)
+                    for scenario, values in variable_samples.items()}
+    fixed_usdc = {scenario: max(values)
+                  for scenario, values in fixed_samples.items()}
     carry = cost_model.get("carry")
     if not isinstance(carry, dict):
         raise ValueError("Carry de costos absent")

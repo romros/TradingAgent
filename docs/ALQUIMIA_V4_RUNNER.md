@@ -88,6 +88,11 @@ espera el log final i construeix l'artefacte observat. Zero SQX produeix un
 `REJECT` terminal amb pressupost/log preservats; una fallada operacional deixa
 la cadena intacta per reprendre.
 
+La importació també és reprenable: `sqcli_import_batch.py` congela un intent
+abans d'obrir cada projecte i un checkpoint `VERIFIED` després de reexportar el
+CFX. Un batch complet es pot repetir sense cap mutació; un batch interromput
+continua només els intents propis que coincideixen en projecte i hash font.
+
 ## Límit actual
 
 El runner prova l'orquestració i recuperació. Encara falta una campanya real v4

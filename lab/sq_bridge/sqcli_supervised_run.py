@@ -69,6 +69,20 @@ def supervised_run(
             or receipt.get("sqcli_started") is not False
             or not isinstance(projects, dict) or hypothesis_id not in projects):
         raise ValueError("import receipt does not authorize this run")
+    checkpoint_path = _verified_file(
+        receipt.get("checkpoint_path"), receipt.get("checkpoint_sha256"),
+        "import checkpoint")
+    checkpoint = json.loads(checkpoint_path.read_text())
+    if (checkpoint.get("batch_sha256") != receipt.get("batch_sha256")
+            or not isinstance(checkpoint.get("projects"), dict)
+            or set(checkpoint["projects"]) != set(projects)
+            or any(not isinstance(row, dict) or row.get("state") != "VERIFIED"
+                   or row.get("source_cfx_sha256")
+                        != projects[hypothesis].get("source_cfx_sha256")
+                   or row.get("sq_imported_cfx_sha256")
+                        != projects[hypothesis].get("sq_imported_cfx_sha256")
+                   for hypothesis, row in checkpoint["projects"].items())):
+        raise ValueError("import checkpoint is incomplete or mismatched")
     imported = projects[hypothesis_id]
     batch_path = _verified_file(
         receipt.get("batch_path"), receipt.get("batch_sha256"), "source batch")

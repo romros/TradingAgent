@@ -83,3 +83,57 @@ def test_rejects_existing_sq_project_before_copy(tmp_path, monkeypatch):
         importer.import_batch(
             batch_path=batch, output_dir=tmp_path / "receipt", runner=runner)
     assert calls == []
+
+
+def test_completed_import_is_idempotent_without_docker_mutation(tmp_path, monkeypatch):
+    batch, cfx = _batch(tmp_path)
+    calls, runner = _runtime(monkeypatch, cfx)
+    output = tmp_path / "receipt"
+    first = importer.import_batch(batch_path=batch, output_dir=output, runner=runner)
+    calls.clear()
+    monkeypatch.setattr(importer, "list_projects", lambda *_: [{
+        "projectName": "PROJECT", "hasUnresolvedResources": False}])
+    monkeypatch.setattr(
+        importer, "gui_open_project",
+        lambda *_: (_ for _ in ()).throw(AssertionError("project reimported")))
+    second = importer.import_batch(batch_path=batch, output_dir=output, runner=runner)
+    assert second == first
+    assert calls == []
+
+
+def test_resumes_import_intent_after_crash_without_reopening_project(tmp_path, monkeypatch):
+    batch, _ = _batch(tmp_path)
+    shape_calls, open_calls, export_calls = [], [], []
+    monkeypatch.setattr(
+        importer, "verify_genetic_project", lambda *_: shape_calls.append(1) or SHAPE)
+    listing_calls = []
+
+    def listing(*_):
+        listing_calls.append(1)
+        if len(listing_calls) == 1:
+            return []
+        return [{"projectName": "PROJECT", "hasUnresolvedResources": False}]
+
+    monkeypatch.setattr(importer, "list_projects", listing)
+    monkeypatch.setattr(
+        importer, "gui_open_project",
+        lambda *_: open_calls.append(1) or {"success": "ok", "projectName": "PROJECT"})
+
+    def runner(args, **kwargs):
+        if args[:2] == ["docker", "cp"] and args[2].startswith("sqcli-docker:"):
+            export_calls.append(1)
+            if len(export_calls) == 1:
+                return subprocess.CompletedProcess(args, 1, "", "crash")
+            Path(args[3]).parent.mkdir(parents=True, exist_ok=True)
+            Path(args[3]).write_bytes(b"sq-reserialized-cfx")
+        return subprocess.CompletedProcess(args, 0, "", "")
+
+    output = tmp_path / "receipt"
+    with pytest.raises(RuntimeError, match="cannot verify imported CFX"):
+        importer.import_batch(batch_path=batch, output_dir=output, runner=runner)
+    checkpoint = json.loads((output / "import_checkpoint.json").read_text())
+    assert checkpoint["projects"]["h"]["state"] == "IMPORT_INTENT"
+    result = importer.import_batch(batch_path=batch, output_dir=output, runner=runner)
+    assert result["decision"] == "PASS_SQCLI_IMPORT"
+    assert len(open_calls) == 1
+    assert len(export_calls) == 2

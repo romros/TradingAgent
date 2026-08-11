@@ -35,9 +35,18 @@ def _fixture(tmp_path):
         "sq_genetic_shape": SHAPE,
     }}}))
     receipt = tmp_path / "receipt.json"
+    checkpoint = tmp_path / "checkpoint.json"
+    checkpoint.write_text(json.dumps({
+        "batch_sha256": _sha(batch),
+        "projects": {"h": {
+            "state": "VERIFIED", "source_cfx_sha256": _sha(source_cfx),
+            "sq_imported_cfx_sha256": _sha(imported_cfx),
+        }},
+    }))
     receipt.write_text(json.dumps({
         "decision": "PASS_SQCLI_IMPORT", "sqcli_started": False,
         "batch_path": str(batch), "batch_sha256": _sha(batch),
+        "checkpoint_path": str(checkpoint), "checkpoint_sha256": _sha(checkpoint),
         "projects": {"h": {
             "project_name": "PROJECT", "source_cfx_sha256": _sha(source_cfx),
             "sq_imported_cfx_path": str(imported_cfx),

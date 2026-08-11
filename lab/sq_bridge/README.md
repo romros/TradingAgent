@@ -326,7 +326,11 @@ Abans de mutar SQ valida tots els hashes/CFX i rebutja noms ja existents. Usa un
 fitxer temporal restringit dins el contenidor, crida `taskmanager/openProject`,
 elimina el temporal, torna a exportar el CFX reserialitzat per SQ i verifica de
 nou forma genètica, stop i recursos resolts. El rebut conserva ambdós hashes i
-sempre declara `sqcli_started=false`; iniciar és una operació posterior.
+sempre declara `sqcli_started=false`; iniciar és una operació posterior. Abans
+de cada mutació escriu un `IMPORT_INTENT` i, després de reexportar/verificar el
+CFX, el converteix en `VERIFIED`. Repetir un batch complet és idempotent; si el
+procés cau després d'obrir un projecte, el checkpoint permet reprendre'l sense
+confondre'l amb una col·lisió aliena ni tornar-lo a importar.
 
 L'inici també és una fase contractada i només admet una hipòtesi ja importada:
 

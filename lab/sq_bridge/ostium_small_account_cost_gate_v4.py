@@ -16,6 +16,7 @@ MINIMUM_SAMPLES = 30
 MINIMUM_DAYS = 3
 MINIMUM_UTC_HOURS = 6
 REQUIRED_NOTIONALS_USDC = (10, 20, 50, 100, 200, 500, 1000, 2000, 5000, 10000, 14000)
+SUPPORTED_BUILDER_SDK_VERSION = "0.7.0"
 
 
 def number(value: Any, label: str, *, nonnegative: bool = True) -> float:
@@ -81,8 +82,7 @@ def derive(summary: dict[str, Any], *, expected_pair_id: str,
         raise ValueError("execution summary lacks independent-sample proof")
     if (not isinstance(source_contract, dict)
             or source_contract.get("package") != "@ostium/builder-sdk"
-            or not isinstance(source_contract.get("version"), str)
-            or not source_contract["version"].strip()
+            or source_contract.get("version") != SUPPORTED_BUILDER_SDK_VERSION
             or source_contract.get("mode") != "read-only"
             or source_contract.get("builder_fee_bps") != 0):
         raise ValueError("execution summary source contract invalid")
@@ -127,11 +127,12 @@ def derive(summary: dict[str, Any], *, expected_pair_id: str,
     for side in ("long", "short"):
         rate = number((fees.get(f"rollover_{side}_pct_per_8h") or {}).get("p50"),
                       f"rollover_{side}", nonnegative=False)
-        # Builder SDK getPairs() exposes a display/PnL rate, not the signed
-        # contract fee: its formatter explicitly uses display = -contract.
-        # Therefore a negative display rate is a cost and a positive one a
-        # credit. Never extrapolate a current credit backwards as alpha.
-        cost_rate = max(0.0, -rate)
+        # @ostium/builder-sdk 0.7.0 defines rolloverRate as an 8-hour
+        # percentage where negative means the trader earns and positive means
+        # the trader pays.  Its formatter negates the contract-side value to
+        # produce precisely these trader/display semantics.  Never extrapolate
+        # a current credit backwards as alpha.
+        cost_rate = max(0.0, rate)
         carry[side] = {
             "sdk_display_pnl_pct_per_8h": rate,
             "derived_cost_pct_per_8h": cost_rate,
@@ -158,8 +159,16 @@ def derive(summary: dict[str, Any], *, expected_pair_id: str,
         "maximum_feasible_notional_usdc": max(REQUIRED_NOTIONALS_USDC),
         "by_notional": scenarios, "carry": carry,
         "venue_limits": summary.get("limits"),
-        "rollover_sign_semantics": "builder SDK display/PnL rate = negative contract fee",
-        "credit_policy": "positive SDK display rate is capped at zero cost; no historical credit inferred",
+        "rollover_semantics_evidence": {
+            "sdk_contract": (f"@ostium/builder-sdk {SUPPORTED_BUILDER_SDK_VERSION} "
+                             "Pair.rolloverRate"),
+            "unit": "percent_per_8h",
+            "negative": "trader_earns",
+            "positive": "trader_pays",
+            "official_docs": "https://docs.ostium.com/traders/reference/fees",
+        },
+        "rollover_sign_semantics": "negative trader credit; positive trader cost",
+        "credit_policy": "negative SDK display rate is capped at zero cost; no historical credit inferred",
         "paper_authorized": False, "live_authorized": False,
     }
 

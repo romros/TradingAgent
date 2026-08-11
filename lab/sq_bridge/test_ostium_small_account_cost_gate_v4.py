@@ -70,9 +70,13 @@ def test_mature_evidence_freezes_small_account_scenarios_and_oracle_semantics():
     assert costs["stress_variable_roundtrip_bps"] == 8
     assert costs["oracle_net_usdc"] == {"base": 0, "conservative": 0, "stress": .1}
     assert result["carry"]["long"]["sdk_display_pnl_pct_per_8h"] == -.002
-    assert result["carry"]["long"]["derived_cost_pct_per_8h"] == .002
-    assert round(result["carry"]["long"]["base_annual_cost_pct"], 4) == 2.1915
-    assert result["carry"]["short"]["base_annual_cost_pct"] == 0
+    assert result["carry"]["long"]["derived_cost_pct_per_8h"] == 0
+    assert result["carry"]["long"]["base_annual_cost_pct"] == 0
+    assert result["carry"]["short"]["derived_cost_pct_per_8h"] == .002
+    assert round(result["carry"]["short"]["base_annual_cost_pct"], 4) == 2.1915
+    assert result["rollover_semantics_evidence"]["unit"] == "percent_per_8h"
+    assert result["rollover_semantics_evidence"]["negative"] == "trader_earns"
+    assert result["rollover_semantics_evidence"]["positive"] == "trader_pays"
     assert result["paper_authorized"] is False
 
 
@@ -98,6 +102,13 @@ def test_mature_summary_without_independence_proof_cannot_freeze_costs():
     value = summary()
     del value["independence_filter"]
     with pytest.raises(ValueError, match="independent-sample proof"):
+        derive(value, expected_pair_id="2", expected_pair=("EUR", "USD"))
+
+
+def test_unverified_builder_sdk_version_cannot_inherit_rollover_semantics():
+    value = summary()
+    value["source_contract"]["version"] = "0.8.0"
+    with pytest.raises(ValueError, match="source contract invalid"):
         derive(value, expected_pair_id="2", expected_pair=("EUR", "USD"))
     value = summary()
     value["open_market_snapshots"] = 29

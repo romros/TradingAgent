@@ -16,10 +16,15 @@ from lab.sq_bridge.eurusd_d1_hypothesis_trace_v4 import (
     PRODUCER_ID as EURUSD_D1_PRODUCER_ID,
     replay_matches as replay_eurusd_d1,
 )
+from lab.sq_bridge.us500_d1_hypothesis_trace_v4 import (
+    PRODUCER_ID as US500_D1_PRODUCER_ID,
+    replay_matches as replay_us500_d1,
+)
 
 
 SOURCE_TRADE_REPLAY_VERIFIERS = {
     EURUSD_D1_PRODUCER_ID: replay_eurusd_d1,
+    US500_D1_PRODUCER_ID: replay_us500_d1,
 }
 
 
@@ -118,14 +123,14 @@ def _variant_metrics(variant: dict, scenarios: list[str], notional: float,
             pnl[scenario].append(notional * net_pct / 100)
     if ids != sorted(set(ids)):
         raise ValueError("trade_id del screen ha de ser unic i ordenat")
-    profit_factors = {}
+    profit_factors, estimable = {}, {}
     for scenario, values in pnl.items():
         wins = sum(value for value in values if value > 0)
         losses = -sum(value for value in values if value < 0)
-        if losses <= 0:
-            raise ValueError(f"PF train no estimable: {scenario}")
-        profit_factors[scenario] = wins / losses
-    return {"train_trades": len(trades), "profit_factor_by_cost": profit_factors}
+        estimable[scenario] = losses > 0
+        profit_factors[scenario] = wins / losses if losses > 0 else 0.0
+    return {"train_trades": len(trades), "profit_factor_by_cost": profit_factors,
+            "profit_factor_estimable_by_cost": estimable}
 
 
 def evaluate_trace(trace: dict, gate: dict, cost_model: dict,

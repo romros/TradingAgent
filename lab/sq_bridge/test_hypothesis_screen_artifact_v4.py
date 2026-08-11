@@ -242,3 +242,14 @@ def test_screen_applies_side_specific_carry_for_actual_holding_days():
         datetime.fromisoformat("2100-01-01T00:00:00+00:00"))
     assert long_metrics["profit_factor_by_cost"]["stress"] \
         < short_metrics["profit_factor_by_cost"]["stress"]
+
+
+def test_non_estimable_variant_is_conservative_reject_not_campaign_error():
+    metrics = _variant_metrics(
+        {"trades": []}, ["stress"], 200, {"stress": 0},
+        {"long": {"stress_annual_cost_pct": 0},
+         "short": {"stress_annual_cost_pct": 0}},
+        datetime.fromisoformat("2100-01-01T00:00:00+00:00"))
+    assert metrics["train_trades"] == 0
+    assert metrics["profit_factor_by_cost"]["stress"] == 0
+    assert metrics["profit_factor_estimable_by_cost"]["stress"] is False

@@ -1,3 +1,4 @@
+import hashlib
 import json
 from pathlib import Path
 
@@ -13,6 +14,10 @@ def write(path: Path, value: dict) -> None:
     path.write_text(json.dumps(value))
 
 
+def sha(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
 def fixture(tmp_path: Path, *, measured: bool) -> Path:
     write(tmp_path / "coverage.json", {
         "decision": "PASS_HISTORICAL_COVERAGE", "performance_accessed": False,
@@ -24,6 +29,14 @@ def fixture(tmp_path: Path, *, measured: bool) -> Path:
         "decision": "PASS_D1_SOURCE_MAPPING", "performance_accessed": False,
         "common_complete_session_coverage_ratio": .97,
         "d1_close_return_correlation": .999})
+    (tmp_path / "canonical.csv").write_text("2020.01.01,00:00,1,2,.5,1.5,1\n")
+    write(tmp_path / "canonical.json", {
+        "decision": "PASS_CANONICAL_D1_SOURCE", "campaign_id": "us500-test",
+        "symbol": "US500", "timeframe": "D1", "performance_accessed": False,
+        "holdout_accessed": False, "coverage_sha256": sha(tmp_path / "coverage.json"),
+        "mapping_sha256": sha(tmp_path / "mapping.json"),
+        "canonical_path": str(tmp_path / "canonical.csv"),
+        "canonical_sha256": sha(tmp_path / "canonical.csv")})
     write(tmp_path / "vix.json", {
         "decision": "PASS_VIX_DATA_TIMING", "spx_performance_accessed": False,
         "strategy_rule_defined": False,
@@ -37,7 +50,8 @@ def fixture(tmp_path: Path, *, measured: bool) -> Path:
     config = tmp_path / "config.json"
     write(config, {"schema_version": 1, "campaign_id": "us500-test",
                    "ostium_pair_id": "SPX/USD", "coverage": "coverage.json",
-                   "mapping": "mapping.json", "vix": "vix.json", "costs": "costs.json"})
+                   "mapping": "mapping.json", "canonical_source": "canonical.json",
+                   "vix": "vix.json", "costs": "costs.json"})
     return config
 
 

@@ -55,7 +55,8 @@ def read_input(base: Path, value: str, label: str, reasons: list[str]) -> tuple[
 def compose(config_path: Path) -> dict[str, Any]:
     config_path = config_path.resolve()
     config = json.loads(config_path.read_text())
-    required = ("campaign_id", "ostium_pair_id", "coverage", "mapping", "costs")
+    required = ("campaign_id", "ostium_pair_id", "coverage", "mapping",
+                "canonical_source", "costs")
     missing = [name for name in required if not config.get(name)]
     if missing:
         raise ValueError(f"preflight config missing: {', '.join(missing)}")
@@ -64,15 +65,15 @@ def compose(config_path: Path) -> dict[str, Any]:
     reasons: list[str] = []
     inputs = {}
     loaded = {}
-    labels = ["coverage", "mapping", "costs"]
+    labels = ["coverage", "mapping", "canonical_source", "costs"]
     if config.get("vix"):
         labels.append("vix")
     for label in labels:
         loaded[label], inputs[label] = read_input(
             config_path.parent, config[label], label, reasons)
 
-    coverage, mapping, costs = (loaded[name] for name in (
-        "coverage", "mapping", "costs"))
+    coverage, mapping, canonical, costs = (loaded[name] for name in (
+        "coverage", "mapping", "canonical_source", "costs"))
     vix = loaded.get("vix")
     if coverage.get("decision") != "PASS_HISTORICAL_COVERAGE":
         reasons.append("HISTORICAL_COVERAGE_NOT_PASS")
@@ -82,6 +83,19 @@ def compose(config_path: Path) -> dict[str, Any]:
         reasons.append("D1_MAPPING_NOT_PASS")
     if mapping.get("performance_accessed") is not False:
         reasons.append("MAPPING_ACCESSED_PERFORMANCE")
+    canonical_path = resolve(
+        config_path.parent, str(canonical.get("canonical_path", "")))
+    if (canonical.get("decision") != "PASS_CANONICAL_D1_SOURCE"
+            or canonical.get("campaign_id") != config["campaign_id"]
+            or canonical.get("symbol") != "US500"
+            or canonical.get("timeframe") != "D1"
+            or canonical.get("performance_accessed") is not False
+            or canonical.get("holdout_accessed") is not False
+            or canonical.get("coverage_sha256") != inputs["coverage"].get("sha256")
+            or canonical.get("mapping_sha256") != inputs["mapping"].get("sha256")
+            or not canonical_path.is_file()
+            or canonical.get("canonical_sha256") != sha256(canonical_path)):
+        reasons.append("CANONICAL_D1_SOURCE_NOT_PROVEN")
     timing = (vix.get("timing_policy") or {}) if vix else {}
     if vix:
         if vix.get("decision") != "PASS_VIX_DATA_TIMING":
@@ -112,6 +126,9 @@ def compose(config_path: Path) -> dict[str, Any]:
         "historical_minimum_period_coverage_ratio": coverage.get("historical_minimum_period_coverage_ratio"),
         "historical_period_coverage": coverage.get("historical_period_coverage"),
         "source_mapping_pass": mapping.get("decision") == "PASS_D1_SOURCE_MAPPING",
+        "canonical_source_pass": "CANONICAL_D1_SOURCE_NOT_PROVEN" not in reasons,
+        "canonical_source_path": str(canonical_path),
+        "canonical_source_sha256": canonical.get("canonical_sha256"),
         "proxy_candle_coverage_pct": (
             mapping.get("common_complete_session_coverage_ratio", 0) * 100),
         "return_correlation": mapping.get("d1_close_return_correlation"),

@@ -48,6 +48,17 @@ if stage == 'market_preflight':
         'decision': 'PASS_D1_SOURCE_MAPPING', 'performance_accessed': False,
         'common_complete_session_coverage_ratio': .99,
         'd1_close_return_correlation': .999}))
+    (base / 'preflight-canonical.csv').write_text(
+        '2020.01.01,00:00,1,2,.5,1.5,1\\n')
+    (base / 'canonical-source.json').write_text(json.dumps({
+        'decision': 'PASS_CANONICAL_D1_SOURCE', 'campaign_id': 'runner-test',
+        'symbol': 'US500', 'timeframe': 'D1', 'performance_accessed': False,
+        'holdout_accessed': False,
+        'coverage_sha256': hashlib.sha256((base / 'coverage.json').read_bytes()).hexdigest(),
+        'mapping_sha256': hashlib.sha256((base / 'mapping.json').read_bytes()).hexdigest(),
+        'canonical_path': str((base / 'preflight-canonical.csv').resolve()),
+        'canonical_sha256': hashlib.sha256(
+            (base / 'preflight-canonical.csv').read_bytes()).hexdigest()}))
     (base / 'costs.json').write_text(json.dumps({
         'decision': 'PASS_COSTS_FROZEN', 'costs_frozen': True,
         'by_notional': {'200': {'base_roundtrip_bps': 0,
@@ -63,7 +74,8 @@ if stage == 'market_preflight':
     config_path.write_text(json.dumps({
         'schema_version': 1, 'campaign_id': 'runner-test',
         'ostium_pair_id': 'control-pair', 'coverage': 'coverage.json',
-        'mapping': 'mapping.json', 'costs': 'costs.json'}))
+        'mapping': 'mapping.json', 'canonical_source': 'canonical-source.json',
+        'costs': 'costs.json'}))
     artifact = compose_preflight(config_path)
 if stage == 'hypothesis_screen':
     from datetime import date, timedelta

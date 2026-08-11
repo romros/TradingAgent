@@ -11,6 +11,7 @@ from typing import Callable
 from lab.sq_bridge.alquimia_retest import generate, verify_retest_project
 from lab.sq_bridge.sq_temporal_trace_v4 import derive
 from lab.sq_bridge.sqcli_supervised_retest import supervised_retest
+from lab.sq_bridge.sq_generation_universe_v4 import _global_id
 from lab.sq_bridge.sqx_extract import extract as extract_sqx
 from lab.sq_bridge.temporal_validation_artifact_v4 import build_artifact
 
@@ -59,6 +60,39 @@ def run_stage(
             or set(paths) != set(candidates) or set(hashes) != set(candidates)):
         raise ValueError("SQ_GENERATION_ARTIFACT_NOT_PROMOTABLE")
     base = generation_artifact_path.parent
+    if generation.get("artifact_role") == "global_multi_branch_candidate_universe":
+        native_names = generation.get("candidate_native_strategy_names")
+        native_paths = generation.get("candidate_native_artifact_paths")
+        native_hashes = generation.get("candidate_native_artifact_hashes")
+        source_hypotheses = generation.get("candidate_source_hypothesis_ids")
+        branches = generation.get("source_generation_artifacts")
+        if (generation.get("identity_policy")
+                != "branch_native_name_to_deterministic_ALQ_sha256_namespace"
+                or any(not isinstance(value, dict) or set(value) != set(candidates)
+                       for value in (native_names, native_paths, native_hashes,
+                                     source_hypotheses))
+                or not isinstance(branches, dict)):
+            raise ValueError("SQ_GENERATION_IDENTITY_PROVENANCE_INVALID")
+        for candidate_id in candidates:
+            native_id = native_names[candidate_id]
+            hypothesis_id = source_hypotheses[candidate_id]
+            if (not isinstance(native_id, str) or not isinstance(hypothesis_id, str)
+                    or _global_id(hypothesis_id, native_id) != candidate_id):
+                raise ValueError("SQ_GENERATION_NAMESPACE_MISMATCH")
+            native = _resolve(
+                base, native_paths[candidate_id], native_hashes[candidate_id],
+                f"native candidate {candidate_id}")
+            native_contract = extract_sqx(native)
+            branch = branches.get(hypothesis_id) or {}
+            branch_path = _resolve(
+                base, branch.get("path"), branch.get("sha256"),
+                f"source branch {hypothesis_id}")
+            branch_artifact = json.loads(branch_path.read_text())
+            if (native_contract.get("strategy_name") != native_id
+                    or native_id not in branch_artifact.get("candidate_ids", [])
+                    or (branch_artifact.get("candidate_artifact_hashes") or {}).get(
+                        native_id) != native_hashes[candidate_id]):
+                raise ValueError("SQ_GENERATION_NATIVE_LINEAGE_MISMATCH")
     inputs = {}
     for candidate_id in candidates:
         candidate = _resolve(

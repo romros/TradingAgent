@@ -5,6 +5,7 @@ from pathlib import Path
 import pytest
 
 from lab.sq_bridge.sq_temporal_stage_v4 import run_stage
+from lab.sq_bridge.sq_generation_universe_v4 import build_universe
 from lab.sq_bridge.test_alquimia_retest import _fixture
 
 
@@ -102,5 +103,42 @@ def test_stage_rejects_generation_candidate_hash_or_identity_mismatch(tmp_path):
             temporal_contract_path=temporal,
             methodology_path=Path(__file__).with_name("methodology_v4.json"),
             cost_model_path=costs, symbol="NVDA", timeframe="M15",
+            source_timezone="UTC", work_dir=tmp_path / "work",
+            artifact_path=tmp_path / "artifact.json")
+
+
+def test_stage_reopens_native_lineage_behind_global_candidate_namespace(tmp_path):
+    native_dir = tmp_path / "native"
+    native_dir.mkdir()
+    template, candidate, discovery = _fixture(native_dir)
+    branch = tmp_path / "branch.json"
+    branch.write_text(json.dumps({
+        "stage": "sq_generation", "decision": "PASS",
+        "campaign_id": "campaign", "holdout_accessed": False,
+        "source_hypothesis_ids": ["d1_breakout_long"],
+        "candidate_ids": ["T"],
+        "candidate_artifact_paths": {"T": str(candidate)},
+        "candidate_artifact_hashes": {"T": _sha(candidate)},
+    }))
+    universe_path = tmp_path / "global/universe.json"
+    build_universe(
+        campaign_id="campaign",
+        generation_artifact_paths={"d1_breakout_long": branch},
+        output_path=universe_path)
+    temporal = tmp_path / "temporal.json"
+    temporal.write_text("{}\n")
+    costs = tmp_path / "costs.json"
+    costs.write_text("{}\n")
+    value = json.loads(universe_path.read_text())
+    candidate_id = value["candidate_ids"][0]
+    value["candidate_native_artifact_hashes"][candidate_id] = "0" * 64
+    universe_path.write_text(json.dumps(value))
+    with pytest.raises(ValueError, match="native candidate.*path/hash mismatch"):
+        run_stage(
+            campaign_id="campaign", generation_artifact_path=universe_path,
+            retest_template_path=template, discovery_manifest_path=discovery,
+            temporal_contract_path=temporal,
+            methodology_path=Path(__file__).with_name("methodology_v4.json"),
+            cost_model_path=costs, symbol="EURUSD", timeframe="D1",
             source_timezone="UTC", work_dir=tmp_path / "work",
             artifact_path=tmp_path / "artifact.json")

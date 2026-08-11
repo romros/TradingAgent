@@ -6,7 +6,8 @@ from pathlib import Path
 
 import pytest
 
-from lab.sq_bridge.sq_generation_universe_v4 import build_universe
+from lab.sq_bridge.sq_generation_universe_v4 import _global_id, build_universe
+from lab.sq_bridge.sqx_extract import extract
 from lab.sq_bridge.test_alquimia_retest import _fixture
 
 
@@ -39,14 +40,20 @@ def test_builds_complete_global_universe_and_keeps_reject_provenance(tmp_path):
         campaign_id="campaign", generation_artifact_paths={"h2": h2, "h1": h1},
         output_path=output)
     assert result["decision"] == "PASS"
-    assert result["candidate_ids"] == ["T"]
-    assert result["candidate_source_hypothesis_ids"] == {"T": "h1"}
+    global_id = _global_id("h1", "T")
+    assert result["candidate_ids"] == [global_id]
+    assert result["candidate_source_hypothesis_ids"] == {global_id: "h1"}
+    assert result["candidate_native_strategy_names"] == {global_id: "T"}
     assert result["source_hypothesis_ids"] == ["h1", "h2"]
     assert result["source_generation_artifacts"]["h2"]["decision"] == "REJECT"
-    assert Path(output.parent / result["candidate_artifact_paths"]["T"]).resolve() == candidate.resolve()
+    normalized = Path(output.parent / result["candidate_artifact_paths"][global_id])
+    assert normalized.resolve() != candidate.resolve()
+    assert extract(normalized)["strategy_name"] == global_id
+    assert Path(output.parent / result[
+        "candidate_native_artifact_paths"][global_id]).resolve() == candidate.resolve()
 
 
-def test_deduplicates_identical_candidate_but_rejects_identity_collision(tmp_path):
+def test_deduplicates_identical_bytes_and_namespaces_native_name_collisions(tmp_path):
     (tmp_path / "fixture").mkdir()
     _, candidate, _ = _fixture(tmp_path / "fixture")
     h1 = _branch(tmp_path, "h1", candidate)
@@ -54,7 +61,7 @@ def test_deduplicates_identical_candidate_but_rejects_identity_collision(tmp_pat
     result = build_universe(
         campaign_id="campaign", generation_artifact_paths={"h1": h1, "h2": h2},
         output_path=tmp_path / "same.json")
-    assert result["candidate_ids"] == ["T"]
+    assert result["candidate_ids"] == [_global_id("h1", "T")]
 
     (tmp_path / "other").mkdir()
     different = tmp_path / "other/candidate.sqx"
@@ -62,10 +69,12 @@ def test_deduplicates_identical_candidate_but_rejects_identity_collision(tmp_pat
     with zipfile.ZipFile(different, "a") as archive:
         archive.comment = b"different but still a valid SQX"
     h3 = _branch(tmp_path, "h3", different)
-    with pytest.raises(ValueError, match="identity collision"):
-        build_universe(
-            campaign_id="campaign", generation_artifact_paths={"h1": h1, "h3": h3},
-            output_path=tmp_path / "collision.json")
+    collision_safe = build_universe(
+        campaign_id="campaign", generation_artifact_paths={"h1": h1, "h3": h3},
+        output_path=tmp_path / "collision.json")
+    assert collision_safe["candidate_ids"] == sorted([
+        _global_id("h1", "T"), _global_id("h3", "T")])
+    assert set(collision_safe["candidate_native_strategy_names"].values()) == {"T"}
 
 
 def test_rejects_changed_branch_artifact_candidate_and_empty_global_universe(tmp_path):

@@ -490,6 +490,13 @@ drawdown OOS i estabilitat entre finestres. El rebut temporal ha d'incloure
 l'univers complet rebut d'SQ i el validador recalcula tant els dominats com els
 IDs seleccionats.
 
+Abans del Retest, l'univers multi-branca resol els noms genèrics repetits d'SQ
+(`Strategy 1...`) sense tocar l'evidència original. Per cada candidat crea una
+còpia SQX reproduïble amb ID global `ALQ_<sha256(branca,nom_nadiu)>` i publica
+ruta/hash/nom del SQX nadiu. El Retest reobre les dues peces i comprova branca,
+nom, hash i transformació; dos noms nadius iguals amb estratègies diferents ja
+no col·lisionen, mentre que SQX byte-a-byte idèntics es dedupliquen.
+
 Quan s'executa dins del runner, `sq_generation_stage_v4.py` uneix de forma
 reprenable el rebut d'importació, el llançador supervisat i l'ingestor anterior.
 Un `start_receipt.json` durable impedeix un segon inici després d'una interrupció.

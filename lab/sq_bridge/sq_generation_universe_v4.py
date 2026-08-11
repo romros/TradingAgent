@@ -6,8 +6,11 @@ import argparse
 import hashlib
 import json
 import os
+import tempfile
+import zipfile
 from pathlib import Path
 from typing import Any
+from xml.etree import ElementTree as ET
 
 from lab.sq_bridge.sqx_extract import extract as extract_sqx
 from lab.sq_bridge.us500_d1_market_preflight_v4 import write_atomic
@@ -27,6 +30,46 @@ def _resolve(base: Path, value: object, digest: object, label: str) -> Path:
     return path
 
 
+def _global_id(hypothesis_id: str, native_id: str) -> str:
+    digest = hashlib.sha256(
+        f"{hypothesis_id}\0{native_id}".encode("utf-8")).hexdigest()[:24]
+    return f"ALQ_{digest}"
+
+
+def _normalize_sqx(source: Path, destination: Path, global_id: str) -> None:
+    """Copy an SQX reproducibly while changing only its StrategyName value."""
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    descriptor, temporary = tempfile.mkstemp(
+        prefix=f".{destination.name}.", dir=destination.parent)
+    os.close(descriptor)
+    try:
+        with zipfile.ZipFile(source) as incoming, zipfile.ZipFile(
+                temporary, "w", compression=zipfile.ZIP_DEFLATED) as outgoing:
+            names = incoming.namelist()
+            if names.count("settings.xml") != 1:
+                raise ValueError("candidate SQX has no unique settings.xml")
+            for name in names:
+                payload = incoming.read(name)
+                if name == "settings.xml":
+                    root = ET.fromstring(payload)
+                    nodes = root.findall(".//StrategyName")
+                    if len(nodes) != 1:
+                        raise ValueError("candidate SQX StrategyName is not unique")
+                    nodes[0].text = global_id
+                    payload = ET.tostring(root, encoding="utf-8")
+                info = zipfile.ZipInfo(name, date_time=(1980, 1, 1, 0, 0, 0))
+                info.compress_type = zipfile.ZIP_DEFLATED
+                info.create_system = 3
+                info.external_attr = 0o100600 << 16
+                outgoing.writestr(info, payload)
+        os.replace(temporary, destination)
+    finally:
+        try:
+            os.unlink(temporary)
+        except FileNotFoundError:
+            pass
+
+
 def build_universe(*, campaign_id: str,
                    generation_artifact_paths: dict[str, Path],
                    output_path: Path) -> dict[str, Any]:
@@ -40,7 +83,8 @@ def build_universe(*, campaign_id: str,
         raise ValueError("at least one SQ generation branch is required")
     output_path = output_path.resolve()
     output_base = output_path.parent
-    candidates: dict[str, tuple[Path, str, str]] = {}
+    candidates: dict[str, tuple[Path, str, str, str, Path, str]] = {}
+    source_hashes: dict[str, str] = {}
     branch_rows: dict[str, dict[str, Any]] = {}
     for hypothesis_id in sorted(generation_artifact_paths):
         if not isinstance(hypothesis_id, str) or not hypothesis_id:
@@ -71,12 +115,25 @@ def build_universe(*, campaign_id: str,
             if (contract.get("strategy_name") != candidate_id
                     or contract.get("translation_status") != "SUPPORTED_SUBSET"):
                 raise ValueError(f"candidate SQX contract mismatch: {candidate_id}")
-            existing = candidates.get(candidate_id)
-            if existing is not None and existing[1] != hashes[candidate_id]:
-                raise ValueError(f"candidate identity collision: {candidate_id}")
-            if existing is None:
-                candidates[candidate_id] = (
-                    candidate_path, hashes[candidate_id], hypothesis_id)
+            source_hash = hashes[candidate_id]
+            # Byte-identical native SQX files are one candidate even if two
+            # branches happen to emit them. Different strategies sharing SQ's
+            # generic display name remain distinct through a global namespace.
+            if source_hash in source_hashes:
+                continue
+            global_id = _global_id(hypothesis_id, candidate_id)
+            normalized = output_base / "candidates" / f"{global_id}.sqx"
+            _normalize_sqx(candidate_path, normalized, global_id)
+            normalized_hash = _sha(normalized)
+            normalized_contract = extract_sqx(normalized)
+            if (normalized_contract.get("strategy_name") != global_id
+                    or normalized_contract.get("translation_status")
+                        != "SUPPORTED_SUBSET"):
+                raise ValueError(f"normalized candidate contract mismatch: {global_id}")
+            candidates[global_id] = (
+                normalized, normalized_hash, hypothesis_id, candidate_id,
+                candidate_path, source_hash)
+            source_hashes[source_hash] = global_id
         branch_rows[hypothesis_id] = {
             "decision": decision,
             "path": os.path.relpath(artifact_path, output_base),
@@ -105,9 +162,20 @@ def build_universe(*, campaign_id: str,
         "candidate_source_hypothesis_ids": {
             key: candidates[key][2] for key in candidate_ids
         },
+        "candidate_native_strategy_names": {
+            key: candidates[key][3] for key in candidate_ids
+        },
+        "candidate_native_artifact_paths": {
+            key: os.path.relpath(candidates[key][4], output_base)
+            for key in candidate_ids
+        },
+        "candidate_native_artifact_hashes": {
+            key: candidates[key][5] for key in candidate_ids
+        },
         "source_generation_artifacts": branch_rows,
         "source_hypothesis_ids": sorted(branch_rows),
         "selection_policy": "complete_global_universe_before_temporal_pareto",
+        "identity_policy": "branch_native_name_to_deterministic_ALQ_sha256_namespace",
         "paper_authorized": False,
         "live_authorized": False,
     }

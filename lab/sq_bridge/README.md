@@ -378,6 +378,23 @@ altres tasques i reescriu mercat, dates, regles, cerca genètica, risc, ranking 
 pressupost des de la cadena v4. No se'n reutilitzen estratègies, databanks,
 rendiments ni paràmetres quantitatius.
 
+Abans d'obrir rendiments es pot repetir el smoke estructural contra aquest
+scaffold i el CSV D1 real. Compila en un directori temporal les tres famílies
+(`breakout`, `momentum`, `shock_reversion`) separades en `both`, `long` i
+`short`, reobre els nou CFX amb el verificador complet i emet un rebut JSON:
+
+```bash
+PYTHONPATH=../.. python3 eurusd_v4_real_scaffold_smoke.py \
+  --output /path/to/evidence/eurusd_v4_real_scaffold_smoke.json
+```
+
+La decisió `PASS_REAL_SCAFFOLD_STRUCTURAL_SMOKE` només prova que les nou
+branques es poden construir amb dates, mercat, costos zero, cerca, capital,
+direcció, simetria, stop i fitness contractats. El rebut declara explícitament
+`performance_accessed=false` i `sqcli_started=false`: no és evidència que una
+estratègia sigui rendible. Els CFX temporals són canònics; repetir la comanda
+amb les mateixes entrades ha de conservar els hashes de totes les branques.
+
 Aquesta última garantia és executable: `methodology_v4.json` preregistra
 genètica 80% crossover / 20% mutació i migració 5 generacions / 10%, i espais
 separats per família. Breakout usa períodes 20–100 i sortides 8–25 barres;

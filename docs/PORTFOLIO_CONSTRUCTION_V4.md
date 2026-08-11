@@ -14,6 +14,9 @@ El contracte queda preregistrat a `methodology_v4.json`:
 - correlació absoluta màxima de PnL diari net d'estrès: 0,70;
 - Jaccard màxim de dates de sortida: 0,80;
 - almenys 30 dates de sortida a la unió de cada parella;
+- màxim dues posicions simultànies;
+- risc de stop simultani màxim del 3% del compte;
+- capital simultani compromès màxim del 60%, preservant un 40% de reserva;
 - màxima cardinalitat i, després, expectativa, profit factor i identificador.
 
 Si no existeix cap subconjunt de quatre candidates que compleixi totes les

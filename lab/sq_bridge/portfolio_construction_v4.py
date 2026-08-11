@@ -56,6 +56,30 @@ def _series(rows: object, candidate_id: str) -> dict[str, float]:
     return result
 
 
+def _intervals(rows: object, candidate_id: str) -> list[dict[str, float | str]]:
+    if not isinstance(rows, list) or not rows:
+        raise ValueError(f"commitment intervals missing: {candidate_id}")
+    result = []
+    for row in rows:
+        if not isinstance(row, dict):
+            raise ValueError(f"commitment interval invalid: {candidate_id}")
+        entry, exit_ = row.get("entry_timestamp"), row.get("exit_timestamp")
+        if (not isinstance(entry, str) or not isinstance(exit_, str)
+                or not entry.endswith("+00:00") or not exit_.endswith("+00:00")
+                or exit_ <= entry):
+            raise ValueError(f"commitment timestamps invalid: {candidate_id}")
+        risk = _number(row.get("stop_risk_usdc"), "stop risk")
+        commitment = _number(row.get("capital_commitment_usdc"), "capital commitment")
+        if risk <= 0 or commitment <= 0:
+            raise ValueError(f"commitment amount invalid: {candidate_id}")
+        result.append({"entry_timestamp": entry, "exit_timestamp": exit_,
+                       "stop_risk_usdc": risk,
+                       "capital_commitment_usdc": commitment})
+    if result != sorted(result, key=lambda row: (row["entry_timestamp"], row["exit_timestamp"])):
+        raise ValueError(f"commitment intervals not ordered: {candidate_id}")
+    return result
+
+
 def _source_hypothesis(artifact: dict[str, Any], artifact_path: Path,
                        candidate_id: str) -> str:
     robustness_path = _resolve(
@@ -99,6 +123,40 @@ def pair_metrics(left: dict[str, float], right: dict[str, float]) -> dict[str, f
             "exit_date_jaccard": jaccard}
 
 
+def portfolio_exposure(candidates: list[dict[str, Any]], capital_usdc: float = 200) -> dict:
+    events: dict[str, list[float]] = {}
+    for candidate in candidates:
+        for row in candidate["commitment_intervals"]:
+            entry = events.setdefault(str(row["entry_timestamp"]), [0, 0.0, 0.0])
+            exit_ = events.setdefault(str(row["exit_timestamp"]), [0, 0.0, 0.0])
+            entry[0] += 1
+            entry[1] += float(row["stop_risk_usdc"])
+            entry[2] += float(row["capital_commitment_usdc"])
+            exit_[0] -= 1
+            exit_[1] -= float(row["stop_risk_usdc"])
+            exit_[2] -= float(row["capital_commitment_usdc"])
+    concurrent, risk, commitment = 0, 0.0, 0.0
+    maximum_concurrent, maximum_risk, maximum_commitment = 0, 0.0, 0.0
+    for timestamp in sorted(events):
+        count_delta, risk_delta, commitment_delta = events[timestamp]
+        concurrent += int(count_delta)
+        risk += risk_delta
+        commitment += commitment_delta
+        if concurrent < 0 or risk < -1e-8 or commitment < -1e-8:
+            raise ValueError("portfolio exposure event sequence invalid")
+        maximum_concurrent = max(maximum_concurrent, concurrent)
+        maximum_risk = max(maximum_risk, risk)
+        maximum_commitment = max(maximum_commitment, commitment)
+    if concurrent != 0 or abs(risk) > 1e-8 or abs(commitment) > 1e-8:
+        raise ValueError("portfolio exposure does not close")
+    return {"maximum_concurrent_positions": maximum_concurrent,
+            "maximum_concurrent_stop_risk_usdc": maximum_risk,
+            "maximum_concurrent_stop_risk_pct": maximum_risk / capital_usdc * 100,
+            "maximum_concurrent_capital_commitment_usdc": maximum_commitment,
+            "maximum_concurrent_capital_commitment_pct":
+                maximum_commitment / capital_usdc * 100}
+
+
 def select(candidates: list[dict[str, Any]], gate: dict[str, Any]) -> dict[str, Any]:
     minimum, maximum = gate["minimum_strategies"], gate["maximum_strategies"]
     if (not isinstance(candidates, list) or len(candidates) > gate["maximum_candidate_pool"]
@@ -128,21 +186,31 @@ def select(candidates: list[dict[str, Any]], gate: dict[str, Any]) -> dict[str, 
         compatible[(left, right)] = pair_passes
     best: tuple[str, ...] | None = None
     best_quality: tuple[float, float] | None = None
+    best_exposure: dict | None = None
     for size in range(min(maximum, len(ids)), minimum - 1, -1):
         for combination in itertools.combinations(ids, size):
             if not all(compatible[tuple(sorted(pair))]
                        for pair in itertools.combinations(combination, 2)):
                 continue
+            exposure = portfolio_exposure([by_id[value] for value in combination])
+            if (exposure["maximum_concurrent_positions"]
+                    > gate["maximum_concurrent_positions"]
+                    or exposure["maximum_concurrent_stop_risk_pct"]
+                    > gate["maximum_concurrent_stop_risk_pct"] + 1e-9
+                    or exposure["maximum_concurrent_capital_commitment_pct"]
+                    > gate["maximum_concurrent_capital_commitment_pct"] + 1e-9):
+                continue
             quality = (sum(by_id[value]["net_expectancy_usdc"] for value in combination),
                        sum(by_id[value]["net_profit_factor"] for value in combination))
             if best_quality is None or quality > best_quality:
-                best, best_quality = combination, quality
+                best, best_quality, best_exposure = combination, quality, exposure
         if best is not None:
             break
     if best is None:
         return {"selected_candidate_ids": [], "pair_metrics": pairs,
                 "reason": "NO_DIVERSIFIED_SUBSET_OF_FOUR"}
     return {"selected_candidate_ids": list(best), "pair_metrics": pairs,
+            "portfolio_exposure": best_exposure,
             "reason": None}
 
 
@@ -203,6 +271,8 @@ def build(*, manifest_path: Path, methodology_path: Path, output_path: Path) -> 
             "net_expectancy_usdc": _number(artifact.get("net_expectancy_usdc"), "expectancy"),
             "net_profit_factor": _number(artifact.get("net_profit_factor"), "profit factor"),
             "stress_series": _series(metrics.get("stress_pnl_by_exit_utc"), candidate_id),
+            "commitment_intervals": _intervals(
+                metrics.get("portfolio_commitment_intervals"), candidate_id),
         })
         source_receipts[candidate_id] = {
             "hypothesis_id": hypothesis, "campaign_id": source_campaign,
@@ -223,6 +293,7 @@ def build(*, manifest_path: Path, methodology_path: Path, output_path: Path) -> 
                                          if row["candidate_id"] == candidate)
                                     for candidate in selected],
         "pair_metrics": result["pair_metrics"], "rejection_reason": result["reason"],
+        "portfolio_exposure": result.get("portfolio_exposure"),
         "cost_model_sha256_by_candidate": cost_hashes,
         "source_receipts": source_receipts,
         "manifest_path": str(manifest_path), "manifest_sha256": _sha(manifest_path),

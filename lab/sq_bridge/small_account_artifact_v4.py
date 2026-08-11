@@ -175,6 +175,7 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
         raise ValueError("Trades de compte petit insuficients")
     trade_ids, pnl = [], {scenario: [] for scenario in scenarios}
     liquidation_erosions = []
+    entry_timestamps: list[str] = []
     exit_timestamps: list[str] = []
     notionals, stop_distances, cost_buckets = [], [], []
     cost_bps_rows, variable_bps_rows, fixed_usdc_rows = [], [], []
@@ -188,16 +189,23 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
         if side not in {"long", "short"} or holding_days < 0:
             raise ValueError("Costat o durada de trade invalid")
         if schema_version == 2:
+            entry_timestamp = row.get("entry_timestamp")
             exit_timestamp = row.get("exit_timestamp")
-            if not isinstance(exit_timestamp, str):
-                raise ValueError("Sortida temporal absent al trade de compte petit")
+            if not isinstance(entry_timestamp, str) or not isinstance(exit_timestamp, str):
+                raise ValueError("Interval temporal absent al trade de compte petit")
             try:
+                entry_utc = datetime.fromisoformat(entry_timestamp)
                 exit_utc = datetime.fromisoformat(exit_timestamp)
             except ValueError as exc:
-                raise ValueError("Sortida temporal invalida al compte petit") from exc
-            if (exit_utc.utcoffset() is None
+                raise ValueError("Interval temporal invalid al compte petit") from exc
+            if (entry_utc.utcoffset() is None
+                    or entry_utc.utcoffset().total_seconds() != 0
+                    or exit_utc.utcoffset() is None
                     or exit_utc.utcoffset().total_seconds() != 0):
-                raise ValueError("Sortida temporal no UTC al compte petit")
+                raise ValueError("Interval temporal no UTC al compte petit")
+            if exit_utc <= entry_utc:
+                raise ValueError("Interval temporal no positiu al compte petit")
+            entry_timestamps.append(entry_utc.isoformat())
             exit_timestamps.append(exit_utc.isoformat())
         stop_pct = _number(
             row.get("initial_stop_distance_pct") if schema_version == 2
@@ -312,6 +320,21 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
                           for value in grid if selected_leverage is not None
                           and value > selected_leverage}
                          if selected_leverage is not None else {})
+    commitment_intervals = []
+    if schema_version == 2 and selected_leverage is not None:
+        for trade_id, entry, exit_, notional, stop, variable, fixed in zip(
+                trade_ids, entry_timestamps, exit_timestamps, notionals,
+                stop_distances, variable_bps_rows, fixed_usdc_rows, strict=True):
+            stress_cost = notional * variable["stress"] / 10_000 + fixed["stress"]
+            commitment_intervals.append({
+                "trade_id": trade_id, "entry_timestamp": entry,
+                "exit_timestamp": exit_, "stop_risk_usdc": notional * stop / 100,
+                "collateral_usdc": notional / selected_leverage,
+                "stress_entry_cost_usdc": stress_cost,
+                "capital_commitment_usdc": notional / selected_leverage + stress_cost,
+            })
+        commitment_intervals.sort(
+            key=lambda row: (row["entry_timestamp"], row["exit_timestamp"], row["trade_id"]))
     return {
         "candidate_id": candidate_id, "trades": len(trades),
         "maximum_holding_days": max(
@@ -326,6 +349,7 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
             {"exit_timestamp": timestamp, "pnl_usdc": stress_by_exit[timestamp]}
             for timestamp in sorted(stress_by_exit)
         ],
+        "portfolio_commitment_intervals": commitment_intervals,
         "risk_per_trade_pct": risk_pct,
         "stop_distance_pct": max(stop_distances),
         "minimum_stop_distance_pct": min(stop_distances),

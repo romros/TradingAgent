@@ -229,6 +229,9 @@ def validate(config: dict) -> list[str]:
                 or portfolio.get("maximum_absolute_daily_stress_pnl_correlation") != .7
                 or portfolio.get("maximum_exit_date_jaccard") != .8
                 or portfolio.get("minimum_union_exit_dates") != 30
+                or portfolio.get("maximum_concurrent_positions") != 2
+                or portfolio.get("maximum_concurrent_stop_risk_pct") != 3
+                or portfolio.get("maximum_concurrent_capital_commitment_pct") != 60
                 or portfolio.get("one_candidate_per_directed_hypothesis") is not True
                 or portfolio.get("selection_policy") != (
                     "maximum_cardinality_then_worst_cost_expectancy_then_"

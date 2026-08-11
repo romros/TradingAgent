@@ -149,6 +149,9 @@
     "maximum_absolute_daily_stress_pnl_correlation": 0.7,
     "maximum_exit_date_jaccard": 0.8,
     "minimum_union_exit_dates": 30,
+    "maximum_concurrent_positions": 2,
+    "maximum_concurrent_stop_risk_pct": 3.0,
+    "maximum_concurrent_capital_commitment_pct": 60.0,
     "one_candidate_per_directed_hypothesis": true,
     "selection_policy": "maximum_cardinality_then_worst_cost_expectancy_then_profit_factor_then_candidate_ids",
     "holdout_accessed": false

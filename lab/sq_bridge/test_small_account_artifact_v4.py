@@ -186,6 +186,9 @@ def test_dynamic_stops_size_each_trade_and_use_worst_margin_envelope(tmp_path):
     trace.pop("stop_distance_pct")
     for index, trade in enumerate(trace["trades"]):
         trade["initial_stop_distance_pct"] = 1 if index < 15 else 2
+        trade["entry_timestamp"] = (
+            datetime(1999, 12, 31, tzinfo=timezone.utc) + timedelta(days=index)
+        ).isoformat()
         trade["exit_timestamp"] = (
             datetime(2000, 1, 1, tzinfo=timezone.utc) + timedelta(days=index)
         ).isoformat()
@@ -205,6 +208,8 @@ def test_dynamic_stops_size_each_trade_and_use_worst_margin_envelope(tmp_path):
     assert len(result["stress_pnl_by_exit_utc"]) == 30
     assert result["stress_pnl_by_exit_utc"] == sorted(
         result["stress_pnl_by_exit_utc"], key=lambda row: row["exit_timestamp"])
+    assert len(result["portfolio_commitment_intervals"]) == 30
+    assert result["portfolio_commitment_intervals"][0]["stop_risk_usdc"] == 3
 
 
 def test_position_below_observed_venue_minimum_is_rejected(tmp_path):

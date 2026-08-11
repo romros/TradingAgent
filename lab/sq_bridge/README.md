@@ -670,8 +670,11 @@ reutilitza per buscar una variant de rescat.
 El perfil `generic_translatable` només habilita blocs que comparteixen
 extractor i runtime Python. `Highest` i `Lowest` ja estan traduïts, incloent les
 set fonts SQ `ComputedFrom` (close, open, high, low, median, typical i weighted).
-Operadors amb semàntica encara no provada, com `ADX`, Bollinger, desviació,
-`Not` o comparadors inclusius, queden fora i no poden consumir una campanya v4.
+Operadors amb semàntica encara no provada, com `ADX`, Bollinger, desviació o
+comparadors inclusius, queden fora i no poden consumir una campanya v4. `Not`
+ja forma part del subset: l'extractor conserva el gate complet de cada regla
+d'entrada (per exemple `short AND NOT long`) en lloc de reduir-lo a una sola
+`BooleanVariable`.
 
 Després que un únic candidat superi temporalitat, robustesa i economia del
 compte petit, la traducció i el seu rebut es creen junts:
@@ -740,9 +743,31 @@ candles i l'IR pels hashes declarats dins dels traces; una font desapareguda o
 alterada invalida la paritat encara que el report agregat continuï intacte.
 La documentació oficial d'SQ confirma que els blocs booleans s'avaluen a cada
 barra mitjançant snippets Java, però Custom Analysis s'executa després del
-backtest. Per això encara no es considera provat que Custom Analysis pugui
-substituir un log intrabar/per-barra de senyals; cal un probe real abans de
-connectar el stage automàtic de paritat.
+backtest. La incertesa ja s'ha resolt amb un probe real i aïllat:
+`sq_signal_probe_build.py` recompila només `SQ/Internal/RulesImpl/Signal.class`
+contra la font exacta allowlisted de SQ 143.2708 i produeix un JAR determinista;
+`sq_signal_probe_log.py` exigeix cada UUID exactament una vegada per barra,
+reobre SQX/JAR/candles pels seus hashes i avalua els gates compostos. El JAR no
+modifica la instal·lació ni s'utilitza per generar resultats de producció.
+
+El smoke EURUSD D1 de 2026-08-11 va observar 2.684 barres i 10.736 booleans
+(quatre variables), i va reconstruir 2.255 senyals. Amb les candles Dukascopy
+de warm-up des de 2003, la finestra operable 2017-01-01–2025-07-31 i
+`DontTradeOnWeekends` preservat des de l'SQX, Python coincideix amb SQ en
+2.255/2.255 senyals i 86/86 trades. La correlació de PnL és 0,999999994 i
+l'error màxim a nocional 200 USDC és 0,00091 USDC; l'artefacte formal retorna
+`PASS`. Això certifica la traducció d'aquest subset, no la rendibilitat del
+candidat (el Retest SQ és perdedor i no es promociona).
+
+Per regenerar la traça Python amb warm-up sense operar fora de la prova:
+
+```bash
+PYTHONPATH=../.. python3 python_parity_trace_v4.py \
+  --ir /path/to/candidate.ir.json --market-data /path/to/full-history.csv \
+  --evaluation-start 2017-01-01T00:00:00Z \
+  --evaluation-end 2025-07-31T00:00:00Z \
+  --notional-usdc 200 --output /path/to/python.trace.json
+```
 
 ```bash
 PYTHONPATH=../.. python3 parity_artifact_v4.py \

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import copy
 import hashlib
 import json
 import zipfile
@@ -10,7 +11,7 @@ from pathlib import Path
 from xml.etree import ElementTree as ET
 
 SUPPORTED_SIGNAL_NODES = {
-    "AND", "IsRising", "IsFalling", "CrossesAbove", "CrossesBelow",
+    "AND", "Not", "IsRising", "IsFalling", "CrossesAbove", "CrossesBelow",
     "IsGreater", "IsLower", "Close", "Low", "High", "SMA", "EMA", "RSI",
     "ROC", "Highest", "Lowest", "BarDayOfMonth", "BarDayOfWeekIs", "IsMonthFirstTradingDay",
     "IsMonthLastTradingDay", "Number", "Boolean",
@@ -79,6 +80,55 @@ def _entry_condition_count(node: dict) -> int:
             raise ValueError("Signal AND sense condicions")
         return sum(_entry_condition_count(child) for child in children)
     return 1
+
+
+def _entry_gate(item: ET.Element) -> dict:
+    op = item.attrib.get("key")
+    # Older SQX variants (and some hand-built fixtures) wrap a BooleanVariable
+    # as an unkeyed Item containing the variable Param directly.  Newer SQX
+    # writes an explicit Item key="BooleanVariable".  Both mean the same gate.
+    if op is None:
+        variable = item.find("./Param[@key='#Variable#']")
+        if variable is not None:
+            value = str(_value(variable))
+            if not value:
+                raise ValueError("BooleanVariable d'entrada sense UUID")
+            return {"op": "var", "id": value}
+        children = item.findall("./Item")
+        if len(children) == 1:
+            return _entry_gate(children[0])
+        raise ValueError("Gate d'entrada embolcallat no interpretable")
+    if op == "BooleanVariable":
+        variable = item.find("./Param[@key='#Variable#']")
+        value = str(_value(variable)) if variable is not None else ""
+        if not value:
+            raise ValueError("BooleanVariable d'entrada sense UUID")
+        return {"op": "var", "id": value}
+    if op not in {"AND", "Not"}:
+        raise ValueError(f"Gate d'entrada no suportat: {op}")
+    children = [block.find("Item") for block in item.findall("Block")]
+    children.extend(item.findall("Item"))
+    if any(child is None for child in children) or not children:
+        raise ValueError(f"Gate {op} sense fills")
+    if op == "Not" and len(children) != 1:
+        raise ValueError("Gate Not requereix un fill")
+    return {"op": op.lower(), "children": [_entry_gate(child) for child in children]}
+
+
+def _gate_ids(gate: dict) -> set[str]:
+    if gate["op"] == "var":
+        return {gate["id"]}
+    return {value for child in gate.get("children", []) for value in _gate_ids(child)}
+
+
+def _resolve_gate(gate: dict, signals: dict[str, dict]) -> dict:
+    if gate["op"] == "var":
+        if gate["id"] not in signals:
+            raise ValueError(f"Regla d'entrada referencia un signal inexistent: {gate['id']}")
+        return copy.deepcopy(signals[gate["id"]])
+    op = "AND" if gate["op"] == "and" else "Not"
+    return {"op": op, "children": [_resolve_gate(child, signals)
+                                     for child in gate["children"]]}
 
 
 def _setting(root: ET.Element, key: str):
@@ -161,17 +211,16 @@ def extract(path: Path) -> dict:
     for direction, rule_name in (("long", "Long entry"), ("short", "Short entry")):
         rule = rules.get(rule_name)
         if rule is None: raise ValueError(f"Falta {rule_name}")
-        variable = rule.find(".//If//Param[@key='#Variable#']")
         action = rule.find("./Then/Item")
         # Els projectes directionals de SQ conserven la regla oposada amb Then buit.
         if action is None:
             entries[direction] = None
             continue
-        if variable is None: raise ValueError(f"{rule_name} no interpretable")
-        signal_id = str(_value(variable))
-        if signal_id not in signals:
-            raise ValueError(f"{rule_name} referencia un signal inexistent: {signal_id}")
-        signal = signals[signal_id]
+        condition = rule.find("./If/Item")
+        if condition is None: raise ValueError(f"{rule_name} no interpretable")
+        gate = _entry_gate(condition)
+        used_ids = sorted(_gate_ids(gate))
+        signal = _resolve_gate(gate, signals)
         unsupported.update(_ops(signal) - SUPPORTED_SIGNAL_NODES)
         if any(node["op"] in {"SMA", "EMA", "RSI", "ROC"}
                and node.get("params", {}).get("#ComputedFrom#", 0) != 0
@@ -187,6 +236,9 @@ def extract(path: Path) -> dict:
         for formula in action.findall(".//Formula"):
             formulas.add(formula.attrib["key"])
         entries[direction] = {
+            "signal_variable_id": (gate["id"] if gate["op"] == "var" else None),
+            "signal_variable_ids_used": used_ids,
+            "entry_gate": gate,
             "signal": signal,
             "action": action_ast,
             "condition_count": _entry_condition_count(signal),
@@ -242,6 +294,12 @@ def extract(path: Path) -> dict:
             "eod_exit_time_hhmm": _setting(settings, "ExitAtEndOfDay.EODExitTime"),
             "exit_on_friday": _setting(settings, "ExitOnFriday.ExitOnFriday"),
             "friday_exit_time_hhmm": _setting(settings, "ExitOnFriday.FridayExitTime"),
+            "dont_trade_on_weekends": _setting(
+                settings, "DontTradeOnWeekends.DontTradeOnWeekends"),
+            "weekend_friday_close_hhmm": _setting(
+                settings, "DontTradeOnWeekends.FridayCloseTime"),
+            "weekend_sunday_open_hhmm": _setting(
+                settings, "DontTradeOnWeekends.SundayOpenTime"),
             "spread_in_sq": spread,
             "slippage_in_sq": _setting(settings, "Slippage"),
             **commission,
@@ -251,6 +309,7 @@ def extract(path: Path) -> dict:
             "tick_step": tick_step,
         },
         "entries": entries,
+        "signal_variable_ids": sorted(signals),
         "entry_condition_counts": entry_condition_counts,
         "maximum_entry_conditions": max(entry_condition_counts.values()),
         "exit_signals": exit_signal_values,

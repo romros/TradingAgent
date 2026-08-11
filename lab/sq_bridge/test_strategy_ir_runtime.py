@@ -24,7 +24,7 @@ def test_runtime_evaluates_composed_signal_with_sq_warmup_at_dataset_edges():
     node = {"op": "AND", "children": [
         {"op": "IsGreater", "children": [
             {"op": "Close"}, {"op": "SMA", "params": {"#Period#": 3}}]},
-        {"op": "IsRising", "params": {"#Bars#": 1},
+        {"op": "IsRising", "params": {"#Bars#": 2},
          "children": [{"op": "ROC", "params": {"#Period#": 1}}]},
     ]}
     result = runtime.evaluate(node)
@@ -33,6 +33,37 @@ def test_runtime_evaluates_composed_signal_with_sq_warmup_at_dataset_edges():
     last = runtime.evaluate({"op": "IsMonthLastTradingDay"})
     assert not bool(first.iloc[0])
     assert not bool(last.iloc[-1])
+
+
+def test_rising_falling_match_installed_sq_bars_shift_rounding_and_flat_rule():
+    frame = _frame().iloc[:6].copy()
+    frame.loc[:, "close"] = [10.0000001, 11, 11, 12, 11, 10]
+    frame.loc[:, "open"] = frame["close"]
+    frame.loc[:, "high"] = frame["close"] + 1
+    frame.loc[:, "low"] = frame["close"] - 1
+    runtime = SignalRuntime(frame)
+    rising = runtime.evaluate({
+        "op": "IsRising",
+        "params": {"#Bars#": 2, "#NotStrict#": True, "#Shift#": 1},
+        "children": [{"op": "Close"}],
+    })
+    falling = runtime.evaluate({
+        "op": "IsFalling",
+        "params": {"#Bars#": 3, "#NotStrict#": True},
+        "children": [{"op": "Close"}],
+    })
+    # Shift=1 compares the two prior rounded values; equal-only is never true.
+    assert rising.tolist() == [False, False, True, False, True, False]
+    # Three sampled values mean two comparisons and at least one strict fall.
+    assert falling.tolist() == [False, False, False, False, False, True]
+
+
+def test_rising_rejects_bars_below_sq_minimum():
+    with pytest.raises(ValueError, match="Nombre de barres invalid"):
+        SignalRuntime(_frame()).evaluate({
+            "op": "IsRising", "params": {"#Bars#": 1},
+            "children": [{"op": "Close"}],
+        })
 
 
 def test_ir_entry_api_preserves_inactive_direction():
@@ -111,7 +142,42 @@ def test_trade_runtime_time_exit_can_reenter_only_at_a_bar_open():
                         (108, 109, 107, 108)])
     trace = simulate_trade_trace(_execution_ir(exit_after=2), frame, 200)
     assert [(row["entry_price"], row["exit_price"], row["exit_reason"])
-            for row in trace["trades"]] == [(100, 104, "time"), (104, 108, "time")]
+            for row in trace["trades"]] == [
+                (100, 104, "time"), (104, 108, "time"),
+                (108, 108, "EndTest"),
+            ]
+
+
+def test_trade_runtime_uses_warmup_but_only_trades_evaluation_window():
+    frame = _utc_frame([(100, 101, 99, 100), (101, 102, 100, 101),
+                        (102, 103, 101, 102), (103, 104, 102, 103)])
+    trace = simulate_trade_trace(
+        _execution_ir(), frame, 200,
+        evaluation_start=frame.index[2], evaluation_end=frame.index[3])
+    assert [row["timestamp"] for row in trace["signals"]] == [
+        frame.index[2].isoformat().replace("+00:00", "Z"),
+        frame.index[3].isoformat().replace("+00:00", "Z"),
+    ]
+    assert trace["trades"][-1]["exit_reason"] == "EndTest"
+    assert trace["trades"][-1]["entry_timestamp"].startswith("2024-01-03")
+
+
+def test_weekend_filter_blocks_entries_but_keeps_protective_exits_active():
+    index = pd.date_range("2024-01-05", periods=4, freq="D", tz="UTC")
+    frame = pd.DataFrame([
+        (100, 101, 99, 100), (100, 101, 99, 100),
+        (100, 101, 94, 95), (96, 97, 95, 96),
+    ], columns=["open", "high", "low", "close"], index=index)
+    ir = _execution_ir(stop={"type": "percent", "percent": 5})
+    ir["execution"].update({
+        "dont_trade_on_weekends": True,
+        "weekend_friday_close_hhmm": 1700,
+        "weekend_sunday_open_hhmm": 1700,
+    })
+    trace = simulate_trade_trace(ir, frame, 200)
+    # Friday entry closes through its protective stop on Sunday; no weekend re-entry.
+    assert trace["trades"][0]["exit_timestamp"].startswith("2024-01-07")
+    assert trace["trades"][1]["entry_timestamp"].startswith("2024-01-08")
 
 
 def test_trade_runtime_fails_closed_on_ambiguous_intrabar_order():

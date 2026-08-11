@@ -104,6 +104,14 @@ però no per superar el gate de senyals. El verificador reobre també ordres,
 senyals, candles i IR i recalcula els seus SHA-256; conservar només el trace
 després de substituir una font invalida la cadena.
 
+El log complet es pot obtenir sense inferir senyals des de trades mitjançant el
+probe aïllat `sq_signal_probe_build.py` + `sq_signal_probe_log.py`. El parser
+exigeix cobertura completa de totes les variables d'SQX a cada barra i conserva
+portes compostes (`AND`/`Not`). El runtime també preserva la configuració
+`DontTradeOnWeekends`: bloqueja noves entrades durant el cap de setmana segons
+els HHMM d'SQ, però manté stops i targets actius. Les candles anteriors a la
+finestra són warm-up i no autoritzen operacions.
+
 ## Què demostra i què no
 
 Els tests unitaris demostren que la nostra semàntica és determinista, que els
@@ -113,3 +121,8 @@ tractament intrabar. Aquesta afirmació només s'accepta després de comparar un
 export real d'SQ amb el trace Python sobre les mateixes candles: coincidència
 exacta de senyals i trades, correlació de PnL mínima 0,99 i errors absoluts dins
 els límits preregistrats. Sense aquest PASS, la candidata no arriba a paper.
+
+El smoke observat EURUSD D1 del 2026-08-11 supera aquest gate amb 2.255 senyals
+i 86 trades coincidents al 100%, correlació PnL 0,999999994 i error màxim
+0,00091 USDC sobre nocional 200. És evidència de paritat semàntica, no un PASS
+de rendiment.

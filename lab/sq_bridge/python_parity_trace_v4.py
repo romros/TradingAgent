@@ -28,10 +28,25 @@ def load_mt4_csv(path: Path) -> pd.DataFrame:
     return frame[["open", "high", "low", "close"]].astype(float)
 
 
+def _utc_bound(value: str | None) -> pd.Timestamp | None:
+    if value is None:
+        return None
+    result = pd.Timestamp(value)
+    if result.tzinfo is None:
+        result = result.tz_localize("UTC")
+    else:
+        result = result.tz_convert("UTC")
+    return result
+
+
 def build(ir_path: Path, market_data_path: Path, notional_usdc: float,
-          output_path: Path) -> dict:
+          output_path: Path, evaluation_start: str | None = None,
+          evaluation_end: str | None = None) -> dict:
     ir = json.loads(ir_path.read_text())
-    trace = simulate_trade_trace(ir, load_mt4_csv(market_data_path), notional_usdc)
+    trace = simulate_trade_trace(
+        ir, load_mt4_csv(market_data_path), notional_usdc,
+        evaluation_start=_utc_bound(evaluation_start),
+        evaluation_end=_utc_bound(evaluation_end))
     trace.update({
         "canonical_ir_path": str(ir_path.resolve()),
         "canonical_ir_sha256": sha256(ir_path),
@@ -49,8 +64,11 @@ def main() -> None:
     parser.add_argument("--market-data", type=Path, required=True)
     parser.add_argument("--notional-usdc", type=float, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--evaluation-start")
+    parser.add_argument("--evaluation-end")
     args = parser.parse_args()
-    result = build(args.ir, args.market_data, args.notional_usdc, args.output)
+    result = build(args.ir, args.market_data, args.notional_usdc, args.output,
+                   args.evaluation_start, args.evaluation_end)
     print(json.dumps({"candidate_id": result["candidate_id"],
                       "signals": len(result["signals"]),
                       "trades": len(result["trades"])}, indent=2))

@@ -38,7 +38,8 @@ def test_python_trace_is_deterministic_hashed_and_parity_compatible(tmp_path):
     first = build(ir, data, 200, tmp_path / "first.json")
     second = build(ir, data, 200, tmp_path / "second.json")
     assert first == second
-    assert len(first["trades"]) == 2
+    assert len(first["trades"]) == 3
+    assert first["trades"][-1]["exit_reason"] == "EndTest"
     assert first["canonical_ir_sha256"]
     assert first["market_data_sha256"]
     sq = {**first, "source": "strategyquant"}

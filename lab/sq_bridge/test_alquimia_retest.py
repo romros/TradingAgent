@@ -53,7 +53,17 @@ def test_generator_source_forces_full_input_databank_not_stale_selection():
 
 def _fixture(tmp_path: Path, candidate_id: str = "T"):
     task = b'''<Settings>
-      <Resources><Symbols><Symbol name="NVDA"/></Symbols></Resources>
+      <Options><BuildTradingOptions><Params>
+        <Param key="ExitAtEndOfDay">true</Param><Param key="ExitOnFriday">true</Param>
+      </Params></BuildTradingOptions></Options>
+      <Resources><Symbols><Symbol name="NVDA"><InstrumentInfo defaultSpread="9"
+        instrument="NVDA"
+        defaultSlippage="9" commissions="&lt;Method type=&quot;PerTrade&quot; use=&quot;true&quot;&gt;&lt;Params/&gt;&lt;/Method&gt;"
+        swap="&lt;Swap use=&quot;true&quot; type=&quot;money&quot; long=&quot;1&quot; short=&quot;1&quot;/&gt;"/>
+      </Symbol></Symbols><Instruments><InstrumentInfo instrument="NVDA" defaultSpread="9"
+        defaultSlippage="9" commissions="&lt;Method type=&quot;PerTrade&quot; use=&quot;true&quot;&gt;&lt;Params/&gt;&lt;/Method&gt;"
+        swap="&lt;Swap use=&quot;true&quot; type=&quot;money&quot; long=&quot;1&quot; short=&quot;1&quot;/&gt;"/>
+      </Instruments></Resources>
       <Data><Setups><Setup dateFrom="2000.01.01" dateTo="2001.01.01" testPrecision="1" slippage="7">
         <Chart symbol="OLD" timeframe="H1" spread="9"/>
         <Chart symbol="EXTRA" timeframe="M1" spread="9"/>
@@ -135,6 +145,10 @@ def test_v4_pre_holdout_is_uncensored_candidate_bound_and_reproducible(tmp_path)
     assert task.findtext("./Rankings/DeleteFailedStrategies") == "false"
     assert task.find("./Databanks").get("retestSelected") == "false"
     assert task.find("./Databanks/Databank[@name='Output']").get("value") == "PreHoldout"
+    assert task.find("./Options/BuildTradingOptions/Params/Param[@key='ExitOnFriday']").text == "false"
+    instrument = task.find("./Resources/Symbols/Symbol/InstrumentInfo")
+    assert instrument.get("defaultSpread") == "0.0"
+    assert 'type="None"' in instrument.get("commissions")
     assert verify_retest_project(first_path, first)["candidate_id"] == "T"
 
 

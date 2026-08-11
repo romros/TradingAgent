@@ -11,7 +11,7 @@ from lab.sq_bridge.sqx_to_ir import validate_executable_ir
 
 
 RUNTIME_SIGNAL_NODES = {
-    "AND", "IsRising", "IsFalling", "CrossesAbove", "CrossesBelow",
+    "AND", "Not", "IsRising", "IsFalling", "CrossesAbove", "CrossesBelow",
     "IsGreater", "IsLower", "Close", "Low", "High", "SMA", "EMA", "RSI",
     "ROC", "Highest", "Lowest", "BarDayOfMonth", "BarDayOfWeekIs", "IsMonthFirstTradingDay",
     "IsMonthLastTradingDay", "Number", "Boolean",
@@ -135,6 +135,10 @@ class SignalRuntime:
             result = pd.Series(True, index=self.frame.index)
             for child in children:
                 result &= self.evaluate(child).fillna(False).astype(bool)
+        elif op == "Not":
+            if len(children) != 1:
+                raise ValueError("Not IR requereix un fill")
+            result = ~self.evaluate(children[0]).fillna(False).astype(bool)
         elif op in {"IsGreater", "IsLower", "CrossesAbove", "CrossesBelow"}:
             if len(children) != 2:
                 raise ValueError(f"{op} requereix dos operands")
@@ -150,18 +154,32 @@ class SignalRuntime:
         elif op in {"IsRising", "IsFalling"}:
             if len(children) != 1:
                 raise ValueError(f"{op} requereix un operand")
-            value = self.evaluate(children[0]).shift(shift)
+            # Literal equivalent of the installed SQ IsRising/IsFalling Java
+            # snippets.  Bars is the number of sampled values, hence Bars-1
+            # comparisons.  The comparison's Shift is added to any shift
+            # already present in the child block.  SQ rounds each sampled
+            # value to six decimals and requires at least one strict move even
+            # when equal adjacent values are allowed.
+            value = self.evaluate(children[0]).round(6)
             bars = int(_param(node, "#Bars#", 1))
-            if bars < 1:
+            if bars < 2:
                 raise ValueError(f"Nombre de barres invalid per {op}")
             strict = not bool(_param(node, "#NotStrict#", False))
-            result = pd.Series(True, index=self.frame.index)
-            for offset in range(bars):
-                current, previous = value.shift(offset), value.shift(offset + 1)
+            previous = value.shift(bars + shift - 1)
+            valid = pd.Series(True, index=self.frame.index)
+            at_least_once = pd.Series(False, index=self.frame.index)
+            complete = previous.notna()
+            for index in range(1, bars):
+                current = value.shift(bars + shift - 1 - index)
+                complete &= current.notna()
                 if op == "IsRising":
-                    result &= current > previous if strict else current >= previous
+                    valid &= current > previous if strict else current >= previous
+                    at_least_once |= current > previous
                 else:
-                    result &= current < previous if strict else current <= previous
+                    valid &= current < previous if strict else current <= previous
+                    at_least_once |= current < previous
+                previous = current
+            result = complete & valid & at_least_once
         elif op == "BarDayOfMonth":
             result = pd.Series(self.frame.index.day, index=self.frame.index).shift(shift)
         elif op == "BarDayOfWeekIs":
@@ -225,7 +243,9 @@ def _distance(plan: dict, entry: float, atr_value: float | None) -> float | None
 
 
 def simulate_trade_trace(ir: dict, frame: pd.DataFrame,
-                         notional_usdc: float) -> dict:
+                         notional_usdc: float,
+                         evaluation_start: pd.Timestamp | None = None,
+                         evaluation_end: pd.Timestamp | None = None) -> dict:
     """Execute the normalized supported subset at bar opens, before costs."""
     if (not isinstance(notional_usdc, (int, float)) or isinstance(notional_usdc, bool)
             or not math.isfinite(notional_usdc) or notional_usdc <= 0):
@@ -235,6 +255,14 @@ def simulate_trade_trace(ir: dict, frame: pd.DataFrame,
         raise ValueError("La simulacio IR requereix candles UTC")
     if not frame.index.is_unique:
         raise ValueError("La simulacio IR requereix candles uniques")
+    if evaluation_start is None:
+        evaluation_start = frame.index[0]
+    if evaluation_end is None:
+        evaluation_end = frame.index[-1]
+    if (evaluation_start.tzinfo is None or evaluation_end.tzinfo is None
+            or evaluation_start > evaluation_end
+            or evaluation_start not in frame.index or evaluation_end not in frame.index):
+        raise ValueError("Finestra d'avaluacio invalida o fora de les candles")
     if ((frame[["open", "high", "low", "close"]] <= 0).any().any()
             or (frame["high"] < frame[["open", "close", "low"]].max(axis=1)).any()
             or (frame["low"] > frame[["open", "close", "high"]].min(axis=1)).any()):
@@ -254,8 +282,27 @@ def simulate_trade_trace(ir: dict, frame: pd.DataFrame,
                 atrs[spec["period"]] = sq_atr(frame, spec["period"])
     candles = [timestamp.isoformat().replace("+00:00", "Z")
                for timestamp in frame.index]
+    evaluation_mask = ((frame.index >= evaluation_start)
+                       & (frame.index <= evaluation_end))
+    weekend_filter = ir["execution"].get("dont_trade_on_weekends") is True
+    friday_close = int(ir["execution"].get("weekend_friday_close_hhmm", 1700))
+    sunday_open = int(ir["execution"].get("weekend_sunday_open_hhmm", 1700))
+
+    def entry_time_allowed(timestamp: pd.Timestamp) -> bool:
+        if not weekend_filter:
+            return True
+        hhmm = timestamp.hour * 100 + timestamp.minute
+        if timestamp.dayofweek == 4:
+            return hhmm < friday_close
+        if timestamp.dayofweek == 5:
+            return False
+        if timestamp.dayofweek == 6:
+            return hhmm >= sunday_open
+        return True
     signals = []
     for index, timestamp in enumerate(candles):
+        if not evaluation_mask[index]:
+            continue
         for direction in ("long", "short"):
             if entries[direction] is not None and bool(entries[direction].iloc[index]):
                 signals.append({"timestamp": timestamp, "direction": direction})
@@ -275,6 +322,8 @@ def simulate_trade_trace(ir: dict, frame: pd.DataFrame,
         position = None
 
     for index, row in enumerate(frame.itertuples()):
+        if not evaluation_mask[index]:
+            continue
         occupied_at_open = position is not None
         time_exit_at_open = False
         if position is not None:
@@ -303,7 +352,8 @@ def simulate_trade_trace(ir: dict, frame: pd.DataFrame,
         active = [direction for direction in ("long", "short")
                   if entries[direction] is not None and bool(entries[direction].iloc[index])]
         may_enter_at_open = not occupied_at_open or time_exit_at_open
-        if position is None and may_enter_at_open and active:
+        if (position is None and may_enter_at_open and active
+                and entry_time_allowed(frame.index[index])):
             if len(active) != 1:
                 raise ValueError("Senyals long i short simultanis")
             direction = active[0]
@@ -351,9 +401,14 @@ def simulate_trade_trace(ir: dict, frame: pd.DataFrame,
                 price = (max(entry, position["target"]) if sign == 1
                          else min(entry, position["target"]))
                 close(index, price, "target")
+    if position is not None:
+        final_index = int(np.flatnonzero(evaluation_mask)[-1])
+        close(final_index, float(frame.iloc[final_index]["close"]), "EndTest")
     return {
         "schema_version": 1, "trace_type": "strategy_parity_trace",
         "source": "python", "candidate_id": ir["strategy_id"],
         "candles": candles, "signals": signals, "trades": trades,
         "notional_usdc": float(notional_usdc), "costs_applied": False,
+        "evaluation_start": evaluation_start.isoformat().replace("+00:00", "Z"),
+        "evaluation_end": evaluation_end.isoformat().replace("+00:00", "Z"),
     }

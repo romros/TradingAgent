@@ -69,6 +69,27 @@ def _select_all_input_strategies(task_xml: ET.Element) -> None:
     selected.clear()
 
 
+def _normalize_venue_neutral_task(task_xml: ET.Element, symbol: str) -> None:
+    """Make SQ a logic oracle; Ostium costs are applied after the retest."""
+    for key in ("ExitAtEndOfDay", "ExitOnFriday"):
+        matches = task_xml.findall(f"./Options/BuildTradingOptions/Params/Param[@key='{key}']")
+        if len(matches) != 1:
+            raise ValueError(f"VENUE_NEUTRAL_OPTION_MISSING: {key}")
+        matches[0].text = "false"
+    instruments = task_xml.findall(
+        f"./Resources/Symbols/Symbol[@name='{symbol}']/InstrumentInfo")
+    if len(instruments) != 1:
+        raise ValueError("VENUE_NEUTRAL_INSTRUMENT_NOT_UNIQUE")
+    instrument = instruments[0]
+    instrument.set("defaultSpread", "0.0")
+    instrument.set("defaultSlippage", "0.0")
+    instrument.set(
+        "commissions", '<Method type="None" use="true"><Params /></Method>')
+    instrument.set(
+        "swap", '<Swap use="false" type="money" long="0.0" short="0.0" '
+                'tripleSwapOn="WEDNESDAY" rolloutHour="23:00" />')
+
+
 def _candidate_contract(candidate_sqx: Path | None, candidate_id: str | None,
                         required: bool) -> dict:
     if candidate_sqx is None and candidate_id is None and not required:
@@ -107,6 +128,10 @@ def _validate_uncensored_contract(task_xml: ET.Element, *, symbol: str,
     databanks = task_xml.find("./Databanks")
     input_db = task_xml.find("./Databanks/Databank[@name='Input']")
     output_db = task_xml.find("./Databanks/Databank[@name='Output']")
+    options = {node.get("key"): (node.text or "").strip().lower()
+               for node in task_xml.findall("./Options/BuildTradingOptions/Params/Param")}
+    instrument = task_xml.find(
+        f"./Resources/Symbols/Symbol[@name='{symbol}']/InstrumentInfo")
     errors = []
     if setup is None or setup.get("dateFrom") != date_from.replace("-", "."):
         errors.append("DATE_FROM")
@@ -114,6 +139,17 @@ def _validate_uncensored_contract(task_xml: ET.Element, *, symbol: str,
         errors.append("DATE_TO")
     if len(charts) != 1 or charts[0].get("symbol") != symbol or charts[0].get("timeframe") != timeframe:
         errors.append("EXACT_MARKET")
+    if len(charts) != 1 or charts[0].get("spread") != "0":
+        errors.append("CHART_SPREAD_NOT_ZERO")
+    if setup is None or setup.get("slippage") not in {"0", "0.0"}:
+        errors.append("SLIPPAGE_NOT_ZERO")
+    if options.get("ExitAtEndOfDay") != "false" or options.get("ExitOnFriday") != "false":
+        errors.append("TIMED_EXITS_NOT_DISABLED")
+    if (instrument is None or instrument.get("defaultSpread") not in {"0", "0.0"}
+            or instrument.get("defaultSlippage") not in {"0", "0.0"}
+            or 'type="None"' not in instrument.get("commissions", "")
+            or 'use="false"' not in instrument.get("swap", "")):
+        errors.append("INSTRUMENT_COSTS_NOT_NEUTRAL")
     if conditions:
         errors.append("PERFORMANCE_FILTERS_PRESENT")
     if delete_failed != "false":
@@ -294,6 +330,7 @@ def generate(source: Path, output: Path, project_name: str, stage: str, manifest
     task_xml = _read_task(source, source_task_file)
     if resource_source is not None:
         _graft_resource_symbol(task_xml, _read_task(resource_source, resource_task_file), symbol)
+    _normalize_venue_neutral_task(task_xml, symbol)
     setup = task_xml.find("./Data/Setups/Setup")
     setup.set("dateFrom", periods[start_key].replace("-", "."))
     setup.set("dateTo", periods[end_key].replace("-", "."))

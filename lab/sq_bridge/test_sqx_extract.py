@@ -20,7 +20,7 @@ STRATEGY = b'''<StrategyFile><Strategy><Rules><Events><Event key="OnBarUpdate">
 <Rule type="IfThen" name="Long entry"><If><Item><Param key="#Variable#">L</Param></Item></If><Then><Item key="EnterAtMarket"><Param key="#Direction#">1</Param><Param key="#AllowDuplicateTrades#">false</Param><Param key="#ExitAfterBars.ExitAfterBars#">5</Param><Param key="#StopLoss.StopLoss#"><Formula key="SQ.Formulas.SLPT.ATRBasedValue"><Param key="#Value#">2</Param><Param key="#AtrPeriod#">14</Param></Formula></Param><Param key="#ProfitTarget.ProfitTarget#"><Formula key="SQ.Formulas.SLPT.None"/></Param></Item></Then></Rule>
 <Rule type="IfThen" name="Short entry"><If><Item><Param key="#Variable#">S</Param></Item></If><Then><Item key="EnterAtMarket"><Param key="#Direction#">-1</Param><Param key="#AllowDuplicateTrades#">false</Param><Param key="#ExitAfterBars.ExitAfterBars#">5</Param><Param key="#StopLoss.StopLoss#"><Formula key="SQ.Formulas.SLPT.ATRBasedValue"><Param key="#Value#">2</Param><Param key="#AtrPeriod#">14</Param></Formula></Param><Param key="#ProfitTarget.ProfitTarget#"><Formula key="SQ.Formulas.SLPT.None"/></Param></Item></Then></Rule>
 </Event></Events></Rules></Strategy></StrategyFile>'''
-SETTINGS = b'''<ResultsGroup><ResultsMap><Results><Result><ValuesMap><StrategyName key="StrategyName">T</StrategyName><Symbol key="Symbol">NVDA</Symbol><Timeframe key="Timeframe">M15</Timeframe></ValuesMap><SettingsMap><E key="ExitAtEndOfDay.ExitAtEndOfDay">false</E><T key="ExitAtEndOfDay.EODExitTime">1530</T><F key="ExitOnFriday.ExitOnFriday">false</F><FT key="ExitOnFriday.FridayExitTime">1600</FT><S key="Slippage">0.0</S><Swap><Swap use="false" type="money" long="0" short="0"/></Swap></SettingsMap></Result></Results></ResultsMap><SymbolsMap><SymbolInfo symbolName="NVDA"><InstrumentInfo instrument="NVDA" defaultSpread="0" pointValue="1" orderSizeMultiplier="1" tickStep="0.01" commissions="&lt;Method type=&quot;None&quot; use=&quot;true&quot;&gt;&lt;Params/&gt;&lt;/Method&gt;" swap="&lt;Swap use=&quot;false&quot; type=&quot;money&quot; long=&quot;0&quot; short=&quot;0&quot;/&gt;"/></SymbolInfo></SymbolsMap></ResultsGroup>'''
+SETTINGS = b'''<ResultsGroup><ResultsMap><Results><Result><ValuesMap><StrategyName key="StrategyName">T</StrategyName><Symbol key="Symbol">NVDA</Symbol><Timeframe key="Timeframe">M15</Timeframe></ValuesMap><SettingsMap><E key="ExitAtEndOfDay.ExitAtEndOfDay">false</E><T key="ExitAtEndOfDay.EODExitTime">1530</T><F key="ExitOnFriday.ExitOnFriday">false</F><FT key="ExitOnFriday.FridayExitTime">1600</FT><W key="DontTradeOnWeekends.DontTradeOnWeekends">true</W><WC key="DontTradeOnWeekends.FridayCloseTime">1700</WC><WO key="DontTradeOnWeekends.SundayOpenTime">1700</WO><S key="Slippage">0.0</S><Swap><Swap use="false" type="money" long="0" short="0"/></Swap></SettingsMap></Result></Results></ResultsMap><SymbolsMap><SymbolInfo symbolName="NVDA"><InstrumentInfo instrument="NVDA" defaultSpread="0" pointValue="1" orderSizeMultiplier="1" tickStep="0.01" commissions="&lt;Method type=&quot;None&quot; use=&quot;true&quot;&gt;&lt;Params/&gt;&lt;/Method&gt;" swap="&lt;Swap use=&quot;false&quot; type=&quot;money&quot; long=&quot;0&quot; short=&quot;0&quot;/&gt;"/></SymbolInfo></SymbolsMap></ResultsGroup>'''
 
 
 class SqxExtractTest(unittest.TestCase):
@@ -41,10 +41,18 @@ class SqxExtractTest(unittest.TestCase):
             self.assertFalse(result["execution"]["commission_enabled"])
             self.assertEqual(result["execution"]["commission_method"], "None")
             self.assertFalse(result["execution"]["swap_enabled"])
+            self.assertTrue(result["execution"]["dont_trade_on_weekends"])
+            self.assertEqual(result["execution"]["weekend_friday_close_hhmm"], 1700)
+            self.assertEqual(result["execution"]["weekend_sunday_open_hhmm"], 1700)
             self.assertEqual(result["execution"]["point_value"], 1.0)
             self.assertEqual(result["execution"]["tick_step"], .01)
             self.assertEqual(result["entry_condition_counts"], {"long": 1, "short": 1})
             self.assertEqual(result["maximum_entry_conditions"], 1)
+            self.assertEqual(result["entries"]["long"]["signal_variable_id"], "L")
+            self.assertEqual(result["entries"]["short"]["signal_variable_id"], "S")
+            self.assertEqual(result["signal_variable_ids"], [
+                "33333333-1111-2222-3333-333333333333",
+                "33333333-2222-2222-3333-333333333333", "L", "S"])
 
     def test_counts_predicates_but_not_their_indicator_operands(self):
         long_signal = b'''<Item key="AND">
@@ -81,6 +89,32 @@ class SqxExtractTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             with self.assertRaisesRegex(ValueError, "signal inexistent"):
                 extract(self._write_sqx(tmp, strategy))
+
+    def test_preserves_composed_entry_gate_including_not(self):
+        composed = (
+            b'<Item key="AND"><Block><Item key="BooleanVariable">'
+            b'<Param key="#Variable#">S</Param></Item></Block>'
+            b'<Block><Item key="Not"><Block><Item key="BooleanVariable">'
+            b'<Param key="#Variable#">L</Param></Item></Block></Item></Block></Item>'
+        )
+        strategy = STRATEGY.replace(
+            b'<Rule type="IfThen" name="Short entry"><If><Item><Param key="#Variable#">S</Param></Item></If>',
+            b'<Rule type="IfThen" name="Short entry"><If>' + composed + b'</If>',
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            result = extract(self._write_sqx(tmp, strategy))
+        short = result["entries"]["short"]
+        self.assertIsNone(short["signal_variable_id"])
+        self.assertEqual(short["signal_variable_ids_used"], ["L", "S"])
+        self.assertEqual(short["entry_gate"], {
+            "op": "and",
+            "children": [
+                {"op": "var", "id": "S"},
+                {"op": "not", "children": [{"op": "var", "id": "L"}]},
+            ],
+        })
+        self.assertEqual(short["signal"]["op"], "AND")
+        self.assertEqual(short["signal"]["children"][1]["op"], "Not")
 
     def test_rejects_empty_and(self):
         strategy = STRATEGY.replace(

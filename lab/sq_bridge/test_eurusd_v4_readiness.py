@@ -97,6 +97,8 @@ def test_mature_evidence_authorizes_only_the_hypothesis_screen(tmp_path):
                         for route in ("direction_neutral", "long", "short")}
         for notional in REQUIRED_NOTIONALS_USDC}
     value["fees"] = {
+        "open_fee_bps": {"n": 30, "p50": 2, "p95": 2,
+                          "min": 2, "max": 2},
         "rollover_long_pct_per_8h": {"p50": -0.001},
         "rollover_short_pct_per_8h": {"p50": -0.001},
     }

@@ -31,6 +31,15 @@ def _sources(tmp_path):
              for scenario in ("base", "conservative", "stress")}
     _write(costs, {
         "decision": "PASS_COSTS_FROZEN", "costs_frozen": True,
+        "entry_debit": {
+            "maximum_observed_open_fee_bps": 2,
+            "minimum_observed_open_fee_bps": 2,
+            "oracle_locked_usdc": .1,
+            "collateral_semantics": (
+                "gross submitted collateral; Ostium deducts opening fee and "
+                "oracle before deriving final notional"),
+            "sizing_policy": "never gross up from a stale fee observation",
+        },
         "by_notional": {"500": {
             "base_roundtrip_bps": 0,
             "conservative_roundtrip_bps": 1,
@@ -250,6 +259,22 @@ def test_signal_maps_to_exact_inert_brokerage_request(tmp_path):
     assert body["side"] == "long"
     assert body["collateral"] * body["leverage"] == pytest.approx(
         signal["position_notional_usdc"])
+    assert result["entry_notional_semantics"] == (
+        "target_is_zero_fee_upper_bound_not_guaranteed_fill")
+    envelope = result["entry_notional_envelope"]
+    target = signal["position_notional_usdc"]
+    leverage = signal["selected_leverage"]
+    opening_fee = target * 2 / 10_000
+    effective_collateral = signal["collateral_usdc"] - opening_fee - .1
+    effective_notional = effective_collateral * leverage
+    assert envelope["gross_notional_upper_bound_usdc"] == pytest.approx(target)
+    assert envelope["conservative_opening_fee_usdc"] == pytest.approx(opening_fee)
+    assert envelope["oracle_locked_usdc"] == pytest.approx(.1)
+    assert envelope["conservative_effective_collateral_usdc"] == pytest.approx(
+        effective_collateral)
+    assert envelope["conservative_effective_notional_usdc"] == pytest.approx(
+        effective_notional)
+    assert envelope["underfill_usdc"] == pytest.approx(target - effective_notional)
     assert body["sl_price"] < signal["entry_price"]
     assert body["tp_price"] is None
     assert body["client_order_id"].startswith("alq4-")

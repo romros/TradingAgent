@@ -35,7 +35,9 @@ def summary(*, samples=30, days=3, hours=6):
                     "long": {**distribution, "p50": 3.5},
                     "short": {**distribution, "p50": 4.5}}
             for notional in REQUIRED_NOTIONALS_USDC},
-        "fees": {"rollover_long_pct_per_8h": {"p50": -.002},
+        "fees": {"open_fee_bps": {**distribution, "p50": 2, "p95": 2,
+                                     "min": 2, "max": 2},
+                 "rollover_long_pct_per_8h": {"p50": -.002},
                  "rollover_short_pct_per_8h": {"p50": .002}},
         "limits": {"max_leverage": {"p50": 200}, "min_notional_usd": {"p50": 5}},
     }
@@ -69,6 +71,15 @@ def test_mature_evidence_freezes_small_account_scenarios_and_oracle_semantics():
     assert costs["conservative_variable_roundtrip_bps"] == 6
     assert costs["stress_variable_roundtrip_bps"] == 8
     assert costs["oracle_net_usdc"] == {"base": 0, "conservative": 0, "stress": .1}
+    assert result["entry_debit"] == {
+        "maximum_observed_open_fee_bps": 2,
+        "minimum_observed_open_fee_bps": 2,
+        "oracle_locked_usdc": .1,
+        "collateral_semantics": (
+            "gross submitted collateral; Ostium deducts opening fee and oracle "
+            "before deriving final notional"),
+        "sizing_policy": "never gross up from a stale fee observation",
+    }
     assert result["carry"]["long"]["sdk_display_pnl_pct_per_8h"] == -.002
     assert result["carry"]["long"]["derived_cost_pct_per_8h"] == 0
     assert result["carry"]["long"]["base_annual_cost_pct"] == 0
@@ -113,4 +124,11 @@ def test_unverified_builder_sdk_version_cannot_inherit_rollover_semantics():
     value = summary()
     value["open_market_snapshots"] = 29
     with pytest.raises(ValueError, match="independent-sample proof"):
+        derive(value, expected_pair_id="2", expected_pair=("EUR", "USD"))
+
+
+def test_opening_fee_must_cover_every_independent_snapshot():
+    value = summary()
+    value["fees"]["open_fee_bps"]["n"] = 29
+    with pytest.raises(ValueError, match="opening fee distribution"):
         derive(value, expected_pair_id="2", expected_pair=("EUR", "USD"))

@@ -123,6 +123,13 @@ def derive(summary: dict[str, Any], *, expected_pair_id: str,
             "short_route_p50_bps": number((routes.get("short") or {}).get("p50"), f"{label}.short.p50"),
         }
     fees = summary.get("fees") or {}
+    opening = fees.get("open_fee_bps") or {}
+    opening_n = opening.get("n")
+    opening_min = number(opening.get("min"), "open_fee_bps.min")
+    opening_max = number(opening.get("max"), "open_fee_bps.max")
+    if (not isinstance(opening_n, int) or isinstance(opening_n, bool)
+            or opening_n != independent_count or opening_max < opening_min):
+        raise ValueError("opening fee distribution does not match independent samples")
     carry = {}
     for side in ("long", "short"):
         rate = number((fees.get(f"rollover_{side}_pct_per_8h") or {}).get("p50"),
@@ -157,6 +164,15 @@ def derive(summary: dict[str, Any], *, expected_pair_id: str,
         },
         "required_notional_grid_usdc": list(REQUIRED_NOTIONALS_USDC),
         "maximum_feasible_notional_usdc": max(REQUIRED_NOTIONALS_USDC),
+        "entry_debit": {
+            "maximum_observed_open_fee_bps": opening_max,
+            "minimum_observed_open_fee_bps": opening_min,
+            "oracle_locked_usdc": oracle,
+            "collateral_semantics": (
+                "gross submitted collateral; Ostium deducts opening fee and "
+                "oracle before deriving final notional"),
+            "sizing_policy": "never gross up from a stale fee observation",
+        },
         "by_notional": scenarios, "carry": carry,
         "venue_limits": summary.get("limits"),
         "rollover_semantics_evidence": {

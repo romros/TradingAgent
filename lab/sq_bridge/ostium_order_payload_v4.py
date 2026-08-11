@@ -54,6 +54,38 @@ def _client_order_id(config: dict, instruction: dict) -> str:
     return "alq4-" + hashlib.sha256(identity.encode()).hexdigest()[:32]
 
 
+def _entry_notional_envelope(*, gross_collateral: float, leverage: float,
+                             costs: dict) -> dict:
+    """Bound entry notional without unsafe fee gross-up.
+
+    The zero-fee value is a hard upper bound.  The lower estimate uses the
+    largest opening fee observed in the frozen sample plus the locked oracle
+    amount.  Exact matching remains a paper-fill measurement, not an assumed
+    property of a stale venue snapshot.
+    """
+    debit = costs.get("entry_debit") or {}
+    if debit.get("sizing_policy") != "never gross up from a stale fee observation":
+        raise ValueError("semantica de debit d'entrada absent")
+    open_fee_bps = _finite(
+        debit.get("maximum_observed_open_fee_bps"), "opening fee observada")
+    oracle = _finite(debit.get("oracle_locked_usdc"), "oracle bloquejat")
+    if open_fee_bps < 0 or oracle < 0:
+        raise ValueError("debit d'entrada negatiu")
+    gross_notional = gross_collateral * leverage
+    opening_fee = gross_notional * open_fee_bps / 10_000
+    effective_collateral = gross_collateral - opening_fee - oracle
+    if effective_collateral <= 0:
+        raise ValueError("debit d'entrada consumeix tot el collateral")
+    return {
+        "gross_notional_upper_bound_usdc": gross_notional,
+        "conservative_opening_fee_usdc": opening_fee,
+        "oracle_locked_usdc": oracle,
+        "conservative_effective_collateral_usdc": effective_collateral,
+        "conservative_effective_notional_usdc": effective_collateral * leverage,
+        "underfill_usdc": gross_notional - effective_collateral * leverage,
+    }
+
+
 def build_order_template(*, config_path: Path, instruction: dict,
                          operational_max_leverage: float,
                          registry_path: Path = DEFAULT_MARKET_REGISTRY) -> dict:
@@ -101,6 +133,15 @@ def build_order_template(*, config_path: Path, instruction: dict,
     if entry <= 0 or stop <= 0 or (side == "long" and stop >= entry) \
             or (side == "short" and stop <= entry):
         raise ValueError("stop incompatible amb side/preu de senyal")
+    cost_path = (config_path.parent / config["cost_model_path"]).resolve()
+    if not cost_path.is_file() or _sha(cost_path) != config["cost_model_sha256"]:
+        raise ValueError("model de costos absent o manipulat")
+    entry_notional = _entry_notional_envelope(
+        gross_collateral=collateral, leverage=leverage,
+        costs=json.loads(cost_path.read_text()))
+    if not math.isclose(entry_notional["gross_notional_upper_bound_usdc"], notional,
+                        rel_tol=1e-9, abs_tol=1e-9):
+        raise ValueError("limit superior de nocional inconsistent")
     symbol, registry_sha = _execution_market(config["ostium_pair_id"], registry_path)
     body = {
         "venue": "ostium", "symbol": symbol, "side": side,
@@ -123,11 +164,13 @@ def build_order_template(*, config_path: Path, instruction: dict,
         "market_registry_sha256": registry_sha,
         "signal_entry_price": entry,
         "position_notional_usdc": notional,
+        "entry_notional_semantics": "target_is_zero_fee_upper_bound_not_guaranteed_fill",
+        "entry_notional_envelope": entry_notional,
         "risk_budget_usdc": _finite(instruction.get("risk_budget_usdc"), "pressupost de risc"),
         "initial_stop_distance_pct": _finite(
             instruction.get("initial_stop_distance_pct"), "distancia inicial de stop"),
         "paper_execution_policy": config["paper_execution_policy"],
-        "cost_model_path": str((config_path.parent / config["cost_model_path"]).resolve()),
+        "cost_model_path": str(cost_path),
         "cost_model_sha256": config["cost_model_sha256"],
         "fresh_quote_required": True,
         "stop_direction_revalidation_required": True,

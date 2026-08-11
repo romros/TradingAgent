@@ -129,6 +129,8 @@ def run_stage(
         methodology_path=methodology_path, artifact_path=artifact_path)
     artifact["sq_generation_artifact_path"] = str(generation_artifact_path)
     artifact["sq_generation_artifact_sha256"] = _sha(generation_artifact_path)
+    artifact["methodology_path"] = str(methodology_path.resolve())
+    artifact["methodology_sha256"] = _sha(methodology_path)
     artifact["supervised_retest_evidence"] = receipts
     artifact_path.write_text(json.dumps(artifact, indent=2, sort_keys=True) + "\n")
     return artifact

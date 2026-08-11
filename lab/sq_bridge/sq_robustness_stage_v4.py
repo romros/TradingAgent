@@ -213,6 +213,8 @@ def run_stage(
     artifact.update({
         "temporal_validation_artifact_path": str(temporal_artifact_path),
         "temporal_validation_artifact_sha256": _sha(temporal_artifact_path),
+        "methodology_path": str(methodology_path.resolve()),
+        "methodology_sha256": _sha(methodology_path),
         "supervised_monte_carlo_evidence": stage_evidence,
         "leverage_selection_policy": "highest_preregistered_grid_value_passing_all_robustness_gates",
     })

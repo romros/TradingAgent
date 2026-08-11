@@ -969,6 +969,21 @@ i reprèn només un Retest propi amb preflight durable. El mateix script i `floc
 del cron executen generació i després validació temporal, de manera que no poden
 competir entre ells. Un `REJECT_NO_SQ_CANDIDATES` és terminal i no inicia SQ.
 
+Si el Pareto temporal passa, `eurusd_v4_robustness_worker.py` continua sota el
+mateix lock. El límit no és un `200x` escrit a mà: exigeix 30 observacions
+congelades del parell Ostium 2 EUR/USD, adopta el mínim observat de
+`max_leverage` i escaneja la graella preregistrada de dalt a baix. Per Forex,
+`overnightMaxLeverage=0` no substitueix el límit general: és l'absència de
+l'override especial de day trading d'accions. Aquesta interpretació queda
+limitada explícitament a `category=forex`; qualsevol valor overnight no nul o
+evidència insuficient falla tancat. La documentació oficial descriu aquesta
+restricció com a específica de les accions:
+https://ostium-labs.gitbook.io/ostium-docs/stocks-day-trading
+
+Robustesa utilitza la metodologia segellada per l'artefacte temporal, no el
+fitxer actual del repositori. Això impedeix modificar inadvertidament els gates
+entre el Pareto i les 1.000 variants natives d'SQ.
+
 Un candidat sense trades, sense OOS o amb expectativa train no positiva és
 evidència científica vàlida però feble: queda registrat amb
 `temporal_eligibility_failure` i acaba en `REJECT`, sense avortar el lot. En

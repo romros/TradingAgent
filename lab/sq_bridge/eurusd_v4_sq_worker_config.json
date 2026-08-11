@@ -10,6 +10,7 @@
   "worker_interval_minutes": 10,
   "sqcli_container": "sqcli-docker",
   "base_url": "http://127.0.0.1:8080",
+  "host_projects_root": "/mnt/volume-SQ/user/projects",
   "auto_import": true,
   "auto_start_generation": true,
   "paper_authorized": false,

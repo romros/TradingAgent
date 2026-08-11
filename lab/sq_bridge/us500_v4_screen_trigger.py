@@ -198,6 +198,8 @@ def _resume(journal_path: Path, output_dir: Path) -> dict[str, Any]:
         "journal_path": str(journal_path.resolve()),
         "frozen_preflight_path": str(frozen_preflight.resolve()),
         "frozen_preflight_sha256": _sha(frozen_preflight),
+        "methodology_path": sources["methodology"]["snapshot_path"],
+        "methodology_sha256": sources["methodology"]["sha256"],
         "bootstrap_path": str((run_dir / "bootstrap.json").resolve()),
         "bootstrap_sha256": _sha(run_dir / "bootstrap.json"),
         "selected_hypothesis_ids": result["selected_hypothesis_ids"],
@@ -219,7 +221,7 @@ def verify_completed(output_dir: Path) -> dict[str, Any]:
             or receipt.get("campaign_id") != CAMPAIGN_ID
             or receipt.get("sqcli_started") is not False):
         raise ValueError("invalid completed US500 screen receipt")
-    for label in ("frozen_preflight", "bootstrap"):
+    for label in ("frozen_preflight", "methodology", "bootstrap"):
         path = Path(str(receipt.get(f"{label}_path", "")))
         if not path.is_file() or _sha(path) != receipt.get(f"{label}_sha256"):
             raise ValueError(f"completed US500 {label} changed")

@@ -1,0 +1,48 @@
+{
+  "canonical_source_path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/btcusd_h4_canonical_v4.csv",
+  "canonical_source_sha256": "38940d8ab43029d14481a20feebf11b7f1b50b290e26ec6889433a23b97508db",
+  "costs_accessed": false,
+  "decision": "REJECT_SQ_PROPOSAL_CANONICAL_GROSS",
+  "gross_train_metrics": {
+    "calendar_year_net_pnl_usdc": {
+      "2018": 19.60934308157264,
+      "2019": 61.778110346511,
+      "2020": 135.060062469378,
+      "2021": -77.99451946205393,
+      "2022": 42.15325476249734
+    },
+    "calendar_years": 5,
+    "closed_trades": 417,
+    "expectancy_usdc_per_trade": 0.4331085160621225,
+    "max_drawdown_usdc": 168.8823711617352,
+    "net_pnl_usdc": 180.60625119790507,
+    "notional_usdc": 200,
+    "positive_calendar_years": 4,
+    "positive_calendar_years_ratio": 0.8,
+    "profit_factor": 1.1394056407676938,
+    "roundtrip_bps": 0.0,
+    "scenario": "base"
+  },
+  "holdout_accessed": false,
+  "normalized_proposal_path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/crypto_h4_custom_signal_smoke_candidate_normalized_v4.json",
+  "normalized_proposal_sha256": "72899c3e6a2449e10039222c5dbdf6028487f139fc5ffb847679a968dda20ae1",
+  "oos_accessed": false,
+  "parameters": {
+    "atr_stop_multiple": 2.25,
+    "exit_after_bars": 10,
+    "indicator_period": 49,
+    "roc_threshold_pct": 2.0,
+    "shift": 1
+  },
+  "rejection_reasons": [
+    "GROSS_PROFIT_FACTOR_BELOW_1_2"
+  ],
+  "remaining_gate": null,
+  "schema_version": 1,
+  "strategy_promotion_authorized": false,
+  "train_period_utc": [
+    "2018-03-01",
+    "2022-04-30"
+  ],
+  "validation_accessed": false
+}

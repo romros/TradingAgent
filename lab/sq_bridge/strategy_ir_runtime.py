@@ -15,6 +15,8 @@ RUNTIME_SIGNAL_NODES = {
     "IsGreater", "IsLower", "Close", "Low", "High", "SMA", "EMA", "RSI",
     "ROC", "Highest", "Lowest", "BarDayOfMonth", "BarDayOfWeekIs", "IsMonthFirstTradingDay",
     "IsMonthLastTradingDay", "Number", "Boolean",
+    "AlquimiaH4MomentumAbove", "AlquimiaH4MomentumBelow",
+    "AlquimiaH4ChannelAbove", "AlquimiaH4ChannelBelow",
 }
 
 
@@ -129,6 +131,28 @@ class SignalRuntime:
             # SQ Highest/Lowest calculators use the available prefix while warming up.
             window = source.rolling(period, min_periods=1)
             result = (window.max() if op == "Highest" else window.min()).shift(shift)
+        elif op.startswith("AlquimiaH4"):
+            period = int(_param(node, "#Period#", 14))
+            if period < 1: raise ValueError(f"Periode invalid per {op}: {period}")
+            spacing = self.frame.index.to_series().diff().eq(pd.Timedelta(hours=4))
+            segment = (~spacing).cumsum()
+            endpoint_segment = segment.shift(shift)
+            continuous = endpoint_segment.eq(segment.shift(shift + max(period, 13)))
+            endpoint = self.frame["close"].shift(shift)
+            if "Momentum" in op:
+                first = self.frame["close"].shift(shift + period)
+                roc = 100 * (endpoint / first - 1)
+                level = float(_param(node, "#Level#", 0))
+                result = roc.gt(level) if op.endswith("Above") else roc.lt(-level)
+            elif op.endswith("Above"):
+                prior = pd.concat([self.frame["high"].shift(shift + offset)
+                                   for offset in range(1, period + 1)], axis=1).max(axis=1)
+                result = endpoint.gt(prior)
+            else:
+                prior = pd.concat([self.frame["low"].shift(shift + offset)
+                                   for offset in range(1, period + 1)], axis=1).min(axis=1)
+                result = endpoint.lt(prior)
+            result &= continuous.fillna(False)
         elif op == "AND":
             if not children:
                 raise ValueError("AND IR sense fills")

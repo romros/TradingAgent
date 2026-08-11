@@ -54,6 +54,19 @@ class SqxExtractTest(unittest.TestCase):
                 "33333333-1111-2222-3333-333333333333",
                 "33333333-2222-2222-3333-333333333333", "L", "S"])
 
+    def test_empty_instrument_commission_attribute_is_explicitly_disabled(self):
+        settings = re.sub(b'commissions="[^"]*"', b'commissions=""', SETTINGS)
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "empty-commission.sqx"
+            with zipfile.ZipFile(path, "w") as archive:
+                archive.writestr("strategy_Portfolio.xml", STRATEGY)
+                archive.writestr("settings.xml", settings)
+                archive.writestr("version.txt", "3")
+            execution = extract(path)["execution"]
+        self.assertFalse(execution["commission_enabled"])
+        self.assertEqual(execution["commission_method"], "None")
+        self.assertEqual(execution["commission_value"], 0.0)
+
     def test_counts_predicates_but_not_their_indicator_operands(self):
         long_signal = b'''<Item key="AND">
           <Item key="IsGreater"><Block><Item key="SMA"/></Block><Block><Item key="Number"/></Block></Item>

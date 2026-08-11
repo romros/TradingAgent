@@ -15,6 +15,8 @@ SUPPORTED_SIGNAL_NODES = {
     "IsGreater", "IsLower", "Close", "Low", "High", "SMA", "EMA", "RSI",
     "ROC", "Highest", "Lowest", "BarDayOfMonth", "BarDayOfWeekIs", "IsMonthFirstTradingDay",
     "IsMonthLastTradingDay", "Number", "Boolean",
+    "AlquimiaH4MomentumAbove", "AlquimiaH4MomentumBelow",
+    "AlquimiaH4ChannelAbove", "AlquimiaH4ChannelBelow",
 }
 SUPPORTED_ENTRY = {"EnterAtMarket"}
 SUPPORTED_ACTION_PARAMS = {
@@ -174,6 +176,9 @@ def _embedded_xml_attribute(element: ET.Element | None, key: str) -> ET.Element 
 
 
 def _commission_contract(instrument: ET.Element | None) -> dict:
+    if instrument is not None and instrument.attrib.get("commissions") == "":
+        return {"commission_enabled": False, "commission_method": "None",
+                "commission_value": 0.0}
     method = _embedded_xml_attribute(instrument, "commissions")
     if method is None or method.tag != "Method":
         return {"commission_enabled": None, "commission_method": None,

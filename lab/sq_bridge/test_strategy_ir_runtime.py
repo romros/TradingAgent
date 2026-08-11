@@ -102,6 +102,20 @@ def test_highest_lowest_use_available_prefix_during_sq_warmup():
     assert lowest.iloc[:4].tolist() == [10, 10, 10, 11]
 
 
+def test_custom_h4_signal_runtime_binds_gap_period_shift_and_threshold():
+    index = pd.date_range("2024-01-01", periods=20, freq="4h", tz="UTC")
+    close = pd.Series(range(100, 120), index=index, dtype=float)
+    frame = pd.DataFrame({"open": close, "high": close + .5,
+                          "low": close - .5, "close": close})
+    node = {"op": "AlquimiaH4MomentumAbove", "params": {
+        "#Period#": 12, "#Level#": 1, "#Shift#": 1}}
+    result = SignalRuntime(frame).evaluate(node)
+    assert not result.iloc[:14].any() and result.iloc[14:].all()
+    gapped = frame.drop(frame.index[10])
+    after_gap = SignalRuntime(gapped).evaluate(node)
+    assert not after_gap.iloc[-1]
+
+
 def _execution_ir(*, direction="long", stop=None, target=None, exit_after=0):
     inactive = "short" if direction == "long" else "long"
     entry = {"signal": {"op": "Boolean", "params": {"#Value#": True}}}

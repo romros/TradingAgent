@@ -89,6 +89,8 @@ def validate_executable_ir(ir: dict, *, require_stop_loss: bool = True) -> dict:
 
 _MARKET_DATA_NODES = {
     "Close", "High", "Low", "SMA", "EMA", "RSI", "ROC", "Highest", "Lowest",
+    "AlquimiaH4MomentumAbove", "AlquimiaH4MomentumBelow",
+    "AlquimiaH4ChannelAbove", "AlquimiaH4ChannelBelow",
 }
 
 

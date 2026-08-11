@@ -124,6 +124,26 @@ Implementació de font, rebut fail-closed i auditoria:
 `eurusd_sq_d1_source_v4.py`, `eurusd_sq_d1_import_receipt_v4.py` i
 `eurusd_sq_d1_canonical_resource_audit_v4.py`.
 
+### Extensió V2 fins al final del holdout
+
+El recurs original es conserva immutable. Una segona font versionada amplia el
+mateix NY-17 amb el cache Dukascopy ja congelat i comparat contra Ostium:
+`EURUSD_ALQ_NY17_D1_V2`. Té 5.998 sessions del 05/05/2003 al 07/08/2026 i
+cobreix el final preregistrat del holdout, 31/07/2026.
+
+Les cinc sessions solapades entre el Parquet històric i l'API Dukascopy actual
+no són idèntiques: la desviació OHLC màxima és 2,7141 bps. La V2 ho declara i
+adopta l'API recent perquè és la pota que ha coincidit amb Ostium; el gate
+continua sent el mateix màxim de 5 bps del mapping. No es barreja silenciosament
+amb la V1. SQCLI ha importat 5.998 files sota un símbol nou i el round-trip
+posterior coincideix en 5.998/5.998 dates i el 100% de les OHLC. SQ normalitza
+volum zero a 1; cap etapa V4 usa volum per al sizing o la paritat.
+
+Evidència: `eurusd_d1_holdout_extension_v4.json`,
+`eurusd_d1_full_candle_parity_v4_v2.json` i
+`eurusd_alq_ny17_d1_resource_audit_v4_v2.json`. Cap retorn d'estratègia s'ha
+consultat durant l'extensió.
+
 ## Següent gate
 
 Esperar que `scripts/capture_ostium_research_universe_economics.sh` completi almenys

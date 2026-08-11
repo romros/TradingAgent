@@ -66,7 +66,7 @@
       "ostium_pair": "EUR/USD",
       "ostium_asset": "EURUSD",
       "bs_symbol": "EURUSD",
-      "sq_symbol": "EURUSD_ALQ_NY17_D1",
+      "sq_symbol": "EURUSD_ALQ_NY17_D1_V2",
       "sq_resource_clone_from": "EURUSD_M1_dukas_M1_UTCMinus05",
       "sq_resource_remove_attributes": [
         "cloneFrom",
@@ -78,7 +78,7 @@
         "precision": "D1",
         "timezone": "Etc/UTC",
         "dateFrom": "1052092800000",
-        "dateTo": "1772064000000",
+        "dateTo": "1786060800000",
         "uSymbol": "EURUSD",
         "uSymbolName": "EURUSD",
         "removeWeekends": "false",
@@ -89,7 +89,7 @@
       "opening_fee_bps": 3,
       "research_eligible": true,
       "live_eligible": false,
-      "warning": "Recurs SQ NY17 D1 certificat per recerca; costos 200 USDC i paritat BS continuen obligatoris abans de paper/live."
+      "warning": "Recurs SQ NY17 D1 V2 certificat fins 2026-08-07; costos 200 USDC i paritat BS continuen obligatoris abans de paper/live."
     },
     "USDJPY": {
       "category": "forex",

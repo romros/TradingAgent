@@ -1,0 +1,30 @@
+{
+  "checks": {
+    "ohlc_match_pct": true,
+    "sq_coverage_pct": true
+  },
+  "common_rows": 5998,
+  "contract_type": "sq_dukascopy_candle_parity_v4",
+  "decision": "PASS_CANDLE_PARITY",
+  "dukascopy_candles_path": "/mnt/volume-SQ/user/imports/alquimia_eurusd_v4/EURUSD_ALQ_NY17_D1_V2.csv",
+  "dukascopy_candles_sha256": "0b965669e88a431574490f802039e530a911cfe2c5f07f5f081e26d14d55f5f5",
+  "dukascopy_rows": 5998,
+  "dukascopy_timezone": "UTC",
+  "first_common_timestamp_utc": "2003-05-05T00:00:00+00:00",
+  "last_common_timestamp_utc": "2026-08-07T00:00:00+00:00",
+  "matched_rows": 5998,
+  "maximum_allowed_ohlc_delta": 1e-05,
+  "maximum_observed_ohlc_delta": 0.0,
+  "minimum_required_pct": 95.0,
+  "ohlc_match_pct": 100.0,
+  "performance_accessed": false,
+  "schema_version": 1,
+  "semantics": "SQ sizing candles independently compared with Dukascopy OHLC",
+  "sq_candles_path": "/mnt/volume-SQ/user/exports/alquimia_eurusd_v4_ny17_v2_roundtrip/EURUSD_ALQ_NY17_D1_V2-D1-No Session.csv",
+  "sq_candles_sha256": "85540295d643e3756138525a16380babb781cc0860f7e1c6a208217a72448edf",
+  "sq_coverage_pct": 100.0,
+  "sq_rows": 5998,
+  "sq_timezone": "UTC",
+  "symbol": "EURUSD",
+  "timeframe": "D1"
+}

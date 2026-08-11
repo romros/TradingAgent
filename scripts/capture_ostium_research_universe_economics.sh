@@ -7,7 +7,7 @@ PAIRS=${OSTIUM_RESEARCH_PAIRS:-"EUR/USD USD/JPY GBP/USD XAU/USD"}
 EVIDENCE_DIR=${OSTIUM_EVIDENCE_DIR:-$ROOT/data/ostium_economics_universe}
 EURUSD_SUMMARY="$EVIDENCE_DIR/eurusd_ostium_execution_summary_latest.json"
 EURUSD_PREFLIGHT="$EVIDENCE_DIR/eurusd_market_preflight_latest_v4.json"
-EURUSD_SOURCE=${ALQUIMIA_EURUSD_D1_SOURCE:-/mnt/volume-SQ/user/imports/alquimia_eurusd_v4/EURUSD_ALQ_NY17_D1.csv}
+EURUSD_SOURCE=${ALQUIMIA_EURUSD_D1_SOURCE:-/mnt/volume-SQ/user/imports/alquimia_eurusd_v4/EURUSD_ALQ_NY17_D1_V2.csv}
 EURUSD_SCREEN_DIR=${ALQUIMIA_EURUSD_SCREEN_DIR:-$ROOT/data/alquimia_v4/eurusd-d1-alquimia-v4/screen-bootstrap}
 STATUS=0
 

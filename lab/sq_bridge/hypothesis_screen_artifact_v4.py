@@ -156,6 +156,11 @@ def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
         raise ValueError("Hipotesis del screen absents")
     hypothesis_ids, evaluated, attempted = [], {}, 0
     scenarios = gate["cost_scenarios_required"]
+    carry_rates = {
+        side: {scenario: _number((carry.get(side) or {}).get(
+            f"{scenario}_annual_cost_pct")) for scenario in scenarios}
+        for side in ("long", "short")
+    }
     for hypothesis in hypotheses:
         if (not isinstance(hypothesis, dict)
                 or not isinstance(hypothesis.get("hypothesis_id"), str)):
@@ -213,6 +218,7 @@ def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
             "cost_roundtrip_bps_by_scenario": cost_bps,
             "cost_variable_roundtrip_bps_by_scenario": variable_bps,
             "cost_fixed_usdc_by_scenario": fixed_usdc,
+            "carry_annual_cost_pct_by_side_scenario": carry_rates,
             "selected_hypothesis_ids": selected}
 
 
@@ -253,6 +259,8 @@ def build_artifact(*, campaign_id: str, trace_path: Path,
         "cost_variable_roundtrip_bps_by_scenario": (
             result["cost_variable_roundtrip_bps_by_scenario"]),
         "cost_fixed_usdc_by_scenario": result["cost_fixed_usdc_by_scenario"],
+        "carry_annual_cost_pct_by_side_scenario": result[
+            "carry_annual_cost_pct_by_side_scenario"],
         "cost_model_path": _relative(cost_model_path, artifact_path.resolve().parent),
         "cost_model_sha256": cost_hash,
         "hypothesis_screen_trace_path": _relative(trace_path, artifact_path.resolve().parent),

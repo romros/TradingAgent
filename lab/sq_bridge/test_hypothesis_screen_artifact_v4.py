@@ -1,11 +1,13 @@
 import json
 import hashlib
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 from pathlib import Path
 
 import pytest
 
-from lab.sq_bridge.hypothesis_screen_artifact_v4 import build_artifact
+from lab.sq_bridge.hypothesis_screen_artifact_v4 import (
+    _variant_metrics, build_artifact,
+)
 from lab.sq_bridge.stage_artifact_contract import validate_stage_artifact
 from lab.sq_bridge.temporal_split_contract_v4 import build_contract, digest
 
@@ -98,6 +100,9 @@ def test_screen_recomputes_grid_pf_neighbors_and_real_contract(tmp_path):
     assert artifact["attempted"] == 3
     assert artifact["selected_hypothesis_ids"] == ["hypothesis"]
     assert artifact["minimum_selected_stable_neighbors"] == 2
+    assert artifact["carry_annual_cost_pct_by_side_scenario"] == {
+        side: {scenario: 0 for scenario in ("base", "conservative", "stress")}
+        for side in ("long", "short")}
     methodology = json.loads((ROOT / "methodology_v4.json").read_text())
     receipt = {"decision": "PASS", "candidate_ids": [],
                "holdout_accessed": False, "artifact": str(artifact_path)}
@@ -208,3 +213,32 @@ def test_screen_rejects_source_tampering_and_trade_after_train(tmp_path):
             campaign_id="campaign", trace_path=trace, cost_model_path=costs,
             methodology_path=ROOT / "methodology_v4.json",
             artifact_path=tmp_path / "future-trade.json")
+
+
+def test_screen_applies_side_specific_carry_for_actual_holding_days():
+    trades = []
+    for index in range(50):
+        entry = date(2000, 1, 3) + timedelta(days=index * 3)
+        trades.append({
+            "trade_id": f"trade-{index:02d}",
+            "entry_timestamp": entry.isoformat() + "T00:00:00+00:00",
+            "exit_timestamp": (entry + timedelta(days=2)).isoformat()
+                + "T00:00:00+00:00",
+            "gross_return_pct": .5 if index < 30 else -.25,
+            "side": "long", "holding_days": 2,
+        })
+    variant = {"trades": trades}
+    carry = {
+        "long": {"stress_annual_cost_pct": 100},
+        "short": {"stress_annual_cost_pct": 0},
+    }
+    long_metrics = _variant_metrics(
+        variant, ["stress"], 200, {"stress": 0}, carry,
+        datetime.fromisoformat("2100-01-01T00:00:00+00:00"))
+    for trade in trades:
+        trade["side"] = "short"
+    short_metrics = _variant_metrics(
+        variant, ["stress"], 200, {"stress": 0}, carry,
+        datetime.fromisoformat("2100-01-01T00:00:00+00:00"))
+    assert long_metrics["profit_factor_by_cost"]["stress"] \
+        < short_metrics["profit_factor_by_cost"]["stress"]

@@ -363,7 +363,9 @@ def _verified_hypothesis_screen_source(artifact: dict, artifact_path: str,
             and artifact.get("cost_variable_roundtrip_bps_by_scenario")
                 == result["cost_variable_roundtrip_bps_by_scenario"]
             and artifact.get("cost_fixed_usdc_by_scenario")
-                == result["cost_fixed_usdc_by_scenario"])
+                == result["cost_fixed_usdc_by_scenario"]
+            and artifact.get("carry_annual_cost_pct_by_side_scenario")
+                == result["carry_annual_cost_pct_by_side_scenario"])
 
 
 def _verified_market_preflight_source(artifact: dict, artifact_path: str) -> bool:

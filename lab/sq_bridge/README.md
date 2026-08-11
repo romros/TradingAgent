@@ -467,6 +467,13 @@ resultat revalidat de forma atòmica. El rebut declara explícitament
 `post_capability_present=false`, `credentials_used=false` i continua sense
 enviar l'ordre; no existeix cap camí HTTP POST en aquest mòdul.
 
+El screen train aplica el carry anual per costat i pels `holding_days` reals de
+cada trade; no usa una tarifa mitjana comuna. Per EURUSD genera branques
+`both`, `long` i `short` independents, i l'artefacte publica els sis valors
+`long/short × base/conservative/stress`. El contracte de l'etapa els recomputa
+des del cost model hashejat, evitant que un long de durada alta sembli atractiu
+amb el carry més barat del short.
+
 Aquesta última garantia és executable: `methodology_v4.json` preregistra
 genètica 80% crossover / 20% mutació i migració 5 generacions / 10%, i espais
 separats per família. Breakout usa períodes 20–100 i sortides 8–25 barres;

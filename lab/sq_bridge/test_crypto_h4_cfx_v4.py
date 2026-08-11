@@ -57,7 +57,7 @@ def test_compiles_source_verified_momentum_and_refuses_compression(tmp_path):
     output = tmp_path / "momentum.cfx"
     manifest = compile_cfx(_plan(tmp_path, "time_series_momentum"), SCAFFOLD, output)
     verified = verify_cfx(output, manifest)
-    assert "ROCAboveLevel" in verified["enabled_blocks"]
+    assert "AlquimiaH4MomentumAbove" in verified["enabled_blocks"]
     assert "Indicators.Highest" not in verified["enabled_blocks"]
     short_plan = _plan(tmp_path, "time_series_momentum")
     short_value = json.loads(short_plan.read_text())
@@ -66,7 +66,7 @@ def test_compiles_source_verified_momentum_and_refuses_compression(tmp_path):
     short_plan.write_text(json.dumps(short_value))
     short_output = tmp_path / "momentum-short.cfx"
     short_manifest = compile_cfx(short_plan, SCAFFOLD, short_output)
-    assert "ROCBelowLevel" in verify_cfx(
+    assert "AlquimiaH4MomentumBelow" in verify_cfx(
         short_output, short_manifest)["enabled_blocks"]
     with pytest.raises(ValueError, match="ATR_PERCENTILE_CUSTOM_BLOCK_REQUIRED"):
         compile_cfx(_plan(tmp_path, "volatility_compression_breakout"), SCAFFOLD,

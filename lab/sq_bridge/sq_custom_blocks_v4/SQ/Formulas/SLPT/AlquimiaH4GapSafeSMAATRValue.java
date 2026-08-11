@@ -21,9 +21,8 @@ public class AlquimiaH4GapSafeSMAATRValue extends FormulaBlock {
                                   double price, int direction) throws TradingException {
         ChartData chart = strategy.MarketData.Chart(symbol);
         int currentBar = chart.Time.size() - 1;
-        double atr = AlquimiaGapSafeATR.calculate(chart, AtrPeriod, 1, currentBar);
-        if (!Double.isFinite(atr)) return Order.NOT_DEFINED;
-        double distance = Value * atr;
-        return direction > 0 ? price + distance : price - distance;
+        double stop = AlquimiaGapSafeATR.stopPrice(
+            chart, AtrPeriod, 1, currentBar, price, direction > 0 ? 1 : -1, Value);
+        return Double.isFinite(stop) ? stop : Order.NOT_DEFINED;
     }
 }

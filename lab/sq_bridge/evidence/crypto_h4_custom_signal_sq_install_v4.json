@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_SQ_CUSTOM_SIGNALS_INSTALL_CATALOG_AND_RUNTIME",
+  "installed_at_utc": "2026-08-11T12:39:12Z",
+  "backup_path": "/mnt/volume-SQ/user/backups/alquimia_custom_blocks_v4/pre_signals_20260811T123912Z/Snippets.jar",
+  "backup_sha256": "ccda974b7a141cc071e12c4873793b78b7a05a5c01fa533fede5f4a0f239b2f9",
+  "sq_snippets_jar_sha256_after_restart": "269b2d06319b9ddea7f84465f8a50c56a2534ce23df73ab2c3fec59da9579d02",
+  "sq_snippets_jar_integrity": true,
+  "official_compile_all": "PASS",
+  "official_reload_app": "PASS",
+  "sq_health": "PASS",
+  "catalog_entries": [
+    "AlquimiaH4ChannelAbove",
+    "AlquimiaH4ChannelBelow",
+    "AlquimiaH4GapSafeSMAATRValue",
+    "AlquimiaH4MomentumAbove",
+    "AlquimiaH4MomentumBelow"
+  ],
+  "installed_source_root": "/mnt/volume-SQ/user/extend/Snippets",
+  "installed_source_sha256": {
+    "SQ/Utils/AlquimiaGapSafeATR.java": "ed699bb2f691422a232761c288480162439293251563c705a2e4d0557007041b",
+    "SQ/Utils/AlquimiaH4Signals.java": "80ad7a39d5754b0326249068db61af2a9f5eedbd62f403f295feb5fb62f50a12",
+    "SQ/Formulas/SLPT/AlquimiaH4GapSafeSMAATRValue.java": "dbbcbb649909c0abb4a596937952caf40994f702b4e0b94002b11f1da6255f51",
+    "SQ/Blocks/Alquimia/AlquimiaH4ChannelAbove.java": "80bcfc73af76c531757ea5e6697e848606b158e16c2e9f121dc4f7a7558ef73b",
+    "SQ/Blocks/Alquimia/AlquimiaH4ChannelBelow.java": "b89fc7e0df4be267c672bb5547f1290304a7d83c684899bca35ab85fbb7908a0",
+    "SQ/Blocks/Alquimia/AlquimiaH4MomentumAbove.java": "2e8f4b3842bf5fc1eaaa949c19aea27cec72f899dfe3b051296b88dd67d85b56",
+    "SQ/Blocks/Alquimia/AlquimiaH4MomentumBelow.java": "4efa1b00a062829cfdc48a2f83bea188904a5ebfee7fcba6e9f275902df83f3e"
+  },
+  "runtime_smoke_evidence": "crypto_h4_custom_signal_runtime_smoke_v4.json",
+  "runtime_generated": 413,
+  "runtime_accepted": 1,
+  "performance_claim_authorized": false,
+  "strategy_promotion_authorized": false,
+  "remaining_gate": "SEGMENTED_CUSTOM_STOP_RETEST_AND_PYTHON_TRADE_PARITY"
+}

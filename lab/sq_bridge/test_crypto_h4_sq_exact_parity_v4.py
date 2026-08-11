@@ -7,7 +7,7 @@ from lab.sq_bridge.crypto_h4_sq_exact_parity_v4 import run
 
 class Result:
     returncode = 0
-    stdout = "PASS_EXACT_ATR_PARITY rows=512 differences=0\n"
+    stdout = "PASS_EXACT_ATR_STOP_PARITY rows=512 stop_comparisons=3984 differences=0\n"
     stderr = ""
 
 
@@ -35,7 +35,7 @@ def test_exact_parity_is_offline_fail_closed_and_evidence_bound(tmp_path: Path):
 
     result = run(source_root=source, internal_root=internal, oracle=oracle,
                  output_dir=tmp_path / "out", runner=runner)
-    assert result["decision"] == "PASS_EXACT_SQ_CHARTDATA_ATR_PARITY"
+    assert result["decision"] == "PASS_EXACT_SQ_CHARTDATA_ATR_STOP_PARITY"
     assert result["comparison"] == "DOUBLE_BITS_EXACT"
     assert result["differences"] == 0
     assert result["strategy_promotion_authorized"] is False

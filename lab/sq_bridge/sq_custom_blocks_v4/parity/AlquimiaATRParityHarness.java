@@ -58,7 +58,7 @@ public final class AlquimiaATRParityHarness {
         chart.Close = numbers("Close", rows, Row::close);
         chart.Volume = numbers("Volume", rows, Row::volume);
 
-        int differences = 0;
+        int differences = 0, stopComparisons = 0;
         for (int bar = 0; bar < rows.size(); bar++) {
             int hiddenFutureBars = rows.size() - 1 - bar;
             chart.Time.setShift(hiddenFutureBars);
@@ -82,8 +82,26 @@ public final class AlquimiaATRParityHarness {
                     System.err.printf("bar=%d expected=%s actual=%s%n", bar, expected, actual);
                 }
             }
+            if (bar > 0 && !Double.isNaN(rows.get(bar - 1).expected())) {
+                for (double multiple : new double[] {1.0, 1.75, 2.25, 4.0}) {
+                    for (int direction : new int[] {-1, 1}) {
+                        double stop = AlquimiaGapSafeATR.stopPrice(
+                            chart, 14, 1, bar, rows.get(bar).open(), direction, multiple);
+                        double expectedStop = rows.get(bar).open() + direction * multiple *
+                                              rows.get(bar - 1).expected();
+                        if (Double.doubleToLongBits(stop) != Double.doubleToLongBits(expectedStop)) {
+                            differences++;
+                            if (differences <= 10) System.err.printf(
+                                "stop bar=%d direction=%d multiple=%s expected=%s actual=%s%n",
+                                bar, direction, multiple, expectedStop, stop);
+                        }
+                        stopComparisons++;
+                    }
+                }
+            }
         }
         if (differences != 0) throw new AssertionError("ATR parity differences=" + differences);
-        System.out.printf("PASS_EXACT_ATR_PARITY rows=%d differences=0%n", rows.size());
+        System.out.printf("PASS_EXACT_ATR_STOP_PARITY rows=%d stop_comparisons=%d differences=0%n",
+                          rows.size(), stopComparisons);
     }
 }

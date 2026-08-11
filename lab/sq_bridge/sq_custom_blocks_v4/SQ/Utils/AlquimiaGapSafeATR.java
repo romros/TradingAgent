@@ -37,5 +37,17 @@ public final class AlquimiaGapSafeATR {
         }
         return sum / period;
     }
-}
 
+    public static double stopPrice(ChartData chart, int period, int shift,
+                                   int currentBar, double entryPrice,
+                                   int offsetDirection, double multiple)
+            throws TradingException {
+        double atr = calculate(chart, period, shift, currentBar);
+        if (!Double.isFinite(atr) || !Double.isFinite(entryPrice)
+                || !Double.isFinite(multiple) || multiple <= 0
+                || (offsetDirection != -1 && offsetDirection != 1)) {
+            return Double.NaN;
+        }
+        return entryPrice + offsetDirection * multiple * atr;
+    }
+}

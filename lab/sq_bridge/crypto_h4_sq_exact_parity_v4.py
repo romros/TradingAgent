@@ -43,12 +43,12 @@ def run(*, source_root: Path, internal_root: Path, oracle: Path,
         "alquimia.parity.AlquimiaATRParityHarness /oracle.txt",
     ]
     completed = runner(command, capture_output=True, text=True, timeout=300, check=False)
-    if completed.returncode or "PASS_EXACT_ATR_PARITY" not in completed.stdout:
+    if completed.returncode or "PASS_EXACT_ATR_STOP_PARITY" not in completed.stdout:
         raise RuntimeError("exact SQ parity failed: " +
                            (completed.stderr + completed.stdout)[-3000:])
     return {
         "schema_version": 1,
-        "decision": "PASS_EXACT_SQ_CHARTDATA_ATR_PARITY",
+        "decision": "PASS_EXACT_SQ_CHARTDATA_ATR_STOP_PARITY",
         "network_used": False,
         "comparison": "DOUBLE_BITS_EXACT",
         "differences": 0,
@@ -57,7 +57,7 @@ def run(*, source_root: Path, internal_root: Path, oracle: Path,
         "sq_trading_lib_sha256": _sha(internal_root / "libs/SQTradingLib.jar"),
         "source_sha256": {path.relative_to(source_root).as_posix(): _sha(path) for path in sources},
         "stdout": completed.stdout.strip(),
-        "promotion_scope": "atr_calculation_only",
+        "promotion_scope": "atr_and_stop_price_calculation",
         "strategy_promotion_authorized": False,
     }
 

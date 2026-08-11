@@ -1,0 +1,65 @@
+{
+  "accepted_limit": 1,
+  "attempt_budget": 10000,
+  "attempt_stop_guard": 64,
+  "cfx_path": "/tmp/alquimia-custom-signal-smoke-2.cfx",
+  "cfx_sha256": "3f952a6d1a84304f0fc703ae9d5029e606fe6bc323cd966957d406760815d59b",
+  "custom_signal_parity_evidence": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/crypto_h4_sq_exact_signal_gap_parity_v4.json",
+  "custom_signal_parity_evidence_sha256": "ca1284ad4fee853dbc00b9b392aa8eb17b8b8a2dca5bf449fb818ad8a7cb7c15",
+  "decision": "PASS_CFX_COMPILED",
+  "direction": "long",
+  "discovery_leverage": 1,
+  "enabled_blocks": [
+    "AlquimiaH4MomentumAbove",
+    "EnterAtMarket",
+    "ExitAfterBars.ExitAfterBars",
+    "StopLoss.StopLoss"
+  ],
+  "format_scaffold_path": "/mnt/volume-SQ/user/projects/ALQUIMIA_REPRO_SMOKE/project.cfx",
+  "format_scaffold_sha256": "3a6872a09c5bfbe5bfee206a40e56de63fc53eb9c20c19dd5ccee3bcd84c5d13",
+  "genetic_parameters": {
+    "crossover_probability_pct": 80,
+    "initial_population_mode": 2,
+    "migration_every_generations": 5,
+    "migration_rate_pct": 10,
+    "mutation_probability_pct": 20
+  },
+  "initial_capital_usdc": 200,
+  "instrument": "BTC_ALQ",
+  "known_semantic_differences": [
+    "SQ_NATIVE_ATR_WILDER_VS_ALQUIMIA_SMA14_DURING_PROPOSAL_SEARCH",
+    "SQ_OPEN_TRADES_CAN_CROSS_CANONICAL_DATA_GAPS_UNTIL_SEGMENTED_RETEST"
+  ],
+  "market": "BTCUSD",
+  "mechanism": "time_series_momentum",
+  "money_management": {
+    "decimals": 4,
+    "fallback_to_size_one_allowed": false,
+    "maximum_size": 100,
+    "method": "CryptoSizeByPrice",
+    "use_account_balance": false
+  },
+  "parameter_search_space": {
+    "atr_stop_multiple": {"maximum": 2.25, "minimum": 1.75},
+    "exit_after_bars": {"maximum": 11, "minimum": 9},
+    "indicator_period": {"maximum": 51, "minimum": 49},
+    "roc_threshold_pct": {"maximum": 3.0, "minimum": 2.0},
+    "shift": {"maximum": 2, "minimum": 1}
+  },
+  "periods": {"train_from": "2018-03-01", "train_to": "2022-04-30"},
+  "plan_path": "/tmp/alquimia-custom-signal-smoke-plan.json",
+  "plan_sha256": "b7743032d86f44c4038ccba203e1b261eb78c918b63e99d707d7020b8adced06",
+  "project_name": "ALQUIMIA_CRYPTO_H4_CUSTOM_SIGNAL_SMOKE_2",
+  "python_parity_required": true,
+  "sq_genetic_shape": {
+    "islands": 4,
+    "max_generations": 25,
+    "nominal_evaluations": 10000,
+    "population_per_island": 100
+  },
+  "sqcli_authorized": false,
+  "strategy_promotion_authorized": false,
+  "symbol": "BTCUSD_ALQ_H4",
+  "translation_scope": "sq_proposal_generation_only",
+  "wall_time_budget_minutes": 240
+}

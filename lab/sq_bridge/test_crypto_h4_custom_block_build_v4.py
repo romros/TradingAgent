@@ -52,8 +52,8 @@ def test_versioned_stop_and_continuity_sources_enforce_canonical_semantics():
     guard = (root / "SQ/Blocks/BarAndTime/AlquimiaH4WindowIsContinuous.java").read_text()
     utility = (root / "SQ/Utils/AlquimiaGapSafeATR.java").read_text()
     signals = (root / "SQ/Utils/AlquimiaH4Signals.java").read_text()
-    assert "calculate(chart, AtrPeriod, 1, currentBar)" in formula
-    assert "Value * atr" in formula and "SQUtils" not in formula
+    assert "stopPrice(" in formula and "AtrPeriod, 1, currentBar" in formula
+    assert "SQUtils" not in formula
     assert "isContinuous(Chart, Shift, Transitions)" in guard
     assert "H4_MILLISECONDS = 4L * 60L * 60L * 1000L" in utility
     assert "return Double.NaN" in utility

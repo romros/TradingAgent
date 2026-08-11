@@ -12,17 +12,18 @@ from typing import Any
 from xml.etree import ElementTree as ET
 
 
-COMMON_BLOCKS = {"Indicators.ATR", "EnterAtMarket",
+COMMON_BLOCKS = {"EnterAtMarket",
                  "ExitAfterBars.ExitAfterBars", "StopLoss.StopLoss"}
-CHANNEL_BLOCKS = COMMON_BLOCKS | {
-    "Prices.Close", "Indicators.Highest", "Indicators.Lowest", "IsGreater", "IsLower"}
+SIGNAL_PARITY_EVIDENCE = Path(__file__).parent / "evidence/crypto_h4_sq_exact_signal_gap_parity_v4.json"
+CUSTOM_SIGNAL_SOURCE = Path(__file__).parent / "sq_custom_blocks_v4/SQ/Utils/AlquimiaH4Signals.java"
 
 
 def _mechanism_blocks(plan: dict[str, Any]) -> set[str]:
     if plan["mechanism"] == "channel_breakout":
-        return CHANNEL_BLOCKS
+        signal = "AlquimiaH4ChannelBelow" if plan["direction"] == "short" else "AlquimiaH4ChannelAbove"
+        return COMMON_BLOCKS | {signal}
     if plan["mechanism"] == "time_series_momentum":
-        signal = "ROCBelowLevel" if plan["direction"] == "short" else "ROCAboveLevel"
+        signal = "AlquimiaH4MomentumBelow" if plan["direction"] == "short" else "AlquimiaH4MomentumAbove"
         return COMMON_BLOCKS | {signal}
     raise ValueError("ATR_PERCENTILE_CUSTOM_BLOCK_REQUIRED")
 
@@ -41,6 +42,42 @@ def _set(root: ET.Element, path: str, value: Any) -> None:
     node = root.find(path)
     if node is None: raise ValueError(f"SQ scaffold field missing: {path}")
     node.text = str(value)
+
+
+def _require_signal_parity() -> dict[str, Any]:
+    evidence = _load(SIGNAL_PARITY_EVIDENCE)
+    sources = evidence.get("source_sha256") or {}
+    if (evidence.get("decision") != "PASS_EXACT_SQ_CHARTDATA_SIGNAL_PARITY"
+            or evidence.get("differences") != 0
+            or sources.get("SQ/Utils/AlquimiaH4Signals.java") != _sha(CUSTOM_SIGNAL_SOURCE)):
+        raise ValueError("exact custom signal parity evidence missing or stale")
+    return evidence
+
+
+def _ensure_custom_signal_block(root: ET.Element, key: str) -> ET.Element:
+    existing = root.find(f".//Block[@key='{key}']")
+    if existing is not None: return existing
+    blocks = root.find(".//BuildingBlocks")
+    if blocks is None:
+        native = root.find(".//Block[@key='ROCAboveLevel']")
+        if native is None: raise ValueError("SQ scaffold building-block container missing")
+        blocks = next(parent for parent in root.iter() if native in list(parent))
+    block = ET.SubElement(blocks, "Block", {"key": key, "weight": "1", "use": "false",
+                                            "category": "signals"})
+    generated = ET.SubElement(block, "Generated", {"weight": "1"})
+    for param_key, name, kind in (("#Chart#", "Chart", "data"),
+                                  ("#Period#", "Period", "int")):
+        attributes = {"key": param_key, "name": name, "type": kind,
+                      "generation": "random"}
+        if kind == "data": attributes["allCharts"] = "true"
+        ET.SubElement(generated, "Param", attributes)
+    if "Momentum" in key:
+        ET.SubElement(generated, "Param", {"key": "#Level#", "name": "Level",
+                                            "type": "double", "generation": "random"})
+    ET.SubElement(generated, "Param", {"key": "#Shift#", "name": "Shift",
+                                        "type": "int", "generation": "random"})
+    ET.SubElement(block, "Predefined", {"changed": "true"})
+    return block
 
 
 def _write_cfx(path: Path, members: list[tuple[str, bytes]]) -> None:
@@ -130,6 +167,7 @@ def _configure_resource(root: ET.Element, plan: dict[str, Any]) -> None:
 def compile_cfx(plan_path: Path, scaffold_path: Path, output_path: Path) -> dict[str, Any]:
     plan_path, scaffold_path = plan_path.resolve(), scaffold_path.resolve()
     plan = _load(plan_path)
+    parity = _require_signal_parity()
     if plan.get("decision") != "PASS_SQ_PLAN_READY":
         raise ValueError("CFX plan is not replay verified")
     if plan.get("mechanism") not in {"channel_breakout", "time_series_momentum"}:
@@ -215,37 +253,30 @@ def compile_cfx(plan_path: Path, scaffold_path: Path, output_path: Path) -> dict
     _configure_zero_commission(setup)
     _configure_resource(root, plan)
     expected_blocks = _mechanism_blocks(plan)
+    for key in expected_blocks:
+        if key.startswith("AlquimiaH4"): _ensure_custom_signal_block(root, key)
     for block in root.findall(".//Block"):
         block.set("use", "true" if block.get("key") in expected_blocks else "false")
         block.set("weight", "1")
     blocks = {row.get("key"): row for row in root.findall(".//Block")
               if row.get("use") == "true"}
     if set(blocks) != expected_blocks: raise ValueError("SQ scaffold lacks mechanism blocks")
-    if plan["mechanism"] == "channel_breakout":
-        for key, computed in (("Indicators.Highest", "2"), ("Indicators.Lowest", "3")):
-            param = blocks[key].find(".//Generated/Param[@key='#ComputedFrom#']")
-            param.attrib.update({"generation": "fixed", "defaultValue": computed})
-            param.attrib.pop("values", None)
-            predefined = blocks[key].find("Predefined")
-            predefined.clear(); predefined.set("changed", "true")
-    else:
-        signal_key = next(key for key in blocks if key.startswith("ROC"))
-        signal = blocks[signal_key]
-        parameter_map = {
-            "#Period#": (space["indicator_period"]["minimum"],
-                           space["indicator_period"]["maximum"], 1),
-            "#Level#": (space["roc_threshold_pct"]["minimum"],
-                          space["roc_threshold_pct"]["maximum"], .5),
-            "#Shift#": (space["shift"]["minimum"], space["shift"]["maximum"], 1),
-        }
-        for key, (minimum, maximum, step) in parameter_map.items():
-            param = signal.find(f"./Generated/Param[@key='{key}']")
-            if param is None: raise ValueError(f"SQ ROC parameter missing: {key}")
-            param.attrib.update({"generation": "random", "minValue": str(minimum),
-                                 "maxValue": str(maximum), "step": str(step)})
-            param.attrib.pop("defaultValue", None)
-        predefined = signal.find("Predefined")
-        predefined.clear(); predefined.set("changed", "true")
+    signal_key = next(key for key in blocks if key.startswith("AlquimiaH4"))
+    signal = blocks[signal_key]
+    parameter_map = {"#Period#": (space["indicator_period"]["minimum"],
+                                    space["indicator_period"]["maximum"], 1),
+                     "#Shift#": (space["shift"]["minimum"], space["shift"]["maximum"], 1)}
+    if plan["mechanism"] == "time_series_momentum":
+        parameter_map["#Level#"] = (space["roc_threshold_pct"]["minimum"],
+                                      space["roc_threshold_pct"]["maximum"], .5)
+    for key, (minimum, maximum, step) in parameter_map.items():
+        param = signal.find(f"./Generated/Param[@key='{key}']")
+        if param is None: raise ValueError(f"SQ custom signal parameter missing: {key}")
+        param.attrib.update({"generation": "random", "minValue": str(minimum),
+                             "maxValue": str(maximum), "step": str(step)})
+        param.attrib.pop("defaultValue", None)
+    predefined = signal.find("Predefined")
+    predefined.clear(); predefined.set("changed", "true")
     exit_param = blocks["ExitAfterBars.ExitAfterBars"].find(
         ".//Generated/Param[@key='#ExitAfterBars#']")
     exit_param.attrib.update({"minValue": str(space["exit_after_bars"]["minimum"]),
@@ -272,9 +303,11 @@ def compile_cfx(plan_path: Path, scaffold_path: Path, output_path: Path) -> dict
                 "cfx_path": str(output_path.resolve()), "cfx_sha256": _sha(output_path.resolve()),
                 "enabled_blocks": sorted(expected_blocks),
                 "translation_scope": "sq_proposal_generation_only",
+                "custom_signal_parity_evidence": str(SIGNAL_PARITY_EVIDENCE.resolve()),
+                "custom_signal_parity_evidence_sha256": _sha(SIGNAL_PARITY_EVIDENCE),
                 "known_semantic_differences": [
-                    "SQ_NATIVE_ATR_WILDER_VS_ALQUIMIA_SMA14",
-                    "SQ_INDICATORS_CROSS_CANONICAL_DATA_GAPS"],
+                    "SQ_NATIVE_ATR_WILDER_VS_ALQUIMIA_SMA14_DURING_PROPOSAL_SEARCH",
+                    "SQ_OPEN_TRADES_CAN_CROSS_CANONICAL_DATA_GAPS_UNTIL_SEGMENTED_RETEST"],
                 "python_parity_required": True,
                 "strategy_promotion_authorized": False,
                 "sqcli_authorized": False}
@@ -288,8 +321,9 @@ def verify_cfx(path: Path, manifest: dict[str, Any], *,
                require_archive_hash: bool = True) -> dict[str, Any]:
     if (manifest.get("translation_scope") != "sq_proposal_generation_only"
             or manifest.get("known_semantic_differences") != [
-                "SQ_NATIVE_ATR_WILDER_VS_ALQUIMIA_SMA14",
-                "SQ_INDICATORS_CROSS_CANONICAL_DATA_GAPS"]
+                "SQ_NATIVE_ATR_WILDER_VS_ALQUIMIA_SMA14_DURING_PROPOSAL_SEARCH",
+                "SQ_OPEN_TRADES_CAN_CROSS_CANONICAL_DATA_GAPS_UNTIL_SEGMENTED_RETEST"]
+            or manifest.get("custom_signal_parity_evidence_sha256") != _sha(SIGNAL_PARITY_EVIDENCE)
             or manifest.get("python_parity_required") is not True
             or manifest.get("strategy_promotion_authorized") is not False):
         raise ValueError("CFX proposal-only translation contract")
@@ -348,34 +382,25 @@ def verify_cfx(path: Path, manifest: dict[str, Any], *,
     if enabled != expected_blocks: raise ValueError("CFX mechanism block contract")
     block_map = {row.get("key"): row for row in root.findall(".//Block")}
     space = manifest["parameter_search_space"]
-    if manifest["mechanism"] == "channel_breakout":
-        for key, fixed in (("Indicators.Highest", "2"), ("Indicators.Lowest", "3")):
-            param = block_map[key].find(".//Generated/Param[@key='#ComputedFrom#']")
-            predefined = block_map[key].find("Predefined")
-            if (param is None or param.get("generation") != "fixed"
-                    or param.get("defaultValue") != fixed or param.get("values") is not None
-                    or predefined is None or list(predefined)):
-                raise ValueError("CFX channel price-source contract")
-    else:
-        signal_key = "ROCBelowLevel" if manifest["direction"] == "short" else "ROCAboveLevel"
-        signal = block_map[signal_key]
-        expected_roc = {
-            "#Period#": (space["indicator_period"]["minimum"],
-                           space["indicator_period"]["maximum"], 1),
-            "#Level#": (space["roc_threshold_pct"]["minimum"],
-                          space["roc_threshold_pct"]["maximum"], .5),
-            "#Shift#": (space["shift"]["minimum"], space["shift"]["maximum"], 1),
-        }
-        for key, (minimum, maximum, step) in expected_roc.items():
+    signal_key = next(key for key in enabled if key.startswith("AlquimiaH4"))
+    signal = block_map[signal_key]
+    expected_parameters = {"#Period#": (space["indicator_period"]["minimum"],
+                                         space["indicator_period"]["maximum"], 1),
+                           "#Shift#": (space["shift"]["minimum"],
+                                        space["shift"]["maximum"], 1)}
+    if manifest["mechanism"] == "time_series_momentum":
+        expected_parameters["#Level#"] = (space["roc_threshold_pct"]["minimum"],
+                                            space["roc_threshold_pct"]["maximum"], .5)
+    for key, (minimum, maximum, step) in expected_parameters.items():
             param = signal.find(f"./Generated/Param[@key='{key}']")
             if (param is None or param.get("generation") != "random"
                     or param.get("minValue") != str(minimum)
                     or param.get("maxValue") != str(maximum)
                     or param.get("step") != str(step)):
-                raise ValueError("CFX ROC parameter contract")
-        predefined = signal.find("Predefined")
-        if predefined is None or list(predefined):
-            raise ValueError("CFX ROC predefined parameter escape")
+                raise ValueError("CFX custom signal parameter contract")
+    predefined = signal.find("Predefined")
+    if predefined is None or list(predefined):
+        raise ValueError("CFX custom signal predefined parameter escape")
     exit_param = block_map["ExitAfterBars.ExitAfterBars"].find(
         ".//Generated/Param[@key='#ExitAfterBars#']")
     if (exit_param is None

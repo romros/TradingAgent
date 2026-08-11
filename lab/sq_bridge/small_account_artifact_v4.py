@@ -403,6 +403,11 @@ def build_artifact(*, campaign_id: str, trace_paths: list[Path],
             "net_expectancy_usdc": row["net_expectancy_usdc"],
             "net_profit_factor": row["net_profit_factor"],
             "risk_per_trade_pct": row["risk_per_trade_pct"],
+            "maximum_portfolio_margin_pct_policy": (
+                gate["maximum_portfolio_margin_pct"]),
+            "minimum_reserve_pct_policy": gate["minimum_reserve_pct"],
+            "minimum_stop_to_liquidation_buffer_ratio_policy": (
+                gate["minimum_stop_to_liquidation_buffer_ratio"]),
             "portfolio_margin_pct": row["portfolio_margin_pct"],
             "reserve_pct": row["reserve_pct"],
             "selected_leverage": row["selected_leverage"],

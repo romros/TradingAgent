@@ -92,10 +92,18 @@ def build_artifact(*, campaign_id: str, candidate_id: str,
         "selected_leverage": small["selected_leverage"],
         "venue_max_leverage": small["venue_max_leverage"],
         "risk_per_trade_pct": small["risk_per_trade_pct"],
+        "risk_per_trade_fraction": small["risk_per_trade_pct"] / 100.0,
+        "risk_unit": "percentage_points_in_risk_per_trade_pct",
+        "stop_distance_unit": "percentage_points",
         "sizing_policy": "risk_budget_over_runtime_initial_stop_capped_by_validated_notional",
         "dynamic_stop_sizing": True,
         "portfolio_margin_pct": small["portfolio_margin_pct"],
         "reserve_pct": small["reserve_pct"],
+        "maximum_portfolio_margin_pct_policy": (
+            small["maximum_portfolio_margin_pct_policy"]),
+        "minimum_reserve_pct_policy": small["minimum_reserve_pct_policy"],
+        "minimum_stop_to_liquidation_buffer_ratio_policy": (
+            small["minimum_stop_to_liquidation_buffer_ratio_policy"]),
         "position_notional_usdc": small["position_notional_usdc"],
         "minimum_position_notional_usdc": small["minimum_position_notional_usdc"],
         "maximum_position_notional_usdc": small["maximum_position_notional_usdc"],
@@ -106,6 +114,9 @@ def build_artifact(*, campaign_id: str, candidate_id: str,
         "reserve_usdc": small["reserve_usdc"],
         "stop_loss_required": small["stop_loss_required"],
         "stop_distance_pct": small["stop_distance_pct"],
+        "stop_to_liquidation_buffer_ratio": (
+            small["stop_to_liquidation_buffer_ratio"]),
+        "liquidation_model": small["liquidation_model"],
         "cost_model_path": _relative(cost_model_path, base),
         "cost_model_sha256": _sha(cost_model_path),
         "strategy_ir_path": _relative(ir_path, base),
@@ -174,10 +185,18 @@ def verify_package(config: dict, config_path: Path) -> bool:
             "selected_leverage": small["selected_leverage"],
             "venue_max_leverage": small["venue_max_leverage"],
             "risk_per_trade_pct": small["risk_per_trade_pct"],
+            "risk_per_trade_fraction": small["risk_per_trade_pct"] / 100.0,
+            "risk_unit": "percentage_points_in_risk_per_trade_pct",
+            "stop_distance_unit": "percentage_points",
             "sizing_policy": "risk_budget_over_runtime_initial_stop_capped_by_validated_notional",
             "dynamic_stop_sizing": True,
             "portfolio_margin_pct": small["portfolio_margin_pct"],
             "reserve_pct": small["reserve_pct"],
+            "maximum_portfolio_margin_pct_policy": (
+                small["maximum_portfolio_margin_pct_policy"]),
+            "minimum_reserve_pct_policy": small["minimum_reserve_pct_policy"],
+            "minimum_stop_to_liquidation_buffer_ratio_policy": (
+                small["minimum_stop_to_liquidation_buffer_ratio_policy"]),
             "position_notional_usdc": small["position_notional_usdc"],
             "minimum_position_notional_usdc": small["minimum_position_notional_usdc"],
             "maximum_position_notional_usdc": small["maximum_position_notional_usdc"],
@@ -188,6 +207,9 @@ def verify_package(config: dict, config_path: Path) -> bool:
             "reserve_usdc": small["reserve_usdc"],
             "stop_loss_required": small["stop_loss_required"],
             "stop_distance_pct": small["stop_distance_pct"],
+            "stop_to_liquidation_buffer_ratio": (
+                small["stop_to_liquidation_buffer_ratio"]),
+            "liquidation_model": small["liquidation_model"],
         }
         if any(config.get(key) != value for key, value in expected.items()):
             return False

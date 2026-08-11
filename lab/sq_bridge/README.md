@@ -404,6 +404,14 @@ cost variable i fix observat en tots els buckets fins aquell sostre. Això evita
 que soroll no monòton entre captures faci semblar artificialment barata una
 posició intermèdia; el cost fix d'oracle sempre es conserva en USDC.
 
+El paquet paper usa unitats explícites: `risk_per_trade_pct` són punts
+percentuals i `risk_per_trade_fraction` és la fracció executable. Abans de
+qualsevol ordre, `paper_order_sizing_v4.py` revalida tots els hashes i recalcula
+nocional, cost d'entrada, collateral, reserva i distància de liquidació des del
+stop inicial runtime. Només emet una instrucció inert amb `order_sent=false`;
+una mida inferior o superior a l'envolupant validada, o que trenqui marge,
+reserva o buffer de liquidació, queda rebutjada.
+
 Aquesta última garantia és executable: `methodology_v4.json` preregistra
 genètica 80% crossover / 20% mutació i migració 5 generacions / 10%, i espais
 separats per família. Breakout usa períodes 20–100 i sortides 8–25 barres;

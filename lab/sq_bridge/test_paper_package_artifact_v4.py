@@ -6,6 +6,7 @@ import pytest
 
 from lab.sq_bridge.e2e_control import payload
 from lab.sq_bridge.paper_package_artifact_v4 import build_artifact
+from lab.sq_bridge.paper_order_sizing_v4 import size_entry
 from lab.sq_bridge.stage_artifact_contract import validate_stage_artifact
 
 
@@ -20,7 +21,17 @@ def _sources(tmp_path):
     candidate = "candidate"
     result = {}
     costs = tmp_path / "costs.json"
-    _write(costs, {"decision": "PASS_COSTS_FROZEN", "costs_frozen": True})
+    carry = {scenario + "_annual_cost_pct": 0
+             for scenario in ("base", "conservative", "stress")}
+    _write(costs, {
+        "decision": "PASS_COSTS_FROZEN", "costs_frozen": True,
+        "by_notional": {"500": {
+            "base_roundtrip_bps": 0,
+            "conservative_roundtrip_bps": 1,
+            "stress_roundtrip_bps": 2,
+        }},
+        "carry": {"long": carry, "short": carry},
+    })
     for stage, holdout in (("market_preflight", False),
                            ("small_account_economics", False),
                            ("final_holdout_validation", True),
@@ -46,6 +57,9 @@ def _sources(tmp_path):
                 "minimum_position_notional_usdc": 150,
                 "maximum_position_notional_usdc": value["position_notional_usdc"],
                 "venue_minimum_notional_usdc": 5,
+                "maximum_portfolio_margin_pct_policy": 35,
+                "minimum_reserve_pct_policy": 40,
+                "minimum_stop_to_liquidation_buffer_ratio_policy": 1.5,
                 "cost_model_path": costs.name,
                 "cost_model_sha256": hashlib.sha256(costs.read_bytes()).hexdigest(),
             })
@@ -70,6 +84,8 @@ def test_paper_package_binds_ostium_risk_ir_and_parity_without_signer(tmp_path):
     assert config["capital_committed_usdc"] == 60
     assert config["reserve_usdc"] == 140
     assert config["risk_per_trade_pct"] == 1.5
+    assert config["risk_per_trade_fraction"] == .015
+    assert config["risk_unit"] == "percentage_points_in_risk_per_trade_pct"
     assert config["sizing_policy"] == (
         "risk_budget_over_runtime_initial_stop_capped_by_validated_notional")
     assert config["dynamic_stop_sizing"] is True
@@ -78,6 +94,7 @@ def test_paper_package_binds_ostium_risk_ir_and_parity_without_signer(tmp_path):
     assert config["venue_minimum_notional_usdc"] == 5
     assert len(config["cost_model_sha256"]) == 64
     assert config["stop_loss_required"] is True
+    assert config["liquidation_model"] == "ostium_threshold_cost_buffered"
     assert config["mode"] == "paper"
     assert config["signer_enabled"] is config["live_authorized"] is False
     methodology = json.loads((ROOT / "methodology_v4.json").read_text())
@@ -113,3 +130,32 @@ def test_package_rejects_source_artifact_from_another_candidate(tmp_path):
         build_artifact(
             campaign_id="campaign", candidate_id="candidate", source_artifact_paths=paths,
             config_path=tmp_path / "paper.json", artifact_path=tmp_path / "stage.json")
+
+
+def test_verified_package_sizes_dynamic_stop_without_sending_order(tmp_path):
+    _build(tmp_path)
+    result = size_entry(
+        config_path=tmp_path / "paper.json", equity_usdc=200,
+        initial_stop_distance_pct=1, side="long", maximum_holding_days=5)
+    assert result["decision"] == "PASS_PAPER_ENTRY_SIZING"
+    assert result["order_sent"] is False
+    assert result["risk_budget_usdc"] == pytest.approx(3)
+    assert result["actual_stop_risk_usdc"] == pytest.approx(3)
+    assert result["position_notional_usdc"] == pytest.approx(300)
+    assert result["collateral_usdc"] == pytest.approx(60)
+    assert result["stress_entry_cost_usdc"] == pytest.approx(.06)
+
+
+def test_runtime_sizing_caps_tight_stop_and_rejects_unvalidated_wide_stop(tmp_path):
+    _build(tmp_path)
+    tight = size_entry(
+        config_path=tmp_path / "paper.json", equity_usdc=200,
+        initial_stop_distance_pct=.5, side="short", maximum_holding_days=5)
+    assert tight["uncapped_position_notional_usdc"] == pytest.approx(600)
+    assert tight["position_notional_usdc"] == pytest.approx(300)
+    assert tight["notional_capped"] is True
+    assert tight["actual_stop_risk_usdc"] == pytest.approx(1.5)
+    with pytest.raises(ValueError, match="envolupant validada"):
+        size_entry(
+            config_path=tmp_path / "paper.json", equity_usdc=200,
+            initial_stop_distance_pct=3, side="long", maximum_holding_days=5)

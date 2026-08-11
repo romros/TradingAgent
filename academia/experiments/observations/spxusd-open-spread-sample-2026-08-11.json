@@ -1,0 +1,59 @@
+{
+  "schema_version": 2,
+  "id": "spxusd-open-spread-sample-2026-08-11",
+  "instrument": "US500/USD",
+  "ostium_pair": "SPX/USD",
+  "session_window": "open",
+  "captured_interval_utc": ["2026-08-11T13:31:40.274Z", "2026-08-11T14:03:02.371Z"],
+  "captured_interval_new_york": ["2026-08-11T09:31:40.274-04:00", "2026-08-11T10:03:02.371-04:00"],
+  "collection": {
+    "accepted_samples": 40,
+    "rejected_samples": 0,
+    "span_minutes": 31.368283333333334,
+    "market_open_for_all_samples": true,
+    "minimum_samples_pass": true,
+    "minimum_span_pass": true,
+    "raw_jsonl_versioned": false,
+    "temporary_raw_sha256": "5c44d8b071d1ac0f2cc42c9dee1c0adf7154ba34e8be5a44990e2b5a60c84403"
+  },
+  "spread_bps": {
+    "median": 0.9084813972648776,
+    "p90": 1.0306953086563142,
+    "p95": 1.046373164493304,
+    "maximum": 1.1081636435104487
+  },
+  "simulated_slippage_bps": {
+    "notionals_usdc": [60, 100, 200, 400, 500],
+    "long_and_short_equal": true,
+    "median_per_side": 0.46708525288178,
+    "p95_per_side": 0.4832840632101,
+    "maximum_per_side": 0.4832840632101
+  },
+  "execution_metadata": {
+    "pair_id": 10,
+    "open_fee_bps": 1,
+    "close_fee_bps": 0,
+    "roundtrip_proxy_bps": {
+      "definition": "open fee plus close fee plus SDK long-open and short-open price impact; refundable oracle and accumulated carry excluded",
+      "median": 1.93417050576356,
+      "p95": 1.9665681264202002,
+      "maximum": 1.9665681264202002
+    },
+    "rollover_pct_per_8h": {
+      "long": -0.005221329914879999,
+      "short": 0.0015579699148799999
+    }
+  },
+  "tool": {
+    "package": "@ostium/builder-sdk@0.7.0",
+    "mode": "createReadOnly",
+    "deployment": "ephemeral node:22-alpine Docker container",
+    "private_key_used": false,
+    "transactions_possible": false
+  },
+  "window_decision": "QUALIFY_OPEN_2026_08_11",
+  "global_gate_decision": "KEEP_BLOCKED_UNTIL_THREE_COMPLETE_DAYS",
+  "remaining": "Collect qualifying midday and close windows on 2026-08-11 and open/midday/close on two additional open days.",
+  "sqcli_used": false,
+  "trading_executed": false
+}

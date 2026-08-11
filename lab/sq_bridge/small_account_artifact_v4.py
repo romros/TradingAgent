@@ -292,6 +292,9 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
                          if selected_leverage is not None else {})
     return {
         "candidate_id": candidate_id, "trades": len(trades),
+        "maximum_holding_days": max(
+            _number(row.get("holding_days"), "Durada de trade invalida")
+            for row in trades),
         "profit_factor_by_cost": profit_factors,
         "net_expectancy_usdc_by_cost": expectancy,
         "net_profit_factor": min(profit_factors.values()),
@@ -433,6 +436,7 @@ def build_artifact(*, campaign_id: str, trace_paths: list[Path],
             "stop_distance_pct": row["stop_distance_pct"],
             "minimum_stop_distance_pct": row["minimum_stop_distance_pct"],
             "maximum_stop_distance_pct": row["maximum_stop_distance_pct"],
+            "maximum_holding_days": row["maximum_holding_days"],
             "liquidation_distance_pct": row["liquidation_distance_pct"],
             "stop_to_liquidation_buffer_ratio": row["stop_to_liquidation_buffer_ratio"],
             "nominal_liquidation_distance_pct": row["nominal_liquidation_distance_pct"],

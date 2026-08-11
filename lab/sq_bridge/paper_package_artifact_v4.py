@@ -114,6 +114,7 @@ def build_artifact(*, campaign_id: str, candidate_id: str,
         "reserve_usdc": small["reserve_usdc"],
         "stop_loss_required": small["stop_loss_required"],
         "stop_distance_pct": small["stop_distance_pct"],
+        "maximum_holding_days": small["maximum_holding_days"],
         "stop_to_liquidation_buffer_ratio": (
             small["stop_to_liquidation_buffer_ratio"]),
         "liquidation_model": small["liquidation_model"],
@@ -207,6 +208,7 @@ def verify_package(config: dict, config_path: Path) -> bool:
             "reserve_usdc": small["reserve_usdc"],
             "stop_loss_required": small["stop_loss_required"],
             "stop_distance_pct": small["stop_distance_pct"],
+            "maximum_holding_days": small["maximum_holding_days"],
             "stop_to_liquidation_buffer_ratio": (
                 small["stop_to_liquidation_buffer_ratio"]),
             "liquidation_model": small["liquidation_model"],

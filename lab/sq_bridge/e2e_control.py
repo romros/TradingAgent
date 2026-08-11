@@ -114,6 +114,7 @@ def payload(stage: str, candidate_ids: list[str], holdout: bool) -> dict:
                                         for value in (8, 10, 15, 20, 30, 50, 75, 100)},
                                     "stop_loss_required": True, "position_notional_usdc": 300,
                                     "collateral_usdc": 60, "stop_distance_pct": 1,
+                                    "maximum_holding_days": 5,
                                     "entry_cost_buffer_usdc": 0,
                                     "capital_committed_usdc": 60,
                                     "capital_committed_pct": 30,

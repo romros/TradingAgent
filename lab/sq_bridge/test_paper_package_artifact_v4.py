@@ -7,6 +7,7 @@ import pytest
 from lab.sq_bridge.e2e_control import payload
 from lab.sq_bridge.paper_package_artifact_v4 import build_artifact
 from lab.sq_bridge.paper_order_sizing_v4 import size_entry
+from lab.sq_bridge.paper_signal_instruction_v4 import build_instruction
 from lab.sq_bridge.stage_artifact_contract import validate_stage_artifact
 
 
@@ -44,7 +45,34 @@ def _sources(tmp_path):
         result[stage] = path
         if stage == "python_translation":
             ir = tmp_path / "candidate.ir.json"
-            _write(ir, {"strategy_id": candidate})
+            _write(ir, {
+                "schema_version": 1, "ir_type": "alquimia_strategy_ir",
+                "translation_semantics": "exact_supported_subset",
+                "strategy_id": candidate,
+                "market": {"symbol": "EURUSD_TEST", "timeframe": "D1"},
+                "execution": {
+                    "exit_at_end_of_day": False, "exit_on_friday": False,
+                    "spread_in_sq": 0, "slippage_in_sq": 0,
+                    "commission_enabled": False, "swap_enabled": False,
+                    "dont_trade_on_weekends": True,
+                    "weekend_friday_close_hhmm": 1700,
+                    "weekend_sunday_open_hhmm": 1700,
+                },
+                "entries": {
+                    "long": {"signal": {"op": "IsGreater", "children": [
+                        {"op": "Close", "params": {"#Shift#": 1}},
+                        {"op": "Number", "params": {"#Value#": 0}},
+                    ]}}, "short": None,
+                },
+                "trade_plans": {
+                    "long": {
+                        "entry_order": "market_at_signal_bar_open",
+                        "allow_duplicate_trades": False, "exit_after_bars": 5,
+                        "stop_loss": {"type": "atr", "multiple": .5, "period": 2},
+                        "profit_target": {"type": "none"},
+                    }, "short": None,
+                },
+            })
             value.update({"canonical_ir_path": ir.name,
                           "canonical_ir_sha256": hashlib.sha256(ir.read_bytes()).hexdigest()})
         if stage == "parity":
@@ -57,6 +85,7 @@ def _sources(tmp_path):
                 "minimum_position_notional_usdc": 150,
                 "maximum_position_notional_usdc": value["position_notional_usdc"],
                 "venue_minimum_notional_usdc": 5,
+                "maximum_holding_days": 5,
                 "maximum_portfolio_margin_pct_policy": 35,
                 "minimum_reserve_pct_policy": 40,
                 "minimum_stop_to_liquidation_buffer_ratio_policy": 1.5,
@@ -159,3 +188,23 @@ def test_runtime_sizing_caps_tight_stop_and_rejects_unvalidated_wide_stop(tmp_pa
         size_entry(
             config_path=tmp_path / "paper.json", equity_usdc=200,
             initial_stop_distance_pct=3, side="long", maximum_holding_days=5)
+
+
+def test_ir_signal_builds_atr_sized_inert_paper_instruction(tmp_path):
+    import pandas as pd
+
+    _build(tmp_path)
+    index = pd.date_range("2026-08-03", periods=4, freq="B", tz="UTC")
+    frame = pd.DataFrame({
+        "open": [100, 101, 102, 103], "high": [102, 103, 104, 105],
+        "low": [99, 100, 101, 102], "close": [101, 102, 103, 104],
+    }, index=index)
+    result = build_instruction(
+        config_path=tmp_path / "paper.json", frame=frame, equity_usdc=200)
+    assert result["decision"] == "PASS_PAPER_SIGNAL_INSTRUCTION"
+    assert result["order_sent"] is False
+    assert result["side"] == "long"
+    # Previous-bar SQ ATR(2) is 3, rounded before applying the 2x multiple.
+    assert result["initial_stop_distance_pct"] == pytest.approx(1.5 / 103 * 100)
+    assert result["stop_price"] == pytest.approx(101.5)
+    assert result["maximum_holding_days_for_cost_buffer"] == 14

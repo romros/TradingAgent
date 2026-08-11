@@ -411,6 +411,11 @@ nocional, cost d'entrada, collateral, reserva i distància de liquidació des de
 stop inicial runtime. Només emet una instrucció inert amb `order_sent=false`;
 una mida inferior o superior a l'envolupant validada, o que trenqui marge,
 reserva o buffer de liquidació, queda rebutjada.
+`paper_signal_instruction_v4.py` elimina l'última entrada manual: reobre l'IR
+hashejat, avalua el senyal causal sobre candles UTC, deriva el stop percentual
+o ATR amb la mateixa barra anterior i arrodoniment d'SQ, i passa aquesta mida
+al sizing verificat. Senyals dobles, stops no suportats i estratègies sense
+sortida temporal acotada fallen abans de construir la instrucció.
 
 Aquesta última garantia és executable: `methodology_v4.json` preregistra
 genètica 80% crossover / 20% mutació i migració 5 generacions / 10%, i espais

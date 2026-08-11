@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "campaign_id": "eurusd-d1-alquimia-v4",
+  "scaffold_path": "/mnt/volume-SQ/user/projects/EURUSD/project.cfx",
+  "scaffold_sha256": "48a0484d858b9bfad883b0ae484970ed97eb67dcc716bf9d48dfecab5f13da5d",
+  "scaffold_sq_version": "143.2708",
+  "scaffold_role": "xml_format_only_no_strategy_or_performance_reuse",
+  "registry_path": "ostium_markets.json",
+  "registry_sha256": "480da7f142276f6a7ff8b97444bc85c0ffaf57cad4cc15efa895ac36aa94ce85",
+  "worker_interval_minutes": 10,
+  "sqcli_container": "sqcli-docker",
+  "base_url": "http://127.0.0.1:8080",
+  "auto_import": true,
+  "auto_start_generation": true,
+  "paper_authorized": false,
+  "live_authorized": false
+}

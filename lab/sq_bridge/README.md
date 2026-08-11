@@ -356,6 +356,44 @@ i amb databank buit. Escriu el preflight abans de començar i entrega el control
 al watchdog fins que existeix el log final exacte; ni paper ni live queden
 autoritzats per una execució de generació.
 
+## Worker EURUSD v4 separat
+
+`eurusd_v4_sq_worker.py` encadena les fases anteriors sense compartir procés ni
+lock amb el collector de costos. Abans del screen retorna `WAITING_FOR_SCREEN`;
+un `REJECT_SCREEN_TRIGGER` és terminal i no toca SQ. Amb un PASS congela el
+scaffold, el registre Ostium i la metodologia, compila el batch, espera
+inactivitat global, importa i executa les branques en ordre. Si el procés cau,
+només reprèn un projecte actiu quan el journal demostra que és exactament la
+seva branca actual.
+
+El scaffold preregistrat és `/mnt/volume-SQ/user/projects/EURUSD/project.cfx`,
+SHA-256 `48a0484d...13da5d`, de SQ 143.2708. Es valida que contingui exactament
+un Build task, els camps estructurals requerits i els 18 blocs necessaris. Es
+reutilitza exclusivament com a format XML: `alquimia_project.py` elimina les
+altres tasques i reescriu mercat, dates, regles, cerca genètica, risc, ranking i
+pressupost des de la cadena v4. No se'n reutilitzen estratègies, databanks,
+rendiments ni paràmetres quantitatius.
+
+Aquesta última garantia és executable: `methodology_v4.json` preregistra
+genètica 80% crossover / 20% mutació i migració 5 generacions / 10%, i espais
+separats per família. Breakout usa períodes 20–100 i sortides 8–25 barres;
+momentum 40–150 i 10–30; shock reversion 2–30 i 2–10. El constructor elimina
+presets i thresholds del scaffold, força Close-only, pesos uniformes i rangs
+RSI/ROC propis. `verify_genetic_project` reobre l'XML i rebutja qualsevol
+herència o desviació abans de la importació.
+
+El worker s'instal·la independentment cada deu minuts laborables:
+
+```bash
+scripts/install_eurusd_v4_sq_worker_cron.sh
+```
+
+`flock` impedeix dos workers simultanis. Una execució llarga conserva aquest
+lock, però el collector horari continua perquè utilitza un lock diferent. El
+rebut final és `PASS_SQ_GENERATION_ORCHESTRATED` si existeixen candidats o
+`REJECT_NO_SQ_CANDIDATES` si totes les branques acaben sense SQX; cap dels dos
+autoritza paper o live.
+
 El `market_preflight` observat que precedeix aquest screen no es valida només
 amb els seus totals. Conserva `campaign_config_path` i SHA-256; el contracte
 reexecuta el compositor sobre cobertura històrica, mapping i costos congelats.

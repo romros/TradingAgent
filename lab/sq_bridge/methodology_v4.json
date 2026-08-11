@@ -46,6 +46,51 @@
     "maximum_attempts": 10000,
     "attempt_stop_guard": 64,
     "max_rules": 3,
+    "genetic_parameters": {
+      "crossover_probability_pct": 80,
+      "mutation_probability_pct": 20,
+      "migration_every_generations": 5,
+      "migration_rate_pct": 10,
+      "initial_population_mode": 2
+    },
+    "profile_parameter_ranges": {
+      "eurusd_d1_breakout_v4": {
+        "indicator_period_min": 20,
+        "indicator_period_max": 100,
+        "shift_min": 1,
+        "shift_max": 2,
+        "exit_after_bars_min": 8,
+        "exit_after_bars_max": 25,
+        "exit_after_bars_step": 1
+      },
+      "eurusd_d1_momentum_v4": {
+        "indicator_period_min": 40,
+        "indicator_period_max": 150,
+        "shift_min": 1,
+        "shift_max": 2,
+        "exit_after_bars_min": 10,
+        "exit_after_bars_max": 30,
+        "exit_after_bars_step": 1,
+        "roc_threshold_min": -10,
+        "roc_threshold_max": 10,
+        "roc_threshold_step": 0.5
+      },
+      "eurusd_d1_shock_reversion_v4": {
+        "indicator_period_min": 2,
+        "indicator_period_max": 30,
+        "shift_min": 1,
+        "shift_max": 2,
+        "exit_after_bars_min": 2,
+        "exit_after_bars_max": 10,
+        "exit_after_bars_step": 1,
+        "rsi_threshold_min": 20,
+        "rsi_threshold_max": 80,
+        "rsi_threshold_step": 5,
+        "roc_threshold_min": -5,
+        "roc_threshold_max": 5,
+        "roc_threshold_step": 0.25
+      }
+    },
     "selection_policy": "all_supported_translatable_unique_candidates",
     "robustness_during_generation": false
   },

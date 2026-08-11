@@ -27,6 +27,20 @@ def test_v4_separates_pre_sq_screen_from_strategyquant_generation():
     assert METHODOLOGY["hypothesis_screen"]["screen_notional_usdc"] == 200
     assert METHODOLOGY["temporal_validation"]["evaluation_notional_usdc"] == 200
     assert METHODOLOGY["robustness"]["evaluation_notional_usdc"] == 200
+    assert METHODOLOGY["sq_generation"]["genetic_parameters"] == {
+        "crossover_probability_pct": 80, "mutation_probability_pct": 20,
+        "migration_every_generations": 5, "migration_rate_pct": 10,
+        "initial_population_mode": 2}
+
+
+def test_v4_rejects_unregistered_genetic_or_profile_ranges():
+    changed = deepcopy(METHODOLOGY)
+    changed["sq_generation"]["genetic_parameters"]["mutation_probability_pct"] = 99
+    assert "sq_generation: parametres genetics no preregistrats" in validate(changed)
+    changed = deepcopy(METHODOLOGY)
+    changed["sq_generation"]["profile_parameter_ranges"].pop(
+        "eurusd_d1_shock_reversion_v4")
+    assert "sq_generation: espais EURUSD no preregistrats" in validate(changed)
 
 
 def test_v4_market_preflight_cannot_pass_on_mapping_without_history():

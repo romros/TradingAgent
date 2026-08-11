@@ -67,6 +67,23 @@
       "ostium_asset": "EURUSD",
       "bs_symbol": "EURUSD",
       "sq_symbol": "EURUSD_ALQ_NY17_D1",
+      "sq_resource_clone_from": "EURUSD_M1_dukas_M1_UTCMinus05",
+      "sq_resource_remove_attributes": [
+        "cloneFrom",
+        "sourceTimezone"
+      ],
+      "sq_resource_attributes": {
+        "source": "3",
+        "barType": "1",
+        "precision": "D1",
+        "timezone": "Etc/UTC",
+        "dateFrom": "1052092800000",
+        "dateTo": "1772064000000",
+        "uSymbol": "EURUSD",
+        "uSymbolName": "EURUSD",
+        "removeWeekends": "false",
+        "broker": "-1"
+      },
       "discovery_timeframe": "D1",
       "venue_max_leverage": 200,
       "opening_fee_bps": 3,

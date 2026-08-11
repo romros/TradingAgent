@@ -284,6 +284,71 @@ def _condition(column: str, fmt: str, threshold: float) -> ET.Element:
     return ET.fromstring(xml)
 
 
+def _random_range(param: ET.Element, minimum: object, maximum: object,
+                  step: object) -> None:
+    param.attrib.update({"generation": "random", "minValue": str(minimum),
+                         "maxValue": str(maximum), "step": str(step)})
+    for key in ("defaultValue", "values"):
+        param.attrib.pop(key, None)
+
+
+def _normalize_v4_search_space(root: ET.Element, profile: str,
+                               generation: dict) -> dict:
+    """Remove quantitative search settings inherited from the XML scaffold."""
+    ranges = (generation.get("profile_parameter_ranges") or {}).get(profile)
+    if not isinstance(ranges, dict):
+        raise ValueError(f"V4_SEARCH_SPACE_MISSING: {profile}")
+    complexity = root.find("./WhatToBuild/RulesComplexity/Chart")
+    if complexity is None:
+        raise ValueError("V4_SEARCH_SPACE_COMPLEXITY_MISSING")
+    complexity.set("minPeriod", str(ranges["indicator_period_min"]))
+    complexity.set("maxPeriod", str(ranges["indicator_period_max"]))
+    complexity.set("minShift", str(ranges["shift_min"]))
+    complexity.set("maxShift", str(ranges["shift_max"]))
+    configured = 0
+    for block in root.findall(".//Block"):
+        if block.get("use") != "true":
+            continue
+        block.set("weight", "1")
+        for key in ("indicatorMin", "indicatorMax", "indicatorStep"):
+            block.attrib.pop(key, None)
+        key = block.get("key")
+        if key == "Indicators.RSI":
+            block.attrib.update({
+                "indicatorMin": str(ranges["rsi_threshold_min"]),
+                "indicatorMax": str(ranges["rsi_threshold_max"]),
+                "indicatorStep": str(ranges["rsi_threshold_step"]),
+            })
+        elif key == "Indicators.ROC":
+            block.attrib.update({
+                "indicatorMin": str(ranges["roc_threshold_min"]),
+                "indicatorMax": str(ranges["roc_threshold_max"]),
+                "indicatorStep": str(ranges["roc_threshold_step"]),
+            })
+        if block.get("category") == "exitTypes":
+            block.set("probability", "100")
+        for predefined in block.findall(".//Predefined"):
+            predefined.clear()
+            predefined.set("changed", "false")
+        for param in block.findall(".//Generated/Param"):
+            param_key = param.get("key")
+            if param_key == "#ComputedFrom#":
+                param.attrib.update({"generation": "fixed", "defaultValue": "0"})
+                for attribute in ("values", "minValue", "maxValue", "step"):
+                    param.attrib.pop(attribute, None)
+            elif param_key == "#Bars#" and key in {"IsRising", "IsFalling"}:
+                _random_range(param, 2, 5, 1)
+            elif param_key == "#ExitAfterBars#" and key == "ExitAfterBars.ExitAfterBars":
+                _random_range(param, ranges["exit_after_bars_min"],
+                              ranges["exit_after_bars_max"],
+                              ranges["exit_after_bars_step"])
+        configured += 1
+    return {"profile": profile, **ranges, "enabled_blocks_normalized": configured,
+            "computed_from": "close_only", "block_weight": 1,
+            "exit_type_probability": 100, "predefined_sets_enabled": False,
+            "rising_falling_bars": {"min": 2, "max": 5, "step": 1}}
+
+
 def _configure_build(xml: bytes, market: dict, periods: dict, methodology: dict,
                      accepted_limit: int, search_profile: str = "generic_translatable",
                      generation_type: str = "random-generation",
@@ -332,6 +397,8 @@ def _configure_build(xml: bytes, market: dict, periods: dict, methodology: dict,
     genetic_shape = (_nominal_genetic_shape(attempt_budget)
                      if generation_type == "genetic-evolution" and attempt_budget is not None
                      else None)
+    genetic_parameters = methodology.get("sq_generation", {}).get(
+        "genetic_parameters", {})
     for path, value in {
         "./WhatToBuild/SLPTOptions/SLRequired": "true",
         "./WhatToBuild/SLPTOptions/SLATR": "true",
@@ -347,6 +414,16 @@ def _configure_build(xml: bytes, market: dict, periods: dict, methodology: dict,
             genetic_shape["max_generations"] if genetic_shape else 100),
         "./WhatToBuild/BuildMode/Islands": str(
             genetic_shape["islands"] if genetic_shape else 4),
+        "./WhatToBuild/BuildMode/CrossoverProbability": str(
+            genetic_parameters.get("crossover_probability_pct", 80)),
+        "./WhatToBuild/BuildMode/MutationProbability": str(
+            genetic_parameters.get("mutation_probability_pct", 20)),
+        "./WhatToBuild/BuildMode/MigrationModulo": str(
+            genetic_parameters.get("migration_every_generations", 5)),
+        "./WhatToBuild/BuildMode/MigrationRate": str(
+            genetic_parameters.get("migration_rate_pct", 10)),
+        "./WhatToBuild/BuildMode/InitGenerationType": str(
+            genetic_parameters.get("initial_population_mode", 2)),
         "./WhatToBuild/BuildMode/EvoInSamplePeriod": "100",
         "./RiskMoneyManagement/MoneyManagement/InitialCapital": "10000",
         "./Rankings/MaxStrategies": accepted_limit,
@@ -439,6 +516,14 @@ def _configure_build(xml: bytes, market: dict, periods: dict, methodology: dict,
         raise ValueError(
             f"SEARCH_PROFILE_BLOCK_MISMATCH: expected={len(allowed_blocks)} enabled={counts['enabled']}"
         )
+    search_space = None
+    profile_ranges = methodology.get("sq_generation", {}).get(
+        "profile_parameter_ranges", {})
+    if methodology.get("schema_version", 1) >= 4 and search_profile in profile_ranges:
+        search_space = _normalize_v4_search_space(
+            root, search_profile, methodology["sq_generation"])
+    counts["search_space"] = search_space
+    counts["genetic_parameters"] = genetic_parameters
     return ET.tostring(root, encoding="utf-8", xml_declaration=False), counts
 
 

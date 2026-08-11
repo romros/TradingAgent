@@ -74,6 +74,37 @@ def validate(config: dict) -> list[str]:
             errors.append("sq_generation: s'han de conservar tots els candidats traduibles")
         if generation.get("search_method") != "genetic_evolution":
             errors.append("sq_generation: cerca genetica obligatoria")
+        genetic = generation.get("genetic_parameters", {})
+        if genetic != {
+            "crossover_probability_pct": 80,
+            "mutation_probability_pct": 20,
+            "migration_every_generations": 5,
+            "migration_rate_pct": 10,
+            "initial_population_mode": 2,
+        }:
+            errors.append("sq_generation: parametres genetics no preregistrats")
+        ranges = generation.get("profile_parameter_ranges", {})
+        required_profiles = {
+            "eurusd_d1_breakout_v4", "eurusd_d1_momentum_v4",
+            "eurusd_d1_shock_reversion_v4",
+        }
+        if not isinstance(ranges, dict) or set(ranges) != required_profiles:
+            errors.append("sq_generation: espais EURUSD no preregistrats")
+        else:
+            for profile, values_range in ranges.items():
+                required = {"indicator_period_min", "indicator_period_max",
+                            "shift_min", "shift_max", "exit_after_bars_min",
+                            "exit_after_bars_max", "exit_after_bars_step"}
+                if (not isinstance(values_range, dict)
+                        or not required.issubset(values_range)
+                        or not 2 <= values_range["indicator_period_min"]
+                            < values_range["indicator_period_max"] <= 250
+                        or not 1 <= values_range["shift_min"]
+                            <= values_range["shift_max"] <= 3
+                        or not 2 <= values_range["exit_after_bars_min"]
+                            < values_range["exit_after_bars_max"] <= 30
+                        or values_range["exit_after_bars_step"] != 1):
+                    errors.append(f"sq_generation: rang invalid {profile}")
         temporal = config.get("temporal_validation", {})
         if temporal.get("evaluation_notional_usdc") != config.get("capital_usdc"):
             errors.append("temporal_validation: nocional canonic ha de ser el capital")

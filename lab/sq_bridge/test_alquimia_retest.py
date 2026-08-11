@@ -87,17 +87,23 @@ def _fixture(tmp_path: Path, candidate_id: str = "T"):
         <Databank name="Output" value="Old"/></Databanks>
       <SelectedStrategies><Strategy>STALE</Strategy></SelectedStrategies>
     </Settings>'''
+    def write_member(archive, name, payload):
+        info = zipfile.ZipInfo(name, date_time=(1980, 1, 1, 0, 0, 0))
+        info.compress_type = zipfile.ZIP_DEFLATED
+        info.external_attr = 0o100644 << 16
+        archive.writestr(info, payload)
+
     source = tmp_path / "template.cfx"
     with zipfile.ZipFile(source, "w") as archive:
-        archive.writestr("Retest-Task1.xml", task)
+        write_member(archive, "Retest-Task1.xml", task)
     sqx = tmp_path / "candidate.sqx"
     with zipfile.ZipFile(sqx, "w") as archive:
-        archive.writestr("strategy_Portfolio.xml", STRATEGY)
-        archive.writestr(
-            "settings.xml",
+        write_member(archive, "strategy_Portfolio.xml", STRATEGY)
+        write_member(
+            archive, "settings.xml",
             SETTINGS.replace(b'>T</StrategyName>',
                              f'>{candidate_id}</StrategyName>'.encode()))
-        archive.writestr("version.txt", "3")
+        write_member(archive, "version.txt", "3")
     discovery = tmp_path / "discovery.json"
     discovery.write_text(json.dumps({
         "periods": {

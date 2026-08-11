@@ -7,6 +7,27 @@ import zipfile
 from pathlib import Path
 
 
+EURUSD_V4_PROFILE_BLOCKS = {
+    "eurusd_d1_breakout_v4": {
+        "Prices.Close", "Prices.High", "Prices.Low",
+        "Indicators.Highest", "Indicators.Lowest", "IsGreater", "IsLower",
+        "CrossesAbove", "CrossesBelow", "EnterAtMarket",
+        "ExitAfterBars.ExitAfterBars", "StopLoss.StopLoss",
+    },
+    "eurusd_d1_momentum_v4": {
+        "Prices.Close", "Indicators.SMA", "Indicators.EMA", "Indicators.ROC",
+        "IsGreater", "IsLower", "CrossesAbove", "CrossesBelow", "IsRising",
+        "IsFalling", "EnterAtMarket", "ExitAfterBars.ExitAfterBars",
+        "StopLoss.StopLoss",
+    },
+    "eurusd_d1_shock_reversion_v4": {
+        "Prices.Close", "Indicators.RSI", "Indicators.ROC", "IsGreater",
+        "IsLower", "CrossesAbove", "CrossesBelow", "IsRising", "IsFalling",
+        "EnterAtMarket", "ExitAfterBars.ExitAfterBars", "StopLoss.StopLoss",
+    },
+}
+
+
 def _positive_int(text: str | None, label: str) -> int:
     try:
         value = int(text or "")
@@ -71,4 +92,64 @@ def verify_genetic_project(path: Path, manifest: dict) -> dict[str, int]:
             or stop.get("hours") != str(wall_minutes // 60)
             or stop.get("minutes") != str(wall_minutes % 60)):
         raise ValueError("SQ_CFX_STOP_CONDITION_MISMATCH")
+    profile = manifest.get("search_profile")
+    search_space = (manifest.get("blocks") or {}).get("search_space")
+    genetic = (manifest.get("blocks") or {}).get("genetic_parameters")
+    if isinstance(search_space, dict):
+        expected_genetic = {
+            "CrossoverProbability": "crossover_probability_pct",
+            "MutationProbability": "mutation_probability_pct",
+            "MigrationModulo": "migration_every_generations",
+            "MigrationRate": "migration_rate_pct",
+            "InitGenerationType": "initial_population_mode",
+        }
+        if (profile not in EURUSD_V4_PROFILE_BLOCKS or not isinstance(genetic, dict)
+                or any(mode.findtext(xml_name) != str(genetic.get(contract_name))
+                       for xml_name, contract_name in expected_genetic.items())):
+            raise ValueError("SQ_CFX_GENETIC_PARAMETERS_MISMATCH")
+        complexity = root.find("./WhatToBuild/RulesComplexity/Chart")
+        expected_complexity = {
+            "minPeriod": "indicator_period_min", "maxPeriod": "indicator_period_max",
+            "minShift": "shift_min", "maxShift": "shift_max",
+        }
+        if (complexity is None
+                or any(complexity.get(attribute) != str(search_space.get(contract_key))
+                       for attribute, contract_key in expected_complexity.items())):
+            raise ValueError("SQ_CFX_SEARCH_RANGE_MISMATCH")
+        enabled_rows = [row for row in root.findall(".//Block")
+                        if row.get("use") == "true"]
+        blocks = {row.get("key"): row for row in enabled_rows}
+        enabled = set(blocks)
+        if len(blocks) != len(enabled_rows):
+            raise ValueError("SQ_CFX_DUPLICATE_ENABLED_BLOCKS")
+        if enabled != EURUSD_V4_PROFILE_BLOCKS[profile]:
+            raise ValueError("SQ_CFX_ENABLED_BLOCKS_MISMATCH")
+        for key in enabled:
+            block = blocks[key]
+            if (block.get("weight") != "1"
+                    or any(list(row) for row in block.findall(".//Predefined"))
+                    or any(param.get("generation") != "fixed"
+                           or param.get("defaultValue") != "0"
+                           for param in block.findall(
+                               ".//Generated/Param[@key='#ComputedFrom#']"))):
+                raise ValueError("SQ_CFX_INHERITED_BLOCK_CONFIGURATION")
+            if block.get("category") == "exitTypes" and block.get("probability") != "100":
+                raise ValueError("SQ_CFX_EXIT_PROBABILITY_MISMATCH")
+        exit_param = blocks["ExitAfterBars.ExitAfterBars"].find(
+            ".//Generated/Param[@key='#ExitAfterBars#']")
+        if (exit_param is None
+                or exit_param.get("minValue") != str(search_space["exit_after_bars_min"])
+                or exit_param.get("maxValue") != str(search_space["exit_after_bars_max"])
+                or exit_param.get("step") != str(search_space["exit_after_bars_step"])):
+            raise ValueError("SQ_CFX_EXIT_RANGE_MISMATCH")
+        for key, prefix in (("Indicators.RSI", "rsi_threshold"),
+                            ("Indicators.ROC", "roc_threshold")):
+            if key not in enabled:
+                continue
+            block = blocks[key]
+            if any(block.get(attribute) != str(search_space[f"{prefix}_{suffix}"])
+                   for attribute, suffix in (("indicatorMin", "min"),
+                                             ("indicatorMax", "max"),
+                                             ("indicatorStep", "step"))):
+                raise ValueError("SQ_CFX_INDICATOR_THRESHOLD_MISMATCH")
     return shape

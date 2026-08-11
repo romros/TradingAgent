@@ -4,10 +4,12 @@ import json
 import pytest
 import zipfile
 from pathlib import Path
+from xml.etree import ElementTree as ET
 
 import alquimia_project
 from alquimia_project import (
     SEARCH_PROFILES, _nominal_genetic_shape, _split_dates, _sq_discovery_slippage,
+    _normalize_v4_search_space,
     _validate_generation_contract, _write_reproducible_cfx,
     _validate_v4_prerequisites,
     _validated_v4_periods,
@@ -75,6 +77,53 @@ def test_genetic_shape_embeds_attempt_ceiling_and_preserves_four_islands():
         assert value["nominal_evaluations"] == (
             value["islands"] * value["population_per_island"]
             * value["max_generations"])
+
+
+def test_v4_search_space_removes_scaffold_quantitative_inheritance():
+    methodology = json.loads(Path(__file__).with_name("methodology_v4.json").read_text())
+    profile = "eurusd_d1_momentum_v4"
+    root = ET.fromstring(
+        '<Root><WhatToBuild><RulesComplexity><Chart minPeriod="1" maxPeriod="999" '
+        'minShift="0" maxShift="99"/></RulesComplexity></WhatToBuild>'
+        '<Blocks><BuildingBlocks/></Blocks></Root>')
+    parent = root.find(".//BuildingBlocks")
+    for key in SEARCH_PROFILES[profile]:
+        attributes = {"key": key, "use": "true", "weight": "9",
+                      "category": "exitTypes" if key in {
+                          "ExitAfterBars.ExitAfterBars", "StopLoss.StopLoss"}
+                          else "indicators"}
+        if key == "Indicators.ROC":
+            attributes.update({"indicatorMin": "-0.25", "indicatorMax": "0.26",
+                               "indicatorStep": "0.0102"})
+        block = ET.SubElement(parent, "Block", attributes)
+        generated = ET.SubElement(block, "Generated")
+        if key in {"Indicators.SMA", "Indicators.EMA"}:
+            ET.SubElement(generated, "Param", {"key": "#ComputedFrom#",
+                          "generation": "random", "values": "Close=0,Open=1"})
+        if key == "ExitAfterBars.ExitAfterBars":
+            value = ET.SubElement(block, "Value")
+            nested = ET.SubElement(value, "Generated")
+            ET.SubElement(nested, "Param", {"key": "#ExitAfterBars#",
+                          "generation": "random", "minValue": "2",
+                          "maxValue": "48", "step": "2"})
+        predefined = ET.SubElement(block, "Predefined", {"changed": "true"})
+        ET.SubElement(predefined, "Params", {"name": "inherited"})
+    result = _normalize_v4_search_space(
+        root, profile, methodology["sq_generation"])
+    chart = root.find(".//RulesComplexity/Chart")
+    assert (chart.get("minPeriod"), chart.get("maxPeriod")) == ("40", "150")
+    assert result["computed_from"] == "close_only"
+    blocks = {row.get("key"): row for row in root.findall(".//BuildingBlocks/Block")}
+    assert all(row.get("weight") == "1" for row in blocks.values())
+    assert all(not list(predefined) for row in blocks.values()
+               for predefined in row.findall(".//Predefined"))
+    assert blocks["Indicators.ROC"].get("indicatorMin") == "-10"
+    computed = blocks["Indicators.SMA"].find(".//Param[@key='#ComputedFrom#']")
+    assert computed.get("generation") == "fixed" and computed.get("defaultValue") == "0"
+    exit_param = blocks["ExitAfterBars.ExitAfterBars"].find(
+        ".//Param[@key='#ExitAfterBars#']")
+    assert (exit_param.get("minValue"), exit_param.get("maxValue"),
+            exit_param.get("step")) == ("10", "30", "1")
 
 
 def test_cfx_writer_is_byte_reproducible_and_uses_canonical_metadata(tmp_path):

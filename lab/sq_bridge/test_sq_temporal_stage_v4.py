@@ -142,3 +142,66 @@ def test_stage_reopens_native_lineage_behind_global_candidate_namespace(tmp_path
             cost_model_path=costs, symbol="EURUSD", timeframe="D1",
             source_timezone="UTC", work_dir=tmp_path / "work",
             artifact_path=tmp_path / "artifact.json")
+
+
+def test_global_candidate_namespace_builds_a_retest_and_temporal_trace(tmp_path):
+    native_dir = tmp_path / "native"
+    native_dir.mkdir()
+    template, candidate, discovery = _fixture(native_dir)
+    branch = tmp_path / "branch.json"
+    branch.write_text(json.dumps({
+        "stage": "sq_generation", "decision": "PASS",
+        "campaign_id": "campaign", "holdout_accessed": False,
+        "source_hypothesis_ids": ["d1_breakout_long"],
+        "candidate_ids": ["T"],
+        "candidate_artifact_paths": {"T": str(candidate)},
+        "candidate_artifact_hashes": {"T": _sha(candidate)},
+    }))
+    universe_path = tmp_path / "global/universe.json"
+    universe = build_universe(
+        campaign_id="campaign",
+        generation_artifact_paths={"d1_breakout_long": branch},
+        output_path=universe_path)
+    global_id = universe["candidate_ids"][0]
+    temporal = tmp_path / "temporal.json"
+    temporal.write_text("{}\n")
+    costs = tmp_path / "costs.json"
+    costs.write_text("{}\n")
+
+    def retest(**kwargs):
+        manifest = json.loads(kwargs["manifest_path"].read_text())
+        assert manifest["candidate_id"] == global_id
+        output = kwargs["output_dir"]
+        output.mkdir(parents=True, exist_ok=True)
+        orders = output / "orders.csv"
+        orders.write_text("observed\n")
+        receipt = {"decision": "PASS_SUPERVISED_RETEST",
+                   "candidate_id": global_id, "holdout_accessed": False,
+                   "orders_csv_path": str(orders)}
+        (output / "supervised_retest_receipt.json").write_text(
+            json.dumps(receipt))
+        return receipt
+
+    def derive(**kwargs):
+        assert kwargs["candidate_id"] == global_id
+        return {"candidate_id": global_id, "source": "strategyquant_orders_export"}
+
+    def artifact(**kwargs):
+        value = {"stage": "temporal_validation", "campaign_id": "campaign",
+                 "decision": "PASS", "candidate_ids": [global_id],
+                 "holdout_accessed": False}
+        kwargs["artifact_path"].write_text(json.dumps(value))
+        return value
+
+    result = run_stage(
+        campaign_id="campaign", generation_artifact_path=universe_path,
+        retest_template_path=template, discovery_manifest_path=discovery,
+        temporal_contract_path=temporal,
+        methodology_path=Path(__file__).with_name("methodology_v4.json"),
+        cost_model_path=costs, symbol="NVDA", timeframe="M15",
+        source_timezone="UTC", work_dir=tmp_path / "work",
+        artifact_path=tmp_path / "artifact.json", retest_fn=retest,
+        derive_fn=derive, artifact_fn=artifact)
+    assert result["candidate_ids"] == [global_id]
+    manifest_path = next((tmp_path / "work").glob("*/pre_holdout.manifest.json"))
+    assert json.loads(manifest_path.read_text())["candidate_id"] == global_id

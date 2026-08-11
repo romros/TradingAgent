@@ -19,16 +19,30 @@ def _sha(path: Path) -> str:
 
 def _registry(tmp_path: Path, campaigns: list[dict], *, closed: bool) -> Path:
     methodology = _write(tmp_path / "methodology.json", {"version": 4})
+    universe = _write(tmp_path / "universe.json", {
+        "schema_version": 1, "registration_closed": True,
+        "performance_accessed": False, "candidate_ids": [],
+        "holdout_accessed": False,
+        "campaigns": [{
+            "campaign_id": row["campaign_id"], "symbol": "EURUSD",
+            "timeframe": "D1", "category": "forex",
+            "mechanisms": ["breakout", "momentum", "reversion"],
+            "directions_per_mechanism": ["both", "long", "short"],
+            "readiness": "WAITING_TEST",
+        } for row in campaigns]})
     return _write(tmp_path / "registry.json", {
         "schema_version": 1, "portfolio_id": "portfolio-v4",
         "registration_closed": closed,
         "methodology_path": str(methodology),
-        "methodology_sha256": _sha(methodology), "campaigns": campaigns})
+        "methodology_sha256": _sha(methodology),
+        "campaign_universe_path": str(universe),
+        "campaign_universe_sha256": _sha(universe), "campaigns": campaigns})
 
 
 def _campaign(tmp_path: Path, campaign_id: str, decisions: list[str]) -> dict:
     root = tmp_path / campaign_id
     names = [
+        "screen-bootstrap/screen_trigger_receipt.json",
         "sq-worker/worker_receipt.json",
         "temporal-worker/temporal_worker_receipt.json",
         "robustness-worker/robustness_worker_receipt.json",
@@ -49,7 +63,7 @@ def _campaign(tmp_path: Path, campaign_id: str, decisions: list[str]) -> dict:
 
 def test_open_registry_never_constructs_partial_portfolio(tmp_path):
     row = _campaign(tmp_path, "campaign-a", [
-        "PASS_SQ_GENERATION_ORCHESTRATED", "PASS_TEMPORAL_VALIDATION",
+        "PASS_SCREEN_TRIGGER", "PASS_SQ_GENERATION_ORCHESTRATED", "PASS_TEMPORAL_VALIDATION",
         "PASS_ROBUSTNESS", "PASS_SMALL_ACCOUNT"])
     called = []
     result = tick(registry_path=_registry(tmp_path, [row], closed=False),
@@ -64,7 +78,7 @@ def test_open_registry_never_constructs_partial_portfolio(tmp_path):
 
 def test_closed_registry_waits_for_every_registered_campaign(tmp_path):
     rows = [
-        _campaign(tmp_path, "campaign-a", ["REJECT_NO_SQ_CANDIDATES"]),
+        _campaign(tmp_path, "campaign-a", ["PASS_SCREEN_TRIGGER", "REJECT_NO_SQ_CANDIDATES"]),
         {"campaign_id": "campaign-b", "campaign_root": str(tmp_path / "missing")},
     ]
     result = tick(registry_path=_registry(tmp_path, rows, closed=True),
@@ -76,9 +90,9 @@ def test_closed_registry_waits_for_every_registered_campaign(tmp_path):
 
 def test_all_terminal_campaigns_are_frozen_before_portfolio_build(tmp_path):
     rows = [
-        _campaign(tmp_path, "campaign-a", ["REJECT_NO_SQ_CANDIDATES"]),
+        _campaign(tmp_path, "campaign-a", ["PASS_SCREEN_TRIGGER", "REJECT_NO_SQ_CANDIDATES"]),
         _campaign(tmp_path, "campaign-b", [
-            "PASS_SQ_GENERATION_ORCHESTRATED", "PASS_TEMPORAL_VALIDATION",
+            "PASS_SCREEN_TRIGGER", "PASS_SQ_GENERATION_ORCHESTRATED", "PASS_TEMPORAL_VALIDATION",
             "PASS_ROBUSTNESS", "PASS_SMALL_ACCOUNT"]),
     ]
 
@@ -103,7 +117,7 @@ def test_all_terminal_campaigns_are_frozen_before_portfolio_build(tmp_path):
 
 def test_receipts_after_terminal_rejection_are_rejected(tmp_path):
     row = _campaign(tmp_path, "campaign-a", [
-        "REJECT_NO_SQ_CANDIDATES", "PASS_TEMPORAL_VALIDATION"])
+        "REJECT_SCREEN_TRIGGER", "PASS_SQ_GENERATION_ORCHESTRATED"])
     with pytest.raises(ValueError, match="after terminal rejection"):
         tick(registry_path=_registry(tmp_path, [row], closed=True),
              output_dir=tmp_path / "out")

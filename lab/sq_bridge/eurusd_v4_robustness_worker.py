@@ -60,7 +60,7 @@ def venue_max_leverage(cost_model: dict[str, Any],
     # pair means no special stock override; it must never replace maxLeverage.
     if all(isinstance(value, (int, float)) and not isinstance(value, bool)
            and value == 0 for value in overnight_values):
-        if market["ostium_category"] != "forex":
+        if market["ostium_category"] == "stock":
             raise ValueError("OSTIUM_OVERNIGHT_LEVERAGE_SEMANTICS_UNPROVEN")
         return float(min(values))
     if not all(isinstance(value, (int, float)) and not isinstance(value, bool)
@@ -179,8 +179,8 @@ def tick(*, temporal_worker_dir: Path, output_dir: Path,
         "venue_max_leverage": max_leverage,
         "execution_max_leverage": float(execution_max_leverage),
         "overnight_leverage_semantics": (
-            "zero_means_no_stock_day_trading_override_for_forex"
-            if market["ostium_category"] == "forex"
+            "zero_means_no_stock_day_trading_override_for_non_stock"
+            if market["ostium_category"] != "stock"
             else "positive_override_included_in_conservative_all_session_cap"),
         "holdout_accessed": False, "paper_authorized": False,
         "live_authorized": False,

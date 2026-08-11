@@ -1,13 +1,35 @@
 {
   "schema_version": 1,
   "portfolio_id": "alquimia-v4-small-account-portfolio",
-  "registration_closed": false,
+  "registration_closed": true,
+  "campaign_universe_path": "campaign_universe_v4.json",
+  "campaign_universe_sha256": "17adfed1c34fde72e7909e8e555812c7cde93570ee5dc98f5bfb4060d559c2a1",
   "methodology_path": "methodology_v4.json",
   "methodology_sha256": "6ea44c1b51dc0e1f01014665ef7edf0124feb76a9dde486fc4e9441ef3c326e4",
   "campaigns": [
     {
+      "campaign_id": "btcusd-h4-alquimia-v4",
+      "campaign_root": "../../data/alquimia_v4/btcusd-h4-alquimia-v4"
+    },
+    {
+      "campaign_id": "ethusd-h4-alquimia-v4",
+      "campaign_root": "../../data/alquimia_v4/ethusd-h4-alquimia-v4"
+    },
+    {
       "campaign_id": "eurusd-d1-alquimia-v4",
       "campaign_root": "../../data/alquimia_v4/eurusd-d1-alquimia-v4"
+    },
+    {
+      "campaign_id": "us500-d1-alquimia-v4",
+      "campaign_root": "../../data/alquimia_v4/us500-d1-alquimia-v4"
+    },
+    {
+      "campaign_id": "usdjpy-m15-alquimia-v4",
+      "campaign_root": "../../data/alquimia_v4/usdjpy-m15-alquimia-v4"
+    },
+    {
+      "campaign_id": "xauusd-m15-alquimia-v4",
+      "campaign_root": "../../data/alquimia_v4/xauusd-m15-alquimia-v4"
     }
   ]
 }

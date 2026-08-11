@@ -46,9 +46,17 @@ ampliar només abans de consultar el rendiment de la campanya nova; una campanya
 ja registrada no s'elimina perquè fracassi. Mentre `registration_closed=false`,
 el coordinador publica `WAITING_FOR_REGISTRATION_CLOSE` i no crea cap manifest.
 
+El primer univers queda tancat abans de veure cap rendiment v4 amb sis
+campanyes: EURUSD D1, USDJPY M15, XAUUSD M15, BTCUSD H4, ETHUSD H4 i US500 D1.
+La selecció es basa només en executabilitat potencial a Ostium, disponibilitat
+de dades i diversificació entre forex, metall, cripto i índex. Cada campanya té
+tres mecanismes i les direccions `both/long/short` congelades a
+`campaign_universe_v4.json`. Mapping o costos immadurs mantenen la campanya en
+espera; no autoritzen substituir-la després de veure resultats.
+
 Per cada `campaign_root`, `portfolio_coordinator_v4.py` recorre en ordre els
-rebuts SQ, temporal, robustesa i compte petit. Un rebuig en qualsevol etapa és
-terminal i forma part de l'evidència global. Només un `PASS_SMALL_ACCOUNT`
+rebuts screen, SQ, temporal, robustesa i compte petit. Un rebuig en qualsevol
+etapa és terminal i forma part de l'evidència global. Només un `PASS_SMALL_ACCOUNT`
 aporta una candidata. El coordinador espera totes les campanyes registrades i
 rebutja rebuts posteriors a un rebuig terminal; així no es pot construir la
 cartera només amb els experiments favorables.
@@ -69,11 +77,16 @@ Els workers post-SQ comparteixen un contracte de mercat obligatori dins la seva
 configuració: `symbol`, `timeframe`, `source_timezone`, `ostium_pair_id`,
 `ostium_pair_from`, `ostium_pair_to` i `ostium_category`. La validació temporal
 el contrasta amb el manifest CFX; sizing i paritat amb les candles; robustesa
-amb l'instrument observat als costos. Per forex, un `overnightMaxLeverage=0`
-significa absència de l'override d'accions. Per qualsevol altra categoria cal
-un límit overnight positiu observat i s'usa el mínim entre límit general i
-overnight. Això permet reutilitzar la cadena en altres tokens sense substituir
-manualment literals d'EURUSD ni assumir un apalancament incorrecte.
+amb l'instrument observat als costos. Un `overnightMaxLeverage=0` significa que
+l'override de day trading d'accions no aplica en forex, cripto, commodities i
+índexs. En accions cal un límit overnight positiu observat i s'usa el mínim
+entre límit general i overnight. Això permet reutilitzar la cadena en altres
+tokens sense substituir manualment literals d'EURUSD ni assumir un
+apalancament incorrecte.
+
+Font operacional: documentació oficial d'[Ostium Markets](https://docs.ostium.com/traders/reference/markets),
+que limita l'overnight cap i l'auto-close de 15:45 ET a les posicions d'accions
+obertes per sobre del cap, mentre cripto opera 24/7.
 
 ## Manifest de campanya
 

@@ -15,6 +15,8 @@ from lab.sq_bridge.us500_d1_market_preflight_v4 import write_atomic
 
 
 STAGES = (
+    ("screen-bootstrap/screen_trigger_receipt.json",
+     {"PASS_SCREEN_TRIGGER"}, {"REJECT_SCREEN_TRIGGER"}),
     ("sq-worker/worker_receipt.json",
      {"PASS_SQ_GENERATION_ORCHESTRATED"}, {"REJECT_NO_SQ_CANDIDATES"}),
     ("temporal-worker/temporal_worker_receipt.json",
@@ -88,12 +90,37 @@ def tick(*, registry_path: Path, output_dir: Path,
     methodology_path = _resolve(
         registry_path.parent, registry.get("methodology_path"),
         registry.get("methodology_sha256"), "portfolio methodology")
+    universe_path = _resolve(
+        registry_path.parent, registry.get("campaign_universe_path"),
+        registry.get("campaign_universe_sha256"), "campaign universe")
+    universe = _load(universe_path)
     campaign_ids = [row.get("campaign_id") for row in entries
                     if isinstance(row, dict)]
     if (len(campaign_ids) != len(entries)
             or any(not isinstance(value, str) or not value for value in campaign_ids)
             or campaign_ids != sorted(set(campaign_ids))):
         raise ValueError("registered campaign ids must be unique and sorted")
+    universe_rows = universe.get("campaigns")
+    universe_ids = ([row.get("campaign_id") for row in universe_rows]
+                    if isinstance(universe_rows, list) else None)
+    if (universe.get("schema_version") != 1
+            or universe.get("registration_closed") is not True
+            or universe.get("performance_accessed") is not False
+            or universe.get("candidate_ids") != []
+            or universe.get("holdout_accessed") is not False
+            or universe_ids != campaign_ids):
+        raise ValueError("campaign universe differs from portfolio registry")
+    for row in universe_rows:
+        mechanisms = row.get("mechanisms") if isinstance(row, dict) else None
+        if (not isinstance(row.get("symbol"), str)
+                or not isinstance(row.get("timeframe"), str)
+                or row.get("category") not in {
+                    "forex", "commodity", "crypto", "index", "stock"}
+                or not isinstance(mechanisms, list) or len(mechanisms) != 3
+                or len(set(mechanisms)) != 3
+                or row.get("directions_per_mechanism") != ["both", "long", "short"]
+                or not str(row.get("readiness", "")).startswith("WAITING_")):
+            raise ValueError("campaign universe design invalid")
 
     terminal, pending, rejected, branches = {}, [], [], []
     for row in entries:
@@ -144,6 +171,8 @@ def tick(*, registry_path: Path, output_dir: Path,
         "registry_sha256": _sha(registry_path),
         "methodology_path": str(methodology_path),
         "methodology_sha256": _sha(methodology_path),
+        "campaign_universe_path": str(universe_path),
+        "campaign_universe_sha256": _sha(universe_path),
         "terminal_campaigns": terminal, "pending_campaign_ids": pending,
         "rejected_campaign_ids": rejected,
         "passing_branch_count": len(branches), "holdout_accessed": False,

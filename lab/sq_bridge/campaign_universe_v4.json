@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "universe_id": "alquimia-v4-six-market-preregistered-universe",
+  "registration_closed": true,
+  "selection_basis": "venue_availability_data_mapping_feasibility_and_cross_asset_diversification_only",
+  "performance_accessed": false,
+  "candidate_ids": [],
+  "holdout_accessed": false,
+  "campaigns": [
+    {
+      "campaign_id": "btcusd-h4-alquimia-v4",
+      "symbol": "BTCUSD",
+      "timeframe": "H4",
+      "category": "crypto",
+      "mechanisms": ["channel_breakout", "time_series_momentum", "volatility_compression_breakout"],
+      "directions_per_mechanism": ["both", "long", "short"],
+      "readiness": "WAITING_COSTS_AND_PROXY_MAPPING"
+    },
+    {
+      "campaign_id": "ethusd-h4-alquimia-v4",
+      "symbol": "ETHUSD",
+      "timeframe": "H4",
+      "category": "crypto",
+      "mechanisms": ["channel_breakout", "time_series_momentum", "volatility_compression_breakout"],
+      "directions_per_mechanism": ["both", "long", "short"],
+      "readiness": "WAITING_COSTS_AND_PROXY_MAPPING"
+    },
+    {
+      "campaign_id": "eurusd-d1-alquimia-v4",
+      "symbol": "EURUSD",
+      "timeframe": "D1",
+      "category": "forex",
+      "mechanisms": ["channel_breakout", "time_series_momentum", "shock_reversion"],
+      "directions_per_mechanism": ["both", "long", "short"],
+      "readiness": "WAITING_COSTS"
+    },
+    {
+      "campaign_id": "us500-d1-alquimia-v4",
+      "symbol": "US500",
+      "timeframe": "D1",
+      "category": "index",
+      "mechanisms": ["time_series_momentum", "shock_reversion", "volatility_regime_trend"],
+      "directions_per_mechanism": ["both", "long", "short"],
+      "readiness": "WAITING_SESSION_COSTS"
+    },
+    {
+      "campaign_id": "usdjpy-m15-alquimia-v4",
+      "symbol": "USDJPY",
+      "timeframe": "M15",
+      "category": "forex",
+      "mechanisms": ["session_range_breakout", "time_series_momentum", "shock_reversion"],
+      "directions_per_mechanism": ["both", "long", "short"],
+      "readiness": "WAITING_COSTS"
+    },
+    {
+      "campaign_id": "xauusd-m15-alquimia-v4",
+      "symbol": "XAUUSD",
+      "timeframe": "M15",
+      "category": "commodity",
+      "mechanisms": ["abnormal_move_continuation", "channel_breakout", "time_series_momentum"],
+      "directions_per_mechanism": ["both", "long", "short"],
+      "readiness": "WAITING_COSTS_AND_SOURCE_RECERTIFICATION"
+    }
+  ],
+  "paper_authorized": false,
+  "live_authorized": false
+}

@@ -40,15 +40,33 @@ def test_universe_capture_prioritizes_eurusd_and_is_failure_isolated():
     script = (Path(__file__).parents[2] / "scripts" /
               "capture_ostium_research_universe_economics.sh").read_text()
     assert 'PAIRS=${OSTIUM_RESEARCH_PAIRS:-"EUR/USD ' in script
-    assert 'CAPTURE_FAILED pair=%s' in script
-    assert 'ostium_small_account_cost_gate_v4' in script
-    assert '${SLUG}_costs_latest_v4.json' in script
-    assert 'COST_GATE_REFRESH_FAILED pair=%s' in script
+    assert 'capture_ostium_economics_set.sh' in script
     assert 'PREFLIGHT_REFRESH_FAILED pair=EUR/USD' in script
     assert 'eurusd_v4_screen_trigger' in script
     assert 'EURUSD_SCREEN_TRIGGER_FAILED' in script
     assert 'ALQUIMIA_EURUSD_SCREEN_DIR' in script
     assert 'exit "$STATUS"' in script
+
+
+def test_generic_set_refreshes_each_pair_independently():
+    root = Path(__file__).parents[2]
+    script = (root / "scripts/capture_ostium_economics_set.sh").read_text()
+    assert 'PAIRS=${OSTIUM_PAIRS:?' in script
+    assert 'for PAIR in $PAIRS' in script
+    assert 'capture_ostium_pair_economics.sh' in script
+    assert 'ostium_small_account_cost_gate_v4' in script
+    assert 'CAPTURE_FAILED pair=%s' in script
+    assert 'exit "$STATUS"' in script
+
+
+def test_crypto_capture_is_hourly_every_day_and_separately_locked():
+    root = Path(__file__).parents[2]
+    capture = (root / "scripts/capture_ostium_crypto_economics.sh").read_text()
+    installer = (root / "scripts/install_ostium_crypto_capture_cron.sh").read_text()
+    assert 'OSTIUM_CRYPTO_PAIRS:-"BTC/USD ETH/USD"' in capture
+    assert 'capture_ostium_economics_set.sh' in capture
+    assert 'LINE="17 * * * * flock -n $LOCK ' in installer
+    assert "tradingagent-ostium-crypto-economics.lock" in installer
 
 
 def test_universe_cron_samples_hourly_without_overlap():

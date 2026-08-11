@@ -67,15 +67,17 @@ def test_derives_conservative_forex_limit_without_treating_zero_as_zero_leverage
         venue_max_leverage(weak, _market())
 
 
-def test_non_forex_uses_positive_overnight_cap_and_rejects_zero_semantics():
+def test_positive_overnight_cap_applies_and_only_stock_requires_it():
     costs = _costs()
     overnight = costs["venue_limits"]["overnight_max_leverage"]
     overnight.update({"min": 20, "p50": 30, "p95": 40, "max": 50})
     costs["instrument"]["category"] = "commodity"
     assert venue_max_leverage(costs, _market("commodity")) == 20
     overnight.update({"min": 0, "p50": 0, "p95": 0, "max": 0})
+    assert venue_max_leverage(costs, _market("commodity")) == 200
+    costs["instrument"]["category"] = "stock"
     with pytest.raises(ValueError, match="SEMANTICS_UNPROVEN"):
-        venue_max_leverage(costs, _market("commodity"))
+        venue_max_leverage(costs, _market("stock"))
 
 
 def test_waits_for_temporal_and_terminal_reject_never_runs_sq(tmp_path):

@@ -9,7 +9,9 @@ import math
 import os
 from pathlib import Path
 
-from lab.sq_bridge.small_account_artifact_v4 import select_cost_envelope
+from lab.sq_bridge.small_account_artifact_v4 import (
+    select_cost_envelope, venue_minimum_notional,
+)
 from lab.sq_bridge.final_holdout_trace_v4 import rebuild_from_trace
 
 
@@ -61,6 +63,7 @@ def evaluate_trace(trace: dict, scenarios: list[str], cost_model: dict,
     if not isinstance(trades, list):
         raise ValueError("Trades holdout absents")
     ids, pnl = [], {scenario: [] for scenario in scenarios}
+    minimum_venue_notional = venue_minimum_notional(cost_model)
     notionals, stop_distances, cost_buckets = [], [], []
     cost_bps_rows, variable_bps_rows, fixed_usdc_rows = [], [], []
     for row in trades:
@@ -129,10 +132,15 @@ def evaluate_trace(trace: dict, scenarios: list[str], cost_model: dict,
             peak = max(peak, equity)
             maximum_drawdown = max(maximum_drawdown, (peak - equity) / peak * 100)
         drawdowns[scenario] = maximum_drawdown
+    minimum_actual_notional = min(notionals) if notionals else None
     return {
         "candidate_id": candidate_id,
         "position_notional_usdc": notional_cap,
-        "minimum_actual_notional_usdc": min(notionals) if notionals else None,
+        "venue_minimum_notional_usdc": minimum_venue_notional,
+        "minimum_notional_pass": (minimum_actual_notional is not None
+                                  and minimum_actual_notional
+                                      >= minimum_venue_notional),
+        "minimum_actual_notional_usdc": minimum_actual_notional,
         "maximum_actual_notional_usdc": max(notionals) if notionals else None,
         "minimum_initial_stop_distance_pct": (
             min(stop_distances) if stop_distances else None),
@@ -183,6 +191,7 @@ def build_artifact(*, campaign_id: str, candidate_id: str, trace_path: Path,
     minimum_pf = min(metrics["profit_factor_by_cost"].values())
     minimum_expectancy = min(metrics["net_expectancy_usdc_by_cost"].values())
     passed = (metrics["trades"] >= gate["minimum_trades"]
+              and metrics["minimum_notional_pass"] is True
               and minimum_pf >= gate["minimum_profit_factor"]
               and metrics["drawdown_pct"] <= gate["maximum_drawdown_pct"]
               and minimum_expectancy >= gate["minimum_net_expectancy_usdc"])

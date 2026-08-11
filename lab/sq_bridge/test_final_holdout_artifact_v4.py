@@ -43,6 +43,8 @@ def _sources(tmp_path):
         "by_notional": {"200": {"base_roundtrip_bps": 0,
                                   "conservative_roundtrip_bps": 10,
                                   "stress_roundtrip_bps": 15}},
+        "venue_limits": {"min_notional_usd": {
+            "min": 10, "p50": 10, "p95": 10, "max": 10, "n": 30}},
         "carry": {"long": carry, "short": carry}}, sort_keys=True) + "\n")
     cost_hash = hashlib.sha256(costs.read_bytes()).hexdigest()
     sizing = tmp_path / "small-account.json"
@@ -143,6 +145,29 @@ def test_dynamic_holdout_sizes_each_trade_from_frozen_risk_and_notional_cap(tmp_
     assert metrics["maximum_actual_notional_usdc"] == 200
     assert metrics["minimum_initial_stop_distance_pct"] == 1
     assert metrics["maximum_initial_stop_distance_pct"] == 3
+    assert metrics["minimum_notional_pass"] is True
+
+
+def test_holdout_rejects_trade_notional_below_observed_venue_minimum(tmp_path):
+    costs, sizing_path, cost_hash, _ = _sources(tmp_path)
+    sizing = json.loads(sizing_path.read_text())
+    sizing["position_notional_usdc"] = 5
+    sizing_path.write_text(json.dumps(sizing, sort_keys=True) + "\n")
+    sizing_hash = hashlib.sha256(sizing_path.read_bytes()).hexdigest()
+    trace = _trace(cost_hash, sizing_hash)
+    trace["position_notional_usdc"] = 5
+    trace_path = tmp_path / "below-minimum.trace.json"
+    trace_path.write_text(json.dumps(trace, sort_keys=True) + "\n")
+    artifact = build_artifact(
+        campaign_id="campaign", candidate_id="candidate", trace_path=trace_path,
+        small_account_artifact_path=sizing_path, cost_model_path=costs,
+        methodology_path=ROOT / "methodology_v4.json",
+        artifact_path=tmp_path / "below-minimum.json")
+    metric = artifact["candidate_holdout_metrics"]["candidate"]
+    assert metric["venue_minimum_notional_usdc"] == 10
+    assert metric["minimum_actual_notional_usdc"] == 5
+    assert metric["minimum_notional_pass"] is False
+    assert artifact["decision"] == "REJECT"
 
 
 def test_hashed_but_tampered_summary_does_not_pass_recomputation(tmp_path):

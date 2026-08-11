@@ -1413,6 +1413,8 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
             checks.update({
                 "TRACE_FILE": holdout_trace is not None,
                 "FROZEN_SIZING_AND_COSTS": sources_match,
+                "VENUE_MINIMUM_NOTIONAL": valid
+                    and metric.get("minimum_notional_pass") is True,
                 "TRACE_CONTRACT": recomputed is not None and len(ids) == 1
                     and recomputed.get("candidate_id") == ids[0]
                     and metrics_by_candidate == {ids[0]: recomputed}

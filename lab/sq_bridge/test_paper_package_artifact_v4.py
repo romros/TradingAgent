@@ -9,6 +9,7 @@ from lab.sq_bridge.e2e_control import payload
 from lab.sq_bridge.paper_package_artifact_v4 import build_artifact
 from lab.sq_bridge.paper_order_sizing_v4 import size_entry
 from lab.sq_bridge.paper_signal_instruction_v4 import build_instruction
+from lab.sq_bridge.paper_quote_probe_v4 import fetch_latest_quote, run_probe
 from lab.sq_bridge.ostium_order_payload_v4 import (
     build_order_template, revalidate_fresh_quote,
 )
@@ -343,3 +344,54 @@ def test_quote_gate_rejects_stale_risky_or_wide_quotes(tmp_path):
             template=template,
             quote={**base, "bid": 102.98, "ask": 103.02},
             observed_at=now)
+
+
+def test_read_only_quote_probe_uses_get_and_persists_inert_receipt(tmp_path):
+    signal = _signal(tmp_path)
+    template = build_order_template(
+        config_path=tmp_path / "paper.json", instruction=signal,
+        operational_max_leverage=10, registry_path=_registry(tmp_path))
+    template_path = tmp_path / "template.json"
+    _write(template_path, template)
+    now = datetime(2026, 8, 11, 12, 0, 5, tzinfo=timezone.utc)
+    calls = []
+
+    def fetch(**kwargs):
+        calls.append(kwargs)
+        return {"symbol": "EURUSD", "bid": 102.995, "ask": 103.005,
+                "mid": 103, "timestamp": now.isoformat()}
+
+    output = tmp_path / "quote-receipt.json"
+    result = run_probe(
+        template_path=template_path, output_path=output,
+        base_url="http://broker", observed_at=now, fetch_fn=fetch)
+    assert calls == [{"base_url": "http://broker", "symbol": "EURUSD"}]
+    assert json.loads(output.read_text()) == result
+    assert result["http_method_used"] == "GET"
+    assert result["post_capability_present"] is False
+    assert result["credentials_used"] is False
+    assert result["request_sent"] is False
+
+
+def test_quote_transport_constructs_only_canonical_get():
+    calls = []
+
+    class Response:
+        status = 200
+        def __enter__(self): return self
+        def __exit__(self, *_args): return None
+        def read(self):
+            return b'{"symbol":"EURUSD","bid":1,"ask":1,"mid":1,"timestamp":"x"}'
+
+    def opener(request, **kwargs):
+        calls.append((request, kwargs))
+        return Response()
+
+    result = fetch_latest_quote(
+        base_url="http://127.0.0.1:8000/", symbol="EURUSD", opener=opener)
+    request, kwargs = calls[0]
+    assert request.get_method() == "GET"
+    assert request.full_url == (
+        "http://127.0.0.1:8000/api/v1/broker/price/latest?venue=ostium&symbol=EURUSD")
+    assert kwargs == {"timeout": 5}
+    assert result["symbol"] == "EURUSD"

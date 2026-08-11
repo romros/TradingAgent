@@ -446,6 +446,11 @@ a l'envolupant variable stress i risc stop→mid no superior al pressupost del
 senyal. `revalidate_fresh_quote()` només emet
 `PASS_FRESH_QUOTE_REVALIDATION`; fins i tot llavors conserva
 `request_sent=false`, signer desactivat i live no autoritzat.
+`paper_quote_probe_v4.py` és el transport mínim corresponent: només implementa
+el `GET` públic de quote, rebutja URLs amb credencials incrustades i desa el
+resultat revalidat de forma atòmica. El rebut declara explícitament
+`post_capability_present=false`, `credentials_used=false` i continua sense
+enviar l'ordre; no existeix cap camí HTTP POST en aquest mòdul.
 
 Aquesta última garantia és executable: `methodology_v4.json` preregistra
 genètica 80% crossover / 20% mutació i migració 5 generacions / 10%, i espais

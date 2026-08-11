@@ -18,7 +18,7 @@ from lab.sq_bridge.eurusd_v4_screen_trigger import (
 from lab.sq_bridge.sq_generation_stage_v4 import run_stage
 from lab.sq_bridge.sq_generation_universe_v4 import build_universe
 from lab.sq_bridge.sqcli_import_batch import import_batch
-from lab.sq_bridge.sqcli_transport import list_projects
+from lab.sq_bridge.sqcli_transport import list_projects_with_status
 from lab.sq_bridge.us500_d1_market_preflight_v4 import write_atomic
 
 
@@ -96,7 +96,7 @@ def tick(
     *, screen_dir: Path, config_path: Path, output_dir: Path,
     projects_root: Path = Path("/mnt/volume-SQ/user/projects"),
     disk_path: Path = Path("/mnt/volume-SQ"),
-    listing_fn: Callable[..., list[dict]] = list_projects,
+    listing_fn: Callable[..., list[dict]] = list_projects_with_status,
     compile_fn: Callable[..., dict] = compile_projects,
     import_fn: Callable[..., dict] = import_batch,
     run_fn: Callable[..., dict] = run_stage,

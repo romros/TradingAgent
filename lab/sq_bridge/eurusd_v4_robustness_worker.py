@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from lab.sq_bridge.sq_robustness_stage_v4 import run_stage
-from lab.sq_bridge.sqcli_transport import list_projects
+from lab.sq_bridge.sqcli_transport import list_projects_with_status
 from lab.sq_bridge.us500_d1_market_preflight_v4 import write_atomic
 
 
@@ -80,7 +80,7 @@ def _own_resumable(work_dir: Path, running: list[str]) -> bool:
 
 def tick(*, temporal_worker_dir: Path, output_dir: Path,
          worker_config_path: Path,
-         listing_fn: Callable[..., list[dict]] = list_projects,
+         listing_fn: Callable[..., list[dict]] = list_projects_with_status,
          robustness_fn: Callable[..., dict] = run_stage) -> dict[str, Any]:
     temporal_receipt_path = temporal_worker_dir.resolve() / "temporal_worker_receipt.json"
     if not temporal_receipt_path.is_file():

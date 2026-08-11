@@ -16,7 +16,8 @@ from typing import Callable
 from lab.sq_bridge.alquimia_retest import verify_holdout_project, verify_retest_project
 from lab.sq_bridge.sqcli_transport import (
     CONTAINER_NAME, SAFE_PROJECT_NAME, docker_exec_http_call,
-    docker_project_final_log, gui_open_project, gui_start_project, list_projects,
+    docker_project_final_log, gui_open_project, gui_start_project,
+    list_projects_with_status,
 )
 from lab.sq_bridge.sqx_extract import extract as extract_sqx
 from lab.sq_bridge.us500_d1_market_preflight_v4 import write_atomic
@@ -266,7 +267,7 @@ def supervised_retest(
     base_url: str = "http://127.0.0.1:8080", container: str = "sqcli-docker",
     projects_root: Path = Path("/mnt/volume-SQ/user/projects"),
     interval: int = 2, timeout_seconds: int = 1800,
-    listing_fn: Callable[..., list[dict]] = list_projects,
+    listing_fn: Callable[..., list[dict]] = list_projects_with_status,
     open_fn: Callable[..., dict] = gui_open_project,
     start_fn: Callable[..., dict] = gui_start_project,
     final_log_fn: Callable[..., dict] | None = None,

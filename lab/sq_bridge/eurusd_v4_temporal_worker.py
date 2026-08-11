@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from lab.sq_bridge.sq_temporal_stage_v4 import run_stage
-from lab.sq_bridge.sqcli_transport import list_projects
+from lab.sq_bridge.sqcli_transport import list_projects_with_status
 from lab.sq_bridge.temporal_split_contract_v4 import digest as temporal_digest
 from lab.sq_bridge.us500_d1_market_preflight_v4 import write_atomic
 
@@ -58,7 +58,7 @@ def _own_resumable_project(work_dir: Path, running: list[str]) -> bool:
 
 def tick(*, screen_dir: Path, sq_worker_dir: Path, output_dir: Path,
          worker_config_path: Path,
-         listing_fn: Callable[..., list[dict]] = list_projects,
+         listing_fn: Callable[..., list[dict]] = list_projects_with_status,
          temporal_fn: Callable[..., dict] = run_stage) -> dict[str, Any]:
     screen_receipt_path = screen_dir.resolve() / "screen_trigger_receipt.json"
     worker_receipt_path = sq_worker_dir.resolve() / "worker_receipt.json"

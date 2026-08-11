@@ -15,7 +15,7 @@ from lab.sq_bridge.sq_watchdog import (
 )
 from lab.sq_bridge.sqcli_transport import (
     docker_project_final_stats, gui_project_action_from_cli, gui_start_project,
-    list_projects,
+    list_projects_with_status,
 )
 
 
@@ -55,7 +55,7 @@ def supervised_run(
     base_url: str = "http://127.0.0.1:8080", container: str = "sqcli-docker",
     projects_root: Path = Path("/mnt/volume-SQ/user/projects"),
     disk_path: Path = Path("/mnt/volume-SQ"), interval: int = 5,
-    listing_fn: Callable[..., list[dict]] = list_projects,
+    listing_fn: Callable[..., list[dict]] = list_projects_with_status,
     start_fn: Callable[..., dict] = gui_start_project,
     monitor_fn: Callable[..., dict] = run_monitor,
 ) -> dict:

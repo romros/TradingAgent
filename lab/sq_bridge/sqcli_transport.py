@@ -184,6 +184,90 @@ def list_projects(base_url: str, *, timeout_seconds: int = 15,
     return projects
 
 
+def merge_project_statuses(projects: list[dict], payload: object) -> list[dict]:
+    """Join REST project identity with authoritative TaskManager liveness.
+
+    Current SQX builds omit ``runningStatus`` from ``listProjects``.  Missing
+    status must never be interpreted as idle because that can start a second
+    project while SQ is already working.
+    """
+    if not isinstance(payload, dict) or not isinstance(
+            payload.get("customProjectStats"), list):
+        raise RuntimeError("SQCLI TaskManager status snapshot missing")
+    statuses: dict[str, int] = {}
+    for row in payload["customProjectStats"]:
+        if not isinstance(row, dict) or not isinstance(row.get("projectName"), str):
+            raise RuntimeError("SQCLI TaskManager project identity invalid")
+        name, status = row["projectName"], row.get("runningStatus")
+        if (name in statuses or not isinstance(status, int)
+                or isinstance(status, bool) or status < 0):
+            raise RuntimeError("SQCLI TaskManager running status invalid")
+        statuses[name] = status
+    names = [row.get("projectName") for row in projects]
+    if (any(not isinstance(name, str) or not name for name in names)
+            or len(names) != len(set(names)) or set(names) != set(statuses)):
+        raise RuntimeError("SQCLI REST and TaskManager project sets differ")
+    return [{**row, "runningStatus": statuses[row["projectName"]]}
+            for row in projects]
+
+
+async def _gui_list_projects_with_status(base_url: str,
+                                         timeout_seconds: float) -> list[dict]:
+    parsed = urllib.parse.urlparse(base_url)
+    if parsed.scheme not in {"http", "https"} or not parsed.hostname:
+        raise ValueError("invalid SQCLI GUI base URL")
+    projects = await asyncio.to_thread(
+        list_projects, base_url, timeout_seconds=max(1, int(timeout_seconds)))
+    ws_scheme = "wss" if parsed.scheme == "https" else "ws"
+    port = f":{parsed.port}" if parsed.port else ""
+    websocket_url = f"{ws_scheme}://{parsed.hostname}{port}/websocket/updates"
+    deadline = time.monotonic() + timeout_seconds
+    async with websockets.connect(websocket_url) as socket:
+        await socket.send(json.dumps({"action": "setup", "app": "TASKMANAGER"}))
+        for row in projects:
+            await socket.send(json.dumps({
+                "action": "subscribe", "projectName": row["projectName"],
+                "channel": "engine-channel",
+            }))
+        engine_statuses: dict[str, int] = {}
+        while True:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                raise RuntimeError("SQCLI TaskManager status snapshot timed out")
+            try:
+                payload = json.loads(await asyncio.wait_for(socket.recv(), remaining))
+            except TimeoutError as exc:
+                raise RuntimeError(
+                    "SQCLI TaskManager status snapshot timed out") from exc
+            if isinstance(payload, dict) and "customProjectStats" in payload:
+                return merge_project_statuses(projects, payload)
+            project_data = payload.get("projectData") if isinstance(payload, dict) else None
+            if isinstance(project_data, dict):
+                name = project_data.get("name")
+                channels = project_data.get("channels")
+                for item in channels if isinstance(channels, list) else []:
+                    if (isinstance(item, dict)
+                            and item.get("name") == "engine-channel"):
+                        engine = item.get("data")
+                        status = (engine.get("runningStatus")
+                                  if isinstance(engine, dict) else None)
+                        if (isinstance(name, str) and isinstance(status, int)
+                                and not isinstance(status, bool) and status >= 0):
+                            engine_statuses[name] = status
+            if len(engine_statuses) == len(projects):
+                return merge_project_statuses(projects, {
+                    "customProjectStats": [
+                        {"projectName": name, "runningStatus": status}
+                        for name, status in engine_statuses.items()
+                    ]})
+
+
+def list_projects_with_status(base_url: str, *,
+                              timeout_seconds: float = 15) -> list[dict]:
+    """Return every SQ project with a proved, never inferred, running status."""
+    return asyncio.run(_gui_list_projects_with_status(base_url, timeout_seconds))
+
+
 def gui_open_project(base_url: str, container_path: str,
                      *, timeout_seconds: int = 30,
                      opener: Callable[..., object] = urllib.request.urlopen) -> dict:

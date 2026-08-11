@@ -10,7 +10,7 @@ from typing import Any, Callable
 
 from lab.sq_bridge.candle_source_contract_v4 import verify as verify_candles
 from lab.sq_bridge.sq_final_holdout_stage_v4 import run_stage
-from lab.sq_bridge.sqcli_transport import list_projects
+from lab.sq_bridge.sqcli_transport import list_projects_with_status
 from lab.sq_bridge.us500_d1_market_preflight_v4 import write_atomic
 
 
@@ -57,7 +57,7 @@ def _own_resumable(work_dir: Path, running: list[str]) -> bool:
 
 def tick(*, small_account_worker_dir: Path, output_dir: Path,
          worker_config_path: Path,
-         listing_fn: Callable[..., list[dict]] = list_projects,
+         listing_fn: Callable[..., list[dict]] = list_projects_with_status,
          holdout_fn: Callable[..., dict] = run_stage) -> dict[str, Any]:
     sizing_receipt_path = (
         small_account_worker_dir.resolve() / "small_account_worker_receipt.json")

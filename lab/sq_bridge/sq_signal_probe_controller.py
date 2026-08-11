@@ -16,7 +16,7 @@ from lab.sq_bridge.sq_signal_probe_build import SUPPORTED_SIGNAL_SOURCE_SHA256
 from lab.sq_bridge.sqcli_supervised_retest import (
     inspect_signal_probe_runtime, supervised_retest, verify_retest_receipt,
 )
-from lab.sq_bridge.sqcli_transport import CONTAINER_NAME, list_projects
+from lab.sq_bridge.sqcli_transport import CONTAINER_NAME, list_projects_with_status
 from lab.sq_bridge.us500_d1_market_preflight_v4 import write_atomic
 
 
@@ -159,7 +159,7 @@ def start(*, journal_path: Path, build_receipt_path: Path, output_dir: Path,
           probe_name: str = "sqcli-signal-probe",
           base_url: str = "http://127.0.0.1:8080",
           runner: Callable[..., subprocess.CompletedProcess] = subprocess.run,
-          list_fn: Callable[..., list[dict]] = list_projects,
+          list_fn: Callable[..., list[dict]] = list_projects_with_status,
           sleep_fn: Callable[[float], None] = time.sleep) -> dict:
     journal_path = journal_path.resolve()
     if journal_path.exists():
@@ -274,7 +274,7 @@ def _restore_from_journal(*, journal_path: Path,
 
 def restore(*, journal_path: Path, base_url: str = "http://127.0.0.1:8080",
             runner: Callable[..., subprocess.CompletedProcess] = subprocess.run,
-            list_fn: Callable[..., list[dict]] = list_projects,
+            list_fn: Callable[..., list[dict]] = list_projects_with_status,
             sleep_fn: Callable[[float], None] = time.sleep) -> dict:
     return _restore_from_journal(
         journal_path=journal_path, runner=runner, list_fn=list_fn,
@@ -290,7 +290,7 @@ def capture_retest(
         base_url: str = "http://127.0.0.1:8080",
         interval: int = 2, timeout_seconds: int = 1800,
         runner: Callable[..., subprocess.CompletedProcess] = subprocess.run,
-        list_fn: Callable[..., list[dict]] = list_projects,
+        list_fn: Callable[..., list[dict]] = list_projects_with_status,
         sleep_fn: Callable[[float], None] = time.sleep,
         supervised_fn: Callable[..., dict] = supervised_retest,
         verify_fn: Callable[..., dict] = verify_retest_receipt) -> dict:

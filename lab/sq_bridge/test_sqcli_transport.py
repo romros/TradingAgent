@@ -8,7 +8,8 @@ import pytest
 
 from lab.sq_bridge.sqcli_transport import (
     docker_exec_http_call, docker_project_final_log, docker_project_final_stats, gui_project_action,
-    gui_open_project, gui_start_project, list_projects, parse_project_final_log,
+    gui_open_project, gui_start_project, list_projects, merge_project_statuses,
+    parse_project_final_log,
     project_listing, select_project_stats, trigger_project_listing,
 )
 
@@ -209,3 +210,22 @@ def test_list_projects_rejects_malformed_payload():
             {"projectName": "P"}]
     with pytest.raises(RuntimeError, match="invalid project listing"):
         list_projects("http://sq", opener=lambda *_1, **_2: Response(b'{"projects":{}}'))
+
+
+def test_rest_project_listing_requires_authoritative_taskmanager_status():
+    projects = [
+        {"projectName": "A", "hasUnresolvedResources": False},
+        {"projectName": "B", "hasUnresolvedResources": False},
+    ]
+    result = merge_project_statuses(projects, {"customProjectStats": [
+        {"projectName": "A", "runningStatus": 0},
+        {"projectName": "B", "runningStatus": 2},
+    ]})
+    assert [row["runningStatus"] for row in result] == [0, 2]
+    with pytest.raises(RuntimeError, match="sets differ"):
+        merge_project_statuses(projects, {"customProjectStats": [
+            {"projectName": "A", "runningStatus": 0}]})
+    with pytest.raises(RuntimeError, match="running status"):
+        merge_project_statuses(projects, {"customProjectStats": [
+            {"projectName": "A", "runningStatus": 0},
+            {"projectName": "B"}]})

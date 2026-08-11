@@ -117,6 +117,11 @@ def tick(*, temporal_worker_dir: Path, output_dir: Path,
         temporal.get("methodology_path"), temporal.get("methodology_sha256"),
         "frozen temporal methodology", temporal_path.parent)
     config = _load(worker_config_path.resolve())
+    execution_max_leverage = config.get("brokerage_api_max_leverage")
+    if (not isinstance(execution_max_leverage, (int, float))
+            or isinstance(execution_max_leverage, bool)
+            or execution_max_leverage < 1):
+        raise ValueError("brokerage API leverage cap missing")
     projects_root = Path(str(config.get("host_projects_root", ""))).resolve()
     if not projects_root.is_dir():
         raise ValueError("SQCLI projects root missing")
@@ -145,7 +150,8 @@ def tick(*, temporal_worker_dir: Path, output_dir: Path,
         campaign_id=campaign_id, temporal_artifact_path=temporal_path,
         methodology_path=methodology_path, cost_model_path=cost_path,
         work_dir=work_dir, host_projects_root=projects_root,
-        artifact_path=artifact_path, venue_max_leverage=max_leverage)
+        artifact_path=artifact_path, venue_max_leverage=max_leverage,
+        execution_max_leverage=float(execution_max_leverage))
     if artifact.get("decision") not in {"PASS", "REJECT"}:
         raise ValueError("robustness stage returned an invalid decision")
     result = {
@@ -160,6 +166,7 @@ def tick(*, temporal_worker_dir: Path, output_dir: Path,
         "temporal_artifact_path": str(temporal_path),
         "temporal_artifact_sha256": _sha(temporal_path),
         "venue_max_leverage": max_leverage,
+        "execution_max_leverage": float(execution_max_leverage),
         "overnight_leverage_semantics": "zero_means_no_stock_day_trading_override_for_forex",
         "holdout_accessed": False, "paper_authorized": False,
         "live_authorized": False,

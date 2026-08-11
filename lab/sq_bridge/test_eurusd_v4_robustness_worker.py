@@ -46,7 +46,8 @@ def _fixture(tmp_path):
         "temporal_artifact_sha256": _sha(temporal)})
     projects = tmp_path / "projects"; projects.mkdir()
     config = _write(tmp_path / "config.json", {
-        "base_url": "http://sq", "host_projects_root": str(projects)})
+        "base_url": "http://sq", "host_projects_root": str(projects),
+        "brokerage_api_max_leverage": 100})
     return temporal_dir, output, config, projects
 
 
@@ -104,6 +105,8 @@ def test_waits_for_foreign_sq_and_runs_then_replays_native_robustness(tmp_path):
     first = tick(**common)
     assert first["decision"] == "PASS_ROBUSTNESS"
     assert first["venue_max_leverage"] == 200
+    assert first["execution_max_leverage"] == 100
+    assert called[0]["execution_max_leverage"] == 100
     assert called[0]["work_dir"] == projects / "ALQ4_RUNTIME/eurusd-d1-alquimia-v4/robustness"
     assert tick(**common) == first
     assert len(called) == 1

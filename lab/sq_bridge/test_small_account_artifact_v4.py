@@ -301,7 +301,7 @@ def test_realized_gap_loss_above_three_percent_rejects_candidate(tmp_path):
     assert artifact["candidate_ids"] == []
 
 
-def test_eurusd_venue_maximum_is_evaluated_and_must_be_rejected_explicitly(tmp_path):
+def test_eurusd_broker_api_cap_prevents_non_executable_leverage_selection(tmp_path):
     methodology = json.loads((ROOT / "methodology_v4.json").read_text())
     trace = _trace()
     trace["venue_max_leverage"] = 200
@@ -310,10 +310,11 @@ def test_eurusd_venue_maximum_is_evaluated_and_must_be_rejected_explicitly(tmp_p
     result = evaluate_trace(trace, methodology["small_account"], {
         "tested_leverage": 100, "venue_max_leverage": 200},
         json.loads(costs.read_text()), trace["cost_model_sha256"])
-    assert result["evaluated_leverage_grid"][-2:] == [150, 200]
-    assert set(result["higher_leverage_rejection_reasons"]) >= {"150", "200"}
-    assert "exceeds_robustness_tested_leverage" in result[
-        "higher_leverage_rejection_reasons"]["200"]
+    assert result["venue_max_leverage"] == 200
+    assert result["execution_max_leverage"] == 100
+    assert result["evaluated_leverage_grid"][-1] == 100
+    assert 150 not in result["evaluated_leverage_grid"]
+    assert 200 not in result["evaluated_leverage_grid"]
 
 
 def test_upfront_stress_cost_consumes_reserve_before_leverage_selection(tmp_path):

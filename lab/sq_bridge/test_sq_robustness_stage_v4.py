@@ -118,7 +118,7 @@ def test_orchestrates_native_robustness_and_selects_highest_safe_leverage(tmp_pa
         methodology_path=Path(__file__).with_name("methodology_v4.json"),
         cost_model_path=costs, work_dir=root / "robustness",
         host_projects_root=root, artifact_path=tmp_path / "05_robustness.json",
-        venue_max_leverage=100,
+        venue_max_leverage=200, execution_max_leverage=100,
         generate_mc_fn=funcs[0], verify_mc_fn=funcs[1], mc_fn=funcs[2],
         materialize_fn=funcs[3], export_fn=funcs[4], derive_fn=funcs[5],
         evaluate_fn=funcs[6], artifact_fn=funcs[7])
@@ -142,4 +142,5 @@ def test_frozen_costs_and_mounted_workdir_are_mandatory(tmp_path):
             methodology_path=Path(__file__).with_name("methodology_v4.json"),
             cost_model_path=costs, work_dir=tmp_path / "work",
             host_projects_root=tmp_path / "projects",
-            artifact_path=tmp_path / "artifact.json", venue_max_leverage=100)
+            artifact_path=tmp_path / "artifact.json", venue_max_leverage=100,
+            execution_max_leverage=100)

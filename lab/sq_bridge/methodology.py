@@ -209,6 +209,11 @@ def validate(config: dict) -> list[str]:
             errors.append("small_account: seleccio de candidat no determinista")
         if small.get("leverage_selection_policy") != "maximum_safe_in_grid_up_to_venue_limit":
             errors.append("small_account: politica de leverage maxim segur obligatoria")
+        execution_cap = small.get("brokerage_api_max_leverage")
+        if (not isinstance(execution_cap, (int, float))
+                or isinstance(execution_cap, bool) or execution_cap < 1
+                or execution_cap > 100):
+            errors.append("small_account: limit executable del broker invalid")
         if small.get("required_stop_loss") is not True:
             errors.append("small_account: stop obligatori")
         if small.get("require_observed_venue_minimum_notional") is not True:

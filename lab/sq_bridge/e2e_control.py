@@ -107,6 +107,7 @@ def payload(stage: str, candidate_ids: list[str], holdout: bool) -> dict:
                                     "minimum_reserve_pct_policy": 40,
                                     "minimum_stop_to_liquidation_buffer_ratio_policy": 1.5,
                                     "selected_leverage": 5, "venue_max_leverage": 100,
+                                    "execution_max_leverage": 100,
                                     "leverage_selection_policy": "maximum_safe_in_grid_up_to_venue_limit",
                                     "evaluated_leverage_grid": [1, 2, 3, 5, 8, 10, 15, 20, 30, 50, 75, 100],
                                     "higher_leverage_rejection_reasons": {
@@ -140,6 +141,7 @@ def payload(stage: str, candidate_ids: list[str], holdout: bool) -> dict:
                                             "stop_distance_pct": 1,
                                             "position_notional_usdc": 300,
                                             "venue_max_leverage": 100,
+                                            "execution_max_leverage": 100,
                                             "robustness_tested_leverage": 5,
                                             "evaluated_leverage_grid": [
                                                 1, 2, 3, 5, 8, 10, 15, 20, 30, 50, 75, 100],

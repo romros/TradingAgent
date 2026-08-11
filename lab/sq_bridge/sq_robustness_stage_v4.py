@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 from pathlib import Path
 from typing import Callable
 
@@ -51,7 +52,7 @@ def run_stage(
     *, campaign_id: str, temporal_artifact_path: Path,
     methodology_path: Path, cost_model_path: Path, work_dir: Path,
     host_projects_root: Path, artifact_path: Path,
-    venue_max_leverage: float,
+    venue_max_leverage: float, execution_max_leverage: float,
     generate_mc_fn: Callable[..., dict] = generate_mc,
     verify_mc_fn: Callable[..., dict] = verify_mc_project,
     mc_fn: Callable[..., dict] = supervised_monte_carlo,
@@ -84,10 +85,20 @@ def run_stage(
     robust_gate = {
         **methodology["robustness"],
         "allowed_leverage_grid": methodology["small_account"]["leverage_grid"],
+        "brokerage_api_max_leverage": methodology["small_account"][
+            "brokerage_api_max_leverage"],
     }
+    if (not isinstance(execution_max_leverage, (int, float))
+            or isinstance(execution_max_leverage, bool)
+            or not math.isfinite(execution_max_leverage)
+            or execution_max_leverage < 1):
+        raise ValueError("INVALID_EXECUTION_MAX_LEVERAGE")
+    registered_execution_cap = robust_gate.get("brokerage_api_max_leverage")
+    if execution_max_leverage != registered_execution_cap:
+        raise ValueError("EXECUTION_LEVERAGE_CAP_NOT_PREREGISTERED")
     leverage_grid = sorted(
         (value for value in robust_gate["allowed_leverage_grid"]
-         if value <= venue_max_leverage), reverse=True)
+         if value <= min(venue_max_leverage, execution_max_leverage)), reverse=True)
     if not leverage_grid:
         raise ValueError("NO_LEVERAGE_ALLOWED_BY_OSTIUM_MARKET")
     cost_hash = _sha(cost_model_path)
@@ -216,6 +227,8 @@ def run_stage(
         "methodology_path": str(methodology_path.resolve()),
         "methodology_sha256": _sha(methodology_path),
         "supervised_monte_carlo_evidence": stage_evidence,
+        "venue_max_leverage": venue_max_leverage,
+        "execution_max_leverage": execution_max_leverage,
         "leverage_selection_policy": "highest_preregistered_grid_value_passing_all_robustness_gates",
     })
     artifact_path.write_text(json.dumps(artifact, indent=2, sort_keys=True) + "\n")
@@ -230,6 +243,7 @@ def main() -> None:
     parser.add_argument("--work-dir", required=True, type=Path)
     parser.add_argument("--host-projects-root", required=True, type=Path)
     parser.add_argument("--venue-max-leverage", required=True, type=float)
+    parser.add_argument("--execution-max-leverage", required=True, type=float)
     parser.add_argument("--artifact-output", required=True, type=Path)
     parser.add_argument("--methodology", type=Path,
                         default=Path(__file__).with_name("methodology_v4.json"))
@@ -240,7 +254,8 @@ def main() -> None:
         methodology_path=args.methodology, cost_model_path=args.cost_model,
         work_dir=args.work_dir, host_projects_root=args.host_projects_root,
         artifact_path=args.artifact_output,
-        venue_max_leverage=args.venue_max_leverage)
+        venue_max_leverage=args.venue_max_leverage,
+        execution_max_leverage=args.execution_max_leverage)
     print(json.dumps({"decision": result["decision"],
                       "candidate_ids": result["candidate_ids"]}, indent=2))
 

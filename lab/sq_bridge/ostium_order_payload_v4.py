@@ -83,9 +83,13 @@ def build_order_template(*, config_path: Path, instruction: dict,
     entry = _finite(instruction.get("entry_price"), "preu de senyal")
     stop = _finite(instruction.get("stop_price"), "stop")
     runtime_cap = _finite(operational_max_leverage, "limit operatiu")
+    package_execution_cap = _finite(
+        config.get("execution_max_leverage"), "limit executable del paquet")
+    if package_execution_cap != BROKERAGE_API_MAX_LEVERAGE:
+        raise ValueError("contracte de leverage del paquet no coincideix amb BrokerageService")
     if leverage < 1 or leverage != int(leverage):
         raise ValueError("Ostium adapter requereix leverage enter")
-    effective_cap = min(BROKERAGE_API_MAX_LEVERAGE, runtime_cap)
+    effective_cap = min(package_execution_cap, runtime_cap)
     if leverage > effective_cap:
         raise ValueError(
             f"leverage {leverage:g}x supera el limit executable {effective_cap:g}x")

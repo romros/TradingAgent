@@ -226,7 +226,10 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
         expectancy[scenario] = sum(values) / len(values)
         maximum_loss_pct = max(maximum_loss_pct, -min(values) / capital * 100)
 
-    grid = [value for value in gate["leverage_grid"] if value <= venue_max]
+    execution_max = _number(
+        gate.get("brokerage_api_max_leverage"), "Limit API broker invalid")
+    grid = [value for value in gate["leverage_grid"]
+            if value <= min(venue_max, execution_max)]
     evaluations, safe = {}, []
     worst_liquidation_erosion = max(liquidation_erosions)
     # Reserve the full stress round-trip (including the stress oracle policy)
@@ -310,6 +313,7 @@ def evaluate_trace(trace: dict, gate: dict, robustness_metric: dict,
         "venue_minimum_notional_usdc": venue_min_notional,
         "minimum_notional_pass": min(notionals) >= venue_min_notional,
         "venue_max_leverage": venue_max,
+        "execution_max_leverage": execution_max,
         "cost_notional_bucket_usdc": max(cost_buckets),
         "cost_roundtrip_bps_by_scenario": {
             scenario: max(row[scenario] for row in cost_bps_rows)
@@ -415,6 +419,7 @@ def build_artifact(*, campaign_id: str, trace_paths: list[Path],
             "reserve_pct": row["reserve_pct"],
             "selected_leverage": row["selected_leverage"],
             "venue_max_leverage": row["venue_max_leverage"],
+            "execution_max_leverage": row["execution_max_leverage"],
             "leverage_selection_policy": gate["leverage_selection_policy"],
             "evaluated_leverage_grid": row["evaluated_leverage_grid"],
             "higher_leverage_rejection_reasons": row["higher_leverage_rejection_reasons"],

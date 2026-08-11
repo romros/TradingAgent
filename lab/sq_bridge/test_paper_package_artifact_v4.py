@@ -111,6 +111,7 @@ def test_paper_package_binds_ostium_risk_ir_and_parity_without_signer(tmp_path):
     config = json.loads((tmp_path / "paper.json").read_text())
     assert config["ostium_pair_id"] == "control-pair"
     assert config["selected_leverage"] == 5
+    assert config["execution_max_leverage"] == 100
     assert config["capital_committed_usdc"] == 60
     assert config["reserve_usdc"] == 140
     assert config["risk_per_trade_pct"] == 1.5
@@ -173,6 +174,7 @@ def test_verified_package_sizes_dynamic_stop_without_sending_order(tmp_path):
     assert result["actual_stop_risk_usdc"] == pytest.approx(3)
     assert result["position_notional_usdc"] == pytest.approx(300)
     assert result["collateral_usdc"] == pytest.approx(60)
+    assert result["execution_max_leverage"] == 100
     assert result["stress_entry_cost_usdc"] == pytest.approx(.06)
 
 

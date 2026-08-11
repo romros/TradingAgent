@@ -428,6 +428,15 @@ liquidació), el màxim 100x de l'esquema HTTP actual i el `MAX_LEVERAGE` operat
 revalidar direcció/distància del stop abans que una futura capa d'execució paper
 pugui enviar res.
 
+La selecció de leverage també separa els dos límits: la fórmula de liquidació
+rep el `venue_max_leverage` observat del parell (200x per EURUSD), mentre la
+graella de robustesa i compte petit queda acotada pel
+`brokerage_api_max_leverage` preregistrat (100x). El worker rebutja una
+configuració runtime que no coincideixi amb la metodologia, i el paquet paper
+torna a vincular el mateix cap. El `MAX_LEVERAGE` live, 10x per defecte, és un
+guard de desplegament addicional que s'ha de configurar explícitament; no altera
+retroactivament els càlculs de liquidació ni autoritza live.
+
 Aquesta última garantia és executable: `methodology_v4.json` preregistra
 genètica 80% crossover / 20% mutació i migració 5 generacions / 10%, i espais
 separats per família. Breakout usa períodes 20–100 i sortides 8–25 barres;

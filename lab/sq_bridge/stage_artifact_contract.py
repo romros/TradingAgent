@@ -1197,6 +1197,7 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
         capital = artifact.get("capital_usdc")
         leverage = artifact.get("selected_leverage")
         venue_max = artifact.get("venue_max_leverage")
+        execution_max = artifact.get("execution_max_leverage")
         notional = artifact.get("position_notional_usdc")
         collateral = artifact.get("collateral_usdc")
         entry_cost_buffer = artifact.get("entry_cost_buffer_usdc")
@@ -1205,8 +1206,11 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
         evaluated = artifact.get("evaluated_leverage_grid")
         leverage_numeric = isinstance(leverage, (int, float)) and not isinstance(leverage, bool)
         venue_numeric = isinstance(venue_max, (int, float)) and not isinstance(venue_max, bool)
-        expected_grid = ([value for value in small["leverage_grid"] if value <= venue_max]
-                         if venue_numeric else None)
+        execution_numeric = (isinstance(execution_max, (int, float))
+                             and not isinstance(execution_max, bool))
+        expected_grid = ([value for value in small["leverage_grid"]
+                          if value <= min(venue_max, execution_max)]
+                         if venue_numeric and execution_numeric else None)
         higher = ([value for value in expected_grid if value > leverage]
                   if expected_grid is not None and leverage in expected_grid else None)
         rejections = artifact.get("higher_leverage_rejection_reasons")
@@ -1287,6 +1291,7 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                     and all(artifact.get(key) == selected_metric.get(key) for key in (
                         "risk_per_trade_pct", "portfolio_margin_pct", "reserve_pct",
                         "selected_leverage", "venue_max_leverage",
+                        "execution_max_leverage",
                         "evaluated_leverage_grid", "higher_leverage_rejection_reasons",
                         "position_notional_usdc", "minimum_position_notional_usdc",
                         "maximum_position_notional_usdc",
@@ -1297,6 +1302,9 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                         "stop_distance_pct", "liquidation_distance_pct",
                         "stop_to_liquidation_buffer_ratio")),
                 "VENUE_LEVERAGE": leverage_numeric and venue_numeric and venue_max >= leverage,
+                "EXECUTION_LEVERAGE": leverage_numeric and execution_numeric
+                    and execution_max == small.get("brokerage_api_max_leverage")
+                    and execution_max >= leverage,
                 "LEVERAGE_POLICY": artifact.get("leverage_selection_policy")
                     == small["leverage_selection_policy"],
                 "LEVERAGE_GRID": expected_grid is not None and evaluated == expected_grid,

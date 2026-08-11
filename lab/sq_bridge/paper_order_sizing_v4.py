@@ -52,6 +52,8 @@ def size_entry(*, config_path: Path, equity_usdc: float,
         raise ValueError("nocional runtime per sota de l'envolupant validada")
     leverage = _number(config["selected_leverage"], "leverage")
     venue_max = _number(config["venue_max_leverage"], "leverage maxim Ostium")
+    execution_max = _number(
+        config["execution_max_leverage"], "leverage maxim executable")
     bucket, variable, fixed, carry = select_cost_envelope(costs, notional)
     stress_cost = notional * variable["stress"] / 10_000 + fixed["stress"]
     stress_bps = variable["stress"] + fixed["stress"] / notional * 10_000
@@ -68,6 +70,8 @@ def size_entry(*, config_path: Path, equity_usdc: float,
     reasons = []
     if leverage > venue_max:
         reasons.append("leverage_above_venue_limit")
+    if leverage > execution_max:
+        reasons.append("leverage_above_execution_limit")
     if margin_pct > _number(
             config["maximum_portfolio_margin_pct_policy"], "limit de marge"):
         reasons.append("portfolio_margin_above_limit")
@@ -93,6 +97,7 @@ def size_entry(*, config_path: Path, equity_usdc: float,
         "cost_notional_bucket_usdc": bucket,
         "stress_entry_cost_usdc": stress_cost,
         "selected_leverage": leverage, "collateral_usdc": collateral,
+        "execution_max_leverage": execution_max,
         "capital_committed_usdc": committed,
         "portfolio_margin_pct": margin_pct,
         "reserve_usdc": reserve, "reserve_pct": reserve_pct,

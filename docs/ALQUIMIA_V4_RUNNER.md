@@ -93,6 +93,53 @@ abans d'obrir cada projecte i un checkpoint `VERIFIED` després de reexportar el
 CFX. Un batch complet es pot repetir sense cap mutació; un batch interromput
 continua només els intents propis que coincideixen en projecte i hash font.
 
+## Paritat observada amb probe
+
+La paritat nativa ja no accepta traces preparats manualment. El Retest que
+captura els senyals s'executa amb el JAR instrumentat en un contenidor aïllat i
+el supervisor rep les dues opcions següents:
+
+```bash
+python -m lab.sq_bridge.sqcli_supervised_retest \
+  --cfx /state/parity/retest.cfx \
+  --manifest /state/parity/retest.manifest.json \
+  --output-dir /state/parity/retest-run \
+  --container sqcli-signal-probe \
+  --signal-probe-build-receipt /state/parity/probe-build/receipt.json \
+  --signal-probe-raw-log /state/parity/probe-output/raw.log
+```
+
+Abans d'iniciar, el supervisor inspecciona Docker i exigeix el JAR exacte
+muntat read-only sobre `internal/libs/Snippets.jar`, la variable de log i el
+mount writable que resol al fitxer host declarat. Una execució nova rebutja un
+log preexistent. El rebut final conserva el hash del log produït.
+
+El command `parity` del manifest reconstrueix després normalització, senyals,
+traces i artefacte en una sola invocació:
+
+```json
+{
+  "command": [
+    ".venv/bin/python", "-m", "lab.sq_bridge.sq_parity_stage_v4",
+    "--campaign-id", "CAMPAIGN_ID",
+    "--translation-artifact", "{state_dir}/artifacts/08_python_translation.json",
+    "--retest-receipt", "{state_dir}/parity/retest-run/supervised_retest_receipt.json",
+    "--market-data", "/path/to/full-dukascopy-history.csv",
+    "--methodology", "lab/sq_bridge/methodology_v4.json",
+    "--work-dir", "{state_dir}/parity/rebuilt",
+    "--artifact-output", "{artifact}"
+  ],
+  "timeout_seconds": 1800,
+  "cwd": "/mnt/volume-SQ/dev/TradingAgent"
+}
+```
+
+El verificador reobre el `parity-source-bundle.json` i encreua traducció,
+Retest, JAR, raw log, parser, normalització, històric complet, IR i traces. Una
+modificació posterior de qualsevol font invalida la cadena. El contenidor
+aïllat és responsabilitat de l'orquestrador operatiu; el stage no atura ni
+substitueix silenciosament un SQCLI actiu.
+
 ## Límit actual
 
 El runner prova l'orquestració i recuperació. Encara falta una campanya real v4

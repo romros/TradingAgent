@@ -769,6 +769,15 @@ PYTHONPATH=../.. python3 python_parity_trace_v4.py \
   --notional-usdc 200 --output /path/to/python.trace.json
 ```
 
+En una campanya v4 nativa no s'invoquen manualment els dos constructors de
+trace. `sq_parity_stage_v4.py` consumeix l'artefacte
+`08_python_translation.json`, un Retest supervisat amb
+`signal_probe_enabled=true` i l'històric complet. Normalitza el SQX post-Retest,
+exigeix igualtat semàntica amb l'IR del holdout i genera un
+`parity-source-bundle.json` hashat abans d'escriure `09_parity.json`. El
+contracte de cadena exigeix aquest bundle; dos traces sense filiació de probe
+ja no poden superar una paritat nativa.
+
 ```bash
 PYTHONPATH=../.. python3 parity_artifact_v4.py \
   --campaign-id CAMPAIGN_ID \

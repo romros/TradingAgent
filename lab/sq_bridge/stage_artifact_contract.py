@@ -571,6 +571,119 @@ def _verified_parity_sources(report: dict | None, report_path_value: Any,
     return report.get("parity_pass") is expected_pass
 
 
+def _verified_probe_parity_bundle(artifact: dict, artifact_path: str,
+                                  campaign_id: str, candidate_id: str,
+                                  report: dict | None) -> bool:
+    bundle = _verified_json(
+        artifact.get("parity_source_bundle_path"),
+        artifact.get("parity_source_bundle_sha256"), artifact_path)
+    if (bundle is None or bundle.get("schema_version") != 1
+            or bundle.get("decision") != "PASS_PARITY_SOURCE_BUNDLE"
+            or bundle.get("campaign_id") != campaign_id
+            or bundle.get("candidate_id") != candidate_id
+            or bundle.get("probe_bound_supervised_retest") is not True
+            or bundle.get("warmup_outside_evaluation_allowed") is not True
+            or bundle.get("notional_usdc") != 200
+            or report is None):
+        return False
+    base = Path(artifact_path).resolve().parent
+
+    def source(prefix: str) -> tuple[Path, dict | None]:
+        value, digest = bundle.get(f"{prefix}_path"), bundle.get(f"{prefix}_sha256")
+        if not isinstance(value, str) or not isinstance(digest, str):
+            return Path(), None
+        path = Path(value)
+        path = path if path.is_absolute() else (base / path).resolve()
+        try:
+            if hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+                return path, None
+            return path, json.loads(path.read_text())
+        except (OSError, json.JSONDecodeError):
+            return path, None
+
+    translation_path, translation = source("translation_artifact")
+    retest_path, retest = source("supervised_retest_receipt")
+    build_path, build = source("signal_probe_build_receipt")
+    signal_path, signal = source("signal_log_receipt")
+    normalization_path, normalization = source("normalization_receipt")
+    sq_trace_path, sq_trace = source("sq_trace")
+    py_trace_path, py_trace = source("python_trace")
+    raw_value, raw_digest = bundle.get("signal_probe_raw_log_path"), \
+        bundle.get("signal_probe_raw_log_sha256")
+    market_value, market_digest = bundle.get("full_market_data_path"), \
+        bundle.get("full_market_data_sha256")
+    raw = Path(raw_value) if isinstance(raw_value, str) else Path()
+    market = Path(market_value) if isinstance(market_value, str) else Path()
+    raw = raw if raw.is_absolute() else (base / raw).resolve()
+    market = market if market.is_absolute() else (base / market).resolve()
+    try:
+        raw_ok = hashlib.sha256(raw.read_bytes()).hexdigest() == raw_digest
+        market_ok = hashlib.sha256(market.read_bytes()).hexdigest() == market_digest
+    except OSError:
+        return False
+    runtime = retest.get("signal_probe_runtime") if isinstance(retest, dict) else None
+    jar = Path(build.get("output_jar_path", "")) if isinstance(build, dict) else Path()
+    try:
+        jar_ok = (jar.is_file()
+                  and hashlib.sha256(jar.read_bytes()).hexdigest()
+                    == build.get("output_jar_sha256"))
+    except OSError:
+        jar_ok = False
+    report_base = Path(artifact.get("parity_report_path", ""))
+    report_base = report_base if report_base.is_absolute() else (base / report_base).resolve()
+
+    lineage_fields = (
+        "translation_artifact", "supervised_retest_receipt",
+        "signal_probe_build_receipt", "signal_probe_raw_log",
+        "signal_log_receipt", "normalization_receipt", "full_market_data")
+    return (
+        all(artifact.get(f"{prefix}_sha256") == bundle.get(f"{prefix}_sha256")
+            for prefix in lineage_fields)
+        and translation is not None
+        and translation.get("stage") == "python_translation"
+        and translation.get("decision") == "PASS"
+        and translation.get("campaign_id") == campaign_id
+        and translation.get("candidate_ids") == [candidate_id]
+        and translation.get("translation_exact") is True
+        and retest is not None
+        and retest.get("decision") == "PASS_SUPERVISED_RETEST"
+        and retest.get("candidate_id") == candidate_id
+        and retest.get("signal_probe_enabled") is True
+        and isinstance(runtime, dict)
+        and runtime.get("decision") == "PASS_SIGNAL_PROBE_RUNTIME"
+        and runtime.get("production_sq_modified") is False
+        and runtime.get("probe_jar_read_only") is True
+        and runtime.get("build_receipt_sha256") == hashlib.sha256(build_path.read_bytes()).hexdigest()
+        and retest.get("signal_probe_raw_log_sha256") == raw_digest
+        and build is not None and build.get("decision") == "PASS_SIGNAL_PROBE_JAR"
+        and build.get("production_sq_modified") is False and jar_ok
+        and signal is not None
+        and signal.get("decision") == "PASS_COMPLETE_SQ_SIGNAL_LOG"
+        and signal.get("raw_log_sha256") == raw_digest
+        and signal.get("probe_build_receipt_sha256")
+            == hashlib.sha256(build_path.read_bytes()).hexdigest()
+        and signal.get("market_data_sha256") == market_digest
+        and normalization is not None
+        and normalization.get("decision") == "PASS_VENUE_NEUTRAL_SQX"
+        and normalization.get("fresh_sq_retest_proven") is True
+        and normalization.get("source_retest_receipt_sha256")
+            == hashlib.sha256(retest_path.read_bytes()).hexdigest()
+        and raw_ok and market_ok and sq_trace is not None and py_trace is not None
+        and report.get("sq_trace_sha256") == hashlib.sha256(sq_trace_path.read_bytes()).hexdigest()
+        and report.get("python_trace_sha256") == hashlib.sha256(py_trace_path.read_bytes()).hexdigest()
+        and sq_trace.get("orders_sha256") == retest.get("orders_csv_sha256")
+        and sq_trace.get("signals_sha256") == signal.get("signals_sha256")
+        and sq_trace.get("market_data_sha256") == market_digest
+        and py_trace.get("canonical_ir_sha256") == translation.get("canonical_ir_sha256")
+        and py_trace.get("market_data_sha256") == market_digest
+        and isinstance(bundle.get("evaluation_start"), str)
+        and isinstance(bundle.get("evaluation_end"), str)
+        and py_trace.get("evaluation_start") == bundle.get("evaluation_start")
+        and py_trace.get("evaluation_end") == bundle.get("evaluation_end")
+        and report_base.is_file()
+    )
+
+
 def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodology: dict,
                             campaign_id: str, provenance: str) -> list[str]:
     errors: list[str] = []
@@ -1385,6 +1498,10 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                     "TRACE_CONTRACT": _verified_parity_sources(
                         report, artifact.get("parity_report_path"),
                         receipt.get("artifact", ""), methodology["parity"]),
+                    "PROBE_SOURCE_BUNDLE": len(ids) == 1
+                        and _verified_probe_parity_bundle(
+                            artifact, receipt.get("artifact", ""),
+                            campaign_id, ids[0], report),
                 })
     elif stage == "paper":
         paper_config = _verified_json(

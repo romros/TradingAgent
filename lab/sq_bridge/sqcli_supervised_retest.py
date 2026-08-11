@@ -26,6 +26,83 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def inspect_signal_probe_runtime(
+        *, container: str, build_receipt_path: Path, raw_log_path: Path,
+        runner: Callable[..., subprocess.CompletedProcess] = subprocess.run) -> dict:
+    """Prove the running Retest process is wired to the exact probe JAR/log."""
+    build_receipt_path = build_receipt_path.resolve()
+    raw_log_path = raw_log_path.resolve()
+    build = json.loads(build_receipt_path.read_text())
+    jar = Path(build.get("output_jar_path", "")).resolve()
+    if (build.get("decision") != "PASS_SIGNAL_PROBE_JAR"
+            or build.get("production_sq_modified") is not False
+            or not jar.is_file()
+            or build.get("output_jar_sha256") != _sha256(jar)
+            or build.get("log_environment_variable") != "ALQUIMIA_SIGNAL_LOG_PATH"):
+        raise ValueError("SIGNAL_PROBE_BUILD_RECEIPT_INVALID")
+    inspected = runner(
+        ["docker", "inspect", container], capture_output=True, text=True,
+        timeout=30, check=False)
+    if inspected.returncode != 0:
+        raise RuntimeError("cannot inspect SQCLI signal probe container")
+    try:
+        rows = json.loads(inspected.stdout)
+        info = rows[0] if isinstance(rows, list) and len(rows) == 1 else None
+    except json.JSONDecodeError as error:
+        raise RuntimeError("invalid docker inspect response") from error
+    if (not isinstance(info, dict)
+            or info.get("State", {}).get("Running") is not True):
+        raise RuntimeError("SQCLI signal probe container is not running")
+    env_rows = info.get("Config", {}).get("Env", [])
+    env = dict(row.split("=", 1) for row in env_rows
+               if isinstance(row, str) and "=" in row)
+    container_log = env.get("ALQUIMIA_SIGNAL_LOG_PATH")
+    if not isinstance(container_log, str) or not container_log.startswith("/"):
+        raise ValueError("SIGNAL_PROBE_LOG_ENV_MISSING")
+    mounts = info.get("Mounts")
+    if not isinstance(mounts, list):
+        raise ValueError("SIGNAL_PROBE_MOUNTS_MISSING")
+
+    def exact_mount(source: Path, destination: str) -> dict | None:
+        matches = [row for row in mounts if isinstance(row, dict)
+                   and Path(str(row.get("Source", ""))).resolve() == source
+                   and row.get("Destination") == destination
+                   and row.get("RW") is False]
+        return matches[0] if len(matches) == 1 else None
+
+    jar_mount = exact_mount(jar, "/home/squser/SQ/internal/libs/Snippets.jar")
+    log_mounts = []
+    for row in mounts:
+        if not isinstance(row, dict) or row.get("RW") is not True:
+            continue
+        source = Path(str(row.get("Source", ""))).resolve()
+        destination = Path(str(row.get("Destination", "")))
+        try:
+            relative = Path(container_log).relative_to(destination)
+        except ValueError:
+            continue
+        if (source / relative).resolve() == raw_log_path:
+            log_mounts.append(row)
+    if jar_mount is None or len(log_mounts) != 1:
+        raise ValueError("SIGNAL_PROBE_RUNTIME_MOUNT_MISMATCH")
+    return {
+        "schema_version": 1,
+        "decision": "PASS_SIGNAL_PROBE_RUNTIME",
+        "container": container,
+        "container_id": info.get("Id"),
+        "build_receipt_path": str(build_receipt_path),
+        "build_receipt_sha256": _sha256(build_receipt_path),
+        "probe_jar_path": str(jar),
+        "probe_jar_sha256": _sha256(jar),
+        "probe_jar_container_path": jar_mount["Destination"],
+        "probe_jar_read_only": True,
+        "raw_log_path": str(raw_log_path),
+        "raw_log_container_path": container_log,
+        "raw_log_mount_source": str(log_mounts[0]["Source"]),
+        "production_sq_modified": False,
+    }
+
+
 def parse_retest_final_log(text: str, output_databank: str = "PreHoldout") -> dict:
     """Prove one-input/one-output natural completion from SQ's own run log."""
     if not isinstance(text, str) or "TASK FINISHED" not in text:
@@ -146,6 +223,34 @@ def verify_supervised_retest_receipt(
         raise ValueError("SUPERVISED_RETEST_SQX_IDENTITY_MISMATCH")
     if _sha256(files["orders_export_input_sqx"]) != _sha256(files["retest_output_sqx"]):
         raise ValueError("SUPERVISED_RETEST_EXPORT_INPUT_MISMATCH")
+    if result.get("signal_probe_enabled") is True:
+        runtime = result.get("signal_probe_runtime")
+        raw_log = Path(result.get("signal_probe_raw_log_path", "")).resolve()
+        if (not isinstance(runtime, dict)
+                or runtime.get("decision") != "PASS_SIGNAL_PROBE_RUNTIME"
+                or runtime.get("production_sq_modified") is not False
+                or runtime.get("probe_jar_read_only") is not True
+                or runtime.get("raw_log_path") != str(raw_log)
+                or not raw_log.is_file() or raw_log.stat().st_size == 0
+                or result.get("signal_probe_raw_log_sha256") != _sha256(raw_log)
+                or result.get("signal_probe_raw_log_bytes") != raw_log.stat().st_size):
+            raise ValueError("SUPERVISED_RETEST_SIGNAL_PROBE_LOG_INVALID")
+        build_path = Path(runtime.get("build_receipt_path", "")).resolve()
+        jar_path = Path(runtime.get("probe_jar_path", "")).resolve()
+        try:
+            build = json.loads(build_path.read_text())
+        except (OSError, json.JSONDecodeError) as error:
+            raise ValueError("SUPERVISED_RETEST_SIGNAL_PROBE_BUILD_INVALID") from error
+        if (runtime.get("build_receipt_sha256") != _sha256(build_path)
+                or build.get("decision") != "PASS_SIGNAL_PROBE_JAR"
+                or build.get("production_sq_modified") is not False
+                or build.get("output_jar_path") != str(jar_path)
+                or not jar_path.is_file()
+                or build.get("output_jar_sha256") != _sha256(jar_path)
+                or runtime.get("probe_jar_sha256") != _sha256(jar_path)):
+            raise ValueError("SUPERVISED_RETEST_SIGNAL_PROBE_BUILD_INVALID")
+    elif result.get("signal_probe_enabled") not in {False, None}:
+        raise ValueError("SUPERVISED_RETEST_SIGNAL_PROBE_FLAG_INVALID")
     with zipfile.ZipFile(files["retest_output_sqx"]) as archive:
         if "orders.bin" not in archive.namelist() or not archive.read("orders.bin"):
             raise ValueError("SUPERVISED_RETEST_ORDERS_BIN_MISSING")
@@ -173,6 +278,9 @@ def supervised_retest(
     completed_fn: Callable[[Path, dict], dict] | None = None,
     receipt_filename: str = "supervised_retest_receipt.json",
     receipt_decision: str = "PASS_SUPERVISED_RETEST",
+    signal_probe_build_receipt: Path | None = None,
+    signal_probe_raw_log: Path | None = None,
+    signal_probe_inspect_fn: Callable[..., dict] | None = None,
 ) -> dict:
     if not CONTAINER_NAME.fullmatch(container):
         raise ValueError("invalid SQCLI container name")
@@ -210,6 +318,16 @@ def supervised_retest(
     sync_path = output_dir / "retest_databank_sync_receipt.json"
     output_sync_path = output_dir / "retest_output_databank_sync_receipt.json"
     start_path = output_dir / "retest_start_receipt.json"
+    if (signal_probe_build_receipt is None) != (signal_probe_raw_log is None):
+        raise ValueError("signal probe requires both build receipt and raw log")
+    signal_probe_runtime = None
+    if signal_probe_build_receipt is not None and signal_probe_raw_log is not None:
+        signal_probe_raw_log = signal_probe_raw_log.resolve()
+        signal_probe_runtime = (signal_probe_inspect_fn or inspect_signal_probe_runtime)(
+            container=container,
+            build_receipt_path=signal_probe_build_receipt,
+            raw_log_path=signal_probe_raw_log,
+            runner=runner)
     preflight = {
         "schema_version": 1, "decision": "PASS_RETEST_PREFLIGHT",
         "project_name": project, "candidate_id": candidate_id,
@@ -220,12 +338,16 @@ def supervised_retest(
         "holdout_accessed": False, "holdout_access_authorized": holdout,
         "holdout_evaluation_count": 0, "sqcli_started": False,
         "paper_authorized": False, "live_authorized": False,
+        "signal_probe_enabled": signal_probe_runtime is not None,
+        "signal_probe_runtime": signal_probe_runtime,
     }
     resuming = output_dir.exists() and any(output_dir.iterdir())
     if resuming:
         if not preflight_path.is_file() or json.loads(preflight_path.read_text()) != preflight:
             raise ValueError("incomplete Retest preflight mismatch")
     else:
+        if signal_probe_raw_log is not None and signal_probe_raw_log.exists():
+            raise ValueError("new signal probe Retest requires an absent raw log")
         output_dir.mkdir(parents=True, exist_ok=True)
         write_atomic(preflight_path, preflight)
 
@@ -456,7 +578,18 @@ def supervised_retest(
         "holdout_evaluation_count": 1 if holdout else 0,
         "performance_filters_applied_in_sq": False,
         "paper_authorized": False, "live_authorized": False,
+        "signal_probe_enabled": signal_probe_runtime is not None,
+        "signal_probe_runtime": signal_probe_runtime,
     }
+    if signal_probe_raw_log is not None:
+        if (not signal_probe_raw_log.is_file()
+                or signal_probe_raw_log.stat().st_size == 0):
+            raise RuntimeError("signal probe Retest produced no raw signal log")
+        result.update({
+            "signal_probe_raw_log_path": str(signal_probe_raw_log),
+            "signal_probe_raw_log_sha256": _sha256(signal_probe_raw_log),
+            "signal_probe_raw_log_bytes": signal_probe_raw_log.stat().st_size,
+        })
     write_atomic(final_receipt, result)
     return result
 
@@ -472,12 +605,16 @@ def main() -> None:
                         default=Path("/mnt/volume-SQ/user/projects"))
     parser.add_argument("--interval", type=int, default=2)
     parser.add_argument("--timeout-seconds", type=int, default=1800)
+    parser.add_argument("--signal-probe-build-receipt", type=Path)
+    parser.add_argument("--signal-probe-raw-log", type=Path)
     args = parser.parse_args()
     print(json.dumps(supervised_retest(
         cfx_path=args.cfx, manifest_path=args.manifest,
         output_dir=args.output_dir, base_url=args.base_url,
         container=args.container, projects_root=args.projects_root,
-        interval=args.interval, timeout_seconds=args.timeout_seconds), indent=2))
+        interval=args.interval, timeout_seconds=args.timeout_seconds,
+        signal_probe_build_receipt=args.signal_probe_build_receipt,
+        signal_probe_raw_log=args.signal_probe_raw_log), indent=2))
 
 
 if __name__ == "__main__":

@@ -57,6 +57,8 @@ def _build(tmp_path, sq=None, python=None):
         "canonical_ir_sha256": hashlib.sha256(ir.read_bytes()).hexdigest(),
         "market_data_path": market.name,
         "market_data_sha256": hashlib.sha256(market.read_bytes()).hexdigest(),
+        "evaluation_start": sq_value["candles"][0],
+        "evaluation_end": sq_value["candles"][-1],
     })
     _write(sq_path, sq_value)
     _write(py_path, py_value)
@@ -66,6 +68,69 @@ def _build(tmp_path, sq=None, python=None):
         sq_trace_path=sq_path, python_trace_path=py_path,
         methodology_path=ROOT / "methodology_v4.json",
         report_path=tmp_path / "report.json", artifact_path=artifact_path)
+    raw = tmp_path / "raw.log"; raw.write_text("probe\n")
+    jar = tmp_path / "probe.jar"; jar.write_bytes(b"jar")
+    build = tmp_path / "build.json"
+    _write(build, {"decision": "PASS_SIGNAL_PROBE_JAR",
+                   "production_sq_modified": False,
+                   "output_jar_path": str(jar),
+                   "output_jar_sha256": hashlib.sha256(jar.read_bytes()).hexdigest()})
+    translation = tmp_path / "translation.json"
+    _write(translation, {"stage": "python_translation", "decision": "PASS",
+                         "campaign_id": "campaign", "candidate_ids": ["candidate"],
+                         "translation_exact": True,
+                         "canonical_ir_sha256": hashlib.sha256(ir.read_bytes()).hexdigest()})
+    retest = tmp_path / "retest.json"
+    _write(retest, {"decision": "PASS_SUPERVISED_RETEST", "candidate_id": "candidate",
+                    "orders_csv_sha256": hashlib.sha256(orders.read_bytes()).hexdigest(),
+                    "signal_probe_enabled": True,
+                    "signal_probe_raw_log_sha256": hashlib.sha256(raw.read_bytes()).hexdigest(),
+                    "signal_probe_runtime": {
+                        "decision": "PASS_SIGNAL_PROBE_RUNTIME",
+                        "production_sq_modified": False, "probe_jar_read_only": True,
+                        "build_receipt_sha256": hashlib.sha256(build.read_bytes()).hexdigest()}})
+    signal_receipt = tmp_path / "signal.receipt.json"
+    _write(signal_receipt, {
+        "decision": "PASS_COMPLETE_SQ_SIGNAL_LOG",
+        "raw_log_sha256": hashlib.sha256(raw.read_bytes()).hexdigest(),
+        "probe_build_receipt_sha256": hashlib.sha256(build.read_bytes()).hexdigest(),
+        "market_data_sha256": hashlib.sha256(market.read_bytes()).hexdigest(),
+        "signals_sha256": hashlib.sha256(signals.read_bytes()).hexdigest()})
+    normalization = tmp_path / "normalization.json"
+    _write(normalization, {"decision": "PASS_VENUE_NEUTRAL_SQX",
+                           "fresh_sq_retest_proven": True,
+                           "source_retest_receipt_sha256":
+                               hashlib.sha256(retest.read_bytes()).hexdigest()})
+    lineage_paths = {
+        "translation_artifact": translation,
+        "supervised_retest_receipt": retest,
+        "signal_probe_build_receipt": build,
+        "signal_probe_raw_log": raw,
+        "signal_log_receipt": signal_receipt,
+        "normalization_receipt": normalization,
+        "full_market_data": market,
+    }
+    bundle_path = tmp_path / "bundle.json"
+    bundle = {
+        "schema_version": 1, "decision": "PASS_PARITY_SOURCE_BUNDLE",
+        "campaign_id": "campaign", "candidate_id": "candidate",
+        "probe_bound_supervised_retest": True,
+        "warmup_outside_evaluation_allowed": True, "notional_usdc": 200,
+        "evaluation_start": py_value["evaluation_start"],
+        "evaluation_end": py_value["evaluation_end"],
+        "sq_trace_path": str(sq_path), "sq_trace_sha256": hashlib.sha256(sq_path.read_bytes()).hexdigest(),
+        "python_trace_path": str(py_path), "python_trace_sha256": hashlib.sha256(py_path.read_bytes()).hexdigest(),
+    }
+    for prefix, path in lineage_paths.items():
+        bundle[f"{prefix}_path"] = str(path)
+        bundle[f"{prefix}_sha256"] = hashlib.sha256(path.read_bytes()).hexdigest()
+    _write(bundle_path, bundle)
+    artifact["parity_source_bundle_path"] = bundle_path.name
+    artifact["parity_source_bundle_sha256"] = hashlib.sha256(bundle_path.read_bytes()).hexdigest()
+    for prefix, path in lineage_paths.items():
+        artifact[f"{prefix}_path"] = str(path)
+        artifact[f"{prefix}_sha256"] = hashlib.sha256(path.read_bytes()).hexdigest()
+    _write(artifact_path, artifact)
     return artifact, artifact_path
 
 
@@ -151,3 +216,16 @@ def test_trace_source_changed_after_capture_invalidates_parity(tmp_path):
         "parity", artifact, receipt, methodology,
         "campaign", "alquimia_native")
     assert "STAGE_ARTIFACT:parity:TRACE_CONTRACT" in errors
+
+
+def test_raw_probe_log_changed_after_capture_invalidates_source_bundle(tmp_path):
+    artifact, artifact_path = _build(tmp_path)
+    Path(artifact["signal_probe_raw_log_path"]).write_text("tampered\n")
+    methodology = json.loads((ROOT / "methodology_v4.json").read_text())
+    receipt = {"decision": "PASS", "candidate_ids": ["candidate"],
+               "holdout_accessed": False, "parity_pass": True,
+               "artifact": str(artifact_path)}
+    errors = validate_stage_artifact(
+        "parity", artifact, receipt, methodology,
+        "campaign", "alquimia_native")
+    assert "STAGE_ARTIFACT:parity:PROBE_SOURCE_BUNDLE" in errors

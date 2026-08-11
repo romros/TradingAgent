@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 
 from lab.sq_bridge.sqcli_supervised_retest import (
-    parse_retest_final_log, supervised_retest, verify_retest_receipt,
+    inspect_signal_probe_runtime, parse_retest_final_log, supervised_retest, verify_retest_receipt,
     verify_supervised_retest_receipt,
 )
 from lab.sq_bridge.alquimia_retest import generate
@@ -34,6 +34,44 @@ def test_retest_log_proves_exact_uncensored_one_candidate_execution():
                                           "Results (2), PreHoldout (0)"))
     holdout_log = LOG.replace("PreHoldout", "Holdout")
     assert parse_retest_final_log(holdout_log, "Holdout")["total_tested"] == 1
+
+
+def test_signal_probe_runtime_requires_exact_read_only_jar_and_writable_log_mount(tmp_path):
+    jar = tmp_path / "Snippets.signal-probe.jar"
+    jar.write_bytes(b"probe")
+    receipt = tmp_path / "build.json"
+    receipt.write_text(json.dumps({
+        "decision": "PASS_SIGNAL_PROBE_JAR",
+        "production_sq_modified": False,
+        "output_jar_path": str(jar),
+        "output_jar_sha256": hashlib.sha256(jar.read_bytes()).hexdigest(),
+        "log_environment_variable": "ALQUIMIA_SIGNAL_LOG_PATH",
+    }))
+    raw = tmp_path / "probe/raw.log"
+    payload = [{
+        "Id": "container-id", "State": {"Running": True},
+        "Config": {"Env": ["ALQUIMIA_SIGNAL_LOG_PATH=/probe/raw.log"]},
+        "Mounts": [
+            {"Source": str(jar),
+             "Destination": "/home/squser/SQ/internal/libs/Snippets.jar", "RW": False},
+            {"Source": str(raw.parent), "Destination": "/probe", "RW": True},
+        ],
+    }]
+
+    def runner(args, **_kwargs):
+        assert args == ["docker", "inspect", "sqcli-signal-probe"]
+        return subprocess.CompletedProcess(args, 0, json.dumps(payload), "")
+
+    result = inspect_signal_probe_runtime(
+        container="sqcli-signal-probe", build_receipt_path=receipt,
+        raw_log_path=raw, runner=runner)
+    assert result["decision"] == "PASS_SIGNAL_PROBE_RUNTIME"
+    assert result["probe_jar_read_only"] is True
+    payload[0]["Mounts"][0]["RW"] = True
+    with pytest.raises(ValueError, match="MOUNT_MISMATCH"):
+        inspect_signal_probe_runtime(
+            container="sqcli-signal-probe", build_receipt_path=receipt,
+            raw_log_path=raw, runner=runner)
 
 
 def test_supervised_retest_binds_input_output_log_and_orders_export(tmp_path):

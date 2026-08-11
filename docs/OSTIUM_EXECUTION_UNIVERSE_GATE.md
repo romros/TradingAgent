@@ -52,7 +52,10 @@ scripts/install_ostium_research_universe_capture_cron.sh
 ```
 
 Per EURUSD, el mateix job executa després
-`scripts/refresh_eurusd_v4_preflight.sh`. El freezer exigeix novament 30/3/6,
+`scripts/refresh_eurusd_v4_preflight.sh` i el trigger de screen. Mentre el
+preflight és `BLOCK`, el trigger és read-only. Al primer `PASS` congela tots els
+inputs `latest`, el CSV canònic i la metodologia abans de calcular rendiment;
+pot reprendre una interrupció i no inicia SQCLI. El freezer exigeix novament 30/3/6,
 identitat `pair_id=2 EUR/USD` i 30 observacions en cada bucket de 10 a 14.000
 USDC; si falta qualsevol condició retorna
 `BLOCK_INSUFFICIENT_EXECUTION_COVERAGE` sense promocionar mediana o p95. Quan

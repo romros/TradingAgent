@@ -11,8 +11,8 @@ from datetime import date, timedelta
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
-from methodology import validate
 from lab.sq_bridge.evidence_chain import verify as verify_chain
+from lab.sq_bridge.methodology import validate
 from lab.sq_bridge.temporal_split_contract_v4 import (
     digest as temporal_contract_digest,
     sq_periods,

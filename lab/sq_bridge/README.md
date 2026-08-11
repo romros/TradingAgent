@@ -259,20 +259,24 @@ PYTHONPATH=../.. python3 eurusd_d1_hypothesis_trace_v4.py \
 El trace queda lligat per SHA-256 al CSV canònic, al tall posicional de train i
 a totes les dates d'entrada i sortida. El gate reobre les candles i reexecuta
 les nou variants: el hash de la font sense replay exacte dels trades no basta.
-Quan el readiness autoritza el screen, el bootstrap executa trace i rebut una
-sola vegada i crea una cadena i un pla SQ separats per cada hipòtesi que passi:
+Quan el readiness autoritza el screen, el trigger operatiu congela primer tots
+els `latest`, el CSV i la metodologia en un snapshot immutable; després el
+bootstrap executa trace i rebut una sola vegada i crea una cadena i un pla SQ
+separats per cada hipòtesi que passi:
 
 ```bash
-PYTHONPATH=../.. python3 eurusd_v4_screen_bootstrap.py \
+PYTHONPATH=../.. python3 eurusd_v4_screen_trigger.py \
   --preflight /path/to/eurusd_market_preflight_latest_v4.json \
   --source /mnt/volume-SQ/user/imports/alquimia_eurusd_v4/EURUSD_ALQ_NY17_D1.csv \
-  --cost-model /path/to/eurusd_costs_frozen_v4.json \
   --output-dir /path/to/state/eurusd-v4-screen
 ```
 
-El bootstrap recompon el contracte complet del preflight, exigeix que el seu
-hash de costos sigui exactament el model rebut i no inicia SQCLI. Si cap
-hipòtesi passa, escriu `REJECT_NO_HYPOTHESIS` sense crear branques.
+En `BLOCK`, el trigger retorna `WAITING_FOR_MARKET_PREFLIGHT` sense crear estat
+ni consultar rendiment. En `PASS`, journalitza, congela i recompon el preflight
+amb les còpies; una interrupció es reprèn des del snapshot. Una repetició
+revalida hashes, cadenes i plans sense adoptar noves mostres. El bootstrap no
+inicia SQCLI. Si cap hipòtesi passa, escriu `REJECT_NO_HYPOTHESIS` sense crear
+branques.
 
 Només train és visible. El nocional canònic del screen és 200 USDC; el
 constructor verifica el model congelat, recomputa round-trip i carry, recompte

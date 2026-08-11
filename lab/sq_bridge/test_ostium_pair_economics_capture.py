@@ -31,6 +31,9 @@ def test_universe_capture_prioritizes_eurusd_and_is_failure_isolated():
     assert '${SLUG}_costs_latest_v4.json' in script
     assert 'COST_GATE_REFRESH_FAILED pair=%s' in script
     assert 'PREFLIGHT_REFRESH_FAILED pair=EUR/USD' in script
+    assert 'eurusd_v4_screen_trigger' in script
+    assert 'EURUSD_SCREEN_TRIGGER_FAILED' in script
+    assert 'ALQUIMIA_EURUSD_SCREEN_DIR' in script
     assert 'exit "$STATUS"' in script
 
 

@@ -9,9 +9,11 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+from datetime import datetime
 from pathlib import Path
 
 from lab.sq_bridge.paper_package_artifact_v4 import verify_package
+from lab.sq_bridge.small_account_artifact_v4 import select_cost_envelope
 
 
 BROKERAGE_ENDPOINT = "/api/v1/broker/orders/open"
@@ -120,8 +122,93 @@ def build_order_template(*, config_path: Path, instruction: dict,
         "market_registry_path": str(registry_path),
         "market_registry_sha256": registry_sha,
         "signal_entry_price": entry,
+        "position_notional_usdc": notional,
+        "risk_budget_usdc": _finite(instruction.get("risk_budget_usdc"), "pressupost de risc"),
+        "initial_stop_distance_pct": _finite(
+            instruction.get("initial_stop_distance_pct"), "distancia inicial de stop"),
+        "paper_execution_policy": config["paper_execution_policy"],
+        "cost_model_path": str((config_path.parent / config["cost_model_path"]).resolve()),
+        "cost_model_sha256": config["cost_model_sha256"],
         "fresh_quote_required": True,
         "stop_direction_revalidation_required": True,
+        "request_sent": False,
+        "signer_enabled": False,
+        "live_authorized": False,
+    }
+
+
+def revalidate_fresh_quote(*, template: dict, quote: dict,
+                           observed_at: datetime) -> dict:
+    """Apply preregistered quote gates without sending the prepared request."""
+    if (template.get("decision") != "PREPARED_INERT_ORDER_TEMPLATE"
+            or template.get("request_sent") is not False
+            or template.get("fresh_quote_required") is not True):
+        raise ValueError("plantilla inert no revalidable")
+    if observed_at.tzinfo is None or observed_at.utcoffset() is None:
+        raise ValueError("observed_at ha de tenir timezone")
+    policy = template.get("paper_execution_policy") or {}
+    if (policy.get("maximum_live_spread_policy")
+            != "stress_variable_roundtrip_bps_envelope"
+            or policy.get("entry_reference_price") != "brokerage_service_ostium_mid"
+            or policy.get("require_runtime_risk_at_or_below_signal_budget") is not True):
+        raise ValueError("politica de quote paper invalida")
+    try:
+        quote_time = datetime.fromisoformat(str(quote["timestamp"]).replace("Z", "+00:00"))
+    except (KeyError, TypeError, ValueError) as exc:
+        raise ValueError("timestamp del quote invalid") from exc
+    if quote_time.tzinfo is None or quote_time.utcoffset() is None:
+        raise ValueError("timestamp del quote sense timezone")
+    age = (observed_at - quote_time).total_seconds()
+    if age > _finite(policy.get("maximum_quote_age_seconds"), "edat maxima quote"):
+        raise ValueError("quote caducat")
+    if age < -_finite(policy.get("maximum_future_clock_skew_seconds"), "skew maxim quote"):
+        raise ValueError("quote massa futur")
+    body = template["request_body"]
+    if str(quote.get("symbol", "")).upper() != body["symbol"]:
+        raise ValueError("symbol del quote no coincideix")
+    bid, ask, mid = (_finite(quote.get(key), f"quote {key}")
+                     for key in ("bid", "ask", "mid"))
+    if bid <= 0 or ask <= 0 or mid <= 0 or not bid <= mid <= ask:
+        raise ValueError("bid/ask/mid incoherents")
+    side, stop = body["side"], _finite(body["sl_price"], "stop")
+    if (side == "long" and stop >= mid) or (side == "short" and stop <= mid):
+        raise ValueError("stop ha quedat al costat incorrecte del quote")
+    signal_entry = _finite(template["signal_entry_price"], "preu de senyal")
+    initial_stop_pct = _finite(
+        template["initial_stop_distance_pct"], "stop inicial")
+    deviation_bps = abs(mid / signal_entry - 1) * 10_000
+    maximum_deviation_bps = initial_stop_pct * 100 * _finite(
+        policy.get("maximum_signal_deviation_fraction_of_initial_stop"),
+        "fraccio maxima de desviacio")
+    if deviation_bps > maximum_deviation_bps:
+        raise ValueError("quote massa lluny del preu de senyal")
+    notional = _finite(template["position_notional_usdc"], "nocional")
+    runtime_risk = notional * abs(mid - stop) / mid
+    risk_budget = _finite(template["risk_budget_usdc"], "pressupost de risc")
+    if runtime_risk > risk_budget + 1e-9:
+        raise ValueError("risc runtime supera el pressupost del senyal")
+    cost_path = Path(template["cost_model_path"])
+    if not cost_path.is_file() or _sha(cost_path) != template["cost_model_sha256"]:
+        raise ValueError("model de costos absent o manipulat")
+    costs = json.loads(cost_path.read_text())
+    _, variable, _, _ = select_cost_envelope(costs, notional)
+    spread_bps = (ask - bid) / mid * 10_000
+    if spread_bps > variable["stress"]:
+        raise ValueError("spread live supera l'envolupant stress")
+    return {
+        **template,
+        "decision": "PASS_FRESH_QUOTE_REVALIDATION",
+        "quote": {"symbol": body["symbol"], "bid": bid, "ask": ask,
+                  "mid": mid, "timestamp": quote_time.isoformat()},
+        "quote_observed_at": observed_at.isoformat(),
+        "quote_age_seconds": age,
+        "signal_deviation_bps": deviation_bps,
+        "maximum_signal_deviation_bps": maximum_deviation_bps,
+        "live_spread_bps": spread_bps,
+        "stress_spread_envelope_bps": variable["stress"],
+        "runtime_stop_risk_usdc": runtime_risk,
+        "paper_request_ready": True,
+        "fresh_quote_required": False,
         "request_sent": False,
         "signer_enabled": False,
         "live_authorized": False,

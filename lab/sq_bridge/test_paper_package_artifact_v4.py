@@ -1,5 +1,6 @@
 import hashlib
 import json
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import pytest
@@ -8,7 +9,9 @@ from lab.sq_bridge.e2e_control import payload
 from lab.sq_bridge.paper_package_artifact_v4 import build_artifact
 from lab.sq_bridge.paper_order_sizing_v4 import size_entry
 from lab.sq_bridge.paper_signal_instruction_v4 import build_instruction
-from lab.sq_bridge.ostium_order_payload_v4 import build_order_template
+from lab.sq_bridge.ostium_order_payload_v4 import (
+    build_order_template, revalidate_fresh_quote,
+)
 from lab.sq_bridge.stage_artifact_contract import validate_stage_artifact
 
 
@@ -295,3 +298,48 @@ def test_no_signal_never_creates_request_body(tmp_path):
     assert result["decision"] == "NO_ORDER_TEMPLATE"
     assert result["request_sent"] is False
     assert "request_body" not in result
+
+
+def test_fresh_quote_revalidates_stop_risk_spread_without_sending(tmp_path):
+    signal = _signal(tmp_path)
+    template = build_order_template(
+        config_path=tmp_path / "paper.json", instruction=signal,
+        operational_max_leverage=10, registry_path=_registry(tmp_path))
+    now = datetime(2026, 8, 11, 12, 0, 5, tzinfo=timezone.utc)
+    result = revalidate_fresh_quote(
+        template=template,
+        quote={"symbol": "EURUSD", "bid": 102.995, "ask": 103.005,
+               "mid": 103, "timestamp": (now - timedelta(seconds=5)).isoformat()},
+        observed_at=now)
+    assert result["decision"] == "PASS_FRESH_QUOTE_REVALIDATION"
+    assert result["paper_request_ready"] is True
+    assert result["fresh_quote_required"] is False
+    assert result["runtime_stop_risk_usdc"] == pytest.approx(
+        signal["risk_budget_usdc"])
+    assert result["request_sent"] is result["signer_enabled"] is False
+    assert result["live_authorized"] is False
+
+
+def test_quote_gate_rejects_stale_risky_or_wide_quotes(tmp_path):
+    signal = _signal(tmp_path)
+    template = build_order_template(
+        config_path=tmp_path / "paper.json", instruction=signal,
+        operational_max_leverage=10, registry_path=_registry(tmp_path))
+    now = datetime(2026, 8, 11, 12, 0, 30, tzinfo=timezone.utc)
+    base = {"symbol": "EURUSD", "bid": 102.995, "ask": 103.005,
+            "mid": 103, "timestamp": now.isoformat()}
+    with pytest.raises(ValueError, match="caducat"):
+        revalidate_fresh_quote(
+            template=template,
+            quote={**base, "timestamp": (now - timedelta(seconds=11)).isoformat()},
+            observed_at=now)
+    with pytest.raises(ValueError, match="risc runtime"):
+        revalidate_fresh_quote(
+            template=template,
+            quote={**base, "bid": 103.095, "ask": 103.105, "mid": 103.1},
+            observed_at=now)
+    with pytest.raises(ValueError, match="spread live"):
+        revalidate_fresh_quote(
+            template=template,
+            quote={**base, "bid": 102.98, "ask": 103.02},
+            observed_at=now)

@@ -437,6 +437,16 @@ torna a vincular el mateix cap. El `MAX_LEVERAGE` live, 10x per defecte, és un
 guard de desplegament addicional que s'ha de configurar explícitament; no altera
 retroactivament els càlculs de liquidació ni autoritza live.
 
+Abans d'un paper open, la plantilla s'ha de revalidar amb
+`GET /api/v1/broker/price/latest?venue=ostium&symbol=...`. La política
+`paper_execution` està preregistrada i viatja dins els artefactes hashejats:
+quote de màxim 10 segons (2 segons de tolerància de rellotge), desviació màxima
+del 25% de la distància del stop inicial, `bid <= mid <= ask`, spread no superior
+a l'envolupant variable stress i risc stop→mid no superior al pressupost del
+senyal. `revalidate_fresh_quote()` només emet
+`PASS_FRESH_QUOTE_REVALIDATION`; fins i tot llavors conserva
+`request_sent=false`, signer desactivat i live no autoritzat.
+
 Aquesta última garantia és executable: `methodology_v4.json` preregistra
 genètica 80% crossover / 20% mutació i migració 5 generacions / 10%, i espais
 separats per família. Breakout usa períodes 20–100 i sortides 8–25 barres;

@@ -125,6 +125,16 @@ def payload(stage: str, candidate_ids: list[str], holdout: bool) -> dict:
                                     "liquidation_model": "ostium_threshold_cost_buffered",
                                     "candidate_selection_policy":
                                         "max_worst_cost_expectancy_then_profit_factor_then_candidate_id",
+                                    "paper_execution_policy": {
+                                        "maximum_quote_age_seconds": 10,
+                                        "maximum_future_clock_skew_seconds": 2,
+                                        "maximum_signal_deviation_fraction_of_initial_stop": .25,
+                                        "maximum_live_spread_policy":
+                                            "stress_variable_roundtrip_bps_envelope",
+                                        "entry_reference_price":
+                                            "brokerage_service_ostium_mid",
+                                        "require_runtime_risk_at_or_below_signal_budget": True,
+                                    },
                                     "evaluated_candidate_small_account_metrics": {
                                         candidate: {
                                             "trades": 30,

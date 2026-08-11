@@ -1275,6 +1275,8 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                 "SINGLE_CANDIDATE": len(receipt.get("candidate_ids", [])) == 1,
                 "CANDIDATE_SELECTION_POLICY": artifact.get("candidate_selection_policy")
                     == small["candidate_selection_policy"],
+                "PAPER_EXECUTION_POLICY": artifact.get("paper_execution_policy")
+                    == methodology.get("paper_execution"),
                 "EVALUATED_CANDIDATES": candidate_evaluated_valid,
                 "CANDIDATE_SELECTION_RECOMPUTES": selected_id is not None
                     and receipt.get("candidate_ids") == [selected_id],

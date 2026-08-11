@@ -160,6 +160,14 @@
     "maximum_pnl_mean_absolute_error_usdc": 0.005,
     "maximum_pnl_absolute_error_usdc": 0.01
   },
+  "paper_execution": {
+    "maximum_quote_age_seconds": 10,
+    "maximum_future_clock_skew_seconds": 2,
+    "maximum_signal_deviation_fraction_of_initial_stop": 0.25,
+    "maximum_live_spread_policy": "stress_variable_roundtrip_bps_envelope",
+    "entry_reference_price": "brokerage_service_ostium_mid",
+    "require_runtime_risk_at_or_below_signal_budget": true
+  },
   "evidence_chain": {
     "hash_algorithm": "sha256",
     "candidate_lineage": "SQ candidate ids may first appear at sq_generation and must then only shrink",

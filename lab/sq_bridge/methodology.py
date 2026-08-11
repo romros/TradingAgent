@@ -222,6 +222,16 @@ def validate(config: dict) -> list[str]:
             errors.append("small_account: buffer de liquidacio insuficient")
         if small.get("liquidation_model") != "ostium_threshold_cost_buffered":
             errors.append("small_account: llindar de liquidacio ha d'incloure costos")
+        paper = config.get("paper_execution") or {}
+        if (paper.get("maximum_quote_age_seconds") != 10
+                or paper.get("maximum_future_clock_skew_seconds") != 2
+                or paper.get("maximum_signal_deviation_fraction_of_initial_stop") != .25
+                or paper.get("maximum_live_spread_policy")
+                    != "stress_variable_roundtrip_bps_envelope"
+                or paper.get("entry_reference_price")
+                    != "brokerage_service_ostium_mid"
+                or paper.get("require_runtime_risk_at_or_below_signal_budget") is not True):
+            errors.append("paper_execution: politica de quote fresc invalida")
     return errors
 
 

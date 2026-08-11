@@ -3,6 +3,13 @@
 This directory is the version-controlled source of experimental StrategyQuant
 extensions.  It is not an installed production snippet bundle.
 
+`parity/AlquimiaATRParityHarness.java` bypasses SQ 143's permissive Indicator
+Tester result threshold.  It uses the real SQ `ChartData` and `DataSeries`
+classes and requires bit-for-bit equality with every Python oracle value.
+The isolated harness includes an empty `MersenneTwisterRng` constructor stub:
+SQDataLib instantiates that application-only cache dependency at startup, but
+the tested series and ATR path never invokes it.
+
 ## Semantic contract
 
 `AlquimiaH4GapSafeSMAATR` must match
@@ -26,6 +33,13 @@ strategy rule without future knowledge.  Exact evaluation therefore requires
 running each continuous source segment independently and aggregating the
 trades.  Until that segmented runner is verified, these blocks do **not**
 authorize strategy promotion and SQ remains proposal-generation-only.
+
+The four `SQ/Blocks/Alquimia` condition blocks bind signal period and gap
+validation inside one generated node.  They also require the 14-bar ATR window
+at the signal endpoint to be continuous, matching Python's signal eligibility.
+`AlquimiaSignalParityHarness` evaluates them with SQ's real shifted series at
+the next-bar entry event against Python expectations for multiple periods,
+shifts and ROC levels, including windows around a real Dukascopy data gap.
 
 The deterministic compile-only builder is
 `crypto_h4_custom_block_build_v4.py`.  Its receipt deliberately reports

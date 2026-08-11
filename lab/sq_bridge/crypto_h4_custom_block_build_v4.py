@@ -16,6 +16,11 @@ INDICATOR_SOURCE_MEMBER = (
 )
 SOURCE_MEMBERS = (
     "SQ/Utils/AlquimiaGapSafeATR.java",
+    "SQ/Utils/AlquimiaH4Signals.java",
+    "SQ/Blocks/Alquimia/AlquimiaH4MomentumAbove.java",
+    "SQ/Blocks/Alquimia/AlquimiaH4MomentumBelow.java",
+    "SQ/Blocks/Alquimia/AlquimiaH4ChannelAbove.java",
+    "SQ/Blocks/Alquimia/AlquimiaH4ChannelBelow.java",
     "SQ/Blocks/BarAndTime/AlquimiaH4WindowIsContinuous.java",
     INDICATOR_SOURCE_MEMBER,
     "SQ/Formulas/SLPT/AlquimiaH4GapSafeSMAATRValue.java",

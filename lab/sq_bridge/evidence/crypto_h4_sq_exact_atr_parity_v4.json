@@ -1,0 +1,18 @@
+{
+  "comparison": "DOUBLE_BITS_EXACT",
+  "decision": "PASS_EXACT_SQ_CHARTDATA_ATR_PARITY",
+  "differences": 0,
+  "network_used": false,
+  "oracle_path": "/tmp/alquimia-btc-h4-atr-oracle-v4.txt",
+  "oracle_sha256": "7f19cca8f1c2f5d5c3fc6a28411b54a05373a16d97357b56bfb762ae913241f7",
+  "promotion_scope": "atr_calculation_only",
+  "schema_version": 1,
+  "source_sha256": {
+    "SQ/Utils/AlquimiaGapSafeATR.java": "56556927c8016dfbd1ee7fe5e935a971968f09dfc3d6083cddcfb6585079c0ce",
+    "parity/AlquimiaATRParityHarness.java": "7c20af8eeefe641e588dd5768147635d113f59decf7ef6c6c764ddd48454c09e",
+    "parity/stubs/com/strategyquant/lib/random/MersenneTwisterRng.java": "1598a3dba017e58d57de3a1debf808561cadc7f77c319a0742619425ce005664"
+  },
+  "sq_trading_lib_sha256": "9dce0c012d84dde97582a3c0e60de92bd6d6150ecab7292808c247c47e1d05fc",
+  "stdout": "PASS_EXACT_ATR_PARITY rows=512 differences=0",
+  "strategy_promotion_authorized": false
+}

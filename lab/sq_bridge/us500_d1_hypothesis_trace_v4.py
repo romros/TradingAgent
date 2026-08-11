@@ -17,15 +17,15 @@ from lab.sq_bridge.temporal_split_contract_v4 import (
 
 
 FAMILIES = (
-    ("d1_time_series_momentum", "time_series_momentum", (
-        ("central", {"lookback": 126, "hold_bars": 8, "stop_atr": 3.0}),
-        ("lookback_105", {"lookback": 105, "hold_bars": 8, "stop_atr": 3.0}),
-        ("lookback_147", {"lookback": 147, "hold_bars": 8, "stop_atr": 3.0}),
-    )),
     ("d1_shock_reversion", "shock_reversion", (
         ("central", {"shock_atr": 1.5, "hold_bars": 5, "stop_atr": 2.0}),
         ("shock_1_25", {"shock_atr": 1.25, "hold_bars": 5, "stop_atr": 2.0}),
         ("shock_1_75", {"shock_atr": 1.75, "hold_bars": 5, "stop_atr": 2.0}),
+    )),
+    ("d1_time_series_momentum", "time_series_momentum", (
+        ("central", {"lookback": 126, "hold_bars": 8, "stop_atr": 3.0}),
+        ("lookback_105", {"lookback": 105, "hold_bars": 8, "stop_atr": 3.0}),
+        ("lookback_147", {"lookback": 147, "hold_bars": 8, "stop_atr": 3.0}),
     )),
     ("d1_volatility_regime_trend", "volatility_regime_trend", (
         ("central", {"roc_lookback": 20, "roc_threshold_pct": 4.0,

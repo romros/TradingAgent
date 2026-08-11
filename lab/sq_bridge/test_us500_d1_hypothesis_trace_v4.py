@@ -49,7 +49,7 @@ def test_us500_grid_is_preregistered_deterministic_and_train_only(tmp_path):
     assert first["attempted_variants"] == 27
     assert [row["hypothesis_id"] for row in first["hypotheses"]] == [
         f"{family}_{side}" for family in (
-            "d1_time_series_momentum", "d1_shock_reversion",
+            "d1_shock_reversion", "d1_time_series_momentum",
             "d1_volatility_regime_trend")
         for side in ("both", "long", "short")]
     assert all(trade["exit_timestamp"] <= first["train_end_utc"]

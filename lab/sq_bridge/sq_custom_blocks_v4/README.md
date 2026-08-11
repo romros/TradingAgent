@@ -24,3 +24,7 @@ authorize strategy promotion and SQ remains proposal-generation-only.
 The deterministic compile-only builder is
 `crypto_h4_custom_block_build_v4.py`.  Its receipt deliberately reports
 `promotion_authorized=false`; compilation is not numeric parity.
+
+`crypto_h4_continuous_segments_v4.py` creates the independent source segments
+needed to avoid future-looking gap handling.  No segment is silently discarded;
+short segments are retained and marked ineligible in the manifest.

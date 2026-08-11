@@ -1,3 +1,4 @@
+import hashlib
 import json
 from pathlib import Path
 
@@ -83,6 +84,9 @@ def test_mature_evidence_authorizes_only_the_hypothesis_screen(tmp_path):
         "exact_duplicate_snapshots_ignored": 0,
         "too_close_snapshots_ignored": 0,
     }
+    value["independent_source_raw_sha256"] = sorted([
+        hashlib.sha256(f"raw-{index}".encode()).hexdigest()
+        for index in range(30)])
     distribution = {"n": 30, "p50": 4.0, "p95": 6.0}
     value["roundtrip_proxy_bps_by_notional"] = {
         str(notional): {route: dict(distribution)

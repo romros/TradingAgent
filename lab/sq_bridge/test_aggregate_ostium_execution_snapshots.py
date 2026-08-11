@@ -1,3 +1,4 @@
+import hashlib
 import unittest
 
 from aggregate_ostium_execution_snapshots import aggregate, percentile
@@ -9,6 +10,7 @@ def snapshot(at, opened, spread, slippage, pair_id="10", pair_from="US500", pair
         "instrument": {"pair_id": pair_id, "pair_from": pair_from,
                        "pair_to": pair_to, "category": "index"},
         "market_state": {"is_market_open": opened},
+        "source": {"raw_sha256": hashlib.sha256(at.encode()).hexdigest()},
         "fees": {"open_fee_bps": 1, "close_fee_bps": 0,
                  "rollover_long_pct_per_8h": .01, "rollover_short_pct_per_8h": -.02},
         "limits": {"min_notional_usd": 5, "max_leverage": 100,
@@ -86,6 +88,16 @@ class AggregateExecutionSnapshotsTest(unittest.TestCase):
         conflict = snapshot("2026-08-08T10:00:00Z", True, 2, .5)
         with self.assertRaisesRegex(ValueError, "conflicting snapshots"):
             aggregate([first, conflict])
+
+    def test_reused_or_missing_raw_hash_cannot_count_as_independent(self):
+        first = snapshot("2026-08-08T10:00:00Z", True, 1, .5)
+        second = snapshot("2026-08-08T11:00:00Z", True, 2, 1)
+        second["source"] = first["source"]
+        with self.assertRaisesRegex(ValueError, "reuse a raw SHA-256"):
+            aggregate([first, second])
+        del first["source"]
+        with self.assertRaisesRegex(ValueError, "requires a lowercase raw SHA-256"):
+            aggregate([first])
 
 
 if __name__ == "__main__":

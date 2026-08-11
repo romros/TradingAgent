@@ -76,6 +76,15 @@ def aggregate(
         opened.append(row)
         timestamps.append(stamp)
         last = stamp
+    independent_raw_hashes = []
+    for row in opened:
+        digest = (row.get("source") or {}).get("raw_sha256")
+        if (not isinstance(digest, str) or len(digest) != 64
+                or any(character not in "0123456789abcdef" for character in digest)):
+            raise ValueError("each independent snapshot requires a lowercase raw SHA-256")
+        independent_raw_hashes.append(digest)
+    if len(set(independent_raw_hashes)) != len(independent_raw_hashes):
+        raise ValueError("independent snapshots reuse a raw SHA-256")
     days = sorted({stamp.date().isoformat() for stamp in timestamps})
     hours = sorted({stamp.hour for stamp in timestamps})
     spreads = [float(row["quote"]["spread_bps"]) for row in opened]
@@ -160,6 +169,7 @@ def aggregate(
             row.get("source", {}).get("raw_sha256") for row in valid
             if row.get("source", {}).get("raw_sha256")
         }),
+        "independent_source_raw_sha256": sorted(independent_raw_hashes),
         "observed_utc_days": days,
         "observed_utc_hours": hours,
         "spread_bps": {"p50": percentile(spreads, .5), "p95": percentile(spreads, .95), "max": max(spreads) if spreads else None},

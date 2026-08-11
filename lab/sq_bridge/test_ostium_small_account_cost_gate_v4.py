@@ -1,3 +1,5 @@
+import hashlib
+
 import pytest
 
 from lab.sq_bridge.ostium_small_account_cost_gate_v4 import (
@@ -18,6 +20,9 @@ def summary(*, samples=30, days=3, hours=6):
             "exact_duplicate_snapshots_ignored": 0,
             "too_close_snapshots_ignored": 0,
         },
+        "independent_source_raw_sha256": sorted([
+            hashlib.sha256(f"raw-{index}".encode()).hexdigest()
+            for index in range(samples)]),
         "gate": {"execution_economics": "PASS" if samples >= 30 and days >= 3 and hours >= 6
                  else "INSUFFICIENT_OPEN_MARKET_EVIDENCE",
                  "checks": {"open_samples": {"actual": samples},

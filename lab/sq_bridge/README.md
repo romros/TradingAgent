@@ -410,6 +410,10 @@ mateix timestamp i només conserva mostres separades almenys 900 segons. Tant le
 distribucions de costos com els requisits 30 mostres / 3 dies / 6 hores es
 calculen sobre aquest subconjunt independent; el rebut informa per separat les
 captures brutes i les descartades per proximitat.
+Cada mostra independent ha de portar un SHA-256 raw únic, minúscul i canònic.
+El congelador exigeix una correspondència 1:1 entre aquests hashes, el nombre
+de mostres independents i el comptador del gate, i conserva la llista dins la
+prova d'origen del model congelat.
 
 El paquet paper usa unitats explícites: `risk_per_trade_pct` són punts
 percentuals i `risk_per_trade_fraction` és la fracció executable. Abans de

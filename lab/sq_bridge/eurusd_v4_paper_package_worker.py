@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 from lab.sq_bridge.paper_package_artifact_v4 import build_artifact, verify_package
+from lab.sq_bridge.stage_artifact_contract import validate_stage_artifact
 from lab.sq_bridge.us500_d1_market_preflight_v4 import write_atomic
 
 
@@ -33,9 +34,26 @@ def _resolve(base: Path, value: object, digest: object, label: str) -> Path:
     return path
 
 
+def _verify_parity(*, parity: dict, parity_path: Path, holdout: dict,
+                   holdout_path: Path, campaign_id: str,
+                   candidate_id: str) -> None:
+    methodology_path = _resolve(
+        holdout_path.parent, holdout.get("methodology_path"),
+        holdout.get("methodology_sha256"), "frozen methodology")
+    errors = validate_stage_artifact(
+        "parity", parity, {
+            "decision": "PASS", "candidate_ids": [candidate_id],
+            "holdout_accessed": False, "artifact": str(parity_path),
+        }, _load(methodology_path), campaign_id, "alquimia_native")
+    if errors:
+        raise ValueError(f"parity artifact is not reproducible: {errors}")
+
+
 def tick(*, screen_dir: Path, parity_worker_dir: Path, output_dir: Path,
          build_fn: Callable[..., dict] = build_artifact,
-         verify_fn: Callable[[dict, Path], bool] = verify_package) -> dict[str, Any]:
+         verify_fn: Callable[[dict, Path], bool] = verify_package,
+         parity_verify_fn: Callable[..., None] = _verify_parity,
+         ) -> dict[str, Any]:
     parity_receipt_path = parity_worker_dir.resolve() / "parity_worker_receipt.json"
     if not parity_receipt_path.is_file():
         return {"schema_version": 1, "decision": "WAITING_FOR_PARITY",
@@ -71,6 +89,10 @@ def tick(*, screen_dir: Path, parity_worker_dir: Path, output_dir: Path,
         translation_path.parent, translation.get("final_holdout_artifact_path"),
         translation.get("final_holdout_artifact_sha256"), "holdout artifact")
     holdout = _load(holdout_path)
+    parity_verify_fn(
+        parity=parity, parity_path=parity_path, holdout=holdout,
+        holdout_path=holdout_path, campaign_id=campaign_id,
+        candidate_id=candidate_id)
     small_path = _resolve(
         holdout_path.parent, holdout.get("small_account_artifact_path"),
         holdout.get("small_account_artifact_sha256"), "small-account artifact")

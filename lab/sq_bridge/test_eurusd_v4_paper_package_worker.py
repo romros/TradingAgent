@@ -3,6 +3,7 @@ import json
 
 import pytest
 
+import lab.sq_bridge.eurusd_v4_paper_package_worker as worker_module
 from lab.sq_bridge.eurusd_v4_paper_package_worker import tick
 
 
@@ -14,6 +15,11 @@ def _write(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(value))
     return path
+
+
+def _tick(**kwargs):
+    kwargs.setdefault("parity_verify_fn", lambda **_kwargs: None)
+    return tick(**kwargs)
 
 
 def _fixture(tmp_path, parity_decision="PASS_PARITY"):
@@ -54,13 +60,13 @@ def _fixture(tmp_path, parity_decision="PASS_PARITY"):
 
 
 def test_waits_for_parity_and_reject_is_terminal(tmp_path):
-    result = tick(screen_dir=tmp_path / "screen",
+    result = _tick(screen_dir=tmp_path / "screen",
                   parity_worker_dir=tmp_path / "missing", output_dir=tmp_path / "out")
     assert result["decision"] == "WAITING_FOR_PARITY"
     assert result["paper_started"] is False
     screen, parity, output = _fixture(tmp_path, "REJECT_PARITY")
     called = []
-    result = tick(screen_dir=screen, parity_worker_dir=parity, output_dir=output,
+    result = _tick(screen_dir=screen, parity_worker_dir=parity, output_dir=output,
                   build_fn=lambda **kwargs: called.append(kwargs))
     assert result["decision"] == "REJECT_PARITY"
     assert called == []
@@ -81,13 +87,13 @@ def test_builds_verified_unsigned_paper_package_once(tmp_path):
                   build_fn=build, verify_fn=lambda config, path: (
                       config.get("mode") == "paper"
                       and config.get("signer_enabled") is False))
-    first = tick(**common)
+    first = _tick(**common)
     assert first["decision"] == "PASS_PAPER_PACKAGE"
     assert first["paper_configured"] is True
     assert first["paper_started"] is False
     assert first["signer_enabled"] is False
     assert first["live_authorized"] is False
-    assert tick(**common) == first
+    assert _tick(**common) == first
     assert len(calls) == 1
 
 
@@ -97,6 +103,34 @@ def test_tampered_parity_fails_before_package_build(tmp_path):
     parity_artifact.write_text("{}")
     called = []
     with pytest.raises(ValueError, match="path/hash mismatch"):
-        tick(screen_dir=screen, parity_worker_dir=parity, output_dir=output,
+        _tick(screen_dir=screen, parity_worker_dir=parity, output_dir=output,
              build_fn=lambda **kwargs: called.append(kwargs))
     assert called == []
+
+
+def test_operational_worker_recomputes_parity_contract_before_packaging(
+        tmp_path, monkeypatch):
+    methodology = _write(tmp_path / "methodology.json", {})
+    holdout_path = tmp_path / "holdout.json"
+    holdout = {
+        "methodology_path": str(methodology),
+        "methodology_sha256": _sha(methodology)}
+    parity_path = _write(tmp_path / "parity.json", {})
+    calls = []
+
+    def validate(*args):
+        calls.append(args)
+        return []
+
+    monkeypatch.setattr(worker_module, "validate_stage_artifact", validate)
+    worker_module._verify_parity(
+        parity={}, parity_path=parity_path, holdout=holdout,
+        holdout_path=holdout_path, campaign_id="campaign", candidate_id="A")
+    assert calls[0][0] == "parity"
+    assert calls[0][2]["candidate_ids"] == ["A"]
+    monkeypatch.setattr(
+        worker_module, "validate_stage_artifact", lambda *_args: ["TRACE_CONTRACT"])
+    with pytest.raises(ValueError, match="not reproducible"):
+        worker_module._verify_parity(
+            parity={}, parity_path=parity_path, holdout=holdout,
+            holdout_path=holdout_path, campaign_id="campaign", candidate_id="A")

@@ -254,6 +254,15 @@ def test_signal_maps_to_exact_inert_brokerage_request(tmp_path):
     body = result["request_body"]
     assert result["decision"] == "PREPARED_INERT_ORDER_TEMPLATE"
     assert result["endpoint"] == "/api/v1/broker/orders/open"
+    async_contract = result["brokerage_async_contract"]
+    assert async_contract["initial_http_status"] == 202
+    assert async_contract["initial_response_semantics"] == "pending_ack_not_fill"
+    assert async_contract["operation_id_required"] is True
+    assert async_contract["operation_poll_endpoint_template"] == (
+        "/api/v1/broker/operations/{operation_id}")
+    assert async_contract["terminal_states"] == ["confirmed", "error"]
+    assert async_contract["post_open_position_reconciliation_required"] is True
+    assert async_contract["effective_notional_must_be_measured_from_confirmed_position"] is True
     assert body["venue"] == "ostium"
     assert body["symbol"] == "EURUSD"
     assert body["side"] == "long"

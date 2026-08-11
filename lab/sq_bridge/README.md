@@ -494,6 +494,7 @@ CFX és reproduïble i el verificador comprova les 1.000 simulacions, probabilit
 PYTHONPATH=../.. python3 alquimia_monte_carlo.py \
   --source /path/to/candidate-pre-holdout.cfx \
   --output /path/to/candidate-mc.cfx \
+  --base-retest-manifest /path/to/candidate-pre-holdout.manifest.json \
   --name ALQUIMIA_MC_CANDIDATE --simulations 1000 \
   --probability-pct 10 --max-change-pct 10
 ```
@@ -505,13 +506,19 @@ Després del Retest, la SQX resultant ha de contenir exactament
 com una SQX determinista apta per a `orderstocsv`:
 
 ```bash
+PYTHONPATH=../.. python3 sqcli_supervised_monte_carlo.py \
+  --cfx /path/to/candidate-mc.cfx \
+  --manifest /path/to/candidate-mc.manifest.json \
+  --output-dir /path/to/mc-supervision
+
 PYTHONPATH=../.. python3 sqx_monte_carlo_contract.py \
   --sqx /path/to/native-mc-result.sqx --simulations 1000 \
   --probability-pct 10 --max-change-pct 10
 
 PYTHONPATH=../.. python3 sqx_monte_carlo_materialize.py \
   --sqx /path/to/native-mc-result.sqx --output-dir /path/to/mc-runs \
-  --simulations 1000 --probability-pct 10 --max-change-pct 10
+  --simulations 1000 --probability-pct 10 --max-change-pct 10 \
+  --supervised-mc-receipt /path/to/mc-supervision/supervised_monte_carlo_receipt.json
 
 PYTHONPATH=../.. python3 sqcli_supervised_mc_exports.py \
   --materialization-manifest /path/to/mc-runs/materialization.manifest.json \
@@ -528,7 +535,9 @@ PYTHONPATH=../.. python3 robustness_trace_v4.py \
 ```
 
 El manifest lliga cada SQX materialitzada al binari natiu original amb
-SHA-256. L'exportador escriu un checkpoint atòmic per run, valida les columnes
+SHA-256 i al rebut de l'execució supervisada. Sense aquest rebut queda marcat
+`synthetic_control` i no pot construir evidència promocionable. L'exportador
+escriu un checkpoint atòmic per run, valida les columnes
 i hashes de cada CSV i reprèn després d'una interrupció sense repetir feina.
 La traça separa dues proves: 1.000 bootstraps IID dels trades observats amb
 llavor preregistrada `20260811`, i les 1.000 variants natives

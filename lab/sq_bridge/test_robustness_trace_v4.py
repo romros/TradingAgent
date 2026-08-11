@@ -85,7 +85,8 @@ def test_builds_and_rebuilds_1000_run_native_source_bound_trace(tmp_path):
     trace = derive(
         candidate_id="T", temporal_trace_path=temporal,
         mc_export_receipt_path=exports, cost_model_path=costs,
-        tested_leverage=5, venue_max_leverage=100)
+        tested_leverage=5, venue_max_leverage=100,
+        allow_synthetic_control=True)
     assert len(trace["monte_carlo_runs"]) == 1000
     assert len(trace["parameter_variants"]) == 1000
     assert len(trace["stress_trades"]) == 30
@@ -113,7 +114,8 @@ def test_rebuild_detects_native_export_tampering(tmp_path):
     trace = derive(
         candidate_id="T", temporal_trace_path=temporal,
         mc_export_receipt_path=exports, cost_model_path=costs,
-        tested_leverage=5, venue_max_leverage=100)
+        tested_leverage=5, venue_max_leverage=100,
+        allow_synthetic_control=True)
     receipt = json.loads(exports.read_text())
     with open(receipt["runs"][0]["orders_csv_path"], "a") as handle:
         handle.write("tampered\n")

@@ -9,6 +9,7 @@ import zipfile
 from pathlib import Path
 
 from lab.sq_bridge.sqx_monte_carlo_contract import inspect
+from lab.sq_bridge.sqcli_supervised_monte_carlo import verify_monte_carlo_receipt
 
 
 COMMON_MEMBERS = ("META-INF/MANIFEST.MF", "settings.xml",
@@ -34,7 +35,8 @@ def _write_sqx(path: Path, members: dict[str, bytes]) -> None:
 
 
 def materialize(source: Path, output_dir: Path, *, simulations: int,
-                probability_pct: int, max_change_pct: int) -> dict:
+                probability_pct: int, max_change_pct: int,
+                supervised_mc_receipt: Path | None = None) -> dict:
     contract = inspect(source, simulations=simulations,
                        probability_pct=probability_pct,
                        max_change_pct=max_change_pct)
@@ -69,6 +71,19 @@ def materialize(source: Path, output_dir: Path, *, simulations: int,
         "native_contract": contract,
         "runs": rows,
     }
+    if supervised_mc_receipt is None:
+        result["evidence_class"] = "synthetic_control"
+    else:
+        supervised_mc_receipt = supervised_mc_receipt.resolve()
+        receipt = verify_monte_carlo_receipt(supervised_mc_receipt)
+        if (Path(receipt["retest_output_sqx_path"]).resolve() != source.resolve()
+                or receipt["retest_output_sqx_sha256"] != _sha(source)):
+            raise ValueError("MONTE_CARLO_MATERIALIZATION_RECEIPT_SOURCE_MISMATCH")
+        result.update({
+            "evidence_class": "observed",
+            "supervised_mc_receipt_path": str(supervised_mc_receipt),
+            "supervised_mc_receipt_sha256": _sha(supervised_mc_receipt),
+        })
     manifest = output_dir / "materialization.manifest.json"
     manifest.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n")
     return result
@@ -79,6 +94,18 @@ def verify_manifest(path: Path) -> dict:
     source = Path(result.get("source_sqx_path", ""))
     if not source.is_file() or result.get("source_sqx_sha256") != _sha(source):
         raise ValueError("MONTE_CARLO_MATERIALIZATION_SOURCE_INVALID")
+    evidence_class = result.get("evidence_class")
+    if evidence_class == "observed":
+        receipt_path = Path(result.get("supervised_mc_receipt_path", ""))
+        if (not receipt_path.is_file()
+                or result.get("supervised_mc_receipt_sha256") != _sha(receipt_path)):
+            raise ValueError("MONTE_CARLO_MATERIALIZATION_RECEIPT_INVALID")
+        receipt = verify_monte_carlo_receipt(receipt_path)
+        if (Path(receipt["retest_output_sqx_path"]).resolve() != source.resolve()
+                or receipt["retest_output_sqx_sha256"] != _sha(source)):
+            raise ValueError("MONTE_CARLO_MATERIALIZATION_RECEIPT_SOURCE_MISMATCH")
+    elif evidence_class != "synthetic_control":
+        raise ValueError("MONTE_CARLO_MATERIALIZATION_EVIDENCE_CLASS_INVALID")
     native = result.get("native_contract") or {}
     rebuilt = inspect(source, simulations=native.get("simulations"),
                       probability_pct=native.get("probability_pct"),
@@ -112,11 +139,13 @@ def main() -> None:
     parser.add_argument("--simulations", required=True, type=int)
     parser.add_argument("--probability-pct", required=True, type=int)
     parser.add_argument("--max-change-pct", required=True, type=int)
+    parser.add_argument("--supervised-mc-receipt", required=True, type=Path)
     args = parser.parse_args()
     result = materialize(args.sqx, args.output_dir,
                          simulations=args.simulations,
                          probability_pct=args.probability_pct,
-                         max_change_pct=args.max_change_pct)
+                         max_change_pct=args.max_change_pct,
+                         supervised_mc_receipt=args.supervised_mc_receipt)
     print(json.dumps({"runs": len(result["runs"]),
                       "source_sqx_sha256": result["source_sqx_sha256"]}, indent=2))
 

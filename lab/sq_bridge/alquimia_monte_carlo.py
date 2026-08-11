@@ -9,6 +9,8 @@ import zipfile
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
+from lab.sq_bridge.alquimia_retest import verify_retest_project
+
 
 def _sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -80,8 +82,35 @@ def verify(cfx: Path, manifest: dict, *, source: Path | None = None) -> dict:
             "method": randomized.get("type")}
 
 
+def verify_project(cfx: Path, manifest: dict, *,
+                   require_archive_hash: bool = True) -> dict:
+    """Verify an MC CFX plus its immutable pre-holdout candidate lineage."""
+    if (manifest.get("stage") != "robustness_parameter_monte_carlo"
+            or manifest.get("holdout_accessed") is not False
+            or manifest.get("performance_filters_applied_in_sq") is not False):
+        raise ValueError("MONTE_CARLO_PROJECT_MANIFEST_INVALID")
+    source = Path(manifest.get("source_cfx_path", ""))
+    base_manifest_path = Path(manifest.get("base_retest_manifest_path", ""))
+    if (not source.is_file() or not base_manifest_path.is_file()
+            or manifest.get("source_cfx_sha256") != _sha(source)
+            or manifest.get("base_retest_manifest_sha256") != _sha(base_manifest_path)):
+        raise ValueError("MONTE_CARLO_PROJECT_LINEAGE_INVALID")
+    base = json.loads(base_manifest_path.read_text())
+    base_contract = verify_retest_project(source, base)
+    if any(manifest.get(key) != base.get(key) for key in (
+            "candidate_id", "candidate_sqx_path", "candidate_sqx_sha256",
+            "candidate_strategy_xml_sha256")):
+        raise ValueError("MONTE_CARLO_PROJECT_CANDIDATE_INVALID")
+    checked_manifest = manifest if require_archive_hash else {
+        **manifest, "cfx_sha256": _sha(cfx)}
+    settings = verify(cfx, checked_manifest, source=source)
+    return {"project_name": settings["project_name"],
+            "candidate_id": base_contract["candidate_id"], **settings}
+
+
 def generate(source: Path, output: Path, project_name: str, simulations: int,
-             probability_pct: int = 10, max_change_pct: int = 10) -> dict:
+             probability_pct: int = 10, max_change_pct: int = 10,
+             base_retest_manifest_path: Path | None = None) -> dict:
     if simulations < 50:
         raise ValueError("MONTE_CARLO_SIMULATIONS_TOO_LOW")
     if not 1 <= probability_pct <= 100 or not 1 <= max_change_pct <= 100:
@@ -130,7 +159,25 @@ def generate(source: Path, output: Path, project_name: str, simulations: int,
         "probability_pct": probability_pct,
         "max_change_pct": max_change_pct,
     }
+    if base_retest_manifest_path is not None:
+        base_retest_manifest_path = base_retest_manifest_path.resolve()
+        base = json.loads(base_retest_manifest_path.read_text())
+        verify_retest_project(source, base)
+        result.update({
+            "stage": "robustness_parameter_monte_carlo",
+            "source_cfx_path": str(source.resolve()),
+            "base_retest_manifest_path": str(base_retest_manifest_path),
+            "base_retest_manifest_sha256": _sha(base_retest_manifest_path),
+            "candidate_id": base["candidate_id"],
+            "candidate_sqx_path": base["candidate_sqx_path"],
+            "candidate_sqx_sha256": base["candidate_sqx_sha256"],
+            "candidate_strategy_xml_sha256": base["candidate_strategy_xml_sha256"],
+            "holdout_accessed": False,
+            "performance_filters_applied_in_sq": False,
+        })
     verify(output, result, source=source)
+    if base_retest_manifest_path is not None:
+        verify_project(output, result)
     output.with_suffix(".manifest.json").write_text(json.dumps(result, indent=2) + "\n")
     return result
 
@@ -143,9 +190,11 @@ def main() -> None:
     parser.add_argument("--simulations", type=int, default=1000)
     parser.add_argument("--probability-pct", type=int, default=10)
     parser.add_argument("--max-change-pct", type=int, default=10)
+    parser.add_argument("--base-retest-manifest", type=Path)
     args = parser.parse_args()
     print(json.dumps(generate(args.source, args.output, args.name, args.simulations,
-                              args.probability_pct, args.max_change_pct), indent=2))
+                              args.probability_pct, args.max_change_pct,
+                              args.base_retest_manifest), indent=2))
 
 
 if __name__ == "__main__":

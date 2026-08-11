@@ -148,6 +148,10 @@ def supervised_retest(
     export_fn: Callable[[str], str] | None = None,
     runner: Callable[..., subprocess.CompletedProcess] = subprocess.run,
     sleep_fn: Callable[[float], None] = time.sleep,
+    project_verify_fn: Callable[..., dict] = verify_retest_project,
+    completed_fn: Callable[[Path, dict], dict] | None = None,
+    receipt_filename: str = "supervised_retest_receipt.json",
+    receipt_decision: str = "PASS_SUPERVISED_RETEST",
 ) -> dict:
     if not CONTAINER_NAME.fullmatch(container):
         raise ValueError("invalid SQCLI container name")
@@ -156,16 +160,19 @@ def supervised_retest(
         raise ValueError("invalid Retest monitoring interval/timeout")
     cfx_path, manifest_path = cfx_path.resolve(), manifest_path.resolve()
     manifest = json.loads(manifest_path.read_text())
-    contract = verify_retest_project(cfx_path, manifest)
+    if (not SAFE_PROJECT_NAME.fullmatch(receipt_filename.replace("_", "").replace(".", ""))
+            or not SAFE_PROJECT_NAME.fullmatch(receipt_decision)):
+        raise ValueError("invalid supervised Retest receipt identity")
+    contract = project_verify_fn(cfx_path, manifest)
     project, candidate_id = contract["project_name"], contract["candidate_id"]
     if not SAFE_PROJECT_NAME.fullmatch(project):
         raise ValueError("invalid Retest project name")
     candidate = Path(manifest["candidate_sqx_path"]).resolve()
     output_dir = output_dir.resolve()
     project_dir = projects_root.resolve() / project
-    final_receipt = output_dir / "supervised_retest_receipt.json"
+    final_receipt = output_dir / receipt_filename
     if final_receipt.is_file():
-        return _completed(final_receipt, manifest)
+        return ((completed_fn or _completed)(final_receipt, manifest))
     preflight_path = output_dir / "retest_preflight.json"
     sync_path = output_dir / "retest_databank_sync_receipt.json"
     output_sync_path = output_dir / "retest_output_databank_sync_receipt.json"
@@ -219,7 +226,7 @@ def supervised_retest(
                 and current[0].get("runningStatus") not in (None, 0))):
         raise RuntimeError("imported Retest project absent, running or unresolved")
     imported_cfx = project_dir / "project.cfx"
-    verify_retest_project(imported_cfx, manifest, require_archive_hash=False)
+    project_verify_fn(imported_cfx, manifest, require_archive_hash=False)
     results_dir, retest_dir = project_dir / "databanks/Results", project_dir / "databanks/PreHoldout"
     results_dir.mkdir(parents=True, exist_ok=True)
     retest_dir.mkdir(parents=True, exist_ok=True)
@@ -380,7 +387,7 @@ def supervised_retest(
     if not orders_csv.is_file() or orders_csv.stat().st_size == 0:
         raise RuntimeError("SQCLI orders export missing or empty")
     result = {
-        "schema_version": 1, "decision": "PASS_SUPERVISED_RETEST",
+        "schema_version": 1, "decision": receipt_decision,
         "project_name": project, "candidate_id": candidate_id,
         "manifest_path": str(manifest_path), "manifest_sha256": _sha256(manifest_path),
         "source_cfx_path": str(cfx_path), "source_cfx_sha256": _sha256(cfx_path),

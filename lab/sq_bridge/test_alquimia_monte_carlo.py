@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 import zipfile
+import hashlib
+import json
 from pathlib import Path
+from xml.etree import ElementTree as ET
 
 import pytest
 
-from alquimia_monte_carlo import generate, verify
+from alquimia_monte_carlo import generate, verify, verify_project
+from lab.sq_bridge.test_alquimia_retest import _generate as generate_retest
 
 
 def _source(path: Path) -> Path:
@@ -45,6 +49,41 @@ def test_monte_carlo_verifier_detects_summary_tampering(tmp_path):
     manifest = generate(source, output, "MC_T", 1000)
     with pytest.raises(ValueError, match="CONTRACT"):
         verify(output, dict(manifest, simulations=999), source=source)
+
+
+def test_monte_carlo_project_binds_pre_holdout_candidate_lineage(tmp_path):
+    base, source = generate_retest(tmp_path)
+    base_manifest = source.with_suffix(".manifest.json")
+    with zipfile.ZipFile(source) as archive:
+        members = {name: archive.read(name) for name in archive.namelist()}
+    task = ET.fromstring(members["Retest-Task1.xml"])
+    crosschecks = task.find("./CrossChecks")
+    ET.SubElement(crosschecks, "MonteCarloManipulation", {"use": "false"})
+    mc = ET.SubElement(crosschecks, "MonteCarloRetest", {"use": "false"})
+    settings = ET.SubElement(mc, "Settings")
+    methods = ET.SubElement(settings, "Methods")
+    method = ET.SubElement(methods, "Method", {
+        "type": "RandomizeStrategyParameters", "use": "false"})
+    params = ET.SubElement(method, "Params")
+    for key, value in (("Probability", "10"), ("MaxChange", "10"),
+                       ("Symmetric", "true")):
+        ET.SubElement(params, "Param", {"key": key}).text = value
+    ET.SubElement(settings, "NumberOfSimulations").text = "50"
+    members["Retest-Task1.xml"] = ET.tostring(task, encoding="utf-8")
+    with zipfile.ZipFile(source, "w", zipfile.ZIP_DEFLATED) as archive:
+        for name, payload in members.items():
+            archive.writestr(name, payload)
+    base = json.loads(base_manifest.read_text())
+    base["cfx_sha256"] = hashlib.sha256(source.read_bytes()).hexdigest()
+    base_manifest.write_text(json.dumps(base))
+    output = tmp_path / "mc.cfx"
+    manifest = generate(
+        source, output, "MC_T", 1000,
+        base_retest_manifest_path=base_manifest)
+    assert manifest["candidate_id"] == "T"
+    assert verify_project(output, manifest)["candidate_id"] == "T"
+    with pytest.raises(ValueError, match="CANDIDATE"):
+        verify_project(output, dict(manifest, candidate_id="other"))
 
 
 assert callable(generate)

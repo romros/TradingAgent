@@ -75,7 +75,8 @@ def derive(*, candidate_id: str, temporal_trace_path: Path,
            tested_leverage: float, venue_max_leverage: float,
            monte_carlo_runs: int = 1000, random_seed: int = 20260811,
            maximum_parameter_perturbation_pct: int = 10,
-           evaluation_notional_usdc: float = 200) -> dict:
+           evaluation_notional_usdc: float = 200,
+           allow_synthetic_control: bool = False) -> dict:
     if (not candidate_id or evaluation_notional_usdc != 200
             or monte_carlo_runs != 1000 or random_seed < 0
             or maximum_parameter_perturbation_pct != 10):
@@ -88,6 +89,10 @@ def derive(*, candidate_id: str, temporal_trace_path: Path,
     native = exports["runs"]
     materialization = json.loads(
         Path(exports["materialization_manifest_path"]).read_text())
+    evidence_class = materialization.get("evidence_class")
+    if evidence_class != "observed" and not (
+            evidence_class == "synthetic_control" and allow_synthetic_control):
+        raise ValueError("robustesa requereix una execucio MC supervisada observada")
     native_contract = materialization["native_contract"]
     native_sqx = Path(materialization["source_sqx_path"])
     native_sqx_contract = extract_sqx(native_sqx)
@@ -153,7 +158,8 @@ def derive(*, candidate_id: str, temporal_trace_path: Path,
     return {
         "schema_version": 1,
         "trace_type": "robustness_simulation_trace",
-        "source": "sq_native_parameter_mc_plus_observed_trade_bootstrap",
+        "source": ("sq_native_parameter_mc_plus_observed_trade_bootstrap"
+                   if evidence_class == "observed" else "synthetic_control"),
         "candidate_id": candidate_id,
         "capital_usdc": 200,
         "evaluation_notional_usdc": 200,
@@ -198,7 +204,8 @@ def rebuild_from_trace(trace: dict) -> dict:
         monte_carlo_runs=len(trace.get("monte_carlo_runs", [])),
         random_seed=trace.get("monte_carlo_seed"),
         maximum_parameter_perturbation_pct=10,
-        evaluation_notional_usdc=trace.get("evaluation_notional_usdc"))
+        evaluation_notional_usdc=trace.get("evaluation_notional_usdc"),
+        allow_synthetic_control=trace.get("source") == "synthetic_control")
 
 
 def main() -> None:

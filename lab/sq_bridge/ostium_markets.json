@@ -145,6 +145,34 @@
       "live_eligible": false,
       "fee_source_checked_utc": "2026-08-03",
       "warning": "Recorder natiu WARMING; cal font atribuïble, paritat SOLUSDT/SOLUSD, impacte dinàmic i rollover abans de recerca promotable."
+    },
+    "US500": {
+      "category": "index",
+      "ostium_pair": "US500/USD",
+      "ostium_pair_id": "10",
+      "ostium_asset": "US500USD",
+      "bs_symbol": "SPXUSD",
+      "sq_symbol": "US500_ALQ_RTH_D1",
+      "sq_resource_clone_from": "EURUSD_M1_dukas_M1_UTCMinus05",
+      "sq_resource_remove_attributes": ["cloneFrom", "sourceTimezone"],
+      "sq_resource_attributes": {
+        "source": "3",
+        "barType": "1",
+        "precision": "D1",
+        "timezone": "Etc/UTC",
+        "dateFrom": "1514937600000",
+        "dateTo": "1783468800000",
+        "uSymbol": "US500",
+        "uSymbolName": "US500",
+        "removeWeekends": "false",
+        "broker": "-1"
+      },
+      "discovery_timeframe": "D1",
+      "venue_max_leverage": 200,
+      "opening_fee_bps": 3,
+      "research_eligible": true,
+      "live_eligible": false,
+      "warning": "Font RTH D1 canònica preparada; import/round-trip SQ, costos de tres sessions i paritat final continuen obligatoris."
     }
   }
 }

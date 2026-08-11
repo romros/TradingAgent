@@ -43,7 +43,7 @@ def test_v4_rejects_unregistered_genetic_or_profile_ranges():
     changed = deepcopy(METHODOLOGY)
     changed["sq_generation"]["profile_parameter_ranges"].pop(
         "eurusd_d1_shock_reversion_v4")
-    assert "sq_generation: espais EURUSD no preregistrats" in validate(changed)
+    assert "sq_generation: espais de campanya no preregistrats" in validate(changed)
 
 
 def test_v4_market_preflight_cannot_pass_on_mapping_without_history():

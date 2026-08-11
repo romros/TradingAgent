@@ -91,9 +91,12 @@ def validate(config: dict) -> list[str]:
         required_profiles = {
             "eurusd_d1_breakout_v4", "eurusd_d1_momentum_v4",
             "eurusd_d1_shock_reversion_v4",
+            "us500_d1_time_series_momentum_v4",
+            "us500_d1_shock_reversion_v4",
+            "us500_d1_volatility_regime_trend_v4",
         }
         if not isinstance(ranges, dict) or set(ranges) != required_profiles:
-            errors.append("sq_generation: espais EURUSD no preregistrats")
+            errors.append("sq_generation: espais de campanya no preregistrats")
         else:
             for profile, values_range in ranges.items():
                 required = {"indicator_period_min", "indicator_period_max",

@@ -91,6 +91,42 @@
         "roc_threshold_min": -5,
         "roc_threshold_max": 5,
         "roc_threshold_step": 0.25
+      },
+      "us500_d1_time_series_momentum_v4": {
+        "indicator_period_min": 60,
+        "indicator_period_max": 180,
+        "shift_min": 1,
+        "shift_max": 2,
+        "exit_after_bars_min": 4,
+        "exit_after_bars_max": 15,
+        "exit_after_bars_step": 1,
+        "roc_threshold_min": -15,
+        "roc_threshold_max": 15,
+        "roc_threshold_step": 0.5
+      },
+      "us500_d1_shock_reversion_v4": {
+        "indicator_period_min": 2,
+        "indicator_period_max": 30,
+        "shift_min": 1,
+        "shift_max": 2,
+        "exit_after_bars_min": 2,
+        "exit_after_bars_max": 10,
+        "exit_after_bars_step": 1,
+        "roc_threshold_min": -8,
+        "roc_threshold_max": 8,
+        "roc_threshold_step": 0.25
+      },
+      "us500_d1_volatility_regime_trend_v4": {
+        "indicator_period_min": 10,
+        "indicator_period_max": 150,
+        "shift_min": 1,
+        "shift_max": 2,
+        "exit_after_bars_min": 4,
+        "exit_after_bars_max": 15,
+        "exit_after_bars_step": 1,
+        "roc_threshold_min": -12,
+        "roc_threshold_max": 12,
+        "roc_threshold_step": 0.5
       }
     },
     "selection_policy": "all_supported_translatable_unique_candidates",

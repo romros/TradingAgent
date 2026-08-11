@@ -22,6 +22,18 @@ from lab.sq_bridge.eurusd_v4_hypotheses import (
     HYPOTHESIS_MARKET_SIDES as V4_HYPOTHESIS_MARKET_SIDES,
     SEARCH_PROFILES as V4_HYPOTHESIS_SEARCH_PROFILES,
 )
+from lab.sq_bridge.us500_v4_hypotheses import (
+    HYPOTHESIS_MARKET_SIDES as US500_HYPOTHESIS_MARKET_SIDES,
+    SEARCH_PROFILES as US500_HYPOTHESIS_SEARCH_PROFILES,
+    US500_PROFILE_BLOCKS,
+)
+
+V4_ALL_HYPOTHESIS_SEARCH_PROFILES = {
+    **V4_HYPOTHESIS_SEARCH_PROFILES, **US500_HYPOTHESIS_SEARCH_PROFILES,
+}
+V4_ALL_HYPOTHESIS_MARKET_SIDES = {
+    **V4_HYPOTHESIS_MARKET_SIDES, **US500_HYPOTHESIS_MARKET_SIDES,
+}
 
 TRANSLATABLE_BLOCKS = {
     "Prices.High", "Prices.Low", "Prices.Close",
@@ -83,6 +95,7 @@ SEARCH_PROFILES = {
         "ExitAfterBars.ExitAfterBars", "ProfitTarget.ProfitTarget", "StopLoss.StopLoss",
     },
     **EURUSD_PROFILE_BLOCKS,
+    **US500_PROFILE_BLOCKS,
 }
 
 def _sha256(payload: bytes) -> str:
@@ -181,7 +194,12 @@ def _validate_v4_prerequisites(methodology: dict, methodology_path: Path,
     if hypothesis_id not in screen.get("selected_hypothesis_ids", []):
         raise ValueError("V4_SQ_HYPOTHESIS_NOT_SCREENED")
     expected_temporal_contract_sha256 = None
-    if market_key == "EURUSD" and hypothesis_id in V4_HYPOTHESIS_SEARCH_PROFILES:
+    expected_market = ("EURUSD" if hypothesis_id in V4_HYPOTHESIS_SEARCH_PROFILES
+                       else "US500" if hypothesis_id in US500_HYPOTHESIS_SEARCH_PROFILES
+                       else None)
+    if expected_market is not None:
+        if market_key != expected_market:
+            raise ValueError("V4_SQ_HYPOTHESIS_MARKET_MISMATCH")
         trace_path = Path(screen.get("hypothesis_screen_trace_path", ""))
         trace_path = (trace_path if trace_path.is_absolute()
                       else screen_path.resolve().parent / trace_path)
@@ -540,7 +558,7 @@ def build(source: Path, output: Path, project_name: str, market_key: str,
     periods = _split_dates(date_from, date_to, methodology["temporal_split"])
     period_evidence = {}
     if expected_temporal_digest is not None:
-        expected_profile = V4_HYPOTHESIS_SEARCH_PROFILES[source_hypothesis_id]
+        expected_profile = V4_ALL_HYPOTHESIS_SEARCH_PROFILES[source_hypothesis_id]
         if search_profile != expected_profile:
             raise ValueError(
                 f"V4_SQ_PROFILE_MISMATCH expected={expected_profile} got={search_profile}")

@@ -8,6 +8,7 @@ from xml.etree import ElementTree as ET
 
 import alquimia_project
 from lab.sq_bridge.eurusd_v4_hypotheses import EURUSD_PROFILE_BLOCKS
+from lab.sq_bridge.us500_v4_hypotheses import US500_PROFILE_BLOCKS
 from lab.sq_bridge.sq_project_contract import EURUSD_V4_PROFILE_BLOCKS
 from alquimia_project import (
     SEARCH_PROFILES, _nominal_genetic_shape, _split_dates, _sq_discovery_slippage,
@@ -52,6 +53,13 @@ assert all("BarDayOfWeekIs" in blocks for blocks in EURUSD_PROFILE_BLOCKS.values
 assert EURUSD_V4_PROFILE_BLOCKS is EURUSD_PROFILE_BLOCKS
 assert all(SEARCH_PROFILES[key] is blocks
            for key, blocks in EURUSD_PROFILE_BLOCKS.items())
+assert {"Indicators.ROC", "Indicators.SMA", "Indicators.EMA"}.issubset(
+    SEARCH_PROFILES["us500_d1_time_series_momentum_v4"])
+assert {"Indicators.ROC", "EnterAtMarket"}.issubset(
+    SEARCH_PROFILES["us500_d1_shock_reversion_v4"])
+assert all("BarDayOfWeekIs" in blocks for blocks in US500_PROFILE_BLOCKS.values())
+assert all(SEARCH_PROFILES[key] is blocks
+           for key, blocks in US500_PROFILE_BLOCKS.items())
 
 split = _split_dates(date(2017, 1, 26), date(2026, 3, 13),
     {"train_pct": 50, "validation_pct": 20, "oos_pct": 20, "final_holdout_pct": 10})

@@ -8,7 +8,12 @@ from lab.sq_bridge.paper_operation_confirmation_v4 import (
 def template():
     return {
         "decision": "PASS_FRESH_QUOTE_REVALIDATION",
-        "paper_request_ready": True, "request_sent": False,
+        "candidate_id": "candidate", "paper_request_ready": True,
+        "portfolio_admission_required": False, "request_sent": False,
+        "portfolio_admission": {
+            "decision": "PASS_PORTFOLIO_ENTRY_ADMISSION",
+            "candidate_id": "candidate", "order_sent": False,
+        },
         "brokerage_async_contract": {"initial_http_status": 202},
         "request_body": {"client_order_id": "alq4-id", "symbol": "EURUSD",
                          "side": "long", "collateral": 60, "leverage": 5,
@@ -38,6 +43,18 @@ def test_202_is_tracking_state_not_a_fill():
     assert result["decision"] == "WAIT_OPERATION_CONFIRMATION"
     assert result["request_sent"] is True
     assert result["fill_confirmed"] is False
+
+
+def test_pending_ack_rejects_bypassed_or_foreign_portfolio_admission():
+    missing = template()
+    missing.pop("portfolio_admission")
+    with pytest.raises(ValueError, match="admissio"):
+        accept_pending_ack(template=missing, http_status=202, ack=ack())
+    foreign = template()
+    foreign["portfolio_admission"] = {
+        **foreign["portfolio_admission"], "candidate_id": "other"}
+    with pytest.raises(ValueError, match="admissio"):
+        accept_pending_ack(template=foreign, http_status=202, ack=ack())
 
 
 def test_confirmation_normalizes_brokerage_double_venue_prefix():

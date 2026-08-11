@@ -11,7 +11,7 @@ from lab.sq_bridge.paper_order_sizing_v4 import size_entry
 from lab.sq_bridge.paper_signal_instruction_v4 import build_instruction
 from lab.sq_bridge.paper_quote_probe_v4 import fetch_latest_quote, run_probe
 from lab.sq_bridge.ostium_order_payload_v4 import (
-    build_order_template, revalidate_fresh_quote,
+    authorize_portfolio_entry, build_order_template, revalidate_fresh_quote,
 )
 from lab.sq_bridge.stage_artifact_contract import validate_stage_artifact
 
@@ -346,13 +346,57 @@ def test_fresh_quote_revalidates_stop_risk_spread_without_sending(tmp_path):
         quote={"symbol": "EURUSD", "bid": 102.995, "ask": 103.005,
                "mid": 103, "timestamp": (now - timedelta(seconds=5)).isoformat()},
         observed_at=now)
-    assert result["decision"] == "PASS_FRESH_QUOTE_REVALIDATION"
-    assert result["paper_request_ready"] is True
+    assert result["decision"] == "PASS_QUOTE_WAIT_PORTFOLIO_ADMISSION"
+    assert result["paper_request_ready"] is False
+    assert result["portfolio_admission_required"] is True
     assert result["fresh_quote_required"] is False
     assert result["runtime_stop_risk_usdc"] == pytest.approx(
         signal["risk_budget_usdc"])
     assert result["request_sent"] is result["signer_enabled"] is False
     assert result["live_authorized"] is False
+
+    admission = {
+        "decision": "PASS_PORTFOLIO_ENTRY_ADMISSION", "order_sent": False,
+        "candidate_id": result["candidate_id"],
+        "equity_usdc": result["equity_usdc"],
+        "new_stop_risk_usdc": result["runtime_stop_risk_usdc"],
+        "new_capital_commitment_usdc": result["capital_committed_usdc"],
+    }
+    authorized = authorize_portfolio_entry(
+        quote_receipt=result, admission=admission)
+    assert authorized["decision"] == "PASS_FRESH_QUOTE_REVALIDATION"
+    assert authorized["paper_request_ready"] is True
+    assert authorized["portfolio_admission_required"] is False
+    assert authorized["portfolio_admission"] == admission
+
+
+def test_portfolio_admission_must_bind_quote_candidate_equity_risk_and_commitment(
+        tmp_path):
+    signal = _signal(tmp_path)
+    template = build_order_template(
+        config_path=tmp_path / "paper.json", instruction=signal,
+        operational_max_leverage=10, registry_path=_registry(tmp_path))
+    now = datetime(2026, 8, 11, 12, 0, 5, tzinfo=timezone.utc)
+    receipt = revalidate_fresh_quote(
+        template=template,
+        quote={"symbol": "EURUSD", "bid": 102.995, "ask": 103.005,
+               "mid": 103, "timestamp": now.isoformat()}, observed_at=now)
+    valid = {
+        "decision": "PASS_PORTFOLIO_ENTRY_ADMISSION", "order_sent": False,
+        "candidate_id": receipt["candidate_id"],
+        "equity_usdc": receipt["equity_usdc"],
+        "new_stop_risk_usdc": receipt["runtime_stop_risk_usdc"],
+        "new_capital_commitment_usdc": receipt["capital_committed_usdc"],
+    }
+    for field, value in (
+            ("decision", "BLOCK_PORTFOLIO_ENTRY_ADMISSION"),
+            ("candidate_id", "other"), ("equity_usdc", 201),
+            ("new_stop_risk_usdc", valid["new_stop_risk_usdc"] - .01),
+            ("new_capital_commitment_usdc",
+             valid["new_capital_commitment_usdc"] - .01)):
+        with pytest.raises(ValueError):
+            authorize_portfolio_entry(
+                quote_receipt=receipt, admission={**valid, field: value})
 
 
 def test_quote_gate_rejects_stale_risky_or_wide_quotes(tmp_path):
@@ -405,6 +449,8 @@ def test_read_only_quote_probe_uses_get_and_persists_inert_receipt(tmp_path):
     assert result["post_capability_present"] is False
     assert result["credentials_used"] is False
     assert result["request_sent"] is False
+    assert result["decision"] == "PASS_QUOTE_WAIT_PORTFOLIO_ADMISSION"
+    assert result["paper_request_ready"] is False
 
 
 def test_quote_transport_constructs_only_canonical_get():

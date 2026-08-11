@@ -30,8 +30,14 @@ def accept_pending_ack(*, template: dict[str, Any], http_status: int,
                        ack: dict[str, Any]) -> dict[str, Any]:
     if (template.get("decision") != "PASS_FRESH_QUOTE_REVALIDATION"
             or template.get("paper_request_ready") is not True
-            or template.get("request_sent") is not False):
+            or template.get("request_sent") is not False
+            or template.get("portfolio_admission_required") is not False):
         raise ValueError("template fresc no autoritzat per tracking")
+    admission = template.get("portfolio_admission") or {}
+    if (admission.get("decision") != "PASS_PORTFOLIO_ENTRY_ADMISSION"
+            or admission.get("order_sent") is not False
+            or admission.get("candidate_id") != template.get("candidate_id")):
+        raise ValueError("admissio de cartera absent o inconsistent")
     contract = template.get("brokerage_async_contract") or {}
     if (http_status != contract.get("initial_http_status")
             or ack.get("success") is not True or ack.get("pending") is not True):

@@ -459,8 +459,14 @@ quote de màxim 10 segons (2 segons de tolerància de rellotge), desviació màx
 del 25% de la distància del stop inicial, `bid <= mid <= ask`, spread no superior
 a l'envolupant variable stress i risc stop→mid no superior al pressupost del
 senyal. `revalidate_fresh_quote()` només emet
+`PASS_QUOTE_WAIT_PORTFOLIO_ADMISSION`, encara no enviable. Després,
+`authorize_portfolio_entry()` exigeix un `PASS_PORTFOLIO_ENTRY_ADMISSION`
+del mateix candidat i vincula exactament equity, risc stop recalculat amb el
+quote fresc i capital compromès. Només aquest segon pas emet
 `PASS_FRESH_QUOTE_REVALIDATION`; fins i tot llavors conserva
-`request_sent=false`, signer desactivat i live no autoritzat.
+`request_sent=false`, signer desactivat i live no autoritzat. El confirmador de
+l'ack 202 també torna a comprovar aquest rebut, de manera que no es pot saltar
+el límit conjunt de posicions, risc stop i capital compromès.
 `paper_quote_probe_v4.py` és el transport mínim corresponent: només implementa
 el `GET` públic de quote, rebutja URLs amb credencials incrustades i desa el
 resultat revalidat de forma atòmica. El rebut declara explícitament

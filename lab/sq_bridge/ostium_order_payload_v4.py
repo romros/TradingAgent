@@ -176,6 +176,9 @@ def build_order_template(*, config_path: Path, instruction: dict,
         "position_notional_usdc": notional,
         "entry_notional_semantics": "target_is_zero_fee_upper_bound_not_guaranteed_fill",
         "entry_notional_envelope": entry_notional,
+        "equity_usdc": _finite(instruction.get("equity_usdc"), "equity"),
+        "capital_committed_usdc": _finite(
+            instruction.get("capital_committed_usdc"), "capital compromes"),
         "risk_budget_usdc": _finite(instruction.get("risk_budget_usdc"), "pressupost de risc"),
         "initial_stop_distance_pct": _finite(
             instruction.get("initial_stop_distance_pct"), "distancia inicial de stop"),
@@ -250,7 +253,7 @@ def revalidate_fresh_quote(*, template: dict, quote: dict,
         raise ValueError("spread live supera l'envolupant stress")
     return {
         **template,
-        "decision": "PASS_FRESH_QUOTE_REVALIDATION",
+        "decision": "PASS_QUOTE_WAIT_PORTFOLIO_ADMISSION",
         "quote": {"symbol": body["symbol"], "bid": bid, "ask": ask,
                   "mid": mid, "timestamp": quote_time.isoformat()},
         "quote_observed_at": observed_at.isoformat(),
@@ -260,8 +263,54 @@ def revalidate_fresh_quote(*, template: dict, quote: dict,
         "live_spread_bps": spread_bps,
         "stress_spread_envelope_bps": variable["stress"],
         "runtime_stop_risk_usdc": runtime_risk,
-        "paper_request_ready": True,
+        "portfolio_admission_required": True,
+        "paper_request_ready": False,
         "fresh_quote_required": False,
+        "request_sent": False,
+        "signer_enabled": False,
+        "live_authorized": False,
+    }
+
+
+def authorize_portfolio_entry(*, quote_receipt: dict,
+                              admission: dict) -> dict:
+    """Bind a current aggregate-risk PASS after quote validation, without I/O."""
+    if (quote_receipt.get("decision") != "PASS_QUOTE_WAIT_PORTFOLIO_ADMISSION"
+            or quote_receipt.get("paper_request_ready") is not False
+            or quote_receipt.get("portfolio_admission_required") is not True
+            or quote_receipt.get("request_sent") is not False):
+        raise ValueError("quote receipt does not await portfolio admission")
+    if (admission.get("decision") != "PASS_PORTFOLIO_ENTRY_ADMISSION"
+            or admission.get("order_sent") is not False
+            or admission.get("candidate_id") != quote_receipt.get("candidate_id")):
+        raise ValueError("portfolio admission is not a PASS for this candidate")
+    expected_risk = _finite(
+        quote_receipt.get("runtime_stop_risk_usdc"), "runtime stop risk")
+    admitted_risk = _finite(admission.get("new_stop_risk_usdc"), "admitted stop risk")
+    if not math.isclose(expected_risk, admitted_risk, rel_tol=1e-9, abs_tol=1e-9):
+        raise ValueError("portfolio admission risk does not match fresh quote")
+    body = quote_receipt.get("request_body") or {}
+    collateral = _finite(body.get("collateral"), "collateral")
+    # The instruction reserves the stress entry buffer on top of collateral.
+    admitted_commitment = _finite(
+        admission.get("new_capital_commitment_usdc"), "admitted commitment")
+    expected_commitment = _finite(
+        quote_receipt.get("capital_committed_usdc"), "instruction commitment")
+    if (admitted_commitment < collateral
+            or not math.isclose(admitted_commitment, expected_commitment,
+                                rel_tol=1e-9, abs_tol=1e-9)):
+        raise ValueError("portfolio admission commitment outside account domain")
+    if not math.isclose(
+            _finite(admission.get("equity_usdc"), "admission equity"),
+            _finite(quote_receipt.get("equity_usdc"), "instruction equity"),
+            rel_tol=1e-9, abs_tol=1e-9):
+        raise ValueError("portfolio admission equity does not match instruction")
+    return {
+        **quote_receipt,
+        "decision": "PASS_FRESH_QUOTE_REVALIDATION",
+        "portfolio_admission": admission,
+        "portfolio_admission_required": False,
+        "paper_request_ready": True,
         "request_sent": False,
         "signer_enabled": False,
         "live_authorized": False,

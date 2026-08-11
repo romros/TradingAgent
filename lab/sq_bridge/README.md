@@ -430,6 +430,9 @@ Per absorbir treballs ja en vol, v4 congela `attempt_stop_guard=64`: amb pressup
 10.000 el watchdog ordena parar quan el comptador live arriba a 9.936. El
 watchdog aplica aquest llindar sobre `engine.totalJobsDone` i el log final
 `Strategies generated` és l'evidència exacta; un overshoot invalida el contracte.
+Aquest 64 és només reserva d'intents en vol. L'objectiu del databank és diferent
+i queda fixat a **60 candidats acceptats per branca**; tant el `StopCondition`
+del CFX com el manifest i el validador han de coincidir exactament amb 60.
 L'ingestor no confia en aquest objecte del manifest: reobre `config.xml` i
 l'únic `Build-Task*.xml` del CFX, recalcula el producte, verifica decimació,
 reinicis i `StopCondition`, i publica la ruta/hash del CFX perquè el validador

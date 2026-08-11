@@ -30,7 +30,7 @@ def _inputs(tmp_path):
         "chain_hypothesis_id": "d1_breakout", "market": "EURUSD",
         "project_name": "PROJECT", "search_profile": "eurusd_d1_breakout_v4",
         "generation_type": "genetic-evolution", "attempt_budget": 10_000,
-        "accepted_limit": 64, "market_side": "both",
+        "accepted_limit": 60, "market_side": "both",
         "date_from": "2020-01-01", "date_to": "2021-01-01",
         "periods": {"train_from": "2020-01-01"}, "holdout_sealed": True,
         "maximum_rules": 3,

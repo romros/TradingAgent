@@ -70,6 +70,7 @@ def compile_plan(*, screen_path: Path, chain_path: Path,
     safe_id = re.sub(r"[^A-Za-z0-9]+", "_", hypothesis_id).strip("_").upper()
     project_name = f"ALQUIMIA_EURUSD_D1_V4_{safe_id}"
     periods = sq_periods(contract)
+    accepted_limit = methodology["sq_generation"]["accepted_candidates_per_branch"]
     plan = {
         "schema_version": 1, "decision": "PASS_GENERATION_PLAN",
         "campaign_id": chain["campaign_id"], "chain_hypothesis_id": hypothesis_id,
@@ -78,7 +79,7 @@ def compile_plan(*, screen_path: Path, chain_path: Path,
         "generation_type": methodology["sq_generation"]["search_method"].replace("_", "-"),
         "attempt_budget": methodology["sq_generation"]["maximum_attempts"],
         "attempt_stop_guard": methodology["sq_generation"]["attempt_stop_guard"],
-        "accepted_limit": 64, "market_side": market_side,
+        "accepted_limit": accepted_limit, "market_side": market_side,
         "maximum_rules": methodology["sq_generation"]["max_rules"],
         "date_from": contract["source_first"], "date_to": contract["source_last"],
         "periods": periods, "holdout_sealed": True,
@@ -94,7 +95,7 @@ def compile_plan(*, screen_path: Path, chain_path: Path,
             "search_profile": profile, "generation_type": "genetic-evolution",
             "attempt_budget": methodology["sq_generation"]["maximum_attempts"],
             "attempt_stop_guard": methodology["sq_generation"]["attempt_stop_guard"],
-            "accepted_limit": 64, "market_side": market_side,
+            "accepted_limit": accepted_limit, "market_side": market_side,
             "date_from": contract["source_first"], "date_to": contract["source_last"],
             "evidence_chain": str(chain_path.resolve()),
             "campaign_id": chain["campaign_id"],

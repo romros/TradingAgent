@@ -909,6 +909,8 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                     == generation["search_method"].replace("_", "-")
                 and project_manifest.get("attempt_stop_guard")
                     == generation["attempt_stop_guard"]
+                and project_manifest.get("accepted_limit")
+                    == generation["accepted_candidates_per_branch"]
                 and isinstance(project_manifest.get("attempt_budget"), int)
                 and not isinstance(project_manifest.get("attempt_budget"), bool)
                 and _at_least(artifact.get("attempted"), 1)

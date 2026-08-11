@@ -66,6 +66,10 @@ def validate(config: dict) -> list[str]:
                 or not isinstance(sq_attempts, int) or isinstance(sq_attempts, bool)
                 or stop_guard != 64 or stop_guard >= sq_attempts):
             errors.append("sq_generation: reserva de parada d'intents invalida")
+        accepted = generation.get("accepted_candidates_per_branch")
+        if (not isinstance(accepted, int) or isinstance(accepted, bool)
+                or accepted != 60):
+            errors.append("sq_generation: objectiu de candidats per branca ha de ser 60")
         max_rules = generation.get("max_rules")
         if (not isinstance(max_rules, int) or isinstance(max_rules, bool)
                 or not 1 <= max_rules <= 3):

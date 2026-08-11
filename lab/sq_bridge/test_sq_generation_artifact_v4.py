@@ -40,7 +40,7 @@ def _fixture(tmp_path, strategy=STRATEGY, settings=SETTINGS):
       <EvoRestartOnFinish status="false" />
       <EvoRestartOnStagnation status="false" />
       </BuildMode></WhatToBuild><Rankings>
-      <StopCondition type="databank-full" passedStrategies="100" restartCount="0"
+      <StopCondition type="databank-full" passedStrategies="60" restartCount="0"
         days="0" hours="0" minutes="0" /></Rankings></Settings>'''
     with zipfile.ZipFile(cfx, "w") as archive:
         archive.writestr("config.xml", config)
@@ -60,7 +60,7 @@ def _fixture(tmp_path, strategy=STRATEGY, settings=SETTINGS):
         "generation_type": "genetic-evolution",
         "attempt_budget": 100,
         "attempt_stop_guard": 64,
-        "accepted_limit": 100,
+        "accepted_limit": 60,
         "wall_time_budget_minutes": 0,
         "sq_genetic_shape": {"islands": 4, "population_per_island": 25,
                              "max_generations": 1,

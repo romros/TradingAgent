@@ -1,0 +1,88 @@
+{
+  "account_usdc": 200,
+  "blocking_reasons": [
+    "CRYPTO_PROXY_MAPPING_NOT_MATURE",
+    "OSTIUM_200_USDC_COSTS_NOT_FROZEN"
+  ],
+  "campaign_config_path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/btcusd_h4_market_preflight_v4_config.json",
+  "campaign_config_sha256": "9cff777111dcfb76237badb094f7f38b84b07ca35fe72a77ceb5e9c3e357a80f",
+  "campaign_id": "btcusd-h4-alquimia-v4",
+  "candidate_ids": [],
+  "cost_progress": {
+    "coverage": {
+      "distinct_utc_days": {
+        "actual": 1,
+        "required": 3
+      },
+      "distinct_utc_hours": {
+        "actual": 3,
+        "required": 6
+      },
+      "open_samples": {
+        "actual": 4,
+        "required": 30
+      }
+    },
+    "decision": "BLOCK_INSUFFICIENT_EXECUTION_COVERAGE",
+    "remaining_complete_captures_lower_bound": 26
+  },
+  "decision": "BLOCK",
+  "future_periods_sealed": true,
+  "holdout_accessed": false,
+  "input_receipts": {
+    "canonical_source": {
+      "bytes": 1725,
+      "exists": true,
+      "path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/btcusd_h4_canonical_source_v4.json",
+      "sha256": "689bbf1ddd1695c1c994799e4fbf73cfa911b4e88e06199c9e96383825c61fb4"
+    },
+    "costs": {
+      "bytes": 766,
+      "exists": true,
+      "path": "/mnt/volume-SQ/dev/TradingAgent/data/ostium_economics_universe/btcusd_costs_latest_v4.json",
+      "sha256": "bd707e7d0f6d33c0a6f5ee11667de526eb1a8e8d4150ab3f15663bfdf6b96ea3"
+    },
+    "mapping": {
+      "bytes": 2145,
+      "exists": true,
+      "path": "/mnt/volume-SQ/dev/TradingAgent/data/ostium_economics_universe/btcusd_proxy_mapping_latest_v4.json",
+      "sha256": "ba22cab83655b709fb6cdd303a9af43e098941e92013406f5fa308d3c3f51f6b"
+    },
+    "preregistration": {
+      "bytes": 3622,
+      "exists": true,
+      "path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/crypto_h4_campaign_preregistration_v4.json",
+      "sha256": "6e9e9586fc3cf0bace2215fa6315898ba4363e513a05337ba45314b180f74939"
+    },
+    "sq_resource": {
+      "bytes": 2290,
+      "exists": true,
+      "path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/btcusd_alq_h4_sq_resource_v4.json",
+      "sha256": "4124468e716cb2b3de919d030482e70053156a898058cfa1a71c3bb47e3dbfb8"
+    }
+  },
+  "live_authorized": false,
+  "mapping_progress": {
+    "distinct_utc_dates": 1,
+    "observations": 2,
+    "observed_span_days": 0.015521076388888888,
+    "upstream_blocking_reasons": [
+      "OSTIUM_NATIVE_60D_COVERAGE_MISSING",
+      "PAIRED_OBSERVATIONS_LT_240",
+      "PAIRED_SPAN_LT_60_DAYS",
+      "PAIRED_UTC_HOURS_LT_12",
+      "SYNCHRONIZED_RETURN_CORRELATION_LT_0_999"
+    ]
+  },
+  "market": "BTCUSD",
+  "market_executable": false,
+  "next_stage_authorized": null,
+  "ostium_pair_id": "0",
+  "paper_authorized": false,
+  "performance_accessed": false,
+  "research_authorized": false,
+  "schema_version": 1,
+  "sqcli_authorized": false,
+  "stage": "market_preflight",
+  "timeframe": "H4"
+}

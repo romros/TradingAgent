@@ -1,0 +1,63 @@
+{
+  "campaign_id": "btcusd-h4-alquimia-v4",
+  "canonical_receipt": {
+    "path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/btcusd_h4_canonical_source_v4.json",
+    "sha256": "689bbf1ddd1695c1c994799e4fbf73cfa911b4e88e06199c9e96383825c61fb4"
+  },
+  "checks": {
+    "broker_economics_not_embedded": true,
+    "ohlc_roundtrip_exact": true,
+    "row_count_exact": true,
+    "source_hash_exact": true,
+    "timestamp_roundtrip_exact": true,
+    "volume_dependent_rules_forbidden": true
+  },
+  "commands": {
+    "path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/btcusd_alq_h4_import.commands",
+    "sha256": "ae5800e816054bf13a3cab4040a56b468853c2da52d655342980c217be57b6ba"
+  },
+  "decision": "PASS_SQ_H4_PROXY_RESOURCE",
+  "holdout_accessed": false,
+  "instrument": {
+    "data_type": "crypto",
+    "default_spread": 0,
+    "name": "BTC_ALQ",
+    "order_size_multiplier": 1,
+    "order_size_step": 0.0001,
+    "point_value": 1,
+    "role": "gross signal research only",
+    "tick_size": 0.01,
+    "tick_step": 0.01
+  },
+  "limitations": [
+    "Proxy mapping and Ostium cost gates remain mandatory before research.",
+    "Volume-dependent rules are forbidden because SQ may normalize volume.",
+    "This resource never authorizes paper or live trading."
+  ],
+  "live_authorized": false,
+  "paper_authorized": false,
+  "performance_accessed": false,
+  "research_authorized": false,
+  "roundtrip": {
+    "exact_ohlc_parity": true,
+    "export_path": "/mnt/volume-SQ/user/exports/alquimia_crypto_v4_btc_h4_roundtrip/BTCUSD_ALQ_H4-H4-No Session.csv",
+    "export_sha256": "9c43cb828373f79561e0fdc809a7b32778959b5c9f2ccbdf5c2b3a1d948beb7d",
+    "rows": 18215,
+    "timestamps_exact_and_ordered": true,
+    "volume_changed_rows": 18215,
+    "volume_max_absolute_error": "0.99996000"
+  },
+  "schema_version": 1,
+  "selection_basis": "data_roundtrip_only_no_strategy_performance",
+  "source": {
+    "first": "2018-03-01T00:00:00+00:00",
+    "last": "2026-06-30T20:00:00+00:00",
+    "path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/btcusd_h4_canonical_v4.csv",
+    "rows": 18215,
+    "sha256": "38940d8ab43029d14481a20feebf11b7f1b50b290e26ec6889433a23b97508db"
+  },
+  "sq_version": "143.2708",
+  "symbol": "BTCUSD_ALQ_H4",
+  "timeframe": "H4",
+  "timezone": "Etc/UTC"
+}

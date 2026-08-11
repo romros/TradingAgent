@@ -300,6 +300,15 @@ interpola el preu al mateix instant i refresca
 bps, a més de 60 dies de candles natives Ostium. Fins llavors la decisió és
 `WARMING`, `research_authorized=false` i SQCLI no rep aquests mercats.
 
+El recurs neutral SQ 143.2708 ja està certificat sense consultar cap retorn:
+`BTCUSD_ALQ_H4` conserva exactament les 18.215 barres i `ETHUSD_ALQ_H4` les
+16.390, amb timestamps i OHLC idèntics després d'importar i tornar a exportar.
+SQ normalitza el volum (18.215 files BTC i 16.388 ETH), de manera que qualsevol
+regla dependent de volum queda prohibida. `crypto_h4_market_preflight_v4.py`
+reobre i hasheja font, comandes, export SQ, preregistre, mapping i costos de 200
+USDC. El cron el refresca després de cada captura; només un `PASS` simultani de
+mapping i costos pot autoritzar `hypothesis_screen`, mai paper o live.
+
 Les 18 hipòtesis crypto (tres mecanismes × both/long/short × dos mercats), els
 rangs, splits i holdout comú ja són tancats a
 `crypto_h4_campaign_preregistration_v4.json` abans de consultar rendiment. Les

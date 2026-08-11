@@ -69,6 +69,8 @@ def test_crypto_capture_is_hourly_every_day_and_separately_locked():
     assert "crypto_proxy_mapping_v4 observe" in capture
     assert "crypto_proxy_mapping_v4 gate" in capture
     assert "ostium_native_coverage_gate" in capture
+    assert "crypto_h4_market_preflight_v4" in capture
+    assert "CRYPTO_H4_PREFLIGHT_REFRESH_FAILED" in capture
     assert 'LINE="17 * * * * flock -n $LOCK ' in installer
     assert "tradingagent-ostium-crypto-economics.lock" in installer
 

@@ -1,0 +1,88 @@
+{
+  "account_usdc": 200,
+  "blocking_reasons": [
+    "CRYPTO_PROXY_MAPPING_NOT_MATURE",
+    "OSTIUM_200_USDC_COSTS_NOT_FROZEN"
+  ],
+  "campaign_config_path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/ethusd_h4_market_preflight_v4_config.json",
+  "campaign_config_sha256": "c524a0b3be373c13345468c0cf37c4f2e9bc25651bf32dc6db913cc3b6b421c8",
+  "campaign_id": "ethusd-h4-alquimia-v4",
+  "candidate_ids": [],
+  "cost_progress": {
+    "coverage": {
+      "distinct_utc_days": {
+        "actual": 1,
+        "required": 3
+      },
+      "distinct_utc_hours": {
+        "actual": 3,
+        "required": 6
+      },
+      "open_samples": {
+        "actual": 4,
+        "required": 30
+      }
+    },
+    "decision": "BLOCK_INSUFFICIENT_EXECUTION_COVERAGE",
+    "remaining_complete_captures_lower_bound": 26
+  },
+  "decision": "BLOCK",
+  "future_periods_sealed": true,
+  "holdout_accessed": false,
+  "input_receipts": {
+    "canonical_source": {
+      "bytes": 1725,
+      "exists": true,
+      "path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/ethusd_h4_canonical_source_v4.json",
+      "sha256": "778f1befb3de5f64bd6e8d84b3348f2e112dfd95edb38c4a5845cf850aad3950"
+    },
+    "costs": {
+      "bytes": 766,
+      "exists": true,
+      "path": "/mnt/volume-SQ/dev/TradingAgent/data/ostium_economics_universe/ethusd_costs_latest_v4.json",
+      "sha256": "838c204ff48fc10bab81a19cee8da363bb06145a6dfad3562444e93450407d8f"
+    },
+    "mapping": {
+      "bytes": 2146,
+      "exists": true,
+      "path": "/mnt/volume-SQ/dev/TradingAgent/data/ostium_economics_universe/ethusd_proxy_mapping_latest_v4.json",
+      "sha256": "14297be4e8c05e4f537459ea96630b89fff54cdd6fff615c628799850213a54d"
+    },
+    "preregistration": {
+      "bytes": 3622,
+      "exists": true,
+      "path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/crypto_h4_campaign_preregistration_v4.json",
+      "sha256": "6e9e9586fc3cf0bace2215fa6315898ba4363e513a05337ba45314b180f74939"
+    },
+    "sq_resource": {
+      "bytes": 2289,
+      "exists": true,
+      "path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/ethusd_alq_h4_sq_resource_v4.json",
+      "sha256": "b928e939d96d5633b3aee64df6725ab611c6ada0d9a448526a21ef424e3e042a"
+    }
+  },
+  "live_authorized": false,
+  "mapping_progress": {
+    "distinct_utc_dates": 1,
+    "observations": 2,
+    "observed_span_days": 0.015527615740740741,
+    "upstream_blocking_reasons": [
+      "OSTIUM_NATIVE_60D_COVERAGE_MISSING",
+      "PAIRED_OBSERVATIONS_LT_240",
+      "PAIRED_SPAN_LT_60_DAYS",
+      "PAIRED_UTC_HOURS_LT_12",
+      "SYNCHRONIZED_RETURN_CORRELATION_LT_0_999"
+    ]
+  },
+  "market": "ETHUSD",
+  "market_executable": false,
+  "next_stage_authorized": null,
+  "ostium_pair_id": "1",
+  "paper_authorized": false,
+  "performance_accessed": false,
+  "research_authorized": false,
+  "schema_version": 1,
+  "sqcli_authorized": false,
+  "stage": "market_preflight",
+  "timeframe": "H4"
+}

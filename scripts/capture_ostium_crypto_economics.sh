@@ -17,6 +17,8 @@ for PAIR in $PAIRS; do
   OBSERVATION="$EVIDENCE_DIR/${SLUG}_proxy_observation_${STAMP}.json"
   NATIVE="$EVIDENCE_DIR/${SLUG}_native_coverage_latest_v4.json"
   MAPPING="$EVIDENCE_DIR/${SLUG}_proxy_mapping_latest_v4.json"
+  PREFLIGHT="$EVIDENCE_DIR/${SLUG}_h4_market_preflight_latest_v4.json"
+  PREFLIGHT_CONFIG="$ROOT/lab/sq_bridge/${SLUG}_h4_market_preflight_v4_config.json"
   CANONICAL="$ROOT/lab/sq_bridge/evidence/${SLUG}_h4_canonical_source_v4.json"
   NATIVE_ROOT="/mnt/volume-SQ/dev/BrokerageService/datafiles/realtime_datalayer/candles/${PAIR_FROM}USD/America_New_York"
 
@@ -64,6 +66,15 @@ for PAIR in $PAIRS; do
       --native "$NATIVE" --canonical "$CANONICAL" --output "$MAPPING" >/dev/null; then
     printf 'PROXY_MAPPING_GATE_REFRESH_FAILED pair=%s\n' "$PAIR" >&2
     STATUS=1
+  fi
+  if [ "$EVIDENCE_DIR" = "$ROOT/data/ostium_economics_universe" ]; then
+    if ! PYTHONPATH="$ROOT" python3 -m lab.sq_bridge.crypto_h4_market_preflight_v4 \
+        --config "$PREFLIGHT_CONFIG" --output "$PREFLIGHT" >/dev/null; then
+      printf 'CRYPTO_H4_PREFLIGHT_REFRESH_FAILED pair=%s\n' "$PAIR" >&2
+      STATUS=1
+    fi
+  else
+    printf 'CRYPTO_H4_PREFLIGHT_SKIPPED_NONCANONICAL_EVIDENCE_DIR pair=%s\n' "$PAIR"
   fi
 done
 

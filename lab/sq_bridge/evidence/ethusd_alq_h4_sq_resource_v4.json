@@ -1,0 +1,63 @@
+{
+  "campaign_id": "ethusd-h4-alquimia-v4",
+  "canonical_receipt": {
+    "path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/ethusd_h4_canonical_source_v4.json",
+    "sha256": "778f1befb3de5f64bd6e8d84b3348f2e112dfd95edb38c4a5845cf850aad3950"
+  },
+  "checks": {
+    "broker_economics_not_embedded": true,
+    "ohlc_roundtrip_exact": true,
+    "row_count_exact": true,
+    "source_hash_exact": true,
+    "timestamp_roundtrip_exact": true,
+    "volume_dependent_rules_forbidden": true
+  },
+  "commands": {
+    "path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/ethusd_alq_h4_import.commands",
+    "sha256": "4a59837ca05a1adc6231d5651055396939a76604668453900569a576abd711dc"
+  },
+  "decision": "PASS_SQ_H4_PROXY_RESOURCE",
+  "holdout_accessed": false,
+  "instrument": {
+    "data_type": "crypto",
+    "default_spread": 0,
+    "name": "ETH_ALQ",
+    "order_size_multiplier": 1,
+    "order_size_step": 0.001,
+    "point_value": 1,
+    "role": "gross signal research only",
+    "tick_size": 0.01,
+    "tick_step": 0.01
+  },
+  "limitations": [
+    "Proxy mapping and Ostium cost gates remain mandatory before research.",
+    "Volume-dependent rules are forbidden because SQ may normalize volume.",
+    "This resource never authorizes paper or live trading."
+  ],
+  "live_authorized": false,
+  "paper_authorized": false,
+  "performance_accessed": false,
+  "research_authorized": false,
+  "roundtrip": {
+    "exact_ohlc_parity": true,
+    "export_path": "/mnt/volume-SQ/user/exports/alquimia_crypto_v4_eth_h4_roundtrip/ETHUSD_ALQ_H4-H4-No Session.csv",
+    "export_sha256": "6d7f2716361491197560edabb73f479686ef20ca1db2b362bbcbff24b3603825",
+    "rows": 16390,
+    "timestamps_exact_and_ordered": true,
+    "volume_changed_rows": 16388,
+    "volume_max_absolute_error": "0.99990000"
+  },
+  "schema_version": 1,
+  "selection_basis": "data_roundtrip_only_no_strategy_performance",
+  "source": {
+    "first": "2019-01-01T00:00:00+00:00",
+    "last": "2026-06-30T20:00:00+00:00",
+    "path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/ethusd_h4_canonical_v4.csv",
+    "rows": 16390,
+    "sha256": "9a1c1db40399fcd960b74eb36f415f26d06c716c92d2d30847b0e86cdacd7c66"
+  },
+  "sq_version": "143.2708",
+  "symbol": "ETHUSD_ALQ_H4",
+  "timeframe": "H4",
+  "timezone": "Etc/UTC"
+}

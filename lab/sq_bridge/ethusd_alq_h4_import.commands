@@ -1,0 +1,4 @@
+-instrument action=add instrument=ETH_ALQ description=Alquimia_ETHUSD_H4_gross_signal_research pointvalue=1 ticksize=0.01 tickstep=0.01 defaultspread=0 datatype=crypto orderSizeMultiplier=1 orderSizeStep=0.001
+-symbol action=add symbols=ETHUSD_ALQ instrument=ETH_ALQ datasource=file datatype=H4 postfix=_H4 exchange=Alquimia
+-data action=import symbol=ETHUSD_ALQ_H4 instrument=ETH_ALQ filepath=/home/squser/SQ/user/imports/alquimia_crypto_v4/ETHUSD_ALQ_H4.csv timezone=Etc/UTC timeframe=H4 bartype=startofbar errorhandling=stop format=MetaTrader4
+-data action=export symbols=ETHUSD_ALQ_H4 timeframe=H4 datefrom=2019.01.01 dateto=2026.06.30 outputdir=/home/squser/SQ/user/exports/alquimia_crypto_v4_eth_h4_roundtrip

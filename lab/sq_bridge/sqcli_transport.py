@@ -222,7 +222,11 @@ async def _gui_list_projects_with_status(base_url: str,
     port = f":{parsed.port}" if parsed.port else ""
     websocket_url = f"{ws_scheme}://{parsed.hostname}{port}/websocket/updates"
     deadline = time.monotonic() + timeout_seconds
-    async with websockets.connect(websocket_url) as socket:
+    # The receive loop alone is not enough: a half-open GUI used to leave
+    # workers blocked forever inside the WebSocket handshake.
+    async with websockets.connect(
+            websocket_url, open_timeout=timeout_seconds,
+            close_timeout=min(5, timeout_seconds)) as socket:
         await socket.send(json.dumps({"action": "setup", "app": "TASKMANAGER"}))
         for row in projects:
             await socket.send(json.dumps({

@@ -417,6 +417,17 @@ o ATR amb la mateixa barra anterior i arrodoniment d'SQ, i passa aquesta mida
 al sizing verificat. Senyals dobles, stops no suportats i estratègies sense
 sortida temporal acotada fallen abans de construir la instrucció.
 
+`ostium_order_payload_v4.py` fa el mapping següent, encara inert, al contracte
+canònic `POST /api/v1/broker/orders/open` de BrokerageService. Resol
+`ostium_pair_id` (per exemple `EUR/USD`) al seu `bs_symbol` (`EURUSD`), crea una
+clau d'idempotència determinista i comprova que collateral × leverage sigui el
+nocional validat. Manté separats el màxim del parell d'Ostium (usat per calcular
+liquidació), el màxim 100x de l'esquema HTTP actual i el `MAX_LEVERAGE` operatiu
+(10x per defecte a BrokerageService). El resultat conserva `request_sent=false`,
+`signer_enabled=false` i `live_authorized=false`; una cotització fresca haurà de
+revalidar direcció/distància del stop abans que una futura capa d'execució paper
+pugui enviar res.
+
 Aquesta última garantia és executable: `methodology_v4.json` preregistra
 genètica 80% crossover / 20% mutació i migració 5 generacions / 10%, i espais
 separats per família. Breakout usa períodes 20–100 i sortides 8–25 barres;

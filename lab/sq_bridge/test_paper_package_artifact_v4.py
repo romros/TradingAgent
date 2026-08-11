@@ -8,6 +8,7 @@ from lab.sq_bridge.e2e_control import payload
 from lab.sq_bridge.paper_package_artifact_v4 import build_artifact
 from lab.sq_bridge.paper_order_sizing_v4 import size_entry
 from lab.sq_bridge.paper_signal_instruction_v4 import build_instruction
+from lab.sq_bridge.ostium_order_payload_v4 import build_order_template
 from lab.sq_bridge.stage_artifact_contract import validate_stage_artifact
 
 
@@ -208,3 +209,87 @@ def test_ir_signal_builds_atr_sized_inert_paper_instruction(tmp_path):
     assert result["initial_stop_distance_pct"] == pytest.approx(1.5 / 103 * 100)
     assert result["stop_price"] == pytest.approx(101.5)
     assert result["maximum_holding_days_for_cost_buffer"] == 14
+
+
+def _signal(tmp_path):
+    import pandas as pd
+
+    _build(tmp_path)
+    index = pd.date_range("2026-08-03", periods=4, freq="B", tz="UTC")
+    frame = pd.DataFrame({
+        "open": [100, 101, 102, 103], "high": [102, 103, 104, 105],
+        "low": [99, 100, 101, 102], "close": [101, 102, 103, 104],
+    }, index=index)
+    return build_instruction(
+        config_path=tmp_path / "paper.json", frame=frame, equity_usdc=200)
+
+
+def _registry(tmp_path):
+    path = tmp_path / "markets.json"
+    _write(path, {"markets": {"CONTROL": {
+        "ostium_pair": "control-pair", "bs_symbol": "EURUSD"}}})
+    return path
+
+
+def test_signal_maps_to_exact_inert_brokerage_request(tmp_path):
+    signal = _signal(tmp_path)
+    result = build_order_template(
+        config_path=tmp_path / "paper.json", instruction=signal,
+        operational_max_leverage=10, registry_path=_registry(tmp_path))
+    body = result["request_body"]
+    assert result["decision"] == "PREPARED_INERT_ORDER_TEMPLATE"
+    assert result["endpoint"] == "/api/v1/broker/orders/open"
+    assert body["venue"] == "ostium"
+    assert body["symbol"] == "EURUSD"
+    assert body["side"] == "long"
+    assert body["collateral"] * body["leverage"] == pytest.approx(
+        signal["position_notional_usdc"])
+    assert body["sl_price"] < signal["entry_price"]
+    assert body["tp_price"] is None
+    assert body["client_order_id"].startswith("alq4-")
+    assert result["fresh_quote_required"] is True
+    assert result["request_sent"] is result["signer_enabled"] is False
+    assert result["live_authorized"] is False
+
+
+def test_order_mapping_is_idempotent_and_rejects_tampering_or_caps(tmp_path):
+    signal = _signal(tmp_path)
+    registry = _registry(tmp_path)
+    first = build_order_template(
+        config_path=tmp_path / "paper.json", instruction=signal,
+        operational_max_leverage=10, registry_path=registry)
+    second = build_order_template(
+        config_path=tmp_path / "paper.json", instruction=signal,
+        operational_max_leverage=10, registry_path=registry)
+    assert first["request_body"]["client_order_id"] == second["request_body"][
+        "client_order_id"]
+
+    tampered = dict(signal, candidate_id="other")
+    with pytest.raises(ValueError, match="lineage"):
+        build_order_template(
+            config_path=tmp_path / "paper.json", instruction=tampered,
+            operational_max_leverage=10, registry_path=registry)
+
+    over_cap = dict(signal, selected_leverage=101,
+                    collateral_usdc=signal["position_notional_usdc"] / 101)
+    with pytest.raises(ValueError, match="limit executable"):
+        build_order_template(
+            config_path=tmp_path / "paper.json", instruction=over_cap,
+            operational_max_leverage=200, registry_path=registry)
+
+    with pytest.raises(ValueError, match="limit executable"):
+        build_order_template(
+            config_path=tmp_path / "paper.json", instruction=signal,
+            operational_max_leverage=4, registry_path=registry)
+
+
+def test_no_signal_never_creates_request_body(tmp_path):
+    _build(tmp_path)
+    result = build_order_template(
+        config_path=tmp_path / "paper.json",
+        instruction={"decision": "NO_PAPER_SIGNAL", "order_sent": False,
+                     "signal_timestamp": "2026-08-03T00:00:00+00:00"},
+        operational_max_leverage=10)
+    assert result["decision"] == "NO_ORDER_TEMPLATE"
+    assert result["request_sent"] is False
+    assert "request_body" not in result

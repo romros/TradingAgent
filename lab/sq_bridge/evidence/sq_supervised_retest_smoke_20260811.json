@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-08-11",
+  "decision": "PASS_OPERATIONAL_SMOKE_NOT_CANDIDATE_EVIDENCE",
+  "project_name": "ALQUIMIA_V4_RETEST_RUNNER_SMOKE",
+  "candidate_id": "ALQUIMIA_XAU_H4_SWEEP_RECLAIM_V5_SEED",
+  "candidate_role": "preexisting_supported_sqx_used_only_as_transport_control",
+  "candidate_promoted": false,
+  "period": {
+    "from": "2017-01-01",
+    "to": "2025-07-31",
+    "holdout_from": "2025-08-01",
+    "holdout_accessed": false
+  },
+  "contract": {
+    "performance_filters_applied_in_sq": false,
+    "input_before": 1,
+    "output_before": 0,
+    "input_after": 1,
+    "output_after": 1,
+    "total_tested": 1,
+    "passed": 1,
+    "failed": 0
+  },
+  "hashes": {
+    "source_cfx_sha256": "ba89e390b40da8d55f1a97f8ae59f492518e6652e4b1c3d37a0964fc12aafd06",
+    "candidate_input_sqx_sha256": "e5d3d1b4dd9e0e4cd2a95023832a13bc2945083cd673916a919fc7622ec42b2a",
+    "candidate_strategy_xml_sha256": "3259ec77a7db90fcc6fcfde0f5620240865ec9da9696cbee5b91d60119881e84",
+    "retest_output_sqx_sha256": "61772a9693de61880a6de509aeb4af017c4b7ac4cc61e311a4e6dde9cab68398",
+    "orders_export_input_sqx_sha256": "61772a9693de61880a6de509aeb4af017c4b7ac4cc61e311a4e6dde9cab68398",
+    "orders_csv_sha256": "5e54227793006c15d9c261d4949b380c96965fcf934de2c5a0411a09e5d58c42",
+    "sq_final_log_sha256": "cba383c83f9187dfba7ec136af55e0acb753f86cd5d55b3e221af4af17710017",
+    "versioned_log_excerpt_sha256": "2998df7b2fb9ad504d6530b3af1b2a9ea56660daf9592ca2dcf80806c2b3fb58"
+  },
+  "orders": {
+    "rows": 987,
+    "first_close_local": "2017.01.04 12:00:00",
+    "last_close_local": "2025.07.28 09:58:00",
+    "exported_by": "SQCLI 143.2708 tools action=orderstocsv"
+  },
+  "receipt_rebuild_verified": true,
+  "operational_lessons": [
+    "syncfromfiles is asynchronous and must be observed at strategies=1 before start",
+    "syncfromfiles is not idempotent in memory and must not be repeated after observed success",
+    "synctofiles is required for Auto-sync never output databanks",
+    "an SQX must be stable and readable in two consecutive observations before use",
+    "the HTTP command transport must preserve literal path separators",
+    "orderstocsv output is a file prefix and SQ appends .csv"
+  ],
+  "scientific_interpretation": "This proves transport and lineage only. No profitability claim is made because no compatible frozen XAU Ostium cost model was applied."
+}

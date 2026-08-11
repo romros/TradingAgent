@@ -8,6 +8,7 @@ import pytest
 from lab.sq_bridge.stage_artifact_contract import validate_stage_artifact
 from lab.sq_bridge.temporal_validation_artifact_v4 import build_artifact
 from lab.sq_bridge.sq_temporal_trace_v4 import derive
+from lab.sq_bridge.test_sq_temporal_trace_v4 import _retest_receipt
 
 
 ROOT = Path(__file__).parent
@@ -86,7 +87,9 @@ def _write(tmp_path, candidate_id, trace, costs):
     derived = derive(
         candidate_id=candidate_id, orders_path=orders,
         temporal_contract_path=contract, cost_model_path=costs,
-        source_timezone="UTC")
+        source_timezone="UTC",
+        retest_receipt_path=_retest_receipt(
+            tmp_path, orders, candidate_id=candidate_id))
     for key in ("holdout_accessed", "evaluation_notional_usdc"):
         if trace.get(key) != derived.get(key):
             derived[key] = trace[key]

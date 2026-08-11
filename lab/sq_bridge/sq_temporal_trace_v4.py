@@ -13,6 +13,7 @@ from pathlib import Path
 import pandas as pd
 
 from lab.sq_bridge.temporal_split_contract_v4 import digest as contract_digest
+from lab.sq_bridge.sqcli_supervised_retest import verify_retest_receipt
 
 
 def _sha(path: Path) -> str:
@@ -55,10 +56,13 @@ def _segments(contract: dict) -> dict[str, tuple[date, date]]:
 
 def derive(*, candidate_id: str, orders_path: Path, temporal_contract_path: Path,
            cost_model_path: Path, source_timezone: str,
+           retest_receipt_path: Path,
            evaluation_notional_usdc: float = 200) -> dict:
     if not candidate_id or evaluation_notional_usdc != 200:
         raise ValueError("candidat o nocional temporal no canonic")
     contract = json.loads(temporal_contract_path.read_text())
+    verify_retest_receipt(
+        retest_receipt_path, candidate_id=candidate_id, orders_path=orders_path)
     segments = _segments(contract)
     cost_hash = _sha(cost_model_path)
     with orders_path.open(newline="", encoding="utf-8-sig") as handle:
@@ -133,6 +137,8 @@ def derive(*, candidate_id: str, orders_path: Path, temporal_contract_path: Path
         "train_trades": buckets["train"], "oos_windows": windows,
         "source": "strategyquant_orders_export",
         "orders_path": str(orders_path.resolve()), "orders_sha256": _sha(orders_path),
+        "supervised_retest_receipt_path": str(retest_receipt_path.resolve()),
+        "supervised_retest_receipt_sha256": _sha(retest_receipt_path),
         "temporal_split_contract_path": str(temporal_contract_path.resolve()),
         "temporal_split_contract_sha256": _sha(temporal_contract_path),
         "temporal_split_contract_digest": contract_digest(contract),
@@ -150,6 +156,7 @@ def rebuild_from_trace(trace: dict) -> dict:
         orders = Path(trace["orders_path"])
         contract = Path(trace["temporal_split_contract_path"])
         costs = Path(trace["cost_model_path"])
+        retest_receipt = Path(trace["supervised_retest_receipt_path"])
     except (KeyError, TypeError) as exc:
         raise ValueError("fonts del trace temporal absents") from exc
     for path, key in ((orders, "orders_sha256"),
@@ -158,9 +165,13 @@ def rebuild_from_trace(trace: dict) -> dict:
             raise ValueError("font del trace temporal manipulada")
     if not costs.is_file() or _sha(costs) != trace.get("cost_model_sha256"):
         raise ValueError("costos del trace temporal manipulats")
+    if (not retest_receipt.is_file()
+            or _sha(retest_receipt) != trace.get("supervised_retest_receipt_sha256")):
+        raise ValueError("rebut Retest del trace temporal manipulat")
     return derive(
         candidate_id=trace.get("candidate_id", ""), orders_path=orders,
         temporal_contract_path=contract, cost_model_path=costs,
+        retest_receipt_path=retest_receipt,
         source_timezone=trace.get("source_timezone", ""),
         evaluation_notional_usdc=trace.get("evaluation_notional_usdc"))
 
@@ -172,12 +183,14 @@ def main() -> None:
     parser.add_argument("--temporal-contract", required=True, type=Path)
     parser.add_argument("--cost-model", required=True, type=Path)
     parser.add_argument("--source-timezone", required=True)
+    parser.add_argument("--retest-receipt", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
     args = parser.parse_args()
     trace = derive(
         candidate_id=args.candidate_id, orders_path=args.orders,
         temporal_contract_path=args.temporal_contract,
-        cost_model_path=args.cost_model, source_timezone=args.source_timezone)
+        cost_model_path=args.cost_model, source_timezone=args.source_timezone,
+        retest_receipt_path=args.retest_receipt)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(trace, indent=2, sort_keys=True) + "\n")
     print(json.dumps({"candidate_id": args.candidate_id,

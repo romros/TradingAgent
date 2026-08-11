@@ -1,0 +1,123 @@
+import shutil
+import subprocess
+import zipfile
+import hashlib
+from pathlib import Path
+
+import pytest
+
+from lab.sq_bridge.sqcli_supervised_retest import (
+    parse_retest_final_log, supervised_retest, verify_retest_receipt,
+)
+from lab.sq_bridge.test_alquimia_retest import _generate
+
+
+LOG = """Project: RETEST_T
+TASK STARTED
+Databanks before start: Results (1), PreHoldout (0)
+TASK FINISHED at 2026.08.11 02:00:00 in 2 s.
+Databanks after finish: Results (1), PreHoldout (1)
+Total tested: 1, Time per strategy: 0 ms., Passed: 0, Failed: 1
+"""
+
+
+def test_retest_log_proves_exact_uncensored_one_candidate_execution():
+    assert parse_retest_final_log(LOG) == {
+        "input_before": 1, "output_before": 0, "input_after": 1,
+        "output_after": 1, "total_tested": 1, "passed": 0, "failed": 1,
+    }
+    with pytest.raises(ValueError, match="COUNTERS_INVALID"):
+        parse_retest_final_log(LOG.replace("Results (1), PreHoldout (0)",
+                                          "Results (2), PreHoldout (0)"))
+
+
+def test_supervised_retest_binds_input_output_log_and_orders_export(tmp_path):
+    (tmp_path / "source").mkdir()
+    manifest, cfx = _generate(tmp_path / "source")
+    manifest_path = cfx.with_suffix(".manifest.json")
+    projects_root = tmp_path / "projects"
+    project_dir = projects_root / "RETEST_T"
+    state = {"imported": False, "started": False, "synced": False,
+             "poll": 0, "starts": 0}
+
+    def listing(_base_url):
+        if not state["imported"]:
+            return []
+        running = 0
+        if state["started"]:
+            state["poll"] += 1
+            running = 1 if state["poll"] == 1 else 0
+        return [{"projectName": "RETEST_T", "runningStatus": running,
+                 "hasUnresolvedResources": False,
+                 "strategies": 1 if state["synced"] else 0}]
+
+    def open_project(_base_url, _container_path):
+        project_dir.mkdir(parents=True)
+        shutil.copyfile(cfx, project_dir / "project.cfx")
+        state["imported"] = True
+        return {"success": "ok", "projectName": "RETEST_T"}
+
+    def start_project(_base_url, _project):
+        state["starts"] += 1
+        source_sqx = next((project_dir / "databanks/Results").glob("*.sqx"))
+        target = project_dir / "databanks/PreHoldout" / source_sqx.name
+        with zipfile.ZipFile(source_sqx) as source, zipfile.ZipFile(target, "w") as output:
+            for name in source.namelist():
+                output.writestr(name, source.read(name))
+            output.writestr("orders.bin", b"observed-orders")
+        state["started"] = True
+        return {"success": "started"}
+
+    def export_orders(command):
+        assert "action=orderstocsv" in command
+        output_sqx = next((project_dir / "databanks/PreHoldout").glob("*.sqx"))
+        token = hashlib.sha256(output_sqx.read_bytes()).hexdigest()[:16]
+        orders = project_dir / f"orders-pre-holdout-{token}.csv"
+        orders.write_text(
+            '"Ticket";"Type";"Open time";"Open price";"Close time";"Close price"\n'
+            '"1";"Buy";"2020.01.02 00:00:00";"1";"2020.01.03 00:00:00";"1.01"\n')
+        return "Orders export finished"
+
+    def sync_databank(command):
+        assert command == "-databank action=syncfromfiles project=RETEST_T name=Results"
+        state["synced"] = True
+        return "Databank synced"
+
+    def runner(args, **_kwargs):
+        return subprocess.CompletedProcess(args, 0, "", "")
+
+    common = dict(
+        cfx_path=cfx, manifest_path=manifest_path,
+        output_dir=tmp_path / "evidence", projects_root=projects_root,
+        listing_fn=listing, open_fn=open_project, start_fn=start_project,
+        final_log_fn=lambda _project: {
+            "log_text": LOG, "completion_source": "sq_project_final_log"},
+        sync_fn=sync_databank, export_fn=export_orders, runner=runner,
+        interval=1, timeout_seconds=10)
+    with pytest.raises(RuntimeError, match="simulated interruption"):
+        supervised_retest(
+            **common,
+            sleep_fn=lambda _seconds: (_ for _ in ()).throw(
+                RuntimeError("simulated interruption")))
+    assert (tmp_path / "evidence/retest_start_receipt.json").is_file()
+    result = supervised_retest(**common, sleep_fn=lambda _seconds: None)
+    assert result["decision"] == "PASS_SUPERVISED_RETEST"
+    assert result["candidate_id"] == "T"
+    assert result["candidate_input_sqx_sha256"] == manifest["candidate_sqx_sha256"]
+    assert result["total_tested"] == 1
+    assert result["failed"] == 1
+    # The resumed process proves completion from the final SQ log even though
+    # its own first poll happens after the short Retest has stopped.
+    assert result["observed_running"] is False
+    assert result["holdout_accessed"] is False
+    assert result["performance_filters_applied_in_sq"] is False
+    assert state["starts"] == 1
+    receipt_path = tmp_path / "evidence/supervised_retest_receipt.json"
+    assert verify_retest_receipt(
+        receipt_path, candidate_id="T",
+        orders_path=Path(result["orders_csv_path"])) == result
+    replay = supervised_retest(
+        cfx_path=cfx, manifest_path=manifest_path,
+        output_dir=tmp_path / "evidence", projects_root=projects_root,
+        listing_fn=lambda *_: (_ for _ in ()).throw(AssertionError("must replay")))
+    assert replay == result

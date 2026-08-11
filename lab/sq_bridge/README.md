@@ -450,6 +450,7 @@ creua una frontera o arriba al holdout:
 ```bash
 PYTHONPATH=../.. python3 sq_temporal_trace_v4.py \
   --candidate-id CANDIDATE_ID --orders /path/to/orders.csv \
+  --retest-receipt /path/to/supervised_retest_receipt.json \
   --temporal-contract /path/to/temporal-split-contract.json \
   --cost-model /path/to/eurusd_costs_frozen_v4.json \
   --source-timezone America/New_York \
@@ -457,9 +458,10 @@ PYTHONPATH=../.. python3 sq_temporal_trace_v4.py \
 ```
 
 El validador reconstrueix el trace des del CSV i les fonts hashades; editar
-retorns, trades, finestres o costos deixa de ser una via possible. Encara cal
-que la futura etapa Retest supervisada lligui l'export `orders.csv` al hash del
-SQX d'entrada abans de considerar automatitzat tot el tram temporal.
+retorns, trades, finestres o costos deixa de ser una via possible. El rebut de
+`sqcli_supervised_retest.py` és obligatori: reobre el CFX, el SQX d'entrada i de
+sortida, l'`orders.bin`, el log final i el CSV. Un export manual o deslligat del
+candidat no és evidència nativa admissible.
 
 L'artefacte no s'edita manualment:
 
@@ -658,10 +660,11 @@ python3 -m unittest -v test_discovery_inventory.py
 
 ## Retest temporal amb recurs desacoblat
 
-`alquimia_retest.py` pot reutilitzar una plantilla Retest i importar-hi un únic
-recurs de mercat verificat des d'un altre CFX. Rebutja absències o coincidències
-ambigües, no modifica els CFX originals i registra al manifest els hashes de la
-plantilla, del recurs i del resultat.
+`alquimia_retest.py` genera un CFX `pre_holdout` reproduïble per a un únic SQX.
+El període cobreix train+validació+OOS però mai el holdout. No aplica filtres de
+PF, trades o drawdown dins SQ i no elimina fallits: la selecció es fa després
+sobre tota l'evidència, sense censura. Rebutja recursos ambigus i lliga el nom i
+hash del candidat al manifest.
 
 ```bash
 python3 alquimia_retest.py \
@@ -671,9 +674,25 @@ python3 alquimia_retest.py \
   --slippage 400 \
   --test-precision 4 \
   --money-management fixed_size --fixed-size 1 \
-  --output /path/to/validation.cfx \
-  --name CAMPAIGN_VALIDATION --stage validation \
+  --candidate-sqx /path/to/EXACT_STRATEGY.sqx \
+  --candidate-id EXACT_STRATEGY_NAME \
+  --output /path/to/pre-holdout.cfx \
+  --name CAMPAIGN_PRE_HOLDOUT --stage pre_holdout \
   --discovery-manifest /path/to/discovery.manifest.json \
   --methodology methodology_v2.json \
   --symbol EXACT_SQ_SYMBOL --timeframe H4
 ```
+
+Execució observada i export d'ordres:
+
+```bash
+PYTHONPATH=../.. python3 sqcli_supervised_retest.py \
+  --cfx /path/to/pre-holdout.cfx \
+  --manifest /path/to/pre-holdout.manifest.json \
+  --output-dir /path/to/evidence/retest/EXACT_STRATEGY_NAME
+```
+
+El supervisor exigeix un projecte nou i resolt, copia exactament un SQX a
+`Results`, observa al log `Results (1) -> PreHoldout (1)` i `Total tested: 1`,
+comprova l'`orders.bin` de sortida i invoca l'export oficial SQCLI
+`tools action=orderstocsv`. El rebut és idempotent i no autoritza paper ni live.

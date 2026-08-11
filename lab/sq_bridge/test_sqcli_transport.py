@@ -7,7 +7,7 @@ from pathlib import Path
 import pytest
 
 from lab.sq_bridge.sqcli_transport import (
-    docker_exec_http_call, docker_project_final_stats, gui_project_action,
+    docker_exec_http_call, docker_project_final_log, docker_project_final_stats, gui_project_action,
     gui_open_project, gui_start_project, list_projects, parse_project_final_log,
     project_listing, select_project_stats, trigger_project_listing,
 )
@@ -47,6 +47,20 @@ def test_docker_transport_accepts_universal_newline_translation():
             args, 0, "HTTP/1.1 200 OK\nContent-Length: 2\n\nOK", "")
 
     assert docker_exec_http_call("sqcli", "-h", runner=runner) == "OK"
+
+
+def test_docker_transport_preserves_sq_file_path_separators():
+    calls = []
+
+    def runner(args, **kwargs):
+        calls.append(args)
+        return subprocess.CompletedProcess(args, 0, "HTTP/1.1 200 OK\n\nOK", "")
+
+    docker_exec_http_call(
+        "sqcli", "-tools action=orderstocsv file=/home/squser/SQ/a.sqx",
+        runner=runner)
+    assert "file=/home/squser/SQ/a.sqx" in calls[0][-2]
+    assert "%2F" not in calls[0][-2]
 
 
 def test_taskmanager_stats_require_exact_project_and_one_task():
@@ -128,6 +142,23 @@ def test_docker_final_stats_selects_newest_log_without_shell_interpolation():
                         "/home/squser/SQ/user/projects/P/log/global_log_2.log"]
     with pytest.raises(ValueError, match="project"):
         docker_project_final_stats("sqcli-docker", "P;bad", runner=runner)
+
+
+def test_docker_final_log_accepts_completed_retest_without_build_counters():
+    log = "TASK FINISHED at 2026.08.11 01:00:00 in 4 s.\nRetest finished.\n"
+
+    def runner(args, **kwargs):
+        if "find" in args:
+            return subprocess.CompletedProcess(
+                args, 0,
+                "2 /home/squser/SQ/user/projects/RETEST/log/global_log_1.log\n", "")
+        return subprocess.CompletedProcess(args, 0, log, "")
+
+    result = docker_project_final_log("sqcli-docker", "RETEST", runner=runner)
+    assert result["completion_source"] == "sq_project_final_log"
+    assert result["log_text"] == log
+    with pytest.raises(RuntimeError, match="counters missing"):
+        docker_project_final_stats("sqcli-docker", "RETEST", runner=runner)
 
 
 def test_observed_genetic_budget_smoke_is_bound_to_exact_sq_log():

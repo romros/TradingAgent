@@ -44,7 +44,10 @@ def docker_exec_http_call(
         raise ValueError("invalid SQCLI API port")
     if not isinstance(command, str) or not command or "\r" in command or "\n" in command:
         raise ValueError("invalid SQCLI command")
-    encoded = urllib.parse.quote(command, safe="=-_")
+    # SQ's /call handler parses the command itself and does not decode escaped
+    # path separators inside argument values. Keep `/` literal while encoding
+    # query delimiters, whitespace and control characters.
+    encoded = urllib.parse.quote(command, safe="=/_-.")
     completed = runner(
         ["docker", "exec", container, "bash", "-c", DOCKER_HTTP_SCRIPT,
          "sqcli-http", encoded, str(api_port)],
@@ -81,11 +84,11 @@ def parse_project_final_log(text: str) -> dict:
     return {"generated": generated, "accepted": accepted, "rejected": rejected}
 
 
-def docker_project_final_stats(
+def docker_project_final_log(
     container: str, project: str, *, timeout_seconds: int = 20,
     runner: Callable[..., subprocess.CompletedProcess] = subprocess.run,
 ) -> dict:
-    """Read the newest completed SQ project log and derive exact final counters."""
+    """Read the newest project log, accepting only a naturally finished SQ task."""
     if not CONTAINER_NAME.fullmatch(container):
         raise ValueError("invalid SQCLI container name")
     if not isinstance(project, str) or not SAFE_PROJECT_NAME.fullmatch(project):
@@ -114,11 +117,25 @@ def docker_project_final_stats(
     if completed.returncode != 0:
         raise RuntimeError("SQCLI project log read failed")
     text = completed.stdout
+    if "TASK FINISHED" not in text:
+        raise RuntimeError("SQCLI latest project run is not finished")
     return {
-        **parse_project_final_log(text),
         "log_path": log_path,
         "log_sha256": hashlib.sha256(text.encode()).hexdigest(),
         "log_text": text,
+        "completion_source": "sq_project_final_log",
+    }
+
+
+def docker_project_final_stats(
+    container: str, project: str, *, timeout_seconds: int = 20,
+    runner: Callable[..., subprocess.CompletedProcess] = subprocess.run,
+) -> dict:
+    """Read the newest completed Build log and derive exact final counters."""
+    final = docker_project_final_log(
+        container, project, timeout_seconds=timeout_seconds, runner=runner)
+    return {
+        **parse_project_final_log(final["log_text"]), **final,
         "attempt_counter_source": "sq_project_final_log",
     }
 

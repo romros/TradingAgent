@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -24,6 +24,7 @@ def percentile(values: list[float], q: float) -> float | None:
 def aggregate(
     snapshots: list[dict[str, Any]], *, min_open_samples: int = 30,
     min_days: int = 3, min_utc_hours: int = 6, pair_id: str | None = None,
+    minimum_sample_spacing_seconds: int = 900,
 ) -> dict[str, Any]:
     present_pair_ids = {
         str(row.get("instrument", {}).get("pair_id"))
@@ -44,8 +45,37 @@ def aggregate(
     if len(identities) != 1:
         raise ValueError(f"instrument identity drift for pair_id={pair_id}: {sorted(identities)}")
     pair_from, pair_to, category = next(iter(identities))
-    opened = [row for row in valid if row.get("market_state", {}).get("is_market_open") is True]
-    timestamps = [datetime.fromisoformat(row["captured_at"].replace("Z", "+00:00")) for row in opened]
+    raw_opened = [row for row in valid
+                  if row.get("market_state", {}).get("is_market_open") is True]
+    if (not isinstance(minimum_sample_spacing_seconds, int)
+            or isinstance(minimum_sample_spacing_seconds, bool)
+            or minimum_sample_spacing_seconds < 1):
+        raise ValueError("minimum sample spacing must be a positive integer")
+    by_timestamp: dict[datetime, dict[str, Any]] = {}
+    exact_duplicates = 0
+    for row in raw_opened:
+        try:
+            stamp = datetime.fromisoformat(row["captured_at"].replace("Z", "+00:00"))
+        except (KeyError, TypeError, ValueError) as exc:
+            raise ValueError("invalid captured_at") from exc
+        if stamp.tzinfo is None or stamp.utcoffset() != timezone.utc.utcoffset(stamp):
+            raise ValueError("captured_at must be UTC")
+        previous = by_timestamp.get(stamp)
+        if previous is not None:
+            if previous != row:
+                raise ValueError(f"conflicting snapshots at captured_at={row['captured_at']}")
+            exact_duplicates += 1
+            continue
+        by_timestamp[stamp] = row
+    opened, timestamps, last = [], [], None
+    spacing_rejections = 0
+    for stamp, row in sorted(by_timestamp.items()):
+        if last is not None and (stamp - last).total_seconds() < minimum_sample_spacing_seconds:
+            spacing_rejections += 1
+            continue
+        opened.append(row)
+        timestamps.append(stamp)
+        last = stamp
     days = sorted({stamp.date().isoformat() for stamp in timestamps})
     hours = sorted({stamp.hour for stamp in timestamps})
     spreads = [float(row["quote"]["spread_bps"]) for row in opened]
@@ -117,7 +147,13 @@ def aggregate(
             "category": category,
         },
         "all_valid_snapshots": len(valid),
+        "raw_open_market_snapshots": len(raw_opened),
         "open_market_snapshots": len(opened),
+        "independence_filter": {
+            "minimum_sample_spacing_seconds": minimum_sample_spacing_seconds,
+            "exact_duplicate_snapshots_ignored": exact_duplicates,
+            "too_close_snapshots_ignored": spacing_rejections,
+        },
         "first_open_capture_at": min((row["captured_at"] for row in opened), default=None),
         "last_open_capture_at": max((row["captured_at"] for row in opened), default=None),
         "source_raw_sha256": sorted({
@@ -153,11 +189,13 @@ def main() -> None:
     parser.add_argument("--min-open-samples", type=int, default=30)
     parser.add_argument("--min-days", type=int, default=3)
     parser.add_argument("--min-utc-hours", type=int, default=6)
+    parser.add_argument("--minimum-sample-spacing-seconds", type=int, default=900)
     parser.add_argument("--pair-id", help="Expected Ostium pair id; inferred only for a single-pair input")
     args = parser.parse_args()
     snapshots = [json.loads(path.read_text()) for path in args.paths]
     result = aggregate(snapshots, min_open_samples=args.min_open_samples, min_days=args.min_days,
-                       min_utc_hours=args.min_utc_hours, pair_id=args.pair_id)
+                       min_utc_hours=args.min_utc_hours, pair_id=args.pair_id,
+                       minimum_sample_spacing_seconds=args.minimum_sample_spacing_seconds)
     text = json.dumps(result, indent=2, sort_keys=True) + "\n"
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)

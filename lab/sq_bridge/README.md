@@ -404,6 +404,13 @@ cost variable i fix observat en tots els buckets fins aquell sostre. Això evita
 que soroll no monòton entre captures faci semblar artificialment barata una
 posició intermèdia; el cost fix d'oracle sempre es conserva en USDC.
 
+El gate de 30 captures tampoc compta fitxers a cegues. L'agregador ordena els
+`captured_at` UTC, ignora còpies exactes, rebutja payloads contradictoris amb el
+mateix timestamp i només conserva mostres separades almenys 900 segons. Tant les
+distribucions de costos com els requisits 30 mostres / 3 dies / 6 hores es
+calculen sobre aquest subconjunt independent; el rebut informa per separat les
+captures brutes i les descartades per proximitat.
+
 El paquet paper usa unitats explícites: `risk_per_trade_pct` són punts
 percentuals i `risk_per_trade_fraction` és la fracció executable. Abans de
 qualsevol ordre, `paper_order_sizing_v4.py` revalida tots els hashes i recalcula

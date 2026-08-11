@@ -61,6 +61,32 @@ class AggregateExecutionSnapshotsTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "exactly one pair_id"):
             aggregate([usd_jpy, snapshot("2026-08-08T11:00:00Z", True, 1, .5)])
 
+    def test_duplicates_and_clustered_captures_cannot_inflate_gate(self):
+        first = snapshot("2026-08-08T10:00:00Z", True, 1, .5)
+        duplicate = dict(first)
+        clustered = snapshot("2026-08-08T10:05:00Z", True, 99, 99)
+        independent = snapshot("2026-08-08T10:15:00Z", True, 3, 1.5)
+        result = aggregate(
+            [first, duplicate, clustered, independent],
+            min_open_samples=3, min_days=1, min_utc_hours=1)
+        self.assertEqual(result["raw_open_market_snapshots"], 4)
+        self.assertEqual(result["open_market_snapshots"], 2)
+        self.assertEqual(result["gate"]["checks"]["open_samples"]["actual"], 2)
+        self.assertEqual(result["gate"]["execution_economics"],
+                         "INSUFFICIENT_OPEN_MARKET_EVIDENCE")
+        self.assertEqual(result["independence_filter"], {
+            "minimum_sample_spacing_seconds": 900,
+            "exact_duplicate_snapshots_ignored": 1,
+            "too_close_snapshots_ignored": 1,
+        })
+        self.assertEqual(result["spread_bps"]["p50"], 2)
+
+    def test_same_timestamp_with_conflicting_payload_fails_closed(self):
+        first = snapshot("2026-08-08T10:00:00Z", True, 1, .5)
+        conflict = snapshot("2026-08-08T10:00:00Z", True, 2, .5)
+        with self.assertRaisesRegex(ValueError, "conflicting snapshots"):
+            aggregate([first, conflict])
+
 
 if __name__ == "__main__":
     unittest.main()

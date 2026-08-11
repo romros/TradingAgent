@@ -314,6 +314,13 @@ rangs, splits i holdout comú ja són tancats a
 `crypto_h4_campaign_preregistration_v4.json` abans de consultar rendiment. Les
 famílies antigues v11–v21 no són candidates ni evidència quantitativa v4.
 
+`crypto_h4_experiment_design_v4.py` compila el preregistre tancat abans de
+carregar cap candle: 18 branques × 5.000 punts = 90.000 configuracions úniques.
+Cada branca usa una llavor derivada de l'ID i mostreig conjunt SHA-256, conserva
+els rangs exactes i publica el hash de tots els punts. Una recompilació dóna el
+mateix manifest byte a byte. El límit 60 és el pressupost global de candidats
+acceptats per totes les campanyes v4, no una drecera de 60 intents.
+
 US500 D1 aplica el mateix contracte amb un productor, bootstrap i trigger
 independents. El cron de quotes de sessió recompon el preflight i invoca el
 trigger després de cada captura; mentre no hi ha 30 mostres en tres sessions

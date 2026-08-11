@@ -33,6 +33,7 @@ from lab.sq_bridge.eurusd_d1_market_preflight_v4 import compose as compose_eurus
 from lab.sq_bridge.eurusd_v4_hypotheses import (
     HYPOTHESIS_MARKET_SIDES as V4_HYPOTHESIS_MARKET_SIDES,
     SEARCH_PROFILES as V4_HYPOTHESIS_SEARCH_PROFILES,
+    accepted_target,
 )
 from lab.sq_bridge.temporal_split_contract_v4 import digest as temporal_digest, sq_periods
 
@@ -451,10 +452,14 @@ def _verified_sq_prerequisite_chain(artifact: dict, manifest: dict,
             trace_path = (trace_path if trace_path.is_absolute()
                           else screen_path.resolve().parent / trace_path)
             trace = json.loads(trace_path.read_text())
+            expected_accepted = accepted_target(
+                source_id, screen.get("selected_hypothesis_ids", []),
+                generation["accepted_candidates_global_budget"])
             temporal_valid = (
                 manifest.get("search_profile") == profiles[source_id]
                 and manifest.get("market_side")
                     == V4_HYPOTHESIS_MARKET_SIDES[source_id]
+                and manifest.get("accepted_limit") == expected_accepted
                 and manifest.get("temporal_split_contract_sha256")
                     == temporal_digest(contract)
                 and manifest.get("temporal_source_sha256") == contract.get("source_sha256")
@@ -909,8 +914,10 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                     == generation["search_method"].replace("_", "-")
                 and project_manifest.get("attempt_stop_guard")
                     == generation["attempt_stop_guard"]
-                and project_manifest.get("accepted_limit")
-                    == generation["accepted_candidates_per_branch"]
+                and isinstance(project_manifest.get("accepted_limit"), int)
+                and not isinstance(project_manifest.get("accepted_limit"), bool)
+                and 1 <= project_manifest.get("accepted_limit")
+                    <= generation["accepted_candidates_global_budget"]
                 and isinstance(project_manifest.get("attempt_budget"), int)
                 and not isinstance(project_manifest.get("attempt_budget"), bool)
                 and _at_least(artifact.get("attempted"), 1)

@@ -203,6 +203,7 @@ def test_eurusd_generation_receipt_revalidates_profile_and_exact_period_contract
     trace.write_text(json.dumps({"temporal_contract_sha256": digest(contract)}))
     screen = tmp_path / "screen.json"
     screen.write_text(json.dumps({
+        "selected_hypothesis_ids": ["d1_breakout_both"],
         "hypothesis_screen_trace_path": str(trace),
         "hypothesis_screen_trace_sha256": hashlib.sha256(trace.read_bytes()).hexdigest()}))
     chain = tmp_path / "chain-known.json"
@@ -218,6 +219,7 @@ def test_eurusd_generation_receipt_revalidates_profile_and_exact_period_contract
         "source_hypothesis_id": "d1_breakout_both",
         "search_profile": "eurusd_d1_breakout_v4",
         "market_side": "both",
+        "accepted_limit": 60,
         "evidence_chain_path": str(chain),
         "evidence_chain_sha256": hashlib.sha256(chain.read_bytes()).hexdigest(),
         "market_preflight_receipt_sha256": "a" * 64,

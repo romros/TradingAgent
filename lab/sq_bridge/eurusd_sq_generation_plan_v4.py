@@ -11,6 +11,7 @@ from pathlib import Path
 from lab.sq_bridge.eurusd_v4_hypotheses import (
     HYPOTHESIS_MARKET_SIDES as V4_HYPOTHESIS_MARKET_SIDES,
     SEARCH_PROFILES as V4_HYPOTHESIS_SEARCH_PROFILES,
+    accepted_target,
 )
 from lab.sq_bridge.evidence_chain import verify as verify_chain
 from lab.sq_bridge.temporal_split_contract_v4 import digest, sq_periods
@@ -70,7 +71,9 @@ def compile_plan(*, screen_path: Path, chain_path: Path,
     safe_id = re.sub(r"[^A-Za-z0-9]+", "_", hypothesis_id).strip("_").upper()
     project_name = f"ALQUIMIA_EURUSD_D1_V4_{safe_id}"
     periods = sq_periods(contract)
-    accepted_limit = methodology["sq_generation"]["accepted_candidates_per_branch"]
+    accepted_limit = accepted_target(
+        hypothesis_id, screen["selected_hypothesis_ids"],
+        methodology["sq_generation"]["accepted_candidates_global_budget"])
     plan = {
         "schema_version": 1, "decision": "PASS_GENERATION_PLAN",
         "campaign_id": chain["campaign_id"], "chain_hypothesis_id": hypothesis_id,

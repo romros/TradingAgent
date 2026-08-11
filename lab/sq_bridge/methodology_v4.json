@@ -46,7 +46,7 @@
     "search_method": "genetic_evolution",
     "maximum_attempts": 10000,
     "attempt_stop_guard": 64,
-    "accepted_candidates_per_branch": 60,
+    "accepted_candidates_global_budget": 60,
     "max_rules": 3,
     "genetic_parameters": {
       "crossover_probability_pct": 80,

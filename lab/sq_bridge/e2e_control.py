@@ -204,7 +204,7 @@ def generate(methodology_path: Path, output_dir: Path) -> dict:
                 "generation_type": "genetic-evolution", "attempt_budget": 100,
                 "attempt_stop_guard": methodology["sq_generation"]["attempt_stop_guard"],
                 "accepted_limit": methodology["sq_generation"][
-                    "accepted_candidates_per_branch"],
+                    "accepted_candidates_global_budget"],
                 "output_sha256": "b" * 64, "canonical_evaluation_capital": 200,
                 "sq_discovery_spread": 0, "sq_discovery_commission": 0,
                 "sq_discovery_slippage": 0,

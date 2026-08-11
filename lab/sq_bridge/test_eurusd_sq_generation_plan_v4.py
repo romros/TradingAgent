@@ -88,6 +88,26 @@ def test_compiler_preserves_screened_long_only_direction(tmp_path, monkeypatch):
     assert result["alquimia_project_arguments"]["market_side"] == "long"
 
 
+def test_compiler_splits_global_sixty_candidate_budget_exactly(tmp_path, monkeypatch):
+    _authorized(monkeypatch)
+    methodology, _, screen, chain, _ = _sources(
+        tmp_path, hypothesis="d1_breakout_both")
+    screen_value = json.loads(screen.read_text())
+    screen_value["selected_hypothesis_ids"] = [
+        "d1_breakout_both", "d1_breakout_long", "d1_breakout_short",
+        "d1_momentum_long"]
+    screen.write_text(json.dumps(screen_value, sort_keys=True) + "\n")
+    chain_value = json.loads(chain.read_text())
+    chain_value["receipts"][1]["artifact_sha256"] = hashlib.sha256(
+        screen.read_bytes()).hexdigest()
+    chain.write_text(json.dumps(chain_value, sort_keys=True) + "\n")
+    result = planner.compile_plan(
+        screen_path=screen, chain_path=chain, methodology_path=methodology,
+        period_contract_output=tmp_path / "periods.json",
+        plan_output=tmp_path / "plan.json")
+    assert result["accepted_limit"] == 15
+
+
 def test_compiler_rejects_unscreened_family_and_trace_tampering(tmp_path, monkeypatch):
     _authorized(monkeypatch)
     methodology, trace, screen, chain, _ = _sources(tmp_path)

@@ -12,6 +12,7 @@ from lab.sq_bridge.evidence_chain import verify as verify_chain
 from lab.sq_bridge.eurusd_v4_hypotheses import (
     HYPOTHESIS_MARKET_SIDES as V4_HYPOTHESIS_MARKET_SIDES,
     SEARCH_PROFILES as V4_HYPOTHESIS_SEARCH_PROFILES,
+    accepted_target,
 )
 from lab.sq_bridge.sq_project_contract import verify_genetic_project
 from lab.sq_bridge.sqcli_transport import parse_project_final_log
@@ -84,9 +85,14 @@ def _validate_project_chain(manifest: dict, methodology_path: Path,
         trace_path = (trace_path if trace_path.is_absolute()
                       else screen_path.resolve().parent / trace_path)
         trace = json.loads(trace_path.read_text()) if trace_path.is_file() else {}
+        expected_accepted = accepted_target(
+            source_id, screen.get("selected_hypothesis_ids", []),
+            json.loads(methodology_path.read_text())["sq_generation"][
+                "accepted_candidates_global_budget"])
         if (manifest.get("search_profile") != profiles[source_id]
                 or manifest.get("market_side")
                     != V4_HYPOTHESIS_MARKET_SIDES[source_id]
+                or manifest.get("accepted_limit") != expected_accepted
                 or manifest.get("temporal_split_contract_sha256")
                     != temporal_digest(contract)
                 or manifest.get("temporal_source_sha256") != contract.get("source_sha256")

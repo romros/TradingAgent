@@ -31,7 +31,7 @@ def test_v4_separates_pre_sq_screen_from_strategyquant_generation():
         "crossover_probability_pct": 80, "mutation_probability_pct": 20,
         "migration_every_generations": 5, "migration_rate_pct": 10,
         "initial_population_mode": 2}
-    assert METHODOLOGY["sq_generation"]["accepted_candidates_per_branch"] == 60
+    assert METHODOLOGY["sq_generation"]["accepted_candidates_global_budget"] == 60
 
 
 def test_v4_rejects_unregistered_genetic_or_profile_ranges():

@@ -41,6 +41,10 @@ def test_compiles_replayed_region_to_small_account_genetic_plan(tmp_path):
     assert result["decision"] == "PASS_SQ_PLAN_READY"
     assert result["initial_capital_usdc"] == 200
     assert result["discovery_leverage"] == 1
+    assert result["money_management"] == {
+        "method": "CryptoSizeByPrice", "use_account_balance": False,
+        "maximum_size": 100, "decimals": 4,
+        "fallback_to_size_one_allowed": False}
     assert result["attempt_budget"] == 10_000
     assert result["sq_genetic_shape"]["nominal_evaluations"] == 10_000
     assert result["parameter_search_space"]["indicator_period"] == {

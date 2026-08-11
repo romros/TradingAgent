@@ -73,6 +73,7 @@ def compile_plan(*, selector_path: Path, candidate_id: str, design_path: Path,
         raise ValueError("selected hypothesis absent from sealed design")
     branch = branch_matches[0]
     sq = semantics["contract"]["strategyquant_generation_contract"]
+    money = sq["money_management"]
     result = {
         "schema_version": 1, "stage": "sq_generation_plan",
         "decision": "PASS_SQ_PLAN_READY", "candidate_id": candidate_id,
@@ -99,6 +100,11 @@ def compile_plan(*, selector_path: Path, candidate_id: str, design_path: Path,
         "initial_capital_usdc": sq["initial_capital_usdc"],
         "normalized_notional_usdc": sq["normalized_notional_usdc"],
         "discovery_leverage": sq["discovery_leverage"],
+        "money_management": {"method": money["method"],
+                             "use_account_balance": money["use_account_balance"],
+                             "maximum_size": money["maximum_size"],
+                             "decimals": money["decimals_by_market"][region["market"]],
+                             "fallback_to_size_one_allowed": False},
         "sq_embedded_spread": 0, "sq_embedded_commission": 0,
         "external_ostium_cost_revalidation_required": True,
         "maximum_promoted_candidates": 1,

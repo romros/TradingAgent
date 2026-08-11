@@ -21,6 +21,8 @@ def test_real_semantics_is_sealed_and_bound_to_design():
     sq = contract["strategyquant_generation_contract"]
     assert sq["islands"] * sq["population_per_island"] * sq["max_generations"] == 10_000
     assert sq["initial_capital_usdc"] == 200
+    assert sq["money_management"]["method"] == "CryptoSizeByPrice"
+    assert sq["money_management"]["use_account_balance"] is False
     assert contract["performance_accessed"] is False
 
 

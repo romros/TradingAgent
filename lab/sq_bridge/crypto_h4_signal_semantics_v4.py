@@ -33,6 +33,7 @@ def verify(path: Path) -> dict[str, Any]:
     temporal = value.get("temporal_contract") or {}
     gaps = value.get("data_gap_contract") or {}
     sq = value.get("strategyquant_generation_contract") or {}
+    money = sq.get("money_management") or {}
     errors = []
     if value.get("schema_version") != 1: errors.append("SCHEMA")
     if value.get("semantics_id") != "crypto-h4-signal-semantics-v4": errors.append("ID")
@@ -100,6 +101,27 @@ def verify(path: Path) -> dict[str, Any]:
             or sq.get("external_ostium_cost_revalidation_required") is not True
             or sq.get("maximum_promoted_candidate_per_stable_region") != 1):
         errors.append("STRATEGYQUANT_GENERATION")
+    money_path = Path(str(money.get("source_contract_path", "")))
+    if not money_path.is_absolute():
+        money_path = (path.parent / money_path).resolve()
+    try:
+        money_receipt = _load(money_path) if money_path.is_file() else {}
+    except (OSError, json.JSONDecodeError, ValueError):
+        money_receipt = {}
+    installed_source = Path(str(money_receipt.get("installed_source_path", "")))
+    if (money.get("method") != "CryptoSizeByPrice"
+            or money.get("use_account_balance") is not False
+            or money.get("maximum_size") != 100
+            or money.get("decimals_by_market") != {"BTCUSD": 4, "ETHUSD": 3}
+            or money.get("fallback_to_size_one_allowed") is not False
+            or money_receipt.get("decision") !=
+            "PASS_CRYPTO_SIZE_BY_PRICE_SOURCE_CONTRACT"
+            or not installed_source.is_file()
+            or money_receipt.get("installed_source_sha256") != sha256(installed_source)
+            or any((money_receipt.get("alquimia_contract") or {}).get(market, {}).get(
+                "fallback_to_one_reachable_on_canonical_history") is not False
+                   for market in ("BTCUSD", "ETHUSD"))):
+        errors.append("CRYPTO_SIZE_BY_PRICE")
     for key in ("market_data_accessed", "performance_accessed", "research_authorized",
                 "sqcli_authorized", "paper_authorized", "live_authorized"):
         if value.get(key) is not False:

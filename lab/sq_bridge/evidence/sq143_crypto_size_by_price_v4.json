@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_CRYPTO_SIZE_BY_PRICE_SOURCE_CONTRACT",
+  "sq_version": "143.2708",
+  "class_name": "CryptoSizeByPrice",
+  "display_name": "Crypto size by price",
+  "installed_source_path": "/home/roman/dockers-SQ/6ACC10/internal/extend/Snippets/SQ/MoneyManagement/CryptoSizeByPrice.java",
+  "installed_source_sha256": "aa393743245b467272b243040f1eb0e6e27f07e2f6f3a1187aa05619b9108207",
+  "official_documentation": "https://strategyquant.com/doc/strategyquant/money-management/",
+  "verified_source_semantics": {
+    "use_account_balance_false_numerator": "initial_balance",
+    "raw_trade_size": "initial_balance/open_price",
+    "rounding_inputs": [
+      "instrument_size_step",
+      "configured_decimals"
+    ],
+    "maximum_size_cap_applied": true,
+    "nonpositive_rounded_size_fallback": 1
+  },
+  "alquimia_contract": {
+    "initial_balance_usdc": 200,
+    "use_account_balance": false,
+    "maximum_size": 100,
+    "BTCUSD": {
+      "decimals": 4,
+      "size_step": 0.0001,
+      "maximum_canonical_high": 126199.63,
+      "raw_size_at_maximum_high": 0.0015847907002579959,
+      "rounded_size_at_maximum_high": 0.0016,
+      "fallback_to_one_reachable_on_canonical_history": false
+    },
+    "ETHUSD": {
+      "decimals": 3,
+      "size_step": 0.001,
+      "maximum_canonical_high": 4956.78,
+      "raw_size_at_maximum_high": 0.04034877480945291,
+      "rounded_size_at_maximum_high": 0.04,
+      "fallback_to_one_reachable_on_canonical_history": false
+    }
+  },
+  "performance_accessed": false,
+  "holdout_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

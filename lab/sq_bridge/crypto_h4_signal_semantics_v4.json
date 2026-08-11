@@ -132,6 +132,17 @@
     "initial_capital_usdc": 200,
     "normalized_notional_usdc": 200,
     "discovery_leverage": 1,
+    "money_management": {
+      "method": "CryptoSizeByPrice",
+      "use_account_balance": false,
+      "maximum_size": 100,
+      "decimals_by_market": {
+        "BTCUSD": 4,
+        "ETHUSD": 3
+      },
+      "source_contract_path": "evidence/sq143_crypto_size_by_price_v4.json",
+      "fallback_to_size_one_allowed": false
+    },
     "sq_embedded_spread": 0,
     "sq_embedded_commission": 0,
     "external_ostium_cost_revalidation_required": true,

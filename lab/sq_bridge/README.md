@@ -368,6 +368,15 @@ aleshores aplica deduplicació i pressupost 60 compartit, marca
 després dels dos workers. Amb qualsevol preflight en BLOCK s'atura abans de
 llegir disseny, runtime, candles o performance i no escriu selector.
 
+El sizing SQ no usa `FixedSize=1`: això seria 1 BTC/ETH i violaria el compte
+petit. La classe oficial instal·lada `CryptoSizeByPrice` ha estat reoberta i
+hashada; amb `UseAccountBalance=false` calcula `initialBalance/openPrice`.
+Alquímia fixa balance inicial 200, cap 100 i decimals 4 BTC / 3 ETH, coherents
+amb els steps certificats. Al màxim històric canònic encara resulta 0,0016 BTC
+i 0,040 ETH, de manera que no arriba al fallback intern perillós de mida 1.
+El rebut `sq143_crypto_size_by_price_v4.json` forma part del contracte i una
+instal·lació SQ o font diferent invalida el pla abans de crear CFX.
+
 US500 D1 aplica el mateix contracte amb un productor, bootstrap i trigger
 independents. El cron de quotes de sessió recompon el preflight i invoca el
 trigger després de cada captura; mentre no hi ha 30 mostres en tres sessions

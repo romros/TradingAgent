@@ -38,6 +38,7 @@ def test_builds_complete_global_universe_and_keeps_reject_provenance(tmp_path):
     output = tmp_path / "combined/global_sq_generation.json"
     result = build_universe(
         campaign_id="campaign", generation_artifact_paths={"h2": h2, "h1": h1},
+        expected_hypothesis_ids=["h1", "h2"],
         output_path=output)
     assert result["decision"] == "PASS"
     global_id = _global_id("h1", "T")
@@ -60,6 +61,7 @@ def test_deduplicates_identical_bytes_and_namespaces_native_name_collisions(tmp_
     h2 = _branch(tmp_path, "h2", candidate)
     result = build_universe(
         campaign_id="campaign", generation_artifact_paths={"h1": h1, "h2": h2},
+        expected_hypothesis_ids=["h1", "h2"],
         output_path=tmp_path / "same.json")
     assert result["candidate_ids"] == [_global_id("h1", "T")]
 
@@ -71,6 +73,7 @@ def test_deduplicates_identical_bytes_and_namespaces_native_name_collisions(tmp_
     h3 = _branch(tmp_path, "h3", different)
     collision_safe = build_universe(
         campaign_id="campaign", generation_artifact_paths={"h1": h1, "h3": h3},
+        expected_hypothesis_ids=["h1", "h3"],
         output_path=tmp_path / "collision.json")
     assert collision_safe["candidate_ids"] == sorted([
         _global_id("h1", "T"), _global_id("h3", "T")])
@@ -81,6 +84,7 @@ def test_rejects_changed_branch_artifact_candidate_and_empty_global_universe(tmp
     rejected = _branch(tmp_path, "h1")
     result = build_universe(
         campaign_id="campaign", generation_artifact_paths={"h1": rejected},
+        expected_hypothesis_ids=["h1"],
         output_path=tmp_path / "empty.json")
     assert result["decision"] == "REJECT"
     assert result["rejection_reason"] == "NO_SQ_CANDIDATES_IN_ANY_BRANCH"
@@ -94,4 +98,14 @@ def test_rejects_changed_branch_artifact_candidate_and_empty_global_universe(tmp
     with pytest.raises(ValueError, match="path/hash mismatch"):
         build_universe(
             campaign_id="campaign", generation_artifact_paths={"h2": passed},
+            expected_hypothesis_ids=["h2"],
             output_path=tmp_path / "tampered.json")
+
+
+def test_refuses_to_freeze_only_the_convenient_completed_branches(tmp_path):
+    rejected = _branch(tmp_path, "h1")
+    with pytest.raises(ValueError, match="every frozen hypothesis"):
+        build_universe(
+            campaign_id="campaign", generation_artifact_paths={"h1": rejected},
+            expected_hypothesis_ids=["h1", "h2"],
+            output_path=tmp_path / "partial.json")

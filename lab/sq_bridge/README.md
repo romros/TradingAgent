@@ -1052,12 +1052,17 @@ PYTHONPATH=../.. python3 sq_generation_universe_v4.py \
   --generation-artifact BREAKOUT /path/to/breakout/sq_generation.json \
   --generation-artifact MOMENTUM /path/to/momentum/sq_generation.json \
   --generation-artifact REVERSION /path/to/reversion/sq_generation.json \
+  --expected-hypothesis-id BREAKOUT \
+  --expected-hypothesis-id MOMENTUM \
+  --expected-hypothesis-id REVERSION \
   --output /path/to/state/global_sq_generation.json
 ```
 
 L'agregador reobre cada SQX, comprova identitat i hash, conserva també les
 branques `REJECT`, deduplica només SQX idèntics i rebutja una mateixa identitat
-amb bytes diferents. El worker EURUSD crea i hasha aquest artefacte
+amb bytes diferents. També exigeix exactament totes les hipòtesis congelades:
+no permet tancar l'univers només amb les branques convenients, ni superar els
+60 candidats globals. El worker EURUSD crea i hasha aquest artefacte
 automàticament abans de declarar completada la generació.
 
 ```bash

@@ -72,6 +72,8 @@ def _normalize_sqx(source: Path, destination: Path, global_id: str) -> None:
 
 def build_universe(*, campaign_id: str,
                    generation_artifact_paths: dict[str, Path],
+                   expected_hypothesis_ids: list[str],
+                   global_candidate_budget: int = 60,
                    output_path: Path) -> dict[str, Any]:
     """Verify every terminal branch and emit one immutable global universe.
 
@@ -79,6 +81,18 @@ def build_universe(*, campaign_id: str,
     reused name with different bytes is an ambiguous identity and fails closed.
     REJECT branches remain in provenance but contribute no candidates.
     """
+    if (not isinstance(expected_hypothesis_ids, list)
+            or expected_hypothesis_ids != sorted(set(expected_hypothesis_ids))
+            or not expected_hypothesis_ids
+            or any(not isinstance(value, str) or not value
+                   for value in expected_hypothesis_ids)):
+        raise ValueError("frozen expected hypothesis universe is required")
+    if set(generation_artifact_paths) != set(expected_hypothesis_ids):
+        raise ValueError("generation artifacts do not cover every frozen hypothesis")
+    if (not isinstance(global_candidate_budget, int)
+            or isinstance(global_candidate_budget, bool)
+            or global_candidate_budget < 1):
+        raise ValueError("global candidate budget invalid")
     if not generation_artifact_paths:
         raise ValueError("at least one SQ generation branch is required")
     output_path = output_path.resolve()
@@ -142,6 +156,8 @@ def build_universe(*, campaign_id: str,
         }
 
     candidate_ids = sorted(candidates)
+    if len(candidate_ids) > global_candidate_budget:
+        raise ValueError("global SQ candidate universe exceeds frozen budget")
     result = {
         "schema_version": 1,
         "stage": "sq_generation",
@@ -174,6 +190,8 @@ def build_universe(*, campaign_id: str,
         },
         "source_generation_artifacts": branch_rows,
         "source_hypothesis_ids": sorted(branch_rows),
+        "expected_hypothesis_ids": expected_hypothesis_ids,
+        "global_candidate_budget": global_candidate_budget,
         "selection_policy": "complete_global_universe_before_temporal_pareto",
         "identity_policy": "branch_native_name_to_deterministic_ALQ_sha256_namespace",
         "paper_authorized": False,
@@ -191,12 +209,16 @@ def main() -> None:
     parser.add_argument(
         "--generation-artifact", action="append", nargs=2,
         metavar=("HYPOTHESIS_ID", "PATH"), required=True)
+    parser.add_argument("--expected-hypothesis-id", action="append", required=True)
+    parser.add_argument("--global-candidate-budget", type=int, default=60)
     parser.add_argument("--output", required=True, type=Path)
     args = parser.parse_args()
     result = build_universe(
         campaign_id=args.campaign_id,
         generation_artifact_paths={key: Path(value)
                                    for key, value in args.generation_artifact},
+        expected_hypothesis_ids=sorted(args.expected_hypothesis_id),
+        global_candidate_budget=args.global_candidate_budget,
         output_path=args.output)
     print(json.dumps({"decision": result["decision"],
                       "candidate_ids": result["candidate_ids"]}, indent=2))

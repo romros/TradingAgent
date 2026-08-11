@@ -268,6 +268,9 @@ def tick(
     universe = universe_fn(
         campaign_id=campaign_id,
         generation_artifact_paths=generation_paths,
+        expected_hypothesis_ids=sorted(selected),
+        global_candidate_budget=_load(snapshot_sources["methodology"][1])[
+            "sq_generation"]["accepted_candidates_global_budget"],
         output_path=universe_path)
     candidates = universe["candidate_ids"]
     result = {

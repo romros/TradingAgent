@@ -14,7 +14,9 @@ def _sha(path):
 def _fixture(tmp_path, selected=("h1", "h2")):
     screen = tmp_path / "screen"; screen.mkdir()
     (screen / "screen_trigger_receipt.json").write_text("{}")
-    methodology = screen / "methodology.json"; methodology.write_text("{}")
+    methodology = screen / "methodology.json"
+    methodology.write_text(json.dumps({
+        "sq_generation": {"accepted_candidates_global_budget": 60}}))
     bootstrap = screen / "bootstrap.json"; bootstrap.write_text("{}")
     scaffold = tmp_path / "scaffold.cfx"; scaffold.write_bytes(b"scaffold")
     registry = tmp_path / "registry.json"; registry.write_text("{}")

@@ -124,6 +124,7 @@ def test_stage_reopens_native_lineage_behind_global_candidate_namespace(tmp_path
     build_universe(
         campaign_id="campaign",
         generation_artifact_paths={"d1_breakout_long": branch},
+        expected_hypothesis_ids=["d1_breakout_long"],
         output_path=universe_path)
     temporal = tmp_path / "temporal.json"
     temporal.write_text("{}\n")
@@ -161,6 +162,7 @@ def test_global_candidate_namespace_builds_a_retest_and_temporal_trace(tmp_path)
     universe = build_universe(
         campaign_id="campaign",
         generation_artifact_paths={"d1_breakout_long": branch},
+        expected_hypothesis_ids=["d1_breakout_long"],
         output_path=universe_path)
     global_id = universe["candidate_ids"][0]
     temporal = tmp_path / "temporal.json"

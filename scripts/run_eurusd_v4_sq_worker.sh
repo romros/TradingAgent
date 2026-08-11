@@ -10,6 +10,7 @@ SMALL_ACCOUNT_DIR=${ALQUIMIA_EURUSD_SMALL_ACCOUNT_WORKER_DIR:-$ROOT/data/alquimi
 HOLDOUT_DIR=${ALQUIMIA_EURUSD_HOLDOUT_WORKER_DIR:-$ROOT/data/alquimia_v4/eurusd-d1-alquimia-v4/holdout-worker}
 TRANSLATION_DIR=${ALQUIMIA_EURUSD_TRANSLATION_WORKER_DIR:-$ROOT/data/alquimia_v4/eurusd-d1-alquimia-v4/translation-worker}
 PARITY_DIR=${ALQUIMIA_EURUSD_PARITY_WORKER_DIR:-$ROOT/data/alquimia_v4/eurusd-d1-alquimia-v4/parity-worker}
+PAPER_PACKAGE_DIR=${ALQUIMIA_EURUSD_PAPER_PACKAGE_WORKER_DIR:-$ROOT/data/alquimia_v4/eurusd-d1-alquimia-v4/paper-package-worker}
 CONFIG=${ALQUIMIA_EURUSD_SQ_WORKER_CONFIG:-$ROOT/lab/sq_bridge/eurusd_v4_sq_worker_config.json}
 
 PYTHONPATH="$ROOT" python3 -m lab.sq_bridge.eurusd_v4_sq_worker \
@@ -34,6 +35,10 @@ PYTHONPATH="$ROOT" python3 -m lab.sq_bridge.eurusd_v4_holdout_worker \
 PYTHONPATH="$ROOT" python3 -m lab.sq_bridge.eurusd_v4_translation_worker \
   --holdout-worker-dir "$HOLDOUT_DIR" --output-dir "$TRANSLATION_DIR"
 
-PYTHONPATH="$ROOT" exec python3 -m lab.sq_bridge.eurusd_v4_parity_worker \
+PYTHONPATH="$ROOT" python3 -m lab.sq_bridge.eurusd_v4_parity_worker \
   --translation-worker-dir "$TRANSLATION_DIR" --worker-config "$CONFIG" \
   --output-dir "$PARITY_DIR"
+
+PYTHONPATH="$ROOT" exec python3 -m lab.sq_bridge.eurusd_v4_paper_package_worker \
+  --screen-dir "$SCREEN_DIR" --parity-worker-dir "$PARITY_DIR" \
+  --output-dir "$PAPER_PACKAGE_DIR"

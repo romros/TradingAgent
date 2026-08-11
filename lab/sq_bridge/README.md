@@ -1023,6 +1023,16 @@ La sortida normal mentre la campanya encara no té guanyador acaba en
 `PASS_PARITY` només habilita la construcció posterior d'un paquet paper-only;
 no inicia el motor paper ni habilita un signer.
 
+La construcció posterior també és part del mateix pipeline:
+`eurusd_v4_paper_package_worker.py` recupera el preflight congelat i segueix
+els enllaços hashats fins a sizing, holdout, traducció i paritat. Escriu
+`10_paper.json` i una configuració `*.paper.json` només si
+`verify_package()` pot reconstruir-ne tot el contracte. El rebut final fixa
+`paper_configured=true`, però conserva sempre `paper_started=false`,
+`signer_enabled=false` i `live_authorized=false`. Configurar el paquet no
+equival a executar-lo; l'arrencada futura del paper probe requerirà una porta
+operativa separada i explícita.
+
 Un candidat sense trades, sense OOS o amb expectativa train no positiva és
 evidència científica vàlida però feble: queda registrat amb
 `temporal_eligibility_failure` i acaba en `REJECT`, sense avortar el lot. En

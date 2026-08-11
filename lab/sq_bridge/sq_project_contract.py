@@ -6,26 +6,10 @@ import xml.etree.ElementTree as ET
 import zipfile
 from pathlib import Path
 
+from lab.sq_bridge.eurusd_v4_hypotheses import EURUSD_PROFILE_BLOCKS
 
-EURUSD_V4_PROFILE_BLOCKS = {
-    "eurusd_d1_breakout_v4": {
-        "Prices.Close", "Prices.High", "Prices.Low",
-        "Indicators.Highest", "Indicators.Lowest", "IsGreater", "IsLower",
-        "CrossesAbove", "CrossesBelow", "EnterAtMarket",
-        "ExitAfterBars.ExitAfterBars", "StopLoss.StopLoss",
-    },
-    "eurusd_d1_momentum_v4": {
-        "Prices.Close", "Indicators.SMA", "Indicators.EMA", "Indicators.ROC",
-        "IsGreater", "IsLower", "CrossesAbove", "CrossesBelow", "IsRising",
-        "IsFalling", "EnterAtMarket", "ExitAfterBars.ExitAfterBars",
-        "StopLoss.StopLoss",
-    },
-    "eurusd_d1_shock_reversion_v4": {
-        "Prices.Close", "Indicators.RSI", "Indicators.ROC", "IsGreater",
-        "IsLower", "CrossesAbove", "CrossesBelow", "IsRising", "IsFalling",
-        "EnterAtMarket", "ExitAfterBars.ExitAfterBars", "StopLoss.StopLoss",
-    },
-}
+
+EURUSD_V4_PROFILE_BLOCKS = EURUSD_PROFILE_BLOCKS
 
 
 def _positive_int(text: str | None, label: str) -> int:

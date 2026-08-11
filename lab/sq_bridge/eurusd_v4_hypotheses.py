@@ -3,6 +3,28 @@
 FAMILIES = ("d1_breakout", "d1_momentum", "d1_shock_reversion")
 MARKET_SIDES = ("both", "long", "short")
 
+EURUSD_PROFILE_BLOCKS = {
+    "eurusd_d1_breakout_v4": {
+        "Prices.Close", "Prices.High", "Prices.Low",
+        "Indicators.Highest", "Indicators.Lowest",
+        "IsGreater", "IsLower", "CrossesAbove", "CrossesBelow",
+        "BarDayOfWeekIs", "EnterAtMarket", "ExitAfterBars.ExitAfterBars",
+        "StopLoss.StopLoss",
+    },
+    "eurusd_d1_momentum_v4": {
+        "Prices.Close", "Indicators.SMA", "Indicators.EMA", "Indicators.ROC",
+        "IsGreater", "IsLower", "CrossesAbove", "CrossesBelow",
+        "BarDayOfWeekIs", "IsRising", "IsFalling", "EnterAtMarket",
+        "ExitAfterBars.ExitAfterBars", "StopLoss.StopLoss",
+    },
+    "eurusd_d1_shock_reversion_v4": {
+        "Prices.Close", "Indicators.RSI", "Indicators.ROC",
+        "IsGreater", "IsLower", "CrossesAbove", "CrossesBelow",
+        "BarDayOfWeekIs", "IsRising", "IsFalling", "EnterAtMarket",
+        "ExitAfterBars.ExitAfterBars", "StopLoss.StopLoss",
+    },
+}
+
 SEARCH_PROFILES = {
     f"{family}_{side}": f"eurusd_{family}_v4"
     for family in FAMILIES

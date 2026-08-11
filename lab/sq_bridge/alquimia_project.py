@@ -18,6 +18,7 @@ from lab.sq_bridge.temporal_split_contract_v4 import (
     sq_periods,
 )
 from lab.sq_bridge.eurusd_v4_hypotheses import (
+    EURUSD_PROFILE_BLOCKS,
     HYPOTHESIS_MARKET_SIDES as V4_HYPOTHESIS_MARKET_SIDES,
     SEARCH_PROFILES as V4_HYPOTHESIS_SEARCH_PROFILES,
 )
@@ -81,24 +82,7 @@ SEARCH_PROFILES = {
         "IsMonthFirstTradingDay", "IsMonthLastTradingDay", "EnterAtMarket",
         "ExitAfterBars.ExitAfterBars", "ProfitTarget.ProfitTarget", "StopLoss.StopLoss",
     },
-    "eurusd_d1_breakout_v4": {
-        "Prices.Close", "Prices.High", "Prices.Low",
-        "Indicators.Highest", "Indicators.Lowest",
-        "IsGreater", "IsLower", "CrossesAbove", "CrossesBelow", "BarDayOfWeekIs",
-        "EnterAtMarket", "ExitAfterBars.ExitAfterBars", "StopLoss.StopLoss",
-    },
-    "eurusd_d1_momentum_v4": {
-        "Prices.Close", "Indicators.SMA", "Indicators.EMA", "Indicators.ROC",
-        "IsGreater", "IsLower", "CrossesAbove", "CrossesBelow", "BarDayOfWeekIs",
-        "IsRising", "IsFalling", "EnterAtMarket",
-        "ExitAfterBars.ExitAfterBars", "StopLoss.StopLoss",
-    },
-    "eurusd_d1_shock_reversion_v4": {
-        "Prices.Close", "Indicators.RSI", "Indicators.ROC",
-        "IsGreater", "IsLower", "CrossesAbove", "CrossesBelow", "BarDayOfWeekIs",
-        "IsRising", "IsFalling", "EnterAtMarket",
-        "ExitAfterBars.ExitAfterBars", "StopLoss.StopLoss",
-    },
+    **EURUSD_PROFILE_BLOCKS,
 }
 
 def _sha256(payload: bytes) -> str:

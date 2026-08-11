@@ -6,9 +6,78 @@ import argparse
 import hashlib
 import json
 import zipfile
-from datetime import datetime, timezone
 from pathlib import Path
 from xml.etree import ElementTree as ET
+
+
+def _sha(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _write_reproducible(path: Path, files: dict[str, bytes]) -> None:
+    with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as archive:
+        for name in sorted(files):
+            info = zipfile.ZipInfo(name, date_time=(1980, 1, 1, 0, 0, 0))
+            info.compress_type = zipfile.ZIP_DEFLATED
+            info.create_system = 3
+            info.external_attr = 0o100600 << 16
+            archive.writestr(info, files[name])
+
+
+def _configured_task(files: dict[str, bytes]) -> tuple[ET.Element, str, ET.Element]:
+    config = ET.fromstring(files["config.xml"])
+    tasks = [task.get("taskXMLFile") for task in config.findall("./Tasks/Task")
+             if task.get("type") == "Retest"]
+    if len(tasks) != 1 or not tasks[0] or tasks[0] not in files:
+        raise ValueError("MONTE_CARLO_RETEST_TASK_INVALID")
+    return config, tasks[0], ET.fromstring(files[tasks[0]])
+
+
+def verify(cfx: Path, manifest: dict, *, source: Path | None = None) -> dict:
+    """Reopen the CFX; never trust the generator's summary alone."""
+    if (manifest.get("schema_version") != 2
+            or manifest.get("cfx_sha256") != _sha(cfx)
+            or manifest.get("crosschecks_enabled") is not True
+            or manifest.get("method") != "RandomizeStrategyParameters"
+            or manifest.get("build_reproducible") is not True):
+        raise ValueError("MONTE_CARLO_MANIFEST_INVALID")
+    if source is not None and (not source.is_file()
+            or manifest.get("source_cfx_sha256") != _sha(source)):
+        raise ValueError("MONTE_CARLO_SOURCE_INVALID")
+    with zipfile.ZipFile(cfx) as archive:
+        files = {name: archive.read(name) for name in archive.namelist()}
+    config, _, root = _configured_task(files)
+    crosschecks = root.find("./CrossChecks")
+    monte_carlo = root.find("./CrossChecks/MonteCarloRetest")
+    enabled = ([node for node in list(crosschecks)
+                if node.get("use") == "true"] if crosschecks is not None else [])
+    methods = (monte_carlo.findall("./Settings/Methods/Method")
+               if monte_carlo is not None else [])
+    active_methods = [node for node in methods if node.get("use") == "true"]
+    randomized = next((node for node in methods
+                       if node.get("type") == "RandomizeStrategyParameters"), None)
+    params = ({node.get("key"): node.text
+               for node in randomized.findall("./Params/Param")}
+              if randomized is not None else {})
+    try:
+        simulations = int(monte_carlo.findtext("./Settings/NumberOfSimulations", ""))
+        probability = int(params["Probability"])
+        max_change = int(params["MaxChange"])
+    except (KeyError, TypeError, ValueError) as exc:
+        raise ValueError("MONTE_CARLO_SETTINGS_INVALID") from exc
+    if (config.get("name") != manifest.get("project_name")
+            or crosschecks is None or crosschecks.get("use") != "true"
+            or crosschecks.get("evaluateAll") != "true"
+            or enabled != [monte_carlo]
+            or active_methods != [randomized]
+            or params.get("Symmetric") != "true"
+            or simulations != manifest.get("simulations")
+            or probability != manifest.get("probability_pct")
+            or max_change != manifest.get("max_change_pct")):
+        raise ValueError("MONTE_CARLO_CFX_CONTRACT_INVALID")
+    return {"project_name": config.get("name"), "simulations": simulations,
+            "probability_pct": probability, "max_change_pct": max_change,
+            "method": randomized.get("type")}
 
 
 def generate(source: Path, output: Path, project_name: str, simulations: int,
@@ -19,11 +88,8 @@ def generate(source: Path, output: Path, project_name: str, simulations: int,
         raise ValueError("MONTE_CARLO_PARAMETER_RANGE_INVALID")
     with zipfile.ZipFile(source) as archive:
         files = {name: archive.read(name) for name in archive.namelist()}
-    config = ET.fromstring(files["config.xml"])
+    config, task_name, root = _configured_task(files)
     config.set("name", project_name)
-    task_name = next(task.get("taskXMLFile") for task in config.findall("./Tasks/Task")
-                     if task.get("type") == "Retest")
-    root = ET.fromstring(files[task_name])
     crosschecks = root.find("./CrossChecks")
     monte_carlo = root.find("./CrossChecks/MonteCarloRetest")
     if crosschecks is None or monte_carlo is None:
@@ -33,7 +99,6 @@ def generate(source: Path, output: Path, project_name: str, simulations: int,
     for crosscheck in list(crosschecks):
         if "use" in crosscheck.attrib:
             crosscheck.set("use", "false")
-    monte_carlo.set("use", "true")
     for method in monte_carlo.findall("./Settings/Methods/Method"):
         enabled = method.get("type") == "RandomizeStrategyParameters"
         method.set("use", str(enabled).lower())
@@ -42,6 +107,9 @@ def generate(source: Path, output: Path, project_name: str, simulations: int,
             params["Probability"].text = str(probability_pct)
             params["MaxChange"].text = str(max_change_pct)
             params["Symmetric"].text = "true"
+    # Set this after disabling sibling cross-checks: MonteCarloRetest itself is
+    # one of the children iterated above.
+    monte_carlo.set("use", "true")
     monte_carlo.find("./Settings/NumberOfSimulations").text = str(simulations)
     delete_failed = root.find("./Rankings/DeleteFailedStrategies")
     if delete_failed is not None:
@@ -49,21 +117,20 @@ def generate(source: Path, output: Path, project_name: str, simulations: int,
     files["config.xml"] = ET.tostring(config, encoding="utf-8")
     files[task_name] = ET.tostring(root, encoding="utf-8")
     output.parent.mkdir(parents=True, exist_ok=True)
-    with zipfile.ZipFile(output, "w", zipfile.ZIP_DEFLATED) as archive:
-        for name, payload in files.items():
-            archive.writestr(name, payload)
+    _write_reproducible(output, files)
     result = {
-        "schema_version": 1,
-        "created_at": datetime.now(timezone.utc).isoformat(),
+        "schema_version": 2,
         "project_name": project_name,
-        "source_cfx_sha256": hashlib.sha256(source.read_bytes()).hexdigest(),
-        "cfx_sha256": hashlib.sha256(output.read_bytes()).hexdigest(),
+        "source_cfx_sha256": _sha(source),
+        "cfx_sha256": _sha(output),
+        "build_reproducible": True,
         "crosschecks_enabled": True,
         "method": "RandomizeStrategyParameters",
         "simulations": simulations,
         "probability_pct": probability_pct,
         "max_change_pct": max_change_pct,
     }
+    verify(output, result, source=source)
     output.with_suffix(".manifest.json").write_text(json.dumps(result, indent=2) + "\n")
     return result
 

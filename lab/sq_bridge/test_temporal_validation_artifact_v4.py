@@ -61,7 +61,7 @@ def _write(tmp_path, candidate_id, trace, costs):
     orders = tmp_path / f"{candidate_id}.orders.csv"
     rows = [*trace["train_trades"],
             *(trade for window in trace["oos_windows"] for trade in window["trades"])]
-    lines = ['"Ticket";"Type";"Open time";"Open price";"Close time";"Close price"']
+    lines = ['"Ticket";"Type";"Open time";"Open price";"Close time";"Close price";"Size";"MAE ($)"']
     for index, row in enumerate(rows, 1):
         closed = datetime.fromisoformat(row["exit_timestamp"])
         opened = closed - timedelta(days=row["holding_days"])
@@ -71,7 +71,7 @@ def _write(tmp_path, candidate_id, trace, costs):
         side = "Buy" if row["side"] == "long" else "Sell"
         lines.append(
             f'"{index}";"{side}";"{opened:%Y.%m.%d %H:%M:%S}";"{entry:.8f}";'
-            f'"{closed:%Y.%m.%d %H:%M:%S}";"{exit_price:.8f}"')
+            f'"{closed:%Y.%m.%d %H:%M:%S}";"{exit_price:.8f}";"100";"-2"')
     orders.write_text("\n".join(lines) + "\n")
     contract = tmp_path / f"{candidate_id}.temporal-contract.json"
     contract.write_text(json.dumps({

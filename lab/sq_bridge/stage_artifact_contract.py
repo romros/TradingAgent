@@ -850,13 +850,32 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
             })
     elif stage == "robustness":
         candidate_metrics = artifact.get("candidate_robustness_metrics")
+        negative_robustness = (receipt.get("decision") == "REJECT"
+            and artifact.get("decision") == "REJECT"
+            and receipt.get("candidate_ids") == []
+            and artifact.get("candidate_ids") == []
+            and candidate_metrics == {})
+        selected_aggregate_keys = (
+            "monte_carlo_runs", "profitable_monte_carlo_ratio",
+            "minimum_parameter_variant_count",
+            "profitable_parameter_variants_ratio", "stress_profit_factor",
+            "liquidation_probability", "maximum_tested_leverage")
+        no_selected_aggregates = all(
+            key not in artifact for key in selected_aggregate_keys)
         checks = {
-            "MC_RUNS": _at_least(artifact.get("monte_carlo_runs"), robust["monte_carlo_runs"]),
-            "MC_PROFITABLE": _at_least(artifact.get("profitable_monte_carlo_ratio"), robust["minimum_profitable_monte_carlo_ratio"]),
+            "MC_RUNS": negative_robustness or _at_least(
+                artifact.get("monte_carlo_runs"), robust["monte_carlo_runs"]),
+            "MC_PROFITABLE": negative_robustness or _at_least(
+                artifact.get("profitable_monte_carlo_ratio"),
+                robust["minimum_profitable_monte_carlo_ratio"]),
             "PARAMETER_PERTURBATION": artifact.get("parameter_perturbation_pct") == robust["parameter_perturbation_pct"],
             "COST_STRESS": _at_least(artifact.get("cost_stress_multiplier"), robust["cost_stress_multiplier"]),
-            "STRESS_PF": _at_least(artifact.get("stress_profit_factor"), robust["minimum_stress_profit_factor"]),
-            "LIQUIDATION": _at_most(artifact.get("liquidation_probability"), robust["maximum_liquidation_probability"]),
+            "STRESS_PF": negative_robustness or _at_least(
+                artifact.get("stress_profit_factor"),
+                robust["minimum_stress_profit_factor"]),
+            "LIQUIDATION": negative_robustness or _at_most(
+                artifact.get("liquidation_probability"),
+                robust["maximum_liquidation_probability"]),
             "NO_HOLDOUT": artifact.get("holdout_accessed") is False,
         }
         if methodology.get("schema_version", 1) >= 4:
@@ -902,12 +921,12 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                 if evaluated_valid else [])
             source_gate = {**robust, "allowed_leverage_grid": small["leverage_grid"]}
             checks.update({
-                "CANDIDATE_METRICS": valid,
+                "CANDIDATE_METRICS": negative_robustness or valid,
                 "EVALUATED_METRICS": evaluated_valid,
-                "PARAMETER_VARIANTS": _at_least(
+                "PARAMETER_VARIANTS": negative_robustness or _at_least(
                     artifact.get("minimum_parameter_variant_count"),
                     robust["minimum_parameter_variants"]),
-                "PARAMETER_VARIANT_PROFITABLE": _at_least(
+                "PARAMETER_VARIANT_PROFITABLE": negative_robustness or _at_least(
                     artifact.get("profitable_parameter_variants_ratio"),
                     robust["minimum_profitable_parameter_variants_ratio"]),
                 "SELECTION_RECOMPUTES": evaluated_valid and ids == selected
@@ -915,24 +934,31 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                 "TRACE_CONTRACT": _verified_robustness_sources(
                     artifact, evaluated, receipt.get("artifact", ""), source_gate)
                     if provenance != "synthetic_control" else True,
-                "MC_RUNS_RECOMPUTES": valid and artifact.get("monte_carlo_runs")
+                "MC_RUNS_RECOMPUTES": (negative_robustness and no_selected_aggregates)
+                    or valid and artifact.get("monte_carlo_runs")
                     == min(metric["monte_carlo_runs"] for metric in candidate_metrics.values()),
-                "MC_PROFITABLE_RECOMPUTES": valid
+                "MC_PROFITABLE_RECOMPUTES": (negative_robustness and no_selected_aggregates)
+                    or valid
                     and artifact.get("profitable_monte_carlo_ratio") == min(
                         metric["profitable_monte_carlo_ratio"]
                         for metric in candidate_metrics.values()),
-                "PARAMETER_VARIANT_COUNT_RECOMPUTES": valid
+                "PARAMETER_VARIANT_COUNT_RECOMPUTES": (negative_robustness
+                    and no_selected_aggregates) or valid
                     and artifact.get("minimum_parameter_variant_count") == min(
                         metric["parameter_variant_count"] for metric in candidate_metrics.values()),
-                "PARAMETER_VARIANT_PROFITABLE_RECOMPUTES": valid
+                "PARAMETER_VARIANT_PROFITABLE_RECOMPUTES": (negative_robustness
+                    and no_selected_aggregates) or valid
                     and artifact.get("profitable_parameter_variants_ratio") == min(
                         metric["profitable_parameter_variants_ratio"]
                         for metric in candidate_metrics.values()),
-                "STRESS_PF_RECOMPUTES": valid and artifact.get("stress_profit_factor")
+                "STRESS_PF_RECOMPUTES": (negative_robustness
+                    and no_selected_aggregates) or valid and artifact.get("stress_profit_factor")
                     == min(metric["stress_profit_factor"] for metric in candidate_metrics.values()),
-                "LIQUIDATION_RECOMPUTES": valid and artifact.get("liquidation_probability")
+                "LIQUIDATION_RECOMPUTES": (negative_robustness
+                    and no_selected_aggregates) or valid and artifact.get("liquidation_probability")
                     == max(metric["liquidation_probability"] for metric in candidate_metrics.values()),
-                "TESTED_LEVERAGE_RECOMPUTES": valid
+                "TESTED_LEVERAGE_RECOMPUTES": (negative_robustness
+                    and no_selected_aggregates) or valid
                     and artifact.get("maximum_tested_leverage") == min(
                         metric["tested_leverage"] for metric in candidate_metrics.values()),
             })

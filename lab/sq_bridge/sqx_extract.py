@@ -206,11 +206,21 @@ def extract(path: Path) -> dict:
     instrument = _instrument_info(settings, symbol)
     commission = _commission_contract(instrument)
     spread = None
+    point_value = None
+    order_size_multiplier = None
     if instrument is not None and "defaultSpread" in instrument.attrib:
         try:
             spread = float(instrument.attrib["defaultSpread"])
         except ValueError:
             pass
+    if instrument is not None:
+        try:
+            point_value = float(instrument.attrib["pointValue"])
+            order_size_multiplier = float(
+                instrument.attrib.get("orderSizeMultiplier", "1"))
+        except (KeyError, ValueError):
+            point_value = None
+            order_size_multiplier = None
     contract = {
         "schema_version": 1,
         "source": str(path),
@@ -227,6 +237,8 @@ def extract(path: Path) -> dict:
             "slippage_in_sq": _setting(settings, "Slippage"),
             **commission,
             "swap_enabled": _swap_enabled(settings, instrument),
+            "point_value": point_value,
+            "order_size_multiplier": order_size_multiplier,
         },
         "entries": entries,
         "entry_condition_counts": entry_condition_counts,

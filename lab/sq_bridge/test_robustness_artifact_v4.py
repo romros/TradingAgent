@@ -113,6 +113,13 @@ def test_unstable_parameter_region_rejects_candidate(tmp_path):
         artifact_path=tmp_path / "reject.json")
     assert artifact["decision"] == "REJECT"
     assert artifact["candidate_ids"] == []
+    methodology = json.loads((ROOT / "methodology_v4.json").read_text())
+    receipt = {"decision": "REJECT", "candidate_ids": [],
+               "holdout_accessed": False,
+               "artifact": str(tmp_path / "reject.json")}
+    assert validate_stage_artifact(
+        "robustness", artifact, receipt, methodology,
+        "campaign", "alquimia_native") == []
 
 
 def test_liquidation_probability_is_derived_from_adverse_excursion(tmp_path):

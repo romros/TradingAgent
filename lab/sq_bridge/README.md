@@ -485,6 +485,40 @@ La robustesa v4 tampoc accepta resums manuals. Cada candidat aporta un
 més veïns paramètrics a ±10%, resultats bruts i exposició, leverage provat,
 límit Ostium i excursió adversa màxima de cada run:
 
+El cross-check natiu de paràmetres es genera sense GUI i es verifica reobrint
+el CFX. Només `MonteCarloRetest/RandomizeStrategyParameters` queda actiu; el
+CFX és reproduïble i el verificador comprova les 1.000 simulacions, probabilitat
+10%, canvi màxim 10% i simetria:
+
+```bash
+PYTHONPATH=../.. python3 alquimia_monte_carlo.py \
+  --source /path/to/candidate-pre-holdout.cfx \
+  --output /path/to/candidate-mc.cfx \
+  --name ALQUIMIA_MC_CANDIDATE --simulations 1000 \
+  --probability-pct 10 --max-change-pct 10
+```
+
+Després del Retest, la SQX resultant ha de contenir exactament
+`MonteCarloRetest_Simulation0Orders.bin` fins a
+`MonteCarloRetest_Simulation999Orders.bin`, tots no buits, i un
+`MonteCarloRetest_Results.xml` coherent. Es valida i es materialitza cada run
+com una SQX determinista apta per a `orderstocsv`:
+
+```bash
+PYTHONPATH=../.. python3 sqx_monte_carlo_contract.py \
+  --sqx /path/to/native-mc-result.sqx --simulations 1000 \
+  --probability-pct 10 --max-change-pct 10
+
+PYTHONPATH=../.. python3 sqx_monte_carlo_materialize.py \
+  --sqx /path/to/native-mc-result.sqx --output-dir /path/to/mc-runs \
+  --simulations 1000 --probability-pct 10 --max-change-pct 10
+```
+
+El manifest lliga cada SQX materialitzada al binari natiu original amb
+SHA-256. Encara cal el rebut d'export supervisat dels 1.000 CSV i el
+constructor de la traça abans que una campanya real pugui declarar aquesta
+etapa `PASS`; la presència del cross-check per si sola no és suficient.
+
 ```bash
 PYTHONPATH=../.. python3 robustness_artifact_v4.py \
   --campaign-id CAMPAIGN_ID \
@@ -498,6 +532,10 @@ El constructor aplica al nocional fix de 200 USDC el pitjor entre `stress` i
 dels veïns, PF estressat i liquidacions. Aquestes últimes no són booleans acceptats de la
 font: es deriven de l'excursió adversa, leverage i límit del mercat. El sizing
 posterior no pot usar més leverage ni un límit de venue diferent del provat.
+La traça temporal anterior conserva `MAE ($)` convertit a percentatge amb el
+`pointValue` i `orderSizeMultiplier` extrets de la mateixa SQX Retest. Per tant,
+el càlcul de liquidació no pot assumir erròniament que una mida FX en lots són
+unitats, ni accepta un multiplicador escrit a mà.
 
 `small_account_economics` parteix de retorns bruts trade a trade, costat i
 durada, del model de costos congelat i del rebut de robustesa anterior:

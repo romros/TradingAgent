@@ -14,10 +14,21 @@ import pandas as pd
 
 from lab.sq_bridge.temporal_split_contract_v4 import digest as contract_digest
 from lab.sq_bridge.sqcli_supervised_retest import verify_retest_receipt
+from lab.sq_bridge.sqx_extract import extract as extract_sqx
 
 
 def _sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _number(value: str, label: str) -> float:
+    try:
+        result = float(value.strip().replace(" ", "").replace(",", "."))
+    except (AttributeError, ValueError) as exc:
+        raise ValueError(f"{label} SQ temporal no numeric") from exc
+    if not math.isfinite(result):
+        raise ValueError(f"{label} SQ temporal invalid")
+    return result
 
 
 def _timestamp(value: str, timezone: str) -> tuple[datetime, date]:
@@ -61,14 +72,26 @@ def derive(*, candidate_id: str, orders_path: Path, temporal_contract_path: Path
     if not candidate_id or evaluation_notional_usdc != 200:
         raise ValueError("candidat o nocional temporal no canonic")
     contract = json.loads(temporal_contract_path.read_text())
-    verify_retest_receipt(
+    receipt = verify_retest_receipt(
         retest_receipt_path, candidate_id=candidate_id, orders_path=orders_path)
+    sqx_contract = extract_sqx(Path(receipt["retest_output_sqx_path"]))
+    point_value = sqx_contract.get("execution", {}).get("point_value")
+    order_size_multiplier = sqx_contract.get("execution", {}).get(
+        "order_size_multiplier")
+    if (not isinstance(point_value, (int, float)) or isinstance(point_value, bool)
+            or not math.isfinite(point_value) or point_value <= 0
+            or not isinstance(order_size_multiplier, (int, float))
+            or isinstance(order_size_multiplier, bool)
+            or not math.isfinite(order_size_multiplier)
+            or order_size_multiplier <= 0):
+        raise ValueError("contracte d'unitats SQ absent al resultat Retest")
     segments = _segments(contract)
     cost_hash = _sha(cost_model_path)
     with orders_path.open(newline="", encoding="utf-8-sig") as handle:
         reader = csv.DictReader(handle, delimiter=";")
         rows = list(reader)
-    required = {"Ticket", "Type", "Open time", "Open price", "Close time", "Close price"}
+    required = {"Ticket", "Type", "Open time", "Open price", "Close time",
+                "Close price", "Size", "MAE ($)"}
     if required - set(reader.fieldnames or ()) or any(required - set(row) for row in rows):
         raise ValueError("orders.csv temporal sense columnes obligatories")
     buckets: dict[str, list[dict]] = {"train": [], "validation": [], "oos": []}
@@ -94,17 +117,21 @@ def derive(*, candidate_id: str, orders_path: Path, temporal_contract_path: Path
         if direction not in {"buy", "sell", "long", "short"}:
             raise ValueError("direccio SQ temporal desconeguda")
         side = "long" if direction in {"buy", "long"} else "short"
-        try:
-            entry, exit_price = float(row["Open price"]), float(row["Close price"])
-        except ValueError as exc:
-            raise ValueError("preu SQ temporal no numeric") from exc
+        entry = _number(row["Open price"], "preu d'entrada")
+        exit_price = _number(row["Close price"], "preu de sortida")
+        size = _number(row["Size"], "mida")
+        mae_usdc = abs(_number(row["MAE ($)"], "MAE"))
         if not all(math.isfinite(value) and value > 0 for value in (entry, exit_price)):
             raise ValueError("preu SQ temporal invalid")
+        exposure = entry * size * point_value * order_size_multiplier
+        if exposure <= 0:
+            raise ValueError("exposicio SQ temporal invalida")
         sign = 1 if side == "long" else -1
         buckets[segment].append({
             "trade_id": f"{candidate_id}:{ticket}",
             "exit_timestamp": closed_utc.isoformat(),
             "gross_return_pct": sign * (exit_price - entry) / entry * 100,
+            "maximum_adverse_excursion_pct": mae_usdc / exposure * 100,
             "side": side,
             "holding_days": (closed_utc - opened_utc).total_seconds() / 86400,
         })
@@ -145,6 +172,9 @@ def derive(*, candidate_id: str, orders_path: Path, temporal_contract_path: Path
         "temporal_split_contract_digest": contract_digest(contract),
         "cost_model_path": str(cost_model_path.resolve()),
         "source_timezone": source_timezone,
+        "source_point_value": point_value,
+        "source_order_size_multiplier": order_size_multiplier,
+        "mae_semantics": "abs_mae_usdc_over_entry_exposure_from_native_sq_units",
         "return_semantics": "recomputed_from_entry_exit_prices_before_costs",
     }
     return trace

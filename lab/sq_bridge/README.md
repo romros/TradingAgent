@@ -984,6 +984,17 @@ Robustesa utilitza la metodologia segellada per l'artefacte temporal, no el
 fitxer actual del repositori. Això impedeix modificar inadvertidament els gates
 entre el Pareto i les 1.000 variants natives d'SQ.
 
+Els supervivents passen automàticament a
+`eurusd_v4_small_account_worker.py`. El contracte
+`evidence/eurusd_d1_full_candle_parity_v4.json` reobre 5.884 sessions NY-17
+entre 2003-05-05 i 2026-02-26: l'export d'SQ i la font D1 construïda des del
+Parquet Dukascopy tenen cobertura OHLC i coincidència del 100%. SQ només canvia
+el volum 0 d'una sessió festiva a 1; el sizing no usa volum. Per cada trade es
+reconstrueix el stop inicial des de la regla SQ i la candle anterior, s'aplica
+1,5% de risc sobre 200 USDC i es comproven costos, marge ≤35%, reserva ≥40%,
+buffer stop→liquidació ≥1,5 i l'envelope de leverage que havia superat
+robustesa. Cap leverage superior al provat per Monte Carlo pot ser seleccionat.
+
 Un candidat sense trades, sense OOS o amb expectativa train no positiva és
 evidència científica vàlida però feble: queda registrat amb
 `temporal_eligibility_failure` i acaba en `REJECT`, sense avortar el lot. En

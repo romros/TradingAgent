@@ -122,6 +122,8 @@ def run_stage(*, campaign_id: str, robustness_artifact_path: Path,
         "candle_contract_path": str(candle_contract_path.resolve()),
         "candle_contract_sha256": _sha(candle_contract_path),
         "candle_timezone": candle_timezone,
+        "methodology_path": str(methodology_path.resolve()),
+        "methodology_sha256": _sha(methodology_path),
         "sizing_semantics": "per_trade_risk_budget_over_reconstructed_initial_sq_stop",
     })
     artifact_path.write_text(json.dumps(artifact, indent=2, sort_keys=True) + "\n")

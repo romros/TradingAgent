@@ -26,6 +26,7 @@ def test_audits_exact_extended_roundtrip_and_allows_only_zero_volume_normalizati
     result = audit(extension_receipt_path=extension, parity_contract_path=parity,
                    output_path=tmp_path / "audit.json")
     assert result["decision"] == "PASS_SQ_D1_RESOURCE"
+    assert result["symbol"] == "EURUSD_ALQ_NY17_D1_V3"
     assert result["checks"]["holdout_covered"] is True
     assert result["volume_normalizations"] == [
         {"day": "2026.07.31", "source": 0, "sq_export": 1}]

@@ -33,7 +33,7 @@ def _rows(path: Path) -> dict[str, tuple[float, float, float, float, int]]:
 
 
 def audit(*, extension_receipt_path: Path, parity_contract_path: Path,
-          output_path: Path) -> dict:
+          output_path: Path, symbol: str = "EURUSD_ALQ_NY17_D1_V3") -> dict:
     extension_receipt_path = extension_receipt_path.resolve()
     parity_contract_path = parity_contract_path.resolve()
     extension, parity = _load(extension_receipt_path), _load(parity_contract_path)
@@ -65,7 +65,7 @@ def audit(*, extension_receipt_path: Path, parity_contract_path: Path,
     }
     result = {
         "schema_version": 1, "decision": "PASS_SQ_D1_RESOURCE" if all(checks.values()) else "BLOCK_SQ_D1_RESOURCE",
-        "symbol": "EURUSD_ALQ_NY17_D1_V2", "instrument": "EURUSD", "timeframe": "D1",
+        "symbol": symbol, "instrument": "EURUSD", "timeframe": "D1",
         "sq_version": "143.2708", "session_timezone": "America/New_York",
         "session_boundary": "17:00", "checks": checks,
         "source_rows": len(source_rows), "sq_rows": len(sq_rows),
@@ -95,10 +95,12 @@ def main() -> None:
     parser.add_argument("--extension-receipt", required=True, type=Path)
     parser.add_argument("--parity-contract", required=True, type=Path)
     parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--symbol", default="EURUSD_ALQ_NY17_D1_V3")
     args = parser.parse_args()
     print(json.dumps(audit(extension_receipt_path=args.extension_receipt,
                            parity_contract_path=args.parity_contract,
-                           output_path=args.output), indent=2, sort_keys=True))
+                           output_path=args.output, symbol=args.symbol),
+                     indent=2, sort_keys=True))
 
 
 if __name__ == "__main__":

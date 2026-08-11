@@ -61,3 +61,15 @@ def test_rejects_extension_that_disagrees_with_overlap(tmp_path):
               output_path=tmp_path / "extended.csv",
               receipt_path=tmp_path / "receipt.json",
               required_through=(overlap + timedelta(days=1)).isoformat())
+
+
+def test_excludes_every_session_after_frozen_holdout_end(tmp_path):
+    base, mapping, overlap = _fixture(tmp_path)
+    output = tmp_path / "extended.csv"
+    result = build(base_path=base, mapping_artifact_path=mapping,
+                   output_path=output, receipt_path=tmp_path / "receipt.json",
+                   required_through=overlap.isoformat())
+    assert result["last"] == overlap.isoformat()
+    assert result["output_rows"] == 5001
+    assert result["source_cutoff_policy"] == (
+        "exclude_every_session_after_frozen_holdout_end")

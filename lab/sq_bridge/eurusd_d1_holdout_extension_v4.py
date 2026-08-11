@@ -104,7 +104,8 @@ def build(*, base_path: Path, mapping_artifact_path: Path,
     # The recent API cache is independently proven against Ostium. Version 2
     # deliberately adopts it for the complete overlap as well as new days;
     # the immutable version-1 source remains untouched.
-    merged.update({day: values[:5] for day, values in extension.items()})
+    merged.update({day: values[:5] for day, values in extension.items()
+                   if day <= required_through})
     ordered = sorted(merged)
     if ordered[-1] < required_through:
         raise ValueError("extension does not cover the required holdout end")
@@ -140,6 +141,7 @@ def build(*, base_path: Path, mapping_artifact_path: Path,
         "maximum_overlap_ohlc_delta_bps": maximum_delta_bps,
         "base_rows": len(base), "extension_complete_sessions": len(extension),
         "output_rows": len(ordered), "first": ordered[0], "last": ordered[-1],
+        "source_cutoff_policy": "exclude_every_session_after_frozen_holdout_end",
         "required_through": required_through, "output_path": str(output_path),
         "output_sha256": _sha(output_path), "paper_authorized": False,
         "live_authorized": False,

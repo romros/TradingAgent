@@ -312,11 +312,14 @@ PYTHONPATH=../.. python3 eurusd_v4_project_batch.py \
   --output-dir /path/to/state/eurusd-v4-projects
 ```
 
-El resultat `project_batch.json` lliga bootstrap, scaffold, CFX i manifests per
-ruta/hash i manté `sqcli_started=false`. No importa ni inicia projectes. CFX i
-manifest són byte-reproduïbles: dues compilacions amb les mateixes entrades
-produeixen el mateix SHA-256; timestamps operatius pertanyen al journal, no al
-contracte científic.
+El resultat `project_batch.json` lliga bootstrap, scaffold, registre Ostium,
+metodologia, CFX i manifests per ruta/hash i manté `sqcli_started=false`. No
+importa ni inicia projectes. Un checkpoint marca cada branca `VERIFIED` només
+després de reobrir CFX i manifest; una interrupció reconstrueix la branca
+parcial i una repetició completa només revalida. CFX i manifest són
+byte-reproduïbles: dues compilacions amb les mateixes entrades produeixen el
+mateix SHA-256; timestamps operatius pertanyen al journal, no al contracte
+científic.
 
 La importació també és una fase separada de l'inici:
 
@@ -335,6 +338,8 @@ de cada mutació escriu un `IMPORT_INTENT` i, després de reexportar/verificar e
 CFX, el converteix en `VERIFIED`. Repetir un batch complet és idempotent; si el
 procés cau després d'obrir un projecte, el checkpoint permet reprendre'l sense
 confondre'l amb una col·lisió aliena ni tornar-lo a importar.
+Una importació nova també exigeix inactivitat global d'SQCLI; si Academia o un
+altre projecte està calculant, es nega abans del primer `docker cp`.
 
 L'inici també és una fase contractada i només admet una hipòtesi ja importada:
 

@@ -108,6 +108,12 @@ def import_batch(*, batch_path: Path, output_dir: Path,
                 raise RuntimeError(f"completed SQCLI import no longer verifies: {hypothesis_id}")
         return result
 
+    running = sorted(str(name) for name, row in listing.items()
+                     if name is not None
+                     and row.get("runningStatus") not in {None, 0})
+    if running:
+        raise RuntimeError(f"refusing import while SQCLI projects run: {running}")
+
     imported = {}
     for hypothesis_id in sorted(prepared):
         row, cfx, manifest = prepared[hypothesis_id]

@@ -64,6 +64,47 @@ def _recompile_plan(plan: dict, chain_path: Path, methodology_path: Path,
             plan_output=root / "plan.json")
 
 
+def _verify_project_row(hypothesis_id: str, row: object) -> dict:
+    if not isinstance(row, dict):
+        raise ValueError(f"invalid completed project row: {hypothesis_id}")
+    cfx = _verified_path(row.get("project_cfx_path"),
+                         row.get("project_cfx_sha256"),
+                         f"{hypothesis_id} completed CFX")
+    manifest_path = _verified_path(
+        row.get("project_manifest_path"), row.get("project_manifest_sha256"),
+        f"{hypothesis_id} completed manifest")
+    manifest = json.loads(manifest_path.read_text())
+    shape = verify_genetic_project(cfx, manifest)
+    if (manifest.get("project_name") != row.get("project_name")
+            or shape != row.get("sq_genetic_shape")):
+        raise ValueError(f"{hypothesis_id} completed project contract mismatch")
+    return row
+
+
+def _completed_batch(path: Path, *, bootstrap_path: Path, scaffold_path: Path,
+                     registry_path: Path, methodology_path: Path,
+                     selected: list[str]) -> dict:
+    result = json.loads(path.read_text())
+    projects = result.get("projects")
+    if (result.get("decision") != "PASS_CFX_BATCH_READY"
+            or result.get("bootstrap_path") != str(bootstrap_path)
+            or result.get("bootstrap_sha256") != _sha256(bootstrap_path)
+            or result.get("scaffold_path") != str(scaffold_path)
+            or result.get("scaffold_sha256") != _sha256(scaffold_path)
+            or result.get("registry_path") != str(registry_path)
+            or result.get("registry_sha256") != _sha256(registry_path)
+            or result.get("methodology_path") != str(methodology_path)
+            or result.get("methodology_sha256") != _sha256(methodology_path)
+            or result.get("selected_hypothesis_ids") != sorted(selected)
+            or result.get("sqcli_started") is not False
+            or not isinstance(projects, dict)
+            or set(projects) != set(selected)):
+        raise ValueError("completed project batch does not match frozen inputs")
+    for hypothesis_id, row in projects.items():
+        _verify_project_row(hypothesis_id, row)
+    return result
+
+
 def compile_projects(*, bootstrap_path: Path, scaffold_path: Path,
                      registry_path: Path, methodology_path: Path,
                      output_dir: Path) -> dict:
@@ -115,14 +156,48 @@ def compile_projects(*, bootstrap_path: Path, scaffold_path: Path,
         validated[hypothesis_id] = (plan, chain_path, contract_path)
 
     projects = {}
-    collisions = [output_dir / "project_batch.json"] + [
-        output_dir / hypothesis_id for hypothesis_id in validated]
-    if any(path.exists() for path in collisions):
-        raise ValueError("project batch output collision; use a fresh output directory")
+    final_path = output_dir / "project_batch.json"
+    checkpoint_path = output_dir / "project_batch_checkpoint.json"
+    if final_path.is_file():
+        return _completed_batch(
+            final_path, bootstrap_path=bootstrap_path,
+            scaffold_path=scaffold_path, registry_path=registry_path,
+            methodology_path=methodology_path, selected=selected)
+    checkpoint_contract = {
+        "schema_version": 1, "bootstrap_path": str(bootstrap_path),
+        "bootstrap_sha256": _sha256(bootstrap_path),
+        "scaffold_path": str(scaffold_path),
+        "scaffold_sha256": _sha256(scaffold_path),
+        "registry_path": str(registry_path), "registry_sha256": _sha256(registry_path),
+        "methodology_path": str(methodology_path),
+        "methodology_sha256": _sha256(methodology_path),
+        "selected_hypothesis_ids": sorted(selected),
+        "projects": {}, "sqcli_started": False,
+    }
+    if checkpoint_path.is_file():
+        checkpoint = json.loads(checkpoint_path.read_text())
+        expected = {**checkpoint_contract, "projects": checkpoint.get("projects")}
+        if (not isinstance(checkpoint.get("projects"), dict)
+                or checkpoint != expected):
+            raise ValueError("project batch checkpoint does not match frozen inputs")
+    else:
+        unexpected = sorted(path.name for path in output_dir.iterdir())
+        if unexpected:
+            raise ValueError(f"project batch output has no checkpoint: {unexpected}")
+        checkpoint = checkpoint_contract
+        write_atomic(checkpoint_path, checkpoint)
     for hypothesis_id in sorted(validated):
         plan, chain_path, contract_path = validated[hypothesis_id]
         branch_output = output_dir / hypothesis_id
         project_path = branch_output / "project.cfx"
+        checkpoint_row = checkpoint["projects"].get(hypothesis_id)
+        if checkpoint_row is not None:
+            if (not isinstance(checkpoint_row, dict)
+                    or checkpoint_row.get("state") != "VERIFIED"):
+                raise ValueError(f"invalid project checkpoint row: {hypothesis_id}")
+            projects[hypothesis_id] = _verify_project_row(
+                hypothesis_id, checkpoint_row.get("project"))
+            continue
         manifest = build_project(
             source=scaffold_path, output=project_path,
             project_name=plan["project_name"], market_key="EURUSD",
@@ -151,6 +226,10 @@ def compile_projects(*, bootstrap_path: Path, scaffold_path: Path,
             "project_manifest_sha256": _sha256(manifest_path),
             "sq_genetic_shape": shape,
         }
+        checkpoint["projects"][hypothesis_id] = {
+            "state": "VERIFIED", "project": projects[hypothesis_id],
+        }
+        write_atomic(checkpoint_path, checkpoint)
 
     result = {
         "schema_version": 1, "decision": "PASS_CFX_BATCH_READY",
@@ -158,10 +237,13 @@ def compile_projects(*, bootstrap_path: Path, scaffold_path: Path,
         "bootstrap_path": str(bootstrap_path),
         "bootstrap_sha256": _sha256(bootstrap_path),
         "scaffold_path": str(scaffold_path), "scaffold_sha256": _sha256(scaffold_path),
+        "registry_path": str(registry_path), "registry_sha256": _sha256(registry_path),
+        "methodology_path": str(methodology_path),
+        "methodology_sha256": _sha256(methodology_path),
         "selected_hypothesis_ids": sorted(selected), "projects": projects,
         "sqcli_started": False, "paper_authorized": False, "live_authorized": False,
     }
-    write_atomic(output_dir / "project_batch.json", result)
+    write_atomic(final_path, result)
     return result
 
 

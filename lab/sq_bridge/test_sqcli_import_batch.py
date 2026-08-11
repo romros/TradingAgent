@@ -85,6 +85,19 @@ def test_rejects_existing_sq_project_before_copy(tmp_path, monkeypatch):
     assert calls == []
 
 
+def test_refuses_import_while_any_sq_project_is_running(tmp_path, monkeypatch):
+    batch, cfx = _batch(tmp_path)
+    calls, runner = _runtime(monkeypatch, cfx)
+    monkeypatch.setattr(importer, "list_projects", lambda *_: [{
+        "projectName": "ACADEMIA_BUSY", "runningStatus": 1,
+        "hasUnresolvedResources": False,
+    }])
+    with pytest.raises(RuntimeError, match="refusing import while SQCLI projects run"):
+        importer.import_batch(
+            batch_path=batch, output_dir=tmp_path / "receipt", runner=runner)
+    assert calls == []
+
+
 def test_completed_import_is_idempotent_without_docker_mutation(tmp_path, monkeypatch):
     batch, cfx = _batch(tmp_path)
     calls, runner = _runtime(monkeypatch, cfx)

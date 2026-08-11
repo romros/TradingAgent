@@ -121,15 +121,57 @@ def test_rejects_empty_or_nonready_bootstrap(tmp_path):
             output_dir=tmp_path / "out")
 
 
-def test_refuses_to_overwrite_an_existing_project_batch(tmp_path, monkeypatch):
+def test_refuses_partial_output_without_its_checkpoint(tmp_path, monkeypatch):
     bootstrap, plan = _inputs(tmp_path)
     calls, _ = _fake_builder(monkeypatch, plan)
     collision = tmp_path / "out/d1_breakout"
     collision.mkdir(parents=True)
-    with pytest.raises(ValueError, match="output collision"):
+    with pytest.raises(ValueError, match="has no checkpoint"):
         batch.compile_projects(
             bootstrap_path=bootstrap, scaffold_path=tmp_path / "scaffold.cfx",
             registry_path=tmp_path / "registry.json",
             methodology_path=tmp_path / "methodology.json",
             output_dir=tmp_path / "out")
     assert calls == []
+
+
+def test_completed_batch_is_idempotent_and_revalidates_files(tmp_path, monkeypatch):
+    bootstrap, plan = _inputs(tmp_path)
+    calls, _ = _fake_builder(monkeypatch, plan)
+    common = dict(
+        bootstrap_path=bootstrap, scaffold_path=tmp_path / "scaffold.cfx",
+        registry_path=tmp_path / "registry.json",
+        methodology_path=tmp_path / "methodology.json", output_dir=tmp_path / "out")
+    first = batch.compile_projects(**common)
+    count = len(calls)
+    second = batch.compile_projects(**common)
+    assert second == first
+    assert len(calls) == count
+    Path(first["projects"]["d1_breakout"]["project_cfx_path"]).write_bytes(b"changed")
+    with pytest.raises(ValueError, match="completed CFX path/hash mismatch"):
+        batch.compile_projects(**common)
+
+
+def test_resumes_an_interrupted_partial_branch_from_checkpoint(tmp_path, monkeypatch):
+    bootstrap, plan = _inputs(tmp_path)
+    calls, _ = _fake_builder(monkeypatch, plan)
+    real_builder = batch.build_project
+    failed = {"once": False}
+
+    def interrupt_after_build(**kwargs):
+        result = real_builder(**kwargs)
+        if not failed["once"]:
+            failed["once"] = True
+            raise RuntimeError("interrupted after files")
+        return result
+
+    monkeypatch.setattr(batch, "build_project", interrupt_after_build)
+    common = dict(
+        bootstrap_path=bootstrap, scaffold_path=tmp_path / "scaffold.cfx",
+        registry_path=tmp_path / "registry.json",
+        methodology_path=tmp_path / "methodology.json", output_dir=tmp_path / "out")
+    with pytest.raises(RuntimeError, match="interrupted"):
+        batch.compile_projects(**common)
+    assert (tmp_path / "out/project_batch_checkpoint.json").is_file()
+    result = batch.compile_projects(**common)
+    assert result["decision"] == "PASS_CFX_BATCH_READY"

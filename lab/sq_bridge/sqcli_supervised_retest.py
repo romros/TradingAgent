@@ -13,7 +13,7 @@ import zipfile
 from pathlib import Path
 from typing import Callable
 
-from lab.sq_bridge.alquimia_retest import verify_retest_project
+from lab.sq_bridge.alquimia_retest import verify_holdout_project, verify_retest_project
 from lab.sq_bridge.sqcli_transport import (
     CONTAINER_NAME, SAFE_PROJECT_NAME, docker_exec_http_call,
     docker_project_final_log, gui_open_project, gui_start_project, list_projects,
@@ -26,14 +26,15 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def parse_retest_final_log(text: str) -> dict:
+def parse_retest_final_log(text: str, output_databank: str = "PreHoldout") -> dict:
     """Prove one-input/one-output natural completion from SQ's own run log."""
     if not isinstance(text, str) or "TASK FINISHED" not in text:
         raise ValueError("RETEST_LOG_NOT_FINISHED")
+    output = re.escape(output_databank)
     before = re.search(
-        r"Databanks before start:\s*Results \((\d+)\),\s*PreHoldout \((\d+)\)", text)
+        rf"Databanks before start:\s*Results \((\d+)\),\s*{output} \((\d+)\)", text)
     after = re.search(
-        r"Databanks after finish:\s*Results \((\d+)\),\s*PreHoldout \((\d+)\)", text)
+        rf"Databanks after finish:\s*Results \((\d+)\),\s*{output} \((\d+)\)", text)
     totals = re.search(
         r"Total tested:\s*(\d+).*?Passed:\s*(\d+),\s*Failed:\s*(\d+)",
         text, re.DOTALL)
@@ -63,19 +64,37 @@ def _completed(path: Path, manifest: dict) -> dict:
         source = Path(result.get(f"{prefix}_path", ""))
         if not source.is_file() or result.get(f"{prefix}_sha256") != _sha256(source):
             raise ValueError(f"completed Retest {prefix} path/hash mismatch")
-    return verify_retest_receipt(
+    return verify_supervised_retest_receipt(
         path, candidate_id=manifest["candidate_id"],
-        orders_path=Path(result["orders_csv_path"]))
+        orders_path=Path(result["orders_csv_path"]),
+        expected_stage=manifest.get("stage"))
 
 
 def verify_retest_receipt(receipt_path: Path, *, candidate_id: str,
                           orders_path: Path) -> dict:
-    """Rebuild the native lineage rather than trusting receipt booleans."""
+    """Rebuild a pre-holdout native lineage rather than trusting booleans."""
+    return verify_supervised_retest_receipt(
+        receipt_path, candidate_id=candidate_id, orders_path=orders_path,
+        expected_stage="pre_holdout")
+
+
+def verify_supervised_retest_receipt(
+        receipt_path: Path, *, candidate_id: str, orders_path: Path,
+        expected_stage: str) -> dict:
+    """Rebuild either the sealed pre-holdout or sole final-holdout lineage."""
+    if expected_stage not in {"pre_holdout", "holdout"}:
+        raise ValueError("SUPERVISED_RETEST_STAGE_INVALID")
     receipt_path, orders_path = receipt_path.resolve(), orders_path.resolve()
     result = json.loads(receipt_path.read_text())
+    holdout = expected_stage == "holdout"
+    expected_output = "Holdout" if holdout else "PreHoldout"
     if (result.get("decision") != "PASS_SUPERVISED_RETEST"
             or result.get("candidate_id") != candidate_id
-            or result.get("holdout_accessed") is not False
+            or result.get("retest_stage") not in (
+                {expected_stage} if holdout else {expected_stage, None})
+            or result.get("holdout_accessed") is not holdout
+            or result.get("holdout_evaluation_count") not in (
+                {1} if holdout else {0, None})
             or result.get("performance_filters_applied_in_sq") is not False
             or result.get("total_tested") != 1
             or result.get("input_before") != 1 or result.get("output_before") != 0
@@ -105,7 +124,7 @@ def verify_retest_receipt(receipt_path: Path, *, candidate_id: str,
         raise ValueError("SUPERVISED_RETEST_SYNC_RECEIPT_INVALID")
     if (output_sync.get("decision") != "PASS_RETEST_OUTPUT_DATABANK_SYNC"
             or output_sync.get("project_name") != result.get("project_name")
-            or output_sync.get("databank") != "PreHoldout"
+            or output_sync.get("databank") != expected_output
             or output_sync.get("observed_output_sqx_count") != 1
             or output_sync.get("output_sqx_sha256")
                 != result.get("retest_output_sqx_sha256")):
@@ -113,8 +132,9 @@ def verify_retest_receipt(receipt_path: Path, *, candidate_id: str,
     if (manifest.get("candidate_id") != candidate_id
             or manifest.get("project_name") != result.get("project_name")):
         raise ValueError("SUPERVISED_RETEST_MANIFEST_IDENTITY_MISMATCH")
-    verify_retest_project(files["source_cfx"], manifest)
-    verify_retest_project(files["imported_cfx"], manifest, require_archive_hash=False)
+    verifier = verify_holdout_project if holdout else verify_retest_project
+    verifier(files["source_cfx"], manifest)
+    verifier(files["imported_cfx"], manifest, require_archive_hash=False)
     input_contract = extract_sqx(files["candidate_input_sqx"])
     output_contract = extract_sqx(files["retest_output_sqx"])
     if (input_contract.get("strategy_name") != candidate_id
@@ -129,7 +149,8 @@ def verify_retest_receipt(receipt_path: Path, *, candidate_id: str,
     with zipfile.ZipFile(files["retest_output_sqx"]) as archive:
         if "orders.bin" not in archive.namelist() or not archive.read("orders.bin"):
             raise ValueError("SUPERVISED_RETEST_ORDERS_BIN_MISSING")
-    counters = parse_retest_final_log(files["sq_final_log"].read_text())
+    counters = parse_retest_final_log(
+        files["sq_final_log"].read_text(), expected_output)
     if any(result.get(key) != value for key, value in counters.items()):
         raise ValueError("SUPERVISED_RETEST_LOG_MISMATCH")
     return result
@@ -148,7 +169,7 @@ def supervised_retest(
     export_fn: Callable[[str], str] | None = None,
     runner: Callable[..., subprocess.CompletedProcess] = subprocess.run,
     sleep_fn: Callable[[float], None] = time.sleep,
-    project_verify_fn: Callable[..., dict] = verify_retest_project,
+    project_verify_fn: Callable[..., dict] | None = None,
     completed_fn: Callable[[Path, dict], dict] | None = None,
     receipt_filename: str = "supervised_retest_receipt.json",
     receipt_decision: str = "PASS_SUPERVISED_RETEST",
@@ -163,8 +184,20 @@ def supervised_retest(
     if (not SAFE_PROJECT_NAME.fullmatch(receipt_filename.replace("_", "").replace(".", ""))
             or not SAFE_PROJECT_NAME.fullmatch(receipt_decision)):
         raise ValueError("invalid supervised Retest receipt identity")
-    contract = project_verify_fn(cfx_path, manifest)
+    project_verifier = project_verify_fn or (
+        verify_holdout_project if manifest.get("stage") == "holdout"
+        else verify_retest_project)
+    contract = project_verifier(cfx_path, manifest)
     project, candidate_id = contract["project_name"], contract["candidate_id"]
+    output_databank = contract.get("output_databank", "PreHoldout")
+    # Custom supervised workflows (for example native Monte Carlo) reuse the
+    # sealed PreHoldout transport with their own project verifier. Only the
+    # literal Holdout databank is allowed to mark the final sample as opened.
+    retest_stage = "holdout" if output_databank == "Holdout" else "pre_holdout"
+    if (output_databank not in {"PreHoldout", "Holdout"}
+            or (output_databank == "Holdout") != (manifest.get("stage") == "holdout")):
+        raise ValueError("invalid supervised Retest stage/output contract")
+    holdout = retest_stage == "holdout"
     if not SAFE_PROJECT_NAME.fullmatch(project):
         raise ValueError("invalid Retest project name")
     candidate = Path(manifest["candidate_sqx_path"]).resolve()
@@ -184,7 +217,8 @@ def supervised_retest(
         "source_cfx_path": str(cfx_path), "source_cfx_sha256": _sha256(cfx_path),
         "candidate_input_sqx_path": str(candidate),
         "candidate_input_sqx_sha256": _sha256(candidate),
-        "holdout_accessed": False, "sqcli_started": False,
+        "holdout_accessed": False, "holdout_access_authorized": holdout,
+        "holdout_evaluation_count": 0, "sqcli_started": False,
         "paper_authorized": False, "live_authorized": False,
     }
     resuming = output_dir.exists() and any(output_dir.iterdir())
@@ -226,8 +260,9 @@ def supervised_retest(
                 and current[0].get("runningStatus") not in (None, 0))):
         raise RuntimeError("imported Retest project absent, running or unresolved")
     imported_cfx = project_dir / "project.cfx"
-    project_verify_fn(imported_cfx, manifest, require_archive_hash=False)
-    results_dir, retest_dir = project_dir / "databanks/Results", project_dir / "databanks/PreHoldout"
+    project_verifier(imported_cfx, manifest, require_archive_hash=False)
+    results_dir = project_dir / "databanks/Results"
+    retest_dir = project_dir / f"databanks/{output_databank}"
     results_dir.mkdir(parents=True, exist_ok=True)
     retest_dir.mkdir(parents=True, exist_ok=True)
     input_copy = results_dir / candidate.name
@@ -242,7 +277,11 @@ def supervised_retest(
                 or started.get("input_copy_path") != str(input_copy)
                 or not input_copy.is_file()
                 or started.get("input_copy_sha256") != _sha256(input_copy)
-                or _sha256(input_copy) != manifest["candidate_sqx_sha256"]):
+                or _sha256(input_copy) != manifest["candidate_sqx_sha256"]
+                or (holdout and (
+                    started.get("retest_stage") != "holdout"
+                    or started.get("holdout_accessed") is not True
+                    or started.get("holdout_evaluation_count") != 1))):
             raise ValueError("incomplete Retest start receipt mismatch")
     else:
         existing_inputs = list(results_dir.glob("*.sqx"))
@@ -295,6 +334,9 @@ def supervised_retest(
             "databank_sync_receipt_sha256": _sha256(sync_path),
             "input_copy_path": str(input_copy),
             "input_copy_sha256": _sha256(input_copy),
+            "retest_stage": retest_stage,
+            "holdout_accessed": holdout,
+            "holdout_evaluation_count": 1 if holdout else 0,
         })
 
     finalizer = final_log_fn or (
@@ -321,13 +363,13 @@ def supervised_retest(
         sleep_fn(interval)
     if final is None:
         raise TimeoutError("SQCLI Retest did not finish naturally within timeout")
-    counters = parse_retest_final_log(final["log_text"])
+    counters = parse_retest_final_log(final["log_text"], output_databank)
     final_log_path = output_dir / "sq_retest_final.log"
     final_log_path.write_text(final["log_text"])
 
     outputs = list(retest_dir.glob("*.sqx"))
     output_sync_command = (
-        f"-databank action=synctofiles project={project} name=PreHoldout")
+        f"-databank action=synctofiles project={project} name={output_databank}")
     output_sync_response = "recovered_already_synced_exact_output"
     if not outputs:
         synchronizer = sync_fn or (
@@ -362,7 +404,7 @@ def supervised_retest(
             raise RuntimeError("Retest output SQX has no non-empty orders.bin")
     write_atomic(output_sync_path, {
         "schema_version": 1, "decision": "PASS_RETEST_OUTPUT_DATABANK_SYNC",
-        "project_name": project, "databank": "PreHoldout",
+        "project_name": project, "databank": output_databank,
         "command": output_sync_command, "response": output_sync_response,
         "observed_output_sqx_count": 1,
         "output_sqx_path": str(retested), "output_sqx_sha256": _sha256(retested),
@@ -375,7 +417,7 @@ def supervised_retest(
         shutil.copyfile(retested, export_input)
     if _sha256(export_input) != _sha256(retested):
         raise RuntimeError("SQCLI orders export input copy hash mismatch")
-    orders_prefix_name = f"orders-pre-holdout-{export_token}"
+    orders_prefix_name = f"orders-{retest_stage.replace('_', '-')}-{export_token}"
     orders_csv = (project_dir / f"{orders_prefix_name}.csv").resolve()
     command = (f"-tools action=orderstocsv file={container_project}/{export_input.name} "
                f"output={container_project}/{orders_prefix_name} "
@@ -409,7 +451,10 @@ def supervised_retest(
         "completion_source": final.get("completion_source"),
         "observed_running": observed_running, **counters,
         "orders_export_command": command, "orders_export_response": export_response,
-        "holdout_accessed": False, "performance_filters_applied_in_sq": False,
+        "retest_stage": retest_stage,
+        "holdout_accessed": holdout,
+        "holdout_evaluation_count": 1 if holdout else 0,
+        "performance_filters_applied_in_sq": False,
         "paper_authorized": False, "live_authorized": False,
     }
     write_atomic(final_receipt, result)

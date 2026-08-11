@@ -94,10 +94,11 @@ def _candidate_contract(candidate_sqx: Path | None, candidate_id: str | None,
     }
 
 
-def _validate_pre_holdout_contract(task_xml: ET.Element, *, symbol: str,
-                                    timeframe: str, date_from: str,
-                                    date_to: str) -> None:
-    """Fail closed if SQ could censor or broaden the pre-holdout observation."""
+def _validate_uncensored_contract(task_xml: ET.Element, *, symbol: str,
+                                  timeframe: str, date_from: str,
+                                  date_to: str,
+                                  output_databank: str = "PreHoldout") -> None:
+    """Fail closed if SQ could censor or broaden an observation period."""
     setup = task_xml.find("./Data/Setups/Setup")
     charts = setup.findall("Chart") if setup is not None else []
     conditions = task_xml.findall("./Rankings/Conditions/Condition")
@@ -123,10 +124,19 @@ def _validate_pre_holdout_contract(task_xml: ET.Element, *, symbol: str,
         errors.append("NOT_ALL_INPUT_STRATEGIES")
     if input_db is None or input_db.get("value") != "Results":
         errors.append("INPUT_DATABANK")
-    if output_db is None or output_db.get("value") != "PreHoldout":
+    if output_db is None or output_db.get("value") != output_databank:
         errors.append("OUTPUT_DATABANK")
     if errors:
-        raise ValueError("PRE_HOLDOUT_CONTRACT_INVALID: " + ",".join(errors))
+        raise ValueError("UNCENSORED_RETEST_CONTRACT_INVALID: " + ",".join(errors))
+
+
+# Backward-compatible name used by existing temporal tests and integrations.
+def _validate_pre_holdout_contract(task_xml: ET.Element, *, symbol: str,
+                                    timeframe: str, date_from: str,
+                                    date_to: str) -> None:
+    _validate_uncensored_contract(
+        task_xml, symbol=symbol, timeframe=timeframe,
+        date_from=date_from, date_to=date_to, output_databank="PreHoldout")
 
 
 def verify_retest_project(cfx_path: Path, manifest: dict, *,
@@ -171,6 +181,58 @@ def verify_retest_project(cfx_path: Path, manifest: dict, *,
         "input_databank": "Results", "output_databank": "PreHoldout",
     }
 
+
+def verify_holdout_project(cfx_path: Path, manifest: dict, *,
+                           require_archive_hash: bool = True) -> dict:
+    """Verify the sole uncensored SQ opening of a frozen final holdout."""
+    if (manifest.get("schema_version") != 2
+            or manifest.get("stage") != "holdout"
+            or (require_archive_hash and manifest.get("cfx_sha256") != _sha256(cfx_path))
+            or manifest.get("build_reproducible") is not True
+            or manifest.get("source_role") != "xml_format_scaffold_only"
+            or manifest.get("performance_filters_applied_in_sq") is not False
+            or manifest.get("holdout_accessed") is not True
+            or manifest.get("holdout_locked") is not False):
+        raise ValueError("HOLDOUT_RETEST_MANIFEST_INVALID")
+    release_path = Path(manifest.get("holdout_release_artifact_path", ""))
+    if (not release_path.is_file()
+            or manifest.get("holdout_release_artifact_sha256") != _sha256(release_path)):
+        raise ValueError("HOLDOUT_RELEASE_ARTIFACT_INVALID")
+    release = json.loads(release_path.read_text())
+    if (release.get("stage") != "small_account_economics"
+            or release.get("decision") != "PASS"
+            or release.get("campaign_id") != manifest.get("holdout_release_campaign_id")
+            or release.get("candidate_ids") != [manifest.get("candidate_id")]
+            or release.get("holdout_accessed") is not False):
+        raise ValueError("HOLDOUT_RELEASE_NOT_PROMOTABLE")
+    candidate_path = Path(manifest.get("candidate_sqx_path", ""))
+    candidate = _candidate_contract(
+        candidate_path, manifest.get("candidate_id"), required=True)
+    if any(candidate.get(key) != manifest.get(key) for key in candidate):
+        raise ValueError("HOLDOUT_RETEST_CANDIDATE_LINEAGE_MISMATCH")
+    with zipfile.ZipFile(cfx_path) as archive:
+        if set(archive.namelist()) != {"config.xml", "Retest-Task1.xml"}:
+            raise ValueError("HOLDOUT_RETEST_CFX_MEMBERS_INVALID")
+        config = ET.fromstring(archive.read("config.xml"))
+        task = ET.fromstring(archive.read("Retest-Task1.xml"))
+    tasks = config.findall("./Tasks/Task")
+    if (config.get("name") != manifest.get("project_name") or len(tasks) != 1
+            or tasks[0].get("type") != "Retest"
+            or tasks[0].get("active") != "true"):
+        raise ValueError("HOLDOUT_RETEST_CONFIG_INVALID")
+    _validate_uncensored_contract(
+        task, symbol=manifest["symbol"], timeframe=manifest["timeframe"],
+        date_from=manifest["date_from"], date_to=manifest["date_to"],
+        output_databank="Holdout")
+    return {
+        "project_name": manifest["project_name"],
+        "candidate_id": manifest["candidate_id"],
+        "candidate_sqx_sha256": manifest["candidate_sqx_sha256"],
+        "date_from": manifest["date_from"], "date_to": manifest["date_to"],
+        "symbol": manifest["symbol"], "timeframe": manifest["timeframe"],
+        "input_databank": "Results", "output_databank": "Holdout",
+    }
+
 def _condition(column: str, fmt: str, comparator: str, threshold: float) -> ET.Element:
     node = ET.Element("Condition", {"use": "true"})
     left = ET.SubElement(node, "Left-Side", {"valueType": "column"})
@@ -189,7 +251,8 @@ def generate(source: Path, output: Path, project_name: str, stage: str, manifest
              test_precision: int = 4, money_management: str = "risk_percent",
              fixed_size: float = 1, keep_failed: bool = False,
              candidate_sqx: Path | None = None,
-             candidate_id: str | None = None) -> dict:
+             candidate_id: str | None = None,
+             holdout_release_artifact: Path | None = None) -> dict:
     if stage not in PERIOD_KEYS:
         raise ValueError(f"Etapa invalida: {stage}")
     methodology = json.loads(methodology_path.read_text())
@@ -209,6 +272,24 @@ def generate(source: Path, output: Path, project_name: str, stage: str, manifest
         raise ValueError(f"DISCOVERY_PERIODS_MISSING: {missing}")
     if stage == "holdout" and not discovery.get("holdout_release_authorized", False):
         raise ValueError("HOLDOUT_LOCKED: cal autoritzacio explicita al manifest")
+    release = {}
+    if stage == "holdout":
+        if holdout_release_artifact is None or not holdout_release_artifact.is_file():
+            raise ValueError("HOLDOUT_RELEASE_ARTIFACT_REQUIRED")
+        release_value = json.loads(holdout_release_artifact.read_text())
+        if (release_value.get("stage") != "small_account_economics"
+                or release_value.get("decision") != "PASS"
+                or not isinstance(release_value.get("campaign_id"), str)
+                or not release_value.get("campaign_id")
+                or discovery.get("campaign_id") != release_value.get("campaign_id")
+                or release_value.get("candidate_ids") != [candidate_id]
+                or release_value.get("holdout_accessed") is not False):
+            raise ValueError("HOLDOUT_RELEASE_NOT_PROMOTABLE")
+        release = {
+            "holdout_release_artifact_path": str(holdout_release_artifact.resolve()),
+            "holdout_release_artifact_sha256": _sha256(holdout_release_artifact),
+            "holdout_release_campaign_id": release_value["campaign_id"],
+        }
     start_key, end_key = PERIOD_KEYS[stage]
     task_xml = _read_task(source, source_task_file)
     if resource_source is not None:
@@ -278,9 +359,9 @@ def generate(source: Path, output: Path, project_name: str, stage: str, manifest
     delete_failed = rankings.find("DeleteFailedStrategies")
     if delete_failed is None:
         delete_failed = ET.SubElement(rankings, "DeleteFailedStrategies")
-    # Diagnostic runs retain rejected results so their executed metrics remain
-    # inspectable. Production gates keep the historical delete-on-failure mode.
-    uncensored = stage == "pre_holdout"
+    # Both pre-holdout and the one-shot final holdout must retain losing
+    # candidates; otherwise SQ would censor the evidence needed for REJECT.
+    uncensored = stage in {"pre_holdout", "holdout"}
     delete_failed.text = "false" if keep_failed or uncensored else "true"
     minimum_trades = methodology["temporal_validation"]["minimum_trades_oos"]
     minimum_pf = methodology["temporal_validation"]["minimum_oos_profit_factor"]
@@ -313,9 +394,10 @@ def generate(source: Path, output: Path, project_name: str, stage: str, manifest
             "syncType": "Auto-sync never", "position": str(position)})
     output.parent.mkdir(parents=True, exist_ok=True)
     if uncensored:
-        _validate_pre_holdout_contract(
+        _validate_uncensored_contract(
             task_xml, symbol=symbol, timeframe=timeframe,
-            date_from=periods[start_key], date_to=periods[end_key])
+            date_from=periods[start_key], date_to=periods[end_key],
+            output_databank=output_db)
     _write_reproducible_cfx(output, {
         "config.xml": ET.tostring(config, encoding="utf-8"),
         "Retest-Task1.xml": ET.tostring(task_xml, encoding="utf-8"),
@@ -343,6 +425,7 @@ def generate(source: Path, output: Path, project_name: str, stage: str, manifest
         "holdout_locked": stage != "holdout",
         "build_reproducible": True,
         "source_role": "xml_format_scaffold_only",
+        **release,
         **candidate,
         "cfx_sha256": _sha256(output)}
     output.with_suffix(".manifest.json").write_text(json.dumps(result, indent=2) + "\n")
@@ -370,6 +453,8 @@ def main() -> None:
                         help="Unic SQX que el runner copiara al databank Results")
     parser.add_argument("--candidate-id",
                         help="StrategyName exacte esperat dins el SQX")
+    parser.add_argument("--holdout-release-artifact", type=Path,
+                        help="Artefacte PASS de small_account que obre el holdout")
     parser.add_argument("--methodology", type=Path, default=Path(__file__).with_name("methodology_v1.json"))
     args = parser.parse_args()
     print(json.dumps(generate(args.source, args.output, args.name, args.stage,
@@ -377,6 +462,6 @@ def main() -> None:
         args.source_task_file, args.resource_source, args.resource_task_file,
         args.slippage, args.test_precision, args.money_management,
         args.fixed_size, args.keep_failed, args.candidate_sqx,
-        args.candidate_id), indent=2))
+        args.candidate_id, args.holdout_release_artifact), indent=2))
 
 if __name__ == "__main__": main()

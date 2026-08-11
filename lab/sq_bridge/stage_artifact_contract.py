@@ -14,6 +14,7 @@ from lab.sq_bridge.sqx_extract import extract as extract_sqx
 from lab.sq_bridge.sqx_to_ir import canonical_ir, validate_executable_ir
 from lab.sq_bridge.parity_artifact_v4 import compare_traces
 from lab.sq_bridge.final_holdout_artifact_v4 import evaluate_trace as evaluate_holdout_trace
+from lab.sq_bridge.final_holdout_trace_v4 import rebuild_from_trace as rebuild_holdout_trace
 from lab.sq_bridge.paper_package_artifact_v4 import verify_package
 from lab.sq_bridge.temporal_validation_artifact_v4 import (
     evaluate_trace as evaluate_temporal_trace,
@@ -1270,6 +1271,9 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                 and sizing.get("cost_model_sha256") == artifact.get("cost_model_sha256"))
             if holdout_trace is not None and sources_match:
                 try:
+                    if (holdout_trace.get("schema_version") == 2
+                            and rebuild_holdout_trace(holdout_trace) != holdout_trace):
+                        raise ValueError("holdout trace not reproducible")
                     recomputed = evaluate_holdout_trace(
                         holdout_trace, gate["cost_scenarios_required"], cost_model,
                         artifact.get("cost_model_sha256"), sizing,

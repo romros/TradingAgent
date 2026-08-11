@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from lab.sq_bridge.final_holdout_artifact_v4 import build_artifact
+from lab.sq_bridge.final_holdout_artifact_v4 import build_artifact, evaluate_trace
 from lab.sq_bridge.stage_artifact_contract import validate_stage_artifact
 
 
@@ -50,6 +50,7 @@ def _sources(tmp_path):
         "stage": "small_account_economics", "decision": "PASS",
         "campaign_id": "campaign", "candidate_ids": ["candidate"],
         "capital_usdc": 200, "position_notional_usdc": 200,
+        "risk_per_trade_pct": 1.5,
         "selected_leverage": 5, "cost_model_sha256": cost_hash,
     }, sort_keys=True) + "\n")
     return costs, sizing, cost_hash, hashlib.sha256(sizing.read_bytes()).hexdigest()
@@ -107,6 +108,41 @@ def test_losing_stress_scenario_rejects_whole_candidate(tmp_path):
         artifact_path=tmp_path / "reject.json")
     assert artifact["decision"] == "REJECT"
     assert artifact["minimum_holdout_net_expectancy_usdc"] < .1
+
+
+def test_zero_trade_holdout_is_preserved_as_terminal_reject(tmp_path):
+    costs, sizing, cost_hash, sizing_hash = _sources(tmp_path)
+    trace = _trace(cost_hash, sizing_hash)
+    trace["trades"] = []
+    trace_path = tmp_path / "zero.trace.json"
+    trace_path.write_text(json.dumps(trace))
+    artifact = build_artifact(
+        campaign_id="campaign", candidate_id="candidate", trace_path=trace_path,
+        small_account_artifact_path=sizing, cost_model_path=costs,
+        methodology_path=ROOT / "methodology_v4.json",
+        artifact_path=tmp_path / "zero.json")
+    assert artifact["decision"] == "REJECT"
+    assert artifact["holdout_trades"] == 0
+    assert artifact["minimum_holdout_profit_factor"] == 0
+
+
+def test_dynamic_holdout_sizes_each_trade_from_frozen_risk_and_notional_cap(tmp_path):
+    costs, sizing, cost_hash, sizing_hash = _sources(tmp_path)
+    trace = _trace(cost_hash, sizing_hash)
+    trace["schema_version"] = 2
+    trace["risk_per_trade_pct"] = 1.5
+    for index, row in enumerate(trace["trades"]):
+        # 1% would request 300 USDC and is capped at the pre-holdout 200;
+        # 3% requests 100 USDC and therefore reduces exposure.
+        row["initial_stop_distance_pct"] = 1 if index % 2 == 0 else 3
+    metrics = evaluate_trace(
+        trace, ["base", "conservative", "stress"],
+        json.loads(costs.read_text()), cost_hash,
+        json.loads(sizing.read_text()), sizing_hash)
+    assert metrics["minimum_actual_notional_usdc"] == 100
+    assert metrics["maximum_actual_notional_usdc"] == 200
+    assert metrics["minimum_initial_stop_distance_pct"] == 1
+    assert metrics["maximum_initial_stop_distance_pct"] == 3
 
 
 def test_hashed_but_tampered_summary_does_not_pass_recomputation(tmp_path):

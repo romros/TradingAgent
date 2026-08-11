@@ -10,7 +10,7 @@ import pytest
 from lab.sq_bridge.alquimia_retest import (
     PERIOD_KEYS, _condition, _graft_resource_symbol, _require_resource_symbol,
     _select_all_input_strategies, generate,
-    verify_retest_project,
+    verify_holdout_project, verify_retest_project,
 )
 from lab.sq_bridge.test_sqx_extract import SETTINGS, STRATEGY
 
@@ -171,3 +171,32 @@ def test_holdout_remains_locked_even_with_exact_candidate(tmp_path):
             methodology_path=Path(__file__).with_name("methodology_v4.json"),
             symbol="NVDA", timeframe="M15", candidate_sqx=sqx,
             candidate_id="T")
+
+
+def test_authorized_holdout_is_one_candidate_uncensored_and_source_bound(tmp_path):
+    source, sqx, discovery = _fixture(tmp_path)
+    discovery_value = json.loads(discovery.read_text())
+    discovery_value["holdout_release_authorized"] = True
+    discovery_value["campaign_id"] = "campaign"
+    discovery.write_text(json.dumps(discovery_value))
+    release = tmp_path / "small-account.json"
+    release.write_text(json.dumps({
+        "stage": "small_account_economics", "decision": "PASS",
+        "campaign_id": "campaign", "candidate_ids": ["T"],
+        "holdout_accessed": False}))
+    manifest = generate(
+        source=source, output=tmp_path / "holdout.cfx", project_name="HOLDOUT_T",
+        stage="holdout", manifest_path=discovery,
+        methodology_path=Path(__file__).with_name("methodology_v4.json"),
+        symbol="NVDA", timeframe="M15", candidate_sqx=sqx,
+        candidate_id="T", holdout_release_artifact=release)
+    assert manifest["holdout_accessed"] is True
+    assert manifest["performance_filters_applied_in_sq"] is False
+    assert manifest["keep_failed"] is True
+    with zipfile.ZipFile(tmp_path / "holdout.cfx") as archive:
+        task = ET.fromstring(archive.read("Retest-Task1.xml"))
+    assert task.findall("./Rankings/Conditions/Condition") == []
+    assert task.findtext("./Rankings/DeleteFailedStrategies") == "false"
+    assert task.find("./Databanks/Databank[@name='Output']").get("value") == "Holdout"
+    assert verify_holdout_project(tmp_path / "holdout.cfx", manifest)[
+        "output_databank"] == "Holdout"

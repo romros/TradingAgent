@@ -629,29 +629,41 @@ de sol per política determinista: màxima EV del pitjor cost, després PF i ID.
 ## Holdout final v4
 
 El 10% final no s'obre durant traducció, paritat o paper. Després que robustesa
-i economia de 200 USDC deixin un sol candidat congelat, es crea una única
-avaluació amb un trace de trades bruts ordenats:
+i economia de 200 USDC deixin un sol candidat congelat, un únic stage escriu
+l'intent de release, genera un Retest SQ uncensored, el supervisa i deriva una
+traça reproduïble:
 
 ```bash
-PYTHONPATH=../.. python3 final_holdout_artifact_v4.py \
+PYTHONPATH=../.. python3 sq_final_holdout_stage_v4.py \
   --campaign-id CAMPAIGN_ID \
-  --candidate-id EXACT_STRATEGY_NAME \
-  --trace /path/to/final-holdout.trace.json \
   --small-account-artifact /path/to/state/artifacts/06_small_account_economics.json \
+  --temporal-contract /path/to/temporal-split.json \
   --cost-model /path/to/eurusd_costs_frozen_v4.json \
+  --candles /path/to/sq-candles.csv --candle-timezone UTC \
+  --candle-contract /path/to/candle-parity.json --source-timezone UTC \
+  --work-dir /mnt/volume-SQ/user/projects/ALQUIMIA_HOLDOUT_EVIDENCE \
   --artifact-output /path/to/state/artifacts/07_final_holdout_validation.json
 ```
 
-El trace exigeix capital 200 USDC, selecció congelada, zero canvis de
-paràmetres i `holdout_evaluation_count=1`. Nocional i leverage s'hereten del
-rebut de compte petit; cada trade aporta retorn brut, costat i durada. El gate
-verifica amb SHA-256 sizing i costos, deriva base/conservador/estrès i recalcula
+El release només existeix si `small_account_economics` és PASS per un únic
+candidat. El projecte SQ exigeix 1 input/1 output, cap filtre de performance,
+`DeleteFailedStrategies=false` i databank `Holdout`; per tant, una estratègia
+perdedora no desapareix. Els rebuts de preflight/start permeten reprendre una
+interrupció sense iniciar una segona avaluació.
+
+La traça exigeix capital 200 USDC, selecció congelada, zero canvis de
+paràmetres i `holdout_evaluation_count=1`. Leverage, risc i màxim nocional
+s'hereten del compte petit. Per cada trade reconstrueix el stop SQ i aplica
+`min(200×risc%/stop%, nocional_màxim_congelat)`, de manera que un ATR nou no pot
+superar l'envelope ja validat. El gate verifica amb SHA-256 sizing i costos,
+deriva base/conservador/estrès i recalcula
 sobre almenys 20 trades PF ≥1,10,
 esperança neta ≥0,10 USDC per trade i drawdown ≤20% en el pitjor escenari. No
-s'accepta PF no estimable sense cap trade perdedor. Qualsevol reavaluació,
-retuneig, hash alterat o resum que no coincideixi amb els trades invalida la
-cadena. Si falla, la família queda terminal: el holdout no es reutilitza per
-buscar una variant de rescat.
+s'accepta PF no estimable sense cap trade perdedor: es valora conservadorament
+com zero. Zero trades també produeix `REJECT`, no un error repetible. Qualsevol
+reavaluació, retuneig, hash alterat o resum que no coincideixi amb els trades
+invalida la cadena. Si falla, la família queda terminal: el holdout no es
+reutilitza per buscar una variant de rescat.
 
 ## Traducció SQX a Python v4
 

@@ -5,6 +5,13 @@
   "capital_usdc": {"minimum": 200, "primary": 500},
   "target": {"ending_equity_usdc": 1000, "horizon_months": 12, "kind": "research_target_not_promise"},
   "active_assets": ["EUR/USD", "US500/USD", "XAU/USD"],
+  "portfolio_components": {
+    "minimum_strategies": 1,
+    "maximum_strategies": 6,
+    "preferred_diversified_range": [3, 6],
+    "asset_coverage_required": false,
+    "selection_rule": "use the fewest individually positive-net strategies that improve target probability and survival after costs; one family is allowed if it passes alone, while 3-6 is a preference only when diversification adds measurable value"
+  },
   "required_component_gate": "positive net expectancy under current base costs",
   "risk_limits": {
     "maximum_drawdown_pct": 15,

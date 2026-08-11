@@ -13,13 +13,18 @@ def status(objective: dict, catalog: dict) -> dict:
     by_asset = {item["asset"]: item for item in catalog["assets"]}
     missing = [asset for asset in active if asset not in by_asset]
     components = sum(len(by_asset[asset]["promotable_components"]) for asset in active if asset in by_asset)
+    component_target = objective["portfolio_components"]
+    minimum_components = component_target["minimum_strategies"]
+    maximum_components = component_target["maximum_strategies"]
+    preferred_range = component_target["preferred_diversified_range"]
     rejected = sum(len(by_asset[asset]["rejected_families"]) for asset in active if asset in by_asset)
     ready_assets = [asset for asset in active if asset in by_asset and by_asset[asset]["promotable_components"]]
     next_actions = [
         {"asset": asset, "action": by_asset[asset]["next_action"]}
         for asset in active if asset in by_asset and not by_asset[asset]["promotable_components"]
     ]
-    portfolio_ready = not missing and len(ready_assets) == len(active)
+    portfolio_ready = not missing and components >= minimum_components
+    components_needed = max(0, minimum_components - components)
     return {
         "objective": objective["objective"],
         "target_is_promise": False,
@@ -28,11 +33,15 @@ def status(objective: dict, catalog: dict) -> dict:
             "promotable_components": components,
             "rejected_families": rejected,
             "assets_with_component": ready_assets,
+            "strategy_target": [minimum_components, maximum_components],
+            "preferred_diversified_range": preferred_range,
+            "strategies_needed_for_portfolio": components_needed,
+            "asset_coverage_required": component_target["asset_coverage_required"],
         },
         "portfolio_ready": portfolio_ready,
         "x2_simulation_ready": portfolio_ready,
         "holdout": catalog["holdout_status"],
-        "blocker": None if portfolio_ready else "falta almenys un component net positiu per cada actiu",
+        "blocker": None if portfolio_ready else "falta almenys una família neta promocionable; el nombre final entre 1 i 6 es decidirà per millora marginal de retorn i supervivència",
         "next_actions": next_actions,
         "missing_assets": missing,
     }

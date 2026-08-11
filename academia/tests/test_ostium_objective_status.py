@@ -19,6 +19,17 @@ class OstiumObjectiveStatusTest(unittest.TestCase):
         self.assertFalse(result["portfolio_ready"])
         self.assertFalse(result["x2_simulation_ready"])
         self.assertFalse(result["target_is_promise"])
+        self.assertEqual(result["catalog"]["strategy_target"], [1, 6])
+        self.assertEqual(result["catalog"]["preferred_diversified_range"], [3, 6])
+        self.assertEqual(result["catalog"]["strategies_needed_for_portfolio"], 1)
+        self.assertFalse(result["catalog"]["asset_coverage_required"])
+
+    def test_one_component_can_open_portfolio_simulation(self):
+        self.catalog["assets"][1]["promotable_components"] = ["spx-a"]
+        result = ostium_objective_status.status(self.objective, self.catalog)
+        self.assertTrue(result["portfolio_ready"])
+        self.assertTrue(result["x2_simulation_ready"])
+        self.assertEqual(result["catalog"]["assets_with_component"], ["US500/USD"])
 
     def test_aligned_new_component_task_passes(self):
         task = {"id": "eur-weekly", "contribution": "new_component", "asset": "EUR/USD", "expected_decision": "reject or promote", "stop_condition": "cheap gate", "uses_holdout": False}

@@ -3,6 +3,10 @@
 Aplicar aquest playbook al catàleg d'estratègies per a comptes de 200–500 USDC a
 Ostium. L'objectiu de recerca és intentar 500→1.000 USDC aproximadament en dotze
 mesos; és una meta per simular, no una promesa ni un criteri per relaxar gates.
+Permetre entre una i sis estratègies netes dins EUR/USD, US500/USD i XAU/USD.
+Preferir 3–6 només quan la diversificació millori mètriques fora de mostra després
+de costos. Una sola família és admissible si compleix sola retorn, drawdown, règims,
+concentració i economia real. No exigir una estratègia per cada actiu.
 
 ## Recuperar l'estat abans d'actuar
 
@@ -40,6 +44,13 @@ ja està tancat.
 
 Aturar al primer gate fallit. Leverage redueix collateral; no converteix
 expectativa negativa en edge.
+
+Simular el target x2 quan existeixi almenys una família promocionable. Començar pel
+conjunt més petit i afegir components, fins a sis, només si milloren probabilitat de
+target, temps, drawdown, règims o concentració sense dependre del holdout. Variants
+correlacionades de la mateixa família no compten automàticament com diversificació.
+Limitar el risc simultani total al 3%, el drawdown al 15%, el leverage efectiu al
+5x i la contribució de benefici d'un sol actiu al 50%.
 
 ## Dades externes i rols
 

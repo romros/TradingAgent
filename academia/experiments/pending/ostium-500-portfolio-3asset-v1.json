@@ -3,7 +3,7 @@
   "preregistered_at": "2026-08-08",
   "supersedes": "ostium-500-portfolio-3v4-v1",
   "amendment_reason": "The user explicitly excludes BTC from scope. This is a portfolio objective decision, not evidence that BTC strategies fail.",
-  "question": "Quina combinació i assignació de risc entre EUR/USD, US500/USD i XAU/USD conserva millor creixement compost net, supervivència i diversificació durant dotze mesos amb 500 USDC a Ostium?",
+  "question": "Quin nombre mínim d'estratègies, entre una i sis dins EUR/USD, US500/USD i XAU/USD, conserva millor creixement compost net, supervivència i temps al target durant dotze mesos amb 500 USDC a Ostium?",
   "capital": {"amount": 500, "currency": "USDC", "simulation_only": true},
   "universe": [
     {"symbol": "EUR/USD", "class": "forex", "driver": "tipus i divises", "opening_fee_bps": 3},
@@ -15,8 +15,16 @@
     {"symbol": "WTI/USD", "reason": "EIA spot failed parity; EIA front future lacks continuous validation coverage."},
     {"symbol": "TLT/USD", "reason": "No equivalent authorized tradable history and no common holdout."}
   ],
-  "portfolio_size": 3,
-  "comparison_claim": "No claim that three assets outperform four or six; this campaign optimizes only the fixed three-asset scope.",
+  "strategy_component_count_range": [1, 6],
+  "preferred_diversified_range": [3, 6],
+  "asset_coverage_required": false,
+  "amendments": [
+    {
+      "date": "2026-08-11",
+      "reason": "The user identifies 3-6 strategies as a diversification intuition but delegates the final count. Use one strategy or family if it meets return and risk gates alone; add up to six only when diversification measurably improves the portfolio."
+    }
+  ],
+  "comparison_claim": "No fixed count is presumed optimal. Compare the smallest viable set against additions up to six only inside the fixed three-asset scope.",
   "periods": {"development": "2017-01-01/2021-12-31", "validation": "2022-01-01/2025-07-31", "sealed_holdout": "2025-08-01/2026-07-31"},
   "data_gates": {"search_may_start": true, "same_calendar_and_timezone": true, "continuity_and_duplicate_audit": true, "ostium_overlap_parity_required": true, "raw_third_party_data_versioned": false},
   "risk": {
@@ -39,7 +47,7 @@
     "secondary": ["maximum drawdown", "expected shortfall", "regime correlation", "profit concentration", "margin utilization", "turnover"],
     "required_comparisons": ["fixed_size_unlevered", "risk_sized_no_compounding", "risk_sized_compounding", "compounding_with_ostium_margin_and_costs"]
   },
-  "component_gate": "Each asset must have positive net expectancy under current base costs before portfolio inclusion.",
+  "component_gate": "Every included strategy must have positive net expectancy under current base costs. Simulation may start with one promotable family; select at most six and add a component only if it improves target probability, drawdown, regime survival or concentration after costs.",
   "discard_criteria": [
     "any included component has non-positive net expectancy under current base costs",
     "maximum drawdown above 15 percent",

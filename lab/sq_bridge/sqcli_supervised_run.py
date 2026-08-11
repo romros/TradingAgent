@@ -32,6 +32,24 @@ def _verified_file(value: object, digest: object, label: str) -> Path:
     return path
 
 
+def _completed_receipt(path: Path, hypothesis_id: str, project: str) -> dict:
+    result = json.loads(path.read_text())
+    if (result.get("decision") not in {
+            "PASS_SUPERVISED_SQ_RUN", "FAIL_SUPERVISED_SQ_RUN"}
+            or result.get("hypothesis_id") != hypothesis_id
+            or result.get("project_name") != project):
+        raise ValueError("completed run receipt identity mismatch")
+    _verified_file(result.get("preflight_path"), result.get("preflight_sha256"),
+                   "completed run preflight")
+    _verified_file(result.get("start_receipt_path"), result.get("start_receipt_sha256"),
+                   "completed run start receipt")
+    _verified_file(result.get("watchdog_status_path"),
+                   result.get("watchdog_status_sha256"), "completed run watchdog status")
+    _verified_file(result.get("watchdog_journal_path"),
+                   result.get("watchdog_journal_sha256"), "completed run watchdog journal")
+    return result
+
+
 def supervised_run(
     *, import_receipt_path: Path, hypothesis_id: str, output_dir: Path,
     base_url: str = "http://127.0.0.1:8080", container: str = "sqcli-docker",
@@ -72,21 +90,9 @@ def supervised_run(
             or verify_genetic_project(imported_cfx, manifest) != source.get("sq_genetic_shape")):
         raise ValueError("imported project lineage/contract mismatch")
 
-    listing = listing_fn(base_url)
-    running = sorted(row.get("projectName") for row in listing
-                     if row.get("runningStatus") not in (None, 0))
-    matches = [row for row in listing if row.get("projectName") == project]
-    if running:
-        raise RuntimeError(f"SQCLI already has running projects: {running}")
-    if (len(matches) != 1 or matches[0].get("hasUnresolvedResources") is not False
-            or matches[0].get("strategies") not in (None, 0)):
-        raise RuntimeError("target SQCLI project is absent, unresolved, or not clean")
     if not isinstance(interval, int) or isinstance(interval, bool) or interval < 1:
         raise ValueError("monitor interval must be positive")
     output_dir = output_dir.resolve()
-    if output_dir.exists() and any(output_dir.iterdir()):
-        raise ValueError("run evidence output directory is not empty")
-    output_dir.mkdir(parents=True, exist_ok=True)
     preflight = {
         "schema_version": 1, "decision": "PASS_SUPERVISED_RUN_PREFLIGHT",
         "hypothesis_id": hypothesis_id, "project_name": project,
@@ -99,10 +105,44 @@ def supervised_run(
         "sqcli_started": False, "paper_authorized": False, "live_authorized": False,
     }
     preflight_path = output_dir / "run_preflight.json"
-    write_atomic(preflight_path, preflight)
-    response = start_fn(base_url, project)
-    if not isinstance(response, dict) or response.get("success") is None:
-        raise RuntimeError(f"SQCLI start failed: {response}")
+    start_receipt_path = output_dir / "start_receipt.json"
+    final_receipt_path = output_dir / "supervised_run_receipt.json"
+    if final_receipt_path.is_file():
+        return _completed_receipt(final_receipt_path, hypothesis_id, project)
+    resuming = output_dir.exists() and any(output_dir.iterdir())
+    if resuming:
+        if not preflight_path.is_file() or json.loads(preflight_path.read_text()) != preflight:
+            raise ValueError("incomplete run preflight mismatch")
+        if not start_receipt_path.is_file():
+            raise ValueError("incomplete run has no durable start receipt")
+        start_receipt = json.loads(start_receipt_path.read_text())
+        if (start_receipt.get("decision") != "PASS_SQCLI_START"
+                or start_receipt.get("project_name") != project
+                or start_receipt.get("preflight_sha256") != _sha256(preflight_path)):
+            raise ValueError("incomplete run start receipt mismatch")
+
+    listing = listing_fn(base_url)
+    running = sorted(row.get("projectName") for row in listing
+                     if row.get("runningStatus") not in (None, 0)
+                     and not (resuming and row.get("projectName") == project))
+    matches = [row for row in listing if row.get("projectName") == project]
+    if running:
+        raise RuntimeError(f"SQCLI already has running projects: {running}")
+    if (len(matches) != 1 or matches[0].get("hasUnresolvedResources") is not False
+            or (not resuming and matches[0].get("strategies") not in (None, 0))):
+        raise RuntimeError("target SQCLI project is absent, unresolved, or not clean")
+    if not resuming:
+        output_dir.mkdir(parents=True, exist_ok=True)
+        write_atomic(preflight_path, preflight)
+        response = start_fn(base_url, project)
+        if not isinstance(response, dict) or response.get("success") is None:
+            raise RuntimeError(f"SQCLI start failed: {response}")
+        write_atomic(start_receipt_path, {
+            "schema_version": 1, "decision": "PASS_SQCLI_START",
+            "project_name": project, "preflight_path": str(preflight_path),
+            "preflight_sha256": _sha256(preflight_path), "response": response,
+            "paper_authorized": False, "live_authorized": False,
+        })
 
     artifacts = projects_root.resolve() / project / "databanks"
     status_path = output_dir / "watchdog_status.json"
@@ -124,7 +164,17 @@ def supervised_run(
     result = {
         "schema_version": 1, "decision": decision,
         "hypothesis_id": hypothesis_id, "project_name": project,
+        "import_receipt_path": str(receipt_path),
+        "import_receipt_sha256": _sha256(receipt_path),
+        "project_source_cfx_path": str(Path(source["project_cfx_path"]).resolve()),
+        "project_source_cfx_sha256": source["project_cfx_sha256"],
+        "sq_imported_cfx_path": str(imported_cfx),
+        "sq_imported_cfx_sha256": _sha256(imported_cfx),
+        "project_manifest_path": str(manifest_path),
+        "project_manifest_sha256": _sha256(manifest_path),
         "preflight_path": str(preflight_path), "preflight_sha256": _sha256(preflight_path),
+        "start_receipt_path": str(start_receipt_path),
+        "start_receipt_sha256": _sha256(start_receipt_path),
         "watchdog_status_path": str(status_path),
         "watchdog_status_sha256": _sha256(status_path),
         "watchdog_journal_path": str(journal_path),
@@ -136,7 +186,7 @@ def supervised_run(
         "exact_final_counters": exact, "within_hard_attempt_budget": within_budget,
         "paper_authorized": False, "live_authorized": False,
     }
-    write_atomic(output_dir / "supervised_run_receipt.json", result)
+    write_atomic(final_receipt_path, result)
     return result
 
 

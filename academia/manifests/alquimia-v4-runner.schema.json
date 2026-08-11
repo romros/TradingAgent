@@ -20,7 +20,7 @@
       "required": [
         "market_preflight", "hypothesis_screen", "sq_generation",
         "temporal_validation", "robustness", "small_account_economics",
-        "python_translation", "parity", "paper"
+        "final_holdout_validation", "python_translation", "parity", "paper"
       ],
       "properties": {
         "market_preflight": {"$ref": "#/$defs/stage"},
@@ -29,6 +29,7 @@
         "temporal_validation": {"$ref": "#/$defs/stage"},
         "robustness": {"$ref": "#/$defs/stage"},
         "small_account_economics": {"$ref": "#/$defs/stage"},
+        "final_holdout_validation": {"$ref": "#/$defs/stage"},
         "python_translation": {"$ref": "#/$defs/stage"},
         "parity": {"$ref": "#/$defs/stage"},
         "paper": {"$ref": "#/$defs/stage"}

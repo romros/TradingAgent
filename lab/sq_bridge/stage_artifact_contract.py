@@ -633,12 +633,19 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
         rules = artifact.get("rules_per_candidate")
         entry_counts = artifact.get("entry_condition_counts_per_candidate")
         candidate_ids = receipt.get("candidate_ids", [])
+        negative_generation = (
+            receipt.get("decision") == "REJECT" and candidate_ids == []
+            and artifact.get("rejection_reason")
+                == "NO_SQ_CANDIDATES_WITHIN_FROZEN_BUDGET")
         project_manifest = _verified_json(
             artifact.get("sq_project_manifest_path"),
             artifact.get("sq_project_manifest_sha256"), receipt.get("artifact", ""))
         watchdog_status = _verified_json(
             artifact.get("sq_watchdog_status_path"),
             artifact.get("sq_watchdog_status_sha256"), receipt.get("artifact", ""))
+        supervised_run = _verified_json(
+            artifact.get("sq_supervised_run_receipt_path"),
+            artifact.get("sq_supervised_run_receipt_sha256"), receipt.get("artifact", ""))
         databank_valid, databank_rows = _verified_databank(
             artifact.get("databank_path"), artifact.get("databank_candidate_count"),
             artifact.get("databank_inventory_sha256"), receipt.get("artifact", ""))
@@ -656,13 +663,15 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                 artifact.get("attempted"), generation["maximum_attempts"]),
             "SELECTED": _ids(artifact.get("selected_candidate_ids")) == receipt.get("candidate_ids", []),
             "SOURCE_HYPOTHESES": bool(_ids(artifact.get("source_hypothesis_ids"))),
-            "ARTIFACT_HASHES": isinstance(hashes, dict) and bool(hashes)
+            "ARTIFACT_HASHES": isinstance(hashes, dict)
+                               and (bool(hashes) or negative_generation)
                                and set(hashes) == set(candidate_ids)
                                and all(isinstance(value, str) and len(value) == 64
                                        for value in hashes.values()),
             "ARTIFACT_FILES": _verified_files(
                 paths, hashes, candidate_ids, receipt.get("artifact", "")),
-            "RULE_COUNTS": isinstance(rules, dict) and bool(rules)
+            "RULE_COUNTS": isinstance(rules, dict)
+                and (bool(rules) or negative_generation)
                 and set(rules) == set(receipt.get("candidate_ids", []))
                 and all(isinstance(value, int) and not isinstance(value, bool)
                         and 1 <= value <= generation["max_rules"] for value in rules.values()),
@@ -693,6 +702,7 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                 and project_manifest.get("holdout_sealed") is True
                 and project_manifest.get("source_role") == "xml_format_scaffold_only",
             "NO_HOLDOUT": artifact.get("holdout_accessed") is False,
+            "NEGATIVE_OUTCOME": bool(candidate_ids) or negative_generation,
         }
         if methodology.get("schema_version", 1) >= 4 and provenance != "synthetic_control":
             checks.update({
@@ -715,6 +725,30 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                     and watchdog_status.get("reason") in {
                         "ATTEMPT_BUDGET", "ACCEPTED_TARGET", "WALL_TIME_BUDGET"}
                     and watchdog_rows == databank_rows,
+                "SUPERVISED_RUN": supervised_run is not None
+                    and watchdog_status is not None
+                    and project_manifest is not None
+                    and supervised_run.get("decision") == "PASS_SUPERVISED_SQ_RUN"
+                    and supervised_run.get("project_name")
+                        == project_manifest.get("project_name")
+                    and supervised_run.get("generated") == artifact.get("attempted")
+                    and supervised_run.get("accepted")
+                        == watchdog_status.get("in_databank")
+                    and supervised_run.get("watchdog_status_sha256")
+                        == artifact.get("sq_watchdog_status_sha256")
+                    and supervised_run.get("project_source_cfx_sha256")
+                        == artifact.get("sq_config_sha256")
+                    and supervised_run.get("sq_imported_cfx_sha256")
+                        == artifact.get("sq_imported_cfx_sha256")
+                    and supervised_run.get("project_manifest_sha256")
+                        == artifact.get("sq_project_manifest_sha256")
+                    and supervised_run.get("exact_final_counters") is True
+                    and supervised_run.get("within_hard_attempt_budget") is True,
+                "IMPORTED_CONFIG_CONTRACT": _verified_sq_project(
+                    artifact.get("sq_imported_cfx_path"),
+                    artifact.get("sq_imported_cfx_sha256"),
+                    receipt.get("artifact", ""), project_manifest,
+                    artifact.get("sq_genetic_shape")),
                 "SQX_CONTRACTS": _verified_sqx_contracts(
                 paths, candidate_ids, receipt.get("artifact", ""), rules, entry_counts,
                 generation["max_rules"]),

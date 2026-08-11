@@ -429,6 +429,13 @@ drawdown OOS i estabilitat entre finestres. El rebut temporal ha d'incloure
 l'univers complet rebut d'SQ i el validador recalcula tant els dominats com els
 IDs seleccionats.
 
+Quan s'executa dins del runner, `sq_generation_stage_v4.py` uneix de forma
+reprenable el rebut d'importació, el llançador supervisat i l'ingestor anterior.
+Un `start_receipt.json` durable impedeix un segon inici després d'una interrupció.
+L'artefacte lliga tant el CFX font com el CFX reserialitzat realment importat.
+Si el pressupost acaba amb zero SQX, escriu `REJECT` amb candidats buits i tota
+l'evidència operativa; no deixa la campanya en un bucle fals de reintents.
+
 Cada candidat aporta un trace `temporal_validation_trade_trace` amb capital i
 nocional comparatiu de 200, retorn brut, costat, durada, trades train i
 finestres OOS UTC no solapades.

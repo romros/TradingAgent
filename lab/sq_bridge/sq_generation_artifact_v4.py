@@ -110,6 +110,10 @@ def build_artifact(*, campaign_id: str, source_hypothesis_ids: list[str],
     chain_receipt = _validate_project_chain(
         manifest, methodology_path, campaign_id, source_hypothesis_ids)
     watchdog = json.loads(watchdog_status_path.read_text())
+    run_receipt_path = watchdog_status_path.resolve().parent / "supervised_run_receipt.json"
+    if not run_receipt_path.is_file():
+        raise ValueError("Falta el rebut del llançament SQ supervisat")
+    run_receipt = json.loads(run_receipt_path.read_text())
     attempted = watchdog.get("generated")
     if (not isinstance(attempted, int) or isinstance(attempted, bool)
             or not 1 <= attempted <= generation["maximum_attempts"]):
@@ -148,16 +152,75 @@ def build_artifact(*, campaign_id: str, source_hypothesis_ids: list[str],
             or attempted > budget or budget > generation["maximum_attempts"]):
         raise ValueError("L'execucio supera el pressupost congelat del projecte")
     genetic_shape = verify_genetic_project(project_cfx, manifest)
+    imported_cfx_value = run_receipt.get("sq_imported_cfx_path")
+    imported_cfx = Path(imported_cfx_value) if isinstance(imported_cfx_value, str) else Path()
+    if (run_receipt.get("decision") != "PASS_SUPERVISED_SQ_RUN"
+            or run_receipt.get("project_name") != manifest.get("project_name")
+            or run_receipt.get("hypothesis_id") != source_hypothesis_ids[0]
+            or run_receipt.get("watchdog_status_path")
+                != str(watchdog_status_path.resolve())
+            or run_receipt.get("watchdog_status_sha256") != _sha256(watchdog_status_path)
+            or run_receipt.get("project_source_cfx_path") != str(project_cfx.resolve())
+            or run_receipt.get("project_source_cfx_sha256") != _sha256(project_cfx)
+            or run_receipt.get("project_manifest_path")
+                != str(project_manifest_path.resolve())
+            or run_receipt.get("project_manifest_sha256") != _sha256(project_manifest_path)
+            or run_receipt.get("exact_final_counters") is not True
+            or run_receipt.get("within_hard_attempt_budget") is not True
+            or run_receipt.get("generated") != attempted
+            or run_receipt.get("accepted") != watchdog.get("in_databank")
+            or not imported_cfx_value or not imported_cfx.is_file()
+            or run_receipt.get("sq_imported_cfx_sha256") != _sha256(imported_cfx)
+            or verify_genetic_project(imported_cfx, manifest) != genetic_shape):
+        raise ValueError("El rebut supervisat no prova el projecte SQ executat")
 
     sqx_paths = sorted(databank_dir.rglob("*.sqx"))
-    if not sqx_paths:
-        raise ValueError("El databank congelat no conte cap SQX")
     inventory, inventory_sha256 = _inventory(sqx_paths, databank_dir)
     watchdog_inventory = watchdog.get("artifacts")
     if (not isinstance(watchdog_inventory, list)
             or [{"path": row.get("path"), "sha256": row.get("sha256")}
                 for row in watchdog_inventory] != inventory):
         raise ValueError("El databank actual no coincideix amb el snapshot final del watchdog")
+    output_base = output_path.resolve().parent
+    common = {
+        "schema_version": 1, "stage": "sq_generation", "campaign_id": campaign_id,
+        "holdout_accessed": False, "evidence_class": "observed",
+        "generator": "StrategyQuant", "search_method": generation["search_method"],
+        "selection_policy": generation["selection_policy"], "attempted": attempted,
+        "source_hypothesis_ids": sorted(source_hypothesis_ids),
+        "sq_config_sha256": _sha256(project_cfx),
+        "sq_config_path": _relative(project_cfx, output_base),
+        "sq_genetic_shape": genetic_shape,
+        "sq_project_manifest_path": _relative(project_manifest_path, output_base),
+        "sq_project_manifest_sha256": _sha256(project_manifest_path),
+        "sq_watchdog_status_path": _relative(watchdog_status_path, output_base),
+        "sq_watchdog_status_sha256": _sha256(watchdog_status_path),
+        "sq_supervised_run_receipt_path": _relative(run_receipt_path, output_base),
+        "sq_supervised_run_receipt_sha256": _sha256(run_receipt_path),
+        "sq_imported_cfx_path": _relative(imported_cfx, output_base),
+        "sq_imported_cfx_sha256": _sha256(imported_cfx),
+        "databank_path": _relative(databank_dir, output_base),
+        "databank_candidate_count": len(inventory),
+        "databank_inventory_sha256": inventory_sha256,
+        "databank_frozen": True, "future_periods_accessed": False,
+        "prerequisite_evidence_chain_path": _relative(
+            Path(chain_receipt["path"]), output_base),
+        "prerequisite_evidence_chain_sha256": chain_receipt["sha256"],
+    }
+    if not sqx_paths:
+        artifact = {
+            **common, "decision": "REJECT", "candidate_ids": [],
+            "selected_candidate_ids": [], "candidate_artifact_paths": {},
+            "candidate_artifact_hashes": {}, "rules_per_candidate": {},
+            "entry_condition_counts_per_candidate": {},
+            "translation_status_per_candidate": {},
+            "trade_execution_normalized_per_candidate": {},
+            "stop_loss_required_satisfied_per_candidate": {},
+            "rejection_reason": "NO_SQ_CANDIDATES_WITHIN_FROZEN_BUDGET",
+        }
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(json.dumps(artifact, indent=2, sort_keys=True) + "\n")
+        return artifact
     contracts: dict[str, tuple[Path, dict]] = {}
     for path in sqx_paths:
         contract = extract(path)
@@ -186,21 +249,11 @@ def build_artifact(*, campaign_id: str, source_hypothesis_ids: list[str],
             raise ValueError(f"Timeframe SQX inesperat: {candidate_id}")
         contracts[candidate_id] = (path, contract)
 
-    output_base = output_path.resolve().parent
     candidate_ids = sorted(contracts)
     artifact = {
-        "schema_version": 1,
-        "stage": "sq_generation",
-        "campaign_id": campaign_id,
+        **common,
         "decision": "PASS",
         "candidate_ids": candidate_ids,
-        "holdout_accessed": False,
-        "evidence_class": "observed",
-        "generator": "StrategyQuant",
-        "search_method": generation["search_method"],
-        "selection_policy": generation["selection_policy"],
-        "attempted": attempted,
-        "source_hypothesis_ids": sorted(source_hypothesis_ids),
         "selected_candidate_ids": candidate_ids,
         "candidate_artifact_paths": {
             key: _relative(contracts[key][0], output_base) for key in candidate_ids},
@@ -216,21 +269,6 @@ def build_artifact(*, campaign_id: str, source_hypothesis_ids: list[str],
             key: True for key in candidate_ids},
         "stop_loss_required_satisfied_per_candidate": {
             key: True for key in candidate_ids},
-        "sq_config_sha256": _sha256(project_cfx),
-        "sq_config_path": _relative(project_cfx, output_base),
-        "sq_genetic_shape": genetic_shape,
-        "sq_project_manifest_path": _relative(project_manifest_path, output_base),
-        "sq_project_manifest_sha256": _sha256(project_manifest_path),
-        "sq_watchdog_status_path": _relative(watchdog_status_path, output_base),
-        "sq_watchdog_status_sha256": _sha256(watchdog_status_path),
-        "databank_path": _relative(databank_dir, output_base),
-        "databank_candidate_count": len(inventory),
-        "databank_inventory_sha256": inventory_sha256,
-        "databank_frozen": True,
-        "future_periods_accessed": False,
-        "prerequisite_evidence_chain_path": _relative(
-            Path(chain_receipt["path"]), output_base),
-        "prerequisite_evidence_chain_sha256": chain_receipt["sha256"],
     }
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(artifact, indent=2, sort_keys=True) + "\n")

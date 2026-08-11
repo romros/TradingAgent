@@ -96,6 +96,20 @@ def _fixture(tmp_path, strategy=STRATEGY, settings=SETTINGS):
         "artifacts": [{"path": "candidate.sqx",
                        "sha256": hashlib.sha256(sqx.read_bytes()).hexdigest()}],
     }))
+    (tmp_path / "supervised_run_receipt.json").write_text(json.dumps({
+        "schema_version": 1, "decision": "PASS_SUPERVISED_SQ_RUN",
+        "project_name": "PROJECT_V4", "hypothesis_id": "hypothesis-1",
+        "watchdog_status_path": str(watchdog.resolve()),
+        "watchdog_status_sha256": hashlib.sha256(watchdog.read_bytes()).hexdigest(),
+        "project_source_cfx_path": str(cfx.resolve()),
+        "project_source_cfx_sha256": hashlib.sha256(cfx.read_bytes()).hexdigest(),
+        "sq_imported_cfx_path": str(cfx.resolve()),
+        "sq_imported_cfx_sha256": hashlib.sha256(cfx.read_bytes()).hexdigest(),
+        "project_manifest_path": str(manifest.resolve()),
+        "project_manifest_sha256": hashlib.sha256(manifest.read_bytes()).hexdigest(),
+        "exact_final_counters": True, "within_hard_attempt_budget": True,
+        "generated": 80, "accepted": 1,
+    }))
     return databank, cfx, manifest, watchdog
 
 
@@ -139,6 +153,41 @@ def test_builds_generation_evidence_from_actual_sqx(tmp_path):
     assert validate_stage_artifact(
         "sq_generation", artifact, receipt, methodology,
         "campaign-v4", "alquimia_native") == []
+
+
+def test_zero_sq_candidates_records_terminal_evidence_instead_of_crashing(tmp_path):
+    databank, cfx, manifest, watchdog = _fixture(tmp_path)
+    (databank / "candidate.sqx").unlink()
+    status = json.loads(watchdog.read_text())
+    final_log = Path(status["sq_final_log_path"])
+    final_log.write_text(
+        "TASK FINISHED\nStrategies generated: 80, Accepted: 0, Rejected: 80\n")
+    status.update({
+        "in_databank": 0, "rejected": 80, "artifacts": [],
+        "sq_final_log_sha256": hashlib.sha256(final_log.read_bytes()).hexdigest(),
+    })
+    watchdog.write_text(json.dumps(status))
+    run_path = tmp_path / "supervised_run_receipt.json"
+    run = json.loads(run_path.read_text())
+    run.update({
+        "accepted": 0,
+        "watchdog_status_sha256": hashlib.sha256(watchdog.read_bytes()).hexdigest(),
+    })
+    run_path.write_text(json.dumps(run))
+    output = tmp_path / "artifact.json"
+    artifact = build_artifact(
+        campaign_id="campaign-v4", source_hypothesis_ids=["hypothesis-1"],
+        databank_dir=databank, watchdog_status_path=watchdog,
+        project_cfx=cfx, project_manifest_path=manifest,
+        methodology_path=ROOT / "methodology_v4.json", output_path=output)
+    assert artifact["decision"] == "REJECT"
+    assert artifact["candidate_ids"] == []
+    methodology = json.loads((ROOT / "methodology_v4.json").read_text())
+    errors = validate_stage_artifact(
+        "sq_generation", artifact,
+        {"decision": "REJECT", "candidate_ids": [], "artifact": str(output)},
+        methodology, "campaign-v4", "alquimia_native")
+    assert errors == []
 
 
 def test_eurusd_generation_receipt_revalidates_profile_and_exact_period_contract(tmp_path):
@@ -328,6 +377,10 @@ def test_discovers_nested_strategyquant_databank_paths(tmp_path):
     status["artifacts"] = [{"path": "Results/candidate.sqx",
                             "sha256": hashlib.sha256(target.read_bytes()).hexdigest()}]
     watchdog.write_text(json.dumps(status))
+    receipt_path = tmp_path / "supervised_run_receipt.json"
+    receipt = json.loads(receipt_path.read_text())
+    receipt["watchdog_status_sha256"] = hashlib.sha256(watchdog.read_bytes()).hexdigest()
+    receipt_path.write_text(json.dumps(receipt))
     artifact = build_artifact(
         campaign_id="campaign-v4", source_hypothesis_ids=["hypothesis-1"],
         databank_dir=databank, watchdog_status_path=watchdog,

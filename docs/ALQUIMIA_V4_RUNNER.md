@@ -2,7 +2,7 @@
 
 `lab/sq_bridge/v4_campaign_runner.py` converteix el contracte v4 en una cadena
 operativa. No conté cap estratègia ni executa ordres de trading: orquestra
-programes deterministes que produeixen els nou artefactes d'evidència.
+programes deterministes que produeixen els deu artefactes d'evidència.
 
 ## Garanties
 
@@ -18,6 +18,8 @@ programes deterministes que produeixen els nou artefactes d'evidència.
   una execució llarga no acumula tota la sortida a RAM ni la persisteix;
 - artefacte `.pending`, validació completa i reemplaçament atòmic;
 - una ordre o artefacte fallit deixa `chain.json` intacte i és reprenable;
+- `sq_generation` pot reprendre el mateix run després d'una caiguda gràcies als
+  rebuts durables de preflight i start, sense iniciar SQ una segona vegada;
 - `latest.json` és una projecció per a monitoratge o una futura API;
 - cap cadena pot autoritzar live.
 
@@ -47,6 +49,7 @@ state_dir/
   latest.json            # projecció de monitoratge
   artifacts/             # un JSON validat per etapa
   logs/                  # ordre, sortida, retorn i timeout
+  sq-runs/               # preflight/start/watchdog/final d'SQ reprenables
   .runner.lock
 ```
 
@@ -59,9 +62,35 @@ com a magatzem de resultats. Cada programa d'etapa ha de posar l'evidència úti
 a l'artefacte JSON. La redacció és una defensa addicional, no substitueix evitar
 imprimir credencials des del programa invocat.
 
+## Comandament SQ v4
+
+La fase `sq_generation` del manifest usa `sq_generation_stage_v4.py`. El rebut
+d'importació s'ha d'haver creat prèviament sense iniciar SQ:
+
+```json
+{
+  "command": [
+    ".venv/bin/python", "-m", "lab.sq_bridge.sq_generation_stage_v4",
+    "--import-receipt", "/state/import/sqcli_import_receipt.json",
+    "--hypothesis", "d1_breakout",
+    "--campaign-id", "eurusd-d1-breakout-v4",
+    "--methodology", "lab/sq_bridge/methodology_v4.json",
+    "--run-dir", "{state_dir}/sq-runs/d1_breakout",
+    "--output", "{artifact}"
+  ],
+  "timeout_seconds": 7200,
+  "cwd": "/mnt/volume-SQ/dev/TradingAgent"
+}
+```
+
+El comandament valida batch→import→CFX reserialitzat, inicia o reprèn el run,
+espera el log final i construeix l'artefacte observat. Zero SQX produeix un
+`REJECT` terminal amb pressupost/log preservats; una fallada operacional deixa
+la cadena intacta per reprendre.
+
 ## Límit actual
 
 El runner prova l'orquestració i recuperació. Encara falta una campanya real v4
-que proporcioni els commands concrets i produeixi una candidata SQ sobrevivint
+que produeixi una candidata SQ sobrevivint
 fins a paper. US500+VIX no es pot manifestar fins que el collector d'Ostium
 completi tres dies de costos executables.

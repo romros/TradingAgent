@@ -321,6 +321,14 @@ els rangs exactes i publica el hash de tots els punts. Una recompilació dóna e
 mateix manifest byte a byte. El límit 60 és el pressupost global de candidats
 acceptats per totes les campanyes v4, no una drecera de 60 intents.
 
+La interpretació operativa queda congelada separadament a
+`crypto_h4_signal_semantics_v4.json`, lligada pel hash del disseny. La decisió
+es pren després del close H4 i entra al següent open; ATR14 SMA, canal sempre
+anterior al punt de decisió, una posició màxima i stop abans de sortida temporal
+si coincideixen dins la mateixa barra. El screen usa 200 USDC a 1x amb costos i
+carry Ostium congelats; sizing, compounding i leverage només s'obren després de
+validació temporal i robustesa. Validation, OOS i holdout continuen segellats.
+
 US500 D1 aplica el mateix contracte amb un productor, bootstrap i trigger
 independents. El cron de quotes de sessió recompon el preflight i invoca el
 trigger després de cada captura; mentre no hi ha 30 mostres en tres sessions

@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "semantics_id": "crypto-h4-signal-semantics-v4",
+  "experiment_design_path": "evidence/crypto_h4_experiment_design_v4.json",
+  "experiment_design_sha256": "9aa19a1d263d337fb28091b2819754d6c0874ee6ec59bb62679cde22e8d36d58",
+  "selected_before_performance": true,
+  "bar_contract": {
+    "timeframe": "H4",
+    "timezone": "UTC",
+    "timestamp_semantics": "bar_open",
+    "decision_timing": "after_decision_bar_close",
+    "entry_timing": "next_bar_open",
+    "shift_1_endpoint": "decision_bar",
+    "shift_2_endpoint": "one_bar_before_decision_bar",
+    "incomplete_bars_allowed": false
+  },
+  "indicator_contract": {
+    "atr": {
+      "period": 14,
+      "method": "simple_moving_average_true_range",
+      "true_range": "max(high-low,abs(high-prev_close),abs(low-prev_close))"
+    },
+    "channel_breakout": {
+      "long": "endpoint_close > maximum_high_of_indicator_period_bars_strictly_before_endpoint",
+      "short": "endpoint_close < minimum_low_of_indicator_period_bars_strictly_before_endpoint",
+      "equality_triggers": false
+    },
+    "time_series_momentum": {
+      "roc_pct": "100*(endpoint_close/close_indicator_period_bars_before_endpoint-1)",
+      "long": "roc_pct > roc_threshold_pct",
+      "short": "roc_pct < -roc_threshold_pct",
+      "ambiguous_both_signal": "skip"
+    },
+    "volatility_compression_breakout": {
+      "normalized_atr": "atr14/close",
+      "compression_threshold": "linear_percentile_of_prior_compression_lookback_normalized_atr_values_excluding_endpoint",
+      "compression": "endpoint_normalized_atr <= compression_threshold",
+      "breakout": "same_prior_channel_and_strict_comparison_as_channel_breakout"
+    }
+  },
+  "position_contract": {
+    "maximum_concurrent_positions_per_branch": 1,
+    "opposite_signal_while_open": "ignore",
+    "entry_price": "next_bar_open",
+    "stop_distance": "decision_endpoint_atr14*atr_stop_multiple",
+    "stop_is_fixed_after_entry": true,
+    "stop_fill": "exact_stop_price_without_gap_improvement",
+    "time_exit": "close_of_exit_after_bars_th_bar_including_entry_bar",
+    "same_bar_priority": [
+      "stop",
+      "time_exit"
+    ],
+    "unfinished_position_at_train_boundary": "exclude",
+    "compounding_during_hypothesis_screen": false
+  },
+  "direction_contract": {
+    "long": "only_long_signals",
+    "short": "only_short_signals",
+    "both": "long_and_short_signals_but_skip_if_both_true_on_same_decision"
+  },
+  "economics_contract": {
+    "account_usdc": 200,
+    "screen_notional_usdc": 200,
+    "leverage_during_hypothesis_screen": 1,
+    "roundtrip_scenarios": [
+      "base",
+      "conservative",
+      "stress"
+    ],
+    "roundtrip_cost_source": "frozen_Ostium_by_notional_200_bps",
+    "carry_source": "frozen_Ostium_side_and_scenario_annual_cost_pct",
+    "carry_proration": "actual_H4_position_hours/(365.25*24)",
+    "positive_funding_credit_as_alpha": false,
+    "oracle_treatment": "as_encoded_in_frozen_cost_scenario",
+    "sizing_and_leverage_optimization_stage": "after_temporal_and_robustness_validation"
+  },
+  "screen_acceptance_contract": {
+    "minimum_closed_trades": 50,
+    "minimum_profit_factor_each_cost_scenario": 1.2,
+    "positive_net_pnl_each_cost_scenario": true,
+    "minimum_positive_calendar_years_ratio_stress": 0.6,
+    "required_local_neighbors_passing_including_central": 3,
+    "selection_unit": "stable_parameter_region_not_single_best_point",
+    "ranking": [
+      "stress_expectancy_usdc_per_trade_desc",
+      "stress_profit_factor_desc",
+      "stress_max_drawdown_usdc_asc",
+      "hypothesis_id_asc",
+      "attempt_asc"
+    ],
+    "accepted_candidates_global_budget": 60
+  },
+  "temporal_contract": {
+    "screen_visible_period": "train_only_from_preregistration",
+    "validation_accessed": false,
+    "oos_accessed": false,
+    "final_holdout_accessed": false,
+    "bars_after_train_end": "timestamp_may_be_used_only_to_stop_stream_before_OHLC_parse"
+  },
+  "market_data_accessed": false,
+  "performance_accessed": false,
+  "research_authorized": false,
+  "sqcli_authorized": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

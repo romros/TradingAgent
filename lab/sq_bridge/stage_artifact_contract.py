@@ -137,8 +137,11 @@ def _verified_temporal_sources(artifact: dict, reported: Any,
         for candidate_id, value in paths.items():
             path = Path(value)
             path = path if path.is_absolute() else base / path
+            trace = json.loads(path.read_text())
+            if trace.get("source") != "strategyquant_orders_export":
+                return False
             metrics = evaluate_temporal_trace(
-                json.loads(path.read_text()), gate, cost_model,
+                trace, gate, cost_model,
                 artifact.get("cost_model_sha256"))
             if metrics.pop("candidate_id") != candidate_id:
                 return False

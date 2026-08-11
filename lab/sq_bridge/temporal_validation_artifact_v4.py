@@ -11,6 +11,7 @@ from datetime import datetime
 from pathlib import Path
 
 from lab.sq_bridge.small_account_artifact_v4 import select_cost_envelope
+from lab.sq_bridge.sq_temporal_trace_v4 import rebuild_from_trace
 
 
 def _sha(path: Path) -> str:
@@ -86,6 +87,13 @@ def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
     notional = trace.get("evaluation_notional_usdc")
     if notional != gate["evaluation_notional_usdc"]:
         raise ValueError("Nocional temporal canonic invalid")
+    if trace.get("source") != "synthetic_control":
+        try:
+            rebuilt = rebuild_from_trace(trace)
+        except (OSError, TypeError, ValueError) as exc:
+            raise ValueError("Trace temporal no reproduible des de l'export SQ") from exc
+        if rebuilt != trace:
+            raise ValueError("Trace temporal no coincideix amb l'export SQ")
     cost_bucket, variable_bps, fixed_usdc, carry = select_cost_envelope(
         cost_model, float(notional))
     cost_bps = {scenario: variable_bps[scenario]

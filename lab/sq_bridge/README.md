@@ -443,6 +443,24 @@ l'evidència operativa; no deixa la campanya en un bucle fals de reintents.
 Cada candidat aporta un trace `temporal_validation_trade_trace` amb capital i
 nocional comparatiu de 200, retorn brut, costat, durada, trades train i
 finestres OOS UTC no solapades.
+El trace es deriva de l'`orders.csv` observat d'SQ; classifica per la data local
+del recurs, construeix finestres anuals dins validation/OOS i falla si un trade
+creua una frontera o arriba al holdout:
+
+```bash
+PYTHONPATH=../.. python3 sq_temporal_trace_v4.py \
+  --candidate-id CANDIDATE_ID --orders /path/to/orders.csv \
+  --temporal-contract /path/to/temporal-split-contract.json \
+  --cost-model /path/to/eurusd_costs_frozen_v4.json \
+  --source-timezone America/New_York \
+  --output /path/to/candidate.temporal.trace.json
+```
+
+El validador reconstrueix el trace des del CSV i les fonts hashades; editar
+retorns, trades, finestres o costos deixa de ser una via possible. Encara cal
+que la futura etapa Retest supervisada lligui l'export `orders.csv` al hash del
+SQX d'entrada abans de considerar automatitzat tot el tram temporal.
+
 L'artefacte no s'edita manualment:
 
 ```bash

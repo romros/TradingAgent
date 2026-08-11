@@ -199,6 +199,7 @@ if stage == 'temporal_validation':
     trace_path = base / 'runner-sqx-001.temporal.trace.json'
     trace_path.write_text(json.dumps({
         'schema_version': 1, 'trace_type': 'temporal_validation_trade_trace',
+        'source': 'synthetic_control',
         'candidate_id': 'runner-sqx-001', 'capital_usdc': 200,
         'holdout_accessed': False, 'cost_scenario': 'base',
         'cost_model_sha256': cost_hash, 'evaluation_notional_usdc': 200,

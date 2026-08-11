@@ -7,6 +7,7 @@ import pytest
 
 from lab.sq_bridge.stage_artifact_contract import validate_stage_artifact
 from lab.sq_bridge.temporal_validation_artifact_v4 import build_artifact
+from lab.sq_bridge.sq_temporal_trace_v4 import derive
 
 
 ROOT = Path(__file__).parent
@@ -20,22 +21,25 @@ def _trace(candidate_id: str, *, oos_win: float = 1.0, oos_loss: float = -.5):
               "side": "long" if index % 2 == 0 else "short", "holding_days": 1}
              for index in range(30)]
     windows = []
-    for window_index in range(3):
-        window_start = start + timedelta(days=40 + window_index * 20)
+    for window_index, year in enumerate((2021, 2022, 2023)):
+        window_start = datetime(year, 2, 1, tzinfo=timezone.utc)
         trades = [{"trade_id": f"{candidate_id}-oos-{window_index}-{index:02d}",
                    "exit_timestamp": (window_start + timedelta(days=index + 1)).isoformat(),
                    "gross_return_pct": (oos_win if index < 6 else oos_loss) / 2,
                    "side": "long" if index % 2 == 0 else "short", "holding_days": 1}
                   for index in range(10)]
-        windows.append({"window_id": f"w{window_index + 1}",
-                        "start_utc": window_start.isoformat(),
-                        "end_utc": (window_start + timedelta(days=11)).isoformat(),
+        segment = "validation" if year < 2023 else "oos"
+        windows.append({"window_id": f"w{window_index + 1:03d}-{segment}-{year}",
+                        "start_utc": datetime(year, 1, 1, tzinfo=timezone.utc).isoformat(),
+                        "end_utc": datetime(year, 12, 31, 23, 59, 59, 999999,
+                                            tzinfo=timezone.utc).isoformat(),
                         "trades": trades})
     return {"schema_version": 1, "trace_type": "temporal_validation_trade_trace",
             "candidate_id": candidate_id, "capital_usdc": 200,
             "holdout_accessed": False, "cost_scenario": "base",
             "cost_model_sha256": "", "evaluation_notional_usdc": 200,
-            "train_end_utc": (start + timedelta(days=31)).isoformat(),
+            "train_end_utc": datetime(2020, 12, 31, 23, 59, 59, 999999,
+                                      tzinfo=timezone.utc).isoformat(),
             "train_trades": train, "oos_windows": windows}
 
 
@@ -53,9 +57,41 @@ def _cost_model(tmp_path):
 
 
 def _write(tmp_path, candidate_id, trace, costs):
-    trace["cost_model_sha256"] = hashlib.sha256(costs.read_bytes()).hexdigest()
+    orders = tmp_path / f"{candidate_id}.orders.csv"
+    rows = [*trace["train_trades"],
+            *(trade for window in trace["oos_windows"] for trade in window["trades"])]
+    lines = ['"Ticket";"Type";"Open time";"Open price";"Close time";"Close price"']
+    for index, row in enumerate(rows, 1):
+        closed = datetime.fromisoformat(row["exit_timestamp"])
+        opened = closed - timedelta(days=row["holding_days"])
+        entry = 1.0
+        sign = 1 if row["side"] == "long" else -1
+        exit_price = entry * (1 + sign * row["gross_return_pct"] / 100)
+        side = "Buy" if row["side"] == "long" else "Sell"
+        lines.append(
+            f'"{index}";"{side}";"{opened:%Y.%m.%d %H:%M:%S}";"{entry:.8f}";'
+            f'"{closed:%Y.%m.%d %H:%M:%S}";"{exit_price:.8f}"')
+    orders.write_text("\n".join(lines) + "\n")
+    contract = tmp_path / f"{candidate_id}.temporal-contract.json"
+    contract.write_text(json.dumps({
+        "schema_version": 1,
+        "contract_type": "observation_position_temporal_split_v4",
+        "segments": {
+            "train": {"from": "2019-01-01", "to": "2020-12-31"},
+            "validation": {"from": "2021-01-01", "to": "2022-12-31"},
+            "oos": {"from": "2023-01-01", "to": "2023-12-31"},
+            "final_holdout": {"from": "2024-01-01", "to": "2024-12-31"},
+        },
+    }, sort_keys=True) + "\n")
+    derived = derive(
+        candidate_id=candidate_id, orders_path=orders,
+        temporal_contract_path=contract, cost_model_path=costs,
+        source_timezone="UTC")
+    for key in ("holdout_accessed", "evaluation_notional_usdc"):
+        if trace.get(key) != derived.get(key):
+            derived[key] = trace[key]
     path = tmp_path / f"{candidate_id}.temporal.trace.json"
-    path.write_text(json.dumps(trace, indent=2, sort_keys=True) + "\n")
+    path.write_text(json.dumps(derived, indent=2, sort_keys=True) + "\n")
     return path
 
 

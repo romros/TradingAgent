@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 from typing import Any, Callable
 
+from lab.sq_bridge.final_holdout_artifact_v4 import verify as verify_holdout
 from lab.sq_bridge.sq_python_translation_stage_v4 import run_stage
 from lab.sq_bridge.us500_d1_market_preflight_v4 import write_atomic
 
@@ -33,7 +34,9 @@ def _verified(value: object, digest: object, label: str) -> Path:
 
 
 def tick(*, holdout_worker_dir: Path, output_dir: Path,
-         translation_fn: Callable[..., dict] = run_stage) -> dict[str, Any]:
+         translation_fn: Callable[..., dict] = run_stage,
+         holdout_verify_fn: Callable[[Path], dict] = verify_holdout,
+         ) -> dict[str, Any]:
     holdout_receipt_path = holdout_worker_dir.resolve() / "holdout_worker_receipt.json"
     if not holdout_receipt_path.is_file():
         return {"schema_version": 1, "decision": "WAITING_FOR_FINAL_HOLDOUT",
@@ -49,7 +52,7 @@ def tick(*, holdout_worker_dir: Path, output_dir: Path,
     holdout_path = _verified(
         receipt.get("holdout_artifact_path"), receipt.get("holdout_artifact_sha256"),
         "final holdout artifact")
-    holdout = _load(holdout_path)
+    holdout = holdout_verify_fn(holdout_path)
     if (holdout.get("stage") != "final_holdout_validation"
             or holdout.get("decision") != "PASS"
             or holdout.get("campaign_id") != campaign_id

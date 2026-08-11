@@ -7,6 +7,7 @@ import hashlib
 import json
 import math
 import os
+import tempfile
 from pathlib import Path
 
 from lab.sq_bridge.small_account_artifact_v4 import (
@@ -218,6 +219,55 @@ def build_artifact(*, campaign_id: str, candidate_id: str, trace_path: Path,
     artifact_path.parent.mkdir(parents=True, exist_ok=True)
     artifact_path.write_text(json.dumps(artifact, indent=2, sort_keys=True) + "\n")
     return artifact
+
+
+def _resolve(base: Path, value: object, digest: object, label: str) -> Path:
+    if not isinstance(value, str) or not isinstance(digest, str):
+        raise ValueError(f"{label} path/hash missing")
+    path = Path(value)
+    path = path.resolve() if path.is_absolute() else (base / path).resolve()
+    if not path.is_file() or _sha(path) != digest:
+        raise ValueError(f"{label} path/hash mismatch")
+    return path
+
+
+def verify(artifact_path: Path) -> dict:
+    """Recompute the one-shot holdout decision from immutable SQ evidence."""
+    artifact_path = artifact_path.resolve()
+    stored = json.loads(artifact_path.read_text())
+    ids = stored.get("candidate_ids")
+    if not isinstance(stored, dict) or not isinstance(ids, list) or len(ids) != 1:
+        raise ValueError("final holdout artifact identity invalid")
+    base = artifact_path.parent
+    trace = _resolve(base, stored.get("holdout_trace_path"),
+                     stored.get("holdout_trace_sha256"), "holdout trace")
+    sizing = _resolve(base, stored.get("small_account_artifact_path"),
+                      stored.get("small_account_artifact_sha256"), "small account")
+    costs = _resolve(base, stored.get("cost_model_path"),
+                     stored.get("cost_model_sha256"), "holdout costs")
+    methodology = _resolve(base, stored.get("methodology_path"),
+                           stored.get("methodology_sha256"), "holdout methodology")
+    receipt = _resolve(base, stored.get("supervised_holdout_receipt_path"),
+                       stored.get("supervised_holdout_receipt_sha256"),
+                       "supervised holdout receipt")
+    release = _resolve(base, stored.get("holdout_release_manifest_path"),
+                       stored.get("holdout_release_manifest_sha256"),
+                       "holdout release manifest")
+    if stored.get("native_sq_uncensored") is not True:
+        raise ValueError("final holdout was not native uncensored SQ")
+    with tempfile.TemporaryDirectory(prefix="alquimia-holdout-verify-") as directory:
+        rebuilt = build_artifact(
+            campaign_id=stored.get("campaign_id"), candidate_id=ids[0],
+            trace_path=trace, small_account_artifact_path=sizing,
+            cost_model_path=costs, methodology_path=methodology,
+            artifact_path=Path(directory) / "holdout.json")
+    if any(stored.get(key) != value for key, value in rebuilt.items()
+           if not key.endswith("_path")):
+        raise ValueError("final holdout decision does not reproduce from frozen sources")
+    # Resolution above is intentional evidence validation; keep references live.
+    if not receipt.is_file() or not release.is_file():  # pragma: no cover
+        raise ValueError("final holdout release evidence missing")
+    return stored
 
 
 def main() -> None:

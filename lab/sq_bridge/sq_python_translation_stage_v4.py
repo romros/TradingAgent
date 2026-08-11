@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 from typing import Callable
 
+from lab.sq_bridge.final_holdout_artifact_v4 import verify as verify_holdout
 from lab.sq_bridge.final_holdout_trace_v4 import rebuild_from_trace
 from lab.sq_bridge.python_translation_artifact_v4 import build_artifact
 from lab.sq_bridge.us500_d1_market_preflight_v4 import write_atomic
@@ -29,9 +30,10 @@ def _resolve(base: Path, value: object, digest: object, label: str) -> Path:
 
 def run_stage(*, campaign_id: str, final_holdout_artifact_path: Path,
               ir_path: Path, artifact_path: Path,
-              artifact_fn: Callable[..., dict] = build_artifact) -> dict:
+              artifact_fn: Callable[..., dict] = build_artifact,
+              holdout_verify_fn: Callable[[Path], dict] = verify_holdout) -> dict:
     final_holdout_artifact_path = final_holdout_artifact_path.resolve()
-    holdout = json.loads(final_holdout_artifact_path.read_text())
+    holdout = holdout_verify_fn(final_holdout_artifact_path)
     ids = holdout.get("candidate_ids")
     if (holdout.get("stage") != "final_holdout_validation"
             or holdout.get("decision") != "PASS"

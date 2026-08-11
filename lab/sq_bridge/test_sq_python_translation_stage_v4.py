@@ -42,7 +42,8 @@ def test_translates_only_exact_reproducible_holdout_winner(tmp_path, monkeypatch
     result = module.run_stage(
         campaign_id="campaign", final_holdout_artifact_path=holdout,
         ir_path=tmp_path / "strategy.ir.json",
-        artifact_path=tmp_path / "translation.json", artifact_fn=build)
+        artifact_path=tmp_path / "translation.json", artifact_fn=build,
+        holdout_verify_fn=lambda path: json.loads(path.read_text()))
     assert result["translation_source_policy"].startswith("exact_sq_strategy")
     assert result["final_holdout_artifact_sha256"] == _sha(holdout)
 
@@ -52,4 +53,5 @@ def test_rejects_failed_holdout_before_reading_sqx(tmp_path):
         module.run_stage(
             campaign_id="campaign",
             final_holdout_artifact_path=_inputs(tmp_path, decision="REJECT"),
-            ir_path=tmp_path / "ir.json", artifact_path=tmp_path / "out.json")
+            ir_path=tmp_path / "ir.json", artifact_path=tmp_path / "out.json",
+            holdout_verify_fn=lambda path: json.loads(path.read_text()))

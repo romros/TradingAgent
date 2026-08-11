@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from lab.sq_bridge.final_holdout_artifact_v4 import build_artifact, evaluate_trace
+from lab.sq_bridge.final_holdout_artifact_v4 import build_artifact, evaluate_trace, verify
 from lab.sq_bridge.stage_artifact_contract import validate_stage_artifact
 
 
@@ -82,6 +82,32 @@ def test_holdout_pass_is_recomputed_from_twenty_trade_cost_trace(tmp_path):
     assert validate_stage_artifact(
         "final_holdout_validation", artifact, receipt, methodology,
         "campaign", "alquimia_native") == []
+
+
+def test_holdout_verifier_rebuilds_decision_before_translation(tmp_path):
+    artifact, artifact_path = _build(tmp_path)
+    receipt = tmp_path / "supervised.json"
+    release = tmp_path / "release.json"
+    receipt.write_text("{}\n")
+    release.write_text("{}\n")
+    methodology = ROOT / "methodology_v4.json"
+    artifact.update({
+        "supervised_holdout_receipt_path": str(receipt),
+        "supervised_holdout_receipt_sha256": hashlib.sha256(
+            receipt.read_bytes()).hexdigest(),
+        "holdout_release_manifest_path": str(release),
+        "holdout_release_manifest_sha256": hashlib.sha256(
+            release.read_bytes()).hexdigest(),
+        "native_sq_uncensored": True,
+        "methodology_path": str(methodology),
+        "methodology_sha256": hashlib.sha256(methodology.read_bytes()).hexdigest(),
+    })
+    artifact_path.write_text(json.dumps(artifact, indent=2, sort_keys=True) + "\n")
+    assert verify(artifact_path) == artifact
+    artifact["decision"] = "REJECT"
+    artifact_path.write_text(json.dumps(artifact, indent=2, sort_keys=True) + "\n")
+    with pytest.raises(ValueError, match="does not reproduce"):
+        verify(artifact_path)
 
 
 def test_second_holdout_evaluation_is_forbidden(tmp_path):

@@ -83,6 +83,8 @@ def verify(path: Path) -> dict[str, Any]:
     if (sq.get("version") != "143.2708"
             or sq.get("search_method") != "genetic_evolution"
             or sq.get("nominal_evaluations") != 10_000
+            or sq.get("attempt_stop_guard") != 64
+            or sq.get("wall_time_budget_minutes") != 240
             or (sq.get("islands"), sq.get("population_per_island"),
                 sq.get("max_generations")) != (4, 100, 25)
             or sq.get("islands") * sq.get("population_per_island") *

@@ -46,6 +46,9 @@ def test_compiles_replayed_region_to_small_account_genetic_plan(tmp_path):
         "maximum_size": 100, "decimals": 4,
         "fallback_to_size_one_allowed": False}
     assert result["attempt_budget"] == 10_000
+    assert result["attempt_stop_guard"] == 64
+    assert result["accepted_limit"] == 1
+    assert result["periods"] == {"train_from": "2018-03-01", "train_to": "2022-04-30"}
     assert result["sq_genetic_shape"]["nominal_evaluations"] == 10_000
     assert result["parameter_search_space"]["indicator_period"] == {
         "minimum": 49, "maximum": 51, "allowed_values": [49, 50, 51]}

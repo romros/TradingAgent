@@ -72,6 +72,12 @@ def compile_plan(*, selector_path: Path, candidate_id: str, design_path: Path,
     if len(branch_matches) != 1:
         raise ValueError("selected hypothesis absent from sealed design")
     branch = branch_matches[0]
+    prereg_path = Path(design["preregistration"]["path"])
+    if (not prereg_path.is_file()
+            or design["preregistration"]["sha256"] != _sha(prereg_path)):
+        raise ValueError("sealed crypto preregistration changed")
+    prereg = _load(prereg_path)
+    train = prereg["markets"][region["market"]]["temporal_split_utc"]["train"]
     sq = semantics["contract"]["strategyquant_generation_contract"]
     money = sq["money_management"]
     result = {
@@ -88,6 +94,11 @@ def compile_plan(*, selector_path: Path, candidate_id: str, design_path: Path,
         "parameter_search_space": _bounds(region["member_parameters"]),
         "generation_type": "genetic-evolution",
         "attempt_budget": sq["nominal_evaluations"],
+        "attempt_stop_guard": sq["attempt_stop_guard"],
+        "wall_time_budget_minutes": sq["wall_time_budget_minutes"],
+        "accepted_limit": 1,
+        "project_name": f"ALQ4_{region['market']}_{candidate_id.upper()}",
+        "periods": {"train_from": train[0], "train_to": train[1]},
         "sq_genetic_shape": {"islands": sq["islands"],
                              "population_per_island": sq["population_per_island"],
                              "max_generations": sq["max_generations"],
@@ -110,6 +121,7 @@ def compile_plan(*, selector_path: Path, candidate_id: str, design_path: Path,
         "maximum_promoted_candidates": 1,
         "inputs": {"selector": {"path": str(selector_path), "sha256": _sha(selector_path)},
                    "design": {"path": str(design_path), "sha256": _sha(design_path)},
+                   "preregistration": {"path": str(prereg_path), "sha256": _sha(prereg_path)},
                    "semantics": {"path": str(semantics_path), "sha256": _sha(semantics_path)},
                    "sq_resource": {"path": str(resource_path), "sha256": _sha(resource_path)}},
         "performance_scope": "train_only", "validation_accessed": False,

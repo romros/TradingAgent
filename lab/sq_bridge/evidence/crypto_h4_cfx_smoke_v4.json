@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "checked_utc": "2026-08-11T11:17:19Z",
+  "decision": "PASS_SQCLI_STRUCTURAL_IMPORT",
+  "scope": "CFX structure and SQ resource resolution only; no strategy was generated or evaluated",
+  "project_name": "ALQUIMIA_CRYPTO_H4_CFX_SMOKE_V2",
+  "sq_version": "143.2708",
+  "source_cfx_sha256": "06207ea6905dbd5b3d603c289a1ce5c5c0efae157d58f9010279f3b7efc8c81d",
+  "sq_imported_cfx_path": "/home/squser/SQ/user/projects/ALQUIMIA_CRYPTO_H4_CFX_SMOKE_V2/project.cfx",
+  "sq_imported_cfx_sha256": "e670b4a4f5df929117edc285c9413c69951c431d80dd6c991fa3c21d78c719b6",
+  "checks": {
+    "project_imported": true,
+    "has_unresolved_resources": false,
+    "project_started": false,
+    "strategies_present": 0,
+    "post_import_xml_contract_verified": true,
+    "genetic_shape": [4, 100, 25],
+    "initial_capital_usdc": 200,
+    "money_management": "CryptoSizeByPrice",
+    "use_account_balance": false,
+    "maximum_size": 100,
+    "size_decimals": 4
+  },
+  "resolved_sq_resource_identity": {
+    "symbol": "BTCUSD_ALQ_H4",
+    "base_symbol": "BTCUSD_ALQ",
+    "instrument": "BTC_ALQ",
+    "source": 1,
+    "source_meaning": "File",
+    "instrument_data_type": 7,
+    "instrument_data_type_meaning": "Crypto",
+    "timeframe": "H4",
+    "timezone": "Etc/UTC",
+    "order_size_step": 0.0001
+  },
+  "installed_constants_source": {
+    "path": "/home/roman/dockers-SQ/6ACC10/internal/web/AlgoWizard/assets/index-DMjUDtOe.js",
+    "sha256": "036620361be9b7bdb0a7e6756122d657b3383f82f02775020788ff4a5ca439b2"
+  },
+  "negative_control": {
+    "project_name": "ALQUIMIA_CRYPTO_H4_CFX_SMOKE",
+    "source": 3,
+    "instrument_data_type": 4,
+    "has_unresolved_resources": true,
+    "removed_after_diagnosis": true
+  },
+  "paper_authorized": false,
+  "live_authorized": false,
+  "performance_accessed": false
+}

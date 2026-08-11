@@ -120,6 +120,8 @@
     "version": "143.2708",
     "search_method": "genetic_evolution",
     "nominal_evaluations": 10000,
+    "attempt_stop_guard": 64,
+    "wall_time_budget_minutes": 240,
     "islands": 4,
     "population_per_island": 100,
     "max_generations": 25,

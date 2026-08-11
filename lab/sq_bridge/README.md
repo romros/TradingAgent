@@ -377,6 +377,25 @@ i 0,040 ETH, de manera que no arriba al fallback intern perillós de mida 1.
 El rebut `sq143_crypto_size_by_price_v4.json` forma part del contracte i una
 instal·lació SQ o font diferent invalida el pla abans de crear CFX.
 
+`crypto_h4_cfx_v4.py` materialitza una regió `channel_breakout` reproduïble en
+un CFX natiu SQ 143. Configura 4×100×25, 80/20, migració 5/10, sense reinicis,
+capital 200, `CryptoSizeByPrice`, stop ATR(14), sortida temporal, direcció
+congelada i només els nou blocs necessaris. Reobre el ZIP i verifica dates,
+recurs, genètica, costos grossos zero, stops, sortida, sides, sizing i límit de
+temps. El supervisor reserva un guard de 64 intents: el llindar efectiu és 9.936
+de 10.000, no un intent; el límit d'un acceptat és un contracte separat.
+`time_series_momentum` falla amb `ROC_UNIT_PROBE_REQUIRED` i compressió
+amb `ATR_PERCENTILE_CUSTOM_BLOCK_REQUIRED`: no es tradueixen aproximacions.
+
+El smoke real `crypto_h4_cfx_smoke_v4.json` va detectar i corregir una distinció
+de SQ important: un recurs importat des de fitxer usa `source=1`, crypto usa
+`dataType=7`, i `BTCUSD_ALQ_H4` té `BTCUSD_ALQ` com a símbol base. El control
+negatiu amb valors heretats de Yahoo/CFD va quedar irresolt i es va eliminar; la
+versió corregida va ser importada amb zero estratègies, sense iniciar-se, amb
+`hasUnresolvedResources=false`, i el CFX reserialitzat per SQ va superar de nou
+tot el contracte XML. Això certifica el transport estructural, no rendiment ni
+autorització de recerca mentre els preflights de mercat continuïn en `BLOCK`.
+
 US500 D1 aplica el mateix contracte amb un productor, bootstrap i trigger
 independents. El cron de quotes de sessió recompon el preflight i invoca el
 trigger després de cada captura; mentre no hi ha 30 mostres en tres sessions

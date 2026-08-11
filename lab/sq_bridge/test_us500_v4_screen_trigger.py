@@ -44,6 +44,11 @@ def test_trigger_freezes_inputs_is_idempotent_and_never_starts_sqcli(tmp_path):
         (output / "frozen/canonical_source.json").read_text())
     assert frozen_receipt["canonical_path"] == str(
         (output / "frozen/canonical_data.csv").resolve())
+    frozen_resource = json.loads((output / "frozen/sq_resource.json").read_text())
+    assert frozen_resource["source"]["path"] == str(
+        (output / "frozen/canonical_data.csv").resolve())
+    assert Path(frozen_resource["roundtrip"]["export_path"]).parent == (
+        output / "frozen")
     assert json.loads((output / "screen_trigger_journal.json").read_text())[
         "phase"] == "COMPLETED"
 

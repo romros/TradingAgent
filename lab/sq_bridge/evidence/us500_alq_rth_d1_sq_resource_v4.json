@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_SQ_D1_RESOURCE",
+  "recorded_at_utc": "2026-08-11T09:27:19Z",
+  "sq_version": "143.2708",
+  "performance_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false,
+  "symbol": "US500_ALQ_RTH_D1",
+  "timeframe": "D1",
+  "timezone": "Etc/UTC",
+  "instrument": {
+    "name": "US500_ALQ",
+    "description": "Alquimia_US500_RTH_signal_research",
+    "data_type": "index",
+    "point_value": 1,
+    "tick_size": 0.001,
+    "tick_step": 0.001,
+    "default_spread": 0,
+    "order_size_multiplier": 1,
+    "order_size_step": 0.01,
+    "role": "gross signal research only; Ostium costs and sizing are applied downstream"
+  },
+  "source": {
+    "path": "/mnt/volume-SQ/user/imports/alquimia_us500/US500_ALQ_RTH_D1.csv",
+    "sha256": "44f2c0d80cf74c825b9f954e0eac51ed7943b2a81d05154374b27a30f958e2fc",
+    "rows": 2088,
+    "first": "2018-01-03",
+    "last": "2026-07-08",
+    "maximum_price_decimal_places": 3
+  },
+  "commands": {
+    "path": "lab/sq_bridge/us500_alq_rth_d1_import.commands",
+    "sha256": "8e2d68630c91a139d11a980a0a94d657928cb717e9cf4b342e67270e82051002"
+  },
+  "import_observation": {
+    "recognized_format": "MetaTrader4",
+    "reported_imported_rows": 2088,
+    "reported_completion_pct": 100
+  },
+  "roundtrip": {
+    "export_path": "/mnt/volume-SQ/user/exports/alquimia_us500_rth_d1_roundtrip_v2/US500_ALQ_RTH_D1-D1-No Session.csv",
+    "export_sha256": "edd0a98aff3e22c3b280b8256275fe324c8e62908b827877df76788bb0735603",
+    "audit_path": "lab/sq_bridge/evidence/us500_alq_rth_d1_sq_roundtrip_v4_v2.json",
+    "audit_sha256": "aafbbebfff7272a240944ea88b77d4bd284ea590bdb111ec31bf9bc0a4866c8d",
+    "rows": 2088,
+    "timestamps_exact_and_ordered": true,
+    "exact_numeric_parity": true,
+    "all_ohlcv_changed_rows": 0
+  },
+  "precision_diagnostic": {
+    "initial_tick_size": 0.01,
+    "initial_maximum_price_error": 0.005,
+    "initial_audit_path": "lab/sq_bridge/evidence/us500_alq_rth_d1_sq_roundtrip_v4.json",
+    "initial_audit_sha256": "b90a0814a7cd80dead34382d5f1b771cf5deab4f7953d5f3cee33d385ded92c3",
+    "resolution": "tick size and tick step changed to 0.001 before reimport"
+  },
+  "checks": {
+    "source_copy_hash_exact": true,
+    "import_row_count_exact": true,
+    "export_row_count_exact": true,
+    "timestamp_roundtrip_exact": true,
+    "ohlcv_roundtrip_exact": true,
+    "broker_economics_not_embedded": true
+  },
+  "limitations": [
+    "The instrument is deliberately neutral and is not an Ostium execution model.",
+    "Costs, carry, leverage, liquidation and minimum notional remain downstream gates.",
+    "This receipt authorizes data use for research only and does not authorize paper or live trading."
+  ]
+}

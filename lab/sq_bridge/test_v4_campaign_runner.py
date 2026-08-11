@@ -27,6 +27,7 @@ from lab.sq_bridge.small_account_artifact_v4 import build_artifact as build_smal
 from lab.sq_bridge.hypothesis_screen_artifact_v4 import build_artifact as build_screen
 from lab.sq_bridge.temporal_split_contract_v4 import build_contract as build_split, digest as split_digest
 from lab.sq_bridge.us500_d1_market_preflight_v4 import compose as compose_preflight
+from lab.sq_bridge.sq_data_roundtrip_audit import audit as audit_sq_data
 
 stage = os.environ['ALQUIMIA_STAGE']
 decision = sys.argv[1] if len(sys.argv) > 1 else 'PASS'
@@ -59,6 +60,33 @@ if stage == 'market_preflight':
         'canonical_path': str((base / 'preflight-canonical.csv').resolve()),
         'canonical_sha256': hashlib.sha256(
             (base / 'preflight-canonical.csv').read_bytes()).hexdigest()}))
+    (base / 'sq-export.csv').write_bytes(
+        (base / 'preflight-canonical.csv').read_bytes())
+    (base / 'sq-audit.json').write_text(json.dumps(audit_sq_data(
+        base / 'preflight-canonical.csv', base / 'sq-export.csv')))
+    (base / 'sq-commands.txt').write_text('synthetic runner resource\\n')
+    (base / 'sq-resource.json').write_text(json.dumps({
+        'schema_version': 1, 'decision': 'PASS_SQ_D1_RESOURCE',
+        'symbol': 'US500_ALQ_RTH_D1', 'timeframe': 'D1',
+        'timezone': 'Etc/UTC', 'performance_accessed': False,
+        'paper_authorized': False, 'live_authorized': False,
+        'instrument': {'name': 'US500_ALQ', 'tick_size': .001,
+                       'tick_step': .001, 'default_spread': 0,
+                       'point_value': 1},
+        'source': {'path': str((base / 'preflight-canonical.csv').resolve()),
+                   'sha256': hashlib.sha256(
+                       (base / 'preflight-canonical.csv').read_bytes()).hexdigest(),
+                   'rows': 1},
+        'commands': {'path': str((base / 'sq-commands.txt').resolve()),
+                     'sha256': hashlib.sha256(
+                         (base / 'sq-commands.txt').read_bytes()).hexdigest()},
+        'roundtrip': {'export_path': str((base / 'sq-export.csv').resolve()),
+                      'export_sha256': hashlib.sha256(
+                          (base / 'sq-export.csv').read_bytes()).hexdigest(),
+                      'audit_path': str((base / 'sq-audit.json').resolve()),
+                      'audit_sha256': hashlib.sha256(
+                          (base / 'sq-audit.json').read_bytes()).hexdigest(),
+                      'rows': 1}}))
     (base / 'costs.json').write_text(json.dumps({
         'decision': 'PASS_COSTS_FROZEN', 'costs_frozen': True,
         'by_notional': {'200': {'base_roundtrip_bps': 0,
@@ -75,6 +103,7 @@ if stage == 'market_preflight':
         'schema_version': 1, 'campaign_id': 'runner-test',
         'ostium_pair_id': 'control-pair', 'coverage': 'coverage.json',
         'mapping': 'mapping.json', 'canonical_source': 'canonical-source.json',
+        'sq_resource': 'sq-resource.json',
         'costs': 'costs.json'}))
     artifact = compose_preflight(config_path)
 if stage == 'hypothesis_screen':

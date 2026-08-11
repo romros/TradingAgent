@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "source_csv": "lab/sq_bridge/evidence/us500_d1_canonical_v4.csv",
+  "source_sha256": "44f2c0d80cf74c825b9f954e0eac51ed7943b2a81d05154374b27a30f958e2fc",
+  "exported_csv": "/mnt/volume-SQ/user/exports/alquimia_us500_rth_d1_roundtrip_v2/US500_ALQ_RTH_D1-D1-No Session.csv",
+  "exported_sha256": "edd0a98aff3e22c3b280b8256275fe324c8e62908b827877df76788bb0735603",
+  "exported_has_header": false,
+  "source_rows": 2088,
+  "exported_rows": 2088,
+  "timestamps_exact_and_ordered": true,
+  "field_errors": {
+    "open": {
+      "changed_rows": 0,
+      "max_absolute_error": "0.000",
+      "mean_absolute_error": "0.000"
+    },
+    "high": {
+      "changed_rows": 0,
+      "max_absolute_error": "0.000",
+      "mean_absolute_error": "0.000"
+    },
+    "low": {
+      "changed_rows": 0,
+      "max_absolute_error": "0.000",
+      "mean_absolute_error": "0.000"
+    },
+    "close": {
+      "changed_rows": 0,
+      "max_absolute_error": "0.000",
+      "mean_absolute_error": "0.000"
+    },
+    "volume": {
+      "changed_rows": 0,
+      "max_absolute_error": "0.0",
+      "mean_absolute_error": "0.0"
+    }
+  },
+  "decision": "PASS_SIGNAL_RESEARCH",
+  "decision_scope": "Data integrity for signal research only; volume-dependent rules, execution, paper, and live remain unauthorized.",
+  "exact_numeric_parity": true,
+  "paper_or_live_authorized": false
+}

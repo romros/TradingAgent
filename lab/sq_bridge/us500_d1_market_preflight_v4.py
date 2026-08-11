@@ -10,6 +10,8 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
+from lab.sq_bridge.us500_sq_d1_resource_contract_v4 import verify as verify_sq_resource
+
 
 def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -56,7 +58,7 @@ def compose(config_path: Path) -> dict[str, Any]:
     config_path = config_path.resolve()
     config = json.loads(config_path.read_text())
     required = ("campaign_id", "ostium_pair_id", "coverage", "mapping",
-                "canonical_source", "costs")
+                "canonical_source", "sq_resource", "costs")
     missing = [name for name in required if not config.get(name)]
     if missing:
         raise ValueError(f"preflight config missing: {', '.join(missing)}")
@@ -65,7 +67,7 @@ def compose(config_path: Path) -> dict[str, Any]:
     reasons: list[str] = []
     inputs = {}
     loaded = {}
-    labels = ["coverage", "mapping", "canonical_source", "costs"]
+    labels = ["coverage", "mapping", "canonical_source", "sq_resource", "costs"]
     if config.get("vix"):
         labels.append("vix")
     for label in labels:
@@ -74,6 +76,7 @@ def compose(config_path: Path) -> dict[str, Any]:
 
     coverage, mapping, canonical, costs = (loaded[name] for name in (
         "coverage", "mapping", "canonical_source", "costs"))
+    sq_resource = verify_sq_resource(Path(inputs["sq_resource"]["path"]))
     vix = loaded.get("vix")
     if coverage.get("decision") != "PASS_HISTORICAL_COVERAGE":
         reasons.append("HISTORICAL_COVERAGE_NOT_PASS")
@@ -96,6 +99,9 @@ def compose(config_path: Path) -> dict[str, Any]:
             or not canonical_path.is_file()
             or canonical.get("canonical_sha256") != sha256(canonical_path)):
         reasons.append("CANONICAL_D1_SOURCE_NOT_PROVEN")
+    if (sq_resource.get("valid") is not True
+            or sq_resource.get("source_sha256") != canonical.get("canonical_sha256")):
+        reasons.append("SQ_D1_RESOURCE_NOT_PROVEN")
     timing = (vix.get("timing_policy") or {}) if vix else {}
     if vix:
         if vix.get("decision") != "PASS_VIX_DATA_TIMING":
@@ -129,6 +135,9 @@ def compose(config_path: Path) -> dict[str, Any]:
         "canonical_source_pass": "CANONICAL_D1_SOURCE_NOT_PROVEN" not in reasons,
         "canonical_source_path": str(canonical_path),
         "canonical_source_sha256": canonical.get("canonical_sha256"),
+        "sq_resource_pass": "SQ_D1_RESOURCE_NOT_PROVEN" not in reasons,
+        "sq_resource_receipt_sha256": sq_resource.get("receipt_sha256"),
+        "sq_resource_errors": sq_resource.get("errors", []),
         "proxy_candle_coverage_pct": (
             mapping.get("common_complete_session_coverage_ratio", 0) * 100),
         "return_correlation": mapping.get("d1_close_return_correlation"),

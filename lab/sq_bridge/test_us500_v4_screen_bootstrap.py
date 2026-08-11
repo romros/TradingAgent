@@ -8,6 +8,7 @@ from lab.sq_bridge.test_eurusd_d1_hypothesis_trace_v4 import _costs
 from lab.sq_bridge.test_us500_d1_hypothesis_trace_v4 import _source
 from lab.sq_bridge.us500_d1_market_preflight_v4 import compose
 from lab.sq_bridge.us500_v4_screen_bootstrap import bootstrap
+from lab.sq_bridge.sq_data_roundtrip_audit import audit
 
 
 ROOT = Path(__file__).parent
@@ -46,11 +47,35 @@ def _preflight(tmp_path: Path, source: Path, costs: Path) -> Path:
         "holdout_accessed": False, "coverage_sha256": _sha(coverage),
         "mapping_sha256": _sha(mapping), "canonical_path": str(source),
         "canonical_sha256": _sha(source)})
+    exported = tmp_path / "sq-export.csv"
+    exported.write_bytes(source.read_bytes())
+    audit_path = tmp_path / "sq-audit.json"
+    _write(audit_path, audit(source, exported))
+    commands = tmp_path / "commands.txt"
+    commands.write_text("synthetic test resource\n")
+    resource = tmp_path / "sq-resource.json"
+    _write(resource, {
+        "schema_version": 1, "decision": "PASS_SQ_D1_RESOURCE",
+        "symbol": "US500_ALQ_RTH_D1", "timeframe": "D1",
+        "timezone": "Etc/UTC", "performance_accessed": False,
+        "paper_authorized": False, "live_authorized": False,
+        "instrument": {"name": "US500_ALQ", "tick_size": .001,
+                       "tick_step": .001, "default_spread": 0,
+                       "point_value": 1},
+        "source": {"path": str(source), "sha256": _sha(source),
+                   "rows": len(source.read_text().splitlines())},
+        "commands": {"path": str(commands), "sha256": _sha(commands)},
+        "roundtrip": {"export_path": str(exported),
+                      "export_sha256": _sha(exported),
+                      "audit_path": str(audit_path),
+                      "audit_sha256": _sha(audit_path),
+                      "rows": len(source.read_text().splitlines())}})
     config = tmp_path / "config.json"
     _write(config, {
         "schema_version": 1, "campaign_id": CAMPAIGN,
         "ostium_pair_id": "US500/USD", "coverage": coverage.name,
         "mapping": mapping.name, "canonical_source": canonical.name,
+        "sq_resource": resource.name,
         "costs": costs.name})
     preflight = tmp_path / "preflight.json"
     _write(preflight, compose(config))

@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 
 from lab.sq_bridge.stage_artifact_contract import validate_stage_artifact
+from lab.sq_bridge.sq_data_roundtrip_audit import audit
 from lab.sq_bridge.us500_d1_market_preflight_v4 import compose, write_atomic
 
 
@@ -37,6 +38,28 @@ def fixture(tmp_path: Path, *, measured: bool) -> Path:
         "mapping_sha256": sha(tmp_path / "mapping.json"),
         "canonical_path": str(tmp_path / "canonical.csv"),
         "canonical_sha256": sha(tmp_path / "canonical.csv")})
+    (tmp_path / "sq-export.csv").write_bytes(
+        (tmp_path / "canonical.csv").read_bytes())
+    write(tmp_path / "sq-audit.json", audit(
+        tmp_path / "canonical.csv", tmp_path / "sq-export.csv"))
+    (tmp_path / "commands.txt").write_text("synthetic test resource\n")
+    write(tmp_path / "sq-resource.json", {
+        "schema_version": 1, "decision": "PASS_SQ_D1_RESOURCE",
+        "symbol": "US500_ALQ_RTH_D1", "timeframe": "D1",
+        "timezone": "Etc/UTC", "performance_accessed": False,
+        "paper_authorized": False, "live_authorized": False,
+        "instrument": {"name": "US500_ALQ", "tick_size": .001,
+                       "tick_step": .001, "default_spread": 0,
+                       "point_value": 1},
+        "source": {"path": str(tmp_path / "canonical.csv"),
+                   "sha256": sha(tmp_path / "canonical.csv"), "rows": 1},
+        "commands": {"path": str(tmp_path / "commands.txt"),
+                     "sha256": sha(tmp_path / "commands.txt")},
+        "roundtrip": {"export_path": str(tmp_path / "sq-export.csv"),
+                      "export_sha256": sha(tmp_path / "sq-export.csv"),
+                      "audit_path": str(tmp_path / "sq-audit.json"),
+                      "audit_sha256": sha(tmp_path / "sq-audit.json"),
+                      "rows": 1}})
     write(tmp_path / "vix.json", {
         "decision": "PASS_VIX_DATA_TIMING", "spx_performance_accessed": False,
         "strategy_rule_defined": False,
@@ -51,6 +74,7 @@ def fixture(tmp_path: Path, *, measured: bool) -> Path:
     write(config, {"schema_version": 1, "campaign_id": "us500-test",
                    "ostium_pair_id": "SPX/USD", "coverage": "coverage.json",
                    "mapping": "mapping.json", "canonical_source": "canonical.json",
+                   "sq_resource": "sq-resource.json",
                    "vix": "vix.json", "costs": "costs.json"})
     return config
 

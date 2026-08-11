@@ -16,7 +16,8 @@ from lab.sq_bridge.us500_v4_screen_bootstrap import CAMPAIGN_ID, bootstrap
 
 RECEIPT = "screen_trigger_receipt.json"
 JOURNAL = "screen_trigger_journal.json"
-RECEIPT_LABELS = ("coverage", "mapping", "canonical_source", "costs")
+RECEIPT_LABELS = ("coverage", "mapping", "canonical_source", "sq_resource", "costs")
+ROOT = Path(__file__).parents[2]
 
 
 def _sha(path: Path) -> str:
@@ -51,6 +52,34 @@ def _copy_exact(source: Path, destination: Path, expected: str) -> None:
             os.unlink(temporary)
         except FileNotFoundError:
             pass
+
+
+def _resource_path(value: object) -> Path:
+    path = Path(str(value))
+    return path if path.is_absolute() else (ROOT / path).resolve()
+
+
+def _freeze_sq_resource(source_receipt: Path, destination: Path,
+                        canonical_data: Path) -> None:
+    value = _load(source_receipt)
+    frozen = destination.parent
+    dependencies = (
+        ("commands", "path", "sha256", "sq_commands.txt"),
+        ("roundtrip", "export_path", "export_sha256", "sq_export.csv"),
+        ("roundtrip", "audit_path", "audit_sha256", "sq_audit.json"),
+    )
+    for section, path_key, hash_key, filename in dependencies:
+        row = value.get(section) or {}
+        original, target = _resource_path(row.get(path_key)), frozen / filename
+        _copy_exact(original, target, row.get(hash_key))
+        row[path_key] = str(target.resolve())
+        row[hash_key] = _sha(target)
+    value["source"]["path"] = str(canonical_data.resolve())
+    value["source"]["sha256"] = _sha(canonical_data)
+    value["upstream_receipt_sha256"] = _sha(source_receipt)
+    if destination.is_file() and _load(destination) != value:
+        raise ValueError("frozen SQ resource receipt changed")
+    write_atomic(destination, value)
 
 
 def _prepare(preflight_path: Path, source_path: Path,
@@ -106,7 +135,7 @@ def _resume(journal_path: Path, output_dir: Path) -> dict[str, Any]:
     if not required.issubset(sources) or set(sources) - required != {"vix"} and set(sources) != required:
         raise ValueError("US500 screen source inventory invalid")
     for label, row in sources.items():
-        if label == "canonical_source":
+        if label in {"canonical_source", "sq_resource"}:
             continue
         _copy_exact(Path(row["source_path"]), Path(row["snapshot_path"]),
                     row["sha256"])
@@ -122,6 +151,13 @@ def _resume(journal_path: Path, output_dir: Path) -> dict[str, Any]:
     if canonical_snapshot.is_file() and _load(canonical_snapshot) != frozen_canonical:
         raise ValueError("frozen canonical receipt changed")
     write_atomic(canonical_snapshot, frozen_canonical)
+    sq_resource_row = sources["sq_resource"]
+    sq_resource_source = Path(sq_resource_row["source_path"])
+    if _sha(sq_resource_source) != sq_resource_row["sha256"]:
+        raise ValueError("SQ resource receipt changed before snapshot")
+    _freeze_sq_resource(
+        sq_resource_source, Path(sq_resource_row["snapshot_path"]),
+        Path(sources["canonical_data"]["snapshot_path"]))
 
     frozen = output_dir / "frozen"
     config = {

@@ -720,3 +720,9 @@ de campanya+candidat, reprèn els checkpoints de cada Retest, deriva els traces
 des dels rebuts i finalment aplica el Pareto temporal. El manifest de discovery
 i el contracte temporal són entrades diferents: el primer configura dates SQ;
 el segon classifica i segella trades. No s'han d'intercanviar.
+
+Un candidat sense trades, sense OOS o amb expectativa train no positiva és
+evidència científica vàlida però feble: queda registrat amb
+`temporal_eligibility_failure` i acaba en `REJECT`, sense avortar el lot. En
+canvi, un hash incorrecte, un CSV sense esquema, una frontera/holdout violada o
+un rebut no reproduïble continua sent una fallada operativa tancada.

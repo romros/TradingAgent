@@ -66,10 +66,11 @@ def derive(*, candidate_id: str, orders_path: Path, temporal_contract_path: Path
     segments = _segments(contract)
     cost_hash = _sha(cost_model_path)
     with orders_path.open(newline="", encoding="utf-8-sig") as handle:
-        rows = list(csv.DictReader(handle, delimiter=";"))
+        reader = csv.DictReader(handle, delimiter=";")
+        rows = list(reader)
     required = {"Ticket", "Type", "Open time", "Open price", "Close time", "Close price"}
-    if not rows or any(required - set(row) for row in rows):
-        raise ValueError("orders.csv temporal buit o sense columnes obligatories")
+    if required - set(reader.fieldnames or ()) or any(required - set(row) for row in rows):
+        raise ValueError("orders.csv temporal sense columnes obligatories")
     buckets: dict[str, list[dict]] = {"train": [], "validation": [], "oos": []}
     seen = set()
     for row in rows:

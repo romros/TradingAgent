@@ -105,11 +105,7 @@ def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
     train, train_timestamps = _trade_pnl(
         trace.get("train_trades"), seen, None, train_end, notional,
         cost_bps["base"], carry)
-    if not train:
-        raise ValueError("Train temporal buit")
-    train_expectancy = sum(train) / len(train)
-    if train_expectancy <= 0:
-        raise ValueError("Expectativa train no positiva; decay no estimable")
+    train_expectancy = sum(train) / len(train) if train else None
 
     windows = trace.get("oos_windows")
     if not isinstance(windows, list) or not windows:
@@ -129,13 +125,15 @@ def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
         all_oos.extend(values)
         window_totals.append(sum(values))
         previous_end = end
-    if window_ids != sorted(window_ids) or not all_oos:
-        raise ValueError("Finestres OOS han de ser uniques, ordenades i no buides")
+    if window_ids != sorted(window_ids):
+        raise ValueError("Finestres OOS han de ser uniques i ordenades")
     wins = sum(value for value in all_oos if value > 0)
     losses = -sum(value for value in all_oos if value < 0)
-    if losses <= 0:
-        raise ValueError("Profit factor OOS no estimable")
-    oos_expectancy = sum(all_oos) / len(all_oos)
+    # Finite conservative sentinels make scientifically valid weak candidates
+    # explicit REJECTs instead of operational failures. They are deliberately
+    # on the failing side of every gate and carry a machine-readable reason.
+    profit_factor = wins / losses if losses > 0 else (1_000_000.0 if wins > 0 else 0.0)
+    oos_expectancy = sum(all_oos) / len(all_oos) if all_oos else 0.0
     equity = peak = 200.0
     maximum_drawdown = 0.0
     for value in all_oos:
@@ -144,6 +142,15 @@ def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
         if peak <= 0:
             raise ValueError("Equity temporal no valida")
         maximum_drawdown = max(maximum_drawdown, (peak - equity) / peak * 100)
+    eligibility_failure = None
+    if not train:
+        eligibility_failure = "NO_TRAIN_TRADES"
+    elif train_expectancy is None or train_expectancy <= 0:
+        eligibility_failure = "NON_POSITIVE_TRAIN_EXPECTANCY"
+    elif not all_oos:
+        eligibility_failure = "NO_OOS_TRADES"
+    decay = ((train_expectancy - oos_expectancy) / train_expectancy * 100
+             if eligibility_failure is None else 1_000_000.0)
     return {
         "candidate_id": candidate_id,
         "evaluation_notional_usdc": notional,
@@ -153,11 +160,11 @@ def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
         "base_fixed_cost_usdc": fixed_usdc["base"],
         "oos_trades": len(all_oos),
         "positive_windows_ratio": sum(value > 0 for value in window_totals) / len(window_totals),
-        "oos_profit_factor": wins / losses,
+        "oos_profit_factor": profit_factor,
         "oos_drawdown_pct": maximum_drawdown,
-        "train_oos_expectancy_decay_pct": (train_expectancy - oos_expectancy)
-            / train_expectancy * 100,
+        "train_oos_expectancy_decay_pct": decay,
         "net_expectancy_usdc": oos_expectancy,
+        "temporal_eligibility_failure": eligibility_failure,
     }
 
 

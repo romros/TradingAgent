@@ -764,18 +764,29 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
             })
     elif stage == "temporal_validation":
         candidate_metrics = artifact.get("candidate_temporal_metrics")
+        negative_temporal = (receipt.get("decision") == "REJECT"
+                             and receipt.get("candidate_ids") == [])
+        no_selected_aggregates = all(artifact.get(key) is None for key in (
+            "oos_trades", "positive_windows_ratio", "oos_profit_factor",
+            "oos_drawdown_pct", "train_oos_expectancy_decay_pct"))
         checks = {
-            "OOS_TRADES": _at_least(artifact.get("oos_trades"), temporal["minimum_trades_oos"]),
-            "POSITIVE_WINDOWS": _at_least(artifact.get("positive_windows_ratio"), temporal["minimum_positive_windows_ratio"]),
-            "OOS_PF": _at_least(artifact.get("oos_profit_factor"), temporal["minimum_oos_profit_factor"]),
-            "OOS_DD": _at_most(artifact.get("oos_drawdown_pct"), temporal["maximum_oos_drawdown_pct"]),
-            "EXPECTANCY_DECAY": _at_most(artifact.get("train_oos_expectancy_decay_pct"), temporal["maximum_train_oos_expectancy_decay_pct"]),
+            "OOS_TRADES": (negative_temporal and no_selected_aggregates)
+                or _at_least(artifact.get("oos_trades"), temporal["minimum_trades_oos"]),
+            "POSITIVE_WINDOWS": (negative_temporal and no_selected_aggregates)
+                or _at_least(artifact.get("positive_windows_ratio"), temporal["minimum_positive_windows_ratio"]),
+            "OOS_PF": (negative_temporal and no_selected_aggregates)
+                or _at_least(artifact.get("oos_profit_factor"), temporal["minimum_oos_profit_factor"]),
+            "OOS_DD": (negative_temporal and no_selected_aggregates)
+                or _at_most(artifact.get("oos_drawdown_pct"), temporal["maximum_oos_drawdown_pct"]),
+            "EXPECTANCY_DECAY": (negative_temporal and no_selected_aggregates)
+                or _at_most(artifact.get("train_oos_expectancy_decay_pct"), temporal["maximum_train_oos_expectancy_decay_pct"]),
             "NO_HOLDOUT": artifact.get("holdout_accessed") is False,
         }
         if methodology.get("schema_version", 1) >= 4:
             ids = receipt.get("candidate_ids", [])
             evaluated = artifact.get("evaluated_candidate_temporal_metrics")
-            valid = (isinstance(candidate_metrics, dict) and bool(candidate_metrics)
+            valid = (isinstance(candidate_metrics, dict)
+                     and (bool(candidate_metrics) or negative_temporal)
                      and set(candidate_metrics) == set(ids)
                      and all(isinstance(metric, dict) for metric in candidate_metrics.values()))
             valid = valid and all(
@@ -818,16 +829,21 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                     and artifact.get("pareto_candidate_ids") == pareto
                     and ids == pareto
                     and candidate_metrics == {key: evaluated[key] for key in pareto},
-                "OOS_TRADES_RECOMPUTES": valid and artifact.get("oos_trades")
-                    == min(metric["oos_trades"] for metric in candidate_metrics.values()),
-                "POSITIVE_WINDOWS_RECOMPUTES": valid
+                "OOS_TRADES_RECOMPUTES": (negative_temporal and no_selected_aggregates)
+                    or (valid and artifact.get("oos_trades")
+                    == min(metric["oos_trades"] for metric in candidate_metrics.values())),
+                "POSITIVE_WINDOWS_RECOMPUTES": (negative_temporal and no_selected_aggregates)
+                    or valid
                     and artifact.get("positive_windows_ratio") == min(
                         metric["positive_windows_ratio"] for metric in candidate_metrics.values()),
-                "OOS_PF_RECOMPUTES": valid and artifact.get("oos_profit_factor")
-                    == min(metric["oos_profit_factor"] for metric in candidate_metrics.values()),
-                "OOS_DD_RECOMPUTES": valid and artifact.get("oos_drawdown_pct")
-                    == max(metric["oos_drawdown_pct"] for metric in candidate_metrics.values()),
-                "EXPECTANCY_DECAY_RECOMPUTES": valid
+                "OOS_PF_RECOMPUTES": (negative_temporal and no_selected_aggregates)
+                    or (valid and artifact.get("oos_profit_factor")
+                    == min(metric["oos_profit_factor"] for metric in candidate_metrics.values())),
+                "OOS_DD_RECOMPUTES": (negative_temporal and no_selected_aggregates)
+                    or (valid and artifact.get("oos_drawdown_pct")
+                    == max(metric["oos_drawdown_pct"] for metric in candidate_metrics.values())),
+                "EXPECTANCY_DECAY_RECOMPUTES": (negative_temporal and no_selected_aggregates)
+                    or valid
                     and artifact.get("train_oos_expectancy_decay_pct") == max(
                         metric["train_oos_expectancy_decay_pct"]
                         for metric in candidate_metrics.values()),

@@ -147,6 +147,49 @@ def test_temporal_trace_tampering_or_holdout_access_fails_closed(tmp_path):
             artifact_path=tmp_path / "invalid.json")
 
 
+def test_valid_zero_trade_candidate_is_recorded_as_temporal_reject(tmp_path):
+    trace = _trace("zero")
+    trace["train_trades"] = []
+    for window in trace["oos_windows"]:
+        window["trades"] = []
+    costs = _cost_model(tmp_path)
+    trace_path = _write(tmp_path, "zero", trace, costs)
+    artifact_path = tmp_path / "artifact-zero.json"
+    artifact = build_artifact(
+        campaign_id="campaign", trace_paths=[trace_path],
+        cost_model_path=costs,
+        methodology_path=ROOT / "methodology_v4.json",
+        artifact_path=artifact_path)
+    assert artifact["decision"] == "REJECT"
+    assert artifact["candidate_ids"] == []
+    metrics = artifact["evaluated_candidate_temporal_metrics"]["zero"]
+    assert metrics["oos_trades"] == 0
+    assert metrics["oos_profit_factor"] == 0
+    assert metrics["temporal_eligibility_failure"] == "NO_TRAIN_TRADES"
+    receipt = {"decision": "REJECT", "candidate_ids": [],
+               "holdout_accessed": False, "artifact": str(artifact_path)}
+    methodology = json.loads((ROOT / "methodology_v4.json").read_text())
+    assert validate_stage_artifact(
+        "temporal_validation", artifact, receipt, methodology,
+        "campaign", "alquimia_native") == []
+
+
+def test_non_positive_train_expectancy_is_evidence_not_pipeline_error(tmp_path):
+    trace = _trace("negative")
+    for trade in trace["train_trades"]:
+        trade["gross_return_pct"] = -0.1
+    costs = _cost_model(tmp_path)
+    path = _write(tmp_path, "negative", trace, costs)
+    artifact = build_artifact(
+        campaign_id="campaign", trace_paths=[path], cost_model_path=costs,
+        methodology_path=ROOT / "methodology_v4.json",
+        artifact_path=tmp_path / "negative-artifact.json")
+    metrics = artifact["evaluated_candidate_temporal_metrics"]["negative"]
+    assert artifact["decision"] == "REJECT"
+    assert metrics["temporal_eligibility_failure"] == "NON_POSITIVE_TRAIN_EXPECTANCY"
+    assert metrics["train_oos_expectancy_decay_pct"] == 1_000_000
+
+
 def test_temporal_artifact_rejects_when_no_candidate_passes_oos(tmp_path):
     costs = _cost_model(tmp_path)
     trace = _trace("loser", oos_win=.1, oos_loss=-1.0)

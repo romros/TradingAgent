@@ -28,4 +28,18 @@ for SLUG in btcusd ethusd; do
   fi
 done
 
+BTC_PREFLIGHT="$EVIDENCE_DIR/btcusd_h4_market_preflight_latest_v4.json"
+ETH_PREFLIGHT="$EVIDENCE_DIR/ethusd_h4_market_preflight_latest_v4.json"
+if [ -f "$BTC_PREFLIGHT" ] && [ -f "$ETH_PREFLIGHT" ]; then
+  if PYTHONPATH="$ROOT" python3 -m lab.sq_bridge.crypto_h4_screen_finalize_v4 \
+      --btc-preflight "$BTC_PREFLIGHT" --eth-preflight "$ETH_PREFLIGHT" \
+      --design "$DESIGN" --semantics "$SEMANTICS" \
+      --runtime-root "$RUNTIME_DIR" --output "$RUNTIME_DIR/global_selector.json"; then
+    :
+  else
+    printf 'CRYPTO_H4_SCREEN_FINALIZE_FAILED\n' >&2
+    STATUS=1
+  fi
+fi
+
 exit "$STATUS"

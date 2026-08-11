@@ -358,6 +358,16 @@ nocional 200 USDC a 1x, zero costos embeguts i revalidació Ostium externa
 obligatòria. Només un resultat per regió pot avançar; crear el pla encara no
 autoritza SQCLI.
 
+`crypto_h4_screen_finalize_v4.py` és l'únic productor autoritatiu del selector
+global. Espera simultàniament BTC i ETH, exigeix 18×5.000 files contigües,
+revalida la cadena ordenada de chunks i reconstrueix totes les regions. Després
+reexecuta central i membres de cada regió potencial amb les fonts i costos
+hashejats; qualsevol diferència exacta en decisió o mètrica aborta. Només
+aleshores aplica deduplicació i pressupost 60 compartit, marca
+`replay_verified=true` i permet compilar plans. El job de 10 minuts l'invoca
+després dels dos workers. Amb qualsevol preflight en BLOCK s'atura abans de
+llegir disseny, runtime, candles o performance i no escriu selector.
+
 US500 D1 aplica el mateix contracte amb un productor, bootstrap i trigger
 independents. El cron de quotes de sessió recompon el preflight i invoca el
 trigger després de cada captura; mentre no hi ha 30 mostres en tres sessions

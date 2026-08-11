@@ -8,6 +8,8 @@ def test_screen_worker_is_separate_bounded_and_sqcli_free():
     runner = (ROOT / "scripts/run_crypto_h4_screen_workers.sh").read_text()
     installer = (ROOT / "scripts/install_crypto_h4_screen_cron.sh").read_text()
     assert "crypto_h4_screen_worker_v4" in runner
+    assert "crypto_h4_screen_finalize_v4" in runner
+    assert "global_selector.json" in runner
     assert "btcusd ethusd" in runner
     assert "ALQUIMIA_CRYPTO_SCREEN_MAX_CHUNKS:-1" in runner
     assert "ALQUIMIA_CRYPTO_SCREEN_CHUNK_SIZE:-25" in runner

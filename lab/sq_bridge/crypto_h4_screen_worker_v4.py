@@ -65,10 +65,11 @@ def _expected_points(branch: dict[str, Any], prereg: dict[str, Any],
         iter_unique_points(branch["seed"], axes, branch["attempts"]), stop))
 
 
-def _resume_count(branch_dir: Path, branch: dict[str, Any], prereg: dict[str, Any],
-                  bindings: dict[str, str]) -> int:
+def load_branch_rows(branch_dir: Path, branch: dict[str, Any],
+                     prereg: dict[str, Any], bindings: dict[str, str]) -> list[dict[str, Any]]:
     files = sorted(branch_dir.glob("chunk_*.json")) if branch_dir.is_dir() else []
     completed = 0
+    all_rows: list[dict[str, Any]] = []
     expected = _expected_points(branch, prereg, branch["attempts"]) if files else []
     for path in files:
         artifact = _load(path)
@@ -85,10 +86,16 @@ def _resume_count(branch_dir: Path, branch: dict[str, Any], prereg: dict[str, An
             if (row.get("attempt") != offset + 1
                     or row.get("parameters") != expected[offset]):
                 raise ValueError(f"screen chunk does not replay design: {path}")
+        all_rows.extend(rows)
         completed = end
     if completed > branch["attempts"]:
         raise ValueError("screen branch exceeds sealed attempt budget")
-    return completed
+    return all_rows
+
+
+def _resume_count(branch_dir: Path, branch: dict[str, Any], prereg: dict[str, Any],
+                  bindings: dict[str, str]) -> int:
+    return len(load_branch_rows(branch_dir, branch, prereg, bindings))
 
 
 def run(*, preflight_path: Path, design_path: Path, semantics_path: Path,

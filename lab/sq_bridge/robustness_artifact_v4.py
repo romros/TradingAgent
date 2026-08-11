@@ -15,6 +15,7 @@ from lab.sq_bridge.small_account_artifact_v4 import (
     liquidation_distance_pct,
     select_cost_envelope,
 )
+from lab.sq_bridge.robustness_trace_v4 import rebuild_from_trace
 
 
 def _sha(path: Path) -> str:
@@ -88,6 +89,13 @@ def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
                   + robust_fixed_usdc / float(notional) * 10_000)
 
     runs = trace.get("monte_carlo_runs")
+    if (trace.get("monte_carlo_method") != gate["monte_carlo_method"]
+            or trace.get("monte_carlo_seed") != gate["monte_carlo_seed"]
+            or trace.get("parameter_variant_method")
+                != gate["parameter_variant_method"]
+            or trace.get("parameter_probability_pct")
+                != gate["parameter_probability_pct"]):
+        raise ValueError("Metode o llavor de robustesa no preregistrats")
     if not isinstance(runs, list) or len(runs) != gate["monte_carlo_runs"]:
         raise ValueError("Nombre de simulacions Monte Carlo invalid")
     run_ids, profitable, liquidated = [], 0, 0
@@ -127,9 +135,10 @@ def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
         if not isinstance(row, dict) or not isinstance(row.get("variant_id"), str):
             raise ValueError("Variant parametrica invalida")
         variant_ids.append(row["variant_id"])
-        perturbation = _number(row.get("perturbation_pct"), "Pertorbacio invalida")
-        if abs(perturbation) != gate["parameter_perturbation_pct"]:
-            raise ValueError("La variant no aplica la pertorbacio preregistrada")
+        perturbation = _number(
+            row.get("maximum_perturbation_pct"), "Pertorbacio invalida")
+        if perturbation != gate["parameter_perturbation_pct"]:
+            raise ValueError("La variant no aplica el limit de pertorbacio preregistrat")
         profitable_variants += _aggregate_net(
             row, notional, robust_variable_bps, robust_fixed_usdc,
             carry, "de variant") > 0
@@ -190,6 +199,10 @@ def build_artifact(*, campaign_id: str, trace_paths: list[Path],
     base = artifact_path.resolve().parent
     for path in trace_paths:
         trace = json.loads(path.read_text())
+        if trace.get("source") != "synthetic_control":
+            rebuilt = rebuild_from_trace(trace)
+            if rebuilt != trace:
+                raise ValueError("Trace de robustesa no reproduible des de les fonts")
         candidate_id = trace.get("candidate_id")
         metrics = evaluate_trace(trace, gate, cost_model, cost_hash)
         if candidate_id in evaluated:

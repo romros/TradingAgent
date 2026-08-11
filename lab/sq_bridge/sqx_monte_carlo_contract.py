@@ -45,10 +45,16 @@ def inspect(path: Path, *, simulations: int, probability_pct: int,
         raise ValueError("SQX_MONTE_CARLO_RESULT_COUNT_INVALID") from exc
     methods = [text.strip() for text in root.itertext() if text.strip()
                and text.strip().startswith("Randomize strategy parameters")]
+    symbol = (root.findtext("./Symbol") or "").strip()
+    timeframe = (root.findtext("./TimeFrame") or "").strip()
+    date_range = (root.findtext("./DateRange") or "").strip()
     expected_method = ("Randomize strategy parameters, with probability "
                        f"{probability_pct} % and max change {max_change_pct} %")
     indices = [row[0] for row in sorted(order_rows)]
     if (observed != simulations or methods != [expected_method]
+            or not symbol or not timeframe
+            or not re.fullmatch(r"\d{4}\.\d{2}\.\d{2} - \d{4}\.\d{2}\.\d{2}",
+                                date_range)
             or indices != list(range(simulations))
             or any(size <= 0 for _, _, size, _ in order_rows)):
         raise ValueError("SQX_MONTE_CARLO_NATIVE_EVIDENCE_INVALID")
@@ -63,6 +69,9 @@ def inspect(path: Path, *, simulations: int, probability_pct: int,
         "simulations": observed,
         "probability_pct": probability_pct,
         "max_change_pct": max_change_pct,
+        "symbol": symbol,
+        "timeframe": timeframe,
+        "date_range": date_range,
         "simulation_order_members": [name for _, name, _, _ in ordered],
         "simulation_order_sha256": [digest for _, _, _, digest in ordered],
         "all_simulation_orders_nonempty": True,

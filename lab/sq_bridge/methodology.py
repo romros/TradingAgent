@@ -92,10 +92,18 @@ def validate(config: dict) -> list[str]:
             errors.append("robustness: nocional canonic ha de ser el capital")
         if robust.get("monte_carlo_runs", 0) < 1_000:
             errors.append("robustness: Monte Carlo insuficient")
+        if robust.get("monte_carlo_method") != "iid_observed_trade_bootstrap_with_replacement":
+            errors.append("robustness: metode Monte Carlo no preregistrat")
+        if robust.get("monte_carlo_seed") != 20260811:
+            errors.append("robustness: llavor Monte Carlo no preregistrada")
         if robust.get("minimum_profitable_monte_carlo_ratio", 0) < .7:
             errors.append("robustness: probabilitat rendible massa baixa")
         if robust.get("parameter_perturbation_pct") != 10:
             errors.append("robustness: pertorbacio parametrica ha de ser 10%")
+        if robust.get("parameter_variant_method") != "strategyquant_RandomizeStrategyParameters":
+            errors.append("robustness: metode parametric SQ no preregistrat")
+        if robust.get("parameter_probability_pct") != 10:
+            errors.append("robustness: probabilitat parametrica SQ ha de ser 10%")
         if robust.get("minimum_parameter_variants", 0) < 4:
             errors.append("robustness: massa pocs veins parametritzats")
         if robust.get("minimum_profitable_parameter_variants_ratio", 0) < .75:

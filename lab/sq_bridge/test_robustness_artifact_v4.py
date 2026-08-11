@@ -15,6 +15,11 @@ def _trace(candidate_id="candidate", *, profitable_runs=700,
            profitable_variants=3, tested_leverage=5):
     return {
         "schema_version": 1, "trace_type": "robustness_simulation_trace",
+        "source": "synthetic_control",
+        "monte_carlo_method": "iid_observed_trade_bootstrap_with_replacement",
+        "monte_carlo_seed": 20260811,
+        "parameter_variant_method": "strategyquant_RandomizeStrategyParameters",
+        "parameter_probability_pct": 10,
         "candidate_id": candidate_id, "capital_usdc": 200,
         "holdout_accessed": False, "tested_leverage": tested_leverage,
         "venue_max_leverage": 100,
@@ -31,7 +36,7 @@ def _trace(candidate_id="candidate", *, profitable_runs=700,
             for index in range(1000)],
         "parameter_variants": [
             {"variant_id": f"variant-{index}",
-             "perturbation_pct": -10 if index % 2 == 0 else 10,
+             "maximum_perturbation_pct": 10,
              "gross_pnl_usdc": 1.0 if index < profitable_variants else -1.0,
              "trade_count": 30, "long_holding_days": 15,
              "short_holding_days": 15}

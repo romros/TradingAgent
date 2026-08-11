@@ -512,12 +512,30 @@ PYTHONPATH=../.. python3 sqx_monte_carlo_contract.py \
 PYTHONPATH=../.. python3 sqx_monte_carlo_materialize.py \
   --sqx /path/to/native-mc-result.sqx --output-dir /path/to/mc-runs \
   --simulations 1000 --probability-pct 10 --max-change-pct 10
+
+PYTHONPATH=../.. python3 sqcli_supervised_mc_exports.py \
+  --materialization-manifest /path/to/mc-runs/materialization.manifest.json \
+  --output-dir /mnt/volume-SQ/user/projects/ALQUIMIA_MC/exports \
+  --host-projects-root /mnt/volume-SQ/user/projects
+
+PYTHONPATH=../.. python3 robustness_trace_v4.py \
+  --candidate-id CANDIDATE_ID \
+  --temporal-trace /path/to/candidate.temporal.trace.json \
+  --mc-export-receipt /path/to/supervised-mc-exports.receipt.json \
+  --cost-model /path/to/costs-frozen-v4.json \
+  --tested-leverage 5 --venue-max-leverage 100 \
+  --output /path/to/candidate.robustness.trace.json
 ```
 
 El manifest lliga cada SQX materialitzada al binari natiu original amb
-SHA-256. Encara cal el rebut d'export supervisat dels 1.000 CSV i el
-constructor de la traça abans que una campanya real pugui declarar aquesta
-etapa `PASS`; la presència del cross-check per si sola no és suficient.
+SHA-256. L'exportador escriu un checkpoint atòmic per run, valida les columnes
+i hashes de cada CSV i reprèn després d'una interrupció sense repetir feina.
+La traça separa dues proves: 1.000 bootstraps IID dels trades observats amb
+llavor preregistrada `20260811`, i les 1.000 variants natives
+`RandomizeStrategyParameters` amb probabilitat 10% i canvi màxim ±10%.
+Reobre també el rebut temporal i exigeix la mateixa estratègia, símbol,
+timeframe i període pre-holdout. La presència del cross-check per si sola no és
+suficient.
 
 ```bash
 PYTHONPATH=../.. python3 robustness_artifact_v4.py \

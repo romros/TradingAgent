@@ -7,9 +7,12 @@ from lab.sq_bridge.sqx_monte_carlo_contract import inspect
 
 
 def _sqx(path: Path, count: int = 4, *, declared: int | None = None,
-         max_change: int = 10) -> Path:
+         max_change: int = 10, symbol: str = "EURUSD_DUKAS",
+         timeframe: str = "H4") -> Path:
     target = path / "result.sqx"
     result = f'''<RobustnessResults><NumberOfSimulations>{declared or count}</NumberOfSimulations>
+      <Symbol>{symbol}</Symbol><TimeFrame>{timeframe}</TimeFrame>
+      <DateRange>2017.01.01 - 2025.07.31</DateRange>
       <Methods><Method>Randomize strategy parameters, with probability 10 % and max change {max_change} %</Method></Methods>
     </RobustnessResults>'''
     prefix = "Results/Main: EURUSD/H4"

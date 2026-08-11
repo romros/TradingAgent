@@ -20,6 +20,7 @@ from lab.sq_bridge.temporal_validation_artifact_v4 import (
     pareto as temporal_pareto,
 )
 from lab.sq_bridge.robustness_artifact_v4 import evaluate_trace as evaluate_robustness_trace
+from lab.sq_bridge.robustness_trace_v4 import rebuild_from_trace as rebuild_robustness_trace
 from lab.sq_bridge.small_account_artifact_v4 import evaluate_trace as evaluate_small_trace
 from lab.sq_bridge.hypothesis_screen_artifact_v4 import (
     evaluate_trace as evaluate_screen_trace,
@@ -171,6 +172,9 @@ def _verified_robustness_sources(artifact: dict, reported: Any,
             path = path if path.is_absolute() else base / path
             trace = json.loads(path.read_text())
             if trace.get("candidate_id") != candidate_id:
+                return False
+            if trace.get("source") != "synthetic_control" \
+                    and rebuild_robustness_trace(trace) != trace:
                 return False
             recomputed[candidate_id] = evaluate_robustness_trace(
                 trace, gate, cost_model, artifact.get("cost_model_sha256"))

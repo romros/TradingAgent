@@ -61,8 +61,12 @@
   "robustness": {
     "evaluation_notional_usdc": 200,
     "monte_carlo_runs": 1000,
+    "monte_carlo_method": "iid_observed_trade_bootstrap_with_replacement",
+    "monte_carlo_seed": 20260811,
     "minimum_profitable_monte_carlo_ratio": 0.7,
     "parameter_perturbation_pct": 10,
+    "parameter_variant_method": "strategyquant_RandomizeStrategyParameters",
+    "parameter_probability_pct": 10,
     "minimum_parameter_variants": 4,
     "minimum_profitable_parameter_variants_ratio": 0.75,
     "cost_stress_multiplier": 2,

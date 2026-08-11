@@ -60,6 +60,17 @@ def derive(summary: dict[str, Any], *, expected_pair_id: str,
                 "paper_authorized": False, "live_authorized": False}
     if summary.get("schema_version") != 1:
         raise ValueError("execution summary must use schema_version=1")
+    independence = summary.get("independence_filter") or {}
+    independent_count = summary.get("open_market_snapshots")
+    raw_count = summary.get("raw_open_market_snapshots")
+    if (not isinstance(independent_count, int) or isinstance(independent_count, bool)
+            or not isinstance(raw_count, int) or isinstance(raw_count, bool)
+            or independent_count != actual["open_samples"]
+            or raw_count < independent_count
+            or independence.get("minimum_sample_spacing_seconds", 0) < 900
+            or not isinstance(independence.get("exact_duplicate_snapshots_ignored"), int)
+            or not isinstance(independence.get("too_close_snapshots_ignored"), int)):
+        raise ValueError("execution summary lacks independent-sample proof")
     oracle = number(oracle_locked_usdc, "oracle_locked_usdc")
     if any(count < MINIMUM_SAMPLES for count in notional_coverage.values()):
         return {
@@ -116,6 +127,11 @@ def derive(summary: dict[str, Any], *, expected_pair_id: str,
     return {
         "schema_version": 1, "decision": "PASS_COSTS_FROZEN", "costs_frozen": True,
         "instrument": instrument, "coverage": actual,
+        "independent_sample_proof": {
+            "raw_open_market_snapshots": raw_count,
+            "independent_open_market_snapshots": independent_count,
+            **independence,
+        },
         "scenario_definition": {
             "base": "median measured direction-neutral roundtrip; oracle refunded",
             "conservative": "p95 measured direction-neutral roundtrip; oracle refunded",

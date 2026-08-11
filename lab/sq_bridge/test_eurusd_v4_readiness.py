@@ -76,6 +76,13 @@ def test_mature_evidence_authorizes_only_the_hypothesis_screen(tmp_path):
                    "distinct_utc_days": {"actual": 3},
                    "distinct_utc_hours": {"actual": 6}},
     }
+    value["raw_open_market_snapshots"] = 30
+    value["open_market_snapshots"] = 30
+    value["independence_filter"] = {
+        "minimum_sample_spacing_seconds": 900,
+        "exact_duplicate_snapshots_ignored": 0,
+        "too_close_snapshots_ignored": 0,
+    }
     distribution = {"n": 30, "p50": 4.0, "p95": 6.0}
     value["roundtrip_proxy_bps_by_notional"] = {
         str(notional): {route: dict(distribution)

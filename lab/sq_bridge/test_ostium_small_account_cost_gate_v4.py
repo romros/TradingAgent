@@ -11,6 +11,13 @@ def summary(*, samples=30, days=3, hours=6):
         "schema_version": 1,
         "instrument": {"pair_id": "2", "pair_from": "EUR", "pair_to": "USD",
                        "category": "forex"},
+        "raw_open_market_snapshots": samples,
+        "open_market_snapshots": samples,
+        "independence_filter": {
+            "minimum_sample_spacing_seconds": 900,
+            "exact_duplicate_snapshots_ignored": 0,
+            "too_close_snapshots_ignored": 0,
+        },
         "gate": {"execution_economics": "PASS" if samples >= 30 and days >= 3 and hours >= 6
                  else "INSUFFICIENT_OPEN_MARKET_EVIDENCE",
                  "checks": {"open_samples": {"actual": samples},
@@ -78,3 +85,14 @@ def test_global_maturity_cannot_hide_missing_high_notional_samples():
     assert result["decision"] == "BLOCK_INSUFFICIENT_NOTIONAL_COVERAGE"
     assert result["notional_observations"]["14000"] == 29
     assert "by_notional" not in result
+
+
+def test_mature_summary_without_independence_proof_cannot_freeze_costs():
+    value = summary()
+    del value["independence_filter"]
+    with pytest.raises(ValueError, match="independent-sample proof"):
+        derive(value, expected_pair_id="2", expected_pair=("EUR", "USD"))
+    value = summary()
+    value["open_market_snapshots"] = 29
+    with pytest.raises(ValueError, match="independent-sample proof"):
+        derive(value, expected_pair_id="2", expected_pair=("EUR", "USD"))

@@ -1,6 +1,8 @@
 import hashlib
 import json
 
+import pytest
+
 from lab.sq_bridge.eurusd_v4_temporal_worker import tick
 from lab.sq_bridge.temporal_split_contract_v4 import digest
 
@@ -20,7 +22,8 @@ def _fixture(tmp_path):
     screen_dir = tmp_path / "screen"
     sq_dir = tmp_path / "sq"
     out = tmp_path / "temporal"
-    methodology = _write(tmp_path / "methodology.json", {})
+    methodology = _write(tmp_path / "methodology.json", {
+        "sq_generation": {"accepted_candidates_global_budget": 60}})
     costs = _write(tmp_path / "costs.json", {"decision": "PASS_COSTS_FROZEN"})
     preflight = _write(tmp_path / "preflight.json", {
         "input_receipts": {"costs": {"path": str(costs), "sha256": _sha(costs)}}})
@@ -38,6 +41,7 @@ def _fixture(tmp_path):
                               "generation_plan_sha256": _sha(plan)}}})
     _write(screen_dir / "screen_trigger_receipt.json", {
         "decision": "PASS_SCREEN_TRIGGER", "campaign_id": campaign,
+        "selected_hypothesis_ids": ["h1"],
         "bootstrap_path": str(bootstrap), "bootstrap_sha256": _sha(bootstrap),
         "frozen_preflight_path": str(preflight),
         "frozen_preflight_sha256": _sha(preflight),
@@ -52,7 +56,10 @@ def _fixture(tmp_path):
             "project_cfx_path": str(cfx), "project_cfx_sha256": _sha(cfx)}}})
     universe = _write(sq_dir / "global_sq_generation.json", {
         "stage": "sq_generation", "artifact_role": "global_multi_branch_candidate_universe",
-        "decision": "PASS", "campaign_id": campaign, "candidate_ids": ["A"]})
+        "decision": "PASS", "campaign_id": campaign, "candidate_ids": ["A"],
+        "expected_hypothesis_ids": ["h1"], "source_hypothesis_ids": ["h1"],
+        "source_generation_artifacts": {"h1": {"decision": "PASS"}},
+        "global_candidate_budget": 60})
     _write(sq_dir / "worker_receipt.json", {
         "decision": "PASS_SQ_GENERATION_ORCHESTRATED", "campaign_id": campaign,
         "candidate_ids": ["A"], "global_generation_artifact_path": str(universe),
@@ -139,3 +146,33 @@ def test_terminal_empty_sq_generation_never_runs_temporal(tmp_path):
         worker_config_path=config, temporal_fn=lambda **kwargs: called.append(kwargs))
     assert result["decision"] == "REJECT_NO_SQ_CANDIDATES"
     assert called == []
+
+
+def test_rejects_global_universe_not_bound_to_frozen_screen(tmp_path):
+    screen, sq_dir, out, config = _fixture(tmp_path)
+    universe = sq_dir / "global_sq_generation.json"
+    value = json.loads(universe.read_text())
+    value["expected_hypothesis_ids"] = ["h2"]
+    universe.write_text(json.dumps(value))
+    worker = sq_dir / "worker_receipt.json"
+    receipt = json.loads(worker.read_text())
+    receipt["global_generation_artifact_sha256"] = _sha(universe)
+    worker.write_text(json.dumps(receipt))
+    with pytest.raises(ValueError, match="frozen screen/budget"):
+        tick(screen_dir=screen, sq_worker_dir=sq_dir, output_dir=out,
+             worker_config_path=config, listing_fn=lambda _: [])
+
+
+def test_rejects_temporal_result_that_silently_skips_a_global_candidate(tmp_path):
+    screen, sq_dir, out, config = _fixture(tmp_path)
+
+    def temporal(**kwargs):
+        value = {"decision": "PASS", "candidate_ids": [],
+                 "evaluated_candidate_temporal_metrics": {}}
+        _write(kwargs["artifact_path"], value)
+        return value
+
+    with pytest.raises(ValueError, match="complete SQ universe"):
+        tick(screen_dir=screen, sq_worker_dir=sq_dir, output_dir=out,
+             worker_config_path=config, listing_fn=lambda _: [],
+             temporal_fn=temporal)

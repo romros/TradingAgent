@@ -67,7 +67,8 @@ def test_stage_orchestrates_each_candidate_and_reuses_retest_cfx_checkpoint(tmp_
         calls["artifact"] += 1
         value = {"stage": "temporal_validation", "campaign_id": "campaign",
                  "decision": "PASS", "candidate_ids": ["T"],
-                 "holdout_accessed": False}
+                 "holdout_accessed": False,
+                 "evaluated_candidate_temporal_metrics": {"T": {}}}
         kwargs["artifact_path"].write_text(json.dumps(value))
         return value
 
@@ -191,7 +192,8 @@ def test_global_candidate_namespace_builds_a_retest_and_temporal_trace(tmp_path)
     def artifact(**kwargs):
         value = {"stage": "temporal_validation", "campaign_id": "campaign",
                  "decision": "PASS", "candidate_ids": [global_id],
-                 "holdout_accessed": False}
+                 "holdout_accessed": False,
+                 "evaluated_candidate_temporal_metrics": {global_id: {}}}
         kwargs["artifact_path"].write_text(json.dumps(value))
         return value
 

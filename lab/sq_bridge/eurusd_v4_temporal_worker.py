@@ -143,6 +143,17 @@ def tick(*, screen_dir: Path, sq_worker_dir: Path, output_dir: Path,
     methodology_path = _verified(
         screen.get("methodology_path"), screen.get("methodology_sha256"),
         "methodology")
+    methodology = _load(methodology_path)
+    selected_hypotheses = screen.get("selected_hypothesis_ids")
+    if (not isinstance(selected_hypotheses, list)
+            or universe.get("expected_hypothesis_ids") != sorted(selected_hypotheses)
+            or universe.get("source_hypothesis_ids") != sorted(selected_hypotheses)
+            or set(universe.get("source_generation_artifacts") or {})
+                != set(selected_hypotheses)
+            or universe.get("global_candidate_budget")
+                != (methodology.get("sq_generation") or {}).get(
+                    "accepted_candidates_global_budget")):
+        raise ValueError("global SQ universe is not bound to frozen screen/budget")
     config = _load(worker_config_path.resolve())
     template = _verified(config.get("scaffold_path"), config.get("scaffold_sha256"),
                          "Retest template", worker_config_path.resolve().parent)
@@ -179,6 +190,12 @@ def tick(*, screen_dir: Path, sq_worker_dir: Path, output_dir: Path,
         slippage=0, test_precision=4)
     if artifact.get("decision") not in {"PASS", "REJECT"}:
         raise ValueError("temporal stage returned an invalid decision")
+    evaluated_ids = sorted(
+        (artifact.get("evaluated_candidate_temporal_metrics") or {}).keys())
+    if (evaluated_ids != universe["candidate_ids"]
+            or any(value not in evaluated_ids
+                   for value in artifact.get("candidate_ids", []))):
+        raise ValueError("temporal Pareto did not evaluate the complete SQ universe")
     result = {
         "schema_version": 1,
         "decision": ("PASS_TEMPORAL_VALIDATION" if artifact["decision"] == "PASS"

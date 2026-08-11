@@ -66,13 +66,33 @@ def run_stage(
         native_hashes = generation.get("candidate_native_artifact_hashes")
         source_hypotheses = generation.get("candidate_source_hypothesis_ids")
         branches = generation.get("source_generation_artifacts")
+        expected_hypotheses = generation.get("expected_hypothesis_ids")
+        global_budget = generation.get("global_candidate_budget")
         if (generation.get("identity_policy")
                 != "branch_native_name_to_deterministic_ALQ_sha256_namespace"
+                or generation.get("selection_policy")
+                    != "complete_global_universe_before_temporal_pareto"
+                or not isinstance(expected_hypotheses, list)
+                or expected_hypotheses != sorted(set(expected_hypotheses))
+                or not expected_hypotheses
+                or not isinstance(global_budget, int)
+                or isinstance(global_budget, bool) or global_budget < 1
+                or len(candidates) > global_budget
                 or any(not isinstance(value, dict) or set(value) != set(candidates)
                        for value in (native_names, native_paths, native_hashes,
                                      source_hypotheses))
-                or not isinstance(branches, dict)):
+                or not isinstance(branches, dict)
+                or set(branches) != set(expected_hypotheses)
+                or generation.get("source_hypothesis_ids") != expected_hypotheses
+                or any(value not in expected_hypotheses
+                       for value in source_hypotheses.values())):
             raise ValueError("SQ_GENERATION_IDENTITY_PROVENANCE_INVALID")
+        for hypothesis_id in expected_hypotheses:
+            branch = branches[hypothesis_id]
+            if (not isinstance(branch, dict)
+                    or branch.get("decision") not in {"PASS", "REJECT"}
+                    or not isinstance(branch.get("candidate_ids"), list)):
+                raise ValueError("SQ_GENERATION_BRANCH_UNIVERSE_INVALID")
         for candidate_id in candidates:
             native_id = native_names[candidate_id]
             hypothesis_id = source_hypotheses[candidate_id]
@@ -161,6 +181,13 @@ def run_stage(
         campaign_id=campaign_id, trace_paths=traces,
         cost_model_path=cost_model_path,
         methodology_path=methodology_path, artifact_path=artifact_path)
+    evaluated_ids = sorted(
+        (artifact.get("evaluated_candidate_temporal_metrics") or {}).keys())
+    selected_ids = artifact.get("candidate_ids")
+    if (evaluated_ids != candidates
+            or not isinstance(selected_ids, list)
+            or any(candidate_id not in candidates for candidate_id in selected_ids)):
+        raise ValueError("TEMPORAL_PARETO_DID_NOT_EVALUATE_GLOBAL_UNIVERSE")
     artifact["sq_generation_artifact_path"] = str(generation_artifact_path)
     artifact["sq_generation_artifact_sha256"] = _sha(generation_artifact_path)
     artifact["methodology_path"] = str(methodology_path.resolve())

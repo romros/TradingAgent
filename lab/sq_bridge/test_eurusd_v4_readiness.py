@@ -87,6 +87,10 @@ def test_mature_evidence_authorizes_only_the_hypothesis_screen(tmp_path):
     value["independent_source_raw_sha256"] = sorted([
         hashlib.sha256(f"raw-{index}".encode()).hexdigest()
         for index in range(30)])
+    value["source_contract"] = {
+        "package": "@ostium/builder-sdk", "version": "0.7.0",
+        "mode": "read-only", "builder_fee_bps": 0,
+    }
     distribution = {"n": 30, "p50": 4.0, "p95": 6.0}
     value["roundtrip_proxy_bps_by_notional"] = {
         str(notional): {route: dict(distribution)

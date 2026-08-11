@@ -62,6 +62,7 @@ def derive(summary: dict[str, Any], *, expected_pair_id: str,
         raise ValueError("execution summary must use schema_version=1")
     independence = summary.get("independence_filter") or {}
     independent_raw_hashes = summary.get("independent_source_raw_sha256")
+    source_contract = summary.get("source_contract")
     independent_count = summary.get("open_market_snapshots")
     raw_count = summary.get("raw_open_market_snapshots")
     if (not isinstance(independent_count, int) or isinstance(independent_count, bool)
@@ -78,6 +79,13 @@ def derive(summary: dict[str, Any], *, expected_pair_id: str,
                    or any(character not in "0123456789abcdef" for character in value)
                    for value in independent_raw_hashes)):
         raise ValueError("execution summary lacks independent-sample proof")
+    if (not isinstance(source_contract, dict)
+            or source_contract.get("package") != "@ostium/builder-sdk"
+            or not isinstance(source_contract.get("version"), str)
+            or not source_contract["version"].strip()
+            or source_contract.get("mode") != "read-only"
+            or source_contract.get("builder_fee_bps") != 0):
+        raise ValueError("execution summary source contract invalid")
     oracle = number(oracle_locked_usdc, "oracle_locked_usdc")
     if any(count < MINIMUM_SAMPLES for count in notional_coverage.values()):
         return {
@@ -138,6 +146,7 @@ def derive(summary: dict[str, Any], *, expected_pair_id: str,
             "raw_open_market_snapshots": raw_count,
             "independent_open_market_snapshots": independent_count,
             "independent_source_raw_sha256": independent_raw_hashes,
+            "source_contract": source_contract,
             **independence,
         },
         "scenario_definition": {

@@ -23,6 +23,8 @@ def summary(*, samples=30, days=3, hours=6):
         "independent_source_raw_sha256": sorted([
             hashlib.sha256(f"raw-{index}".encode()).hexdigest()
             for index in range(samples)]),
+        "source_contract": {"package": "@ostium/builder-sdk", "version": "0.7.0",
+                            "mode": "read-only", "builder_fee_bps": 0},
         "gate": {"execution_economics": "PASS" if samples >= 30 and days >= 3 and hours >= 6
                  else "INSUFFICIENT_OPEN_MARKET_EVIDENCE",
                  "checks": {"open_samples": {"actual": samples},

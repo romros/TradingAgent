@@ -414,6 +414,10 @@ Cada mostra independent ha de portar un SHA-256 raw únic, minúscul i canònic.
 El congelador exigeix una correspondència 1:1 entre aquests hashes, el nombre
 de mostres independents i el comptador del gate, i conserva la llista dins la
 prova d'origen del model congelat.
+La mateixa sèrie ha de conservar un únic contracte de font: paquet
+`@ostium/builder-sdk`, versió no buida, mode `read-only` i builder fee zero.
+Qualsevol deriva de versió, mode o surcharge falla abans de combinar els
+percentils; el contracte exacte també queda copiat al model de costos congelat.
 
 El paquet paper usa unitats explícites: `risk_per_trade_pct` són punts
 percentuals i `risk_per_trade_fraction` és la fracció executable. Abans de

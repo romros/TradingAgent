@@ -42,6 +42,16 @@ class NormalizeOstiumSnapshotTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "read-only"):
             normalize(payload)
 
+    def test_rejects_unknown_or_unversioned_source_package(self):
+        payload = self.fixture()
+        payload["source"]["package"] = "lookalike"
+        with self.assertRaisesRegex(ValueError, "source package"):
+            normalize(payload)
+        payload = self.fixture()
+        payload["source"]["version"] = ""
+        with self.assertRaisesRegex(ValueError, "version"):
+            normalize(payload)
+
     def test_rejects_builder_surcharge_in_research_capture(self):
         payload = self.fixture()
         payload["source"]["builderFeeBps"] = 1

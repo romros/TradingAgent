@@ -85,6 +85,26 @@ def aggregate(
         independent_raw_hashes.append(digest)
     if len(set(independent_raw_hashes)) != len(independent_raw_hashes):
         raise ValueError("independent snapshots reuse a raw SHA-256")
+    source_contracts = {
+        (row["source"].get("package"), row["source"].get("version"),
+         row["source"].get("mode"), float(row["source"].get("builder_fee_bps", 0)))
+        for row in opened
+    }
+    if len(source_contracts) > 1:
+        raise ValueError(f"independent snapshot source contract drift: {source_contracts}")
+    if source_contracts:
+        source_package, source_version, source_mode, builder_fee_bps = next(
+            iter(source_contracts))
+        if (source_package != "@ostium/builder-sdk" or source_mode != "read-only"
+                or not isinstance(source_version, str) or not source_version.strip()
+                or builder_fee_bps != 0):
+            raise ValueError("independent snapshot source contract invalid")
+        source_contract = {
+            "package": source_package, "version": source_version,
+            "mode": source_mode, "builder_fee_bps": builder_fee_bps,
+        }
+    else:
+        source_contract = None
     days = sorted({stamp.date().isoformat() for stamp in timestamps})
     hours = sorted({stamp.hour for stamp in timestamps})
     spreads = [float(row["quote"]["spread_bps"]) for row in opened]
@@ -170,6 +190,7 @@ def aggregate(
             if row.get("source", {}).get("raw_sha256")
         }),
         "independent_source_raw_sha256": sorted(independent_raw_hashes),
+        "source_contract": source_contract,
         "observed_utc_days": days,
         "observed_utc_hours": hours,
         "spread_bps": {"p50": percentile(spreads, .5), "p95": percentile(spreads, .95), "max": max(spreads) if spreads else None},

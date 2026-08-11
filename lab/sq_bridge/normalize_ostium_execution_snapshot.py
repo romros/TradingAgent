@@ -23,6 +23,10 @@ def _number(value: Any, field: str) -> float:
 def normalize(payload: dict[str, Any], *, source_sha256: str | None = None,
               expected_pair: tuple[str, str] | None = None) -> dict[str, Any]:
     source = payload.get("source") or {}
+    if source.get("package") != "@ostium/builder-sdk":
+        raise ValueError("snapshot source package must be @ostium/builder-sdk")
+    if not isinstance(source.get("version"), str) or not source["version"].strip():
+        raise ValueError("snapshot source version is required")
     if source.get("mode") != "read-only":
         raise ValueError("snapshot source must be read-only")
     builder_fee_bps = _number(source.get("builderFeeBps", 0), "source.builderFeeBps")

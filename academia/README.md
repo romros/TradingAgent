@@ -4,6 +4,10 @@ Base de coneixement genèrica i ampliable per aprendre, ensenyar i consultar amb
 evidències. StrategyQuant és el primer paquet de domini. No és un arxiu de
 promeses de rendibilitat ni participa en l'execució de trading.
 
+Per continuar la feina sense perdre el focus, començar sempre per
+[`CURRENT.md`](CURRENT.md). Resumeix què mana, què està actiu i què és només
+històric.
+
 ## Objectius
 
 Objectiu operatiu d'Alquímia: construir un catàleg de components per EUR/USD,
@@ -27,6 +31,7 @@ python3 academia/tools/ostium_objective_status.py
 ```text
 academia/
 ├── README.md
+├── CURRENT.md                # objectiu, estat i única feina activa
 ├── POLICY.md                 # evidència, copyright i promoció de coneixement
 ├── sources/                  # fitxes de manuals, webs, papers i vídeos
 ├── notes/                    # destil·lacions amb cites i contradiccions
@@ -39,7 +44,10 @@ academia/
 ├── audits/                   # decisions sobre eines i dependències
 ├── deploy/                   # contracte de desplegament futur
 ├── catalog/                  # esquema SQLite/FTS i decisions de recuperació
-└── tools/                    # ingesta, validació i cerca deterministes
+├── skills/                   # coneixement executable per a agents
+├── tests/                    # verificació determinista
+├── tools/                    # ingesta, validació i cerca deterministes
+└── runtime/                  # artefactes locals ignorats; no són font canònica
 ```
 
 ## Ús local

@@ -1,5 +1,10 @@
 # Experiments d'aprenentatge
 
+`pending/` conserva preregistres i traça històrica: el nom del directori no implica
+que tots siguin feina pendent. L'única cua operativa vigent es declara a
+`../CURRENT.md`, i l'estat quantitatiu canònic és el catàleg del paquet
+StrategyQuant. No executar un manifest només perquè sigui dins `pending/`.
+
 Una afirmació de configuració SQ es verifica aquí amb:
 
 - hipòtesi preregistrada;

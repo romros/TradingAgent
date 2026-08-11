@@ -1,6 +1,6 @@
 ---
 name: strategyquant-alquimia
-description: Design, review, and explain StrategyQuant research campaigns for Alquímia using evidence-based, practical decisions. Use when an agent must plan Builder/Retester/Optimizer workflows, assess generated strategies, choose robustness tests, diagnose overfitting or contaminated holdouts, compare candidates, or turn StrategyQuant results into a concise continue/test/reject recommendation. Do not use it to execute live trades or promise profitability.
+description: Design, review, and explain StrategyQuant and Ostium small-account research for Alquímia using evidence-based, practical decisions. Use when an agent must build the 200–500 USDC strategy catalog, move from backtest numbers to executable reality, measure venue costs, plan Builder/Retester/Optimizer workflows, assess generated strategies, diagnose overfitting or contaminated holdouts, compare candidates, or produce a concise continue/test/reject recommendation. Do not use it to execute live trades or promise profitability.
 ---
 
 # StrategyQuant Alquímia
@@ -30,6 +30,9 @@ no backtests que simplement semblin espectaculars.
 - Per aprendre d'artifacts i fracassos, llegir [learning.md](references/learning.md).
 - Per passar del backtest a la realitat, llegir [regimes.md](references/regimes.md).
 - Per cartera, exportació, automatització i monitoratge, llegir [operations.md](references/operations.md).
+- Per qualsevol treball del catàleg 200–500 USDC a Ostium, costos reals o objectiu
+  500→1.000, llegir obligatòriament
+  [ostium-reality-gate.md](references/ostium-reality-gate.md) abans d'actuar.
 
 ## Regles de batalla
 
@@ -44,6 +47,8 @@ no backtests que simplement semblin espectaculars.
 - No canviar criteris després de veure resultats sense nova campanya.
 - No promoure cap finalista sense informe de règims i economia actual.
 - No tocar BrokerageService, Ostium ni execució de trading.
+- No gastar SQCLI si la família encara falla causalitat, dades point-in-time,
+  freqüència, moviment brut o costos mesurats.
 
 ## Format de resposta
 

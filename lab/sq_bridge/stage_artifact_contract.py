@@ -30,6 +30,10 @@ from lab.sq_bridge.hypothesis_screen_artifact_v4 import (
 )
 from lab.sq_bridge.us500_d1_market_preflight_v4 import compose as compose_us500_preflight
 from lab.sq_bridge.eurusd_d1_market_preflight_v4 import compose as compose_eurusd_preflight
+from lab.sq_bridge.eurusd_v4_hypotheses import (
+    HYPOTHESIS_MARKET_SIDES as V4_HYPOTHESIS_MARKET_SIDES,
+    SEARCH_PROFILES as V4_HYPOTHESIS_SEARCH_PROFILES,
+)
 from lab.sq_bridge.temporal_split_contract_v4 import digest as temporal_digest, sq_periods
 
 
@@ -431,12 +435,12 @@ def _verified_sq_prerequisite_chain(artifact: dict, manifest: dict,
     except OSError:
         same_path = False
     temporal_valid = True
-    profiles = {
-        "d1_breakout": "eurusd_d1_breakout_v4",
-        "d1_momentum": "eurusd_d1_momentum_v4",
-        "d1_shock_reversion": "eurusd_d1_shock_reversion_v4",
-    }
+    profiles = V4_HYPOTHESIS_SEARCH_PROFILES
     source_id = manifest.get("source_hypothesis_id")
+    if (manifest.get("market") == "EURUSD"
+            and isinstance(source_id, str) and source_id.startswith("d1_")
+            and source_id not in profiles):
+        temporal_valid = False
     if manifest.get("market") == "EURUSD" and source_id in profiles:
         try:
             contract_path = Path(manifest["temporal_split_contract_path"])
@@ -449,6 +453,8 @@ def _verified_sq_prerequisite_chain(artifact: dict, manifest: dict,
             trace = json.loads(trace_path.read_text())
             temporal_valid = (
                 manifest.get("search_profile") == profiles[source_id]
+                and manifest.get("market_side")
+                    == V4_HYPOTHESIS_MARKET_SIDES[source_id]
                 and manifest.get("temporal_split_contract_sha256")
                     == temporal_digest(contract)
                 and manifest.get("temporal_source_sha256") == contract.get("source_sha256")

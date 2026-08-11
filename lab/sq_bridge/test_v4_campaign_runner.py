@@ -84,6 +84,7 @@ if stage == 'hypothesis_screen':
         variants.append({
             'variant_id': variant_id,
             'neighbor_of': None if variant_id == 'central' else 'central',
+            'market_side': 'both',
             'trades': [{'trade_id': f'{variant_id}-trade-{index:02d}',
                         'entry_timestamp': (date(2000, 1, 3)
                             + timedelta(days=index * 2)).isoformat() + 'T00:00:00+00:00',
@@ -107,7 +108,7 @@ if stage == 'hypothesis_screen':
         'temporal_split': split,
         'temporal_contract': split_contract,
         'temporal_contract_sha256': split_digest(split_contract),
-        'hypotheses': [{'hypothesis_id': 'hypothesis-control',
+        'hypotheses': [{'hypothesis_id': 'hypothesis-control', 'market_side': 'both',
                         'central_variant_id': 'central', 'variants': variants}]}))
     artifact = build_screen(
         campaign_id='runner-test', trace_path=trace_path,

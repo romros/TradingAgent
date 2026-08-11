@@ -162,6 +162,9 @@ def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
             raise ValueError("Hipotesi del screen invalida")
         hypothesis_id = hypothesis["hypothesis_id"]
         hypothesis_ids.append(hypothesis_id)
+        market_side = hypothesis.get("market_side")
+        if market_side not in {"both", "long", "short"}:
+            raise ValueError("Direccio de la hipotesi del screen invalida")
         variants = hypothesis.get("variants")
         if not isinstance(variants, list) or not variants:
             raise ValueError("Variants del screen absents")
@@ -171,6 +174,8 @@ def evaluate_trace(trace: dict, gate: dict, cost_model: dict,
                 raise ValueError("Variant del screen invalida")
             variant_id = variant["variant_id"]
             variant_ids.append(variant_id)
+            if variant.get("market_side") != market_side:
+                raise ValueError("Direccio de variant no coincideix amb la hipotesi")
             metrics[variant_id] = _variant_metrics(
                 variant, scenarios, notional, cost_bps, carry, train_end)
             attempted += 1

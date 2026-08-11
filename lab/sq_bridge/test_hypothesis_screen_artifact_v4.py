@@ -15,6 +15,7 @@ ROOT = Path(__file__).parent
 
 def _variant(variant_id, *, wins=30, neighbor_of="central"):
     return {"variant_id": variant_id, "neighbor_of": neighbor_of,
+            "market_side": "both",
             "trades": [{"trade_id": f"{variant_id}-trade-{index:02d}",
                         "entry_timestamp": (
                             date(2000, 1, 3) + timedelta(days=index * 2)).isoformat()
@@ -34,6 +35,7 @@ def _trace(*, neighbor_wins=(30, 30)):
             "holdout_accessed": False, "cost_model_sha256": "",
             "screen_notional_usdc": 200,
             "hypotheses": [{"hypothesis_id": "hypothesis",
+                            "market_side": "both",
                             "central_variant_id": "central",
                             "variants": [
                                 _variant("central", neighbor_of=None),

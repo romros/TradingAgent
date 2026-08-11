@@ -38,7 +38,8 @@
     "minimum_profit_factor_train": 1.2,
     "minimum_stable_neighbors": 2,
     "cost_scenarios_required": ["base", "conservative", "stress"],
-    "future_periods_accessed": false
+    "future_periods_accessed": false,
+    "direction_policy": "each_family_screened_independently_as_both_long_short"
   },
   "sq_generation": {
     "generator": "StrategyQuant",
@@ -92,6 +93,7 @@
       }
     },
     "selection_policy": "all_supported_translatable_unique_candidates",
+    "calendar_filter_policy": "day_of_week_allowed_but_intraday_hours_forbidden_on_D1",
     "robustness_during_generation": false
   },
   "temporal_validation": {

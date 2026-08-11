@@ -12,7 +12,7 @@ from lab.sq_bridge.temporal_split_contract_v4 import build_contract, digest
 ROOT = Path(__file__).parent
 
 
-def _sources(tmp_path, hypothesis="d1_breakout"):
+def _sources(tmp_path, hypothesis="d1_breakout_both"):
     source, rows = tmp_path / "source.csv", []
     for index in range(1000):
         day = date(2000, 1, 1) + timedelta(days=index)
@@ -60,6 +60,7 @@ def test_compiler_maps_screened_family_to_exact_sq_profile_and_periods(tmp_path,
         plan_output=tmp_path / "plan.json")
     assert result["decision"] == "PASS_GENERATION_PLAN"
     assert result["search_profile"] == "eurusd_d1_breakout_v4"
+    assert result["market_side"] == "both"
     assert result["generation_type"] == "genetic-evolution"
     assert result["attempt_budget"] == 10_000
     assert result["attempt_stop_guard"] == 64
@@ -72,11 +73,24 @@ def test_compiler_maps_screened_family_to_exact_sq_profile_and_periods(tmp_path,
     assert result["performance_recomputed"] is False
 
 
+def test_compiler_preserves_screened_long_only_direction(tmp_path, monkeypatch):
+    _authorized(monkeypatch)
+    methodology, _, screen, chain, _ = _sources(
+        tmp_path, hypothesis="d1_momentum_long")
+    result = planner.compile_plan(
+        screen_path=screen, chain_path=chain, methodology_path=methodology,
+        period_contract_output=tmp_path / "periods.json",
+        plan_output=tmp_path / "plan.json")
+    assert result["search_profile"] == "eurusd_d1_momentum_v4"
+    assert result["market_side"] == "long"
+    assert result["alquimia_project_arguments"]["market_side"] == "long"
+
+
 def test_compiler_rejects_unscreened_family_and_trace_tampering(tmp_path, monkeypatch):
     _authorized(monkeypatch)
     methodology, trace, screen, chain, _ = _sources(tmp_path)
     value = json.loads(chain.read_text())
-    value["hypothesis_id"] = "d1_momentum"
+    value["hypothesis_id"] = "d1_momentum_both"
     chain.write_text(json.dumps(value))
     with pytest.raises(ValueError, match="did not pass"):
         planner.compile_plan(

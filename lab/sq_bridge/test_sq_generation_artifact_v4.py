@@ -207,7 +207,7 @@ def test_eurusd_generation_receipt_revalidates_profile_and_exact_period_contract
         "hypothesis_screen_trace_sha256": hashlib.sha256(trace.read_bytes()).hexdigest()}))
     chain = tmp_path / "chain-known.json"
     chain.write_text(json.dumps({
-        "campaign_id": "campaign-v4", "hypothesis_id": "d1_breakout",
+        "campaign_id": "campaign-v4", "hypothesis_id": "d1_breakout_both",
         "receipts": [
             {"stage": "market_preflight", "decision": "PASS",
              "receipt_sha256": "a" * 64},
@@ -215,8 +215,9 @@ def test_eurusd_generation_receipt_revalidates_profile_and_exact_period_contract
              "receipt_sha256": "b" * 64, "artifact": str(screen)}]}))
     manifest = {
         "campaign_id": "campaign-v4", "market": "EURUSD",
-        "source_hypothesis_id": "d1_breakout",
+        "source_hypothesis_id": "d1_breakout_both",
         "search_profile": "eurusd_d1_breakout_v4",
+        "market_side": "both",
         "evidence_chain_path": str(chain),
         "evidence_chain_sha256": hashlib.sha256(chain.read_bytes()).hexdigest(),
         "market_preflight_receipt_sha256": "a" * 64,
@@ -227,11 +228,16 @@ def test_eurusd_generation_receipt_revalidates_profile_and_exact_period_contract
         "periods": sq_periods(contract),
     }
     assert _validate_project_chain(
-        manifest, methodology_path, "campaign-v4", ["d1_breakout"])["sha256"]
+        manifest, methodology_path, "campaign-v4", ["d1_breakout_both"])["sha256"]
+    manifest["market_side"] = "short"
+    with pytest.raises(ValueError, match="temporal/perfil"):
+        _validate_project_chain(
+            manifest, methodology_path, "campaign-v4", ["d1_breakout_both"])
+    manifest["market_side"] = "both"
     manifest["periods"]["train_to"] = "2099-01-01"
     with pytest.raises(ValueError, match="temporal/perfil"):
         _validate_project_chain(
-            manifest, methodology_path, "campaign-v4", ["d1_breakout"])
+            manifest, methodology_path, "campaign-v4", ["d1_breakout_both"])
 
 
 def test_contract_reopens_sqx_and_rejects_spoofed_rule_count(tmp_path):

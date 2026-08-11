@@ -40,6 +40,7 @@ assert "EnterAtStop" not in sweep and "Indicators.SMA" not in sweep
 eurusd_breakout = SEARCH_PROFILES["eurusd_d1_breakout_v4"]
 assert {"Indicators.Highest", "Indicators.Lowest", "EnterAtMarket"}.issubset(
     eurusd_breakout)
+assert "BarDayOfWeekIs" in eurusd_breakout
 assert "Indicators.ATR" not in eurusd_breakout and "Indicators.ADX" not in eurusd_breakout
 assert {"Indicators.ROC", "Indicators.SMA", "Indicators.EMA"}.issubset(
     SEARCH_PROFILES["eurusd_d1_momentum_v4"])

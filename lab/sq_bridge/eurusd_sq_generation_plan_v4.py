@@ -8,7 +8,10 @@ import json
 import re
 from pathlib import Path
 
-from lab.sq_bridge.alquimia_project import V4_HYPOTHESIS_SEARCH_PROFILES
+from lab.sq_bridge.eurusd_v4_hypotheses import (
+    HYPOTHESIS_MARKET_SIDES as V4_HYPOTHESIS_MARKET_SIDES,
+    SEARCH_PROFILES as V4_HYPOTHESIS_SEARCH_PROFILES,
+)
 from lab.sq_bridge.evidence_chain import verify as verify_chain
 from lab.sq_bridge.temporal_split_contract_v4 import digest, sq_periods
 
@@ -48,7 +51,8 @@ def compile_plan(*, screen_path: Path, chain_path: Path,
             or hypothesis_id not in screen.get("selected_hypothesis_ids", [])):
         raise ValueError("chain hypothesis did not pass the frozen screen")
     profile = V4_HYPOTHESIS_SEARCH_PROFILES.get(hypothesis_id)
-    if profile is None:
+    market_side = V4_HYPOTHESIS_MARKET_SIDES.get(hypothesis_id)
+    if profile is None or market_side is None:
         raise ValueError("screened EURUSD hypothesis has no translatable SQ profile")
     trace_path = _resolve(
         screen_path.parent, screen.get("hypothesis_screen_trace_path", ""))
@@ -74,7 +78,7 @@ def compile_plan(*, screen_path: Path, chain_path: Path,
         "generation_type": methodology["sq_generation"]["search_method"].replace("_", "-"),
         "attempt_budget": methodology["sq_generation"]["maximum_attempts"],
         "attempt_stop_guard": methodology["sq_generation"]["attempt_stop_guard"],
-        "accepted_limit": 64, "market_side": "both",
+        "accepted_limit": 64, "market_side": market_side,
         "maximum_rules": methodology["sq_generation"]["max_rules"],
         "date_from": contract["source_first"], "date_to": contract["source_last"],
         "periods": periods, "holdout_sealed": True,
@@ -90,7 +94,7 @@ def compile_plan(*, screen_path: Path, chain_path: Path,
             "search_profile": profile, "generation_type": "genetic-evolution",
             "attempt_budget": methodology["sq_generation"]["maximum_attempts"],
             "attempt_stop_guard": methodology["sq_generation"]["attempt_stop_guard"],
-            "accepted_limit": 64, "market_side": "both",
+            "accepted_limit": 64, "market_side": market_side,
             "date_from": contract["source_first"], "date_to": contract["source_last"],
             "evidence_chain": str(chain_path.resolve()),
             "campaign_id": chain["campaign_id"],

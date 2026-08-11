@@ -55,12 +55,15 @@ def test_producer_is_deterministic_preregistered_and_train_only(tmp_path):
     assert first["source_sha256"] == hashlib.sha256(source.read_bytes()).hexdigest()
     assert first["source_rows"] == 600
     assert first["train_rows"] == 300
-    assert first["attempted_variants"] == 9
+    assert first["attempted_variants"] == 27
     assert [row["hypothesis_id"] for row in first["hypotheses"]] == [
-        "d1_breakout", "d1_momentum", "d1_shock_reversion"]
+        f"{family}_{side}"
+        for family in ("d1_breakout", "d1_momentum", "d1_shock_reversion")
+        for side in ("both", "long", "short")]
     train_end = first["train_end_utc"]
     for hypothesis in first["hypotheses"]:
         assert len(hypothesis["variants"]) == 3
+        assert hypothesis["market_side"] in {"both", "long", "short"}
         central = hypothesis["variants"][0]
         assert central["variant_id"] == hypothesis["central_variant_id"]
         assert central["neighbor_of"] is None
@@ -72,6 +75,10 @@ def test_producer_is_deterministic_preregistered_and_train_only(tmp_path):
         assert all(trade["exit_timestamp"] <= train_end
                    for variant in hypothesis["variants"]
                    for trade in variant["trades"])
+        if hypothesis["market_side"] != "both":
+            assert all(trade["side"] == hypothesis["market_side"]
+                       for variant in hypothesis["variants"]
+                       for trade in variant["trades"])
 
 
 def test_produced_trace_satisfies_real_screen_contract(tmp_path):
@@ -83,9 +90,11 @@ def test_produced_trace_satisfies_real_screen_contract(tmp_path):
         campaign_id="campaign", trace_path=trace_path, cost_model_path=costs,
         methodology_path=ROOT / "methodology_v4.json",
         artifact_path=tmp_path / "artifact.json")
-    assert artifact["attempted"] == 9
+    assert artifact["attempted"] == 27
     assert set(artifact["evaluated_hypothesis_metrics"]) == {
-        "d1_breakout", "d1_momentum", "d1_shock_reversion"}
+        f"{family}_{side}"
+        for family in ("d1_breakout", "d1_momentum", "d1_shock_reversion")
+        for side in ("both", "long", "short")}
     assert artifact["source_trade_replay_verified"] is True
 
 

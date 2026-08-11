@@ -152,7 +152,11 @@ consultat durant l'extensió.
 Esperar que `scripts/capture_ostium_research_universe_economics.sh` completi almenys
 30 observacions, tres dies laborables i sis hores UTC per EURUSD. Només aleshores
 es congelaran costos base, conservadors i d'estrès per a 200 USDC. Si aquests
-costos passen **i el recurs SQ nou passa**, el següent pas és una única família D1 preregistrada i un screen
+costos passen **i el recurs SQ nou passa**, el següent pas són tres mecanismes
+D1 preregistrats —breakout, momentum i reversió de shock—, cadascun cribrat de
+manera independent com both/long/short. Això produeix 9 hipòtesis i 27 variants
+de screen train-only abans d'SQ. Els projectes genètics poden provar dia de la
+setmana, però no hores intradia perquè la font és D1 NY-17. El screen
 train-only v4; no una exploració retrospectiva de resultats antics.
 
 Després de cada captura, `scripts/refresh_eurusd_v4_preflight.sh` recompòn dos

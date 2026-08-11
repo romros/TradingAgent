@@ -17,6 +17,10 @@ from lab.sq_bridge.temporal_split_contract_v4 import (
     digest as temporal_contract_digest,
     sq_periods,
 )
+from lab.sq_bridge.eurusd_v4_hypotheses import (
+    HYPOTHESIS_MARKET_SIDES as V4_HYPOTHESIS_MARKET_SIDES,
+    SEARCH_PROFILES as V4_HYPOTHESIS_SEARCH_PROFILES,
+)
 
 TRANSLATABLE_BLOCKS = {
     "Prices.High", "Prices.Low", "Prices.Close",
@@ -80,29 +84,22 @@ SEARCH_PROFILES = {
     "eurusd_d1_breakout_v4": {
         "Prices.Close", "Prices.High", "Prices.Low",
         "Indicators.Highest", "Indicators.Lowest",
-        "IsGreater", "IsLower", "CrossesAbove", "CrossesBelow",
+        "IsGreater", "IsLower", "CrossesAbove", "CrossesBelow", "BarDayOfWeekIs",
         "EnterAtMarket", "ExitAfterBars.ExitAfterBars", "StopLoss.StopLoss",
     },
     "eurusd_d1_momentum_v4": {
         "Prices.Close", "Indicators.SMA", "Indicators.EMA", "Indicators.ROC",
-        "IsGreater", "IsLower", "CrossesAbove", "CrossesBelow",
+        "IsGreater", "IsLower", "CrossesAbove", "CrossesBelow", "BarDayOfWeekIs",
         "IsRising", "IsFalling", "EnterAtMarket",
         "ExitAfterBars.ExitAfterBars", "StopLoss.StopLoss",
     },
     "eurusd_d1_shock_reversion_v4": {
         "Prices.Close", "Indicators.RSI", "Indicators.ROC",
-        "IsGreater", "IsLower", "CrossesAbove", "CrossesBelow",
+        "IsGreater", "IsLower", "CrossesAbove", "CrossesBelow", "BarDayOfWeekIs",
         "IsRising", "IsFalling", "EnterAtMarket",
         "ExitAfterBars.ExitAfterBars", "StopLoss.StopLoss",
     },
 }
-
-V4_HYPOTHESIS_SEARCH_PROFILES = {
-    "d1_breakout": "eurusd_d1_breakout_v4",
-    "d1_momentum": "eurusd_d1_momentum_v4",
-    "d1_shock_reversion": "eurusd_d1_shock_reversion_v4",
-}
-
 
 def _sha256(payload: bytes) -> str:
     return hashlib.sha256(payload).hexdigest()

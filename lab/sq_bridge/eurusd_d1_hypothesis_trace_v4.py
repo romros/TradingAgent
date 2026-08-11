@@ -43,6 +43,7 @@ FAMILIES = (
         ("shock_1_75", {"shock_atr": 1.75, "hold_bars": 5, "stop_atr": 2.0}),
     )),
 )
+MARKET_SIDES = ("both", "long", "short")
 PRODUCER_ID = "eurusd_d1_preregistered_hypotheses_v4"
 
 
@@ -126,7 +127,9 @@ def signal(bars: list[Bar], atrs: list[float], index: int,
 
 
 def simulate(bars: list[Bar], family: str, params: dict,
-             variant_id: str) -> list[dict]:
+             variant_id: str, market_side: str = "both") -> list[dict]:
+    if market_side not in MARKET_SIDES:
+        raise ValueError(f"unknown market side: {market_side}")
     atrs = sq_atr_values(true_ranges(bars))
     trades, index = [], 20
     # A signal is admissible only when its complete preregistered holding
@@ -134,7 +137,7 @@ def simulate(bars: list[Bar], family: str, params: dict,
     # a censored outcome as though it were a genuine timed exit.
     while index + 1 + params["hold_bars"] < len(bars):
         side = signal(bars, atrs, index, family, params)
-        if side is None:
+        if side is None or (market_side != "both" and side != market_side):
             index += 1
             continue
         entry_index = index + 1
@@ -168,24 +171,30 @@ def simulate(bars: list[Bar], family: str, params: dict,
 
 def build_hypotheses(train: list[Bar]) -> list[dict]:
     hypotheses = []
-    for hypothesis_id, family, definitions in FAMILIES:
-        central = f"{hypothesis_id}__central"
-        variants = []
-        for suffix, params in definitions:
-            variant_id = f"{hypothesis_id}__{suffix}"
-            variants.append({
-                "variant_id": variant_id,
-                "neighbor_of": None if suffix == "central" else central,
-                "family": family, "parameters": params,
-                "trades": simulate(train, family, params, variant_id),
-            })
-        hypotheses.append({"hypothesis_id": hypothesis_id,
-                           "central_variant_id": central,
-                           "economic_rationale": {
-                               "breakout": "persistent FX repricing after range escape",
-                               "momentum": "medium-horizon currency trend persistence",
-                               "shock_reversion": "short-horizon liquidity shock normalization",
-                           }[family], "variants": variants})
+    for base_id, family, definitions in FAMILIES:
+        for market_side in MARKET_SIDES:
+            hypothesis_id = f"{base_id}_{market_side}"
+            central = f"{hypothesis_id}__central"
+            variants = []
+            for suffix, params in definitions:
+                variant_id = f"{hypothesis_id}__{suffix}"
+                variants.append({
+                    "variant_id": variant_id,
+                    "neighbor_of": None if suffix == "central" else central,
+                    "family": family, "market_side": market_side,
+                    "parameters": params,
+                    "trades": simulate(train, family, params, variant_id,
+                                       market_side),
+                })
+            hypotheses.append({"hypothesis_id": hypothesis_id,
+                               "base_hypothesis_id": base_id,
+                               "market_side": market_side,
+                               "central_variant_id": central,
+                               "economic_rationale": {
+                                   "breakout": "persistent FX repricing after range escape",
+                                   "momentum": "medium-horizon currency trend persistence",
+                                   "shock_reversion": "short-horizon liquidity shock normalization",
+                               }[family], "variants": variants})
     return hypotheses
 
 

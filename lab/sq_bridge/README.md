@@ -698,8 +698,20 @@ Com que l'entrada és a l'open, cada preu o indicador del senyal ha de tenir
 `Shift` efectiu ≥1. El projecte SQ ho configura així i la traducció ho recalcula
 des de l'AST; un SQX amb `Close[0]` o indicador equivalent falla per look-ahead.
 
-La traducció no consulta el holdout. El verificador reconstrueix l'IR des del
-SQX i exigeix coincidència exacta. Aquesta especificació executable continua
+La traducció només s'inicia després del PASS del holdout i consumeix exactament
+el SQX hashat dins la seva traça reproduïble:
+
+```bash
+PYTHONPATH=../.. python3 sq_python_translation_stage_v4.py \
+  --campaign-id CAMPAIGN_ID \
+  --final-holdout-artifact /path/to/07_final_holdout_validation.json \
+  --ir-output /path/to/candidate.ir.json \
+  --artifact-output /path/to/08_python_translation.json
+```
+
+No torna a consultar ni recalcular el rendiment del holdout. El verificador
+reconstrueix l'IR des del SQX, comprova que és el candidat de l'única avaluació
+final PASS i exigeix coincidència exacta. Aquesta especificació executable continua
 sense assumir que SQ calcula cada detall igual: la paritat posterior de
 senyals, trades i PnL contra un export real d'SQ és obligatòria.
 
@@ -726,6 +738,11 @@ inhibit mentre ja hi ha una posició. Sense ambdues fonts observades no hi ha
 paritat completa. El gate reobre també `orders.csv`, el log de senyals, les
 candles i l'IR pels hashes declarats dins dels traces; una font desapareguda o
 alterada invalida la paritat encara que el report agregat continuï intacte.
+La documentació oficial d'SQ confirma que els blocs booleans s'avaluen a cada
+barra mitjançant snippets Java, però Custom Analysis s'executa després del
+backtest. Per això encara no es considera provat que Custom Analysis pugui
+substituir un log intrabar/per-barra de senyals; cal un probe real abans de
+connectar el stage automàtic de paritat.
 
 ```bash
 PYTHONPATH=../.. python3 parity_artifact_v4.py \

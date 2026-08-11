@@ -100,6 +100,14 @@ def test_v4_contract_recomputes_ir_and_rejects_arbitrary_hashed_json(tmp_path):
         "canonical_ir_path": ir.name,
         "canonical_ir_sha256": hashlib.sha256(ir.read_bytes()).hexdigest(),
     }
+    holdout = tmp_path / "holdout.json"
+    holdout.write_text(json.dumps({
+        "stage": "final_holdout_validation", "decision": "PASS",
+        "campaign_id": "campaign", "candidate_ids": ["T"],
+        "holdout_accessed": True, "holdout_evaluation_count": 1}))
+    artifact["final_holdout_artifact_path"] = holdout.name
+    artifact["final_holdout_artifact_sha256"] = hashlib.sha256(
+        holdout.read_bytes()).hexdigest()
     receipt = {"decision": "PASS", "candidate_ids": ["T"],
                "holdout_accessed": False, "translation_exact": True,
                "artifact": str(tmp_path / "artifact.json")}

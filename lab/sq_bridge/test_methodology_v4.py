@@ -177,6 +177,14 @@ def test_v4_recomputes_sq_and_translation_file_hashes(tmp_path):
         },
     })
     translation.pop("control_purpose", None)
+    holdout = tmp_path / "holdout.json"
+    holdout.write_text(json.dumps({
+        "stage": "final_holdout_validation", "decision": "PASS",
+        "campaign_id": "v4", "candidate_ids": ["candidate"],
+        "holdout_accessed": True, "holdout_evaluation_count": 1}))
+    translation["final_holdout_artifact_path"] = holdout.name
+    translation["final_holdout_artifact_sha256"] = hashlib.sha256(
+        holdout.read_bytes()).hexdigest()
     receipt = {"decision": "PASS", "candidate_ids": ["candidate"],
                "holdout_accessed": False, "artifact": str(tmp_path / "translation.json"),
                "translation_exact": True}

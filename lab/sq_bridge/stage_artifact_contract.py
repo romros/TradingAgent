@@ -1318,6 +1318,10 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
             })
             if provenance != "synthetic_control":
                 exact_ir = False
+                final_holdout = _verified_json(
+                    artifact.get("final_holdout_artifact_path"),
+                    artifact.get("final_holdout_artifact_sha256"),
+                    receipt.get("artifact", ""))
                 try:
                     sqx_value = Path(artifact.get("sqx_path", ""))
                     sqx_value = (sqx_value if sqx_value.is_absolute()
@@ -1332,6 +1336,15 @@ def validate_stage_artifact(stage: str, artifact: dict, receipt: dict, methodolo
                 except Exception:  # frontera de fitxers SQX/JSON no fiables
                     exact_ir = False
                 checks["CANONICAL_IR"] = exact_ir
+                checks["FINAL_HOLDOUT_LINEAGE"] = (
+                    final_holdout is not None
+                    and final_holdout.get("stage") == "final_holdout_validation"
+                    and final_holdout.get("decision") == "PASS"
+                    and final_holdout.get("campaign_id") == campaign_id
+                    and final_holdout.get("candidate_ids")
+                        == receipt.get("candidate_ids")
+                    and final_holdout.get("holdout_accessed") is True
+                    and final_holdout.get("holdout_evaluation_count") == 1)
     elif stage == "parity":
         report = _verified_json(
             artifact.get("parity_report_path"), artifact.get("parity_report_sha256"),

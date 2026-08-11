@@ -1,5 +1,6 @@
 import json
 import zipfile
+import hashlib
 
 import pytest
 
@@ -30,6 +31,15 @@ def test_builds_self_verifying_translation_artifact_without_holdout(tmp_path):
     assert artifact["trade_execution_normalized"] is True
     assert artifact["stop_loss_required_satisfied"] is True
     assert json.loads((tmp_path / "candidate.ir.json").read_text())["strategy_id"] == "T"
+    holdout = tmp_path / "holdout.json"
+    holdout.write_text(json.dumps({
+        "stage": "final_holdout_validation", "decision": "PASS",
+        "campaign_id": "campaign", "candidate_ids": ["T"],
+        "holdout_accessed": True, "holdout_evaluation_count": 1}))
+    artifact["final_holdout_artifact_path"] = str(holdout)
+    artifact["final_holdout_artifact_sha256"] = hashlib.sha256(
+        holdout.read_bytes()).hexdigest()
+    artifact_path.write_text(json.dumps(artifact))
     methodology = json.loads((ROOT / "methodology_v4.json").read_text())
     receipt = {"decision": "PASS", "candidate_ids": ["T"],
                "holdout_accessed": False, "translation_exact": True,

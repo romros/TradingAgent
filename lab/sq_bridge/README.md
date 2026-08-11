@@ -284,6 +284,16 @@ els intents reals i recalcula PF
 per variant i exigeix que la central i almenys dos veïns superin 50 trades i PF
 1,20 sota tots tres costos. Una hipòtesi rebutjada no arriba a SQCLI.
 
+US500 D1 aplica el mateix contracte amb un productor, bootstrap i trigger
+independents. El cron de quotes de sessió recompon el preflight i invoca el
+trigger després de cada captura; mentre no hi ha 30 mostres en tres sessions
+retorna `WAITING_FOR_MARKET_PREFLIGHT` sense crear estat. En el primer `PASS`
+congela la font canònica, rebuts, costos i metodologia, i executa una sola
+vegada les famílies `d1_shock_reversion`, `d1_time_series_momentum` i
+`d1_volatility_regime_trend`, cadascuna com `both`, `long` i `short`. El journal
+permet reprendre després d'una interrupció i els hashes impedeixen reutilitzar
+un bootstrap alterat. Aquest pas encara no inicia SQCLI.
+
 Quan la cadena queda exactament a `next_stage=sq_generation`, es compila el pla
 de la hipòtesi seleccionada i el contracte posicional compartit amb SQ:
 

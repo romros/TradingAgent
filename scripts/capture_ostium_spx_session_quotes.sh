@@ -9,6 +9,8 @@ SUMMARY="$DATA_DIR/summary_latest.json"
 COSTS="$DATA_DIR/costs_latest.json"
 PREFLIGHT="$DATA_DIR/market_preflight_latest.json"
 PREFLIGHT_CONFIG="$ROOT/lab/sq_bridge/us500_d1_market_preflight_v4_config.json"
+CANONICAL_SOURCE="$ROOT/lab/sq_bridge/evidence/us500_d1_canonical_v4.csv"
+SCREEN_DIR=${ALQUIMIA_US500_SCREEN_DIR:-$ROOT/data/alquimia_v4/us500-d1-alquimia-v4/screen-bootstrap}
 LOCAL_HM=$(TZ=America/New_York date +%H%M)
 
 case "$LOCAL_HM" in
@@ -37,3 +39,9 @@ python3 "$ROOT/lab/sq_bridge/spxusd_small_account_cost_gate.py" \
   --summary "$SUMMARY" --output "$COSTS"
 python3 "$ROOT/lab/sq_bridge/us500_d1_market_preflight_v4.py" \
   --config "$PREFLIGHT_CONFIG" --output "$PREFLIGHT"
+
+# WAITING does not create screen state. The first mature PASS freezes every
+# mutable input and evaluates train exactly once; SQCLI remains inert.
+PYTHONPATH="$ROOT" python3 -m lab.sq_bridge.us500_v4_screen_trigger \
+  --preflight "$PREFLIGHT" --source "$CANONICAL_SOURCE" \
+  --output-dir "$SCREEN_DIR"

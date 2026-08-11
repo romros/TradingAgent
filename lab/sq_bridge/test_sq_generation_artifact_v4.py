@@ -8,6 +8,7 @@ import pytest
 
 import lab.sq_bridge.sq_generation_artifact_v4 as generation_module
 from lab.sq_bridge.sq_generation_artifact_v4 import build_artifact, _validate_project_chain
+from lab.sq_bridge.sq_project_contract import verify_genetic_project
 from lab.sq_bridge.stage_artifact_contract import validate_stage_artifact
 from lab.sq_bridge.test_sqx_extract import SETTINGS, STRATEGY
 from lab.sq_bridge.temporal_split_contract_v4 import build_contract, digest, sq_periods
@@ -39,9 +40,20 @@ def _fixture(tmp_path, strategy=STRATEGY, settings=SETTINGS):
       <Islands>4</Islands><DecimationCoef>1</DecimationCoef>
       <EvoRestartOnFinish status="false" />
       <EvoRestartOnStagnation status="false" />
-      </BuildMode></WhatToBuild><Rankings>
+      </BuildMode><MarketSides type="both"><EntrySymmetry>true</EntrySymmetry>
+      <ExitSymmetry>true</ExitSymmetry></MarketSides><SLPTOptions>
+      <SLRequired>true</SLRequired></SLPTOptions></WhatToBuild>
+      <RiskMoneyManagement><MoneyManagement><InitialCapital>10000</InitialCapital>
+      <Method type="FixedSize" use="true"><Params><Param key="Size">1</Param>
+      </Params></Method></MoneyManagement></RiskMoneyManagement>
+      <Data><Setups><Setup dateFrom="2000.01.01" dateTo="2010.12.31"
+      slippage="0"><Chart symbol="NVDA" timeframe="M15" spread="0" />
+      <Commissions><Method type="None" use="true" /></Commissions>
+      </Setup></Setups></Data><Rankings><FitnessCriteria><Settings>
+      <Ranking type="ReturnDDRatio" /></Settings></FitnessCriteria>
       <StopCondition type="databank-full" passedStrategies="60" restartCount="0"
-        days="0" hours="0" minutes="0" /></Rankings></Settings>'''
+        days="0" hours="0" minutes="0" /></Rankings>
+      <CrossChecks use="false" /></Settings>'''
     with zipfile.ZipFile(cfx, "w") as archive:
         archive.writestr("config.xml", config)
         archive.writestr("Build-Task1.xml", task)
@@ -75,6 +87,9 @@ def _fixture(tmp_path, strategy=STRATEGY, settings=SETTINGS):
         "project_name": "PROJECT_V4",
         "sq_symbol": "NVDA",
         "timeframe": "M15",
+        "market_side": "both",
+        "discovery_initial_capital": 10000,
+        "periods": {"train_from": "2000-01-01", "train_to": "2010-12-31"},
         "campaign_id": "campaign-v4",
         "source_hypothesis_id": "hypothesis-1",
         "evidence_chain_path": str(chain),
@@ -132,6 +147,20 @@ def _rewrite_cfx_task(cfx, old: bytes, new: bytes):
     with zipfile.ZipFile(cfx, "w") as archive:
         archive.writestr("config.xml", config)
         archive.writestr("Build-Task1.xml", task)
+
+
+@pytest.mark.parametrize(("old", "new", "message"), [
+    (b'spread="0"', b'spread="1"', "TRAIN_DATA_OR_ZERO_COST"),
+    (b'MarketSides type="both"', b'MarketSides type="long"', "MARKET_SIDE"),
+    (b'<SLRequired>true</SLRequired>', b'<SLRequired>false</SLRequired>',
+     "STOP_LOSS"),
+])
+def test_genetic_project_contract_reopens_execution_critical_settings(
+        tmp_path, old, new, message):
+    _, cfx, manifest_path, _ = _fixture(tmp_path)
+    _rewrite_cfx_task(cfx, old, new)
+    with pytest.raises(ValueError, match=message):
+        verify_genetic_project(cfx, json.loads(manifest_path.read_text()))
 
 
 def test_builds_generation_evidence_from_actual_sqx(tmp_path):

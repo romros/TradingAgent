@@ -11,7 +11,7 @@ from typing import Callable
 
 from lab.sq_bridge.sq_project_contract import verify_genetic_project
 from lab.sq_bridge.sqcli_transport import (
-    CONTAINER_NAME, SAFE_PROJECT_NAME, gui_open_project, list_projects,
+    CONTAINER_NAME, SAFE_PROJECT_NAME, gui_open_project, list_projects_with_status,
 )
 from lab.sq_bridge.us500_d1_market_preflight_v4 import write_atomic
 
@@ -86,7 +86,8 @@ def import_batch(*, batch_path: Path, output_dir: Path,
         }
         write_atomic(checkpoint_path, checkpoint)
 
-    listing = {row.get("projectName"): row for row in list_projects(base_url)}
+    listing = {row.get("projectName"): row
+               for row in list_projects_with_status(base_url)}
     if final_path.is_file():
         result = json.loads(final_path.read_text())
         if (result.get("decision") != "PASS_SQCLI_IMPORT"
@@ -180,7 +181,8 @@ def import_batch(*, batch_path: Path, output_dir: Path,
         }
         write_atomic(checkpoint_path, checkpoint)
 
-    listing = {row.get("projectName"): row for row in list_projects(base_url)}
+    listing = {row.get("projectName"): row
+               for row in list_projects_with_status(base_url)}
     for row in imported.values():
         current = listing.get(row["project_name"])
         if current is None or current.get("hasUnresolvedResources") is not False:

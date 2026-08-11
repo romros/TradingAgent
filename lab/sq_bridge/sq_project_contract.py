@@ -66,6 +66,47 @@ def verify_genetic_project(path: Path, manifest: dict) -> dict[str, int]:
             or not 0 <= guard < budget or manifest.get("sq_genetic_shape") != shape):
         raise ValueError("SQ_CFX_GENETIC_BUDGET_MISMATCH")
 
+    setup = root.find("./Data/Setups/Setup")
+    charts = setup.findall("./Chart") if setup is not None else []
+    periods = manifest.get("periods")
+    if (setup is None or len(charts) != 1 or not isinstance(periods, dict)
+            or setup.get("dateFrom") != str(periods.get("train_from", "")).replace("-", ".")
+            or setup.get("dateTo") != str(periods.get("train_to", "")).replace("-", ".")
+            or charts[0].get("symbol") != manifest.get("sq_symbol")
+            or charts[0].get("timeframe") != manifest.get("timeframe")
+            or charts[0].get("spread") != "0"
+            or setup.get("slippage") != "0"):
+        raise ValueError("SQ_CFX_TRAIN_DATA_OR_ZERO_COST_CONTRACT_MISMATCH")
+    commission = [row for row in setup.findall("./Commissions/Method")
+                  if row.get("use") == "true"]
+    if len(commission) != 1 or commission[0].get("type") != "None":
+        raise ValueError("SQ_CFX_COMMISSION_NOT_DISABLED")
+    sides = root.find("./WhatToBuild/MarketSides")
+    expected_side = manifest.get("market_side")
+    expected_symmetry = "true" if expected_side == "both" else "false"
+    if (expected_side not in {"long", "short", "both"} or sides is None
+            or sides.get("type") != expected_side
+            or sides.findtext("EntrySymmetry") != expected_symmetry
+            or sides.findtext("ExitSymmetry") != expected_symmetry):
+        raise ValueError("SQ_CFX_MARKET_SIDE_MISMATCH")
+    capital = root.findtext("./RiskMoneyManagement/MoneyManagement/InitialCapital")
+    methods = root.findall("./RiskMoneyManagement/MoneyManagement/Method")
+    fixed = [row for row in methods if row.get("use") == "true"]
+    fixed_size = (fixed[0].find("./Params/Param[@key='Size']")
+                  if len(fixed) == 1 else None)
+    if (capital != str(manifest.get("discovery_initial_capital"))
+            or len(fixed) != 1 or fixed[0].get("type") != "FixedSize"
+            or fixed_size is None or fixed_size.text != "1"):
+        raise ValueError("SQ_CFX_DISCOVERY_SIZING_MISMATCH")
+    ranking = root.find("./Rankings/FitnessCriteria/Settings/Ranking")
+    crosschecks = root.find("./CrossChecks")
+    if (ranking is None or ranking.get("type") != "ReturnDDRatio"
+            or (crosschecks is not None and crosschecks.get("use") != "false")):
+        raise ValueError("SQ_CFX_FITNESS_OR_CROSSCHECK_CONTRACT_MISMATCH")
+    sl_required = root.findtext("./WhatToBuild/SLPTOptions/SLRequired")
+    if sl_required != "true":
+        raise ValueError("SQ_CFX_STOP_LOSS_NOT_REQUIRED")
+
     stop = root.find("./Rankings/StopCondition")
     accepted = manifest.get("accepted_limit")
     wall_minutes = manifest.get("wall_time_budget_minutes")

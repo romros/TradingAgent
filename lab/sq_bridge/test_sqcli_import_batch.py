@@ -40,7 +40,8 @@ def _runtime(monkeypatch, cfx, existing=False):
     listings = ([{"projectName": "PROJECT"}] if existing else [])
     resolved = [{"projectName": "PROJECT", "hasUnresolvedResources": False}]
     responses = iter((listings, resolved))
-    monkeypatch.setattr(importer, "list_projects", lambda *_: next(responses))
+    monkeypatch.setattr(
+        importer, "list_projects_with_status", lambda *_: next(responses))
     monkeypatch.setattr(importer, "gui_open_project", lambda *_: {
         "success": "ok", "projectName": "PROJECT"})
     monkeypatch.setattr(importer, "verify_genetic_project", lambda *_: SHAPE)
@@ -88,7 +89,7 @@ def test_rejects_existing_sq_project_before_copy(tmp_path, monkeypatch):
 def test_refuses_import_while_any_sq_project_is_running(tmp_path, monkeypatch):
     batch, cfx = _batch(tmp_path)
     calls, runner = _runtime(monkeypatch, cfx)
-    monkeypatch.setattr(importer, "list_projects", lambda *_: [{
+    monkeypatch.setattr(importer, "list_projects_with_status", lambda *_: [{
         "projectName": "ACADEMIA_BUSY", "runningStatus": 1,
         "hasUnresolvedResources": False,
     }])
@@ -104,7 +105,7 @@ def test_completed_import_is_idempotent_without_docker_mutation(tmp_path, monkey
     output = tmp_path / "receipt"
     first = importer.import_batch(batch_path=batch, output_dir=output, runner=runner)
     calls.clear()
-    monkeypatch.setattr(importer, "list_projects", lambda *_: [{
+    monkeypatch.setattr(importer, "list_projects_with_status", lambda *_: [{
         "projectName": "PROJECT", "hasUnresolvedResources": False}])
     monkeypatch.setattr(
         importer, "gui_open_project",
@@ -127,7 +128,7 @@ def test_resumes_import_intent_after_crash_without_reopening_project(tmp_path, m
             return []
         return [{"projectName": "PROJECT", "hasUnresolvedResources": False}]
 
-    monkeypatch.setattr(importer, "list_projects", listing)
+    monkeypatch.setattr(importer, "list_projects_with_status", listing)
     monkeypatch.setattr(
         importer, "gui_open_project",
         lambda *_: open_calls.append(1) or {"success": "ok", "projectName": "PROJECT"})

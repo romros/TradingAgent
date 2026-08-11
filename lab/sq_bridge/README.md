@@ -1004,6 +1004,25 @@ d'avaluacions 0, i no genera ni importa cap CFX. Quan la font s'actualitzi,
 l'execució serà única, uncensored i reprenable; un resultat negatiu serà
 terminal i no permetrà retuning.
 
+Després d'un `PASS_FINAL_HOLDOUT`, el mateix worker cron executa dues portes
+addicionals, sense cap pas manual. `eurusd_v4_translation_worker.py` tradueix
+només el SQX exacte lligat a aquella única avaluació i segella l'IR canònic.
+`eurusd_v4_parity_worker.py` reobre per hash tota la filiació
+temporal→robustesa→sizing→holdout→traducció, genera un Retest pre-holdout net i
+captura els senyals per barra amb el JAR de probe verificat. El controlador
+atura l'SQCLI normal només quan està lliure, restaura el servei després de la
+captura i exigeix aquesta restauració abans de comparar SQ amb Python. Una
+recepció final existent es revalida i es retorna sense tornar a tocar Docker.
+
+```bash
+./scripts/run_eurusd_v4_sq_worker.sh
+```
+
+La sortida normal mentre la campanya encara no té guanyador acaba en
+`WAITING_FOR_TRANSLATION`. Ni traducció ni paritat autoritzen paper o live. Un
+`PASS_PARITY` només habilita la construcció posterior d'un paquet paper-only;
+no inicia el motor paper ni habilita un signer.
+
 Un candidat sense trades, sense OOS o amb expectativa train no positiva és
 evidència científica vàlida però feble: queda registrat amb
 `temporal_eligibility_failure` i acaba en `REJECT`, sense avortar el lot. En

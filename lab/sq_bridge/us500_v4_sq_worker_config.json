@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "campaign_id": "us500-d1-alquimia-v4",
+  "market": {
+    "symbol": "US500",
+    "timeframe": "D1",
+    "source_timezone": "Etc/UTC",
+    "ostium_pair_id": "10",
+    "ostium_pair_from": "US500",
+    "ostium_pair_to": "USD",
+    "ostium_category": "index"
+  },
+  "scaffold_path": "/mnt/volume-SQ/user/projects/EURUSD/project.cfx",
+  "scaffold_sha256": "48a0484d858b9bfad883b0ae484970ed97eb67dcc716bf9d48dfecab5f13da5d",
+  "scaffold_sq_version": "143.2708",
+  "scaffold_role": "xml_format_only_no_strategy_or_performance_reuse",
+  "registry_path": "ostium_markets.json",
+  "registry_sha256": "40ec1335cc7c9bc2c9c50e9ea5518b236788875e4007ba17e879cdf92a902521",
+  "sq_resource_receipt_path": "evidence/us500_alq_rth_d1_sq_resource_v4.json",
+  "sq_resource_receipt_sha256": "d8e0efb20bed8ac270ad986698c936bb386bb4b582d63e71c7ae0f7c780d3cdb",
+  "worker_interval_minutes": 10,
+  "sqcli_container": "sqcli-docker",
+  "base_url": "http://127.0.0.1:8080",
+  "brokerage_api_max_leverage": 200,
+  "host_projects_root": "/mnt/volume-SQ/user/projects",
+  "auto_import": true,
+  "auto_start_generation": true,
+  "paper_authorized": false,
+  "live_authorized": false
+}

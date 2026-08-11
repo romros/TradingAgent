@@ -41,7 +41,8 @@ def _resolve(config_path: Path, value: object) -> Path:
 
 
 def validate_scaffold(path: Path, expected_hash: str,
-                      expected_version: str) -> dict[str, Any]:
+                      expected_version: str,
+                      profile_names: tuple[str, ...] | None = None) -> dict[str, Any]:
     path = path.resolve()
     if not path.is_file() or _sha(path) != expected_hash:
         raise ValueError("technical scaffold path/hash mismatch")
@@ -65,10 +66,13 @@ def validate_scaffold(path: Path, expected_hash: str,
     )
     missing = [value for value in required_paths if build.find(value) is None]
     available = {row.get("key") for row in build.findall(".//Block")}
-    required_blocks = set().union(*(
-        SEARCH_PROFILES[name] for name in (
-            "eurusd_d1_breakout_v4", "eurusd_d1_momentum_v4",
-            "eurusd_d1_shock_reversion_v4")))
+    profile_names = profile_names or (
+        "eurusd_d1_breakout_v4", "eurusd_d1_momentum_v4",
+        "eurusd_d1_shock_reversion_v4")
+    if (not profile_names or len(profile_names) != len(set(profile_names))
+            or any(name not in SEARCH_PROFILES for name in profile_names)):
+        raise ValueError("technical scaffold profile inventory invalid")
+    required_blocks = set().union(*(SEARCH_PROFILES[name] for name in profile_names))
     if missing or not required_blocks.issubset(available):
         raise ValueError("technical scaffold lacks required SQ fields/blocks")
     return {

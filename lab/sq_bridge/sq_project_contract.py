@@ -7,9 +7,11 @@ import zipfile
 from pathlib import Path
 
 from lab.sq_bridge.eurusd_v4_hypotheses import EURUSD_PROFILE_BLOCKS
+from lab.sq_bridge.us500_v4_hypotheses import US500_PROFILE_BLOCKS
 
 
 EURUSD_V4_PROFILE_BLOCKS = EURUSD_PROFILE_BLOCKS
+V4_PROFILE_BLOCKS = {**EURUSD_PROFILE_BLOCKS, **US500_PROFILE_BLOCKS}
 
 
 def _positive_int(text: str | None, label: str) -> int:
@@ -128,7 +130,7 @@ def verify_genetic_project(path: Path, manifest: dict) -> dict[str, int]:
             "MigrationRate": "migration_rate_pct",
             "InitGenerationType": "initial_population_mode",
         }
-        if (profile not in EURUSD_V4_PROFILE_BLOCKS or not isinstance(genetic, dict)
+        if (profile not in V4_PROFILE_BLOCKS or not isinstance(genetic, dict)
                 or any(mode.findtext(xml_name) != str(genetic.get(contract_name))
                        for xml_name, contract_name in expected_genetic.items())):
             raise ValueError("SQ_CFX_GENETIC_PARAMETERS_MISMATCH")
@@ -147,7 +149,7 @@ def verify_genetic_project(path: Path, manifest: dict) -> dict[str, int]:
         enabled = set(blocks)
         if len(blocks) != len(enabled_rows):
             raise ValueError("SQ_CFX_DUPLICATE_ENABLED_BLOCKS")
-        if enabled != EURUSD_V4_PROFILE_BLOCKS[profile]:
+        if enabled != V4_PROFILE_BLOCKS[profile]:
             raise ValueError("SQ_CFX_ENABLED_BLOCKS_MISMATCH")
         for key in enabled:
             block = blocks[key]

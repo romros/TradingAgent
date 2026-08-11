@@ -51,13 +51,13 @@ PLAN_CONTRACT_KEYS = (
 
 
 def _recompile_plan(plan: dict, chain_path: Path, methodology_path: Path,
-                    output_dir: Path) -> dict:
+                    output_dir: Path, compile_plan_fn) -> dict:
     screen_path = _verified_path(
         plan.get("screen_artifact_path"), plan.get("screen_artifact_sha256"),
         "screen artifact")
     with tempfile.TemporaryDirectory(prefix="plan-audit-", dir=output_dir) as temporary:
         root = Path(temporary)
-        return compile_plan(
+        return compile_plan_fn(
             screen_path=screen_path, chain_path=chain_path,
             methodology_path=methodology_path,
             period_contract_output=root / "periods.json",
@@ -107,7 +107,8 @@ def _completed_batch(path: Path, *, bootstrap_path: Path, scaffold_path: Path,
 
 def compile_projects(*, bootstrap_path: Path, scaffold_path: Path,
                      registry_path: Path, methodology_path: Path,
-                     output_dir: Path) -> dict:
+                     output_dir: Path, market_key: str = "EURUSD",
+                     compile_plan_fn=None) -> dict:
     for path in (bootstrap_path, scaffold_path, registry_path, methodology_path):
         if not path.resolve().is_file():
             raise ValueError(f"missing input: {path}")
@@ -115,6 +116,9 @@ def compile_projects(*, bootstrap_path: Path, scaffold_path: Path,
         path.resolve() for path in (
             bootstrap_path, scaffold_path, registry_path, methodology_path))
     bootstrap = json.loads(bootstrap_path.read_text())
+    compile_plan_fn = compile_plan if compile_plan_fn is None else compile_plan_fn
+    if market_key not in {"EURUSD", "US500"}:
+        raise ValueError("unsupported v4 SQ batch market")
     branches = bootstrap.get("branches")
     selected = bootstrap.get("selected_hypothesis_ids")
     if (bootstrap.get("decision") != "PASS_SQ_BRANCHES_READY"
@@ -138,7 +142,7 @@ def compile_projects(*, bootstrap_path: Path, scaffold_path: Path,
             f"{hypothesis_id} chain")
         plan = json.loads(plan_path.read_text())
         expected_plan = _recompile_plan(
-            plan, chain_path, methodology_path, output_dir)
+            plan, chain_path, methodology_path, output_dir, compile_plan_fn)
         if any(plan.get(key) != expected_plan.get(key) for key in PLAN_CONTRACT_KEYS):
             raise ValueError(f"{hypothesis_id} plan differs from independent compilation")
         contract_path = _verified_contract(
@@ -147,7 +151,7 @@ def compile_projects(*, bootstrap_path: Path, scaffold_path: Path,
         if (plan.get("decision") != "PASS_GENERATION_PLAN"
                 or plan.get("source_hypothesis_id") != hypothesis_id
                 or plan.get("chain_hypothesis_id") != hypothesis_id
-                or plan.get("market") != "EURUSD"
+                or plan.get("market") != market_key
                 or plan.get("generation_type") != "genetic-evolution"
                 or plan.get("evidence_chain_path") != str(chain_path)
                 or plan.get("evidence_chain_sha256") != _sha256(chain_path)
@@ -200,7 +204,7 @@ def compile_projects(*, bootstrap_path: Path, scaffold_path: Path,
             continue
         manifest = build_project(
             source=scaffold_path, output=project_path,
-            project_name=plan["project_name"], market_key="EURUSD",
+            project_name=plan["project_name"], market_key=market_key,
             registry_path=registry_path, methodology_path=methodology_path,
             date_from=date.fromisoformat(plan["date_from"]),
             date_to=date.fromisoformat(plan["date_to"]),

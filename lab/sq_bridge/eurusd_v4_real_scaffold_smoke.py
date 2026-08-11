@@ -60,13 +60,15 @@ def verify_translation_surface(profiles: dict[str, set[str]]) -> dict:
 
 
 def smoke(*, scaffold_path: Path, source_path: Path, registry_path: Path,
-          methodology_path: Path, worker_config_path: Path) -> dict:
+          methodology_path: Path, worker_config_path: Path,
+          market_key: str = "EURUSD", profiles: dict[str, set[str]] | None = None) -> dict:
     scaffold_path, source_path, registry_path, methodology_path, worker_config_path = (
         path.resolve() for path in (
             scaffold_path, source_path, registry_path, methodology_path,
             worker_config_path))
     methodology = json.loads(methodology_path.read_text())
-    market = json.loads(registry_path.read_text())["markets"]["EURUSD"]
+    profiles = EURUSD_PROFILE_BLOCKS if profiles is None else profiles
+    market = json.loads(registry_path.read_text())["markets"][market_key]
     worker_config = json.loads(worker_config_path.read_text())
     if (worker_config.get("schema_version") != 1
             or worker_config.get("scaffold_path") != str(scaffold_path)
@@ -74,8 +76,8 @@ def smoke(*, scaffold_path: Path, source_path: Path, registry_path: Path,
         raise ValueError("worker config does not bind the requested scaffold/registry")
     scaffold_contract = validate_scaffold(
         scaffold_path, worker_config.get("scaffold_sha256"),
-        worker_config.get("scaffold_sq_version"))
-    translation_contract = verify_translation_surface(EURUSD_PROFILE_BLOCKS)
+        worker_config.get("scaffold_sq_version"), tuple(sorted(profiles)))
+    translation_contract = verify_translation_surface(profiles)
     contract = build_contract(source_path, methodology_path)
     periods = sq_periods(contract)
     budget = methodology["sq_generation"]["maximum_attempts"]
@@ -95,7 +97,7 @@ def smoke(*, scaffold_path: Path, source_path: Path, registry_path: Path,
     rows = []
     with tempfile.TemporaryDirectory(prefix="alquimia-eurusd-v4-smoke-") as directory:
         temporary = Path(directory)
-        for profile in sorted(EURUSD_PROFILE_BLOCKS):
+        for profile in sorted(profiles):
             for side in ("both", "long", "short"):
                 config = ET.fromstring(config_source)
                 tasks = config.find("./Tasks")
@@ -104,7 +106,7 @@ def smoke(*, scaffold_path: Path, source_path: Path, registry_path: Path,
                 for task in list(tasks):
                     if task is not builds[0]:
                         tasks.remove(task)
-                project_name = f"SMOKE_{profile}_{side}"
+                project_name = f"SMOKE_{market_key}_{profile}_{side}"
                 config.set("name", project_name)
                 build_xml, blocks = _configure_build(
                     build_source, market, periods, methodology,

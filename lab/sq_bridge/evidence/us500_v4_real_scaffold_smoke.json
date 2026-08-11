@@ -1,0 +1,142 @@
+{
+  "branches": [
+    {
+      "cfx_sha256": "b26d055ef3d49dc72d22d8524357f55f6a1ed48928a45241f995960178286da3",
+      "islands": 4,
+      "market_side": "both",
+      "max_generations": 25,
+      "nominal_evaluations": 10000,
+      "population_per_island": 100,
+      "profile": "us500_d1_shock_reversion_v4"
+    },
+    {
+      "cfx_sha256": "b4bfc37d21d6e2558779a406d94c4b33db3fa088846c00c9f9537fc9f04f2b37",
+      "islands": 4,
+      "market_side": "long",
+      "max_generations": 25,
+      "nominal_evaluations": 10000,
+      "population_per_island": 100,
+      "profile": "us500_d1_shock_reversion_v4"
+    },
+    {
+      "cfx_sha256": "5efe7122403efab4675e1dc49980483c4f91d53c400828de7e521a72dd830267",
+      "islands": 4,
+      "market_side": "short",
+      "max_generations": 25,
+      "nominal_evaluations": 10000,
+      "population_per_island": 100,
+      "profile": "us500_d1_shock_reversion_v4"
+    },
+    {
+      "cfx_sha256": "be17b535caa0ee4db38045d6a295e2821c946c62579ac853e0fbd4bb67367498",
+      "islands": 4,
+      "market_side": "both",
+      "max_generations": 25,
+      "nominal_evaluations": 10000,
+      "population_per_island": 100,
+      "profile": "us500_d1_time_series_momentum_v4"
+    },
+    {
+      "cfx_sha256": "659f4315dc7e340d317dc8c6b9d3cefd1ea735949610bf1725f082942bd53a93",
+      "islands": 4,
+      "market_side": "long",
+      "max_generations": 25,
+      "nominal_evaluations": 10000,
+      "population_per_island": 100,
+      "profile": "us500_d1_time_series_momentum_v4"
+    },
+    {
+      "cfx_sha256": "c84d88951e0e4ccd957258314bb9587c8fe71b7195800f58455dc310a58f9ee5",
+      "islands": 4,
+      "market_side": "short",
+      "max_generations": 25,
+      "nominal_evaluations": 10000,
+      "population_per_island": 100,
+      "profile": "us500_d1_time_series_momentum_v4"
+    },
+    {
+      "cfx_sha256": "c7d885b0bc249d8f2e09e44827e046c4c476f5d46766163667442b085e17112f",
+      "islands": 4,
+      "market_side": "both",
+      "max_generations": 25,
+      "nominal_evaluations": 10000,
+      "population_per_island": 100,
+      "profile": "us500_d1_volatility_regime_trend_v4"
+    },
+    {
+      "cfx_sha256": "ce43873ffaf28ee036eef131a31de72ea206d649e0c1a8d75624ee82810dced6",
+      "islands": 4,
+      "market_side": "long",
+      "max_generations": 25,
+      "nominal_evaluations": 10000,
+      "population_per_island": 100,
+      "profile": "us500_d1_volatility_regime_trend_v4"
+    },
+    {
+      "cfx_sha256": "dc17b9a2817323a5b2bc47935aa72826eeca2674fc194de6b80de296f4aea5d9",
+      "islands": 4,
+      "market_side": "short",
+      "max_generations": 25,
+      "nominal_evaluations": 10000,
+      "population_per_island": 100,
+      "profile": "us500_d1_volatility_regime_trend_v4"
+    }
+  ],
+  "decision": "PASS_REAL_SCAFFOLD_STRUCTURAL_SMOKE",
+  "methodology_path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/methodology_v4.json",
+  "methodology_sha256": "122ee70a120afae8078ed12b53fb5908620d2c3e9725a0b85c4850aa27986a75",
+  "performance_accessed": false,
+  "periods": {
+    "holdout_from": "2025-09-18",
+    "holdout_to": "2026-07-08",
+    "oos_from": "2024-01-10",
+    "oos_to": "2025-09-03",
+    "train_from": "2018-01-03",
+    "train_to": "2022-04-20",
+    "validation_from": "2022-05-05",
+    "validation_to": "2023-12-22"
+  },
+  "registry_path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/ostium_markets.json",
+  "registry_sha256": "40ec1335cc7c9bc2c9c50e9ea5518b236788875e4007ba17e879cdf92a902521",
+  "scaffold_contract": {
+    "available_block_count": 515,
+    "build_task_file": "Build-Task1.xml",
+    "required_block_count": 14,
+    "source_role": "xml_format_only_no_strategy_or_performance_reuse",
+    "sq_version": "143.2708"
+  },
+  "scaffold_path": "/mnt/volume-SQ/user/projects/EURUSD/project.cfx",
+  "scaffold_sha256": "48a0484d858b9bfad883b0ae484970ed97eb67dcc716bf9d48dfecab5f13da5d",
+  "schema_version": 1,
+  "source_path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/us500_d1_canonical_v4.csv",
+  "source_sha256": "44f2c0d80cf74c825b9f954e0eac51ed7943b2a81d05154374b27a30f958e2fc",
+  "sqcli_started": false,
+  "temporal_contract_sha256": "3f53af3ae27ea40ca82e7f02b3db70e53c5e6beaa9627f93d3de7e64cc3baa58",
+  "translation_contract": {
+    "extractor_runtime_signal_surfaces_equal": true,
+    "profile_count": 3,
+    "required_execution_blocks": [
+      "EnterAtMarket",
+      "ExitAfterBars.ExitAfterBars",
+      "StopLoss.StopLoss"
+    ],
+    "signal_ops": [
+      "BarDayOfWeekIs",
+      "Close",
+      "CrossesAbove",
+      "CrossesBelow",
+      "EMA",
+      "IsFalling",
+      "IsGreater",
+      "IsLower",
+      "IsRising",
+      "ROC",
+      "SMA"
+    ],
+    "sq_block_count": 14,
+    "unknown_action_parameters_rejected": true
+  },
+  "verified_branch_count": 9,
+  "worker_config_path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/us500_v4_sq_worker_config.json",
+  "worker_config_sha256": "0a186da5db414f17974c05886303f06d6cb88b2eb0ea677340e91837ffb766e4"
+}

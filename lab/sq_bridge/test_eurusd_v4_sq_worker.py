@@ -174,6 +174,8 @@ def test_worker_cron_is_separate_locked_and_non_overlapping():
     runner = (root / "scripts/run_eurusd_v4_sq_worker.sh").read_text()
     installer = (root / "scripts/install_eurusd_v4_sq_worker_cron.sh").read_text()
     assert "eurusd_v4_sq_worker" in runner
+    assert "eurusd_v4_temporal_worker" in runner
+    assert "TEMPORAL_DIR=" in runner
     assert "PYTHONPATH=\"$ROOT\"" in runner
     assert 'LINE="*/10 * * * 1-5 flock -n $LOCK ' in installer
     assert "tradingagent-eurusd-v4-sq-worker.lock" in installer

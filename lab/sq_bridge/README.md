@@ -962,6 +962,13 @@ des dels rebuts i finalment aplica el Pareto temporal. El manifest de discovery
 i el contracte temporal són entrades diferents: el primer configura dates SQ;
 el segon classifica i segella trades. No s'han d'intercanviar.
 
+En la campanya EURUSD aquest pas no requereix una ordre manual.
+`eurusd_v4_temporal_worker.py` verifica el rebut del worker d'SQ, reconstrueix
+costos, dates, manifest i recurs des del `bootstrap`, espera projectes SQ aliens
+i reprèn només un Retest propi amb preflight durable. El mateix script i `flock`
+del cron executen generació i després validació temporal, de manera que no poden
+competir entre ells. Un `REJECT_NO_SQ_CANDIDATES` és terminal i no inicia SQ.
+
 Un candidat sense trades, sense OOS o amb expectativa train no positiva és
 evidència científica vàlida però feble: queda registrat amb
 `temporal_eligibility_failure` i acaba en `REJECT`, sense avortar el lot. En

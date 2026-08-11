@@ -16,6 +16,8 @@ def test_real_semantics_is_sealed_and_bound_to_design():
     assert contract["position_contract"]["same_bar_priority"] == ["stop", "time_exit"]
     assert contract["temporal_contract"]["validation_accessed"] is False
     assert contract["data_gap_contract"]["imputation_allowed"] is False
+    assert contract["screen_acceptance_contract"]["neighbor_definition"][
+        "maximum_normalized_distance"] == .15
     assert contract["performance_accessed"] is False
 
 

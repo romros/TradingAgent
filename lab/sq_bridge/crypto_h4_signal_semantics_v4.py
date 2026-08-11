@@ -56,6 +56,13 @@ def verify(path: Path) -> dict[str, Any]:
             or acceptance.get("required_local_neighbors_passing_including_central") != 3
             or acceptance.get("accepted_candidates_global_budget") != 60):
         errors.append("ACCEPTANCE")
+    neighbor = acceptance.get("neighbor_definition") or {}
+    if (neighbor.get("same_directed_hypothesis_required") is not True
+            or neighbor.get("nearest_points_considered") != 4
+            or neighbor.get("maximum_normalized_distance") != .15
+            or neighbor.get("minimum_nearest_points_passing") != 2
+            or neighbor.get("tie_break") != "attempt_ascending"):
+        errors.append("NEIGHBORHOOD")
     if (temporal.get("screen_visible_period") != "train_only_from_preregistration"
             or temporal.get("validation_accessed") is not False
             or temporal.get("oos_accessed") is not False

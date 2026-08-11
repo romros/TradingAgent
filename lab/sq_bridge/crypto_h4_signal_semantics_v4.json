@@ -88,6 +88,14 @@
     "positive_net_pnl_each_cost_scenario": true,
     "minimum_positive_calendar_years_ratio_stress": 0.6,
     "required_local_neighbors_passing_including_central": 3,
+    "neighbor_definition": {
+      "same_directed_hypothesis_required": true,
+      "distance": "manhattan_sum_of_absolute_parameter_grid_index_differences_divided_by_each_axis_max_index",
+      "nearest_points_considered": 4,
+      "maximum_normalized_distance": 0.15,
+      "minimum_nearest_points_passing": 2,
+      "tie_break": "attempt_ascending"
+    },
     "selection_unit": "stable_parameter_region_not_single_best_point",
     "ranking": [
       "stress_expectancy_usdc_per_trade_desc",

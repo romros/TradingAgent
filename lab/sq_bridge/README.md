@@ -337,6 +337,16 @@ anys positius a 200 USDC per als tres escenaris Ostium. Anys train sense trades
 compten com a no positius. El motor no obre validation/OOS/holdout ni autoritza
 paper/live; el worker recuperable de 90.000 punts és el pas següent.
 
+`crypto_h4_screen_worker_v4.py` executa aquest disseny en chunks atòmics i
+reproduïbles: per defecte 25 punts i un chunk per mercat/invocació. Abans de
+crear estat reobre preflight, preregistre, disseny, semàntica, font i costos pels
+hashes. Un checkpoint alterat o no contigu falla; una interrupció abans del
+rename no deixa un chunk parcial. En `BLOCK` retorna
+`WAITING_FOR_MARKET_PREFLIGHT` abans de tocar qualsevol altre input i no crea
+directori. `run_crypto_h4_screen_workers.sh` és independent del collector i no
+conté cap operació SQCLI; el cron propi prova de reprendre cada 10 minuts amb
+`flock` i guarda estat a `/mnt/volume-SQ/user/alquimia_runtime/`.
+
 US500 D1 aplica el mateix contracte amb un productor, bootstrap i trigger
 independents. El cron de quotes de sessió recompon el preflight i invoca el
 trigger després de cada captura; mentre no hi ha 30 mostres en tres sessions

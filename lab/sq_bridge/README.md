@@ -696,3 +696,27 @@ El supervisor exigeix un projecte nou i resolt, copia exactament un SQX a
 `Results`, observa al log `Results (1) -> PreHoldout (1)` i `Total tested: 1`,
 comprova l'`orders.bin` de sortida i invoca l'export oficial SQCLI
 `tools action=orderstocsv`. El rebut és idempotent i no autoritza paper ni live.
+
+Per executar tota l'etapa temporal sobre els candidats d'un artefacte
+`sq_generation` real:
+
+```bash
+PYTHONPATH=../.. python3 sq_temporal_stage_v4.py \
+  --campaign-id CAMPAIGN_ID \
+  --generation-artifact /path/to/state/artifacts/03_sq_generation.json \
+  --retest-template /path/to/retest-template.cfx \
+  --resource-source /path/to/discovery-resource.cfx \
+  --resource-task-file Build-Task1.xml \
+  --discovery-manifest /path/to/discovery.manifest.json \
+  --temporal-contract /path/to/temporal-split-contract.json \
+  --cost-model /path/to/frozen-ostium-costs.json \
+  --symbol EXACT_SQ_SYMBOL --timeframe D1 --source-timezone UTC \
+  --work-dir /path/to/state/temporal-retests \
+  --artifact-output /path/to/state/artifacts/04_temporal_validation.json
+```
+
+L'adaptador reobre els SQX i els seus hashes, crea un projecte amb nom derivat
+de campanya+candidat, reprèn els checkpoints de cada Retest, deriva els traces
+des dels rebuts i finalment aplica el Pareto temporal. El manifest de discovery
+i el contracte temporal són entrades diferents: el primer configura dates SQ;
+el segon classifica i segella trades. No s'han d'intercanviar.

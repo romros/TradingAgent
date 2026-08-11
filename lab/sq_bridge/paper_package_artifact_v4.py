@@ -72,6 +72,13 @@ def build_artifact(*, campaign_id: str, candidate_id: str,
     market = sources["market_preflight"]
     small = sources["small_account_economics"]
     base = config_path.resolve().parent
+    small_path = source_artifact_paths["small_account_economics"].resolve()
+    cost_model_path = _resolve(small["cost_model_path"], small_path.parent).resolve()
+    frozen_costs = _load(cost_model_path)
+    if (_sha(cost_model_path) != small.get("cost_model_sha256")
+            or frozen_costs.get("decision") != "PASS_COSTS_FROZEN"
+            or frozen_costs.get("costs_frozen") is not True):
+        raise ValueError("Model de costos congelat absent o manipulat")
     config = {
         "schema_version": 2,
         "package_type": "alquimia_paper_candidate",
@@ -85,15 +92,22 @@ def build_artifact(*, campaign_id: str, candidate_id: str,
         "selected_leverage": small["selected_leverage"],
         "venue_max_leverage": small["venue_max_leverage"],
         "risk_per_trade_pct": small["risk_per_trade_pct"],
+        "sizing_policy": "risk_budget_over_runtime_initial_stop_capped_by_validated_notional",
+        "dynamic_stop_sizing": True,
         "portfolio_margin_pct": small["portfolio_margin_pct"],
         "reserve_pct": small["reserve_pct"],
         "position_notional_usdc": small["position_notional_usdc"],
+        "minimum_position_notional_usdc": small["minimum_position_notional_usdc"],
+        "maximum_position_notional_usdc": small["maximum_position_notional_usdc"],
+        "venue_minimum_notional_usdc": small["venue_minimum_notional_usdc"],
         "collateral_usdc": small["collateral_usdc"],
         "entry_cost_buffer_usdc": small["entry_cost_buffer_usdc"],
         "capital_committed_usdc": small["capital_committed_usdc"],
         "reserve_usdc": small["reserve_usdc"],
         "stop_loss_required": small["stop_loss_required"],
         "stop_distance_pct": small["stop_distance_pct"],
+        "cost_model_path": _relative(cost_model_path, base),
+        "cost_model_sha256": _sha(cost_model_path),
         "strategy_ir_path": _relative(ir_path, base),
         "strategy_ir_sha256": _sha(ir_path),
         "parity_report_path": _relative(report_path, base),
@@ -143,14 +157,31 @@ def verify_package(config: dict, config_path: Path) -> bool:
         sources = _validated_sources(
             paths, config["campaign_id"], config["candidate_id"])
         market, small = sources["market_preflight"], sources["small_account_economics"]
+        small_path = paths["small_account_economics"].resolve()
+        cost_model = _resolve(config.get("cost_model_path", ""), base).resolve()
+        expected_cost_model = _resolve(
+            small.get("cost_model_path", ""), small_path.parent).resolve()
+        if (cost_model != expected_cost_model or not cost_model.is_file()
+                or _sha(cost_model) != config.get("cost_model_sha256")
+                or config.get("cost_model_sha256") != small.get("cost_model_sha256")):
+            return False
+        frozen_costs = _load(cost_model)
+        if (frozen_costs.get("decision") != "PASS_COSTS_FROZEN"
+                or frozen_costs.get("costs_frozen") is not True):
+            return False
         expected = {
             "ostium_pair_id": market["ostium_pair_id"],
             "selected_leverage": small["selected_leverage"],
             "venue_max_leverage": small["venue_max_leverage"],
             "risk_per_trade_pct": small["risk_per_trade_pct"],
+            "sizing_policy": "risk_budget_over_runtime_initial_stop_capped_by_validated_notional",
+            "dynamic_stop_sizing": True,
             "portfolio_margin_pct": small["portfolio_margin_pct"],
             "reserve_pct": small["reserve_pct"],
             "position_notional_usdc": small["position_notional_usdc"],
+            "minimum_position_notional_usdc": small["minimum_position_notional_usdc"],
+            "maximum_position_notional_usdc": small["maximum_position_notional_usdc"],
+            "venue_minimum_notional_usdc": small["venue_minimum_notional_usdc"],
             "collateral_usdc": small["collateral_usdc"],
             "entry_cost_buffer_usdc": small["entry_cost_buffer_usdc"],
             "capital_committed_usdc": small["capital_committed_usdc"],

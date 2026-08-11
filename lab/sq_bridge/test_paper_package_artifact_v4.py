@@ -19,6 +19,8 @@ def _write(path, value):
 def _sources(tmp_path):
     candidate = "candidate"
     result = {}
+    costs = tmp_path / "costs.json"
+    _write(costs, {"decision": "PASS_COSTS_FROZEN", "costs_frozen": True})
     for stage, holdout in (("market_preflight", False),
                            ("small_account_economics", False),
                            ("final_holdout_validation", True),
@@ -39,6 +41,14 @@ def _sources(tmp_path):
             _write(report, {"candidate_id": candidate})
             value.update({"parity_report_path": report.name,
                           "parity_report_sha256": hashlib.sha256(report.read_bytes()).hexdigest()})
+        if stage == "small_account_economics":
+            value.update({
+                "minimum_position_notional_usdc": 150,
+                "maximum_position_notional_usdc": value["position_notional_usdc"],
+                "venue_minimum_notional_usdc": 5,
+                "cost_model_path": costs.name,
+                "cost_model_sha256": hashlib.sha256(costs.read_bytes()).hexdigest(),
+            })
         _write(path, value)
     return result
 
@@ -60,6 +70,13 @@ def test_paper_package_binds_ostium_risk_ir_and_parity_without_signer(tmp_path):
     assert config["capital_committed_usdc"] == 60
     assert config["reserve_usdc"] == 140
     assert config["risk_per_trade_pct"] == 1.5
+    assert config["sizing_policy"] == (
+        "risk_budget_over_runtime_initial_stop_capped_by_validated_notional")
+    assert config["dynamic_stop_sizing"] is True
+    assert config["minimum_position_notional_usdc"] == 150
+    assert config["maximum_position_notional_usdc"] == 300
+    assert config["venue_minimum_notional_usdc"] == 5
+    assert len(config["cost_model_sha256"]) == 64
     assert config["stop_loss_required"] is True
     assert config["mode"] == "paper"
     assert config["signer_enabled"] is config["live_authorized"] is False

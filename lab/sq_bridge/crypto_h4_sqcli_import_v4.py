@@ -17,6 +17,9 @@ from lab.sq_bridge.sqcli_transport import (
 from lab.sq_bridge.us500_d1_market_preflight_v4 import write_atomic
 
 
+TERMINAL_SQ_STATUSES = {0, 4, 50}
+
+
 def _sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -99,7 +102,8 @@ def import_batch(*, batch_path: Path, output_dir: Path,
 
     listing = {row.get("projectName"): row for row in list_fn(base_url)}
     running = sorted(name for name, row in listing.items()
-                     if isinstance(name, str) and row.get("runningStatus") != 0)
+                     if isinstance(name, str)
+                     and row.get("runningStatus") not in TERMINAL_SQ_STATUSES)
     if running:
         raise RuntimeError(f"refusing crypto import while SQCLI projects run: {running}")
     if final_path.is_file():
@@ -173,7 +177,8 @@ def import_batch(*, batch_path: Path, output_dir: Path,
         refreshed = {item.get("projectName"): item for item in list_fn(base_url)}
         current = refreshed.get(project_name)
         running_now = sorted(name for name, item in refreshed.items()
-                             if isinstance(name, str) and item.get("runningStatus") != 0)
+                             if isinstance(name, str)
+                             and item.get("runningStatus") not in TERMINAL_SQ_STATUSES)
         if (running_now or current is None
                 or current.get("hasUnresolvedResources") is not False):
             raise RuntimeError(

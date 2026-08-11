@@ -10,8 +10,9 @@ from lab.sq_bridge.test_crypto_h4_project_batch_v4 import (
 )
 
 
-def _runtime(batch, *, unresolved=False, running=False):
-    current = []
+def _runtime(batch, *, unresolved=False, running=False, finished=False):
+    current = ([{"projectName": "OLD_FINISHED", "runningStatus": 4,
+                 "hasUnresolvedResources": False}] if finished else [])
     source = Path(next(iter(batch["projects"].values()))["cfx_path"])
 
     def list_fn(_base_url):
@@ -61,6 +62,17 @@ def test_refuses_import_while_any_sq_project_runs(tmp_path):
         import_batch(batch_path=tmp_path / "batch/crypto_h4_project_batch.json",
             output_dir=tmp_path / "import", list_fn=list_fn,
             open_fn=open_fn, runner=runner)
+
+
+@pytest.mark.skipif(not SCAFFOLD.is_file(), reason="real SQ 143 scaffold unavailable")
+def test_finished_unrelated_project_does_not_block_import(tmp_path):
+    batch = _compile(_selector(tmp_path), tmp_path / "batch")
+    list_fn, open_fn, runner, _ = _runtime(batch, finished=True)
+    receipt = import_batch(
+        batch_path=tmp_path / "batch/crypto_h4_project_batch.json",
+        output_dir=tmp_path / "import", list_fn=list_fn, open_fn=open_fn,
+        runner=runner)
+    assert receipt["decision"] == "PASS_CRYPTO_SQCLI_IMPORT"
 
 
 @pytest.mark.skipif(not SCAFFOLD.is_file(), reason="real SQ 143 scaffold unavailable")

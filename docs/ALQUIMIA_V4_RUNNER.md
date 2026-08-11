@@ -183,3 +183,35 @@ El runner prova l'orquestració i recuperació. Encara falta una campanya real v
 que produeixi una candidata SQ sobrevivint
 fins a paper. US500+VIX no es pot manifestar fins que el collector d'Ostium
 completi tres dies de costos executables.
+
+## Cadena crypto H4 pròpia
+
+BTCUSD i ETHUSD tenen una cadena específica que no reutilitza candidats ni
+pipelines quantitatius antics: screen determinista de famílies preregistrades,
+CFX natiu amb blocs Alquímia, import inert, execució supervisada, normalització
+SQX i replay canònic en Python. L'execució d'un projecte importat és:
+
+```bash
+PYTHONPATH=. .venv/bin/python -m \
+  lab.sq_bridge.crypto_h4_sqcli_supervised_run_v4 \
+  --import-receipt /state/import/crypto_h4_sqcli_import_receipt.json \
+  --candidate alq4_CANDIDATE_ID \
+  --output-dir /state/runs/alq4_CANDIDATE_ID
+```
+
+El supervisor desa preflight i start abans de monitorar, reprèn sense un segon
+start després d'una caiguda, usa el log final d'SQ com a comptador autoritatiu,
+verifica pressupost i inventari del databank, i emet directament el contracte
+`PASS_CRYPTO_H4_SUPERVISED_RUN` que consumeix
+`crypto_h4_sq_proposal_filter_v4.py`. Els estats SQ `4` (acabat) i `50`
+(fallit) són terminals i no bloquegen la importació d'un projecte diferent.
+
+A 2026-08-11 la cadena formal continua aturada correctament a
+`market_preflight`: el recorder nadiu crypto disposa d'uns 8,2 dies continus i
+el contracte exigeix 60 dies. El rebut de cobertura calcula
+`ready_not_before_utc=2026-10-02T08:34:00Z` si la captura no perd continuïtat.
+En paral·lel, el model de costos exigeix almenys 30 captures en tres dies. Els
+artefactes autoritatius i regenerables són a
+`data/ostium_economics_universe/{btcusd,ethusd}_{native_coverage,costs,proxy_mapping,h4_market_preflight}_latest_v4.json`.
+No s'ha de saltar aquest bloqueig per generar rendiment promocionable; els runs
+anteriors només demostren funcionament, paritat i filtratge brut.

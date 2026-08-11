@@ -11,16 +11,52 @@ from pathlib import Path
 from xml.etree import ElementTree as ET
 
 from lab.sq_bridge.alquimia_project import (
-    _configure_build, _nominal_genetic_shape, _write_reproducible_cfx,
+    TRANSLATABLE_BLOCKS, _configure_build, _nominal_genetic_shape,
+    _write_reproducible_cfx,
 )
 from lab.sq_bridge.eurusd_v4_hypotheses import EURUSD_PROFILE_BLOCKS
 from lab.sq_bridge.eurusd_v4_sq_worker import validate_scaffold
 from lab.sq_bridge.sq_project_contract import verify_genetic_project
+from lab.sq_bridge.sqx_extract import (
+    SUPPORTED_ACTION_PARAMS, SUPPORTED_ENTRY, SUPPORTED_FORMULAS,
+    SUPPORTED_SIGNAL_NODES,
+)
+from lab.sq_bridge.strategy_ir_runtime import RUNTIME_SIGNAL_NODES
 from lab.sq_bridge.temporal_split_contract_v4 import build_contract, digest, sq_periods
 
 
 def _sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def verify_translation_surface(profiles: dict[str, set[str]]) -> dict:
+    """Prove every enabled CFX block has a fail-closed Python destination."""
+    blocks = set().union(*profiles.values())
+    required_execution = {
+        "EnterAtMarket", "ExitAfterBars.ExitAfterBars", "StopLoss.StopLoss"}
+    if (not blocks <= TRANSLATABLE_BLOCKS
+            or any(not required_execution <= profile for profile in profiles.values())):
+        raise ValueError("EURUSD profile escapes the translatable execution surface")
+    signal_blocks = blocks - required_execution
+    signal_ops = {
+        block.removeprefix("Prices.").removeprefix("Indicators.")
+        for block in signal_blocks}
+    if signal_ops - SUPPORTED_SIGNAL_NODES:
+        raise ValueError("EURUSD profile has no SQX signal translation")
+    if SUPPORTED_SIGNAL_NODES != RUNTIME_SIGNAL_NODES:
+        raise ValueError("SQX extractor and Python runtime signal surfaces differ")
+    if ("EnterAtMarket" not in SUPPORTED_ENTRY
+            or "#ExitAfterBars.ExitAfterBars#" not in SUPPORTED_ACTION_PARAMS
+            or "#StopLoss.StopLoss#" not in SUPPORTED_ACTION_PARAMS
+            or "SQ.Formulas.SLPT.ATRBasedValue" not in SUPPORTED_FORMULAS):
+        raise ValueError("EURUSD execution plan has no fail-closed translation")
+    return {
+        "profile_count": len(profiles), "sq_block_count": len(blocks),
+        "signal_ops": sorted(signal_ops),
+        "required_execution_blocks": sorted(required_execution),
+        "extractor_runtime_signal_surfaces_equal": True,
+        "unknown_action_parameters_rejected": True,
+    }
 
 
 def smoke(*, scaffold_path: Path, source_path: Path, registry_path: Path,
@@ -39,6 +75,7 @@ def smoke(*, scaffold_path: Path, source_path: Path, registry_path: Path,
     scaffold_contract = validate_scaffold(
         scaffold_path, worker_config.get("scaffold_sha256"),
         worker_config.get("scaffold_sq_version"))
+    translation_contract = verify_translation_surface(EURUSD_PROFILE_BLOCKS)
     contract = build_contract(source_path, methodology_path)
     periods = sq_periods(contract)
     budget = methodology["sq_generation"]["maximum_attempts"]
@@ -107,6 +144,7 @@ def smoke(*, scaffold_path: Path, source_path: Path, registry_path: Path,
         "worker_config_path": str(worker_config_path),
         "worker_config_sha256": _sha(worker_config_path),
         "scaffold_contract": scaffold_contract,
+        "translation_contract": translation_contract,
         "temporal_contract_sha256": digest(contract),
         "periods": periods, "verified_branch_count": len(rows), "branches": rows,
     }

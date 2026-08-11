@@ -44,6 +44,41 @@ def test_translation_rejects_operator_outside_supported_subset(tmp_path):
         translate(_sqx(tmp_path, strategy), tmp_path / "candidate.ir.json")
 
 
+def test_translation_rejects_unknown_entry_action_semantics(tmp_path):
+    strategy = STRATEGY.replace(
+        b'<Param key="#Direction#">1</Param>',
+        b'<Param key="#Direction#">1</Param><Param key="#HiddenExit#">7</Param>',
+        1)
+    with pytest.raises(ValueError, match="fora del subset"):
+        translate(_sqx(tmp_path, strategy), tmp_path / "candidate.ir.json")
+
+
+def test_translation_rejects_non_current_symbol_or_non_global_size(tmp_path):
+    different_symbol = STRATEGY.replace(
+        b'<Param key="#Direction#">1</Param>',
+        b'<Param key="#Symbol#">OTHER</Param><Param key="#Direction#">1</Param>',
+        1)
+    with pytest.raises(ValueError, match="simbol actual"):
+        translate(_sqx(tmp_path, different_symbol), tmp_path / "symbol.ir.json")
+    fixed_size = STRATEGY.replace(
+        b'<Param key="#Direction#">1</Param>',
+        b'<Param key="#Direction#">1</Param><Param key="#Size#"><Formula key="SQ.Formulas.SLPT.PctValue"><Param key="#Value#">1</Param></Formula></Param>',
+        1)
+    with pytest.raises(ValueError, match="money management global"):
+        translate(_sqx(tmp_path, fixed_size), tmp_path / "size.ir.json")
+
+
+def test_translation_accepts_canonical_sq_metadata_and_external_sizing(tmp_path):
+    canonical = STRATEGY.replace(
+        b'<Param key="#Direction#">1</Param>',
+        b'<Param key="#Symbol#">Current</Param><Param key="#Direction#">1</Param>'
+        b'<Param key="#Size#"><Formula key="SQ.Formulas.Size.UseGlobalMM"/>'
+        b'</Param><Param key="#MagicNumber#">fixed-id</Param>'
+        b'<Param key="#Comment#"></Param>', 1)
+    ir = translate(_sqx(tmp_path, canonical), tmp_path / "canonical.ir.json")
+    assert ir["trade_plans"]["long"]["entry_order"] == "market_at_signal_bar_open"
+
+
 def test_translation_rejects_same_candle_price_at_open_as_lookahead(tmp_path):
     strategy = STRATEGY.replace(
         b'<Item key="Boolean"><Param key="#Value#">true</Param></Item>',

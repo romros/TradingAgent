@@ -394,6 +394,9 @@ direcció, simetria, stop i fitness contractats. El rebut declara explícitament
 `performance_accessed=false` i `sqcli_started=false`: no és evidència que una
 estratègia sigui rendible. Els CFX temporals són canònics; repetir la comanda
 amb les mateixes entrades ha de conservar els hashes de totes les branques.
+També verifica que cada bloc habilitat tingui destí SQX→IR→runtime i que el
+traductor rebutgi qualsevol paràmetre d'acció desconegut, en lloc d'ignorar
+silenciosament una semàntica que Ostium no reproduiria.
 
 Aquesta última garantia és executable: `methodology_v4.json` preregistra
 genètica 80% crossover / 20% mutació i migració 5 generacions / 10%, i espais

@@ -17,6 +17,13 @@ SUPPORTED_SIGNAL_NODES = {
     "IsMonthLastTradingDay", "Number", "Boolean",
 }
 SUPPORTED_ENTRY = {"EnterAtMarket"}
+SUPPORTED_ACTION_PARAMS = {
+    "#Symbol#", "#Direction#", "#Size#", "#MagicNumber#", "#Comment#",
+    "#AllowDuplicateTrades#", "#ExitAfterBars.ExitAfterBars#",
+    "#StopLoss.StopLoss#", "#ProfitTarget.ProfitTarget#",
+    "#MoveSL2BE.MoveSL2BE#", "#MoveSL2BE.SL2BEAddPips#",
+    "#TrailingStop.TrailingStop#", "#TrailingStop.TrailingActivation#",
+}
 SUPPORTED_FORMULAS = {
     "SQ.Formulas.Size.UseGlobalMM", "SQ.Formulas.SLPT.ATRBasedValue",
     "SQ.Formulas.SLPT.PctValue", "SQ.Formulas.SLPT.None",
@@ -233,6 +240,9 @@ def extract(path: Path) -> dict:
             unsupported.add("INVALID_PRICE_COMPUTED_FROM")
         if action.attrib["key"] not in SUPPORTED_ENTRY: unsupported.add(action.attrib["key"])
         action_ast = _item(action)
+        unsupported.update(
+            f"ACTION_PARAM:{key}"
+            for key in set(action_ast.get("params", {})) - SUPPORTED_ACTION_PARAMS)
         for formula in action.findall(".//Formula"):
             formulas.add(formula.attrib["key"])
         entries[direction] = {

@@ -7,9 +7,9 @@ import json
 from pathlib import Path
 
 try:
-    from lab.sq_bridge.sqx_extract import extract
+    from lab.sq_bridge.sqx_extract import SUPPORTED_ACTION_PARAMS, extract
 except ModuleNotFoundError:
-    from sqx_extract import extract
+    from sqx_extract import SUPPORTED_ACTION_PARAMS, extract
 
 
 def canonical_ir(contract: dict) -> dict:
@@ -143,6 +143,16 @@ def _execution_plan(entry: dict | None, direction: str) -> dict | None:
     if action.get("op") != "EnterAtMarket":
         raise ValueError("El pla executable requereix EnterAtMarket")
     params = action.get("params", {})
+    unknown = sorted(set(params) - SUPPORTED_ACTION_PARAMS)
+    if unknown:
+        raise ValueError(f"Parametres d'accio no executables: {unknown}")
+    symbol = params.get("#Symbol#", "Current")
+    if symbol != "Current":
+        raise ValueError("EnterAtMarket nomes pot usar el simbol actual")
+    size = params.get("#Size#")
+    if size is not None and (not isinstance(size, dict)
+            or size.get("formula") != "SQ.Formulas.Size.UseGlobalMM"):
+        raise ValueError("La mida SQ ha de delegar al money management global")
     declared = params.get("#Direction#")
     expected = 1 if direction == "long" else -1
     if declared is not None and declared != expected:
@@ -152,7 +162,9 @@ def _execution_plan(entry: dict | None, direction: str) -> dict | None:
     exit_after = params.get("#ExitAfterBars.ExitAfterBars#", 0) or 0
     if not isinstance(exit_after, int) or isinstance(exit_after, bool) or exit_after < 0:
         raise ValueError("ExitAfterBars invalid")
-    for key in ("#MoveSL2BE.MoveSL2BE#", "#TrailingStop.TrailingStop#"):
+    for key in (
+            "#MoveSL2BE.MoveSL2BE#", "#MoveSL2BE.SL2BEAddPips#",
+            "#TrailingStop.TrailingStop#", "#TrailingStop.TrailingActivation#"):
         if _range_plan(params.get(key), key)["type"] != "none":
             raise ValueError(f"Gestio dinamica no executable: {key}")
     return {

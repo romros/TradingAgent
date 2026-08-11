@@ -152,6 +152,17 @@ class SqxExtractTest(unittest.TestCase):
         self.assertFalse(result["supported"])
         self.assertIn("NON_CLOSE_COMPUTED_FROM", result["unsupported_nodes_or_formulas"])
 
+    def test_rejects_unknown_entry_action_parameter(self):
+        strategy = STRATEGY.replace(
+            b'<Param key="#Direction#">1</Param>',
+            b'<Param key="#Direction#">1</Param><Param key="#HiddenExit#">7</Param>',
+            1)
+        with tempfile.TemporaryDirectory() as tmp:
+            result = extract(self._write_sqx(tmp, strategy))
+        self.assertFalse(result["supported"])
+        self.assertIn("ACTION_PARAM:#HiddenExit#",
+                      result["unsupported_nodes_or_formulas"])
+
     def test_extracts_nonzero_realistic_execution_costs(self):
         settings = SETTINGS.replace(b'defaultSpread="0"', b'defaultSpread="0.8"')
         settings = settings.replace(b'type=&quot;None&quot;', b'type=&quot;PerTrade&quot;')

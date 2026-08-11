@@ -6,7 +6,7 @@ MARKER="# tradingagent-ostium-research-universe-economics"
 DATA_DIR="$ROOT/data/ostium_economics_universe"
 LOG="$DATA_DIR/collector.log"
 LOCK="/tmp/tradingagent-ostium-research-universe-economics.lock"
-LINE="37 */2 * * 1-5 flock -n $LOCK env OSTIUM_EVIDENCE_DIR=$DATA_DIR $ROOT/scripts/capture_ostium_research_universe_economics.sh >> $LOG 2>&1 $MARKER"
+LINE="37 * * * 1-5 flock -n $LOCK env OSTIUM_EVIDENCE_DIR=$DATA_DIR $ROOT/scripts/capture_ostium_research_universe_economics.sh >> $LOG 2>&1 $MARKER"
 
 mkdir -p "$DATA_DIR"
 CURRENT=$(crontab -l 2>/dev/null || true)

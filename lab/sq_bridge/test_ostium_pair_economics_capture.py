@@ -32,3 +32,10 @@ def test_universe_capture_prioritizes_eurusd_and_is_failure_isolated():
     assert 'COST_GATE_REFRESH_FAILED pair=%s' in script
     assert 'PREFLIGHT_REFRESH_FAILED pair=EUR/USD' in script
     assert 'exit "$STATUS"' in script
+
+
+def test_universe_cron_samples_hourly_without_overlap():
+    script = (Path(__file__).parents[2] / "scripts" /
+              "install_ostium_research_universe_capture_cron.sh").read_text()
+    assert 'LINE="37 * * * 1-5 flock -n $LOCK ' in script
+    assert "tradingagent-ostium-research-universe-economics.lock" in script

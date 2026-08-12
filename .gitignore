@@ -18,6 +18,16 @@ data/ostium_execution_quotes/
 data/alquimia_sources/
 data/alquimia_v4/
 data/sq_signal_probe/
+# StrategyQuant research artefacts are reproducible working data, not source.
+# Keep compact, explicitly staged preflight reports under ibkr_sq_v2/preflight.
+data/ibkr_sq_v1/
+data/ibkr_sq_v2/dukascopy_m1/
+data/ibkr_sq_v2/dukascopy_m1_pilot/
+data/ibkr_sq_v2/**/_daily_cache/
+data/ibkr_sq_v2/**/*.bi5
+data/ibkr_sq_v2/**/*.gz
+data/ibkr_sq_v2/**/*.sqx
+data/ibkr_sq_v2/**/*.cfx
 docs/validation/.exit
 docs/validation/202*.json
 docs/validation/202*.txt

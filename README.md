@@ -1,15 +1,26 @@
 # TradingAgent
 
-Bot de trading automatitzat que consumeix [BrokerageService](../BrokerageService) per operar a Ostium (DEX crypto perpetual futures).
+> **OBJECTIU NOU I ÚNIC (2026-08-12):** recerca teòrica d'una cartera
+> no-cripto amb actius del catàleg públic d'Interactive Brokers, escenaris de
+> capital entre 200 i 2.000 i compounding. L'objectiu
+> anterior d'Ostium està tancat. Començar sempre per
+> [CURRENT_OBJECTIVE.md](CURRENT_OBJECTIVE.md).
 
-## Estat: LAB + paper probe controlat
+TradingAgent és el cervell de senyal, context i risc. Una futura integració de
+BrokerageService amb IBKR només es considerarà després d'un `THEORETICAL_PASS`.
 
-`capitulation_d1` s'executa només en paper sobre MSFT/NVDA/NDXUSD. La resta del
+La descoberta principal es fa amb **StrategyQuant/SQCLI**. Python valida els
+finalistes, recalcula costos/marge/compounding d'IBKR i construeix la cartera;
+no substitueix SQ com a motor inicial de cerca.
+
+## Estat històric anterior — tancat, no reprendre
+
+`capitulation_d1` s'executava només en paper sobre MSFT/NVDA/NDXUSD. La resta del
 projecte continua en **fase de validació**: cap estratègia nova passa a paper o
 live sense evidència temporal, economia de 200 USDC, paritat Ostium i gate de
 producció. Veure [AGENTS_ARQUITECTURA.md §9](AGENTS_ARQUITECTURA.md).
 
-### Estratègia activa en paper: Capitulation D1
+### Estratègia històrica en paper: Capitulation D1
 
 LONG d'un dia després d'una capitulació D1. MSFT és l'actiu primari; NVDA i
 NDXUSD són complementaris. El paper probe té encara una mostra massa petita per

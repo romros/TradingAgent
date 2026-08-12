@@ -1,13 +1,17 @@
 Sempre en català
-Llegeix AGENTS_ARQUITECTURA.md abans de fer tasques
+Llegeix CURRENT_OBJECTIVE.md abans de qualsevol altre document: és l'autoritat
+vigent i tanca l'objectiu Ostium anterior.
 Llegeix docs/ESTAT.md per saber per on anem
+Llegeix AGENTS_ARQUITECTURA.md només com a arquitectura històrica reutilitzable;
+si contradiu CURRENT_OBJECTIVE.md, preval CURRENT_OBJECTIVE.md.
 Revisa el codi ja fet per veure com es fan les coses
 Pregunta abans d'inventar
 
-# Projecte TradingAgent
+# Projecte TradingAgent — objectiu vigent IBKR
 
-Bot de trading automatitzat que consumeix BrokerageService per operar a Ostium.
-TradingAgent = cervell (decideix QUÈ i QUAN). BrokerageService = cos (executa, dades).
+Ara és una recerca teòrica SQCLI amb actius del catàleg públic d'IBKR.
+TradingAgent = cervell (decideix QUÈ i QUAN). BrokerageService només seria el
+cos futur (execució i dades) després d'un `THEORETICAL_PASS`.
 
 ## Principis
 

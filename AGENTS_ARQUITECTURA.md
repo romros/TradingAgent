@@ -1,5 +1,11 @@
 # AGENTS_ARQUITECTURA.md — TradingAgent
 
+> **ARQUITECTURA HISTÒRICA.** L'objectiu Ostium descrit aquí es va tancar el
+> 2026-08-11. Abans d'actuar, llegir [`CURRENT_OBJECTIVE.md`](CURRENT_OBJECTIVE.md),
+> que preval sobre aquest document. Reutilitzar components i principis, però no
+> reprendre mercats, leverage, probes o desplegaments antics sense una decisió
+> explícita de l'operador.
+
 **Data:** 2026-03-16
 **Repo/Path:** `/mnt/volume-SQ/dev/TradingAgent`
 **Modes:** PAPER / LIVE / STOPPED

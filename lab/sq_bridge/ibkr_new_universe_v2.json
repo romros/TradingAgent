@@ -1,0 +1,244 @@
+{
+  "schema_version": 2,
+  "created_at_utc": "2026-08-12",
+  "purpose": "Clean-slate theoretical SQCLI universe. This file does not authorize broker execution.",
+  "phase": "THEORETICAL_RESEARCH_ONLY",
+  "promotion_rule": "An asset must be new versus Ostium, publicly catalog-compatible with IBKR, have certified data, and receive a frozen campaign preregistration before SQ discovery.",
+  "official_ibkr_sources": [
+    {
+      "url": "https://www.interactivebrokers.ie/es/trading/products-exchanges.php",
+      "claim": "IBKR public product search covers stocks and exchange-traded funds globally; product availability remains jurisdiction/account dependent.",
+      "checked_at_utc": "2026-08-12"
+    },
+    {
+      "url": "https://www.interactivebrokers.ie/en/trading/products-stocks.php?menu=B",
+      "claim": "IBKR advertises access to 10,000+ US stocks and ETFs and eligible fractional shares.",
+      "checked_at_utc": "2026-08-12"
+    },
+    {
+      "url": "https://www.interactivebrokers.ie/en/trading/fractional-trading.php",
+      "claim": "Eligible US stocks and ETFs may support fractional orders; exact eligibility must later be queried from the target account.",
+      "checked_at_utc": "2026-08-12"
+    }
+  ],
+  "data_catalog": {
+    "provider": "Dukascopy via StrategyQuant Data Manager plugin catalog",
+    "local_catalog_path": "/home/roman/dockers-SQ/6ACC10/internal/plugins/DataSourceDukascopy/dukascopy.csv",
+    "catalog_sha256": "e641159e8a9b35fd829a7e5022754bb7a2d2a1a554088cb37f6d69c078f1ec2a",
+    "catalog_checked_at_utc": "2026-08-12",
+    "warning": "Catalog presence is not imported-history certification. Each asset remains CATALOG_CANDIDATE until download, coverage, timezone, corporate-action and OHLC checks pass."
+  },
+  "hard_exclusions": {
+    "rule": "Any asset previously researched for Ostium/Alquimia is excluded unless the operator explicitly reauthorizes it.",
+    "known_symbols": [
+      "US500", "IBUS500", "SPY", "US100", "QQQ", "NDX", "MSFT", "NVDA",
+      "EURUSD", "GBPUSD", "USDJPY", "XAUUSD", "TLT", "BTCUSD", "ETHUSD", "SOLUSD"
+    ],
+    "asset_classes": ["crypto"]
+  },
+  "explicit_reauthorizations": {
+    "authorized_at_utc": "2026-08-12",
+    "symbols": ["AAPL", "GOOGL", "MSFT", "TSLA"],
+    "rule": "Fresh clean-slate research only. Old candidates, parameters, performance, data assumptions and holdouts remain forbidden. MSFT must use a newly certified MSFTUSUSD source, not the old MSFT/Yahoo resource."
+  },
+  "candidates": [
+    {
+      "symbol": "CAT",
+      "name": "Caterpillar Inc.",
+      "asset_class": "us_stock",
+      "diversification_role": "industrial/cyclical",
+      "priority": 1,
+      "ibkr_status": "BROAD_PUBLIC_CATALOG_CANDIDATE",
+      "account_permission_status": "DEFERRED_UNTIL_THEORETICAL_PASS",
+      "new_vs_ostium": true,
+      "sq_data_symbol": "CATUSUSD",
+      "dukascopy_catalog_from": "2017-05-11",
+      "local_history_status": "DUKASCOPY_2017_YEAR_PILOT_PASS_8_MONTHS_163_RTH_SESSIONS",
+      "status": "YEAR_PILOT_PASS_EXTENSION_REQUIRED",
+      "preflight_evidence": "data/ibkr_sq_v2/preflight/cat_data_preflight_20260812.json"
+    },
+    {
+      "symbol": "JPM",
+      "name": "JPMorgan Chase & Co.",
+      "asset_class": "us_stock",
+      "diversification_role": "financial/rates-sensitive",
+      "priority": 1,
+      "ibkr_status": "BROAD_PUBLIC_CATALOG_CANDIDATE",
+      "account_permission_status": "DEFERRED_UNTIL_THEORETICAL_PASS",
+      "new_vs_ostium": true,
+      "sq_data_symbol": "JPMUSUSD",
+      "dukascopy_catalog_from": "2017-01-26",
+      "local_history_status": "NOT_IMPORTED",
+      "status": "CATALOG_CANDIDATE"
+    },
+    {
+      "symbol": "JNJ",
+      "name": "Johnson & Johnson",
+      "asset_class": "us_stock",
+      "diversification_role": "healthcare/defensive",
+      "priority": 1,
+      "ibkr_status": "BROAD_PUBLIC_CATALOG_CANDIDATE",
+      "account_permission_status": "DEFERRED_UNTIL_THEORETICAL_PASS",
+      "new_vs_ostium": true,
+      "sq_data_symbol": "JNJUSUSD",
+      "dukascopy_catalog_from": "2017-01-26",
+      "local_history_status": "NOT_IMPORTED",
+      "status": "CATALOG_CANDIDATE"
+    },
+    {
+      "symbol": "KO",
+      "name": "The Coca-Cola Company",
+      "asset_class": "us_stock",
+      "diversification_role": "consumer-staples/defensive",
+      "priority": 1,
+      "ibkr_status": "BROAD_PUBLIC_CATALOG_CANDIDATE",
+      "account_permission_status": "DEFERRED_UNTIL_THEORETICAL_PASS",
+      "new_vs_ostium": true,
+      "sq_data_symbol": "KOUSUSD",
+      "dukascopy_catalog_from": "2017-01-26",
+      "local_history_status": "NOT_IMPORTED",
+      "status": "CATALOG_CANDIDATE"
+    },
+    {
+      "symbol": "IWM",
+      "name": "iShares Russell 2000 ETF",
+      "asset_class": "us_etf",
+      "diversification_role": "US small-cap",
+      "priority": 2,
+      "ibkr_status": "BROAD_PUBLIC_CATALOG_CANDIDATE",
+      "account_permission_status": "PRIIPS_AND_ACCOUNT_CHECK_DEFERRED",
+      "new_vs_ostium": true,
+      "sq_data_symbol": "IWMUSUSD",
+      "dukascopy_catalog_from": "2017-01-26",
+      "local_history_status": "NOT_IMPORTED",
+      "status": "CATALOG_CANDIDATE"
+    },
+    {
+      "symbol": "EEM",
+      "name": "iShares MSCI Emerging Markets ETF",
+      "asset_class": "us_etf",
+      "diversification_role": "emerging-markets equity",
+      "priority": 2,
+      "ibkr_status": "BROAD_PUBLIC_CATALOG_CANDIDATE",
+      "account_permission_status": "PRIIPS_AND_ACCOUNT_CHECK_DEFERRED",
+      "new_vs_ostium": true,
+      "sq_data_symbol": "EEMUSUSD",
+      "dukascopy_catalog_from": "2017-01-26",
+      "local_history_status": "NOT_IMPORTED",
+      "status": "CATALOG_CANDIDATE"
+    },
+    {
+      "symbol": "EFA",
+      "name": "iShares MSCI EAFE ETF",
+      "asset_class": "us_etf",
+      "diversification_role": "developed ex-US equity",
+      "priority": 2,
+      "ibkr_status": "BROAD_PUBLIC_CATALOG_CANDIDATE",
+      "account_permission_status": "PRIIPS_AND_ACCOUNT_CHECK_DEFERRED",
+      "new_vs_ostium": true,
+      "sq_data_symbol": "EFAUSUSD",
+      "dukascopy_catalog_from": "2017-01-26",
+      "local_history_status": "NOT_IMPORTED",
+      "status": "CATALOG_CANDIDATE"
+    },
+    {
+      "symbol": "XLE",
+      "name": "Energy Select Sector SPDR Fund",
+      "asset_class": "us_etf",
+      "diversification_role": "energy sector",
+      "priority": 2,
+      "ibkr_status": "BROAD_PUBLIC_CATALOG_CANDIDATE",
+      "account_permission_status": "PRIIPS_AND_ACCOUNT_CHECK_DEFERRED",
+      "new_vs_ostium": true,
+      "sq_data_symbol": "XLEUSUSD",
+      "dukascopy_catalog_from": "2017-11-15",
+      "local_history_status": "NOT_IMPORTED",
+      "status": "CATALOG_CANDIDATE"
+    },
+    {
+      "symbol": "XLF",
+      "name": "Financial Select Sector SPDR Fund",
+      "asset_class": "us_etf",
+      "diversification_role": "financial sector basket",
+      "priority": 2,
+      "ibkr_status": "BROAD_PUBLIC_CATALOG_CANDIDATE",
+      "account_permission_status": "PRIIPS_AND_ACCOUNT_CHECK_DEFERRED",
+      "new_vs_ostium": true,
+      "sq_data_symbol": "XLFUSUSD",
+      "dukascopy_catalog_from": "2017-01-26",
+      "local_history_status": "NOT_IMPORTED",
+      "status": "CATALOG_CANDIDATE"
+    },
+    {
+      "symbol": "AAPL",
+      "name": "Apple Inc.",
+      "asset_class": "us_stock",
+      "diversification_role": "mega-cap technology/consumer ecosystem",
+      "priority": 2,
+      "ibkr_status": "BROAD_PUBLIC_CATALOG_CANDIDATE",
+      "account_permission_status": "DEFERRED_UNTIL_THEORETICAL_PASS",
+      "new_vs_ostium": true,
+      "reauthorized_clean_slate": true,
+      "sq_data_symbol": "AAPLUSUSD",
+      "dukascopy_catalog_from": "2017-01-26",
+      "local_history_status": "EXISTS_UNAUDITED_APPROX_1_3GB",
+      "status": "LOCAL_DATA_AUDIT_REQUIRED"
+    },
+    {
+      "symbol": "GOOGL",
+      "name": "Alphabet Inc. Class A",
+      "asset_class": "us_stock",
+      "diversification_role": "mega-cap technology/digital advertising/cloud",
+      "priority": 2,
+      "ibkr_status": "BROAD_PUBLIC_CATALOG_CANDIDATE",
+      "account_permission_status": "DEFERRED_UNTIL_THEORETICAL_PASS",
+      "new_vs_ostium": true,
+      "reauthorized_clean_slate": true,
+      "sq_data_symbol": "GOOGLUSUSD",
+      "dukascopy_catalog_from": "2017-01-26",
+      "local_history_status": "NOT_IMPORTED",
+      "status": "CATALOG_CANDIDATE"
+    },
+    {
+      "symbol": "MSFT",
+      "name": "Microsoft Corporation",
+      "asset_class": "us_stock",
+      "diversification_role": "mega-cap technology/software/cloud",
+      "priority": 2,
+      "ibkr_status": "BROAD_PUBLIC_CATALOG_CANDIDATE",
+      "account_permission_status": "DEFERRED_UNTIL_THEORETICAL_PASS",
+      "new_vs_ostium": false,
+      "reauthorized_clean_slate": true,
+      "sq_data_symbol": "MSFTUSUSD",
+      "dukascopy_catalog_from": "2017-01-26",
+      "local_history_status": "OLD_MSFT_RESOURCE_FORBIDDEN_NEW_SOURCE_NOT_IMPORTED",
+      "status": "CATALOG_CANDIDATE"
+    },
+    {
+      "symbol": "TSLA",
+      "name": "Tesla Inc.",
+      "asset_class": "us_stock",
+      "diversification_role": "high-volatility growth/automotive/energy",
+      "priority": 2,
+      "ibkr_status": "BROAD_PUBLIC_CATALOG_CANDIDATE",
+      "account_permission_status": "DEFERRED_UNTIL_THEORETICAL_PASS",
+      "new_vs_ostium": true,
+      "reauthorized_clean_slate": true,
+      "sq_data_symbol": "TSLAUSUSD",
+      "dukascopy_catalog_from": "2017-01-26",
+      "local_history_status": "EXISTS_UNAUDITED_APPROX_1_29GB",
+      "status": "LOCAL_DATA_AUDIT_REQUIRED"
+    }
+  ],
+  "next_gate": {
+    "name": "DATA_PREFLIGHT",
+    "requirements": [
+      "Estimate disk cost before download",
+      "Import priority-1 assets first",
+      "Verify coverage and gaps",
+      "Verify timezone/session and DST",
+      "Verify split/dividend adjustment semantics",
+      "Freeze train/validation/OOS without reading candidate performance"
+    ]
+  }
+}

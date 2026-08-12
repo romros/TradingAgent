@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-aggressive-2000-eur-v1",
+  "created_utc": "2026-08-11",
+  "status": "PREREGISTERED_BEFORE_PERFORMANCE",
+  "research_pipeline": {
+    "primary_discovery_engine": "StrategyQuant SQCLI",
+    "python_role": [
+      "independent_signal_and_trade_parity",
+      "IBKR_execution_economics",
+      "robustness_recalculation",
+      "portfolio_construction",
+      "paper_runtime"
+    ],
+    "sq_must_precede_python_candidate_promotion": true,
+    "target_portfolio_strategies_min": 4,
+    "target_portfolio_strategies_max": 8,
+    "minimum_is_not_relaxed_if_fewer_pass": true
+  },
+  "objective": {
+    "research_target_net_cagr_pct": 50,
+    "target_is_a_gate_not_a_promise": true,
+    "initial_capital_eur": 2000,
+    "compounding": "after_each_closed_trade",
+    "maximum_historical_drawdown_pct": 25,
+    "maximum_monte_carlo_drawdown_p95_pct": 35,
+    "maximum_risk_of_ruin_pct": 1
+  },
+  "venue": {
+    "broker": "Interactive Brokers Ireland",
+    "instrument": "IBUS500",
+    "instrument_type": "index_cfd",
+    "contract_multiplier": 1,
+    "minimum_order_units": 1,
+    "initial_margin_pct_retail": 6.25,
+    "maximum_leverage_from_published_initial_margin": 16,
+    "intraday_margin_reduction_allowed": false,
+    "commission_rate_pct_per_side": 0.005,
+    "minimum_commission_usd_per_side": 1,
+    "minimum_margin_account_equity_eur": 2000,
+    "tradable_universe_registry": "lab/sq_bridge/ibkr_tradable_universe_v1.json",
+    "required_registry_status_for_sq": "WEB_VERIFIED",
+    "sources": [
+      "https://www.interactivebrokers.ie/en/trading/margin-cfd.php?ex=eu&hm=eu&pm=0&rgt=0&rsk=1&rst=040404040404040104",
+      "https://www.interactivebrokers.ie/en/pricing/commissions-cfd-index.php",
+      "https://www.interactivebrokers.ie/en/trading/margin-stocks.php?ex=eu&hm=eu&pm=0&rgt=1&rsk=1&rst=121204040808080808"
+    ]
+  },
+  "data": {
+    "research_proxy": "Dukascopy SPXUSD M1 UTC",
+    "path": "lab/out/market_sources/sp_m1_dukas_utc_2012_2026.parquet",
+    "sha256": "4db2d26f6965e58a2f868d46aac2f87573934b511c3fda8e582613019e03f9e0",
+    "timezone_for_sessions": "America/New_York",
+    "proxy_is_not_live_parity": true,
+    "ibkr_bid_ask_fill_capture_required_before_paper_promotion": true
+  },
+  "temporal_contract": {
+    "development": ["2012-01-19", "2018-12-31"],
+    "validation": ["2019-01-01", "2022-12-31"],
+    "historical_oos": ["2023-01-01", "2025-12-31"],
+    "contamination_warning": "SPX history has been inspected by earlier project families; historical OOS is corroboration, not a pristine global holdout.",
+    "prospective_holdout_starts": "2026-08-12",
+    "prospective_holdout_accessed": false
+  },
+  "directed_hypotheses": [
+    {
+      "id": "ny_opening_range_breakout",
+      "thesis": "A large opening imbalance that survives an initial range continues during the liquid US session.",
+      "sides": ["long", "short"],
+      "entry_windows_ny": [["09:45", "11:00"]],
+      "maximum_parameters": 3
+    },
+    {
+      "id": "overnight_gap_failed_auction",
+      "thesis": "An overnight displacement rejected after the cash open mean-reverts toward the prior close.",
+      "sides": ["long", "short"],
+      "entry_windows_ny": [["09:35", "11:30"]],
+      "maximum_parameters": 3
+    },
+    {
+      "id": "midday_compression_breakout",
+      "thesis": "A low-range midday auction followed by expansion continues into the close.",
+      "sides": ["long", "short"],
+      "entry_windows_ny": [["12:00", "14:30"]],
+      "maximum_parameters": 3
+    },
+    {
+      "id": "trend_pullback_recovery",
+      "thesis": "A pullback against an established intraday trend that reclaims structure resumes the trend.",
+      "sides": ["long", "short"],
+      "entry_windows_ny": [["10:00", "15:00"]],
+      "maximum_parameters": 3
+    }
+  ],
+  "execution": {
+    "signal_timeframe": "M15",
+    "entry": "next_bar_open_after_complete_signal_bar",
+    "one_position_at_a_time": true,
+    "flat_before_ny_close": true,
+    "ambiguous_stop_and_target_same_bar": "STOP_FIRST",
+    "base_all_in_roundtrip_bps_excluding_minimum_commission": 4,
+    "conservative_all_in_roundtrip_bps_excluding_minimum_commission": 8,
+    "stress_all_in_roundtrip_bps_excluding_minimum_commission": 16,
+    "minimum_roundtrip_commission_usd": 2,
+    "overnight_financing": false
+  },
+  "risk": {
+    "risk_per_trade_pct_grid": [0.5, 0.75, 1.0, 1.25, 1.5],
+    "maximum_simultaneous_risk_pct": 2,
+    "maximum_daily_loss_pct": 3,
+    "maximum_monthly_loss_pct": 10,
+    "maximum_leverage": 16,
+    "leverage_selected_after_signal_freeze": true,
+    "stop_must_be_at_least_twice_liquidation_buffer": true
+  },
+  "gates": {
+    "minimum_trades_total": 250,
+    "minimum_trades_validation": 60,
+    "minimum_trades_historical_oos": 45,
+    "minimum_profit_factor_validation_stress": 1.2,
+    "minimum_profit_factor_historical_oos_stress": 1.2,
+    "minimum_positive_year_ratio": 0.67,
+    "minimum_positive_walk_forward_folds_ratio": 0.7,
+    "minimum_profitable_neighbour_ratio": 0.7,
+    "maximum_single_year_profit_contribution_pct": 40,
+    "minimum_monte_carlo_profitable_ratio": 0.9,
+    "required_cost_multiplier_survival": 2,
+    "research_target_net_cagr_pct": 50,
+    "target_failure_policy": "A robust lower-CAGR candidate may be retained as a component but does not satisfy the campaign objective."
+  },
+  "model_policy": {
+    "model_may": ["veto_trade", "reduce_risk", "classify_pre_entry_regime"],
+    "model_may_not": ["create_entry", "increase_risk", "move_initial_stop_away", "override_circuit_breaker"],
+    "all_model_inputs_must_be_timestamped_and_replayable": true
+  },
+  "paper_or_live_authorized": false
+}

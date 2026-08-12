@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "stage": "US_EQUITY_DATA_PREFLIGHT",
+  "symbol": "CATUSUSD",
+  "decision": "PASS_YEAR_PILOT_SOURCE_ONLY",
+  "performance_accessed": false,
+  "source_rows": 234720,
+  "unique_timestamps": 234720,
+  "duplicate_timestamps": 0,
+  "complete_months": 8,
+  "rth_timezone": "America/New_York",
+  "rth_window": "09:30:00<=local_time<16:00:00",
+  "expected_minutes_per_full_session": 390,
+  "sessions": 163,
+  "bad_session_minutes": {},
+  "first_session": "2017-05-11",
+  "last_session": "2017-12-29",
+  "d1_csv": "data/ibkr_sq_v2/preflight/CATUSUSD_NYSE_RTH_D1_2017.csv",
+  "d1_sha256": "a789be4725a788830626fc1da6b8b0ed0b9b052df2982f5020aade0e914f73da",
+  "monthly_sources": [
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2017/month=05/data.csv.gz",
+      "sha256": "7dc1a33f50b49ddf9463b05c7771a687479f8c790ad9376c866b9eddc056403c"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2017/month=06/data.csv.gz",
+      "sha256": "4afad1a3e082ddea29c8a79ec4695c668c270346842adbc808ad4a40600441ef"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2017/month=07/data.csv.gz",
+      "sha256": "92bc0538a178290e6112f4831fca5a4ab178026cb238df63effd29239d7a95cc"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2017/month=08/data.csv.gz",
+      "sha256": "7451554dd501b05ea7c1f32a2ce030619be10320578f3722f1645dd1511b81cd"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2017/month=09/data.csv.gz",
+      "sha256": "dd9b99d689ee7f60f19fa1963150981af205b4f5fde0ee75a57497b8e00d1288"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2017/month=10/data.csv.gz",
+      "sha256": "2e137150aedec3dfa34170ab83d3f63124428969cd60c71fd443d8c4cb18521e"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2017/month=11/data.csv.gz",
+      "sha256": "4e4e8801cd0a752d0dc4a4677c44a6b4a92f3801b67ef711cca106c44205eff7"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2017/month=12/data.csv.gz",
+      "sha256": "fbefb5282a3dc98996439e1ab52f0d75bf129fbd5ba466911bc77a00132ed76b"
+    }
+  ],
+  "remaining_blocks": [
+    "download_and audit 2018-2025",
+    "prove split/dividend adjustment semantics",
+    "freeze train/validation/OOS before performance",
+    "import and round-trip D1 through SQ"
+  ]
+}

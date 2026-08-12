@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-v2-aapl-postsplit-density-pilot",
+  "status": "NON_PROMOTABLE_DATA_LIMITED_PILOT",
+  "purpose": "Measure whether fresh SQ search finds any density after the 2020 split without touching 2024-2026.",
+  "asset": "AAPL",
+  "source": "Dukascopy AAPLUSUSD local SQ resource",
+  "known_data_limit": "The source is unadjusted across the 2020-08-31 4:1 split; the pilot starts on the split date and cannot promote a candidate.",
+  "performance_accessed_before_freeze": false,
+  "periods": {
+    "train_from": "2020-08-31",
+    "train_to": "2022-12-30",
+    "validation_from": "2023-01-03",
+    "validation_to": "2023-12-29",
+    "sealed_oos_from": "2024-01-02",
+    "sealed_oos_to": "2024-12-31",
+    "untouched_future_from": "2025-01-01"
+  },
+  "discovery": {
+    "timeframe": "D1",
+    "direction": "long",
+    "lane": "generic_translatable_random_density",
+    "generation": "random-generation",
+    "attempt_budget": 50000,
+    "wall_time_budget_minutes": 60,
+    "accepted_limit": 20,
+    "maximum_rules": 3,
+    "minimum_train_trades": 30
+  },
+  "promotion_allowed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

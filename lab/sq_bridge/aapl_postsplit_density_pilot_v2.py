@@ -1,0 +1,82 @@
+#!/usr/bin/env python3
+"""Compile a fresh, non-promotable AAPL post-split SQ density pilot."""
+from __future__ import annotations
+
+import json
+from datetime import date
+from pathlib import Path
+
+from lab.sq_bridge.alquimia_project import build
+
+
+ROOT = Path(__file__).resolve().parents[2]
+SPEC = Path(__file__).with_suffix(".json")
+SCAFFOLD = Path("/mnt/volume-SQ/user/projects/ALQUIMIA_CRYPTO_H4_CFX_SMOKE_V2/project.cfx")
+
+
+def compile_pilot(output_dir: Path) -> dict:
+    spec = json.loads(SPEC.read_text())
+    if spec["promotion_allowed"] or spec["performance_accessed_before_freeze"]:
+        raise ValueError("AAPL density pilot must remain blind and non-promotable")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    registry = {"markets": {"AAPL": {
+        "research_eligible": True,
+        "sq_symbol": "AAPLUSUSD",
+        "discovery_timeframe": "D1",
+        "discovery_slippage": 0,
+        "discovery_commission_per_order": 1.0,
+        "sq_resource_clone_from": "BTCUSD_ALQ_H4",
+        "sq_prune_resources": True,
+        "sq_resource_remove_attributes": ["cloneFrom", "sourceTimezone"],
+        "sq_resource_attributes": {
+            "source": "2", "barType": "1", "precision": "D1",
+            "timezone": "America/New_York", "dateFrom": "1598832000000",
+            "dateTo": "1735603200000", "uSymbol": "AAPLUSUSD",
+            "uSymbolName": "APPLE INC", "removeWeekends": "false", "broker": "-1"
+        },
+        "sq_instrument_attributes": {
+            "instrument": "AAPLUSUSD", "description": "Dukascopy AAPL post-split density pilot",
+            "tickSize": "0.01", "tickStep": "0.01", "minDistance": "0.0",
+            "tickValueInMoney": "0.0", "dateFrom": "0", "dateTo": "0",
+            "rows": "0", "totalDays": "0", "defaultSpread": "0",
+            "defaultSlippage": "0", "decimals": "2", "commissions": "",
+            "pointValue": "1.0", "dataType": "1", "recognizedFromOrders": "false",
+            "exchange": "NASDAQ", "country": "US", "sector": "Technology",
+            "swap": "", "orderSizeMultiplier": "1.0", "orderSizeStep": "1.0", "broker": "-1"
+        },
+        "exit_at_end_of_day": False,
+        "eod_exit_seconds": None,
+        "signal_time_range_seconds": None,
+        "exit_at_end_of_range": False,
+        "maximum_trades_per_day": 1,
+        "venue_max_leverage": 1
+    }}}
+    registry_path = output_dir / "frozen_market_registry.json"
+    registry_path.write_text(json.dumps(registry, indent=2, sort_keys=True) + "\n")
+    methodology = json.loads((ROOT / "lab/sq_bridge/methodology_ibkr_sq_v1.json").read_text())
+    methodology["methodology_id"] = "ibkr-v2-aapl-postsplit-density-pilot"
+    methodology["capital_usdc"] = 1000
+    methodology["discovery"]["minimum_trades_train"] = spec["discovery"]["minimum_train_trades"]
+    methodology["small_account"]["capital_scenarios_usdc"] = [200, 400, 500, 700, 1000, 2000]
+    methodology["small_account"]["canonical_capital_usdc"] = 1000
+    methodology_path = output_dir / "frozen_methodology.json"
+    methodology_path.write_text(json.dumps(methodology, indent=2, sort_keys=True) + "\n")
+    cfx = output_dir / "project.cfx"
+    manifest = build(
+        SCAFFOLD, cfx, "IBKR_V2_AAPL_D1_POSTSPLIT_DENSITY", "AAPL",
+        registry_path, methodology_path, date(2020, 8, 31), date(2022, 12, 30),
+        spec["discovery"]["accepted_limit"], "generic_translatable",
+        spec["discovery"]["generation"], spec["discovery"]["attempt_budget"],
+        spec["discovery"]["wall_time_budget_minutes"], None, "long")
+    if manifest.get("generation_type") != "random-generation":
+        raise ValueError("AAPL density pilot must use random generation")
+    receipt = {"decision": "PASS_NON_PROMOTABLE_PILOT_READY", "project": str(cfx),
+               "manifest": str(cfx.with_suffix('.manifest.json')),
+               "promotion_allowed": False, "paper_authorized": False, "live_authorized": False}
+    (output_dir / "compile_receipt.json").write_text(
+        json.dumps(receipt, indent=2, sort_keys=True) + "\n")
+    return receipt
+
+
+if __name__ == "__main__":
+    print(json.dumps(compile_pilot(ROOT / "data/ibkr_sq_v2/aapl_density_pilot"), indent=2))

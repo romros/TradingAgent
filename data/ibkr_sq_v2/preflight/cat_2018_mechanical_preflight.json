@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "stage": "US_EQUITY_DATA_PREFLIGHT",
+  "symbol": "CATUSUSD",
+  "decision": "PASS_YEAR_PILOT_SOURCE_ONLY",
+  "performance_accessed": false,
+  "source_rows": 596160,
+  "unique_timestamps": 596160,
+  "duplicate_timestamps": 0,
+  "complete_months": 20,
+  "rth_timezone": "America/New_York",
+  "rth_window": "09:30:00<=local_time<16:00:00",
+  "expected_minutes_per_full_session": 390,
+  "sessions": 414,
+  "bad_session_minutes": {},
+  "first_session": "2017-05-11",
+  "last_session": "2018-12-31",
+  "d1_csv": "data/ibkr_sq_v2/preflight/CATUSUSD_NYSE_RTH_D1_2018.csv",
+  "d1_sha256": "0e4ffaad388ab53f3e1a3a611ad8372c975b1d48b6f3a96c88f1d9b564512cff",
+  "monthly_sources": [
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2017/month=05/data.csv.gz",
+      "sha256": "7dc1a33f50b49ddf9463b05c7771a687479f8c790ad9376c866b9eddc056403c"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2017/month=06/data.csv.gz",
+      "sha256": "4afad1a3e082ddea29c8a79ec4695c668c270346842adbc808ad4a40600441ef"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2017/month=07/data.csv.gz",
+      "sha256": "92bc0538a178290e6112f4831fca5a4ab178026cb238df63effd29239d7a95cc"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2017/month=08/data.csv.gz",
+      "sha256": "7451554dd501b05ea7c1f32a2ce030619be10320578f3722f1645dd1511b81cd"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2017/month=09/data.csv.gz",
+      "sha256": "dd9b99d689ee7f60f19fa1963150981af205b4f5fde0ee75a57497b8e00d1288"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2017/month=10/data.csv.gz",
+      "sha256": "2e137150aedec3dfa34170ab83d3f63124428969cd60c71fd443d8c4cb18521e"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2017/month=11/data.csv.gz",
+      "sha256": "4e4e8801cd0a752d0dc4a4677c44a6b4a92f3801b67ef711cca106c44205eff7"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2017/month=12/data.csv.gz",
+      "sha256": "fbefb5282a3dc98996439e1ab52f0d75bf129fbd5ba466911bc77a00132ed76b"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2018/month=01/data.csv.gz",
+      "sha256": "b57d36196cb74e567a93409834524259fae7f4b26e84c3d8ec3c101d487b13eb"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2018/month=02/data.csv.gz",
+      "sha256": "2a629d703832d7bda641a609d12a335f20aabb5050f00a4d4afb25534ccd4d10"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2018/month=03/data.csv.gz",
+      "sha256": "0b1dd05cf69c12638e2682bbb2f64fd712045dd21379dd31dc67ec7194455f80"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2018/month=04/data.csv.gz",
+      "sha256": "d8cfa61692659ab530145e2aa688f2ba57affcf5d4177d80899fb42348a55380"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2018/month=05/data.csv.gz",
+      "sha256": "13eabaa81894db9da03e9eafb44c36b57039539c738d175dad9449201c4d462a"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2018/month=06/data.csv.gz",
+      "sha256": "1c95bfcceca4eda538de230306f3525b1bcd567c98666e764be88a00753bda40"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2018/month=07/data.csv.gz",
+      "sha256": "3c9530f56d5468fa443aedd038ddcebc2f16d9f7796a8d4d58c81adb3ff9fda2"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2018/month=08/data.csv.gz",
+      "sha256": "91a45f50805251c1208834302c172555795ec845796de476136d0d621b1374f1"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2018/month=09/data.csv.gz",
+      "sha256": "0c7c17280e20af12f311ecee6268a836e45bb6c9bbd6c04b942f5350f2358dc3"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2018/month=10/data.csv.gz",
+      "sha256": "5d48e17c09a6ca271558e264a52ac69808d090453c954afb454a4442710a794f"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2018/month=11/data.csv.gz",
+      "sha256": "1092d1c128eb681044e2af8eb5fabddc357511cc79eb60c0d229eadbe312a189"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/CATUSUSD/tf=1m/year=2018/month=12/data.csv.gz",
+      "sha256": "45f61ba4f5c49ad05123fa318534e8fb45f0d930a74c5198d778796cfb74a32e"
+    }
+  ],
+  "remaining_blocks": [
+    "download_and audit 2018-2025",
+    "prove split/dividend adjustment semantics",
+    "freeze train/validation/OOS before performance",
+    "import and round-trip D1 through SQ"
+  ]
+}

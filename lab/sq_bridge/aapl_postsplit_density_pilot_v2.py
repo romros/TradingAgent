@@ -64,6 +64,18 @@ def compile_pilot(output_dir: Path, *, spec_path: Path = SPEC,
     methodology["small_account"]["canonical_capital_usdc"] = 1000
     methodology_path = output_dir / "frozen_methodology.json"
     methodology_path.write_text(json.dumps(methodology, indent=2, sort_keys=True) + "\n")
+    timeframe = spec["discovery"]["timeframe"]
+    if timeframe not in {"D1", "H4"}:
+        raise ValueError("unsupported AAPL pilot timeframe")
+    market = registry["markets"]["AAPL"]
+    market["discovery_timeframe"] = timeframe
+    if timeframe == "H4":
+        market["sq_symbol"] = "AAPLUSUSD_TICK_UTCMinus05"
+        market["sq_resource_attributes"].update({
+            "precision": "TICK", "uSymbol": "AAPLUSUSD",
+            "uSymbolName": "APPLE INC", "source": "2",
+        })
+        registry_path.write_text(json.dumps(registry, indent=2, sort_keys=True) + "\n")
     cfx = output_dir / "project.cfx"
     manifest = build(
         SCAFFOLD, cfx, project_name, "AAPL",

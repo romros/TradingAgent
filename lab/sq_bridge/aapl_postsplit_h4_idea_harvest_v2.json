@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-v2-aapl-postsplit-h4-random-idea-harvest",
+  "status": "IDEA_ONLY_NON_PROMOTABLE",
+  "purpose": "Increase signal density after the D1 generic lane returned zero ideas.",
+  "asset": "AAPL",
+  "source": "Dukascopy AAPLUSUSD tick resource, America/New_York",
+  "known_data_limit": "Training begins on the 2020 split date; results cannot promote without adjusted longer history.",
+  "performance_accessed_before_freeze": false,
+  "periods": {
+    "train_from": "2020-08-31",
+    "train_to": "2022-12-30",
+    "validation_from": "2023-01-03",
+    "validation_to": "2023-12-29",
+    "sealed_oos_from": "2024-01-02",
+    "sealed_oos_to": "2024-12-31",
+    "untouched_future_from": "2025-01-01"
+  },
+  "discovery": {
+    "timeframe": "H4",
+    "direction": "both",
+    "lane": "generic_translatable_random_idea_harvest",
+    "generation": "random-generation",
+    "attempt_budget": 100000,
+    "wall_time_budget_minutes": 60,
+    "accepted_limit": 100,
+    "maximum_rules": 3,
+    "minimum_train_trades": 30,
+    "minimum_profit_factor_train": 1.05
+  },
+  "review_contract": "Idea structure only; validation, OOS, costs and robustness remain mandatory.",
+  "promotion_allowed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

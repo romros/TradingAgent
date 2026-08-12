@@ -1,0 +1,66 @@
+{
+  "schema_version": 2,
+  "id": "spxusd-close-spread-sample-2026-08-11",
+  "instrument": "US500/USD",
+  "ostium_pair": "SPX/USD",
+  "session_window": "close",
+  "captured_interval_utc": [
+    "2026-08-11T19:02:07.669Z",
+    "2026-08-11T19:32:25.379Z"
+  ],
+  "captured_interval_new_york": [
+    "2026-08-11T15:02:07.669-04:00",
+    "2026-08-11T15:32:25.379-04:00"
+  ],
+  "collection": {
+    "accepted_samples": 20,
+    "rejected_samples": 0,
+    "span_minutes": 30.295166666666667,
+    "market_open_for_all_samples": true,
+    "minimum_samples_pass": true,
+    "minimum_span_pass": true,
+    "raw_jsonl_versioned": false,
+    "temporary_raw_sha256": "6735afc8e6eaa4ab87c2783e103886692ee5f4799cf8eaaa04bbf7afc21cbfa3"
+  },
+  "spread_bps": {
+    "median": 0.9058312979605971,
+    "p90": 1.0353638063032389,
+    "p95": 1.035609161934334,
+    "maximum": 1.0356719962227947
+  },
+  "simulated_slippage_bps": {
+    "notionals_usdc": [60, 100, 200, 400, 500],
+    "long_and_short_equal": true,
+    "median_per_side": 0.45958103450995996,
+    "p95_per_side": 0.45958103450995996,
+    "maximum_per_side": 0.45958103450995996,
+    "limitation": "SDK simulated slippage was sampled once before the quote loop, so this window measures temporal spread but not temporal slippage variation."
+  },
+  "execution_metadata": {
+    "pair_id": 10,
+    "open_fee_bps": 1,
+    "close_fee_bps": 0,
+    "roundtrip_proxy_bps": {
+      "definition": "open fee plus close fee plus SDK long-open and short-open price impact; refundable oracle and accumulated carry excluded",
+      "median": 1.91916206901992,
+      "p95": 1.91916206901992,
+      "maximum": 1.91916206901992
+    },
+    "rollover_pct_per_8h": {
+      "long": -0.005221329914879999,
+      "short": 0.0015579699148799999
+    }
+  },
+  "tool": {
+    "package": "@ostium/builder-sdk@0.7.0",
+    "mode": "createReadOnly",
+    "deployment": "ephemeral node:22-alpine Docker container scheduled by one-shot at job",
+    "private_key_used": false,
+    "transactions_possible": false
+  },
+  "window_decision": "QUALIFY_CLOSE_2026_08_11",
+  "global_gate_decision": "KEEP_BLOCKED_UNTIL_THREE_COMPLETE_DAYS",
+  "remaining": "The 2026-08-11 midday window failed operationally before capture; collect three complete days on 2026-08-12 through 2026-08-14.",
+  "sqcli_used": false,
+  "trading_executed": false
+}

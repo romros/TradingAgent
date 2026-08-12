@@ -49,15 +49,17 @@
   },
   "progress": {
     "qualifying_complete_days": 0,
-    "qualifying_windows": ["2026-08-11 open"],
+    "qualifying_windows": ["2026-08-11 open", "2026-08-11 close"],
     "remaining_windows": [
       "2026-08-11 midday",
-      "2026-08-11 close",
       "open, midday and close on two additional open days"
     ],
-    "evidence": "spxusd-open-spread-sample-2026-08-11.json"
+    "evidence": [
+      "spxusd-open-spread-sample-2026-08-11.json",
+      "spxusd-close-spread-sample-2026-08-11.json"
+    ]
   },
-  "attempts": {"market_tests": 2, "cash_window_samples": 40, "reason": "Saturday samples excluded; the 2026-08-11 open window qualifies but no day is complete yet"},
+  "attempts": {"market_tests": 3, "cash_window_samples": 60, "reason": "Saturday samples excluded; the 2026-08-11 open and close windows qualify, while midday failed before capture because the one-shot environment lacked Node. No day is complete yet."},
   "decision": "BLOCK_NEW_SPX_SEARCH_UNTIL_MEASURED",
   "next_test": "Collect at least 20 normalized bid/mid/ask samples spanning at least 30 minutes in every remaining frozen session window and summarize them with academia/tools/summarize_execution_quotes.py."
 }

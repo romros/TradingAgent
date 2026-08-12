@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-v2-aapl-postsplit-d1-random-idea-harvest",
+  "status": "IDEA_ONLY_NON_PROMOTABLE",
+  "purpose": "Harvest structurally interesting D1 rules under deliberately loose train filters, then harden them in untouched validation and OOS.",
+  "asset": "AAPL",
+  "source": "Dukascopy AAPLUSUSD local SQ resource",
+  "known_data_limit": "Unadjusted 2020 split; training begins on the split date. The short sample cannot certify robustness.",
+  "performance_accessed_before_freeze": false,
+  "periods": {
+    "train_from": "2020-08-31",
+    "train_to": "2022-12-30",
+    "validation_from": "2023-01-03",
+    "validation_to": "2023-12-29",
+    "sealed_oos_from": "2024-01-02",
+    "sealed_oos_to": "2024-12-31",
+    "untouched_future_from": "2025-01-01"
+  },
+  "discovery": {
+    "timeframe": "D1",
+    "direction": "both",
+    "lane": "generic_translatable_random_idea_harvest",
+    "generation": "random-generation",
+    "attempt_budget": 100000,
+    "wall_time_budget_minutes": 60,
+    "accepted_limit": 100,
+    "maximum_rules": 3,
+    "minimum_train_trades": 8,
+    "minimum_profit_factor_train": 1.05
+  },
+  "review_contract": "Inspect rule structure and train KPIs only; no promotion before validation/OOS and cost stress.",
+  "promotion_allowed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

@@ -14,8 +14,9 @@ SPEC = Path(__file__).with_suffix(".json")
 SCAFFOLD = Path("/mnt/volume-SQ/user/projects/ALQUIMIA_CRYPTO_H4_CFX_SMOKE_V2/project.cfx")
 
 
-def compile_pilot(output_dir: Path) -> dict:
-    spec = json.loads(SPEC.read_text())
+def compile_pilot(output_dir: Path, *, spec_path: Path = SPEC,
+                  project_name: str = "IBKR_V2_AAPL_D1_POSTSPLIT_DENSITY") -> dict:
+    spec = json.loads(spec_path.read_text())
     if spec["promotion_allowed"] or spec["performance_accessed_before_freeze"]:
         raise ValueError("AAPL density pilot must remain blind and non-promotable")
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -57,17 +58,20 @@ def compile_pilot(output_dir: Path) -> dict:
     methodology["methodology_id"] = "ibkr-v2-aapl-postsplit-density-pilot"
     methodology["capital_usdc"] = 1000
     methodology["discovery"]["minimum_trades_train"] = spec["discovery"]["minimum_train_trades"]
+    methodology["discovery"]["minimum_profit_factor_train"] = spec["discovery"].get(
+        "minimum_profit_factor_train", methodology["discovery"]["minimum_profit_factor_train"])
     methodology["small_account"]["capital_scenarios_usdc"] = [200, 400, 500, 700, 1000, 2000]
     methodology["small_account"]["canonical_capital_usdc"] = 1000
     methodology_path = output_dir / "frozen_methodology.json"
     methodology_path.write_text(json.dumps(methodology, indent=2, sort_keys=True) + "\n")
     cfx = output_dir / "project.cfx"
     manifest = build(
-        SCAFFOLD, cfx, "IBKR_V2_AAPL_D1_POSTSPLIT_DENSITY", "AAPL",
+        SCAFFOLD, cfx, project_name, "AAPL",
         registry_path, methodology_path, date(2020, 8, 31), date(2022, 12, 30),
         spec["discovery"]["accepted_limit"], "generic_translatable",
         spec["discovery"]["generation"], spec["discovery"]["attempt_budget"],
-        spec["discovery"]["wall_time_budget_minutes"], None, "long")
+        spec["discovery"]["wall_time_budget_minutes"], None,
+        spec["discovery"]["direction"])
     if manifest.get("generation_type") != "random-generation":
         raise ValueError("AAPL density pilot must use random generation")
     receipt = {"decision": "PASS_NON_PROMOTABLE_PILOT_READY", "project": str(cfx),

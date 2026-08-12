@@ -44,9 +44,9 @@ def run_rows() -> list[dict]:
     rows = []
     runs = DATA / "runs"
     directories = (sorted(runs.glob("*")) if runs.is_dir() else [])
-    pilot = DATA / "aapl_density_pilot"
-    if pilot.is_dir():
-        directories.append(pilot)
+    for pilot in sorted(DATA.glob("aapl_*")):
+        if pilot.is_dir() and pilot not in directories:
+            directories.append(pilot)
     for directory in directories:
         status = read_json(directory / "watchdog_status.json") or {}
         receipt = read_json(directory / "supervised_run_receipt.json")

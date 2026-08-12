@@ -1,5 +1,7 @@
 import json
 
+from pathlib import Path
+
 from lab.sq_bridge.aapl_postsplit_density_pilot_v2 import SPEC
 
 
@@ -13,3 +15,14 @@ def test_pilot_is_postsplit_blind_and_non_promotable():
     assert spec["promotion_allowed"] is False
     assert spec["paper_authorized"] is False
     assert spec["live_authorized"] is False
+
+
+def test_idea_harvest_is_loose_but_still_sealed_and_non_promotable():
+    path = Path(__file__).with_name("aapl_postsplit_idea_harvest_v2.json")
+    spec = json.loads(path.read_text())
+    assert spec["discovery"]["direction"] == "both"
+    assert spec["discovery"]["minimum_train_trades"] == 8
+    assert spec["discovery"]["minimum_profit_factor_train"] == 1.05
+    assert spec["periods"]["validation_from"] > spec["periods"]["train_to"]
+    assert spec["periods"]["sealed_oos_from"] > spec["periods"]["validation_to"]
+    assert spec["promotion_allowed"] is False

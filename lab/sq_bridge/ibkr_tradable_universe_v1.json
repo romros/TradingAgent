@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "verified_at_utc": "2026-08-11",
+  "account_jurisdiction": "Interactive Brokers Ireland / Spain retail",
+  "promotion_rule": "SQ campaigns require WEB_VERIFIED; paper requires ACCOUNT_CONTRACT_VERIFIED from the target IBKR paper account.",
+  "assets": {
+    "IBUS500": {
+      "status": "WEB_VERIFIED",
+      "asset_class": "index_cfd",
+      "description": "US 500",
+      "currency": "USD",
+      "multiplier": 1,
+      "minimum_order_units": 1,
+      "commission_pct_per_side": 0.005,
+      "minimum_commission_per_side": 1.0,
+      "initial_margin_pct_retail_example": 6.25,
+      "intraday_margin_reduction_for_retail": false,
+      "sources": [
+        "https://www.interactivebrokers.ie/en/pricing/commissions-cfd-index.php",
+        "https://www.interactivebrokers.ie/en/trading/margin-cfd.php?ex=eu&hm=eu&pm=0&rgt=0&rsk=1&rst=040404040404040104"
+      ]
+    },
+    "IBUST100": {
+      "status": "WEB_VERIFIED",
+      "asset_class": "index_cfd",
+      "description": "US Tech 100",
+      "currency": "USD",
+      "multiplier": 1,
+      "minimum_order_units": 1,
+      "commission_pct_per_side": 0.01,
+      "minimum_commission_per_side": 1.0,
+      "initial_margin_pct_retail_floor": 5.0,
+      "intraday_margin_reduction_for_retail": false,
+      "sources": [
+        "https://www.interactivebrokers.ie/en/pricing/commissions-cfd-index.php",
+        "https://www.interactivebrokers.ie/en/trading/margin-cfd.php?ex=eu&hm=eu&pm=0&rgt=0&rsk=1&rst=040404040404040104"
+      ]
+    },
+    "IBDE40": {
+      "status": "WEB_VERIFIED",
+      "asset_class": "index_cfd",
+      "description": "Germany 40",
+      "currency": "EUR",
+      "multiplier": 1,
+      "minimum_order_units": 1,
+      "commission_pct_per_side": 0.005,
+      "minimum_commission_per_side": 1.0,
+      "initial_margin_pct_retail_floor": 5.0,
+      "intraday_margin_reduction_for_retail": false,
+      "sources": [
+        "https://www.interactivebrokers.ie/en/pricing/commissions-cfd-index.php",
+        "https://www.interactivebrokers.ie/en/trading/margin-cfd.php?ex=eu&hm=eu&pm=0&rgt=0&rsk=1&rst=040404040404040104"
+      ]
+    },
+    "EUR.USD": {
+      "status": "WEB_VERIFIED_ACCOUNT_DETAILS_REQUIRED",
+      "asset_class": "forex_cfd",
+      "description": "Euro / US Dollar",
+      "initial_margin_pct_retail_floor": 3.33,
+      "minimum_order_units": null,
+      "sources": [
+        "https://www.interactivebrokers.ie/en/trading/ibkr-forex-cfds.php",
+        "https://www.interactivebrokers.ie/en/trading/margin-cfd.php?ex=gl&hm=eu&pm=0&rgt=1&rsk=0&rst=010101010101080808"
+      ]
+    },
+    "GBP.USD": {
+      "status": "WEB_VERIFIED_ACCOUNT_DETAILS_REQUIRED",
+      "asset_class": "forex_cfd",
+      "description": "British Pound / US Dollar",
+      "initial_margin_pct_retail_floor": 3.33,
+      "minimum_order_units": null,
+      "sources": [
+        "https://www.interactivebrokers.ie/en/trading/ibkr-forex-cfds.php",
+        "https://www.interactivebrokers.ie/en/trading/margin-cfd.php?ex=gl&hm=eu&pm=0&rgt=1&rsk=0&rst=010101010101080808"
+      ]
+    },
+    "USD.JPY": {
+      "status": "WEB_VERIFIED_ACCOUNT_DETAILS_REQUIRED",
+      "asset_class": "forex_cfd",
+      "description": "US Dollar / Japanese Yen",
+      "initial_margin_pct_retail_floor": 3.33,
+      "minimum_order_units": null,
+      "sources": [
+        "https://www.interactivebrokers.ie/en/trading/ibkr-forex-cfds.php",
+        "https://www.interactivebrokers.ie/en/trading/margin-cfd.php?ex=gl&hm=eu&pm=0&rgt=1&rsk=0&rst=010101010101080808"
+      ]
+    },
+    "LONDON_GOLD_CFD": {
+      "status": "WEB_VERIFIED_ACCOUNT_DETAILS_REQUIRED",
+      "asset_class": "metal_cfd",
+      "description": "London Gold",
+      "commission_bps_per_side": 1.5,
+      "minimum_commission_usd_per_side": 2.0,
+      "initial_margin_pct_retail": 6.25,
+      "minimum_order_units": null,
+      "sources": [
+        "https://www.interactivebrokers.ie/en/pricing/commissions-cfd-metals.php",
+        "https://www.interactivebrokers.ie/en/trading/margin-cfd.php?ex=eu&hm=eu&pm=0&rgt=0&rsk=1&rst=040404040404040104"
+      ]
+    }
+  },
+  "excluded_until_account_contract_query": [
+    "all assets absent from assets",
+    "share CFDs identified only by marketing coverage",
+    "spot FX because published minimums may be uneconomic for 2000 EUR",
+    "all crypto assets"
+  ]
+}

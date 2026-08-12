@@ -4,7 +4,21 @@ Operativa diària i evidència. Actualitzar a cada canvi significatiu.
 
 ---
 
-## Estat actual (2026-08-10)
+## Estat actual (2026-08-12) — OBJECTIU IBKR/SQCLI
+
+La font canònica de continuïtat és
+[`CURRENT_OBJECTIVE.md`](../CURRENT_OBJECTIVE.md). L'objectiu Ostium anterior
+queda **TANCAT** per decisió explícita de l'operador: es conserva com a història
+i evidència, però no es reprèn ni s'executa.
+
+Objectiu únic actiu: trobar i falsar una cartera teòrica no-cripto amb actius
+del catàleg públic d'IBKR. `CURRENT_OBJECTIVE.md` conté els capitals, univers,
+gates i checkpoints vigents i preval sobre aquest diari acumulatiu. L'antic
+pilot `IBUS500` queda tancat com a evidència: la campanya nova parteix del
+registre segregat de tretze actius i del preflight CAT. Cap paper, live ni
+integració amb el broker està autoritzat.
+
+### Històric anterior — no és el full de ruta actiu
 
 ### Continuïtat SQ / DuckDB / Ostium
 

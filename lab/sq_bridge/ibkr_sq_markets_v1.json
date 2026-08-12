@@ -1,0 +1,59 @@
+{
+  "markets": {
+    "IBUS500": {
+      "research_eligible": true,
+      "sq_symbol": "IBUS500_DUKAS_M1_UTC",
+      "discovery_timeframe": "M15",
+      "discovery_slippage": 0,
+      "discovery_commission_per_order": 1.0,
+      "sq_resource_clone_from": "BTCUSD_ALQ_H4",
+      "sq_prune_resources": true,
+      "sq_resource_remove_attributes": ["cloneFrom", "sourceTimezone"],
+      "sq_resource_attributes": {
+        "source": "1",
+        "barType": "1",
+        "precision": "M1",
+        "timezone": "Etc/UTC",
+        "dateFrom": "1326990000000",
+        "dateTo": "1767215580000",
+        "uSymbol": "IBUS500_DUKAS",
+        "uSymbolName": "IBUS500_DUKAS",
+        "removeWeekends": "false",
+        "broker": "-1"
+      },
+      "sq_instrument_attributes": {
+        "instrument": "IBUS500",
+        "description": "IBKR_US_500_CFD_research",
+        "tickSize": "0.01",
+        "tickStep": "0.01",
+        "minDistance": "0.0",
+        "tickValueInMoney": "0.0",
+        "dateFrom": "0",
+        "dateTo": "0",
+        "rows": "0",
+        "totalDays": "0",
+        "defaultSpread": "0",
+        "defaultSlippage": "1.0",
+        "decimals": "2",
+        "commissions": "",
+        "pointValue": "1.0",
+        "dataType": "6",
+        "recognizedFromOrders": "false",
+        "exchange": "",
+        "country": "",
+        "sector": "",
+        "swap": "",
+        "orderSizeMultiplier": "1.0",
+        "orderSizeStep": "1.0",
+        "broker": "-1"
+      },
+      "exit_at_end_of_day": true,
+      "eod_exit_seconds": 75540,
+      "signal_time_range_seconds": [48600, 74700],
+      "timezone_caveat": "V3 discovery uses a fixed UTC window. Final validation must split US daylight and standard-time sessions or use America/New_York-local data.",
+      "exit_at_end_of_range": true,
+      "maximum_trades_per_day": 1,
+      "venue_max_leverage": 16
+    }
+  }
+}

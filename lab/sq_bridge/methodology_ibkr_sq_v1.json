@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "methodology_id": "ibkr-sq-aggressive-v1",
+  "ownership": "TradingAgent/IBKR",
+  "capital_usdc": 2000,
+  "principles": {
+    "sq_role": "candidate_generator_only",
+    "legacy_configs": "format_scaffold_only",
+    "holdout_policy": "sealed_until_final_gate",
+    "live_policy": "explicit_human_authorization"
+  },
+  "stages": ["market_preflight", "discovery", "temporal_validation", "robustness", "small_account_economics", "python_translation", "parity", "paper"],
+  "temporal_split": {"train_pct": 50, "validation_pct": 20, "oos_pct": 20, "final_holdout_pct": 10, "embargo_bars": 20},
+  "discovery": {"max_rules": 3, "max_lookback_bars": 250, "minimum_trades_train": 250, "minimum_profit_factor_train": 1.15, "selection_metric": "return_drawdown_ratio", "robustness_during_generation": false},
+  "temporal_validation": {"minimum_trades_oos": 60, "minimum_positive_windows_ratio": 0.7, "minimum_oos_profit_factor": 1.2, "maximum_oos_drawdown_pct": 25, "maximum_train_oos_expectancy_decay_pct": 50},
+  "robustness": {"monte_carlo_runs": 2000, "minimum_profitable_monte_carlo_ratio": 0.9, "parameter_perturbation_pct": 10, "cost_stress_multiplier": 2, "minimum_stress_profit_factor": 1.2, "maximum_liquidation_probability": 0.001},
+  "small_account": {"capital_scenarios_usdc": [2000, 3000, 5000], "canonical_capital_usdc": 2000, "maximum_risk_per_trade_pct": 1.5, "maximum_portfolio_margin_pct": 60, "minimum_reserve_pct": 40, "minimum_net_expectancy_usdc": 1.0, "minimum_net_profit_factor": 1.2, "leverage_grid": [1, 2, 3, 4, 5, 8, 10, 12, 16]}
+}

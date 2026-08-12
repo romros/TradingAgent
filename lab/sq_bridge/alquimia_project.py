@@ -228,10 +228,43 @@ def _require_resource_symbol(root: ET.Element, symbol: str, market: dict) -> Non
         matches = [node for node in resources
                    if node.get("name") == market["sq_resource_clone_from"]]
         if len(matches) == 1:
+            old_instrument = None
+            embedded = matches[0].find("./InstrumentInfo")
+            if embedded is not None:
+                old_instrument = embedded.get("instrument")
             matches[0].attrib.update(market.get("sq_resource_attributes", {}))
             for attribute in market.get("sq_resource_remove_attributes", []):
                 matches[0].attrib.pop(attribute, None)
             matches[0].set("name", symbol)
+            instrument_attributes = market.get("sq_instrument_attributes")
+            if instrument_attributes:
+                if embedded is None:
+                    embedded = ET.SubElement(matches[0], "InstrumentInfo")
+                embedded.attrib.clear()
+                embedded.attrib.update({key: str(value) for key, value in
+                                        instrument_attributes.items()})
+                instruments = root.find("./Resources/Instruments")
+                if instruments is None:
+                    raise ValueError("RESOURCE_INSTRUMENTS_MISSING")
+                originals = [row for row in instruments.findall("./InstrumentInfo")
+                             if row.get("instrument") == old_instrument]
+                if len(originals) > 1:
+                    raise ValueError("RESOURCE_INSTRUMENT_CLONE_AMBIGUOUS")
+                if market.get("sq_prune_resources"):
+                    for row in list(instruments):
+                        instruments.remove(row)
+                    target = ET.SubElement(instruments, "InstrumentInfo")
+                    brokers = root.find("./Resources/Brokers")
+                    if brokers is not None:
+                        for row in list(brokers):
+                            brokers.remove(row)
+                elif originals:
+                    target = originals[0]
+                else:
+                    target = ET.SubElement(instruments, "InstrumentInfo")
+                target.attrib.clear()
+                target.attrib.update({key: str(value) for key, value in
+                                      instrument_attributes.items()})
     if len(matches) != 1:
         available = sorted(node.get("name", "") for node in resources)
         raise ValueError(
@@ -359,7 +392,23 @@ def _configure_build(xml: bytes, market: dict, periods: dict, methodology: dict,
         option = root.find(f".//Param[@key='{key}']")
         if option is None:
             raise ValueError(f"Opcio SQ absent: {key}")
-        option.text = "false"
+        option.text = ("true" if key == "ExitAtEndOfDay"
+                       and market.get("exit_at_end_of_day") is True else "false")
+    intraday_options = {
+        "EODExitTime": market.get("eod_exit_seconds"),
+        "LimitTimeRange": ("true" if market.get("signal_time_range_seconds") else None),
+        "SignalTimeRangeFrom": ((market.get("signal_time_range_seconds") or [None])[0]),
+        "SignalTimeRangeTo": ((market.get("signal_time_range_seconds") or [None, None])[1]),
+        "ExitAtEndOfRange": ("true" if market.get("exit_at_end_of_range") is True else None),
+        "MaxTradesPerDay": market.get("maximum_trades_per_day"),
+    }
+    for key, value in intraday_options.items():
+        if value is None:
+            continue
+        option = root.find(f".//Param[@key='{key}']")
+        if option is None:
+            raise ValueError(f"Opcio SQ intradia absent: {key}")
+        option.text = str(value).lower() if isinstance(value, bool) else str(value)
     strategy = root.find("./WhatToBuild/StrategyType")
     if strategy is None:
         raise ValueError("StrategyType absent")
@@ -451,17 +500,30 @@ def _configure_build(xml: bytes, market: dict, periods: dict, methodology: dict,
     commission_methods = setup.findall("./Commissions/Method")
     if not commission_methods:
         raise ValueError("No hi ha cap metode de comissio al scaffold SQ")
+    commission_per_order = float(market.get("discovery_commission_per_order", 0))
+    desired_commission_type = "PerTrade" if commission_per_order > 0 else "None"
     commission_method = next(
-        (method for method in commission_methods if method.get("type") == "None"),
-        commission_methods[0],
-    )
+        (method for method in commission_methods
+         if method.get("type") == desired_commission_type), None)
+    if commission_method is None:
+        commissions = setup.find("./Commissions")
+        if commissions is None:
+            raise ValueError("No hi ha contenidor de comissions al scaffold SQ")
+        commission_method = ET.SubElement(
+            commissions, "Method", {"type": desired_commission_type, "use": "true"})
+        if desired_commission_type == "PerTrade":
+            params = ET.SubElement(commission_method, "Params")
+            ET.SubElement(params, "Param", {
+                "key": "Commission", "className": "PerTrade"
+            }).text = str(commission_per_order)
+        commission_methods.append(commission_method)
     for method in commission_methods:
         method.set("use", "true" if method is commission_method else "false")
     if commission_method.get("type") != "None":
         commission = commission_method.find("./Params/Param[@key=\x27Commission\x27]")
         if commission is None:
             raise ValueError("El metode de comissio actiu no te parametre Commission")
-        commission.text = "0"
+        commission.text = str(commission_per_order)
 
     for parent_path in ("./WhatToBuild/BuildMode/Conditions", "./Rankings/Conditions"):
         parent = root.find(parent_path)
@@ -590,7 +652,7 @@ def build(source: Path, output: Path, project_name: str, market_key: str,
         "source_sha256": _sha256(source.read_bytes()), "output_sha256": _sha256(payload),
         "accepted_limit": accepted_limit, "discovery_initial_capital": 10000,
         "sq_discovery_spread": 0,
-        "sq_discovery_commission": 0,
+        "sq_discovery_commission": float(market.get("discovery_commission_per_order", 0)),
         "sq_discovery_slippage": _sq_discovery_slippage(market, methodology),
         "venue_cost_application_stage": "post_sq_frozen_cost_model"
             if methodology.get("schema_version", 1) >= 4 else "legacy_embedded_or_posthoc",
@@ -598,12 +660,20 @@ def build(source: Path, output: Path, project_name: str, market_key: str,
         "market_side": market_side,
         "attempt_budget": attempt_budget, "wall_time_budget_minutes": wall_time_minutes,
         "attempt_stop_guard": (methodology["sq_generation"]["attempt_stop_guard"]
-                               if methodology.get("schema_version", 1) >= 4 else 0),
+                               if methodology.get("schema_version", 1) >= 4
+                               else min(100, max(0, (attempt_budget or 0) // 100))),
         "stagnation_attempts": stagnation_attempts,
         "sq_genetic_shape": (_nominal_genetic_shape(attempt_budget)
                              if generation_type == "genetic-evolution"
                              and attempt_budget is not None else None),
         "canonical_evaluation_capital": methodology["capital_usdc"], "periods": periods,
+        "intraday_execution": {
+            "exit_at_end_of_day": market.get("exit_at_end_of_day", False),
+            "eod_exit_seconds": market.get("eod_exit_seconds"),
+            "signal_time_range_seconds": market.get("signal_time_range_seconds"),
+            "exit_at_end_of_range": market.get("exit_at_end_of_range", False),
+            "maximum_trades_per_day": market.get("maximum_trades_per_day"),
+        },
         "blocks": block_counts, "holdout_sealed": True}
     manifest.update(prerequisites)
     manifest.update(period_evidence)

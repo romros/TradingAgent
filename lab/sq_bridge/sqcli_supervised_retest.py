@@ -16,7 +16,8 @@ from typing import Callable
 from lab.sq_bridge.alquimia_retest import verify_holdout_project, verify_retest_project
 from lab.sq_bridge.sqcli_transport import (
     CONTAINER_NAME, SAFE_PROJECT_NAME, docker_exec_http_call,
-    docker_project_final_log, gui_open_project, gui_start_project,
+    docker_project_final_log, gui_confirm_existing_project_resources,
+    gui_open_project, gui_start_project,
     list_projects_with_status,
 )
 from lab.sq_bridge.sqx_extract import extract as extract_sqx
@@ -354,7 +355,7 @@ def supervised_retest(
 
     listing = listing_fn(base_url)
     running = sorted(row.get("projectName") for row in listing
-                     if row.get("runningStatus") not in (None, 0)
+                     if row.get("runningStatus") not in (None, 0, 4, 50)
                      and not (resuming and row.get("projectName") == project))
     current = [row for row in listing if row.get("projectName") == project]
     if running or (current and not resuming):
@@ -376,6 +377,13 @@ def supervised_retest(
                    capture_output=True, text=True, timeout=15, check=False)
         if response.get("projectName") != project:
             raise RuntimeError(f"SQCLI imported unexpected Retest project: {response}")
+        current = [row for row in listing_fn(base_url)
+                   if row.get("projectName") == project]
+    if (len(current) == 1
+            and current[0].get("hasUnresolvedResources") is True):
+        gui_confirm_existing_project_resources(
+            base_url, project,
+            expected_market_symbols={str(manifest["symbol"])})
         current = [row for row in listing_fn(base_url)
                    if row.get("projectName") == project]
     if (len(current) != 1 or current[0].get("hasUnresolvedResources") is not False
@@ -472,10 +480,10 @@ def supervised_retest(
         matches = [row for row in rows if row.get("projectName") == project]
         others = [row.get("projectName") for row in rows
                   if row.get("projectName") != project
-                  and row.get("runningStatus") not in (None, 0)]
+                  and row.get("runningStatus") not in (None, 0, 4, 50)]
         if len(matches) != 1 or others:
             raise RuntimeError(f"Retest monitoring identity/concurrency failure: {others}")
-        if matches[0].get("runningStatus") not in (None, 0):
+        if matches[0].get("runningStatus") not in (None, 0, 4, 50):
             observed_running = True
         else:
             try:

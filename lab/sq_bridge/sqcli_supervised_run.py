@@ -137,7 +137,7 @@ def supervised_run(
 
     listing = listing_fn(base_url)
     running = sorted(row.get("projectName") for row in listing
-                     if row.get("runningStatus") not in (None, 0)
+                     if row.get("runningStatus") not in (None, 0, 4, 50)
                      and not (resuming and row.get("projectName") == project))
     matches = [row for row in listing if row.get("projectName") == project]
     if running:

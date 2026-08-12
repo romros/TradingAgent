@@ -11,7 +11,8 @@ from typing import Callable
 
 from lab.sq_bridge.sq_project_contract import verify_genetic_project
 from lab.sq_bridge.sqcli_transport import (
-    CONTAINER_NAME, SAFE_PROJECT_NAME, gui_open_project, list_projects_with_status,
+    CONTAINER_NAME, SAFE_PROJECT_NAME, gui_confirm_existing_project_resources,
+    gui_open_project, list_projects_with_status,
 )
 from lab.sq_bridge.us500_d1_market_preflight_v4 import write_atomic
 
@@ -111,7 +112,7 @@ def import_batch(*, batch_path: Path, output_dir: Path,
 
     running = sorted(str(name) for name, row in listing.items()
                      if name is not None
-                     and row.get("runningStatus") not in {None, 0})
+                     and row.get("runningStatus") not in {None, 0, 4, 50})
     if running:
         raise RuntimeError(f"refusing import while SQCLI projects run: {running}")
 
@@ -183,6 +184,17 @@ def import_batch(*, batch_path: Path, output_dir: Path,
 
     listing = {row.get("projectName"): row
                for row in list_projects_with_status(base_url)}
+    confirmed_resources = False
+    for row in imported.values():
+        current = listing.get(row["project_name"])
+        if current is not None and current.get("hasUnresolvedResources") is True:
+            gui_confirm_existing_project_resources(
+                base_url, row["project_name"],
+                expected_market_symbols={str(manifest["sq_symbol"])})
+            confirmed_resources = True
+    if confirmed_resources:
+        listing = {row.get("projectName"): row
+                   for row in list_projects_with_status(base_url)}
     for row in imported.values():
         current = listing.get(row["project_name"])
         if current is None or current.get("hasUnresolvedResources") is not False:

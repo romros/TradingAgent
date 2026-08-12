@@ -280,6 +280,41 @@ def _condition(column: str, fmt: str, comparator: str, threshold: float) -> ET.E
     ET.SubElement(right, "Numeric-Value", {"value": str(threshold)})
     return node
 
+
+INTRADAY_OPTION_KEYS = (
+    "ExitAtEndOfDay", "EODExitTime", "LimitTimeRange",
+    "SignalTimeRangeFrom", "SignalTimeRangeTo", "ExitAtEndOfRange",
+    "MaxTradesPerDay",
+)
+
+
+def _graft_intraday_options(target: ET.Element, source: ET.Element) -> dict[str, str]:
+    """Copy the effective discovery session contract into a Retest task."""
+    source_params = {node.get("key"): node for node in source.findall(
+        "./Options/BuildTradingOptions/Params/Param")}
+    target_params = {node.get("key"): node for node in target.findall(
+        "./Options/BuildTradingOptions/Params/Param")}
+    missing = [key for key in INTRADAY_OPTION_KEYS
+               if key not in source_params or key not in target_params]
+    if missing:
+        raise ValueError(f"INTRADAY_OPTIONS_MISSING: {missing}")
+    copied = {}
+    for key in INTRADAY_OPTION_KEYS:
+        value = (source_params[key].text or "").strip()
+        if not value:
+            raise ValueError(f"INTRADAY_OPTION_EMPTY: {key}")
+        target_params[key].text = value
+        copied[key] = value
+    intraday = (copied["ExitAtEndOfDay"] == "true"
+                and copied["LimitTimeRange"] == "true"
+                and copied["ExitAtEndOfRange"] == "true")
+    daily = (copied["ExitAtEndOfDay"] == "false"
+             and copied["LimitTimeRange"] == "false"
+             and copied["ExitAtEndOfRange"] == "false")
+    if (not (intraday or daily) or int(copied["MaxTradesPerDay"]) != 1):
+        raise ValueError("INTRADAY_EXECUTION_CONTRACT_INVALID")
+    return copied
+
 def generate(source: Path, output: Path, project_name: str, stage: str, manifest_path: Path,
              methodology_path: Path, symbol: str, timeframe: str,
              source_task_file: str = "Retest-Task1.xml", resource_source: Path | None = None,
@@ -328,8 +363,11 @@ def generate(source: Path, output: Path, project_name: str, stage: str, manifest
         }
     start_key, end_key = PERIOD_KEYS[stage]
     task_xml = _read_task(source, source_task_file)
+    intraday_options = None
     if resource_source is not None:
-        _graft_resource_symbol(task_xml, _read_task(resource_source, resource_task_file), symbol)
+        resource_task = _read_task(resource_source, resource_task_file)
+        _graft_resource_symbol(task_xml, resource_task, symbol)
+        intraday_options = _graft_intraday_options(task_xml, resource_task)
     _normalize_venue_neutral_task(task_xml, symbol)
     setup = task_xml.find("./Data/Setups/Setup")
     setup.set("dateFrom", periods[start_key].replace("-", "."))
@@ -449,6 +487,7 @@ def generate(source: Path, output: Path, project_name: str, stage: str, manifest
         "resource_source": str(resource_source) if resource_source else None,
         "resource_task_file": resource_task_file if resource_source else None,
         "resource_source_sha256": _sha256(resource_source) if resource_source else None,
+        "intraday_execution_options": intraday_options,
         "setup_slippage": slippage,
         "test_precision": test_precision,
         "keep_failed": keep_failed or uncensored,

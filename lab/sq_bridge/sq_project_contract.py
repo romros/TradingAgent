@@ -81,8 +81,15 @@ def verify_genetic_project(path: Path, manifest: dict) -> dict[str, int]:
         raise ValueError("SQ_CFX_TRAIN_DATA_OR_ZERO_COST_CONTRACT_MISMATCH")
     commission = [row for row in setup.findall("./Commissions/Method")
                   if row.get("use") == "true"]
-    if len(commission) != 1 or commission[0].get("type") != "None":
-        raise ValueError("SQ_CFX_COMMISSION_NOT_DISABLED")
+    expected_commission = float(manifest.get("sq_discovery_commission", 0))
+    expected_method = "PerTrade" if expected_commission > 0 else "None"
+    commission_value = commission[0].find("./Params/Param[@key='Commission']") \
+        if len(commission) == 1 else None
+    if (len(commission) != 1 or commission[0].get("type") != expected_method
+            or (expected_method == "PerTrade" and
+                (commission_value is None
+                 or float(commission_value.text or "nan") != expected_commission))):
+        raise ValueError("SQ_CFX_COMMISSION_CONTRACT_MISMATCH")
     sides = root.find("./WhatToBuild/MarketSides")
     expected_side = manifest.get("market_side")
     expected_symmetry = "true" if expected_side == "both" else "false"
@@ -108,6 +115,24 @@ def verify_genetic_project(path: Path, manifest: dict) -> dict[str, int]:
     sl_required = root.findtext("./WhatToBuild/SLPTOptions/SLRequired")
     if sl_required != "true":
         raise ValueError("SQ_CFX_STOP_LOSS_NOT_REQUIRED")
+
+    intraday = manifest.get("intraday_execution")
+    if isinstance(intraday, dict):
+        params = {row.get("key"): row.text for row in root.findall(
+            "./Options/BuildTradingOptions/Params/Param")}
+        expected = {
+            "ExitAtEndOfDay": str(bool(intraday.get("exit_at_end_of_day"))).lower(),
+            "EODExitTime": intraday.get("eod_exit_seconds"),
+            "MaxTradesPerDay": intraday.get("maximum_trades_per_day"),
+        }
+        signal_range = intraday.get("signal_time_range_seconds")
+        if signal_range:
+            expected.update({"LimitTimeRange": "true",
+                             "SignalTimeRangeFrom": signal_range[0],
+                             "SignalTimeRangeTo": signal_range[1]})
+        for key, value in expected.items():
+            if value is not None and params.get(key) != str(value):
+                raise ValueError("SQ_CFX_INTRADAY_EXECUTION_MISMATCH")
 
     stop = root.find("./Rankings/StopCondition")
     accepted = manifest.get("accepted_limit")

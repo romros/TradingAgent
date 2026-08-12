@@ -10,6 +10,7 @@ import json
 import subprocess
 import urllib.parse
 import urllib.request
+import xml.etree.ElementTree as ET
 import time
 from typing import Callable
 
@@ -392,3 +393,50 @@ def gui_project_action_from_cli(base_url: str, command: str) -> str:
     if match is None:
         raise ValueError("unsupported SQCLI project command for GUI transport")
     return gui_project_action(base_url, match.group(1), match.group(2))
+
+
+def gui_confirm_existing_project_resources(base_url: str, project: str,
+                                           *, expected_market_symbols: set[str] | None = None,
+                                           timeout_seconds: int = 30) -> dict:
+    """Run SQX's GUI resource-confirmation flow without adding/replacing resources."""
+    if not isinstance(project, str) or not project or "\r" in project or "\n" in project:
+        raise ValueError("invalid SQCLI project name")
+    root = base_url.rstrip("/")
+    query = urllib.parse.urlencode({"projectName": project})
+    with urllib.request.urlopen(f"{root}/project/checkResources?{query}",
+                                timeout=timeout_seconds) as response:
+        checked = json.loads(response.read().decode("utf-8"))
+    resources = checked.get("resourcesXML")
+    config = json.loads(checked.get("config", "{}"))
+    if (not checked.get("hasUnresolvedResources") or not isinstance(resources, str)
+            or not isinstance(config.get("xml"), str)
+            or not isinstance(config.get("tasks"), dict)):
+        raise RuntimeError("SQCLI resource confirmation precondition failed")
+    resources_root = ET.fromstring(resources)
+    symbols = list(resources_root.find("Symbols") or [])
+    sessions = list(resources_root.find("Sessions") or [])
+    expected_market_symbols = expected_market_symbols or set()
+    symbol_names = {row.get("name") for row in symbols}
+    market_resources_are_preverified = bool(symbols) and (
+        symbol_names == expected_market_symbols
+        and all(row.tag == "Symbol" and row.get("status") == "1" for row in symbols)
+    )
+    if sessions or (symbols and not market_resources_are_preverified):
+        raise RuntimeError("refusing to auto-confirm missing SQCLI market resources")
+    custom = "<Resources><CustomIndicators/><CustomSnippets/><CustomBlocks/></Resources>"
+    fields = [
+        ("configXML", config["xml"]), ("resourcesXML", custom),
+        ("actionType", "5"),
+        ("filePath", f"/home/squser/SQ/user/projects/{project}/project.cfx"),
+    ]
+    fields.extend((f"taskConfigs[{name}]", value)
+                  for name, value in config["tasks"].items())
+    request = urllib.request.Request(
+        f"{root}/project/resolveCustomResources",
+        data=urllib.parse.urlencode(fields).encode("utf-8"),
+        headers={"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"})
+    with urllib.request.urlopen(request, timeout=timeout_seconds) as response:
+        result = json.loads(response.read().decode("utf-8"))
+    if result.get("success") != "Project resources resolved.":
+        raise RuntimeError(f"SQCLI resource confirmation failed: {result}")
+    return result

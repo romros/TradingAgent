@@ -28,6 +28,10 @@ data/ibkr_sq_v2/**/*.bi5
 data/ibkr_sq_v2/**/*.gz
 data/ibkr_sq_v2/**/*.sqx
 data/ibkr_sq_v2/**/*.cfx
+# Compiled StrategyQuant custom-block outputs; sources and receipts are versioned.
+lab/sq_bridge/evidence/**/classes/
+lab/sq_bridge/evidence/**/*.jar
+lab/sq_bridge/evidence/**/generated/
 docs/validation/.exit
 docs/validation/202*.json
 docs/validation/202*.txt

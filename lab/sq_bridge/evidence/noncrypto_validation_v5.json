@@ -1,0 +1,180 @@
+{
+  "candidate": {
+    "hypothesis_id": "eurusd-d1-short-horizon-trend-v5",
+    "job_id": "eurusd-d1-short-horizon-trend-v5__exit-2",
+    "max_drawdown": 0.0878950655922882,
+    "net_return": 0.3252846956944333,
+    "parameters": {
+      "channel_days": 5,
+      "trend_lookback_days": 40
+    },
+    "profit_factor": 1.2364596275760869,
+    "trades": 287,
+    "train_gate_pass": true,
+    "win_rate": 0.5156794425087108
+  },
+  "decision": "REJECT_VALIDATION",
+  "holdout_accessed": false,
+  "neighbors": [
+    {
+      "max_drawdown": 0.1816811475762142,
+      "net_return": -0.16995005030996146,
+      "parameters": {
+        "channel_days": 4,
+        "trend_lookback_days": 36
+      },
+      "positive": false,
+      "profit_factor": 0.5268845186415558,
+      "trades": 81,
+      "win_rate": 0.3333333333333333
+    },
+    {
+      "max_drawdown": 0.14373304639676446,
+      "net_return": -0.12316540503561846,
+      "parameters": {
+        "channel_days": 4,
+        "trend_lookback_days": 40
+      },
+      "positive": false,
+      "profit_factor": 0.6295677890446335,
+      "trades": 81,
+      "win_rate": 0.3333333333333333
+    },
+    {
+      "max_drawdown": 0.2091414824387054,
+      "net_return": -0.18573430749438014,
+      "parameters": {
+        "channel_days": 4,
+        "trend_lookback_days": 44
+      },
+      "positive": false,
+      "profit_factor": 0.5218514931114971,
+      "trades": 83,
+      "win_rate": 0.3253012048192771
+    },
+    {
+      "max_drawdown": 0.19050061036903576,
+      "net_return": -0.17778642391397703,
+      "parameters": {
+        "channel_days": 5,
+        "trend_lookback_days": 36
+      },
+      "positive": false,
+      "profit_factor": 0.4913968385967324,
+      "trades": 75,
+      "win_rate": 0.3466666666666667
+    },
+    {
+      "max_drawdown": 0.2033249428194835,
+      "net_return": -0.17671902844103027,
+      "parameters": {
+        "channel_days": 5,
+        "trend_lookback_days": 44
+      },
+      "positive": false,
+      "profit_factor": 0.5246546888326721,
+      "trades": 77,
+      "win_rate": 0.35064935064935066
+    },
+    {
+      "max_drawdown": 0.20309777265699924,
+      "net_return": -0.19058144017463685,
+      "parameters": {
+        "channel_days": 6,
+        "trend_lookback_days": 36
+      },
+      "positive": false,
+      "profit_factor": 0.46696505358122364,
+      "trades": 75,
+      "win_rate": 0.3333333333333333
+    },
+    {
+      "max_drawdown": 0.15211297393490175,
+      "net_return": -0.12854292580966065,
+      "parameters": {
+        "channel_days": 6,
+        "trend_lookback_days": 40
+      },
+      "positive": false,
+      "profit_factor": 0.6033220195682539,
+      "trades": 74,
+      "win_rate": 0.35135135135135137
+    },
+    {
+      "max_drawdown": 0.2062994618984819,
+      "net_return": -0.17979288513480596,
+      "parameters": {
+        "channel_days": 6,
+        "trend_lookback_days": 44
+      },
+      "positive": false,
+      "profit_factor": 0.5154238793434371,
+      "trades": 76,
+      "win_rate": 0.34210526315789475
+    }
+  ],
+  "oos_accessed": false,
+  "period": [
+    "2018-01-01",
+    "2021-12-31"
+  ],
+  "positive_calendar_year_ratio": 0.25,
+  "positive_neighbors_ratio": 0.0,
+  "retuned": false,
+  "scenarios": {
+    "base": {
+      "max_drawdown": 0.09694361353537394,
+      "net_return": -0.04274516460277056,
+      "profit_factor": 0.8520445841697357,
+      "trades": 75,
+      "win_rate": 0.37333333333333335
+    },
+    "conservative": {
+      "max_drawdown": 0.10706149341708363,
+      "net_return": -0.06405908496291246,
+      "profit_factor": 0.7819280916120582,
+      "trades": 75,
+      "win_rate": 0.37333333333333335
+    },
+    "stress": {
+      "max_drawdown": 0.13600542636251278,
+      "net_return": -0.11198761142425329,
+      "profit_factor": 0.6427800844483278,
+      "trades": 75,
+      "win_rate": 0.36
+    }
+  },
+  "schema_version": 1,
+  "stress_calendar_years": {
+    "2018": {
+      "max_drawdown": 0.07594489545333089,
+      "net_return": -0.06399431757492324,
+      "profit_factor": 0.3570200728668868,
+      "trades": 18,
+      "win_rate": 0.3333333333333333
+    },
+    "2019": {
+      "max_drawdown": 0.04716305705447721,
+      "net_return": -0.04716305705447721,
+      "profit_factor": 0.25099227176139743,
+      "trades": 17,
+      "win_rate": 0.29411764705882354
+    },
+    "2020": {
+      "max_drawdown": 0.04071096527994859,
+      "net_return": 0.012805635068043886,
+      "profit_factor": 1.1602340725883487,
+      "trades": 22,
+      "win_rate": 0.4090909090909091
+    },
+    "2021": {
+      "max_drawdown": 0.035988537172495394,
+      "net_return": -0.02184068987846277,
+      "profit_factor": 0.719675965127794,
+      "trades": 19,
+      "win_rate": 0.3684210526315789
+    }
+  },
+  "train_receipt_sha256": "5df37b57b3f003f8a824bf578125ec83adff42ec322a4a7aa57d029cc850d1cd",
+  "validation_accessed": true
+}

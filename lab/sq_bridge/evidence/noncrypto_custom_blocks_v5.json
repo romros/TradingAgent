@@ -1,0 +1,33 @@
+{
+  "bundle_path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/noncrypto_custom_blocks_v5/AlquimiaNoncryptoCustomBlocks-v5.jar",
+  "bundle_sha256": "e0857716b9085fac0ecad597e5119ec70706ff11e303c4f804d1a549a151d9de",
+  "compiled_classes": 12,
+  "condition_blocks": 11,
+  "decision": "PASS_CUSTOM_BLOCK_COMPILE",
+  "families": 6,
+  "generated_source_sha256": {
+    "AlquimiaV5EurusdD1ShortHorizonTrendLong.java": "1a82667f3cbcd4a4f76c218d5a7802404eeff4797e293a8a14b6931a7518d48e",
+    "AlquimiaV5EurusdD1ShortHorizonTrendShort.java": "a21885ee39f4951f2ed9fc72ede29cd35a11b027611465ea1a14430a4d76d60d",
+    "AlquimiaV5Us500D1VolatilityShockReboundLong.java": "c52dc49e0d3c529d913c57e16c703036e530ae97176433553d4afdae9c474f4f",
+    "AlquimiaV5UsdjpyM15FailedSessionBreakReversionLong.java": "3252b6147965ac2f1e0667ebf6b10e8ecd7e42e5b47fd7a03c5599463897ffc7",
+    "AlquimiaV5UsdjpyM15FailedSessionBreakReversionShort.java": "52ee08b7bc05c65cc62bbb7f1921a1d48720ff13aada18b903b6f050053f6b93",
+    "AlquimiaV5UsdjpyM15SessionRangeBreakoutLong.java": "b65a8feb4930b63fd2900d9c2fbfc42ec8848f11132c8ec440e92ef3c1c9aa9c",
+    "AlquimiaV5UsdjpyM15SessionRangeBreakoutShort.java": "4ce1ec92ee10ce1b7325086554c7784a14b163f0f36e65a40669c7ce51f77330",
+    "AlquimiaV5XauM15FailedShockReversionLong.java": "584f83d38e0fdd1bb61210f1be44990b23450cb61b4e8585732a1c1ed050a68a",
+    "AlquimiaV5XauM15FailedShockReversionShort.java": "a05f750761e135c8b0544f891ea458ee9cd1c98698d078f790dea477ac980ea6",
+    "AlquimiaV5XauM15MacroCompressionBreakoutLong.java": "03bd51a17b71d60bc05e71527c26d2ff6ff5e3f629dc46c23f0234ece55bfaaf",
+    "AlquimiaV5XauM15MacroCompressionBreakoutShort.java": "e523ccc3b5c6025b1852d5550104ffc499749b361ea601ff930a89173064f2c5"
+  },
+  "holdout_accessed": false,
+  "installation_authorized": false,
+  "merged_snippets_is_ephemeral_override": true,
+  "merged_snippets_path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/evidence/noncrypto_custom_blocks_v5/Snippets.alquimia-v5.jar",
+  "merged_snippets_sha256": "112099b193273b634e2b3105704015cb387beb4c21e799bda7ac2942613be12d",
+  "network_used": false,
+  "next_gate": "COMPILE_AND_VERIFY_18_CFX",
+  "original_snippets_sha256": "9b227f299bb3633c967f11ac4a914fb9fed65a199748a2e7544e307a4b8d995a",
+  "performance_accessed": false,
+  "production_sq_modified": false,
+  "schema_version": 1,
+  "utility_sha256": "ffc22e56b10b500d9d031decf5cabdfea4da7bf6a3502dd2a055f2dcddb798dc"
+}

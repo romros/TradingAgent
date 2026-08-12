@@ -1,0 +1,231 @@
+{
+  "schema_version": 1,
+  "campaign_id": "alquimia-noncrypto-opportunistic-v5",
+  "created_at_utc": "2026-08-11T00:00:00Z",
+  "stage": "PREREGISTERED_BEFORE_PERFORMANCE",
+  "performance_accessed": false,
+  "holdout_accessed": false,
+  "sqcli_executed": false,
+  "legacy_candidates_reused": false,
+  "crypto_allowed": false,
+  "inputs": {
+    "market_audit_path": "lab/sq_bridge/evidence/noncrypto_market_audit_v5.json",
+    "market_audit_sha256": "e14d990c9167862400a68d701d878b90177eb719d41ecf97c95c3018e67966f9",
+    "hypothesis_catalog_path": "lab/sq_bridge/noncrypto_playbook_hypotheses_v5.json",
+    "hypothesis_catalog_sha256": "0ad912d6dc28a91789cfce893c0bc56dda2ca4a3d6a6416515e75cce390d9bc6"
+  },
+  "capital": {
+    "research_equity_usdc": 200,
+    "research_leverage": 1,
+    "initial_capital_scenarios_usdc": [200, 300, 400, 500],
+    "milestone_capital_usdc": 1000,
+    "leverage_tuning_stage": "AFTER_HOLDOUT_AND_PORTFOLIO_ROBUSTNESS"
+  },
+  "temporal_splits": {
+    "XAUUSD_M15": {
+      "train": ["2007-01-01", "2018-12-31"],
+      "validation": ["2019-01-01", "2022-12-31"],
+      "oos": ["2023-01-01", "2024-12-31"],
+      "holdout": ["2025-01-01", "2026-02-28"]
+    },
+    "USDJPY_M15": {
+      "train": ["2007-01-01", "2018-12-31"],
+      "validation": ["2019-01-01", "2022-12-31"],
+      "oos": ["2023-01-01", "2024-12-31"],
+      "holdout": ["2025-01-01", "2026-02-28"]
+    },
+    "EURUSD_D1": {
+      "train": ["2003-05-05", "2017-12-31"],
+      "validation": ["2018-01-01", "2021-12-31"],
+      "oos": ["2022-01-01", "2024-12-31"],
+      "holdout": ["2025-01-01", "2026-07-31"]
+    },
+    "US500_D1": {
+      "train": ["2018-01-03", "2021-12-31"],
+      "validation": ["2022-01-01", "2023-12-31"],
+      "oos": ["2024-01-01", "2024-12-31"],
+      "holdout": ["2025-01-01", "2026-07-08"]
+    }
+  },
+  "sq_generation": {
+    "algorithm": "EVOLUTIONARY_ISLANDS",
+    "islands": 4,
+    "population_per_island": 80,
+    "generations_max": 50,
+    "minimum_generations_before_stagnation_stop": 20,
+    "migration_every_generations": 10,
+    "migrants_per_island": 5,
+    "maximum_evaluations_per_hypothesis": 16000,
+    "maximum_evaluations_global": 76800,
+    "maximum_entry_conditions": 3,
+    "maximum_sensitive_parameters": 3,
+    "maximum_tree_depth": 4,
+    "same_signal_exit_forbidden": true,
+    "volume_blocks_forbidden": true,
+    "current_news_as_sq_input_forbidden": true,
+    "entry_timing": "NEXT_BAR_OPEN",
+    "intrabar_collision_policy": "STOP_FIRST",
+    "one_position_per_playbook": true,
+    "duplicate_definition": "NORMALIZED_RULE_AND_PARAMETERS_SHA256",
+    "randomness_policy": "RECORD_SQ_BUILD_CONFIG_RUN_ID_AND_ALL_EXPORTED_ARTIFACT_HASHES"
+  },
+  "stopping_policy": {
+    "primary": "FIXED_EVALUATION_BUDGET",
+    "early_stop": {
+      "metric": "PARETO_HYPERVOLUME",
+      "minimum_relative_improvement": 0.005,
+      "patience_generations": 8,
+      "only_after_generation": 20
+    },
+    "accepted_candidates_max_per_hypothesis": 8,
+    "accepted_candidates_max_global": 48,
+    "holdout_candidates_max_per_hypothesis": 2,
+    "no_budget_extension_after_performance": true,
+    "no_candidate_action": "REPORT_NO_CANDIDATE"
+  },
+  "cost_policy": {
+    "source": "CHECK_2_LATEST_EXECUTION_CAPTURE_AT_CAMPAIGN_SEAL",
+    "base_roundtrip_bps": "MAX(OBSERVED_P50,5)",
+    "conservative_roundtrip_bps": "MAX(OBSERVED_P95,2*OBSERVED_P50,8)",
+    "stress_roundtrip_bps": "MAX(2*OBSERVED_P95,15)",
+    "xau_macro_event_stress_floor_bps": 30,
+    "mapping_perturbation": "SEPARATE_ENTRY_AND_EXIT_PERTURBATION_USING_MAPPING_P95",
+    "rollover": "OBSERVED_SIDE_SPECIFIC_PER_8H_WITH_POSITIVE_CREDITS_CAPPED_AT_ZERO_IN_STRESS",
+    "costs_must_be_frozen_before_paper": true,
+    "leverage_cannot_rescue_negative_unlevered_expectancy": true
+  },
+  "screen_gates": {
+    "train": {
+      "net_profit_positive_all_cost_scenarios": true,
+      "profit_factor_base_min": 1.15,
+      "maximum_drawdown_pct_max": 25,
+      "minimum_trades_intraday": 120,
+      "minimum_trades_d1": 30
+    },
+    "validation": {
+      "net_profit_positive_base_and_conservative": true,
+      "profit_factor_base_min": 1.2,
+      "profit_factor_stress_min": 1.05,
+      "expectancy_stress_positive": true,
+      "maximum_drawdown_pct_max": 25,
+      "positive_calendar_year_ratio_min": 0.6,
+      "minimum_trades_intraday": 40,
+      "minimum_trades_d1": 12
+    },
+    "parameter_neighborhood": {
+      "perturbation_fraction": 0.1,
+      "minimum_positive_neighbors_ratio": 0.7,
+      "minimum_neighbors": 6
+    },
+    "walk_forward": {
+      "minimum_folds": 5,
+      "minimum_positive_folds_ratio": 0.65,
+      "aggregate_stress_expectancy_positive": true
+    },
+    "oos": {
+      "profit_factor_base_min": 1.2,
+      "profit_factor_stress_min": 1.05,
+      "expectancy_stress_positive": true,
+      "maximum_drawdown_pct_max": 25
+    }
+  },
+  "robustness": {
+    "trade_order_bootstrap_paths": 10000,
+    "missed_trade_probabilities": [0.05, 0.1],
+    "slippage_scenarios": ["BASE", "CONSERVATIVE", "STRESS"],
+    "bar_perturbation_enabled": true,
+    "parameter_perturbation_enabled": true,
+    "session_dst_variants_required_for_intraday": true,
+    "gap_and_stop_first_stress_required": true,
+    "liquidation_simulation_required": true,
+    "maximum_probability_of_ruin_at_1x": 0.01
+  },
+  "holdout_policy": {
+    "open_once": true,
+    "opened_only_after_all_prior_gates": true,
+    "maximum_candidates_global": 12,
+    "rules_parameters_costs_and_context_contract_frozen_before_open": true,
+    "failure_action": "REJECT_WITHOUT_RETUNING",
+    "pass_does_not_authorize_paper": true
+  },
+  "hypothesis_search_spaces": [
+    {
+      "hypothesis_id": "xau-m15-macro-compression-breakout-v5",
+      "priority_weight": 1.5,
+      "evaluation_budget": 16000,
+      "allowed_entry_blocks": ["PREVIOUS_CHANNEL_HIGH_LOW", "ATR_COMPRESSION_PERCENTILE", "BAR_CLOSE_BREAK"],
+      "axes": {
+        "channel_bars": [8, 12, 16, 24, 32],
+        "compression_quantile": [0.15, 0.25, 0.35],
+        "exit_template": ["ATR1_TP1_5_T8_NONE", "ATR1_25_TP2_T12_BE1", "ATR1_5_TP2_5_T16_TRAIL"]
+      }
+    },
+    {
+      "hypothesis_id": "xau-m15-failed-shock-reversion-v5",
+      "priority_weight": 1.5,
+      "evaluation_budget": 16000,
+      "allowed_entry_blocks": ["ATR_SCALED_RETURN", "PRIOR_RANGE_REENTRY", "BAR_CLOSE_CONFIRMATION"],
+      "axes": {
+        "shock_atr": [1.5, 2.0, 2.5, 3.0],
+        "reentry_bars": [1, 2, 3, 4],
+        "exit_template": ["EXTREME_ATR0_25_TP1_5_T8_NONE", "EXTREME_ATR0_5_TP2_T12_BE0_75", "EXTREME_ATR0_5_MIDPOINT_T20_TRAIL"]
+      }
+    },
+    {
+      "hypothesis_id": "usdjpy-m15-session-range-breakout-v5",
+      "priority_weight": 1.5,
+      "evaluation_budget": 16000,
+      "allowed_entry_blocks": ["ASIA_SESSION_HIGH_LOW", "ATR_RANGE_RATIO", "SHORT_RETURN_ALIGNMENT", "BAR_CLOSE_BREAK"],
+      "axes": {
+        "max_range_atr_ratio": [0.6, 0.8, 1.0, 1.2],
+        "trend_lookback_bars": [8, 16, 24, 32],
+        "exit_template": ["RANGE_STOP_TP1_5_T8_NONE", "RANGE_STOP_TP2_T12_BE1", "ATR1_25_TP2_5_T16_TRAIL"]
+      }
+    },
+    {
+      "hypothesis_id": "usdjpy-m15-failed-session-break-reversion-v5",
+      "priority_weight": 1.0,
+      "evaluation_budget": 10240,
+      "allowed_entry_blocks": ["ASIA_SESSION_HIGH_LOW", "FAILED_BREAK_REENTRY", "ATR_REGIME"],
+      "axes": {
+        "failure_window_bars": [1, 2, 3, 4],
+        "break_buffer_atr": [0.0, 0.1, 0.2, 0.3],
+        "exit_template": ["EXTREME_STOP_MIDPOINT_T8_NONE", "EXTREME_STOP_TP1_5_T12_BE_MID", "ATR1_TP2_T12_TRAIL"]
+      }
+    },
+    {
+      "hypothesis_id": "us500-d1-volatility-shock-rebound-v5",
+      "priority_weight": 0.75,
+      "evaluation_budget": 9280,
+      "allowed_entry_blocks": ["ATR_SCALED_DAILY_RETURN", "DAILY_RANGE_RECLAIM", "REALIZED_VOLATILITY_STATE"],
+      "axes": {
+        "shock_atr": [1.5, 2.0, 2.5, 3.0],
+        "reclaim_fraction": [0.25, 0.4, 0.55, 0.7],
+        "exit_template": ["LOW_ATR0_25_TP1_5_T2_NONE", "LOW_ATR0_5_TP2_T3_BE1", "ATR1_5_MA_T5_TRAIL"]
+      }
+    },
+    {
+      "hypothesis_id": "eurusd-d1-short-horizon-trend-v5",
+      "priority_weight": 0.75,
+      "evaluation_budget": 9280,
+      "allowed_entry_blocks": ["PREVIOUS_CHANNEL_HIGH_LOW", "LAGGED_RETURN_SIGN", "ATR_REGIME"],
+      "axes": {
+        "channel_days": [5, 10, 15, 20, 30],
+        "trend_lookback_days": [5, 10, 20, 40],
+        "exit_template": ["ATR1_TP1_5_T3_NONE", "ATR1_5_TP2_T5_BE1", "CHANNEL_ATR_TRAIL_T10"]
+      }
+    }
+  ],
+  "promotion_budget": {
+    "maximum_final_strategies": 8,
+    "minimum_target_not_forced": 4,
+    "maximum_per_market": 2,
+    "maximum_pairwise_return_correlation": 0.65,
+    "no_candidate_is_valid_outcome": true
+  },
+  "authorization": {
+    "sqcli_authorized_after_verifier_pass": true,
+    "paper_authorized": false,
+    "live_authorized": false
+  }
+}

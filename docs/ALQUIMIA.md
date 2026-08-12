@@ -1,13 +1,27 @@
 # Alquímia — laboratori quantitatiu SQ → Ostium
 
+> **DOCUMENT HISTÒRIC (tancat el 2026-08-11).** Ja no defineix l'objectiu del
+> projecte. Es conserva com a metodologia i evidència. La continuïtat vigent és
+> [`CURRENT_OBJECTIVE.md`](../CURRENT_OBJECTIVE.md): cartera teòrica nova amb
+> SQCLI, univers tradicional del catàleg públic d'IBKR i sense criptoactius.
+
 > Estat específic d'SPX/USD M15: [SPX_M15_RESEARCH_AUDIT.md](SPX_M15_RESEARCH_AUDIT.md).
 
 **Data:** 2026-08-02
 **Estat:** MVP en construcció; validació XAU H4 executada
-**Capital canònic:** 200 USDC
+**Capital inicial a seleccionar:** 200, 300, 400 o 500 USDC; 1.000 USDC és
+també escenari comparatiu i primera fita de capital.
 
 Perfil i guardrails de l'operador:
 [`OPERATOR_PROFILE_AND_RISK_POLICY.md`](OPERATOR_PROFILE_AND_RISK_POLICY.md).
+El progrés es comunica mitjançant els checks de
+[`ALQUIMIA_CHECKPOINTS.md`](ALQUIMIA_CHECKPOINTS.md); cap fase important avança
+sense tancar i explicar el check anterior.
+La separació entre senyals deterministes i selecció agentiva de règim es defineix
+a [`ALQUIMIA_CONTEXT_COUNCIL.md`](ALQUIMIA_CONTEXT_COUNCIL.md).
+La captura històrica, replay i integració substituïble de Grok/OpenRouter es
+defineixen a
+[`ALQUIMIA_CONTEXT_DATA_ARCHITECTURE.md`](ALQUIMIA_CONTEXT_DATA_ARCHITECTURE.md).
 
 ## Missió
 
@@ -16,7 +30,9 @@ estratègies executables directament a Ostium. StrategyQuant genera candidats;
 MT4 és només un format d'exportació; el runtime final és Python amb TradingAgent
 (decisió/risc) i BrokerageService (dades/execució).
 
-Objectiu: 3–6 estratègies robustes i complementàries per a un petit inversor.
+Objectiu: 4–8 estratègies robustes i complementàries per a un petit inversor,
+exclusivament sobre sintètics d'Ostium referenciats a mercats no cripto
+(divises, metalls, índexs i, si superen la paritat, accions).
 
 ## Pipeline canònic
 
@@ -28,7 +44,7 @@ Mercat Ostium executable
  → tuning controlat → holdout final congelat
  → exportació SQ/MT4/pseudocodi → traducció Python
  → paritat SQ↔Python → paritat SQ↔BS↔Ostium
- → simulació 200 USDC → paper Ostium
+ → simulació 200/300/400/500/1.000 USDC → paper Ostium (màxim 14 dies)
  → live només amb evidència i autorització explícita
 ```
 
@@ -65,10 +81,75 @@ suportats; qualsevol regla no reproduïble queda `UNSUPPORTED`. Python ha de
 reproduir senyals, timestamps, entries/exits, stops/targets, trades i PnL dins
 toleràncies. Després es recalcula amb bid/ask, impact, gas, fees i rollover Ostium.
 
-## Compte petit: 200 USDC
+## Compte petit: entre 200 i 500 USDC
 
 SQ pot usar 10.000 USD com a escala tècnica, però Alquímia resimula
-100/200/300/500/1.000 USDC i decideix sobre 200.
+200/300/400/500/1.000 USDC. Es tria el capital inicial més baix que superi els gates
+de mida mínima, costos, marge, drawdown i liquidació. Si diverses opcions passen,
+també es compara l'eficiència del capital; no es pressuposa que 200 sigui millor
+ni que 500 converteixi una estratègia sense avantatge en una estratègia viable.
+
+La primera fita és arribar a un saldo de 1.000 USDC. L'informe separa:
+
+1. creixement només per rendiment i compounding;
+2. creixement per rendiment més aportacions periòdiques d'estalvi;
+3. començar directament amb 1.000 USDC.
+
+Per a cada ruta s'informen temps medians i conservadors, drawdown, probabilitat
+d'assolir la fita i probabilitat de ruïna. No s'optimitza per obtenir un x2–x5
+ràpid si això viola els gates. En arribar a 1.000 USDC es recalculen sizing i
+leverage: l'objectiu és reduir progressivament el risc, no mantenir automàticament
+el mateix apalancament agressiu.
+
+### Preferència de risc per trams
+
+Els primers 200 USDC es tracten com una aportació especulativa que l'operador
+accepta poder perdre. La preferència és créixer de 200 a 500 amb risc agressiu
+però mesurat; de 500 a 1.000 es redueixen risc i leverage, i a partir de 1.000
+es prioritza preservació i diversificació. Acceptar la pèrdua màxima no autoritza
+apostes sense stop, risc de liquidació deliberat ni reposicions automàtiques.
+
+El Check 6 ha de comparar diversos límits de risc i triar el més agressiu que
+encara conservi una probabilitat raonable d'arribar a 500 abans del límit de
+pèrdua. Els percentatges no es congelen fins veure Monte Carlo, ratxes de pèrdues,
+costos i solapament de cartera.
+
+### Preferència de durada i context
+
+Es prioritzen operacions curtes i oportunistes quan existeixi un context
+mesurable que les justifiqui. `Context` no significa interpretar notícies a mà:
+és un estat reproduïble disponible abans de l'entrada, per exemple volatilitat
+alta/baixa, sessió, tendència prèvia, compressió, sorpresa macro programada o
+distància a un extrem recent. Cada filtre s'ha de provar fora de mostra.
+
+Una durada curta redueix rollover, gaps nocturns i temps exposat, però augmenta
+la importància relativa de spread, fee i slippage. Per això cada família ha de
+comparar moviment brut per trade amb cost base, conservador i d'estrès. Si el
+cost absorbeix l'avantatge, s'allarga el timeframe o es rebutja; no s'augmenta
+leverage per ocultar una expectativa neta insuficient.
+
+L'objectiu operatiu és **buscar oportunitats cada dia**, no forçar operacions ni
+prometre benefici cada dia. `WAIT` és una decisió correcta quan cap playbook
+validat coincideix amb el context o quan el marge sobre costos és insuficient.
+El seguiment informa per separat dies observats, dies amb oportunitat, dies amb
+trade i dies amb PnL positiu; no els confon.
+
+Les estratègies validades a SQ formen una biblioteca de playbooks. Cada playbook
+declara els contextos compatibles, mercat, direcció, finestra horària, entrada,
+TP, SL, temps màxim i gestor ràpid. El consell agentiu no barreja les regles:
+tria quins playbooks queden `ARMED` avui. El motor determinista espera el senyal
+exacte i el motor de cartera resol conflictes i límits de risc.
+
+SQ/Python conserva tota la lògica d'entrada i sortida determinista. Un consell
+agentiu pot classificar el context actual i seleccionar entre estratègies,
+direccions, horitzons i nivells de risc ja validats. No pot improvisar regles ni
+superar els límits del motor de risc; qualsevol desacord material redueix risc o
+desactiva entrades.
+
+El runtime segueix `WAIT → OPPORTUNITY → ARMED → ENTERING → MANAGING → EXITING`.
+Cada entrada neix amb TP, SL i temps màxim. Durant `MANAGING`, un gestor local
+ràpid pot ajustar l'SL amb regles validades, però només per reduir risc; mai pot
+allunyar-lo ni dependre d'una resposta agentiva per executar una protecció.
 
 ```text
 risk_budget = equity × risk_per_trade
@@ -85,6 +166,19 @@ el més alt que encara supera els gates.
 Verdictes: `SMALL_ACCOUNT_200_USDC_VIABLE`, `VIABLE_BUT_TOO_INFREQUENT`,
 `NOT_VIABLE_COSTS`, `NOT_VIABLE_MIN_SIZE`, `NOT_VIABLE_LIQUIDATION` i
 `NOT_VIABLE_WITH_200_USDC`.
+
+## Paper trading: límit de 14 dies
+
+La validació estadística principal prové de l'històric separat en train, OOS,
+walk-forward i holdout, amb costos i proves d'estrès. El paper trading dura com
+a màxim 14 dies naturals i valida la implementació: senyals, timestamps, sessions,
+preus, sizing, comissions, rollover, stops, persistència i recuperació.
+
+No s'exigeix que una estratègia de baixa freqüència acumuli una mostra
+estadísticament significativa en 14 dies. Per promocionar-la, però, cal que tots
+els senyals produïts coincideixin amb el replay canònic i que no hi hagi errors
+materials d'execució. Acabar els 14 dies no autoritza live automàticament; cal
+informe final i autorització humana explícita.
 
 ## Pipelines, hooks i servei futur
 

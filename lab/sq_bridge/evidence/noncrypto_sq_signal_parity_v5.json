@@ -1,0 +1,49 @@
+{
+  "comparisons": 5040,
+  "decision": "PASS_EXACT_SQ_CHARTDATA_SIGNAL_PARITY",
+  "differences": 0,
+  "directional_coverage": {
+    "0": [
+      0,
+      1
+    ],
+    "1": [
+      -1,
+      0,
+      1
+    ],
+    "2": [
+      -1,
+      0,
+      1
+    ],
+    "3": [
+      -1,
+      0,
+      1
+    ],
+    "4": [
+      0,
+      1
+    ],
+    "5": [
+      -1,
+      0,
+      1
+    ]
+  },
+  "holdout_accessed": false,
+  "network_used": false,
+  "next_gate": "COMPILE_SIX_BUILDING_BLOCKS_AND_18_CFX_PROJECTS",
+  "oracle_sha256": "a4d50d19122623e0fdf14a3a2f2b2d4d2c0df67ad6e9a7f306341821455c6e40",
+  "performance_accessed": false,
+  "promotion_authorized": false,
+  "schema_version": 1,
+  "source_sha256": {
+    "SQ/Utils/AlquimiaV5Signals.java": "ffc22e56b10b500d9d031decf5cabdfea4da7bf6a3502dd2a055f2dcddb798dc",
+    "parity/AlquimiaV5ParityHarness.java": "9022c9f7fe9e42259e8e5cf2744b3146eb0688ec60df3c78fc36b27fadfeb96e",
+    "parity/stubs/com/strategyquant/lib/random/MersenneTwisterRng.java": "aa177127c2d7c95582f623240650e31e595f4af94c07dbf2b1427ae401b3a447"
+  },
+  "sq_trading_lib_sha256": "9dce0c012d84dde97582a3c0e60de92bd6d6150ecab7292808c247c47e1d05fc",
+  "stdout": "PASS_ALQUIMIA_V5_EXACT_SIGNAL_PARITY comparisons=5040 differences=0"
+}

@@ -1,0 +1,1271 @@
+{
+  "authorization": {
+    "compile_cfx": true,
+    "execute_sqcli": false,
+    "live": false,
+    "paper": false
+  },
+  "campaign_id": "alquimia-noncrypto-opportunistic-v5",
+  "exit_branch_policy": "FIX_EXIT_TEMPLATE_PER_JOB_AND_SPLIT_SEALED_GENERATIONS",
+  "exit_contract_path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/noncrypto_exit_contract_v5.json",
+  "exit_contract_sha256": "da0a6be07b6f8642a23d3864675f5a146284d7956b18d01c4acb4c5bb98c4bc8",
+  "holdout_accessed": false,
+  "job_count": 18,
+  "jobs": [
+    {
+      "allowed_entry_components": [
+        "PREVIOUS_CHANNEL_HIGH_LOW",
+        "ATR_COMPRESSION_PERCENTILE",
+        "BAR_CLOSE_BREAK"
+      ],
+      "direction": "BOTH",
+      "entry_block": "AlquimiaV5XauM15MacroCompressionBreakout",
+      "evolution": {
+        "algorithm": "genetic-evolution",
+        "generations": 17,
+        "islands": 4,
+        "migrants_per_island": 5,
+        "migration_every_generations": 10,
+        "nominal_evaluations": 5440,
+        "population_per_island": 80
+      },
+      "exit_semantics": {
+        "manager": {
+          "kind": "NONE"
+        },
+        "max_bars": 8,
+        "stop": {
+          "kind": "ATR",
+          "multiple": 1.0
+        },
+        "target": {
+          "kind": "R",
+          "multiple": 1.5
+        }
+      },
+      "fixed_exit_template": "ATR1_TP1_5_T8_NONE",
+      "future_periods_embargoed": [
+        "validation",
+        "oos",
+        "holdout"
+      ],
+      "hypothesis_id": "xau-m15-macro-compression-breakout-v5",
+      "job_id": "xau-m15-macro-compression-breakout-v5__exit-1",
+      "market_key": "XAUUSD_M15",
+      "numeric_axes": {
+        "channel_bars": [
+          8,
+          12,
+          16,
+          24,
+          32
+        ],
+        "compression_quantile": [
+          0.15,
+          0.25,
+          0.35
+        ]
+      },
+      "resolved_exit_template": "ATR1_TP1_5_T8_NONE",
+      "resource": {
+        "chart_timeframe": "M15",
+        "history_path": "/mnt/volume-SQ/user/data/History/XAUUSD_M1_dukasXAUUSD_M1_dukas_NYclose/XAUUSD_M1_dukasXAUUSD_M1_dukas_NYclose_M1.dat",
+        "source_timeframe": "M1",
+        "sq_symbol": "XAUUSD_M1_dukasXAUUSD_M1_dukas_NYclose",
+        "timezone": "America/New_York"
+      },
+      "status": "AWAITING_CUSTOM_BLOCK_PARITY_AND_CFX_COMPILE",
+      "train_period": [
+        "2007-01-01",
+        "2018-12-31"
+      ]
+    },
+    {
+      "allowed_entry_components": [
+        "PREVIOUS_CHANNEL_HIGH_LOW",
+        "ATR_COMPRESSION_PERCENTILE",
+        "BAR_CLOSE_BREAK"
+      ],
+      "direction": "BOTH",
+      "entry_block": "AlquimiaV5XauM15MacroCompressionBreakout",
+      "evolution": {
+        "algorithm": "genetic-evolution",
+        "generations": 17,
+        "islands": 4,
+        "migrants_per_island": 5,
+        "migration_every_generations": 10,
+        "nominal_evaluations": 5440,
+        "population_per_island": 80
+      },
+      "exit_semantics": {
+        "manager": {
+          "kind": "BREAK_EVEN",
+          "trigger_r": 1.0
+        },
+        "max_bars": 12,
+        "stop": {
+          "kind": "ATR",
+          "multiple": 1.25
+        },
+        "target": {
+          "kind": "R",
+          "multiple": 2.0
+        }
+      },
+      "fixed_exit_template": "ATR1_25_TP2_T12_BE1",
+      "future_periods_embargoed": [
+        "validation",
+        "oos",
+        "holdout"
+      ],
+      "hypothesis_id": "xau-m15-macro-compression-breakout-v5",
+      "job_id": "xau-m15-macro-compression-breakout-v5__exit-2",
+      "market_key": "XAUUSD_M15",
+      "numeric_axes": {
+        "channel_bars": [
+          8,
+          12,
+          16,
+          24,
+          32
+        ],
+        "compression_quantile": [
+          0.15,
+          0.25,
+          0.35
+        ]
+      },
+      "resolved_exit_template": "ATR1_25_TP2_T12_BE1",
+      "resource": {
+        "chart_timeframe": "M15",
+        "history_path": "/mnt/volume-SQ/user/data/History/XAUUSD_M1_dukasXAUUSD_M1_dukas_NYclose/XAUUSD_M1_dukasXAUUSD_M1_dukas_NYclose_M1.dat",
+        "source_timeframe": "M1",
+        "sq_symbol": "XAUUSD_M1_dukasXAUUSD_M1_dukas_NYclose",
+        "timezone": "America/New_York"
+      },
+      "status": "AWAITING_CUSTOM_BLOCK_PARITY_AND_CFX_COMPILE",
+      "train_period": [
+        "2007-01-01",
+        "2018-12-31"
+      ]
+    },
+    {
+      "allowed_entry_components": [
+        "PREVIOUS_CHANNEL_HIGH_LOW",
+        "ATR_COMPRESSION_PERCENTILE",
+        "BAR_CLOSE_BREAK"
+      ],
+      "direction": "BOTH",
+      "entry_block": "AlquimiaV5XauM15MacroCompressionBreakout",
+      "evolution": {
+        "algorithm": "genetic-evolution",
+        "generations": 16,
+        "islands": 4,
+        "migrants_per_island": 5,
+        "migration_every_generations": 10,
+        "nominal_evaluations": 5120,
+        "population_per_island": 80
+      },
+      "exit_semantics": {
+        "manager": {
+          "atr_multiple": 1.0,
+          "kind": "ATR_TRAIL",
+          "trigger_r": 1.0
+        },
+        "max_bars": 16,
+        "stop": {
+          "kind": "ATR",
+          "multiple": 1.5
+        },
+        "target": {
+          "kind": "R",
+          "multiple": 2.5
+        }
+      },
+      "fixed_exit_template": "ATR1_5_TP2_5_T16_TRAIL",
+      "future_periods_embargoed": [
+        "validation",
+        "oos",
+        "holdout"
+      ],
+      "hypothesis_id": "xau-m15-macro-compression-breakout-v5",
+      "job_id": "xau-m15-macro-compression-breakout-v5__exit-3",
+      "market_key": "XAUUSD_M15",
+      "numeric_axes": {
+        "channel_bars": [
+          8,
+          12,
+          16,
+          24,
+          32
+        ],
+        "compression_quantile": [
+          0.15,
+          0.25,
+          0.35
+        ]
+      },
+      "resolved_exit_template": "ATR1_5_TP2_5_T16_TRAIL",
+      "resource": {
+        "chart_timeframe": "M15",
+        "history_path": "/mnt/volume-SQ/user/data/History/XAUUSD_M1_dukasXAUUSD_M1_dukas_NYclose/XAUUSD_M1_dukasXAUUSD_M1_dukas_NYclose_M1.dat",
+        "source_timeframe": "M1",
+        "sq_symbol": "XAUUSD_M1_dukasXAUUSD_M1_dukas_NYclose",
+        "timezone": "America/New_York"
+      },
+      "status": "AWAITING_CUSTOM_BLOCK_PARITY_AND_CFX_COMPILE",
+      "train_period": [
+        "2007-01-01",
+        "2018-12-31"
+      ]
+    },
+    {
+      "allowed_entry_components": [
+        "ATR_SCALED_RETURN",
+        "PRIOR_RANGE_REENTRY",
+        "BAR_CLOSE_CONFIRMATION"
+      ],
+      "direction": "BOTH",
+      "entry_block": "AlquimiaV5XauM15FailedShockReversion",
+      "evolution": {
+        "algorithm": "genetic-evolution",
+        "generations": 17,
+        "islands": 4,
+        "migrants_per_island": 5,
+        "migration_every_generations": 10,
+        "nominal_evaluations": 5440,
+        "population_per_island": 80
+      },
+      "exit_semantics": {
+        "manager": {
+          "kind": "NONE"
+        },
+        "max_bars": 8,
+        "stop": {
+          "kind": "SHOCK_EXTREME_ATR_BUFFER",
+          "multiple": 0.25
+        },
+        "target": {
+          "kind": "R",
+          "multiple": 1.5
+        }
+      },
+      "fixed_exit_template": "EXTREME_ATR0_25_TP1_5_T8_NONE",
+      "future_periods_embargoed": [
+        "validation",
+        "oos",
+        "holdout"
+      ],
+      "hypothesis_id": "xau-m15-failed-shock-reversion-v5",
+      "job_id": "xau-m15-failed-shock-reversion-v5__exit-1",
+      "market_key": "XAUUSD_M15",
+      "numeric_axes": {
+        "reentry_bars": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "shock_atr": [
+          1.5,
+          2.0,
+          2.5,
+          3.0
+        ]
+      },
+      "resolved_exit_template": "EXTREME_ATR0_25_TP1_5_T8_NONE",
+      "resource": {
+        "chart_timeframe": "M15",
+        "history_path": "/mnt/volume-SQ/user/data/History/XAUUSD_M1_dukasXAUUSD_M1_dukas_NYclose/XAUUSD_M1_dukasXAUUSD_M1_dukas_NYclose_M1.dat",
+        "source_timeframe": "M1",
+        "sq_symbol": "XAUUSD_M1_dukasXAUUSD_M1_dukas_NYclose",
+        "timezone": "America/New_York"
+      },
+      "status": "AWAITING_CUSTOM_BLOCK_PARITY_AND_CFX_COMPILE",
+      "train_period": [
+        "2007-01-01",
+        "2018-12-31"
+      ]
+    },
+    {
+      "allowed_entry_components": [
+        "ATR_SCALED_RETURN",
+        "PRIOR_RANGE_REENTRY",
+        "BAR_CLOSE_CONFIRMATION"
+      ],
+      "direction": "BOTH",
+      "entry_block": "AlquimiaV5XauM15FailedShockReversion",
+      "evolution": {
+        "algorithm": "genetic-evolution",
+        "generations": 17,
+        "islands": 4,
+        "migrants_per_island": 5,
+        "migration_every_generations": 10,
+        "nominal_evaluations": 5440,
+        "population_per_island": 80
+      },
+      "exit_semantics": {
+        "manager": {
+          "kind": "BREAK_EVEN",
+          "trigger_r": 0.75
+        },
+        "max_bars": 12,
+        "stop": {
+          "kind": "SHOCK_EXTREME_ATR_BUFFER",
+          "multiple": 0.5
+        },
+        "target": {
+          "kind": "R",
+          "multiple": 2.0
+        }
+      },
+      "fixed_exit_template": "EXTREME_ATR0_5_TP2_T12_BE0_75",
+      "future_periods_embargoed": [
+        "validation",
+        "oos",
+        "holdout"
+      ],
+      "hypothesis_id": "xau-m15-failed-shock-reversion-v5",
+      "job_id": "xau-m15-failed-shock-reversion-v5__exit-2",
+      "market_key": "XAUUSD_M15",
+      "numeric_axes": {
+        "reentry_bars": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "shock_atr": [
+          1.5,
+          2.0,
+          2.5,
+          3.0
+        ]
+      },
+      "resolved_exit_template": "EXTREME_ATR0_5_TP2_T12_BE0_75",
+      "resource": {
+        "chart_timeframe": "M15",
+        "history_path": "/mnt/volume-SQ/user/data/History/XAUUSD_M1_dukasXAUUSD_M1_dukas_NYclose/XAUUSD_M1_dukasXAUUSD_M1_dukas_NYclose_M1.dat",
+        "source_timeframe": "M1",
+        "sq_symbol": "XAUUSD_M1_dukasXAUUSD_M1_dukas_NYclose",
+        "timezone": "America/New_York"
+      },
+      "status": "AWAITING_CUSTOM_BLOCK_PARITY_AND_CFX_COMPILE",
+      "train_period": [
+        "2007-01-01",
+        "2018-12-31"
+      ]
+    },
+    {
+      "allowed_entry_components": [
+        "ATR_SCALED_RETURN",
+        "PRIOR_RANGE_REENTRY",
+        "BAR_CLOSE_CONFIRMATION"
+      ],
+      "direction": "BOTH",
+      "entry_block": "AlquimiaV5XauM15FailedShockReversion",
+      "evolution": {
+        "algorithm": "genetic-evolution",
+        "generations": 16,
+        "islands": 4,
+        "migrants_per_island": 5,
+        "migration_every_generations": 10,
+        "nominal_evaluations": 5120,
+        "population_per_island": 80
+      },
+      "exit_semantics": {
+        "manager": {
+          "kind": "TWO_BAR_STRUCTURE_TRAIL",
+          "lookback_bars": 2,
+          "trigger_r": 1.0
+        },
+        "max_bars": 20,
+        "stop": {
+          "kind": "SHOCK_EXTREME_ATR_BUFFER",
+          "multiple": 0.5
+        },
+        "target": {
+          "fallback_r": 1.5,
+          "kind": "PRESHOCK_8_BAR_RANGE_MIDPOINT"
+        }
+      },
+      "fixed_exit_template": "EXTREME_ATR0_5_MIDPOINT_T20_TRAIL",
+      "future_periods_embargoed": [
+        "validation",
+        "oos",
+        "holdout"
+      ],
+      "hypothesis_id": "xau-m15-failed-shock-reversion-v5",
+      "job_id": "xau-m15-failed-shock-reversion-v5__exit-3",
+      "market_key": "XAUUSD_M15",
+      "numeric_axes": {
+        "reentry_bars": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "shock_atr": [
+          1.5,
+          2.0,
+          2.5,
+          3.0
+        ]
+      },
+      "resolved_exit_template": "EXTREME_ATR0_5_MIDPOINT_T20_TRAIL",
+      "resource": {
+        "chart_timeframe": "M15",
+        "history_path": "/mnt/volume-SQ/user/data/History/XAUUSD_M1_dukasXAUUSD_M1_dukas_NYclose/XAUUSD_M1_dukasXAUUSD_M1_dukas_NYclose_M1.dat",
+        "source_timeframe": "M1",
+        "sq_symbol": "XAUUSD_M1_dukasXAUUSD_M1_dukas_NYclose",
+        "timezone": "America/New_York"
+      },
+      "status": "AWAITING_CUSTOM_BLOCK_PARITY_AND_CFX_COMPILE",
+      "train_period": [
+        "2007-01-01",
+        "2018-12-31"
+      ]
+    },
+    {
+      "allowed_entry_components": [
+        "ASIA_SESSION_HIGH_LOW",
+        "ATR_RANGE_RATIO",
+        "SHORT_RETURN_ALIGNMENT",
+        "BAR_CLOSE_BREAK"
+      ],
+      "direction": "BOTH",
+      "entry_block": "AlquimiaV5UsdjpyM15SessionRangeBreakout",
+      "evolution": {
+        "algorithm": "genetic-evolution",
+        "generations": 17,
+        "islands": 4,
+        "migrants_per_island": 5,
+        "migration_every_generations": 10,
+        "nominal_evaluations": 5440,
+        "population_per_island": 80
+      },
+      "exit_semantics": {
+        "manager": {
+          "kind": "NONE"
+        },
+        "max_bars": 8,
+        "stop": {
+          "atr_cap": 1.5,
+          "kind": "ASIA_OPPOSITE_EDGE_ATR_CAP"
+        },
+        "target": {
+          "kind": "R",
+          "multiple": 1.5
+        }
+      },
+      "fixed_exit_template": "RANGE_STOP_TP1_5_T8_NONE",
+      "future_periods_embargoed": [
+        "validation",
+        "oos",
+        "holdout"
+      ],
+      "hypothesis_id": "usdjpy-m15-session-range-breakout-v5",
+      "job_id": "usdjpy-m15-session-range-breakout-v5__exit-1",
+      "market_key": "USDJPY_M15",
+      "numeric_axes": {
+        "max_range_atr_ratio": [
+          0.6,
+          0.8,
+          1.0,
+          1.2
+        ],
+        "trend_lookback_bars": [
+          8,
+          16,
+          24,
+          32
+        ]
+      },
+      "resolved_exit_template": "RANGE_STOP_TP1_5_T8_NONE",
+      "resource": {
+        "chart_timeframe": "M15",
+        "history_path": "/mnt/volume-SQ/user/data/History/USDJPY_M1_dukas/USDJPY_M1_dukas_M1.dat",
+        "source_timeframe": "M1",
+        "sq_symbol": "USDJPY_M1_dukas",
+        "timezone": "Etc/UTC"
+      },
+      "status": "AWAITING_CUSTOM_BLOCK_PARITY_AND_CFX_COMPILE",
+      "train_period": [
+        "2007-01-01",
+        "2018-12-31"
+      ]
+    },
+    {
+      "allowed_entry_components": [
+        "ASIA_SESSION_HIGH_LOW",
+        "ATR_RANGE_RATIO",
+        "SHORT_RETURN_ALIGNMENT",
+        "BAR_CLOSE_BREAK"
+      ],
+      "direction": "BOTH",
+      "entry_block": "AlquimiaV5UsdjpyM15SessionRangeBreakout",
+      "evolution": {
+        "algorithm": "genetic-evolution",
+        "generations": 17,
+        "islands": 4,
+        "migrants_per_island": 5,
+        "migration_every_generations": 10,
+        "nominal_evaluations": 5440,
+        "population_per_island": 80
+      },
+      "exit_semantics": {
+        "manager": {
+          "kind": "BREAK_EVEN",
+          "trigger_r": 1.0
+        },
+        "max_bars": 12,
+        "stop": {
+          "atr_cap": 1.5,
+          "kind": "ASIA_OPPOSITE_EDGE_ATR_CAP"
+        },
+        "target": {
+          "kind": "R",
+          "multiple": 2.0
+        }
+      },
+      "fixed_exit_template": "RANGE_STOP_TP2_T12_BE1",
+      "future_periods_embargoed": [
+        "validation",
+        "oos",
+        "holdout"
+      ],
+      "hypothesis_id": "usdjpy-m15-session-range-breakout-v5",
+      "job_id": "usdjpy-m15-session-range-breakout-v5__exit-2",
+      "market_key": "USDJPY_M15",
+      "numeric_axes": {
+        "max_range_atr_ratio": [
+          0.6,
+          0.8,
+          1.0,
+          1.2
+        ],
+        "trend_lookback_bars": [
+          8,
+          16,
+          24,
+          32
+        ]
+      },
+      "resolved_exit_template": "RANGE_STOP_TP2_T12_BE1",
+      "resource": {
+        "chart_timeframe": "M15",
+        "history_path": "/mnt/volume-SQ/user/data/History/USDJPY_M1_dukas/USDJPY_M1_dukas_M1.dat",
+        "source_timeframe": "M1",
+        "sq_symbol": "USDJPY_M1_dukas",
+        "timezone": "Etc/UTC"
+      },
+      "status": "AWAITING_CUSTOM_BLOCK_PARITY_AND_CFX_COMPILE",
+      "train_period": [
+        "2007-01-01",
+        "2018-12-31"
+      ]
+    },
+    {
+      "allowed_entry_components": [
+        "ASIA_SESSION_HIGH_LOW",
+        "ATR_RANGE_RATIO",
+        "SHORT_RETURN_ALIGNMENT",
+        "BAR_CLOSE_BREAK"
+      ],
+      "direction": "BOTH",
+      "entry_block": "AlquimiaV5UsdjpyM15SessionRangeBreakout",
+      "evolution": {
+        "algorithm": "genetic-evolution",
+        "generations": 16,
+        "islands": 4,
+        "migrants_per_island": 5,
+        "migration_every_generations": 10,
+        "nominal_evaluations": 5120,
+        "population_per_island": 80
+      },
+      "exit_semantics": {
+        "manager": {
+          "kind": "ASIA_BREAK_EDGE_TRAIL",
+          "trigger_r": 1.0
+        },
+        "max_bars": 16,
+        "stop": {
+          "kind": "ATR",
+          "multiple": 1.25
+        },
+        "target": {
+          "kind": "R",
+          "multiple": 2.5
+        }
+      },
+      "fixed_exit_template": "ATR1_25_TP2_5_T16_TRAIL",
+      "future_periods_embargoed": [
+        "validation",
+        "oos",
+        "holdout"
+      ],
+      "hypothesis_id": "usdjpy-m15-session-range-breakout-v5",
+      "job_id": "usdjpy-m15-session-range-breakout-v5__exit-3",
+      "market_key": "USDJPY_M15",
+      "numeric_axes": {
+        "max_range_atr_ratio": [
+          0.6,
+          0.8,
+          1.0,
+          1.2
+        ],
+        "trend_lookback_bars": [
+          8,
+          16,
+          24,
+          32
+        ]
+      },
+      "resolved_exit_template": "RANGE_ATR1_25_TP2_5_T16_TRAIL",
+      "resource": {
+        "chart_timeframe": "M15",
+        "history_path": "/mnt/volume-SQ/user/data/History/USDJPY_M1_dukas/USDJPY_M1_dukas_M1.dat",
+        "source_timeframe": "M1",
+        "sq_symbol": "USDJPY_M1_dukas",
+        "timezone": "Etc/UTC"
+      },
+      "status": "AWAITING_CUSTOM_BLOCK_PARITY_AND_CFX_COMPILE",
+      "train_period": [
+        "2007-01-01",
+        "2018-12-31"
+      ]
+    },
+    {
+      "allowed_entry_components": [
+        "ASIA_SESSION_HIGH_LOW",
+        "FAILED_BREAK_REENTRY",
+        "ATR_REGIME"
+      ],
+      "direction": "BOTH",
+      "entry_block": "AlquimiaV5UsdjpyM15FailedSessionBreakReversion",
+      "evolution": {
+        "algorithm": "genetic-evolution",
+        "generations": 11,
+        "islands": 4,
+        "migrants_per_island": 5,
+        "migration_every_generations": 10,
+        "nominal_evaluations": 3520,
+        "population_per_island": 80
+      },
+      "exit_semantics": {
+        "manager": {
+          "kind": "NONE"
+        },
+        "max_bars": 8,
+        "stop": {
+          "kind": "FAILED_BREAK_EXTREME_ATR_BUFFER",
+          "multiple": 0.1
+        },
+        "target": {
+          "fallback_r": 1.25,
+          "kind": "ASIA_RANGE_MIDPOINT"
+        }
+      },
+      "fixed_exit_template": "EXTREME_STOP_MIDPOINT_T8_NONE",
+      "future_periods_embargoed": [
+        "validation",
+        "oos",
+        "holdout"
+      ],
+      "hypothesis_id": "usdjpy-m15-failed-session-break-reversion-v5",
+      "job_id": "usdjpy-m15-failed-session-break-reversion-v5__exit-1",
+      "market_key": "USDJPY_M15",
+      "numeric_axes": {
+        "break_buffer_atr": [
+          0.0,
+          0.1,
+          0.2,
+          0.3
+        ],
+        "failure_window_bars": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "resolved_exit_template": "EXTREME_STOP_MIDPOINT_T8_NONE",
+      "resource": {
+        "chart_timeframe": "M15",
+        "history_path": "/mnt/volume-SQ/user/data/History/USDJPY_M1_dukas/USDJPY_M1_dukas_M1.dat",
+        "source_timeframe": "M1",
+        "sq_symbol": "USDJPY_M1_dukas",
+        "timezone": "Etc/UTC"
+      },
+      "status": "AWAITING_CUSTOM_BLOCK_PARITY_AND_CFX_COMPILE",
+      "train_period": [
+        "2007-01-01",
+        "2018-12-31"
+      ]
+    },
+    {
+      "allowed_entry_components": [
+        "ASIA_SESSION_HIGH_LOW",
+        "FAILED_BREAK_REENTRY",
+        "ATR_REGIME"
+      ],
+      "direction": "BOTH",
+      "entry_block": "AlquimiaV5UsdjpyM15FailedSessionBreakReversion",
+      "evolution": {
+        "algorithm": "genetic-evolution",
+        "generations": 11,
+        "islands": 4,
+        "migrants_per_island": 5,
+        "migration_every_generations": 10,
+        "nominal_evaluations": 3520,
+        "population_per_island": 80
+      },
+      "exit_semantics": {
+        "manager": {
+          "kind": "BREAK_EVEN_AT_ASIA_MIDPOINT"
+        },
+        "max_bars": 12,
+        "stop": {
+          "kind": "FAILED_BREAK_EXTREME_ATR_BUFFER",
+          "multiple": 0.1
+        },
+        "target": {
+          "kind": "R",
+          "multiple": 1.5
+        }
+      },
+      "fixed_exit_template": "EXTREME_STOP_TP1_5_T12_BE_MID",
+      "future_periods_embargoed": [
+        "validation",
+        "oos",
+        "holdout"
+      ],
+      "hypothesis_id": "usdjpy-m15-failed-session-break-reversion-v5",
+      "job_id": "usdjpy-m15-failed-session-break-reversion-v5__exit-2",
+      "market_key": "USDJPY_M15",
+      "numeric_axes": {
+        "break_buffer_atr": [
+          0.0,
+          0.1,
+          0.2,
+          0.3
+        ],
+        "failure_window_bars": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "resolved_exit_template": "EXTREME_STOP_TP1_5_T12_BE_MID",
+      "resource": {
+        "chart_timeframe": "M15",
+        "history_path": "/mnt/volume-SQ/user/data/History/USDJPY_M1_dukas/USDJPY_M1_dukas_M1.dat",
+        "source_timeframe": "M1",
+        "sq_symbol": "USDJPY_M1_dukas",
+        "timezone": "Etc/UTC"
+      },
+      "status": "AWAITING_CUSTOM_BLOCK_PARITY_AND_CFX_COMPILE",
+      "train_period": [
+        "2007-01-01",
+        "2018-12-31"
+      ]
+    },
+    {
+      "allowed_entry_components": [
+        "ASIA_SESSION_HIGH_LOW",
+        "FAILED_BREAK_REENTRY",
+        "ATR_REGIME"
+      ],
+      "direction": "BOTH",
+      "entry_block": "AlquimiaV5UsdjpyM15FailedSessionBreakReversion",
+      "evolution": {
+        "algorithm": "genetic-evolution",
+        "generations": 10,
+        "islands": 4,
+        "migrants_per_island": 5,
+        "migration_every_generations": 10,
+        "nominal_evaluations": 3200,
+        "population_per_island": 80
+      },
+      "exit_semantics": {
+        "manager": {
+          "kind": "TWO_BAR_STRUCTURE_TRAIL",
+          "lookback_bars": 2,
+          "trigger_r": 1.0
+        },
+        "max_bars": 12,
+        "stop": {
+          "kind": "ATR",
+          "multiple": 1.0
+        },
+        "target": {
+          "kind": "R",
+          "multiple": 2.0
+        }
+      },
+      "fixed_exit_template": "ATR1_TP2_T12_TRAIL",
+      "future_periods_embargoed": [
+        "validation",
+        "oos",
+        "holdout"
+      ],
+      "hypothesis_id": "usdjpy-m15-failed-session-break-reversion-v5",
+      "job_id": "usdjpy-m15-failed-session-break-reversion-v5__exit-3",
+      "market_key": "USDJPY_M15",
+      "numeric_axes": {
+        "break_buffer_atr": [
+          0.0,
+          0.1,
+          0.2,
+          0.3
+        ],
+        "failure_window_bars": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "resolved_exit_template": "FAILED_ATR1_TP2_T12_TRAIL",
+      "resource": {
+        "chart_timeframe": "M15",
+        "history_path": "/mnt/volume-SQ/user/data/History/USDJPY_M1_dukas/USDJPY_M1_dukas_M1.dat",
+        "source_timeframe": "M1",
+        "sq_symbol": "USDJPY_M1_dukas",
+        "timezone": "Etc/UTC"
+      },
+      "status": "AWAITING_CUSTOM_BLOCK_PARITY_AND_CFX_COMPILE",
+      "train_period": [
+        "2007-01-01",
+        "2018-12-31"
+      ]
+    },
+    {
+      "allowed_entry_components": [
+        "ATR_SCALED_DAILY_RETURN",
+        "DAILY_RANGE_RECLAIM",
+        "REALIZED_VOLATILITY_STATE"
+      ],
+      "direction": "LONG",
+      "entry_block": "AlquimiaV5Us500D1VolatilityShockRebound",
+      "evolution": {
+        "algorithm": "genetic-evolution",
+        "generations": 10,
+        "islands": 4,
+        "migrants_per_island": 5,
+        "migration_every_generations": 10,
+        "nominal_evaluations": 3200,
+        "population_per_island": 80
+      },
+      "exit_semantics": {
+        "manager": {
+          "kind": "NONE"
+        },
+        "max_bars": 2,
+        "stop": {
+          "kind": "SHOCK_LOW_ATR_BUFFER",
+          "multiple": 0.25
+        },
+        "target": {
+          "kind": "R",
+          "multiple": 1.5
+        }
+      },
+      "fixed_exit_template": "LOW_ATR0_25_TP1_5_T2_NONE",
+      "future_periods_embargoed": [
+        "validation",
+        "oos",
+        "holdout"
+      ],
+      "hypothesis_id": "us500-d1-volatility-shock-rebound-v5",
+      "job_id": "us500-d1-volatility-shock-rebound-v5__exit-1",
+      "market_key": "US500_D1",
+      "numeric_axes": {
+        "reclaim_fraction": [
+          0.25,
+          0.4,
+          0.55,
+          0.7
+        ],
+        "shock_atr": [
+          1.5,
+          2.0,
+          2.5,
+          3.0
+        ]
+      },
+      "resolved_exit_template": "LOW_ATR0_25_TP1_5_T2_NONE",
+      "resource": {
+        "chart_timeframe": "D1",
+        "history_path": "/mnt/volume-SQ/user/data/History/US500_ALQ_RTH_D1/US500_ALQ_RTH_D1_D1.dat",
+        "source_timeframe": "D1",
+        "sq_symbol": "US500_ALQ_RTH_D1",
+        "timezone": "America/New_York"
+      },
+      "status": "AWAITING_CUSTOM_BLOCK_PARITY_AND_CFX_COMPILE",
+      "train_period": [
+        "2018-01-03",
+        "2021-12-31"
+      ]
+    },
+    {
+      "allowed_entry_components": [
+        "ATR_SCALED_DAILY_RETURN",
+        "DAILY_RANGE_RECLAIM",
+        "REALIZED_VOLATILITY_STATE"
+      ],
+      "direction": "LONG",
+      "entry_block": "AlquimiaV5Us500D1VolatilityShockRebound",
+      "evolution": {
+        "algorithm": "genetic-evolution",
+        "generations": 10,
+        "islands": 4,
+        "migrants_per_island": 5,
+        "migration_every_generations": 10,
+        "nominal_evaluations": 3200,
+        "population_per_island": 80
+      },
+      "exit_semantics": {
+        "manager": {
+          "kind": "BREAK_EVEN",
+          "trigger_r": 1.0
+        },
+        "max_bars": 3,
+        "stop": {
+          "kind": "SHOCK_LOW_ATR_BUFFER",
+          "multiple": 0.5
+        },
+        "target": {
+          "kind": "R",
+          "multiple": 2.0
+        }
+      },
+      "fixed_exit_template": "LOW_ATR0_5_TP2_T3_BE1",
+      "future_periods_embargoed": [
+        "validation",
+        "oos",
+        "holdout"
+      ],
+      "hypothesis_id": "us500-d1-volatility-shock-rebound-v5",
+      "job_id": "us500-d1-volatility-shock-rebound-v5__exit-2",
+      "market_key": "US500_D1",
+      "numeric_axes": {
+        "reclaim_fraction": [
+          0.25,
+          0.4,
+          0.55,
+          0.7
+        ],
+        "shock_atr": [
+          1.5,
+          2.0,
+          2.5,
+          3.0
+        ]
+      },
+      "resolved_exit_template": "LOW_ATR0_5_TP2_T3_BE1",
+      "resource": {
+        "chart_timeframe": "D1",
+        "history_path": "/mnt/volume-SQ/user/data/History/US500_ALQ_RTH_D1/US500_ALQ_RTH_D1_D1.dat",
+        "source_timeframe": "D1",
+        "sq_symbol": "US500_ALQ_RTH_D1",
+        "timezone": "America/New_York"
+      },
+      "status": "AWAITING_CUSTOM_BLOCK_PARITY_AND_CFX_COMPILE",
+      "train_period": [
+        "2018-01-03",
+        "2021-12-31"
+      ]
+    },
+    {
+      "allowed_entry_components": [
+        "ATR_SCALED_DAILY_RETURN",
+        "DAILY_RANGE_RECLAIM",
+        "REALIZED_VOLATILITY_STATE"
+      ],
+      "direction": "LONG",
+      "entry_block": "AlquimiaV5Us500D1VolatilityShockRebound",
+      "evolution": {
+        "algorithm": "genetic-evolution",
+        "generations": 9,
+        "islands": 4,
+        "migrants_per_island": 5,
+        "migration_every_generations": 9,
+        "nominal_evaluations": 2880,
+        "population_per_island": 80
+      },
+      "exit_semantics": {
+        "manager": {
+          "early_exit": "CLOSE_BELOW_SMA5_NEXT_OPEN",
+          "kind": "PREVIOUS_DAILY_LOW_TRAIL",
+          "lookback_bars": 1,
+          "trigger_r": 1.0
+        },
+        "max_bars": 5,
+        "stop": {
+          "kind": "ATR",
+          "multiple": 1.5
+        },
+        "target": {
+          "kind": "R",
+          "multiple": 1.5
+        }
+      },
+      "fixed_exit_template": "ATR1_5_MA_T5_TRAIL",
+      "future_periods_embargoed": [
+        "validation",
+        "oos",
+        "holdout"
+      ],
+      "hypothesis_id": "us500-d1-volatility-shock-rebound-v5",
+      "job_id": "us500-d1-volatility-shock-rebound-v5__exit-3",
+      "market_key": "US500_D1",
+      "numeric_axes": {
+        "reclaim_fraction": [
+          0.25,
+          0.4,
+          0.55,
+          0.7
+        ],
+        "shock_atr": [
+          1.5,
+          2.0,
+          2.5,
+          3.0
+        ]
+      },
+      "resolved_exit_template": "ATR1_5_TP1_5_MA_T5_TRAIL",
+      "resource": {
+        "chart_timeframe": "D1",
+        "history_path": "/mnt/volume-SQ/user/data/History/US500_ALQ_RTH_D1/US500_ALQ_RTH_D1_D1.dat",
+        "source_timeframe": "D1",
+        "sq_symbol": "US500_ALQ_RTH_D1",
+        "timezone": "America/New_York"
+      },
+      "status": "AWAITING_CUSTOM_BLOCK_PARITY_AND_CFX_COMPILE",
+      "train_period": [
+        "2018-01-03",
+        "2021-12-31"
+      ]
+    },
+    {
+      "allowed_entry_components": [
+        "PREVIOUS_CHANNEL_HIGH_LOW",
+        "LAGGED_RETURN_SIGN",
+        "ATR_REGIME"
+      ],
+      "direction": "BOTH",
+      "entry_block": "AlquimiaV5EurusdD1ShortHorizonTrend",
+      "evolution": {
+        "algorithm": "genetic-evolution",
+        "generations": 10,
+        "islands": 4,
+        "migrants_per_island": 5,
+        "migration_every_generations": 10,
+        "nominal_evaluations": 3200,
+        "population_per_island": 80
+      },
+      "exit_semantics": {
+        "manager": {
+          "kind": "NONE"
+        },
+        "max_bars": 3,
+        "stop": {
+          "kind": "ATR",
+          "multiple": 1.0
+        },
+        "target": {
+          "kind": "R",
+          "multiple": 1.5
+        }
+      },
+      "fixed_exit_template": "ATR1_TP1_5_T3_NONE",
+      "future_periods_embargoed": [
+        "validation",
+        "oos",
+        "holdout"
+      ],
+      "hypothesis_id": "eurusd-d1-short-horizon-trend-v5",
+      "job_id": "eurusd-d1-short-horizon-trend-v5__exit-1",
+      "market_key": "EURUSD_D1",
+      "numeric_axes": {
+        "channel_days": [
+          5,
+          10,
+          15,
+          20,
+          30
+        ],
+        "trend_lookback_days": [
+          5,
+          10,
+          20,
+          40
+        ]
+      },
+      "resolved_exit_template": "ATR1_TP1_5_T3_NONE",
+      "resource": {
+        "chart_timeframe": "D1",
+        "history_path": "/mnt/volume-SQ/user/data/History/EURUSD_ALQ_NY17_D1_V3/EURUSD_ALQ_NY17_D1_V3_D1.dat",
+        "source_timeframe": "D1",
+        "sq_symbol": "EURUSD_ALQ_NY17_D1_V3",
+        "timezone": "America/New_York"
+      },
+      "status": "AWAITING_CUSTOM_BLOCK_PARITY_AND_CFX_COMPILE",
+      "train_period": [
+        "2003-05-05",
+        "2017-12-31"
+      ]
+    },
+    {
+      "allowed_entry_components": [
+        "PREVIOUS_CHANNEL_HIGH_LOW",
+        "LAGGED_RETURN_SIGN",
+        "ATR_REGIME"
+      ],
+      "direction": "BOTH",
+      "entry_block": "AlquimiaV5EurusdD1ShortHorizonTrend",
+      "evolution": {
+        "algorithm": "genetic-evolution",
+        "generations": 10,
+        "islands": 4,
+        "migrants_per_island": 5,
+        "migration_every_generations": 10,
+        "nominal_evaluations": 3200,
+        "population_per_island": 80
+      },
+      "exit_semantics": {
+        "manager": {
+          "kind": "BREAK_EVEN",
+          "trigger_r": 1.0
+        },
+        "max_bars": 5,
+        "stop": {
+          "kind": "ATR",
+          "multiple": 1.5
+        },
+        "target": {
+          "kind": "R",
+          "multiple": 2.0
+        }
+      },
+      "fixed_exit_template": "ATR1_5_TP2_T5_BE1",
+      "future_periods_embargoed": [
+        "validation",
+        "oos",
+        "holdout"
+      ],
+      "hypothesis_id": "eurusd-d1-short-horizon-trend-v5",
+      "job_id": "eurusd-d1-short-horizon-trend-v5__exit-2",
+      "market_key": "EURUSD_D1",
+      "numeric_axes": {
+        "channel_days": [
+          5,
+          10,
+          15,
+          20,
+          30
+        ],
+        "trend_lookback_days": [
+          5,
+          10,
+          20,
+          40
+        ]
+      },
+      "resolved_exit_template": "ATR1_5_TP2_T5_BE1",
+      "resource": {
+        "chart_timeframe": "D1",
+        "history_path": "/mnt/volume-SQ/user/data/History/EURUSD_ALQ_NY17_D1_V3/EURUSD_ALQ_NY17_D1_V3_D1.dat",
+        "source_timeframe": "D1",
+        "sq_symbol": "EURUSD_ALQ_NY17_D1_V3",
+        "timezone": "America/New_York"
+      },
+      "status": "AWAITING_CUSTOM_BLOCK_PARITY_AND_CFX_COMPILE",
+      "train_period": [
+        "2003-05-05",
+        "2017-12-31"
+      ]
+    },
+    {
+      "allowed_entry_components": [
+        "PREVIOUS_CHANNEL_HIGH_LOW",
+        "LAGGED_RETURN_SIGN",
+        "ATR_REGIME"
+      ],
+      "direction": "BOTH",
+      "entry_block": "AlquimiaV5EurusdD1ShortHorizonTrend",
+      "evolution": {
+        "algorithm": "genetic-evolution",
+        "generations": 9,
+        "islands": 4,
+        "migrants_per_island": 5,
+        "migration_every_generations": 9,
+        "nominal_evaluations": 2880,
+        "population_per_island": 80
+      },
+      "exit_semantics": {
+        "manager": {
+          "atr_multiple": 1.0,
+          "kind": "FIVE_BAR_CHANNEL_OR_ATR_TRAIL",
+          "lookback_bars": 5,
+          "trigger_r": 1.0
+        },
+        "max_bars": 10,
+        "stop": {
+          "atr_cap": 2.0,
+          "kind": "OPPOSITE_CHANNEL_ATR_CAP"
+        },
+        "target": {
+          "kind": "R",
+          "multiple": 3.0
+        }
+      },
+      "fixed_exit_template": "CHANNEL_ATR_TRAIL_T10",
+      "future_periods_embargoed": [
+        "validation",
+        "oos",
+        "holdout"
+      ],
+      "hypothesis_id": "eurusd-d1-short-horizon-trend-v5",
+      "job_id": "eurusd-d1-short-horizon-trend-v5__exit-3",
+      "market_key": "EURUSD_D1",
+      "numeric_axes": {
+        "channel_days": [
+          5,
+          10,
+          15,
+          20,
+          30
+        ],
+        "trend_lookback_days": [
+          5,
+          10,
+          20,
+          40
+        ]
+      },
+      "resolved_exit_template": "CHANNEL_ATR_TP3_T10_TRAIL",
+      "resource": {
+        "chart_timeframe": "D1",
+        "history_path": "/mnt/volume-SQ/user/data/History/EURUSD_ALQ_NY17_D1_V3/EURUSD_ALQ_NY17_D1_V3_D1.dat",
+        "source_timeframe": "D1",
+        "sq_symbol": "EURUSD_ALQ_NY17_D1_V3",
+        "timezone": "America/New_York"
+      },
+      "status": "AWAITING_CUSTOM_BLOCK_PARITY_AND_CFX_COMPILE",
+      "train_period": [
+        "2003-05-05",
+        "2017-12-31"
+      ]
+    }
+  ],
+  "nominal_evaluations_global": 76800,
+  "performance_accessed": false,
+  "preregistration_path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/noncrypto_campaign_preregistration_v5.json",
+  "preregistration_sha256": "bb637db2c65d947218d8ba49a6b0ac0ae27fcf50950b01df52821708f0a54a20",
+  "schema_version": 1,
+  "sqcli_executed": false,
+  "stage": "CHECK_5A_BUILD_PLAN_PERFORMANCE_BLIND"
+}

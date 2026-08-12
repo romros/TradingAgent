@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "campaign_id": "alquimia-noncrypto-opportunistic-v5",
+  "checked_at_utc": "2026-08-11T14:52:06Z",
+  "decision": "PASS_SQCLI_INFRASTRUCTURE_PREFLIGHT",
+  "sqx_version": "143.2708",
+  "license_code_suffix": "REDACTED",
+  "license_configuration_result": "CONFIGURED_AND_ENGINE_INITIALIZED",
+  "hardware_id": "C9E2DD3D29A8",
+  "cores_detected": 7,
+  "data_load_ms": 2012,
+  "projects_load_ms": 21789,
+  "cli_http_port": 5050,
+  "test_command": "docker compose run --rm --no-deps sqcli ./sqcli -help",
+  "ephemeral_container_removed": true,
+  "persistent_gui_container_stopped": true,
+  "project_executed": false,
+  "performance_accessed": false,
+  "holdout_accessed": false,
+  "production_data_deleted": false,
+  "warnings": [
+    "docker-compose version attribute is obsolete but harmless",
+    "third-party Coinbase cookie warning occurred during generic data initialization"
+  ],
+  "next_gate": "PASS_EXACT_SQ_PYTHON_CUSTOM_BLOCK_PARITY",
+  "authorization": {
+    "compile_custom_blocks": true,
+    "compile_cfx": true,
+    "execute_campaign": false,
+    "paper": false,
+    "live": false
+  }
+}

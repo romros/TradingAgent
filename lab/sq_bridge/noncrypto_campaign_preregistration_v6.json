@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "campaign_id": "alquimia-noncrypto-opportunistic-v6",
+  "created_at_utc": "2026-08-11T16:00:00Z",
+  "stage": "PREREGISTERED_BEFORE_V6_PERFORMANCE",
+  "performance_accessed": false,
+  "holdout_accessed": false,
+  "inherits_v5_candidates": false,
+  "design_evidence": [
+    "v5 showed whole-session range divided by one M15 ATR was dimensionally too restrictive",
+    "v5 XAU failed-shock had insufficient frequency and weak PF, motivating a preregistered regime ratio",
+    "v5 EURUSD trend failed recent validation, motivating a distinct exhaustion-reversion thesis",
+    "US500 is excluded until a longer Ostium-compatible D1 mapping is certified"
+  ],
+  "common": {
+    "entry": "NEXT_BAR_OPEN",
+    "intrabar_collision": "STOP_FIRST",
+    "one_position_per_playbook": true,
+    "base_roundtrip_bps": 5,
+    "conservative_roundtrip_bps": 8,
+    "stress_roundtrip_bps": 15,
+    "train_gates": {"profit_factor_min": 1.15, "max_drawdown_max": 0.25, "minimum_trades_m15": 120, "minimum_trades_d1": 30},
+    "validation_gates": {"profit_factor_base_min": 1.2, "profit_factor_stress_min": 1.05, "max_drawdown_max": 0.25, "positive_year_ratio_min": 0.6, "positive_neighbor_ratio_min": 0.7}
+  },
+  "splits": {
+    "XAUUSD_M15": {"train":["2007-01-01","2018-12-31"],"validation":["2019-01-01","2022-12-31"],"oos":["2023-01-01","2024-12-31"],"holdout":["2025-01-01","2026-02-28"]},
+    "USDJPY_M15": {"train":["2007-01-01","2018-12-31"],"validation":["2019-01-01","2022-12-31"],"oos":["2023-01-01","2024-12-31"],"holdout":["2025-01-01","2026-02-28"]},
+    "EURUSD_D1": {"train":["2003-05-05","2017-12-31"],"validation":["2018-01-01","2021-12-31"],"oos":["2022-01-01","2024-12-31"],"holdout":["2025-01-01","2026-07-31"]}
+  },
+  "families": [
+    {"id":"xau-m15-failed-shock-regime-v6","market":"XAUUSD_M15","axes":{"shock_atr":[1.25,1.5,2.0,2.5],"max_fast_slow_atr_ratio":[0.8,1.0,1.2]},"exit_templates":["V6_M15_A","V6_M15_B","V6_M15_C"]},
+    {"id":"xau-m15-london-failed-break-v6","market":"XAUUSD_M15","axes":{"range_hours":[2,3,4],"failure_window_bars":[1,2,4]},"exit_templates":["V6_M15_A","V6_M15_B","V6_M15_C"]},
+    {"id":"usdjpy-m15-asia-percentile-breakout-v6","market":"USDJPY_M15","axes":{"range_quantile":[0.3,0.5,0.7],"trend_lookback_bars":[8,16,32]},"exit_templates":["V6_M15_A","V6_M15_B","V6_M15_C"]},
+    {"id":"usdjpy-m15-asia-percentile-failure-v6","market":"USDJPY_M15","axes":{"range_quantile":[0.3,0.5,0.7],"failure_window_bars":[1,2,4]},"exit_templates":["V6_M15_A","V6_M15_B","V6_M15_C"]},
+    {"id":"eurusd-d1-exhaustion-reversion-v6","market":"EURUSD_D1","axes":{"displacement_atr":[1.0,1.5,2.0,2.5],"reclaim_fraction":[0.25,0.5,0.75]},"exit_templates":["V6_D1_A","V6_D1_B","V6_D1_C"]}
+  ],
+  "promotion": {"max_train_per_family":8,"max_validation_per_family":2,"max_holdout_global":10,"no_candidate_allowed":true},
+  "authorization": {"train":true,"validation_after_train_gate":true,"oos_after_validation_gate":true,"holdout_after_all_prior_gates":true,"paper":false,"live":false}
+}

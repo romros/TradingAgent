@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "campaign_id": "alquimia-noncrypto-opportunistic-v5",
+  "stage": "PREPERFORMANCE_EXECUTION_SEMANTICS",
+  "performance_accessed": false,
+  "holdout_accessed": false,
+  "common": {
+    "atr": "SMA_TRUE_RANGE_14_ON_SIGNAL_BAR",
+    "r_definition": "ABS(ENTRY_PRICE-INITIAL_STOP_PRICE)",
+    "entry": "NEXT_BAR_OPEN",
+    "protective_stop_submitted_with_entry": true,
+    "stop_update_frequency": "COMPLETED_BAR_CLOSE",
+    "stop_may_widen": false,
+    "intrabar_collision": "STOP_FIRST",
+    "time_exit": "OPEN_OF_BAR_AFTER_EXACTLY_MAX_HOLDING_BARS_WITH_NO_INTRABAR_TEST_ON_EXIT_BAR",
+    "invalid_geometry": "WAIT",
+    "positive_rollover_credit_in_stress": 0
+  },
+  "templates": {
+    "ATR1_TP1_5_T8_NONE": {"stop":{"kind":"ATR","multiple":1.0},"target":{"kind":"R","multiple":1.5},"max_bars":8,"manager":{"kind":"NONE"}},
+    "ATR1_25_TP2_T12_BE1": {"stop":{"kind":"ATR","multiple":1.25},"target":{"kind":"R","multiple":2.0},"max_bars":12,"manager":{"kind":"BREAK_EVEN","trigger_r":1.0}},
+    "ATR1_5_TP2_5_T16_TRAIL": {"stop":{"kind":"ATR","multiple":1.5},"target":{"kind":"R","multiple":2.5},"max_bars":16,"manager":{"kind":"ATR_TRAIL","trigger_r":1.0,"atr_multiple":1.0}},
+
+    "EXTREME_ATR0_25_TP1_5_T8_NONE": {"stop":{"kind":"SHOCK_EXTREME_ATR_BUFFER","multiple":0.25},"target":{"kind":"R","multiple":1.5},"max_bars":8,"manager":{"kind":"NONE"}},
+    "EXTREME_ATR0_5_TP2_T12_BE0_75": {"stop":{"kind":"SHOCK_EXTREME_ATR_BUFFER","multiple":0.5},"target":{"kind":"R","multiple":2.0},"max_bars":12,"manager":{"kind":"BREAK_EVEN","trigger_r":0.75}},
+    "EXTREME_ATR0_5_MIDPOINT_T20_TRAIL": {"stop":{"kind":"SHOCK_EXTREME_ATR_BUFFER","multiple":0.5},"target":{"kind":"PRESHOCK_8_BAR_RANGE_MIDPOINT","fallback_r":1.5},"max_bars":20,"manager":{"kind":"TWO_BAR_STRUCTURE_TRAIL","trigger_r":1.0,"lookback_bars":2}},
+
+    "RANGE_STOP_TP1_5_T8_NONE": {"stop":{"kind":"ASIA_OPPOSITE_EDGE_ATR_CAP","atr_cap":1.5},"target":{"kind":"R","multiple":1.5},"max_bars":8,"manager":{"kind":"NONE"}},
+    "RANGE_STOP_TP2_T12_BE1": {"stop":{"kind":"ASIA_OPPOSITE_EDGE_ATR_CAP","atr_cap":1.5},"target":{"kind":"R","multiple":2.0},"max_bars":12,"manager":{"kind":"BREAK_EVEN","trigger_r":1.0}},
+    "RANGE_ATR1_25_TP2_5_T16_TRAIL": {"stop":{"kind":"ATR","multiple":1.25},"target":{"kind":"R","multiple":2.5},"max_bars":16,"manager":{"kind":"ASIA_BREAK_EDGE_TRAIL","trigger_r":1.0}},
+
+    "EXTREME_STOP_MIDPOINT_T8_NONE": {"stop":{"kind":"FAILED_BREAK_EXTREME_ATR_BUFFER","multiple":0.1},"target":{"kind":"ASIA_RANGE_MIDPOINT","fallback_r":1.25},"max_bars":8,"manager":{"kind":"NONE"}},
+    "EXTREME_STOP_TP1_5_T12_BE_MID": {"stop":{"kind":"FAILED_BREAK_EXTREME_ATR_BUFFER","multiple":0.1},"target":{"kind":"R","multiple":1.5},"max_bars":12,"manager":{"kind":"BREAK_EVEN_AT_ASIA_MIDPOINT"}},
+    "FAILED_ATR1_TP2_T12_TRAIL": {"stop":{"kind":"ATR","multiple":1.0},"target":{"kind":"R","multiple":2.0},"max_bars":12,"manager":{"kind":"TWO_BAR_STRUCTURE_TRAIL","trigger_r":1.0,"lookback_bars":2}},
+
+    "LOW_ATR0_25_TP1_5_T2_NONE": {"stop":{"kind":"SHOCK_LOW_ATR_BUFFER","multiple":0.25},"target":{"kind":"R","multiple":1.5},"max_bars":2,"manager":{"kind":"NONE"}},
+    "LOW_ATR0_5_TP2_T3_BE1": {"stop":{"kind":"SHOCK_LOW_ATR_BUFFER","multiple":0.5},"target":{"kind":"R","multiple":2.0},"max_bars":3,"manager":{"kind":"BREAK_EVEN","trigger_r":1.0}},
+    "ATR1_5_TP1_5_MA_T5_TRAIL": {"stop":{"kind":"ATR","multiple":1.5},"target":{"kind":"R","multiple":1.5},"max_bars":5,"manager":{"kind":"PREVIOUS_DAILY_LOW_TRAIL","trigger_r":1.0,"lookback_bars":1,"early_exit":"CLOSE_BELOW_SMA5_NEXT_OPEN"}},
+
+    "ATR1_TP1_5_T3_NONE": {"stop":{"kind":"ATR","multiple":1.0},"target":{"kind":"R","multiple":1.5},"max_bars":3,"manager":{"kind":"NONE"}},
+    "ATR1_5_TP2_T5_BE1": {"stop":{"kind":"ATR","multiple":1.5},"target":{"kind":"R","multiple":2.0},"max_bars":5,"manager":{"kind":"BREAK_EVEN","trigger_r":1.0}},
+    "CHANNEL_ATR_TP3_T10_TRAIL": {"stop":{"kind":"OPPOSITE_CHANNEL_ATR_CAP","atr_cap":2.0},"target":{"kind":"R","multiple":3.0},"max_bars":10,"manager":{"kind":"FIVE_BAR_CHANNEL_OR_ATR_TRAIL","trigger_r":1.0,"lookback_bars":5,"atr_multiple":1.0}}
+  },
+  "preregistration_aliases": {
+    "ATR1_25_TP2_5_T16_TRAIL": "RANGE_ATR1_25_TP2_5_T16_TRAIL",
+    "ATR1_TP2_T12_TRAIL": "FAILED_ATR1_TP2_T12_TRAIL",
+    "ATR1_5_MA_T5_TRAIL": "ATR1_5_TP1_5_MA_T5_TRAIL",
+    "CHANNEL_ATR_TRAIL_T10": "CHANNEL_ATR_TP3_T10_TRAIL"
+  }
+}

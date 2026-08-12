@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "audit_id": "alquimia-noncrypto-market-audit-v5",
+  "created_at_utc": "2026-08-11T00:00:00Z",
+  "performance_accessed": false,
+  "holdout_accessed": false,
+  "legacy_candidates_reused": false,
+  "allowed_categories": ["forex", "commodity", "index", "stock"],
+  "markets": [
+    {
+      "symbol": "EURUSD",
+      "category": "forex",
+      "ostium_pair": "EUR/USD",
+      "timeframe": "D1",
+      "technical_evidence": [
+        {
+          "role": "historical_coverage",
+          "path": "lab/sq_bridge/evidence/eurusd_d1_historical_coverage_v4.json",
+          "decision_allowlist": ["PASS_HISTORICAL_COVERAGE"]
+        },
+        {
+          "role": "sq_candle_parity",
+          "path": "lab/sq_bridge/evidence/eurusd_d1_full_candle_parity_v4_v3.json",
+          "decision_allowlist": ["PASS_CANDLE_PARITY"]
+        },
+        {
+          "role": "current_source_extension",
+          "path": "lab/sq_bridge/evidence/eurusd_d1_holdout_extension_v4_v3.json",
+          "decision_allowlist": ["PASS_HOLDOUT_SOURCE_EXTENSION"]
+        }
+      ],
+      "cost_evidence": "data/ostium_economics_universe/eurusd_costs_latest_v4.json"
+    },
+    {
+      "symbol": "US500",
+      "category": "index",
+      "ostium_pair": "US500/USD",
+      "timeframe": "D1",
+      "technical_evidence": [
+        {
+          "role": "historical_coverage",
+          "path": "lab/sq_bridge/evidence/spxusd_d1_historical_coverage_v4.json",
+          "decision_allowlist": ["PASS_HISTORICAL_COVERAGE"]
+        },
+        {
+          "role": "ostium_mapping",
+          "path": "lab/sq_bridge/evidence/spxusd_d1_sq_ostium_parity_v4.json",
+          "decision_allowlist": ["PASS_D1_SOURCE_MAPPING"]
+        }
+      ],
+      "cost_evidence": "data/ostium_execution_quotes/costs_latest.json"
+    },
+    {
+      "symbol": "USDJPY",
+      "category": "forex",
+      "ostium_pair": "USD/JPY",
+      "timeframe": "M15",
+      "technical_evidence": [
+        {
+          "role": "source_manifest",
+          "path": "lab/sq_bridge/evidence/usdjpy_sq_m1_utc_2007_2026_source.json",
+          "required_fields": {"invalid_ohlc": 0, "duplicate_timestamps": 0}
+        },
+        {
+          "role": "ostium_mapping",
+          "path": "lab/sq_bridge/evidence/usdjpy_gotobi_tokyo_fix_v27_market_preflight.json",
+          "decision_allowlist": ["PASS"]
+        }
+      ],
+      "cost_evidence": "data/ostium_economics_universe/usdjpy_costs_latest_v4.json"
+    },
+    {
+      "symbol": "GBPUSD",
+      "category": "forex",
+      "ostium_pair": "GBP/USD",
+      "timeframe": "M15",
+      "technical_evidence": [
+        {
+          "role": "source_manifest",
+          "path": "lab/sq_bridge/evidence/gbpusd_sq_m1_utc_2007_2023_source.json",
+          "required_fields": {"invalid_ohlc": 0, "duplicate_timestamps": 0}
+        },
+        {
+          "role": "ostium_mapping",
+          "path": "lab/sq_bridge/evidence/gbpusd_london_fix_reversal_v26_market_preflight.json",
+          "decision_allowlist": ["PASS"]
+        },
+        {
+          "role": "recent_overlap_source",
+          "path": "lab/sq_bridge/evidence/gbpusd_sq_m1_utc_2026_overlap_source.json",
+          "required_fields": {"invalid_ohlc": 0, "duplicate_timestamps": 0}
+        }
+      ],
+      "known_research_blockers": ["HISTORICAL_SOURCE_GAP_2024_2025"],
+      "cost_evidence": "data/ostium_economics_universe/gbpusd_costs_latest_v4.json"
+    },
+    {
+      "symbol": "XAUUSD",
+      "category": "commodity",
+      "ostium_pair": "XAU/USD",
+      "timeframe": "M15",
+      "technical_evidence": [
+        {
+          "role": "source_and_mapping_preflight",
+          "path": "lab/sq_bridge/evidence/xauusd_abnormal_day_momentum_v36_market_preflight.json",
+          "decision_allowlist": ["PASS"]
+        }
+      ],
+      "cost_evidence": "data/ostium_economics_universe/xauusd_costs_latest_v4.json"
+    }
+  ]
+}

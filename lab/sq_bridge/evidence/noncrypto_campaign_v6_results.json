@@ -1,0 +1,2310 @@
+{
+  "decision": "V6_VALIDATION_COMPLETE",
+  "holdout_accessed": false,
+  "oos_accessed": false,
+  "retuned": false,
+  "schema_version": 1,
+  "seal": "86ed64eb08b05654d989110e9f4ebd1f76a974f41e0337e9a184c70d5b60a9bb",
+  "selected_for_validation": 0,
+  "train": [
+    {
+      "exit": "V6_M15_A",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.7222117107497424,
+      "net_return": -0.721716887258216,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 0.8,
+        "shock_atr": 1.25
+      },
+      "pass": false,
+      "profit_factor": 0.4300700182449024,
+      "trades": 2412,
+      "win_rate": 0.3681592039800995
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.7068482471270954,
+      "net_return": -0.7066486328731707,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 0.8,
+        "shock_atr": 1.25
+      },
+      "pass": false,
+      "profit_factor": 0.5078258199328233,
+      "trades": 2255,
+      "win_rate": 0.2984478935698448
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.6473490452817823,
+      "net_return": -0.6472386230122844,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 0.8,
+        "shock_atr": 1.25
+      },
+      "pass": false,
+      "profit_factor": 0.5910374092821544,
+      "trades": 2152,
+      "win_rate": 0.3587360594795539
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.7954024507007554,
+      "net_return": -0.7950380016666538,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 1.0,
+        "shock_atr": 1.25
+      },
+      "pass": false,
+      "profit_factor": 0.48287090401690963,
+      "trades": 3145,
+      "win_rate": 0.37901430842607314
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.7776475016801935,
+      "net_return": -0.7774960963837031,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 1.0,
+        "shock_atr": 1.25
+      },
+      "pass": false,
+      "profit_factor": 0.5579258461524278,
+      "trades": 2933,
+      "win_rate": 0.3088987384930106
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.7274288172905342,
+      "net_return": -0.7273434696452441,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 1.0,
+        "shock_atr": 1.25
+      },
+      "pass": false,
+      "profit_factor": 0.6291623961578342,
+      "trades": 2802,
+      "win_rate": 0.37080656673804424
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.8611946154341953,
+      "net_return": -0.8599147512962833,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 1.2,
+        "shock_atr": 1.25
+      },
+      "pass": false,
+      "profit_factor": 0.5144375072976526,
+      "trades": 3890,
+      "win_rate": 0.3789203084832905
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.8392608264340261,
+      "net_return": -0.8382720516642477,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 1.2,
+        "shock_atr": 1.25
+      },
+      "pass": false,
+      "profit_factor": 0.5961410935399925,
+      "trades": 3637,
+      "win_rate": 0.31262029144899645
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.8014576514051195,
+      "net_return": -0.8002375645879136,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 1.2,
+        "shock_atr": 1.25
+      },
+      "pass": false,
+      "profit_factor": 0.6547901496594482,
+      "trades": 3478,
+      "win_rate": 0.3746405980448534
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.44324495936634023,
+      "net_return": -0.44198004693777604,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 0.8,
+        "shock_atr": 1.5
+      },
+      "pass": false,
+      "profit_factor": 0.5032039668374728,
+      "trades": 1292,
+      "win_rate": 0.39241486068111453
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.4165670397522546,
+      "net_return": -0.4161697658695861,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 0.8,
+        "shock_atr": 1.5
+      },
+      "pass": false,
+      "profit_factor": 0.5918049964813913,
+      "trades": 1220,
+      "win_rate": 0.32049180327868854
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.3604057637850271,
+      "net_return": -0.3396357186914295,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 0.8,
+        "shock_atr": 1.5
+      },
+      "pass": false,
+      "profit_factor": 0.7007985422028125,
+      "trades": 1191,
+      "win_rate": 0.37363560033585225
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.522888677574449,
+      "net_return": -0.5220388005294282,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 1.0,
+        "shock_atr": 1.5
+      },
+      "pass": false,
+      "profit_factor": 0.5422875990989025,
+      "trades": 1673,
+      "win_rate": 0.39868499701135685
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.49516802286777345,
+      "net_return": -0.49482427033180876,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 1.0,
+        "shock_atr": 1.5
+      },
+      "pass": false,
+      "profit_factor": 0.6262470349101179,
+      "trades": 1581,
+      "win_rate": 0.32511068943706517
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.4354698273979174,
+      "net_return": -0.435293061386016,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 1.0,
+        "shock_atr": 1.5
+      },
+      "pass": false,
+      "profit_factor": 0.7034369800430197,
+      "trades": 1543,
+      "win_rate": 0.3843162670123137
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.5993657376947993,
+      "net_return": -0.5965269877582856,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 1.2,
+        "shock_atr": 1.5
+      },
+      "pass": false,
+      "profit_factor": 0.5800380828034326,
+      "trades": 2088,
+      "win_rate": 0.4013409961685824
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.5473614724866779,
+      "net_return": -0.5445771010985101,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 1.2,
+        "shock_atr": 1.5
+      },
+      "pass": false,
+      "profit_factor": 0.6789913338333208,
+      "trades": 1980,
+      "win_rate": 0.3338383838383838
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.501599762860495,
+      "net_return": -0.4985369827366083,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 1.2,
+        "shock_atr": 1.5
+      },
+      "pass": false,
+      "profit_factor": 0.7329118308321478,
+      "trades": 1931,
+      "win_rate": 0.39409632314862764
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.17851597486469117,
+      "net_return": -0.17664961483662933,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 0.8,
+        "shock_atr": 2.0
+      },
+      "pass": false,
+      "profit_factor": 0.4683653573859786,
+      "trades": 400,
+      "win_rate": 0.39
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.18617256323909503,
+      "net_return": -0.1856184080787714,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 0.8,
+        "shock_atr": 2.0
+      },
+      "pass": false,
+      "profit_factor": 0.5139435768985384,
+      "trades": 380,
+      "win_rate": 0.3105263157894737
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.1941923707659799,
+      "net_return": -0.19360812105180525,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 0.8,
+        "shock_atr": 2.0
+      },
+      "pass": false,
+      "profit_factor": 0.5372953922544779,
+      "trades": 376,
+      "win_rate": 0.35638297872340424
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.18183806357034707,
+      "net_return": -0.17997925111884205,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 1.0,
+        "shock_atr": 2.0
+      },
+      "pass": false,
+      "profit_factor": 0.5993299806758602,
+      "trades": 528,
+      "win_rate": 0.4147727272727273
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.16196382818723232,
+      "net_return": -0.1613931887025324,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 1.0,
+        "shock_atr": 2.0
+      },
+      "pass": false,
+      "profit_factor": 0.6930899925874773,
+      "trades": 501,
+      "win_rate": 0.3373253493013972
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.18574365231386192,
+      "net_return": -0.18425966470893085,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 1.0,
+        "shock_atr": 2.0
+      },
+      "pass": false,
+      "profit_factor": 0.6736027718280103,
+      "trades": 496,
+      "win_rate": 0.38911290322580644
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.2314027722960416,
+      "net_return": -0.2258865845604936,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 1.2,
+        "shock_atr": 2.0
+      },
+      "pass": false,
+      "profit_factor": 0.632522885627737,
+      "trades": 679,
+      "win_rate": 0.4212076583210604
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.18823347114951566,
+      "net_return": -0.187680719312184,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 1.2,
+        "shock_atr": 2.0
+      },
+      "pass": false,
+      "profit_factor": 0.7396846985323968,
+      "trades": 646,
+      "win_rate": 0.34520123839009287
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.21682454781914454,
+      "net_return": -0.21514702849603395,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 1.2,
+        "shock_atr": 2.0
+      },
+      "pass": false,
+      "profit_factor": 0.7169987620331182,
+      "trades": 638,
+      "win_rate": 0.40282131661442006
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.09624659123090971,
+      "net_return": -0.09463673784791427,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 0.8,
+        "shock_atr": 2.5
+      },
+      "pass": false,
+      "profit_factor": 0.3864033439561741,
+      "trades": 156,
+      "win_rate": 0.3333333333333333
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.1012963164284555,
+      "net_return": -0.10068436693970984,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 0.8,
+        "shock_atr": 2.5
+      },
+      "pass": false,
+      "profit_factor": 0.4402212021763085,
+      "trades": 151,
+      "win_rate": 0.26490066225165565
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.11096930479800511,
+      "net_return": -0.10846775045404877,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 0.8,
+        "shock_atr": 2.5
+      },
+      "pass": false,
+      "profit_factor": 0.43283924947008134,
+      "trades": 150,
+      "win_rate": 0.31333333333333335
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.1134969262470931,
+      "net_return": -0.11191780083692093,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 1.0,
+        "shock_atr": 2.5
+      },
+      "pass": false,
+      "profit_factor": 0.45991435914827217,
+      "trades": 210,
+      "win_rate": 0.36666666666666664
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.10641324703331494,
+      "net_return": -0.10580478178873653,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 1.0,
+        "shock_atr": 2.5
+      },
+      "pass": false,
+      "profit_factor": 0.5568169223311366,
+      "trades": 199,
+      "win_rate": 0.3015075376884422
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.12087951382181171,
+      "net_return": -0.10672115351137001,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 1.0,
+        "shock_atr": 2.5
+      },
+      "pass": false,
+      "profit_factor": 0.5786533100142571,
+      "trades": 198,
+      "win_rate": 0.3434343434343434
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.12719541197844303,
+      "net_return": -0.12109070507060038,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 1.2,
+        "shock_atr": 2.5
+      },
+      "pass": false,
+      "profit_factor": 0.5761433978161495,
+      "trades": 280,
+      "win_rate": 0.4035714285714286
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.09448102040663214,
+      "net_return": -0.08417351391810135,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 1.2,
+        "shock_atr": 2.5
+      },
+      "pass": false,
+      "profit_factor": 0.7409866250031751,
+      "trades": 268,
+      "win_rate": 0.34701492537313433
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "xau-m15-failed-shock-regime-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.13756321898758594,
+      "net_return": -0.11392241528261715,
+      "parameters": {
+        "max_fast_slow_atr_ratio": 1.2,
+        "shock_atr": 2.5
+      },
+      "pass": false,
+      "profit_factor": 0.6786957790921815,
+      "trades": 265,
+      "win_rate": 0.37735849056603776
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.8833700722428147,
+      "net_return": -0.8815957972446462,
+      "parameters": {
+        "failure_window_bars": 1,
+        "range_hours": 2
+      },
+      "pass": false,
+      "profit_factor": 0.6407838815454827,
+      "trades": 4542,
+      "win_rate": 0.4057683839718186
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.8115382431813292,
+      "net_return": -0.8025118981441142,
+      "parameters": {
+        "failure_window_bars": 1,
+        "range_hours": 2
+      },
+      "pass": false,
+      "profit_factor": 0.7315590678015669,
+      "trades": 3893,
+      "win_rate": 0.3388132545594657
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.752799452408133,
+      "net_return": -0.7397735668482526,
+      "parameters": {
+        "failure_window_bars": 1,
+        "range_hours": 2
+      },
+      "pass": false,
+      "profit_factor": 0.7771633292876102,
+      "trades": 3554,
+      "win_rate": 0.41783905458638154
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.893333062638027,
+      "net_return": -0.8915989627414941,
+      "parameters": {
+        "failure_window_bars": 2,
+        "range_hours": 2
+      },
+      "pass": false,
+      "profit_factor": 0.6372817617671526,
+      "trades": 4679,
+      "win_rate": 0.4037187433212225
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.8213894570282915,
+      "net_return": -0.8128349342680152,
+      "parameters": {
+        "failure_window_bars": 2,
+        "range_hours": 2
+      },
+      "pass": false,
+      "profit_factor": 0.7254059448261723,
+      "trades": 3928,
+      "win_rate": 0.3375763747454175
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.7584197841094462,
+      "net_return": -0.7456900540324847,
+      "parameters": {
+        "failure_window_bars": 2,
+        "range_hours": 2
+      },
+      "pass": false,
+      "profit_factor": 0.775547383813308,
+      "trades": 3584,
+      "win_rate": 0.41796875
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.8981536721330741,
+      "net_return": -0.8964979415854071,
+      "parameters": {
+        "failure_window_bars": 4,
+        "range_hours": 2
+      },
+      "pass": false,
+      "profit_factor": 0.6424698009662511,
+      "trades": 4846,
+      "win_rate": 0.4044572843582336
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.8197185898487293,
+      "net_return": -0.8110716517330911,
+      "parameters": {
+        "failure_window_bars": 4,
+        "range_hours": 2
+      },
+      "pass": false,
+      "profit_factor": 0.7292481166556316,
+      "trades": 3969,
+      "win_rate": 0.3396321491559587
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.7694859722095659,
+      "net_return": -0.7573155894993957,
+      "parameters": {
+        "failure_window_bars": 4,
+        "range_hours": 2
+      },
+      "pass": false,
+      "profit_factor": 0.7702563932760935,
+      "trades": 3611,
+      "win_rate": 0.4167820548324564
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.886453540852572,
+      "net_return": -0.8837506247843725,
+      "parameters": {
+        "failure_window_bars": 1,
+        "range_hours": 3
+      },
+      "pass": false,
+      "profit_factor": 0.6339534719496446,
+      "trades": 4442,
+      "win_rate": 0.4004952723998199
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.8168919231111079,
+      "net_return": -0.8027054239009029,
+      "parameters": {
+        "failure_window_bars": 1,
+        "range_hours": 3
+      },
+      "pass": false,
+      "profit_factor": 0.7300539282900719,
+      "trades": 3867,
+      "win_rate": 0.3405740884406517
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.7653747071457228,
+      "net_return": -0.7433185016927338,
+      "parameters": {
+        "failure_window_bars": 1,
+        "range_hours": 3
+      },
+      "pass": false,
+      "profit_factor": 0.7725490533178505,
+      "trades": 3516,
+      "win_rate": 0.4197952218430034
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.9061970107764749,
+      "net_return": -0.9034339129293706,
+      "parameters": {
+        "failure_window_bars": 2,
+        "range_hours": 3
+      },
+      "pass": false,
+      "profit_factor": 0.6199585140722546,
+      "trades": 4609,
+      "win_rate": 0.3953135170318941
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.8266764045799639,
+      "net_return": -0.8132479688096061,
+      "parameters": {
+        "failure_window_bars": 2,
+        "range_hours": 3
+      },
+      "pass": false,
+      "profit_factor": 0.7241381511719399,
+      "trades": 3905,
+      "win_rate": 0.3390524967989757
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.7697422732559733,
+      "net_return": -0.7480966455982652,
+      "parameters": {
+        "failure_window_bars": 2,
+        "range_hours": 3
+      },
+      "pass": false,
+      "profit_factor": 0.7719859197962017,
+      "trades": 3551,
+      "win_rate": 0.4198817234581808
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.9154186903918118,
+      "net_return": -0.91253457597918,
+      "parameters": {
+        "failure_window_bars": 4,
+        "range_hours": 3
+      },
+      "pass": false,
+      "profit_factor": 0.6240555784367651,
+      "trades": 4849,
+      "win_rate": 0.3953392452051969
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.8404957293510378,
+      "net_return": -0.828126689914939,
+      "parameters": {
+        "failure_window_bars": 4,
+        "range_hours": 3
+      },
+      "pass": false,
+      "profit_factor": 0.7152453310968152,
+      "trades": 3960,
+      "win_rate": 0.3383838383838384
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.7765919853260017,
+      "net_return": -0.7555663310898294,
+      "parameters": {
+        "failure_window_bars": 4,
+        "range_hours": 3
+      },
+      "pass": false,
+      "profit_factor": 0.7698184704905873,
+      "trades": 3591,
+      "win_rate": 0.4191033138401559
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.8938520192754285,
+      "net_return": -0.8910369379225432,
+      "parameters": {
+        "failure_window_bars": 1,
+        "range_hours": 4
+      },
+      "pass": false,
+      "profit_factor": 0.6131711549107771,
+      "trades": 4259,
+      "win_rate": 0.3970415590514205
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.8319677413345323,
+      "net_return": -0.8176847389244337,
+      "parameters": {
+        "failure_window_bars": 1,
+        "range_hours": 4
+      },
+      "pass": false,
+      "profit_factor": 0.7110507195370084,
+      "trades": 3746,
+      "win_rate": 0.3408969567538708
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.7899177048203333,
+      "net_return": -0.7656107521019957,
+      "parameters": {
+        "failure_window_bars": 1,
+        "range_hours": 4
+      },
+      "pass": false,
+      "profit_factor": 0.7532743268465056,
+      "trades": 3418,
+      "win_rate": 0.41398478642480985
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.9120583449215629,
+      "net_return": -0.909726101654538,
+      "parameters": {
+        "failure_window_bars": 2,
+        "range_hours": 4
+      },
+      "pass": false,
+      "profit_factor": 0.6014325814477308,
+      "trades": 4450,
+      "win_rate": 0.39258426966292137
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.8470499798184545,
+      "net_return": -0.8340489910545834,
+      "parameters": {
+        "failure_window_bars": 2,
+        "range_hours": 4
+      },
+      "pass": false,
+      "profit_factor": 0.700311502481425,
+      "trades": 3788,
+      "win_rate": 0.337909186906019
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.8012768707761979,
+      "net_return": -0.7781105389847431,
+      "parameters": {
+        "failure_window_bars": 2,
+        "range_hours": 4
+      },
+      "pass": false,
+      "profit_factor": 0.7471619759170729,
+      "trades": 3452,
+      "win_rate": 0.41280417149478565
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.9223219981130226,
+      "net_return": -0.9191428503185147,
+      "parameters": {
+        "failure_window_bars": 4,
+        "range_hours": 4
+      },
+      "pass": false,
+      "profit_factor": 0.6104238797228284,
+      "trades": 4765,
+      "win_rate": 0.39307450157397694
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.8629829096349015,
+      "net_return": -0.8513139602500623,
+      "parameters": {
+        "failure_window_bars": 4,
+        "range_hours": 4
+      },
+      "pass": false,
+      "profit_factor": 0.6912213613890209,
+      "trades": 3888,
+      "win_rate": 0.3361625514403292
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "xau-m15-london-failed-break-v6",
+      "market": "XAUUSD_M15",
+      "max_drawdown": 0.8070093006305216,
+      "net_return": -0.7844901238860105,
+      "parameters": {
+        "failure_window_bars": 4,
+        "range_hours": 4
+      },
+      "pass": false,
+      "profit_factor": 0.7467268788689702,
+      "trades": 3506,
+      "win_rate": 0.41158014831717055
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.6345155707458751,
+      "net_return": -0.6337326304464237,
+      "parameters": {
+        "range_quantile": 0.3,
+        "trend_lookback_bars": 8
+      },
+      "pass": false,
+      "profit_factor": 0.311745016306226,
+      "trades": 2128,
+      "win_rate": 0.35902255639097747
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.49162515392701706,
+      "net_return": -0.48897882471631393,
+      "parameters": {
+        "range_quantile": 0.3,
+        "trend_lookback_bars": 8
+      },
+      "pass": false,
+      "profit_factor": 0.4765259437422023,
+      "trades": 1669,
+      "win_rate": 0.32953864589574594
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.4405566806685376,
+      "net_return": -0.4367761934452362,
+      "parameters": {
+        "range_quantile": 0.3,
+        "trend_lookback_bars": 8
+      },
+      "pass": false,
+      "profit_factor": 0.5257261462471943,
+      "trades": 1455,
+      "win_rate": 0.33883161512027493
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.6586436043944084,
+      "net_return": -0.6579123511392684,
+      "parameters": {
+        "range_quantile": 0.3,
+        "trend_lookback_bars": 16
+      },
+      "pass": false,
+      "profit_factor": 0.3085733905411983,
+      "trades": 2243,
+      "win_rate": 0.35755684351315203
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.510273128492499,
+      "net_return": -0.5077238707246381,
+      "parameters": {
+        "range_quantile": 0.3,
+        "trend_lookback_bars": 16
+      },
+      "pass": false,
+      "profit_factor": 0.47549424518336353,
+      "trades": 1746,
+      "win_rate": 0.3316151202749141
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.45034033794226835,
+      "net_return": -0.4466259646397922,
+      "parameters": {
+        "range_quantile": 0.3,
+        "trend_lookback_bars": 16
+      },
+      "pass": false,
+      "profit_factor": 0.5288585532913234,
+      "trades": 1514,
+      "win_rate": 0.3414795244385733
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.6635602108674437,
+      "net_return": -0.6628394899607054,
+      "parameters": {
+        "range_quantile": 0.3,
+        "trend_lookback_bars": 32
+      },
+      "pass": false,
+      "profit_factor": 0.30753839876931444,
+      "trades": 2272,
+      "win_rate": 0.3573943661971831
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.5118606250955803,
+      "net_return": -0.5093196309911661,
+      "parameters": {
+        "range_quantile": 0.3,
+        "trend_lookback_bars": 32
+      },
+      "pass": false,
+      "profit_factor": 0.4768184022567554,
+      "trades": 1758,
+      "win_rate": 0.33390216154721275
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.4396310993942166,
+      "net_return": -0.43584435747439676,
+      "parameters": {
+        "range_quantile": 0.3,
+        "trend_lookback_bars": 32
+      },
+      "pass": false,
+      "profit_factor": 0.5416162802400207,
+      "trades": 1523,
+      "win_rate": 0.3479973736047275
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.7795542249409351,
+      "net_return": -0.7794817605658614,
+      "parameters": {
+        "range_quantile": 0.5,
+        "trend_lookback_bars": 8
+      },
+      "pass": false,
+      "profit_factor": 0.3267856606559862,
+      "trades": 3147,
+      "win_rate": 0.363520813473149
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.6635577216063726,
+      "net_return": -0.6631686157223474,
+      "parameters": {
+        "range_quantile": 0.5,
+        "trend_lookback_bars": 8
+      },
+      "pass": false,
+      "profit_factor": 0.4582705612572756,
+      "trades": 2450,
+      "win_rate": 0.3171428571428571
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.5933360333363429,
+      "net_return": -0.5922854844436314,
+      "parameters": {
+        "range_quantile": 0.5,
+        "trend_lookback_bars": 8
+      },
+      "pass": false,
+      "profit_factor": 0.5170482186303309,
+      "trades": 2138,
+      "win_rate": 0.3376987839101964
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.7991079020406024,
+      "net_return": -0.7990418653005834,
+      "parameters": {
+        "range_quantile": 0.5,
+        "trend_lookback_bars": 16
+      },
+      "pass": false,
+      "profit_factor": 0.3245809186096395,
+      "trades": 3311,
+      "win_rate": 0.36212624584717606
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.6709450703425257,
+      "net_return": -0.6705645081554292,
+      "parameters": {
+        "range_quantile": 0.5,
+        "trend_lookback_bars": 16
+      },
+      "pass": false,
+      "profit_factor": 0.46733822522187723,
+      "trades": 2562,
+      "win_rate": 0.3251366120218579
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.5971505948977945,
+      "net_return": -0.596109900292045,
+      "parameters": {
+        "range_quantile": 0.5,
+        "trend_lookback_bars": 16
+      },
+      "pass": false,
+      "profit_factor": 0.5287070780089842,
+      "trades": 2228,
+      "win_rate": 0.34201077199281865
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.8040940425403955,
+      "net_return": -0.8040296448318128,
+      "parameters": {
+        "range_quantile": 0.5,
+        "trend_lookback_bars": 32
+      },
+      "pass": false,
+      "profit_factor": 0.3223870831709814,
+      "trades": 3351,
+      "win_rate": 0.36078782452999103
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.6759321545059531,
+      "net_return": -0.6755573600356887,
+      "parameters": {
+        "range_quantile": 0.5,
+        "trend_lookback_bars": 32
+      },
+      "pass": false,
+      "profit_factor": 0.46614848065566655,
+      "trades": 2587,
+      "win_rate": 0.32586006957866254
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.5937062731613542,
+      "net_return": -0.5926566807218081,
+      "parameters": {
+        "range_quantile": 0.5,
+        "trend_lookback_bars": 32
+      },
+      "pass": false,
+      "profit_factor": 0.5323529873838642,
+      "trades": 2246,
+      "win_rate": 0.3472840605520926
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.8634644586651709,
+      "net_return": -0.8634195770489297,
+      "parameters": {
+        "range_quantile": 0.7,
+        "trend_lookback_bars": 8
+      },
+      "pass": false,
+      "profit_factor": 0.33101931844441074,
+      "trades": 4001,
+      "win_rate": 0.3586603349162709
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.76467899126724,
+      "net_return": -0.7644527968291545,
+      "parameters": {
+        "range_quantile": 0.7,
+        "trend_lookback_bars": 8
+      },
+      "pass": false,
+      "profit_factor": 0.45558772251950336,
+      "trades": 3112,
+      "win_rate": 0.31266066838046275
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.7130710620074762,
+      "net_return": -0.7125494739380851,
+      "parameters": {
+        "range_quantile": 0.7,
+        "trend_lookback_bars": 8
+      },
+      "pass": false,
+      "profit_factor": 0.4952344464353927,
+      "trades": 2714,
+      "win_rate": 0.33345615327929257
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.8803035818824774,
+      "net_return": -0.8802642355800357,
+      "parameters": {
+        "range_quantile": 0.7,
+        "trend_lookback_bars": 16
+      },
+      "pass": false,
+      "profit_factor": 0.328668710184354,
+      "trades": 4222,
+      "win_rate": 0.3585978209379441
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.7825276352441175,
+      "net_return": -0.7823185972172537,
+      "parameters": {
+        "range_quantile": 0.7,
+        "trend_lookback_bars": 16
+      },
+      "pass": false,
+      "profit_factor": 0.45367604673049483,
+      "trades": 3271,
+      "win_rate": 0.3179455823907062
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.7242256471404507,
+      "net_return": -0.7237243362120308,
+      "parameters": {
+        "range_quantile": 0.7,
+        "trend_lookback_bars": 16
+      },
+      "pass": false,
+      "profit_factor": 0.5019529450076964,
+      "trades": 2840,
+      "win_rate": 0.3362676056338028
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.8837523507963595,
+      "net_return": -0.8837141381644726,
+      "parameters": {
+        "range_quantile": 0.7,
+        "trend_lookback_bars": 32
+      },
+      "pass": false,
+      "profit_factor": 0.3272583895025676,
+      "trades": 4275,
+      "win_rate": 0.35719298245614034
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.7839358634635251,
+      "net_return": -0.7837281790488717,
+      "parameters": {
+        "range_quantile": 0.7,
+        "trend_lookback_bars": 32
+      },
+      "pass": false,
+      "profit_factor": 0.4575572498580847,
+      "trades": 3308,
+      "win_rate": 0.32043530834340994
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "usdjpy-m15-asia-percentile-breakout-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.7248448331086432,
+      "net_return": -0.7243446477551341,
+      "parameters": {
+        "range_quantile": 0.7,
+        "trend_lookback_bars": 32
+      },
+      "pass": false,
+      "profit_factor": 0.5012542534310842,
+      "trades": 2869,
+      "win_rate": 0.3419309864064134
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.4523849884088514,
+      "net_return": -0.4518999579044368,
+      "parameters": {
+        "failure_window_bars": 1,
+        "range_quantile": 0.3
+      },
+      "pass": false,
+      "profit_factor": 0.21397199481862297,
+      "trades": 1100,
+      "win_rate": 0.3090909090909091
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.41797300502936263,
+      "net_return": -0.4178885035309615,
+      "parameters": {
+        "failure_window_bars": 1,
+        "range_quantile": 0.3
+      },
+      "pass": false,
+      "profit_factor": 0.30607699603010735,
+      "trades": 977,
+      "win_rate": 0.27021494370522003
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.3887611481785188,
+      "net_return": -0.3887470457918545,
+      "parameters": {
+        "failure_window_bars": 1,
+        "range_quantile": 0.3
+      },
+      "pass": false,
+      "profit_factor": 0.3368948890444956,
+      "trades": 902,
+      "win_rate": 0.29046563192904656
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.4704127383915006,
+      "net_return": -0.46994367532494374,
+      "parameters": {
+        "failure_window_bars": 2,
+        "range_quantile": 0.3
+      },
+      "pass": false,
+      "profit_factor": 0.21405515388788493,
+      "trades": 1162,
+      "win_rate": 0.3098106712564544
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.42231195758644313,
+      "net_return": -0.4222280860381916,
+      "parameters": {
+        "failure_window_bars": 2,
+        "range_quantile": 0.3
+      },
+      "pass": false,
+      "profit_factor": 0.30661552585010726,
+      "trades": 990,
+      "win_rate": 0.27070707070707073
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.386820982376596,
+      "net_return": -0.38680683522679493,
+      "parameters": {
+        "failure_window_bars": 2,
+        "range_quantile": 0.3
+      },
+      "pass": false,
+      "profit_factor": 0.3390860004551369,
+      "trades": 902,
+      "win_rate": 0.2915742793791574
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.49526287961574567,
+      "net_return": -0.49526287961574567,
+      "parameters": {
+        "failure_window_bars": 4,
+        "range_quantile": 0.3
+      },
+      "pass": false,
+      "profit_factor": 0.22693840447005495,
+      "trades": 1308,
+      "win_rate": 0.3211009174311927
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.43165102001103495,
+      "net_return": -0.43156850435310357,
+      "parameters": {
+        "failure_window_bars": 4,
+        "range_quantile": 0.3
+      },
+      "pass": false,
+      "profit_factor": 0.31482777020256003,
+      "trades": 1037,
+      "win_rate": 0.2757955641272903
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.39556365660895687,
+      "net_return": -0.3955497111684747,
+      "parameters": {
+        "failure_window_bars": 4,
+        "range_quantile": 0.3
+      },
+      "pass": false,
+      "profit_factor": 0.33871328966800845,
+      "trades": 928,
+      "win_rate": 0.29094827586206895
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.6189687213202875,
+      "net_return": -0.618368875322779,
+      "parameters": {
+        "failure_window_bars": 1,
+        "range_quantile": 0.5
+      },
+      "pass": false,
+      "profit_factor": 0.22263100669221844,
+      "trades": 1705,
+      "win_rate": 0.31085043988269795
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.5773670432300917,
+      "net_return": -0.5763274433778904,
+      "parameters": {
+        "failure_window_bars": 1,
+        "range_quantile": 0.5
+      },
+      "pass": false,
+      "profit_factor": 0.3181716249068288,
+      "trades": 1517,
+      "win_rate": 0.2682926829268293
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.5476600385013672,
+      "net_return": -0.5457378811122465,
+      "parameters": {
+        "failure_window_bars": 1,
+        "range_quantile": 0.5
+      },
+      "pass": false,
+      "profit_factor": 0.3465018964420727,
+      "trades": 1397,
+      "win_rate": 0.29133858267716534
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.635886540267043,
+      "net_return": -0.635313327479325,
+      "parameters": {
+        "failure_window_bars": 2,
+        "range_quantile": 0.5
+      },
+      "pass": false,
+      "profit_factor": 0.22652804699065524,
+      "trades": 1799,
+      "win_rate": 0.31350750416898276
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.5827741979609727,
+      "net_return": -0.5817478987214402,
+      "parameters": {
+        "failure_window_bars": 2,
+        "range_quantile": 0.5
+      },
+      "pass": false,
+      "profit_factor": 0.3186583629246198,
+      "trades": 1539,
+      "win_rate": 0.2683560753736192
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.5476520725940439,
+      "net_return": -0.545729881354879,
+      "parameters": {
+        "failure_window_bars": 2,
+        "range_quantile": 0.5
+      },
+      "pass": false,
+      "profit_factor": 0.34695798544264034,
+      "trades": 1399,
+      "win_rate": 0.2916368834882059
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.6705718031478929,
+      "net_return": -0.6698549248871621,
+      "parameters": {
+        "failure_window_bars": 4,
+        "range_quantile": 0.5
+      },
+      "pass": false,
+      "profit_factor": 0.23371317716791765,
+      "trades": 2027,
+      "win_rate": 0.31869758263443515
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.5967235617372229,
+      "net_return": -0.5957315753838197,
+      "parameters": {
+        "failure_window_bars": 4,
+        "range_quantile": 0.5
+      },
+      "pass": false,
+      "profit_factor": 0.32118714825399514,
+      "trades": 1608,
+      "win_rate": 0.27176616915422885
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.5567162625627528,
+      "net_return": -0.5548325883709586,
+      "parameters": {
+        "failure_window_bars": 4,
+        "range_quantile": 0.5
+      },
+      "pass": false,
+      "profit_factor": 0.3475849309823784,
+      "trades": 1439,
+      "win_rate": 0.2925642807505212
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.7119844084611783,
+      "net_return": -0.711807471733193,
+      "parameters": {
+        "failure_window_bars": 1,
+        "range_quantile": 0.7
+      },
+      "pass": false,
+      "profit_factor": 0.24439762194487183,
+      "trades": 2240,
+      "win_rate": 0.3209821428571429
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.6861336727169612,
+      "net_return": -0.6849920858999754,
+      "parameters": {
+        "failure_window_bars": 1,
+        "range_quantile": 0.7
+      },
+      "pass": false,
+      "profit_factor": 0.3265037300052736,
+      "trades": 2007,
+      "win_rate": 0.2665670154459392
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.6640416502552349,
+      "net_return": -0.663254192531082,
+      "parameters": {
+        "failure_window_bars": 1,
+        "range_quantile": 0.7
+      },
+      "pass": false,
+      "profit_factor": 0.3445402322741397,
+      "trades": 1857,
+      "win_rate": 0.30102315562735593
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.7299324822204039,
+      "net_return": -0.7297665715394033,
+      "parameters": {
+        "failure_window_bars": 2,
+        "range_quantile": 0.7
+      },
+      "pass": false,
+      "profit_factor": 0.2475963838147247,
+      "trades": 2368,
+      "win_rate": 0.32305743243243246
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.6905838561477172,
+      "net_return": -0.6894584554274741,
+      "parameters": {
+        "failure_window_bars": 2,
+        "range_quantile": 0.7
+      },
+      "pass": false,
+      "profit_factor": 0.32685975336264156,
+      "trades": 2031,
+      "win_rate": 0.2668636139832595
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.6642309041867677,
+      "net_return": -0.6634438900576923,
+      "parameters": {
+        "failure_window_bars": 2,
+        "range_quantile": 0.7
+      },
+      "pass": false,
+      "profit_factor": 0.3447521576445204,
+      "trades": 1860,
+      "win_rate": 0.3010752688172043
+    },
+    {
+      "exit": "V6_M15_A",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.7656791767424801,
+      "net_return": -0.7655352263419325,
+      "parameters": {
+        "failure_window_bars": 4,
+        "range_quantile": 0.7
+      },
+      "pass": false,
+      "profit_factor": 0.25355151996873354,
+      "trades": 2668,
+      "win_rate": 0.3268365817091454
+    },
+    {
+      "exit": "V6_M15_B",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.7037211054396704,
+      "net_return": -0.7026434871965506,
+      "parameters": {
+        "failure_window_bars": 4,
+        "range_quantile": 0.7
+      },
+      "pass": false,
+      "profit_factor": 0.33274452471774524,
+      "trades": 2130,
+      "win_rate": 0.2708920187793427
+    },
+    {
+      "exit": "V6_M15_C",
+      "family": "usdjpy-m15-asia-percentile-failure-v6",
+      "market": "USDJPY_M15",
+      "max_drawdown": 0.6688798766799482,
+      "net_return": -0.6681037593459724,
+      "parameters": {
+        "failure_window_bars": 4,
+        "range_quantile": 0.7
+      },
+      "pass": false,
+      "profit_factor": 0.3521694054151014,
+      "trades": 1912,
+      "win_rate": 0.30282426778242677
+    },
+    {
+      "exit": "V6_D1_A",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.1229564469988512,
+      "net_return": -0.039584319130928414,
+      "parameters": {
+        "displacement_atr": 1.0,
+        "reclaim_fraction": 0.25
+      },
+      "pass": false,
+      "profit_factor": 0.9566868842574309,
+      "trades": 226,
+      "win_rate": 0.4911504424778761
+    },
+    {
+      "exit": "V6_D1_B",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.2852912487052514,
+      "net_return": -0.20238524286344783,
+      "parameters": {
+        "displacement_atr": 1.0,
+        "reclaim_fraction": 0.25
+      },
+      "pass": false,
+      "profit_factor": 0.7747030340013191,
+      "trades": 207,
+      "win_rate": 0.4444444444444444
+    },
+    {
+      "exit": "V6_D1_C",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.2078576930039775,
+      "net_return": -0.07552038552124896,
+      "parameters": {
+        "displacement_atr": 1.0,
+        "reclaim_fraction": 0.25
+      },
+      "pass": false,
+      "profit_factor": 0.9402480397086255,
+      "trades": 188,
+      "win_rate": 0.5053191489361702
+    },
+    {
+      "exit": "V6_D1_A",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.14036901796433254,
+      "net_return": -0.08381099220254118,
+      "parameters": {
+        "displacement_atr": 1.0,
+        "reclaim_fraction": 0.5
+      },
+      "pass": false,
+      "profit_factor": 0.7836604785438409,
+      "trades": 96,
+      "win_rate": 0.40625
+    },
+    {
+      "exit": "V6_D1_B",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.18610755675169072,
+      "net_return": -0.1428657284801894,
+      "parameters": {
+        "displacement_atr": 1.0,
+        "reclaim_fraction": 0.5
+      },
+      "pass": false,
+      "profit_factor": 0.6753244882621323,
+      "trades": 89,
+      "win_rate": 0.43820224719101125
+    },
+    {
+      "exit": "V6_D1_C",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.12686736345081903,
+      "net_return": -0.06396038792932257,
+      "parameters": {
+        "displacement_atr": 1.0,
+        "reclaim_fraction": 0.5
+      },
+      "pass": false,
+      "profit_factor": 0.8831923357317679,
+      "trades": 82,
+      "win_rate": 0.5
+    },
+    {
+      "exit": "V6_D1_A",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.12775880898903996,
+      "net_return": -0.08009050870579026,
+      "parameters": {
+        "displacement_atr": 1.0,
+        "reclaim_fraction": 0.75
+      },
+      "pass": false,
+      "profit_factor": 0.6343708509144854,
+      "trades": 48,
+      "win_rate": 0.375
+    },
+    {
+      "exit": "V6_D1_B",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.14534061506380866,
+      "net_return": -0.10198722130922733,
+      "parameters": {
+        "displacement_atr": 1.0,
+        "reclaim_fraction": 0.75
+      },
+      "pass": false,
+      "profit_factor": 0.6015644976221446,
+      "trades": 46,
+      "win_rate": 0.3695652173913043
+    },
+    {
+      "exit": "V6_D1_C",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.10141905232773918,
+      "net_return": -0.052079760305458356,
+      "parameters": {
+        "displacement_atr": 1.0,
+        "reclaim_fraction": 0.75
+      },
+      "pass": false,
+      "profit_factor": 0.8328987223484751,
+      "trades": 45,
+      "win_rate": 0.4222222222222222
+    },
+    {
+      "exit": "V6_D1_A",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.07407822735732049,
+      "net_return": -0.02911064414137543,
+      "parameters": {
+        "displacement_atr": 1.5,
+        "reclaim_fraction": 0.25
+      },
+      "pass": false,
+      "profit_factor": 0.8574409695307145,
+      "trades": 48,
+      "win_rate": 0.4166666666666667
+    },
+    {
+      "exit": "V6_D1_B",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.11134184451498097,
+      "net_return": -0.06735433892011122,
+      "parameters": {
+        "displacement_atr": 1.5,
+        "reclaim_fraction": 0.25
+      },
+      "pass": false,
+      "profit_factor": 0.7376311143203103,
+      "trades": 46,
+      "win_rate": 0.391304347826087
+    },
+    {
+      "exit": "V6_D1_C",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.09005084727349451,
+      "net_return": -0.003923889918291401,
+      "parameters": {
+        "displacement_atr": 1.5,
+        "reclaim_fraction": 0.25
+      },
+      "pass": false,
+      "profit_factor": 1.001555484311135,
+      "trades": 45,
+      "win_rate": 0.4888888888888889
+    },
+    {
+      "exit": "V6_D1_A",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.06305792439677506,
+      "net_return": -0.049858525229270034,
+      "parameters": {
+        "displacement_atr": 1.5,
+        "reclaim_fraction": 0.5
+      },
+      "pass": false,
+      "profit_factor": 0.5734076650002731,
+      "trades": 27,
+      "win_rate": 0.3333333333333333
+    },
+    {
+      "exit": "V6_D1_B",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.1011845350215336,
+      "net_return": -0.06862903908340556,
+      "parameters": {
+        "displacement_atr": 1.5,
+        "reclaim_fraction": 0.5
+      },
+      "pass": false,
+      "profit_factor": 0.5969442726001578,
+      "trades": 27,
+      "win_rate": 0.4074074074074074
+    },
+    {
+      "exit": "V6_D1_C",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.0784911901967051,
+      "net_return": -0.0033275240420501673,
+      "parameters": {
+        "displacement_atr": 1.5,
+        "reclaim_fraction": 0.5
+      },
+      "pass": false,
+      "profit_factor": 0.9950084123150141,
+      "trades": 26,
+      "win_rate": 0.5
+    },
+    {
+      "exit": "V6_D1_A",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.043636872366595504,
+      "net_return": -0.02449304766644933,
+      "parameters": {
+        "displacement_atr": 1.5,
+        "reclaim_fraction": 0.75
+      },
+      "pass": false,
+      "profit_factor": 0.6184429399695077,
+      "trades": 14,
+      "win_rate": 0.35714285714285715
+    },
+    {
+      "exit": "V6_D1_B",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.07795933241503568,
+      "net_return": -0.04271861667039778,
+      "parameters": {
+        "displacement_atr": 1.5,
+        "reclaim_fraction": 0.75
+      },
+      "pass": false,
+      "profit_factor": 0.6141149815105803,
+      "trades": 14,
+      "win_rate": 0.35714285714285715
+    },
+    {
+      "exit": "V6_D1_C",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.03349636820320995,
+      "net_return": 0.02607597356908964,
+      "parameters": {
+        "displacement_atr": 1.5,
+        "reclaim_fraction": 0.75
+      },
+      "pass": false,
+      "profit_factor": 1.3331884496776032,
+      "trades": 13,
+      "win_rate": 0.5384615384615384
+    },
+    {
+      "exit": "V6_D1_A",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.03691838315098794,
+      "net_return": 0.0032621892064765845,
+      "parameters": {
+        "displacement_atr": 2.0,
+        "reclaim_fraction": 0.25
+      },
+      "pass": false,
+      "profit_factor": 1.0651605857758188,
+      "trades": 15,
+      "win_rate": 0.5333333333333333
+    },
+    {
+      "exit": "V6_D1_B",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.07499652596792028,
+      "net_return": -0.020937300394732294,
+      "parameters": {
+        "displacement_atr": 2.0,
+        "reclaim_fraction": 0.25
+      },
+      "pass": false,
+      "profit_factor": 0.8158244179738957,
+      "trades": 15,
+      "win_rate": 0.26666666666666666
+    },
+    {
+      "exit": "V6_D1_C",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.03546527742369709,
+      "net_return": 0.028761015923254973,
+      "parameters": {
+        "displacement_atr": 2.0,
+        "reclaim_fraction": 0.25
+      },
+      "pass": false,
+      "profit_factor": 1.3607360591203326,
+      "trades": 15,
+      "win_rate": 0.4666666666666667
+    },
+    {
+      "exit": "V6_D1_A",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.02705886753564757,
+      "net_return": -0.026971715336976176,
+      "parameters": {
+        "displacement_atr": 2.0,
+        "reclaim_fraction": 0.5
+      },
+      "pass": false,
+      "profit_factor": 0.20668376322731874,
+      "trades": 6,
+      "win_rate": 0.3333333333333333
+    },
+    {
+      "exit": "V6_D1_B",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.04011877820492882,
+      "net_return": -0.026241377048801695,
+      "parameters": {
+        "displacement_atr": 2.0,
+        "reclaim_fraction": 0.5
+      },
+      "pass": false,
+      "profit_factor": 0.36981255530872476,
+      "trades": 6,
+      "win_rate": 0.16666666666666666
+    },
+    {
+      "exit": "V6_D1_C",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.0034181820161588647,
+      "net_return": 0.04008403918649184,
+      "parameters": {
+        "displacement_atr": 2.0,
+        "reclaim_fraction": 0.5
+      },
+      "pass": false,
+      "profit_factor": 6.831127236277429,
+      "trades": 6,
+      "win_rate": 0.6666666666666666
+    },
+    {
+      "exit": "V6_D1_A",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.017830303326297092,
+      "net_return": -0.011443121283157498,
+      "parameters": {
+        "displacement_atr": 2.0,
+        "reclaim_fraction": 0.75
+      },
+      "pass": false,
+      "profit_factor": 0.36309107719849865,
+      "trades": 3,
+      "win_rate": 0.3333333333333333
+    },
+    {
+      "exit": "V6_D1_B",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.02619197758098757,
+      "net_return": -0.011218494267231982,
+      "parameters": {
+        "displacement_atr": 2.0,
+        "reclaim_fraction": 0.75
+      },
+      "pass": false,
+      "profit_factor": 0.5831897707385604,
+      "trades": 3,
+      "win_rate": 0.3333333333333333
+    },
+    {
+      "exit": "V6_D1_C",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.003418182016158892,
+      "net_return": 0.02772101947301131,
+      "parameters": {
+        "displacement_atr": 2.0,
+        "reclaim_fraction": 0.75
+      },
+      "pass": false,
+      "profit_factor": 9.075563455708675,
+      "trades": 3,
+      "win_rate": 0.6666666666666666
+    },
+    {
+      "exit": "V6_D1_A",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.009118053141692827,
+      "net_return": 0.032816839265332964,
+      "parameters": {
+        "displacement_atr": 2.5,
+        "reclaim_fraction": 0.25
+      },
+      "pass": false,
+      "profit_factor": 3.0379738948693435,
+      "trades": 7,
+      "win_rate": 0.7142857142857143
+    },
+    {
+      "exit": "V6_D1_B",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.02182152055781894,
+      "net_return": 0.035345368600447014,
+      "parameters": {
+        "displacement_atr": 2.5,
+        "reclaim_fraction": 0.25
+      },
+      "pass": false,
+      "profit_factor": 2.556503555244552,
+      "trades": 7,
+      "win_rate": 0.42857142857142855
+    },
+    {
+      "exit": "V6_D1_C",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.027848499821878158,
+      "net_return": 0.04458077123178561,
+      "parameters": {
+        "displacement_atr": 2.5,
+        "reclaim_fraction": 0.25
+      },
+      "pass": false,
+      "profit_factor": 2.4239612513146938,
+      "trades": 7,
+      "win_rate": 0.5714285714285714
+    },
+    {
+      "exit": "V6_D1_A",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.006944030792529002,
+      "net_return": 8.957602445125445e-05,
+      "parameters": {
+        "displacement_atr": 2.5,
+        "reclaim_fraction": 0.5
+      },
+      "pass": false,
+      "profit_factor": 1.0194431621534068,
+      "trades": 3,
+      "win_rate": 0.6666666666666666
+    },
+    {
+      "exit": "V6_D1_B",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.0009048881036513067,
+      "net_return": 0.013987060080185687,
+      "parameters": {
+        "displacement_atr": 2.5,
+        "reclaim_fraction": 0.5
+      },
+      "pass": false,
+      "profit_factor": 11.23549117410225,
+      "trades": 3,
+      "win_rate": 0.3333333333333333
+    },
+    {
+      "exit": "V6_D1_C",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.0033802267373379945,
+      "net_return": 0.02805952443671167,
+      "parameters": {
+        "displacement_atr": 2.5,
+        "reclaim_fraction": 0.5
+      },
+      "pass": false,
+      "profit_factor": 9.264627032775376,
+      "trades": 3,
+      "win_rate": 0.6666666666666666
+    },
+    {
+      "exit": "V6_D1_A",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.0,
+      "net_return": 0.00650313491117771,
+      "parameters": {
+        "displacement_atr": 2.5,
+        "reclaim_fraction": 0.75
+      },
+      "pass": false,
+      "profit_factor": 99.0,
+      "trades": 1,
+      "win_rate": 1.0
+    },
+    {
+      "exit": "V6_D1_B",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.0,
+      "net_return": 0.015376216840522927,
+      "parameters": {
+        "displacement_atr": 2.5,
+        "reclaim_fraction": 0.75
+      },
+      "pass": false,
+      "profit_factor": 99.0,
+      "trades": 1,
+      "win_rate": 1.0
+    },
+    {
+      "exit": "V6_D1_C",
+      "family": "eurusd-d1-exhaustion-reversion-v6",
+      "market": "EURUSD_D1",
+      "max_drawdown": 0.0,
+      "net_return": 0.019574431224448574,
+      "parameters": {
+        "displacement_atr": 2.5,
+        "reclaim_fraction": 0.75
+      },
+      "pass": false,
+      "profit_factor": 99.0,
+      "trades": 1,
+      "win_rate": 1.0
+    }
+  ],
+  "train_combinations": 153,
+  "train_passes": 0,
+  "validation": [],
+  "validation_passes_before_neighbors": 0
+}

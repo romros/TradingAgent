@@ -1,0 +1,257 @@
+{
+  "audit_id": "alquimia-noncrypto-market-audit-v5",
+  "decision": "PARTIAL_RESEARCH_UNIVERSE_WITH_PAPER_BLOCKS",
+  "holdout_accessed": false,
+  "legacy_candidates_reused": false,
+  "market_count": 5,
+  "markets": [
+    {
+      "category": "forex",
+      "cost_evidence": {
+        "costs_frozen": false,
+        "coverage": {
+          "distinct_utc_days": {
+            "actual": 2,
+            "required": 3
+          },
+          "distinct_utc_hours": {
+            "actual": 19,
+            "required": 6
+          },
+          "open_samples": {
+            "actual": 19,
+            "required": 30
+          }
+        },
+        "decision": "BLOCK_INSUFFICIENT_EXECUTION_COVERAGE",
+        "paper_pass": false,
+        "path": "data/ostium_economics_universe/eurusd_costs_latest_v4.json",
+        "qualifying_complete_days": null,
+        "sha256": "09f2e9bccd111c97953004420320dbb2515dbb028f6501655e9b13b01dfcff71"
+      },
+      "known_research_blockers": [],
+      "ostium_pair": "EUR/USD",
+      "paper_decision": "BLOCK_PAPER_INPUTS",
+      "research_decision": "PASS_RESEARCH_DATA_READY",
+      "symbol": "EURUSD",
+      "technical_evidence": [
+        {
+          "decision": "PASS_HISTORICAL_COVERAGE",
+          "pass": true,
+          "path": "lab/sq_bridge/evidence/eurusd_d1_historical_coverage_v4.json",
+          "reasons": [],
+          "role": "historical_coverage",
+          "sha256": "173cfa330366c4a613dd6371d65ae63bb007ba45bffcc40f3fb50be8adef3086"
+        },
+        {
+          "decision": "PASS_CANDLE_PARITY",
+          "pass": true,
+          "path": "lab/sq_bridge/evidence/eurusd_d1_full_candle_parity_v4_v3.json",
+          "reasons": [],
+          "role": "sq_candle_parity",
+          "sha256": "2a424ea4330e2cbcbb3dcc96926f5fb797c2c55fe91f0f0e1f963d57abf69c2c"
+        },
+        {
+          "decision": "PASS_HOLDOUT_SOURCE_EXTENSION",
+          "pass": true,
+          "path": "lab/sq_bridge/evidence/eurusd_d1_holdout_extension_v4_v3.json",
+          "reasons": [],
+          "role": "current_source_extension",
+          "sha256": "398fc5800d73dadc061efe4f0e8e0deabb03f2477b9ff168f6ecde0fa5a2b61a"
+        }
+      ],
+      "timeframe": "D1"
+    },
+    {
+      "category": "index",
+      "cost_evidence": {
+        "costs_frozen": false,
+        "coverage": null,
+        "decision": "BLOCK_INSUFFICIENT_EXECUTION_COVERAGE",
+        "paper_pass": false,
+        "path": "data/ostium_execution_quotes/costs_latest.json",
+        "qualifying_complete_days": [],
+        "sha256": "a9a6e76b2d1e4bed6383af317de4ffa3ee1cda9ba84c58cce89acf2be73ed905"
+      },
+      "known_research_blockers": [],
+      "ostium_pair": "US500/USD",
+      "paper_decision": "BLOCK_PAPER_INPUTS",
+      "research_decision": "PASS_RESEARCH_DATA_READY",
+      "symbol": "US500",
+      "technical_evidence": [
+        {
+          "decision": "PASS_HISTORICAL_COVERAGE",
+          "pass": true,
+          "path": "lab/sq_bridge/evidence/spxusd_d1_historical_coverage_v4.json",
+          "reasons": [],
+          "role": "historical_coverage",
+          "sha256": "26b1155355869fab698d0abaf46a3049772379b343cbb8863dc73d8e7494ae18"
+        },
+        {
+          "decision": "PASS_D1_SOURCE_MAPPING",
+          "pass": true,
+          "path": "lab/sq_bridge/evidence/spxusd_d1_sq_ostium_parity_v4.json",
+          "reasons": [],
+          "role": "ostium_mapping",
+          "sha256": "36a2c1600367661c3a28fb51cf5790472f180b2c14715a2dfdc1d86fcac77598"
+        }
+      ],
+      "timeframe": "D1"
+    },
+    {
+      "category": "forex",
+      "cost_evidence": {
+        "costs_frozen": false,
+        "coverage": {
+          "distinct_utc_days": {
+            "actual": 2,
+            "required": 3
+          },
+          "distinct_utc_hours": {
+            "actual": 19,
+            "required": 6
+          },
+          "open_samples": {
+            "actual": 19,
+            "required": 30
+          }
+        },
+        "decision": "BLOCK_INSUFFICIENT_EXECUTION_COVERAGE",
+        "paper_pass": false,
+        "path": "data/ostium_economics_universe/usdjpy_costs_latest_v4.json",
+        "qualifying_complete_days": null,
+        "sha256": "5f6b16264fbdc1840f53397544ab5c4bca2e4214c32e30ca358ba55eaa7d64ac"
+      },
+      "known_research_blockers": [],
+      "ostium_pair": "USD/JPY",
+      "paper_decision": "BLOCK_PAPER_INPUTS",
+      "research_decision": "PASS_RESEARCH_DATA_READY",
+      "symbol": "USDJPY",
+      "technical_evidence": [
+        {
+          "decision": null,
+          "pass": true,
+          "path": "lab/sq_bridge/evidence/usdjpy_sq_m1_utc_2007_2026_source.json",
+          "reasons": [],
+          "role": "source_manifest",
+          "sha256": "b68d1113dd3748d58543500b657e6fa13cc6881d8fb7661b93da6c593a622ab1"
+        },
+        {
+          "decision": "PASS",
+          "pass": true,
+          "path": "lab/sq_bridge/evidence/usdjpy_gotobi_tokyo_fix_v27_market_preflight.json",
+          "reasons": [],
+          "role": "ostium_mapping",
+          "sha256": "1df01507ac98fe625f9938a2d56ffc802f65a0e2888930ca00c6366666a2482f"
+        }
+      ],
+      "timeframe": "M15"
+    },
+    {
+      "category": "forex",
+      "cost_evidence": {
+        "costs_frozen": false,
+        "coverage": {
+          "distinct_utc_days": {
+            "actual": 2,
+            "required": 3
+          },
+          "distinct_utc_hours": {
+            "actual": 19,
+            "required": 6
+          },
+          "open_samples": {
+            "actual": 19,
+            "required": 30
+          }
+        },
+        "decision": "BLOCK_INSUFFICIENT_EXECUTION_COVERAGE",
+        "paper_pass": false,
+        "path": "data/ostium_economics_universe/gbpusd_costs_latest_v4.json",
+        "qualifying_complete_days": null,
+        "sha256": "70c4b301332acea4d8b890f016f513a972f82ac212e91db7d9620de9d13b5674"
+      },
+      "known_research_blockers": [
+        "HISTORICAL_SOURCE_GAP_2024_2025"
+      ],
+      "ostium_pair": "GBP/USD",
+      "paper_decision": "BLOCK_PAPER_INPUTS",
+      "research_decision": "BLOCK_TECHNICAL_EVIDENCE",
+      "symbol": "GBPUSD",
+      "technical_evidence": [
+        {
+          "decision": null,
+          "pass": true,
+          "path": "lab/sq_bridge/evidence/gbpusd_sq_m1_utc_2007_2023_source.json",
+          "reasons": [],
+          "role": "source_manifest",
+          "sha256": "36fc05a1abc0d2bef14a414b38cf0b776adbf7123cca0169c006209ed62a1cf9"
+        },
+        {
+          "decision": "PASS",
+          "pass": true,
+          "path": "lab/sq_bridge/evidence/gbpusd_london_fix_reversal_v26_market_preflight.json",
+          "reasons": [],
+          "role": "ostium_mapping",
+          "sha256": "2348f2a8e0d7ab1bcdbfffa32a1b1071aa9386c7d27ad906a06674f84922ffda"
+        },
+        {
+          "decision": null,
+          "pass": true,
+          "path": "lab/sq_bridge/evidence/gbpusd_sq_m1_utc_2026_overlap_source.json",
+          "reasons": [],
+          "role": "recent_overlap_source",
+          "sha256": "4783dce6e86b25a87636a341fc5b8f4f84600c62b2751970c660595f12ef66c3"
+        }
+      ],
+      "timeframe": "M15"
+    },
+    {
+      "category": "commodity",
+      "cost_evidence": {
+        "costs_frozen": false,
+        "coverage": {
+          "distinct_utc_days": {
+            "actual": 2,
+            "required": 3
+          },
+          "distinct_utc_hours": {
+            "actual": 18,
+            "required": 6
+          },
+          "open_samples": {
+            "actual": 18,
+            "required": 30
+          }
+        },
+        "decision": "BLOCK_INSUFFICIENT_EXECUTION_COVERAGE",
+        "paper_pass": false,
+        "path": "data/ostium_economics_universe/xauusd_costs_latest_v4.json",
+        "qualifying_complete_days": null,
+        "sha256": "84f6d731a5363b02a133ad59b8712281f4d86262fb0ae96fd436ed9050f7987b"
+      },
+      "known_research_blockers": [],
+      "ostium_pair": "XAU/USD",
+      "paper_decision": "BLOCK_PAPER_INPUTS",
+      "research_decision": "PASS_RESEARCH_DATA_READY",
+      "symbol": "XAUUSD",
+      "technical_evidence": [
+        {
+          "decision": "PASS",
+          "pass": true,
+          "path": "lab/sq_bridge/evidence/xauusd_abnormal_day_momentum_v36_market_preflight.json",
+          "reasons": [],
+          "role": "source_and_mapping_preflight",
+          "sha256": "2e89e3ab3caf4c0799baaf2dc7298ec70c6593f935219a212ed8b74c6384d079"
+        }
+      ],
+      "timeframe": "M15"
+    }
+  ],
+  "paper_ready_count": 0,
+  "performance_accessed": false,
+  "research_ready_count": 4,
+  "schema_version": 1,
+  "spec_path": "lab/sq_bridge/noncrypto_market_audit_spec_v5.json",
+  "spec_sha256": "04244f5dd6125fbed1778d2d29461fe4930e13c4cb2a2d15a5d33f708a71bfe3"
+}

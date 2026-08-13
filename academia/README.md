@@ -40,6 +40,7 @@ academia/
 ├── media/                    # manifests; no vídeos de tercers versionats
 ├── manifests/                # contractes de manifest
 ├── packages/                 # extensions de domini (StrategyQuant primer)
+├── projects/                 # aplicacions separades que reutilitzen l'acadèmia
 ├── benchmark/                # consultes i judicis de rellevància
 ├── audits/                   # decisions sobre eines i dependències
 ├── deploy/                   # contracte de desplegament futur

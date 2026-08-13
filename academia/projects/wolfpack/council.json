@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "roles": {
+    "hunter": {
+      "objective": "propose at most three falsifiable market situations from the supplied facts",
+      "must_include": ["asset", "horizon", "evidence_for", "trigger", "invalidation", "expiry", "missing_data"],
+      "forbidden": ["invent data", "live order", "change risk limits"]
+    },
+    "prosecutor": {
+      "objective": "find selection bias, dependence, lateness, incentive contamination, regime mismatch and cost failure",
+      "must_include": ["counterevidence", "alternative_explanation", "replicability_risk", "required_falsification"],
+      "forbidden": ["approve a trade", "alter facts"]
+    },
+    "risk_manager": {
+      "objective": "choose reject, observe, investigate or paper only within the factual severity ceiling",
+      "must_include": ["decision", "criticality", "confidence", "risk_pct", "reason", "next_evidence"],
+      "forbidden": ["live signal", "leverage above 5x", "risk above 1 percent per signal", "override criticality ceiling"]
+    }
+  },
+  "criticality": {
+    "C0": "fact only",
+    "C1": "anomaly worth observing",
+    "C2": "falsifiable hypothesis with sufficient prospective coverage",
+    "C3": "paper signal after promotion gates",
+    "C4": "operable candidate after independent validation",
+    "C5": "explicitly authorized execution"
+  },
+  "current_maximum": "C1"
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-08-13T11:00:00Z",
+  "cohort": "ostium-public-account-follow-v1",
+  "frozen_until": "2026-09-12T11:00:00Z",
+  "members": [
+    {"id": "8d1bdf8d0cd0c25a06beadcc58b89c2400cf67ccddd1156d012dc420d6829fbf", "status": "OBSERVED", "specialties": ["commodity_swing"], "risk_flags": ["maximum_observed_leverage_100x", "WTI_profit_concentration", "XAU_negative"], "forward_closed_signals": 0},
+    {"id": "8172591adb54da3f25c6cf0186de227aa3757a0c945674f25d37d2b18d1774bb", "status": "OBSERVED", "specialties": ["slow_commodity_trend"], "risk_flags": ["all_long", "regime_dependence", "median_holding_21d"], "forward_closed_signals": 0},
+    {"id": "3001b74768d1958ec2b1cb6645c947272e80231b6a0f9637fbe4100429c3bc6e", "status": "OBSERVED", "specialties": ["six_hour_multi_market"], "risk_flags": ["small_edge", "asset_heterogeneity", "US100_negative"], "forward_closed_signals": 0},
+    {"id": "6f95e7696ec1d1b94bfdc4069f38856657714dafd01d4a53aea1d3e69bc671c9", "status": "OBSERVED", "specialties": ["multi_asset_short_horizon"], "risk_flags": ["small_collateral", "crypto_dominant"], "forward_closed_signals": 0},
+    {"id": "470f4fdcdd68e8854ed4c28b3c9275449d16253eaf8b62721ef196fc8283061a", "status": "OBSERVED", "specialties": ["crypto_swing"], "risk_flags": ["crypto_excluded", "edge_decay"], "forward_closed_signals": 0},
+    {"id": "8ab576a9f55f9fa797459599612d996155731d65e3c9daba9f0ab45576822d8a", "status": "OBSERVED", "specialties": ["short_horizon_selection"], "risk_flags": ["crypto_dominant", "p90_collateral_above_target"], "forward_closed_signals": 0}
+  ],
+  "membership_rule": "OBSERVED is not trusted. Promote only with preregistered forward evidence; degrade on liquidation, non-replicability, concentration or negative forward expectancy.",
+  "plain_addresses_versioned": false
+}

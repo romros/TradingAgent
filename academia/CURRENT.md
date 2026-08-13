@@ -41,6 +41,10 @@ Si passa, provar una família de baixa rotació basada en prima de risc, amb
 volatilitat només com a estat de risc congelat. Si falla, registrar el límit
 econòmic i no generar variants M15.
 
+En paral·lel, `projects/wolfpack/` manté observació prospectiva de perfils i
+context multi-venue. És una font experimental de situacions; no altera l'univers,
+no desbloqueja SQ i no pot generar senyals reals mentre els seus gates no passin.
+
 ## Què no és actiu
 
 Els altres manifests de `experiments/pending/` poden ser preregistres tancats,
@@ -62,4 +66,3 @@ cancel·lats, bloquejats o substituïts. No són una cua de feina. En particular
 - `skills/strategyquant-alquimia/`: coneixement executable per a l'agent.
 - `courses/strategyquant/`: explicació humana.
 - `sources/`: procedència i drets, no conclusions operatives.
-

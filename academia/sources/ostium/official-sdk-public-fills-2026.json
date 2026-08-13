@@ -1,0 +1,29 @@
+{
+  "id": "ostium_official_sdk_public_fills_2026",
+  "kind": "documentation",
+  "title": "Ostium SDK read methods and public fills",
+  "url": "https://docs.ostium.com/developer/sdk/overview",
+  "author": "Ostium",
+  "published_at": null,
+  "accessed_at": "2026-08-13",
+  "language": "en",
+  "sq_version": null,
+  "source_level": "A_PRIMARY",
+  "domain": "execution-economics",
+  "rights_policy": "transformative_notes",
+  "metadata": {"package_tested": "@ostium/builder-sdk@0.7.0", "volatile": true},
+  "chunks": [
+    {
+      "locator": "section:read-methods",
+      "heading": "Read-only global fills",
+      "body": "L'SDK oficial ofereix createReadOnly i getFills/getFillsByTime. El client de subgraph accepta user=ALL per consultar fills de tots els traders sense clau privada ni capacitat de transacció.",
+      "evidence_status": "captured"
+    },
+    {
+      "locator": "sdk-type:Fill.closedPnl",
+      "heading": "Meaning of realized PnL",
+      "body": "closedPnl és PnL realitzat net en USD per Close, StopLoss, TakeProfit, CloseDayTrade i Liquidation després de restar opening fee, oracle fee i rollover; és zero per Open i RemoveCollateral.",
+      "evidence_status": "captured"
+    }
+  ]
+}

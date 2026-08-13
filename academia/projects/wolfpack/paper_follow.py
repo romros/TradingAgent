@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import time
 from datetime import datetime
 from pathlib import Path
 
@@ -113,9 +114,22 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--follows", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--duration-hours", type=float, default=0.0)
+    parser.add_argument("--interval-seconds", type=int, default=900)
     args = parser.parse_args()
-    rows = [json.loads(line) for line in args.follows.read_text().splitlines() if line.strip()]
-    args.output.write_text(json.dumps(replay(rows), indent=2, ensure_ascii=False) + "\n")
+    if not 0 <= args.duration_hours <= 1440:
+        raise SystemExit("--duration-hours must be 0..1440")
+    if not 30 <= args.interval_seconds <= 86400:
+        raise SystemExit("--interval-seconds must be 30..86400")
+    deadline = time.time() + args.duration_hours * 3600
+    while True:
+        rows = [json.loads(line) for line in args.follows.read_text().splitlines() if line.strip()]
+        temporary = args.output.with_suffix(args.output.suffix + ".tmp")
+        temporary.write_text(json.dumps(replay(rows), indent=2, ensure_ascii=False) + "\n")
+        temporary.replace(args.output)
+        if args.duration_hours == 0 or time.time() >= deadline:
+            break
+        time.sleep(args.interval_seconds)
 
 
 if __name__ == "__main__":

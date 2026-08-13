@@ -80,7 +80,8 @@ que travessa de dia fins que el contracte de rollover estigui reconciliat:
 ```bash
 python3 academia/projects/wolfpack/paper_follow.py \
   --follows /tmp/ostium-follow-forward-20260813.jsonl \
-  --output /tmp/wolfpack-paper.json
+  --output /tmp/wolfpack-paper.json \
+  --duration-hours 720 --interval-seconds 900
 ```
 
 ## Manteniment

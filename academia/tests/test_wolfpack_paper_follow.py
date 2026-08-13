@@ -54,3 +54,16 @@ class PaperFollowTest(unittest.TestCase):
         position = result["open_positions"][0]
         self.assertEqual(position["position_sha256"], "p")
         self.assertEqual(position["source_entry_price"], 100)
+
+    def test_sdk_size_slippage_takes_precedence_over_bid_ask(self):
+        row = event("Open", 99, 101, "2026-08-13T10:00:00Z")
+        row["observed_quote"].update({
+            "mid": 100,
+            "simulated_slippage_250": {
+                "long": [{"ntl": "250", "slippage": "0.10"}],
+                "short": [{"ntl": "250", "slippage": "0.20"}],
+            },
+        })
+        position = paper.replay([row])["open_positions"][0]
+        self.assertAlmostEqual(position["entry_price"], 100.1)
+        self.assertEqual(position["slippage_model"], "sdk_simulated_250")

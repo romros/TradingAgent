@@ -17,6 +17,16 @@ MAX_LEVERAGE = 5.0
 
 
 def price_for(side: str, opening: bool, quote: dict) -> float:
+    simulated = quote.get("simulated_slippage_250")
+    if simulated:
+        execution_side = "long" if (side == "B") == opening else "short"
+        points = simulated.get(execution_side) or []
+        point = next((row for row in points if float(row.get("ntl", 0)) == 250.0), None)
+        if point:
+            impact_fraction = float(point["slippage"]) / 100
+            mid = float(quote["mid"])
+            return mid * (1 + impact_fraction if execution_side == "long"
+                          else 1 - impact_fraction)
     key = "ask" if (side == "B") == opening else "bid"
     return float(quote[key])
 
@@ -67,6 +77,8 @@ def replay(rows: list[dict]) -> dict:
                               "paper_notional_remaining": notional,
                               "collateral_usdc": collateral, "leverage": leverage,
                               "open_fee_remaining": open_fee}
+            positions[key]["slippage_model"] = (
+                "sdk_simulated_250" if quote.get("simulated_slippage_250") else "bid_ask_fallback")
             continue
         if action not in CLOSES:
             continue
@@ -103,6 +115,10 @@ def replay(rows: list[dict]) -> dict:
         closed.append({"wallet_sha256": position["wallet_sha256"], "position_sha256": key,
                        "pair": position["pair"], "action": action,
                        "entry_observed_price": entry, "exit_observed_price": exit_price,
+                       "entry_slippage_model": position["slippage_model"],
+                       "exit_slippage_model": (
+                           "sdk_simulated_250" if quote.get("simulated_slippage_250")
+                           else "bid_ask_fallback"),
                        "source_entry_price": source_entry, "source_exit_price": source_exit,
                        "paper_notional_usdc": paper_notional, "gross_pnl_usdc": gross,
                        "open_fee_usdc": open_fee, "close_fee_usdc": close_fee,

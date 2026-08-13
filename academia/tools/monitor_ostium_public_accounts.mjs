@@ -73,6 +73,15 @@ do {
     const pairSymbol = `${fill.pairFrom}/${fill.pairTo}`.toUpperCase();
     const pair = pairBySymbol.get(pairSymbol);
     const quote = pair ? prices[pair.pairId] : null;
+    let simulatedSlippage = null;
+    if (pair && quote) {
+      try {
+        const response = await market.getSimSlippage({pairIds: [pair.pairId], ntls: ['250']});
+        simulatedSlippage = response[pair.pairId] ?? null;
+      } catch (error) {
+        quoteError = `slippage: ${String(error?.message ?? error)}`;
+      }
+    }
     const normalized = {
       detected_at: new Date(detectedAt).toISOString(),
       detection_latency_seconds: detectedAt / 1000 - fill.time,
@@ -91,6 +100,8 @@ do {
         market_open: pair.isMarketOpen, mid: quote.mid, bid: quote.bid, ask: quote.ask,
         open_fee_bps: pair.openFee, close_fee_bps: pair.closeFee,
         rollover_rate: pair.rolloverRate,
+        min_notional_usd: pair.minNtl, max_leverage: pair.maxLeverage,
+        simulated_slippage_250: simulatedSlippage,
       } : null,
       quote_error: quote ? null : (quoteError ?? `pair ${pairSymbol} unavailable`),
       source: '@ostium/builder-sdk@0.7.0 public read-only subgraph',

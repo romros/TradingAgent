@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "id": "btc-wolf-crossvenue-replicability-v38",
+  "preregistered_at": "2026-08-13",
+  "status": "FORWARD_COLLECTION",
+  "objective": "Determine whether public BTC/USD fills from the frozen Wolfpack remain profitable when copied prospectively on Ostium with observable delay and executable small-account prices.",
+  "mechanism": "Persistent trader skill is useful only if it survives publication latency and our execution. Concurrent Ostium and Hyperliquid BTC state is explanatory context and a future falsifiable conditioning variable, not a hindsight entry filter in v38.",
+  "frozen_cohort": "academia/projects/wolfpack/pack.json until 2026-09-12T11:00:00Z",
+  "paper_contract": {
+    "starting_equity_usdc": 500,
+    "maximum_collateral_per_position_usdc": 50,
+    "maximum_total_collateral_usdc": 300,
+    "maximum_leverage": 5,
+    "entry": "first Ostium executable quote captured after a public source Open fill",
+    "exit": "first Ostium executable quote captured after the corresponding public Close, StopLoss, TakeProfit, Liquidation or CloseDayTrade fill",
+    "execution_price": "Ostium SDK simulated slippage for 250 USDC when present; otherwise bid/ask fallback marked non-final",
+    "fees": "observed Ostium open and close fees",
+    "raw_data_policy": "addresses, fills and venue snapshots remain outside Git; persist only hashes, aggregates and transformative evidence"
+  },
+  "replicability_gates": {
+    "candidate": {
+      "minimum_closed_copies": 10,
+      "minimum_profit_factor": 1.2,
+      "both_halves_positive": true,
+      "maximum_median_entry_latency_seconds": 120,
+      "maximum_median_implementation_shortfall_bps": 10,
+      "liquidations": 0,
+      "status": "paper_only"
+    },
+    "titular": {
+      "minimum_closed_copies": 30,
+      "minimum_profit_factor": 1.5,
+      "both_halves_positive": true,
+      "maximum_drawdown_pct": 15,
+      "maximum_single_trade_gross_profit_share_pct": 35,
+      "maximum_median_entry_latency_seconds": 120,
+      "maximum_median_implementation_shortfall_bps": 10,
+      "liquidations": 0,
+      "status": "portfolio_eligible_but_not_authorized"
+    }
+  },
+  "cross_venue_context": {
+    "interval_seconds": 120,
+    "markets": ["Ostium BTC/USD", "Hyperliquid BTC"],
+    "captured_fields": ["bid", "ask", "mark", "oracle", "impact prices", "funding", "premium", "open interest", "volume"],
+    "selection_boundary": "v38 cannot select trades using cross-venue fields; after forward coverage they may define a separately preregistered v39 filter"
+  },
+  "automatic_reject": [
+    "copied net PnL is non-positive after 30 closed copies",
+    "source profits disappear after observable latency and executable prices",
+    "profit is concentrated beyond the frozen limit",
+    "paper execution realism cannot be completed",
+    "wallet liquidates",
+    "requires retroactively changing the frozen cohort"
+  ],
+  "live_trading_authorized": false
+}

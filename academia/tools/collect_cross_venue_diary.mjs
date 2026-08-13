@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Finite read-only market diary. Raw hourly JSONL belongs in /tmp, not Git.
+// Finite read-only market diary. Raw JSONL belongs in /tmp, not Git.
 
 import { appendFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
@@ -39,7 +39,7 @@ do {
     const [{pairs}, {prices}] = await Promise.all([ostium.getPairs(), ostium.getAllPrices()]);
     const wanted = new Map([
       ['EUR/USD', 'EUR/USD'], ['SPX/USD', 'US500/USD'], ['US500/USD', 'US500/USD'],
-      ['XAU/USD', 'XAU/USD'],
+      ['XAU/USD', 'XAU/USD'], ['BTC/USD', 'BTC/USD'],
     ]);
     const selected = pairs.filter((pair) => wanted.has(`${pair.pairFrom}/${pair.pairTo}`.toUpperCase()));
     const slippage = await ostium.getSimSlippage({pairIds: selected.map((x) => x.pairId), ntls: ['100', '500']});
@@ -58,14 +58,18 @@ do {
   } catch (error) {
     row.errors.ostium = String(error?.message ?? error);
   }
-  for (const dex of ['xyz', 'mkts']) {
+  const hyperliquidFeeds = [
+    {key: 'hyperliquid_main', dex: null, wanted: new Set(['BTC'])},
+    {key: 'hyperliquid_xyz', dex: 'xyz', wanted: new Set(['xyz:GOLD', 'xyz:EUR', 'xyz:CL', 'xyz:COPPER', 'xyz:SILVER'])},
+    {key: 'hyperliquid_mkts', dex: 'mkts', wanted: new Set(['mkts:US500'])},
+  ];
+  for (const feed of hyperliquidFeeds) {
     try {
-      const [meta, contexts] = await postInfo({type: 'metaAndAssetCtxs', dex});
-      const wanted = new Set(dex === 'xyz'
-        ? ['xyz:GOLD', 'xyz:EUR', 'xyz:CL', 'xyz:COPPER', 'xyz:SILVER']
-        : ['mkts:US500']);
-      row.sources[`hyperliquid_${dex}`] = meta.universe.map((asset, index) => [asset, contexts[index]])
-        .filter(([asset]) => wanted.has(asset.name)).map(([asset, context]) => {
+      const request = {type: 'metaAndAssetCtxs'};
+      if (feed.dex) request.dex = feed.dex;
+      const [meta, contexts] = await postInfo(request);
+      row.sources[feed.key] = meta.universe.map((asset, index) => [asset, contexts[index]])
+        .filter(([asset]) => feed.wanted.has(asset.name)).map(([asset, context]) => {
           const impactBid = finite(context.impactPxs?.[0]); const impactAsk = finite(context.impactPxs?.[1]);
           const mid = finite(context.midPx);
           return {
@@ -79,7 +83,7 @@ do {
           };
         });
     } catch (error) {
-      row.errors[`hyperliquid_${dex}`] = String(error?.message ?? error);
+      row.errors[feed.key] = String(error?.message ?? error);
     }
   }
   await appendFile(output, `${JSON.stringify(row)}\n`, 'utf8');

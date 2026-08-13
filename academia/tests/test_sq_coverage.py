@@ -17,8 +17,15 @@ class SqCoverageTest(unittest.TestCase):
         orders = [item["order"] for item in self.data["capabilities"]]
         self.assertEqual(orders, list(range(len(orders))))
 
-    def test_first_operational_gap_drives_next_work(self):
+    def test_first_tested_gap_drives_next_work(self):
         result = sq_coverage.report(self.data)
+        self.assertEqual(result["minimum"], "tested")
+        self.assertEqual(result["next_gap"]["id"], "builder-improver")
+        self.assertEqual(result["by_status"], {"tested": 12, "operational": 2})
+        self.assertEqual(result["coverage_ratio"], 0.857)
+
+    def test_operational_coverage_remains_available_but_is_not_completion(self):
+        result = sq_coverage.report(self.data, minimum="operational")
         self.assertIsNone(result["next_gap"])
         self.assertEqual(result["coverage_ratio"], 1)
 

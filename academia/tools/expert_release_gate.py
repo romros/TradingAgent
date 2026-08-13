@@ -10,6 +10,7 @@ from pathlib import Path
 
 from benchmark_reality_transfer import benchmark
 from observation_to_reality import assess_observation
+from sq_coverage import report as coverage_report
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -24,6 +25,8 @@ def gate(release: dict) -> dict:
     observation = json.loads((ROOT / blind["observation"]).read_text(encoding="utf-8"))
     blind_result = assess_observation(observation)
     discovered_tests = unittest.defaultTestLoader.discover(str(ROOT / "academia/tests")).countTestCases()
+    coverage = json.loads((ROOT / "academia/packages/strategyquant/coverage.json").read_text())
+    tested_coverage = coverage_report(coverage, minimum="tested")
     required_boundaries = {
         "improver_slpt_only_structural_proof",
         "random_vs_genetic_equal_attempt_result",
@@ -38,6 +41,7 @@ def gate(release: dict) -> dict:
         "unit_test_inventory": discovered_tests >= acceptance["minimum_unit_tests"],
         "boundaries_preserved": required_boundaries.issubset(set(release.get("open_boundaries", []))),
         "live_not_authorized": any("live" in item for item in release.get("open_boundaries", [])),
+        "all_capabilities_tested": tested_coverage["coverage_ratio"] == 1,
     }
     return {
         "release": release["id"],
@@ -46,6 +50,7 @@ def gate(release: dict) -> dict:
         "battle_score": battle["score"],
         "blind_actual": blind_result["decision"],
         "discovered_tests": discovered_tests,
+        "tested_capability_coverage": tested_coverage,
         "limits": "El recompte no substitueix executar els tests. El gate no valida rendibilitat ni executa trading.",
     }
 

@@ -11,7 +11,7 @@ from pathlib import Path
 RANK = {"mapped": 0, "evidenced": 1, "operational": 2, "tested": 3}
 
 
-def report(data: dict, minimum: str = "operational") -> dict:
+def report(data: dict, minimum: str = "tested") -> dict:
     capabilities = sorted(data["capabilities"], key=lambda item: item["order"])
     threshold = RANK[minimum]
     gaps = [item for item in capabilities if RANK[item["status"]] < threshold]
@@ -29,7 +29,7 @@ def report(data: dict, minimum: str = "operational") -> dict:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("coverage", type=Path)
-    parser.add_argument("--minimum", choices=RANK, default="operational")
+    parser.add_argument("--minimum", choices=RANK, default="tested")
     args = parser.parse_args()
     print(json.dumps(report(json.loads(args.coverage.read_text(encoding="utf-8")), args.minimum), ensure_ascii=False, indent=2))
     return 0

@@ -27,6 +27,8 @@ class PaperFollowTest(unittest.TestCase):
         self.assertAlmostEqual(trade["gross_pnl_usdc"], 5)
         self.assertAlmostEqual(trade["copy_net_pnl_usdc"], 4.95)
         self.assertFalse(result["live_trading_authorized"])
+        self.assertFalse(result["execution_realism_pass"])
+        self.assertTrue(result["execution_realism_blockers"])
 
     def test_missing_observed_quote_is_skipped(self):
         row = event("Open", 99, 100, "2026-08-13T10:00:00Z")

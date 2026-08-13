@@ -103,6 +103,13 @@ def replay(rows: list[dict]) -> dict:
         if position["source_notional_remaining"] <= 1e-9 or fraction >= 1.0:
             del positions[key]
     return {"schema_version": 1, "mode": "SHADOW_PAPER_NO_ORDERS",
+            "execution_realism_pass": False,
+            "execution_realism_blockers": [
+                "size-dependent simulated slippage not captured per event",
+                "cross-day rollover and funding not reconciled",
+                "position increases are not simulated",
+                "liquidation and contract minimums are not modelled",
+            ],
             "starting_equity_usdc": STARTING_EQUITY, "ending_equity_usdc": equity,
             "closed": closed, "open_positions": list(positions.values()), "skipped": skipped,
             "limits": {"max_position_collateral_usdc": MAX_POSITION_COLLATERAL,

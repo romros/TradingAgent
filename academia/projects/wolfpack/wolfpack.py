@@ -158,11 +158,22 @@ def main() -> None:
     brief.add_argument("--output", type=Path)
     args = parser.parse_args()
     paper_rows = None
+    paper_realism_pass = False
     if args.paper and args.paper.exists():
-        paper_rows = json.loads(args.paper.read_text()).get("closed", [])
+        paper_data = json.loads(args.paper.read_text())
+        paper_rows = paper_data.get("closed", [])
+        paper_realism_pass = paper_data.get("execution_realism_pass", False)
     result = build_brief(read_jsonl(args.diary), read_jsonl(args.follows),
                          json.loads(args.pack.read_text()), json.loads(args.council.read_text()),
                          paper_rows)
+    if not paper_realism_pass:
+        result["validation"]["exceptional_wallets"] = []
+        if result["validation"]["route"] == "exceptional_single_wallet":
+            result["validation"]["route"] = "none"
+        result["validation"]["execution_realism_pass"] = False
+        result["promotion_blockers"].append("paper execution realism gate has not passed")
+        result["criticality_ceiling"] = "C1"
+        result["decision"] = "OBSERVE"
     rendered = json.dumps(result, indent=2, ensure_ascii=False) + "\n"
     if args.output:
         args.output.write_text(rendered)

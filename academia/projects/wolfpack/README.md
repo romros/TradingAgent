@@ -40,6 +40,23 @@ Les adreces i feeds crus no entren a Git. `pack.json` només conté hashes, esta
 competència demostrada. Els briefs diaris agregats es podran promocionar a
 `academia/experiments/observations/` quan compleixin el protocol.
 
+El mantenidor finit escriu un checkpoint diari i comprova l'antiguitat del diari
+i del heartbeat del follower. Els checkpoints continuen a `/tmp` fins a la revisió:
+
+```bash
+python3 academia/projects/wolfpack/maintain.py --days 30 \
+  --diary /tmp/cross-venue-diary-forward-20260813.jsonl \
+  --follows /tmp/ostium-follow-forward-20260813.jsonl \
+  --heartbeat /tmp/ostium-follow-heartbeat-20260813.json \
+  --output-dir /tmp/wolfpack-checkpoints
+```
+
+Recuperació humana: dir «revisa Wolfpack» o llegir
+`/tmp/wolfpack-checkpoints/latest.json`. El procés no pot iniciar una conversa ni
+enviar notificacions pel seu compte. És temporal i no té supervisor de reinici:
+després d'un reboot cal rellançar els dos monitors i el mantenidor des de l'últim
+timestamp conservat; no assumir que una absència de senyals és cobertura sana.
+
 ## Manteniment
 
 - diàriament: generar brief i comprovar fonts/errors;
@@ -52,4 +69,3 @@ competència demostrada. Els briefs diaris agregats es podran promocionar a
 No cal un LLM per mantenir la capa factual. Quan s'afegeixi un consell d'IA,
 rebrà un brief immutable i haurà de retornar els contractes de `council.json`;
 cap model podrà modificar mètriques o saltar el sostre de criticitat.
-

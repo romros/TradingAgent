@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "roles": {
     "hunter": {
       "objective": "propose at most three falsifiable market situations from the supplied facts",
@@ -24,6 +24,16 @@
     "C3": "paper signal after promotion gates",
     "C4": "operable candidate after independent validation",
     "C5": "explicitly authorized execution"
+  },
+  "validation_routes": {
+    "multi_wallet_consensus": "at least two prospectively contributing wallets",
+    "exceptional_single_wallet": "one wallet with at least 30 prospectively closed copied signals, net PnL after observed delay and costs, profit factor at least 1.5, positive expectancy in both halves, maximum drawdown at most 15 percent, no liquidation and no more than 35 percent of gross profit from one trade"
+  },
+  "alert_levels": {
+    "WATCH": "interesting observation; no action",
+    "PAPER": "fully specified hypothetical entry, invalidation, expiry and risk; no money",
+    "CANDIDATE": "independently validated and executable, but requires explicit authorization",
+    "AUTHORIZED": "explicitly authorized under a separate execution boundary"
   },
   "current_maximum": "C1"
 }

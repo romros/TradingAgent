@@ -15,12 +15,67 @@ sys.path.insert(0, str(ROOT / "tools"))
 from summarize_cross_venue_diary import summarize as summarize_diary
 
 CLOSES = {"Close", "StopLoss", "TakeProfit", "Liquidation", "CloseDayTrade"}
+EXCEPTIONAL_MIN_CLOSED = 30
+EXCEPTIONAL_MIN_PROFIT_FACTOR = 1.5
+EXCEPTIONAL_MAX_DRAWDOWN_PCT = 15.0
+EXCEPTIONAL_MAX_SINGLE_TRADE_PROFIT_SHARE_PCT = 35.0
+PAPER_EQUITY_USDC = 500.0
 
 
 def read_jsonl(path: Path | None) -> list[dict]:
     if path is None or not path.exists():
         return []
     return [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
+
+
+def exceptional_wallets(close_rows: list[dict]) -> tuple[list[dict], dict[str, list[str]]]:
+    """Qualify one-wallet evidence using copied, net, prospective outcomes only."""
+    grouped: dict[str, list[dict]] = {}
+    for row in close_rows:
+        wallet = row.get("wallet_sha256")
+        if wallet:
+            grouped.setdefault(wallet, []).append(row)
+    qualified, blockers = [], {}
+    for wallet, rows in grouped.items():
+        reasons = []
+        if len(rows) < EXCEPTIONAL_MIN_CLOSED:
+            reasons.append(f"only {len(rows)}/{EXCEPTIONAL_MIN_CLOSED} closed signals")
+        pnl = [row.get("copy_net_pnl_usdc") for row in rows]
+        if any(value is None for value in pnl):
+            reasons.append("missing copied net PnL after observed delay and costs")
+            blockers[wallet] = reasons
+            continue
+        pnl = [float(value) for value in pnl]
+        gross_profit = sum(max(value, 0.0) for value in pnl)
+        gross_loss = -sum(min(value, 0.0) for value in pnl)
+        profit_factor = None if gross_loss == 0 else gross_profit / gross_loss
+        if profit_factor is None or profit_factor < EXCEPTIONAL_MIN_PROFIT_FACTOR:
+            reasons.append("profit factor below robust threshold or no observed losses")
+        midpoint = len(pnl) // 2
+        if midpoint == 0 or sum(pnl[:midpoint]) <= 0 or sum(pnl[midpoint:]) <= 0:
+            reasons.append("copied expectancy is not positive in both halves")
+        equity = peak = PAPER_EQUITY_USDC
+        max_drawdown = 0.0
+        for value in pnl:
+            equity += value
+            peak = max(peak, equity)
+            max_drawdown = max(max_drawdown, (peak - equity) / peak * 100 if peak else 100.0)
+        if max_drawdown > EXCEPTIONAL_MAX_DRAWDOWN_PCT:
+            reasons.append(f"drawdown {max_drawdown:.2f}% exceeds limit")
+        largest_win_share = (max([value for value in pnl if value > 0], default=0.0)
+                             / gross_profit * 100 if gross_profit else 100.0)
+        if largest_win_share > EXCEPTIONAL_MAX_SINGLE_TRADE_PROFIT_SHARE_PCT:
+            reasons.append("profit is too concentrated in one trade")
+        if any(row.get("action") == "Liquidation" for row in rows):
+            reasons.append("observed liquidation")
+        if reasons:
+            blockers[wallet] = reasons
+        else:
+            qualified.append({"wallet_sha256": wallet, "closed_signals": len(rows),
+                              "copy_net_pnl_usdc": sum(pnl), "profit_factor": profit_factor,
+                              "maximum_drawdown_pct": max_drawdown,
+                              "largest_win_share_pct": largest_win_share})
+    return qualified, blockers
 
 
 def build_brief(diary_rows: list[dict], follow_rows: list[dict], pack: dict, council: dict) -> dict:
@@ -32,6 +87,7 @@ def build_brief(diary_rows: list[dict], follow_rows: list[dict], pack: dict, cou
     wallets = Counter(row.get("wallet_sha256") for row in eligible if row.get("wallet_sha256"))
     assets = Counter(row.get("pair") for row in eligible if row.get("pair"))
     liquidations = sum(row.get("action") == "Liquidation" for row in eligible)
+    exceptional, exceptional_blockers = exceptional_wallets(close_rows)
     observed_days = len({str(row.get("captured_at", ""))[:10] for row in diary_rows
                          if len(str(row.get("captured_at", ""))) >= 10})
     complete_snapshots = sum(1 for row in diary_rows
@@ -46,8 +102,10 @@ def build_brief(diary_rows: list[dict], follow_rows: list[dict], pack: dict, cou
         blockers.append(f"only {complete_snapshots}/300 complete market snapshots")
     if len(close_rows) < 30:
         blockers.append(f"only {len(close_rows)}/30 closed eligible signals")
-    if len(wallets) < 2:
-        blockers.append(f"only {len(wallets)}/2 contributing wallets")
+    validation_route = "multi_wallet_consensus" if len(wallets) >= 2 else (
+        "exceptional_single_wallet" if exceptional else "none")
+    if validation_route == "none":
+        blockers.append(f"only {len(wallets)}/2 contributing wallets and no exceptional wallet")
     if liquidations:
         blockers.append(f"{liquidations} followed liquidations require rejection review")
     if not blockers:
@@ -72,6 +130,10 @@ def build_brief(diary_rows: list[dict], follow_rows: list[dict], pack: dict, cou
         "replicability": {"detection_latency_seconds_median": None if not latencies else latencies[len(latencies)//2],
                           "detection_latency_seconds_maximum": None if not latencies else max(latencies)},
         "activity": {"events_by_asset": dict(assets), "events_by_wallet_hash": dict(wallets)},
+        "validation": {"route": validation_route, "exceptional_wallets": exceptional,
+                       "exceptional_wallet_blockers": exceptional_blockers},
+        "alert": {"level": "WATCH", "action": "observe_only",
+                  "reason": "No entry is authorized by a factual brief."},
         "anomalies": anomalies[-20:],
         "data_errors": diary["errors_by_day_and_source"],
         "criticality_ceiling": max_criticality,

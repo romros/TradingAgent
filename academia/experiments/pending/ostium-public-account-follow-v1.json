@@ -40,7 +40,10 @@
   "required_costs": ["observed detection delay", "opening fee", "bid_ask_and_price_impact", "rollover", "skipped_orders", "minimum_collateral"],
   "promotion_gates": {
     "minimum_closed_signals": 30,
-    "minimum_distinct_wallets_contributing": 2,
+    "validation_routes": {
+      "consensus": "at least 2 contributing wallets",
+      "exceptional_single_wallet": "at least 30 copied net closes, profit factor >= 1.5, positive first and second half, drawdown <= 15%, no liquidation and largest win <= 35% of gross profit"
+    },
     "positive_net_expectancy": true,
     "maximum_drawdown_pct": 15,
     "positive_first_and_second_half": true,

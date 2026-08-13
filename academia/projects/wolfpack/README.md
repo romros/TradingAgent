@@ -15,6 +15,16 @@ qualsevol venue amb dades auditables poden aportar edge. Cada mercat conserva
 els seus propis gates de contracte, costos, liquiditat, latència i execució;
 observar-ho tot no significa que tot sigui copiable ni operable a Ostium.
 
+Hi ha dues vies de validació: consens de dues o més wallets, o una sola wallet
+excepcional. La segona exigeix com a mínim 30 tancaments prospectius copiats,
+PnL net després del retard i costos reals, profit factor ≥1,5, les dues meitats
+positives, drawdown ≤15%, cap liquidació i profit no concentrat en una operació.
+Per tant, una font extraordinària pot ser suficient, però una bona ratxa no.
+
+Els avisos són `WATCH`, `PAPER`, `CANDIDATE` i `AUTHORIZED`. El brief factual
+actual només pot emetre `WATCH`; els nivells superiors necessiten els gates que
+descriu `council.json`, i `AUTHORIZED` sempre requereix permís explícit.
+
 ## Flux
 
 ```text

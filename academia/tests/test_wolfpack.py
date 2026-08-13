@@ -73,6 +73,14 @@ class WolfpackTest(unittest.TestCase):
         reasons = result["validation"]["exceptional_wallet_blockers"]["solo"]
         self.assertIn("missing copied net PnL after observed delay and costs", reasons)
 
+    def test_separate_paper_results_drive_exceptional_route(self):
+        follows = [{"pair": "BTC/USD", "action": "Close", "wallet_sha256": "solo"}
+                   for _ in range(30)]
+        paper = [{"action": "Close", "wallet_sha256": "solo", "copy_net_pnl_usdc": value}
+                 for value in [2.0, 2.0, -1.0] * 10]
+        result = wolfpack.build_brief([], follows, self.pack, self.council, paper)
+        self.assertEqual(result["validation"]["route"], "exceptional_single_wallet")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -17,13 +17,15 @@ class WolfpackMaintenanceTest(unittest.TestCase):
             base = Path(directory)
             fake_brief = {"decision": "OBSERVE", "criticality_ceiling": "C1"}
             def run(command, check):
-                Path(command[-1]).write_text(json.dumps(fake_brief))
+                payload = {"closed": []} if command[-1].endswith("paper-latest.json") else fake_brief
+                Path(command[-1]).write_text(json.dumps(payload))
             with patch.object(maintain.subprocess, "run", side_effect=run):
                 result = maintain.checkpoint(HERE, base / "diary", base / "follow",
                                              base / "heartbeat", base / "out")
             self.assertFalse(result["health"]["diary_healthy"])
             self.assertFalse(result["health"]["follower_healthy"])
             self.assertEqual(result["brief"]["criticality_ceiling"], "C1")
+            self.assertTrue((base / "out" / "paper-latest.json").exists())
 
 
 if __name__ == "__main__":

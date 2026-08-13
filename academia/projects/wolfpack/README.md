@@ -72,6 +72,17 @@ enviar notificacions pel seu compte. És temporal i no té supervisor de reinici
 després d'un reboot cal rellançar els dos monitors i el mantenidor des de l'últim
 timestamp conservat; no assumir que una absència de senyals és cobertura sana.
 
+El shadow paper follower reprodueix només fills que tinguin bid/ask observables
+en el moment de detecció. Usa 500 USDC, màxim 50 USDC de col·lateral per posició,
+300 USDC simultanis i leverage màxim 5x. No completa el PnL net d'una operació
+que travessa de dia fins que el contracte de rollover estigui reconciliat:
+
+```bash
+python3 academia/projects/wolfpack/paper_follow.py \
+  --follows /tmp/ostium-follow-forward-20260813.jsonl \
+  --output /tmp/wolfpack-paper.json
+```
+
 ## Manteniment
 
 - diàriament: generar brief i comprovar fonts/errors;

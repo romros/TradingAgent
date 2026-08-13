@@ -37,6 +37,14 @@
     "maximum_simultaneous_risk_pct": 3,
     "no_live_orders": true
   },
+  "shadow_paper_execution": {
+    "entry_and_exit": "first observable bid/ask captured by the monitor after each public fill",
+    "maximum_collateral_per_position_usdc": 50,
+    "maximum_total_collateral_usdc": 300,
+    "maximum_leverage": 5,
+    "cross_day_policy": "do not claim net PnL until rollover units and boundary are reconciled",
+    "missing_quote_policy": "skip rather than substitute the trader execution price"
+  },
   "required_costs": ["observed detection delay", "opening fee", "bid_ask_and_price_impact", "rollover", "skipped_orders", "minimum_collateral"],
   "promotion_gates": {
     "minimum_closed_signals": 30,

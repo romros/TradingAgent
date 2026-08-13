@@ -21,8 +21,11 @@ def checkpoint(root: Path, diary: Path, follows: Path, heartbeat: Path,
     output_dir.mkdir(parents=True, exist_ok=True)
     dated = output_dir / f"brief-{now:%Y-%m-%d}.json"
     latest = output_dir / "latest.json"
+    paper = output_dir / "paper-latest.json"
+    subprocess.run(["python3", str(root / "paper_follow.py"), "--follows", str(follows),
+                    "--output", str(paper)], check=True)
     command = ["python3", str(root / "wolfpack.py"), "brief", "--diary", str(diary),
-               "--follows", str(follows), "--output", str(dated)]
+               "--follows", str(follows), "--paper", str(paper), "--output", str(dated)]
     subprocess.run(command, check=True)
     brief = json.loads(dated.read_text())
     clock = time.time()

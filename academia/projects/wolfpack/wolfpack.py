@@ -78,7 +78,8 @@ def exceptional_wallets(close_rows: list[dict]) -> tuple[list[dict], dict[str, l
     return qualified, blockers
 
 
-def build_brief(diary_rows: list[dict], follow_rows: list[dict], pack: dict, council: dict) -> dict:
+def build_brief(diary_rows: list[dict], follow_rows: list[dict], pack: dict, council: dict,
+                paper_rows: list[dict] | None = None) -> dict:
     diary = summarize_diary(diary_rows)
     eligible = [row for row in follow_rows if row.get("pair")]
     close_rows = [row for row in eligible if row.get("action") in CLOSES]
@@ -87,7 +88,8 @@ def build_brief(diary_rows: list[dict], follow_rows: list[dict], pack: dict, cou
     wallets = Counter(row.get("wallet_sha256") for row in eligible if row.get("wallet_sha256"))
     assets = Counter(row.get("pair") for row in eligible if row.get("pair"))
     liquidations = sum(row.get("action") == "Liquidation" for row in eligible)
-    exceptional, exceptional_blockers = exceptional_wallets(close_rows)
+    exceptional, exceptional_blockers = exceptional_wallets(
+        close_rows if paper_rows is None else paper_rows)
     observed_days = len({str(row.get("captured_at", ""))[:10] for row in diary_rows
                          if len(str(row.get("captured_at", ""))) >= 10})
     complete_snapshots = sum(1 for row in diary_rows
@@ -150,12 +152,17 @@ def main() -> None:
     brief = sub.add_parser("brief")
     brief.add_argument("--diary", type=Path)
     brief.add_argument("--follows", type=Path)
+    brief.add_argument("--paper", type=Path)
     brief.add_argument("--pack", type=Path, default=Path(__file__).with_name("pack.json"))
     brief.add_argument("--council", type=Path, default=Path(__file__).with_name("council.json"))
     brief.add_argument("--output", type=Path)
     args = parser.parse_args()
+    paper_rows = None
+    if args.paper and args.paper.exists():
+        paper_rows = json.loads(args.paper.read_text()).get("closed", [])
     result = build_brief(read_jsonl(args.diary), read_jsonl(args.follows),
-                         json.loads(args.pack.read_text()), json.loads(args.council.read_text()))
+                         json.loads(args.pack.read_text()), json.loads(args.council.read_text()),
+                         paper_rows)
     rendered = json.dumps(result, indent=2, ensure_ascii=False) + "\n"
     if args.output:
         args.output.write_text(rendered)

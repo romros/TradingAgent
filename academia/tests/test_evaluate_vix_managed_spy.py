@@ -45,6 +45,28 @@ class EvaluateVixManagedSpyTest(unittest.TestCase):
         expected = 0.01 - 0.0005 - 0.001
         self.assertAlmostEqual(result["net_return_pct"], expected * 100)
 
+    def test_development_gate_is_literal_and_not_score_based(self):
+        result = {
+            "managed": {"net_return_pct": 10, "maximum_drawdown_pct": 8,
+                        "return_over_drawdown": 1.25, "positive_years": 6,
+                        "year_count": 8},
+            "always_long": {"maximum_drawdown_pct": 10,
+                            "return_over_drawdown": 1.0},
+        }
+        self.assertTrue(subject.development_gate(result)["pass"])
+        result["managed"]["positive_years"] = 5
+        self.assertFalse(subject.development_gate(result)["pass"])
+
+    def test_validation_gate_compares_with_development(self):
+        result = {
+            "managed": {"net_return_pct": 5, "maximum_drawdown_pct": 9,
+                        "return_over_drawdown": 1.6, "positive_years": 3,
+                        "year_count": 5},
+            "always_long": {"maximum_drawdown_pct": 10},
+        }
+        development = {"managed": {"return_over_drawdown": 2.0}}
+        self.assertTrue(subject.validation_gate(result, development)["pass"])
+
 
 if __name__ == "__main__":
     unittest.main()

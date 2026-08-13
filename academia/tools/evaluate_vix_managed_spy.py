@@ -122,6 +122,41 @@ def evaluate(prices: list[dict], vix: dict[str, float], start: str, end: str,
     }
 
 
+def development_gate(result: dict) -> dict:
+    managed = result["managed"]
+    baseline = result["always_long"]
+    checks = {
+        "net_return_positive": managed["net_return_pct"] > 0,
+        "drawdown_reduction_at_least_15pct": (
+            managed["maximum_drawdown_pct"] <= 0.85 * baseline["maximum_drawdown_pct"]),
+        "return_over_drawdown_above_baseline": (
+            managed["return_over_drawdown"] is not None
+            and baseline["return_over_drawdown"] is not None
+            and managed["return_over_drawdown"] > baseline["return_over_drawdown"]),
+        "positive_years_at_least_6_of_8": (
+            managed["year_count"] == 8 and managed["positive_years"] >= 6),
+    }
+    return {"pass": all(checks.values()), "checks": checks}
+
+
+def validation_gate(result: dict, development: dict) -> dict:
+    managed = result["managed"]
+    baseline = result["always_long"]
+    development_ratio = development["managed"]["return_over_drawdown"]
+    checks = {
+        "net_return_positive": managed["net_return_pct"] > 0,
+        "drawdown_below_baseline": (
+            managed["maximum_drawdown_pct"] < baseline["maximum_drawdown_pct"]),
+        "return_over_drawdown_at_least_80pct_of_development": (
+            managed["return_over_drawdown"] is not None
+            and development_ratio is not None
+            and managed["return_over_drawdown"] >= 0.8 * development_ratio),
+        "positive_years_at_least_3_of_5": (
+            managed["year_count"] == 5 and managed["positive_years"] >= 3),
+    }
+    return {"pass": all(checks.values()), "checks": checks}
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--spy", required=True, type=Path)
@@ -143,13 +178,22 @@ def main() -> None:
             "base": evaluate(prices, vix, start, end, base_cost, base_carry),
             "stress": evaluate(prices, vix, start, end, stress_cost, stress_carry),
         }
+    development = scenarios("2007-01-01", "2014-12-31")
+    development["gate"] = development_gate(development["base"])
     output = {
         "experiment_id": "spx-volatility-managed-equity-premium-v37",
         "data": {"spy_sha256": _sha256(args.spy), "vix_sha256": _sha256(args.vix)},
-        "development": scenarios("2007-01-01", "2014-12-31"),
-        "validation": scenarios("2015-01-01", "2019-12-31"),
+        "development": development,
         "holdout_accessed": False,
     }
+    if development["gate"]["pass"]:
+        validation = scenarios("2015-01-01", "2019-12-31")
+        validation["gate"] = validation_gate(validation["base"], development["base"])
+        output["validation"] = validation
+        output["decision"] = "PASS_VALIDATION" if validation["gate"]["pass"] else "REJECT_VALIDATION"
+    else:
+        output["validation"] = {"status": "NOT_REVEALED_AFTER_DEVELOPMENT_FAIL"}
+        output["decision"] = "REJECT_DEVELOPMENT"
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(output, indent=2) + "\n")
 

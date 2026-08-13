@@ -1,0 +1,60 @@
+{
+  "id": "ostium-public-account-follow-v1",
+  "preregistered_at": "2026-08-13",
+  "question": "Una cohort de perfils públics seleccionada només amb dades anteriors al 2026-08-13 conserva expectativa positiva en senyals futurs després del retard observable, costos Ostium i límits d'un compte de 500 USDC?",
+  "status": "PREREGISTERED_FORWARD_PAPER_ONLY",
+  "source": "Ostium public on-chain fills through the official read-only SDK",
+  "selection": {
+    "selected_wallets": 6,
+    "identifiers_versioned": "sha256 only in the case-study audit; plain public addresses remain temporary outside Git",
+    "minimum_closed_trades": 50,
+    "minimum_active_days": 20,
+    "maximum_median_collateral_usdc": 1000,
+    "maximum_p90_collateral_usdc": 1500,
+    "required_positive_time_slices": 3,
+    "liquidations_allowed": 0,
+    "selected_after_observing_history": true
+  },
+  "forward_window": {
+    "start": "2026-08-13T11:00:00Z",
+    "minimum_calendar_days": 30,
+    "minimum_closed_signals": 30,
+    "maximum_extension_days": 60
+  },
+  "signal_scope": {
+    "primary_assets": ["EUR/USD", "US500/USD", "XAU/USD"],
+    "secondary_observation": "other non-crypto markets are recorded separately and cannot change the active universe without a new data and execution gate",
+    "crypto_excluded": true,
+    "copy_entry": "first observation after a public Open fill",
+    "copy_exit": "first observation after the matching public full close, StopLoss, TakeProfit, CloseDayTrade or Liquidation",
+    "partial_and_remove_collateral": "record but do not simulate until semantics are reconciled"
+  },
+  "paper_account": {
+    "starting_equity_usdc": 500,
+    "maximum_effective_leverage": 5,
+    "maximum_simultaneous_collateral_pct": 60,
+    "maximum_risk_per_signal_pct": 1,
+    "maximum_simultaneous_risk_pct": 3,
+    "no_live_orders": true
+  },
+  "required_costs": ["observed detection delay", "opening fee", "bid_ask_and_price_impact", "rollover", "skipped_orders", "minimum_collateral"],
+  "promotion_gates": {
+    "minimum_closed_signals": 30,
+    "minimum_distinct_wallets_contributing": 2,
+    "positive_net_expectancy": true,
+    "maximum_drawdown_pct": 15,
+    "positive_first_and_second_half": true,
+    "maximum_single_wallet_profit_share_pct": 50,
+    "maximum_single_asset_profit_share_pct": 50,
+    "must_beat_equal_risk_asset_baseline": true
+  },
+  "automatic_reject": [
+    "public detection latency makes entry non-replicable",
+    "profits require leverage above 5x",
+    "one wallet or asset supplies more than half of profit",
+    "net expectancy is non-positive after costs",
+    "no qualifying primary-asset sample by the maximum extension date"
+  ],
+  "holdout_accessed": false,
+  "trading_authorized": false
+}

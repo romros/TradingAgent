@@ -33,6 +33,16 @@
     "stress": "max(2 * measured median, measured p95) plus reconciled weekly rollover",
     "no_result_before_final_cost": true
   },
+  "data_contract": {
+    "spy_source": "Yahoo Finance chart endpoint, SPY daily OHLC plus adjusted close, requested only through 2019-12-31",
+    "vix_source": "Cboe official VIX daily prices CSV",
+    "price_convention": "first SPY session adjusted open of each ISO week; open is adjusted by adjusted_close divided by close",
+    "vix_convention": "latest official VIX close strictly before the SPY decision date",
+    "raw_storage": "temporary only; persist source locators and SHA-256 hashes, not redistributed raw history",
+    "evaluation_tool": "academia/tools/evaluate_vix_managed_spy.py",
+    "sq_boundary_tested": "SQCLI build 143.2708 refused export because licensed SQ Equities/Futures Data cannot be used outside StrategyQuant",
+    "sealed_holdout_protection": "the SPY request ends at 2019-12-31 and the evaluator emits holdout_accessed=false"
+  },
   "gates": {
     "development": [
       "net return positive",

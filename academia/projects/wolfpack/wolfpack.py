@@ -20,6 +20,8 @@ EXCEPTIONAL_MIN_PROFIT_FACTOR = 1.5
 EXCEPTIONAL_MAX_DRAWDOWN_PCT = 15.0
 EXCEPTIONAL_MAX_SINGLE_TRADE_PROFIT_SHARE_PCT = 35.0
 PAPER_EQUITY_USDC = 500.0
+CANDIDATE_MIN_CLOSED = 10
+CANDIDATE_MIN_PROFIT_FACTOR = 1.2
 
 
 def read_jsonl(path: Path | None) -> list[dict]:
@@ -68,6 +70,19 @@ def exceptional_wallets(close_rows: list[dict]) -> tuple[list[dict], dict[str, l
             reasons.append("profit is too concentrated in one trade")
         if any(row.get("action") == "Liquidation" for row in rows):
             reasons.append("observed liquidation")
+        shortfalls = [row.get("implementation_shortfall_bps") for row in rows]
+        if any(value is None for value in shortfalls):
+            reasons.append("missing source-to-copy implementation shortfall")
+        else:
+            ordered_shortfalls = sorted(float(value) for value in shortfalls)
+            median_shortfall = ordered_shortfalls[len(ordered_shortfalls) // 2]
+            if median_shortfall > 10:
+                reasons.append("median implementation shortfall exceeds 10 bps")
+        entry_latencies = [row.get("entry_detection_latency_seconds") for row in rows]
+        if any(value is None for value in entry_latencies):
+            reasons.append("missing prospective entry detection latency")
+        elif sorted(float(value) for value in entry_latencies)[len(entry_latencies) // 2] > 120:
+            reasons.append("median entry detection latency exceeds 120 seconds")
         if reasons:
             blockers[wallet] = reasons
         else:
@@ -76,6 +91,52 @@ def exceptional_wallets(close_rows: list[dict]) -> tuple[list[dict], dict[str, l
                               "maximum_drawdown_pct": max_drawdown,
                               "largest_win_share_pct": largest_win_share})
     return qualified, blockers
+
+
+def candidate_wallets(close_rows: list[dict]) -> list[dict]:
+    """Return wallets worth continued paper observation, never live execution."""
+    grouped: dict[str, list[dict]] = {}
+    for row in close_rows:
+        if row.get("wallet_sha256") and row.get("copy_net_pnl_usdc") is not None:
+            grouped.setdefault(row["wallet_sha256"], []).append(row)
+    candidates = []
+    for wallet, rows in grouped.items():
+        if len(rows) < CANDIDATE_MIN_CLOSED:
+            continue
+        pnl = [float(row["copy_net_pnl_usdc"]) for row in rows]
+        profit = sum(max(value, 0.0) for value in pnl)
+        loss = -sum(min(value, 0.0) for value in pnl)
+        pf = None if loss == 0 else profit / loss
+        midpoint = len(pnl) // 2
+        shortfall = [row.get("implementation_shortfall_bps") for row in rows]
+        latency = [row.get("entry_detection_latency_seconds") for row in rows]
+        if (pf is None or pf < CANDIDATE_MIN_PROFIT_FACTOR
+                or sum(pnl[:midpoint]) <= 0 or sum(pnl[midpoint:]) <= 0
+                or any(value is None for value in shortfall + latency)
+                or sorted(float(value) for value in shortfall)[len(shortfall) // 2] > 10
+                or sorted(float(value) for value in latency)[len(latency) // 2] > 120
+                or any(row.get("action") == "Liquidation" for row in rows)):
+            continue
+        candidates.append({"wallet_sha256": wallet, "status": "CANDIDATE",
+                           "closed_signals": len(rows), "copy_net_pnl_usdc": sum(pnl),
+                           "profit_factor": pf})
+    return candidates
+
+
+def portfolio_roster(close_rows: list[dict], realism_pass: bool) -> dict:
+    """Two-stage roster; only fully replicable titulars are portfolio-eligible."""
+    if not realism_pass:
+        return {"candidates": [], "titulars": [], "portfolio_eligible": [],
+                "blocker": "paper execution realism gate has not passed"}
+    titulars, _ = exceptional_wallets(close_rows)
+    titular_ids = {row["wallet_sha256"] for row in titulars}
+    candidates = [row for row in candidate_wallets(close_rows)
+                  if row["wallet_sha256"] not in titular_ids]
+    titulars = [{**row, "status": "TITULAR"} for row in titulars]
+    return {"candidates": candidates, "titulars": titulars,
+            "portfolio_eligible": [row["wallet_sha256"] for row in titulars],
+            "allocation": "no allocation until a separate portfolio risk gate passes",
+            "live_trading_authorized": False}
 
 
 def build_brief(diary_rows: list[dict], follow_rows: list[dict], pack: dict, council: dict,
@@ -166,6 +227,7 @@ def main() -> None:
     result = build_brief(read_jsonl(args.diary), read_jsonl(args.follows),
                          json.loads(args.pack.read_text()), json.loads(args.council.read_text()),
                          paper_rows)
+    result["roster"] = portfolio_roster(paper_rows or [], paper_realism_pass)
     if not paper_realism_pass:
         result["validation"]["exceptional_wallets"] = []
         if result["validation"]["route"] == "exceptional_single_wallet":

@@ -60,7 +60,8 @@ class WolfpackTest(unittest.TestCase):
                  for day in range(1, 21) for hour in range(15)]
         pnl = [2.0, 2.0, -1.0] * 10
         follows = [{"pair": "BTC/USD", "action": "Close", "wallet_sha256": "solo",
-                    "detection_latency_seconds": 600, "copy_net_pnl_usdc": value}
+                    "detection_latency_seconds": 30, "entry_detection_latency_seconds": 30,
+                    "implementation_shortfall_bps": 2, "copy_net_pnl_usdc": value}
                    for value in pnl]
         result = wolfpack.build_brief(diary, follows, self.pack, self.council)
         self.assertEqual(result["validation"]["route"], "exceptional_single_wallet")
@@ -78,8 +79,36 @@ class WolfpackTest(unittest.TestCase):
                    for _ in range(30)]
         paper = [{"action": "Close", "wallet_sha256": "solo", "copy_net_pnl_usdc": value}
                  for value in [2.0, 2.0, -1.0] * 10]
+        for row in paper:
+            row["implementation_shortfall_bps"] = 2
+            row["entry_detection_latency_seconds"] = 30
         result = wolfpack.build_brief([], follows, self.pack, self.council, paper)
         self.assertEqual(result["validation"]["route"], "exceptional_single_wallet")
+
+    def test_profitable_but_slow_wallet_is_not_exceptional(self):
+        paper = [{"action": "Close", "wallet_sha256": "slow", "copy_net_pnl_usdc": value,
+                  "implementation_shortfall_bps": 2, "entry_detection_latency_seconds": 180}
+                 for value in [2.0, 2.0, -1.0] * 10]
+        qualified, blockers = wolfpack.exceptional_wallets(paper)
+        self.assertEqual(qualified, [])
+        self.assertIn("median entry detection latency exceeds 120 seconds", blockers["slow"])
+
+    def test_candidate_then_titular_roster(self):
+        def rows(wallet, count):
+            return [{"action": "Close", "wallet_sha256": wallet,
+                     "copy_net_pnl_usdc": [2.0, 2.0, -1.0][index % 3],
+                     "implementation_shortfall_bps": 2,
+                     "entry_detection_latency_seconds": 30}
+                    for index in range(count)]
+        roster = wolfpack.portfolio_roster(rows("candidate", 12) + rows("titular", 30), True)
+        self.assertEqual([row["wallet_sha256"] for row in roster["candidates"]], ["candidate"])
+        self.assertEqual([row["wallet_sha256"] for row in roster["titulars"]], ["titular"])
+        self.assertEqual(roster["portfolio_eligible"], ["titular"])
+        self.assertFalse(roster["live_trading_authorized"])
+
+    def test_no_roster_before_execution_realism(self):
+        roster = wolfpack.portfolio_roster([], False)
+        self.assertEqual(roster["portfolio_eligible"], [])
 
 
 if __name__ == "__main__":

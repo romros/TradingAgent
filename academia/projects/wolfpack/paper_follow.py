@@ -57,8 +57,12 @@ def replay(rows: list[dict]) -> dict:
             entry = price_for(row.get("side"), True, quote)
             open_fee = notional * float(quote.get("open_fee_bps") or 0) / 10_000
             positions[key] = {"wallet_sha256": row.get("wallet_sha256"), "pair": row.get("pair"),
+                              "position_sha256": key,
                               "side": row.get("side"), "entry_price": entry,
+                              "source_entry_price": float(row.get("execution_price") or 0),
                               "entry_detected_at": row.get("detected_at"),
+                              "entry_executed_at": row.get("executed_at"),
+                              "entry_detection_latency_seconds": row.get("detection_latency_seconds"),
                               "source_notional_remaining": source_notional,
                               "paper_notional_remaining": notional,
                               "collateral_usdc": collateral, "leverage": leverage,
@@ -79,6 +83,15 @@ def replay(rows: list[dict]) -> dict:
         exit_price = price_for(position["side"], False, quote)
         direction = 1.0 if position["side"] == "B" else -1.0
         gross = paper_notional * direction * (exit_price / entry - 1.0)
+        source_entry = position["source_entry_price"]
+        source_exit = float(row.get("execution_price") or 0)
+        source_return = (direction * (source_exit / source_entry - 1.0)
+                         if source_entry > 0 and source_exit > 0 else None)
+        copy_gross_return = direction * (exit_price / entry - 1.0)
+        return_retention = (copy_gross_return / source_return
+                            if source_return not in (None, 0.0) and source_return > 0 else None)
+        implementation_shortfall = (None if source_return is None
+                                    else (source_return - copy_gross_return) * 10_000)
         open_fee = position["open_fee_remaining"] * fraction
         close_fee = paper_notional * float(quote.get("close_fee_bps") or 0) / 10_000
         entry_day = datetime.fromisoformat(position["entry_detected_at"].replace("Z", "+00:00")).date()
@@ -90,13 +103,20 @@ def replay(rows: list[dict]) -> dict:
         closed.append({"wallet_sha256": position["wallet_sha256"], "position_sha256": key,
                        "pair": position["pair"], "action": action,
                        "entry_observed_price": entry, "exit_observed_price": exit_price,
+                       "source_entry_price": source_entry, "source_exit_price": source_exit,
                        "paper_notional_usdc": paper_notional, "gross_pnl_usdc": gross,
                        "open_fee_usdc": open_fee, "close_fee_usdc": close_fee,
                        "carry_cost_usdc": 0.0 if cost_complete else None,
                        "copy_net_pnl_usdc": net, "cost_complete": cost_complete,
+                       "source_gross_return_pct": None if source_return is None else 100 * source_return,
+                       "copy_gross_return_pct": 100 * copy_gross_return,
+                       "implementation_shortfall_bps": implementation_shortfall,
+                       "profitable_source_return_retained_pct": (
+                           None if return_retention is None else 100 * return_retention),
                        "cost_note": "same UTC day; no daily rollover boundary modelled" if cost_complete
                                     else "cross-day rollover contract not reconciled",
-                       "detection_latency_seconds": row.get("detection_latency_seconds")})
+                       "entry_detection_latency_seconds": position["entry_detection_latency_seconds"],
+                       "exit_detection_latency_seconds": row.get("detection_latency_seconds")})
         position["source_notional_remaining"] -= source_close
         position["paper_notional_remaining"] -= paper_notional
         position["open_fee_remaining"] -= open_fee

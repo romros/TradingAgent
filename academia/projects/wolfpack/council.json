@@ -27,7 +27,7 @@
   },
   "validation_routes": {
     "multi_wallet_consensus": "at least two prospectively contributing wallets",
-    "exceptional_single_wallet": "one wallet with at least 30 prospectively closed copied signals, net PnL after observed delay and costs, profit factor at least 1.5, positive expectancy in both halves, maximum drawdown at most 15 percent, no liquidation and no more than 35 percent of gross profit from one trade"
+    "exceptional_single_wallet": "one wallet with at least 30 prospectively closed copied signals, net PnL after observed delay and costs, profit factor at least 1.5, positive expectancy in both halves, maximum drawdown at most 15 percent, no liquidation, no more than 35 percent of gross profit from one trade, median entry latency at most 120 seconds and median implementation shortfall at most 10 bps"
   },
   "alert_levels": {
     "WATCH": "interesting observation; no action",

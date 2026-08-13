@@ -19,7 +19,17 @@ Hi ha dues vies de validació: consens de dues o més wallets, o una sola wallet
 excepcional. La segona exigeix com a mínim 30 tancaments prospectius copiats,
 PnL net després del retard i costos reals, profit factor ≥1,5, les dues meitats
 positives, drawdown ≤15%, cap liquidació i profit no concentrat en una operació.
+També exigeix latència mediana d'entrada ≤120 segons i shortfall d'implementació
+medià ≤10 bps. Aquest shortfall compara el retorn del compte font amb el retorn
+executable als bid/ask observats quan detectem l'obertura i el tancament.
 Per tant, una font extraordinària pot ser suficient, però una bona ratxa no.
+
+El roster té dues fases. `CANDIDATE` requereix almenys 10 tancaments copiats,
+profit factor ≥1,2, ambdues meitats positives i els mateixos límits de latència
+i shortfall; només continua en paper. `TITULAR` exigeix el filtre excepcional
+complet de 30 tancaments i és l'únic estat elegible per a una futura cartera.
+Ser titular no autoritza trading ni assigna capital: això requereix un gate de
+cartera separat i permís explícit.
 
 Els avisos són `WATCH`, `PAPER`, `CANDIDATE` i `AUTHORIZED`. El brief factual
 actual només pot emetre `WATCH`; els nivells superiors necessiten els gates que

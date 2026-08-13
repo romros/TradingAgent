@@ -12,6 +12,7 @@ def event(action, price_bid, price_ask, detected, notional=1000, position="p"):
     return {"position_sha256": position, "wallet_sha256": "w", "pair": "BTC/USD",
             "action": action, "side": "B", "notional_usd": notional,
             "collateral_usd": 100, "detected_at": detected,
+            "executed_at": detected, "execution_price": 100 if action == "Open" else 101,
             "detection_latency_seconds": 600,
             "observed_quote": {"market_open": True, "bid": price_bid, "ask": price_ask,
                                "open_fee_bps": 2, "close_fee_bps": 0}}
@@ -29,6 +30,11 @@ class PaperFollowTest(unittest.TestCase):
         self.assertFalse(result["live_trading_authorized"])
         self.assertFalse(result["execution_realism_pass"])
         self.assertTrue(result["execution_realism_blockers"])
+        self.assertEqual(result["open_positions"], [])
+        self.assertAlmostEqual(trade["source_gross_return_pct"], 1.0)
+        self.assertAlmostEqual(trade["copy_gross_return_pct"], 2.0)
+        self.assertAlmostEqual(trade["implementation_shortfall_bps"], -100.0)
+        self.assertEqual(trade["entry_detection_latency_seconds"], 600)
 
     def test_missing_observed_quote_is_skipped(self):
         row = event("Open", 99, 100, "2026-08-13T10:00:00Z")
@@ -42,3 +48,9 @@ class PaperFollowTest(unittest.TestCase):
         trade = paper.replay(rows)["closed"][0]
         self.assertIsNone(trade["copy_net_pnl_usdc"])
         self.assertFalse(trade["cost_complete"])
+
+    def test_open_position_keeps_identity_and_source_execution(self):
+        result = paper.replay([event("Open", 99, 100, "2026-08-13T10:00:00Z")])
+        position = result["open_positions"][0]
+        self.assertEqual(position["position_sha256"], "p")
+        self.assertEqual(position["source_entry_price"], 100)

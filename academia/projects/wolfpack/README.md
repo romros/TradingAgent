@@ -84,6 +84,21 @@ python3 academia/projects/wolfpack/paper_follow.py \
   --duration-hours 720 --interval-seconds 900
 ```
 
+El dashboard local consulta els feeds a cada petició i el navegador refresca la
+vista cada 15 segons. Les targetes de mostra porten `SIMULATION`; els avisos
+derivats de dades reals indiquen si encara són `LIVE` o ja han expirat:
+
+```bash
+python3 academia/projects/wolfpack/dashboard.py --port 8787 --duration-hours 720 \
+  --follows /tmp/ostium-follow-forward-20260813.jsonl \
+  --heartbeat /tmp/ostium-follow-heartbeat-20260813.json \
+  --paper /tmp/wolfpack-paper-forward-20260813.json \
+  --checkpoint /tmp/wolfpack-checkpoints/latest.json
+```
+
+Per defecte escolta només a `127.0.0.1`. Des d'un altre ordinador cal un túnel
+SSH; no s'ha d'exposar el port públicament sense autenticació.
+
 ## Manteniment
 
 - diàriament: generar brief i comprovar fonts/errors;

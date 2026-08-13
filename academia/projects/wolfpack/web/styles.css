@@ -1,0 +1,26 @@
+:root { color-scheme: dark; --bg:#07110d; --panel:#0d1b15; --line:#213b2e; --mint:#77f2b2; --amber:#ffc76b; --muted:#8da398; --text:#eff8f2; }
+* { box-sizing:border-box; }
+body { margin:0; min-height:100vh; background:radial-gradient(circle at 80% 0,#173527 0,transparent 32%),var(--bg); color:var(--text); font:15px/1.5 Inter,ui-sans-serif,system-ui,sans-serif; }
+main { width:min(1080px,calc(100% - 32px)); margin:auto; padding:40px 0 56px; }
+header,.section-title { display:flex; align-items:center; justify-content:space-between; gap:20px; }
+.eyebrow,.section-title span { color:var(--mint); font:700 11px/1.2 ui-monospace,monospace; letter-spacing:.16em; }
+h1 { margin:.15em 0 .7em; font-size:clamp(36px,7vw,72px); line-height:.95; letter-spacing:-.055em; }
+h2 { margin:30px 0 12px; font-size:20px; }
+.pulse { display:flex; align-items:center; gap:9px; color:var(--muted); }
+.pulse i { width:9px; height:9px; border-radius:50%; background:var(--mint); box-shadow:0 0 16px var(--mint); }
+.metrics { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+.metric,.card { border:1px solid var(--line); background:color-mix(in srgb,var(--panel) 92%,transparent); border-radius:14px; }
+.metric { padding:17px; }
+.metric strong { display:block; font-size:25px; letter-spacing:-.04em; }
+.metric span { color:var(--muted); font-size:12px; }
+.feed { display:grid; gap:10px; }
+.card { padding:18px; display:grid; grid-template-columns:110px 1fr; gap:14px; }
+.badge { color:var(--amber); font:700 11px ui-monospace,monospace; letter-spacing:.08em; }
+.card h3 { margin:0 0 5px; font-size:17px; }
+.card p { margin:0 0 10px; color:#bfd0c7; }
+.facts { display:flex; flex-wrap:wrap; gap:6px; }
+.facts code { padding:4px 7px; border-radius:6px; background:#07110d; color:#9eb9aa; font-size:11px; }
+.empty { color:var(--muted); padding:24px; border:1px dashed var(--line); border-radius:14px; }
+.simulations { opacity:.75; }
+footer { margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; }
+@media(max-width:700px){ .metrics{grid-template-columns:1fr 1fr}.card{grid-template-columns:1fr} header{align-items:flex-start}.pulse{margin-top:8px} }

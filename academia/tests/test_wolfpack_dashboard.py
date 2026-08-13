@@ -30,6 +30,24 @@ class DashboardTest(unittest.TestCase):
             self.assertFalse(state["messages"][0]["simulated"])
             self.assertTrue(all(row["simulated"] for row in state["simulations"]))
             self.assertFalse(state["paper"]["live_trading_authorized"])
+            self.assertEqual(state["assets"][0]["asset"], "BTC/USD")
+            self.assertEqual(state["assets"][0]["open_source"], 1)
+            self.assertEqual(state["tracking"][0]["source_status"], "OPEN")
+            self.assertEqual(state["tracking"][0]["paper_status"], "NOT_COPIED")
+
+    def test_closed_source_and_paper_results_stay_separate(self):
+        events = [{"position_sha256": "p", "wallet_sha256": "w", "pair": "BTC/USD",
+                   "action": "Open", "side": "B", "notional_usd": 100,
+                   "executed_at": "2026-08-13T10:00:00Z"},
+                  {"position_sha256": "p", "wallet_sha256": "w", "pair": "BTC/USD",
+                   "action": "Close", "side": "B", "notional_usd": 100,
+                   "closed_pnl_usd": 8, "executed_at": "2026-08-13T11:00:00Z"}]
+        paper = {"closed": [{"position_sha256": "p", "copy_net_pnl_usdc": -1}]}
+        assets, tracking = dashboard.tracking_views(events, paper)
+        self.assertEqual(tracking[0]["source_status"], "CLOSED")
+        self.assertEqual(tracking[0]["source_pnl_usd"], 8)
+        self.assertEqual(tracking[0]["paper_net_pnl_usdc"], -1)
+        self.assertEqual(assets[0]["paper_net_pnl_usdc"], -1)
 
 
 if __name__ == "__main__":

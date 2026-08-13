@@ -68,6 +68,66 @@ def live_message(events: list[dict], now: datetime) -> dict | None:
     }
 
 
+def tracking_views(events: list[dict], paper: dict) -> tuple[list[dict], list[dict]]:
+    """Build asset inventory and source-vs-paper lifecycle without inventing missing opens."""
+    closed_paper = {row.get("position_sha256"): row for row in paper.get("closed", [])}
+    open_paper = {row.get("position_sha256"): row for row in paper.get("open_positions", [])}
+    grouped: dict[str, list[dict]] = {}
+    for row in events:
+        if row.get("position_sha256"):
+            grouped.setdefault(row["position_sha256"], []).append(row)
+    tracking = []
+    for position, rows in grouped.items():
+        rows.sort(key=lambda row: row.get("executed_at", ""))
+        opens = [row for row in rows if row.get("action") == "Open"]
+        closes = [row for row in rows if row.get("action") in
+                  {"Close", "StopLoss", "TakeProfit", "Liquidation", "CloseDayTrade"}]
+        source_pnl = sum(float(row.get("closed_pnl_usd") or 0) for row in closes)
+        if opens and not closes:
+            status = "OPEN"
+        elif opens and closes:
+            opened = sum(float(row.get("notional_usd") or 0) for row in opens)
+            closed = sum(float(row.get("notional_usd") or 0) for row in closes)
+            status = "CLOSED" if closed >= opened * .999 else "PARTIAL"
+        else:
+            status = "CLOSED_SEEN"
+        paper_trade = closed_paper.get(position)
+        paper_position = open_paper.get(position)
+        if paper_trade:
+            paper_status, paper_pnl = "CLOSED", paper_trade.get("copy_net_pnl_usdc")
+        elif paper_position:
+            paper_status, paper_pnl = "OPEN", None
+        else:
+            paper_status, paper_pnl = "NOT_COPIED", None
+        tracking.append({"position": position[:8], "wallet": rows[-1].get("wallet_sha256", "")[:8],
+                         "asset": rows[-1].get("pair"), "side": rows[-1].get("side"),
+                         "source_status": status, "source_pnl_usd": source_pnl if closes else None,
+                         "paper_status": paper_status, "paper_net_pnl_usdc": paper_pnl,
+                         "opened_at": opens[0].get("executed_at") if opens else None,
+                         "last_event_at": rows[-1].get("executed_at"),
+                         "last_action": rows[-1].get("action")})
+    tracking.sort(key=lambda row: row.get("last_event_at") or "", reverse=True)
+    assets: dict[str, dict] = {}
+    for row in events:
+        asset = row.get("pair")
+        if not asset:
+            continue
+        cell = assets.setdefault(asset, {"asset": asset, "events": 0, "open_source": 0,
+                                         "closed_source": 0, "source_realized_pnl_usd": 0.0,
+                                         "paper_open": 0, "paper_closed": 0,
+                                         "paper_net_pnl_usdc": 0.0})
+        cell["events"] += 1
+    for row in tracking:
+        cell = assets[row["asset"]]
+        cell["open_source"] += row["source_status"] in {"OPEN", "PARTIAL"}
+        cell["closed_source"] += row["source_status"] in {"CLOSED", "CLOSED_SEEN"}
+        cell["source_realized_pnl_usd"] += row["source_pnl_usd"] or 0
+        cell["paper_open"] += row["paper_status"] == "OPEN"
+        cell["paper_closed"] += row["paper_status"] == "CLOSED"
+        cell["paper_net_pnl_usdc"] += row["paper_net_pnl_usdc"] or 0
+    return sorted(assets.values(), key=lambda row: row["asset"]), tracking
+
+
 def build_state(follows: Path, heartbeat: Path, paper_path: Path,
                 checkpoint: Path, now: datetime | None = None) -> dict:
     now = now or datetime.now(timezone.utc)
@@ -75,6 +135,7 @@ def build_state(follows: Path, heartbeat: Path, paper_path: Path,
     heartbeat_data = read_json(heartbeat)
     paper = read_json(paper_path)
     checkpoint_data = read_json(checkpoint)
+    assets, tracking = tracking_views(events, paper)
     checked = parse_time(heartbeat_data.get("checked_at"))
     heartbeat_age = None if checked is None else (now - checked).total_seconds()
     messages = []
@@ -118,6 +179,8 @@ def build_state(follows: Path, heartbeat: Path, paper_path: Path,
                   "ending_equity_usdc": paper.get("ending_equity_usdc", 500),
                   "live_trading_authorized": False},
         "messages": messages,
+        "assets": assets,
+        "tracking": tracking,
         "simulations": simulations,
         "checkpoint": checkpoint_data.get("brief", checkpoint_data),
     }

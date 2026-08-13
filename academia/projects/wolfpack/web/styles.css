@@ -22,5 +22,11 @@ h2 { margin:30px 0 12px; font-size:20px; }
 .facts code { padding:4px 7px; border-radius:6px; background:#07110d; color:#9eb9aa; font-size:11px; }
 .empty { color:var(--muted); padding:24px; border:1px dashed var(--line); border-radius:14px; }
 .simulations { opacity:.75; }
+.table-wrap { overflow:auto; border:1px solid var(--line); border-radius:14px; background:var(--panel); }
+table { width:100%; border-collapse:collapse; min-width:760px; }
+th,td { padding:13px 15px; text-align:left; border-bottom:1px solid var(--line); white-space:nowrap; }
+th { color:var(--muted); font-size:11px; letter-spacing:.06em; text-transform:uppercase; }
+tbody tr:last-child td { border-bottom:0; }
+.good { color:var(--mint); }.bad { color:#ff8c86; }
 footer { margin-top:36px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; }
 @media(max-width:700px){ .metrics{grid-template-columns:1fr 1fr}.card{grid-template-columns:1fr} header{align-items:flex-start}.pulse{margin-top:8px} }

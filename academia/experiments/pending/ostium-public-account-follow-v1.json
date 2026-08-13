@@ -22,9 +22,9 @@
     "maximum_extension_days": 60
   },
   "signal_scope": {
-    "primary_assets": ["EUR/USD", "US500/USD", "XAU/USD"],
-    "secondary_observation": "other non-crypto markets are recorded separately and cannot change the active universe without a new data and execution gate",
-    "crypto_excluded": true,
+    "universe": "all observed markets, including crypto",
+    "scope_amendment": "Expanded by explicit user instruction on 2026-08-13 after six BTC/USD events had already been observed; those events remain valid forward observations, not retrospective selections.",
+    "execution_boundary": "each asset and venue requires its own contract, latency, liquidity, cost and sizing gate before paper simulation or promotion",
     "copy_entry": "first observation after a public Open fill",
     "copy_exit": "first observation after the matching public full close, StopLoss, TakeProfit, CloseDayTrade or Liquidation",
     "partial_and_remove_collateral": "record but do not simulate until semantics are reconciled"
@@ -53,7 +53,7 @@
     "profits require leverage above 5x",
     "one wallet or asset supplies more than half of profit",
     "net expectancy is non-positive after costs",
-    "no qualifying primary-asset sample by the maximum extension date"
+    "no qualifying market sample by the maximum extension date"
   ],
   "holdout_accessed": false,
   "trading_authorized": false

@@ -10,6 +10,11 @@ StrategyQuant.
 Trobar informació que millori prospectivament decisions per a un compte de 500
 USDC a Ostium. Una wallet guanyadora és una font potencial, no una estratègia.
 
+L'univers d'observació és obert: cripto, divises, índexs, matèries primeres i
+qualsevol venue amb dades auditables poden aportar edge. Cada mercat conserva
+els seus propis gates de contracte, costos, liquiditat, latència i execució;
+observar-ho tot no significa que tot sigui copiable ni operable a Ostium.
+
 ## Flux
 
 ```text

@@ -45,6 +45,14 @@ class WolfpackTest(unittest.TestCase):
         self.assertEqual(result["criticality_ceiling"], "C1")
         self.assertIn("liquidations", " ".join(result["promotion_blockers"]))
 
+    def test_crypto_is_part_of_the_open_universe(self):
+        follows = [{"pair": "BTC/USD", "action": "Close",
+                    "wallet_sha256": "crypto-wallet", "detection_latency_seconds": 420}]
+        result = wolfpack.build_brief([], follows, self.pack, self.council)
+        self.assertEqual(result["coverage"]["eligible_follow_events"], 1)
+        self.assertEqual(result["coverage"]["eligible_closed_signals"], 1)
+        self.assertEqual(result["activity"]["events_by_asset"], {"BTC/USD": 1})
+
 
 if __name__ == "__main__":
     unittest.main()

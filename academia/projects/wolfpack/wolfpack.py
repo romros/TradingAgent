@@ -14,7 +14,6 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools"))
 from summarize_cross_venue_diary import summarize as summarize_diary
 
-PRIMARY = {"EUR/USD", "US500/USD", "XAU/USD"}
 CLOSES = {"Close", "StopLoss", "TakeProfit", "Liquidation", "CloseDayTrade"}
 
 
@@ -26,13 +25,13 @@ def read_jsonl(path: Path | None) -> list[dict]:
 
 def build_brief(diary_rows: list[dict], follow_rows: list[dict], pack: dict, council: dict) -> dict:
     diary = summarize_diary(diary_rows)
-    primary = [row for row in follow_rows if row.get("pair") in PRIMARY]
-    close_rows = [row for row in primary if row.get("action") in CLOSES]
-    latencies = sorted(float(row["detection_latency_seconds"]) for row in primary
+    eligible = [row for row in follow_rows if row.get("pair")]
+    close_rows = [row for row in eligible if row.get("action") in CLOSES]
+    latencies = sorted(float(row["detection_latency_seconds"]) for row in eligible
                        if row.get("detection_latency_seconds") is not None)
-    wallets = Counter(row.get("wallet_sha256") for row in primary if row.get("wallet_sha256"))
-    assets = Counter(row.get("pair") for row in primary if row.get("pair"))
-    liquidations = sum(row.get("action") == "Liquidation" for row in primary)
+    wallets = Counter(row.get("wallet_sha256") for row in eligible if row.get("wallet_sha256"))
+    assets = Counter(row.get("pair") for row in eligible if row.get("pair"))
+    liquidations = sum(row.get("action") == "Liquidation" for row in eligible)
     observed_days = len({str(row.get("captured_at", ""))[:10] for row in diary_rows
                          if len(str(row.get("captured_at", ""))) >= 10})
     complete_snapshots = sum(1 for row in diary_rows
@@ -46,7 +45,7 @@ def build_brief(diary_rows: list[dict], follow_rows: list[dict], pack: dict, cou
     if complete_snapshots < 300:
         blockers.append(f"only {complete_snapshots}/300 complete market snapshots")
     if len(close_rows) < 30:
-        blockers.append(f"only {len(close_rows)}/30 closed primary signals")
+        blockers.append(f"only {len(close_rows)}/30 closed eligible signals")
     if len(wallets) < 2:
         blockers.append(f"only {len(wallets)}/2 contributing wallets")
     if liquidations:
@@ -68,7 +67,7 @@ def build_brief(diary_rows: list[dict], follow_rows: list[dict], pack: dict, cou
                  "statuses": dict(Counter(item["status"] for item in pack["members"]))},
         "coverage": {"diary_days": observed_days, "diary_snapshots": diary["snapshot_rows"],
                      "complete_market_snapshots": complete_snapshots,
-                     "primary_follow_events": len(primary), "primary_closed_signals": len(close_rows),
+                     "eligible_follow_events": len(eligible), "eligible_closed_signals": len(close_rows),
                      "contributing_wallets": len(wallets), "liquidations": liquidations},
         "replicability": {"detection_latency_seconds_median": None if not latencies else latencies[len(latencies)//2],
                           "detection_latency_seconds_maximum": None if not latencies else max(latencies)},

@@ -2,7 +2,7 @@
   "schema_version": 1,
   "id": "spx-volatility-managed-equity-premium-v37",
   "preregistered_at": "2026-08-13",
-  "status": "FROZEN_AWAITING_FINAL_EXECUTION_COST",
+  "status": "REJECTED_DEVELOPMENT",
   "question": "Can a low-turnover long US500 equity-risk-premium component reduce drawdown by scaling exposure with prior-session VIX while retaining positive net expectancy for 200-500 USDC at Ostium?",
   "economic_mechanism": "Equity risk premium supplies the return source; volatility is a risk state, not an entry-direction predictor. Exposure falls when option-implied uncertainty rises because volatility changes need not be matched by proportional changes in expected return.",
   "rule": {
@@ -86,5 +86,12 @@
   ],
   "holdout_accessed": false,
   "sqcli_executed": false,
-  "trading_authorized": false
+  "trading_authorized": false,
+  "result": {
+    "artifact": "academia/experiments/observations/spx-volatility-managed-equity-premium-v37-2026-08.json",
+    "decision": "REJECT_DEVELOPMENT",
+    "reason": "Only 5 of 8 development years were positive versus the frozen minimum of 6; stressed current Ostium carry also produced a negative development result.",
+    "validation_revealed": false,
+    "holdout_accessed": false
+  }
 }

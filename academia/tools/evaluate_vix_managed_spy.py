@@ -6,7 +6,7 @@ import csv
 import hashlib
 import json
 import math
-from datetime import datetime
+from datetime import UTC, datetime
 from pathlib import Path
 
 
@@ -31,7 +31,7 @@ def load_yahoo_chart(path: Path) -> list[dict]:
         if None in (close, open_price, adjusted_close) or close <= 0:
             continue
         rows.append({
-            "date": datetime.utcfromtimestamp(timestamp).date().isoformat(),
+            "date": datetime.fromtimestamp(timestamp, UTC).date().isoformat(),
             "adjusted_open": open_price * adjusted_close / close,
         })
     return rows

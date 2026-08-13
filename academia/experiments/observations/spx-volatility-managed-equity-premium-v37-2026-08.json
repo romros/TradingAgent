@@ -1,0 +1,71 @@
+{
+  "experiment_id": "spx-volatility-managed-equity-premium-v37",
+  "data": {
+    "spy_sha256": "ceea2c945452de2e56b7c8d0cfdaecdce98578afdf6d5e54f17b1dca04c11ff8",
+    "vix_sha256": "fad8a552c728bf1af3b06323407fcd1203978f7a8f31ab9977db456c537bc21e"
+  },
+  "development": {
+    "base": {
+      "interval": "2007-01-01/2014-12-31",
+      "roundtrip_bps": 1.9042389662588999,
+      "managed": {
+        "periods": 418,
+        "net_return_pct": 14.442594930168283,
+        "cagr_pct": 1.6982079884929613,
+        "maximum_drawdown_pct": 43.723843328100955,
+        "return_over_drawdown": 0.33031393928003916,
+        "positive_years": 5,
+        "year_count": 8,
+        "annual_carry_pct": 5.71626883461888
+      },
+      "always_long": {
+        "periods": 418,
+        "net_return_pct": 7.242442902104962,
+        "cagr_pct": 0.8766311776027269,
+        "maximum_drawdown_pct": 58.769852259485866,
+        "return_over_drawdown": 0.12323398177227816,
+        "positive_years": 5,
+        "year_count": 8,
+        "annual_carry_pct": 5.71626883461888
+      }
+    },
+    "stress": {
+      "interval": "2007-01-01/2014-12-31",
+      "roundtrip_bps": 8.8084779325178,
+      "managed": {
+        "periods": 418,
+        "net_return_pct": -27.01064964628238,
+        "cagr_pct": -3.854014743567513,
+        "maximum_drawdown_pct": 48.01610886652578,
+        "return_over_drawdown": -0.5625330807493387,
+        "positive_years": 5,
+        "year_count": 8,
+        "annual_carry_pct": 12.0
+      },
+      "always_long": {
+        "periods": 418,
+        "net_return_pct": -35.22406594611803,
+        "cagr_pct": -5.276132886764695,
+        "maximum_drawdown_pct": 62.87509617130833,
+        "return_over_drawdown": -0.5602228559642627,
+        "positive_years": 5,
+        "year_count": 8,
+        "annual_carry_pct": 12.0
+      }
+    },
+    "gate": {
+      "pass": false,
+      "checks": {
+        "net_return_positive": true,
+        "drawdown_reduction_at_least_15pct": true,
+        "return_over_drawdown_above_baseline": true,
+        "positive_years_at_least_6_of_8": false
+      }
+    }
+  },
+  "holdout_accessed": false,
+  "validation": {
+    "status": "NOT_REVEALED_AFTER_DEVELOPMENT_FAIL"
+  },
+  "decision": "REJECT_DEVELOPMENT"
+}

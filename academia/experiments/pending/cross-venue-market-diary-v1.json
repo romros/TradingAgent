@@ -1,0 +1,45 @@
+{
+  "id": "cross-venue-market-diary-v1",
+  "preregistered_at": "2026-08-13",
+  "question": "Quins estats observables entre Ostium i Hyperliquid precedeixen moviments nets replicables en EUR/USD, US500/USD o XAU/USD sense usar informació futura?",
+  "status": "PREREGISTERED_OBSERVATION_ONLY",
+  "duration_days": 30,
+  "cadence_minutes": 60,
+  "execution_venue_candidate": "Ostium",
+  "context_venues": ["Hyperliquid xyz HIP-3", "Hyperliquid mkts HIP-3"],
+  "primary_assets": ["EUR/USD", "US500/USD", "XAU/USD"],
+  "secondary_context_only": ["xyz:CL", "xyz:COPPER", "xyz:SILVER"],
+  "fields": [
+    "venue timestamp and market-open state",
+    "bid mid ask or impact prices",
+    "mark-oracle basis",
+    "funding or rollover",
+    "open interest and 24h notional volume",
+    "Ostium fee and simulated price impact at 100 and 500 USDC",
+    "public-account signals detected since the prior observation"
+  ],
+  "mapping_policy": "Store each venue contract raw. Do not calculate cross-venue price basis until symbol, scale, oracle, timezone and settlement semantics pass an explicit mapping gate.",
+  "hypotheses_allowed_after_collection": [
+    "funding or rollover divergence predicts continuation or reversion",
+    "mark-oracle premium and open-interest change identify crowded regimes",
+    "commodity context improves XAU regime selection",
+    "public-account signals add information beyond venue state"
+  ],
+  "anti_leakage": {
+    "features_timestamped_before_target_return": true,
+    "hypothesis_definition_requires_development_window_only": true,
+    "validation_and_holdout_sealed_until_feature_rules_freeze": true,
+    "missing_snapshots_not_forward_filled_across_market_closures": true
+  },
+  "promotion_gates": {
+    "minimum_observation_days": 20,
+    "minimum_complete_primary_snapshots": 300,
+    "positive_net_expectancy_after_ostium_costs": true,
+    "positive_in_both_temporal_halves": true,
+    "must_beat_asset_only_baseline": true,
+    "maximum_drawdown_pct": 15
+  },
+  "raw_hourly_data_versioned": false,
+  "daily_aggregates_and_decisions_versioned": true,
+  "trading_authorized": false
+}

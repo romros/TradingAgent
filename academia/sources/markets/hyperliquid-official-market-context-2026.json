@@ -1,0 +1,41 @@
+{
+  "id": "hyperliquid_official_market_context_2026",
+  "kind": "documentation",
+  "title": "Hyperliquid public market context and HIP-3 contracts",
+  "url": "https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/info-endpoint/perpetuals",
+  "author": "Hyperliquid",
+  "published_at": null,
+  "accessed_at": "2026-08-13",
+  "language": "en",
+  "sq_version": null,
+  "source_level": "A_PRIMARY",
+  "domain": "market-context",
+  "rights_policy": "transformative_notes",
+  "metadata": {
+    "also_checked": [
+      "https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/rate-limits-and-user-limits",
+      "https://hyperliquid.gitbook.io/hyperliquid-docs/hyperliquid-improvement-proposals-hips/hip-3-builder-deployed-perpetuals"
+    ],
+    "volatile": true
+  },
+  "chunks": [
+    {
+      "locator": "info:metaAndAssetCtxs",
+      "heading": "Public perp context",
+      "body": "L'endpoint públic info/metaAndAssetCtxs retorna metadades del contracte i context com mark, oracle, funding, open interest, volum nocional diari, premium i impact prices. No requereix una wallet de trading.",
+      "evidence_status": "captured"
+    },
+    {
+      "locator": "hip-3:oracle-and-fees",
+      "heading": "HIP-3 is not automatically comparable",
+      "body": "En HIP-3 el deployer defineix mercat, oracle, límits i operació; els usuaris paguen aproximadament dues vegades les fees normals. Una coincidència de nom no demostra paritat de contracte ni d'execució.",
+      "evidence_status": "captured"
+    },
+    {
+      "locator": "rate-limits:info",
+      "heading": "Hourly diary stays below public limits",
+      "body": "La API REST comparteix un límit de pes de 1.200 per minut; una captura horària de pocs endpoints info queda molt per sota, sense justificar websocket ni servei de baixa latència.",
+      "evidence_status": "captured"
+    }
+  ]
+}

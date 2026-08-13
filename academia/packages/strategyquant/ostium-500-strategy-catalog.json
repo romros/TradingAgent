@@ -31,7 +31,7 @@
         "VIX term normalization timing"
       ],
       "dominant_failure": "timing effects fail costs, year stability or untouched validation",
-      "open_data_gate": "2026-08-11 open qualifies with 40 samples across 31.37 minutes; midday and close for this day plus all three windows on two additional days are still required",
+            "open_data_gate": "1/3 complete days qualify: 2026-08-12 has 60 accepted samples across open, midday and close; 2026-08-13 and 2026-08-14 remain required",
       "risk_state_data_gate": "PASS: official Cboe VIX close has 9,246 sessions (1990-2026) and is frozen for prior-session-only use; 47 inconsistent historical non-close OHLC rows are quarantined",
       "new_driver_backlog": [
         "low-turnover equity risk-premium regime with volatility used only as frozen risk state"
@@ -84,6 +84,7 @@
     "experiments/observations/spxusd-vix-risk-state-preflight-v35-2026-08.json",
       "experiments/observations/xau-gld-holdings-flow-v36-2026-08.json",
       "experiments/observations/spxusd-open-spread-sample-2026-08-11.json",
-      "experiments/observations/spxusd-close-spread-sample-2026-08-11.json"
+      "experiments/observations/spxusd-close-spread-sample-2026-08-11.json",
+      "experiments/observations/spxusd-complete-day-sample-2026-08-12.json"
   ]
 }

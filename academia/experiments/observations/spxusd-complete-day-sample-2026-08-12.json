@@ -1,0 +1,50 @@
+{
+  "schema_version": 2,
+  "id": "spxusd-complete-day-sample-2026-08-12",
+  "instrument": "US500/USD",
+  "ostium_pair": "SPX/USD",
+  "market_date_new_york": "2026-08-12",
+  "collection": {
+    "accepted_samples": 60,
+    "rejected_samples": 0,
+    "market_open_for_all_samples": true,
+    "ordered_bid_mid_ask_for_all_samples": true,
+    "raw_jsonl_versioned": false,
+    "windows": {
+      "open": {"samples": 20, "span_minutes": 30.29328333333333, "temporary_raw_sha256": "5ab099f9feb32daf6e2397a311d55a54e435e28c4f8b5da22314927f325300c3"},
+      "midday": {"samples": 20, "span_minutes": 30.29593333333333, "temporary_raw_sha256": "49cdbe54dfb05e20b131fddebee657ef5ec45f7bf358486877e296f4c6c6f042"},
+      "close": {"samples": 20, "span_minutes": 30.291966666666667, "temporary_raw_sha256": "13b114ccc7ad4a635f01e552b1dc057008a45f009780537e8dea5a3711b3a8b9"}
+    }
+  },
+  "spread_bps_all_windows": {
+    "median": 0.9026758539866351,
+    "p90": 0.981496366612194,
+    "p95": 1.032016095420554,
+    "maximum": 1.1485130627222573
+  },
+  "by_window": {
+    "open": {"spread_median_bps": 0.9348136003782892, "spread_p95_bps": 1.0377935876408502, "spread_maximum_bps": 1.1480286155799324, "roundtrip_proxy_bps": 2.03151227049668},
+    "midday": {"spread_median_bps": 0.8904891882980562, "spread_p95_bps": 1.0382804857514212, "spread_maximum_bps": 1.1485130627222573, "roundtrip_proxy_bps": 1.9421368786958402},
+    "close": {"spread_median_bps": 0.8511867606925236, "spread_p95_bps": 0.9827171782196714, "spread_maximum_bps": 1.0314089820265273, "roundtrip_proxy_bps": 1.8121029994230202}
+  },
+  "execution_metadata": {
+    "notionals_usdc": [60, 100, 200, 400, 500],
+    "open_fee_bps": 1,
+    "close_fee_bps": 0,
+    "rollover_pct_per_8h": {"long": -0.00521676370944, "short": 0.0015534037094400003},
+    "roundtrip_proxy_definition": "open fee plus close fee plus SDK long-open and short-open price impact; refundable oracle and accumulated carry excluded",
+    "slippage_limitation": "SDK simulated slippage is sampled once per window before the quote loop; cross-window levels are observed but intrawindow temporal variation is not."
+  },
+  "tool": {
+    "package": "@ostium/builder-sdk@0.7.0",
+    "mode": "createReadOnly",
+    "deployment": "ephemeral node:22-alpine Docker containers scheduled by one-shot at jobs",
+    "private_key_used": false,
+    "transactions_possible": false
+  },
+  "day_decision": "QUALIFY_COMPLETE_DAY_1_OF_3",
+  "global_gate_decision": "KEEP_BLOCKED_UNTIL_THREE_COMPLETE_DAYS",
+  "interpretation": "One complete day suggests stable approximately 1.8-2.0 bps roundtrip proxy costs across the cash session, but it is insufficient to infer a persistent window ranking.",
+  "sqcli_used": false,
+  "trading_executed": false
+}

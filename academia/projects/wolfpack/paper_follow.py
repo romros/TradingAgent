@@ -131,7 +131,8 @@ def main() -> None:
     deadline = time.time() + args.duration_hours * 3600
     while True:
         rows = [json.loads(line) for line in args.follows.read_text().splitlines() if line.strip()]
-        temporary = args.output.with_suffix(args.output.suffix + ".tmp")
+        # Dedicated name avoids colliding with a host-side preview in a sticky /tmp.
+        temporary = args.output.with_suffix(args.output.suffix + ".container-next")
         temporary.write_text(json.dumps(replay(rows), indent=2, ensure_ascii=False) + "\n")
         temporary.replace(args.output)
         if args.duration_hours == 0 or time.time() >= deadline:

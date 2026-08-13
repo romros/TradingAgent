@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "id": "spx-volatility-managed-equity-premium-v37",
+  "preregistered_at": "2026-08-13",
+  "status": "FROZEN_AWAITING_FINAL_EXECUTION_COST",
+  "question": "Can a low-turnover long US500 equity-risk-premium component reduce drawdown by scaling exposure with prior-session VIX while retaining positive net expectancy for 200-500 USDC at Ostium?",
+  "economic_mechanism": "Equity risk premium supplies the return source; volatility is a risk state, not an entry-direction predictor. Exposure falls when option-implied uncertainty rises because volatility changes need not be matched by proportional changes in expected return.",
+  "rule": {
+    "direction": "long_only",
+    "decision_frequency": "weekly, first tradable US500 session of the week",
+    "information_lag": "use only the latest official VIX close published before the US500 decision session",
+    "target_exposure": "min(1.0, 20.0 / prior_vix_close)",
+    "exposure_bounds": [0.0, 1.0],
+    "threshold_search": false,
+    "intraday_timing": false,
+    "shorting": false,
+    "leverage_during_edge_test": 1.0
+  },
+  "baselines": [
+    "always-long US500 at 1.0 exposure with the same weekly execution convention and costs",
+    "cash at zero return"
+  ],
+  "periods": {
+    "development": "2007-01-01/2014-12-31",
+    "validation": "2015-01-01/2019-12-31",
+    "modern_oos": "2020-01-01/2023-12-31",
+    "sealed_holdout": "2024-01-01/2026-08-13"
+  },
+  "cost_contract": {
+    "provisional_roundtrip_bps": 2.1,
+    "source": "US500 Ostium execution gate through 2026-08-13 open; one complete day only",
+    "final_value_frozen_after": "three complete open/midday/close days",
+    "stress": "max(2 * measured median, measured p95) plus reconciled weekly rollover",
+    "no_result_before_final_cost": true
+  },
+  "gates": {
+    "development": [
+      "net return positive",
+      "maximum drawdown at least 15 percent lower than equal-cost always-long baseline",
+      "net return divided by maximum drawdown greater than baseline",
+      "positive net result in at least 6 of 8 years"
+    ],
+    "validation": [
+      "net return positive",
+      "maximum drawdown lower than equal-cost always-long baseline",
+      "net return divided by maximum drawdown not below 80 percent of development",
+      "positive net result in at least 3 of 5 years"
+    ],
+    "modern_oos": [
+      "positive net return",
+      "no liquidation at a separately selected small-account leverage",
+      "benefit is not confined to the 2020 crash rebound"
+    ],
+    "small_account_economics": [
+      "report CAGR and net USDC for starting balances of 200 and 500 USDC",
+      "report 1x, 2x, 3x and 5x only after edge validation; never select leverage by highest hindsight profit",
+      "select the highest fixed ladder leverage whose stressed maximum drawdown remains at or below 25 percent; 25-35 percent is paper-only and above 35 percent is rejected",
+      "estimated probability of ruin must remain below 1 percent under block bootstrap and stressed execution",
+      "liquidation buffer must be explicit and must not depend on adding collateral",
+      "annualized net gain must be at least 10 percent or the component is economically immaterial for the portfolio objective",
+      "report probability and time-to-2x by bootstrap; do not call 2x feasible from CAGR alone"
+    ]
+  },
+  "automatic_reject": [
+    "requires tuning the VIX numerator or rebalance day after seeing results",
+    "only improves Sharpe by suppressing nearly all exposure",
+    "fails equal-cost always-long drawdown comparison",
+    "weekly turnover and rollover erase the development tendency",
+    "depends on accessing the sealed 2024-2026 holdout"
+  ],
+  "difference_from_rejected_families": "This is exposure management of a persistent equity premium, not an M15 timing pattern, turn-of-month rule or VIX term-structure transition.",
+  "evidence": [
+    "moreira_muir_volatility_managed_portfolios_2017",
+    "spxusd-vix-risk-state-preflight-v35-2026-08",
+    "spxusd-open-session-spread-gate-2026-08"
+  ],
+  "holdout_accessed": false,
+  "sqcli_executed": false,
+  "trading_authorized": false
+}

@@ -1,0 +1,35 @@
+{
+  "id": "moreira_muir_volatility_managed_portfolios_2017",
+  "kind": "paper",
+  "title": "Volatility-Managed Portfolios",
+  "url": "https://doi.org/10.1111/jofi.12513",
+  "author": "Alan Moreira and Tyler Muir",
+  "published_at": "2017-08-01",
+  "accessed_at": "2026-08-13",
+  "language": "en",
+  "sq_version": null,
+  "source_level": "A_PRIMARY",
+  "domain": "markets",
+  "rights_policy": "transformative_notes",
+  "metadata": {
+    "journal": "The Journal of Finance",
+    "volume": 72,
+    "issue": 4,
+    "pages": "1611-1644",
+    "doi": "10.1111/jofi.12513"
+  },
+  "chunks": [
+    {
+      "locator": "abstract",
+      "heading": "Mechanism",
+      "body": "The paper studies portfolios that reduce exposure when recent volatility is high. Its reported benefit is risk-adjusted performance, motivated by volatility being forecastable without a proportional rise in expected return; this is a research premise, not evidence that an Ostium implementation is profitable.",
+      "evidence_status": "captured"
+    },
+    {
+      "locator": "implementation-boundary",
+      "heading": "Transfer boundary",
+      "body": "Alquímia does not import ex-post optimal weights or the paper's historical result. It freezes a bounded, long-only, prior-information rule and must test turnover, current costs, small-account sizing and temporal transfer independently.",
+      "evidence_status": "captured"
+    }
+  ]
+}

@@ -30,9 +30,10 @@ def read_jsonl(path: Path) -> list[dict]:
         return []
 
 
-def snapshot(diary: Path, link_watch: Path) -> dict:
+def snapshot(diary: Path, link_watch: Path, link_setup: Path | None = None) -> dict:
     rows = read_jsonl(diary)
     link = read_json(link_watch)
+    setup = read_json(link_setup) if link_setup else {}
     prices: dict[str, list[tuple[float, float]]] = {}
     for row in rows:
         try:
@@ -51,13 +52,27 @@ def snapshot(diary: Path, link_watch: Path) -> dict:
         regime = "UP" if change >= threshold else "DOWN" if change <= -threshold else "NEUTRAL"
         markets[name] = {"mid": latest, "change_1h_pct": change, "regime": regime}
     return {"captured_at": datetime.now(timezone.utc).isoformat(), "markets": markets,
-            "link": {"status": link.get("status", "NOT_STARTED"),
-                     "position": link.get("position", {}), "last_quote": link.get("last_quote", {})},
+            "link": {"instrument": setup.get("asset", "LINK/USD"),
+                     "experiment_id": setup.get("id", link.get("experiment_id")),
+                     "status": link.get("status", "NOT_STARTED"),
+                     "expires_at": setup.get("expires_at"),
+                     "confirmation": setup.get("confirmation"),
+                     "confirmation_progress": {
+                         "long": link.get("consecutive_long", 0),
+                         "short": link.get("consecutive_short", 0),
+                         "required": 3,
+                     },
+                     "setups": setup.get("setups", {}),
+                     "paper_execution": setup.get("paper_execution", {}),
+                     "automatic_cancel": setup.get("automatic_cancel", []),
+                     "position": link.get("position"),
+                     "last_quote": link.get("last_quote", {})},
             "paper_only": True, "live_trading_authorized": False}
 
 
 def material_signature(payload: dict) -> str:
     facts = {"link_status": payload["link"]["status"],
+             "link_setup": payload["link"].get("setups", {}),
              "regimes": {key: value["regime"] for key, value in payload["markets"].items()}}
     return hashlib.sha256(json.dumps(facts, sort_keys=True).encode()).hexdigest()
 
@@ -99,6 +114,9 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--diary", type=Path, required=True)
     parser.add_argument("--link-watch", type=Path, required=True)
+    parser.add_argument("--link-setup", type=Path,
+                        default=here.parents[2] / "academia" / "experiments" / "pending" /
+                        "link-breakout-breakdown-paper-v39.json")
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--codex", type=Path, default=Path("/home/roman/.local/bin/codex"))
     parser.add_argument("--schema", type=Path, default=here / "codex_review.schema.json")
@@ -112,7 +130,7 @@ def main() -> None:
     deadline = time.time() + args.duration_hours * 3600
     previous = read_json(args.output).get("material_signature")
     while time.time() < deadline:
-        facts = snapshot(args.diary, args.link_watch)
+        facts = snapshot(args.diary, args.link_watch, args.link_setup)
         signature = material_signature(facts)
         if previous is None:
             result = {"status": "BASELINE_ESTABLISHED", "decision": "Esperant un canvi material",

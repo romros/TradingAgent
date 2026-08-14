@@ -22,9 +22,19 @@ class OpportunityCodexMonitorTest(unittest.TestCase):
             ]
             (root / "diary").write_text("\n".join(json.dumps(row) for row in rows))
             (root / "link").write_text(json.dumps({"status": "WATCH"}))
-            payload = monitor.snapshot(root / "diary", root / "link")
+            (root / "setup").write_text(json.dumps({
+                "id": "link-test", "asset": "LINK/USD", "expires_at": "2026-08-15T12:00:00Z",
+                "confirmation": "three samples", "setups": {
+                    "short": {"trigger_below": 8.72, "stop": 8.78, "target_1": 8.55},
+                    "long": {"trigger_above": 8.865, "stop": 8.80, "target_1": 9.00}},
+                "paper_execution": {"notional_usdc": 250}, "automatic_cancel": ["expired"]}))
+            payload = monitor.snapshot(root / "diary", root / "link", root / "setup")
             self.assertEqual(payload["markets"]["BTC/USD"]["regime"], "UP")
             self.assertEqual(payload["link"]["status"], "WATCH")
+            self.assertEqual(payload["link"]["instrument"], "LINK/USD")
+            self.assertEqual(payload["link"]["setups"]["short"]["stop"], 8.78)
+            self.assertEqual(payload["link"]["confirmation_progress"]["required"], 3)
+            self.assertEqual(payload["link"]["paper_execution"]["notional_usdc"], 250)
             self.assertFalse(payload["live_trading_authorized"])
             self.assertEqual(monitor.material_signature(payload), monitor.material_signature(payload))
 

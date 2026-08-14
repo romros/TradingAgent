@@ -137,7 +137,10 @@ python3 academia/projects/wolfpack/opportunity_codex_monitor.py \
   --output /tmp/opportunity-codex-review.json --interval-seconds 600
 ```
 
-La sortida estructurada mai pot posar `live_trading_authorized=true`. Codex
+El snapshot inclou l'instrument, els dos setups preregistrats, confirmacions,
+expiració, mida paper, invalidacions, objectius i causes de cancel·lació, fins i
+tot abans que existeixi una posició. La sortida estructurada mai pot posar
+`live_trading_authorized=true`. Codex
 aporta judici crític; no substitueix els gates deterministes ni envia ordres.
 
 ## Manteniment

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "source_csv": "data/ibkr_sq_v2/preflight/AAPLUSUSD_CANONICAL_D1_2017_2024.csv",
+  "source_sha256": "47a4a85f455d4f55946c233cc6c2d7525ec39b5778ed6bcb418496b2c5172127",
+  "exported_csv": "/mnt/volume-SQ/user/exports/ibkr_v3_aapl_d1_roundtrip/AAPL_IBKR_V3_D1-D1-No Session.csv",
+  "exported_sha256": "c22b1fe1cf4f8b23ed0a608b9d9f0f1e50aa2913c0256083a3ebddfa11536e7a",
+  "exported_has_header": false,
+  "source_rows": 1995,
+  "exported_rows": 1995,
+  "timestamps_exact_and_ordered": true,
+  "field_errors": {
+    "open": {
+      "changed_rows": 0,
+      "max_absolute_error": "0.000000",
+      "mean_absolute_error": "0.000000"
+    },
+    "high": {
+      "changed_rows": 0,
+      "max_absolute_error": "0.000000",
+      "mean_absolute_error": "0.000000"
+    },
+    "low": {
+      "changed_rows": 0,
+      "max_absolute_error": "0.000000",
+      "mean_absolute_error": "0.000000"
+    },
+    "close": {
+      "changed_rows": 0,
+      "max_absolute_error": "0.000000",
+      "mean_absolute_error": "0.000000"
+    },
+    "volume": {
+      "changed_rows": 1995,
+      "max_absolute_error": "0.999996",
+      "mean_absolute_error": "0.5036680255639097744360902256"
+    }
+  },
+  "decision": "PASS_SIGNAL_RESEARCH",
+  "decision_scope": "Data integrity for signal research only; volume-dependent rules, execution, paper, and live remain unauthorized.",
+  "exact_numeric_parity": false,
+  "paper_or_live_authorized": false
+}

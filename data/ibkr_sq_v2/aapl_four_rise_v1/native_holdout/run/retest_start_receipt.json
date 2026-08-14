@@ -1,0 +1,17 @@
+{
+  "databank_sync_receipt_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/aapl_four_rise_v1/native_holdout/run/retest_databank_sync_receipt.json",
+  "databank_sync_receipt_sha256": "b34cc93a4ea1fed4919a3c80623d2beea783c78831b59bd58abcdf5843e66b3c",
+  "decision": "PASS_RETEST_STARTED",
+  "holdout_accessed": true,
+  "holdout_evaluation_count": 1,
+  "input_copy_path": "/mnt/volume-SQ/user/projects/IBKR_V4_AAPL_FOUR_RISE_HOLDOUT/databanks/Results/MSFT014_B4_SL1.4_PT4.4.sqx",
+  "input_copy_sha256": "0056490bf5efac0d9713f4a16c53ca0a91674d676da458ad870d52dd4267f149",
+  "preflight_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/aapl_four_rise_v1/native_holdout/run/retest_preflight.json",
+  "preflight_sha256": "4d0b4589b686a4377f13c0e9bd1e690317eb0be9c54eef126e3e98a64acd9d1e",
+  "project_name": "IBKR_V4_AAPL_FOUR_RISE_HOLDOUT",
+  "response": {
+    "success": "Project execution started."
+  },
+  "retest_stage": "holdout",
+  "schema_version": 1
+}

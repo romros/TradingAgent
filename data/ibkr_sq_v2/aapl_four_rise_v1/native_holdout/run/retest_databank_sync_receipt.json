@@ -1,0 +1,11 @@
+{
+  "command": "-databank action=syncfromfiles project=IBKR_V4_AAPL_FOUR_RISE_HOLDOUT name=Results",
+  "databank": "Results",
+  "decision": "PASS_RETEST_DATABANK_SYNC",
+  "input_copy_path": "/mnt/volume-SQ/user/projects/IBKR_V4_AAPL_FOUR_RISE_HOLDOUT/databanks/Results/MSFT014_B4_SL1.4_PT4.4.sqx",
+  "input_copy_sha256": "0056490bf5efac0d9713f4a16c53ca0a91674d676da458ad870d52dd4267f149",
+  "observed_project_strategies": 1,
+  "project_name": "IBKR_V4_AAPL_FOUR_RISE_HOLDOUT",
+  "response": "19:25:07 Syncing databank from files\n--------------------------------------------------\n",
+  "schema_version": 1
+}

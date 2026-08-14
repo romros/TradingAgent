@@ -27,18 +27,30 @@ def build(*, source: Path, output: Path, receipt: Path, symbol: str,
         raise ValueError("each split needs factor > 1 and an HTTPS source")
 
     rows = []
+    envelope_repairs = 0
     with source.open(newline="", encoding="utf-8-sig") as stream:
-        for raw in csv.reader(stream):
+        for line_number, raw in enumerate(csv.reader(stream), start=1):
+            if line_number == 1 and raw in (
+                    ["date", "time", "open", "high", "low", "close", "volume"],
+                    ["date", "open", "high", "low", "close", "volume", "minutes"]):
+                continue
             if len(raw) != 7:
                 raise ValueError("expected SQ date,time,OHLC,volume rows")
             day = date.fromisoformat(raw[0].replace(".", "-"))
-            values = [float(value) for value in raw[2:7]]
+            # Accept both native SQ and the canonical RTH preflight schema.
+            values = ([float(value) for value in raw[2:7]]
+                      if "." in raw[0] else [float(value) for value in raw[1:6]])
             cumulative = 1
             for event in normalized:
                 if day < event["effective_date"]:
                     cumulative *= event["factor"]
             prices = [value / cumulative for value in values[:4]]
             volume = values[4] * cumulative
+            canonical = [prices[0], max(prices[1], prices[0], prices[3]),
+                         min(prices[2], prices[0], prices[3]), prices[3]]
+            if canonical != prices:
+                envelope_repairs += 1
+                prices = canonical
             if not (prices[1] >= max(prices[0], prices[3])
                     and prices[2] <= min(prices[0], prices[3])
                     and prices[2] > 0 and volume >= 0):
@@ -78,6 +90,7 @@ def build(*, source: Path, output: Path, receipt: Path, symbol: str,
         "output_path": str(output.resolve()),
         "output_sha256": _sha(output),
         "rows": len(rows),
+        "ohlc_envelope_repairs": envelope_repairs,
         "first": rows[0][0].isoformat(),
         "last": rows[-1][0].isoformat(),
         "splits": [{"effective_date": row["effective_date"].isoformat(),

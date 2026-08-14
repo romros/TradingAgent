@@ -40,6 +40,7 @@ def load_orders(path: Path, *, allow_same_bar_d1: bool = False) -> list[dict]:
             "close_time": datetime.strptime(row["Close time"], "%Y.%m.%d %H:%M:%S"),
             "open_price": _number(row["Open price"]),
             "close_price": _number(row["Close price"]),
+            "sq_size": _number(row["Size"]) if row.get("Size") else 1.0,
             "sq_pnl_one_share": _number(row["Profit/Loss"]),
             "close_type": row.get("Close type"),
             "mae": _number(row["MAE ($)"]) if row.get("MAE ($)") else None,
@@ -49,11 +50,21 @@ def load_orders(path: Path, *, allow_same_bar_d1: bool = False) -> list[dict]:
     same_bar = [row for row in orders if row["close_time"] == row["open_time"]]
     if any(row["close_time"] < row["open_time"] for row in orders):
         raise ValueError("non-positive trade duration")
+    def valid_same_bar(row: dict) -> bool:
+        if row["mae"] is None or row["mfe"] is None:
+            return False
+        if row["close_type"] == "SL":
+            return (row["close_price"] < row["open_price"]
+                    and abs(row["mae"] - row["sq_pnl_one_share"]) <= .011)
+        if row["close_type"] == "PT":
+            return (row["close_price"] > row["open_price"]
+                    and abs(row["mfe"] - row["sq_pnl_one_share"]) <= .011)
+        if row["close_type"] == "EndTest":
+            expected = row["sq_size"] * (row["close_price"] - row["open_price"])
+            return abs(expected - row["sq_pnl_one_share"]) <= .011
+        return False
     if same_bar and (not allow_same_bar_d1 or any(
-            row["close_type"] != "SL" or row["close_price"] >= row["open_price"]
-            or row["mae"] is None or row["mfe"] is None
-            or abs(row["mae"] - row["sq_pnl_one_share"]) > .011
-            for row in same_bar)):
+            not valid_same_bar(row) for row in same_bar)):
         raise ValueError("non-positive trade duration")
     if any(right["open_time"] < left["close_time"]
            for left, right in zip(orders, orders[1:])):
@@ -118,8 +129,8 @@ def simulate(orders: list[dict], *, initial_capital: float, plan: str) -> dict:
 def audit(*, candidate_id: str, orders_path: Path,
           capital_scenarios: list[float], allow_same_bar_d1: bool = False,
           stage: str = "validation") -> dict:
-    if stage not in {"validation", "oos"}:
-        raise ValueError("audit stage must be validation or oos")
+    if stage not in {"validation", "oos", "holdout"}:
+        raise ValueError("audit stage must be validation, oos or holdout")
     orders = load_orders(orders_path, allow_same_bar_d1=allow_same_bar_d1)
     return {
         "schema_version": 1,
@@ -129,7 +140,7 @@ def audit(*, candidate_id: str, orders_path: Path,
         "orders_csv_sha256": _sha(orders_path),
         "sizing": "whole_shares_all_available_realized_equity_no_leverage",
         "same_bar_d1_policy": (
-            "allow_only_stop_below_entry_with_mae_equal_recorded_loss"
+            "allow_verified_SL_MAE_or_PT_MFE_or_exact_EndTest_mark_to_market"
             if allow_same_bar_d1 else "forbidden"),
         "same_bar_d1_trade_count": sum(
             row["open_time"] == row["close_time"] for row in orders),
@@ -143,7 +154,7 @@ def audit(*, candidate_id: str, orders_path: Path,
             for plan in ("tiered", "fixed", "stress")
         } for capital in capital_scenarios},
         "oos_2024_accessed": stage == "oos",
-        "holdout_2025_accessed": False,
+        "holdout_2025_accessed": stage == "holdout",
         "paper_authorized": False,
         "live_authorized": False,
     }
@@ -156,7 +167,7 @@ def main() -> None:
     parser.add_argument("--capital", action="append", type=float, required=True)
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--allow-same-bar-d1", action="store_true")
-    parser.add_argument("--stage", choices=("validation", "oos"),
+    parser.add_argument("--stage", choices=("validation", "oos", "holdout"),
                         default="validation")
     args = parser.parse_args()
     result = audit(candidate_id=args.candidate_id, orders_path=args.orders,

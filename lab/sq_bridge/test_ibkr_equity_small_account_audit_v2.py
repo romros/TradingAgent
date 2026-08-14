@@ -56,3 +56,16 @@ def test_same_bar_d1_stop_allows_sub_target_favorable_excursion(tmp_path):
         '"98";"-2";"SL";"-2";"0.5"\n')
     orders = load_orders(path, allow_same_bar_d1=True)
     assert len(orders) == 1 and orders[0]["mfe"] == .5
+
+
+def test_same_bar_d1_accepts_verified_target_and_endtest(tmp_path):
+    path = tmp_path / "orders.csv"
+    path.write_text(
+        '"Type";"Open time";"Open price";"Size";"Close time";"Close price";'
+        '"Profit/Loss";"Close type";"MAE ($)";"MFE ($)"\n'
+        '"Buy";"2024.01.02 10:00:00";"100";"2";"2024.01.02 10:00:00";'
+        '"105";"10";"PT";"-1";"10"\n'
+        '"Buy";"2024.01.03 10:00:00";"100";"2";"2024.01.03 10:00:00";'
+        '"99";"-2";"EndTest";"-3";"1"\n')
+    orders = load_orders(path, allow_same_bar_d1=True)
+    assert [row["close_type"] for row in orders] == ["PT", "EndTest"]

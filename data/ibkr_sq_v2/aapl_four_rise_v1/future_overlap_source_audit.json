@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "source_csv": "data/ibkr_sq_v2/preflight/AAPLUSUSD_CANONICAL_D1_2017_2024.csv",
+  "source_sha256": "47a4a85f455d4f55946c233cc6c2d7525ec39b5778ed6bcb418496b2c5172127",
+  "exported_csv": "/mnt/volume-SQ/user/exports/ibkr_v3_aapl_future_warmup/AAPLUSUSD_TICK_UTCMinus05-D1-No Session.csv",
+  "exported_sha256": "97c8caf54658e9a08831e8365365a1b5dc76f646583cf003f02dd62c72b2abc2",
+  "exported_has_header": false,
+  "source_rows": 84,
+  "exported_rows": 382,
+  "timestamps_exact_and_ordered": false,
+  "field_errors": {
+    "open": {
+      "changed_rows": 84,
+      "max_absolute_error": "0.004000",
+      "mean_absolute_error": "0.003452380952380952380952380952"
+    },
+    "high": {
+      "changed_rows": 84,
+      "max_absolute_error": "0.644000",
+      "mean_absolute_error": "0.09905952380952380952380952381"
+    },
+    "low": {
+      "changed_rows": 84,
+      "max_absolute_error": "0.004000",
+      "mean_absolute_error": "0.003654761904761904761904761905"
+    },
+    "close": {
+      "changed_rows": 84,
+      "max_absolute_error": "1.147000",
+      "mean_absolute_error": "0.1722619047619047619047619048"
+    },
+    "volume": {
+      "changed_rows": 84,
+      "max_absolute_error": "995363004.636000",
+      "mean_absolute_error": "538799068.7667257857142857143"
+    }
+  },
+  "decision": "BLOCK",
+  "decision_scope": "Data integrity for signal research only; volume-dependent rules, execution, paper, and live remain unauthorized.",
+  "exact_numeric_parity": false,
+  "paper_or_live_authorized": false
+}

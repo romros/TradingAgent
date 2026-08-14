@@ -1,0 +1,58 @@
+{
+  "markets": {
+    "AAPL": {
+      "research_eligible": true,
+      "sq_symbol": "AAPL_IBKR_V3_D1",
+      "discovery_timeframe": "D1",
+      "discovery_slippage": 0,
+      "discovery_commission_per_order": 0,
+      "exit_at_end_of_day": false,
+      "exit_at_end_of_range": false,
+      "maximum_trades_per_day": 1,
+      "signal_time_range_seconds": null,
+      "eod_exit_seconds": null,
+      "sq_prune_resources": true,
+      "sq_resource_clone_from": "BTCUSD_ALQ_H4",
+      "sq_resource_remove_attributes": ["cloneFrom", "sourceTimezone"],
+      "sq_resource_attributes": {
+        "source": "1",
+        "barType": "1",
+        "precision": "D1",
+        "timezone": "America/New_York",
+        "dateFrom": "1485388800000",
+        "dateTo": "1735603200000",
+        "uSymbol": "AAPL_IBKR_V3",
+        "uSymbolName": "AAPL split-adjusted canonical D1",
+        "removeWeekends": "false",
+        "broker": "-1"
+      },
+      "sq_instrument_attributes": {
+        "instrument": "AAPL_IBKR_V3",
+        "description": "AAPL split-adjusted canonical D1 gross research",
+        "tickSize": "0.000001",
+        "tickStep": "0.000001",
+        "minDistance": "0",
+        "tickValueInMoney": "0",
+        "dateFrom": "0",
+        "dateTo": "0",
+        "rows": "0",
+        "totalDays": "0",
+        "defaultSpread": "0",
+        "defaultSlippage": "0",
+        "decimals": "6",
+        "commissions": "",
+        "pointValue": "1",
+        "dataType": "1",
+        "recognizedFromOrders": "false",
+        "exchange": "NASDAQ",
+        "country": "US",
+        "sector": "Technology",
+        "swap": "",
+        "orderSizeMultiplier": "1",
+        "orderSizeStep": "1",
+        "broker": "-1"
+      },
+      "venue_max_leverage": 1
+    }
+  }
+}

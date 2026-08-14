@@ -1,0 +1,11 @@
+{
+  "command": "-databank action=synctofiles project=IBKR_V4_AAPL_FOUR_RISE_HOLDOUT name=Holdout",
+  "databank": "Holdout",
+  "decision": "PASS_RETEST_OUTPUT_DATABANK_SYNC",
+  "observed_output_sqx_count": 1,
+  "output_sqx_path": "/mnt/volume-SQ/user/projects/IBKR_V4_AAPL_FOUR_RISE_HOLDOUT/databanks/Holdout/MSFT014_B4_SL1.4_PT4.4.sqx",
+  "output_sqx_sha256": "771b30aee91bb021eef51d4e166e8948f3f2f9452ff2ce31eb07230c87608e79",
+  "project_name": "IBKR_V4_AAPL_FOUR_RISE_HOLDOUT",
+  "response": "19:25:10 Syncing datatabank to files\n--------------------------------------------------\nSynchronization started.\n--------------------------------------------------\n",
+  "schema_version": 1
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "candidate_id": "MSFT014_B4_SL1.4_PT4.4",
+  "selection_basis": "Central medoid of the nine AAPL variants; selected before native SQ or 2025-2026 access.",
+  "development_periods": {
+    "validation": ["2017-01-26", "2020-12-31"],
+    "oos": ["2021-01-01", "2024-12-31"]
+  },
+  "future_confirmation": ["2025-01-01", "2026-08-13"],
+  "native_parity_gate": {
+    "minimum_trades_each_development_segment": 20,
+    "minimum_profit_factor_each_development_segment": 1.25,
+    "minimum_net_return_each_development_segment_exclusive": 0
+  },
+  "future_gate": {
+    "minimum_trades": 10,
+    "minimum_stress_profit_factor": 1.05,
+    "minimum_stress_net_return_exclusive": 0,
+    "maximum_stress_drawdown_pct": 35
+  },
+  "holdout_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_FINAL_HOLDOUT",
+  "campaign_id": "aapl-four-rise-d1-v1",
+  "candidate_id": "MSFT014_B4_SL1.4_PT4.4",
+  "holdout_period": ["2025-01-01", "2026-08-13"],
+  "holdout_trades": 24,
+  "frozen_gate": {
+    "minimum_trades": 10,
+    "stress_minimum_profit_factor": 1.05,
+    "stress_return_must_be_positive": true,
+    "stress_maximum_drawdown_pct": 35
+  },
+  "observed_1000_usd_stress": {
+    "return_pct": -4.795343,
+    "profit_factor": 0.878112,
+    "maximum_drawdown_pct": 13.950758
+  },
+  "observed_500_usd_stress": {
+    "return_pct": -10.630539,
+    "profit_factor": 0.718481,
+    "maximum_drawdown_pct": 13.759242
+  },
+  "failed_gates": ["stress_return", "stress_profit_factor"],
+  "interpretation": "The four-rise AAPL effect did not persist in the untouched recent period after executable costs.",
+  "reuse_or_optimization_forbidden": true,
+  "paper_authorized": false,
+  "live_authorized": false
+}

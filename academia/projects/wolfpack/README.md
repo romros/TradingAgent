@@ -31,6 +31,20 @@ complet de 30 tancaments i és l'únic estat elegible per a una futura cartera.
 Ser titular no autoritza trading ni assigna capital: això requereix un gate de
 cartera separat i permís explícit.
 
+## Senyal global i risc agressiu
+
+`portfolio_signal.py` exigeix almenys dos titulars amb consens ponderat del 67%,
+tres revisions de model unànimes i un reward/risk net mínim d'1,5. La confiança
+obre una escala paper d'1%, 2% o 3% de risc; no fixa directament el leverage.
+Primer calcula la pèrdua fins a invalidació més costos d'estrès i després deriva
+el nocional i el leverage, limitat a 5x, al màxim segur de liquidació i al màxim
+del venue. Tota sortida conserva `live_trading_authorized=false`.
+
+Wolfpack és el pla de control i evidència dins `academia/`, no un segon broker.
+Si algun dia se n'autoritza l'execució, haurà de passar per un adaptador estret
+cap al broker Ostium existent; Wolfpack no guardarà claus, signarà transaccions
+ni duplicarà la lògica d'execució.
+
 Els avisos són `WATCH`, `PAPER`, `CANDIDATE` i `AUTHORIZED`. El brief factual
 actual només pot emetre `WATCH`; els nivells superiors necessiten els gates que
 descriu `council.json`, i `AUTHORIZED` sempre requereix permís explícit.

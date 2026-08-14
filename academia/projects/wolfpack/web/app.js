@@ -14,6 +14,8 @@ async function refresh(){
     document.querySelector('#updated').textContent=new Date(s.generated_at).toLocaleTimeString('ca-ES');
     document.querySelector('#metrics').innerHTML=[['Events',s.coverage.events],['Paper obertes',s.coverage.paper_open],['Paper tancades',s.coverage.paper_closed],['Equity',`${fmt(s.paper.ending_equity_usdc)} USDC`]].map(([k,v])=>`<div class="metric"><strong>${v}</strong><span>${k}</span></div>`).join('');
     document.querySelector('#realism').innerHTML=s.paper.execution_realism_pass?'<strong>REALISM PASS</strong> · el PnL paper pot entrar als gates':'<strong>PROTOTIP PAPER</strong> · encara no pot demostrar edge: '+s.paper.execution_realism_blockers.map(esc).join(' · ');
+    const gs=s.global_signal;
+    document.querySelector('#global-signal').innerHTML=`<strong>SENYAL GLOBAL: ${esc(gs.decision)}</strong> · ${esc(gs.reason)} · direcció ${esc(fmt(gs.direction))} · leverage ${esc(fmt(gs.leverage))} · guany esperat ${esc(fmt(gs.expected_net_gain_usdc))} USDC · pèrdua màxima ${esc(fmt(gs.maximum_loss_usdc))} USDC`;
     const pg=s.roster.portfolio_gate;
     document.querySelector('#portfolio').innerHTML=pg.pass?'<strong>CARTERA PAPER PREPARADA</strong> · només titulars elegibles':'<strong>CARTERA BLOQUEJADA</strong> · '+pg.blockers.map(esc).join(' · ');
     document.querySelector('#roster').innerHTML=s.roster.profiles.length?s.roster.profiles.map(wolfCard).join(''):'<div class="empty">Cap llop al roster.</div>';

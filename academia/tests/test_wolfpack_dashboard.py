@@ -34,6 +34,8 @@ class DashboardTest(unittest.TestCase):
             self.assertEqual(state["assets"][0]["open_source"], 1)
             self.assertEqual(state["tracking"][0]["source_status"], "OPEN")
             self.assertEqual(state["tracking"][0]["paper_status"], "NOT_COPIED")
+            self.assertEqual(state["global_signal"]["decision"], "NO_SIGNAL")
+            self.assertFalse(state["global_signal"]["live_trading_authorized"])
 
     def test_closed_source_and_paper_results_stay_separate(self):
         events = [{"position_sha256": "p", "wallet_sha256": "w", "pair": "BTC/USD",

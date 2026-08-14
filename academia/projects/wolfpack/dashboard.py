@@ -215,6 +215,7 @@ def build_state(follows: Path, heartbeat: Path, paper_path: Path,
     checkpoint_data = read_json(checkpoint)
     pack = read_json(pack_path or Path(__file__).with_name("pack.json"))
     assets, tracking = tracking_views(events, paper)
+    roster = roster_view(events, paper, pack)
     checked = parse_time(heartbeat_data.get("checked_at"))
     heartbeat_age = None if checked is None else (now - checked).total_seconds()
     messages = []
@@ -262,7 +263,16 @@ def build_state(follows: Path, heartbeat: Path, paper_path: Path,
         "messages": messages,
         "assets": assets,
         "tracking": tracking,
-        "roster": roster_view(events, paper, pack),
+        "roster": roster,
+        "global_signal": {
+            "decision": "NO_SIGNAL",
+            "reason": ("fewer than two titulars" if
+                       roster["portfolio_gate"]["current_titulars"] < 2
+                       else "awaiting three-model council and executable setup"),
+            "direction": None, "entry": None, "invalidation": None,
+            "target": None, "leverage": None, "expected_net_gain_usdc": None,
+            "maximum_loss_usdc": None, "live_trading_authorized": False,
+        },
         "simulations": simulations,
         "checkpoint": checkpoint_data.get("brief", checkpoint_data),
     }

@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "decision": "PREREGISTERED_LOCAL_NEIGHBORHOOD",
+  "source_sqx_path": "/mnt/volume-SQ/user/projects/ALQUIMIA_MSFT_D1_TREND_LONG_V2_SEMANTIC/databanks/Results/Strategy 0.14.sqx",
+  "source_sqx_sha256": "80422a4070c5c381b2ed57381185ec6a6153dbc112debf381c683ab6290865d0",
+  "dimensions": {
+    "rising_bars": [
+      3,
+      4,
+      5
+    ],
+    "stop_pct": [
+      1.2,
+      1.4,
+      1.6
+    ],
+    "target_atr20": [
+      4.0,
+      4.4,
+      4.8
+    ]
+  },
+  "variant_count": 27,
+  "selection_rule": "No tuning: require broad positive validation and OOS region after IBKR costs; select a medoid, not the maximum.",
+  "holdout_accessed": false,
+  "variants": [
+    {
+      "id": "MSFT014_B3_SL1.2_PT4.0",
+      "bars": 3,
+      "stop_pct": 1.2,
+      "target_atr": 4.0,
+      "sqx_sha256": "c44b86ca295e21f3d11fa531dcec8eaa24f91ef8441fe47f2e897596d2a1e7a2"
+    },
+    {
+      "id": "MSFT014_B3_SL1.2_PT4.4",
+      "bars": 3,
+      "stop_pct": 1.2,
+      "target_atr": 4.4,
+      "sqx_sha256": "a8700aac411687deaafb22232806560eb4bc2ddc3cf0949fca47f9f977ad98fe"
+    },
+    {
+      "id": "MSFT014_B3_SL1.2_PT4.8",
+      "bars": 3,
+      "stop_pct": 1.2,
+      "target_atr": 4.8,
+      "sqx_sha256": "b7510240d4b5dfee50b1716207cbbbc9bb90e30e315a5c47db04df26a0c89c69"
+    },
+    {
+      "id": "MSFT014_B3_SL1.4_PT4.0",
+      "bars": 3,
+      "stop_pct": 1.4,
+      "target_atr": 4.0,
+      "sqx_sha256": "c58e3bcf1f23ab793519f7a7fd1460c5ebba19e3c30346fc263eb598b7d0b6b6"
+    },
+    {
+      "id": "MSFT014_B3_SL1.4_PT4.4",
+      "bars": 3,
+      "stop_pct": 1.4,
+      "target_atr": 4.4,
+      "sqx_sha256": "cfac7c22e34823f85a055019dd0a6bfa159c1c75f95d525286304180e7890864"
+    },
+    {
+      "id": "MSFT014_B3_SL1.4_PT4.8",
+      "bars": 3,
+      "stop_pct": 1.4,
+      "target_atr": 4.8,
+      "sqx_sha256": "5eb9e33ae86fcdd6b939cc22b9c7bb6fac8b1673d6be362a406ae5f48d101a24"
+    },
+    {
+      "id": "MSFT014_B3_SL1.6_PT4.0",
+      "bars": 3,
+      "stop_pct": 1.6,
+      "target_atr": 4.0,
+      "sqx_sha256": "b8bb74c623102c20f788a900ce69b5ab58103ae3e0b2ae6876bbaead7ab82054"
+    },
+    {
+      "id": "MSFT014_B3_SL1.6_PT4.4",
+      "bars": 3,
+      "stop_pct": 1.6,
+      "target_atr": 4.4,
+      "sqx_sha256": "ec27a5920a71d3708902f9023f2b192e63d4cc5498266e7ceb42609f3b0602f3"
+    },
+    {
+      "id": "MSFT014_B3_SL1.6_PT4.8",
+      "bars": 3,
+      "stop_pct": 1.6,
+      "target_atr": 4.8,
+      "sqx_sha256": "66d67c802e20931976c63db2ba806e49e6c67a6cfee5be2da8d89ada9c1eaf2d"
+    },
+    {
+      "id": "MSFT014_B4_SL1.2_PT4.0",
+      "bars": 4,
+      "stop_pct": 1.2,
+      "target_atr": 4.0,
+      "sqx_sha256": "29abf53877e5326881b352cf0a9cef77d7a8c716c9864e6dee6e9d4e4cc2d637"
+    },
+    {
+      "id": "MSFT014_B4_SL1.2_PT4.4",
+      "bars": 4,
+      "stop_pct": 1.2,
+      "target_atr": 4.4,
+      "sqx_sha256": "1228b11d815d42e26f95cefa358d57600b90dc411cf6ac9af03437563b3739e5"
+    },
+    {
+      "id": "MSFT014_B4_SL1.2_PT4.8",
+      "bars": 4,
+      "stop_pct": 1.2,
+      "target_atr": 4.8,
+      "sqx_sha256": "97af4f5ac3f660e9c54bad46000b4bf2cf090c1aa52f15187db6a5ee4c2de9b9"
+    },
+    {
+      "id": "MSFT014_B4_SL1.4_PT4.0",
+      "bars": 4,
+      "stop_pct": 1.4,
+      "target_atr": 4.0,
+      "sqx_sha256": "8c410b4d7fbf04fd24be8f81aa188ecea22951b74fee73edf7851cac52886856"
+    },
+    {
+      "id": "MSFT014_B4_SL1.4_PT4.4",
+      "bars": 4,
+      "stop_pct": 1.4,
+      "target_atr": 4.4,
+      "sqx_sha256": "0056490bf5efac0d9713f4a16c53ca0a91674d676da458ad870d52dd4267f149"
+    },
+    {
+      "id": "MSFT014_B4_SL1.4_PT4.8",
+      "bars": 4,
+      "stop_pct": 1.4,
+      "target_atr": 4.8,
+      "sqx_sha256": "9399be58a9678783b8bc634abefc38de8010a67546bdcda08acb9e979ff0d388"
+    },
+    {
+      "id": "MSFT014_B4_SL1.6_PT4.0",
+      "bars": 4,
+      "stop_pct": 1.6,
+      "target_atr": 4.0,
+      "sqx_sha256": "a5c24d77bb26ca7ad8f2e6e896bf4c7b20965f6042ef901f130d1f482109836a"
+    },
+    {
+      "id": "MSFT014_B4_SL1.6_PT4.4",
+      "bars": 4,
+      "stop_pct": 1.6,
+      "target_atr": 4.4,
+      "sqx_sha256": "9b83d6d3e173be5ca8176c1a9e4b69397efabf2dc287d687e7929a5cfacdae89"
+    },
+    {
+      "id": "MSFT014_B4_SL1.6_PT4.8",
+      "bars": 4,
+      "stop_pct": 1.6,
+      "target_atr": 4.8,
+      "sqx_sha256": "3421252c0397b361790ca85d19711921f26d754919a33d49df8e44be0ea9e1e9"
+    },
+    {
+      "id": "MSFT014_B5_SL1.2_PT4.0",
+      "bars": 5,
+      "stop_pct": 1.2,
+      "target_atr": 4.0,
+      "sqx_sha256": "6c38c816175bf4b6b2856048469c2ce0715d605317a23712db92e4876f994ddb"
+    },
+    {
+      "id": "MSFT014_B5_SL1.2_PT4.4",
+      "bars": 5,
+      "stop_pct": 1.2,
+      "target_atr": 4.4,
+      "sqx_sha256": "7f57b5e1522a995a222f164f9eeb83d30c88baa1cee372f1790557b45dbcfeed"
+    },
+    {
+      "id": "MSFT014_B5_SL1.2_PT4.8",
+      "bars": 5,
+      "stop_pct": 1.2,
+      "target_atr": 4.8,
+      "sqx_sha256": "93329c7185ec68eb417504485e6e2b6d5498ff289054b4d4a8bd76b36716cf31"
+    },
+    {
+      "id": "MSFT014_B5_SL1.4_PT4.0",
+      "bars": 5,
+      "stop_pct": 1.4,
+      "target_atr": 4.0,
+      "sqx_sha256": "a29ef1896fae1d16df16579b457b42c4c2326ffab0faa3f73df0c4320bb85ccc"
+    },
+    {
+      "id": "MSFT014_B5_SL1.4_PT4.4",
+      "bars": 5,
+      "stop_pct": 1.4,
+      "target_atr": 4.4,
+      "sqx_sha256": "00d69f6797a8121c0e7626e9c474c50482f698a85eb608844cf02ceff6b2e1f3"
+    },
+    {
+      "id": "MSFT014_B5_SL1.4_PT4.8",
+      "bars": 5,
+      "stop_pct": 1.4,
+      "target_atr": 4.8,
+      "sqx_sha256": "81989d9b3a49e00a4e1581e2000a3423d7c7afe634fc33582b246d5a8e49965d"
+    },
+    {
+      "id": "MSFT014_B5_SL1.6_PT4.0",
+      "bars": 5,
+      "stop_pct": 1.6,
+      "target_atr": 4.0,
+      "sqx_sha256": "102c798561d27356a1e86e4c262dc8438c7b371ad85e598cc05bf7def8d96d0f"
+    },
+    {
+      "id": "MSFT014_B5_SL1.6_PT4.4",
+      "bars": 5,
+      "stop_pct": 1.6,
+      "target_atr": 4.4,
+      "sqx_sha256": "902fd81c968e2132a23d9b16ddbb8eb5a65678329fe7b62e3e0ad1ceab71c341"
+    },
+    {
+      "id": "MSFT014_B5_SL1.6_PT4.8",
+      "bars": 5,
+      "stop_pct": 1.6,
+      "target_atr": 4.8,
+      "sqx_sha256": "65b8b1e96c1a35683ba7488001b4433b09dea914f0f661008bb7b895fa5b633e"
+    }
+  ]
+}

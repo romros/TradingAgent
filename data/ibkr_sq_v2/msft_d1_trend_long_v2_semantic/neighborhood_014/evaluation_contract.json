@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "frozen_before_csv_evaluation": true,
+  "capital_usd": 1000,
+  "per_variant_tiered_gate": {
+    "minimum_trades_each_segment": 40,
+    "minimum_profit_factor_each_segment": 1.25,
+    "minimum_return_pct_each_segment_exclusive": 0,
+    "maximum_drawdown_pct_each_segment": 30,
+    "minimum_positive_quarter_ratio_each_segment": 0.5
+  },
+  "per_variant_stress_diagnostic": {
+    "minimum_profit_factor_each_segment": 1.05,
+    "minimum_return_pct_each_segment_exclusive": 0,
+    "maximum_drawdown_pct_each_segment": 40
+  },
+  "region_gate": {
+    "minimum_tiered_pass_variants_of_27": 18,
+    "minimum_stress_pass_variants_of_27": 9,
+    "every_axis_level_must_have_a_tiered_pass": true,
+    "selection": "Choose the passing medoid closest to bars=4, stop=1.4, target=4.4; never choose by maximum return."
+  },
+  "holdout_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

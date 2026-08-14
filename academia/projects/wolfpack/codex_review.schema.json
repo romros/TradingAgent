@@ -10,6 +10,6 @@
     "evidence_against": {"type": "array", "items": {"type": "string"}, "maxItems": 5},
     "next_check": {"type": "string"},
     "paper_action": {"type": ["string", "null"]},
-    "live_trading_authorized": {"const": false}
+    "live_trading_authorized": {"type": "boolean", "const": false}
   }
 }

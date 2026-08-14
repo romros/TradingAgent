@@ -4,7 +4,9 @@
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import json
+import statistics
 import time
 from datetime import datetime, timezone
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
@@ -128,13 +130,90 @@ def tracking_views(events: list[dict], paper: dict) -> tuple[list[dict], list[di
     return sorted(assets.values(), key=lambda row: row["asset"]), tracking
 
 
+def roster_view(events: list[dict], paper: dict, pack: dict) -> dict:
+    module_path = Path(__file__).with_name("wolfpack.py")
+    spec = importlib.util.spec_from_file_location("wolfpack_roster_engine", module_path)
+    engine = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(engine)
+    closed = paper.get("closed", [])
+    roster = engine.portfolio_roster(closed, paper.get("execution_realism_pass", False))
+    candidates = {row["wallet_sha256"]: row for row in roster.get("candidates", [])}
+    titulars = {row["wallet_sha256"]: row for row in roster.get("titulars", [])}
+    profiles = []
+    for member in pack.get("members", []):
+        wallet = member["id"]
+        wallet_events = [row for row in events if row.get("wallet_sha256") == wallet]
+        wallet_closed = [row for row in closed if row.get("wallet_sha256") == wallet]
+        source_closes = [row for row in wallet_events if row.get("action") in
+                         {"Close", "StopLoss", "TakeProfit", "Liquidation", "CloseDayTrade"}]
+        open_paper = [row for row in paper.get("open_positions", [])
+                      if row.get("wallet_sha256") == wallet]
+        latencies = [float(row["detection_latency_seconds"]) for row in wallet_events
+                     if row.get("detection_latency_seconds") is not None]
+        shortfalls = [float(row["implementation_shortfall_bps"]) for row in wallet_closed
+                      if row.get("implementation_shortfall_bps") is not None]
+        if wallet in titulars:
+            status = "TITULAR"
+        elif wallet in candidates:
+            status = "CANDIDATE"
+        elif len(wallet_closed) >= engine.CANDIDATE_MIN_CLOSED:
+            status = "DEGRADED"
+        else:
+            status = "OBSERVED"
+        if status == "TITULAR":
+            confidence = "VALIDATED"
+        elif status == "CANDIDATE":
+            confidence = "PRELIMINARY"
+        elif wallet_closed:
+            confidence = "LOW"
+        else:
+            confidence = "NO_CLOSED_SAMPLE"
+        profiles.append({
+            "wallet": wallet[:8], "wallet_sha256": wallet, "status": status,
+            "confidence": confidence,
+            "confidence_meaning": "evidence maturity, not probability of profit",
+            "specialties": member.get("specialties", []), "risk_flags": member.get("risk_flags", []),
+            "events": len(wallet_events), "assets": sorted({row.get("pair") for row in wallet_events if row.get("pair")}),
+            "source_closed": len(source_closes),
+            "source_realized_pnl_usd": sum(float(row.get("closed_pnl_usd") or 0)
+                                           for row in source_closes),
+            "paper_open": len(open_paper),
+            "paper_closed": len(wallet_closed),
+            "candidate_progress": f"{min(len(wallet_closed), 10)}/10",
+            "titular_progress": f"{min(len(wallet_closed), 30)}/30",
+            "copy_net_pnl_usdc": sum(float(row.get("copy_net_pnl_usdc") or 0) for row in wallet_closed),
+            "median_latency_seconds": statistics.median(latencies) if latencies else None,
+            "median_shortfall_bps": statistics.median(shortfalls) if shortfalls else None,
+        })
+    status_order = {"TITULAR": 0, "CANDIDATE": 1, "OBSERVED": 2, "DEGRADED": 3}
+    profiles.sort(key=lambda row: (status_order[row["status"]], -row["events"]))
+    titular_count = sum(row["status"] == "TITULAR" for row in profiles)
+    portfolio_ready = (paper.get("execution_realism_pass", False) and titular_count >= 2)
+    return {**roster, "profiles": profiles,
+            "portfolio_gate": {
+                "pass": portfolio_ready,
+                "minimum_titulars": 2,
+                "current_titulars": titular_count,
+                "maximum_total_collateral_usdc": 300,
+                "maximum_collateral_per_wallet_usdc": 100,
+                "maximum_collateral_per_position_usdc": 50,
+                "blockers": ([] if portfolio_ready else [
+                    "paper execution realism gate has not passed"
+                    if not paper.get("execution_realism_pass", False)
+                    else f"only {titular_count}/2 minimum titulars"]),
+                "live_trading_authorized": False,
+            }}
+
+
 def build_state(follows: Path, heartbeat: Path, paper_path: Path,
-                checkpoint: Path, now: datetime | None = None) -> dict:
+                checkpoint: Path, now: datetime | None = None,
+                pack_path: Path | None = None) -> dict:
     now = now or datetime.now(timezone.utc)
     events = read_jsonl(follows)
     heartbeat_data = read_json(heartbeat)
     paper = read_json(paper_path)
     checkpoint_data = read_json(checkpoint)
+    pack = read_json(pack_path or Path(__file__).with_name("pack.json"))
     assets, tracking = tracking_views(events, paper)
     checked = parse_time(heartbeat_data.get("checked_at"))
     heartbeat_age = None if checked is None else (now - checked).total_seconds()
@@ -183,6 +262,7 @@ def build_state(follows: Path, heartbeat: Path, paper_path: Path,
         "messages": messages,
         "assets": assets,
         "tracking": tracking,
+        "roster": roster_view(events, paper, pack),
         "simulations": simulations,
         "checkpoint": checkpoint_data.get("brief", checkpoint_data),
     }
@@ -221,8 +301,11 @@ def main() -> None:
     parser.add_argument("--heartbeat", type=Path, required=True)
     parser.add_argument("--paper", dest="paper_path", type=Path, required=True)
     parser.add_argument("--checkpoint", type=Path, required=True)
+    parser.add_argument("--pack", dest="pack_path", type=Path,
+                        default=here / "pack.json")
     args = parser.parse_args()
-    paths = {key: getattr(args, key) for key in ("follows", "heartbeat", "paper_path", "checkpoint")}
+    paths = {key: getattr(args, key) for key in
+             ("follows", "heartbeat", "paper_path", "checkpoint", "pack_path")}
     server = ThreadingHTTPServer((args.bind, args.port), handler_factory(here / "web", paths))
     server.timeout = 1
     deadline = time.time() + args.duration_hours * 3600

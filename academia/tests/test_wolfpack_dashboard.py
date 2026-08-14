@@ -49,6 +49,20 @@ class DashboardTest(unittest.TestCase):
         self.assertEqual(tracking[0]["paper_net_pnl_usdc"], -1)
         self.assertEqual(assets[0]["paper_net_pnl_usdc"], -1)
 
+    def test_roster_profiles_all_pack_members_and_blocks_portfolio(self):
+        pack = {"members": [{"id": "wolf", "specialties": ["btc"],
+                             "risk_flags": ["young_sample"]}]}
+        events = [{"wallet_sha256": "wolf", "pair": "BTC/USD",
+                   "detection_latency_seconds": 45}]
+        paper = {"closed": [], "execution_realism_pass": False}
+        roster = dashboard.roster_view(events, paper, pack)
+        self.assertEqual(roster["profiles"][0]["status"], "OBSERVED")
+        self.assertEqual(roster["profiles"][0]["confidence"], "NO_CLOSED_SAMPLE")
+        self.assertEqual(roster["profiles"][0]["candidate_progress"], "0/10")
+        self.assertEqual(roster["profiles"][0]["median_latency_seconds"], 45)
+        self.assertFalse(roster["portfolio_gate"]["pass"])
+        self.assertFalse(roster["portfolio_gate"]["live_trading_authorized"])
+
 
 if __name__ == "__main__":
     unittest.main()

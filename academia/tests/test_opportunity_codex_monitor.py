@@ -28,6 +28,10 @@ class OpportunityCodexMonitorTest(unittest.TestCase):
             self.assertFalse(payload["live_trading_authorized"])
             self.assertEqual(monitor.material_signature(payload), monitor.material_signature(payload))
 
+    def test_error_state_is_explicitly_retryable_contract(self):
+        source = MODULE.read_text()
+        self.assertIn('get("status") == "ERROR"', source)
+
 
 if __name__ == "__main__":
     unittest.main()

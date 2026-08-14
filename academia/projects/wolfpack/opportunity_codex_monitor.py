@@ -117,7 +117,7 @@ def main() -> None:
         if previous is None:
             result = {"status": "BASELINE_ESTABLISHED", "decision": "Esperant un canvi material",
                       "reviewed_at": None, "live_trading_authorized": False}
-        elif signature != previous:
+        elif signature != previous or read_json(args.output).get("status") == "ERROR":
             result = invoke_codex(facts, args.codex, args.schema, args.repo)
         else:
             old = read_json(args.output)

@@ -8,6 +8,8 @@ header,.section-title { display:flex; align-items:center; justify-content:space-
 .tab.active { color:var(--bg); background:var(--mint); border-color:var(--mint); }
 .tab-panel { display:none; }.tab-panel.active { display:block; }
 .confidence-note { color:var(--muted); font-size:12px; }
+.progress-row { display:grid; grid-template-columns:180px 1fr 58px; gap:10px; align-items:center; margin-top:12px; color:var(--muted); font-size:12px; }
+.progress { height:8px; overflow:hidden; border-radius:999px; background:#07110d; }.progress i { display:block; height:100%; background:var(--mint); }
 .eyebrow,.section-title span { color:var(--mint); font:700 11px/1.2 ui-monospace,monospace; letter-spacing:.16em; }
 h1 { margin:.15em 0 .7em; font-size:clamp(36px,7vw,72px); line-height:.95; letter-spacing:-.055em; }
 h2 { margin:30px 0 12px; font-size:20px; }

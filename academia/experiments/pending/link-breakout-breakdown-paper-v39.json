@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "id": "link-breakout-breakdown-paper-v39",
+  "preregistered_at": "2026-08-14",
+  "status": "FORWARD_WATCH",
+  "asset": "LINK/USD",
+  "mode": "PAPER_ONLY_NO_ORDERS",
+  "expires_at": "2026-08-15T12:00:00Z",
+  "confirmation": "three consecutive 60-second Ostium mids beyond the trigger",
+  "setups": {
+    "short": {"trigger_below": 8.72, "stop": 8.78, "target_1": 8.55, "target_2": 8.40},
+    "long": {"trigger_above": 8.865, "stop": 8.80, "target_1": 9.00, "target_2": 9.02}
+  },
+  "paper_execution": {
+    "notional_usdc": 250,
+    "collateral_usdc": 50,
+    "maximum_leverage": 5,
+    "entry_and_exit": "Ostium SDK simulated slippage for 250 USDC",
+    "first_target_fraction": 0.5,
+    "after_target_1": "move remaining stop to fee-adjusted breakeven",
+    "maximum_one_position": true
+  },
+  "automatic_cancel": ["market closed", "missing executable quote", "expired", "both directional conditions become inconsistent"],
+  "live_trading_authorized": false
+}

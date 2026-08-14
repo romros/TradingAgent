@@ -207,13 +207,15 @@ def roster_view(events: list[dict], paper: dict, pack: dict) -> dict:
 
 def build_state(follows: Path, heartbeat: Path, paper_path: Path,
                 checkpoint: Path, now: datetime | None = None,
-                pack_path: Path | None = None) -> dict:
+                pack_path: Path | None = None,
+                link_watch_path: Path | None = None) -> dict:
     now = now or datetime.now(timezone.utc)
     events = read_jsonl(follows)
     heartbeat_data = read_json(heartbeat)
     paper = read_json(paper_path)
     checkpoint_data = read_json(checkpoint)
     pack = read_json(pack_path or Path(__file__).with_name("pack.json"))
+    link_watch = read_json(link_watch_path) if link_watch_path else {}
     assets, tracking = tracking_views(events, paper)
     roster = roster_view(events, paper, pack)
     checked = parse_time(heartbeat_data.get("checked_at"))
@@ -273,6 +275,7 @@ def build_state(follows: Path, heartbeat: Path, paper_path: Path,
             "target": None, "leverage": None, "expected_net_gain_usdc": None,
             "maximum_loss_usdc": None, "live_trading_authorized": False,
         },
+        "link_watch": link_watch,
         "simulations": simulations,
         "checkpoint": checkpoint_data.get("brief", checkpoint_data),
     }
@@ -313,9 +316,12 @@ def main() -> None:
     parser.add_argument("--checkpoint", type=Path, required=True)
     parser.add_argument("--pack", dest="pack_path", type=Path,
                         default=here / "pack.json")
+    parser.add_argument("--link-watch", dest="link_watch_path", type=Path,
+                        default=Path("/host-tmp/link-watch-state.json"))
     args = parser.parse_args()
     paths = {key: getattr(args, key) for key in
              ("follows", "heartbeat", "paper_path", "checkpoint", "pack_path")}
+    paths["link_watch_path"] = args.link_watch_path
     server = ThreadingHTTPServer((args.bind, args.port), handler_factory(here / "web", paths))
     server.timeout = 1
     deadline = time.time() + args.duration_hours * 3600

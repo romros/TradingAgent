@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["decision", "summary", "evidence_for", "evidence_against", "next_check", "paper_action", "live_trading_authorized"],
+  "properties": {
+    "decision": {"enum": ["IGNORE", "KEEP_WATCHING", "OPEN_PAPER", "MANAGE_PAPER", "CLOSE_PAPER"]},
+    "summary": {"type": "string"},
+    "evidence_for": {"type": "array", "items": {"type": "string"}, "maxItems": 5},
+    "evidence_against": {"type": "array", "items": {"type": "string"}, "maxItems": 5},
+    "next_check": {"type": "string"},
+    "paper_action": {"type": ["string", "null"]},
+    "live_trading_authorized": {"const": false}
+  }
+}

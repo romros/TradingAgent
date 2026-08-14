@@ -37,6 +37,23 @@ class DashboardTest(unittest.TestCase):
             self.assertEqual(state["global_signal"]["decision"], "NO_SIGNAL")
             self.assertFalse(state["global_signal"]["live_trading_authorized"])
             self.assertEqual(state["link_watch"], {})
+            self.assertEqual(state["opportunity_monitor"]["market"]["situation"], "PARTIAL_OR_STALE")
+
+    def test_market_overview_and_paper_csv_are_factual(self):
+        now = datetime(2026, 8, 14, 12, tzinfo=timezone.utc)
+        rows = [
+            {"captured_at": "2026-08-14T11:00:00Z", "sources": {"ostium": [
+                {"instrument": "BTC/USD", "mid": 100, "spread_bps": 2, "market_open": True}]}},
+            {"captured_at": "2026-08-14T12:00:00Z", "sources": {"ostium": [
+                {"instrument": "BTC/USD", "mid": 101, "spread_bps": 3, "market_open": True}]}}
+        ]
+        overview = dashboard.market_overview(rows, now)
+        btc = overview["universe"][0]
+        self.assertEqual(btc["status"], "LIVE")
+        self.assertAlmostEqual(btc["change_1h_pct"], 1.0)
+        exported = dashboard.paper_csv({"open_positions": [{"position_sha256": "p", "pair": "BTC/USD"}]})
+        self.assertIn(b"paper_status", exported)
+        self.assertIn(b"OPEN,p", exported)
 
     def test_closed_source_and_paper_results_stay_separate(self):
         events = [{"position_sha256": "p", "wallet_sha256": "w", "pair": "BTC/USD",

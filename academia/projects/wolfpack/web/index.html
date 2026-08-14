@@ -12,7 +12,7 @@
       <div><span class="eyebrow">ALQUÍMIA / WOLFPACK</span><h1>Market watch</h1></div>
       <div class="pulse"><i></i><span id="health">connectant…</span></div>
     </header>
-    <nav class="tabs"><button class="tab active" data-tab="overview">Visió general</button><button class="tab" data-tab="wolves">Perfils dels llops</button><button class="tab" data-tab="link">LINK Watch</button></nav>
+    <nav class="tabs"><button class="tab active" data-tab="overview">Visió general</button><button class="tab" data-tab="wolves">Perfils dels llops</button><button class="tab" data-tab="monitor">Monitorització</button></nav>
     <div class="tab-panel active" id="tab-overview">
     <section class="metrics" id="metrics"></section>
     <div class="realism" id="realism"></div>
@@ -42,10 +42,22 @@
         <div class="feed" id="roster"></div>
       </section>
     </div>
-    <div class="tab-panel" id="tab-link">
+    <div class="tab-panel" id="tab-monitor">
       <section>
-        <div class="section-title"><h2>LINK Watch</h2><span>PAPER ONLY · 60 SEGONS</span></div>
+        <div class="section-title"><h2>Situació general del mercat</h2><span>REVISIÓ 10 MIN · WEB 60 S</span></div>
+        <div id="market-overview" class="table-wrap"></div>
+      </section>
+      <section>
+        <div class="section-title"><h2>Oportunitats monitoritzades</h2><span>PAPER ONLY</span></div>
         <div id="link-watch" class="feed"></div>
+      </section>
+      <section>
+        <div class="section-title"><h2>Revisió Codex</h2><span>NOMÉS CANVIS MATERIALS</span></div>
+        <div id="codex-review" class="realism"></div>
+      </section>
+      <section>
+        <div class="section-title"><h2>PnL paper</h2><span><a href="/api/paper.csv">DESCARREGA CSV</a></span></div>
+        <div id="monitor-paper" class="realism"></div>
       </section>
     </div>
     <footer>Només observació i paper trading · Cap ordre real autoritzada</footer>

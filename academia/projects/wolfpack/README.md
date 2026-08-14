@@ -109,7 +109,10 @@ python3 academia/projects/wolfpack/paper_follow.py \
 ```
 
 El dashboard local consulta els feeds a cada petició i el navegador refresca la
-vista cada 15 segons. Les targetes de mostra porten `SIMULATION`; els avisos
+vista cada 60 segons. La pestanya `Monitorització` resumeix BTC, LINK, US500,
+XAU i EURUSD; la revisió factual té cadència de 10 minuts i el setup LINK manté
+la seva captura d'un minut. `api/paper.csv` exporta el llibre paper auditable.
+Les targetes de mostra porten `SIMULATION`; els avisos
 derivats de dades reals indiquen si encara són `LIVE` o ja han expirat:
 
 ```bash
@@ -122,6 +125,20 @@ python3 academia/projects/wolfpack/dashboard.py --port 8787 --duration-hours 720
 
 Per defecte escolta només a `127.0.0.1`. Des d'un altre ordinador cal un túnel
 SSH; no s'ha d'exposar el port públicament sense autenticació.
+
+La revisió Codex és finita, en sandbox de només lectura i dirigida per events.
+Estableix una línia base i només invoca el model si canvia l'estat de LINK o el
+règim d'una hora travessa els llindars congelats de BTC, US500, XAU o EURUSD:
+
+```bash
+python3 academia/projects/wolfpack/opportunity_codex_monitor.py \
+  --diary /tmp/cross-venue-diary-forward-20260813.jsonl \
+  --link-watch /tmp/link-watch-state.json \
+  --output /tmp/opportunity-codex-review.json --interval-seconds 600
+```
+
+La sortida estructurada mai pot posar `live_trading_authorized=true`. Codex
+aporta judici crític; no substitueix els gates deterministes ni envia ordres.
 
 ## Manteniment
 

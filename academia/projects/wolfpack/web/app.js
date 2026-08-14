@@ -8,6 +8,8 @@ const linkWatch = w => {
   if(!w || !w.status) return '<div class="empty">Monitor LINK encara no iniciat.</div>';
   const q=w.last_quote||{}, p=w.position||{}, wp=w.watch_progress||{}, pp=w.position_progress||{};
   return `<article class="card"><div class="badge">${esc(w.status)}<br>PAPER ONLY</div><div><h3>LINK/USD · ${esc(p.direction||'esperant ruptura')}</h3><p>Actualització: ${esc(fmt(q.captured_at))} · expira 15/08 12:00 UTC</p><div class="facts"><code>mid: ${esc(fmt(q.mid))}</code><code>confirmació short: ${esc(fmt(w.consecutive_short))}/3</code><code>confirmació long: ${esc(fmt(w.consecutive_long))}/3</code><code>entrada: ${esc(fmt(p.entry))}</code><code>stop: ${esc(fmt(p.stop))}</code><code>target 1: ${esc(fmt(p.target_1))}</code><code>target 2: ${esc(fmt(p.target_2))}</code><code>PnL realitzat: ${esc(fmt(w.realized_pnl_usdc))} USDC</code></div>${p.direction?(progress('Progrés target 1',pp.target_1_pct)+progress('Progrés target 2',pp.target_2_pct)):(progress('Proximitat short 8,72',wp.short_trigger_proximity_pct)+progress('Proximitat long 8,865',wp.long_trigger_proximity_pct))}</div></article>`;
+};
+const marketOverview = m => `<table><thead><tr><th>Mercat</th><th>Estat</th><th>Mid</th><th>1 h</th><th>4 h</th><th>Spread</th><th>Obert</th></tr></thead><tbody>${(m.universe||[]).map(x=>`<tr><td><strong>${esc(x.instrument)}</strong></td><td>${esc(x.status)}</td><td>${esc(fmt(x.mid))}</td><td class="${(x.change_1h_pct||0)>=0?'good':'bad'}">${esc(fmt(x.change_1h_pct))}%</td><td class="${(x.change_4h_pct||0)>=0?'good':'bad'}">${esc(fmt(x.change_4h_pct))}%</td><td>${esc(fmt(x.spread_bps))} bps</td><td>${x.market_open===true?'sí':x.market_open===false?'no':'—'}</td></tr>`).join('')}</tbody></table><p>${esc(m.interpretation||'')}</p>`;
 document.querySelectorAll('.tab').forEach(button=>button.addEventListener('click',()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===button));
   document.querySelectorAll('.tab-panel').forEach(x=>x.classList.toggle('active',x.id===`tab-${button.dataset.tab}`));
@@ -25,6 +27,10 @@ async function refresh(){
     document.querySelector('#portfolio').innerHTML=pg.pass?'<strong>CARTERA PAPER PREPARADA</strong> · només titulars elegibles':'<strong>CARTERA BLOQUEJADA</strong> · '+pg.blockers.map(esc).join(' · ');
     document.querySelector('#roster').innerHTML=s.roster.profiles.length?s.roster.profiles.map(wolfCard).join(''):'<div class="empty">Cap llop al roster.</div>';
     document.querySelector('#link-watch').innerHTML=linkWatch(s.link_watch);
+    document.querySelector('#market-overview').innerHTML=marketOverview(s.opportunity_monitor.market);
+    const cr=s.opportunity_monitor.codex_review;
+    document.querySelector('#codex-review').innerHTML=`<strong>${esc(cr.status||'WAITING')}</strong> · ${esc(cr.decision||'Codex només s’activarà quan canviï materialment un setup o el règim.')}`;
+    document.querySelector('#monitor-paper').innerHTML=`Equity: <strong>${esc(fmt(s.paper.ending_equity_usdc))} USDC</strong> · ${s.coverage.paper_open} obertes · ${s.coverage.paper_closed} tancades · cap ordre real autoritzada`;
     document.querySelector('#messages').innerHTML=s.messages.length?s.messages.map(card).join(''):'<div class="empty">Cap avís encara. El monitor continua observant.</div>';
     document.querySelector('#assets').innerHTML=s.assets.map(a=>`<tr><td><strong>${esc(a.asset)}</strong></td><td>${a.events}</td><td>${a.open_source}</td><td>${a.closed_source}</td><td class="${a.source_realized_pnl_usd>=0?'good':'bad'}">${fmt(a.source_realized_pnl_usd)} USD</td><td>${a.paper_open} obertes / ${a.paper_closed} tancades</td><td class="${a.paper_net_pnl_usdc>=0?'good':'bad'}">${fmt(a.paper_net_pnl_usdc)} USDC</td></tr>`).join('');
     document.querySelector('#tracking').innerHTML=s.tracking.length?s.tracking.map(positionCard).join(''):'<div class="empty">Encara no hi ha operacions observades.</div>';

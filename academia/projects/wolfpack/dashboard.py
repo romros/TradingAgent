@@ -4,6 +4,8 @@
 from __future__ import annotations
 
 import argparse
+import csv
+import io
 import importlib.util
 import json
 import statistics
@@ -35,6 +37,54 @@ def parse_time(value: str | None) -> datetime | None:
         return datetime.fromisoformat(value.replace("Z", "+00:00"))
     except ValueError:
         return None
+
+
+def market_overview(rows: list[dict], now: datetime) -> dict:
+    """Summarise comparable venue facts; never manufacture a trading signal."""
+    instruments: dict[str, list[dict]] = {}
+    for row in rows:
+        captured = parse_time(row.get("captured_at"))
+        for quote in row.get("sources", {}).get("ostium", []):
+            name = quote.get("instrument")
+            if name and quote.get("mid") is not None:
+                instruments.setdefault(name, []).append({**quote, "captured_at": captured})
+    output = []
+    for name in ("BTC/USD", "US500/USD", "XAU/USD", "EUR/USD"):
+        quotes = sorted(instruments.get(name, []), key=lambda item: item["captured_at"] or now)
+        if not quotes:
+            output.append({"instrument": name, "status": "NO_DATA"})
+            continue
+        latest = quotes[-1]
+        age_seconds = ((now - latest["captured_at"]).total_seconds()
+                       if latest["captured_at"] else None)
+        changes = {}
+        for label, seconds in (("change_1h_pct", 3600), ("change_4h_pct", 14400)):
+            cutoff = now.timestamp() - seconds
+            prior = min(quotes, key=lambda item: abs((item["captured_at"] or now).timestamp() - cutoff))
+            changes[label] = ((float(latest["mid"]) / float(prior["mid"]) - 1) * 100
+                              if prior.get("mid") else None)
+        output.append({"instrument": name, "status": "STALE" if age_seconds is None or age_seconds > 900 else "LIVE",
+                       "captured_at": latest["captured_at"].isoformat() if latest["captured_at"] else None,
+                       "age_seconds": age_seconds, "mid": latest.get("mid"),
+                       "spread_bps": latest.get("spread_bps"),
+                       "market_open": latest.get("market_open"), **changes})
+    live = sum(row.get("status") == "LIVE" for row in output)
+    return {"cadence_minutes": 10, "universe": output,
+            "situation": "DATA_HEALTHY" if live == len(output) else "PARTIAL_OR_STALE",
+            "interpretation": "Moviment i costos observats; no és una recomanació d'entrada."}
+
+
+def paper_csv(paper: dict) -> bytes:
+    fields = ["paper_status", "position_sha256", "wallet_sha256", "pair", "side",
+              "entry_time", "exit_time", "entry_price", "exit_price",
+              "copy_net_pnl_usdc", "cost_complete"]
+    stream = io.StringIO()
+    writer = csv.DictWriter(stream, fieldnames=fields, extrasaction="ignore")
+    writer.writeheader()
+    for status, key in (("OPEN", "open_positions"), ("CLOSED", "closed")):
+        for trade in paper.get(key, []):
+            writer.writerow({"paper_status": status, **trade})
+    return stream.getvalue().encode()
 
 
 def live_message(events: list[dict], now: datetime) -> dict | None:
@@ -208,7 +258,9 @@ def roster_view(events: list[dict], paper: dict, pack: dict) -> dict:
 def build_state(follows: Path, heartbeat: Path, paper_path: Path,
                 checkpoint: Path, now: datetime | None = None,
                 pack_path: Path | None = None,
-                link_watch_path: Path | None = None) -> dict:
+                link_watch_path: Path | None = None,
+                diary_path: Path | None = None,
+                codex_review_path: Path | None = None) -> dict:
     now = now or datetime.now(timezone.utc)
     events = read_jsonl(follows)
     heartbeat_data = read_json(heartbeat)
@@ -216,6 +268,8 @@ def build_state(follows: Path, heartbeat: Path, paper_path: Path,
     checkpoint_data = read_json(checkpoint)
     pack = read_json(pack_path or Path(__file__).with_name("pack.json"))
     link_watch = read_json(link_watch_path) if link_watch_path else {}
+    diary = read_jsonl(diary_path) if diary_path else []
+    codex_review = read_json(codex_review_path) if codex_review_path else {}
     assets, tracking = tracking_views(events, paper)
     roster = roster_view(events, paper, pack)
     checked = parse_time(heartbeat_data.get("checked_at"))
@@ -276,6 +330,14 @@ def build_state(follows: Path, heartbeat: Path, paper_path: Path,
             "maximum_loss_usdc": None, "live_trading_authorized": False,
         },
         "link_watch": link_watch,
+        "opportunity_monitor": {
+            "market": market_overview(diary, now),
+            "setups": ([{"instrument": "LINK/USD", "kind": "BREAKOUT_OR_BREAKDOWN",
+                         "state": link_watch.get("status", "NOT_STARTED"),
+                         "paper_only": True}] if link_watch else []),
+            "codex_review": codex_review or {"status": "WAITING_FOR_MATERIAL_CHANGE",
+                                               "live_trading_authorized": False},
+        },
         "simulations": simulations,
         "checkpoint": checkpoint_data.get("brief", checkpoint_data),
     }
@@ -287,10 +349,21 @@ def handler_factory(web_root: Path, paths: dict[str, Path]):
             super().__init__(*args, directory=str(web_root), **kwargs)
 
         def do_GET(self):
-            if urlparse(self.path).path == "/api/state":
+            request_path = urlparse(self.path).path
+            if request_path == "/api/state":
                 payload = json.dumps(build_state(**paths), ensure_ascii=False).encode()
                 self.send_response(200)
                 self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.send_header("Cache-Control", "no-store")
+                self.send_header("Content-Length", str(len(payload)))
+                self.end_headers()
+                self.wfile.write(payload)
+                return
+            if request_path == "/api/paper.csv":
+                payload = paper_csv(read_json(paths["paper_path"]))
+                self.send_response(200)
+                self.send_header("Content-Type", "text/csv; charset=utf-8")
+                self.send_header("Content-Disposition", "attachment; filename=wolfpack-paper.csv")
                 self.send_header("Cache-Control", "no-store")
                 self.send_header("Content-Length", str(len(payload)))
                 self.end_headers()
@@ -318,10 +391,15 @@ def main() -> None:
                         default=here / "pack.json")
     parser.add_argument("--link-watch", dest="link_watch_path", type=Path,
                         default=Path("/host-tmp/link-watch-state.json"))
+    parser.add_argument("--diary", dest="diary_path", type=Path,
+                        default=Path("/host-tmp/cross-venue-diary-forward-20260813.jsonl"))
+    parser.add_argument("--codex-review", dest="codex_review_path", type=Path,
+                        default=Path("/host-tmp/opportunity-codex-review.json"))
     args = parser.parse_args()
     paths = {key: getattr(args, key) for key in
              ("follows", "heartbeat", "paper_path", "checkpoint", "pack_path")}
-    paths["link_watch_path"] = args.link_watch_path
+    paths.update(link_watch_path=args.link_watch_path, diary_path=args.diary_path,
+                 codex_review_path=args.codex_review_path)
     server = ThreadingHTTPServer((args.bind, args.port), handler_factory(here / "web", paths))
     server.timeout = 1
     deadline = time.time() + args.duration_hours * 3600

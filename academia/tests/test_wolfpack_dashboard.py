@@ -12,6 +12,10 @@ spec.loader.exec_module(dashboard)
 
 
 class DashboardTest(unittest.TestCase):
+    def test_static_responses_disable_browser_cache(self):
+        handler = dashboard.handler_factory(Path("."), {})
+        self.assertIn("no-store, max-age=0", handler.end_headers.__code__.co_consts)
+
     def test_state_separates_real_and_simulated_messages(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

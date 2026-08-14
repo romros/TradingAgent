@@ -371,6 +371,13 @@ def handler_factory(web_root: Path, paths: dict[str, Path]):
                 return
             super().do_GET()
 
+        def end_headers(self):
+            # This is a live local dashboard; stale frontend assets can misstate monitor status.
+            self.send_header("Cache-Control", "no-store, max-age=0")
+            self.send_header("Pragma", "no-cache")
+            self.send_header("Expires", "0")
+            super().end_headers()
+
         def log_message(self, fmt, *args):
             return
 

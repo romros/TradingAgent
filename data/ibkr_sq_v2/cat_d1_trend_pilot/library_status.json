@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "strategy_id": "ibkr-cat-d1-minus-di-turn-v1",
+  "source_candidate_id": "Strategy 0.168",
+  "classification": "swing_long_equity",
+  "status": "RESEARCH_RESERVE_PARAMETER_ROBUST_HOLDOUT_SEALED",
+  "mechanism": "Wilder minus-DI(40) turn-down with ATR30 bracket exits",
+  "validation": {
+    "period": "2022-01-03/2023-12-29",
+    "trades": 36,
+    "stress_return_pct": 20.908222,
+    "stress_profit_factor": 1.232081,
+    "stress_drawdown_pct": 17.693609
+  },
+  "oos": {
+    "period": "2024-01-02/2024-12-31",
+    "trades": 21,
+    "stress_return_pct": 13.226881,
+    "stress_profit_factor": 1.333418,
+    "stress_drawdown_pct": 15.811438,
+    "minimum_required_trades": 60,
+    "trade_count_gate_passed": false
+  },
+  "parameter_neighborhood": {
+    "points": 81,
+    "passing_points": 79,
+    "passing_ratio": 0.975309
+  },
+  "independent_trade_parity": {
+    "validation": "36/36",
+    "oos": "21/21",
+    "pre_holdout": "127/127"
+  },
+  "native_parameter_monte_carlo": {
+    "declared_simulations": 1000,
+    "persisted_order_members": 994,
+    "missing_trailing_indices": [994, 995, 996, 997, 998, 999],
+    "control_declared_simulations": 1006,
+    "control_persisted_order_members": 1001,
+    "control_missing_trailing_indices": [1001, 1002, 1003, 1004, 1005],
+    "diagnostic_export_attempt": "1001/1001 blobs exported as empty CSV because SimulationOrders.bin is not a standalone SQ order list in build 143",
+    "inference": "SQCLI systematically omits a trailing worker batch; do not silently treat declared count as persisted count",
+    "canonical_requested_simulations": 2000,
+    "canonical_sq_reported_simulations": 2000,
+    "canonical_persisted_order_members": 1980,
+    "canonical_missing_trailing_count": 20,
+    "canonical_missing_counted_as_failures": true,
+    "canonical_adjusted_profitable_ratio_lower_bound": 0.99,
+    "required_profitable_ratio": 0.9,
+    "canonical_worst_percentile": {
+      "net_profit": 178.1300048828125,
+      "drawdown": 70.69000244140625,
+      "return_drawdown_ratio": 2.5299999713897705,
+      "r_expectancy": 0.10930000245571136
+    },
+    "decision": "PASS_PARAMETER_ROBUSTNESS_WITH_SQ_TRAILING_PERSISTENCE_CAVEAT"
+  },
+  "small_account_preholdout": {
+    "capital_usd": 1000,
+    "stress_return_pct_2017_2024": 88.956118,
+    "stress_profit_factor": 1.221474,
+    "stress_drawdown_pct_close_to_close": 29.113177,
+    "same_bar_d1_trades": 1,
+    "same_bar_policy": "pessimistic stop, MAE equals loss, zero MFE",
+    "risk_per_trade_cap_verified": false,
+    "decision": "NOT_DEPLOYMENT_READY"
+  },
+  "holdout_release_blockers": [
+    "OOS has 21 trades versus frozen minimum 60",
+    "risk sizing has not yet proven the frozen 1.5 percent per-trade cap"
+  ],
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

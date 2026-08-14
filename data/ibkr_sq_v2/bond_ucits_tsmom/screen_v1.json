@@ -1,0 +1,259 @@
+{
+  "schema_version": 1,
+  "preregistration_sha256": "d21007f4423798f3d664d36217ae7808bfd340e094c8f5196397f83494e8bf7d",
+  "optimized": false,
+  "holdout_2025_accessed": false,
+  "assets": {
+    "IBTM_L": {
+      "source_sha256": "f6035f4f3d8ca02f0f8fabacd7e211ccc010320972c78ffd9e479b9ab0a0537a",
+      "costs": {
+        "gross": {
+          "train": {
+            "months": 35,
+            "invested_months": 20,
+            "position_changes": 4,
+            "total_return": 0.1453485332959541,
+            "annualized_return": 0.047628245506969646,
+            "annualized_sharpe": 0.46982049143715393,
+            "max_drawdown": 0.11389469999962543
+          },
+          "validation": {
+            "months": 47,
+            "invested_months": 33,
+            "position_changes": 5,
+            "total_return": 0.011973481641055717,
+            "annualized_return": 0.003043524257099195,
+            "annualized_sharpe": 0.07821429517235633,
+            "max_drawdown": 0.2047679893802472
+          },
+          "oos": {
+            "months": 23,
+            "invested_months": 5,
+            "position_changes": 1,
+            "total_return": 0.03590663407549566,
+            "annualized_return": 0.01857582416824033,
+            "annualized_sharpe": 0.6524150210160156,
+            "max_drawdown": 0.017443885552305916
+          },
+          "combined_validation_oos": {
+            "months": 71,
+            "invested_months": 38,
+            "position_changes": 6,
+            "total_return": 0.048310043140446624,
+            "annualized_return": 0.008005857390816162,
+            "annualized_sharpe": 0.13815196900013155,
+            "max_drawdown": 0.2047679893802472
+          }
+        },
+        "tiered": {
+          "train": {
+            "months": 35,
+            "invested_months": 20,
+            "position_changes": 4,
+            "total_return": 0.14028301515251673,
+            "annualized_return": 0.04603736045541962,
+            "annualized_sharpe": 0.4556875997329559,
+            "max_drawdown": 0.11685758769541532
+          },
+          "validation": {
+            "months": 47,
+            "invested_months": 33,
+            "position_changes": 5,
+            "total_return": 0.00638276934998272,
+            "annualized_return": 0.0016257846019704925,
+            "annualized_sharpe": 0.06372419150952835,
+            "max_drawdown": 0.20829041899865797
+          },
+          "oos": {
+            "months": 23,
+            "invested_months": 5,
+            "position_changes": 1,
+            "total_return": 0.03479341801999225,
+            "annualized_return": 0.01800458593220511,
+            "annualized_sharpe": 0.6425665294984976,
+            "max_drawdown": 0.017443885552305805
+          },
+          "combined_validation_oos": {
+            "months": 71,
+            "invested_months": 38,
+            "position_changes": 6,
+            "total_return": 0.041398265732094375,
+            "annualized_return": 0.006879493163830741,
+            "annualized_sharpe": 0.12425091720885428,
+            "max_drawdown": 0.20829041899865797
+          }
+        },
+        "stress": {
+          "train": {
+            "months": 35,
+            "invested_months": 20,
+            "position_changes": 4,
+            "total_return": 0.13111604445978942,
+            "annualized_return": 0.04314651849622919,
+            "annualized_sharpe": 0.4299613555879163,
+            "max_drawdown": 0.12222772474808308
+          },
+          "validation": {
+            "months": 47,
+            "invested_months": 33,
+            "position_changes": 5,
+            "total_return": -0.0037188468888639248,
+            "annualized_return": -0.0009508104143037821,
+            "annualized_sharpe": 0.037450433806391376,
+            "max_drawdown": 0.21466484266170827
+          },
+          "oos": {
+            "months": 23,
+            "invested_months": 5,
+            "position_changes": 1,
+            "total_return": 0.032769388828168156,
+            "annualized_return": 0.016965217455219506,
+            "annualized_sharpe": 0.6229361663675503,
+            "max_drawdown": 0.017443885552305916
+          },
+          "combined_validation_oos": {
+            "months": 71,
+            "invested_months": 38,
+            "position_changes": 6,
+            "total_return": 0.028928677599610708,
+            "annualized_return": 0.004831602409812286,
+            "annualized_sharpe": 0.09896867840794511,
+            "max_drawdown": 0.21466484266170827
+          }
+        }
+      }
+    },
+    "IDTL_L": {
+      "source_sha256": "3bf1c6020b2d32233ba393e0880d9f220c54afa4def35a8eb7f5d2d5ce04cd4e",
+      "costs": {
+        "gross": {
+          "train": {
+            "months": 34,
+            "invested_months": 17,
+            "position_changes": 6,
+            "total_return": -0.10206187443264148,
+            "annualized_return": -0.03728279446452887,
+            "annualized_sharpe": -0.4129765969213577,
+            "max_drawdown": 0.2034677292754521
+          },
+          "validation": {
+            "months": 47,
+            "invested_months": 26,
+            "position_changes": 4,
+            "total_return": 0.13743985466260344,
+            "annualized_return": 0.03342651941024388,
+            "annualized_sharpe": 0.33614983337601817,
+            "max_drawdown": 0.21333219529829073
+          },
+          "oos": {
+            "months": 23,
+            "invested_months": 4,
+            "position_changes": 3,
+            "total_return": -0.0331210664965883,
+            "annualized_return": -0.017419703499436445,
+            "annualized_sharpe": -0.36477407051344757,
+            "max_drawdown": 0.05375023254917943
+          },
+          "combined_validation_oos": {
+            "months": 71,
+            "invested_months": 30,
+            "position_changes": 7,
+            "total_return": 0.09976663360045346,
+            "annualized_return": 0.01620276635342588,
+            "annualized_sharpe": 0.2102942314394783,
+            "max_drawdown": 0.25228107159337554
+          }
+        },
+        "tiered": {
+          "train": {
+            "months": 34,
+            "invested_months": 17,
+            "position_changes": 6,
+            "total_return": -0.10798976584017206,
+            "annualized_return": -0.03953073517023653,
+            "annualized_sharpe": -0.4407600171100746,
+            "max_drawdown": 0.20698249353905418
+          },
+          "validation": {
+            "months": 47,
+            "invested_months": 26,
+            "position_changes": 4,
+            "total_return": 0.13234971285633423,
+            "annualized_return": 0.03224377920635457,
+            "annualized_sharpe": 0.3260181184283687,
+            "max_drawdown": 0.2159777965768962
+          },
+          "oos": {
+            "months": 23,
+            "invested_months": 4,
+            "position_changes": 3,
+            "total_return": -0.03630384745951809,
+            "annualized_return": -0.019108581972461458,
+            "annualized_sharpe": -0.4036025003453351,
+            "max_drawdown": 0.05375023254917943
+          },
+          "combined_validation_oos": {
+            "months": 71,
+            "invested_months": 30,
+            "position_changes": 7,
+            "total_return": 0.09124106160996859,
+            "annualized_return": 0.014867003100238696,
+            "annualized_sharpe": 0.19683988108897174,
+            "max_drawdown": 0.2572487563592525
+          }
+        },
+        "stress": {
+          "train": {
+            "months": 34,
+            "invested_months": 17,
+            "position_changes": 6,
+            "total_return": -0.11868421027641674,
+            "annualized_return": -0.04361079589787209,
+            "annualized_sharpe": -0.49086243724427164,
+            "max_drawdown": 0.21334316012119692
+          },
+          "validation": {
+            "months": 47,
+            "invested_months": 26,
+            "position_changes": 4,
+            "total_return": 0.12313869232504193,
+            "annualized_return": 0.03009341278176847,
+            "annualized_sharpe": 0.30762688484808115,
+            "max_drawdown": 0.22077277784694171
+          },
+          "oos": {
+            "months": 23,
+            "invested_months": 4,
+            "position_changes": 3,
+            "total_return": -0.04207281470876012,
+            "annualized_return": -0.02217658215651097,
+            "annualized_sharpe": -0.4736164931637423,
+            "max_drawdown": 0.05831121355403768
+          },
+          "combined_validation_oos": {
+            "months": 71,
+            "invested_months": 30,
+            "position_changes": 7,
+            "total_return": 0.0758850862306113,
+            "annualized_return": 0.012439037732046243,
+            "annualized_sharpe": 0.1724285737193391,
+            "max_drawdown": 0.26621046280502836
+          }
+        }
+      }
+    }
+  },
+  "decision": {
+    "status": "REJECT_BOND_TSMOM_TRANSFER",
+    "asset_pass": {
+      "IBTM_L": false,
+      "IDTL_L": false
+    },
+    "transfer_correlation": {
+      "months": 71,
+      "correlation": 0.6361414005066686
+    },
+    "paper_authorized": false,
+    "live_authorized": false
+  }
+}

@@ -1,0 +1,24 @@
+Project: IBKR_V2_AAPL_H1_SHOCK_REVERSION_TIERED
+Log file: /global_log_20260813_061747.log
+
+--------------------------------------------------------------------------------------------------------------------------
+TASK STARTED at 2026.08.13 06:17:47.730
+Task: Build strategies, Type: Build
+Databanks before start: Results (0), Existing portfolio (0), Last generation (0), Initial population (0), Strategies to improve (0), D1 (0), OLD (0), D1_OLD (0)
+
+TASK FINISHED at 2026.08.13 06:23:30.313 in 5 min. 42 s.
+Databanks after finish: Results (23), Existing portfolio (0), Last generation (0), Initial population (0), Strategies to improve (0), D1 (0), OLD (0), D1_OLD (0)
+
+Strategies generated: 25251, Time per strategy: 13 ms., Time per accepted strategy: 14 s., Accepted: 23, Rejected: 25228, Strategies per hour: 265879, Accepted strategies per hour: 242.18
+
+Time per strategy details:
+Main test: Count: 7143, Avg. time: 0.1487 s., Total time: 1061.9170 s., % of all: 100.00 %
+
+Rejected details:
+Automatic filter: too little trades, Count: 6222, % of all: 24.66 %
+Global filter:  Profit factor[Main data] > 1.05, Count: 7120, % of all: 28.22 %
+Automatic filter: outlier trade - one exceptionally big trade, Count: 170, % of all: 0.67 %
+Automatic filter: no trades, Count: 11716, % of all: 46.44 %
+
+Accepted details:
+In databank, Count: 23, % of all: 100.0 %

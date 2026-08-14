@@ -1,0 +1,845 @@
+{
+  "schema_version": 1,
+  "preregistration_sha256": "b0447406583fb306c39f6cba00a32712fbe1aa10a361c6f6eeff91d7559f6591",
+  "assets": {
+    "KO": {
+      "source": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/preflight/KOUSUSD_CANONICAL_D1_2017_2024.csv",
+      "source_sha256": "d387bd9c1aaaf8099cf9377cc76feef76e4c26ce0d10ed10a9df63f672fc5fc3",
+      "variants": {
+        "c0.65_b10_h10": {
+          "parameters": {
+            "compression_ratio": 0.65,
+            "breakout_days": 10,
+            "maximum_holding_sessions": 10
+          },
+          "periods": {
+            "train": {
+              "trades": 1,
+              "mean_r": -1.0007290078865396,
+              "net_r": -1.0007290078865396,
+              "profit_factor_r": 0.0,
+              "maximum_drawdown_r": 1.0007290078865396,
+              "win_rate": 0.0
+            },
+            "validation": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            },
+            "oos": {
+              "trades": 2,
+              "mean_r": 0.39311509809124806,
+              "net_r": 0.7862301961824961,
+              "profit_factor_r": 2.0295117395620887,
+              "maximum_drawdown_r": 0.7636923076923102,
+              "win_rate": 0.5
+            }
+          },
+          "asset_pass": false
+        },
+        "c0.65_b10_h20": {
+          "parameters": {
+            "compression_ratio": 0.65,
+            "breakout_days": 10,
+            "maximum_holding_sessions": 20
+          },
+          "periods": {
+            "train": {
+              "trades": 1,
+              "mean_r": -1.0007290078865396,
+              "net_r": -1.0007290078865396,
+              "profit_factor_r": 0.0,
+              "maximum_drawdown_r": 1.0007290078865396,
+              "win_rate": 0.0
+            },
+            "validation": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            },
+            "oos": {
+              "trades": 2,
+              "mean_r": 0.07722113894305327,
+              "net_r": 0.15444227788610654,
+              "profit_factor_r": 1.1544422778861065,
+              "maximum_drawdown_r": 1.0,
+              "win_rate": 0.5
+            }
+          },
+          "asset_pass": false
+        },
+        "c0.65_b20_h10": {
+          "parameters": {
+            "compression_ratio": 0.65,
+            "breakout_days": 20,
+            "maximum_holding_sessions": 10
+          },
+          "periods": {
+            "train": {
+              "trades": 1,
+              "mean_r": -1.0007290078865396,
+              "net_r": -1.0007290078865396,
+              "profit_factor_r": 0.0,
+              "maximum_drawdown_r": 1.0007290078865396,
+              "win_rate": 0.0
+            },
+            "validation": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            },
+            "oos": {
+              "trades": 2,
+              "mean_r": -0.007819386760510305,
+              "net_r": -0.01563877352102061,
+              "profit_factor_r": 0.9795221539309763,
+              "maximum_drawdown_r": 0.7636923076923102,
+              "win_rate": 0.5
+            }
+          },
+          "asset_pass": false
+        },
+        "c0.65_b20_h20": {
+          "parameters": {
+            "compression_ratio": 0.65,
+            "breakout_days": 20,
+            "maximum_holding_sessions": 20
+          },
+          "periods": {
+            "train": {
+              "trades": 1,
+              "mean_r": -1.0007290078865396,
+              "net_r": -1.0007290078865396,
+              "profit_factor_r": 0.0,
+              "maximum_drawdown_r": 1.0007290078865396,
+              "win_rate": 0.0
+            },
+            "validation": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            },
+            "oos": {
+              "trades": 2,
+              "mean_r": -0.2557376214950905,
+              "net_r": -0.511475242990181,
+              "profit_factor_r": 0.488524757009819,
+              "maximum_drawdown_r": 1.0,
+              "win_rate": 0.5
+            }
+          },
+          "asset_pass": false
+        },
+        "c0.8_b10_h10": {
+          "parameters": {
+            "compression_ratio": 0.8,
+            "breakout_days": 10,
+            "maximum_holding_sessions": 10
+          },
+          "periods": {
+            "train": {
+              "trades": 10,
+              "mean_r": -0.39415973913393254,
+              "net_r": -3.941597391339325,
+              "profit_factor_r": 0.332373164137463,
+              "maximum_drawdown_r": 4.587206123811278,
+              "win_rate": 0.4
+            },
+            "validation": {
+              "trades": 3,
+              "mean_r": 0.7100573614550053,
+              "net_r": 2.130172084365016,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": 1.0
+            },
+            "oos": {
+              "trades": 2,
+              "mean_r": 0.85483535372492,
+              "net_r": 1.70967070744984,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": 1.0
+            }
+          },
+          "asset_pass": false
+        },
+        "c0.8_b10_h20": {
+          "parameters": {
+            "compression_ratio": 0.8,
+            "breakout_days": 10,
+            "maximum_holding_sessions": 20
+          },
+          "periods": {
+            "train": {
+              "trades": 8,
+              "mean_r": -0.18827396390111548,
+              "net_r": -1.5061917112089238,
+              "profit_factor_r": 0.5418386796713497,
+              "maximum_drawdown_r": 2.158796880108357,
+              "win_rate": 0.375
+            },
+            "validation": {
+              "trades": 3,
+              "mean_r": 0.8088287674867698,
+              "net_r": 2.4264863024603094,
+              "profit_factor_r": 14.051187462278621,
+              "maximum_drawdown_r": 0.18592073016141208,
+              "win_rate": 0.6666666666666666
+            },
+            "oos": {
+              "trades": 2,
+              "mean_r": 0.9988613788622882,
+              "net_r": 1.9977227577245764,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": 1.0
+            }
+          },
+          "asset_pass": false
+        },
+        "c0.8_b20_h10": {
+          "parameters": {
+            "compression_ratio": 0.8,
+            "breakout_days": 20,
+            "maximum_holding_sessions": 10
+          },
+          "periods": {
+            "train": {
+              "trades": 5,
+              "mean_r": -0.9807785965484742,
+              "net_r": -4.903892982742371,
+              "profit_factor_r": 0.0,
+              "maximum_drawdown_r": 4.903892982742372,
+              "win_rate": 0.0
+            },
+            "validation": {
+              "trades": 3,
+              "mean_r": 0.688284598885022,
+              "net_r": 2.064853796655066,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": 1.0
+            },
+            "oos": {
+              "trades": 2,
+              "mean_r": 0.45390086887316167,
+              "net_r": 0.9078017377463233,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": 1.0
+            }
+          },
+          "asset_pass": false
+        },
+        "c0.8_b20_h20": {
+          "parameters": {
+            "compression_ratio": 0.8,
+            "breakout_days": 20,
+            "maximum_holding_sessions": 20
+          },
+          "periods": {
+            "train": {
+              "trades": 5,
+              "mean_r": -0.8934638329747175,
+              "net_r": -4.4673191648735875,
+              "profit_factor_r": 0.005611671389042252,
+              "maximum_drawdown_r": 4.49252976562376,
+              "win_rate": 0.2
+            },
+            "validation": {
+              "trades": 3,
+              "mean_r": 0.32281887163655815,
+              "net_r": 0.9684566149096745,
+              "profit_factor_r": 6.208975965557377,
+              "maximum_drawdown_r": 0.1859207301614122,
+              "win_rate": 0.6666666666666666
+            },
+            "oos": {
+              "trades": 2,
+              "mean_r": 0.6659026184241444,
+              "net_r": 1.3318052368482889,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": 1.0
+            }
+          },
+          "asset_pass": false
+        }
+      }
+    },
+    "JPM": {
+      "source": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/preflight/JPMUSUSD_CANONICAL_D1_2017_2024.csv",
+      "source_sha256": "4c75a75bcda98fd92cc04472cd7a1b5cbd29f3e9de454db53c7f81ed8c7791b1",
+      "variants": {
+        "c0.65_b10_h10": {
+          "parameters": {
+            "compression_ratio": 0.65,
+            "breakout_days": 10,
+            "maximum_holding_sessions": 10
+          },
+          "periods": {
+            "train": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            },
+            "validation": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            },
+            "oos": {
+              "trades": 1,
+              "mean_r": 0.6019454340372797,
+              "net_r": 0.6019454340372797,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": 1.0
+            }
+          },
+          "asset_pass": false
+        },
+        "c0.65_b10_h20": {
+          "parameters": {
+            "compression_ratio": 0.65,
+            "breakout_days": 10,
+            "maximum_holding_sessions": 20
+          },
+          "periods": {
+            "train": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            },
+            "validation": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            },
+            "oos": {
+              "trades": 1,
+              "mean_r": -1.0,
+              "net_r": -1.0,
+              "profit_factor_r": 0.0,
+              "maximum_drawdown_r": 1.0,
+              "win_rate": 0.0
+            }
+          },
+          "asset_pass": false
+        },
+        "c0.65_b20_h10": {
+          "parameters": {
+            "compression_ratio": 0.65,
+            "breakout_days": 20,
+            "maximum_holding_sessions": 10
+          },
+          "periods": {
+            "train": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            },
+            "validation": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            },
+            "oos": {
+              "trades": 1,
+              "mean_r": -0.5070011206320835,
+              "net_r": -0.5070011206320835,
+              "profit_factor_r": 0.0,
+              "maximum_drawdown_r": 0.5070011206320835,
+              "win_rate": 0.0
+            }
+          },
+          "asset_pass": false
+        },
+        "c0.65_b20_h20": {
+          "parameters": {
+            "compression_ratio": 0.65,
+            "breakout_days": 20,
+            "maximum_holding_sessions": 20
+          },
+          "periods": {
+            "train": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            },
+            "validation": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            },
+            "oos": {
+              "trades": 1,
+              "mean_r": -1.0,
+              "net_r": -1.0,
+              "profit_factor_r": 0.0,
+              "maximum_drawdown_r": 1.0,
+              "win_rate": 0.0
+            }
+          },
+          "asset_pass": false
+        },
+        "c0.8_b10_h10": {
+          "parameters": {
+            "compression_ratio": 0.8,
+            "breakout_days": 10,
+            "maximum_holding_sessions": 10
+          },
+          "periods": {
+            "train": {
+              "trades": 10,
+              "mean_r": 0.3494479318566263,
+              "net_r": 3.4944793185662633,
+              "profit_factor_r": 1.7759200022821493,
+              "maximum_drawdown_r": 1.7124384346152346,
+              "win_rate": 0.5
+            },
+            "validation": {
+              "trades": 1,
+              "mean_r": 1.878878133531886,
+              "net_r": 1.878878133531886,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": 1.0
+            },
+            "oos": {
+              "trades": 3,
+              "mean_r": 0.4265319548158239,
+              "net_r": 1.2795958644474716,
+              "profit_factor_r": 2.2795958644474714,
+              "maximum_drawdown_r": 1.0,
+              "win_rate": 0.6666666666666666
+            }
+          },
+          "asset_pass": false
+        },
+        "c0.8_b10_h20": {
+          "parameters": {
+            "compression_ratio": 0.8,
+            "breakout_days": 10,
+            "maximum_holding_sessions": 20
+          },
+          "periods": {
+            "train": {
+              "trades": 10,
+              "mean_r": 0.3625503042236402,
+              "net_r": 3.625503042236402,
+              "profit_factor_r": 1.8648565933896708,
+              "maximum_drawdown_r": 2.1074224774887274,
+              "win_rate": 0.6
+            },
+            "validation": {
+              "trades": 1,
+              "mean_r": 2.768581629341118,
+              "net_r": 2.768581629341118,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": 1.0
+            },
+            "oos": {
+              "trades": 2,
+              "mean_r": 0.07343752203901388,
+              "net_r": 0.14687504407802776,
+              "profit_factor_r": 1.1468750440780278,
+              "maximum_drawdown_r": 1.0,
+              "win_rate": 0.5
+            }
+          },
+          "asset_pass": false
+        },
+        "c0.8_b20_h10": {
+          "parameters": {
+            "compression_ratio": 0.8,
+            "breakout_days": 20,
+            "maximum_holding_sessions": 10
+          },
+          "periods": {
+            "train": {
+              "trades": 7,
+              "mean_r": 0.1695521413216206,
+              "net_r": 1.1868649892513443,
+              "profit_factor_r": 1.349464733579841,
+              "maximum_drawdown_r": 1.7066153378583717,
+              "win_rate": 0.42857142857142855
+            },
+            "validation": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            },
+            "oos": {
+              "trades": 1,
+              "mean_r": -0.5070011206320835,
+              "net_r": -0.5070011206320835,
+              "profit_factor_r": 0.0,
+              "maximum_drawdown_r": 0.5070011206320835,
+              "win_rate": 0.0
+            }
+          },
+          "asset_pass": false
+        },
+        "c0.8_b20_h20": {
+          "parameters": {
+            "compression_ratio": 0.8,
+            "breakout_days": 20,
+            "maximum_holding_sessions": 20
+          },
+          "periods": {
+            "train": {
+              "trades": 7,
+              "mean_r": 0.11120853563905354,
+              "net_r": 0.7784597494733748,
+              "profit_factor_r": 1.252369305460633,
+              "maximum_drawdown_r": 1.4214180500501616,
+              "win_rate": 0.5714285714285714
+            },
+            "validation": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            },
+            "oos": {
+              "trades": 1,
+              "mean_r": -1.0,
+              "net_r": -1.0,
+              "profit_factor_r": 0.0,
+              "maximum_drawdown_r": 1.0,
+              "win_rate": 0.0
+            }
+          },
+          "asset_pass": false
+        }
+      }
+    },
+    "DE": {
+      "source": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/preflight/DEUSUSD_CANONICAL_D1_2017_2024.csv",
+      "source_sha256": "3e1d0e7331984672d1028255bf1bbf33282a5c0757cfb4761b050b87830d9a1d",
+      "variants": {
+        "c0.65_b10_h10": {
+          "parameters": {
+            "compression_ratio": 0.65,
+            "breakout_days": 10,
+            "maximum_holding_sessions": 10
+          },
+          "periods": {
+            "train": {
+              "trades": 2,
+              "mean_r": -1.0,
+              "net_r": -2.0,
+              "profit_factor_r": 0.0,
+              "maximum_drawdown_r": 2.0,
+              "win_rate": 0.0
+            },
+            "validation": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            },
+            "oos": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            }
+          },
+          "asset_pass": false
+        },
+        "c0.65_b10_h20": {
+          "parameters": {
+            "compression_ratio": 0.65,
+            "breakout_days": 10,
+            "maximum_holding_sessions": 20
+          },
+          "periods": {
+            "train": {
+              "trades": 2,
+              "mean_r": -1.0,
+              "net_r": -2.0,
+              "profit_factor_r": 0.0,
+              "maximum_drawdown_r": 2.0,
+              "win_rate": 0.0
+            },
+            "validation": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            },
+            "oos": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            }
+          },
+          "asset_pass": false
+        },
+        "c0.65_b20_h10": {
+          "parameters": {
+            "compression_ratio": 0.65,
+            "breakout_days": 20,
+            "maximum_holding_sessions": 10
+          },
+          "periods": {
+            "train": {
+              "trades": 2,
+              "mean_r": -1.0,
+              "net_r": -2.0,
+              "profit_factor_r": 0.0,
+              "maximum_drawdown_r": 2.0,
+              "win_rate": 0.0
+            },
+            "validation": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            },
+            "oos": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            }
+          },
+          "asset_pass": false
+        },
+        "c0.65_b20_h20": {
+          "parameters": {
+            "compression_ratio": 0.65,
+            "breakout_days": 20,
+            "maximum_holding_sessions": 20
+          },
+          "periods": {
+            "train": {
+              "trades": 2,
+              "mean_r": -1.0,
+              "net_r": -2.0,
+              "profit_factor_r": 0.0,
+              "maximum_drawdown_r": 2.0,
+              "win_rate": 0.0
+            },
+            "validation": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            },
+            "oos": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            }
+          },
+          "asset_pass": false
+        },
+        "c0.8_b10_h10": {
+          "parameters": {
+            "compression_ratio": 0.8,
+            "breakout_days": 10,
+            "maximum_holding_sessions": 10
+          },
+          "periods": {
+            "train": {
+              "trades": 7,
+              "mean_r": -0.053656897609730234,
+              "net_r": -0.3755982832681116,
+              "profit_factor_r": 0.8748005722439628,
+              "maximum_drawdown_r": 2.1891609366288773,
+              "win_rate": 0.5714285714285714
+            },
+            "validation": {
+              "trades": 2,
+              "mean_r": -1.0,
+              "net_r": -2.0,
+              "profit_factor_r": 0.0,
+              "maximum_drawdown_r": 2.0,
+              "win_rate": 0.0
+            },
+            "oos": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            }
+          },
+          "asset_pass": false
+        },
+        "c0.8_b10_h20": {
+          "parameters": {
+            "compression_ratio": 0.8,
+            "breakout_days": 10,
+            "maximum_holding_sessions": 20
+          },
+          "periods": {
+            "train": {
+              "trades": 6,
+              "mean_r": -0.09451233337071509,
+              "net_r": -0.5670740002242906,
+              "profit_factor_r": 0.8158806575627786,
+              "maximum_drawdown_r": 2.0867326291544113,
+              "win_rate": 0.5
+            },
+            "validation": {
+              "trades": 2,
+              "mean_r": -1.0,
+              "net_r": -2.0,
+              "profit_factor_r": 0.0,
+              "maximum_drawdown_r": 2.0,
+              "win_rate": 0.0
+            },
+            "oos": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            }
+          },
+          "asset_pass": false
+        },
+        "c0.8_b20_h10": {
+          "parameters": {
+            "compression_ratio": 0.8,
+            "breakout_days": 20,
+            "maximum_holding_sessions": 10
+          },
+          "periods": {
+            "train": {
+              "trades": 5,
+              "mean_r": -0.16271431232503286,
+              "net_r": -0.8135715616251643,
+              "profit_factor_r": 0.5932142191874179,
+              "maximum_drawdown_r": 1.1891609366288773,
+              "win_rate": 0.6
+            },
+            "validation": {
+              "trades": 1,
+              "mean_r": -1.0,
+              "net_r": -1.0,
+              "profit_factor_r": 0.0,
+              "maximum_drawdown_r": 1.0,
+              "win_rate": 0.0
+            },
+            "oos": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            }
+          },
+          "asset_pass": false
+        },
+        "c0.8_b20_h20": {
+          "parameters": {
+            "compression_ratio": 0.8,
+            "breakout_days": 20,
+            "maximum_holding_sessions": 20
+          },
+          "periods": {
+            "train": {
+              "trades": 4,
+              "mean_r": -0.17722225258352772,
+              "net_r": -0.7088890103341109,
+              "profit_factor_r": 0.6591758951362302,
+              "maximum_drawdown_r": 1.0867326291544113,
+              "win_rate": 0.5
+            },
+            "validation": {
+              "trades": 1,
+              "mean_r": -1.0,
+              "net_r": -1.0,
+              "profit_factor_r": 0.0,
+              "maximum_drawdown_r": 1.0,
+              "win_rate": 0.0
+            },
+            "oos": {
+              "trades": 0,
+              "mean_r": null,
+              "net_r": 0,
+              "profit_factor_r": null,
+              "maximum_drawdown_r": 0.0,
+              "win_rate": null
+            }
+          },
+          "asset_pass": false
+        }
+      }
+    }
+  },
+  "holdout_2025_accessed": false,
+  "optimized": false,
+  "cross_asset_passing_variants": {},
+  "family_density_pass": false,
+  "sqcli_authorized": false
+}

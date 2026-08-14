@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "decision": "SHADOW_PAPER_READY",
+  "checks": {
+    "public_contract": true,
+    "validation_oos_pass": true,
+    "stress_cost_positive": true,
+    "future_official_calendar": true,
+    "idempotent_schedule": true,
+    "orders_disabled": true,
+    "research_holdout_sealed": true
+  },
+  "missing": [],
+  "broker_account_required": false,
+  "orders_sent": 0,
+  "ibkr_paper_authorized": false,
+  "live_authorized": false,
+  "next_action": {
+    "date": "2026-08-31",
+    "action": "BUY",
+    "cycle": "2026-08",
+    "reason": "last_session_of_month",
+    "idempotency_key": "turn_of_month:2026-08:BUY"
+  },
+  "inputs_sha256": {
+    "lab/sq_bridge/ibkr_sxr8_public_contract_v1.json": "f539bddeaacb070f5d1860e594c7329167302e335a63da95b00a53f33a35790e",
+    "data/ibkr_sq_v2/turn_of_month/cspx_transfer_v1.json": "023bc10154884c43c1b90239c39463c1cb2809986ec32353991cb149688b9e32",
+    "data/ibkr_sq_v2/turn_of_month/sxr8_xetra_schedule_2026.json": "c1532ca1e68002639b088b225d40374945e6cb396e3ea94670c64ab8e6df2c91"
+  }
+}

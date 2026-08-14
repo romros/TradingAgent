@@ -1,0 +1,26 @@
+Project: IBKR_V2_AAPL_H1_ROC_REVERSION_GENETIC
+Log file: /global_log_20260813_070002.log
+
+--------------------------------------------------------------------------------------------------------------------------
+TASK STARTED at 2026.08.13 07:00:02.772
+Task: Build strategies, Type: Build
+Databanks before start: Results (0), Existing portfolio (0), Last generation (0), Initial population (0), Strategies to improve (0), D1 (0), OLD (0), D1_OLD (0)
+
+TASK FINISHED at 2026.08.13 07:00:29.644 in 26 s.
+Databanks after finish: Results (40), Existing portfolio (0), Last generation (0), Initial population (0), Strategies to improve (0), D1 (0), OLD (0), D1_OLD (0)
+
+Strategies generated: 2043, Time per strategy: 12 ms., Time per accepted strategy: 654 ms., Accepted: 40, Rejected: 2003, Strategies per hour: 280825, Accepted strategies per hour: 5498
+
+Time per strategy details:
+Main test: Count: 474, Avg. time: 0.1440 s., Total time: 68.2490 s., % of all: 100.00 %
+
+Rejected details:
+Automatic filter: too little trades, Count: 395, % of all: 19.72 %
+Global filter:  # of trades[Main data] > 60.00, Count: 2, % of all: 0.1 %
+Global filter:  Profit factor[Main data] > 1.05, Count: 38, % of all: 1.9 %
+initial population, Count: 394, % of all: 19.67 %
+Automatic filter: outlier trade - one exceptionally big trade, Count: 4, % of all: 0.2 %
+Automatic filter: no trades, Count: 1170, % of all: 58.41 %
+
+Accepted details:
+In databank, Count: 40, % of all: 100.0 %

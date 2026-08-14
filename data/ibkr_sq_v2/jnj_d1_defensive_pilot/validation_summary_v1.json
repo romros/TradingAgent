@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_JNJ_D1_DEFENSIVE_CAMPAIGN",
+  "discovery": {
+    "generated": 351,
+    "accepted_log_count": 61,
+    "frozen_candidate_count": 60,
+    "families": 31,
+    "entry_indicator_archetypes": 11
+  },
+  "selection": {
+    "selected_count": 8,
+    "rule": "Best train profit/drawdown candidate per entry archetype where ratio >= 2"
+  },
+  "validation_period": ["2022-01-03", "2023-12-29"],
+  "candidates": [
+    {"id": "Strategy 0.25", "validation_trades": 40, "decision": "REJECT_D1_SAME_BAR_AMBIGUITY", "same_bar_trades": 3},
+    {"id": "Strategy 0.167", "validation_trades": 30, "stress_return_pct_1000": -25.439961, "stress_profit_factor": 0.55108, "stress_drawdown_pct": 26.370516, "positive_quarters": 0, "quarters": 8, "decision": "REJECT_VALIDATION"},
+    {"id": "Strategy 0.104", "validation_trades": 24, "stress_return_pct_1000": -20.688951, "stress_profit_factor": 0.494033, "stress_drawdown_pct": 22.162616, "positive_quarters": 2, "quarters": 8, "decision": "REJECT_VALIDATION"},
+    {"id": "Strategy 0.30", "validation_trades": 48, "decision": "REJECT_D1_SAME_BAR_AMBIGUITY", "same_bar_trades": 3},
+    {"id": "Strategy 0.304", "validation_trades": 41, "decision": "REJECT_D1_SAME_BAR_AMBIGUITY", "same_bar_trades": 2},
+    {"id": "Strategy 0.245", "validation_trades": 49, "decision": "REJECT_D1_SAME_BAR_AMBIGUITY", "same_bar_trades": 1},
+    {"id": "Strategy 0.349", "validation_trades": 25, "stress_return_pct_1000": -12.997169, "stress_profit_factor": 0.690029, "stress_drawdown_pct": 17.351282, "positive_quarters": 2, "quarters": 6, "decision": "REJECT_VALIDATION"},
+    {"id": "Strategy 0.17", "validation_trades": 28, "stress_return_pct_1000": -24.977537, "stress_profit_factor": 0.534541, "stress_drawdown_pct": 25.970222, "positive_quarters": 1, "quarters": 7, "decision": "REJECT_VALIDATION"}
+  ],
+  "conclusion": "No selected JNJ mechanism shows defensible 2022-2023 edge. Four are economically negative after stress costs and four rely on ambiguous same-bar D1 exits.",
+  "oos_2024_accessed": false,
+  "holdout_2025_accessed": false,
+  "promotion_allowed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

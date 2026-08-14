@@ -1,0 +1,11 @@
+{
+  "command": "-databank action=syncfromfiles project=IBKR_V2_AAPL_ROC_TIME_60_TRAIN_V2 name=Results",
+  "databank": "Results",
+  "decision": "PASS_RETEST_DATABANK_SYNC",
+  "input_copy_path": "/mnt/volume-SQ/user/projects/IBKR_V2_AAPL_ROC_TIME_60_TRAIN_V2/databanks/Results/time_60.sqx",
+  "input_copy_sha256": "f17fa36adfe5a7674907525f46a491a794d83fdf1d615f454b7ccb856535181f",
+  "observed_project_strategies": 1,
+  "project_name": "IBKR_V2_AAPL_ROC_TIME_60_TRAIN_V2",
+  "response": "07:21:29 Syncing databank from files\n--------------------------------------------------\n",
+  "schema_version": 1
+}

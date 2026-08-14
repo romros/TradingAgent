@@ -1,0 +1,11 @@
+{
+  "command": "-databank action=syncfromfiles project=IBKR_V2_JPM_D1_VAL_0_101 name=Results",
+  "databank": "Results",
+  "decision": "PASS_RETEST_DATABANK_SYNC",
+  "input_copy_path": "/mnt/volume-SQ/user/projects/IBKR_V2_JPM_D1_VAL_0_101/databanks/Results/Strategy 0.101.sqx",
+  "input_copy_sha256": "7e3a5cc9cbdd40012c966fbd84e160f42757e35dde8b22fddc7b39cf6d26f039",
+  "observed_project_strategies": 1,
+  "project_name": "IBKR_V2_JPM_D1_VAL_0_101",
+  "response": "08:43:28 Syncing databank from files\n--------------------------------------------------\n",
+  "schema_version": 1
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "source_csv": "data/ibkr_sq_v2/preflight/CATUSUSD_CANONICAL_D1_2017_2025.csv",
+  "source_sha256": "9aa5e9f60467bdcb71e59be2a583eb737d0911daab9f59a90bc0293a89bb359c",
+  "exported_csv": "/mnt/volume-SQ/user/exports/ibkr_v2_cat_d1_roundtrip/CAT_IBKR_V2_D1-D1-No Session.csv",
+  "exported_sha256": "d910d4dea9fb59ce800094b8751d769bc8c3b55ad15930ae5b58409a7f042b93",
+  "exported_has_header": false,
+  "source_rows": 2174,
+  "exported_rows": 2174,
+  "timestamps_exact_and_ordered": true,
+  "field_errors": {
+    "open": {
+      "changed_rows": 0,
+      "max_absolute_error": "0.000000",
+      "mean_absolute_error": "0.000000"
+    },
+    "high": {
+      "changed_rows": 0,
+      "max_absolute_error": "0.000000",
+      "mean_absolute_error": "0.000000"
+    },
+    "low": {
+      "changed_rows": 0,
+      "max_absolute_error": "0.000000",
+      "mean_absolute_error": "0.000000"
+    },
+    "close": {
+      "changed_rows": 0,
+      "max_absolute_error": "0.000000",
+      "mean_absolute_error": "0.000000"
+    },
+    "volume": {
+      "changed_rows": 2172,
+      "max_absolute_error": "1.000000",
+      "mean_absolute_error": "0.4988317023919043238270469181"
+    }
+  },
+  "decision": "PASS_SIGNAL_RESEARCH",
+  "decision_scope": "Data integrity for signal research only; volume-dependent rules, execution, paper, and live remain unauthorized.",
+  "exact_numeric_parity": false,
+  "paper_or_live_authorized": false
+}

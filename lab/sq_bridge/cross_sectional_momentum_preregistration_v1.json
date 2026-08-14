@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-cross-sectional-momentum-v1",
+  "status": "FROZEN_BEFORE_PERFORMANCE",
+  "objective": "Detect a capital-independent cross-sectional momentum edge before execution design.",
+  "universe": ["AAPL", "DE", "JNJ", "JPM", "KO"],
+  "universe_policy": "Fixed cohort for the complete test; no asset may be added or removed after performance is observed.",
+  "known_limitation": "The cohort is selected from companies known to survive through 2024; a pass is research evidence, not proof free of survivorship bias.",
+  "data": {
+    "source": "Dukascopy M1 aggregated to NYSE RTH D1",
+    "maximum_date": "2024-12-31",
+    "holdout_2025": "SEALED_NOT_LOADED"
+  },
+  "periods": {
+    "train": ["2018-01-01", "2021-12-31"],
+    "validation": ["2022-01-01", "2023-12-31"],
+    "oos": ["2024-01-01", "2024-12-31"]
+  },
+  "common_rules": {
+    "signal": "total close-to-close return over lookback_sessions, observed at rebalance close",
+    "absolute_filter": "an asset is eligible only when its lookback return is positive",
+    "ranking": "descending lookback return with symbol alphabetical tie-break",
+    "entry": "next NYSE session open after the rebalance signal",
+    "exit": "next rebalance open",
+    "allocation": "equal weight among selected assets; unallocated weight remains cash",
+    "dividends": "excluded from this price-only screen and must be added point-in-time before promotion",
+    "costs": "excluded from edge discovery; turnover and break-even cost are reported for the execution audit",
+    "no_leverage": true
+  },
+  "grid": {
+    "lookback_sessions": [63, 126, 252],
+    "rebalance": ["weekly_last_session", "monthly_last_session"],
+    "top_n": [1, 2],
+    "total_variants": 12
+  },
+  "statistical_gates": {
+    "minimum_validation_rebalances": 20,
+    "minimum_oos_rebalances": 10,
+    "minimum_validation_annualized_return": 0.0,
+    "minimum_oos_annualized_return": 0.0,
+    "minimum_validation_and_oos_sharpe": 0.35,
+    "maximum_validation_and_oos_drawdown": 0.25,
+    "minimum_positive_calendar_years_train": 3,
+    "density": "At least 3 of 12 variants pass, spanning at least two lookbacks and both top_n choices.",
+    "benchmark_requirement": "Passing variants must beat equal-weight buy-and-hold on either Sharpe or maximum drawdown in validation and OOS; raw return alone is insufficient."
+  },
+  "next_steps_only_if_pass": [
+    "block bootstrap weekly returns",
+    "point-in-time dividends and corporate actions",
+    "broader universe with delisted constituents",
+    "turnover and break-even transaction costs",
+    "then execution capital and leverage"
+  ],
+  "prohibitions": [
+    "No 2025 access.",
+    "No capital-dollar filter in discovery.",
+    "No parameter optimization after results.",
+    "No SQCLI genetic search for this portfolio-ranking layer.",
+    "No paper or live authorization."
+  ]
+}

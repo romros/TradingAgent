@@ -1,0 +1,4 @@
+-instrument action=add instrument=CAT_IBKR_V2 description=Alquimia_CAT_NYSE_RTH_D1_gross_research pointvalue=1 ticksize=0.001 tickstep=0.001 defaultspread=0 datatype=stocks orderSizeMultiplier=1 orderSizeStep=1
+-symbol action=add symbols=CAT_IBKR_V2 instrument=CAT_IBKR_V2 datasource=file datatype=D1 postfix=_D1 exchange=NYSE
+-data action=import symbol=CAT_IBKR_V2_D1 instrument=CAT_IBKR_V2 filepath=/home/squser/SQ/user/imports/ibkr_v2_cat/CATUSUSD_CANONICAL_D1_2017_2025.csv timezone=America/New_York timeframe=D1 bartype=startofbar errorhandling=stop format=MetaTrader4
+-data action=export symbols=CAT_IBKR_V2_D1 timeframe=D1 datefrom=2017.05.11 dateto=2025.12.31 outputdir=/home/squser/SQ/user/exports/ibkr_v2_cat_d1_roundtrip

@@ -150,7 +150,16 @@ def simulate(frame: pd.DataFrame, contract: dict, start: str, end: str,
             "max_drawdown":dd,"median_bars":float(np.median([t["bars"] for t in selected])) if selected else None,"trades_detail":selected}
 
 
-def load_data(start: str, end: str) -> pd.DataFrame:
+def load_data(start: str, end: str, source: Path | None = None) -> pd.DataFrame:
+    if source is not None:
+        raw = pd.read_csv(source, header=None)
+        if raw.shape[1] < 6:
+            raise ValueError("local OHLC source requires date,time,open,high,low,close")
+        frame = raw.iloc[:, [0, 2, 3, 4, 5]].copy()
+        frame.columns = ["date", "open", "high", "low", "close"]
+        frame["date"] = pd.to_datetime(frame["date"], format="%Y.%m.%d")
+        frame = frame.set_index("date").sort_index()
+        return frame.loc[(frame.index >= start) & (frame.index < end)]
     import yfinance as yf
     frame=yf.download("MSFT",start=start,end=end,auto_adjust=False,progress=False)
     if isinstance(frame.columns,pd.MultiIndex): frame.columns=frame.columns.droplevel(1)
@@ -160,10 +169,11 @@ def load_data(start: str, end: str) -> pd.DataFrame:
 
 def main():
     p=argparse.ArgumentParser(); p.add_argument("--inventory",type=Path,action="append",required=True); p.add_argument("--output",type=Path,required=True)
+    p.add_argument("--source", type=Path, help="Deterministic local date,time,OHLC CSV")
     p.add_argument("--unseal-holdout", action="store_true")
     p.add_argument("--finalist", action="append", default=[], help="PROJECT_STEM::Strategy name")
     p.add_argument("--data-start",default="1998-01-01"); p.add_argument("--data-end",default="2026-08-02"); a=p.parse_args()
-    frame=load_data(a.data_start,a.data_end); periods={"validation":("2012-10-17","2018-04-23"),"oos":("2018-04-24","2023-10-29")}
+    frame=load_data(a.data_start,a.data_end,a.source); periods={"validation":("2012-10-17","2018-04-23"),"oos":("2018-04-24","2023-10-29")}
     if a.unseal_holdout: periods["holdout"]=("2023-10-30","2026-08-01")
     finalists=set(a.finalist)
     rows=[]

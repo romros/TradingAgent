@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "strategy": "MSFT_CAPITULATION_D1_NATIVE_V1",
+  "period": {
+    "from": "2003-01-02",
+    "to": "2024-12-31"
+  },
+  "expected_python_entries": 67,
+  "actual_sq_entries": 67,
+  "entry_dates_exact_match": true,
+  "missing_in_sq": [],
+  "extra_in_sq": [],
+  "decision": "PASS_EXACT_SIGNAL_PARITY",
+  "price_comparison_scope": "Not asserted: Python source is adjusted while the native SQ resource is split-consistent nominal OHLC.",
+  "candles_sha256": "0d66cdbbe74a5b46f2c8640c7dfcb567a98535c4af41880dcfc5310addf10480",
+  "orders_sha256": "f20d2a05256bb2d78d163a5c0fdb047400dda0cea4edf3c5f9d419d1e2bea90b",
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

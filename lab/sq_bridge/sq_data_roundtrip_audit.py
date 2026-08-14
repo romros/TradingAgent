@@ -7,13 +7,52 @@ import csv
 import hashlib
 import json
 from decimal import Decimal
+from datetime import datetime
 from pathlib import Path
 
 
 FIELDS = ("open", "high", "low", "close", "volume")
 
 
+def canonical_timestamp(date_value: str, time_value: str) -> str:
+    """Normalize the date/time spellings emitted by SQ's CSV exporters."""
+    raw_date = date_value.strip()
+    raw_time = time_value.strip()
+    parsed_date = None
+    for date_format in ("%Y.%m.%d", "%Y%m%d", "%Y-%m-%d"):
+        try:
+            parsed_date = datetime.strptime(raw_date, date_format).date()
+            break
+        except ValueError:
+            pass
+    if parsed_date is None:
+        raise ValueError(f"UNEXPECTED_DATE:{date_value}")
+    parsed_time = None
+    for time_format in ("%H:%M", "%H:%M:%S", "%H:%M:%S.%f"):
+        try:
+            parsed_time = datetime.strptime(raw_time, time_format).time()
+            break
+        except ValueError:
+            pass
+    if parsed_time is None:
+        raise ValueError(f"UNEXPECTED_TIME:{time_value}")
+    return f"{parsed_date.isoformat()}T{parsed_time.strftime('%H:%M:%S')}Z"
+
+
+def canonical_boundary(value: str | None) -> str | None:
+    if value is None:
+        return None
+    stamp = value[:-1] if value.endswith("Z") else value
+    if "T" in stamp:
+        date_part, time_part = stamp.split("T", 1)
+        stamp = f"{date_part.replace('.', '-')}T{time_part}"
+    parsed = datetime.fromisoformat(stamp)
+    return parsed.strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
 def load(path: Path, has_header: bool, key_from: str | None = None, key_to: str | None = None) -> list[tuple[str, tuple[Decimal, ...]]]:
+    key_from = canonical_boundary(key_from)
+    key_to = canonical_boundary(key_to)
     rows = []
     with path.open(newline="") as handle:
         reader = csv.reader(handle)
@@ -24,7 +63,7 @@ def load(path: Path, has_header: bool, key_from: str | None = None, key_to: str 
         for line, fields in enumerate(reader, 2 if has_header else 1):
             if len(fields) != 7:
                 raise ValueError(f"ROW_WIDTH:{line}:{len(fields)}")
-            key = f"{fields[0]}T{fields[1]}Z"
+            key = canonical_timestamp(fields[0], fields[1])
             if key_from is not None and key < key_from: continue
             if key_to is not None and key > key_to: continue
             rows.append((key, tuple(Decimal(value) for value in fields[2:])))

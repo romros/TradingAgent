@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "preregistration_sha256": "ba5e89497252302f0cce74579651f4c59c22be2d5938522aefb30a99e31ef7ee",
+  "holdout_2025_accessed": false,
+  "optimized": false,
+  "periods": {
+    "train": {
+      "SPX": {
+        "trades": 59,
+        "wins": 38,
+        "mean_return": 0.005097081328303212,
+        "total_return": 0.33186539452809805,
+        "profit_factor": 1.950505997024554,
+        "monthly_sharpe": 0.8231230018117814,
+        "max_drawdown": 0.09387086019797286
+      },
+      "STOCKS": {
+        "trades": 55,
+        "wins": 41,
+        "mean_return": 0.0058229650173357165,
+        "total_return": 0.3605509975148158,
+        "profit_factor": 2.293950935052859,
+        "monthly_sharpe": 0.9849910171301238,
+        "max_drawdown": 0.09353668281515237
+      }
+    },
+    "validation": {
+      "SPX": {
+        "trades": 23,
+        "wins": 14,
+        "mean_return": 0.0036063899514466673,
+        "total_return": 0.08179231420673005,
+        "profit_factor": 1.576401977074003,
+        "monthly_sharpe": 0.6377695390449275,
+        "max_drawdown": 0.05754654175652063
+      },
+      "STOCKS": {
+        "trades": 23,
+        "wins": 12,
+        "mean_return": 0.0013911271060196768,
+        "total_return": 0.029652155938355795,
+        "profit_factor": 1.2475724919740772,
+        "monthly_sharpe": 0.3043359945894468,
+        "max_drawdown": 0.06834111670398835
+      }
+    },
+    "oos_2024": {
+      "SPX": {
+        "trades": 11,
+        "wins": 9,
+        "mean_return": 0.0024972955186295994,
+        "total_return": 0.025247988595170634,
+        "profit_factor": 1.3714918013261204,
+        "monthly_sharpe": 0.39049428800409286,
+        "max_drawdown": 0.07287377245407556
+      },
+      "STOCKS": {
+        "trades": 11,
+        "wins": 4,
+        "mean_return": -0.0068433477646684775,
+        "total_return": -0.07389257168474539,
+        "profit_factor": 0.28836111018292193,
+        "monthly_sharpe": -1.5299660845077605,
+        "max_drawdown": 0.07389257168474539
+      }
+    }
+  },
+  "decisions": {
+    "SPX": {
+      "pass": true,
+      "combined_validation_oos": {
+        "trades": 34,
+        "wins": 23,
+        "mean_return": 0.0032475652820058514,
+        "total_return": 0.10910539421816456,
+        "profit_factor": 1.5068485805512897,
+        "monthly_sharpe": 0.5591467742797974,
+        "max_drawdown": 0.07287377245407545
+      }
+    },
+    "STOCKS": {
+      "pass": false,
+      "combined_validation_oos": {
+        "trades": 34,
+        "wins": 16,
+        "mean_return": -0.0012729677050853144,
+        "total_return": -0.04643148980467171,
+        "profit_factor": 0.8158401584398536,
+        "monthly_sharpe": -0.2760398768283382,
+        "max_drawdown": 0.0902408556291785
+      }
+    }
+  },
+  "transfer_gate_pass": false
+}

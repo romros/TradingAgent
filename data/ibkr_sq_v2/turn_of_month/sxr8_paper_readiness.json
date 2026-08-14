@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "decision": "PAPER_BLOCKED",
+  "checks": {
+    "public_contract": true,
+    "account_authenticated": false,
+    "account_contract_match": false,
+    "research_listing_pass": true,
+    "calendar_deterministic": true,
+    "holdout_sealed": true,
+    "observed_commission": false,
+    "fractional_or_whole_share_sizing": false
+  },
+  "missing": [
+    "account_authenticated",
+    "account_contract_match",
+    "observed_commission",
+    "fractional_or_whole_share_sizing"
+  ],
+  "paper_authorized": false,
+  "live_authorized": false,
+  "input_sha256": {
+    "lab/sq_bridge/ibkr_sxr8_public_contract_v1.json": "f539bddeaacb070f5d1860e594c7329167302e335a63da95b00a53f33a35790e",
+    "data/ibkr_sq_v2/turn_of_month/ibkr_sxr8_contract_probe.json": "bdd59d7d2167c9d146bb10ce3b90545bd69a1ce6e54c66fa00f693f8d1713692",
+    "data/ibkr_sq_v2/turn_of_month/cspx_transfer_v1.json": "023bc10154884c43c1b90239c39463c1cb2809986ec32353991cb149688b9e32",
+    "data/ibkr_sq_v2/turn_of_month/sxr8_calendar_plan_2012_2024.json": "677d354cd83f36494f226574d2cb9269934a122b987c0a1eda967858aad8f89c"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_SPLIT_ADJUSTED_SOURCE_ONLY",
+  "symbol": "TSLA",
+  "timeframe": "D1",
+  "adjustment_basis": "latest_share_basis",
+  "source_path": "/mnt/volume-SQ/user/exports/ibkr_v2_tsla_d1_preflight/TSLAUSUSD_TICK_UTCMinus05-D1-No Session.csv",
+  "source_sha256": "f055fcb6d76309c8555ea5d1e726fb2a38f033f3dce60f8353bfc6ecf9ea327f",
+  "output_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/preflight/TSLAUSUSD_SPLIT_ADJUSTED_D1_2017_2025.csv",
+  "output_sha256": "cdc58ea0228a27175f6925fa6d957a9bc2f8b42afeea72678c442de0185da576",
+  "rows": 2246,
+  "first": "2017-01-26",
+  "last": "2025-12-31",
+  "splits": [
+    {
+      "effective_date": "2020-08-31",
+      "factor": 5,
+      "source_url": "https://ir.tesla.com/press-release/tesla-announces-five-one-stock-split"
+    },
+    {
+      "effective_date": "2022-08-25",
+      "factor": 3,
+      "source_url": "https://ir.tesla.com/press-release/tesla-announces-three-one-stock-split"
+    }
+  ],
+  "split_boundary_returns": [
+    {
+      "effective_date": "2020-08-31",
+      "adjusted_close_return": 0.126192339
+    },
+    {
+      "effective_date": "2022-08-25",
+      "adjusted_close_return": -0.003524763
+    }
+  ],
+  "remaining_absolute_close_jumps_over_20pct": [
+    {
+      "date": "2020-09-08",
+      "close_return": -0.210178422
+    },
+    {
+      "date": "2024-10-24",
+      "close_return": 0.219585264
+    },
+    {
+      "date": "2025-04-09",
+      "close_return": 0.226041337
+    }
+  ],
+  "performance_accessed": false,
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "research_authorized": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

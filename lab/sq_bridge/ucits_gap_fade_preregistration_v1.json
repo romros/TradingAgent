@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "hypothesis": "A liquid S&P 500 UCITS ETF opening at least 1% below its previous adjusted close partially recovers during the same European session.",
+  "assets": ["SXR8_DE","CSPX_L"],
+  "rule": {"signal":"today open / prior close - 1 <= -0.01","entry":"today open","exit":"today close","side":"long","optimization":false},
+  "periods": {"train":["2012-01-01","2018-12-31"],"validation":["2019-01-01","2022-12-31"],"oos":["2023-01-01","2024-12-31"],"holdout_2025_plus":["2025-01-01","2099-12-31"]},
+  "economics": {"capital_eur":1000,"commission_each_order_eur":1.25,"roundtrip_slippage_bps":10},
+  "gates": {"validation_min_trades":12,"oos_min_trades":6,"validation_and_oos_net_mean_gt":0.0,"validation_and_oos_net_profit_factor_gte":1.1,"combined_net_t_stat_gte":1.645,"both_listings_pass":true},
+  "sealed":"2025 and later"
+}

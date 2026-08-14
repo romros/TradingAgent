@@ -1,0 +1,2404 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-08-13T06:40:38.840063+00:00",
+  "source": "/mnt/volume-SQ/user/projects/IBKR_V2_AAPL_H1_SHOCK_REVERSION_TIERED/databanks/Results",
+  "source_inventory_sha256": "6710bb923a998c0a5e052efcae36fdca5f3fb559069c9e081402712822973e5d",
+  "candidate_count": 23,
+  "project_cfx_sha256": "162fa93dc2625eee4321e3cf4b2c00ce7758b344d4d24fd33c75e15cdeed9382",
+  "project_manifest_sha256": "7227d92904326c75ace3a192954a39c6f632dffb4db904c5f826840ad2fdba8e",
+  "pareto_is_descriptive_only": true,
+  "pareto_candidates": [
+    "Strategy 0.102",
+    "Strategy 0.11966",
+    "Strategy 0.14113",
+    "Strategy 0.15840",
+    "Strategy 0.15997",
+    "Strategy 0.16780",
+    "Strategy 0.18377",
+    "Strategy 0.21299",
+    "Strategy 0.22152",
+    "Strategy 0.22829",
+    "Strategy 0.24306",
+    "Strategy 0.3352",
+    "Strategy 0.6123",
+    "Strategy 0.6601",
+    "Strategy 0.7873"
+  ],
+  "family_count": 18,
+  "families": [
+    {
+      "structural_family_sha256": "63be976d0fd825e5127e42964336144279907d34b46c8b416874522268c4fe2d",
+      "count": 4,
+      "members": [
+        "Strategy 0.102",
+        "Strategy 0.14113",
+        "Strategy 0.3352",
+        "Strategy 0.6601"
+      ]
+    },
+    {
+      "structural_family_sha256": "1c11a1dccdbd07a9341f7c2e68d8a610e9b5e2ea04770307285f4b1dd05ef68a",
+      "count": 2,
+      "members": [
+        "Strategy 0.11966",
+        "Strategy 0.21299"
+      ]
+    },
+    {
+      "structural_family_sha256": "64565ec3618277490484a4b16624a687e7c731b60804ef52d919c3088f83b330",
+      "count": 2,
+      "members": [
+        "Strategy 0.21807",
+        "Strategy 0.406"
+      ]
+    },
+    {
+      "structural_family_sha256": "0b535da60b3285eff21b8fea9996c4095367278416125585545810366121c86c",
+      "count": 1,
+      "members": [
+        "Strategy 0.18377"
+      ]
+    },
+    {
+      "structural_family_sha256": "0fc1a959071be9029ed0b429a6a49831b57658c8352642589dd4b0a0162164a3",
+      "count": 1,
+      "members": [
+        "Strategy 0.22152"
+      ]
+    },
+    {
+      "structural_family_sha256": "13d655a395d29a82bedf1ded3a9320741756a5a9df6ff7a7c471ab46e0080013",
+      "count": 1,
+      "members": [
+        "Strategy 0.24926"
+      ]
+    },
+    {
+      "structural_family_sha256": "1c4abf39b744e2887c127adacf09b6d454d42118260c48fa86a8f7b7215ad43b",
+      "count": 1,
+      "members": [
+        "Strategy 0.15840"
+      ]
+    },
+    {
+      "structural_family_sha256": "2bd5356bd018974e90d7dde3d18dbcea47b69b484f6de16045189147592229fc",
+      "count": 1,
+      "members": [
+        "Strategy 0.7241"
+      ]
+    },
+    {
+      "structural_family_sha256": "597187889b28e50dd71b0e674590c60bd8c38250d6deddebe213c534f8e1e387",
+      "count": 1,
+      "members": [
+        "Strategy 0.7873"
+      ]
+    },
+    {
+      "structural_family_sha256": "79df06ea63f64da5569f858519d3b39d86e7f9a84356e9e5d44f8113ecddde1d",
+      "count": 1,
+      "members": [
+        "Strategy 0.12300"
+      ]
+    },
+    {
+      "structural_family_sha256": "988cb6da19a09aaaa18ce4303fa819379144ed61d32bd13c773a9971f5eb2985",
+      "count": 1,
+      "members": [
+        "Strategy 0.15997"
+      ]
+    },
+    {
+      "structural_family_sha256": "9967c8319480945a30a8f431c5fad85eb70324bbfed1ab76c63d1d12eceae740",
+      "count": 1,
+      "members": [
+        "Strategy 0.16780"
+      ]
+    },
+    {
+      "structural_family_sha256": "a0ae98e8e4cb76bed077597ece9858b2968b93bd4a08479b93e6321e9ab4538c",
+      "count": 1,
+      "members": [
+        "Strategy 0.6123"
+      ]
+    },
+    {
+      "structural_family_sha256": "ceb7519a26571a2636336696e5ad1d18d719ae2590a7856dba501b56332dd605",
+      "count": 1,
+      "members": [
+        "Strategy 0.24306"
+      ]
+    },
+    {
+      "structural_family_sha256": "dd61f7e426346b8b5197b30c21e8f8b2a25fbdb80c470142cfd0a62ac5ed8545",
+      "count": 1,
+      "members": [
+        "Strategy 0.5649"
+      ]
+    },
+    {
+      "structural_family_sha256": "e2340a52e8faca160c2c25acb9bca8c0486b9063267d4d62e81926bdd5f38d16",
+      "count": 1,
+      "members": [
+        "Strategy 0.20702"
+      ]
+    },
+    {
+      "structural_family_sha256": "e9ce71d189129f16b9bacd824147217de92a68d06354f374aadd1c0bf731ac50",
+      "count": 1,
+      "members": [
+        "Strategy 0.9322"
+      ]
+    },
+    {
+      "structural_family_sha256": "ecfc5152842c199c410c39a7474deb2c5923d67a77549fd7ac201f0a18982c07",
+      "count": 1,
+      "members": [
+        "Strategy 0.22829"
+      ]
+    }
+  ],
+  "archetype_count": 14,
+  "archetypes": [
+    {
+      "archetype_sha256": "5b8e07a4fdbfbefe407a8dd7c1f01030967969f4584619a1f882c75d1643cb21",
+      "count": 4,
+      "members": [
+        "Strategy 0.102",
+        "Strategy 0.14113",
+        "Strategy 0.3352",
+        "Strategy 0.6601"
+      ]
+    },
+    {
+      "archetype_sha256": "52e427fae0d31c670ca5594e673afd89cb7597082cc4c2a983ba73da43212d1e",
+      "count": 2,
+      "members": [
+        "Strategy 0.21807",
+        "Strategy 0.406"
+      ]
+    },
+    {
+      "archetype_sha256": "7378c77fa96ac25d04142c1d67213c59296142b23c345cbdb37369b161741710",
+      "count": 2,
+      "members": [
+        "Strategy 0.5649",
+        "Strategy 0.9322"
+      ]
+    },
+    {
+      "archetype_sha256": "74b4e93eeb5f94557a80d0753287793a2dbee43a7483785f22d4e1d88f5237fa",
+      "count": 2,
+      "members": [
+        "Strategy 0.16780",
+        "Strategy 0.18377"
+      ]
+    },
+    {
+      "archetype_sha256": "7742abd987396241caa8dfaef3084e2165154c15e36ec0cd2909bdd9172808f2",
+      "count": 2,
+      "members": [
+        "Strategy 0.20702",
+        "Strategy 0.7873"
+      ]
+    },
+    {
+      "archetype_sha256": "98e4b118eebe36bc730b7f9dda279f25b3f0996237195833e3b790054ffbbe41",
+      "count": 2,
+      "members": [
+        "Strategy 0.11966",
+        "Strategy 0.21299"
+      ]
+    },
+    {
+      "archetype_sha256": "a508a8925ee52b957eb029d30a2ceea0da694777f04dc4301830760bc4dc78dc",
+      "count": 2,
+      "members": [
+        "Strategy 0.15997",
+        "Strategy 0.7241"
+      ]
+    },
+    {
+      "archetype_sha256": "0efec3cfbd23db9af57830368e80680d598241c30218942146c602f18f6037f3",
+      "count": 1,
+      "members": [
+        "Strategy 0.24306"
+      ]
+    },
+    {
+      "archetype_sha256": "420f65b1ae54c9b9cd14d39bcf6aab8eee7b7ffa97cb0df1122009e303807fa7",
+      "count": 1,
+      "members": [
+        "Strategy 0.24926"
+      ]
+    },
+    {
+      "archetype_sha256": "50ad0d5ed235b95eb97b06c63f71e5f0d9308c54fc9000172d8ba3174e1db9ba",
+      "count": 1,
+      "members": [
+        "Strategy 0.12300"
+      ]
+    },
+    {
+      "archetype_sha256": "668a31c4c78c1d90dcff97cec15d60caeaf19d290c12da89a2bf4da07b8b205e",
+      "count": 1,
+      "members": [
+        "Strategy 0.22829"
+      ]
+    },
+    {
+      "archetype_sha256": "8f4b0d51caf88932298754e0b8e7aa2ff19c673e36e257d29ea4e0f4407c643d",
+      "count": 1,
+      "members": [
+        "Strategy 0.15840"
+      ]
+    },
+    {
+      "archetype_sha256": "e6d6a290eebd1248a67d62d5e13d5d39bdd00d426b936c887e3ff950281fdbc9",
+      "count": 1,
+      "members": [
+        "Strategy 0.22152"
+      ]
+    },
+    {
+      "archetype_sha256": "f0f4289dc7d6e8108509bfa5917c404edaee00f9a81882e42f30680f239cec50",
+      "count": 1,
+      "members": [
+        "Strategy 0.6123"
+      ]
+    }
+  ],
+  "entry_indicator_archetype_count": 6,
+  "entry_indicator_archetypes": [
+    {
+      "entry_indicator_archetype_sha256": "2b283c08056d30b4f22b8ab958a1a8521e4387a319b7471a41440bb7da025f78",
+      "indicator_types": [
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "count": 7,
+      "members": [
+        "Strategy 0.102",
+        "Strategy 0.12300",
+        "Strategy 0.14113",
+        "Strategy 0.22829",
+        "Strategy 0.24306",
+        "Strategy 0.3352",
+        "Strategy 0.6601"
+      ]
+    },
+    {
+      "entry_indicator_archetype_sha256": "e4e046f63036ed214aa416a061799393c896608426e3b573bb7f1bc7480be7ab",
+      "indicator_types": [
+        [
+          "ATR",
+          "priceRange"
+        ],
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "count": 7,
+      "members": [
+        "Strategy 0.11966",
+        "Strategy 0.16780",
+        "Strategy 0.18377",
+        "Strategy 0.20702",
+        "Strategy 0.21299",
+        "Strategy 0.24926",
+        "Strategy 0.7873"
+      ]
+    },
+    {
+      "entry_indicator_archetype_sha256": "190d2c89fc0a6f364af419fe527694d5f430d40642000307ae619af6dd805c74",
+      "indicator_types": [
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "count": 4,
+      "members": [
+        "Strategy 0.15997",
+        "Strategy 0.21807",
+        "Strategy 0.406",
+        "Strategy 0.7241"
+      ]
+    },
+    {
+      "entry_indicator_archetype_sha256": "85f92285b1a0eb54ca48ec80a8975dc33faeefdc9a44cbfc77cc0dafb2baaea3",
+      "indicator_types": [
+        [
+          "ATR",
+          "priceRange"
+        ],
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "count": 3,
+      "members": [
+        "Strategy 0.22152",
+        "Strategy 0.5649",
+        "Strategy 0.9322"
+      ]
+    },
+    {
+      "entry_indicator_archetype_sha256": "80669b9941d0085ae9201a745e37bf8f78fff8abaef5aa74a073a0c7c178720f",
+      "indicator_types": [
+        [
+          "ROC",
+          "indicator"
+        ],
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "count": 1,
+      "members": [
+        "Strategy 0.6123"
+      ]
+    },
+    {
+      "entry_indicator_archetype_sha256": "f4be53c3f3894f9d1cbf1282a671037c25881087d38756d7f128d53acce986ee",
+      "indicator_types": [
+        [
+          "ATR",
+          "priceRange"
+        ]
+      ],
+      "count": 1,
+      "members": [
+        "Strategy 0.15840"
+      ]
+    }
+  ],
+  "candidates": [
+    {
+      "strategy": "Strategy 0.102",
+      "file": "Strategy 0.102.sqx",
+      "sqx_sha256": "fea9cc23ce62dd3cd48f93c6b77834f9f0fa2aafc1abb90c428a4e85ac19266a",
+      "size_bytes": 26201,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "369a2378c74e69ecf6a606aef3e53cf9dbae565a729691319780975cd36b782a",
+      "structural_family_sha256": "63be976d0fd825e5127e42964336144279907d34b46c8b416874522268c4fe2d",
+      "archetype_sha256": "5b8e07a4fdbfbefe407a8dd7c1f01030967969f4584619a1f882c75d1643cb21",
+      "entry_indicator_archetype_sha256": "2b283c08056d30b4f22b8ab958a1a8521e4387a319b7471a41440bb7da025f78",
+      "fingerprint_exact": "-1849426362",
+      "trades_hash": "233876480",
+      "trades": 91,
+      "profit": 15.869999885559082,
+      "drawdown": 21.010000228881836,
+      "profit_drawdown_ratio": 0.75535458,
+      "fitness": 0.41884057822034176,
+      "complexity": 6,
+      "signal_ops": [
+        "AND",
+        "Boolean",
+        "IsFalling",
+        "ROC"
+      ],
+      "indicators": [
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            229
+          ]
+        },
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            15
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "ROC"
+                }
+              ]
+            },
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "ROC"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.11966",
+      "file": "Strategy 0.11966.sqx",
+      "sqx_sha256": "d56029192faefd8c0aeebccb9844b5863f96a33292e1e82f3e464a38370780b6",
+      "size_bytes": 26311,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "b431c1f282b3040159e77ed3eff99b5344f54a1a0f0d55d3052c0130fed613de",
+      "structural_family_sha256": "1c11a1dccdbd07a9341f7c2e68d8a610e9b5e2ea04770307285f4b1dd05ef68a",
+      "archetype_sha256": "98e4b118eebe36bc730b7f9dda279f25b3f0996237195833e3b790054ffbbe41",
+      "entry_indicator_archetype_sha256": "e4e046f63036ed214aa416a061799393c896608426e3b573bb7f1bc7480be7ab",
+      "fingerprint_exact": "-700958070",
+      "trades_hash": "-1577760000",
+      "trades": 95,
+      "profit": 12.630000114440918,
+      "drawdown": 21.84000015258789,
+      "profit_drawdown_ratio": 0.5782967,
+      "fitness": 0.38875968693884566,
+      "complexity": 6,
+      "signal_ops": [
+        "AND",
+        "ATR",
+        "Boolean",
+        "IsFalling",
+        "ROC"
+      ],
+      "indicators": [
+        {
+          "op": "ATR",
+          "category": "priceRange",
+          "periods": [
+            68
+          ]
+        },
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            227
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ATR",
+          "priceRange"
+        ],
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "ATR"
+                }
+              ]
+            },
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "ROC"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.12300",
+      "file": "Strategy 0.12300.sqx",
+      "sqx_sha256": "421263c1b7452fe61c8bb0fef620e3bbd783c4314412fbe59a08037088348845",
+      "size_bytes": 24678,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "b27dff741d4b026ddc4fdee4e84e9373fb4cd56d53649a054e4c144c7badf369",
+      "structural_family_sha256": "79df06ea63f64da5569f858519d3b39d86e7f9a84356e9e5d44f8113ecddde1d",
+      "archetype_sha256": "50ad0d5ed235b95eb97b06c63f71e5f0d9308c54fc9000172d8ba3174e1db9ba",
+      "entry_indicator_archetype_sha256": "2b283c08056d30b4f22b8ab958a1a8521e4387a319b7471a41440bb7da025f78",
+      "fingerprint_exact": "1734547247",
+      "trades_hash": "9672704",
+      "trades": 82,
+      "profit": 9.489999771118164,
+      "drawdown": 23.610000610351562,
+      "profit_drawdown_ratio": 0.40194831,
+      "fitness": 0.35416666789808204,
+      "complexity": 6,
+      "signal_ops": [
+        "AND",
+        "Boolean",
+        "IsFalling",
+        "IsLower",
+        "Number",
+        "ROC"
+      ],
+      "indicators": [
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            234
+          ]
+        },
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            105
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "IsLower",
+              "children": [
+                {
+                  "op": "ROC"
+                },
+                {
+                  "op": "Number"
+                }
+              ]
+            },
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "ROC"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.14113",
+      "file": "Strategy 0.14113.sqx",
+      "sqx_sha256": "d6989fc1304460ba539c31c1d642d55940add40ff347615c1f14db5589aba4a3",
+      "size_bytes": 25994,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "6fd12084a5f59d9adc5fc768d5fcf3e56b8aebcaaac4284bc9bb47cc7b881514",
+      "structural_family_sha256": "63be976d0fd825e5127e42964336144279907d34b46c8b416874522268c4fe2d",
+      "archetype_sha256": "5b8e07a4fdbfbefe407a8dd7c1f01030967969f4584619a1f882c75d1643cb21",
+      "entry_indicator_archetype_sha256": "2b283c08056d30b4f22b8ab958a1a8521e4387a319b7471a41440bb7da025f78",
+      "fingerprint_exact": "-1483705404",
+      "trades_hash": "1270341888",
+      "trades": 93,
+      "profit": 23.5,
+      "drawdown": 36.380001068115234,
+      "profit_drawdown_ratio": 0.6459593,
+      "fitness": 0.40094339218628533,
+      "complexity": 6,
+      "signal_ops": [
+        "AND",
+        "Boolean",
+        "IsFalling",
+        "ROC"
+      ],
+      "indicators": [
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            220
+          ]
+        },
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            222
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "ROC"
+                }
+              ]
+            },
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "ROC"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.15840",
+      "file": "Strategy 0.15840.sqx",
+      "sqx_sha256": "2685b836b4b1f9222f21ef166c58dda54b652a80756195bd142ea291f2ef0081",
+      "size_bytes": 21364,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "66f1f60a43ff570f8651d5fa0f335a04929a2b5e7d7e439854765822d0d4869b",
+      "structural_family_sha256": "1c4abf39b744e2887c127adacf09b6d454d42118260c48fa86a8f7b7215ad43b",
+      "archetype_sha256": "8f4b0d51caf88932298754e0b8e7aa2ff19c673e36e257d29ea4e0f4407c643d",
+      "entry_indicator_archetype_sha256": "f4be53c3f3894f9d1cbf1282a671037c25881087d38756d7f128d53acce986ee",
+      "fingerprint_exact": "-1849399853",
+      "trades_hash": "-459417856",
+      "trades": 47,
+      "profit": 19.8799991607666,
+      "drawdown": 19.790000915527344,
+      "profit_drawdown_ratio": 1.00454766,
+      "fitness": 0.32000000000000006,
+      "complexity": 7,
+      "signal_ops": [
+        "AND",
+        "ATR",
+        "Boolean",
+        "CrossesBelow",
+        "IsFalling"
+      ],
+      "indicators": [
+        {
+          "op": "ATR",
+          "category": "priceRange",
+          "periods": [
+            10
+          ]
+        },
+        {
+          "op": "ATR",
+          "category": "priceRange",
+          "periods": [
+            42
+          ]
+        },
+        {
+          "op": "ATR",
+          "category": "priceRange",
+          "periods": [
+            184
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ATR",
+          "priceRange"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "CrossesBelow",
+              "children": [
+                {
+                  "op": "ATR"
+                },
+                {
+                  "op": "ATR"
+                }
+              ]
+            },
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "ATR"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.15997",
+      "file": "Strategy 0.15997.sqx",
+      "sqx_sha256": "028788dab9d521853284e6720e9b441ac8ca9d9d80397044451a4e695e6d5691",
+      "size_bytes": 22913,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "33160fac5b804c0a55400bbaefb87d52b68714ed9fd8ba88a5d1a4ffb739a60f",
+      "structural_family_sha256": "988cb6da19a09aaaa18ce4303fa819379144ed61d32bd13c773a9971f5eb2985",
+      "archetype_sha256": "a508a8925ee52b957eb029d30a2ceea0da694777f04dc4301830760bc4dc78dc",
+      "entry_indicator_archetype_sha256": "190d2c89fc0a6f364af419fe527694d5f430d40642000307ae619af6dd805c74",
+      "fingerprint_exact": "1956271536",
+      "trades_hash": "1582284032",
+      "trades": 63,
+      "profit": 9.100000381469727,
+      "drawdown": 17.84000015258789,
+      "profit_drawdown_ratio": 0.5100897,
+      "fitness": 0.3537848588623749,
+      "complexity": 6,
+      "signal_ops": [
+        "AND",
+        "Boolean",
+        "CrossesBelow",
+        "IsFalling",
+        "RSI"
+      ],
+      "indicators": [
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            14
+          ]
+        },
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            14
+          ]
+        },
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            30
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "RSI"
+                }
+              ]
+            },
+            {
+              "op": "CrossesBelow",
+              "children": [
+                {
+                  "op": "RSI"
+                },
+                {
+                  "op": "RSI"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.16780",
+      "file": "Strategy 0.16780.sqx",
+      "sqx_sha256": "64366a30d31c3058898d27657477dd03eea09d60f3520c5ea74398fa426fe7b5",
+      "size_bytes": 20615,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "e8c9940c23b7f954409c0b3e7a211f8475df13402ac03a873b2cc31b6acedda4",
+      "structural_family_sha256": "9967c8319480945a30a8f431c5fad85eb70324bbfed1ab76c63d1d12eceae740",
+      "archetype_sha256": "74b4e93eeb5f94557a80d0753287793a2dbee43a7483785f22d4e1d88f5237fa",
+      "entry_indicator_archetype_sha256": "e4e046f63036ed214aa416a061799393c896608426e3b573bb7f1bc7480be7ab",
+      "fingerprint_exact": "-1015321282",
+      "trades_hash": "1395251328",
+      "trades": 41,
+      "profit": 7.449999809265137,
+      "drawdown": 13.850000381469727,
+      "profit_drawdown_ratio": 0.53790611,
+      "fitness": 0.26929134137647165,
+      "complexity": 8,
+      "signal_ops": [
+        "AND",
+        "ATR",
+        "Boolean",
+        "CrossesBelow",
+        "IsLower",
+        "ROC"
+      ],
+      "indicators": [
+        {
+          "op": "ATR",
+          "category": "priceRange",
+          "periods": [
+            47
+          ]
+        },
+        {
+          "op": "ATR",
+          "category": "priceRange",
+          "periods": [
+            199
+          ]
+        },
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            29
+          ]
+        },
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            138
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ATR",
+          "priceRange"
+        ],
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "IsLower",
+              "children": [
+                {
+                  "op": "ATR"
+                },
+                {
+                  "op": "ATR"
+                }
+              ]
+            },
+            {
+              "op": "CrossesBelow",
+              "children": [
+                {
+                  "op": "ROC"
+                },
+                {
+                  "op": "ROC"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.18377",
+      "file": "Strategy 0.18377.sqx",
+      "sqx_sha256": "58d73d97da0b91d134ed498c3ff303a0c48ec8bdf70121347258f3e1af08c2bf",
+      "size_bytes": 21130,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "6aa5f02e248fb778a064353c5c7300156fcced1dbff9ad07466f69aaa6ff26b8",
+      "structural_family_sha256": "0b535da60b3285eff21b8fea9996c4095367278416125585545810366121c86c",
+      "archetype_sha256": "74b4e93eeb5f94557a80d0753287793a2dbee43a7483785f22d4e1d88f5237fa",
+      "entry_indicator_archetype_sha256": "e4e046f63036ed214aa416a061799393c896608426e3b573bb7f1bc7480be7ab",
+      "fingerprint_exact": "-313437620",
+      "trades_hash": "699112960",
+      "trades": 47,
+      "profit": 10.920000076293945,
+      "drawdown": 14.119999885559082,
+      "profit_drawdown_ratio": 0.77337112,
+      "fitness": 0.29675090043898283,
+      "complexity": 8,
+      "signal_ops": [
+        "AND",
+        "ATR",
+        "Boolean",
+        "CrossesBelow",
+        "IsLower",
+        "ROC"
+      ],
+      "indicators": [
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            101
+          ]
+        },
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            158
+          ]
+        },
+        {
+          "op": "ATR",
+          "category": "priceRange",
+          "periods": [
+            68
+          ]
+        },
+        {
+          "op": "ATR",
+          "category": "priceRange",
+          "periods": [
+            112
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ATR",
+          "priceRange"
+        ],
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "CrossesBelow",
+              "children": [
+                {
+                  "op": "ROC"
+                },
+                {
+                  "op": "ROC"
+                }
+              ]
+            },
+            {
+              "op": "IsLower",
+              "children": [
+                {
+                  "op": "ATR"
+                },
+                {
+                  "op": "ATR"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.20702",
+      "file": "Strategy 0.20702.sqx",
+      "sqx_sha256": "252bfd9676187a42fb27ec57aa172059701708d31019194263d6eac868835382",
+      "size_bytes": 24539,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "972ee83cb3239a36ef4b13ebd7c17998d30c00759d1be3925ed86acc77670a22",
+      "structural_family_sha256": "e2340a52e8faca160c2c25acb9bca8c0486b9063267d4d62e81926bdd5f38d16",
+      "archetype_sha256": "7742abd987396241caa8dfaef3084e2165154c15e36ec0cd2909bdd9172808f2",
+      "entry_indicator_archetype_sha256": "e4e046f63036ed214aa416a061799393c896608426e3b573bb7f1bc7480be7ab",
+      "fingerprint_exact": "-1507346782",
+      "trades_hash": "-1369046784",
+      "trades": 77,
+      "profit": 12.039999961853027,
+      "drawdown": 24.149999618530273,
+      "profit_drawdown_ratio": 0.49855073,
+      "fitness": 0.37400000000000005,
+      "complexity": 7,
+      "signal_ops": [
+        "AND",
+        "ATR",
+        "Boolean",
+        "IsFalling",
+        "IsLower",
+        "ROC"
+      ],
+      "indicators": [
+        {
+          "op": "ATR",
+          "category": "priceRange",
+          "periods": [
+            112
+          ]
+        },
+        {
+          "op": "ATR",
+          "category": "priceRange",
+          "periods": [
+            148
+          ]
+        },
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            198
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ATR",
+          "priceRange"
+        ],
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "IsLower",
+              "children": [
+                {
+                  "op": "ATR"
+                },
+                {
+                  "op": "ATR"
+                }
+              ]
+            },
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "ROC"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.21299",
+      "file": "Strategy 0.21299.sqx",
+      "sqx_sha256": "657d45108aec2376e308e30fcc81484e98f053e789429bd4260899872f3956f8",
+      "size_bytes": 22690,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "9ab4492d684aea9c3bae8560570370bcd489cc8f79a0e7364e07934ec34790cb",
+      "structural_family_sha256": "1c11a1dccdbd07a9341f7c2e68d8a610e9b5e2ea04770307285f4b1dd05ef68a",
+      "archetype_sha256": "98e4b118eebe36bc730b7f9dda279f25b3f0996237195833e3b790054ffbbe41",
+      "entry_indicator_archetype_sha256": "e4e046f63036ed214aa416a061799393c896608426e3b573bb7f1bc7480be7ab",
+      "fingerprint_exact": "-2074914194",
+      "trades_hash": "-764327296",
+      "trades": 59,
+      "profit": 25.440000534057617,
+      "drawdown": 31.280000686645508,
+      "profit_drawdown_ratio": 0.81329923,
+      "fitness": 0.4014234878826621,
+      "complexity": 6,
+      "signal_ops": [
+        "AND",
+        "ATR",
+        "Boolean",
+        "IsFalling",
+        "ROC"
+      ],
+      "indicators": [
+        {
+          "op": "ATR",
+          "category": "priceRange",
+          "periods": [
+            85
+          ]
+        },
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            23
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ATR",
+          "priceRange"
+        ],
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "ATR"
+                }
+              ]
+            },
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "ROC"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.21807",
+      "file": "Strategy 0.21807.sqx",
+      "sqx_sha256": "a1592f55fdd145d1727bedb896ae5ba2ffe9432883887496bfd5034b281bf79c",
+      "size_bytes": 24849,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "cca450f0f88011c756021594c3e8e9a7ce2babbb41df84e1c81969699efa858f",
+      "structural_family_sha256": "64565ec3618277490484a4b16624a687e7c731b60804ef52d919c3088f83b330",
+      "archetype_sha256": "52e427fae0d31c670ca5594e673afd89cb7597082cc4c2a983ba73da43212d1e",
+      "entry_indicator_archetype_sha256": "190d2c89fc0a6f364af419fe527694d5f430d40642000307ae619af6dd805c74",
+      "fingerprint_exact": "-1327387968",
+      "trades_hash": "1206043776",
+      "trades": 79,
+      "profit": 8.600000381469727,
+      "drawdown": 30.43000030517578,
+      "profit_drawdown_ratio": 0.28261585,
+      "fitness": 0.3280701757114864,
+      "complexity": 6,
+      "signal_ops": [
+        "AND",
+        "Boolean",
+        "IsFalling",
+        "RSI"
+      ],
+      "indicators": [
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            14
+          ]
+        },
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            50
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "RSI"
+                }
+              ]
+            },
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "RSI"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.22152",
+      "file": "Strategy 0.22152.sqx",
+      "sqx_sha256": "6b7d15d8da19d4223fc1dc168190f3bc0c6d987ba1b023ed86a0bf2f33e6a985",
+      "size_bytes": 27351,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "4b8420ffed15b085b264d019a22ae5696ae1ce3508ac526768e2269f84c3fe12",
+      "structural_family_sha256": "0fc1a959071be9029ed0b429a6a49831b57658c8352642589dd4b0a0162164a3",
+      "archetype_sha256": "e6d6a290eebd1248a67d62d5e13d5d39bdd00d426b936c887e3ff950281fdbc9",
+      "entry_indicator_archetype_sha256": "85f92285b1a0eb54ca48ec80a8975dc33faeefdc9a44cbfc77cc0dafb2baaea3",
+      "fingerprint_exact": "-1311383631",
+      "trades_hash": "664785920",
+      "trades": 104,
+      "profit": 14.369999885559082,
+      "drawdown": 29.5,
+      "profit_drawdown_ratio": 0.48711864,
+      "fitness": 0.3939759055525389,
+      "complexity": 7,
+      "signal_ops": [
+        "AND",
+        "ATR",
+        "Boolean",
+        "IsFalling",
+        "IsLower",
+        "RSI"
+      ],
+      "indicators": [
+        {
+          "op": "ATR",
+          "category": "priceRange",
+          "periods": [
+            128
+          ]
+        },
+        {
+          "op": "ATR",
+          "category": "priceRange",
+          "periods": [
+            176
+          ]
+        },
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            40
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ATR",
+          "priceRange"
+        ],
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "IsLower",
+              "children": [
+                {
+                  "op": "ATR"
+                },
+                {
+                  "op": "ATR"
+                }
+              ]
+            },
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "RSI"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.22829",
+      "file": "Strategy 0.22829.sqx",
+      "sqx_sha256": "5c5a59dbad4c5cb6cc54dbf133f28cb544f3c01e46b4b7f5b82214801d9e40a0",
+      "size_bytes": 23086,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "f64bb2e781a6e6957421e0d40499181549f6a55b5d83535742975da0d52993d7",
+      "structural_family_sha256": "ecfc5152842c199c410c39a7474deb2c5923d67a77549fd7ac201f0a18982c07",
+      "archetype_sha256": "668a31c4c78c1d90dcff97cec15d60caeaf19d290c12da89a2bf4da07b8b205e",
+      "entry_indicator_archetype_sha256": "2b283c08056d30b4f22b8ab958a1a8521e4387a319b7471a41440bb7da025f78",
+      "fingerprint_exact": "1531105538",
+      "trades_hash": "-528152448",
+      "trades": 65,
+      "profit": 16.68000030517578,
+      "drawdown": 47.36000061035156,
+      "profit_drawdown_ratio": 0.35219595,
+      "fitness": 0.32340425411032686,
+      "complexity": 5,
+      "signal_ops": [
+        "Boolean",
+        "CrossesBelow",
+        "ROC"
+      ],
+      "indicators": [
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            118
+          ]
+        },
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            173
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "CrossesBelow",
+          "children": [
+            {
+              "op": "ROC"
+            },
+            {
+              "op": "ROC"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.24306",
+      "file": "Strategy 0.24306.sqx",
+      "sqx_sha256": "219c3b986cd5ccdac0621b392778b450df539d1f86856184a3418a6c29c18150",
+      "size_bytes": 22477,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "6cbf07564f2c59a1ae54c65d6c5fc848c81ecfed9c302c1cf78230f1e5c90d7d",
+      "structural_family_sha256": "ceb7519a26571a2636336696e5ad1d18d719ae2590a7856dba501b56332dd605",
+      "archetype_sha256": "0efec3cfbd23db9af57830368e80680d598241c30218942146c602f18f6037f3",
+      "entry_indicator_archetype_sha256": "2b283c08056d30b4f22b8ab958a1a8521e4387a319b7471a41440bb7da025f78",
+      "fingerprint_exact": "-1745013825",
+      "trades_hash": "-423083264",
+      "trades": 59,
+      "profit": 30.520000457763672,
+      "drawdown": 21.969999313354492,
+      "profit_drawdown_ratio": 1.38916711,
+      "fitness": 0.46961651777988983,
+      "complexity": 7,
+      "signal_ops": [
+        "AND",
+        "Boolean",
+        "CrossesBelow",
+        "IsFalling",
+        "ROC"
+      ],
+      "indicators": [
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            227
+          ]
+        },
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            213
+          ]
+        },
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            162
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "CrossesBelow",
+              "children": [
+                {
+                  "op": "ROC"
+                },
+                {
+                  "op": "ROC"
+                }
+              ]
+            },
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "ROC"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.24926",
+      "file": "Strategy 0.24926.sqx",
+      "sqx_sha256": "5b7c787cfea308b760e867253431321fb3fcb642494acb5dbd883e214e8deb55",
+      "size_bytes": 21515,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "63c4cd2138273fd8ccc0246eeeb0ea5a8a0129c9b6163b38ed06cfc8853528e5",
+      "structural_family_sha256": "13d655a395d29a82bedf1ded3a9320741756a5a9df6ff7a7c471ab46e0080013",
+      "archetype_sha256": "420f65b1ae54c9b9cd14d39bcf6aab8eee7b7ffa97cb0df1122009e303807fa7",
+      "entry_indicator_archetype_sha256": "e4e046f63036ed214aa416a061799393c896608426e3b573bb7f1bc7480be7ab",
+      "fingerprint_exact": "311128066",
+      "trades_hash": "-854748672",
+      "trades": 48,
+      "profit": 6.28000020980835,
+      "drawdown": 25.190000534057617,
+      "profit_drawdown_ratio": 0.24930528,
+      "fitness": 0.22666666666666666,
+      "complexity": 7,
+      "signal_ops": [
+        "AND",
+        "ATR",
+        "Boolean",
+        "IsLower",
+        "Number",
+        "ROC"
+      ],
+      "indicators": [
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            170
+          ]
+        },
+        {
+          "op": "ATR",
+          "category": "priceRange",
+          "periods": [
+            153
+          ]
+        },
+        {
+          "op": "ATR",
+          "category": "priceRange",
+          "periods": [
+            202
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ATR",
+          "priceRange"
+        ],
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "IsLower",
+              "children": [
+                {
+                  "op": "ROC"
+                },
+                {
+                  "op": "Number"
+                }
+              ]
+            },
+            {
+              "op": "IsLower",
+              "children": [
+                {
+                  "op": "ATR"
+                },
+                {
+                  "op": "ATR"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.3352",
+      "file": "Strategy 0.3352.sqx",
+      "sqx_sha256": "62f7d0d5d6fceaa5e508a17ca6d7621044b21467a21d9cbe8fea728fe6de4c6e",
+      "size_bytes": 22946,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "4abbbc92586fae11bd32ec94dea3161723bdb9f5bfd7ff651e8cf881a6f1dd77",
+      "structural_family_sha256": "63be976d0fd825e5127e42964336144279907d34b46c8b416874522268c4fe2d",
+      "archetype_sha256": "5b8e07a4fdbfbefe407a8dd7c1f01030967969f4584619a1f882c75d1643cb21",
+      "entry_indicator_archetype_sha256": "2b283c08056d30b4f22b8ab958a1a8521e4387a319b7471a41440bb7da025f78",
+      "fingerprint_exact": "1117791643",
+      "trades_hash": "160451328",
+      "trades": 66,
+      "profit": 7.019999980926514,
+      "drawdown": 17.200000762939453,
+      "profit_drawdown_ratio": 0.40813952,
+      "fitness": 0.3352697088539398,
+      "complexity": 6,
+      "signal_ops": [
+        "AND",
+        "Boolean",
+        "IsFalling",
+        "ROC"
+      ],
+      "indicators": [
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            67
+          ]
+        },
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            64
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "ROC"
+                }
+              ]
+            },
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "ROC"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.406",
+      "file": "Strategy 0.406.sqx",
+      "sqx_sha256": "7ea75012658337941bd75eed6d503eeab0a19b6961e217e858af5ac2b196bdfa",
+      "size_bytes": 24573,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "59dee64507a2866097f9dbc9cefc8bb22780c187181cee72838324e1c9abf761",
+      "structural_family_sha256": "64565ec3618277490484a4b16624a687e7c731b60804ef52d919c3088f83b330",
+      "archetype_sha256": "52e427fae0d31c670ca5594e673afd89cb7597082cc4c2a983ba73da43212d1e",
+      "entry_indicator_archetype_sha256": "190d2c89fc0a6f364af419fe527694d5f430d40642000307ae619af6dd805c74",
+      "fingerprint_exact": "1420199229",
+      "trades_hash": "1206043776",
+      "trades": 77,
+      "profit": 12.680000305175781,
+      "drawdown": 22.8700008392334,
+      "profit_drawdown_ratio": 0.55443812,
+      "fitness": 0.38333333551494125,
+      "complexity": 6,
+      "signal_ops": [
+        "AND",
+        "Boolean",
+        "IsFalling",
+        "RSI"
+      ],
+      "indicators": [
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            30
+          ]
+        },
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            137
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "RSI"
+                }
+              ]
+            },
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "RSI"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.5649",
+      "file": "Strategy 0.5649.sqx",
+      "sqx_sha256": "a5d2c62f39d6808bf6fb02357986247bc86a6473059f12915171ee5fc9d0b4d9",
+      "size_bytes": 23233,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "0a053c07f7720468254b9b615fff38a93724fd3ba2fc71f11e010cccd934cbdd",
+      "structural_family_sha256": "dd61f7e426346b8b5197b30c21e8f8b2a25fbdb80c470142cfd0a62ac5ed8545",
+      "archetype_sha256": "7378c77fa96ac25d04142c1d67213c59296142b23c345cbdb37369b161741710",
+      "entry_indicator_archetype_sha256": "85f92285b1a0eb54ca48ec80a8975dc33faeefdc9a44cbfc77cc0dafb2baaea3",
+      "fingerprint_exact": "307431830",
+      "trades_hash": "-985687040",
+      "trades": 64,
+      "profit": 8.789999961853027,
+      "drawdown": 30.229999542236328,
+      "profit_drawdown_ratio": 0.29077076,
+      "fitness": 0.3109170287854907,
+      "complexity": 7,
+      "signal_ops": [
+        "AND",
+        "ATR",
+        "Boolean",
+        "CrossesBelow",
+        "IsFalling",
+        "RSI"
+      ],
+      "indicators": [
+        {
+          "op": "ATR",
+          "category": "priceRange",
+          "periods": [
+            15
+          ]
+        },
+        {
+          "op": "ATR",
+          "category": "priceRange",
+          "periods": [
+            24
+          ]
+        },
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            20
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ATR",
+          "priceRange"
+        ],
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "CrossesBelow",
+              "children": [
+                {
+                  "op": "ATR"
+                },
+                {
+                  "op": "ATR"
+                }
+              ]
+            },
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "RSI"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.6123",
+      "file": "Strategy 0.6123.sqx",
+      "sqx_sha256": "e3a7e0afb23e5f52929a7753598007466ca714d76230d70452a1a156d7e87412",
+      "size_bytes": 26393,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "bb2f0f2ae63d5269401e35e119e643d3d5073e62dcd3bc7a583de4032092b45e",
+      "structural_family_sha256": "a0ae98e8e4cb76bed077597ece9858b2968b93bd4a08479b93e6321e9ab4538c",
+      "archetype_sha256": "f0f4289dc7d6e8108509bfa5917c404edaee00f9a81882e42f30680f239cec50",
+      "entry_indicator_archetype_sha256": "80669b9941d0085ae9201a745e37bf8f78fff8abaef5aa74a073a0c7c178720f",
+      "fingerprint_exact": "-1030825538",
+      "trades_hash": "1749476480",
+      "trades": 92,
+      "profit": 18.93000030517578,
+      "drawdown": 25.3700008392334,
+      "profit_drawdown_ratio": 0.74615687,
+      "fitness": 0.4172727272727273,
+      "complexity": 6,
+      "signal_ops": [
+        "AND",
+        "Boolean",
+        "IsFalling",
+        "ROC",
+        "RSI"
+      ],
+      "indicators": [
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            23
+          ]
+        },
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            40
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ROC",
+          "indicator"
+        ],
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "ROC"
+                }
+              ]
+            },
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "RSI"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.6601",
+      "file": "Strategy 0.6601.sqx",
+      "sqx_sha256": "0157c2f3895e9ec0caef8fd4a23a490765265845fbc05dfeccb9d2a3306d99bf",
+      "size_bytes": 25675,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "2cd2c967940201eae89145cd449cf93e13411a9e7b8d527a429095b92d508be6",
+      "structural_family_sha256": "63be976d0fd825e5127e42964336144279907d34b46c8b416874522268c4fe2d",
+      "archetype_sha256": "5b8e07a4fdbfbefe407a8dd7c1f01030967969f4584619a1f882c75d1643cb21",
+      "entry_indicator_archetype_sha256": "2b283c08056d30b4f22b8ab958a1a8521e4387a319b7471a41440bb7da025f78",
+      "fingerprint_exact": "593321552",
+      "trades_hash": "649214848",
+      "trades": 92,
+      "profit": 8.359999656677246,
+      "drawdown": 21.690000534057617,
+      "profit_drawdown_ratio": 0.38543105,
+      "fitness": 0.352092047229025,
+      "complexity": 6,
+      "signal_ops": [
+        "AND",
+        "Boolean",
+        "IsFalling",
+        "ROC"
+      ],
+      "indicators": [
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            170
+          ]
+        },
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            52
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "ROC"
+                }
+              ]
+            },
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "ROC"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.7241",
+      "file": "Strategy 0.7241.sqx",
+      "sqx_sha256": "c436307c0bdb9324f51d93a16dcfd6615f5a99da3bc18541896a5c0a0665f8b2",
+      "size_bytes": 24866,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "92572f0bab90c3134e461cf70bfa656c740374a00b0026bcd5de01f813d51e89",
+      "structural_family_sha256": "2bd5356bd018974e90d7dde3d18dbcea47b69b484f6de16045189147592229fc",
+      "archetype_sha256": "a508a8925ee52b957eb029d30a2ceea0da694777f04dc4301830760bc4dc78dc",
+      "entry_indicator_archetype_sha256": "190d2c89fc0a6f364af419fe527694d5f430d40642000307ae619af6dd805c74",
+      "fingerprint_exact": "1499702320",
+      "trades_hash": "1342843776",
+      "trades": 79,
+      "profit": 10.880000114440918,
+      "drawdown": 44.560001373291016,
+      "profit_drawdown_ratio": 0.24416517,
+      "fitness": 0.3187499987277469,
+      "complexity": 7,
+      "signal_ops": [
+        "AND",
+        "Boolean",
+        "CrossesBelow",
+        "IsFalling",
+        "RSI"
+      ],
+      "indicators": [
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            30
+          ]
+        },
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            20
+          ]
+        },
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            50
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "CrossesBelow",
+              "children": [
+                {
+                  "op": "RSI"
+                },
+                {
+                  "op": "RSI"
+                }
+              ]
+            },
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "RSI"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.7873",
+      "file": "Strategy 0.7873.sqx",
+      "sqx_sha256": "fb62f4124c85af2bb07bdcd2833de9101bc3f2eb6217bbc7e77825e3bf82a825",
+      "size_bytes": 24842,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "de329e9341b0706b4f42c0682ba58497efe5c44677c820d45145300a9c383f0d",
+      "structural_family_sha256": "597187889b28e50dd71b0e674590c60bd8c38250d6deddebe213c534f8e1e387",
+      "archetype_sha256": "7742abd987396241caa8dfaef3084e2165154c15e36ec0cd2909bdd9172808f2",
+      "entry_indicator_archetype_sha256": "e4e046f63036ed214aa416a061799393c896608426e3b573bb7f1bc7480be7ab",
+      "fingerprint_exact": "-495169332",
+      "trades_hash": "2108218624",
+      "trades": 81,
+      "profit": 24.559999465942383,
+      "drawdown": 23.899999618530273,
+      "profit_drawdown_ratio": 1.02761506,
+      "fitness": 0.4572607223642373,
+      "complexity": 7,
+      "signal_ops": [
+        "AND",
+        "ATR",
+        "Boolean",
+        "IsFalling",
+        "IsLower",
+        "ROC"
+      ],
+      "indicators": [
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            126
+          ]
+        },
+        {
+          "op": "ATR",
+          "category": "priceRange",
+          "periods": [
+            93
+          ]
+        },
+        {
+          "op": "ATR",
+          "category": "priceRange",
+          "periods": [
+            181
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ATR",
+          "priceRange"
+        ],
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "ROC"
+                }
+              ]
+            },
+            {
+              "op": "IsLower",
+              "children": [
+                {
+                  "op": "ATR"
+                },
+                {
+                  "op": "ATR"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.9322",
+      "file": "Strategy 0.9322.sqx",
+      "sqx_sha256": "f1198e237169d950c19cdf9641646b671bf1ca978e29cdc0d66db1fee845bfe5",
+      "size_bytes": 24664,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "76b0e880b76546fc329987f43903189298ae3e4a97476e2c9fe092ffe9b22dc5",
+      "structural_family_sha256": "e9ce71d189129f16b9bacd824147217de92a68d06354f374aadd1c0bf731ac50",
+      "archetype_sha256": "7378c77fa96ac25d04142c1d67213c59296142b23c345cbdb37369b161741710",
+      "entry_indicator_archetype_sha256": "85f92285b1a0eb54ca48ec80a8975dc33faeefdc9a44cbfc77cc0dafb2baaea3",
+      "fingerprint_exact": "-232251866",
+      "trades_hash": "32276480",
+      "trades": 74,
+      "profit": 11.34000015258789,
+      "drawdown": 35.150001525878906,
+      "profit_drawdown_ratio": 0.32261734,
+      "fitness": 0.3370689639358756,
+      "complexity": 7,
+      "signal_ops": [
+        "AND",
+        "ATR",
+        "Boolean",
+        "CrossesBelow",
+        "IsFalling",
+        "RSI"
+      ],
+      "indicators": [
+        {
+          "op": "ATR",
+          "category": "priceRange",
+          "periods": [
+            205
+          ]
+        },
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            30
+          ]
+        },
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            20
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ATR",
+          "priceRange"
+        ],
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "IsFalling",
+              "children": [
+                {
+                  "op": "ATR"
+                }
+              ]
+            },
+            {
+              "op": "CrossesBelow",
+              "children": [
+                {
+                  "op": "RSI"
+                },
+                {
+                  "op": "RSI"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    }
+  ]
+}

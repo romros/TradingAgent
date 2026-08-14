@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "family": "ibs_daily_reversion_v1",
+  "hypothesis": "A broad liquid equity instrument closing in the bottom 20% of its daily range while above SMA200 exhibits a short-lived liquidity rebound.",
+  "rule": {
+    "signal": "IBS=(close-low)/(high-low) < 0.20 and close > SMA200",
+    "entry": "next session open",
+    "exit": "same session close",
+    "direction": "long",
+    "variants": 1
+  },
+  "periods": {"train": ["2017-01-01", "2021-12-31"], "validation": ["2022-01-01", "2023-12-31"], "oos": ["2024-01-01", "2024-12-31"]},
+  "costs": {"round_trip_bps": 30},
+  "gates": {"combined_min_trades": 30, "combined_profit_factor_min": 1.20, "combined_mean_return_positive": true, "positive_assets_min": 3, "oos_asset_return_positive": true},
+  "holdout_2025_sealed": true,
+  "paper_authorized": false,
+  "live_authorized": false
+}

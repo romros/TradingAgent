@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "preregistration_sha256": "bd8dd2a0c4881da93eda576e30b29a3a120b4aa691897009c13892252f8dedab",
+  "optimized": false,
+  "holdout_2025_accessed": false,
+  "assets": {
+    "SGLN_L": {
+      "train": {
+        "months": 82,
+        "invested_months": 25,
+        "position_changes": 17,
+        "total_return": -0.062359438824097,
+        "annualized_return": -0.009378467281835445,
+        "annualized_sharpe": -0.020289293094175567,
+        "max_drawdown": 0.22709982755198954
+      },
+      "validation": {
+        "months": 47,
+        "invested_months": 35,
+        "position_changes": 3,
+        "total_return": 0.4366377863972297,
+        "annualized_return": 0.09691701940337549,
+        "annualized_sharpe": 0.9033583943961582,
+        "max_drawdown": 0.11514903357070205
+      },
+      "oos": {
+        "months": 23,
+        "invested_months": 19,
+        "position_changes": 3,
+        "total_return": 0.2449975654572607,
+        "annualized_return": 0.12112266260383642,
+        "annualized_sharpe": 1.0267824036736015,
+        "max_drawdown": 0.062371001379602276
+      }
+    },
+    "PHAU_L": {
+      "train": {
+        "months": 83,
+        "invested_months": 32,
+        "position_changes": 17,
+        "total_return": -0.25847540480636866,
+        "annualized_return": -0.04231436628729579,
+        "annualized_sharpe": -0.49514848397590117,
+        "max_drawdown": 0.29079097230327344
+      },
+      "validation": {
+        "months": 47,
+        "invested_months": 30,
+        "position_changes": 10,
+        "total_return": 0.09909588104132094,
+        "annualized_return": 0.02441792595823533,
+        "annualized_sharpe": 0.26465354376487943,
+        "max_drawdown": 0.2831664538929386
+      },
+      "oos": {
+        "months": 23,
+        "invested_months": 22,
+        "position_changes": 3,
+        "total_return": 0.3122200533422348,
+        "annualized_return": 0.15230831986812632,
+        "annualized_sharpe": 1.1695054773608993,
+        "max_drawdown": 0.07390625808748941
+      }
+    }
+  },
+  "decisions": {
+    "SGLN_L": {
+      "pass": false,
+      "combined_validation_oos": {
+        "months": 71,
+        "invested_months": 54,
+        "position_changes": 6,
+        "total_return": 0.7886105465084592,
+        "annualized_return": 0.10326216438111202,
+        "annualized_sharpe": 0.9452204858443528,
+        "max_drawdown": 0.11514903357070205
+      }
+    },
+    "PHAU_L": {
+      "pass": false,
+      "combined_validation_oos": {
+        "months": 71,
+        "invested_months": 52,
+        "position_changes": 13,
+        "total_return": 0.44225565564827285,
+        "annualized_return": 0.06384995707849472,
+        "annualized_sharpe": 0.5776197047552787,
+        "max_drawdown": 0.28836732548999533
+      }
+    }
+  },
+  "correlation": {
+    "months": 71,
+    "correlation": 0.705636793100674
+  },
+  "pass": false
+}

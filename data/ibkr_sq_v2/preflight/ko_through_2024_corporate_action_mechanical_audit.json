@@ -1,0 +1,29 @@
+{
+  "schema_version": 2,
+  "stage": "CORPORATE_ACTION_MECHANICAL_AUDIT",
+  "symbol": "KOUSUSD",
+  "source_sha256": "92f4a42da3aeb2b511616b27d47159eab37e57c2b364863b3bc55286af74d821",
+  "rows": 1995,
+  "first": "2017-01-26",
+  "last": "2024-12-31",
+  "close_discontinuities": {
+    "threshold_absolute_return": 0.1,
+    "count": 0,
+    "events": [],
+    "maximum_absolute_close_return": 0.09610607971263707
+  },
+  "ohlc_envelope_source_quirks": {
+    "rows": 217,
+    "max_high_delta": 0.3200000000000003,
+    "max_low_delta": 0,
+    "maximum_relative_delta": 0.008486262861992158,
+    "canonical_repair_rule": "high=max(source_high,open,close); low=min(source_low,open,close)"
+  },
+  "performance_accessed": false,
+  "holdout_2025_accessed": false,
+  "decision": "PASS_NO_SPLIT_LIKE_CLOSE_DISCONTINUITY",
+  "limitations": [
+    "mechanical price-discontinuity audit only",
+    "official split/dividend semantics still required before canonical SQ import"
+  ]
+}

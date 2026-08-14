@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-spy-gap-down-recovery-v1",
+  "preregistration_sha256": "f78e9e6b0455a50ac7e164d31f88a8b40ff980b74a116c3f7df17020c26d553e",
+  "source_sha256": "a2aa4c620fcda15bc96fdc2589846d276f96379c0e427d662f4619ccd28e70a1",
+  "train": {
+    "trades": 49,
+    "net_return": -0.10629006913858208,
+    "profit_factor": 0.6853334171971041,
+    "maximum_drawdown": 0.1940693096225381,
+    "mean_trade_return": -0.0021817633373424844,
+    "t_stat": -1.0358672248313647,
+    "calendar_year_returns": {
+      "2018": 0.08340425658607731,
+      "2019": -0.017620662287284206,
+      "2020": -0.14783318317892868,
+      "2021": -0.014623483439611062
+    },
+    "positive_calendar_years": 1
+  },
+  "validation": {
+    "trades": 39,
+    "net_return": -0.0727001015809231,
+    "profit_factor": 0.735442481227371,
+    "maximum_drawdown": 0.14421492950069925,
+    "mean_trade_return": -0.0018131842289130472,
+    "t_stat": -0.7282331944375425,
+    "calendar_year_returns": {
+      "2022": -0.07382133931214141,
+      "2023": 0.0012106063104344589
+    },
+    "positive_calendar_years": 1
+  },
+  "validation_gate_passed": false,
+  "decision": "REJECT_VALIDATION",
+  "oos_2024_accessed": false,
+  "holdout_2025_accessed": false,
+  "optimized": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

@@ -1,0 +1,1054 @@
+{
+  "schema_version": 1,
+  "preregistration_sha256": "d00f6f72d0f9ab2b119aea3ff91e206e5242b2612232fe14fe123a51bf473fa7",
+  "optimized": false,
+  "holdout_2025_accessed": false,
+  "assets": {
+    "SGLN_L": {
+      "source_sha256": "25008847d1f9c8be10b9d60a0a52306ab46134febe3b63d720914fef2c28d713",
+      "variants": {
+        "FRIDAY_CLOSE_TO_MONDAY_CLOSE": {
+          "train": {
+            "gross": {
+              "trades": 329,
+              "mean_return": 0.0002792608340657024,
+              "total_return": 0.07972791629947729,
+              "profit_factor": 1.0901721584491975,
+              "max_drawdown": 0.10288647308849341,
+              "t_stat": 0.5292415269683435,
+              "one_sided_normal_p": 0.2983189563436595,
+              "wins": 163
+            },
+            "tiered_1000": {
+              "trades": 329,
+              "mean_return": -0.0017207391659342978,
+              "total_return": -0.44112353608705734,
+              "profit_factor": 0.5906195018920922,
+              "max_drawdown": 0.45352452390224374,
+              "t_stat": -3.2610610318489632,
+              "one_sided_normal_p": 0.9994450192670437,
+              "wins": 122
+            },
+            "fixed_1000": {
+              "trades": 329,
+              "mean_return": -0.005720739165934297,
+              "total_return": -0.8508595331336397,
+              "profit_factor": 0.18358276329197012,
+              "max_drawdown": 0.8509622395109726,
+              "t_stat": -10.841666149483576,
+              "one_sided_normal_p": 1.0,
+              "wins": 74
+            },
+            "stress_1000": {
+              "trades": 329,
+              "mean_return": -0.006720739165934297,
+              "total_return": -0.8928962416317076,
+              "profit_factor": 0.1387893311788943,
+              "max_drawdown": 0.8928962416317076,
+              "t_stat": -12.736817428892229,
+              "one_sided_normal_p": 1.0,
+              "wins": 62
+            }
+          },
+          "validation": {
+            "gross": {
+              "trades": 186,
+              "mean_return": 0.00015380199210326812,
+              "total_return": 0.018877349539872856,
+              "profit_factor": 1.0433411518321993,
+              "max_drawdown": 0.13226949036976776,
+              "t_stat": 0.20224436352568684,
+              "one_sided_normal_p": 0.41986284628339987,
+              "wins": 87
+            },
+            "tiered_1000": {
+              "trades": 186,
+              "mean_return": -0.0018461980078967322,
+              "total_return": -0.2978817517234469,
+              "profit_factor": 0.6079171897308707,
+              "max_drawdown": 0.2991836562975244,
+              "t_stat": -2.4276872876832627,
+              "one_sided_normal_p": 0.9924022805385259,
+              "wins": 68
+            },
+            "fixed_1000": {
+              "trades": 186,
+              "mean_return": -0.005846198007896731,
+              "total_return": -0.6673309370280169,
+              "profit_factor": 0.21998048310733762,
+              "max_drawdown": 0.6673309370280169,
+              "t_stat": -7.68755059010116,
+              "one_sided_normal_p": 0.9999999999999925,
+              "wins": 46
+            },
+            "stress_1000": {
+              "trades": 186,
+              "mean_return": -0.006846198007896732,
+              "total_return": -0.7241271455073622,
+              "profit_factor": 0.17131456736712708,
+              "max_drawdown": 0.7241271455073622,
+              "t_stat": -9.002516415705635,
+              "one_sided_normal_p": 1.0,
+              "wins": 41
+            }
+          },
+          "oos": {
+            "gross": {
+              "trades": 93,
+              "mean_return": -0.0016812662809907906,
+              "total_return": -0.14734149143583264,
+              "profit_factor": 0.542658787869958,
+              "max_drawdown": 0.15392842605469448,
+              "t_stat": -2.0456289402355754,
+              "one_sided_normal_p": 0.9796035540543047,
+              "wins": 34
+            },
+            "tiered_1000": {
+              "trades": 93,
+              "mean_return": -0.0036812662809907904,
+              "total_return": -0.2924223972673281,
+              "profit_factor": 0.2695696935860524,
+              "max_drawdown": 0.2924223972673281,
+              "t_stat": -4.4790673114971,
+              "one_sided_normal_p": 0.9999962515053964,
+              "wins": 22
+            },
+            "fixed_1000": {
+              "trades": 93,
+              "mean_return": -0.00768126628099079,
+              "total_return": -0.5132757746560717,
+              "profit_factor": 0.07815998936334434,
+              "max_drawdown": 0.5132757746560717,
+              "t_stat": -9.34594405402015,
+              "one_sided_normal_p": 1.0,
+              "wins": 11
+            },
+            "stress_1000": {
+              "trades": 93,
+              "mean_return": -0.00868126628099079,
+              "total_return": -0.5568427816705135,
+              "profit_factor": 0.057890109440576355,
+              "max_drawdown": 0.5568427816705135,
+              "t_stat": -10.562663239650911,
+              "one_sided_normal_p": 1.0,
+              "wins": 10
+            }
+          },
+          "combined_validation_oos": {
+            "gross": {
+              "trades": 279,
+              "mean_return": -0.00045788743226141815,
+              "total_return": -0.13124555873151966,
+              "profit_factor": 0.8724955726442759,
+              "max_drawdown": 0.2601221978230609,
+              "t_stat": -0.792557160970066,
+              "one_sided_normal_p": 0.785982061973207,
+              "wins": 121
+            },
+            "tiered_1000": {
+              "trades": 279,
+              "mean_return": -0.0024578874322614182,
+              "total_return": -0.5031968530496138,
+              "profit_factor": 0.4899677755975765,
+              "max_drawdown": 0.5041180515671262,
+              "t_stat": -4.254356306912021,
+              "one_sided_normal_p": 0.9999895174380748,
+              "wins": 90
+            },
+            "fixed_1000": {
+              "trades": 279,
+              "mean_return": -0.006457887432261418,
+              "total_return": -0.8380819080290711,
+              "profit_factor": 0.16931143235784488,
+              "max_drawdown": 0.8380819080290711,
+              "t_stat": -11.17795459879593,
+              "one_sided_normal_p": 1.0,
+              "wins": 57
+            },
+            "stress_1000": {
+              "trades": 279,
+              "mean_return": -0.007457887432261418,
+              "total_return": -0.8777449531904273,
+              "profit_factor": 0.13070598411566586,
+              "max_drawdown": 0.8777449531904273,
+              "t_stat": -12.908854171766908,
+              "one_sided_normal_p": 1.0,
+              "wins": 51
+            }
+          },
+          "pass": false
+        },
+        "FRIDAY_OPEN_TO_MONDAY_OPEN": {
+          "train": {
+            "gross": {
+              "trades": 329,
+              "mean_return": 0.0009028590378275743,
+              "total_return": 0.31899601570978287,
+              "profit_factor": 1.2544046817098968,
+              "max_drawdown": 0.1500546234006067,
+              "t_stat": 1.485662436520311,
+              "one_sided_normal_p": 0.06868421556914897,
+              "wins": 172
+            },
+            "tiered_1000": {
+              "trades": 329,
+              "mean_return": -0.001097140962172426,
+              "total_return": -0.3170092166925381,
+              "profit_factor": 0.7593988567969967,
+              "max_drawdown": 0.3290846875232756,
+              "t_stat": -1.8053550407927739,
+              "one_sided_normal_p": 0.964490429120346,
+              "wins": 151
+            },
+            "fixed_1000": {
+              "trades": 329,
+              "mean_return": -0.005097140962172425,
+              "total_return": -0.8175952020966951,
+              "profit_factor": 0.27507707643460516,
+              "max_drawdown": 0.8175952020966951,
+              "t_stat": -8.38738999541894,
+              "one_sided_normal_p": 1.0,
+              "wins": 99
+            },
+            "stress_1000": {
+              "trades": 329,
+              "mean_return": -0.006097140962172426,
+              "total_return": -0.8689818919757395,
+              "profit_factor": 0.21312367007393374,
+              "max_drawdown": 0.8689818919757395,
+              "t_stat": -10.032898734075484,
+              "one_sided_normal_p": 1.0,
+              "wins": 84
+            }
+          },
+          "validation": {
+            "gross": {
+              "trades": 186,
+              "mean_return": 0.0005085349130832239,
+              "total_return": 0.08984073780640478,
+              "profit_factor": 1.1556859626966323,
+              "max_drawdown": 0.08999270489485012,
+              "t_stat": 0.7206189214053057,
+              "one_sided_normal_p": 0.23557200450394325,
+              "wins": 87
+            },
+            "tiered_1000": {
+              "trades": 186,
+              "mean_return": -0.0014914650869167765,
+              "total_return": -0.24887682541934897,
+              "profit_factor": 0.6607724095285136,
+              "max_drawdown": 0.25792500042975763,
+              "t_stat": -2.1134792019122313,
+              "one_sided_normal_p": 0.9827201133504735,
+              "wins": 74
+            },
+            "fixed_1000": {
+              "trades": 186,
+              "mean_return": -0.005491465086916775,
+              "total_return": -0.6440134468074385,
+              "profit_factor": 0.23252911765539344,
+              "max_drawdown": 0.6443805701007523,
+              "t_stat": -7.781675448547302,
+              "one_sided_normal_p": 0.9999999999999964,
+              "wins": 42
+            },
+            "stress_1000": {
+              "trades": 186,
+              "mean_return": -0.006491465086916776,
+              "total_return": -0.7047700785309869,
+              "profit_factor": 0.18307551421950288,
+              "max_drawdown": 0.7047796285570673,
+              "t_stat": -9.198724510206072,
+              "one_sided_normal_p": 1.0,
+              "wins": 36
+            }
+          },
+          "oos": {
+            "gross": {
+              "trades": 93,
+              "mean_return": -0.0004385079144290679,
+              "total_return": -0.0438655366926578,
+              "profit_factor": 0.8874280095679312,
+              "max_drawdown": 0.08198676450979236,
+              "t_stat": -0.4492673228292119,
+              "one_sided_normal_p": 0.6733805863103526,
+              "wins": 40
+            },
+            "tiered_1000": {
+              "trades": 93,
+              "mean_return": -0.002438507914429068,
+              "total_return": -0.20637246913313478,
+              "profit_factor": 0.5205190451072537,
+              "max_drawdown": 0.21600242938292202,
+              "t_stat": -2.4983401356387716,
+              "one_sided_normal_p": 0.9937611796363719,
+              "wins": 35
+            },
+            "fixed_1000": {
+              "trades": 93,
+              "mean_return": -0.006438507914429068,
+              "total_return": -0.4538343241518463,
+              "profit_factor": 0.1791578403153801,
+              "max_drawdown": 0.4538343241518463,
+              "t_stat": -6.59648576125789,
+              "one_sided_normal_p": 0.9999999999789491,
+              "wins": 20
+            },
+            "stress_1000": {
+              "trades": 93,
+              "mean_return": -0.007438507914429067,
+              "total_return": -0.5026647816073323,
+              "profit_factor": 0.13919923520241673,
+              "max_drawdown": 0.5026647816073323,
+              "t_stat": -7.6210221676626695,
+              "one_sided_normal_p": 0.9999999999999875,
+              "wins": 18
+            }
+          },
+          "combined_validation_oos": {
+            "gross": {
+              "trades": 279,
+              "mean_return": 0.00019285397057912664,
+              "total_return": 0.04203428893300587,
+              "profit_factor": 1.0554805964741147,
+              "max_drawdown": 0.08999270489485012,
+              "t_stat": 0.3373842296208292,
+              "one_sided_normal_p": 0.36791363570621527,
+              "wins": 127
+            },
+            "tiered_1000": {
+              "trades": 279,
+              "mean_return": -0.0018071460294208736,
+              "total_return": -0.4038879695806763,
+              "profit_factor": 0.6093790340239478,
+              "max_drawdown": 0.4038879695806763,
+              "t_stat": -3.1614727408391374,
+              "one_sided_normal_p": 0.9992151324502565,
+              "wins": 109
+            },
+            "fixed_1000": {
+              "trades": 279,
+              "mean_return": -0.005807146029420873,
+              "total_return": -0.8055723635827301,
+              "profit_factor": 0.21363291662491868,
+              "max_drawdown": 0.8055723635827301,
+              "t_stat": -10.159186681759067,
+              "one_sided_normal_p": 1.0,
+              "wins": 62
+            },
+            "stress_1000": {
+              "trades": 279,
+              "mean_return": -0.006807146029420873,
+              "total_return": -0.853171762530158,
+              "profit_factor": 0.1676212752291222,
+              "max_drawdown": 0.853171762530158,
+              "t_stat": -11.908615166989051,
+              "one_sided_normal_p": 1.0,
+              "wins": 54
+            }
+          },
+          "pass": false
+        },
+        "FRIDAY_CLOSE_TO_MONDAY_OPEN": {
+          "train": {
+            "gross": {
+              "trades": 329,
+              "mean_return": 0.00045702663605361085,
+              "total_return": 0.15140006798749206,
+              "profit_factor": 1.1904250893113555,
+              "max_drawdown": 0.08314301868031837,
+              "t_stat": 1.100441953018062,
+              "one_sided_normal_p": 0.13556980392187684,
+              "wins": 162
+            },
+            "tiered_1000": {
+              "trades": 329,
+              "mean_return": -0.0015429733639463893,
+              "total_return": -0.4039416035594917,
+              "profit_factor": 0.5617947758982516,
+              "max_drawdown": 0.4087265977529624,
+              "t_stat": -3.715215893624278,
+              "one_sided_normal_p": 0.9998984848644966,
+              "wins": 131
+            },
+            "fixed_1000": {
+              "trades": 329,
+              "mean_return": -0.005542973363946389,
+              "total_return": -0.8408922161510339,
+              "profit_factor": 0.13628992050770172,
+              "max_drawdown": 0.8408922161510339,
+              "t_stat": -13.346531586908958,
+              "one_sided_normal_p": 1.0,
+              "wins": 64
+            },
+            "stress_1000": {
+              "trades": 329,
+              "mean_return": -0.006542973363946388,
+              "total_return": -0.8857301803196677,
+              "profit_factor": 0.09748233062289978,
+              "max_drawdown": 0.8857301803196677,
+              "t_stat": -15.754360510230125,
+              "one_sided_normal_p": 1.0,
+              "wins": 52
+            }
+          },
+          "validation": {
+            "gross": {
+              "trades": 186,
+              "mean_return": 0.0007080031514821041,
+              "total_return": 0.13683012994434773,
+              "profit_factor": 1.377576408260731,
+              "max_drawdown": 0.04043007452629466,
+              "t_stat": 1.5895060007365311,
+              "one_sided_normal_p": 0.05597310018349026,
+              "wins": 93
+            },
+            "tiered_1000": {
+              "trades": 186,
+              "mean_return": -0.001291996848517896,
+              "total_return": -0.2164172292759884,
+              "profit_factor": 0.5729897518172623,
+              "max_drawdown": 0.21827924912222074,
+              "t_stat": -2.900603958263301,
+              "one_sided_normal_p": 0.998137778634023,
+              "wins": 61
+            },
+            "fixed_1000": {
+              "trades": 186,
+              "mean_return": -0.005291996848517896,
+              "total_return": -0.6285586759571327,
+              "profit_factor": 0.13108203125632756,
+              "max_drawdown": 0.6285586759571327,
+              "t_stat": -11.880823876262964,
+              "one_sided_normal_p": 1.0,
+              "wins": 28
+            },
+            "stress_1000": {
+              "trades": 186,
+              "mean_return": -0.006291996848517896,
+              "total_return": -0.6919382068527447,
+              "profit_factor": 0.09495176517269682,
+              "max_drawdown": 0.6919382068527447,
+              "t_stat": -14.12587885576288,
+              "one_sided_normal_p": 1.0,
+              "wins": 22
+            }
+          },
+          "oos": {
+            "gross": {
+              "trades": 93,
+              "mean_return": -0.000701506715215021,
+              "total_return": -0.06469488326778738,
+              "profit_factor": 0.726404682247774,
+              "max_drawdown": 0.09043023721493826,
+              "t_stat": -1.1403683648705452,
+              "one_sided_normal_p": 0.8729335665983063,
+              "wins": 41
+            },
+            "tiered_1000": {
+              "trades": 93,
+              "mean_return": -0.002701506715215021,
+              "total_return": -0.22369209723694983,
+              "profit_factor": 0.297773368194322,
+              "max_drawdown": 0.22657254339789867,
+              "t_stat": -4.391565652471727,
+              "one_sided_normal_p": 0.999994373132847,
+              "wins": 28
+            },
+            "fixed_1000": {
+              "trades": 93,
+              "mean_return": -0.006701506715215021,
+              "total_return": -0.46579568247858427,
+              "profit_factor": 0.06121122573354273,
+              "max_drawdown": 0.46579568247858427,
+              "t_stat": -10.89396022767409,
+              "one_sided_normal_p": 1.0,
+              "wins": 9
+            },
+            "stress_1000": {
+              "trades": 93,
+              "mean_return": -0.007701506715215021,
+              "total_return": -0.5135663679735574,
+              "profit_factor": 0.04412987127333935,
+              "max_drawdown": 0.5135663679735574,
+              "t_stat": -12.51955887147468,
+              "one_sided_normal_p": 1.0,
+              "wins": 7
+            }
+          },
+          "combined_validation_oos": {
+            "gross": {
+              "trades": 279,
+              "mean_return": 0.0002381665292497291,
+              "total_return": 0.06328303739229568,
+              "profit_factor": 1.1131561203992473,
+              "max_drawdown": 0.0931968485372483,
+              "t_stat": 0.6571460874201361,
+              "one_sided_normal_p": 0.25554349362865825,
+              "wins": 134
+            },
+            "tiered_1000": {
+              "trades": 279,
+              "mean_return": -0.001761833470750271,
+              "total_return": -0.3916985026179829,
+              "profit_factor": 0.46602587319914296,
+              "max_drawdown": 0.39314400333971466,
+              "t_stat": -4.861228719403258,
+              "one_sided_normal_p": 0.9999994167031502,
+              "wins": 89
+            },
+            "fixed_1000": {
+              "trades": 279,
+              "mean_return": -0.00576183347075027,
+              "total_return": -0.8015744409904291,
+              "profit_factor": 0.10526460282879835,
+              "max_drawdown": 0.8015744409904291,
+              "t_stat": -15.897978333050046,
+              "one_sided_normal_p": 1.0,
+              "wins": 37
+            },
+            "stress_1000": {
+              "trades": 279,
+              "mean_return": -0.0067618334707502704,
+              "total_return": -0.8501483830708019,
+              "profit_factor": 0.07630644517011276,
+              "max_drawdown": 0.8501483830708019,
+              "t_stat": -18.657165736461742,
+              "one_sided_normal_p": 1.0,
+              "wins": 29
+            }
+          },
+          "pass": false
+        }
+      }
+    },
+    "PHAU_L": {
+      "source_sha256": "6ce12477d18eb70d86f7ae31466a9e28d28e7335d77906edbe9205cb2eb689fc",
+      "variants": {
+        "FRIDAY_CLOSE_TO_MONDAY_CLOSE": {
+          "train": {
+            "gross": {
+              "trades": 329,
+              "mean_return": 0.0002059327012167662,
+              "total_return": 0.05496205787245989,
+              "profit_factor": 1.068319786719224,
+              "max_drawdown": 0.10451842466770855,
+              "t_stat": 0.40316643702880633,
+              "one_sided_normal_p": 0.3434128942950139,
+              "wins": 171
+            },
+            "tiered_1000": {
+              "trades": 329,
+              "mean_return": -0.001794067298783234,
+              "total_return": -0.4539669740181873,
+              "profit_factor": 0.5597182789646651,
+              "max_drawdown": 0.4664307868432116,
+              "t_stat": -3.51234998796511,
+              "one_sided_normal_p": 0.9997779186655982,
+              "wins": 138
+            },
+            "fixed_1000": {
+              "trades": 329,
+              "mean_return": -0.005794067298783233,
+              "total_return": -0.8543000091127729,
+              "profit_factor": 0.15665802627347217,
+              "max_drawdown": 0.8543000091127729,
+              "t_stat": -11.343382837952941,
+              "one_sided_normal_p": 1.0,
+              "wins": 64
+            },
+            "stress_1000": {
+              "trades": 329,
+              "mean_return": -0.006794067298783233,
+              "total_return": -0.8953693498629554,
+              "profit_factor": 0.11560798750000995,
+              "max_drawdown": 0.8953693498629554,
+              "t_stat": -13.3011410504499,
+              "one_sided_normal_p": 1.0,
+              "wins": 55
+            }
+          },
+          "validation": {
+            "gross": {
+              "trades": 186,
+              "mean_return": -1.8150823738962277e-06,
+              "total_return": -0.008609184909144862,
+              "profit_factor": 0.9994498087121155,
+              "max_drawdown": 0.11984601898043012,
+              "t_stat": -0.0026179413617750374,
+              "one_sided_normal_p": 0.5010444063038302,
+              "wins": 97
+            },
+            "tiered_1000": {
+              "trades": 186,
+              "mean_return": -0.0020018150823738964,
+              "total_return": -0.3168583521461067,
+              "profit_factor": 0.5410091743695781,
+              "max_drawdown": 0.31744148526591476,
+              "t_stat": -2.8872708909195466,
+              "one_sided_normal_p": 0.998057002489694,
+              "wins": 77
+            },
+            "fixed_1000": {
+              "trades": 186,
+              "mean_return": -0.006001815082373896,
+              "total_return": -0.676355896476938,
+              "profit_factor": 0.1596356166409908,
+              "max_drawdown": 0.676355896476938,
+              "t_stat": -8.656576790035091,
+              "one_sided_normal_p": 1.0,
+              "wins": 38
+            },
+            "stress_1000": {
+              "trades": 186,
+              "mean_return": -0.0070018150823738965,
+              "total_return": -0.7316183031587862,
+              "profit_factor": 0.11921862952494804,
+              "max_drawdown": 0.7316183031587862,
+              "t_stat": -10.098903264813979,
+              "one_sided_normal_p": 1.0,
+              "wins": 33
+            }
+          },
+          "oos": {
+            "gross": {
+              "trades": 93,
+              "mean_return": -0.001355511814847273,
+              "total_return": -0.121519945813228,
+              "profit_factor": 0.6411544242562478,
+              "max_drawdown": 0.1616219003628684,
+              "t_stat": -1.5201965513467652,
+              "one_sided_normal_p": 0.9357692080452791,
+              "wins": 39
+            },
+            "tiered_1000": {
+              "trades": 93,
+              "mean_return": -0.0033555118148472732,
+              "total_return": -0.27095150150236824,
+              "profit_factor": 0.33365087027713536,
+              "max_drawdown": 0.2888057768457589,
+              "t_stat": -3.76318187201407,
+              "one_sided_normal_p": 0.9999161174491213,
+              "wins": 30
+            },
+            "fixed_1000": {
+              "trades": 93,
+              "mean_return": -0.0073555118148472725,
+              "total_return": -0.49844710318006513,
+              "profit_factor": 0.1054310583389855,
+              "max_drawdown": 0.49946304867356717,
+              "t_stat": -8.249152513348678,
+              "one_sided_normal_p": 0.9999999999999999,
+              "wins": 13
+            },
+            "stress_1000": {
+              "trades": 93,
+              "mean_return": -0.008355511814847272,
+              "total_return": -0.5433278453857466,
+              "profit_factor": 0.08058032365234216,
+              "max_drawdown": 0.5437976021383616,
+              "t_stat": -9.37064517368233,
+              "one_sided_normal_p": 1.0,
+              "wins": 12
+            }
+          },
+          "combined_validation_oos": {
+            "gross": {
+              "trades": 279,
+              "mean_return": -0.0004530473265316885,
+              "total_return": -0.1290829430387176,
+              "profit_factor": 0.8690037746112474,
+              "max_drawdown": 0.2265725081022124,
+              "t_stat": -0.8238173126056659,
+              "one_sided_normal_p": 0.7949783154967567,
+              "wins": 136
+            },
+            "tiered_1000": {
+              "trades": 279,
+              "mean_return": -0.0024530473265316887,
+              "total_return": -0.5019566073709213,
+              "profit_factor": 0.4651143552253397,
+              "max_drawdown": 0.5023817396963417,
+              "t_stat": -4.460599892970563,
+              "one_sided_normal_p": 0.999995913472401,
+              "wins": 107
+            },
+            "fixed_1000": {
+              "trades": 279,
+              "mean_return": -0.006453047326531688,
+              "total_return": -0.8376753623393173,
+              "profit_factor": 0.13983258072959723,
+              "max_drawdown": 0.8376753623393173,
+              "t_stat": -11.734165053700353,
+              "one_sided_normal_p": 1.0,
+              "wins": 51
+            },
+            "stress_1000": {
+              "trades": 279,
+              "mean_return": -0.007453047326531688,
+              "total_return": -0.8774375522444935,
+              "profit_factor": 0.10516576703791661,
+              "max_drawdown": 0.8774375522444935,
+              "t_stat": -13.552556343882804,
+              "one_sided_normal_p": 1.0,
+              "wins": 45
+            }
+          },
+          "pass": false
+        },
+        "FRIDAY_OPEN_TO_MONDAY_OPEN": {
+          "train": {
+            "gross": {
+              "trades": 329,
+              "mean_return": 0.0002751706019685193,
+              "total_return": 0.07410068234537648,
+              "profit_factor": 1.0731719273458942,
+              "max_drawdown": 0.18568776515286056,
+              "t_stat": 0.46441504459640615,
+              "one_sided_normal_p": 0.3211752066750657,
+              "wins": 174
+            },
+            "tiered_1000": {
+              "trades": 329,
+              "mean_return": -0.0017248293980314808,
+              "total_return": -0.44404634484351546,
+              "profit_factor": 0.6409059859051549,
+              "max_drawdown": 0.46645675936902686,
+              "t_stat": -2.9110548731496566,
+              "one_sided_normal_p": 0.9981989462469234,
+              "wins": 141
+            },
+            "fixed_1000": {
+              "trades": 329,
+              "mean_return": -0.005724829398031481,
+              "total_return": -0.8516449457950155,
+              "profit_factor": 0.22411747618718028,
+              "max_drawdown": 0.8516449457950155,
+              "t_stat": -9.661994708641782,
+              "one_sided_normal_p": 1.0,
+              "wins": 90
+            },
+            "stress_1000": {
+              "trades": 329,
+              "mean_return": -0.00672482939803148,
+              "total_return": -0.8934612614061798,
+              "profit_factor": 0.1726063955018759,
+              "max_drawdown": 0.8934612614061798,
+              "t_stat": -11.349729667514811,
+              "one_sided_normal_p": 1.0,
+              "wins": 74
+            }
+          },
+          "validation": {
+            "gross": {
+              "trades": 186,
+              "mean_return": -0.00019613374153737548,
+              "total_return": -0.04453546859990143,
+              "profit_factor": 0.9466203769444603,
+              "max_drawdown": 0.12267906283481256,
+              "t_stat": -0.27020965320501616,
+              "one_sided_normal_p": 0.6065005166747515,
+              "wins": 92
+            },
+            "tiered_1000": {
+              "trades": 186,
+              "mean_return": -0.0021961337415373756,
+              "total_return": -0.3416638943305461,
+              "profit_factor": 0.5417989216455603,
+              "max_drawdown": 0.34563579064734007,
+              "t_stat": -3.025570878530183,
+              "one_sided_normal_p": 0.9987591788396275,
+              "wins": 69
+            },
+            "fixed_1000": {
+              "trades": 186,
+              "mean_return": -0.006196133741537374,
+              "total_return": -0.6881550815371673,
+              "profit_factor": 0.18096812779631857,
+              "max_drawdown": 0.68879922223648,
+              "t_stat": -8.536293329180513,
+              "one_sided_normal_p": 1.0,
+              "wins": 44
+            },
+            "stress_1000": {
+              "trades": 186,
+              "mean_return": -0.007196133741537375,
+              "total_return": -0.741412636770411,
+              "profit_factor": 0.1382768967648866,
+              "max_drawdown": 0.7416889922707628,
+              "t_stat": -9.913973941843098,
+              "one_sided_normal_p": 1.0,
+              "wins": 36
+            }
+          },
+          "oos": {
+            "gross": {
+              "trades": 93,
+              "mean_return": -4.4309006578680694e-05,
+              "total_return": -0.010047358332926137,
+              "profit_factor": 0.9900525046808858,
+              "max_drawdown": 0.09350358392013558,
+              "t_stat": -0.03744696093956431,
+              "one_sided_normal_p": 0.514935685253732,
+              "wins": 43
+            },
+            "tiered_1000": {
+              "trades": 93,
+              "mean_return": -0.002044309006578681,
+              "total_return": -0.17824800629966686,
+              "profit_factor": 0.6324502102994867,
+              "max_drawdown": 0.21925365237224193,
+              "t_stat": -1.7277110327854877,
+              "one_sided_normal_p": 0.9579799777237725,
+              "wins": 39
+            },
+            "fixed_1000": {
+              "trades": 93,
+              "mean_return": -0.00604430900657868,
+              "total_return": -0.4344044818810179,
+              "profit_factor": 0.2557412036277876,
+              "max_drawdown": 0.4437013714316821,
+              "t_stat": -5.108239176477333,
+              "one_sided_normal_p": 0.999999837412562,
+              "wins": 27
+            },
+            "stress_1000": {
+              "trades": 93,
+              "mean_return": -0.00704430900657868,
+              "total_return": -0.4849549499087108,
+              "profit_factor": 0.205015906948149,
+              "max_drawdown": 0.49241461774069895,
+              "t_stat": -5.953371212400294,
+              "one_sided_normal_p": 0.9999999986866271,
+              "wins": 22
+            }
+          },
+          "combined_validation_oos": {
+            "gross": {
+              "trades": 279,
+              "mean_return": -0.00014552549655114387,
+              "total_return": -0.05413536312127876,
+              "profit_factor": 0.9630111610630956,
+              "max_drawdown": 0.12267906283481256,
+              "t_stat": -0.2335651162604972,
+              "one_sided_normal_p": 0.592338694046743,
+              "wins": 135
+            },
+            "tiered_1000": {
+              "trades": 279,
+              "mean_return": -0.002145525496551144,
+              "total_return": -0.4590109926412136,
+              "profit_factor": 0.575084206962044,
+              "max_drawdown": 0.4590109926412136,
+              "t_stat": -3.443519684990142,
+              "one_sided_normal_p": 0.9997129026039441,
+              "wins": 108
+            },
+            "fixed_1000": {
+              "trades": 279,
+              "mean_return": -0.006145525496551144,
+              "total_return": -0.8236219117692423,
+              "profit_factor": 0.20708459939036267,
+              "max_drawdown": 0.8236219117692423,
+              "t_stat": -9.86342882244943,
+              "one_sided_normal_p": 1.0,
+              "wins": 71
+            },
+            "stress_1000": {
+              "trades": 279,
+              "mean_return": -0.007145525496551144,
+              "total_return": -0.866815858552442,
+              "profit_factor": 0.16141104069670095,
+              "max_drawdown": 0.866815858552442,
+              "t_stat": -11.468406106814253,
+              "one_sided_normal_p": 1.0,
+              "wins": 58
+            }
+          },
+          "pass": false
+        },
+        "FRIDAY_CLOSE_TO_MONDAY_OPEN": {
+          "train": {
+            "gross": {
+              "trades": 329,
+              "mean_return": 0.00043052410816968176,
+              "total_return": 0.14420439499761062,
+              "profit_factor": 1.2051255968405667,
+              "max_drawdown": 0.0801452848853591,
+              "t_stat": 1.2030928316747145,
+              "one_sided_normal_p": 0.11447019952196874,
+              "wins": 175
+            },
+            "tiered_1000": {
+              "trades": 329,
+              "mean_return": -0.0015694758918303182,
+              "total_return": -0.40767113631836716,
+              "profit_factor": 0.512035191425367,
+              "max_drawdown": 0.4130375380977268,
+              "t_stat": -4.385875631854587,
+              "one_sided_normal_p": 0.9999942239942444,
+              "wins": 114
+            },
+            "fixed_1000": {
+              "trades": 329,
+              "mean_return": -0.005569475891830318,
+              "total_return": -0.8418901414827137,
+              "profit_factor": 0.10097160915407027,
+              "max_drawdown": 0.8418901414827137,
+              "t_stat": -15.563812558913188,
+              "one_sided_normal_p": 1.0,
+              "wins": 55
+            },
+            "stress_1000": {
+              "trades": 329,
+              "mean_return": -0.006569475891830317,
+              "total_return": -0.886447311212733,
+              "profit_factor": 0.068150566395227,
+              "max_drawdown": 0.886447311212733,
+              "t_stat": -18.358296790677837,
+              "one_sided_normal_p": 1.0,
+              "wins": 42
+            }
+          },
+          "validation": {
+            "gross": {
+              "trades": 186,
+              "mean_return": 0.0003055472012779947,
+              "total_return": 0.05546526516209793,
+              "profit_factor": 1.159549582617707,
+              "max_drawdown": 0.05552198366006267,
+              "t_stat": 0.7513413093741074,
+              "one_sided_normal_p": 0.22622363713649485,
+              "wins": 100
+            },
+            "tiered_1000": {
+              "trades": 186,
+              "mean_return": -0.0016944527987220054,
+              "total_return": -0.27260698795807414,
+              "profit_factor": 0.4427970198103938,
+              "max_drawdown": 0.2763064603570863,
+              "t_stat": -4.166663543764886,
+              "one_sided_normal_p": 0.9999845454914991,
+              "wins": 69
+            },
+            "fixed_1000": {
+              "trades": 186,
+              "mean_return": -0.005694452798722005,
+              "total_return": -0.6552966934348445,
+              "profit_factor": 0.07388699867475117,
+              "max_drawdown": 0.6554211227778117,
+              "t_stat": -14.002673250042873,
+              "one_sided_normal_p": 1.0,
+              "wins": 21
+            },
+            "stress_1000": {
+              "trades": 186,
+              "mean_return": -0.006694452798722005,
+              "total_return": -0.7141352178650154,
+              "profit_factor": 0.0503927355124892,
+              "max_drawdown": 0.7141352178650154,
+              "t_stat": -16.46167567661237,
+              "one_sided_normal_p": 1.0,
+              "wins": 16
+            }
+          },
+          "oos": {
+            "gross": {
+              "trades": 93,
+              "mean_return": -0.0005897788481565905,
+              "total_return": -0.05514599215099969,
+              "profit_factor": 0.7774004440580496,
+              "max_drawdown": 0.11319316559365578,
+              "t_stat": -0.894540446947727,
+              "one_sided_normal_p": 0.8144836004978113,
+              "wins": 41
+            },
+            "tiered_1000": {
+              "trades": 93,
+              "mean_return": -0.0025897788481565906,
+              "total_return": -0.21575087173578245,
+              "profit_factor": 0.33534305345078697,
+              "max_drawdown": 0.24463840020974648,
+              "t_stat": -3.9280179944850713,
+              "one_sided_normal_p": 0.9999571755980173,
+              "wins": 30
+            },
+            "fixed_1000": {
+              "trades": 93,
+              "mean_return": -0.006589778848156591,
+              "total_return": -0.4603094558477454,
+              "profit_factor": 0.060614121086097546,
+              "max_drawdown": 0.4611260039739009,
+              "t_stat": -9.99497308955976,
+              "one_sided_normal_p": 1.0,
+              "wins": 11
+            },
+            "stress_1000": {
+              "trades": 93,
+              "mean_return": -0.007589778848156591,
+              "total_return": -0.5085658014581043,
+              "profit_factor": 0.04312349060188742,
+              "max_drawdown": 0.5088189001150303,
+              "t_stat": -11.511711863328433,
+              "one_sided_normal_p": 1.0,
+              "wins": 7
+            }
+          },
+          "combined_validation_oos": {
+            "gross": {
+              "trades": 279,
+              "mean_return": 7.105184799799599e-06,
+              "total_return": -0.0027394140661832767,
+              "profit_factor": 1.0032896261662994,
+              "max_drawdown": 0.11319316559365555,
+              "t_stat": 0.0203452599122512,
+              "one_sided_normal_p": 0.49188397552957064,
+              "wins": 141
+            },
+            "tiered_1000": {
+              "trades": 279,
+              "mean_return": -0.0019928948152002006,
+              "total_return": -0.4295426644006358,
+              "profit_factor": 0.40083790880355863,
+              "max_drawdown": 0.43212824963890606,
+              "t_stat": -5.706531798324162,
+              "one_sided_normal_p": 0.9999999942349312,
+              "wins": 99
+            },
+            "fixed_1000": {
+              "trades": 279,
+              "mean_return": -0.0059928948152002,
+              "total_return": -0.8139668849087699,
+              "profit_factor": 0.06906582289222203,
+              "max_drawdown": 0.8140340382485844,
+              "t_stat": -17.16028591479699,
+              "one_sided_normal_p": 1.0,
+              "wins": 32
+            },
+            "stress_1000": {
+              "trades": 279,
+              "mean_return": -0.0069928948152002,
+              "total_return": -0.8595162699001402,
+              "profit_factor": 0.04777561586693372,
+              "max_drawdown": 0.8595162699001402,
+              "t_stat": -20.023724443915196,
+              "one_sided_normal_p": 1.0,
+              "wins": 23
+            }
+          },
+          "pass": false
+        }
+      }
+    }
+  },
+  "decision": {
+    "status": "REJECT_NO_TRANSFERABLE_WEEKEND_EDGE",
+    "shared_passing_variants": [],
+    "passing_by_asset": {
+      "SGLN_L": [],
+      "PHAU_L": []
+    },
+    "paper_authorized": false,
+    "live_authorized": false
+  }
+}

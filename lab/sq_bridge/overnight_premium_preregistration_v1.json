@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "hypothesis": "Liquid US equities earn a persistent positive close-to-next-open premium distinct from open-to-close returns.",
+  "rule": {
+    "id": "daily_close_to_next_open",
+    "entry": "close of session t",
+    "exit": "open of the immediately following available session",
+    "position": "long, equal weighted",
+    "lookahead": "none"
+  },
+  "assets": {"SPX": "cash index control", "STOCKS": ["AAPL", "DE", "JNJ", "JPM", "KO"]},
+  "periods": {
+    "train": ["2017-01-01", "2021-12-31"],
+    "validation": ["2022-01-01", "2023-12-31"],
+    "oos_2024": ["2024-01-01", "2024-12-31"],
+    "holdout_2025": ["2025-01-01", "2025-12-31"]
+  },
+  "gates": {
+    "validation_min_observations": 450,
+    "oos_min_observations": 225,
+    "validation_and_oos_mean_return_gt": 0.0,
+    "combined_one_sided_t_stat_gte": 1.645,
+    "combined_profit_factor_gte": 1.05,
+    "overnight_mean_gt_intraday_mean": true,
+    "transfer_required": ["SPX", "STOCKS"]
+  },
+  "notes": [
+    "A single canonical overnight rule is tested without optimization.",
+    "Gross statistical edge is tested before implementation costs.",
+    "Unadjusted cash distributions bias stock overnight returns downward, making this screen conservative.",
+    "2025 is sealed and must not be read."
+  ]
+}

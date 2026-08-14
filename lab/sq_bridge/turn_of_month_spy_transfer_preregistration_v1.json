@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "parent_rule_sha256": "ba5e89497252302f0cce74579651f4c59c22be2d5938522aefb30a99e31ef7ee",
+  "asset": "SPY",
+  "rule": "unchanged last1_first3_open_to_open",
+  "data": "split/dividend-adjusted Yahoo daily OHLC, downloaded without evaluating strategy performance",
+  "periods": {"train":["2017-01-01","2021-12-31"],"validation":["2022-01-01","2023-12-31"],"oos_2024":["2024-01-01","2024-12-31"],"holdout_2025":["2025-01-01","2025-12-31"]},
+  "gates": {"validation_min_trades":23,"oos_min_trades":11,"validation_and_oos_mean_return_gt":0.0,"validation_and_oos_profit_factor_gte":1.1,"combined_monthly_sharpe_gte":0.5,"combined_max_drawdown_lte":0.15},
+  "notes": ["No parameters may change after SPY performance is read.","2025 excluded by download end boundary."]
+}

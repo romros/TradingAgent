@@ -1,0 +1,243 @@
+{
+  "schema_version": 1,
+  "preregistration_sha256": "45b6b77074872586cbcf4c7084fedb13804116258966571b53908b0d79c868e4",
+  "optimized": false,
+  "holdout_2025_accessed": false,
+  "periods": {
+    "train": {
+      "pooled": {
+        "trades": 109,
+        "wins": 72,
+        "mean_return": 0.0018351047915765716,
+        "total_return": 0.1620457971074727,
+        "profit_factor": 1.192683726559995,
+        "t_stat": 0.6406360885635451,
+        "max_drawdown": 0.26374659499055175
+      },
+      "by_asset": {
+        "AAPL": {
+          "trades": 16,
+          "wins": 10,
+          "mean_return": 0.007711554917657286,
+          "total_return": 0.12425931585680772,
+          "profit_factor": 2.1288886113391783,
+          "t_stat": 1.1058918626842713,
+          "max_drawdown": 0.05914031649287288
+        },
+        "CMI": {
+          "trades": 11,
+          "wins": 8,
+          "mean_return": -0.0010040224064930498,
+          "total_return": -0.01870080152099618,
+          "profit_factor": 0.924742156285815,
+          "t_stat": -0.08618247507389938,
+          "max_drawdown": 0.10034829627103792
+        },
+        "DE": {
+          "trades": 16,
+          "wins": 12,
+          "mean_return": 0.009550190330478221,
+          "total_return": 0.15594168671210284,
+          "profit_factor": 2.1689521756002,
+          "t_stat": 1.2369122156083567,
+          "max_drawdown": 0.07853319297041828
+        },
+        "JNJ": {
+          "trades": 19,
+          "wins": 11,
+          "mean_return": -0.001563807493106794,
+          "total_return": -0.03296178944858441,
+          "profit_factor": 0.8007934405381503,
+          "t_stat": -0.33508273069667693,
+          "max_drawdown": 0.07771571698374624
+        },
+        "JPM": {
+          "trades": 22,
+          "wins": 15,
+          "mean_return": 0.000702857449169092,
+          "total_return": 0.0057037070361962705,
+          "profit_factor": 1.0752580693049252,
+          "t_stat": 0.11001231269699968,
+          "max_drawdown": 0.15364057977270495
+        },
+        "KO": {
+          "trades": 9,
+          "wins": 5,
+          "mean_return": 0.002659207405505157,
+          "total_return": 0.022064823997412164,
+          "profit_factor": 1.3838620592809152,
+          "t_stat": 0.3473467432548479,
+          "max_drawdown": 0.06101861950260312
+        },
+        "UNP": {
+          "trades": 16,
+          "wins": 11,
+          "mean_return": -0.004675040211195976,
+          "total_return": -0.08329995634639653,
+          "profit_factor": 0.6808495718573605,
+          "t_stat": -0.4813948595577801,
+          "max_drawdown": 0.18997875871790681
+        }
+      }
+    },
+    "validation": {
+      "pooled": {
+        "trades": 43,
+        "wins": 26,
+        "mean_return": 0.005849983868438441,
+        "total_return": 0.2688721603292552,
+        "profit_factor": 1.8243274372963165,
+        "t_stat": 1.5510571626306269,
+        "max_drawdown": 0.0882370786250043
+      },
+      "by_asset": {
+        "AAPL": {
+          "trades": 6,
+          "wins": 4,
+          "mean_return": 0.014467694854483274,
+          "total_return": 0.08641021870669441,
+          "profit_factor": 2.6631960875368272,
+          "t_stat": 0.9605037274161189,
+          "max_drawdown": 0.0515794585711945
+        },
+        "CMI": {
+          "trades": 6,
+          "wins": 5,
+          "mean_return": 0.013090605937269092,
+          "total_return": 0.07956291740600419,
+          "profit_factor": 3.4957162811089924,
+          "t_stat": 1.312915142474847,
+          "max_drawdown": 0.03147138006757433
+        },
+        "DE": {
+          "trades": 6,
+          "wins": 3,
+          "mean_return": -0.003244946766403208,
+          "total_return": -0.0202612022835299,
+          "profit_factor": 0.5991903924878357,
+          "t_stat": -0.40619163475717174,
+          "max_drawdown": 0.03487071355032878
+        },
+        "JNJ": {
+          "trades": 5,
+          "wins": 3,
+          "mean_return": -0.0030962244019657526,
+          "total_return": -0.015831180251558274,
+          "profit_factor": 0.5421469715232378,
+          "t_stat": -0.46367502217624046,
+          "max_drawdown": 0.027609745600612134
+        },
+        "JPM": {
+          "trades": 8,
+          "wins": 6,
+          "mean_return": 0.01938018400896581,
+          "total_return": 0.16356340528781543,
+          "profit_factor": 6.745935611647482,
+          "t_stat": 2.221666140211344,
+          "max_drawdown": 0.02671758394706847
+        },
+        "KO": {
+          "trades": 8,
+          "wins": 4,
+          "mean_return": 0.0009623490073243368,
+          "total_return": 0.006535227930180687,
+          "profit_factor": 1.1506633490287894,
+          "t_stat": 0.14778936306023394,
+          "max_drawdown": 0.028464962208969324
+        },
+        "UNP": {
+          "trades": 4,
+          "wins": 1,
+          "mean_return": -0.010397489982433589,
+          "total_return": -0.04197437179523267,
+          "profit_factor": 0.3184525545911876,
+          "t_stat": -0.7876342924004185,
+          "max_drawdown": 0.06023667863295923
+        }
+      }
+    },
+    "oos_2024": {
+      "pooled": {
+        "trades": 28,
+        "wins": 16,
+        "mean_return": 0.0005669978593105807,
+        "total_return": 0.011449529635564337,
+        "profit_factor": 1.097583016678055,
+        "t_stat": 0.16523531465712327,
+        "max_drawdown": 0.06974735719383318
+      },
+      "by_asset": {
+        "AAPL": {
+          "trades": 4,
+          "wins": 2,
+          "mean_return": 0.008152007746155876,
+          "total_return": 0.03272765304876213,
+          "profit_factor": 14.690609540023505,
+          "t_stat": 1.1961703883359516,
+          "max_drawdown": 0.002380509604741343
+        },
+        "CMI": {
+          "trades": 0
+        },
+        "DE": {
+          "trades": 4,
+          "wins": 3,
+          "mean_return": 0.0034422569124925306,
+          "total_return": 0.013822170522658217,
+          "profit_factor": 69.63757015805757,
+          "t_stat": 1.9868862129651286,
+          "max_drawdown": 0.00020060482354289366
+        },
+        "JNJ": {
+          "trades": 3,
+          "wins": 2,
+          "mean_return": -0.005252199568008968,
+          "total_return": -0.01596580799270053,
+          "profit_factor": 0.35366184630238007,
+          "t_stat": -0.5324191903298235,
+          "max_drawdown": 0.02437825867757515
+        },
+        "JPM": {
+          "trades": 6,
+          "wins": 4,
+          "mean_return": 0.003665832260537294,
+          "total_return": 0.020431309891284277,
+          "profit_factor": 1.442882842897797,
+          "t_stat": 0.3405223019392688,
+          "max_drawdown": 0.044199807208480046
+        },
+        "KO": {
+          "trades": 6,
+          "wins": 3,
+          "mean_return": -0.006057859408152751,
+          "total_return": -0.03726189053342077,
+          "profit_factor": 0.38380059085116464,
+          "t_stat": -0.6123594527761018,
+          "max_drawdown": 0.05834777596430207
+        },
+        "UNP": {
+          "trades": 5,
+          "wins": 2,
+          "mean_return": -7.847139683554438e-05,
+          "total_return": -0.0007031963681037867,
+          "profit_factor": 0.9855121120377003,
+          "t_stat": -0.014048035426741587,
+          "max_drawdown": 0.01661554441497548
+        }
+      }
+    }
+  },
+  "decision": {
+    "pass": false,
+    "combined_validation_oos": {
+      "trades": 71,
+      "wins": 42,
+      "mean_return": 0.0037665527662471728,
+      "total_return": 0.283400149732687,
+      "profit_factor": 1.5716063194072778,
+      "t_stat": 1.4180186361148084,
+      "max_drawdown": 0.09913925640842136
+    },
+    "positive_assets": 3
+  }
+}

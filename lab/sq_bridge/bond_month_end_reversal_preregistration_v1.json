@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_BEFORE_FAMILY_PERFORMANCE",
+  "hypothesis": "Negative Treasury ETF price pressure from month-end liquidity selling reverses during the three sessions immediately before month end.",
+  "academic_rule_mapping": {
+    "source": "Etula, Rinne, Suominen and Vaittinen (2020), Dash for Cash, Review of Financial Studies 33(1)",
+    "T": "last observed session of calendar month",
+    "pressure": "close(T-4) / close(T-8) - 1 < 0",
+    "entry": "open(T-3), known after completed T-4 close",
+    "exit": "close(T-1)",
+    "direction": "long",
+    "note": "No threshold, Friday filter, auction filter or timing variant is optimized."
+  },
+  "assets": ["IBTM_L", "IDTL_L"],
+  "periods": {"train":["2016-01-01","2018-12-31"],"validation":["2019-01-01","2022-12-31"],"oos":["2023-01-01","2024-12-31"],"holdout":["2025-01-01","2099-12-31"]},
+  "costs_roundtrip_bps": {"gross":0,"tiered_1000":20,"stress_1000":70},
+  "gates": {"minimum_trades":{"train":12,"validation":15,"oos":8},"each_period_gross_mean_gt":0,"each_period_gross_profit_factor_gte":1.1,"combined_validation_oos_one_sided_normal_p_lte":0.1,"same_rule_both_durations":true},
+  "current_structure_caveat": "Treasury settlement was already short in the paper; ETF and equity settlement conventions have since changed. OOS 2024 is required but contains only part of the post-May-2024 U.S. T+1 regime.",
+  "data_reuse_disclosure": "The same 2016-2024 price files were previously consumed by a rejected 12-month momentum family. This test is preregistered before its own signals or returns, but is not a fresh-data independent confirmation.",
+  "optimization": false,"holdout_2025_accessed":false,"paper_authorized":false,"live_authorized":false
+}

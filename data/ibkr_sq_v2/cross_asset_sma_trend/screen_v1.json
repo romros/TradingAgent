@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "preregistration_sha256": "b7aa9e8c2d0e7276f11d88cb23aa09912d26a65f0b4c2c39af695a432b365ed8",
+  "periods": {
+    "train": {
+      "price_sma200": {
+        "metrics": {
+          "observations": 43,
+          "total_return": 0.3026905540642171,
+          "annualized_return": 0.076585992388015,
+          "sharpe": 0.8379180689123911,
+          "maximum_drawdown": 0.08836510577147005,
+          "positive_calendar_years": 3,
+          "calendar_years": {
+            "2018": 0.00929183375134457,
+            "2019": -0.007239500649267039,
+            "2020": 0.16916268702865267,
+            "2021": 0.11200072179731024
+          }
+        },
+        "turnover_one_way": 9.25
+      },
+      "sma50_sma200": {
+        "metrics": {
+          "observations": 43,
+          "total_return": 0.4105195056175446,
+          "annualized_return": 0.1007461867953865,
+          "sharpe": 0.8182754677732343,
+          "maximum_drawdown": 0.17617477769290202,
+          "positive_calendar_years": 4,
+          "calendar_years": {
+            "2018": 0.04868328050730919,
+            "2019": 0.06942284430675905,
+            "2020": 0.06709408689095153,
+            "2021": 0.17864381610105196
+          }
+        },
+        "turnover_one_way": 5.0
+      }
+    },
+    "validation": {
+      "price_sma200": {
+        "metrics": {
+          "observations": 23,
+          "total_return": -0.06375678294879983,
+          "annualized_return": -0.033788155574100975,
+          "sharpe": -0.45074517502948197,
+          "maximum_drawdown": 0.08181509025371902,
+          "positive_calendar_years": 0,
+          "calendar_years": {
+            "2022": -0.05013272318836559,
+            "2023": -0.014343119394706783
+          }
+        },
+        "turnover_one_way": 6.0
+      },
+      "sma50_sma200": {
+        "metrics": {
+          "observations": 23,
+          "total_return": -0.08336359823159756,
+          "annualized_return": -0.044398664828384726,
+          "sharpe": -0.5525448631218499,
+          "maximum_drawdown": 0.1373490617374814,
+          "positive_calendar_years": 0,
+          "calendar_years": {
+            "2022": -0.05505321093402371,
+            "2023": -0.029959768767040096
+          }
+        },
+        "turnover_one_way": 4.125
+      }
+    },
+    "oos": {
+      "price_sma200": {
+        "metrics": {
+          "observations": 12,
+          "total_return": 0.13565113893174274,
+          "annualized_return": 0.13565113893174274,
+          "sharpe": 2.2978888520427456,
+          "maximum_drawdown": 0.013032069661386925,
+          "positive_calendar_years": 1,
+          "calendar_years": {
+            "2024": 0.13565113893174274
+          }
+        },
+        "turnover_one_way": 2.875
+      },
+      "sma50_sma200": {
+        "metrics": {
+          "observations": 12,
+          "total_return": 0.10897151872853073,
+          "annualized_return": 0.10897151872853073,
+          "sharpe": 1.8939779301503268,
+          "maximum_drawdown": 0.024757097221185465,
+          "positive_calendar_years": 1,
+          "calendar_years": {
+            "2024": 0.10897151872853073
+          }
+        },
+        "turnover_one_way": 1.875
+      }
+    }
+  },
+  "holdout_2025_accessed": false,
+  "optimized": false
+}

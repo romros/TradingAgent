@@ -830,8 +830,14 @@ PYTHONPATH=../.. python3 alquimia_monte_carlo.py \
 Després del Retest, la SQX resultant ha de contenir exactament
 `MonteCarloRetest_Simulation0Orders.bin` fins a
 `MonteCarloRetest_Simulation999Orders.bin`, tots no buits, i un
-`MonteCarloRetest_Results.xml` coherent. Es valida i es materialitza cada run
-com una SQX determinista apta per a `orderstocsv`:
+`MonteCarloRetest_Results.xml` coherent. Això prova que SQ ha persistit el
+contracte natiu, però no prova que cada `Simulation*Orders.bin` sigui una
+llista d'ordres autònoma. En build 143 aquests membres són blobs compactes de
+resultat: substituir simplement l'`orders.bin` principal fa que
+`orderstocsv` exporti zero trades. L'exportador rebutja explícitament el cas
+on totes les simulacions són buides. Per tant, la materialització següent és
+experimental i no autoritza el gate de robustesa fins que SQ exporti ordres
+reals o es verifiquin els percentils `SQStats` natius:
 
 ```bash
 PYTHONPATH=../.. python3 sqcli_supervised_monte_carlo.py \

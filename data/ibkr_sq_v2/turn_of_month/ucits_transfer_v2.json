@@ -1,0 +1,149 @@
+{
+  "schema_version": 2,
+  "preregistration_sha256": "3b629ea7613f19c5f58b391b486590da80a96bc24b9c3897b9f7d4c362fccf93",
+  "optimized": false,
+  "holdout_2025_accessed": false,
+  "periods": {
+    "development": {
+      "trades": 31,
+      "wins": 23,
+      "mean_return": 0.010274850781978307,
+      "total_return": 0.3653928301029854,
+      "profit_factor": 4.024253352750718,
+      "monthly_sharpe": 1.845990689233747,
+      "max_drawdown": 0.032837319052164804
+    },
+    "validation": {
+      "trades": 23,
+      "wins": 15,
+      "mean_return": 0.008171273376437034,
+      "total_return": 0.20255059256659003,
+      "profit_factor": 3.7394748429784794,
+      "monthly_sharpe": 1.781886072560801,
+      "max_drawdown": 0.02827913511435054
+    },
+    "oos_2024": {
+      "trades": 11,
+      "wins": 7,
+      "mean_return": 0.0002216466813621935,
+      "total_return": -0.0002854507248650773,
+      "profit_factor": 1.0264486914473152,
+      "monthly_sharpe": 0.03316186728469963,
+      "max_drawdown": 0.07098454335714832
+    }
+  },
+  "decision": {
+    "pass": false,
+    "combined_validation_oos": {
+      "trades": 34,
+      "wins": 22,
+      "mean_return": 0.005599335328030468,
+      "total_return": 0.2022073236282549,
+      "profit_factor": 2.184035564631226,
+      "monthly_sharpe": 1.044387931221222,
+      "max_drawdown": 0.07098454335714832
+    },
+    "spy_correlation": {
+      "observations": 24,
+      "correlation": 0.8693830326132054
+    }
+  },
+  "cost_diagnostics": {
+    "capital_200_slippage_2bps": {
+      "roundtrip_cost_bps": 127.00000000000001,
+      "metrics": {
+        "trades": 34,
+        "wins": 13,
+        "mean_return": -0.007100664671969534,
+        "total_return": -0.21973224404007996,
+        "profit_factor": 0.35061519758358534,
+        "monthly_sharpe": -1.3244158552051497,
+        "max_drawdown": 0.23544035492271675
+      }
+    },
+    "capital_200_slippage_10bps": {
+      "roundtrip_cost_bps": 135.00000000000003,
+      "metrics": {
+        "trades": 34,
+        "wins": 13,
+        "mean_return": -0.007900664671969532,
+        "total_return": -0.24083274917887565,
+        "profit_factor": 0.3086915210992541,
+        "monthly_sharpe": -1.4736318417516923,
+        "max_drawdown": 0.2549364570368773
+      }
+    },
+    "capital_500_slippage_2bps": {
+      "roundtrip_cost_bps": 52.0,
+      "metrics": {
+        "trades": 34,
+        "wins": 20,
+        "mean_return": 0.00039933532803046863,
+        "total_return": 0.0078587156966472,
+        "profit_factor": 1.0587644740280724,
+        "monthly_sharpe": 0.07448401866869223,
+        "max_drawdown": 0.09803264144290946
+      }
+    },
+    "capital_500_slippage_10bps": {
+      "roundtrip_cost_bps": 60.0,
+      "metrics": {
+        "trades": 34,
+        "wins": 20,
+        "mean_return": -0.00040066467196953135,
+        "total_return": -0.019194666978694208,
+        "profit_factor": 0.9437658460437802,
+        "monthly_sharpe": -0.07473196787785087,
+        "max_drawdown": 0.1031474757903389
+      }
+    },
+    "capital_1000_slippage_2bps": {
+      "roundtrip_cost_bps": 27.0,
+      "metrics": {
+        "trades": 34,
+        "wins": 20,
+        "mean_return": 0.0028993353280304677,
+        "total_return": 0.09715103580453976,
+        "profit_factor": 1.5028233532082822,
+        "monthly_sharpe": 0.5407839766266391,
+        "max_drawdown": 0.08188731145532846
+      }
+    },
+    "capital_1000_slippage_10bps": {
+      "roundtrip_cost_bps": 35.0,
+      "metrics": {
+        "trades": 34,
+        "wins": 20,
+        "mean_return": 0.002099335328030468,
+        "total_return": 0.06777332910648437,
+        "profit_factor": 1.344406110508254,
+        "monthly_sharpe": 0.3915679900800962,
+        "max_drawdown": 0.08708054820432898
+      }
+    },
+    "capital_2000_slippage_2bps": {
+      "roundtrip_cost_bps": 14.500000000000002,
+      "metrics": {
+        "trades": 34,
+        "wins": 21,
+        "mean_return": 0.004149335328030468,
+        "total_return": 0.14463053265940773,
+        "profit_factor": 1.7865250142548876,
+        "monthly_sharpe": 0.7739339556056128,
+        "max_drawdown": 0.07512104706414535
+      }
+    },
+    "capital_2000_slippage_10bps": {
+      "roundtrip_cost_bps": 22.500000000000004,
+      "metrics": {
+        "trades": 34,
+        "wins": 21,
+        "mean_return": 0.003349335328030467,
+        "total_return": 0.11401917691179309,
+        "profit_factor": 1.600087552085005,
+        "monthly_sharpe": 0.6247179690590696,
+        "max_drawdown": 0.07897360884796645
+      }
+    }
+  }
+}

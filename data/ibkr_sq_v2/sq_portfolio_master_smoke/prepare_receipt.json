@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "classification": "DISPOSABLE_CAPABILITY_SMOKE_NOT_RESEARCH",
+  "project_name": "ALQUIMIA_PORTFOLIO_MASTER_CAPABILITY_SMOKE",
+  "input_count": 2,
+  "inputs": {
+    "/mnt/volume-SQ/user/projects/IBKR_V2_CAT_D1_VAL_0168/databanks/Results/Strategy 0.168.sqx": "63417a2a613d23661ed45c194eeccd6bc34b3bd05f51ded2a8c72fcbb6d28d35",
+    "/mnt/volume-SQ/user/projects/ALQUIMIA_MSFT_D1_TREND_LONG/databanks/Results/Strategy 0.14.sqx": "42e90a83180d6c1e934740d772dba936047802aebe21404f8731f5500b64b732"
+  },
+  "warning": "The MSFT control is an old rejected/unqualified SQ strategy. No portfolio result from this smoke is evidence.",
+  "settings": {
+    "SearchType": "bruteforce",
+    "MinStrategies": "2",
+    "MaxStrategies": "2",
+    "MaxStrategiesDatabank": "4",
+    "DateRange": "full",
+    "FitnessType": "ReturnDD",
+    "CorrMax": "1.0",
+    "CorrAllowNegative": "true",
+    "FilterOverlappingTrades": "false",
+    "MMMethodOptional": "false"
+  },
+  "initial_capital": 1000,
+  "cfx_sha256": "33ad787a64bda6d92fd347669dcc96845e04fab66174eae03b182ac9475baff8",
+  "paper_authorized": false,
+  "live_authorized": false
+}

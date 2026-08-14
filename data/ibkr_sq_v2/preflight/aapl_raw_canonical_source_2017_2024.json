@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_CANONICAL_SOURCE_ONLY",
+  "symbol": "AAPL_IBKR_V2_RAW",
+  "timeframe": "D1",
+  "rows": 1995,
+  "first": "2017-01-26",
+  "last": "2024-12-31",
+  "source_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/preflight/AAPLUSUSD_NYSE_RTH_D1_through_2024.csv",
+  "source_sha256": "eb96ec9a8b4f7b3cd7767975e155c78172533dc6c6ef6136a198c9cde9331afe",
+  "output_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/preflight/AAPLUSUSD_RAW_CANONICAL_D1_2017_2024.csv",
+  "output_sha256": "44463e7ab9b1d1815f8878b1049a87119bd345e8cd8ba633ed568e6c7246532a",
+  "corporate_actions_source": "https://investor.apple.com/investor-relations/faq/default.aspx",
+  "splits_in_research_window": [],
+  "absolute_close_jumps_at_least_20pct": [
+    {
+      "date": "2020-08-31",
+      "close_return": -0.74057122
+    }
+  ],
+  "ohlc_envelope_repair": {
+    "rule": "high=max(source_high,open,close); low=min(source_low,open,close)",
+    "rows_repaired": 295,
+    "max_high_delta": 1.53,
+    "max_low_delta": 0.0
+  },
+  "volume_rules_allowed": false,
+  "performance_accessed": false,
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

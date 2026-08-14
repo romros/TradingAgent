@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "source": "/mnt/volume-SQ/user/projects/IBKR_V2_CAT_D1_VAL_0168/orders-validation-a89005ae8c93e8cd.csv",
+  "source_sha256": "8432c7b37b8de7e00ae173e966cceee4adae00ab5d281b80ffd1d9a34152a1b1",
+  "metrics": {
+    "trades": 36,
+    "net_pnl_usdc": 86.55,
+    "net_expectancy_usdc": 2.40416667,
+    "net_profit_factor": 1.44963375,
+    "win_rate": 0.63888889,
+    "max_drawdown_usdc": 50.05
+  },
+  "yearly": {
+    "2022": {
+      "trades": 19,
+      "net_pnl_usdc": 54.08,
+      "net_expectancy_usdc": 2.84631579,
+      "net_profit_factor": 1.54166667,
+      "win_rate": 0.63157895,
+      "max_drawdown_usdc": 38.24
+    },
+    "2023": {
+      "trades": 17,
+      "net_pnl_usdc": 32.47,
+      "net_expectancy_usdc": 1.91,
+      "net_profit_factor": 1.35045872,
+      "win_rate": 0.64705882,
+      "max_drawdown_usdc": 50.05
+    }
+  },
+  "positive_year_ratio": 1.0,
+  "top5_gross_profit_share": 0.26820528,
+  "duration_hours": {
+    "median": 168.0,
+    "p95": 864.0,
+    "max": 1032.0
+  },
+  "without_top_trades_net_pnl": {
+    "1": 67.19,
+    "3": 39.14,
+    "5": 11.71
+  },
+  "bootstrap": {
+    "runs": 10000,
+    "seed": 20260802,
+    "p05_net_pnl": -47.36,
+    "omit_10pct_p05_net_pnl": 35.87
+  },
+  "close_types": {
+    "EndTest": 1,
+    "PT": 22,
+    "SL": 13
+  },
+  "checks": {
+    "positive_year_ratio_gte_60pct": true,
+    "top5_gross_profit_share_lte_50pct": true,
+    "bootstrap_p05_positive": false,
+    "omit_10pct_p05_positive": true
+  },
+  "passed": false
+}

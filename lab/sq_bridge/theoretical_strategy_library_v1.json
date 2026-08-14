@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "objective": "A reproducible 4-8 strategy theoretical IBKR portfolio library; shadow and live are downstream only.",
+  "minimum_portfolio_strategies": 4,
+  "maximum_portfolio_strategies": 8,
+  "strategies": [
+    {
+      "id": "sxr8_turn_of_month_l1_f3",
+      "asset": "SXR8",
+      "mechanism": "calendar_institutional_flows",
+      "status": "CONDITIONAL_EDGE",
+      "evidence_path": "data/ibkr_sq_v2/turn_of_month/ucits_transfer_v2.json",
+      "evidence_sha256": "f03e4ff7bd26f4604f5269011bddcaca56e6fa75e65e9a31310bbd1aaa792c53",
+      "caveat": "Combined validation/OOS is positive at USD1000-like costs, but 2024 is flat and the frozen transfer gate failed."
+    },
+    {
+      "id": "cat_d1_trend_0168",
+      "asset": "CAT",
+      "mechanism": "trend_pullback",
+      "status": "ADMITTED_RESEARCH_EDGE",
+      "evidence_path": "data/ibkr_sq_v2/cat_d1_trend_pilot/oos/audit_0_168.json",
+      "evidence_sha256": "94836e50f59f45b0c4d3fa3a647f3c62fdb40dd5d76045b6035eb060903b21db",
+      "caveat": "Strong 2024 OOS but asset-specific; failed transfer to DE, UNP and CMI."
+    },
+    {
+      "id": "msft_d1_capitulation",
+      "asset": "MSFT",
+      "mechanism": "shock_mean_reversion",
+      "status": "ADMITTED_RESEARCH_EDGE",
+      "evidence_path": "data/ibkr_sq_v2/msft_capitulation_native/retest/run/signal_parity_receipt_v1.json",
+      "evidence_sha256": "53cf2ff0c49c31ca59b543605ca810d8f4cf86da57e8eed7c5e05a2a382f4c1e",
+      "portfolio_evidence_path": "data/ibkr_sq_v2/three_strategy_portfolio/sxr8_cat_msft_v1.json",
+      "portfolio_evidence_sha256": "be5ac8bb787bafeecd592c9abac7ca898ce1cc551f2074792c836201a73d9d89",
+      "caveat": "Exact SQ/Python signal parity; historical periods are not a pristine new holdout."
+    },
+    {
+      "id": "aapl_h1_roc_4_1_174",
+      "asset": "AAPL",
+      "mechanism": "roc_reversion",
+      "status": "REJECTED_OOS",
+      "evidence_path": "data/ibkr_sq_v2/aapl_h1_roc_reversion_genetic/oos/4_1_174/small_account_audit.json",
+      "evidence_sha256": "d4846c579fb549e79a2ae17b7d73d3572c1fd220d59126f5d1767a4a9f20eda3",
+      "caveat": "2024 stress return -17.19%, PF 0.731."
+    },
+    {
+      "id": "jpm_d1_candidate_0_24",
+      "asset": "JPM",
+      "mechanism": "indicator_trend_reversion",
+      "status": "WATCHLIST_INSUFFICIENT_SAMPLE",
+      "evidence_path": "data/ibkr_sq_v2/jpm_d1_trend_pilot/validation/0_24/small_account_audit.json",
+      "evidence_sha256": "2835d1edb69028db2a2eca69ecefac6876949e8f533b7591727ed6bced210e72",
+      "caveat": "Validation stress +17.64%, PF 1.469, but only 24 trades versus the frozen minimum. OOS remains sealed."
+    },
+    {
+      "id": "jnj_d1_defensive_campaign_v1",
+      "asset": "JNJ",
+      "mechanism": "defensive_trend_pullback",
+      "status": "REJECTED_VALIDATION",
+      "evidence_path": "data/ibkr_sq_v2/jnj_d1_defensive_pilot/validation_summary_v1.json",
+      "evidence_sha256": "b0a0c4d387fdabb2811b4006b8502e9de585a476fd1f280914ae11eeb6504258",
+      "caveat": "Eight diverse train candidates tested: four failed costs badly and four depended on ambiguous same-bar D1 exits. OOS 2024 remains sealed."
+    },
+    {
+      "id": "spy_turnaround_tuesday_v1",
+      "asset": "SPY",
+      "mechanism": "weekday_reversal_next_open",
+      "status": "REJECTED_VALIDATION",
+      "evidence_path": "data/ibkr_sq_v2/turnaround_tuesday/screen_v1.json",
+      "evidence_sha256": "c86a0c841441a074644abc95936ad7ac2aecb42486e53e2c963bc0c1e6a1fd34",
+      "caveat": "Observable next-open implementation loses 21.42% in 2022-2023 after 30 bps; PF 0.390 and 0/2 positive years. OOS 2024 remains sealed."
+    },
+    {
+      "id": "spy_volatility_managed_v1",
+      "asset": "SPY",
+      "mechanism": "monthly_inverse_realized_volatility_overlay",
+      "status": "RISK_OVERLAY_REJECTED_AS_STANDALONE_EDGE",
+      "evidence_path": "data/ibkr_sq_v2/spy_volatility_managed/screen_v1.json",
+      "evidence_sha256": "2b97b391bfc525ec5dbd9062b0448318c68a297b2e13a2d733d5d75103057084",
+      "caveat": "Validation improved return, Sharpe and drawdown versus SPY buy-and-hold, but 2022 remained negative and the frozen two-positive-years gate failed. Keep only as a future portfolio risk overlay; OOS 2024 remains sealed."
+    },
+    {
+      "id": "multi_asset_dual_momentum_v1",
+      "asset": "SPY_PHAU_IDTL",
+      "mechanism": "monthly_dual_momentum_rotation",
+      "status": "REJECTED_VALIDATION",
+      "evidence_path": "data/ibkr_sq_v2/multi_asset_dual_momentum/screen_v1.json",
+      "evidence_sha256": "fb6bb7fd444e8ec0edf2a9358909db86bc94032d3ab11eadb80d77a2940ba534",
+      "caveat": "Frozen 12-month top-one rotation lost 28.08% in 2022-2023, PF 0.247, 0/2 positive years; OOS 2024 remains sealed."
+    },
+    {
+      "id": "spy_gap_down_recovery_v1",
+      "asset": "SPY",
+      "mechanism": "intraday_gap_reversal",
+      "status": "REJECTED_VALIDATION",
+      "evidence_path": "data/ibkr_sq_v2/spy_gap_down_recovery/screen_v1.json",
+      "evidence_sha256": "86f1e2fa3230a3bc116fa53c572446bcf0af447beb2cee68087a51a1a59973a5",
+      "caveat": "Observable <=-1% gap recovery lost 7.27% in validation after 30 bps, PF 0.735; OOS 2024 remains sealed and the sign is not reversed post hoc."
+    }
+  ],
+  "paper_authorized": false,
+  "live_authorized": false
+}

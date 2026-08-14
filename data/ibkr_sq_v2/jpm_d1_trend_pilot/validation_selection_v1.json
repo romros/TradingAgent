@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_DETERMINISTIC_VALIDATION_SELECTION",
+  "selection_rule": "all five train Pareto candidates plus the lexicographically first member of the five densest structural families, skipping duplicates",
+  "candidate_ids": [
+    "Strategy 0.24",
+    "Strategy 0.300",
+    "Strategy 0.51",
+    "Strategy 0.89",
+    "Strategy 0.97",
+    "Strategy 0.145",
+    "Strategy 0.160",
+    "Strategy 0.101",
+    "Strategy 0.223",
+    "Strategy 0.238"
+  ],
+  "validation_period": ["2022-01-03", "2023-12-29"],
+  "oos_2024_accessed": false,
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

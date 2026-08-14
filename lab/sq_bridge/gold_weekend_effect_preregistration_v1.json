@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_BEFORE_PERFORMANCE",
+  "hypothesis": "Published evidence of a weekend anomaly in gold may transfer to physically backed European gold ETCs after executable timing and current LSE costs.",
+  "evidence_context": {
+    "support": "Borowski and Lukasik report a weekend effect in gold while finding no general monthly or weekday effect.",
+    "caution": "Calendar effects are market- and period-dependent; this is a falsification test, not an assumption that the anomaly survives."
+  },
+  "assets": ["SGLN_L", "PHAU_L"],
+  "periods": {
+    "train": ["2012-01-01", "2018-12-31"],
+    "validation": ["2019-01-01", "2022-12-31"],
+    "oos": ["2023-01-01", "2024-12-31"],
+    "holdout": ["2025-01-01", "2099-12-31"]
+  },
+  "variants": {
+    "FRIDAY_CLOSE_TO_MONDAY_CLOSE": {"entry": "Friday close", "exit": "next Monday close"},
+    "FRIDAY_OPEN_TO_MONDAY_OPEN": {"entry": "Friday open", "exit": "next Monday open"},
+    "FRIDAY_CLOSE_TO_MONDAY_OPEN": {"entry": "Friday close", "exit": "next Monday open"}
+  },
+  "calendar_policy": "Require an observed Friday followed by an observed Monday exactly three calendar days later; skip holidays rather than relabel adjacent sessions.",
+  "position": "long only, no leverage, one independent round trip per eligible weekend",
+  "costs_roundtrip_bps": {"gross": 0, "tiered_1000": 20, "fixed_1000": 60, "stress_1000": 70},
+  "cost_basis": "Current IBKR UK minima approximated as GBP1/order tiered and GBP3/order fixed; stress adds 10 bps round-trip. Percentage diagnostics avoid mixing GBp/GBP/USD listing quote units.",
+  "gates": {
+    "same_variant_both_assets": true,
+    "minimum_trades": {"train": 200, "validation": 100, "oos": 45},
+    "each_period_stress_mean_return_gt": 0,
+    "each_period_stress_profit_factor_gte": 1.1,
+    "combined_validation_oos_one_sided_t_p_lte": 0.1,
+    "combined_validation_oos_stress_max_drawdown_lte": 0.2,
+    "maximum_cross_listing_return_correlation_difference": "report only; dates need not align because LSE holidays should align mostly"
+  },
+  "multiple_testing": "All three variants are reported. A candidate exists only if the exact same variant independently passes every frozen gate on both listings; no post-result variants or threshold changes.",
+  "optimization": false,
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-equity-d1-donchian-55-20-v1",
+  "status": "FROZEN_BEFORE_PERFORMANCE",
+  "hypothesis": "Medium-term breakouts persist often enough across heterogeneous liquid US equities to survive small-account execution costs.",
+  "assets": ["AAPL", "CAT", "CMI", "DE", "JNJ", "JPM", "KO", "PEP", "UNP"],
+  "rule": {
+    "entry_signal": "close[t] > maximum close of t-55 through t-1",
+    "entry_fill": "next session open",
+    "exit_signal": "close[t] < minimum close of t-20 through t-1",
+    "exit_fill": "next session open",
+    "maximum_holding_sessions": 126,
+    "end_of_segment": "liquidate at final segment close",
+    "direction": "long_only",
+    "concurrency": "one position per asset",
+    "sizing": "whole shares using available USD 1000 per independent asset sleeve"
+  },
+  "periods": {
+    "train": ["2018-01-01", "2021-12-31"],
+    "validation": ["2022-01-01", "2023-12-31"],
+    "oos": ["2024-01-01", "2024-12-31"],
+    "2025": "SEALED"
+  },
+  "stress_costs": {
+    "commission": "USD 1 per order",
+    "slippage": "10 bps adverse per side",
+    "dividend_credit": "zero"
+  },
+  "validation_gates": {
+    "minimum_pooled_closed_trades": 30,
+    "minimum_pooled_profit_factor": 1.15,
+    "minimum_mean_sleeve_return_pct": 0.0,
+    "minimum_positive_assets": 5,
+    "maximum_single_asset_mark_to_market_drawdown_pct": 30.0,
+    "oos_opened_only_after_all_validation_gates": true
+  },
+  "prohibitions": [
+    "No threshold, lookback or asset selection after performance access.",
+    "No 2024 read before validation passes.",
+    "No 2025 access.",
+    "No candidate claim from train alone."
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_BEFORE_DATA_DOWNLOAD_AND_PERFORMANCE",
+  "hypothesis": "The documented time-series momentum effect in government-bond futures transfers to liquid physical UCITS Treasury ETFs and can diversify equity timing and CAT swing risk.",
+  "academic_basis": "Moskowitz, Ooi and Pedersen (2012), Time Series Momentum, documents trend persistence across liquid bond futures among 58 instruments.",
+  "instruments": [
+    {"id": "IBTM_L", "ticker": "IBTM.L", "name": "iShares USD Treasury Bond 7-10yr UCITS ETF", "isin": "IE00B1FZS798", "duration_2026": 6.87},
+    {"id": "IDTL_L", "ticker": "IDTL.L", "name": "iShares USD Treasury Bond 20+yr UCITS ETF", "isin": "IE00BSKRJZ44", "duration_2026": 15.0}
+  ],
+  "rule": {
+    "decision": "last observed trading session of each month",
+    "signal": "adjusted close strictly greater than adjusted close on last session twelve calendar months earlier",
+    "execution": "enter or exit at first observed open of next month",
+    "position": "100 percent long or cash; no short, no leverage",
+    "lookback_months": 12,
+    "optimization": false
+  },
+  "periods": {
+    "train": ["2016-01-01", "2018-12-31"],
+    "validation": ["2019-01-01", "2022-12-31"],
+    "oos": ["2023-01-01", "2024-12-31"],
+    "holdout": ["2025-01-01", "2099-12-31"]
+  },
+  "economics": {
+    "capital_quote_currency": 1000,
+    "tiered_cost_each_position_change": 1.1,
+    "stress_cost_each_position_change": 3.1,
+    "note": "GBP1/GBP3 current UK minimum plus 10 bps slippage per position change; percentage accounting avoids USD/GBP quote-unit ambiguity."
+  },
+  "gates": {
+    "train_min_months": 30,
+    "validation_min_months": 45,
+    "oos_min_months": 23,
+    "each_period_stress_total_return_gt": 0,
+    "combined_validation_oos_stress_sharpe_gte": 0.35,
+    "combined_validation_oos_stress_max_drawdown_lte": 0.18,
+    "same_rule_both_durations": true,
+    "monthly_return_correlation_gte": 0.5
+  },
+  "selection": "There is one rule and no parameter grid. Both independently priced durations must pass every gate; no winner selection or retuning.",
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

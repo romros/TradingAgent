@@ -1,0 +1,23 @@
+Project: IBKR_V2_CAT_D1_TREND_PULLBACK_DENSITY_V2
+Log file: /global_log_20260813_094425.log
+
+--------------------------------------------------------------------------------------------------------------------------
+TASK STARTED at 2026.08.13 09:44:25.378
+Task: Build strategies, Type: Build
+Databanks before start: Results (0), Existing portfolio (0), Last generation (0), Initial population (0), Strategies to improve (0), D1 (0), OLD (0), D1_OLD (0)
+
+TASK FINISHED at 2026.08.13 09:44:26.018 in 641 ms.
+Databanks after finish: Results (50), Existing portfolio (0), Last generation (0), Initial population (0), Strategies to improve (0), D1 (0), OLD (0), D1_OLD (0)
+
+Strategies generated: 236, Time per strategy: 0 ms., Time per accepted strategy: 3 ms., Accepted: 50, Rejected: 186, Strategies per hour: 5377215, Accepted strategies per hour: 1139241
+
+Time per strategy details:
+Main test: Count: 55, Avg. time: 0.0081 s., Total time: 0.4460 s., % of all: 100.00 %
+
+Rejected details:
+Automatic filter: too little trades, Count: 159, % of all: 85.48 %
+Global filter:  Profit factor[Main data] > 1.05, Count: 5, % of all: 2.69 %
+Automatic filter: no trades, Count: 22, % of all: 11.83 %
+
+Accepted details:
+In databank, Count: 50, % of all: 100.0 %

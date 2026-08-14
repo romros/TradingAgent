@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 
 from lab.sq_bridge.sqcli_supervised_retest import (
-    inspect_signal_probe_runtime, parse_retest_final_log, supervised_retest, verify_retest_receipt,
+    _stage_databank, inspect_signal_probe_runtime, parse_retest_final_log, supervised_retest, verify_retest_receipt,
     verify_supervised_retest_receipt,
 )
 from lab.sq_bridge.alquimia_retest import generate
@@ -22,6 +22,12 @@ TASK FINISHED at 2026.08.11 02:00:00 in 2 s.
 Databanks after finish: Results (1), PreHoldout (1)
 Total tested: 1, Time per strategy: 0 ms., Passed: 0, Failed: 1
 """
+
+
+def test_stage_databank_names_cover_oos_resume_contract():
+    assert _stage_databank("oos") == "Oos"
+    assert _stage_databank("validation") == "Validation"
+    assert _stage_databank("pre_holdout") == "PreHoldout"
 
 
 def test_retest_log_proves_exact_uncensored_one_candidate_execution():

@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "classification": "NATIVE_SQX_PARITY_REQUIRED",
+  "rule": "close[1] < open[1]*0.98 AND close[1] < BBLower(20,2)[1]; enter market; exit after 1 bar",
+  "template_sha256": "42e90a83180d6c1e934740d772dba936047802aebe21404f8731f5500b64b732",
+  "output_sha256": "94702a39beae1b5200faad3cfb19d7a4a963b5bbc9ee0d2d4503304224453883",
+  "performance_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

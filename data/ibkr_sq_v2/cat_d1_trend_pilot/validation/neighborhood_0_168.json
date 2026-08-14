@@ -1,0 +1,1679 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_NEIGHBORHOOD_DENSITY",
+  "source_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/preflight/CATUSUSD_CANONICAL_D1_2017_2025.csv",
+  "source_sha256": "9aa5e9f60467bdcb71e59be2a583eb737d0911daab9f59a90bc0293a89bb359c",
+  "grid_frozen_before_execution": true,
+  "grid_points": 81,
+  "parameters": {
+    "adx_period": [
+      30,
+      40,
+      50
+    ],
+    "atr_period": [
+      20,
+      30,
+      40
+    ],
+    "target_atr": [
+      1.8,
+      2.1,
+      2.4
+    ],
+    "stop_atr": [
+      2.2,
+      2.5,
+      2.8
+    ]
+  },
+  "cost_model": "IBKR stress: whole shares/all equity, 10bps adverse per side, max($1,$0.005/share) per order",
+  "passing_points": 79,
+  "passing_ratio": 0.975309,
+  "center": {
+    "adx_period": 40,
+    "atr_period": 30,
+    "target_atr": 2.1,
+    "stop_atr": 2.5,
+    "train": {
+      "trades": 73,
+      "net_pnl_usd": 502.451439,
+      "profit_factor": 1.230426,
+      "expectancy_usd": 6.882896,
+      "drawdown_usd": 403.411068
+    },
+    "validation": {
+      "trades": 36,
+      "net_pnl_usd": 209.075008,
+      "profit_factor": 1.232073,
+      "expectancy_usd": 5.807639,
+      "drawdown_usd": 220.82507
+    }
+  },
+  "results": [
+    {
+      "adx_period": 30,
+      "atr_period": 20,
+      "target_atr": 1.8,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 92,
+        "net_pnl_usd": 794.288263,
+        "profit_factor": 1.331962,
+        "expectancy_usd": 8.633568,
+        "drawdown_usd": 303.465634
+      },
+      "validation": {
+        "trades": 41,
+        "net_pnl_usd": 323.635197,
+        "profit_factor": 1.358514,
+        "expectancy_usd": 7.893541,
+        "drawdown_usd": 227.544201
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 20,
+      "target_atr": 1.8,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 84,
+        "net_pnl_usd": 796.436417,
+        "profit_factor": 1.337739,
+        "expectancy_usd": 9.481386,
+        "drawdown_usd": 367.001708
+      },
+      "validation": {
+        "trades": 39,
+        "net_pnl_usd": 150.908905,
+        "profit_factor": 1.169462,
+        "expectancy_usd": 3.869459,
+        "drawdown_usd": 208.985942
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 20,
+      "target_atr": 1.8,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 79,
+        "net_pnl_usd": 1031.54659,
+        "profit_factor": 1.427414,
+        "expectancy_usd": 13.057552,
+        "drawdown_usd": 428.767373
+      },
+      "validation": {
+        "trades": 40,
+        "net_pnl_usd": 120.316616,
+        "profit_factor": 1.126062,
+        "expectancy_usd": 3.007915,
+        "drawdown_usd": 223.794402
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 20,
+      "target_atr": 2.1,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 81,
+        "net_pnl_usd": 707.558855,
+        "profit_factor": 1.29297,
+        "expectancy_usd": 8.735295,
+        "drawdown_usd": 341.827725
+      },
+      "validation": {
+        "trades": 36,
+        "net_pnl_usd": 363.151275,
+        "profit_factor": 1.404994,
+        "expectancy_usd": 10.087535,
+        "drawdown_usd": 249.666857
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 20,
+      "target_atr": 2.1,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 70,
+        "net_pnl_usd": 815.748542,
+        "profit_factor": 1.344713,
+        "expectancy_usd": 11.653551,
+        "drawdown_usd": 352.572927
+      },
+      "validation": {
+        "trades": 34,
+        "net_pnl_usd": 232.246779,
+        "profit_factor": 1.270988,
+        "expectancy_usd": 6.830788,
+        "drawdown_usd": 208.985942
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 20,
+      "target_atr": 2.1,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 66,
+        "net_pnl_usd": 807.36368,
+        "profit_factor": 1.354701,
+        "expectancy_usd": 12.232783,
+        "drawdown_usd": 373.379255
+      },
+      "validation": {
+        "trades": 34,
+        "net_pnl_usd": 169.999525,
+        "profit_factor": 1.187307,
+        "expectancy_usd": 4.999986,
+        "drawdown_usd": 223.794402
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 20,
+      "target_atr": 2.4,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 75,
+        "net_pnl_usd": 1072.505882,
+        "profit_factor": 1.411523,
+        "expectancy_usd": 14.300078,
+        "drawdown_usd": 394.794577
+      },
+      "validation": {
+        "trades": 36,
+        "net_pnl_usd": 587.567604,
+        "profit_factor": 1.638404,
+        "expectancy_usd": 16.321322,
+        "drawdown_usd": 240.881993
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 20,
+      "target_atr": 2.4,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 65,
+        "net_pnl_usd": 1242.634262,
+        "profit_factor": 1.498281,
+        "expectancy_usd": 19.11745,
+        "drawdown_usd": 473.281334
+      },
+      "validation": {
+        "trades": 34,
+        "net_pnl_usd": 410.649721,
+        "profit_factor": 1.455338,
+        "expectancy_usd": 12.077933,
+        "drawdown_usd": 244.205304
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 20,
+      "target_atr": 2.4,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 63,
+        "net_pnl_usd": 913.580895,
+        "profit_factor": 1.402653,
+        "expectancy_usd": 14.501284,
+        "drawdown_usd": 444.305529
+      },
+      "validation": {
+        "trades": 34,
+        "net_pnl_usd": 349.360822,
+        "profit_factor": 1.368883,
+        "expectancy_usd": 10.275318,
+        "drawdown_usd": 242.577225
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 30,
+      "target_atr": 1.8,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 95,
+        "net_pnl_usd": 423.484531,
+        "profit_factor": 1.179859,
+        "expectancy_usd": 4.457732,
+        "drawdown_usd": 428.532916
+      },
+      "validation": {
+        "trades": 42,
+        "net_pnl_usd": 347.667372,
+        "profit_factor": 1.3771,
+        "expectancy_usd": 8.277795,
+        "drawdown_usd": 242.376381
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 30,
+      "target_atr": 1.8,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 83,
+        "net_pnl_usd": 546.679339,
+        "profit_factor": 1.248822,
+        "expectancy_usd": 6.586498,
+        "drawdown_usd": 331.525684
+      },
+      "validation": {
+        "trades": 44,
+        "net_pnl_usd": 151.625037,
+        "profit_factor": 1.151902,
+        "expectancy_usd": 3.446024,
+        "drawdown_usd": 227.813704
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 30,
+      "target_atr": 1.8,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 76,
+        "net_pnl_usd": 438.060097,
+        "profit_factor": 1.225179,
+        "expectancy_usd": 5.763949,
+        "drawdown_usd": 379.959418
+      },
+      "validation": {
+        "trades": 40,
+        "net_pnl_usd": 133.059804,
+        "profit_factor": 1.144042,
+        "expectancy_usd": 3.326495,
+        "drawdown_usd": 220.033632
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 30,
+      "target_atr": 2.1,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 89,
+        "net_pnl_usd": 588.510553,
+        "profit_factor": 1.224709,
+        "expectancy_usd": 6.612478,
+        "drawdown_usd": 438.470745
+      },
+      "validation": {
+        "trades": 36,
+        "net_pnl_usd": 348.422531,
+        "profit_factor": 1.394478,
+        "expectancy_usd": 9.678404,
+        "drawdown_usd": 247.168343
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 30,
+      "target_atr": 2.1,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 76,
+        "net_pnl_usd": 700.839923,
+        "profit_factor": 1.296541,
+        "expectancy_usd": 9.221578,
+        "drawdown_usd": 341.374383
+      },
+      "validation": {
+        "trades": 36,
+        "net_pnl_usd": 209.075008,
+        "profit_factor": 1.232073,
+        "expectancy_usd": 5.807639,
+        "drawdown_usd": 220.82507
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 30,
+      "target_atr": 2.1,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 72,
+        "net_pnl_usd": 667.615622,
+        "profit_factor": 1.302389,
+        "expectancy_usd": 9.272439,
+        "drawdown_usd": 336.450772
+      },
+      "validation": {
+        "trades": 34,
+        "net_pnl_usd": 157.094171,
+        "profit_factor": 1.175228,
+        "expectancy_usd": 4.620417,
+        "drawdown_usd": 220.033632
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 30,
+      "target_atr": 2.4,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 80,
+        "net_pnl_usd": 967.411122,
+        "profit_factor": 1.340123,
+        "expectancy_usd": 12.092639,
+        "drawdown_usd": 425.834172
+      },
+      "validation": {
+        "trades": 35,
+        "net_pnl_usd": 487.825896,
+        "profit_factor": 1.53889,
+        "expectancy_usd": 13.937883,
+        "drawdown_usd": 238.432551
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 30,
+      "target_atr": 2.4,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 67,
+        "net_pnl_usd": 842.443992,
+        "profit_factor": 1.366147,
+        "expectancy_usd": 12.573791,
+        "drawdown_usd": 394.798228
+      },
+      "validation": {
+        "trades": 35,
+        "net_pnl_usd": 336.720082,
+        "profit_factor": 1.351322,
+        "expectancy_usd": 9.620574,
+        "drawdown_usd": 249.497343
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 30,
+      "target_atr": 2.4,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 64,
+        "net_pnl_usd": 924.851909,
+        "profit_factor": 1.396782,
+        "expectancy_usd": 14.450811,
+        "drawdown_usd": 443.095291
+      },
+      "validation": {
+        "trades": 33,
+        "net_pnl_usd": 287.7803,
+        "profit_factor": 1.31062,
+        "expectancy_usd": 8.720615,
+        "drawdown_usd": 238.816455
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 40,
+      "target_atr": 1.8,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 91,
+        "net_pnl_usd": 490.772146,
+        "profit_factor": 1.223578,
+        "expectancy_usd": 5.393101,
+        "drawdown_usd": 346.245736
+      },
+      "validation": {
+        "trades": 42,
+        "net_pnl_usd": 340.121553,
+        "profit_factor": 1.376244,
+        "expectancy_usd": 8.098132,
+        "drawdown_usd": 238.361967
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 40,
+      "target_atr": 1.8,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 85,
+        "net_pnl_usd": 531.480039,
+        "profit_factor": 1.245264,
+        "expectancy_usd": 6.252706,
+        "drawdown_usd": 324.780351
+      },
+      "validation": {
+        "trades": 44,
+        "net_pnl_usd": 167.566195,
+        "profit_factor": 1.171281,
+        "expectancy_usd": 3.808323,
+        "drawdown_usd": 226.774653
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 40,
+      "target_atr": 1.8,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 77,
+        "net_pnl_usd": 651.213027,
+        "profit_factor": 1.322904,
+        "expectancy_usd": 8.457312,
+        "drawdown_usd": 332.850927
+      },
+      "validation": {
+        "trades": 40,
+        "net_pnl_usd": 125.409509,
+        "profit_factor": 1.136749,
+        "expectancy_usd": 3.135238,
+        "drawdown_usd": 218.26236
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 40,
+      "target_atr": 2.1,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 85,
+        "net_pnl_usd": 572.424579,
+        "profit_factor": 1.237316,
+        "expectancy_usd": 6.734407,
+        "drawdown_usd": 348.694035
+      },
+      "validation": {
+        "trades": 36,
+        "net_pnl_usd": 355.911164,
+        "profit_factor": 1.413293,
+        "expectancy_usd": 9.886421,
+        "drawdown_usd": 246.086766
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 40,
+      "target_atr": 2.1,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 76,
+        "net_pnl_usd": 515.957236,
+        "profit_factor": 1.235073,
+        "expectancy_usd": 6.788911,
+        "drawdown_usd": 331.737943
+      },
+      "validation": {
+        "trades": 36,
+        "net_pnl_usd": 205.52614,
+        "profit_factor": 1.230693,
+        "expectancy_usd": 5.709059,
+        "drawdown_usd": 219.814568
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 40,
+      "target_atr": 2.1,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 68,
+        "net_pnl_usd": 577.098477,
+        "profit_factor": 1.284102,
+        "expectancy_usd": 8.486742,
+        "drawdown_usd": 371.75134
+      },
+      "validation": {
+        "trades": 34,
+        "net_pnl_usd": 156.665045,
+        "profit_factor": 1.177303,
+        "expectancy_usd": 4.607795,
+        "drawdown_usd": 218.26236
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 40,
+      "target_atr": 2.4,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 78,
+        "net_pnl_usd": 932.317407,
+        "profit_factor": 1.35466,
+        "expectancy_usd": 11.952787,
+        "drawdown_usd": 423.365537
+      },
+      "validation": {
+        "trades": 34,
+        "net_pnl_usd": 352.135768,
+        "profit_factor": 1.405803,
+        "expectancy_usd": 10.356934,
+        "drawdown_usd": 223.961408
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 40,
+      "target_atr": 2.4,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 69,
+        "net_pnl_usd": 889.716537,
+        "profit_factor": 1.37946,
+        "expectancy_usd": 12.894443,
+        "drawdown_usd": 393.385135
+      },
+      "validation": {
+        "trades": 34,
+        "net_pnl_usd": 239.420344,
+        "profit_factor": 1.271139,
+        "expectancy_usd": 7.041775,
+        "drawdown_usd": 212.854482
+      }
+    },
+    {
+      "adx_period": 30,
+      "atr_period": 40,
+      "target_atr": 2.4,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 64,
+        "net_pnl_usd": 938.442276,
+        "profit_factor": 1.411113,
+        "expectancy_usd": 14.663161,
+        "drawdown_usd": 441.596686
+      },
+      "validation": {
+        "trades": 32,
+        "net_pnl_usd": 119.994294,
+        "profit_factor": 1.134228,
+        "expectancy_usd": 3.749822,
+        "drawdown_usd": 218.40613
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 20,
+      "target_atr": 1.8,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 89,
+        "net_pnl_usd": 685.478123,
+        "profit_factor": 1.301583,
+        "expectancy_usd": 7.702001,
+        "drawdown_usd": 347.972604
+      },
+      "validation": {
+        "trades": 41,
+        "net_pnl_usd": 323.635197,
+        "profit_factor": 1.358514,
+        "expectancy_usd": 7.893541,
+        "drawdown_usd": 227.544201
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 20,
+      "target_atr": 1.8,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 81,
+        "net_pnl_usd": 665.819952,
+        "profit_factor": 1.299238,
+        "expectancy_usd": 8.219999,
+        "drawdown_usd": 337.695137
+      },
+      "validation": {
+        "trades": 39,
+        "net_pnl_usd": 150.908905,
+        "profit_factor": 1.169462,
+        "expectancy_usd": 3.869459,
+        "drawdown_usd": 208.985942
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 20,
+      "target_atr": 1.8,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 76,
+        "net_pnl_usd": 921.195752,
+        "profit_factor": 1.398904,
+        "expectancy_usd": 12.120997,
+        "drawdown_usd": 397.672289
+      },
+      "validation": {
+        "trades": 40,
+        "net_pnl_usd": 120.316616,
+        "profit_factor": 1.126062,
+        "expectancy_usd": 3.007915,
+        "drawdown_usd": 223.794402
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 20,
+      "target_atr": 2.1,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 78,
+        "net_pnl_usd": 490.686145,
+        "profit_factor": 1.218986,
+        "expectancy_usd": 6.290848,
+        "drawdown_usd": 412.720813
+      },
+      "validation": {
+        "trades": 36,
+        "net_pnl_usd": 363.151275,
+        "profit_factor": 1.404994,
+        "expectancy_usd": 10.087535,
+        "drawdown_usd": 249.666857
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 20,
+      "target_atr": 2.1,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 67,
+        "net_pnl_usd": 623.279049,
+        "profit_factor": 1.281438,
+        "expectancy_usd": 9.302672,
+        "drawdown_usd": 389.551847
+      },
+      "validation": {
+        "trades": 34,
+        "net_pnl_usd": 232.246779,
+        "profit_factor": 1.270988,
+        "expectancy_usd": 6.830788,
+        "drawdown_usd": 208.985942
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 20,
+      "target_atr": 2.1,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 63,
+        "net_pnl_usd": 638.902701,
+        "profit_factor": 1.302376,
+        "expectancy_usd": 10.141313,
+        "drawdown_usd": 439.389349
+      },
+      "validation": {
+        "trades": 34,
+        "net_pnl_usd": 169.999525,
+        "profit_factor": 1.187307,
+        "expectancy_usd": 4.999986,
+        "drawdown_usd": 223.794402
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 20,
+      "target_atr": 2.4,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 72,
+        "net_pnl_usd": 791.611819,
+        "profit_factor": 1.334429,
+        "expectancy_usd": 10.994609,
+        "drawdown_usd": 426.787661
+      },
+      "validation": {
+        "trades": 36,
+        "net_pnl_usd": 587.567604,
+        "profit_factor": 1.638404,
+        "expectancy_usd": 16.321322,
+        "drawdown_usd": 240.881993
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 20,
+      "target_atr": 2.4,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 62,
+        "net_pnl_usd": 975.530244,
+        "profit_factor": 1.434151,
+        "expectancy_usd": 15.734359,
+        "drawdown_usd": 413.391423
+      },
+      "validation": {
+        "trades": 34,
+        "net_pnl_usd": 410.649721,
+        "profit_factor": 1.455338,
+        "expectancy_usd": 12.077933,
+        "drawdown_usd": 244.205304
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 20,
+      "target_atr": 2.4,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 60,
+        "net_pnl_usd": 668.656407,
+        "profit_factor": 1.316864,
+        "expectancy_usd": 11.144273,
+        "drawdown_usd": 406.223081
+      },
+      "validation": {
+        "trades": 34,
+        "net_pnl_usd": 349.360822,
+        "profit_factor": 1.368883,
+        "expectancy_usd": 10.275318,
+        "drawdown_usd": 242.577225
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 30,
+      "target_atr": 1.8,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 92,
+        "net_pnl_usd": 350.916796,
+        "profit_factor": 1.15415,
+        "expectancy_usd": 3.814313,
+        "drawdown_usd": 464.233594
+      },
+      "validation": {
+        "trades": 42,
+        "net_pnl_usd": 347.667372,
+        "profit_factor": 1.3771,
+        "expectancy_usd": 8.277795,
+        "drawdown_usd": 242.376381
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 30,
+      "target_atr": 1.8,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 80,
+        "net_pnl_usd": 383.773578,
+        "profit_factor": 1.18384,
+        "expectancy_usd": 4.79717,
+        "drawdown_usd": 379.04858
+      },
+      "validation": {
+        "trades": 44,
+        "net_pnl_usd": 151.625037,
+        "profit_factor": 1.151902,
+        "expectancy_usd": 3.446024,
+        "drawdown_usd": 227.813704
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 30,
+      "target_atr": 1.8,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 73,
+        "net_pnl_usd": 321.268919,
+        "profit_factor": 1.173759,
+        "expectancy_usd": 4.400944,
+        "drawdown_usd": 438.487614
+      },
+      "validation": {
+        "trades": 40,
+        "net_pnl_usd": 133.059804,
+        "profit_factor": 1.144042,
+        "expectancy_usd": 3.326495,
+        "drawdown_usd": 220.033632
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 30,
+      "target_atr": 2.1,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 86,
+        "net_pnl_usd": 411.327857,
+        "profit_factor": 1.169984,
+        "expectancy_usd": 4.782882,
+        "drawdown_usd": 478.528231
+      },
+      "validation": {
+        "trades": 36,
+        "net_pnl_usd": 348.422531,
+        "profit_factor": 1.394478,
+        "expectancy_usd": 9.678404,
+        "drawdown_usd": 247.168343
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 30,
+      "target_atr": 2.1,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 73,
+        "net_pnl_usd": 502.451439,
+        "profit_factor": 1.230426,
+        "expectancy_usd": 6.882896,
+        "drawdown_usd": 403.411068
+      },
+      "validation": {
+        "trades": 36,
+        "net_pnl_usd": 209.075008,
+        "profit_factor": 1.232073,
+        "expectancy_usd": 5.807639,
+        "drawdown_usd": 220.82507
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 30,
+      "target_atr": 2.1,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 69,
+        "net_pnl_usd": 508.074603,
+        "profit_factor": 1.244942,
+        "expectancy_usd": 7.3634,
+        "drawdown_usd": 351.534096
+      },
+      "validation": {
+        "trades": 34,
+        "net_pnl_usd": 157.094171,
+        "profit_factor": 1.175228,
+        "expectancy_usd": 4.620417,
+        "drawdown_usd": 220.033632
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 30,
+      "target_atr": 2.4,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 77,
+        "net_pnl_usd": 668.174154,
+        "profit_factor": 1.253533,
+        "expectancy_usd": 8.677586,
+        "drawdown_usd": 520.859972
+      },
+      "validation": {
+        "trades": 35,
+        "net_pnl_usd": 487.825896,
+        "profit_factor": 1.53889,
+        "expectancy_usd": 13.937883,
+        "drawdown_usd": 238.432551
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 30,
+      "target_atr": 2.4,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 64,
+        "net_pnl_usd": 594.954996,
+        "profit_factor": 1.283723,
+        "expectancy_usd": 9.296172,
+        "drawdown_usd": 439.083696
+      },
+      "validation": {
+        "trades": 35,
+        "net_pnl_usd": 336.720082,
+        "profit_factor": 1.351322,
+        "expectancy_usd": 9.620574,
+        "drawdown_usd": 249.497343
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 30,
+      "target_atr": 2.4,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 61,
+        "net_pnl_usd": 728.854309,
+        "profit_factor": 1.342341,
+        "expectancy_usd": 11.948431,
+        "drawdown_usd": 420.067271
+      },
+      "validation": {
+        "trades": 33,
+        "net_pnl_usd": 287.7803,
+        "profit_factor": 1.31062,
+        "expectancy_usd": 8.720615,
+        "drawdown_usd": 238.816455
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 40,
+      "target_atr": 1.8,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 89,
+        "net_pnl_usd": 387.390887,
+        "profit_factor": 1.178903,
+        "expectancy_usd": 4.352707,
+        "drawdown_usd": 410.952473
+      },
+      "validation": {
+        "trades": 42,
+        "net_pnl_usd": 340.121553,
+        "profit_factor": 1.376244,
+        "expectancy_usd": 8.098132,
+        "drawdown_usd": 238.361967
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 40,
+      "target_atr": 1.8,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 83,
+        "net_pnl_usd": 408.400979,
+        "profit_factor": 1.19383,
+        "expectancy_usd": 4.920494,
+        "drawdown_usd": 397.82245
+      },
+      "validation": {
+        "trades": 44,
+        "net_pnl_usd": 167.566195,
+        "profit_factor": 1.171281,
+        "expectancy_usd": 3.808323,
+        "drawdown_usd": 226.774653
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 40,
+      "target_atr": 1.8,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 75,
+        "net_pnl_usd": 519.976243,
+        "profit_factor": 1.263044,
+        "expectancy_usd": 6.933017,
+        "drawdown_usd": 339.399971
+      },
+      "validation": {
+        "trades": 40,
+        "net_pnl_usd": 125.409509,
+        "profit_factor": 1.136749,
+        "expectancy_usd": 3.135238,
+        "drawdown_usd": 218.26236
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 40,
+      "target_atr": 2.1,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 83,
+        "net_pnl_usd": 454.943952,
+        "profit_factor": 1.196161,
+        "expectancy_usd": 5.481252,
+        "drawdown_usd": 411.043752
+      },
+      "validation": {
+        "trades": 36,
+        "net_pnl_usd": 355.911164,
+        "profit_factor": 1.413293,
+        "expectancy_usd": 9.886421,
+        "drawdown_usd": 246.086766
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 40,
+      "target_atr": 2.1,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 74,
+        "net_pnl_usd": 416.983638,
+        "profit_factor": 1.199753,
+        "expectancy_usd": 5.634914,
+        "drawdown_usd": 348.166346
+      },
+      "validation": {
+        "trades": 36,
+        "net_pnl_usd": 205.52614,
+        "profit_factor": 1.230693,
+        "expectancy_usd": 5.709059,
+        "drawdown_usd": 219.814568
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 40,
+      "target_atr": 2.1,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 66,
+        "net_pnl_usd": 441.3232,
+        "profit_factor": 1.224961,
+        "expectancy_usd": 6.686715,
+        "drawdown_usd": 342.260222
+      },
+      "validation": {
+        "trades": 34,
+        "net_pnl_usd": 156.665045,
+        "profit_factor": 1.177303,
+        "expectancy_usd": 4.607795,
+        "drawdown_usd": 218.26236
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 40,
+      "target_atr": 2.4,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 76,
+        "net_pnl_usd": 772.994281,
+        "profit_factor": 1.308437,
+        "expectancy_usd": 10.170977,
+        "drawdown_usd": 514.165272
+      },
+      "validation": {
+        "trades": 34,
+        "net_pnl_usd": 352.135768,
+        "profit_factor": 1.405803,
+        "expectancy_usd": 10.356934,
+        "drawdown_usd": 223.961408
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 40,
+      "target_atr": 2.4,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 67,
+        "net_pnl_usd": 733.480955,
+        "profit_factor": 1.326137,
+        "expectancy_usd": 10.947477,
+        "drawdown_usd": 414.271786
+      },
+      "validation": {
+        "trades": 34,
+        "net_pnl_usd": 239.420344,
+        "profit_factor": 1.271139,
+        "expectancy_usd": 7.041775,
+        "drawdown_usd": 212.854482
+      }
+    },
+    {
+      "adx_period": 40,
+      "atr_period": 40,
+      "target_atr": 2.4,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 62,
+        "net_pnl_usd": 825.032989,
+        "profit_factor": 1.382272,
+        "expectancy_usd": 13.306984,
+        "drawdown_usd": 408.830151
+      },
+      "validation": {
+        "trades": 32,
+        "net_pnl_usd": 119.994294,
+        "profit_factor": 1.134228,
+        "expectancy_usd": 3.749822,
+        "drawdown_usd": 218.40613
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 20,
+      "target_atr": 1.8,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 88,
+        "net_pnl_usd": 594.985837,
+        "profit_factor": 1.273311,
+        "expectancy_usd": 6.761203,
+        "drawdown_usd": 328.296607
+      },
+      "validation": {
+        "trades": 41,
+        "net_pnl_usd": 323.635197,
+        "profit_factor": 1.358514,
+        "expectancy_usd": 7.893541,
+        "drawdown_usd": 227.544201
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 20,
+      "target_atr": 1.8,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 81,
+        "net_pnl_usd": 620.072199,
+        "profit_factor": 1.28907,
+        "expectancy_usd": 7.655212,
+        "drawdown_usd": 322.626495
+      },
+      "validation": {
+        "trades": 39,
+        "net_pnl_usd": 150.908905,
+        "profit_factor": 1.169462,
+        "expectancy_usd": 3.869459,
+        "drawdown_usd": 208.985942
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 20,
+      "target_atr": 1.8,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 75,
+        "net_pnl_usd": 706.579336,
+        "profit_factor": 1.325994,
+        "expectancy_usd": 9.421058,
+        "drawdown_usd": 385.383348
+      },
+      "validation": {
+        "trades": 40,
+        "net_pnl_usd": 120.316616,
+        "profit_factor": 1.126062,
+        "expectancy_usd": 3.007915,
+        "drawdown_usd": 223.794402
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 20,
+      "target_atr": 2.1,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 77,
+        "net_pnl_usd": 408.82338,
+        "profit_factor": 1.196465,
+        "expectancy_usd": 5.309395,
+        "drawdown_usd": 383.195571
+      },
+      "validation": {
+        "trades": 36,
+        "net_pnl_usd": 363.151275,
+        "profit_factor": 1.404994,
+        "expectancy_usd": 10.087535,
+        "drawdown_usd": 249.666857
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 20,
+      "target_atr": 2.1,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 67,
+        "net_pnl_usd": 549.576798,
+        "profit_factor": 1.26449,
+        "expectancy_usd": 8.202639,
+        "drawdown_usd": 342.410826
+      },
+      "validation": {
+        "trades": 34,
+        "net_pnl_usd": 232.246779,
+        "profit_factor": 1.270988,
+        "expectancy_usd": 6.830788,
+        "drawdown_usd": 208.985942
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 20,
+      "target_atr": 2.1,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 62,
+        "net_pnl_usd": 516.535916,
+        "profit_factor": 1.258799,
+        "expectancy_usd": 8.331224,
+        "drawdown_usd": 412.56972
+      },
+      "validation": {
+        "trades": 34,
+        "net_pnl_usd": 169.999525,
+        "profit_factor": 1.187307,
+        "expectancy_usd": 4.999986,
+        "drawdown_usd": 223.794402
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 20,
+      "target_atr": 2.4,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 71,
+        "net_pnl_usd": 592.406426,
+        "profit_factor": 1.274723,
+        "expectancy_usd": 8.343752,
+        "drawdown_usd": 386.144454
+      },
+      "validation": {
+        "trades": 36,
+        "net_pnl_usd": 587.567604,
+        "profit_factor": 1.638404,
+        "expectancy_usd": 16.321322,
+        "drawdown_usd": 240.881993
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 20,
+      "target_atr": 2.4,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 62,
+        "net_pnl_usd": 890.488701,
+        "profit_factor": 1.420023,
+        "expectancy_usd": 14.362721,
+        "drawdown_usd": 399.058799
+      },
+      "validation": {
+        "trades": 34,
+        "net_pnl_usd": 410.649721,
+        "profit_factor": 1.455338,
+        "expectancy_usd": 12.077933,
+        "drawdown_usd": 244.205304
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 20,
+      "target_atr": 2.4,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 59,
+        "net_pnl_usd": 545.980396,
+        "profit_factor": 1.283251,
+        "expectancy_usd": 9.253905,
+        "drawdown_usd": 371.026899
+      },
+      "validation": {
+        "trades": 34,
+        "net_pnl_usd": 349.360822,
+        "profit_factor": 1.368883,
+        "expectancy_usd": 10.275318,
+        "drawdown_usd": 242.577225
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 30,
+      "target_atr": 1.8,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 91,
+        "net_pnl_usd": 227.126728,
+        "profit_factor": 1.107936,
+        "expectancy_usd": 2.495898,
+        "drawdown_usd": 464.444732
+      },
+      "validation": {
+        "trades": 42,
+        "net_pnl_usd": 347.667372,
+        "profit_factor": 1.3771,
+        "expectancy_usd": 8.277795,
+        "drawdown_usd": 242.376381
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 30,
+      "target_atr": 1.8,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 80,
+        "net_pnl_usd": 376.837756,
+        "profit_factor": 1.190161,
+        "expectancy_usd": 4.710472,
+        "drawdown_usd": 372.135824
+      },
+      "validation": {
+        "trades": 44,
+        "net_pnl_usd": 151.625037,
+        "profit_factor": 1.151902,
+        "expectancy_usd": 3.446024,
+        "drawdown_usd": 227.813704
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 30,
+      "target_atr": 1.8,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 72,
+        "net_pnl_usd": 251.92552,
+        "profit_factor": 1.145132,
+        "expectancy_usd": 3.498966,
+        "drawdown_usd": 405.889629
+      },
+      "validation": {
+        "trades": 40,
+        "net_pnl_usd": 133.059804,
+        "profit_factor": 1.144042,
+        "expectancy_usd": 3.326495,
+        "drawdown_usd": 220.033632
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 30,
+      "target_atr": 2.1,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 85,
+        "net_pnl_usd": 366.47291,
+        "profit_factor": 1.156293,
+        "expectancy_usd": 4.311446,
+        "drawdown_usd": 456.825549
+      },
+      "validation": {
+        "trades": 36,
+        "net_pnl_usd": 348.422531,
+        "profit_factor": 1.394478,
+        "expectancy_usd": 9.678404,
+        "drawdown_usd": 247.168343
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 30,
+      "target_atr": 2.1,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 73,
+        "net_pnl_usd": 543.099841,
+        "profit_factor": 1.256329,
+        "expectancy_usd": 7.439724,
+        "drawdown_usd": 383.487135
+      },
+      "validation": {
+        "trades": 36,
+        "net_pnl_usd": 209.075008,
+        "profit_factor": 1.232073,
+        "expectancy_usd": 5.807639,
+        "drawdown_usd": 220.82507
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 30,
+      "target_atr": 2.1,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 68,
+        "net_pnl_usd": 412.852145,
+        "profit_factor": 1.213625,
+        "expectancy_usd": 6.071355,
+        "drawdown_usd": 360.484126
+      },
+      "validation": {
+        "trades": 34,
+        "net_pnl_usd": 157.094171,
+        "profit_factor": 1.175228,
+        "expectancy_usd": 4.620417,
+        "drawdown_usd": 220.033632
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 30,
+      "target_atr": 2.4,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 76,
+        "net_pnl_usd": 528.813789,
+        "profit_factor": 1.221632,
+        "expectancy_usd": 6.958076,
+        "drawdown_usd": 471.030673
+      },
+      "validation": {
+        "trades": 35,
+        "net_pnl_usd": 487.825896,
+        "profit_factor": 1.53889,
+        "expectancy_usd": 13.937883,
+        "drawdown_usd": 238.432551
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 30,
+      "target_atr": 2.4,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 64,
+        "net_pnl_usd": 601.468061,
+        "profit_factor": 1.30121,
+        "expectancy_usd": 9.397938,
+        "drawdown_usd": 397.469987
+      },
+      "validation": {
+        "trades": 35,
+        "net_pnl_usd": 336.720082,
+        "profit_factor": 1.351322,
+        "expectancy_usd": 9.620574,
+        "drawdown_usd": 249.497343
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 30,
+      "target_atr": 2.4,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 60,
+        "net_pnl_usd": 546.410674,
+        "profit_factor": 1.278215,
+        "expectancy_usd": 9.106845,
+        "drawdown_usd": 401.019993
+      },
+      "validation": {
+        "trades": 33,
+        "net_pnl_usd": 287.7803,
+        "profit_factor": 1.31062,
+        "expectancy_usd": 8.720615,
+        "drawdown_usd": 238.816455
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 40,
+      "target_atr": 1.8,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 89,
+        "net_pnl_usd": 494.026498,
+        "profit_factor": 1.221729,
+        "expectancy_usd": 5.55086,
+        "drawdown_usd": 402.583785
+      },
+      "validation": {
+        "trades": 42,
+        "net_pnl_usd": 340.121553,
+        "profit_factor": 1.376244,
+        "expectancy_usd": 8.098132,
+        "drawdown_usd": 238.361967
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 40,
+      "target_atr": 1.8,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 84,
+        "net_pnl_usd": 546.961201,
+        "profit_factor": 1.252427,
+        "expectancy_usd": 6.511443,
+        "drawdown_usd": 332.811934
+      },
+      "validation": {
+        "trades": 44,
+        "net_pnl_usd": 167.566195,
+        "profit_factor": 1.171281,
+        "expectancy_usd": 3.808323,
+        "drawdown_usd": 226.774653
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 40,
+      "target_atr": 1.8,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 75,
+        "net_pnl_usd": 608.985002,
+        "profit_factor": 1.305141,
+        "expectancy_usd": 8.1198,
+        "drawdown_usd": 337.96965
+      },
+      "validation": {
+        "trades": 40,
+        "net_pnl_usd": 125.409509,
+        "profit_factor": 1.136749,
+        "expectancy_usd": 3.135238,
+        "drawdown_usd": 218.26236
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 40,
+      "target_atr": 2.1,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 82,
+        "net_pnl_usd": 355.256118,
+        "profit_factor": 1.159992,
+        "expectancy_usd": 4.332392,
+        "drawdown_usd": 412.663302
+      },
+      "validation": {
+        "trades": 36,
+        "net_pnl_usd": 355.911164,
+        "profit_factor": 1.413293,
+        "expectancy_usd": 9.886421,
+        "drawdown_usd": 246.086766
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 40,
+      "target_atr": 2.1,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 74,
+        "net_pnl_usd": 402.405348,
+        "profit_factor": 1.197418,
+        "expectancy_usd": 5.43791,
+        "drawdown_usd": 343.604826
+      },
+      "validation": {
+        "trades": 36,
+        "net_pnl_usd": 205.52614,
+        "profit_factor": 1.230693,
+        "expectancy_usd": 5.709059,
+        "drawdown_usd": 219.814568
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 40,
+      "target_atr": 2.1,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 65,
+        "net_pnl_usd": 368.131114,
+        "profit_factor": 1.2014,
+        "expectancy_usd": 5.663556,
+        "drawdown_usd": 342.787899
+      },
+      "validation": {
+        "trades": 34,
+        "net_pnl_usd": 156.665045,
+        "profit_factor": 1.177303,
+        "expectancy_usd": 4.607795,
+        "drawdown_usd": 218.26236
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 40,
+      "target_atr": 2.4,
+      "stop_atr": 2.2,
+      "train": {
+        "trades": 75,
+        "net_pnl_usd": 645.912067,
+        "profit_factor": 1.275517,
+        "expectancy_usd": 8.612161,
+        "drawdown_usd": 489.842786
+      },
+      "validation": {
+        "trades": 34,
+        "net_pnl_usd": 352.135768,
+        "profit_factor": 1.405803,
+        "expectancy_usd": 10.356934,
+        "drawdown_usd": 223.961408
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 40,
+      "target_atr": 2.4,
+      "stop_atr": 2.5,
+      "train": {
+        "trades": 67,
+        "net_pnl_usd": 663.834706,
+        "profit_factor": 1.315106,
+        "expectancy_usd": 9.907981,
+        "drawdown_usd": 387.12673
+      },
+      "validation": {
+        "trades": 34,
+        "net_pnl_usd": 239.420344,
+        "profit_factor": 1.271139,
+        "expectancy_usd": 7.041775,
+        "drawdown_usd": 212.854482
+      }
+    },
+    {
+      "adx_period": 50,
+      "atr_period": 40,
+      "target_atr": 2.4,
+      "stop_atr": 2.8,
+      "train": {
+        "trades": 61,
+        "net_pnl_usd": 719.244756,
+        "profit_factor": 1.350364,
+        "expectancy_usd": 11.790898,
+        "drawdown_usd": 393.641499
+      },
+      "validation": {
+        "trades": 32,
+        "net_pnl_usd": 119.994294,
+        "profit_factor": 1.134228,
+        "expectancy_usd": 3.749822,
+        "drawdown_usd": 218.40613
+      }
+    }
+  ],
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

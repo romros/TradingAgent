@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "hypothesis": "A monthly long/cash filter using the 200-session moving average captures persistent gold bull regimes while avoiding extended bear regimes.",
+  "instruments": [
+    {"id":"SGLN_L","ticker":"SGLN.L","isin":"IE00B4ND3602"},
+    {"id":"PHAU_L","ticker":"PHAU.L","isin":"JE00B1VS3770"}
+  ],
+  "rule": {"signal_session":"last trading session of month","signal":"adjusted close > arithmetic mean of current and prior 199 adjusted closes","execution":"next trading session open","position":"100% long else cash","optimization":false},
+  "periods": {"train":["2012-01-01","2018-12-31"],"validation":["2019-01-01","2022-12-31"],"oos":["2023-01-01","2024-12-31"],"holdout_2025_plus":["2025-01-01","2099-12-31"]},
+  "economics": {"capital_eur_equivalent":1000,"commission_each_position_change_eur":1.25,"slippage_each_position_change_bps":5,"cash_return":0.0},
+  "gates": {"train_return_gt":0.0,"validation_min_months":45,"oos_min_months":23,"validation_and_oos_return_gt":0.0,"combined_annualized_sharpe_gte":0.6,"combined_max_drawdown_lte":0.18,"both_instruments_pass":true,"monthly_return_correlation_gte":0.85},
+  "sealed":"2025 and later"
+}

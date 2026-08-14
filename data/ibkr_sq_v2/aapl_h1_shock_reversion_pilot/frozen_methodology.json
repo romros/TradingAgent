@@ -1,0 +1,79 @@
+{
+  "capital_usdc": 1000,
+  "discovery": {
+    "max_lookback_bars": 250,
+    "max_rules": 3,
+    "minimum_profit_factor_train": 1.05,
+    "minimum_trades_train": 30,
+    "robustness_during_generation": false,
+    "selection_metric": "return_drawdown_ratio"
+  },
+  "methodology_id": "ibkr-v2-aapl-postsplit-density-pilot",
+  "ownership": "TradingAgent/IBKR",
+  "principles": {
+    "holdout_policy": "sealed_until_final_gate",
+    "legacy_configs": "format_scaffold_only",
+    "live_policy": "explicit_human_authorization",
+    "sq_role": "candidate_generator_only"
+  },
+  "robustness": {
+    "cost_stress_multiplier": 2,
+    "maximum_liquidation_probability": 0.001,
+    "minimum_profitable_monte_carlo_ratio": 0.9,
+    "minimum_stress_profit_factor": 1.2,
+    "monte_carlo_runs": 2000,
+    "parameter_perturbation_pct": 10
+  },
+  "schema_version": 1,
+  "small_account": {
+    "canonical_capital_usdc": 1000,
+    "capital_scenarios_usdc": [
+      200,
+      400,
+      500,
+      700,
+      1000,
+      2000
+    ],
+    "leverage_grid": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      8,
+      10,
+      12,
+      16
+    ],
+    "maximum_portfolio_margin_pct": 60,
+    "maximum_risk_per_trade_pct": 1.5,
+    "minimum_net_expectancy_usdc": 1.0,
+    "minimum_net_profit_factor": 1.2,
+    "minimum_reserve_pct": 40
+  },
+  "stages": [
+    "market_preflight",
+    "discovery",
+    "temporal_validation",
+    "robustness",
+    "small_account_economics",
+    "python_translation",
+    "parity",
+    "paper"
+  ],
+  "temporal_split": {
+    "embargo_bars": 20,
+    "final_holdout_pct": 10,
+    "oos_pct": 20,
+    "train_pct": 50,
+    "validation_pct": 20
+  },
+  "temporal_validation": {
+    "maximum_oos_drawdown_pct": 25,
+    "maximum_train_oos_expectancy_decay_pct": 50,
+    "minimum_oos_profit_factor": 1.2,
+    "minimum_positive_windows_ratio": 0.7,
+    "minimum_trades_oos": 60
+  }
+}

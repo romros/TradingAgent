@@ -1,0 +1,24 @@
+Project: IBKR_V2_TSLA_D1_TREND_PULLBACK_DENSITY
+Log file: /global_log_20260813_074200.log
+
+--------------------------------------------------------------------------------------------------------------------------
+TASK STARTED at 2026.08.13 07:42:00.008
+Task: Build strategies, Type: Build
+Databanks before start: Results (0), Existing portfolio (0), Last generation (0), Initial population (0), Strategies to improve (0), D1 (0), OLD (0), D1_OLD (0)
+
+TASK FINISHED at 2026.08.13 07:42:01.677 in 1 s.
+Databanks after finish: Results (50), Existing portfolio (0), Last generation (0), Initial population (0), Strategies to improve (0), D1 (0), OLD (0), D1_OLD (0)
+
+Strategies generated: 237, Time per strategy: 1 ms., Time per accepted strategy: 6 ms., Accepted: 51, Rejected: 186, Strategies per hour: 2473043, Accepted strategies per hour: 532174
+
+Time per strategy details:
+Main test: Count: 54, Avg. time: 0.0184 s., Total time: 0.9960 s., % of all: 100.00 %
+
+Rejected details:
+Automatic filter: too little trades, Count: 164, % of all: 88.17 %
+Global filter:  Profit factor[Main data] > 1.05, Count: 3, % of all: 1.61 %
+Automatic filter: no trades, Count: 19, % of all: 10.22 %
+
+Accepted details:
+In databank, Count: 50, % of all: 98.04 %
+Strategy is too similar or the same as some other strategy in databank, Count: 1, % of all: 1.96 %

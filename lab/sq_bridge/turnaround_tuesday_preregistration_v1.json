@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-spy-turnaround-tuesday-v1",
+  "status": "FROZEN_BEFORE_PERFORMANCE",
+  "hypothesis": "After a negative first US equity session of the week, temporary Monday price pressure partially reverses from the next session open to the following session open.",
+  "asset": "SPY",
+  "source": "data/ibkr_sq_v2/preflight/SPY_ADJUSTED_D1_2017_2024.csv",
+  "signal": "first trading session of ISO week has close below previous session close",
+  "entry": "next session open",
+  "exit": "following session open",
+  "costs_roundtrip_bps": 30,
+  "periods": {
+    "train": ["2017-01-01", "2021-12-31"],
+    "validation": ["2022-01-01", "2023-12-31"],
+    "oos": ["2024-01-01", "2024-12-31"]
+  },
+  "validation_gate": {
+    "minimum_trades": 20,
+    "minimum_profit_factor": 1.10,
+    "minimum_net_return": 0.0,
+    "positive_calendar_years_required": 2,
+    "maximum_drawdown": 0.15
+  },
+  "single_variant": true,
+  "oos_access_before_validation_gate": false,
+  "holdout_2025": "SEALED_NOT_LOADED",
+  "optimized": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

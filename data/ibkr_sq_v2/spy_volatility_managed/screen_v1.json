@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-spy-volatility-managed-v1",
+  "preregistration_sha256": "60684554d4a1f1b1c2c511eff23c315bf7b8b37e6564b652086bfc4201b6a94a",
+  "source_sha256": "a2aa4c620fcda15bc96fdc2589846d276f96379c0e427d662f4619ccd28e70a1",
+  "train": {
+    "strategy": {
+      "sessions": 1237,
+      "net_return": 0.5732786990064245,
+      "annualized_sharpe": 0.8403728999568778,
+      "maximum_drawdown": 0.1937568952676476,
+      "total_turnover": 11.079156252286907,
+      "average_exposure": 0.7760918238728539,
+      "calendar_year_returns": {
+        "2017": 0.1400544519860245,
+        "2018": -0.010586379163975201,
+        "2019": 0.16031992368668035,
+        "2020": 0.0060418721731074765,
+        "2021": 0.1948362131299397
+      },
+      "positive_calendar_years": 4,
+      "sharpe_improvement": -0.13820710241564005,
+      "drawdown_ratio_to_buy_and_hold": 0.5746518852653122
+    },
+    "buy_and_hold": {
+      "sessions": 1237,
+      "net_return": 1.278388640280844,
+      "annualized_sharpe": 0.9785800023725179,
+      "maximum_drawdown": 0.33717264353564524,
+      "total_turnover": 0.0,
+      "average_exposure": 0.7760918238728539,
+      "calendar_year_returns": {
+        "2017": 0.19439801087292263,
+        "2018": -0.045689909128207806,
+        "2019": 0.3122388429675369,
+        "2020": 0.18331611801284198,
+        "2021": 0.287287493808154
+      },
+      "positive_calendar_years": 4
+    }
+  },
+  "validation": {
+    "strategy": {
+      "sessions": 501,
+      "net_return": 0.05756837071235399,
+      "annualized_sharpe": 0.3288969649164519,
+      "maximum_drawdown": 0.12897731448919192,
+      "total_turnover": 2.451750289846086,
+      "average_exposure": 0.6020751571473468,
+      "calendar_year_returns": {
+        "2022": -0.09536168059241967,
+        "2023": 0.16905104285757422
+      },
+      "positive_calendar_years": 1,
+      "sharpe_improvement": 0.14918832211617963,
+      "drawdown_ratio_to_buy_and_hold": 0.5265151495066784
+    },
+    "buy_and_hold": {
+      "sessions": 501,
+      "net_return": 0.03242888222418916,
+      "annualized_sharpe": 0.17970864280027224,
+      "maximum_drawdown": 0.24496410902903365,
+      "total_turnover": 0.0,
+      "average_exposure": 0.6020751571473468,
+      "calendar_year_returns": {
+        "2022": -0.18175362536271678,
+        "2023": 0.2617579670693313
+      },
+      "positive_calendar_years": 1
+    }
+  },
+  "validation_gate_passed": false,
+  "decision": "REJECT_VALIDATION",
+  "oos_2024_accessed": false,
+  "holdout_2025_accessed": false,
+  "optimized": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

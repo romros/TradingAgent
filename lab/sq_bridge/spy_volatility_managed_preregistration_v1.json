@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-spy-volatility-managed-v1",
+  "status": "FROZEN_BEFORE_PERFORMANCE",
+  "hypothesis": "A monthly SPY allocation inversely scaled by observable trailing volatility improves risk-adjusted performance and drawdown versus buy-and-hold because volatility changes are not matched one-for-one by expected returns.",
+  "academic_basis": "Moreira and Muir, Volatility-Managed Portfolios, Journal of Finance 2017 / NBER w22208",
+  "asset": "SPY",
+  "source": "data/ibkr_sq_v2/preflight/SPY_ADJUSTED_D1_2017_2024.csv",
+  "rule": {
+    "realized_volatility_sessions": 21,
+    "annualization_sessions": 252,
+    "target_annual_volatility": 0.10,
+    "minimum_weight": 0.0,
+    "maximum_weight": 1.0,
+    "rebalance": "first trading session of each calendar month at open using data through previous close",
+    "cash_return": 0.0,
+    "one_way_turnover_cost_bps": 10
+  },
+  "periods": {
+    "train": ["2017-01-01", "2021-12-31"],
+    "validation": ["2022-01-01", "2023-12-31"],
+    "oos": ["2024-01-01", "2024-12-31"]
+  },
+  "validation_gate": {
+    "minimum_sessions": 450,
+    "minimum_net_return": 0.0,
+    "minimum_sharpe_improvement": 0.10,
+    "maximum_drawdown_ratio_to_buy_and_hold": 0.85,
+    "positive_calendar_years_required": 2
+  },
+  "single_variant": true,
+  "oos_access_before_validation_gate": false,
+  "holdout_2025": "SEALED_NOT_LOADED",
+  "optimized": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

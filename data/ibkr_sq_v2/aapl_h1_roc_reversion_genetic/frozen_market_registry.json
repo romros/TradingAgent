@@ -1,0 +1,61 @@
+{
+  "markets": {
+    "AAPL": {
+      "discovery_commission_per_order": 0.0,
+      "discovery_slippage": 0,
+      "discovery_timeframe": "H1",
+      "eod_exit_seconds": null,
+      "exit_at_end_of_day": false,
+      "exit_at_end_of_range": false,
+      "maximum_trades_per_day": 1,
+      "research_eligible": true,
+      "signal_time_range_seconds": null,
+      "sq_instrument_attributes": {
+        "broker": "-1",
+        "commissions": "",
+        "country": "US",
+        "dataType": "1",
+        "dateFrom": "0",
+        "dateTo": "0",
+        "decimals": "2",
+        "defaultSlippage": "0",
+        "defaultSpread": "0",
+        "description": "Dukascopy AAPL post-split density pilot",
+        "exchange": "NASDAQ",
+        "instrument": "AAPLUSUSD",
+        "minDistance": "0.0",
+        "orderSizeMultiplier": "1.0",
+        "orderSizeStep": "1.0",
+        "pointValue": "1.0",
+        "recognizedFromOrders": "false",
+        "rows": "0",
+        "sector": "Technology",
+        "swap": "",
+        "tickSize": "0.01",
+        "tickStep": "0.01",
+        "tickValueInMoney": "0.0",
+        "totalDays": "0"
+      },
+      "sq_prune_resources": true,
+      "sq_resource_attributes": {
+        "barType": "1",
+        "broker": "-1",
+        "dateFrom": "1598832000000",
+        "dateTo": "1735603200000",
+        "precision": "TICK",
+        "removeWeekends": "false",
+        "source": "2",
+        "timezone": "America/New_York",
+        "uSymbol": "AAPLUSUSD",
+        "uSymbolName": "APPLE INC"
+      },
+      "sq_resource_clone_from": "BTCUSD_ALQ_H4",
+      "sq_resource_remove_attributes": [
+        "cloneFrom",
+        "sourceTimezone"
+      ],
+      "sq_symbol": "AAPLUSUSD_TICK_UTCMinus05",
+      "venue_max_leverage": 1
+    }
+  }
+}

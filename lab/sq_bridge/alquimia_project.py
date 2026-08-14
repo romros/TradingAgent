@@ -75,6 +75,33 @@ SEARCH_PROFILES = {
         "ExitAfterBars.ExitAfterBars", "ProfitTarget.ProfitTarget",
         "StopLoss.StopLoss",
     },
+    "equity_intraday_channel_breakout_v1": {
+        "Indicators.ADX", "Indicators.ATR", "Indicators.ROC",
+        "IsGreater", "IsLower", "IsRising", "IsFalling",
+        "EnterAtStop", "Stop/Limit Price Levels.Highest",
+        "Stop/Limit Price Levels.Lowest", "Stop/Limit Price Ranges.ATR",
+        "ExitAfterBars.ExitAfterBars", "ProfitTarget.ProfitTarget",
+        "StopLoss.StopLoss",
+    },
+    "equity_intraday_shock_reversion_v1": {
+        "Indicators.ATR", "Indicators.RSI", "Indicators.ROC",
+        "IsLower", "CrossesBelow", "IsFalling",
+        "EnterAtMarket", "ExitAfterBars.ExitAfterBars",
+        "ProfitTarget.ProfitTarget", "StopLoss.StopLoss",
+    },
+    "equity_h1_roc_reversion_v2": {
+        "Indicators.ROC", "IsLower", "CrossesBelow", "IsFalling",
+        "EnterAtMarket", "ExitAfterBars.ExitAfterBars",
+        "ProfitTarget.ProfitTarget", "StopLoss.StopLoss",
+    },
+    "equity_d1_trend_pullback_v1": {
+        "Prices.Close", "Indicators.SMA", "Indicators.EMA",
+        "Indicators.ADX", "Indicators.RSI", "Indicators.ROC",
+        "IsGreater", "IsLower", "CrossesAbove", "CrossesBelow",
+        "IsRising", "IsFalling", "EnterAtMarket",
+        "ExitAfterBars.ExitAfterBars", "ProfitTarget.ProfitTarget",
+        "StopLoss.StopLoss",
+    },
     "xau_h4_sweep_reclaim_v4": {
         "Prices.Close", "Prices.High", "Prices.Low",
         "Indicators.Highest", "Indicators.Lowest", "Indicators.ATR",
@@ -422,15 +449,21 @@ def _configure_build(xml: bytes, market: dict, periods: dict, methodology: dict,
     complexity.clear()
     complexity.set("useDifferentSettings", "false")
     is_stop_channel_profile = search_profile in {
-        "xau_h4_stop_channel_breakout_v2", "xau_h4_atr_compression_breakout_v3"
+        "xau_h4_stop_channel_breakout_v2", "xau_h4_atr_compression_breakout_v3",
+        "equity_intraday_channel_breakout_v1",
     }
     is_sweep_profile = search_profile == "xau_h4_sweep_reclaim_v4"
+    is_equity_reversion_profile = search_profile in {
+        "equity_intraday_shock_reversion_v1", "equity_h1_roc_reversion_v2"
+    }
+    is_equity_d1_profile = search_profile == "equity_d1_trend_pullback_v1"
     is_channel_profile = search_profile == "xau_h4_channel_breakout_v1" or is_stop_channel_profile
     ET.SubElement(complexity, "Chart", {"name": "Main chart",
         "minConditions": "0" if search_profile == "xau_h4_stop_channel_breakout_v2" else "1",
-        "maxConditions": "1" if is_stop_channel_profile else ("2" if search_profile == "xau_h4_channel_breakout_v1" or is_sweep_profile else "3"),
+        "maxConditions": "1" if is_stop_channel_profile else ("2" if search_profile == "xau_h4_channel_breakout_v1" or is_sweep_profile or is_equity_reversion_profile or is_equity_d1_profile else "3"),
         "minExitConditions": "0", "maxExitConditions": "0" if (
-            is_channel_profile or search_profile == "generic_translatable") else "1",
+            is_channel_profile or is_equity_reversion_profile
+            or is_equity_d1_profile or search_profile == "generic_translatable") else "1",
         "minExitTypes": "1", "maxExitTypes": "2",
         "minPeriod": "10" if is_channel_profile else "5",
         "maxPeriod": "120" if is_channel_profile else "250",
@@ -595,7 +628,8 @@ def build(source: Path, output: Path, project_name: str, market_key: str,
           wall_time_minutes: int = 0, stagnation_attempts: int | None = None,
           market_side: str = "both", evidence_chain_path: Path | None = None,
           campaign_id: str | None = None, source_hypothesis_id: str | None = None,
-          period_contract_path: Path | None = None) -> dict:
+          period_contract_path: Path | None = None,
+          periods_override: dict[str, str] | None = None) -> dict:
     methodology = json.loads(methodology_path.read_text())
     errors = validate(methodology)
     if errors:
@@ -618,6 +652,21 @@ def build(source: Path, output: Path, project_name: str, market_key: str,
     if not market or not market.get("research_eligible"):
         raise ValueError(f"Mercat no autoritzat per recerca: {market_key}")
     periods = _split_dates(date_from, date_to, methodology["temporal_split"])
+    if periods_override is not None:
+        expected_period_keys = {
+            "train_from", "train_to", "validation_from", "validation_to",
+            "oos_from", "oos_to", "holdout_from", "holdout_to",
+        }
+        if set(periods_override) != expected_period_keys:
+            raise ValueError("PERIODS_OVERRIDE_KEYS_INVALID")
+        ordered = [date.fromisoformat(periods_override[key]) for key in (
+            "train_from", "train_to", "validation_from", "validation_to",
+            "oos_from", "oos_to", "holdout_from", "holdout_to")]
+        if any(left >= right for left, right in zip(ordered, ordered[1:])):
+            raise ValueError("PERIODS_OVERRIDE_NOT_STRICTLY_ORDERED")
+        if ordered[0] != date_from or ordered[-1] != date_to:
+            raise ValueError("PERIODS_OVERRIDE_BOUNDARY_MISMATCH")
+        periods = dict(periods_override)
     period_evidence = {}
     if expected_temporal_digest is not None:
         expected_profile = V4_ALL_HYPOTHESIS_SEARCH_PROFILES[source_hypothesis_id]

@@ -18,6 +18,7 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 BASE_URL = "https://datafeed.dukascopy.com/datafeed"
+ALLOWED_BASE_URLS = {BASE_URL, "http://www.dukascopy.com/datafeed"}
 RECORD = struct.Struct(">IIIIIf")
 
 
@@ -111,8 +112,11 @@ def decode(payload: bytes, symbol: str, day: date,
 
 
 def fetch_day(symbol: str, day: date, timeout: int = 30, retries: int = 3,
-              price_scale: int | None = None) -> tuple[date, list[tuple], str | None]:
-    url = f"{BASE_URL}/{symbol}/{day.year}/{day.month-1:02d}/{day.day:02d}/BID_candles_min_1.bi5"
+              price_scale: int | None = None,
+              base_url: str = BASE_URL) -> tuple[date, list[tuple], str | None]:
+    if base_url not in ALLOWED_BASE_URLS:
+        raise ValueError(f"unsupported Dukascopy endpoint: {base_url}")
+    url = f"{base_url}/{symbol}/{day.year}/{day.month-1:02d}/{day.day:02d}/BID_candles_min_1.bi5"
     request = urllib.request.Request(url, headers={"User-Agent": "TradingAgent-Alquimia/1.0"})
     last_error = None
     for attempt in range(retries):
@@ -164,7 +168,8 @@ def read_daily_cache(path: Path) -> list[tuple]:
 def build_month(root: Path, symbol: str, year: int, month: int, workers: int,
                 price_scale: int | None = None,
                 first_date: date | None = None,
-                closed_dates: set[date] | None = None) -> dict:
+                closed_dates: set[date] | None = None,
+                base_url: str = BASE_URL) -> dict:
     target = partition_path(root, symbol, year, month)
     manifest = target.with_name("manifest.json")
     if target.exists() and manifest.exists():
@@ -187,7 +192,7 @@ def build_month(root: Path, symbol: str, year: int, month: int, workers: int,
     for round_index in range(3):
         errors_by_day = {}
         with ThreadPoolExecutor(max_workers=workers) as pool:
-            futures = [pool.submit(fetch_day, symbol, day, 30, 2, price_scale)
+            futures = [pool.submit(fetch_day, symbol, day, 30, 2, price_scale, base_url)
                        for day in pending]
             for future in as_completed(futures):
                 day, rows, error = future.result()
@@ -218,7 +223,7 @@ def build_month(root: Path, symbol: str, year: int, month: int, workers: int,
                "status": "complete", "rows": len(results),
                "weekdays_requested": len(rows_by_day),
                "first_ts": results[0][0] if results else None, "last_ts": results[-1][0] if results else None,
-               "sha256": hashlib.sha256(target.read_bytes()).hexdigest(), "source": BASE_URL,
+               "sha256": hashlib.sha256(target.read_bytes()).hexdigest(), "source": base_url,
                "price_scale": price_scale or default_price_scale(symbol),
                "downloaded_at": datetime.now(timezone.utc).isoformat(), "action": "written"}
     manifest_tmp = manifest.with_suffix(".tmp.json")
@@ -242,6 +247,8 @@ def main() -> int:
     parser.add_argument("--market-calendar", choices=("none", "nyse"), default="none",
                         help="Exclude official closed sessions; use nyse for US stocks/ETFs.")
     parser.add_argument("--workers", type=int, default=4)
+    parser.add_argument("--base-url", choices=sorted(ALLOWED_BASE_URLS), default=BASE_URL,
+                        help="Official Dukascopy endpoint; HTTP www is the low-latency fallback.")
     parser.add_argument("--journal", type=Path, required=True)
     args = parser.parse_args()
     if (not 1 <= args.workers <= 8 or args.from_year > args.to_year
@@ -260,7 +267,8 @@ def main() -> int:
             receipt = build_month(args.root, args.symbol.upper(), year, month,
                                   args.workers, args.price_scale, args.first_date,
                                   nyse_closed_dates(year)
-                                  if args.market_calendar == "nyse" else None)
+                                  if args.market_calendar == "nyse" else None,
+                                  args.base_url)
             with args.journal.open("a") as stream:
                 stream.write(json.dumps(receipt, sort_keys=True) + "\n")
             print(json.dumps({k: receipt.get(k) for k in ("year", "month", "status", "rows", "action")}))

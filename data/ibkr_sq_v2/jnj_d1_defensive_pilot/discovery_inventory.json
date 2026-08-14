@@ -1,0 +1,4624 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-08-14T11:51:40.135516+00:00",
+  "source": "data/ibkr_sq_v2/jnj_d1_defensive_pilot/discovery",
+  "source_inventory_sha256": "7de354bef1e02539b1c7fa0a884e0b439cd6968eb6c855cba4c45d7a2d67165a",
+  "candidate_count": 60,
+  "project_cfx_sha256": "049c191f0fcbbdd180d8e8edd4f45a5264248b4bb77431da238b973e1a9ff7f2",
+  "project_manifest_sha256": "936d65c82bd68ec64a7de3568c2eae18c79362043651edb2b3fa373a1d9e9395",
+  "pareto_is_descriptive_only": true,
+  "pareto_candidates": [
+    "Strategy 0.104",
+    "Strategy 0.245",
+    "Strategy 0.25",
+    "Strategy 0.284",
+    "Strategy 0.30",
+    "Strategy 0.312",
+    "Strategy 0.315",
+    "Strategy 0.70",
+    "Strategy 0.74"
+  ],
+  "family_count": 31,
+  "families": [
+    {
+      "structural_family_sha256": "25a37a7c81a0e03a990b19ef9f7ba2c8b55fd093f370445f904e3d51bb68366d",
+      "count": 6,
+      "members": [
+        "Strategy 0.133",
+        "Strategy 0.149",
+        "Strategy 0.167",
+        "Strategy 0.189",
+        "Strategy 0.22",
+        "Strategy 0.70"
+      ]
+    },
+    {
+      "structural_family_sha256": "50f133339e79976a01233a7b8714581b7b99f8b6ffe7f474015d33e6b75c85e5",
+      "count": 5,
+      "members": [
+        "Strategy 0.172",
+        "Strategy 0.246",
+        "Strategy 0.335",
+        "Strategy 0.5",
+        "Strategy 0.79"
+      ]
+    },
+    {
+      "structural_family_sha256": "618b4678dd5bc2e39ab01252f7f37636401176f4ff0fdb3880db96e05c1b64ff",
+      "count": 5,
+      "members": [
+        "Strategy 0.111",
+        "Strategy 0.130",
+        "Strategy 0.147",
+        "Strategy 0.154",
+        "Strategy 0.315"
+      ]
+    },
+    {
+      "structural_family_sha256": "0b308ff6cba4ac43c6f2d1ee40f43a3ad64fbfe11bcb6a650f2a93ac8733a0a9",
+      "count": 4,
+      "members": [
+        "Strategy 0.142",
+        "Strategy 0.245",
+        "Strategy 0.321",
+        "Strategy 0.39"
+      ]
+    },
+    {
+      "structural_family_sha256": "958b689ca4b46095545898b14c9cfc471e128f1e3024c2bce8a3a19e8f18463e",
+      "count": 4,
+      "members": [
+        "Strategy 0.312",
+        "Strategy 0.314",
+        "Strategy 0.6",
+        "Strategy 0.71"
+      ]
+    },
+    {
+      "structural_family_sha256": "09d473a3f0afe615481c34818c0bad912f0bed2e5963e1b8151d72a9833fff0d",
+      "count": 3,
+      "members": [
+        "Strategy 0.346",
+        "Strategy 0.349",
+        "Strategy 0.4"
+      ]
+    },
+    {
+      "structural_family_sha256": "fd5cdce9d0f349d1fb5e1325c226d03d6e4b6568116c769f6167cbe8095f7b24",
+      "count": 3,
+      "members": [
+        "Strategy 0.257",
+        "Strategy 0.55",
+        "Strategy 0.73"
+      ]
+    },
+    {
+      "structural_family_sha256": "33fe24c410142b04e3dbea2ac571bbf93800c2c9429c5e3f691fe136891a6f39",
+      "count": 2,
+      "members": [
+        "Strategy 0.336",
+        "Strategy 0.54"
+      ]
+    },
+    {
+      "structural_family_sha256": "4e117aea59cc85df23338abe0002ff9f6540068c0e6e71cc479e74f32c033a4f",
+      "count": 2,
+      "members": [
+        "Strategy 0.284",
+        "Strategy 0.313"
+      ]
+    },
+    {
+      "structural_family_sha256": "6e110a1b5205261f22e2476df54b1a3154bdf6770dde86957a613b64b485e764",
+      "count": 2,
+      "members": [
+        "Strategy 0.304",
+        "Strategy 0.64"
+      ]
+    },
+    {
+      "structural_family_sha256": "72f94e5acf446b11038b5658f5d8b15c6bdb07cad5fc2e6b44de31c6900f0060",
+      "count": 2,
+      "members": [
+        "Strategy 0.143",
+        "Strategy 0.331"
+      ]
+    },
+    {
+      "structural_family_sha256": "761cdf8b5f552f72b32596824f3ebb332263c4ed4b8cfda3b3edd842a5004b7e",
+      "count": 2,
+      "members": [
+        "Strategy 0.234",
+        "Strategy 0.238"
+      ]
+    },
+    {
+      "structural_family_sha256": "e0ddb303cb7c3db2d380c00963104e0b7393b7203ffaa2039a5fb9a53dfc225d",
+      "count": 2,
+      "members": [
+        "Strategy 0.274",
+        "Strategy 0.44"
+      ]
+    },
+    {
+      "structural_family_sha256": "1ae6e12aea373c5e61430d4f5ef3f23814334caf623dbba8160ef1938b4240af",
+      "count": 1,
+      "members": [
+        "Strategy 0.128"
+      ]
+    },
+    {
+      "structural_family_sha256": "26248b7ef9bb58c257387949188359e25ab21384e53c45334ad0201530d395a4",
+      "count": 1,
+      "members": [
+        "Strategy 0.31"
+      ]
+    },
+    {
+      "structural_family_sha256": "29382d8073e4b0f1bc75b55425d75f8dd37f65db14e2e8570bbd78564dcf0211",
+      "count": 1,
+      "members": [
+        "Strategy 0.324"
+      ]
+    },
+    {
+      "structural_family_sha256": "32b18398329c5ebc8aa9edb4e5ecc84a10cfdd3f6c622017f78bdc09aee2c0ef",
+      "count": 1,
+      "members": [
+        "Strategy 0.169"
+      ]
+    },
+    {
+      "structural_family_sha256": "4104f4375a908aa81396053ad44751d56ace6f7c3676136285c4ef72a2a729fc",
+      "count": 1,
+      "members": [
+        "Strategy 0.17"
+      ]
+    },
+    {
+      "structural_family_sha256": "4285d345c174628acf5fcf28892c1f10d3fb6b76ef0f8651a9eedb10a348e7d3",
+      "count": 1,
+      "members": [
+        "Strategy 0.88"
+      ]
+    },
+    {
+      "structural_family_sha256": "493bd8c34d45f65537095bc97b28519d3587a97b6062634cc7a2d13e013b2cf6",
+      "count": 1,
+      "members": [
+        "Strategy 0.105"
+      ]
+    },
+    {
+      "structural_family_sha256": "4fac857d03786ad69f6f2f21bfc8f8bd752c3a48a3950d5298de6f55f2601205",
+      "count": 1,
+      "members": [
+        "Strategy 0.25"
+      ]
+    },
+    {
+      "structural_family_sha256": "525eaf36319314fdfddd50d0dd3b65fbb6fd069916cef8743cb937beaa13ad99",
+      "count": 1,
+      "members": [
+        "Strategy 0.217"
+      ]
+    },
+    {
+      "structural_family_sha256": "5fbf16761d673caac09cd7597ee8ef80d1469848f10cdb74ae657bc24a492bf9",
+      "count": 1,
+      "members": [
+        "Strategy 0.104"
+      ]
+    },
+    {
+      "structural_family_sha256": "68c629568831d155c27df02b378511eb3ea51bf7a52b971cf7d877a12f5c1a03",
+      "count": 1,
+      "members": [
+        "Strategy 0.218"
+      ]
+    },
+    {
+      "structural_family_sha256": "6ba87a2bb3a7ebb5f8ae74df46f80896f4fb02050c7c08665faa443f93fc74a0",
+      "count": 1,
+      "members": [
+        "Strategy 0.85"
+      ]
+    },
+    {
+      "structural_family_sha256": "7d84b530ab3870e5adb1590f724a795ff7141a52f70fa1be98240bd08a0eb20b",
+      "count": 1,
+      "members": [
+        "Strategy 0.310"
+      ]
+    },
+    {
+      "structural_family_sha256": "80bd1841a3b8f2b7d80f7448ae20b1e3d3c6e584f9f9bf2cf3076c8e2b700388",
+      "count": 1,
+      "members": [
+        "Strategy 0.30"
+      ]
+    },
+    {
+      "structural_family_sha256": "95f7cfef00a6f5ddcc9bd4ab85e48b42f35aac75876926433cbce2707f8c1e0a",
+      "count": 1,
+      "members": [
+        "Strategy 0.100"
+      ]
+    },
+    {
+      "structural_family_sha256": "abde63a241ac5769fad3d693a147ba2a7de4eca1baac7d9b8d5573a61f20fcdd",
+      "count": 1,
+      "members": [
+        "Strategy 0.343"
+      ]
+    },
+    {
+      "structural_family_sha256": "c4195ac3098dee806ebbe3e4b1c26fd0b304534b2e6ed9beae538eb2ea2de4c0",
+      "count": 1,
+      "members": [
+        "Strategy 0.190"
+      ]
+    },
+    {
+      "structural_family_sha256": "c57c3323eaf85303de4523fc87084acde1d047de1ed11a072461b636988bfeb2",
+      "count": 1,
+      "members": [
+        "Strategy 0.74"
+      ]
+    }
+  ],
+  "archetype_count": 30,
+  "archetypes": [
+    {
+      "archetype_sha256": "28058d586b4fabfeecf7f5483a2d83c0cb136825a78a9fb0afaea3af527feb5b",
+      "count": 6,
+      "members": [
+        "Strategy 0.133",
+        "Strategy 0.149",
+        "Strategy 0.167",
+        "Strategy 0.189",
+        "Strategy 0.22",
+        "Strategy 0.70"
+      ]
+    },
+    {
+      "archetype_sha256": "01f2f4957b7d724257eaf2b4db552d9270f7ec8a9f84cb57750e98fb9aeade9d",
+      "count": 5,
+      "members": [
+        "Strategy 0.111",
+        "Strategy 0.130",
+        "Strategy 0.147",
+        "Strategy 0.154",
+        "Strategy 0.315"
+      ]
+    },
+    {
+      "archetype_sha256": "484685130b80d4dca9883a853b276013f4002571bf0f2422869460a93e60ab3d",
+      "count": 5,
+      "members": [
+        "Strategy 0.172",
+        "Strategy 0.246",
+        "Strategy 0.335",
+        "Strategy 0.5",
+        "Strategy 0.79"
+      ]
+    },
+    {
+      "archetype_sha256": "22b676d658bb35c8b8dfb190f221010268f9aa11daa0558c4d8ea6fbcf7e0916",
+      "count": 4,
+      "members": [
+        "Strategy 0.142",
+        "Strategy 0.245",
+        "Strategy 0.321",
+        "Strategy 0.39"
+      ]
+    },
+    {
+      "archetype_sha256": "fcb2817f13395b1a6591799de19626ec68273e5a6f592b55af9d7a6428d30d38",
+      "count": 4,
+      "members": [
+        "Strategy 0.312",
+        "Strategy 0.314",
+        "Strategy 0.6",
+        "Strategy 0.71"
+      ]
+    },
+    {
+      "archetype_sha256": "98b322ba97c9eded28682cd71bb1c019f745b653a542af4f0005bbada8231140",
+      "count": 3,
+      "members": [
+        "Strategy 0.257",
+        "Strategy 0.55",
+        "Strategy 0.73"
+      ]
+    },
+    {
+      "archetype_sha256": "d331d0ee2a982542470e62d263fb8e442fe42cdda599cdfc9647136b00150a70",
+      "count": 3,
+      "members": [
+        "Strategy 0.128",
+        "Strategy 0.284",
+        "Strategy 0.313"
+      ]
+    },
+    {
+      "archetype_sha256": "e024425606baf14811288687514eb4b865b550cc0d52469dc6cd44bfd21e3ed0",
+      "count": 3,
+      "members": [
+        "Strategy 0.346",
+        "Strategy 0.349",
+        "Strategy 0.4"
+      ]
+    },
+    {
+      "archetype_sha256": "248053c9f4dcbe6f5d57084922dfc311a7cf9bb358dd4c5d7eab8b2c5f9f69b1",
+      "count": 2,
+      "members": [
+        "Strategy 0.143",
+        "Strategy 0.331"
+      ]
+    },
+    {
+      "archetype_sha256": "52d015aab8dabf2cf974eab8d0489b6187e0eceb09af7902ab284f36a9a7daef",
+      "count": 2,
+      "members": [
+        "Strategy 0.234",
+        "Strategy 0.238"
+      ]
+    },
+    {
+      "archetype_sha256": "675745fa5eb901f80e21216328907d1c5b70eef49882a115b66030d23b7d901c",
+      "count": 2,
+      "members": [
+        "Strategy 0.336",
+        "Strategy 0.54"
+      ]
+    },
+    {
+      "archetype_sha256": "d35b5453bb88b195270c1df090b85395b78326cf020c4b605333c12d9157f974",
+      "count": 2,
+      "members": [
+        "Strategy 0.304",
+        "Strategy 0.64"
+      ]
+    },
+    {
+      "archetype_sha256": "d842a21138716aa05223b9c8a6162fb4321825ca509ed34cbc003ab1f7658a3d",
+      "count": 2,
+      "members": [
+        "Strategy 0.274",
+        "Strategy 0.44"
+      ]
+    },
+    {
+      "archetype_sha256": "07590e7a6973612aa039211755768a0991e72c1f94b807900efee34f1f2643af",
+      "count": 1,
+      "members": [
+        "Strategy 0.218"
+      ]
+    },
+    {
+      "archetype_sha256": "0a022503464f71ceb4c6eae22c7cb5f0315bf5bdc7899331225c94c15fb163de",
+      "count": 1,
+      "members": [
+        "Strategy 0.343"
+      ]
+    },
+    {
+      "archetype_sha256": "133761c3bb138f36247ddbb14a0c956990975c130d2c7ca08be8e64294c26c91",
+      "count": 1,
+      "members": [
+        "Strategy 0.190"
+      ]
+    },
+    {
+      "archetype_sha256": "2ce869cf871d2f15fa6c98adea8dd56887585c4fec25692482bb401b2e6762aa",
+      "count": 1,
+      "members": [
+        "Strategy 0.100"
+      ]
+    },
+    {
+      "archetype_sha256": "3a512e3b3be154c1f8026b42063177d74288a3639d050e35996f0a8ea87c1f85",
+      "count": 1,
+      "members": [
+        "Strategy 0.31"
+      ]
+    },
+    {
+      "archetype_sha256": "4769fd531194dfc3f8bb9ea8600d4a70888ed8c264c43dbe2afcf0b9d8c4b7bf",
+      "count": 1,
+      "members": [
+        "Strategy 0.324"
+      ]
+    },
+    {
+      "archetype_sha256": "502e5f0f296cec1ac45138df5e490dd28b655ed466124bffae7931d74af31a15",
+      "count": 1,
+      "members": [
+        "Strategy 0.310"
+      ]
+    },
+    {
+      "archetype_sha256": "896055a3809bfc590b3b274fa0bab9bf84004df4d1820c83957e07ac0741d1b5",
+      "count": 1,
+      "members": [
+        "Strategy 0.88"
+      ]
+    },
+    {
+      "archetype_sha256": "8d0a37976ac1f7d9d833af80950d2a964bde8db684dfe3afe6fed0b45db0910f",
+      "count": 1,
+      "members": [
+        "Strategy 0.169"
+      ]
+    },
+    {
+      "archetype_sha256": "9c0bdecdc0588fa4b976f3ef40196478e2bc507965e85e7a77416ca0b5785021",
+      "count": 1,
+      "members": [
+        "Strategy 0.217"
+      ]
+    },
+    {
+      "archetype_sha256": "9fd56d3992802c6f1959d13db1278fa3edb56b7ff034e232d59635caa3303244",
+      "count": 1,
+      "members": [
+        "Strategy 0.85"
+      ]
+    },
+    {
+      "archetype_sha256": "a3e88c76d1d46f8fbff10a62b7100a18ea8ed90e79c9a7bffb96249eeb6a3bb5",
+      "count": 1,
+      "members": [
+        "Strategy 0.105"
+      ]
+    },
+    {
+      "archetype_sha256": "d2d858c4be3fa9c25f16200b8d511e3ecaa1a70c4f189780beae2505adf87c7f",
+      "count": 1,
+      "members": [
+        "Strategy 0.104"
+      ]
+    },
+    {
+      "archetype_sha256": "db5e79bf0344f367dd621100589d30924f184c31ff40a05b7866dab80e9d9674",
+      "count": 1,
+      "members": [
+        "Strategy 0.30"
+      ]
+    },
+    {
+      "archetype_sha256": "df0d5845bfa0242126c7f78f899ad7d76ad6234dadde72e734d5db00a08047b3",
+      "count": 1,
+      "members": [
+        "Strategy 0.74"
+      ]
+    },
+    {
+      "archetype_sha256": "e51dbff81ff66d81ac50dcc5b83889b95b5c3664d8910dde3c1ec8f65cc993d2",
+      "count": 1,
+      "members": [
+        "Strategy 0.17"
+      ]
+    },
+    {
+      "archetype_sha256": "fea98da402333b6f07d31f00239cb622208dc2ac6c7342fa1556d6ccac7e82aa",
+      "count": 1,
+      "members": [
+        "Strategy 0.25"
+      ]
+    }
+  ],
+  "entry_indicator_archetype_count": 11,
+  "entry_indicator_archetypes": [
+    {
+      "entry_indicator_archetype_sha256": "190d2c89fc0a6f364af419fe527694d5f430d40642000307ae619af6dd805c74",
+      "indicator_types": [
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "count": 13,
+      "members": [
+        "Strategy 0.172",
+        "Strategy 0.190",
+        "Strategy 0.246",
+        "Strategy 0.30",
+        "Strategy 0.31",
+        "Strategy 0.312",
+        "Strategy 0.314",
+        "Strategy 0.335",
+        "Strategy 0.343",
+        "Strategy 0.5",
+        "Strategy 0.6",
+        "Strategy 0.71",
+        "Strategy 0.79"
+      ]
+    },
+    {
+      "entry_indicator_archetype_sha256": "bcec969077c5aadc2bcad179b641ae4999194051a4d06f63d5050f585a3a9fad",
+      "indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ]
+      ],
+      "count": 11,
+      "members": [
+        "Strategy 0.142",
+        "Strategy 0.234",
+        "Strategy 0.238",
+        "Strategy 0.245",
+        "Strategy 0.257",
+        "Strategy 0.310",
+        "Strategy 0.321",
+        "Strategy 0.39",
+        "Strategy 0.55",
+        "Strategy 0.73",
+        "Strategy 0.74"
+      ]
+    },
+    {
+      "entry_indicator_archetype_sha256": "2b283c08056d30b4f22b8ab958a1a8521e4387a319b7471a41440bb7da025f78",
+      "indicator_types": [
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "count": 8,
+      "members": [
+        "Strategy 0.133",
+        "Strategy 0.149",
+        "Strategy 0.167",
+        "Strategy 0.189",
+        "Strategy 0.22",
+        "Strategy 0.274",
+        "Strategy 0.44",
+        "Strategy 0.70"
+      ]
+    },
+    {
+      "entry_indicator_archetype_sha256": "0078adbbdea868f943d805306696a2733d0f190dec42ac86534d1964c6d1e788",
+      "indicator_types": [
+        [
+          "ADX",
+          "indicator"
+        ]
+      ],
+      "count": 7,
+      "members": [
+        "Strategy 0.111",
+        "Strategy 0.130",
+        "Strategy 0.147",
+        "Strategy 0.154",
+        "Strategy 0.25",
+        "Strategy 0.315",
+        "Strategy 0.88"
+      ]
+    },
+    {
+      "entry_indicator_archetype_sha256": "6bd157215e254b19f30e9f0011935bc80370c78d3f0dc9dc94709f2efbf6c2a4",
+      "indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ],
+        [
+          "EMA",
+          "indicator"
+        ]
+      ],
+      "count": 6,
+      "members": [
+        "Strategy 0.100",
+        "Strategy 0.217",
+        "Strategy 0.324",
+        "Strategy 0.346",
+        "Strategy 0.349",
+        "Strategy 0.4"
+      ]
+    },
+    {
+      "entry_indicator_archetype_sha256": "30e69afd5077d2a89cd6d66744c0d4c8a48fb008d19963c37f99d26f48468bb6",
+      "indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ],
+        [
+          "SMA",
+          "indicator"
+        ]
+      ],
+      "count": 4,
+      "members": [
+        "Strategy 0.104",
+        "Strategy 0.128",
+        "Strategy 0.284",
+        "Strategy 0.313"
+      ]
+    },
+    {
+      "entry_indicator_archetype_sha256": "5a529bba624d94de9501196d702afce588e04337cfc5a490c991dafa60941007",
+      "indicator_types": [
+        [
+          "EMA",
+          "indicator"
+        ]
+      ],
+      "count": 4,
+      "members": [
+        "Strategy 0.143",
+        "Strategy 0.17",
+        "Strategy 0.331",
+        "Strategy 0.85"
+      ]
+    },
+    {
+      "entry_indicator_archetype_sha256": "ca12ab416ee0f117500f69303817b5d54a06ea64ed796e6e05d78ee3fea36a4a",
+      "indicator_types": [
+        [
+          "SMA",
+          "indicator"
+        ]
+      ],
+      "count": 4,
+      "members": [
+        "Strategy 0.304",
+        "Strategy 0.336",
+        "Strategy 0.54",
+        "Strategy 0.64"
+      ]
+    },
+    {
+      "entry_indicator_archetype_sha256": "7e2abcbb619cfba14bafbb8162c2de8c8c46e1bae1f5f0181bca330e5580d125",
+      "indicator_types": [
+        [
+          "RSI",
+          "indicator"
+        ],
+        [
+          "SMA",
+          "indicator"
+        ]
+      ],
+      "count": 1,
+      "members": [
+        "Strategy 0.105"
+      ]
+    },
+    {
+      "entry_indicator_archetype_sha256": "b14dd551e84831d2767e705f222d08463ab50c4998c9c7c393ce20d2d029cb3a",
+      "indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ],
+        [
+          "EMA",
+          "indicator"
+        ],
+        [
+          "SMA",
+          "indicator"
+        ]
+      ],
+      "count": 1,
+      "members": [
+        "Strategy 0.169"
+      ]
+    },
+    {
+      "entry_indicator_archetype_sha256": "e4ac74230fe5f16ba3ac544aff44919d2114a054760a101f052db8c42cad3fd2",
+      "indicator_types": [
+        [
+          "EMA",
+          "indicator"
+        ],
+        [
+          "SMA",
+          "indicator"
+        ]
+      ],
+      "count": 1,
+      "members": [
+        "Strategy 0.218"
+      ]
+    }
+  ],
+  "candidates": [
+    {
+      "strategy": "Strategy 0.100",
+      "file": "Strategy 0.100.sqx",
+      "sqx_sha256": "27f6ce4774a9ba7e24161cbe06b3a06e4ad2a3696179ff72ceb59179facff93f",
+      "size_bytes": 27251,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "75999b1326d520959e2491514a761447dd61ada69e54d5a0afd8eb4e24b5e96f",
+      "structural_family_sha256": "95f7cfef00a6f5ddcc9bd4ab85e48b42f35aac75876926433cbce2707f8c1e0a",
+      "archetype_sha256": "2ce869cf871d2f15fa6c98adea8dd56887585c4fec25692482bb401b2e6762aa",
+      "entry_indicator_archetype_sha256": "6bd157215e254b19f30e9f0011935bc80370c78d3f0dc9dc94709f2efbf6c2a4",
+      "fingerprint_exact": "105813182",
+      "trades_hash": "498231296",
+      "trades": 68,
+      "profit": 31.459999084472656,
+      "drawdown": 21.170000076293945,
+      "profit_drawdown_ratio": 1.48606514,
+      "fitness": 0.4790830954328087,
+      "complexity": 5,
+      "signal_ops": [
+        "AND",
+        "Boolean",
+        "Close",
+        "CrossesAbove",
+        "EMA",
+        "IsGreater"
+      ],
+      "indicators": [
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        },
+        {
+          "op": "EMA",
+          "category": "indicator",
+          "periods": [
+            40
+          ]
+        },
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        },
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ],
+        [
+          "EMA",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "IsGreater",
+              "children": [
+                {
+                  "op": "Close"
+                },
+                {
+                  "op": "EMA"
+                }
+              ]
+            },
+            {
+              "op": "CrossesAbove",
+              "children": [
+                {
+                  "op": "Close"
+                },
+                {
+                  "op": "Close"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.104",
+      "file": "Strategy 0.104.sqx",
+      "sqx_sha256": "d1119b21db342cd24e3486a41c105c5478907dd5f25b8ff128ee12206ad7a7a4",
+      "size_bytes": 27703,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "a3767e3f7657307b27fb5d0a418da14cd4fc9eb98f6faa6a91515b3754c5a68d",
+      "structural_family_sha256": "5fbf16761d673caac09cd7597ee8ef80d1469848f10cdb74ae657bc24a492bf9",
+      "archetype_sha256": "d2d858c4be3fa9c25f16200b8d511e3ecaa1a70c4f189780beae2505adf87c7f",
+      "entry_indicator_archetype_sha256": "30e69afd5077d2a89cd6d66744c0d4c8a48fb008d19963c37f99d26f48468bb6",
+      "fingerprint_exact": "840581850",
+      "trades_hash": "-1182132224",
+      "trades": 76,
+      "profit": 93.86000061035156,
+      "drawdown": 18.760000228881836,
+      "profit_drawdown_ratio": 5.00319827,
+      "fitness": 0.68,
+      "complexity": 5,
+      "signal_ops": [
+        "AND",
+        "Boolean",
+        "Close",
+        "CrossesAbove",
+        "IsLower",
+        "SMA"
+      ],
+      "indicators": [
+        {
+          "op": "SMA",
+          "category": "indicator",
+          "periods": [
+            14
+          ]
+        },
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        },
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        },
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ],
+        [
+          "SMA",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "IsLower",
+              "children": [
+                {
+                  "op": "SMA"
+                },
+                {
+                  "op": "Close"
+                }
+              ]
+            },
+            {
+              "op": "CrossesAbove",
+              "children": [
+                {
+                  "op": "Close"
+                },
+                {
+                  "op": "Close"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.105",
+      "file": "Strategy 0.105.sqx",
+      "sqx_sha256": "67533e249d955a5be9b244b9c6ba87918a06c0965e9c11061c6dd057b3e0a04c",
+      "size_bytes": 27697,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "e94e3aad297d302404cffaf27925d5371f83a7f54c73e7fe91df73fa0544334a",
+      "structural_family_sha256": "493bd8c34d45f65537095bc97b28519d3587a97b6062634cc7a2d13e013b2cf6",
+      "archetype_sha256": "a3e88c76d1d46f8fbff10a62b7100a18ea8ed90e79c9a7bffb96249eeb6a3bb5",
+      "entry_indicator_archetype_sha256": "7e2abcbb619cfba14bafbb8162c2de8c8c46e1bae1f5f0181bca330e5580d125",
+      "fingerprint_exact": "1597126973",
+      "trades_hash": "-2093768704",
+      "trades": 75,
+      "profit": 17.040000915527344,
+      "drawdown": 44.18000030517578,
+      "profit_drawdown_ratio": 0.3856949,
+      "fitness": 0.352092047229025,
+      "complexity": 7,
+      "signal_ops": [
+        "AND",
+        "Boolean",
+        "CrossesBelow",
+        "IsLower",
+        "RSI",
+        "SMA"
+      ],
+      "indicators": [
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            14
+          ]
+        },
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            30
+          ]
+        },
+        {
+          "op": "SMA",
+          "category": "indicator",
+          "periods": [
+            14
+          ]
+        },
+        {
+          "op": "SMA",
+          "category": "indicator",
+          "periods": [
+            14
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "RSI",
+          "indicator"
+        ],
+        [
+          "SMA",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "CrossesBelow",
+              "children": [
+                {
+                  "op": "RSI"
+                },
+                {
+                  "op": "RSI"
+                }
+              ]
+            },
+            {
+              "op": "IsLower",
+              "children": [
+                {
+                  "op": "SMA"
+                },
+                {
+                  "op": "SMA"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.111",
+      "file": "Strategy 0.111.sqx",
+      "sqx_sha256": "c2eb02e04a4713d8ba5eaca6a0ed6473fd936ff018cb1881ec5c829b76b90571",
+      "size_bytes": 27468,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "7dd84b8f18e021c9fe6c031165026e6d9225de2a4ea30109b5c3ea34acbc8d6f",
+      "structural_family_sha256": "618b4678dd5bc2e39ab01252f7f37636401176f4ff0fdb3880db96e05c1b64ff",
+      "archetype_sha256": "01f2f4957b7d724257eaf2b4db552d9270f7ec8a9f84cb57750e98fb9aeade9d",
+      "entry_indicator_archetype_sha256": "0078adbbdea868f943d805306696a2733d0f190dec42ac86534d1964c6d1e788",
+      "fingerprint_exact": "-1887417019",
+      "trades_hash": "-1923397632",
+      "trades": 57,
+      "profit": 67.16999816894531,
+      "drawdown": 20.059999465942383,
+      "profit_drawdown_ratio": 3.34845463,
+      "fitness": 0.5906542018757438,
+      "complexity": 4,
+      "signal_ops": [
+        "ADX",
+        "Boolean",
+        "IsFalling"
+      ],
+      "indicators": [
+        {
+          "op": "ADX",
+          "category": "indicator",
+          "periods": [
+            159
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ADX",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsFalling",
+          "children": [
+            {
+              "op": "ADX"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.128",
+      "file": "Strategy 0.128.sqx",
+      "sqx_sha256": "c87f97928fbce0411a1c5b157240ef2ad709e25f0cd3a6579c1c3b5d3c3916e7",
+      "size_bytes": 26724,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "8298f39c1dd87bb5e78341c34ebec3a7814f308e2c7da4f5839fe7bbe0a2f083",
+      "structural_family_sha256": "1ae6e12aea373c5e61430d4f5ef3f23814334caf623dbba8160ef1938b4240af",
+      "archetype_sha256": "d331d0ee2a982542470e62d263fb8e442fe42cdda599cdfc9647136b00150a70",
+      "entry_indicator_archetype_sha256": "30e69afd5077d2a89cd6d66744c0d4c8a48fb008d19963c37f99d26f48468bb6",
+      "fingerprint_exact": "-2092722667",
+      "trades_hash": "-761434112",
+      "trades": 65,
+      "profit": 40.790000915527344,
+      "drawdown": 23.040000915527344,
+      "profit_drawdown_ratio": 1.77039927,
+      "fitness": 0.5029177703802669,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "Close",
+        "IsLower",
+        "SMA"
+      ],
+      "indicators": [
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        },
+        {
+          "op": "SMA",
+          "category": "indicator",
+          "periods": [
+            30
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ],
+        [
+          "SMA",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsLower",
+          "children": [
+            {
+              "op": "Close"
+            },
+            {
+              "op": "SMA"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.130",
+      "file": "Strategy 0.130.sqx",
+      "sqx_sha256": "f87572332211f3c5e49ad95417e96750cbb5a885e82c1c19c49e8bc988d7a242",
+      "size_bytes": 27617,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "0c1eb549ffc22a15db5ee64bd2fb1902e3ebe129df382d7c19590f79ea6e89b7",
+      "structural_family_sha256": "618b4678dd5bc2e39ab01252f7f37636401176f4ff0fdb3880db96e05c1b64ff",
+      "archetype_sha256": "01f2f4957b7d724257eaf2b4db552d9270f7ec8a9f84cb57750e98fb9aeade9d",
+      "entry_indicator_archetype_sha256": "0078adbbdea868f943d805306696a2733d0f190dec42ac86534d1964c6d1e788",
+      "fingerprint_exact": "-1700935364",
+      "trades_hash": "1632733184",
+      "trades": 73,
+      "profit": 46.599998474121094,
+      "drawdown": 15.90999984741211,
+      "profit_drawdown_ratio": 2.92897542,
+      "fitness": 0.6086206929236931,
+      "complexity": 4,
+      "signal_ops": [
+        "ADX",
+        "Boolean",
+        "IsFalling"
+      ],
+      "indicators": [
+        {
+          "op": "ADX",
+          "category": "indicator",
+          "periods": [
+            14
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ADX",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsFalling",
+          "children": [
+            {
+              "op": "ADX"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.133",
+      "file": "Strategy 0.133.sqx",
+      "sqx_sha256": "5c2dfdeba6fcfe821659fcf171516641b586a607cd8282369c6650af79b98b52",
+      "size_bytes": 27591,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "3224362fe9bde6fd78568a0fa098a74135292e304fab4ed9c87649305a3e0c56",
+      "structural_family_sha256": "25a37a7c81a0e03a990b19ef9f7ba2c8b55fd093f370445f904e3d51bb68366d",
+      "archetype_sha256": "28058d586b4fabfeecf7f5483a2d83c0cb136825a78a9fb0afaea3af527feb5b",
+      "entry_indicator_archetype_sha256": "2b283c08056d30b4f22b8ab958a1a8521e4387a319b7471a41440bb7da025f78",
+      "fingerprint_exact": "-1578064755",
+      "trades_hash": "968994816",
+      "trades": 66,
+      "profit": 64.18000030517578,
+      "drawdown": 31.56999969482422,
+      "profit_drawdown_ratio": 2.0329427,
+      "fitness": 0.5220843652726476,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "IsRising",
+        "ROC"
+      ],
+      "indicators": [
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            114
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsRising",
+          "children": [
+            {
+              "op": "ROC"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.142",
+      "file": "Strategy 0.142.sqx",
+      "sqx_sha256": "a2e2823ef5164779950e69d14ccc57a22eb91db37a60e8cc3b03f1e8c1440c3e",
+      "size_bytes": 26398,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "7b026f7eef6129dc87af4166341f95ed093db6cdbb4959656cb708906c15e07a",
+      "structural_family_sha256": "0b308ff6cba4ac43c6f2d1ee40f43a3ad64fbfe11bcb6a650f2a93ac8733a0a9",
+      "archetype_sha256": "22b676d658bb35c8b8dfb190f221010268f9aa11daa0558c4d8ea6fbcf7e0916",
+      "entry_indicator_archetype_sha256": "bcec969077c5aadc2bcad179b641ae4999194051a4d06f63d5050f585a3a9fad",
+      "fingerprint_exact": "384051110",
+      "trades_hash": "-909201408",
+      "trades": 59,
+      "profit": 39.95000076293945,
+      "drawdown": 31.299999237060547,
+      "profit_drawdown_ratio": 1.27635788,
+      "fitness": 0.4585365823873943,
+      "complexity": 3,
+      "signal_ops": [
+        "Boolean",
+        "Close",
+        "IsRising"
+      ],
+      "indicators": [
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsRising",
+          "children": [
+            {
+              "op": "Close"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.143",
+      "file": "Strategy 0.143.sqx",
+      "sqx_sha256": "a78f9d0bffb07868fde04ea4139a2a0160f766ffc6ca6912ef59a07ffe807bec",
+      "size_bytes": 31934,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "4294023f51fe81a6c7cc416b7ec63004adb10314a3d2a0d302aa2e73f9bc307c",
+      "structural_family_sha256": "72f94e5acf446b11038b5658f5d8b15c6bdb07cad5fc2e6b44de31c6900f0060",
+      "archetype_sha256": "248053c9f4dcbe6f5d57084922dfc311a7cf9bb358dd4c5d7eab8b2c5f9f69b1",
+      "entry_indicator_archetype_sha256": "5a529bba624d94de9501196d702afce588e04337cfc5a490c991dafa60941007",
+      "fingerprint_exact": "1118494924",
+      "trades_hash": "-911630336",
+      "trades": 113,
+      "profit": 51.59000015258789,
+      "drawdown": 30.850000381469727,
+      "profit_drawdown_ratio": 1.67228524,
+      "fitness": 0.5566757453041202,
+      "complexity": 5,
+      "signal_ops": [
+        "Boolean",
+        "EMA",
+        "IsLower"
+      ],
+      "indicators": [
+        {
+          "op": "EMA",
+          "category": "indicator",
+          "periods": [
+            40
+          ]
+        },
+        {
+          "op": "EMA",
+          "category": "indicator",
+          "periods": [
+            14
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "EMA",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsLower",
+          "children": [
+            {
+              "op": "EMA"
+            },
+            {
+              "op": "EMA"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.147",
+      "file": "Strategy 0.147.sqx",
+      "sqx_sha256": "6725cba882660bd1d2552fc0ff968b7075aa035dc949b510154f53c29987f7bd",
+      "size_bytes": 27283,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "2014f1b0064f06c57caa516b61df3aa3983679e779a390761d0c60cef9e079ba",
+      "structural_family_sha256": "618b4678dd5bc2e39ab01252f7f37636401176f4ff0fdb3880db96e05c1b64ff",
+      "archetype_sha256": "01f2f4957b7d724257eaf2b4db552d9270f7ec8a9f84cb57750e98fb9aeade9d",
+      "entry_indicator_archetype_sha256": "0078adbbdea868f943d805306696a2733d0f190dec42ac86534d1964c6d1e788",
+      "fingerprint_exact": "504052970",
+      "trades_hash": "-1923397632",
+      "trades": 55,
+      "profit": 51.529998779296875,
+      "drawdown": 21.969999313354492,
+      "profit_drawdown_ratio": 2.34547111,
+      "fitness": 0.5425287299875003,
+      "complexity": 4,
+      "signal_ops": [
+        "ADX",
+        "Boolean",
+        "IsFalling"
+      ],
+      "indicators": [
+        {
+          "op": "ADX",
+          "category": "indicator",
+          "periods": [
+            14
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ADX",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsFalling",
+          "children": [
+            {
+              "op": "ADX"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.149",
+      "file": "Strategy 0.149.sqx",
+      "sqx_sha256": "d74b88a47b31ba396fa25dbd5328c6574d94d9e3f2cd292f6e1a86ed15257593",
+      "size_bytes": 28095,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "257c13818e6b94b9cba6f3a52c21cfaeb4894eee557a3e09d5c4ab0949fd47e5",
+      "structural_family_sha256": "25a37a7c81a0e03a990b19ef9f7ba2c8b55fd093f370445f904e3d51bb68366d",
+      "archetype_sha256": "28058d586b4fabfeecf7f5483a2d83c0cb136825a78a9fb0afaea3af527feb5b",
+      "entry_indicator_archetype_sha256": "2b283c08056d30b4f22b8ab958a1a8521e4387a319b7471a41440bb7da025f78",
+      "fingerprint_exact": "-1140278425",
+      "trades_hash": "-1229768704",
+      "trades": 71,
+      "profit": 94.02999877929688,
+      "drawdown": 32.119998931884766,
+      "profit_drawdown_ratio": 2.92745959,
+      "fitness": 0.6086206929236931,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "IsRising",
+        "ROC"
+      ],
+      "indicators": [
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            20
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsRising",
+          "children": [
+            {
+              "op": "ROC"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.154",
+      "file": "Strategy 0.154.sqx",
+      "sqx_sha256": "1c964d9148387f1d0de567f46570560ec29e6b96f09d02f771161d4568b8bccc",
+      "size_bytes": 28497,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "0c8c5de876e8427f0463ed658ca083708032728d2b936e6fc86a5730c00cba5d",
+      "structural_family_sha256": "618b4678dd5bc2e39ab01252f7f37636401176f4ff0fdb3880db96e05c1b64ff",
+      "archetype_sha256": "01f2f4957b7d724257eaf2b4db552d9270f7ec8a9f84cb57750e98fb9aeade9d",
+      "entry_indicator_archetype_sha256": "0078adbbdea868f943d805306696a2733d0f190dec42ac86534d1964c6d1e788",
+      "fingerprint_exact": "1801117234",
+      "trades_hash": "-1996066816",
+      "trades": 74,
+      "profit": 61.959999084472656,
+      "drawdown": 37.11000061035156,
+      "profit_drawdown_ratio": 1.66963078,
+      "fitness": 0.5257493150094469,
+      "complexity": 4,
+      "signal_ops": [
+        "ADX",
+        "Boolean",
+        "IsFalling"
+      ],
+      "indicators": [
+        {
+          "op": "ADX",
+          "category": "indicator",
+          "periods": [
+            14
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ADX",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsFalling",
+          "children": [
+            {
+              "op": "ADX"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.167",
+      "file": "Strategy 0.167.sqx",
+      "sqx_sha256": "b4414257aa11179f5a5206ad7550d0fe4b6d50b980b93a183ecc084718ac6260",
+      "size_bytes": 28057,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "d1149e596f804395d5d08d8abd3c05bf86bfc6ae0260115af60ca56318acac2e",
+      "structural_family_sha256": "25a37a7c81a0e03a990b19ef9f7ba2c8b55fd093f370445f904e3d51bb68366d",
+      "archetype_sha256": "28058d586b4fabfeecf7f5483a2d83c0cb136825a78a9fb0afaea3af527feb5b",
+      "entry_indicator_archetype_sha256": "2b283c08056d30b4f22b8ab958a1a8521e4387a319b7471a41440bb7da025f78",
+      "fingerprint_exact": "1868415594",
+      "trades_hash": "-1034364928",
+      "trades": 72,
+      "profit": 85.16000366210938,
+      "drawdown": 15.40999984741211,
+      "profit_drawdown_ratio": 5.52628193,
+      "fitness": 0.6919654758508583,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "IsRising",
+        "ROC"
+      ],
+      "indicators": [
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            60
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsRising",
+          "children": [
+            {
+              "op": "ROC"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.169",
+      "file": "Strategy 0.169.sqx",
+      "sqx_sha256": "bcc12c34d236be6e30e99963868cd7ed8a40abee4ba753124244009efd72b4d3",
+      "size_bytes": 26750,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "d9aeac9613ac9d95bc721fb8f9ca33946cda97d421ec4c926fb24a7eba90bbf9",
+      "structural_family_sha256": "32b18398329c5ebc8aa9edb4e5ecc84a10cfdd3f6c622017f78bdc09aee2c0ef",
+      "archetype_sha256": "8d0a37976ac1f7d9d833af80950d2a964bde8db684dfe3afe6fed0b45db0910f",
+      "entry_indicator_archetype_sha256": "b14dd551e84831d2767e705f222d08463ab50c4998c9c7c393ce20d2d029cb3a",
+      "fingerprint_exact": "391990384",
+      "trades_hash": "816369664",
+      "trades": 62,
+      "profit": 12.789999961853027,
+      "drawdown": 25.65999984741211,
+      "profit_drawdown_ratio": 0.49844116,
+      "fitness": 0.3520000000000001,
+      "complexity": 6,
+      "signal_ops": [
+        "AND",
+        "Boolean",
+        "Close",
+        "EMA",
+        "IsGreater",
+        "IsRising",
+        "SMA"
+      ],
+      "indicators": [
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        },
+        {
+          "op": "EMA",
+          "category": "indicator",
+          "periods": [
+            50
+          ]
+        },
+        {
+          "op": "SMA",
+          "category": "indicator",
+          "periods": [
+            40
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ],
+        [
+          "EMA",
+          "indicator"
+        ],
+        [
+          "SMA",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "IsGreater",
+              "children": [
+                {
+                  "op": "Close"
+                },
+                {
+                  "op": "EMA"
+                }
+              ]
+            },
+            {
+              "op": "IsRising",
+              "children": [
+                {
+                  "op": "SMA"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.17",
+      "file": "Strategy 0.17.sqx",
+      "sqx_sha256": "b4d63052a50e467aae25fcda6030fc70998e360ed50a5df9eb325b4da4ceaed4",
+      "size_bytes": 28587,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "a6923791ec496f8fd4954e0463824c8ca8d0d2234252adcc7604ada4771d2ea9",
+      "structural_family_sha256": "4104f4375a908aa81396053ad44751d56ace6f7c3676136285c4ef72a2a729fc",
+      "archetype_sha256": "e51dbff81ff66d81ac50dcc5b83889b95b5c3664d8910dde3c1ec8f65cc993d2",
+      "entry_indicator_archetype_sha256": "5a529bba624d94de9501196d702afce588e04337cfc5a490c991dafa60941007",
+      "fingerprint_exact": "-796287780",
+      "trades_hash": "-2096197632",
+      "trades": 78,
+      "profit": 63.54999923706055,
+      "drawdown": 28.34000015258789,
+      "profit_drawdown_ratio": 2.24241351,
+      "fitness": 0.5693396232727798,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "EMA",
+        "IsRising"
+      ],
+      "indicators": [
+        {
+          "op": "EMA",
+          "category": "indicator",
+          "periods": [
+            14
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "EMA",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsRising",
+          "children": [
+            {
+              "op": "EMA"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.172",
+      "file": "Strategy 0.172.sqx",
+      "sqx_sha256": "7d061450781bc888c3b5a909b6532c4609dc35cfb6c2cc648f3d6f1e308b51be",
+      "size_bytes": 29460,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "a3d4e90f63cf675a58203cfb9cd5fbbf6dbe1017860513c6e01b1a7a754c8b19",
+      "structural_family_sha256": "50f133339e79976a01233a7b8714581b7b99f8b6ffe7f474015d33e6b75c85e5",
+      "archetype_sha256": "484685130b80d4dca9883a853b276013f4002571bf0f2422869460a93e60ab3d",
+      "entry_indicator_archetype_sha256": "190d2c89fc0a6f364af419fe527694d5f430d40642000307ae619af6dd805c74",
+      "fingerprint_exact": "-135665788",
+      "trades_hash": "-1750597632",
+      "trades": 81,
+      "profit": 51.66999816894531,
+      "drawdown": 29.100000381469727,
+      "profit_drawdown_ratio": 1.77560129,
+      "fitness": 0.535185182802401,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "IsRising",
+        "RSI"
+      ],
+      "indicators": [
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            30
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsRising",
+          "children": [
+            {
+              "op": "RSI"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.189",
+      "file": "Strategy 0.189.sqx",
+      "sqx_sha256": "af3be3968888d319f3100c22c19af7941f49f7960e1fb60b71217887a0cf3b29",
+      "size_bytes": 26546,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "83db5666dd1fcf319bdaa62e2547fc832c248a0a71e731b93961b1e27ece10d7",
+      "structural_family_sha256": "25a37a7c81a0e03a990b19ef9f7ba2c8b55fd093f370445f904e3d51bb68366d",
+      "archetype_sha256": "28058d586b4fabfeecf7f5483a2d83c0cb136825a78a9fb0afaea3af527feb5b",
+      "entry_indicator_archetype_sha256": "2b283c08056d30b4f22b8ab958a1a8521e4387a319b7471a41440bb7da025f78",
+      "fingerprint_exact": "-1216735134",
+      "trades_hash": "-658874368",
+      "trades": 66,
+      "profit": 65.29000091552734,
+      "drawdown": 25.139999389648438,
+      "profit_drawdown_ratio": 2.59705658,
+      "fitness": 0.5565217340826312,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "IsRising",
+        "ROC"
+      ],
+      "indicators": [
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            129
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsRising",
+          "children": [
+            {
+              "op": "ROC"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.190",
+      "file": "Strategy 0.190.sqx",
+      "sqx_sha256": "67a76a7ef705b37df189ff3fbc7c55bab314e2309e481c2dc12b6790603355ab",
+      "size_bytes": 30238,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "76e620285804f2dcab0cd03d3b261bfe5603e6b8445ccdb6da37ff6019b056f6",
+      "structural_family_sha256": "c4195ac3098dee806ebbe3e4b1c26fd0b304534b2e6ed9beae538eb2ea2de4c0",
+      "archetype_sha256": "133761c3bb138f36247ddbb14a0c956990975c130d2c7ca08be8e64294c26c91",
+      "entry_indicator_archetype_sha256": "190d2c89fc0a6f364af419fe527694d5f430d40642000307ae619af6dd805c74",
+      "fingerprint_exact": "-2067443636",
+      "trades_hash": "-1232197632",
+      "trades": 94,
+      "profit": 48.349998474121094,
+      "drawdown": 26.579999923706055,
+      "profit_drawdown_ratio": 1.81903682,
+      "fitness": 0.5384816796701011,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "CrossesAbove",
+        "RSI"
+      ],
+      "indicators": [
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            20
+          ]
+        },
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            20
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "CrossesAbove",
+          "children": [
+            {
+              "op": "RSI"
+            },
+            {
+              "op": "RSI"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.217",
+      "file": "Strategy 0.217.sqx",
+      "sqx_sha256": "3e7533cf3b92eb36299c5a14a90209c372ca6026d5dbd3c9841672cb0a2e39f5",
+      "size_bytes": 28972,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "fde1d5f13387e35c29ab05dce4dd5dbc5ee02fda3fa774f90aaa1d374094565e",
+      "structural_family_sha256": "525eaf36319314fdfddd50d0dd3b65fbb6fd069916cef8743cb937beaa13ad99",
+      "archetype_sha256": "9c0bdecdc0588fa4b976f3ef40196478e2bc507965e85e7a77416ca0b5785021",
+      "entry_indicator_archetype_sha256": "6bd157215e254b19f30e9f0011935bc80370c78d3f0dc9dc94709f2efbf6c2a4",
+      "fingerprint_exact": "-2067206616",
+      "trades_hash": "2025969664",
+      "trades": 85,
+      "profit": 40.65999984741211,
+      "drawdown": 22.709999084472656,
+      "profit_drawdown_ratio": 1.79040077,
+      "fitness": 0.5360158279742624,
+      "complexity": 5,
+      "signal_ops": [
+        "AND",
+        "Boolean",
+        "Close",
+        "EMA",
+        "IsLower"
+      ],
+      "indicators": [
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        },
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        },
+        {
+          "op": "EMA",
+          "category": "indicator",
+          "periods": [
+            20
+          ]
+        },
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ],
+        [
+          "EMA",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "IsLower",
+              "children": [
+                {
+                  "op": "Close"
+                },
+                {
+                  "op": "Close"
+                }
+              ]
+            },
+            {
+              "op": "IsLower",
+              "children": [
+                {
+                  "op": "EMA"
+                },
+                {
+                  "op": "Close"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.218",
+      "file": "Strategy 0.218.sqx",
+      "sqx_sha256": "815581f17562422e3a84d005bd217e3c7eaaf1be87c3d439a8b28f8b5ff71e82",
+      "size_bytes": 29317,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "cda00c4d4cd5ea5ad5b1a6e48ca14d971fda183f1718b9735fc9b3fe5c67eab2",
+      "structural_family_sha256": "68c629568831d155c27df02b378511eb3ea51bf7a52b971cf7d877a12f5c1a03",
+      "archetype_sha256": "07590e7a6973612aa039211755768a0991e72c1f94b807900efee34f1f2643af",
+      "entry_indicator_archetype_sha256": "e4ac74230fe5f16ba3ac544aff44919d2114a054760a101f052db8c42cad3fd2",
+      "fingerprint_exact": "802929531",
+      "trades_hash": "-1948430336",
+      "trades": 90,
+      "profit": 21.6299991607666,
+      "drawdown": 22.68000030517578,
+      "profit_drawdown_ratio": 0.95370365,
+      "fitness": 0.44661016786143,
+      "complexity": 6,
+      "signal_ops": [
+        "AND",
+        "Boolean",
+        "EMA",
+        "IsRising",
+        "SMA"
+      ],
+      "indicators": [
+        {
+          "op": "SMA",
+          "category": "indicator",
+          "periods": [
+            202
+          ]
+        },
+        {
+          "op": "EMA",
+          "category": "indicator",
+          "periods": [
+            81
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "EMA",
+          "indicator"
+        ],
+        [
+          "SMA",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "AND",
+          "children": [
+            {
+              "op": "IsRising",
+              "children": [
+                {
+                  "op": "SMA"
+                }
+              ]
+            },
+            {
+              "op": "IsRising",
+              "children": [
+                {
+                  "op": "EMA"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.22",
+      "file": "Strategy 0.22.sqx",
+      "sqx_sha256": "e7062d236f25937a744a7e9f65558a39f783b54253aa23924d99dd95dd805d01",
+      "size_bytes": 28227,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "126b3b7423a279e650a6a9697d050c47e13b723365315166a1b61eb1d77e86e5",
+      "structural_family_sha256": "25a37a7c81a0e03a990b19ef9f7ba2c8b55fd093f370445f904e3d51bb68366d",
+      "archetype_sha256": "28058d586b4fabfeecf7f5483a2d83c0cb136825a78a9fb0afaea3af527feb5b",
+      "entry_indicator_archetype_sha256": "2b283c08056d30b4f22b8ab958a1a8521e4387a319b7471a41440bb7da025f78",
+      "fingerprint_exact": "-2119495710",
+      "trades_hash": "-331020288",
+      "trades": 79,
+      "profit": 30.06999969482422,
+      "drawdown": 23.1299991607666,
+      "profit_drawdown_ratio": 1.30004327,
+      "fitness": 0.48939393418332205,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "IsRising",
+        "ROC"
+      ],
+      "indicators": [
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            211
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsRising",
+          "children": [
+            {
+              "op": "ROC"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.234",
+      "file": "Strategy 0.234.sqx",
+      "sqx_sha256": "0dc5368f85966a123bbd6a51dcf60ab635d1b1ea5c619d1b6ba89bb530f98233",
+      "size_bytes": 30614,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "e54bcbb433c21a7a731409e8eb93625d1dd85b04e6d578a133d1b468d40337e4",
+      "structural_family_sha256": "761cdf8b5f552f72b32596824f3ebb332263c4ed4b8cfda3b3edd842a5004b7e",
+      "archetype_sha256": "52d015aab8dabf2cf974eab8d0489b6187e0eceb09af7902ab284f36a9a7daef",
+      "entry_indicator_archetype_sha256": "bcec969077c5aadc2bcad179b641ae4999194051a4d06f63d5050f585a3a9fad",
+      "fingerprint_exact": "1259959088",
+      "trades_hash": "841402368",
+      "trades": 103,
+      "profit": 51.75,
+      "drawdown": 22.790000915527344,
+      "profit_drawdown_ratio": 2.27073269,
+      "fitness": 0.6049180314687959,
+      "complexity": 3,
+      "signal_ops": [
+        "Boolean",
+        "Close",
+        "CrossesAbove"
+      ],
+      "indicators": [
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        },
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "CrossesAbove",
+          "children": [
+            {
+              "op": "Close"
+            },
+            {
+              "op": "Close"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.238",
+      "file": "Strategy 0.238.sqx",
+      "sqx_sha256": "05197ec9a4bd910cbd707e4b2062c38b009fb1e58af1a81e08d2c2ea4b786c3a",
+      "size_bytes": 27916,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "6a28a00b3c72513fcbfa54c21c39ba6aa198bc53be98e718c90d2e8d1a220543",
+      "structural_family_sha256": "761cdf8b5f552f72b32596824f3ebb332263c4ed4b8cfda3b3edd842a5004b7e",
+      "archetype_sha256": "52d015aab8dabf2cf974eab8d0489b6187e0eceb09af7902ab284f36a9a7daef",
+      "entry_indicator_archetype_sha256": "bcec969077c5aadc2bcad179b641ae4999194051a4d06f63d5050f585a3a9fad",
+      "fingerprint_exact": "1966571905",
+      "trades_hash": "-22597632",
+      "trades": 66,
+      "profit": 59.2599983215332,
+      "drawdown": 26.020000457763672,
+      "profit_drawdown_ratio": 2.27747876,
+      "fitness": 0.5383177552600961,
+      "complexity": 3,
+      "signal_ops": [
+        "Boolean",
+        "Close",
+        "CrossesAbove"
+      ],
+      "indicators": [
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        },
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "CrossesAbove",
+          "children": [
+            {
+              "op": "Close"
+            },
+            {
+              "op": "Close"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.245",
+      "file": "Strategy 0.245.sqx",
+      "sqx_sha256": "983fd9d89d4aa8ede27cef37a551b03f8ad84e87f3a8c29370b451b6bdaa9d50",
+      "size_bytes": 31347,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "a54a1605046e9c93c3d856175e196661e307cf0899165cea5e413a94c7c7939e",
+      "structural_family_sha256": "0b308ff6cba4ac43c6f2d1ee40f43a3ad64fbfe11bcb6a650f2a93ac8733a0a9",
+      "archetype_sha256": "22b676d658bb35c8b8dfb190f221010268f9aa11daa0558c4d8ea6fbcf7e0916",
+      "entry_indicator_archetype_sha256": "bcec969077c5aadc2bcad179b641ae4999194051a4d06f63d5050f585a3a9fad",
+      "fingerprint_exact": "1730665786",
+      "trades_hash": "-1948430336",
+      "trades": 105,
+      "profit": 76.25,
+      "drawdown": 22.450000762939453,
+      "profit_drawdown_ratio": 3.39643641,
+      "fitness": 0.6666666707874815,
+      "complexity": 3,
+      "signal_ops": [
+        "Boolean",
+        "Close",
+        "IsRising"
+      ],
+      "indicators": [
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsRising",
+          "children": [
+            {
+              "op": "Close"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.246",
+      "file": "Strategy 0.246.sqx",
+      "sqx_sha256": "67176a2300d5c783513aaa2ea83ec370c7d566112a81d01ae1f93bd3695c1b95",
+      "size_bytes": 30800,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "7aacfa1260d0bed3cbd66c73c05dee8520456a80bbef3d64a20c4fa67b4359cd",
+      "structural_family_sha256": "50f133339e79976a01233a7b8714581b7b99f8b6ffe7f474015d33e6b75c85e5",
+      "archetype_sha256": "484685130b80d4dca9883a853b276013f4002571bf0f2422869460a93e60ab3d",
+      "entry_indicator_archetype_sha256": "190d2c89fc0a6f364af419fe527694d5f430d40642000307ae619af6dd805c74",
+      "fingerprint_exact": "-1013870700",
+      "trades_hash": "470769664",
+      "trades": 98,
+      "profit": 53.59000015258789,
+      "drawdown": 31.040000915527344,
+      "profit_drawdown_ratio": 1.72648191,
+      "fitness": 0.530965149084479,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "IsRising",
+        "RSI"
+      ],
+      "indicators": [
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            20
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsRising",
+          "children": [
+            {
+              "op": "RSI"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.25",
+      "file": "Strategy 0.25.sqx",
+      "sqx_sha256": "9e2255f1f242356de735de06b5a24f973d504379389d9ecd57fe09c8e06d01f4",
+      "size_bytes": 27903,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "090243826366d14063b743c64f37bf41540df67ff5f0976e0dc50ae2b2e658ad",
+      "structural_family_sha256": "4fac857d03786ad69f6f2f21bfc8f8bd752c3a48a3950d5298de6f55f2601205",
+      "archetype_sha256": "fea98da402333b6f07d31f00239cb622208dc2ac6c7342fa1556d6ccac7e82aa",
+      "entry_indicator_archetype_sha256": "0078adbbdea868f943d805306696a2733d0f190dec42ac86534d1964c6d1e788",
+      "fingerprint_exact": "-1322512579",
+      "trades_hash": "1978333184",
+      "trades": 76,
+      "profit": 90.37000274658203,
+      "drawdown": 15.270000457763672,
+      "profit_drawdown_ratio": 5.91814015,
+      "fitness": 0.6997474761948684,
+      "complexity": 4,
+      "signal_ops": [
+        "ADX",
+        "Boolean",
+        "IsRising"
+      ],
+      "indicators": [
+        {
+          "op": "ADX",
+          "category": "indicator",
+          "periods": [
+            30
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ADX",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsRising",
+          "children": [
+            {
+              "op": "ADX"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.257",
+      "file": "Strategy 0.257.sqx",
+      "sqx_sha256": "2197ab88b3aef1a99afc2d9d90b179d16453c80a8818e7ba20e8cf7622b055f1",
+      "size_bytes": 28233,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "e0e2279e5882d321397f4a06bb80c951cf4d5c6f08797964e6f3a93029e13032",
+      "structural_family_sha256": "fd5cdce9d0f349d1fb5e1325c226d03d6e4b6568116c769f6167cbe8095f7b24",
+      "archetype_sha256": "98b322ba97c9eded28682cd71bb1c019f745b653a542af4f0005bbada8231140",
+      "entry_indicator_archetype_sha256": "bcec969077c5aadc2bcad179b641ae4999194051a4d06f63d5050f585a3a9fad",
+      "fingerprint_exact": "-462177221",
+      "trades_hash": "-1873332224",
+      "trades": 69,
+      "profit": 67.18000030517578,
+      "drawdown": 30.360000610351562,
+      "profit_drawdown_ratio": 2.21277994,
+      "fitness": 0.533966748253768,
+      "complexity": 3,
+      "signal_ops": [
+        "Boolean",
+        "Close",
+        "IsFalling"
+      ],
+      "indicators": [
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsFalling",
+          "children": [
+            {
+              "op": "Close"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.274",
+      "file": "Strategy 0.274.sqx",
+      "sqx_sha256": "ec6524cb56a488b9d63d7d5950af9b5091e75f08ea6a59238b61d609b942cfb3",
+      "size_bytes": 29079,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "a4c661e52fb0db475961d25cc95e836591025a3281fe0d2e873c2e1200be361e",
+      "structural_family_sha256": "e0ddb303cb7c3db2d380c00963104e0b7393b7203ffaa2039a5fb9a53dfc225d",
+      "archetype_sha256": "d842a21138716aa05223b9c8a6162fb4321825ca509ed34cbc003ab1f7658a3d",
+      "entry_indicator_archetype_sha256": "2b283c08056d30b4f22b8ab958a1a8521e4387a319b7471a41440bb7da025f78",
+      "fingerprint_exact": "1806377991",
+      "trades_hash": "184950784",
+      "trades": 80,
+      "profit": 78.0,
+      "drawdown": 26.290000915527344,
+      "profit_drawdown_ratio": 2.96690747,
+      "fitness": 0.6105633816600274,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "IsFalling",
+        "ROC"
+      ],
+      "indicators": [
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            184
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsFalling",
+          "children": [
+            {
+              "op": "ROC"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.284",
+      "file": "Strategy 0.284.sqx",
+      "sqx_sha256": "ad9efe1d2ac872effacf803dea4230de6a90ba36b1ab4cefeb62bc4fad7642f2",
+      "size_bytes": 31111,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "7634289baaf3a18e02b9289380c13341ed233a84b7531ff25873dd268725bd5a",
+      "structural_family_sha256": "4e117aea59cc85df23338abe0002ff9f6540068c0e6e71cc479e74f32c033a4f",
+      "archetype_sha256": "d331d0ee2a982542470e62d263fb8e442fe42cdda599cdfc9647136b00150a70",
+      "entry_indicator_archetype_sha256": "30e69afd5077d2a89cd6d66744c0d4c8a48fb008d19963c37f99d26f48468bb6",
+      "fingerprint_exact": "1634374586",
+      "trades_hash": "-911630336",
+      "trades": 104,
+      "profit": 51.90999984741211,
+      "drawdown": 20.15999984741211,
+      "profit_drawdown_ratio": 2.57490081,
+      "fitness": 0.6242888362350754,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "Close",
+        "IsLower",
+        "SMA"
+      ],
+      "indicators": [
+        {
+          "op": "SMA",
+          "category": "indicator",
+          "periods": [
+            30
+          ]
+        },
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ],
+        [
+          "SMA",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsLower",
+          "children": [
+            {
+              "op": "SMA"
+            },
+            {
+              "op": "Close"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.30",
+      "file": "Strategy 0.30.sqx",
+      "sqx_sha256": "dde2296f4904036d099595b2131d9518c546cfc6e255960c9b613a76cc181c59",
+      "size_bytes": 32820,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "d0bc48f28c7b654b713b91bef92695b1420f9af6ffa6e0b9a64c2abf659a70f2",
+      "structural_family_sha256": "80bd1841a3b8f2b7d80f7448ae20b1e3d3c6e584f9f9bf2cf3076c8e2b700388",
+      "archetype_sha256": "db5e79bf0344f367dd621100589d30924f184c31ff40a05b7866dab80e9d9674",
+      "entry_indicator_archetype_sha256": "190d2c89fc0a6f364af419fe527694d5f430d40642000307ae619af6dd805c74",
+      "fingerprint_exact": "922159749",
+      "trades_hash": "-911630336",
+      "trades": 118,
+      "profit": 111.48999786376953,
+      "drawdown": 22.899999618530273,
+      "profit_drawdown_ratio": 4.86855894,
+      "fitness": 0.7165938834076908,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "IsGreater",
+        "Number",
+        "RSI"
+      ],
+      "indicators": [
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            30
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsGreater",
+          "children": [
+            {
+              "op": "RSI"
+            },
+            {
+              "op": "Number"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.304",
+      "file": "Strategy 0.304.sqx",
+      "sqx_sha256": "7c42a497d48b19ccaf1802c10fa3e3f566ea30610d461f6540520e4693ef1892",
+      "size_bytes": 27195,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "266abb33cb16c02fc3160e2a3de7d212e08162b021b80471473036715733fe42",
+      "structural_family_sha256": "6e110a1b5205261f22e2476df54b1a3154bdf6770dde86957a613b64b485e764",
+      "archetype_sha256": "d35b5453bb88b195270c1df090b85395b78326cf020c4b605333c12d9157f974",
+      "entry_indicator_archetype_sha256": "ca12ab416ee0f117500f69303817b5d54a06ea64ed796e6e05d78ee3fea36a4a",
+      "fingerprint_exact": "-1092644064",
+      "trades_hash": "1362231296",
+      "trades": 71,
+      "profit": 79.30000305175781,
+      "drawdown": 17.299999237060547,
+      "profit_drawdown_ratio": 4.58381541,
+      "fitness": 0.6691489340732764,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "IsFalling",
+        "SMA"
+      ],
+      "indicators": [
+        {
+          "op": "SMA",
+          "category": "indicator",
+          "periods": [
+            14
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "SMA",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsFalling",
+          "children": [
+            {
+              "op": "SMA"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.31",
+      "file": "Strategy 0.31.sqx",
+      "sqx_sha256": "b449a830f2bd324df9e461737c59ce77afede6a79bd6aca679e81e32225f0f9b",
+      "size_bytes": 27780,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "a75f940f0b66806d70337da33866f7e06ff8619f955683842f897ced75c94767",
+      "structural_family_sha256": "26248b7ef9bb58c257387949188359e25ab21384e53c45334ad0201530d395a4",
+      "archetype_sha256": "3a512e3b3be154c1f8026b42063177d74288a3639d050e35996f0a8ea87c1f85",
+      "entry_indicator_archetype_sha256": "190d2c89fc0a6f364af419fe527694d5f430d40642000307ae619af6dd805c74",
+      "fingerprint_exact": "1783384683",
+      "trades_hash": "-315703296",
+      "trades": 75,
+      "profit": 58.689998626708984,
+      "drawdown": 16.420000076293945,
+      "profit_drawdown_ratio": 3.57429953,
+      "fitness": 0.6363554732024577,
+      "complexity": 5,
+      "signal_ops": [
+        "Boolean",
+        "CrossesBelow",
+        "RSI"
+      ],
+      "indicators": [
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            20
+          ]
+        },
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            14
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "CrossesBelow",
+          "children": [
+            {
+              "op": "RSI"
+            },
+            {
+              "op": "RSI"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.310",
+      "file": "Strategy 0.310.sqx",
+      "sqx_sha256": "432266d1614b6040bc0f1941b26066c3e6145503d239ba640283e1622717880a",
+      "size_bytes": 28613,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "9a199f8da6053518900ef97e031c0765a84c6f2e121c21172313eed495a9e1fe",
+      "structural_family_sha256": "7d84b530ab3870e5adb1590f724a795ff7141a52f70fa1be98240bd08a0eb20b",
+      "archetype_sha256": "502e5f0f296cec1ac45138df5e490dd28b655ed466124bffae7931d74af31a15",
+      "entry_indicator_archetype_sha256": "bcec969077c5aadc2bcad179b641ae4999194051a4d06f63d5050f585a3a9fad",
+      "fingerprint_exact": "1288829542",
+      "trades_hash": "-2096197632",
+      "trades": 72,
+      "profit": 41.5099983215332,
+      "drawdown": 37.189998626708984,
+      "profit_drawdown_ratio": 1.11616025,
+      "fitness": 0.4685897441726622,
+      "complexity": 3,
+      "signal_ops": [
+        "Boolean",
+        "Close",
+        "IsLower"
+      ],
+      "indicators": [
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        },
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsLower",
+          "children": [
+            {
+              "op": "Close"
+            },
+            {
+              "op": "Close"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.312",
+      "file": "Strategy 0.312.sqx",
+      "sqx_sha256": "3deb237d60fdb4f0648f5db78c6bfb2fc69586fc1d4644f9bd11587239022230",
+      "size_bytes": 32548,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "c0dfd030721b6c0e2d8fc283dc96060d7c1426e8b4e56bc43aab028137d3ffaf",
+      "structural_family_sha256": "958b689ca4b46095545898b14c9cfc471e128f1e3024c2bce8a3a19e8f18463e",
+      "archetype_sha256": "fcb2817f13395b1a6591799de19626ec68273e5a6f592b55af9d7a6428d30d38",
+      "entry_indicator_archetype_sha256": "190d2c89fc0a6f364af419fe527694d5f430d40642000307ae619af6dd805c74",
+      "fingerprint_exact": "923717324",
+      "trades_hash": "668602368",
+      "trades": 119,
+      "profit": 65.88999938964844,
+      "drawdown": 22.579999923706055,
+      "profit_drawdown_ratio": 2.91806907,
+      "fitness": 0.6439024429956692,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "IsFalling",
+        "RSI"
+      ],
+      "indicators": [
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            30
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsFalling",
+          "children": [
+            {
+              "op": "RSI"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.313",
+      "file": "Strategy 0.313.sqx",
+      "sqx_sha256": "a2686afc15d5cfa224a98dc9296439a020d11ca5a74d664ef2ac44e643797260",
+      "size_bytes": 29220,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "4130b267b20d090a18ba4dd7f1c616c6e944e00e3cd68f4a6497fc779c71d172",
+      "structural_family_sha256": "4e117aea59cc85df23338abe0002ff9f6540068c0e6e71cc479e74f32c033a4f",
+      "archetype_sha256": "d331d0ee2a982542470e62d263fb8e442fe42cdda599cdfc9647136b00150a70",
+      "entry_indicator_archetype_sha256": "30e69afd5077d2a89cd6d66744c0d4c8a48fb008d19963c37f99d26f48468bb6",
+      "fingerprint_exact": "-1267191661",
+      "trades_hash": "-911630336",
+      "trades": 88,
+      "profit": 35.90999984741211,
+      "drawdown": 20.829999923706055,
+      "profit_drawdown_ratio": 1.72395583,
+      "fitness": 0.5301075293419885,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "Close",
+        "IsLower",
+        "SMA"
+      ],
+      "indicators": [
+        {
+          "op": "SMA",
+          "category": "indicator",
+          "periods": [
+            30
+          ]
+        },
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ],
+        [
+          "SMA",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsLower",
+          "children": [
+            {
+              "op": "SMA"
+            },
+            {
+              "op": "Close"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.314",
+      "file": "Strategy 0.314.sqx",
+      "sqx_sha256": "eac9def11239ea7e24537cb519678bce8a6b3b94177f4d6ca0e52b4121fc0d02",
+      "size_bytes": 27355,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "5dcc94381579df8ce542e9132eb200c202e0f360bf4f5fdba2ae77ea1fbcb768",
+      "structural_family_sha256": "958b689ca4b46095545898b14c9cfc471e128f1e3024c2bce8a3a19e8f18463e",
+      "archetype_sha256": "fcb2817f13395b1a6591799de19626ec68273e5a6f592b55af9d7a6428d30d38",
+      "entry_indicator_archetype_sha256": "190d2c89fc0a6f364af419fe527694d5f430d40642000307ae619af6dd805c74",
+      "fingerprint_exact": "-269431956",
+      "trades_hash": "1189431296",
+      "trades": 66,
+      "profit": 43.650001525878906,
+      "drawdown": 22.399999618530273,
+      "profit_drawdown_ratio": 1.94866082,
+      "fitness": 0.5164556996254294,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "IsFalling",
+        "RSI"
+      ],
+      "indicators": [
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            14
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsFalling",
+          "children": [
+            {
+              "op": "RSI"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.315",
+      "file": "Strategy 0.315.sqx",
+      "sqx_sha256": "ff82b2a231754fb5ac67560360ab35cf47afe01e5637c2df7cc1abe214f9b890",
+      "size_bytes": 29187,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "b8715bd60c2d3811abb69cae1a7e78748d73b7e84f5486c3c39a5936c5ea1237",
+      "structural_family_sha256": "618b4678dd5bc2e39ab01252f7f37636401176f4ff0fdb3880db96e05c1b64ff",
+      "archetype_sha256": "01f2f4957b7d724257eaf2b4db552d9270f7ec8a9f84cb57750e98fb9aeade9d",
+      "entry_indicator_archetype_sha256": "0078adbbdea868f943d805306696a2733d0f190dec42ac86534d1964c6d1e788",
+      "fingerprint_exact": "-1347732477",
+      "trades_hash": "1730435072",
+      "trades": 77,
+      "profit": 66.8499984741211,
+      "drawdown": 20.940000534057617,
+      "profit_drawdown_ratio": 3.19245448,
+      "fitness": 0.6207129119691546,
+      "complexity": 4,
+      "signal_ops": [
+        "ADX",
+        "Boolean",
+        "IsFalling"
+      ],
+      "indicators": [
+        {
+          "op": "ADX",
+          "category": "indicator",
+          "periods": [
+            20
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ADX",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsFalling",
+          "children": [
+            {
+              "op": "ADX"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.321",
+      "file": "Strategy 0.321.sqx",
+      "sqx_sha256": "1eff97a165c6e67947c8ab32cc75ea76bfbdb9003da0c88b8fcc8999b9beaae1",
+      "size_bytes": 30089,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "d54031ac04d145f7fa6cf4389a0c22b477eea2fae70b34453b797917f35729a0",
+      "structural_family_sha256": "0b308ff6cba4ac43c6f2d1ee40f43a3ad64fbfe11bcb6a650f2a93ac8733a0a9",
+      "archetype_sha256": "22b676d658bb35c8b8dfb190f221010268f9aa11daa0558c4d8ea6fbcf7e0916",
+      "entry_indicator_archetype_sha256": "bcec969077c5aadc2bcad179b641ae4999194051a4d06f63d5050f585a3a9fad",
+      "fingerprint_exact": "1948377345",
+      "trades_hash": "-1750597632",
+      "trades": 89,
+      "profit": 44.0,
+      "drawdown": 41.349998474121094,
+      "profit_drawdown_ratio": 1.0640871,
+      "fitness": 0.4611111038390846,
+      "complexity": 3,
+      "signal_ops": [
+        "Boolean",
+        "Close",
+        "IsRising"
+      ],
+      "indicators": [
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsRising",
+          "children": [
+            {
+              "op": "Close"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.324",
+      "file": "Strategy 0.324.sqx",
+      "sqx_sha256": "9e35eda011a6519adc8e78c905c2cd07a9ec379951ac9b0ace9228da915db471",
+      "size_bytes": 29047,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "b4ac15e2d6eabf8195e3a8f46b6cb726f7e3ac483db49a17220946168039efa4",
+      "structural_family_sha256": "29382d8073e4b0f1bc75b55425d75f8dd37f65db14e2e8570bbd78564dcf0211",
+      "archetype_sha256": "4769fd531194dfc3f8bb9ea8600d4a70888ed8c264c43dbe2afcf0b9d8c4b7bf",
+      "entry_indicator_archetype_sha256": "6bd157215e254b19f30e9f0011935bc80370c78d3f0dc9dc94709f2efbf6c2a4",
+      "fingerprint_exact": "-1152304836",
+      "trades_hash": "-911630336",
+      "trades": 83,
+      "profit": 41.22999954223633,
+      "drawdown": 27.639999389648438,
+      "profit_drawdown_ratio": 1.49167874,
+      "fitness": 0.5090257888973592,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "Close",
+        "EMA",
+        "IsGreater"
+      ],
+      "indicators": [
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        },
+        {
+          "op": "EMA",
+          "category": "indicator",
+          "periods": [
+            40
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ],
+        [
+          "EMA",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsGreater",
+          "children": [
+            {
+              "op": "Close"
+            },
+            {
+              "op": "EMA"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.331",
+      "file": "Strategy 0.331.sqx",
+      "sqx_sha256": "ac7d0de7d75199b7e3e6a7ea0d6bf58c18cf8fba429a9924cfd5e8f250f17792",
+      "size_bytes": 27245,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "5f0651d804148c702c44fdefa8802d5f134b52189939fc917eb31e06db5c7b87",
+      "structural_family_sha256": "72f94e5acf446b11038b5658f5d8b15c6bdb07cad5fc2e6b44de31c6900f0060",
+      "archetype_sha256": "248053c9f4dcbe6f5d57084922dfc311a7cf9bb358dd4c5d7eab8b2c5f9f69b1",
+      "entry_indicator_archetype_sha256": "5a529bba624d94de9501196d702afce588e04337cfc5a490c991dafa60941007",
+      "fingerprint_exact": "324908506",
+      "trades_hash": "-2096197632",
+      "trades": 57,
+      "profit": 50.209999084472656,
+      "drawdown": 36.88999938964844,
+      "profit_drawdown_ratio": 1.36107346,
+      "fitness": 0.4666666680858249,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "EMA",
+        "IsLower"
+      ],
+      "indicators": [
+        {
+          "op": "EMA",
+          "category": "indicator",
+          "periods": [
+            14
+          ]
+        },
+        {
+          "op": "EMA",
+          "category": "indicator",
+          "periods": [
+            14
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "EMA",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsLower",
+          "children": [
+            {
+              "op": "EMA"
+            },
+            {
+              "op": "EMA"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.335",
+      "file": "Strategy 0.335.sqx",
+      "sqx_sha256": "f8e4f89518b268c61128e9411dbe9942487c1a8171accfa03bde6dc6a5ca8d5b",
+      "size_bytes": 25588,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "2ebc7f89d090e84e31aa63088d7bd369e2d20b1ab78258eebae152a6acf76ff3",
+      "structural_family_sha256": "50f133339e79976a01233a7b8714581b7b99f8b6ffe7f474015d33e6b75c85e5",
+      "archetype_sha256": "484685130b80d4dca9883a853b276013f4002571bf0f2422869460a93e60ab3d",
+      "entry_indicator_archetype_sha256": "190d2c89fc0a6f364af419fe527694d5f430d40642000307ae619af6dd805c74",
+      "fingerprint_exact": "-1074318807",
+      "trades_hash": "-1427601408",
+      "trades": 47,
+      "profit": 78.66999816894531,
+      "drawdown": 31.75,
+      "profit_drawdown_ratio": 2.47779522,
+      "fitness": 0.4125000007982765,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "IsRising",
+        "RSI"
+      ],
+      "indicators": [
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            50
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsRising",
+          "children": [
+            {
+              "op": "RSI"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.336",
+      "file": "Strategy 0.336.sqx",
+      "sqx_sha256": "c81ae7b7f66e670150f9398b2b8cf24ab12956715b0172f76af9da395a752168",
+      "size_bytes": 29029,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "22a69586819e6cfedc8efa555eb354fa5913d43a18f935578f1623a959b914bd",
+      "structural_family_sha256": "33fe24c410142b04e3dbea2ac571bbf93800c2c9429c5e3f691fe136891a6f39",
+      "archetype_sha256": "675745fa5eb901f80e21216328907d1c5b70eef49882a115b66030d23b7d901c",
+      "entry_indicator_archetype_sha256": "ca12ab416ee0f117500f69303817b5d54a06ea64ed796e6e05d78ee3fea36a4a",
+      "fingerprint_exact": "-475511837",
+      "trades_hash": "-1923397632",
+      "trades": 87,
+      "profit": 30.06999969482422,
+      "drawdown": 25.739999771118164,
+      "profit_drawdown_ratio": 1.16822067,
+      "fitness": 0.47460567315136376,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "IsRising",
+        "SMA"
+      ],
+      "indicators": [
+        {
+          "op": "SMA",
+          "category": "indicator",
+          "periods": [
+            14
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "SMA",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsRising",
+          "children": [
+            {
+              "op": "SMA"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.343",
+      "file": "Strategy 0.343.sqx",
+      "sqx_sha256": "4811f323012c8506ebcb5fc3cde088cac1032d3b24abd82f3470058ac92cf424",
+      "size_bytes": 29511,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "16156488cce16fec3f900776e1f010ea0fbe11b9ade415bf081f687b486ae795",
+      "structural_family_sha256": "abde63a241ac5769fad3d693a147ba2a7de4eca1baac7d9b8d5573a61f20fcdd",
+      "archetype_sha256": "0a022503464f71ceb4c6eae22c7cb5f0315bf5bdc7899331225c94c15fb163de",
+      "entry_indicator_archetype_sha256": "190d2c89fc0a6f364af419fe527694d5f430d40642000307ae619af6dd805c74",
+      "fingerprint_exact": "-1457803088",
+      "trades_hash": "1014202368",
+      "trades": 87,
+      "profit": 46.459999084472656,
+      "drawdown": 22.899999618530273,
+      "profit_drawdown_ratio": 2.02882095,
+      "fitness": 0.554714638102188,
+      "complexity": 5,
+      "signal_ops": [
+        "Boolean",
+        "IsGreater",
+        "RSI"
+      ],
+      "indicators": [
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            50
+          ]
+        },
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            30
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsGreater",
+          "children": [
+            {
+              "op": "RSI"
+            },
+            {
+              "op": "RSI"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.346",
+      "file": "Strategy 0.346.sqx",
+      "sqx_sha256": "4d592f63893ea832fee1ad216fa33179d63b3cb79f46cab56936ad119eb7d653",
+      "size_bytes": 28664,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "ecf10f0511980475c15e6097e8fb48aaddd72460156af28fe2e77eca227524fe",
+      "structural_family_sha256": "09d473a3f0afe615481c34818c0bad912f0bed2e5963e1b8151d72a9833fff0d",
+      "archetype_sha256": "e024425606baf14811288687514eb4b865b550cc0d52469dc6cd44bfd21e3ed0",
+      "entry_indicator_archetype_sha256": "6bd157215e254b19f30e9f0011935bc80370c78d3f0dc9dc94709f2efbf6c2a4",
+      "fingerprint_exact": "-725513412",
+      "trades_hash": "-911630336",
+      "trades": 79,
+      "profit": 46.869998931884766,
+      "drawdown": 20.31999969482422,
+      "profit_drawdown_ratio": 2.30659447,
+      "fitness": 0.5738979081673576,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "Close",
+        "EMA",
+        "IsLower"
+      ],
+      "indicators": [
+        {
+          "op": "EMA",
+          "category": "indicator",
+          "periods": [
+            50
+          ]
+        },
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ],
+        [
+          "EMA",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsLower",
+          "children": [
+            {
+              "op": "EMA"
+            },
+            {
+              "op": "Close"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.349",
+      "file": "Strategy 0.349.sqx",
+      "sqx_sha256": "3fb05f57bc43e08fd67298cd9ff51f97f5599db01d92e07dfdd6ef4148281683",
+      "size_bytes": 27527,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "f9fa28b06cb06d3e8bf4a53219fc24dd9367089dc0e94c53b61cd6cba540c4c8",
+      "structural_family_sha256": "09d473a3f0afe615481c34818c0bad912f0bed2e5963e1b8151d72a9833fff0d",
+      "archetype_sha256": "e024425606baf14811288687514eb4b865b550cc0d52469dc6cd44bfd21e3ed0",
+      "entry_indicator_archetype_sha256": "6bd157215e254b19f30e9f0011935bc80370c78d3f0dc9dc94709f2efbf6c2a4",
+      "fingerprint_exact": "1409651575",
+      "trades_hash": "1507569664",
+      "trades": 68,
+      "profit": 42.75,
+      "drawdown": 16.940000534057617,
+      "profit_drawdown_ratio": 2.52361267,
+      "fitness": 0.5522123883349174,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "Close",
+        "EMA",
+        "IsLower"
+      ],
+      "indicators": [
+        {
+          "op": "EMA",
+          "category": "indicator",
+          "periods": [
+            50
+          ]
+        },
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ],
+        [
+          "EMA",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsLower",
+          "children": [
+            {
+              "op": "EMA"
+            },
+            {
+              "op": "Close"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.39",
+      "file": "Strategy 0.39.sqx",
+      "sqx_sha256": "26baae56dc34345cdf54658e2d1de75250868bed4d6cc2612eb5e51ecfe3df22",
+      "size_bytes": 29493,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "33eb8e65c3fe9ab6242b2feb22008e8681f8c269d59f503c0bf6e5a8d3213a7e",
+      "structural_family_sha256": "0b308ff6cba4ac43c6f2d1ee40f43a3ad64fbfe11bcb6a650f2a93ac8733a0a9",
+      "archetype_sha256": "22b676d658bb35c8b8dfb190f221010268f9aa11daa0558c4d8ea6fbcf7e0916",
+      "entry_indicator_archetype_sha256": "bcec969077c5aadc2bcad179b641ae4999194051a4d06f63d5050f585a3a9fad",
+      "fingerprint_exact": "-1123921848",
+      "trades_hash": "-393230336",
+      "trades": 81,
+      "profit": 36.849998474121094,
+      "drawdown": 47.27000045776367,
+      "profit_drawdown_ratio": 0.77956417,
+      "fitness": 0.4219424416378328,
+      "complexity": 3,
+      "signal_ops": [
+        "Boolean",
+        "Close",
+        "IsRising"
+      ],
+      "indicators": [
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsRising",
+          "children": [
+            {
+              "op": "Close"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.4",
+      "file": "Strategy 0.4.sqx",
+      "sqx_sha256": "66a8649cd2812392c53cd5eae170e1994b0b2299624af10b2a2ad7cb3c4c70e5",
+      "size_bytes": 26255,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "940c916189eb782ce419c735224a3ce2721dca2771d237bc02886f97a26c9b05",
+      "structural_family_sha256": "09d473a3f0afe615481c34818c0bad912f0bed2e5963e1b8151d72a9833fff0d",
+      "archetype_sha256": "e024425606baf14811288687514eb4b865b550cc0d52469dc6cd44bfd21e3ed0",
+      "entry_indicator_archetype_sha256": "6bd157215e254b19f30e9f0011935bc80370c78d3f0dc9dc94709f2efbf6c2a4",
+      "fingerprint_exact": "-525568144",
+      "trades_hash": "816369664",
+      "trades": 49,
+      "profit": 38.29999923706055,
+      "drawdown": 26.850000381469727,
+      "profit_drawdown_ratio": 1.42644315,
+      "fitness": 0.3551020370713092,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "Close",
+        "EMA",
+        "IsLower"
+      ],
+      "indicators": [
+        {
+          "op": "EMA",
+          "category": "indicator",
+          "periods": [
+            40
+          ]
+        },
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ],
+        [
+          "EMA",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsLower",
+          "children": [
+            {
+              "op": "EMA"
+            },
+            {
+              "op": "Close"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.44",
+      "file": "Strategy 0.44.sqx",
+      "sqx_sha256": "fcc3ac2083539229ef3f535c7429ce7cab466c822a18c217ed8ed6e5e76ede96",
+      "size_bytes": 29595,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "1706dbb3254d56e3ecc7acf167cdf0c591510c5d2da121a0db15b8c68c489c5f",
+      "structural_family_sha256": "e0ddb303cb7c3db2d380c00963104e0b7393b7203ffaa2039a5fb9a53dfc225d",
+      "archetype_sha256": "d842a21138716aa05223b9c8a6162fb4321825ca509ed34cbc003ab1f7658a3d",
+      "entry_indicator_archetype_sha256": "2b283c08056d30b4f22b8ab958a1a8521e4387a319b7471a41440bb7da025f78",
+      "fingerprint_exact": "488395497",
+      "trades_hash": "-1069856768",
+      "trades": 90,
+      "profit": 67.45999908447266,
+      "drawdown": 27.049999237060547,
+      "profit_drawdown_ratio": 2.49390022,
+      "fitness": 0.5849665929905469,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "IsFalling",
+        "ROC"
+      ],
+      "indicators": [
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            245
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsFalling",
+          "children": [
+            {
+              "op": "ROC"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.5",
+      "file": "Strategy 0.5.sqx",
+      "sqx_sha256": "040e3243877ea948b94ba82ba446fa997094b6bab72631ae247146b2403f2061",
+      "size_bytes": 25993,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "0a6c2d30344983a7d5a653d9843b015e84ef0375f5b7854ab2cdd1734d9afea1",
+      "structural_family_sha256": "50f133339e79976a01233a7b8714581b7b99f8b6ffe7f474015d33e6b75c85e5",
+      "archetype_sha256": "484685130b80d4dca9883a853b276013f4002571bf0f2422869460a93e60ab3d",
+      "entry_indicator_archetype_sha256": "190d2c89fc0a6f364af419fe527694d5f430d40642000307ae619af6dd805c74",
+      "fingerprint_exact": "-1287872142",
+      "trades_hash": "102565888",
+      "trades": 53,
+      "profit": 56.709999084472656,
+      "drawdown": 17.59000015258789,
+      "profit_drawdown_ratio": 3.22399082,
+      "fitness": 0.5854406142027957,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "IsRising",
+        "RSI"
+      ],
+      "indicators": [
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            53
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsRising",
+          "children": [
+            {
+              "op": "RSI"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.54",
+      "file": "Strategy 0.54.sqx",
+      "sqx_sha256": "e3fb665de973b1a71d5c2bc10a6b23a99b42fc373fa272d285a1076c1bbbe586",
+      "size_bytes": 27430,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "5ada03ec11ec9f093215b31b62729d8b4989850137459b512a44ef069e983834",
+      "structural_family_sha256": "33fe24c410142b04e3dbea2ac571bbf93800c2c9429c5e3f691fe136891a6f39",
+      "archetype_sha256": "675745fa5eb901f80e21216328907d1c5b70eef49882a115b66030d23b7d901c",
+      "entry_indicator_archetype_sha256": "ca12ab416ee0f117500f69303817b5d54a06ea64ed796e6e05d78ee3fea36a4a",
+      "fingerprint_exact": "1004389730",
+      "trades_hash": "-1329899520",
+      "trades": 66,
+      "profit": 25.3700008392334,
+      "drawdown": 25.3799991607666,
+      "profit_drawdown_ratio": 0.99960606,
+      "fitness": 0.42666666666666675,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "IsRising",
+        "SMA"
+      ],
+      "indicators": [
+        {
+          "op": "SMA",
+          "category": "indicator",
+          "periods": [
+            14
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "SMA",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsRising",
+          "children": [
+            {
+              "op": "SMA"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.55",
+      "file": "Strategy 0.55.sqx",
+      "sqx_sha256": "e4a6583848dc5bc07b431a8b17e18f310987ad4c06201276f67e59fac7b0da30",
+      "size_bytes": 29739,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "50ed6b506c3dddd301a8c8460fd83a3cc239de6f77e8b6276e9d1aa96df7d651",
+      "structural_family_sha256": "fd5cdce9d0f349d1fb5e1325c226d03d6e4b6568116c769f6167cbe8095f7b24",
+      "archetype_sha256": "98b322ba97c9eded28682cd71bb1c019f745b653a542af4f0005bbada8231140",
+      "entry_indicator_archetype_sha256": "bcec969077c5aadc2bcad179b641ae4999194051a4d06f63d5050f585a3a9fad",
+      "fingerprint_exact": "-278215479",
+      "trades_hash": "-2046132224",
+      "trades": 86,
+      "profit": 57.41999816894531,
+      "drawdown": 26.6299991607666,
+      "profit_drawdown_ratio": 2.15621479,
+      "fitness": 0.5639423135943576,
+      "complexity": 3,
+      "signal_ops": [
+        "Boolean",
+        "Close",
+        "IsFalling"
+      ],
+      "indicators": [
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsFalling",
+          "children": [
+            {
+              "op": "Close"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.6",
+      "file": "Strategy 0.6.sqx",
+      "sqx_sha256": "d9cd12e1717fd27e733864c1edf74714e8bd44e3e6401cf58a30753996613a68",
+      "size_bytes": 30227,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "4c2f86164a8c24f76868fa540f9a83ef2ba6fdbdf45a43ec9a19597cee697c5f",
+      "structural_family_sha256": "958b689ca4b46095545898b14c9cfc471e128f1e3024c2bce8a3a19e8f18463e",
+      "archetype_sha256": "fcb2817f13395b1a6591799de19626ec68273e5a6f592b55af9d7a6428d30d38",
+      "entry_indicator_archetype_sha256": "190d2c89fc0a6f364af419fe527694d5f430d40642000307ae619af6dd805c74",
+      "fingerprint_exact": "1642263972",
+      "trades_hash": "1039235072",
+      "trades": 91,
+      "profit": 57.47999954223633,
+      "drawdown": 24.270000457763672,
+      "profit_drawdown_ratio": 2.36835593,
+      "fitness": 0.5776887800541084,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "IsFalling",
+        "RSI"
+      ],
+      "indicators": [
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            20
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsFalling",
+          "children": [
+            {
+              "op": "RSI"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.64",
+      "file": "Strategy 0.64.sqx",
+      "sqx_sha256": "e963f9e8cf4ad53e6bd08f8ef17446e33e23654b21daa1adfe13b26cde361f43",
+      "size_bytes": 27102,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "c500092de5db99b72127f24c76cda98b322a4ad54f9ec14074d747e853e3bce5",
+      "structural_family_sha256": "6e110a1b5205261f22e2476df54b1a3154bdf6770dde86957a613b64b485e764",
+      "archetype_sha256": "d35b5453bb88b195270c1df090b85395b78326cf020c4b605333c12d9157f974",
+      "entry_indicator_archetype_sha256": "ca12ab416ee0f117500f69303817b5d54a06ea64ed796e6e05d78ee3fea36a4a",
+      "fingerprint_exact": "929392534",
+      "trades_hash": "-1279834112",
+      "trades": 66,
+      "profit": 76.1500015258789,
+      "drawdown": 22.280000686645508,
+      "profit_drawdown_ratio": 3.41786352,
+      "fitness": 0.5933579364881068,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "IsFalling",
+        "SMA"
+      ],
+      "indicators": [
+        {
+          "op": "SMA",
+          "category": "indicator",
+          "periods": [
+            14
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "SMA",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsFalling",
+          "children": [
+            {
+              "op": "SMA"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.70",
+      "file": "Strategy 0.70.sqx",
+      "sqx_sha256": "a4b157d35cd985b80fd17467179e92b03e11fb0edacfeb92e6200043462b194c",
+      "size_bytes": 32219,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "0e7cdbe1b3d80227621e0df3c106def8f52348455bd98e924fc85ce0dd6c9852",
+      "structural_family_sha256": "25a37a7c81a0e03a990b19ef9f7ba2c8b55fd093f370445f904e3d51bb68366d",
+      "archetype_sha256": "28058d586b4fabfeecf7f5483a2d83c0cb136825a78a9fb0afaea3af527feb5b",
+      "entry_indicator_archetype_sha256": "2b283c08056d30b4f22b8ab958a1a8521e4387a319b7471a41440bb7da025f78",
+      "fingerprint_exact": "172594742",
+      "trades_hash": "-1948430336",
+      "trades": 115,
+      "profit": 50.81999969482422,
+      "drawdown": 21.020000457763672,
+      "profit_drawdown_ratio": 2.41769736,
+      "fitness": 0.61493213161741,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "IsRising",
+        "ROC"
+      ],
+      "indicators": [
+        {
+          "op": "ROC",
+          "category": "indicator",
+          "periods": [
+            60
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsRising",
+          "children": [
+            {
+              "op": "ROC"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.71",
+      "file": "Strategy 0.71.sqx",
+      "sqx_sha256": "321bab8323318f603a0ccd98ccd77e131cc69e77c2763c7fefc8770c4b47f337",
+      "size_bytes": 27405,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "abb3fee83ad39f1dd9051a6c04f169734138816d71f7387de3fecf77f7db7802",
+      "structural_family_sha256": "958b689ca4b46095545898b14c9cfc471e128f1e3024c2bce8a3a19e8f18463e",
+      "archetype_sha256": "fcb2817f13395b1a6591799de19626ec68273e5a6f592b55af9d7a6428d30d38",
+      "entry_indicator_archetype_sha256": "190d2c89fc0a6f364af419fe527694d5f430d40642000307ae619af6dd805c74",
+      "fingerprint_exact": "924929315",
+      "trades_hash": "29896704",
+      "trades": 68,
+      "profit": 31.479999542236328,
+      "drawdown": 47.849998474121094,
+      "profit_drawdown_ratio": 0.65788925,
+      "fitness": 0.3789473725723852,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "IsFalling",
+        "RSI"
+      ],
+      "indicators": [
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            40
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsFalling",
+          "children": [
+            {
+              "op": "RSI"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.73",
+      "file": "Strategy 0.73.sqx",
+      "sqx_sha256": "010435c56fdaad94befaab6db31f8023b1f46c071160a3b798907c46d5a5a330",
+      "size_bytes": 30057,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "b5106e19e09a8163666adef7b3cf2271a72bd31c122bc08953b004bb458105ec",
+      "structural_family_sha256": "fd5cdce9d0f349d1fb5e1325c226d03d6e4b6568116c769f6167cbe8095f7b24",
+      "archetype_sha256": "98b322ba97c9eded28682cd71bb1c019f745b653a542af4f0005bbada8231140",
+      "entry_indicator_archetype_sha256": "bcec969077c5aadc2bcad179b641ae4999194051a4d06f63d5050f585a3a9fad",
+      "fingerprint_exact": "-2097970079",
+      "trades_hash": "866435072",
+      "trades": 90,
+      "profit": 67.19000244140625,
+      "drawdown": 32.81999969482422,
+      "profit_drawdown_ratio": 2.04722739,
+      "fitness": 0.5561728360467232,
+      "complexity": 3,
+      "signal_ops": [
+        "Boolean",
+        "Close",
+        "IsFalling"
+      ],
+      "indicators": [
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsFalling",
+          "children": [
+            {
+              "op": "Close"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.74",
+      "file": "Strategy 0.74.sqx",
+      "sqx_sha256": "b417a5a61a993d029775e42a9bb314c1039a47f5ea423ca671dc5adbebb6ab4a",
+      "size_bytes": 31797,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "454d3b93f3e0ae28f9273f8f74ce3a490e77a7fafbd33a628a2051b4af1fe7b5",
+      "structural_family_sha256": "c57c3323eaf85303de4523fc87084acde1d047de1ed11a072461b636988bfeb2",
+      "archetype_sha256": "df0d5845bfa0242126c7f78f899ad7d76ad6234dadde72e734d5db00a08047b3",
+      "entry_indicator_archetype_sha256": "bcec969077c5aadc2bcad179b641ae4999194051a4d06f63d5050f585a3a9fad",
+      "fingerprint_exact": "-461579705",
+      "trades_hash": "816369664",
+      "trades": 109,
+      "profit": 59.72999954223633,
+      "drawdown": 49.310001373291016,
+      "profit_drawdown_ratio": 1.21131612,
+      "fitness": 0.5074766401786848,
+      "complexity": 3,
+      "signal_ops": [
+        "Boolean",
+        "Close",
+        "IsGreater"
+      ],
+      "indicators": [
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        },
+        {
+          "op": "Close",
+          "category": "priceValue",
+          "periods": []
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsGreater",
+          "children": [
+            {
+              "op": "Close"
+            },
+            {
+              "op": "Close"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.79",
+      "file": "Strategy 0.79.sqx",
+      "sqx_sha256": "7278d2e9f21c0e216ca8b0f681321cafd18c3e7cde34c4153878c4fc9a57ccf2",
+      "size_bytes": 29717,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "9610028d754fa366f4ddbb94337fdb125f11b4be8713d29e5709ea877dfe90dc",
+      "structural_family_sha256": "50f133339e79976a01233a7b8714581b7b99f8b6ffe7f474015d33e6b75c85e5",
+      "archetype_sha256": "484685130b80d4dca9883a853b276013f4002571bf0f2422869460a93e60ab3d",
+      "entry_indicator_archetype_sha256": "190d2c89fc0a6f364af419fe527694d5f430d40642000307ae619af6dd805c74",
+      "fingerprint_exact": "-575336184",
+      "trades_hash": "200267776",
+      "trades": 91,
+      "profit": 83.79000091552734,
+      "drawdown": 23.760000228881836,
+      "profit_drawdown_ratio": 3.52651516,
+      "fitness": 0.6348101254689635,
+      "complexity": 4,
+      "signal_ops": [
+        "Boolean",
+        "IsRising",
+        "RSI"
+      ],
+      "indicators": [
+        {
+          "op": "RSI",
+          "category": "indicator",
+          "periods": [
+            30
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsRising",
+          "children": [
+            {
+              "op": "RSI"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.85",
+      "file": "Strategy 0.85.sqx",
+      "sqx_sha256": "308ddc529d3f07fc0abe7471e5415870db4aa71929f74005ddc6b545737d10ce",
+      "size_bytes": 27063,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "e1fc41b48697afb07a67a656adf4028751b85f674872a1d37713dd9aefba3634",
+      "structural_family_sha256": "6ba87a2bb3a7ebb5f8ae74df46f80896f4fb02050c7c08665faa443f93fc74a0",
+      "archetype_sha256": "9fd56d3992802c6f1959d13db1278fa3edb56b7ff034e232d59635caa3303244",
+      "entry_indicator_archetype_sha256": "5a529bba624d94de9501196d702afce588e04337cfc5a490c991dafa60941007",
+      "fingerprint_exact": "619139481",
+      "trades_hash": "816369664",
+      "trades": 63,
+      "profit": 29.200000762939453,
+      "drawdown": 16.729999542236328,
+      "profit_drawdown_ratio": 1.7453677,
+      "fitness": 0.5013333333333334,
+      "complexity": 5,
+      "signal_ops": [
+        "Boolean",
+        "EMA",
+        "IsGreater"
+      ],
+      "indicators": [
+        {
+          "op": "EMA",
+          "category": "indicator",
+          "periods": [
+            14
+          ]
+        },
+        {
+          "op": "EMA",
+          "category": "indicator",
+          "periods": [
+            157
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "EMA",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsGreater",
+          "children": [
+            {
+              "op": "EMA"
+            },
+            {
+              "op": "EMA"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    },
+    {
+      "strategy": "Strategy 0.88",
+      "file": "Strategy 0.88.sqx",
+      "sqx_sha256": "020aa4c2d1ae4bf5fef86e1e702d52d050f60c3166ab847e7afb3069daf99b2a",
+      "size_bytes": 28107,
+      "sqx_version": "1",
+      "strategy_xml_sha256": "a834976fbc4101220c1c91127b086cb2cfd2e4c68bc537c34b979e9c065a4ec7",
+      "structural_family_sha256": "4285d345c174628acf5fcf28892c1f10d3fb6b76ef0f8651a9eedb10a348e7d3",
+      "archetype_sha256": "896055a3809bfc590b3b274fa0bab9bf84004df4d1820c83957e07ac0741d1b5",
+      "entry_indicator_archetype_sha256": "0078adbbdea868f943d805306696a2733d0f190dec42ac86534d1964c6d1e788",
+      "fingerprint_exact": "745313316",
+      "trades_hash": "-47630336",
+      "trades": 78,
+      "profit": 41.959999084472656,
+      "drawdown": 25.280000686645508,
+      "profit_drawdown_ratio": 1.65981005,
+      "fitness": 0.5248633850129494,
+      "complexity": 5,
+      "signal_ops": [
+        "ADX",
+        "Boolean",
+        "IsGreater"
+      ],
+      "indicators": [
+        {
+          "op": "ADX",
+          "category": "indicator",
+          "periods": [
+            30
+          ]
+        },
+        {
+          "op": "ADX",
+          "category": "indicator",
+          "periods": [
+            20
+          ]
+        }
+      ],
+      "entry_indicator_types": [
+        [
+          "ADX",
+          "indicator"
+        ]
+      ],
+      "structural_signals": [
+        {
+          "op": "IsGreater",
+          "children": [
+            {
+              "op": "ADX"
+            },
+            {
+              "op": "ADX"
+            }
+          ]
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        },
+        {
+          "op": "Boolean"
+        }
+      ]
+    }
+  ]
+}

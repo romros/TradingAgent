@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_DETERMINISTIC_VALIDATION_SELECTION",
+  "selection_rule": "Best train profit/drawdown candidate from each entry-indicator archetype with train profit/drawdown >= 2; no validation or OOS performance consulted",
+  "candidate_ids": [
+    "Strategy 0.25",
+    "Strategy 0.167",
+    "Strategy 0.104",
+    "Strategy 0.30",
+    "Strategy 0.304",
+    "Strategy 0.245",
+    "Strategy 0.349",
+    "Strategy 0.17"
+  ],
+  "validation_period": ["2022-01-03", "2023-12-29"],
+  "validation_gate": {
+    "minimum_trades": 12,
+    "minimum_profit_factor_after_stress_costs": 1.10,
+    "minimum_net_return_after_stress_costs_pct": 0.0,
+    "maximum_drawdown_pct": 25.0
+  },
+  "oos_2024_accessed": false,
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

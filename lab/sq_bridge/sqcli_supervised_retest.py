@@ -157,20 +157,28 @@ def verify_retest_receipt(receipt_path: Path, *, candidate_id: str,
         expected_stage="pre_holdout")
 
 
+def _stage_databank(stage: str) -> str:
+    return {
+        "train": "Train", "validation": "Validation", "oos": "Oos",
+        "pre_holdout": "PreHoldout", "holdout": "Holdout",
+    }[stage]
+
+
 def verify_supervised_retest_receipt(
         receipt_path: Path, *, candidate_id: str, orders_path: Path,
         expected_stage: str) -> dict:
     """Rebuild either the sealed pre-holdout or sole final-holdout lineage."""
-    if expected_stage not in {"pre_holdout", "holdout"}:
+    if expected_stage not in {"train", "validation", "oos", "pre_holdout", "holdout"}:
         raise ValueError("SUPERVISED_RETEST_STAGE_INVALID")
     receipt_path, orders_path = receipt_path.resolve(), orders_path.resolve()
     result = json.loads(receipt_path.read_text())
     holdout = expected_stage == "holdout"
-    expected_output = "Holdout" if holdout else "PreHoldout"
+    expected_output = result.get("output_databank") or _stage_databank(expected_stage)
     if (result.get("decision") != "PASS_SUPERVISED_RETEST"
             or result.get("candidate_id") != candidate_id
             or result.get("retest_stage") not in (
-                {expected_stage} if holdout else {expected_stage, None})
+                {expected_stage, None} if expected_stage == "pre_holdout"
+                else {expected_stage})
             or result.get("holdout_accessed") is not holdout
             or result.get("holdout_evaluation_count") not in (
                 {1} if holdout else {0, None})
@@ -303,8 +311,12 @@ def supervised_retest(
     # Custom supervised workflows (for example native Monte Carlo) reuse the
     # sealed PreHoldout transport with their own project verifier. Only the
     # literal Holdout databank is allowed to mark the final sample as opened.
-    retest_stage = "holdout" if output_databank == "Holdout" else "pre_holdout"
-    if (output_databank not in {"PreHoldout", "Holdout"}
+    manifest_stage = manifest.get("stage")
+    retest_stage = ("holdout" if output_databank == "Holdout"
+                    else manifest_stage if manifest_stage in {
+                        "train", "validation", "oos", "pre_holdout"}
+                    else "pre_holdout")
+    if (output_databank not in {"Train", "Validation", "Oos", "PreHoldout", "Holdout"}
             or (output_databank == "Holdout") != (manifest.get("stage") == "holdout")):
         raise ValueError("invalid supervised Retest stage/output contract")
     holdout = retest_stage == "holdout"

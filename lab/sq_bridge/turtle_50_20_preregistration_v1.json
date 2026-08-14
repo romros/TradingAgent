@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "hypothesis": "Breakouts to a 50-session high followed by exits at a 20-session low capture persistent trends across non-crypto markets.",
+  "rule": {"id":"turtle_long_50_20","entry_signal":"close > maximum prior 50 closes","exit_signal":"close < minimum prior 20 closes","execution":"next session open","position":"long only; one position per asset"},
+  "assets": ["AAPL","DE","EURUSD","JNJ","JPM","KO","SPX","XAU"],
+  "periods": {"train":["2017-01-01","2021-12-31"],"validation":["2022-01-01","2023-12-31"],"oos_2024":["2024-01-01","2024-12-31"],"holdout_2025":["2025-01-01","2025-12-31"]},
+  "gates": {"validation_min_trades":25,"oos_min_trades":10,"validation_and_oos_mean_return_gt":0.0,"validation_and_oos_profit_factor_gte":1.1,"combined_one_sided_t_stat_gte":1.645,"minimum_assets_positive_combined":5,"combined_max_drawdown_lte":0.3},
+  "notes": ["One canonical breakout pair, no parameter search.","Gross edge before costs and portfolio sizing.","2025 is sealed."]
+}

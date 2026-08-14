@@ -11,7 +11,10 @@ from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
 
-from trade_cost_gate import _metrics_pnls, _nearest_rank, _number
+try:
+    from .trade_cost_gate import _metrics_pnls, _nearest_rank, _number
+except ImportError:  # direct script execution from this directory
+    from trade_cost_gate import _metrics_pnls, _nearest_rank, _number
 
 
 def evaluate(path: Path, runs: int = 10000, seed: int = 20260802) -> dict:

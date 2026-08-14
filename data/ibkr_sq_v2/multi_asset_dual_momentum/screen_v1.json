@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-multi-asset-dual-momentum-v1",
+  "preregistration_sha256": "67ad841de6d635722e26355bed150fb9b35b86174f65120fd8b2411f1a47ed61",
+  "source_sha256": {
+    "SPY": "a2aa4c620fcda15bc96fdc2589846d276f96379c0e427d662f4619ccd28e70a1",
+    "PHAU": "6ce12477d18eb70d86f7ae31466a9e28d28e7335d77906edbe9205cb2eb689fc",
+    "IDTL": "3bf1c6020b2d32233ba393e0880d9f220c54afa4def35a8eb7f5d2d5ce04cd4e"
+  },
+  "train": {
+    "strategy": {
+      "months": 47,
+      "net_return": 0.2742693149626758,
+      "annualized_sharpe": 0.5301668270767865,
+      "profit_factor": 1.4587460787229591,
+      "maximum_drawdown": 0.16176689577186332,
+      "calendar_year_returns": {
+        "2018": -0.09941705074022911,
+        "2019": -0.020618409932666393,
+        "2020": 0.13662451406934673,
+        "2021": 0.27106731300573217
+      },
+      "positive_calendar_years": 2,
+      "sharpe_improvement_vs_equal_weight": -0.7134003417922694,
+      "selection_counts": {
+        "SPY": 26,
+        "PHAU": 10,
+        "IDTL": 10,
+        "CASH": 1
+      }
+    },
+    "equal_weight_benchmark": {
+      "months": 47,
+      "net_return": 0.5071165286082908,
+      "annualized_sharpe": 1.243567168869056,
+      "profit_factor": 2.6377294230972828,
+      "maximum_drawdown": 0.06241075110248129,
+      "calendar_year_returns": {
+        "2018": -0.039134894509601614,
+        "2019": 0.22195592767215144,
+        "2020": 0.21131879783357732,
+        "2021": 0.05966944409233421
+      },
+      "positive_calendar_years": 3
+    }
+  },
+  "validation": {
+    "strategy": {
+      "months": 24,
+      "net_return": -0.2807983325084201,
+      "annualized_sharpe": -1.5856616487032065,
+      "profit_factor": 0.24710770059379922,
+      "maximum_drawdown": 0.3049025858362151,
+      "calendar_year_returns": {
+        "2022": -0.18987255348993803,
+        "2023": -0.11223638874374675
+      },
+      "positive_calendar_years": 0,
+      "sharpe_improvement_vs_equal_weight": -1.4685637098921138,
+      "selection_counts": {
+        "SPY": 8,
+        "PHAU": 8,
+        "IDTL": 0,
+        "CASH": 8
+      }
+    },
+    "equal_weight_benchmark": {
+      "months": 24,
+      "net_return": -0.050609766299501535,
+      "annualized_sharpe": -0.1170979388110926,
+      "profit_factor": 0.91853808622848,
+      "maximum_drawdown": 0.20682737012962205,
+      "calendar_year_returns": {
+        "2022": -0.16618094802385885,
+        "2023": 0.13860463064552841
+      },
+      "positive_calendar_years": 1
+    }
+  },
+  "validation_gate_passed": false,
+  "decision": "REJECT_VALIDATION",
+  "oos_2024_accessed": false,
+  "holdout_2025_accessed": false,
+  "optimized": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

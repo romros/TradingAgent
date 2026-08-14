@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_CANONICAL_SOURCE_ONLY",
+  "symbol": "CAT",
+  "timeframe": "D1",
+  "rows": 2174,
+  "first": "2017-05-11",
+  "last": "2025-12-31",
+  "source_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/preflight/CATUSUSD_NYSE_RTH_D1_2025.csv",
+  "source_sha256": "466a37a3e77a28cfcfc3712c5fe5ba98973c68d16f413ca5bf727644722c52f3",
+  "output_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/preflight/CATUSUSD_CANONICAL_D1_2017_2025.csv",
+  "output_sha256": "9aa5e9f60467bdcb71e59be2a583eb737d0911daab9f59a90bc0293a89bb359c",
+  "corporate_actions_source": "https://investors.caterpillar.com/stock-info/stock-split-history/default.aspx",
+  "splits_in_research_window": [],
+  "absolute_close_jumps_at_least_20pct": [],
+  "ohlc_envelope_repair": {
+    "rule": "high=max(source_high,open,close); low=min(source_low,open,close)",
+    "rows_repaired": 272,
+    "max_high_delta": 2.029,
+    "max_low_delta": 0.0
+  },
+  "volume_rules_allowed": false,
+  "performance_accessed": false,
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

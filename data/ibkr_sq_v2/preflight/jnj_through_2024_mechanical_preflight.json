@@ -1,0 +1,412 @@
+{
+  "schema_version": 1,
+  "stage": "US_EQUITY_DATA_PREFLIGHT",
+  "symbol": "JNJUSUSD",
+  "decision": "PASS_YEAR_PILOT_SOURCE_ONLY",
+  "performance_accessed": false,
+  "source_rows": 2872800,
+  "unique_timestamps": 2872800,
+  "duplicate_timestamps": 0,
+  "complete_months": 96,
+  "rth_timezone": "America/New_York",
+  "rth_window": "09:30:00<=local_time<16:00:00",
+  "expected_minutes_per_full_session": 390,
+  "sessions": 1995,
+  "bad_session_minutes": {},
+  "first_session": "2017-01-26",
+  "last_session": "2024-12-31",
+  "d1_csv": "data/ibkr_sq_v2/preflight/JNJUSUSD_NYSE_RTH_D1_through_2024.csv",
+  "d1_sha256": "b684ed7029fb4a3dfd0f3af0903453588016a1246285bff3a5400ebf792608fc",
+  "monthly_sources": [
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2017/month=01/data.csv.gz",
+      "sha256": "e37d5ca270a628b38ec72c271c0f8f9d3d9e3c0f2870f69d198c7d6944e43c71"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2017/month=02/data.csv.gz",
+      "sha256": "046ecda65eabe96e64c8d6f2f9759031da8ef7e067b683ff72660d870294736e"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2017/month=03/data.csv.gz",
+      "sha256": "f065575916157aaf13ad11f5547bdc56e906e69e395155896eab3175b189c72f"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2017/month=04/data.csv.gz",
+      "sha256": "925c6695b8a684db0653f447d7264d83527a999d357b3045f1dcb3174cfa860c"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2017/month=05/data.csv.gz",
+      "sha256": "1ec7e57855fa3ed99d510ec652096dd49d3ba4013578b32df058909f11f9e1b8"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2017/month=06/data.csv.gz",
+      "sha256": "1a375baad78a70f839ebcdd8c78649dcf0d65d59297f85687b882bfe1d33b0f4"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2017/month=07/data.csv.gz",
+      "sha256": "de11b58488059731c17d1b8a394e74b64162f276f7c5256e6b6b3dd5f7a2c591"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2017/month=08/data.csv.gz",
+      "sha256": "d04c6d8d8226fb5ba40da27f71dd450c667299ca3acde8defb234bfe95ac01d5"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2017/month=09/data.csv.gz",
+      "sha256": "05f75618c1182049bd3fc5d4eee953214783660f9e77f3deb0dd700a161fdf68"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2017/month=10/data.csv.gz",
+      "sha256": "ade8d57c02d58b5222419240a30c2b2841cb4bd76424a35224636452742d02bf"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2017/month=11/data.csv.gz",
+      "sha256": "62482583140be7e438eba63d0f5528ab38a0f91eae906ce4abd4d5f8e9c981fe"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2017/month=12/data.csv.gz",
+      "sha256": "4152dbedbf193c68169c84e728b9efbd55cdcb3dc5e59b2acf7bff07cf72ec82"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2018/month=01/data.csv.gz",
+      "sha256": "9d76e99c4526692f6a11a7c80b91dd94f193d53d093278c0da590cc782730336"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2018/month=02/data.csv.gz",
+      "sha256": "0b1f43a0fae069d3d95b07aa00ce16db87153cfd7905cdeaedaab366bc007c1b"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2018/month=03/data.csv.gz",
+      "sha256": "8fb3bae89616eda5522d8de5f17e583db4d19f1d7b2697bbc93d5142ef5ef46b"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2018/month=04/data.csv.gz",
+      "sha256": "71f4968b21a096318cfa9512c1c0ea8afcbbaf415c7b8f3f68d233f9788d931e"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2018/month=05/data.csv.gz",
+      "sha256": "81ca944dca2f1947da740dda1e38767734750792b8f26eaa8476ae0451bbe37d"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2018/month=06/data.csv.gz",
+      "sha256": "bb46e29133b75f1613ce68a38f14d66bae1d1ae755ea9492ae6d5d8f83474076"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2018/month=07/data.csv.gz",
+      "sha256": "adc851c2ab921024da0df12f5f4382ba958d49fadecd67a26f63514b72940a14"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2018/month=08/data.csv.gz",
+      "sha256": "fbd627dd2a6f915ce5a2531e5600ba907bc59621bd9f9d070afa9c4e15920de3"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2018/month=09/data.csv.gz",
+      "sha256": "ba9087fd8d0e3185432df07013d6c7ae433642cad3c4b0bc9eb42f398e77d342"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2018/month=10/data.csv.gz",
+      "sha256": "b99ef666c122021a0ffbd71f99b93b41b50553b6b97d5eb5bae07708f3216508"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2018/month=11/data.csv.gz",
+      "sha256": "8b17cbe149358f91adcd5d66f09c70d32f9dd3b64e99862d6e75d76d6c936e8e"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2018/month=12/data.csv.gz",
+      "sha256": "0ac0f2415e184d7c26fc6eb0e7ae31c4b3b5c0b504793a6e017caae62a8327a4"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2019/month=01/data.csv.gz",
+      "sha256": "c68827c0dd2a5b667ccef1b4428527994b674718cdffa2c72612b0fc01375a5d"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2019/month=02/data.csv.gz",
+      "sha256": "4f5c1874ce145352dd3924199eae31ff41ce866aa71fba411b9ed4b6d53ece95"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2019/month=03/data.csv.gz",
+      "sha256": "22187b9714746f3e9f5defa06aa8b77447dfb3219995a4091c121a9c4fb8a7ca"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2019/month=04/data.csv.gz",
+      "sha256": "7dcb31d1fd3eb9e1908ef74029743ab73dbdd99bd6d0327d4217e6187206af0f"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2019/month=05/data.csv.gz",
+      "sha256": "9a158db72ddb6864ad1452b72067ac125018bb859416afeed751801c22008837"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2019/month=06/data.csv.gz",
+      "sha256": "9a565fc8da194486e9f21e975c9b205df214a447df1f52d3aba3d285f97bdc4e"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2019/month=07/data.csv.gz",
+      "sha256": "f0c73103423e57f7fa4180c67242f19912f3cf35b413fb6f3d7c5d3a2800d5e7"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2019/month=08/data.csv.gz",
+      "sha256": "fb9e5d08e334d620238a0e698b9b0c3979d887549d1464b6d4dbe5a381d1b485"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2019/month=09/data.csv.gz",
+      "sha256": "e69bc9c15bf08d5bee76238b100b40e51ec98bc5ed61afccd9992816997d3f8b"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2019/month=10/data.csv.gz",
+      "sha256": "87174764ef1403109b7538a2a47f08ad8641071b8f093d7f83d5e294195a652a"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2019/month=11/data.csv.gz",
+      "sha256": "be7b2ed598c38b86704d4ef13f6b1785e402f93bcfefabac7a247ecc9cec7aad"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2019/month=12/data.csv.gz",
+      "sha256": "0c8facd3b44888288e1c0c13498c4506ea0c46ea4ae3253807dd4a246d7bb4cf"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2020/month=01/data.csv.gz",
+      "sha256": "1fe9c852c357d319e1ef8bc3b6c9c2cfadbb1968fc44e596f8f584bf4318d5b2"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2020/month=02/data.csv.gz",
+      "sha256": "d500135b66f613fc1075fdf0be43fad2e7bc36f64a0a9434b3c15194f7697f09"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2020/month=03/data.csv.gz",
+      "sha256": "b8ecd0e2dfa11d88a521f3f43ac88763155b7bc725390fe3211ff8e18c4aee84"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2020/month=04/data.csv.gz",
+      "sha256": "6d80c04ecb6581c0d1d7b9794c4f4069dd160f46212ff1d8287604e9d06e34f0"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2020/month=05/data.csv.gz",
+      "sha256": "4fd0d9d3172392b7caab7abb60987199b5bbfb1c77c9e6b12f472ca49204e38c"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2020/month=06/data.csv.gz",
+      "sha256": "1dc58d7bb704f750b52677af5a8f547fc5a14f3550e15bf68b507a6eff55e9ac"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2020/month=07/data.csv.gz",
+      "sha256": "add7cc02a17f7dc1b735dfc4f5e2bb238665262eff6ceb8bf9013fa9c70f75da"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2020/month=08/data.csv.gz",
+      "sha256": "459ced62c11ca98e01f33adb53cf071ea823c9a7babd0b0dca2b88b58279daae"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2020/month=09/data.csv.gz",
+      "sha256": "2ce788c0c90a9e2ece0dcf43c4118260fcad86f6bff9422bc8a02815fc2ddd8f"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2020/month=10/data.csv.gz",
+      "sha256": "5ee1c4f97c738d36cb842b3b5bdef9e24c151c8efae04582d963dee6c2104a7a"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2020/month=11/data.csv.gz",
+      "sha256": "4f78e657af5fa5b9e871b470ee1bc69dc09e53d92e07a5852b27cb702d43e5dd"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2020/month=12/data.csv.gz",
+      "sha256": "19794e2fccbafdbb6292f7e1e897f0e6f3cc3e392b62c5dcb872c062f2827c68"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2021/month=01/data.csv.gz",
+      "sha256": "57c9e63b977c5d498ef8f11976711d4dd1c33cf0b7bb03df75025cf8bf0ea061"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2021/month=02/data.csv.gz",
+      "sha256": "670765161dd8a927032a9601a445f581911ea1f66f81c86c4d120af7d4c4f309"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2021/month=03/data.csv.gz",
+      "sha256": "634e7fbeaa4ccce1c36135468f745780cd46ff8a4090771f4453a65769082a1a"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2021/month=04/data.csv.gz",
+      "sha256": "855700e1a2c3e6c78f87335b9e121f959c9a273ed18438e5fdb409738ae7ad8b"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2021/month=05/data.csv.gz",
+      "sha256": "fdaf7fcde6f13d9240ad3d1f766e10af46773f376ac694848acaeaf714f0c4a7"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2021/month=06/data.csv.gz",
+      "sha256": "73b2d18ba1ce9cf8df9883c003b9c00c9365e1ac5f22789166b1ff53b494ca64"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2021/month=07/data.csv.gz",
+      "sha256": "ebe0ffe4dcb4d4bf72b421367f89d9d561d65669c7783d4d14543c11d369d41f"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2021/month=08/data.csv.gz",
+      "sha256": "665c7ee5cf50bf168805743671d8d4a1349e45f756e038a89e893a981e1a1e9e"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2021/month=09/data.csv.gz",
+      "sha256": "166a1c0de80a650894a9115fa0db32e6b7eba5baddd07a9c4dd97d51ba13c58f"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2021/month=10/data.csv.gz",
+      "sha256": "4db98790b14cfa9dfec91012f2857ee0deba6869f3668d372db30cc5c08c0ff3"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2021/month=11/data.csv.gz",
+      "sha256": "dd16d9322c264071c91a5dfd2b65604ff3f4edb44776685e116ed6c8251147fb"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2021/month=12/data.csv.gz",
+      "sha256": "8bd1494c7fb12197124d9b982908747df4d7be15e0260e2f5d6498b91294b6fb"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2022/month=01/data.csv.gz",
+      "sha256": "95db21fd10b46b5c9c55797295570f1f16255b0880ec22e7d8aff03f979f1661"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2022/month=02/data.csv.gz",
+      "sha256": "966198ca2bd833cd249ab6a4d5988cbf314fb3279b6e9a2fe4bfb3233e20c21e"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2022/month=03/data.csv.gz",
+      "sha256": "567f02d54e6555c5e6d2ec5e71bc4d12e9810ef2337e7b40cba60ef586685367"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2022/month=04/data.csv.gz",
+      "sha256": "37a63cbc993b94185d32639b3d1eb0db465cd627c15c0f78219ff3763ed114df"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2022/month=05/data.csv.gz",
+      "sha256": "a2e009d41f308345ad44e9d2726d75f9525bc0d2014ec15bc346d8dfd2de6dc9"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2022/month=06/data.csv.gz",
+      "sha256": "f5343723e5825856d8d5dcdea2711638ad2fed27f0b604c89c28ed3ed4d952b3"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2022/month=07/data.csv.gz",
+      "sha256": "b8b0f53c0412e65ae591a61eb9fcb1fba62a4d0ebaa76d916926fc0fb279ef43"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2022/month=08/data.csv.gz",
+      "sha256": "3d913050141237d8405789367b8164f99b13aa2ef80e17b2c4e723390aa7d67f"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2022/month=09/data.csv.gz",
+      "sha256": "2bea2ee1e37c18f62fa53dffa5a606c80ccf381f9f763e767aeee3bb4b759261"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2022/month=10/data.csv.gz",
+      "sha256": "813a8ea8e0d33666bf34e4b9af91ad4f7fa523639e337efdbc5636d09afb7538"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2022/month=11/data.csv.gz",
+      "sha256": "cf979e575be1dd90205c7dfd753bbda01b74e828936c2e614a0605ed8f647c27"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2022/month=12/data.csv.gz",
+      "sha256": "7d9b41158ad43db5c029dd1a35d2a95a24efed4f50e8928448c56f4e0e4e2b5b"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2023/month=01/data.csv.gz",
+      "sha256": "af72071cd23ce8ef174afe20d7dfdb71ff8404b532240425559455438961b2ac"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2023/month=02/data.csv.gz",
+      "sha256": "155918a052fe4cb780915cae43643c953dd8c19a9d708cfbd4bbc6f2cb0379e8"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2023/month=03/data.csv.gz",
+      "sha256": "f628200e1889ae96a477ddd469fc2f6148a84428ef6804ddbe15a5bc1757b712"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2023/month=04/data.csv.gz",
+      "sha256": "01909f0cecedf73f713a06f76a333d2a3a33b5bcf66b4664edbea7b64667b6a2"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2023/month=05/data.csv.gz",
+      "sha256": "16feb124fca05e1681357535febc84652729cccf011522a4026afaee691767fd"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2023/month=06/data.csv.gz",
+      "sha256": "b88f69d9658faf4c64aa0d1f4c29f8cd22cdb26895c31c5ad610bc50d62e72cf"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2023/month=07/data.csv.gz",
+      "sha256": "6794e8258822887238c335092dfe8b0361fe2cf055990f6dabfcce8113319f0e"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2023/month=08/data.csv.gz",
+      "sha256": "b91ebed74e17c00e59ae1139b9363a8c6d566f57f0f7f181dbc0db15f8634401"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2023/month=09/data.csv.gz",
+      "sha256": "dd082e9a8ec85525bde0776bc3ebc7df5914a62c95f04fc00f45171bd02333cb"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2023/month=10/data.csv.gz",
+      "sha256": "28c2cdbfa778bebb00ab500de5f4007fcbc32dc65703821cee8fe47dc7e558a1"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2023/month=11/data.csv.gz",
+      "sha256": "52efec18082628c88eb51298f9631b1bcb7eb3a682d74e4700d2ab9a71b6a396"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2023/month=12/data.csv.gz",
+      "sha256": "0326ca42ab1250fcff57d5b7a432acb68c8a1c92b8876698c6e4ac5268de9610"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2024/month=01/data.csv.gz",
+      "sha256": "407ddb674bd947173f99eda7c33e429f989252dbc0d89d23727693c4c59210dd"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2024/month=02/data.csv.gz",
+      "sha256": "b5cb8af684af1cc17b1514fc7b00a9b3ee5cecd3ae6bea7dc54dd82f3d80895f"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2024/month=03/data.csv.gz",
+      "sha256": "af4d6fb56a16dfefcc8642fc3f6ffb4dd069982fb2bc12b31a5d920091545575"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2024/month=04/data.csv.gz",
+      "sha256": "a782016c306fefdf3333afb8d06810977c6e6fa163570965d0a3ad1f17b9dbdf"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2024/month=05/data.csv.gz",
+      "sha256": "f247ef7e25428aae6b890c95c707479d24a66acb13b1c78a85bc438ba9efea97"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2024/month=06/data.csv.gz",
+      "sha256": "eddea1b4727e8bc87b61887a6ae0b038271c58e51a0310d06e19e71b46762bad"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2024/month=07/data.csv.gz",
+      "sha256": "07cc1486c8a6d7175c2476ef4a5cccc6aaaf001767bf69b3ac65686ae6f748ab"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2024/month=08/data.csv.gz",
+      "sha256": "21c5a803579a59cf9a8385778655367a255e87f57cde36db039542608b06f5b7"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2024/month=09/data.csv.gz",
+      "sha256": "f6efafea66c55cc3a67487bdcc0075f3b7ffc35f2ed13318248769a35b635a2f"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2024/month=10/data.csv.gz",
+      "sha256": "54f984eb2a3a32e0cfd3e5c0d105373d845847b66afe1285a4421798ad38821b"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2024/month=11/data.csv.gz",
+      "sha256": "751884e8978f980ee4fccc5e4aa496437712127ce0d887a35925e6ad91c739b1"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/JNJUSUSD/tf=1m/year=2024/month=12/data.csv.gz",
+      "sha256": "1f205c23d561ef9d2b97812ae5dfdb50ec621e8d0fea1f3851a48d123d4d581c"
+    }
+  ],
+  "remaining_blocks": [
+    "download_and audit 2018-2025",
+    "prove split/dividend adjustment semantics",
+    "freeze train/validation/OOS before performance",
+    "import and round-trip D1 through SQ"
+  ]
+}

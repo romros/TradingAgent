@@ -1,0 +1,9 @@
+{
+  "schema_version":1,"status":"FROZEN_BEFORE_PERFORMANCE","campaign_id":"cross-asset-sma-trend-v1",
+  "assets":["AAPL","DE","EURUSD","JNJ","JPM","KO","SPX","XAUUSD"],
+  "periods":{"train":["2018-01-01","2021-12-31"],"validation":["2022-01-01","2023-12-31"],"oos":["2024-01-01","2024-12-31"],"holdout_2025":"SEALED"},
+  "variants":[{"id":"price_sma200","rule":"close>SMA200"},{"id":"sma50_sma200","rule":"SMA50>SMA200"}],
+  "execution":"monthly signal at last close, position changes next common-session open; equal independent long/cash sleeves",
+  "gates":{"minimum_validation_and_oos_sharpe":0.35,"positive_validation_and_oos_return":true,"maximum_drawdown":0.20,"minimum_positive_train_years":3,"must_improve_continuous_long_sharpe_or_drawdown":true,"density":"both neighboring canonical variants pass"},
+  "prohibitions":["No 2025","No tuning","No leverage/capital inference","No paper/live"]
+}

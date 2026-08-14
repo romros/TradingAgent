@@ -1,0 +1,336 @@
+{
+  "schema_version": 1,
+  "preregistration_sha256": "ce83c7c8ed4d48b9c31393dbc59ad6d22600c70401c14eab660d5f0c212d8963",
+  "optimized_on": "development_only",
+  "variants_tested": 20,
+  "holdout_2025_accessed": false,
+  "grid": [
+    {
+      "entry_from_month_end": -3,
+      "exit_session_next_month": 1,
+      "development_net": {
+        "trades": 31,
+        "wins": 16,
+        "mean_return": -0.006952555407000313,
+        "total_return": -0.20161992763415826,
+        "profit_factor": 0.4246474008024097,
+        "monthly_sharpe": -1.0089074214617029,
+        "max_drawdown": 0.20161992763415826
+      },
+      "positive_neighbors": 0
+    },
+    {
+      "entry_from_month_end": -3,
+      "exit_session_next_month": 2,
+      "development_net": {
+        "trades": 31,
+        "wins": 14,
+        "mean_return": -0.004741224492983007,
+        "total_return": -0.14343857679502825,
+        "profit_factor": 0.552023605813592,
+        "monthly_sharpe": -0.743315000536701,
+        "max_drawdown": 0.1543408413651951
+      },
+      "positive_neighbors": 0
+    },
+    {
+      "entry_from_month_end": -3,
+      "exit_session_next_month": 3,
+      "development_net": {
+        "trades": 31,
+        "wins": 18,
+        "mean_return": -0.00039370251423281974,
+        "total_return": -0.023991527000390755,
+        "profit_factor": 0.9608684150727337,
+        "monthly_sharpe": -0.04873960835732542,
+        "max_drawdown": 0.13383347788558342
+      },
+      "positive_neighbors": 1
+    },
+    {
+      "entry_from_month_end": -3,
+      "exit_session_next_month": 4,
+      "development_net": {
+        "trades": 31,
+        "wins": 19,
+        "mean_return": 0.003213531012529762,
+        "total_return": 0.09137121201688014,
+        "profit_factor": 1.370700015381913,
+        "monthly_sharpe": 0.3947811136916158,
+        "max_drawdown": 0.08938155310730966
+      },
+      "positive_neighbors": 2
+    },
+    {
+      "entry_from_month_end": -3,
+      "exit_session_next_month": 5,
+      "development_net": {
+        "trades": 31,
+        "wins": 20,
+        "mean_return": 0.007354582676346163,
+        "total_return": 0.23232990759633476,
+        "profit_factor": 1.8659460189499324,
+        "monthly_sharpe": 0.7308255662734398,
+        "max_drawdown": 0.10871868770548221
+      },
+      "positive_neighbors": 2
+    },
+    {
+      "entry_from_month_end": -2,
+      "exit_session_next_month": 1,
+      "development_net": {
+        "trades": 31,
+        "wins": 12,
+        "mean_return": -0.007392935451022517,
+        "total_return": -0.2090174276663408,
+        "profit_factor": 0.2867983994719226,
+        "monthly_sharpe": -1.5079290197473727,
+        "max_drawdown": 0.2090174276663408
+      },
+      "positive_neighbors": 0
+    },
+    {
+      "entry_from_month_end": -2,
+      "exit_session_next_month": 2,
+      "development_net": {
+        "trades": 31,
+        "wins": 13,
+        "mean_return": -0.005151723054980246,
+        "total_return": -0.15137823456842614,
+        "profit_factor": 0.4418231324000848,
+        "monthly_sharpe": -1.096981918471342,
+        "max_drawdown": 0.16901757395310213
+      },
+      "positive_neighbors": 0
+    },
+    {
+      "entry_from_month_end": -2,
+      "exit_session_next_month": 3,
+      "development_net": {
+        "trades": 31,
+        "wins": 18,
+        "mean_return": -0.0008616866548266319,
+        "total_return": -0.03303204725208786,
+        "profit_factor": 0.8934080041295475,
+        "monthly_sharpe": -0.14091411170038476,
+        "max_drawdown": 0.12185556574260681
+      },
+      "positive_neighbors": 2
+    },
+    {
+      "entry_from_month_end": -2,
+      "exit_session_next_month": 4,
+      "development_net": {
+        "trades": 31,
+        "wins": 20,
+        "mean_return": 0.0027194965072373702,
+        "total_return": 0.08126465597370292,
+        "profit_factor": 1.4150907152525385,
+        "monthly_sharpe": 0.47014471698824284,
+        "max_drawdown": 0.06253261224810447
+      },
+      "positive_neighbors": 3
+    },
+    {
+      "entry_from_month_end": -2,
+      "exit_session_next_month": 5,
+      "development_net": {
+        "trades": 31,
+        "wins": 21,
+        "mean_return": 0.006783323075424312,
+        "total_return": 0.22092800393058498,
+        "profit_factor": 2.0498965962399907,
+        "monthly_sharpe": 0.9146161148573451,
+        "max_drawdown": 0.07562377055468006
+      },
+      "positive_neighbors": 3
+    },
+    {
+      "entry_from_month_end": -1,
+      "exit_session_next_month": 1,
+      "development_net": {
+        "trades": 31,
+        "wins": 10,
+        "mean_return": -0.006372614669659398,
+        "total_return": -0.18203269179852455,
+        "profit_factor": 0.2364034531915509,
+        "monthly_sharpe": -1.6469188901495224,
+        "max_drawdown": 0.18203269179852455
+      },
+      "positive_neighbors": 0
+    },
+    {
+      "entry_from_month_end": -1,
+      "exit_session_next_month": 2,
+      "development_net": {
+        "trades": 31,
+        "wins": 12,
+        "mean_return": -0.004098952428056255,
+        "total_return": -0.12243032635135187,
+        "profit_factor": 0.5053604351673141,
+        "monthly_sharpe": -0.9657980848828546,
+        "max_drawdown": 0.142214082378036
+      },
+      "positive_neighbors": 1
+    },
+    {
+      "entry_from_month_end": -1,
+      "exit_session_next_month": 3,
+      "development_net": {
+        "trades": 31,
+        "wins": 14,
+        "mean_return": 0.0001972004826171673,
+        "total_return": -4.765168963527522e-05,
+        "profit_factor": 1.0268976013102435,
+        "monthly_sharpe": 0.033878895287129576,
+        "max_drawdown": 0.10659024710584697
+      },
+      "positive_neighbors": 2
+    },
+    {
+      "entry_from_month_end": -1,
+      "exit_session_next_month": 4,
+      "development_net": {
+        "trades": 31,
+        "wins": 15,
+        "mean_return": 0.003825531065196138,
+        "total_return": 0.11814218116452913,
+        "profit_factor": 1.61647948901835,
+        "monthly_sharpe": 0.6246175329555015,
+        "max_drawdown": 0.058608197636056514
+      },
+      "positive_neighbors": 4
+    },
+    {
+      "entry_from_month_end": -1,
+      "exit_session_next_month": 5,
+      "development_net": {
+        "trades": 31,
+        "wins": 20,
+        "mean_return": 0.007910396782396708,
+        "total_return": 0.2625665926680709,
+        "profit_factor": 2.2903049098464323,
+        "monthly_sharpe": 0.9993613068047826,
+        "max_drawdown": 0.06434712109568153
+      },
+      "positive_neighbors": 3
+    },
+    {
+      "entry_from_month_end": 0,
+      "exit_session_next_month": 1,
+      "development_net": {
+        "trades": 31,
+        "wins": 17,
+        "mean_return": -0.0033545909706638307,
+        "total_return": -0.1030794582978426,
+        "profit_factor": 0.5640182261796856,
+        "monthly_sharpe": -0.6706776231147091,
+        "max_drawdown": 0.12946348508337624
+      },
+      "positive_neighbors": 0
+    },
+    {
+      "entry_from_month_end": 0,
+      "exit_session_next_month": 2,
+      "development_net": {
+        "trades": 31,
+        "wins": 17,
+        "mean_return": -0.001048674695427292,
+        "total_return": -0.03772727542745591,
+        "profit_factor": 0.8694899322901622,
+        "monthly_sharpe": -0.18340572720780018,
+        "max_drawdown": 0.12382291018933489
+      },
+      "positive_neighbors": 1
+    },
+    {
+      "entry_from_month_end": 0,
+      "exit_session_next_month": 3,
+      "development_net": {
+        "trades": 31,
+        "wins": 19,
+        "mean_return": 0.0031587993577541456,
+        "total_return": 0.09647854584469218,
+        "profit_factor": 1.4834514190371095,
+        "monthly_sharpe": 0.5645061146103172,
+        "max_drawdown": 0.089276746357564
+      },
+      "positive_neighbors": 2
+    },
+    {
+      "entry_from_month_end": 0,
+      "exit_session_next_month": 4,
+      "development_net": {
+        "trades": 31,
+        "wins": 19,
+        "mean_return": 0.0067748507819783066,
+        "total_return": 0.22607896166702957,
+        "profit_factor": 2.5098314542610334,
+        "monthly_sharpe": 1.2171769429893338,
+        "max_drawdown": 0.03633731905216486
+      },
+      "positive_neighbors": 3
+    },
+    {
+      "entry_from_month_end": 0,
+      "exit_session_next_month": 5,
+      "development_net": {
+        "trades": 31,
+        "wins": 23,
+        "mean_return": 0.010742702001706904,
+        "total_return": 0.38446225470005224,
+        "profit_factor": 4.116270666944226,
+        "monthly_sharpe": 1.8527077695072691,
+        "max_drawdown": 0.037023985993483444
+      },
+      "positive_neighbors": 2
+    }
+  ],
+  "winner": {
+    "entry_from_month_end": 0,
+    "exit_session_next_month": 5,
+    "development_net": {
+      "trades": 31,
+      "wins": 23,
+      "mean_return": 0.010742702001706904,
+      "total_return": 0.38446225470005224,
+      "profit_factor": 4.116270666944226,
+      "monthly_sharpe": 1.8527077695072691,
+      "max_drawdown": 0.037023985993483444
+    },
+    "positive_neighbors": 2
+  },
+  "evaluation": {
+    "validation": {
+      "trades": 23,
+      "wins": 12,
+      "mean_return": 0.0016938509918958526,
+      "total_return": 0.0350329299594736,
+      "profit_factor": 1.2307525065528027,
+      "monthly_sharpe": 0.2896074346498663,
+      "max_drawdown": 0.05492652525052544
+    },
+    "oos_2024": {
+      "trades": 11,
+      "wins": 6,
+      "mean_return": -0.0014603993044163893,
+      "total_return": -0.018750819102193117,
+      "profit_factor": 0.8484454495583532,
+      "monthly_sharpe": -0.21326015925287162,
+      "max_drawdown": 0.08417595331647254
+    },
+    "combined": {
+      "trades": 35,
+      "wins": 18,
+      "mean_return": 0.00030509306872033784,
+      "total_return": 0.003218415244304662,
+      "profit_factor": 1.037200500594937,
+      "monthly_sharpe": 0.05049636943166136,
+      "max_drawdown": 0.08417595331647243
+    }
+  },
+  "decision": {
+    "pass": false,
+    "future_holdout_required": true
+  }
+}

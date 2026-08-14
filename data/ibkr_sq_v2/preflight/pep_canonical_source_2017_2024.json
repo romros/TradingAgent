@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_CANONICAL_SOURCE_ONLY",
+  "symbol": "PEP_IBKR_V2",
+  "timeframe": "D1",
+  "rows": 1800,
+  "first": "2017-11-02",
+  "last": "2024-12-31",
+  "source_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/preflight/PEPUSUSD_NYSE_RTH_D1_through_2024.csv",
+  "source_sha256": "15fe6115be16d68834ff3d561c3cc956b6782c45a56e8d26341605f228a8cea3",
+  "output_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/preflight/PEPUSUSD_CANONICAL_D1_2017_2024.csv",
+  "output_sha256": "f60b0378ec7883b5214a757953e4584f90504be2ab9266b05650fa112b69b1a2",
+  "corporate_actions_source": "https://www.sec.gov/Archives/edgar/data/77476/000007747625000007/pep-20241228.htm",
+  "splits_in_research_window": [],
+  "absolute_close_jumps_at_least_20pct": [],
+  "ohlc_envelope_repair": {
+    "rule": "high=max(source_high,open,close); low=min(source_low,open,close)",
+    "rows_repaired": 206,
+    "max_high_delta": 1.12,
+    "max_low_delta": 0.0
+  },
+  "volume_rules_allowed": false,
+  "performance_accessed": false,
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

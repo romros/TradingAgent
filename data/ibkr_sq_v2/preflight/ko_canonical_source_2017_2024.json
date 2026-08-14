@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_CANONICAL_SOURCE_ONLY",
+  "symbol": "KO_IBKR_V2",
+  "timeframe": "D1",
+  "rows": 1995,
+  "first": "2017-01-26",
+  "last": "2024-12-31",
+  "source_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/preflight/KOUSUSD_NYSE_RTH_D1_through_2024.csv",
+  "source_sha256": "92f4a42da3aeb2b511616b27d47159eab37e57c2b364863b3bc55286af74d821",
+  "output_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/preflight/KOUSUSD_CANONICAL_D1_2017_2024.csv",
+  "output_sha256": "d387bd9c1aaaf8099cf9377cc76feef76e4c26ce0d10ed10a9df63f672fc5fc3",
+  "corporate_actions_source": "https://investors.coca-colacompany.com/stock-info/splits",
+  "splits_in_research_window": [],
+  "absolute_close_jumps_at_least_20pct": [],
+  "ohlc_envelope_repair": {
+    "rule": "high=max(source_high,open,close); low=min(source_low,open,close)",
+    "rows_repaired": 217,
+    "max_high_delta": 0.32,
+    "max_low_delta": 0.0
+  },
+  "volume_rules_allowed": false,
+  "performance_accessed": false,
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

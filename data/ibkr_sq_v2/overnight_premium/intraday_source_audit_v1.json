@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "classification": "EXPLORATORY_SOURCE_AUDIT_NOT_CANDIDATE",
+  "period": "2022-01-01/2024-12-31",
+  "holdout_2025_accessed": false,
+  "assets": {
+    "AAPL": {
+      "dukas": {
+        "observations": 753,
+        "mean_bps": 20.78984719867733,
+        "t_stat": 4.016548189913924,
+        "positive_pct": 58.300132802124836
+      },
+      "yahoo_adjusted": {
+        "observations": 753,
+        "mean_bps": 11.623538207221058,
+        "t_stat": 2.2313819622311213,
+        "positive_pct": 55.112881806108895
+      },
+      "daily_return_correlation": 0.9981212963884388,
+      "difference_bps": {
+        "median": 7.774663902937462,
+        "mean": 9.166308991456273,
+        "max_abs": 54.134643962099325
+      }
+    },
+    "DE": {
+      "dukas": {
+        "observations": 753,
+        "mean_bps": 47.66734475600735,
+        "t_stat": 8.284908160573368,
+        "positive_pct": 66.66666666666667
+      },
+      "yahoo_adjusted": {
+        "observations": 753,
+        "mean_bps": 5.792743824228994,
+        "t_stat": 1.0401073864456978,
+        "positive_pct": 52.32403718459496
+      },
+      "daily_return_correlation": 0.9517969540002829,
+      "difference_bps": {
+        "median": 38.32095807434932,
+        "mean": 41.87460093177836,
+        "max_abs": 317.14337735056387
+      }
+    },
+    "JNJ": {
+      "dukas": {
+        "observations": 753,
+        "mean_bps": 18.581441933388593,
+        "t_stat": 5.504617441235405,
+        "positive_pct": 59.62815405046481
+      },
+      "yahoo_adjusted": {
+        "observations": 753,
+        "mean_bps": 0.8068477752559898,
+        "t_stat": 0.24351683708171576,
+        "positive_pct": 51.39442231075697
+      },
+      "daily_return_correlation": 0.9776578933350737,
+      "difference_bps": {
+        "median": 15.967733268936746,
+        "mean": 17.774594158132604,
+        "max_abs": 108.84971505521479
+      }
+    },
+    "JPM": {
+      "dukas": {
+        "observations": 753,
+        "mean_bps": 28.38825395618086,
+        "t_stat": 6.181010997139202,
+        "positive_pct": 62.28419654714475
+      },
+      "yahoo_adjusted": {
+        "observations": 753,
+        "mean_bps": 5.391481339479477,
+        "t_stat": 1.1888884121700973,
+        "positive_pct": 52.98804780876494
+      },
+      "daily_return_correlation": 0.9817790504839766,
+      "difference_bps": {
+        "median": 18.89191345297192,
+        "mean": 22.996772616701385,
+        "max_abs": 330.1725789360599
+      }
+    },
+    "KO": {
+      "dukas": {
+        "observations": 753,
+        "mean_bps": 22.756619912279614,
+        "t_stat": 6.782629972193344,
+        "positive_pct": 62.81540504648074
+      },
+      "yahoo_adjusted": {
+        "observations": 753,
+        "mean_bps": -0.3499824506611818,
+        "t_stat": -0.10664382439293148,
+        "positive_pct": 51.12881806108898
+      },
+      "daily_return_correlation": 0.9739198382629785,
+      "difference_bps": {
+        "median": 18.4966353574767,
+        "mean": 23.106602362940794,
+        "max_abs": 126.64285645749173
+      }
+    }
+  },
+  "conclusion": "REJECT_DUKASCOPY_INTRADAY_PREMIUM_AS_SOURCE_ARTIFACT"
+}

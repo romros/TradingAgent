@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-halloween-equity-v1",
+  "status": "FROZEN_BEFORE_PERFORMANCE",
+  "hypothesis": "Broad equity returns from November through April exceed the May through October interval sufficiently to support a low-turnover long/cash strategy after costs.",
+  "academic_basis": "Bouman and Jacobsen, American Economic Review 2002",
+  "assets": {
+    "SPY": "data/ibkr_sq_v2/preflight/SPY_ADJUSTED_D1_2017_2024.csv",
+    "SXR8": "data/ibkr_sq_v2/preflight/SXR8_DE_ADJUSTED_D1_2012_2024.csv",
+    "CSPX": "data/ibkr_sq_v2/preflight/CSPX_L_ADJUSTED_D1_2012_2024.csv"
+  },
+  "rule": "buy first session open in November; sell first session open in May; 30 bps roundtrip",
+  "periods": {"train": ["2017-01-01", "2020-12-31"], "validation": ["2021-01-01", "2022-12-31"], "oos": ["2023-01-01", "2024-12-31"]},
+  "gate": {"minimum_trades_per_asset_validation": 2, "minimum_pooled_profit_factor": 1.10, "minimum_positive_assets": 2, "maximum_asset_drawdown": 0.25},
+  "cost_bps": 30,
+  "single_variant": true,
+  "oos_access_before_validation_gate": false,
+  "holdout_2025": "SEALED_NOT_LOADED",
+  "optimized": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

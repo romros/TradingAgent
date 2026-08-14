@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_CANONICAL_SOURCE_ONLY",
+  "symbol": "JNJ_IBKR_V2",
+  "timeframe": "D1",
+  "rows": 1995,
+  "first": "2017-01-26",
+  "last": "2024-12-31",
+  "source_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/preflight/JNJUSUSD_NYSE_RTH_D1_through_2024.csv",
+  "source_sha256": "b684ed7029fb4a3dfd0f3af0903453588016a1246285bff3a5400ebf792608fc",
+  "output_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/preflight/JNJUSUSD_CANONICAL_D1_2017_2024.csv",
+  "output_sha256": "b7518077871dc072aa1ddcce334d0ddf082aa912efd0b19f2c40e88c5c81913f",
+  "corporate_actions_source": "https://www.investor.jnj.com/stock-info/Stock-Split-Information/default.aspx",
+  "splits_in_research_window": [],
+  "absolute_close_jumps_at_least_20pct": [],
+  "ohlc_envelope_repair": {
+    "rule": "high=max(source_high,open,close); low=min(source_low,open,close)",
+    "rows_repaired": 273,
+    "max_high_delta": 1.519,
+    "max_low_delta": 0.0
+  },
+  "volume_rules_allowed": false,
+  "performance_accessed": false,
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

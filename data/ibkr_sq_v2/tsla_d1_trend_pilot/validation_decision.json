@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "campaign": "IBKR_V2_TSLA_D1_TREND_PULLBACK_DENSITY",
+  "decision": "REJECT_TEMPORAL_VALIDATION",
+  "train_period": "2017-01-26/2021-12-31",
+  "validation_period": "2022-01-03/2023-12-29",
+  "discovery": {
+    "generated": 237,
+    "accepted": 50,
+    "candidate_families": 34,
+    "pareto_candidates": 17,
+    "pareto_translatable_sent_to_validation": 9
+  },
+  "auditable_validation_results": {
+    "Strategy 0.135": {"trades": 29, "tiered_return_pct": -46.39, "stress_return_pct": -55.96, "stress_profit_factor": 0.433},
+    "Strategy 0.16": {"trades": 45, "tiered_return_pct": -54.59, "stress_return_pct": -62.89, "stress_profit_factor": 0.522},
+    "Strategy 0.165": {"trades": 32, "tiered_return_pct": -39.78, "stress_return_pct": -53.87, "stress_profit_factor": 0.555},
+    "Strategy 0.215": {"trades": 41, "tiered_return_pct": -48.72, "stress_return_pct": -60.73, "stress_profit_factor": 0.506},
+    "Strategy 0.34": {"trades": 31, "tiered_return_pct": -10.15, "stress_return_pct": -18.06, "stress_profit_factor": 0.863},
+    "Strategy 0.68": {"trades": 28, "tiered_return_pct": -44.98, "stress_return_pct": -55.23, "stress_profit_factor": 0.527}
+  },
+  "execution_ambiguous_rejected": ["Strategy 0.132", "Strategy 0.211", "Strategy 0.77"],
+  "execution_ambiguity_reason": "At least one entry and exit share the same D1 timestamp; no intraday ordering may be inferred from D1 bars.",
+  "interpretation": "The dense train result does not transfer across the 2022 drawdown and 2023 rebound. No candidate has positive executable small-account validation economics.",
+  "next_action": "Change asset or economic mechanism; do not optimize, run genetics, or loosen gates for this family.",
+  "oos_2024_accessed": false,
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

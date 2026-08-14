@@ -1,0 +1,24 @@
+Project: IBKR_V2_AAPL_H1_CHANNEL_BREAKOUT_PILOT
+Log file: /global_log_20260813_060152.log
+
+--------------------------------------------------------------------------------------------------------------------------
+TASK STARTED at 2026.08.13 06:01:52.666
+Task: Build strategies, Type: Build
+Databanks before start: Results (0), Existing portfolio (0), Last generation (0), Initial population (0), Strategies to improve (0), D1 (0), OLD (0), D1_OLD (0)
+
+TASK FINISHED at 2026.08.13 06:08:37.302 in 6 min. 44 s.
+Databanks after finish: Results (0), Existing portfolio (0), Last generation (0), Initial population (0), Strategies to improve (0), D1 (0), OLD (0), D1_OLD (0)
+
+Strategies generated: 25150, Time per strategy: 15 ms., Time per accepted strategy: 0 ms., Accepted: 0, Rejected: 25150, Strategies per hour: 237333, Accepted strategies per hour: 0.00
+
+Time per strategy details:
+Main test: Count: 11863, Avg. time: 0.1482 s., Total time: 1758.5340 s., % of all: 100.00 %
+
+Rejected details:
+Automatic filter: too little trades, Count: 10164, % of all: 40.41 %
+Global filter:  # of trades[Main data] > 30.00, Count: 3, % of all: 0.01 %
+Global filter:  Profit factor[Main data] > 1.05, Count: 11858, % of all: 47.15 %
+Automatic filter: outlier trade - one exceptionally big trade, Count: 230, % of all: 0.91 %
+Automatic filter: no trades, Count: 2893, % of all: 11.5 %
+
+Accepted details:

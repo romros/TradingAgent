@@ -1,0 +1,17 @@
+{
+  "databank_sync_receipt_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/cat_d1_trend_pilot/pre_holdout/mc_run_0_168/retest_databank_sync_receipt.json",
+  "databank_sync_receipt_sha256": "43995f2fcf40a542e21d7d57a50e29e557c6a8f976d45ba6ce6d309a97baafd3",
+  "decision": "PASS_RETEST_STARTED",
+  "holdout_accessed": false,
+  "holdout_evaluation_count": 0,
+  "input_copy_path": "/mnt/volume-SQ/user/projects/IBKR_V2_CAT_D1_PREHOLDOUT_MC_0168/databanks/Results/Strategy 0.168.sqx",
+  "input_copy_sha256": "63417a2a613d23661ed45c194eeccd6bc34b3bd05f51ded2a8c72fcbb6d28d35",
+  "preflight_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/cat_d1_trend_pilot/pre_holdout/mc_run_0_168/retest_preflight.json",
+  "preflight_sha256": "fef392c033e0fbb2d43e8f6eb9ce61582be7ac5dc0e9a9a087bc7c6fb8675318",
+  "project_name": "IBKR_V2_CAT_D1_PREHOLDOUT_MC_0168",
+  "response": {
+    "success": "Project execution started."
+  },
+  "retest_stage": "robustness_parameter_monte_carlo",
+  "schema_version": 1
+}

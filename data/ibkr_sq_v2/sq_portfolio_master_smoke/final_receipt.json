@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "classification": "PASS_PORTFOLIO_MASTER_CAPABILITY_ONLY_NOT_RESEARCH",
+  "sqx_version": "143.2708",
+  "project": "ALQUIMIA_PORTFOLIO_MASTER_CAPABILITY_SMOKE",
+  "method": "bruteforce",
+  "possible_portfolios": 1,
+  "input_strategies": 2,
+  "output_portfolios": 1,
+  "runtime_ms": 540,
+  "initial_capital": 1000,
+  "portfolio_sqx_sha256": "b904dbf77578929cb53576a7c63b9db44cffb9f05bb352a56bdd0753990f8b22",
+  "final_log_sha256": "c9c22da92831d72380a02f6e6f1b636cb7d53f249ac0d4e6ad314ffa43fff0ba",
+  "contains_native_parts": [
+    "CAT_0168_CAPABILITY_INPUT.sqx",
+    "MSFT_OLD_CONTROL_NOT_CANDIDATE.sqx"
+  ],
+  "result_members_verified": [
+    "Results/Portfolio/dailyEquity.bin",
+    "orders.bin",
+    "PortfolioParts/CAT_0168_CAPABILITY_INPUT.sqx",
+    "PortfolioParts/MSFT_OLD_CONTROL_NOT_CANDIDATE.sqx"
+  ],
+  "warning": "The MSFT part is an old unqualified control. Performance from this portfolio is forbidden as research evidence.",
+  "conclusion": "SQCLI Portfolio Master is automatable. The real three-edge portfolio remains blocked until SXR8 and MSFT capitulation are native SQX and pass trade-by-trade parity.",
+  "paper_authorized": false,
+  "live_authorized": false
+}

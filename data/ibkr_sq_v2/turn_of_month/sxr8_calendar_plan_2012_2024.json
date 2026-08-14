@@ -1,0 +1,2186 @@
+{
+  "schema_version": 1,
+  "strategy": "sxr8_turn_of_month_last1_first3",
+  "instrument": {
+    "symbol": "SXR8",
+    "isin": "IE00B5BMR087",
+    "contract_verified": false
+  },
+  "source_sha256": "ccc723b140f1d1a003dd248864cc3f7a5004b3fe628531363b51dba589cd5fa6",
+  "first_session": "2012-01-02",
+  "last_session": "2024-12-30",
+  "actions": [
+    {
+      "date": "2012-01-31",
+      "action": "BUY",
+      "cycle": "2012-01",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2012-01:BUY"
+    },
+    {
+      "date": "2012-02-06",
+      "action": "SELL",
+      "cycle": "2012-01",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2012-01:SELL"
+    },
+    {
+      "date": "2012-02-29",
+      "action": "BUY",
+      "cycle": "2012-02",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2012-02:BUY"
+    },
+    {
+      "date": "2012-03-06",
+      "action": "SELL",
+      "cycle": "2012-02",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2012-02:SELL"
+    },
+    {
+      "date": "2012-03-30",
+      "action": "BUY",
+      "cycle": "2012-03",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2012-03:BUY"
+    },
+    {
+      "date": "2012-04-05",
+      "action": "SELL",
+      "cycle": "2012-03",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2012-03:SELL"
+    },
+    {
+      "date": "2012-04-30",
+      "action": "BUY",
+      "cycle": "2012-04",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2012-04:BUY"
+    },
+    {
+      "date": "2012-05-07",
+      "action": "SELL",
+      "cycle": "2012-04",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2012-04:SELL"
+    },
+    {
+      "date": "2012-05-31",
+      "action": "BUY",
+      "cycle": "2012-05",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2012-05:BUY"
+    },
+    {
+      "date": "2012-06-06",
+      "action": "SELL",
+      "cycle": "2012-05",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2012-05:SELL"
+    },
+    {
+      "date": "2012-06-29",
+      "action": "BUY",
+      "cycle": "2012-06",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2012-06:BUY"
+    },
+    {
+      "date": "2012-07-05",
+      "action": "SELL",
+      "cycle": "2012-06",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2012-06:SELL"
+    },
+    {
+      "date": "2012-07-31",
+      "action": "BUY",
+      "cycle": "2012-07",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2012-07:BUY"
+    },
+    {
+      "date": "2012-08-06",
+      "action": "SELL",
+      "cycle": "2012-07",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2012-07:SELL"
+    },
+    {
+      "date": "2012-08-31",
+      "action": "BUY",
+      "cycle": "2012-08",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2012-08:BUY"
+    },
+    {
+      "date": "2012-09-06",
+      "action": "SELL",
+      "cycle": "2012-08",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2012-08:SELL"
+    },
+    {
+      "date": "2012-09-28",
+      "action": "BUY",
+      "cycle": "2012-09",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2012-09:BUY"
+    },
+    {
+      "date": "2012-10-05",
+      "action": "SELL",
+      "cycle": "2012-09",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2012-09:SELL"
+    },
+    {
+      "date": "2012-10-31",
+      "action": "BUY",
+      "cycle": "2012-10",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2012-10:BUY"
+    },
+    {
+      "date": "2012-11-06",
+      "action": "SELL",
+      "cycle": "2012-10",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2012-10:SELL"
+    },
+    {
+      "date": "2012-11-30",
+      "action": "BUY",
+      "cycle": "2012-11",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2012-11:BUY"
+    },
+    {
+      "date": "2012-12-06",
+      "action": "SELL",
+      "cycle": "2012-11",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2012-11:SELL"
+    },
+    {
+      "date": "2012-12-28",
+      "action": "BUY",
+      "cycle": "2012-12",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2012-12:BUY"
+    },
+    {
+      "date": "2013-01-07",
+      "action": "SELL",
+      "cycle": "2012-12",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2012-12:SELL"
+    },
+    {
+      "date": "2013-01-31",
+      "action": "BUY",
+      "cycle": "2013-01",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2013-01:BUY"
+    },
+    {
+      "date": "2013-02-06",
+      "action": "SELL",
+      "cycle": "2013-01",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2013-01:SELL"
+    },
+    {
+      "date": "2013-02-28",
+      "action": "BUY",
+      "cycle": "2013-02",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2013-02:BUY"
+    },
+    {
+      "date": "2013-03-06",
+      "action": "SELL",
+      "cycle": "2013-02",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2013-02:SELL"
+    },
+    {
+      "date": "2013-03-28",
+      "action": "BUY",
+      "cycle": "2013-03",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2013-03:BUY"
+    },
+    {
+      "date": "2013-04-05",
+      "action": "SELL",
+      "cycle": "2013-03",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2013-03:SELL"
+    },
+    {
+      "date": "2013-04-30",
+      "action": "BUY",
+      "cycle": "2013-04",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2013-04:BUY"
+    },
+    {
+      "date": "2013-05-07",
+      "action": "SELL",
+      "cycle": "2013-04",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2013-04:SELL"
+    },
+    {
+      "date": "2013-05-31",
+      "action": "BUY",
+      "cycle": "2013-05",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2013-05:BUY"
+    },
+    {
+      "date": "2013-06-06",
+      "action": "SELL",
+      "cycle": "2013-05",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2013-05:SELL"
+    },
+    {
+      "date": "2013-06-28",
+      "action": "BUY",
+      "cycle": "2013-06",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2013-06:BUY"
+    },
+    {
+      "date": "2013-07-04",
+      "action": "SELL",
+      "cycle": "2013-06",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2013-06:SELL"
+    },
+    {
+      "date": "2013-07-31",
+      "action": "BUY",
+      "cycle": "2013-07",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2013-07:BUY"
+    },
+    {
+      "date": "2013-08-06",
+      "action": "SELL",
+      "cycle": "2013-07",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2013-07:SELL"
+    },
+    {
+      "date": "2013-08-30",
+      "action": "BUY",
+      "cycle": "2013-08",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2013-08:BUY"
+    },
+    {
+      "date": "2013-09-05",
+      "action": "SELL",
+      "cycle": "2013-08",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2013-08:SELL"
+    },
+    {
+      "date": "2013-09-30",
+      "action": "BUY",
+      "cycle": "2013-09",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2013-09:BUY"
+    },
+    {
+      "date": "2013-10-07",
+      "action": "SELL",
+      "cycle": "2013-09",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2013-09:SELL"
+    },
+    {
+      "date": "2013-10-31",
+      "action": "BUY",
+      "cycle": "2013-10",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2013-10:BUY"
+    },
+    {
+      "date": "2013-11-06",
+      "action": "SELL",
+      "cycle": "2013-10",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2013-10:SELL"
+    },
+    {
+      "date": "2013-11-29",
+      "action": "BUY",
+      "cycle": "2013-11",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2013-11:BUY"
+    },
+    {
+      "date": "2013-12-05",
+      "action": "SELL",
+      "cycle": "2013-11",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2013-11:SELL"
+    },
+    {
+      "date": "2013-12-30",
+      "action": "BUY",
+      "cycle": "2013-12",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2013-12:BUY"
+    },
+    {
+      "date": "2014-01-07",
+      "action": "SELL",
+      "cycle": "2013-12",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2013-12:SELL"
+    },
+    {
+      "date": "2014-01-31",
+      "action": "BUY",
+      "cycle": "2014-01",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2014-01:BUY"
+    },
+    {
+      "date": "2014-02-06",
+      "action": "SELL",
+      "cycle": "2014-01",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2014-01:SELL"
+    },
+    {
+      "date": "2014-02-28",
+      "action": "BUY",
+      "cycle": "2014-02",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2014-02:BUY"
+    },
+    {
+      "date": "2014-03-06",
+      "action": "SELL",
+      "cycle": "2014-02",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2014-02:SELL"
+    },
+    {
+      "date": "2014-03-31",
+      "action": "BUY",
+      "cycle": "2014-03",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2014-03:BUY"
+    },
+    {
+      "date": "2014-04-04",
+      "action": "SELL",
+      "cycle": "2014-03",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2014-03:SELL"
+    },
+    {
+      "date": "2014-04-30",
+      "action": "BUY",
+      "cycle": "2014-04",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2014-04:BUY"
+    },
+    {
+      "date": "2014-05-07",
+      "action": "SELL",
+      "cycle": "2014-04",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2014-04:SELL"
+    },
+    {
+      "date": "2014-05-30",
+      "action": "BUY",
+      "cycle": "2014-05",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2014-05:BUY"
+    },
+    {
+      "date": "2014-06-05",
+      "action": "SELL",
+      "cycle": "2014-05",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2014-05:SELL"
+    },
+    {
+      "date": "2014-06-30",
+      "action": "BUY",
+      "cycle": "2014-06",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2014-06:BUY"
+    },
+    {
+      "date": "2014-07-04",
+      "action": "SELL",
+      "cycle": "2014-06",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2014-06:SELL"
+    },
+    {
+      "date": "2014-07-31",
+      "action": "BUY",
+      "cycle": "2014-07",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2014-07:BUY"
+    },
+    {
+      "date": "2014-08-06",
+      "action": "SELL",
+      "cycle": "2014-07",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2014-07:SELL"
+    },
+    {
+      "date": "2014-08-29",
+      "action": "BUY",
+      "cycle": "2014-08",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2014-08:BUY"
+    },
+    {
+      "date": "2014-09-04",
+      "action": "SELL",
+      "cycle": "2014-08",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2014-08:SELL"
+    },
+    {
+      "date": "2014-09-30",
+      "action": "BUY",
+      "cycle": "2014-09",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2014-09:BUY"
+    },
+    {
+      "date": "2014-10-07",
+      "action": "SELL",
+      "cycle": "2014-09",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2014-09:SELL"
+    },
+    {
+      "date": "2014-10-31",
+      "action": "BUY",
+      "cycle": "2014-10",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2014-10:BUY"
+    },
+    {
+      "date": "2014-11-06",
+      "action": "SELL",
+      "cycle": "2014-10",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2014-10:SELL"
+    },
+    {
+      "date": "2014-11-28",
+      "action": "BUY",
+      "cycle": "2014-11",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2014-11:BUY"
+    },
+    {
+      "date": "2014-12-04",
+      "action": "SELL",
+      "cycle": "2014-11",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2014-11:SELL"
+    },
+    {
+      "date": "2014-12-30",
+      "action": "BUY",
+      "cycle": "2014-12",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2014-12:BUY"
+    },
+    {
+      "date": "2015-01-07",
+      "action": "SELL",
+      "cycle": "2014-12",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2014-12:SELL"
+    },
+    {
+      "date": "2015-01-30",
+      "action": "BUY",
+      "cycle": "2015-01",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2015-01:BUY"
+    },
+    {
+      "date": "2015-02-05",
+      "action": "SELL",
+      "cycle": "2015-01",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2015-01:SELL"
+    },
+    {
+      "date": "2015-02-27",
+      "action": "BUY",
+      "cycle": "2015-02",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2015-02:BUY"
+    },
+    {
+      "date": "2015-03-05",
+      "action": "SELL",
+      "cycle": "2015-02",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2015-02:SELL"
+    },
+    {
+      "date": "2015-03-31",
+      "action": "BUY",
+      "cycle": "2015-03",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2015-03:BUY"
+    },
+    {
+      "date": "2015-04-08",
+      "action": "SELL",
+      "cycle": "2015-03",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2015-03:SELL"
+    },
+    {
+      "date": "2015-04-30",
+      "action": "BUY",
+      "cycle": "2015-04",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2015-04:BUY"
+    },
+    {
+      "date": "2015-05-07",
+      "action": "SELL",
+      "cycle": "2015-04",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2015-04:SELL"
+    },
+    {
+      "date": "2015-05-29",
+      "action": "BUY",
+      "cycle": "2015-05",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2015-05:BUY"
+    },
+    {
+      "date": "2015-06-04",
+      "action": "SELL",
+      "cycle": "2015-05",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2015-05:SELL"
+    },
+    {
+      "date": "2015-06-30",
+      "action": "BUY",
+      "cycle": "2015-06",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2015-06:BUY"
+    },
+    {
+      "date": "2015-07-06",
+      "action": "SELL",
+      "cycle": "2015-06",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2015-06:SELL"
+    },
+    {
+      "date": "2015-07-31",
+      "action": "BUY",
+      "cycle": "2015-07",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2015-07:BUY"
+    },
+    {
+      "date": "2015-08-06",
+      "action": "SELL",
+      "cycle": "2015-07",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2015-07:SELL"
+    },
+    {
+      "date": "2015-08-31",
+      "action": "BUY",
+      "cycle": "2015-08",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2015-08:BUY"
+    },
+    {
+      "date": "2015-09-04",
+      "action": "SELL",
+      "cycle": "2015-08",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2015-08:SELL"
+    },
+    {
+      "date": "2015-09-30",
+      "action": "BUY",
+      "cycle": "2015-09",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2015-09:BUY"
+    },
+    {
+      "date": "2015-10-06",
+      "action": "SELL",
+      "cycle": "2015-09",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2015-09:SELL"
+    },
+    {
+      "date": "2015-10-30",
+      "action": "BUY",
+      "cycle": "2015-10",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2015-10:BUY"
+    },
+    {
+      "date": "2015-11-05",
+      "action": "SELL",
+      "cycle": "2015-10",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2015-10:SELL"
+    },
+    {
+      "date": "2015-11-30",
+      "action": "BUY",
+      "cycle": "2015-11",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2015-11:BUY"
+    },
+    {
+      "date": "2015-12-04",
+      "action": "SELL",
+      "cycle": "2015-11",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2015-11:SELL"
+    },
+    {
+      "date": "2015-12-30",
+      "action": "BUY",
+      "cycle": "2015-12",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2015-12:BUY"
+    },
+    {
+      "date": "2016-01-07",
+      "action": "SELL",
+      "cycle": "2015-12",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2015-12:SELL"
+    },
+    {
+      "date": "2016-01-29",
+      "action": "BUY",
+      "cycle": "2016-01",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2016-01:BUY"
+    },
+    {
+      "date": "2016-02-04",
+      "action": "SELL",
+      "cycle": "2016-01",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2016-01:SELL"
+    },
+    {
+      "date": "2016-02-29",
+      "action": "BUY",
+      "cycle": "2016-02",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2016-02:BUY"
+    },
+    {
+      "date": "2016-03-04",
+      "action": "SELL",
+      "cycle": "2016-02",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2016-02:SELL"
+    },
+    {
+      "date": "2016-03-31",
+      "action": "BUY",
+      "cycle": "2016-03",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2016-03:BUY"
+    },
+    {
+      "date": "2016-04-06",
+      "action": "SELL",
+      "cycle": "2016-03",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2016-03:SELL"
+    },
+    {
+      "date": "2016-04-29",
+      "action": "BUY",
+      "cycle": "2016-04",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2016-04:BUY"
+    },
+    {
+      "date": "2016-05-05",
+      "action": "SELL",
+      "cycle": "2016-04",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2016-04:SELL"
+    },
+    {
+      "date": "2016-05-31",
+      "action": "BUY",
+      "cycle": "2016-05",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2016-05:BUY"
+    },
+    {
+      "date": "2016-06-06",
+      "action": "SELL",
+      "cycle": "2016-05",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2016-05:SELL"
+    },
+    {
+      "date": "2016-06-30",
+      "action": "BUY",
+      "cycle": "2016-06",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2016-06:BUY"
+    },
+    {
+      "date": "2016-07-06",
+      "action": "SELL",
+      "cycle": "2016-06",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2016-06:SELL"
+    },
+    {
+      "date": "2016-07-29",
+      "action": "BUY",
+      "cycle": "2016-07",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2016-07:BUY"
+    },
+    {
+      "date": "2016-08-04",
+      "action": "SELL",
+      "cycle": "2016-07",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2016-07:SELL"
+    },
+    {
+      "date": "2016-08-31",
+      "action": "BUY",
+      "cycle": "2016-08",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2016-08:BUY"
+    },
+    {
+      "date": "2016-09-06",
+      "action": "SELL",
+      "cycle": "2016-08",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2016-08:SELL"
+    },
+    {
+      "date": "2016-09-30",
+      "action": "BUY",
+      "cycle": "2016-09",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2016-09:BUY"
+    },
+    {
+      "date": "2016-10-07",
+      "action": "SELL",
+      "cycle": "2016-09",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2016-09:SELL"
+    },
+    {
+      "date": "2016-10-31",
+      "action": "BUY",
+      "cycle": "2016-10",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2016-10:BUY"
+    },
+    {
+      "date": "2016-11-04",
+      "action": "SELL",
+      "cycle": "2016-10",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2016-10:SELL"
+    },
+    {
+      "date": "2016-11-30",
+      "action": "BUY",
+      "cycle": "2016-11",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2016-11:BUY"
+    },
+    {
+      "date": "2016-12-06",
+      "action": "SELL",
+      "cycle": "2016-11",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2016-11:SELL"
+    },
+    {
+      "date": "2016-12-30",
+      "action": "BUY",
+      "cycle": "2016-12",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2016-12:BUY"
+    },
+    {
+      "date": "2017-01-05",
+      "action": "SELL",
+      "cycle": "2016-12",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2016-12:SELL"
+    },
+    {
+      "date": "2017-01-31",
+      "action": "BUY",
+      "cycle": "2017-01",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2017-01:BUY"
+    },
+    {
+      "date": "2017-02-06",
+      "action": "SELL",
+      "cycle": "2017-01",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2017-01:SELL"
+    },
+    {
+      "date": "2017-02-28",
+      "action": "BUY",
+      "cycle": "2017-02",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2017-02:BUY"
+    },
+    {
+      "date": "2017-03-06",
+      "action": "SELL",
+      "cycle": "2017-02",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2017-02:SELL"
+    },
+    {
+      "date": "2017-03-31",
+      "action": "BUY",
+      "cycle": "2017-03",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2017-03:BUY"
+    },
+    {
+      "date": "2017-04-06",
+      "action": "SELL",
+      "cycle": "2017-03",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2017-03:SELL"
+    },
+    {
+      "date": "2017-04-28",
+      "action": "BUY",
+      "cycle": "2017-04",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2017-04:BUY"
+    },
+    {
+      "date": "2017-05-05",
+      "action": "SELL",
+      "cycle": "2017-04",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2017-04:SELL"
+    },
+    {
+      "date": "2017-05-31",
+      "action": "BUY",
+      "cycle": "2017-05",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2017-05:BUY"
+    },
+    {
+      "date": "2017-06-06",
+      "action": "SELL",
+      "cycle": "2017-05",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2017-05:SELL"
+    },
+    {
+      "date": "2017-06-30",
+      "action": "BUY",
+      "cycle": "2017-06",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2017-06:BUY"
+    },
+    {
+      "date": "2017-07-06",
+      "action": "SELL",
+      "cycle": "2017-06",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2017-06:SELL"
+    },
+    {
+      "date": "2017-07-31",
+      "action": "BUY",
+      "cycle": "2017-07",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2017-07:BUY"
+    },
+    {
+      "date": "2017-08-04",
+      "action": "SELL",
+      "cycle": "2017-07",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2017-07:SELL"
+    },
+    {
+      "date": "2017-08-31",
+      "action": "BUY",
+      "cycle": "2017-08",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2017-08:BUY"
+    },
+    {
+      "date": "2017-09-06",
+      "action": "SELL",
+      "cycle": "2017-08",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2017-08:SELL"
+    },
+    {
+      "date": "2017-09-29",
+      "action": "BUY",
+      "cycle": "2017-09",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2017-09:BUY"
+    },
+    {
+      "date": "2017-10-05",
+      "action": "SELL",
+      "cycle": "2017-09",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2017-09:SELL"
+    },
+    {
+      "date": "2017-10-31",
+      "action": "BUY",
+      "cycle": "2017-10",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2017-10:BUY"
+    },
+    {
+      "date": "2017-11-06",
+      "action": "SELL",
+      "cycle": "2017-10",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2017-10:SELL"
+    },
+    {
+      "date": "2017-11-30",
+      "action": "BUY",
+      "cycle": "2017-11",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2017-11:BUY"
+    },
+    {
+      "date": "2017-12-06",
+      "action": "SELL",
+      "cycle": "2017-11",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2017-11:SELL"
+    },
+    {
+      "date": "2017-12-29",
+      "action": "BUY",
+      "cycle": "2017-12",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2017-12:BUY"
+    },
+    {
+      "date": "2018-01-05",
+      "action": "SELL",
+      "cycle": "2017-12",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2017-12:SELL"
+    },
+    {
+      "date": "2018-01-31",
+      "action": "BUY",
+      "cycle": "2018-01",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2018-01:BUY"
+    },
+    {
+      "date": "2018-02-06",
+      "action": "SELL",
+      "cycle": "2018-01",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2018-01:SELL"
+    },
+    {
+      "date": "2018-02-28",
+      "action": "BUY",
+      "cycle": "2018-02",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2018-02:BUY"
+    },
+    {
+      "date": "2018-03-06",
+      "action": "SELL",
+      "cycle": "2018-02",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2018-02:SELL"
+    },
+    {
+      "date": "2018-03-29",
+      "action": "BUY",
+      "cycle": "2018-03",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2018-03:BUY"
+    },
+    {
+      "date": "2018-04-06",
+      "action": "SELL",
+      "cycle": "2018-03",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2018-03:SELL"
+    },
+    {
+      "date": "2018-04-30",
+      "action": "BUY",
+      "cycle": "2018-04",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2018-04:BUY"
+    },
+    {
+      "date": "2018-05-07",
+      "action": "SELL",
+      "cycle": "2018-04",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2018-04:SELL"
+    },
+    {
+      "date": "2018-05-31",
+      "action": "BUY",
+      "cycle": "2018-05",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2018-05:BUY"
+    },
+    {
+      "date": "2018-06-06",
+      "action": "SELL",
+      "cycle": "2018-05",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2018-05:SELL"
+    },
+    {
+      "date": "2018-06-29",
+      "action": "BUY",
+      "cycle": "2018-06",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2018-06:BUY"
+    },
+    {
+      "date": "2018-07-05",
+      "action": "SELL",
+      "cycle": "2018-06",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2018-06:SELL"
+    },
+    {
+      "date": "2018-07-31",
+      "action": "BUY",
+      "cycle": "2018-07",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2018-07:BUY"
+    },
+    {
+      "date": "2018-08-06",
+      "action": "SELL",
+      "cycle": "2018-07",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2018-07:SELL"
+    },
+    {
+      "date": "2018-08-31",
+      "action": "BUY",
+      "cycle": "2018-08",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2018-08:BUY"
+    },
+    {
+      "date": "2018-09-06",
+      "action": "SELL",
+      "cycle": "2018-08",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2018-08:SELL"
+    },
+    {
+      "date": "2018-09-28",
+      "action": "BUY",
+      "cycle": "2018-09",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2018-09:BUY"
+    },
+    {
+      "date": "2018-10-05",
+      "action": "SELL",
+      "cycle": "2018-09",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2018-09:SELL"
+    },
+    {
+      "date": "2018-10-31",
+      "action": "BUY",
+      "cycle": "2018-10",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2018-10:BUY"
+    },
+    {
+      "date": "2018-11-06",
+      "action": "SELL",
+      "cycle": "2018-10",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2018-10:SELL"
+    },
+    {
+      "date": "2018-11-30",
+      "action": "BUY",
+      "cycle": "2018-11",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2018-11:BUY"
+    },
+    {
+      "date": "2018-12-06",
+      "action": "SELL",
+      "cycle": "2018-11",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2018-11:SELL"
+    },
+    {
+      "date": "2018-12-28",
+      "action": "BUY",
+      "cycle": "2018-12",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2018-12:BUY"
+    },
+    {
+      "date": "2019-01-07",
+      "action": "SELL",
+      "cycle": "2018-12",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2018-12:SELL"
+    },
+    {
+      "date": "2019-01-31",
+      "action": "BUY",
+      "cycle": "2019-01",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2019-01:BUY"
+    },
+    {
+      "date": "2019-02-06",
+      "action": "SELL",
+      "cycle": "2019-01",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2019-01:SELL"
+    },
+    {
+      "date": "2019-02-28",
+      "action": "BUY",
+      "cycle": "2019-02",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2019-02:BUY"
+    },
+    {
+      "date": "2019-03-06",
+      "action": "SELL",
+      "cycle": "2019-02",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2019-02:SELL"
+    },
+    {
+      "date": "2019-03-29",
+      "action": "BUY",
+      "cycle": "2019-03",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2019-03:BUY"
+    },
+    {
+      "date": "2019-04-04",
+      "action": "SELL",
+      "cycle": "2019-03",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2019-03:SELL"
+    },
+    {
+      "date": "2019-04-30",
+      "action": "BUY",
+      "cycle": "2019-04",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2019-04:BUY"
+    },
+    {
+      "date": "2019-05-07",
+      "action": "SELL",
+      "cycle": "2019-04",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2019-04:SELL"
+    },
+    {
+      "date": "2019-05-31",
+      "action": "BUY",
+      "cycle": "2019-05",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2019-05:BUY"
+    },
+    {
+      "date": "2019-06-06",
+      "action": "SELL",
+      "cycle": "2019-05",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2019-05:SELL"
+    },
+    {
+      "date": "2019-06-28",
+      "action": "BUY",
+      "cycle": "2019-06",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2019-06:BUY"
+    },
+    {
+      "date": "2019-07-04",
+      "action": "SELL",
+      "cycle": "2019-06",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2019-06:SELL"
+    },
+    {
+      "date": "2019-07-31",
+      "action": "BUY",
+      "cycle": "2019-07",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2019-07:BUY"
+    },
+    {
+      "date": "2019-08-06",
+      "action": "SELL",
+      "cycle": "2019-07",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2019-07:SELL"
+    },
+    {
+      "date": "2019-08-30",
+      "action": "BUY",
+      "cycle": "2019-08",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2019-08:BUY"
+    },
+    {
+      "date": "2019-09-05",
+      "action": "SELL",
+      "cycle": "2019-08",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2019-08:SELL"
+    },
+    {
+      "date": "2019-09-30",
+      "action": "BUY",
+      "cycle": "2019-09",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2019-09:BUY"
+    },
+    {
+      "date": "2019-10-07",
+      "action": "SELL",
+      "cycle": "2019-09",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2019-09:SELL"
+    },
+    {
+      "date": "2019-10-31",
+      "action": "BUY",
+      "cycle": "2019-10",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2019-10:BUY"
+    },
+    {
+      "date": "2019-11-06",
+      "action": "SELL",
+      "cycle": "2019-10",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2019-10:SELL"
+    },
+    {
+      "date": "2019-11-29",
+      "action": "BUY",
+      "cycle": "2019-11",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2019-11:BUY"
+    },
+    {
+      "date": "2019-12-05",
+      "action": "SELL",
+      "cycle": "2019-11",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2019-11:SELL"
+    },
+    {
+      "date": "2019-12-30",
+      "action": "BUY",
+      "cycle": "2019-12",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2019-12:BUY"
+    },
+    {
+      "date": "2020-01-07",
+      "action": "SELL",
+      "cycle": "2019-12",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2019-12:SELL"
+    },
+    {
+      "date": "2020-01-31",
+      "action": "BUY",
+      "cycle": "2020-01",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2020-01:BUY"
+    },
+    {
+      "date": "2020-02-06",
+      "action": "SELL",
+      "cycle": "2020-01",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2020-01:SELL"
+    },
+    {
+      "date": "2020-02-28",
+      "action": "BUY",
+      "cycle": "2020-02",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2020-02:BUY"
+    },
+    {
+      "date": "2020-03-05",
+      "action": "SELL",
+      "cycle": "2020-02",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2020-02:SELL"
+    },
+    {
+      "date": "2020-03-31",
+      "action": "BUY",
+      "cycle": "2020-03",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2020-03:BUY"
+    },
+    {
+      "date": "2020-04-06",
+      "action": "SELL",
+      "cycle": "2020-03",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2020-03:SELL"
+    },
+    {
+      "date": "2020-04-30",
+      "action": "BUY",
+      "cycle": "2020-04",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2020-04:BUY"
+    },
+    {
+      "date": "2020-05-07",
+      "action": "SELL",
+      "cycle": "2020-04",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2020-04:SELL"
+    },
+    {
+      "date": "2020-05-29",
+      "action": "BUY",
+      "cycle": "2020-05",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2020-05:BUY"
+    },
+    {
+      "date": "2020-06-05",
+      "action": "SELL",
+      "cycle": "2020-05",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2020-05:SELL"
+    },
+    {
+      "date": "2020-06-30",
+      "action": "BUY",
+      "cycle": "2020-06",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2020-06:BUY"
+    },
+    {
+      "date": "2020-07-06",
+      "action": "SELL",
+      "cycle": "2020-06",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2020-06:SELL"
+    },
+    {
+      "date": "2020-07-31",
+      "action": "BUY",
+      "cycle": "2020-07",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2020-07:BUY"
+    },
+    {
+      "date": "2020-08-06",
+      "action": "SELL",
+      "cycle": "2020-07",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2020-07:SELL"
+    },
+    {
+      "date": "2020-08-31",
+      "action": "BUY",
+      "cycle": "2020-08",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2020-08:BUY"
+    },
+    {
+      "date": "2020-09-04",
+      "action": "SELL",
+      "cycle": "2020-08",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2020-08:SELL"
+    },
+    {
+      "date": "2020-09-30",
+      "action": "BUY",
+      "cycle": "2020-09",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2020-09:BUY"
+    },
+    {
+      "date": "2020-10-06",
+      "action": "SELL",
+      "cycle": "2020-09",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2020-09:SELL"
+    },
+    {
+      "date": "2020-10-30",
+      "action": "BUY",
+      "cycle": "2020-10",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2020-10:BUY"
+    },
+    {
+      "date": "2020-11-05",
+      "action": "SELL",
+      "cycle": "2020-10",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2020-10:SELL"
+    },
+    {
+      "date": "2020-11-30",
+      "action": "BUY",
+      "cycle": "2020-11",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2020-11:BUY"
+    },
+    {
+      "date": "2020-12-04",
+      "action": "SELL",
+      "cycle": "2020-11",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2020-11:SELL"
+    },
+    {
+      "date": "2020-12-30",
+      "action": "BUY",
+      "cycle": "2020-12",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2020-12:BUY"
+    },
+    {
+      "date": "2021-01-07",
+      "action": "SELL",
+      "cycle": "2020-12",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2020-12:SELL"
+    },
+    {
+      "date": "2021-01-29",
+      "action": "BUY",
+      "cycle": "2021-01",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2021-01:BUY"
+    },
+    {
+      "date": "2021-02-04",
+      "action": "SELL",
+      "cycle": "2021-01",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2021-01:SELL"
+    },
+    {
+      "date": "2021-02-26",
+      "action": "BUY",
+      "cycle": "2021-02",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2021-02:BUY"
+    },
+    {
+      "date": "2021-03-04",
+      "action": "SELL",
+      "cycle": "2021-02",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2021-02:SELL"
+    },
+    {
+      "date": "2021-03-31",
+      "action": "BUY",
+      "cycle": "2021-03",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2021-03:BUY"
+    },
+    {
+      "date": "2021-04-08",
+      "action": "SELL",
+      "cycle": "2021-03",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2021-03:SELL"
+    },
+    {
+      "date": "2021-04-30",
+      "action": "BUY",
+      "cycle": "2021-04",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2021-04:BUY"
+    },
+    {
+      "date": "2021-05-06",
+      "action": "SELL",
+      "cycle": "2021-04",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2021-04:SELL"
+    },
+    {
+      "date": "2021-05-31",
+      "action": "BUY",
+      "cycle": "2021-05",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2021-05:BUY"
+    },
+    {
+      "date": "2021-06-04",
+      "action": "SELL",
+      "cycle": "2021-05",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2021-05:SELL"
+    },
+    {
+      "date": "2021-06-30",
+      "action": "BUY",
+      "cycle": "2021-06",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2021-06:BUY"
+    },
+    {
+      "date": "2021-07-06",
+      "action": "SELL",
+      "cycle": "2021-06",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2021-06:SELL"
+    },
+    {
+      "date": "2021-07-30",
+      "action": "BUY",
+      "cycle": "2021-07",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2021-07:BUY"
+    },
+    {
+      "date": "2021-08-05",
+      "action": "SELL",
+      "cycle": "2021-07",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2021-07:SELL"
+    },
+    {
+      "date": "2021-08-31",
+      "action": "BUY",
+      "cycle": "2021-08",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2021-08:BUY"
+    },
+    {
+      "date": "2021-09-06",
+      "action": "SELL",
+      "cycle": "2021-08",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2021-08:SELL"
+    },
+    {
+      "date": "2021-09-30",
+      "action": "BUY",
+      "cycle": "2021-09",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2021-09:BUY"
+    },
+    {
+      "date": "2021-10-06",
+      "action": "SELL",
+      "cycle": "2021-09",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2021-09:SELL"
+    },
+    {
+      "date": "2021-10-29",
+      "action": "BUY",
+      "cycle": "2021-10",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2021-10:BUY"
+    },
+    {
+      "date": "2021-11-04",
+      "action": "SELL",
+      "cycle": "2021-10",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2021-10:SELL"
+    },
+    {
+      "date": "2021-11-30",
+      "action": "BUY",
+      "cycle": "2021-11",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2021-11:BUY"
+    },
+    {
+      "date": "2021-12-06",
+      "action": "SELL",
+      "cycle": "2021-11",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2021-11:SELL"
+    },
+    {
+      "date": "2021-12-30",
+      "action": "BUY",
+      "cycle": "2021-12",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2021-12:BUY"
+    },
+    {
+      "date": "2022-01-06",
+      "action": "SELL",
+      "cycle": "2021-12",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2021-12:SELL"
+    },
+    {
+      "date": "2022-01-31",
+      "action": "BUY",
+      "cycle": "2022-01",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2022-01:BUY"
+    },
+    {
+      "date": "2022-02-04",
+      "action": "SELL",
+      "cycle": "2022-01",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2022-01:SELL"
+    },
+    {
+      "date": "2022-02-28",
+      "action": "BUY",
+      "cycle": "2022-02",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2022-02:BUY"
+    },
+    {
+      "date": "2022-03-04",
+      "action": "SELL",
+      "cycle": "2022-02",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2022-02:SELL"
+    },
+    {
+      "date": "2022-03-31",
+      "action": "BUY",
+      "cycle": "2022-03",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2022-03:BUY"
+    },
+    {
+      "date": "2022-04-06",
+      "action": "SELL",
+      "cycle": "2022-03",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2022-03:SELL"
+    },
+    {
+      "date": "2022-04-29",
+      "action": "BUY",
+      "cycle": "2022-04",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2022-04:BUY"
+    },
+    {
+      "date": "2022-05-05",
+      "action": "SELL",
+      "cycle": "2022-04",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2022-04:SELL"
+    },
+    {
+      "date": "2022-05-31",
+      "action": "BUY",
+      "cycle": "2022-05",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2022-05:BUY"
+    },
+    {
+      "date": "2022-06-06",
+      "action": "SELL",
+      "cycle": "2022-05",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2022-05:SELL"
+    },
+    {
+      "date": "2022-06-30",
+      "action": "BUY",
+      "cycle": "2022-06",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2022-06:BUY"
+    },
+    {
+      "date": "2022-07-06",
+      "action": "SELL",
+      "cycle": "2022-06",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2022-06:SELL"
+    },
+    {
+      "date": "2022-07-29",
+      "action": "BUY",
+      "cycle": "2022-07",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2022-07:BUY"
+    },
+    {
+      "date": "2022-08-04",
+      "action": "SELL",
+      "cycle": "2022-07",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2022-07:SELL"
+    },
+    {
+      "date": "2022-08-31",
+      "action": "BUY",
+      "cycle": "2022-08",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2022-08:BUY"
+    },
+    {
+      "date": "2022-09-06",
+      "action": "SELL",
+      "cycle": "2022-08",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2022-08:SELL"
+    },
+    {
+      "date": "2022-09-30",
+      "action": "BUY",
+      "cycle": "2022-09",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2022-09:BUY"
+    },
+    {
+      "date": "2022-10-06",
+      "action": "SELL",
+      "cycle": "2022-09",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2022-09:SELL"
+    },
+    {
+      "date": "2022-10-31",
+      "action": "BUY",
+      "cycle": "2022-10",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2022-10:BUY"
+    },
+    {
+      "date": "2022-11-04",
+      "action": "SELL",
+      "cycle": "2022-10",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2022-10:SELL"
+    },
+    {
+      "date": "2022-11-30",
+      "action": "BUY",
+      "cycle": "2022-11",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2022-11:BUY"
+    },
+    {
+      "date": "2022-12-06",
+      "action": "SELL",
+      "cycle": "2022-11",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2022-11:SELL"
+    },
+    {
+      "date": "2022-12-30",
+      "action": "BUY",
+      "cycle": "2022-12",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2022-12:BUY"
+    },
+    {
+      "date": "2023-01-05",
+      "action": "SELL",
+      "cycle": "2022-12",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2022-12:SELL"
+    },
+    {
+      "date": "2023-01-31",
+      "action": "BUY",
+      "cycle": "2023-01",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2023-01:BUY"
+    },
+    {
+      "date": "2023-02-06",
+      "action": "SELL",
+      "cycle": "2023-01",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2023-01:SELL"
+    },
+    {
+      "date": "2023-02-28",
+      "action": "BUY",
+      "cycle": "2023-02",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2023-02:BUY"
+    },
+    {
+      "date": "2023-03-06",
+      "action": "SELL",
+      "cycle": "2023-02",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2023-02:SELL"
+    },
+    {
+      "date": "2023-03-31",
+      "action": "BUY",
+      "cycle": "2023-03",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2023-03:BUY"
+    },
+    {
+      "date": "2023-04-06",
+      "action": "SELL",
+      "cycle": "2023-03",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2023-03:SELL"
+    },
+    {
+      "date": "2023-04-28",
+      "action": "BUY",
+      "cycle": "2023-04",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2023-04:BUY"
+    },
+    {
+      "date": "2023-05-05",
+      "action": "SELL",
+      "cycle": "2023-04",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2023-04:SELL"
+    },
+    {
+      "date": "2023-05-31",
+      "action": "BUY",
+      "cycle": "2023-05",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2023-05:BUY"
+    },
+    {
+      "date": "2023-06-06",
+      "action": "SELL",
+      "cycle": "2023-05",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2023-05:SELL"
+    },
+    {
+      "date": "2023-06-30",
+      "action": "BUY",
+      "cycle": "2023-06",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2023-06:BUY"
+    },
+    {
+      "date": "2023-07-06",
+      "action": "SELL",
+      "cycle": "2023-06",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2023-06:SELL"
+    },
+    {
+      "date": "2023-07-31",
+      "action": "BUY",
+      "cycle": "2023-07",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2023-07:BUY"
+    },
+    {
+      "date": "2023-08-04",
+      "action": "SELL",
+      "cycle": "2023-07",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2023-07:SELL"
+    },
+    {
+      "date": "2023-08-31",
+      "action": "BUY",
+      "cycle": "2023-08",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2023-08:BUY"
+    },
+    {
+      "date": "2023-09-06",
+      "action": "SELL",
+      "cycle": "2023-08",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2023-08:SELL"
+    },
+    {
+      "date": "2023-09-29",
+      "action": "BUY",
+      "cycle": "2023-09",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2023-09:BUY"
+    },
+    {
+      "date": "2023-10-05",
+      "action": "SELL",
+      "cycle": "2023-09",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2023-09:SELL"
+    },
+    {
+      "date": "2023-10-31",
+      "action": "BUY",
+      "cycle": "2023-10",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2023-10:BUY"
+    },
+    {
+      "date": "2023-11-06",
+      "action": "SELL",
+      "cycle": "2023-10",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2023-10:SELL"
+    },
+    {
+      "date": "2023-11-30",
+      "action": "BUY",
+      "cycle": "2023-11",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2023-11:BUY"
+    },
+    {
+      "date": "2023-12-06",
+      "action": "SELL",
+      "cycle": "2023-11",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2023-11:SELL"
+    },
+    {
+      "date": "2023-12-29",
+      "action": "BUY",
+      "cycle": "2023-12",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2023-12:BUY"
+    },
+    {
+      "date": "2024-01-05",
+      "action": "SELL",
+      "cycle": "2023-12",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2023-12:SELL"
+    },
+    {
+      "date": "2024-01-31",
+      "action": "BUY",
+      "cycle": "2024-01",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2024-01:BUY"
+    },
+    {
+      "date": "2024-02-06",
+      "action": "SELL",
+      "cycle": "2024-01",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2024-01:SELL"
+    },
+    {
+      "date": "2024-02-29",
+      "action": "BUY",
+      "cycle": "2024-02",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2024-02:BUY"
+    },
+    {
+      "date": "2024-03-06",
+      "action": "SELL",
+      "cycle": "2024-02",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2024-02:SELL"
+    },
+    {
+      "date": "2024-03-28",
+      "action": "BUY",
+      "cycle": "2024-03",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2024-03:BUY"
+    },
+    {
+      "date": "2024-04-05",
+      "action": "SELL",
+      "cycle": "2024-03",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2024-03:SELL"
+    },
+    {
+      "date": "2024-04-30",
+      "action": "BUY",
+      "cycle": "2024-04",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2024-04:BUY"
+    },
+    {
+      "date": "2024-05-07",
+      "action": "SELL",
+      "cycle": "2024-04",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2024-04:SELL"
+    },
+    {
+      "date": "2024-05-31",
+      "action": "BUY",
+      "cycle": "2024-05",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2024-05:BUY"
+    },
+    {
+      "date": "2024-06-06",
+      "action": "SELL",
+      "cycle": "2024-05",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2024-05:SELL"
+    },
+    {
+      "date": "2024-06-28",
+      "action": "BUY",
+      "cycle": "2024-06",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2024-06:BUY"
+    },
+    {
+      "date": "2024-07-04",
+      "action": "SELL",
+      "cycle": "2024-06",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2024-06:SELL"
+    },
+    {
+      "date": "2024-07-31",
+      "action": "BUY",
+      "cycle": "2024-07",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2024-07:BUY"
+    },
+    {
+      "date": "2024-08-06",
+      "action": "SELL",
+      "cycle": "2024-07",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2024-07:SELL"
+    },
+    {
+      "date": "2024-08-30",
+      "action": "BUY",
+      "cycle": "2024-08",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2024-08:BUY"
+    },
+    {
+      "date": "2024-09-05",
+      "action": "SELL",
+      "cycle": "2024-08",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2024-08:SELL"
+    },
+    {
+      "date": "2024-09-30",
+      "action": "BUY",
+      "cycle": "2024-09",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2024-09:BUY"
+    },
+    {
+      "date": "2024-10-04",
+      "action": "SELL",
+      "cycle": "2024-09",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2024-09:SELL"
+    },
+    {
+      "date": "2024-10-31",
+      "action": "BUY",
+      "cycle": "2024-10",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2024-10:BUY"
+    },
+    {
+      "date": "2024-11-06",
+      "action": "SELL",
+      "cycle": "2024-10",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2024-10:SELL"
+    },
+    {
+      "date": "2024-11-29",
+      "action": "BUY",
+      "cycle": "2024-11",
+      "reason": "last_session_of_month",
+      "idempotency_key": "turn_of_month:2024-11:BUY"
+    },
+    {
+      "date": "2024-12-05",
+      "action": "SELL",
+      "cycle": "2024-11",
+      "reason": "fourth_session_of_next_month",
+      "idempotency_key": "turn_of_month:2024-11:SELL"
+    }
+  ],
+  "paper_authorized": false,
+  "live_authorized": false
+}

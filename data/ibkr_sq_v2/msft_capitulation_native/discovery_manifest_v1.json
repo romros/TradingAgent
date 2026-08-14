@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "campaign_id": "msft-capitulation-native-parity-v1",
+  "periods": {
+    "train_from": "2003-01-02",
+    "train_to": "2013-12-31",
+    "validation_from": "2014-01-01",
+    "validation_to": "2018-12-31",
+    "oos_from": "2019-01-01",
+    "oos_to": "2024-12-31",
+    "holdout_from": "2025-01-01",
+    "holdout_to": "2025-12-31"
+  },
+  "holdout_release_authorized": false,
+  "classification": "NATIVE_PARITY_RETEST_NO_PARAMETER_SELECTION"
+}

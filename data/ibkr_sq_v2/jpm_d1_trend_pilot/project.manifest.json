@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "build_reproducible": true,
+  "project_name": "IBKR_V2_JPM_D1_TREND_PULLBACK_DENSITY_V3",
+  "market": "JPM",
+  "methodology_id": "ibkr-v2-jpm-d1-trend-pullback-density",
+  "sq_symbol": "JPM_IBKR_V2_D1",
+  "timeframe": "D1",
+  "methodology_sha256": "ac481c7289e0d239d469a6c718d091f17ade70abfa44b9667c4a78d753cab69c",
+  "source_role": "xml_format_scaffold_only",
+  "source_sha256": "e670b4a4f5df929117edc285c9413c69951c431d80dd6c991fa3c21d78c719b6",
+  "output_sha256": "17df228965640366edb81ea4e3be58e061855f452cedf71d41474ea915b8c6a7",
+  "accepted_limit": 60,
+  "discovery_initial_capital": 10000,
+  "sq_discovery_spread": 0,
+  "sq_discovery_commission": 0.0,
+  "sq_discovery_slippage": 0,
+  "venue_cost_application_stage": "legacy_embedded_or_posthoc",
+  "search_profile": "equity_d1_trend_pullback_v1",
+  "generation_type": "random-generation",
+  "market_side": "long",
+  "attempt_budget": 75000,
+  "wall_time_budget_minutes": 60,
+  "attempt_stop_guard": 100,
+  "stagnation_attempts": null,
+  "sq_genetic_shape": null,
+  "canonical_evaluation_capital": 1000,
+  "periods": {
+    "train_from": "2017-01-26",
+    "train_to": "2021-12-30",
+    "validation_from": "2022-01-03",
+    "validation_to": "2023-12-29",
+    "oos_from": "2024-01-02",
+    "oos_to": "2024-12-31",
+    "holdout_from": "2025-01-02",
+    "holdout_to": "2025-12-31"
+  },
+  "intraday_execution": {
+    "exit_at_end_of_day": false,
+    "eod_exit_seconds": null,
+    "signal_time_range_seconds": null,
+    "exit_at_end_of_range": false,
+    "maximum_trades_per_day": 1
+  },
+  "blocks": {
+    "enabled": 16,
+    "disabled": 499,
+    "search_space": null,
+    "genetic_parameters": {}
+  },
+  "holdout_sealed": true
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_CANONICAL_SOURCE_ONLY",
+  "symbol": "DE_IBKR_V2",
+  "timeframe": "D1",
+  "rows": 1922,
+  "first": "2017-05-11",
+  "last": "2024-12-31",
+  "source_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/preflight/DEUSUSD_NYSE_RTH_D1_through_2024.csv",
+  "source_sha256": "3a92cd929f09246a87add7127162dde729d7aa3d39508d1049699b48b10d780e",
+  "output_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/preflight/DEUSUSD_CANONICAL_D1_2017_2024.csv",
+  "output_sha256": "3e1d0e7331984672d1028255bf1bbf33282a5c0757cfb4761b050b87830d9a1d",
+  "corporate_actions_source": "https://investor.deere.com/stock-information/default.aspx",
+  "splits_in_research_window": [],
+  "absolute_close_jumps_at_least_20pct": [],
+  "ohlc_envelope_repair": {
+    "rule": "high=max(source_high,open,close); low=min(source_low,open,close)",
+    "rows_repaired": 184,
+    "max_high_delta": 3.039,
+    "max_low_delta": 0.0
+  },
+  "volume_rules_allowed": false,
+  "performance_accessed": false,
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

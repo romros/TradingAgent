@@ -1,0 +1,17 @@
+{
+  "databank_sync_receipt_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/aapl_h1_roc_reversion_time_exit/train/24/run_v2/retest_databank_sync_receipt.json",
+  "databank_sync_receipt_sha256": "0f08fdb0be163700a715d334991e9626734c212554f86ad44751c8de9123c4d2",
+  "decision": "PASS_RETEST_STARTED",
+  "holdout_accessed": false,
+  "holdout_evaluation_count": 0,
+  "input_copy_path": "/mnt/volume-SQ/user/projects/IBKR_V2_AAPL_ROC_TIME_24_TRAIN_V2/databanks/Results/time_24.sqx",
+  "input_copy_sha256": "7a61a7dcd1b8e25845cc3744b7cad8a2516abb447ed2d2f36c9f8c8b2a087855",
+  "preflight_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/aapl_h1_roc_reversion_time_exit/train/24/run_v2/retest_preflight.json",
+  "preflight_sha256": "c4b069c95f8218e7737ee351dc255fae95324a31e0a8ef0e563777650dc96dc6",
+  "project_name": "IBKR_V2_AAPL_ROC_TIME_24_TRAIN_V2",
+  "response": {
+    "success": "Project execution started."
+  },
+  "retest_stage": "train",
+  "schema_version": 1
+}

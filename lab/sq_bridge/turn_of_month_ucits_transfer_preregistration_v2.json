@@ -1,0 +1,12 @@
+{
+  "schema_version": 2,
+  "supersedes": "v1 because VUAA.DE returned one historical row; coverage failure before performance access",
+  "parent_rule_sha256": "ba5e89497252302f0cce74579651f4c59c22be2d5938522aefb30a99e31ef7ee",
+  "asset": {"id":"VUAA_MI","ticker":"VUAA.MI","isin":"IE00BFMXXD54","exchange":"Borsa Italiana","currency":"EUR"},
+  "selection_basis": "coverage only: 1435 rows from 2019-05-14 through 2024-12-30",
+  "rule": {"entry":"open of last trading session of calendar month","exit":"open of fourth trading session of following calendar month","optimization":false},
+  "periods": {"development":["2019-05-14","2021-12-31"],"validation":["2022-01-01","2023-12-31"],"oos_2024":["2024-01-01","2024-12-31"],"holdout_2025_plus":["2025-01-01","2099-12-31"]},
+  "gates": {"validation_min_trades":23,"oos_min_trades":11,"validation_and_oos_mean_return_gt":0.0,"validation_and_oos_profit_factor_gte":1.1,"combined_monthly_sharpe_gte":0.5,"combined_max_drawdown_lte":0.15,"correlation_with_spy_monthly_returns_gte":0.9},
+  "cost_diagnostics": {"ibkr_europe_tiered_rate":0.0005,"minimum_per_order_eur":1.25,"capital_eur":[200,500,1000,2000],"roundtrip_slippage_bps":[2,10]},
+  "sealed": "2025 and later"
+}

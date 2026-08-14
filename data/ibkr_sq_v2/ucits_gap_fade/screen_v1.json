@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "preregistration_sha256": "040e0ccf04ef2d44bdfef2f06c464eedd5a6688a0a799a0b133bfdf139dc8057",
+  "optimized": false,
+  "holdout_2025_accessed": false,
+  "assets": {
+    "SXR8_DE": {
+      "train": {
+        "trades": 82,
+        "wins": 23,
+        "mean_return": -0.003342357219830908,
+        "total_return": -0.24353760902897492,
+        "profit_factor": 0.4272507012762534,
+        "t_stat": -2.846897962541099
+      },
+      "validation": {
+        "trades": 81,
+        "wins": 29,
+        "mean_return": -0.0031739500535264455,
+        "total_return": -0.23251555422469306,
+        "profit_factor": 0.5188925901923083,
+        "t_stat": -2.1401129486337145
+      },
+      "oos": {
+        "trades": 17,
+        "wins": 5,
+        "mean_return": -0.00411037674600421,
+        "total_return": -0.06835928957796,
+        "profit_factor": 0.2885769879245542,
+        "t_stat": -1.7176658245644791
+      }
+    },
+    "CSPX_L": {
+      "train": {
+        "trades": 94,
+        "wins": 19,
+        "mean_return": -0.0036703965529064795,
+        "total_return": -0.29409846148531704,
+        "profit_factor": 0.28942756580787316,
+        "t_stat": -4.738789992327492
+      },
+      "validation": {
+        "trades": 98,
+        "wins": 31,
+        "mean_return": -0.0036802463096043494,
+        "total_return": -0.31041563376600356,
+        "profit_factor": 0.47673997285884473,
+        "t_stat": -2.49384865989972
+      },
+      "oos": {
+        "trades": 19,
+        "wins": 4,
+        "mean_return": -0.003985222829467076,
+        "total_return": -0.07355101065167768,
+        "profit_factor": 0.2564189955126462,
+        "t_stat": -2.2801051190851127
+      }
+    }
+  },
+  "decision": {
+    "SXR8_DE": {
+      "pass": false,
+      "combined": {
+        "trades": 98,
+        "wins": 34,
+        "mean_return": -0.0033363914185480983,
+        "total_return": -0.28498024570002733,
+        "profit_factor": 0.4831321859482331,
+        "t_stat": -2.5860364709279877
+      }
+    },
+    "CSPX_L": {
+      "pass": false,
+      "combined": {
+        "trades": 117,
+        "wins": 35,
+        "mean_return": -0.0037297724111205184,
+        "total_return": -0.36113526083211034,
+        "profit_factor": 0.4483800156753079,
+        "t_stat": -2.946405453348526
+      }
+    }
+  },
+  "transfer_pass": false
+}

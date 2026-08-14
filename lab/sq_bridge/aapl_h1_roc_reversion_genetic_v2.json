@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-v2-aapl-h1-roc-reversion-genetic",
+  "status": "IDEA_ONLY_NON_PROMOTABLE",
+  "purpose": "Exploit the ROC reversion family that produced multiple train survivors and two economically positive 2023 validations.",
+  "asset": "AAPL",
+  "source": "Dukascopy AAPLUSUSD tick resource, America/New_York",
+  "performance_accessed_before_freeze": false,
+  "periods": {
+    "train_from": "2020-08-31",
+    "train_to": "2022-12-30",
+    "validation_from": "2023-01-03",
+    "validation_to": "2023-12-29",
+    "sealed_oos_from": "2024-01-02",
+    "sealed_oos_to": "2024-12-31",
+    "untouched_future_from": "2025-01-01",
+    "untouched_future_to": "2025-12-31"
+  },
+  "discovery": {
+    "timeframe": "H1",
+    "direction": "long",
+    "lane": "directed_roc_reversion_genetic",
+    "search_profile": "equity_h1_roc_reversion_v2",
+    "generation": "genetic-evolution",
+    "attempt_budget": 50000,
+    "wall_time_budget_minutes": 45,
+    "accepted_limit": 40,
+    "maximum_rules": 2,
+    "minimum_train_trades": 60,
+    "minimum_profit_factor_train": 1.05,
+    "commission_per_order_usd": 0.0,
+    "commission_plan": "GROSS_NORMALIZED_THEN_POSTHOC_IBKR"
+  },
+  "validation_gate": {
+    "capital_usd": 1000,
+    "minimum_trades": 30,
+    "minimum_stress_profit_factor": 1.15,
+    "minimum_positive_quarters": 3,
+    "maximum_close_to_close_drawdown_pct": 15,
+    "maximum_duration_hours": 240
+  },
+  "promotion_allowed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

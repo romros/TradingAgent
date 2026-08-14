@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "transformation": "EXIT_AFTER_BARS_ONLY",
+  "source_sqx_path": "/mnt/volume-SQ/user/projects/IBKR_V2_AAPL_H1_ROC_REVERSION_GENETIC/databanks/Results/Strategy 4.1.174.sqx",
+  "source_sqx_sha256": "bac4e780de0d05ecf44c5d18de0e74cc70ab44748d2b259bdd0983418643f82b",
+  "source_strategy_xml_sha256": "a3ac35d2dad6bffdd59dae16b303eec87e6ba9c30d7856f771eed89195f47cc4",
+  "output_sqx_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/aapl_h1_roc_reversion_time_exit/variants/time_24.sqx",
+  "output_sqx_sha256": "7a61a7dcd1b8e25845cc3744b7cad8a2516abb447ed2d2f36c9f8c8b2a087855",
+  "output_strategy_xml_sha256": "95c385a5bf7959304542938f737fa233106828ccd5152b11af6fceba84ebabd1",
+  "variant_id": "time_24",
+  "exit_after_bars": 24,
+  "oos_2024_accessed": false,
+  "holdout_2025_accessed": false
+}

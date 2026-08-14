@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "preregistration_sha256": "b5cc4fa5c6f003b7cf8b30dc913938b33ad33c7f86c6bb89e7320c0dd2d41f23",
+  "optimized": false,
+  "holdout_2025_accessed": false,
+  "listings": {
+    "SXR8_DE": {
+      "train": {
+        "trades": 83,
+        "wins": 44,
+        "mean_return": 0.0007504817376558645,
+        "total_return": 0.04873462511130189,
+        "profit_factor": 1.110773041754228,
+        "monthly_sharpe": 0.13775912295794043,
+        "max_drawdown": 0.18714994257601536
+      },
+      "validation": {
+        "trades": 47,
+        "wins": 31,
+        "mean_return": 0.007663434082178164,
+        "total_return": 0.41731790078150865,
+        "profit_factor": 2.632219418982089,
+        "monthly_sharpe": 1.2645093518608288,
+        "max_drawdown": 0.06282091856754479
+      },
+      "oos": {
+        "trades": 23,
+        "wins": 15,
+        "mean_return": 0.004508380141041442,
+        "total_return": 0.10435114363820341,
+        "profit_factor": 1.8172641997533638,
+        "monthly_sharpe": 0.8004051069191379,
+        "max_drawdown": 0.07070943688050302
+      },
+      "cost_1000_eur": {
+        "slippage_2bps": {
+          "trades": 70,
+          "wins": 42,
+          "mean_return": 0.0039267735015189546,
+          "total_return": 0.29685065654961384,
+          "profit_factor": 1.6593145613925435,
+          "monthly_sharpe": 0.6657750456503412,
+          "max_drawdown": 0.08122001772447118
+        },
+        "slippage_10bps": {
+          "trades": 70,
+          "wins": 40,
+          "mean_return": 0.003126773501518955,
+          "total_return": 0.22643610199790865,
+          "profit_factor": 1.497581355274862,
+          "monthly_sharpe": 0.5301369610207478,
+          "max_drawdown": 0.08787773048077108
+        }
+      }
+    },
+    "CSPX_L": {
+      "train": {
+        "trades": 83,
+        "wins": 47,
+        "mean_return": -0.0002658734627493644,
+        "total_return": -0.0336270855387415,
+        "profit_factor": 0.9539034389208768,
+        "monthly_sharpe": -0.053920357859110785,
+        "max_drawdown": 0.15315713933070285
+      },
+      "validation": {
+        "trades": 47,
+        "wins": 29,
+        "mean_return": 0.005450419362901475,
+        "total_return": 0.2744747004270165,
+        "profit_factor": 1.7953044924223083,
+        "monthly_sharpe": 0.7928676166506551,
+        "max_drawdown": 0.06886223069236985
+      },
+      "oos": {
+        "trades": 23,
+        "wins": 14,
+        "mean_return": 0.0031368040641841124,
+        "total_return": 0.07005334330567314,
+        "profit_factor": 1.4803352754875294,
+        "monthly_sharpe": 0.5467419217365683,
+        "max_drawdown": 0.06559522222683256
+      },
+      "cost_1000_eur": {
+        "slippage_2bps": {
+          "trades": 70,
+          "wins": 41,
+          "mean_return": 0.0019902314790371982,
+          "total_return": 0.12950348345791074,
+          "profit_factor": 1.2539349508652,
+          "monthly_sharpe": 0.3067381827333742,
+          "max_drawdown": 0.09689884200643795
+        },
+        "slippage_10bps": {
+          "trades": 70,
+          "wins": 41,
+          "mean_return": 0.001190231479037199,
+          "total_return": 0.06805494693434189,
+          "profit_factor": 1.1457011302261946,
+          "monthly_sharpe": 0.1834406925814195,
+          "max_drawdown": 0.12332617998482898
+        }
+      }
+    }
+  },
+  "decision": {
+    "pass": false,
+    "by_listing": {
+      "SXR8_DE": {
+        "pass": true,
+        "combined": {
+          "trades": 70,
+          "wins": 46,
+          "mean_return": 0.006626773501518955,
+          "total_return": 0.5652166446269569,
+          "profit_factor": 2.334706828244553,
+          "monthly_sharpe": 1.123553581275219,
+          "max_drawdown": 0.07070943688050302
+        }
+      },
+      "CSPX_L": {
+        "pass": true,
+        "combined": {
+          "trades": 70,
+          "wins": 43,
+          "mean_return": 0.004690231479037199,
+          "total_return": 0.36375591415042474,
+          "profit_factor": 1.6951389871294393,
+          "monthly_sharpe": 0.7228672119962217,
+          "max_drawdown": 0.06886223069236985
+        }
+      }
+    },
+    "correlation": {
+      "observations": 63,
+      "correlation": 0.8981127667742453
+    }
+  }
+}

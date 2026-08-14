@@ -1,0 +1,203 @@
+{
+  "schema_version": 1,
+  "preregistration_sha256": "ad86e16509030823d17834fccba0e71e1bdda733c9c0871936826508006b58a6",
+  "periods": {
+    "train": {
+      "benchmark": {
+        "metrics": {
+          "observations": 42,
+          "total_return": 0.8306452464294085,
+          "annualized_return": 0.1885836974635553,
+          "sharpe": 0.9204881509239418,
+          "maximum_drawdown": 0.24298503478717615,
+          "positive_calendar_years": 4,
+          "calendar_years": {
+            "2018": 0.09569122748812586,
+            "2019": 0.14500852306824075,
+            "2020": 0.24253311986496873,
+            "2021": 0.17435476562606622
+          }
+        },
+        "turnover_one_way": 1.0
+      },
+      "variants": {
+        "63": {
+          "metrics": {
+            "observations": 42,
+            "total_return": 0.28822919563777893,
+            "annualized_return": 0.07504491850700501,
+            "sharpe": 0.5934174974265563,
+            "maximum_drawdown": 0.15507936140625334,
+            "positive_calendar_years": 3,
+            "calendar_years": {
+              "2018": 0.0030404033869932956,
+              "2019": -0.005818766535654163,
+              "2020": 0.2080380009057603,
+              "2021": 0.06937137182855624
+            }
+          },
+          "turnover_one_way": 12.000000000000002
+        },
+        "126": {
+          "metrics": {
+            "observations": 39,
+            "total_return": 0.16734227130216772,
+            "annualized_return": 0.048760623345775134,
+            "sharpe": 0.3845118098795465,
+            "maximum_drawdown": 0.2144685841392363,
+            "positive_calendar_years": 3,
+            "calendar_years": {
+              "2018": 0.004233288042243988,
+              "2019": -0.013749838150833638,
+              "2020": 0.04751598525162559,
+              "2021": 0.1251640628365125
+            }
+          },
+          "turnover_one_way": 8.285714285714288
+        },
+        "252": {
+          "metrics": {
+            "observations": 33,
+            "total_return": 0.21401149593183555,
+            "annualized_return": 0.07306609377290996,
+            "sharpe": 0.5766105585218936,
+            "maximum_drawdown": 0.17329548132147177,
+            "positive_calendar_years": 3,
+            "calendar_years": {
+              "2019": 0.020627564255975006,
+              "2020": 0.07945355086598505,
+              "2021": 0.10192375799316578
+            }
+          },
+          "turnover_one_way": 5.571428571428573
+        }
+      }
+    },
+    "validation": {
+      "benchmark": {
+        "metrics": {
+          "observations": 23,
+          "total_return": 0.0189843632789497,
+          "annualized_return": 0.009860335347642746,
+          "sharpe": 0.14483610389512666,
+          "maximum_drawdown": 0.14802249816404234,
+          "positive_calendar_years": 1,
+          "calendar_years": {
+            "2022": 0.02329675280961996,
+            "2023": -0.004214212073702206
+          }
+        },
+        "turnover_one_way": 1.0
+      },
+      "variants": {
+        "63": {
+          "metrics": {
+            "observations": 23,
+            "total_return": -0.08755069483168865,
+            "annualized_return": -0.04667859338679825,
+            "sharpe": -0.45145420413193565,
+            "maximum_drawdown": 0.11646774998237153,
+            "positive_calendar_years": 0,
+            "calendar_years": {
+              "2022": -0.024176825953443504,
+              "2023": -0.06494400887759766
+            }
+          },
+          "turnover_one_way": 6.571428571428571
+        },
+        "126": {
+          "metrics": {
+            "observations": 23,
+            "total_return": -0.09508901584402896,
+            "annualized_return": -0.050795957651931456,
+            "sharpe": -0.6066542686795928,
+            "maximum_drawdown": 0.13580425924720874,
+            "positive_calendar_years": 0,
+            "calendar_years": {
+              "2022": -0.05695213362960683,
+              "2023": -0.04044002809868341
+            }
+          },
+          "turnover_one_way": 6.142857142857144
+        },
+        "252": {
+          "metrics": {
+            "observations": 23,
+            "total_return": -0.0963447091768761,
+            "annualized_return": -0.05148339781717837,
+            "sharpe": -0.49487514331218496,
+            "maximum_drawdown": 0.16519925638361166,
+            "positive_calendar_years": 0,
+            "calendar_years": {
+              "2022": -0.05572278550544607,
+              "2023": -0.04301906585045967
+            }
+          },
+          "turnover_one_way": 4.428571428571427
+        }
+      }
+    },
+    "oos": {
+      "benchmark": {
+        "metrics": {
+          "observations": 12,
+          "total_return": 0.10253529333168832,
+          "annualized_return": 0.10253529333168832,
+          "sharpe": 1.1620496907146463,
+          "maximum_drawdown": 0.031970193209618025,
+          "positive_calendar_years": 1,
+          "calendar_years": {
+            "2024": 0.10253529333168832
+          }
+        },
+        "turnover_one_way": 1.0
+      },
+      "variants": {
+        "63": {
+          "metrics": {
+            "observations": 12,
+            "total_return": 0.10343869895436564,
+            "annualized_return": 0.10343869895436564,
+            "sharpe": 1.427432472106582,
+            "maximum_drawdown": 0.025647852254192416,
+            "positive_calendar_years": 1,
+            "calendar_years": {
+              "2024": 0.10343869895436564
+            }
+          },
+          "turnover_one_way": 2.714285714285714
+        },
+        "126": {
+          "metrics": {
+            "observations": 12,
+            "total_return": 0.06256530608626831,
+            "annualized_return": 0.06256530608626831,
+            "sharpe": 0.8613928613575161,
+            "maximum_drawdown": 0.031970193209618136,
+            "positive_calendar_years": 1,
+            "calendar_years": {
+              "2024": 0.06256530608626831
+            }
+          },
+          "turnover_one_way": 1.9999999999999996
+        },
+        "252": {
+          "metrics": {
+            "observations": 12,
+            "total_return": 0.053328690090183484,
+            "annualized_return": 0.053328690090183484,
+            "sharpe": 0.6672393623724339,
+            "maximum_drawdown": 0.03646863463038941,
+            "positive_calendar_years": 1,
+            "calendar_years": {
+              "2024": 0.053328690090183484
+            }
+          },
+          "turnover_one_way": 1.9999999999999996
+        }
+      }
+    }
+  },
+  "holdout_2025_accessed": false,
+  "optimized": false
+}

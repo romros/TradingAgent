@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_BEFORE_PERFORMANCE",
+  "campaign_id": "ibkr-cross-asset-tsmom-v1",
+  "hypothesis": "Monthly long-or-cash time-series momentum is more stable across economically distinct markets than inside a single equity beta cluster.",
+  "assets": ["AAPL", "DE", "EURUSD", "JNJ", "JPM", "KO", "SPX", "XAUUSD"],
+  "periods": {"train": ["2018-01-01", "2021-12-31"], "validation": ["2022-01-01", "2023-12-31"], "oos": ["2024-01-01", "2024-12-31"], "holdout_2025": "SEALED"},
+  "rules": {"lookbacks_sessions": [63,126,252], "signal": "positive trailing close return", "entry": "next common-session open", "rebalance": "monthly", "allocation": "equal independent sleeves long or cash", "leverage": 1, "costs": "deferred until edge"},
+  "gates": {"minimum_validation_and_oos_sharpe": 0.35, "positive_validation_and_oos_return": true, "maximum_validation_and_oos_drawdown": 0.20, "minimum_positive_train_years": 3, "density": "at least two adjacent lookbacks pass", "benchmark": "improve continuous-long Sharpe or drawdown in validation and OOS"},
+  "prohibitions": ["No 2025", "No tuning", "No capital or leverage conclusion", "No paper/live"]
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "asset": "VUAA.MI",
+  "hypothesis": "The turn-of-month flow window can differ by one or two European sessions from the US listing because of exchange calendars and opening hours.",
+  "development_only_grid": {"entry_from_month_end": [-3,-2,-1,0],"exit_session_next_month": [1,2,3,4,5]},
+  "execution": "entry and exit at session open",
+  "development": ["2019-05-14","2021-12-31"],
+  "validation": ["2022-01-01","2023-12-31"],
+  "oos_2024": ["2024-01-01","2024-12-31"],
+  "selection": {
+    "capital_eur": 1000,
+    "commission_each_order_eur": 1.25,
+    "roundtrip_slippage_bps": 10,
+    "minimum_development_trades": 29,
+    "score": "net monthly Sharpe",
+    "minimum_positive_orthogonal_neighbors": 2,
+    "tie_breakers": ["lower max drawdown","shorter holding window","lexicographic parameters"]
+  },
+  "final_gates": {"validation_min_trades":23,"oos_min_trades":11,"validation_and_oos_net_mean_gt":0.0,"validation_and_oos_net_profit_factor_gte":1.1,"combined_net_monthly_sharpe_gte":0.5,"combined_net_max_drawdown_lte":0.15},
+  "multiple_testing": {"reported":true,"maximum_variants":20,"future_holdout_required_before_release":true},
+  "sealed": "2025 and later"
+}

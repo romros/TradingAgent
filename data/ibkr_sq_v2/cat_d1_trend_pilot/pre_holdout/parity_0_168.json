@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_INDEPENDENT_TRADE_PARITY",
+  "candidate_id": "Strategy 0.168",
+  "source_sha256": "9aa5e9f60467bdcb71e59be2a583eb737d0911daab9f59a90bc0293a89bb359c",
+  "orders_sha256": "f71b2d9544f7f620cbdaf5377fbfbb5ee9b1939423c8cd9df97f9fa9343dec69",
+  "date_from": "2017.05.11",
+  "date_to": "2024.12.31",
+  "signal": "Wilder -DI(40) shift2 crosses below its shift3 value",
+  "execution": "market open; SL=2.5*ATR30; PT=2.1*ATR30; SQ exit-then-entry ordering",
+  "simulated_trades": 127,
+  "sq_trades": 127,
+  "mismatches": [],
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

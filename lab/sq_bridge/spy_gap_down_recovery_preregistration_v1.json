@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-spy-gap-down-recovery-v1",
+  "status": "FROZEN_BEFORE_PERFORMANCE",
+  "hypothesis": "Large negative overnight gaps in a diversified liquid equity index partly reverse during the same regular session after opening liquidity pressure is absorbed.",
+  "asset": "SPY",
+  "source": "data/ibkr_sq_v2/preflight/SPY_ADJUSTED_D1_2017_2024.csv",
+  "rule": {
+    "maximum_open_vs_previous_close": -0.01,
+    "entry": "same session open",
+    "exit": "same session close",
+    "roundtrip_cost_bps": 30
+  },
+  "periods": {
+    "train": ["2017-01-01", "2021-12-31"],
+    "validation": ["2022-01-01", "2023-12-31"],
+    "oos": ["2024-01-01", "2024-12-31"]
+  },
+  "validation_gate": {
+    "minimum_trades": 12,
+    "minimum_net_return": 0.0,
+    "minimum_profit_factor": 1.20,
+    "positive_calendar_years_required": 2,
+    "maximum_drawdown": 0.10
+  },
+  "single_variant": true,
+  "oos_access_before_validation_gate": false,
+  "holdout_2025": "SEALED_NOT_LOADED",
+  "optimized": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

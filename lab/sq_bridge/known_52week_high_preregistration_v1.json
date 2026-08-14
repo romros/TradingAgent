@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-known-52week-high-v1",
+  "status": "FROZEN_BEFORE_PERFORMANCE",
+  "purpose": "Independent benchmark of a published anomaly, not a tuned extension of the project's own ideas.",
+  "source_family": "George-Hwang 52-week-high momentum",
+  "hypothesis": "Stocks trading closest to their own 252-session high subsequently outperform peers because investors anchor and underreact to information near prior highs.",
+  "universe": ["AAPL", "DE", "JNJ", "JPM", "KO"],
+  "known_limitations": [
+    "Five surviving large-cap stocks are too few to reproduce the published broad-universe long-short portfolio.",
+    "This is a long-only feasibility benchmark and cannot establish the original anomaly by itself.",
+    "Dividends are omitted and must be incorporated point-in-time before promotion."
+  ],
+  "data_end": "2024-12-31",
+  "holdout_2025": "SEALED_NOT_LOADED",
+  "periods": {
+    "train": ["2018-01-01", "2021-12-31"],
+    "validation": ["2022-01-01", "2023-12-31"],
+    "oos": ["2024-01-01", "2024-12-31"]
+  },
+  "rules": {
+    "score": "close at month-end divided by maximum close over the preceding 252 sessions including signal day",
+    "ranking": "descending score, alphabetical tie-break",
+    "rebalance": "monthly at next NYSE session open",
+    "holding": "top_n until next rebalance",
+    "allocation": "equal weight, long-only, fully invested",
+    "variants": [{"id": "high252_top1", "top_n": 1}, {"id": "high252_top2", "top_n": 2}],
+    "capital": "percentage returns only; no dollar capital or leverage"
+  },
+  "gates": {
+    "positive_validation_and_oos_return": true,
+    "minimum_validation_and_oos_sharpe": 0.35,
+    "maximum_validation_and_oos_drawdown": 0.25,
+    "benchmark": "Must improve either Sharpe or maximum drawdown versus equal-weight buy-and-hold in both validation and OOS.",
+    "minimum_passing_variants": 1
+  },
+  "prohibitions": [
+    "No parameter variants beyond top1/top2.",
+    "No 2025 access.",
+    "No execution, capital or leverage conclusion.",
+    "No promotion without a broader point-in-time universe including delisted stocks."
+  ]
+}

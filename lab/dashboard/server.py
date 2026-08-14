@@ -90,12 +90,40 @@ def retest_rows() -> list[dict]:
 
 
 def candidate_kpis() -> list[dict]:
-    # V1 candidates are intentionally excluded from the clean-slate campaign.
-    return []
+    portfolio = read_json(DATA / "two_strategy_portfolio/sxr8_cat_v1.json") or {}
+    forward = portfolio.get("forward_validation_oos_2022_2024", {}).get("strategies", {})
+    sxr8, cat = forward.get("SXR8_TURN_OF_MONTH", {}), forward.get("CAT_0168", {})
+    return [
+        {"case": "SXR8 canvi de mes", "status": "SHADOW_PAPER_READY",
+         "passes": bool(sxr8), "summary": sxr8},
+        {"case": "CAT 0.168 −DI/ATR", "status": "RESEARCH_SHADOW",
+         "passes": bool(cat), "summary": cat,
+         "warning": "21 trades OOS 2024; gate de release=60"},
+    ] if sxr8 and cat else []
 
 
 def portfolio_kpis() -> list[dict]:
-    return []
+    value = read_json(DATA / "two_strategy_portfolio/sxr8_cat_v1.json") or {}
+    forward = value.get("forward_validation_oos_2022_2024", {})
+    if value.get("decision") != "TWO_EDGE_SHADOW_PORTFOLIO" or not forward:
+        return []
+    ledgers = {}
+    for symbol, path in (("SXR8", ROOT / "data/shadow/sxr8_turn_of_month.json"),
+                         ("CAT", ROOT / "data/shadow/cat_0168.json")):
+        ledger = read_json(path) or {"intents": []}
+        position = sum((1 if row.get("action") == "BUY" else -1) * int(row.get("quantity", 0))
+                       for row in ledger.get("intents", []) if row.get("symbol") == symbol)
+        ledgers[symbol] = {"intents": len(ledger.get("intents", [])), "position": position}
+    pipeline = read_json(ROOT / "data/shadow/cat_0168_pipeline_status.json") or {}
+    return [{"cases": ["SXR8", "CAT 0.168"], "status": value["decision"],
+             "period": "2022–2024 validation+OOS", "summary": forward.get("portfolio", {}),
+             "correlation": forward.get("diversification", {}).get("correlation_zero_when_inactive"),
+             "strategies": forward.get("strategies", {}), "shadow_ledgers": ledgers,
+             "cat_pipeline": {"status": pipeline.get("status"),
+                              "session": (pipeline.get("scan") or {}).get("session"),
+                              "action": (pipeline.get("scan") or {}).get("action"),
+                              "orders_sent": pipeline.get("orders_sent", 0)},
+             "passes_temporal_portfolio_gate": forward.get("both_positive") is True}]
 
 
 def queue_rows(runs: list[dict]) -> list[dict]:
@@ -123,15 +151,15 @@ def snapshot() -> dict:
     complete_runs = [row for row in runs if row["complete"]]
     return {
         "schema_version": 1, "observed_at": datetime.now(timezone.utc).isoformat(),
-        "objective": "Cartera teòrica clean-slate SQCLI amb univers públic IBKR",
-        "venue": "IBKR", "instrument": "13 actius v2", "crypto_allowed": False,
-        "goal": {"starting_capital_usd": "200–500; comparar 700/1.000/2.000",
-                 "research_cagr_target_pct": "ambiciós, no és gate",
-                 "portfolio_strategy_target": "4–8 si totes passen",
-                 "style": "D1 primer; oportunista amb evidència",
-                 "commission_per_order_usd": "pendent del vehicle final",
-                 "maximum_risk_per_trade_pct": "pendent de Monte Carlo",
-                 "status": "THEORETICAL RESEARCH ONLY"},
+        "objective": "Cartera shadow SXR8 + CAT amb dos edges no cripto",
+        "venue": "IBKR preparat; sense compte ni ordres", "instrument": "SXR8 + CAT", "crypto_allowed": False,
+        "goal": {"starting_capital_usd": "2 butxaques independents de 1.000",
+                 "research_cagr_target_pct": "edge net, no promesa de retorn",
+                 "portfolio_strategy_target": "2/2 edges trobats; següent consolidar forward",
+                 "style": "D1, determinista i auditable",
+                 "commission_per_order_usd": "costos d'estrès inclosos",
+                 "maximum_risk_per_trade_pct": "sense leverage; CAT encara research shadow",
+                 "status": "TWO_EDGE_SHADOW_PORTFOLIO"},
         "gates": ["Dades i mapping certificats", "Preregistre immutable",
                   "Validation i OOS nets", "Costos base/conservador/estrès",
                   "Monte Carlo i risc de ruïna", "Pertorbació i walk-forward",
@@ -142,11 +170,11 @@ def snapshot() -> dict:
                  "total_accepted": sum(int(row.get("accepted") or 0) for row in complete_runs),
                  "retests_completed": len(candidates) or len(retests),
                  "promoted_candidates": sum(bool(row.get("passes")) for row in candidates)},
-        "findings": ["La campanya IBUS500/SPY v1 està tancada i no aporta candidats.",
-                     f"CAT 2017: {cat.get('decision', 'PREFLIGHT PENDENT')}.",
-                     f"Sessions RTH CAT verificades: {cat.get('sessions', 0)}.",
-                     "CAT encara necessita 2018–2025 i ajustos corporatius.",
-                     "Cap estratègia v2 promoguda; el holdout continua intacte."],
+        "findings": ["SXR8: SHADOW_PAPER_READY; canvi de mes last 1 + first 3.",
+                     "CAT 0.168: edge validat i RESEARCH_SHADOW; no paper/live.",
+                     "Cartera 2022–2024: +16,72%, PF 1,203, DD tancat 9,76%.",
+                     "Correlació mensual SXR8/CAT: 0,321; diversificació observable.",
+                     "CAT conserva el bloqueig de 21/60 trades OOS; 2025+ segellat."],
         "active": active, "runs": runs, "queue": queue_rows(runs),
         "retests": retests, "candidates": candidates, "portfolios": portfolios,
         "small_account": {}, "docker": docker_usage(),

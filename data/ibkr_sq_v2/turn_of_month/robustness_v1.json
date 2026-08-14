@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "preregistration_sha256": "3c3f8f7e352c58d240e69943249e23181c41a13e743d0352ccd0b098ca41ef9e",
+  "holdout_2025_accessed": false,
+  "candidate": {
+    "trades": 95,
+    "wins": 61,
+    "mean_return": 0.00373920334719289,
+    "total_return": 0.39704688377527786,
+    "profit_factor": 1.6321648171801395,
+    "monthly_sharpe": 0.6254787646587053,
+    "max_drawdown": 0.09298883320299867
+  },
+  "neighbors": [
+    {
+      "entry_from_month_end": 0,
+      "exit_session_next_month": 3,
+      "full": {
+        "trades": 95,
+        "wins": 54,
+        "mean_return": 0.0019653849828271007,
+        "total_return": 0.18434809802349417,
+        "profit_factor": 1.3235027714716718,
+        "monthly_sharpe": 0.3548693802698642,
+        "max_drawdown": 0.10354802562138732
+      },
+      "validation_oos": {
+        "trades": 35,
+        "wins": 18,
+        "mean_return": 0.00026466767097034374,
+        "total_return": 0.0018734314049269063,
+        "profit_factor": 1.035346658715997,
+        "monthly_sharpe": 0.04424019611672066,
+        "max_drawdown": 0.1035480256213871
+      }
+    },
+    {
+      "entry_from_month_end": 0,
+      "exit_session_next_month": 5,
+      "full": {
+        "trades": 95,
+        "wins": 60,
+        "mean_return": 0.005435035709739156,
+        "total_return": 0.6377728270464691,
+        "profit_factor": 1.912725344764124,
+        "monthly_sharpe": 0.8754268460085518,
+        "max_drawdown": 0.06903871117826588
+      },
+      "validation_oos": {
+        "trades": 35,
+        "wins": 19,
+        "mean_return": 0.0016255781828111175,
+        "total_return": 0.05087870699917296,
+        "profit_factor": 1.2025714885487362,
+        "monthly_sharpe": 0.2728214529129023,
+        "max_drawdown": 0.06903871117826588
+      }
+    },
+    {
+      "entry_from_month_end": -1,
+      "exit_session_next_month": 4,
+      "full": {
+        "trades": 95,
+        "wins": 65,
+        "mean_return": 0.0044440053536694635,
+        "total_return": 0.4927941260164901,
+        "profit_factor": 1.7711015187029118,
+        "monthly_sharpe": 0.7356749442780358,
+        "max_drawdown": 0.09834723037092175
+      },
+      "validation_oos": {
+        "trades": 35,
+        "wins": 24,
+        "mean_return": 0.004213688773349359,
+        "total_return": 0.151293163527902,
+        "profit_factor": 1.7849793988022613,
+        "monthly_sharpe": 0.758481130216288,
+        "max_drawdown": 0.0687840170864944
+      }
+    },
+    {
+      "entry_from_month_end": 1,
+      "exit_session_next_month": 4,
+      "full": {
+        "trades": 95,
+        "wins": 52,
+        "mean_return": 0.0024072260414839284,
+        "total_return": 0.23274893358588655,
+        "profit_factor": 1.389090717366077,
+        "monthly_sharpe": 0.4139207294414788,
+        "max_drawdown": 0.07969674492795364
+      },
+      "validation_oos": {
+        "trades": 36,
+        "wins": 16,
+        "mean_return": 0.0008793700772317546,
+        "total_return": 0.02398823712364706,
+        "profit_factor": 1.1115607561821077,
+        "monthly_sharpe": 0.14327591070548343,
+        "max_drawdown": 0.07969674492795376
+      }
+    }
+  ],
+  "yearly": {
+    "2017": {
+      "trades": 11,
+      "wins": 7,
+      "mean_return": 0.002491354147986957,
+      "total_return": 0.02760672229575789,
+      "profit_factor": 3.6042688753926626,
+      "monthly_sharpe": 1.6357595152825217,
+      "max_drawdown": 0.004416501656513638
+    },
+    "2018": {
+      "trades": 12,
+      "wins": 7,
+      "mean_return": -0.00529294364485657,
+      "total_return": -0.06560111729819185,
+      "profit_factor": 0.5345901877196034,
+      "monthly_sharpe": -0.6814683864847804,
+      "max_drawdown": 0.09298883320299867
+    },
+    "2019": {
+      "trades": 12,
+      "wins": 8,
+      "mean_return": 0.0020439882607989714,
+      "total_return": 0.02221225963896223,
+      "profit_factor": 1.2749123726951004,
+      "monthly_sharpe": 0.33211323748614857,
+      "max_drawdown": 0.053058647575871976
+    },
+    "2020": {
+      "trades": 12,
+      "wins": 9,
+      "mean_return": 0.019176098921709583,
+      "total_return": 0.25188853652928267,
+      "profit_factor": 7.5625073320244685,
+      "monthly_sharpe": 2.661897690770982,
+      "max_drawdown": 0.022888623871149538
+    },
+    "2021": {
+      "trades": 12,
+      "wins": 7,
+      "mean_return": 0.004938019878068041,
+      "total_return": 0.05978028893505427,
+      "profit_factor": 2.439556460881997,
+      "monthly_sharpe": 1.2324200506906795,
+      "max_drawdown": 0.015480880380013828
+    },
+    "2022": {
+      "trades": 12,
+      "wins": 7,
+      "mean_return": 0.0013391771781135764,
+      "total_return": 0.013902695327395076,
+      "profit_factor": 1.18026426412633,
+      "monthly_sharpe": 0.228776556111531,
+      "max_drawdown": 0.029436643499459958
+    },
+    "2023": {
+      "trades": 12,
+      "wins": 7,
+      "mean_return": 0.004789036189309842,
+      "total_return": 0.05679107853963972,
+      "profit_factor": 1.8461695896507946,
+      "monthly_sharpe": 0.843197654424973,
+      "max_drawdown": 0.05567857679775867
+    },
+    "2024": {
+      "trades": 12,
+      "wins": 9,
+      "mean_return": 0.0003249084131455582,
+      "total_return": 0.0012527740946208787,
+      "profit_factor": 1.0421911141387035,
+      "monthly_sharpe": 0.05180947611182849,
+      "max_drawdown": 0.0724754169329409
+    }
+  },
+  "bootstrap": {
+    "iterations": 10000,
+    "probability_mean_positive": 0.9658,
+    "mean_ci_2_5": -0.0002173612415560406,
+    "mean_ci_97_5": 0.008840899434003303
+  },
+  "decision": {
+    "pass": true,
+    "positive_neighbors_full": 4,
+    "positive_neighbors_validation_oos": 4,
+    "positive_years": 7
+  }
+}

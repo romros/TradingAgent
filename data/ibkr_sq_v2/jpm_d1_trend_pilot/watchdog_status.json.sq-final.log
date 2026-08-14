@@ -1,0 +1,22 @@
+Project: IBKR_V2_JPM_D1_TREND_PULLBACK_DENSITY_V3
+Log file: /global_log_20260814_083922.log
+
+--------------------------------------------------------------------------------------------------------------------------
+TASK STARTED at 2026.08.14 08:39:22.067
+Task: Build strategies, Type: Build
+Databanks before start: Results (0), Existing portfolio (0), Last generation (0), Initial population (0), Strategies to improve (0), D1 (0), OLD (0), D1_OLD (0)
+
+TASK FINISHED at 2026.08.14 08:39:23.477 in 1 s.
+Databanks after finish: Results (60), Existing portfolio (0), Last generation (0), Initial population (0), Strategies to improve (0), D1 (0), OLD (0), D1_OLD (0)
+
+Strategies generated: 320, Time per strategy: 2 ms., Time per accepted strategy: 11 ms., Accepted: 60, Rejected: 260, Strategies per hour: 1727136, Accepted strategies per hour: 323838
+
+Time per strategy details:
+Main test: Count: 60, Avg. time: 0.0287 s., Total time: 1.7220 s., % of all: 100.00 %
+
+Rejected details:
+Automatic filter: too little trades, Count: 223, % of all: 85.77 %
+Automatic filter: no trades, Count: 37, % of all: 14.23 %
+
+Accepted details:
+In databank, Count: 60, % of all: 100.0 %

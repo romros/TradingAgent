@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-ko-jpm-d1-short-reversal-v1",
+  "status": "FROZEN_BEFORE_PERFORMANCE",
+  "hypothesis": "An abnormal one-to-three-session selloff in a liquid US equity whose slow trend is still rising can partially reverse over the next two-to-five sessions after realistic IBKR costs.",
+  "economic_rationale": [
+    "Short-lived liquidity, positioning or news overreaction can move price farther than the information warrants.",
+    "Requiring price above a rising 200-session average avoids mechanically buying every persistent bear trend.",
+    "A next-open entry makes the closing shock observable and removes same-close lookahead.",
+    "Short maximum holding periods test reversal rather than silently turning the trade into long-term equity beta."
+  ],
+  "assets": ["KO", "JPM"],
+  "timeframe": "D1_NYSE_RTH",
+  "direction": "long_only",
+  "data_contract": {
+    "source": "Dukascopy M1 aggregated to official NYSE regular trading sessions",
+    "required_filename_suffix": "_2017_2024.csv",
+    "maximum_allowed_date": "2024-12-31",
+    "corporate_action_audit_required_before_candidate_status": true
+  },
+  "temporal_contract": {
+    "train": ["2017-01-01", "2021-12-31"],
+    "validation": ["2022-01-01", "2023-12-31"],
+    "oos": ["2024-01-01", "2024-12-31"],
+    "holdout_2025": "SEALED_NOT_LOADED"
+  },
+  "common_rules": {
+    "positive_trend": "close[t] > SMA(close,200)[t] and SMA(close,200)[t] > SMA(close,200)[t-20]",
+    "normalizer": "ATR(20) Wilder known at signal close",
+    "entry": "market open t+1",
+    "concurrency": "maximum one open position per asset and variant",
+    "intrabar_collision": "stop before target",
+    "gap_exit": "fill at market open if open crosses stop or target",
+    "end_of_period": "close at final period close; variants restart flat in each temporal segment"
+  },
+  "variants": [
+    {
+      "id": "r1_one_day_snapback",
+      "selloff": "close[t] - close[t-1] <= -1.5 * ATR20[t]",
+      "lookback_days": 1,
+      "shock_atr": 1.5,
+      "maximum_holding_sessions": 2,
+      "stop_atr": 2.0,
+      "target_atr": null
+    },
+    {
+      "id": "r2_two_day_balanced",
+      "selloff": "close[t] - close[t-2] <= -2.0 * ATR20[t]",
+      "lookback_days": 2,
+      "shock_atr": 2.0,
+      "maximum_holding_sessions": 3,
+      "stop_atr": 2.0,
+      "target_atr": 1.25
+    },
+    {
+      "id": "r3_three_day_deep",
+      "selloff": "close[t] - close[t-3] <= -2.5 * ATR20[t]",
+      "lookback_days": 3,
+      "shock_atr": 2.5,
+      "maximum_holding_sessions": 5,
+      "stop_atr": 2.5,
+      "target_atr": 1.5
+    }
+  ],
+  "cost_and_sizing_contract": {
+    "capitals_usd": [200, 500, 1000],
+    "sizing": "whole shares using all available realized equity, no leverage",
+    "tiered": "max(USD 0.35, USD 0.0035/share) per order",
+    "fixed": "max(USD 1.00, USD 0.005/share) per order",
+    "stress": "fixed commission plus 10 bps adverse slippage per side"
+  },
+  "preregistered_gates": {
+    "minimum_validation_trades": 12,
+    "minimum_oos_trades": 6,
+    "minimum_combined_validation_oos_trades": 20,
+    "minimum_stress_profit_factor_each_validation_and_oos": 1.1,
+    "minimum_stress_net_return_pct_each_validation_and_oos": 0.0,
+    "maximum_stress_drawdown_pct_each_validation_and_oos": 25.0,
+    "must_pass_capital_usd": 200,
+    "cross_asset_promotion": "A family is transferable only if the same frozen variant passes on both KO and JPM; a single-asset pass remains research-only.",
+    "multiple_testing_policy": "All three preregistered variants are reported. No winner is optimized or relabelled as confirmatory."
+  },
+  "prohibitions": [
+    "No parameter optimization before all frozen results are recorded.",
+    "No 2025 data access.",
+    "No Yahoo substitution for canonical Dukascopy/NYSE data.",
+    "No paper or live authorization from this screen."
+  ]
+}

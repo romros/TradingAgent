@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-index-rsi2-reversion-v1",
+  "status": "FROZEN_BEFORE_PERFORMANCE",
+  "hypothesis": "Very short-term oversold shocks in broad equity indices mean-revert while the long-term trend remains positive.",
+  "assets": ["SPY", "SXR8", "CSPX"],
+  "rule": {
+    "entry": "RSI(2) Wilder below 5 and close above SMA(200), fill next open",
+    "exit": "close above SMA(5), fill next open, or maximum 10 sessions",
+    "direction": "long_only",
+    "segment_end": "liquidate final close",
+    "sizing": "whole shares from USD/EUR 1000 sleeve; currency treated one-for-one only for mechanism screening"
+  },
+  "periods": {"train": ["2017-01-01", "2021-12-31"], "validation": ["2022-01-01", "2023-12-31"], "oos": ["2024-01-01", "2024-12-31"], "2025": "SEALED"},
+  "stress_costs": {"commission": "1 currency unit/order", "slippage": "10 bps adverse/side"},
+  "validation_gates": {"minimum_pooled_trades": 30, "minimum_pooled_profit_factor": 1.15, "minimum_positive_assets": 2, "minimum_mean_return_pct": 0, "maximum_asset_drawdown_pct": 20, "oos_open_only_after_pass": true},
+  "prohibitions": ["No tuning after performance", "No 2024 read before validation pass", "No 2025 access", "No promotion without provider and SQ parity"]
+}

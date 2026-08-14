@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "build_reproducible": true,
+  "project_name": "IBKR_V2_AAPL_H1_ROC_REVERSION_GENETIC",
+  "market": "AAPL",
+  "methodology_id": "ibkr-v2-aapl-postsplit-density-pilot",
+  "sq_symbol": "AAPLUSUSD_TICK_UTCMinus05",
+  "timeframe": "H1",
+  "methodology_sha256": "9d5cf79b89161b9d0b93aabb825ba687bf5444e67e3cc16a070f3637ed7f65bb",
+  "source_role": "xml_format_scaffold_only",
+  "source_sha256": "e670b4a4f5df929117edc285c9413c69951c431d80dd6c991fa3c21d78c719b6",
+  "output_sha256": "ccea94eb6f3d73b9ca0e626c79cdff91993ff63c78243fa9b23009d928e18597",
+  "accepted_limit": 40,
+  "discovery_initial_capital": 10000,
+  "sq_discovery_spread": 0,
+  "sq_discovery_commission": 0.0,
+  "sq_discovery_slippage": 0,
+  "venue_cost_application_stage": "legacy_embedded_or_posthoc",
+  "search_profile": "equity_h1_roc_reversion_v2",
+  "generation_type": "genetic-evolution",
+  "market_side": "long",
+  "attempt_budget": 50000,
+  "wall_time_budget_minutes": 45,
+  "attempt_stop_guard": 100,
+  "stagnation_attempts": null,
+  "sq_genetic_shape": {
+    "islands": 4,
+    "population_per_island": 100,
+    "max_generations": 100,
+    "nominal_evaluations": 40000
+  },
+  "canonical_evaluation_capital": 1000,
+  "periods": {
+    "train_from": "2020-08-31",
+    "train_to": "2022-12-30",
+    "validation_from": "2023-01-03",
+    "validation_to": "2023-12-29",
+    "oos_from": "2024-01-02",
+    "oos_to": "2024-12-31",
+    "holdout_from": "2025-01-01",
+    "holdout_to": "2025-12-31"
+  },
+  "intraday_execution": {
+    "exit_at_end_of_day": false,
+    "eod_exit_seconds": null,
+    "signal_time_range_seconds": null,
+    "exit_at_end_of_range": false,
+    "maximum_trades_per_day": 1
+  },
+  "blocks": {
+    "enabled": 8,
+    "disabled": 507,
+    "search_space": null,
+    "genetic_parameters": {}
+  },
+  "holdout_sealed": true
+}

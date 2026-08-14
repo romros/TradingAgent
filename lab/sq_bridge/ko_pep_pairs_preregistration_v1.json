@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-ko-pep-d1-pairs-v1",
+  "status": "FROZEN_BEFORE_PEP_DOWNLOAD_AND_PERFORMANCE",
+  "hypothesis": "KO and PEP share a durable defensive-beverages factor; unusually large temporary deviations in their log-price relationship can mean-revert without relying on the market's direction.",
+  "assets": ["KO", "PEP"],
+  "timeframe": "D1_NYSE_RTH",
+  "direction": "dollar_neutral_long_short",
+  "data_contract": {
+    "source": "Dukascopy M1 BID aggregated to official NYSE regular trading sessions",
+    "maximum_allowed_date": "2024-12-31",
+    "corporate_action_audit_required": true,
+    "cross_provider_adjustment_check_required_before_promotion": true
+  },
+  "temporal_contract": {
+    "train": ["2017-11-02", "2021-12-31"],
+    "validation": ["2022-01-01", "2023-12-31"],
+    "oos": ["2024-01-01", "2024-12-31"],
+    "holdout_2025": "SEALED_NOT_LOADED"
+  },
+  "frozen_rule": {
+    "spread": "log(KO close) - beta[t] * log(PEP close)",
+    "beta": "rolling OLS slope over the previous 60 completed common sessions, including signal close and excluding all future observations",
+    "zscore": "(spread[t] - rolling_mean_60[t]) / rolling_std_sample_60[t]",
+    "entry": "when abs(zscore[t]) >= 2.0, enter both legs at next common session open in the mean-reversion direction",
+    "exit": "next common session open after abs(zscore close) <= 0.5, or after 10 held sessions",
+    "stop": "next common session open after abs(zscore close) >= 3.5",
+    "sizing": "equal dollar gross notional per leg at entry; whole shares; no pyramiding; one pair at a time",
+    "signal_observability": "all decisions use completed closes; all fills use the following common open"
+  },
+  "economics": {
+    "evaluation_capital_usd": 1000,
+    "gross_exposure": "100 percent of equity split equally across both legs",
+    "commission_stress": "USD 1.00 minimum per order, four orders per completed pair trade",
+    "slippage_stress": "10 bps adverse per leg per side",
+    "short_borrow_stress": "5 percent annualized on short market value for actual calendar holding days",
+    "financing": "no leverage and no credit for short-sale cash"
+  },
+  "staged_gates": {
+    "minimum_validation_closed_pairs": 20,
+    "minimum_validation_profit_factor_stress": 1.15,
+    "minimum_validation_net_return_pct_stress": 0.0,
+    "maximum_validation_drawdown_pct_stress": 20.0,
+    "minimum_validation_positive_halves": 3,
+    "validation_halves_total": 4,
+    "oos_is_opened_only_after_validation_pass": true,
+    "minimum_oos_closed_pairs": 8,
+    "minimum_oos_profit_factor_stress": 1.10,
+    "minimum_oos_net_return_pct_stress": 0.0
+  },
+  "robustness_after_candidate_only": [
+    "entry threshold neighbourhood 1.8 and 2.2 without selecting a new winner",
+    "formation window neighbourhood 40 and 80 without selecting a new winner",
+    "double transaction-cost stress",
+    "cross-provider adjusted-close direction and signal-date agreement",
+    "SQ/Python signal and fill parity where SQ can express the paired construction"
+  ],
+  "prohibitions": [
+    "No parameter change after performance is observed.",
+    "No 2025 access.",
+    "No OOS opening if validation fails.",
+    "No candidate claim from train performance alone.",
+    "No live or paper authorization from this experiment."
+  ]
+}

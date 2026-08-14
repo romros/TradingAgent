@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-v2-jpm-d1-trend-pullback-density",
+  "status": "THEORETICAL_DISCOVERY_ONLY",
+  "hypothesis": "A liquid money-center bank can exhibit persistent D1 trends and orderly pullbacks across rate and credit regimes.",
+  "falsifier": "Reject if train lacks density or the frozen candidates fail 2022-2023 and sealed 2024 after IBKR stress costs.",
+  "asset": "JPM",
+  "sq_symbol": "JPM_IBKR_V2_D1",
+  "source_receipt": "data/ibkr_sq_v2/preflight/jpm_canonical_source_2017_2024.json",
+  "performance_accessed_before_freeze": false,
+  "periods": {
+    "train_from": "2017-01-26", "train_to": "2021-12-30",
+    "validation_from": "2022-01-03", "validation_to": "2023-12-29",
+    "sealed_oos_from": "2024-01-02", "sealed_oos_to": "2024-12-31",
+    "untouched_future_from": "2025-01-02", "untouched_future_to": "2025-12-31"
+  },
+  "discovery": {
+    "timeframe": "D1", "direction": "long",
+    "search_profile": "equity_d1_trend_pullback_v1",
+    "generation": "random-generation", "attempt_budget": 75000,
+    "wall_time_budget_minutes": 60, "accepted_limit": 60,
+    "maximum_rules": 2, "minimum_train_trades": 30,
+    "minimum_profit_factor_train": 1.05
+  },
+  "promotion_allowed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

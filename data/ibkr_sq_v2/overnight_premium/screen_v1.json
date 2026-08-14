@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "preregistration_sha256": "03da7896e29aa2be711b262e91800516fd0736709f7ffd44c48d5dc4ce1c16a6",
+  "optimized": false,
+  "holdout_2025_accessed": false,
+  "periods": {
+    "train": {
+      "SPX": {
+        "overnight": {
+          "observations": 1203,
+          "mean_return": 0.0004716209351790181,
+          "total_return": 0.6881027083723901,
+          "profit_factor": 1.2257001445620086,
+          "t_stat": 1.937920783347781,
+          "max_drawdown": 0.31088175293948783
+        },
+        "intraday": {
+          "observations": 1203,
+          "mean_return": 0.00022102843129570977,
+          "total_return": 0.2514744059790659,
+          "profit_factor": 1.0851139552321298,
+          "t_stat": 0.9229790097933948,
+          "max_drawdown": 0.21880610223906805
+        }
+      },
+      "STOCKS": {
+        "overnight": {
+          "observations": 1168,
+          "mean_return": -0.0014067809511441277,
+          "total_return": -0.8142562935015315,
+          "profit_factor": 0.5578168220896615,
+          "t_stat": -5.893195052472185,
+          "max_drawdown": 0.8143433008995515
+        },
+        "intraday": {
+          "observations": 1168,
+          "mean_return": 0.002219373459948408,
+          "total_return": 11.728740548505908,
+          "profit_factor": 2.1010034128459183,
+          "t_stat": 8.581556048624453,
+          "max_drawdown": 0.10149996570760667
+        }
+      }
+    },
+    "validation": {
+      "SPX": {
+        "overnight": {
+          "observations": 497,
+          "mean_return": -0.0003231802032159745,
+          "total_return": -0.15855923779215564,
+          "profit_factor": 0.8808862176350182,
+          "t_stat": -1.0361364972688387,
+          "max_drawdown": 0.2383440475178492
+        },
+        "intraday": {
+          "observations": 497,
+          "mean_return": 0.0004027067493773798,
+          "total_return": 0.18993273912148245,
+          "profit_factor": 1.1085905483817564,
+          "t_stat": 0.8729838399126855,
+          "max_drawdown": 0.12598636813150332
+        }
+      },
+      "STOCKS": {
+        "overnight": {
+          "observations": 501,
+          "mean_return": -0.0025918412324945927,
+          "total_return": -0.729779266819723,
+          "profit_factor": 0.28824850921575834,
+          "t_stat": -10.090655831505218,
+          "max_drawdown": 0.7309720173144487
+        },
+        "intraday": {
+          "observations": 501,
+          "mean_return": 0.0028076978266175544,
+          "total_return": 2.9920449815462407,
+          "profit_factor": 2.291174034766961,
+          "t_stat": 6.938547689503733,
+          "max_drawdown": 0.07368801443835726
+        }
+      }
+    },
+    "oos_2024": {
+      "SPX": {
+        "overnight": {
+          "observations": 249,
+          "mean_return": 0.0008540756938158297,
+          "total_return": 0.2324255509060298,
+          "profit_factor": 1.624004170644722,
+          "t_stat": 2.5103344705651023,
+          "max_drawdown": 0.053327857916870225
+        },
+        "intraday": {
+          "observations": 249,
+          "mean_return": 2.0666580955504205e-05,
+          "total_return": 0.0005129414499003282,
+          "profit_factor": 1.0093271636845853,
+          "t_stat": 0.053457213771698535,
+          "max_drawdown": 0.0873051382533655
+        }
+      },
+      "STOCKS": {
+        "overnight": {
+          "observations": 252,
+          "mean_return": -0.0020811184111073373,
+          "total_return": -0.4097106173358078,
+          "profit_factor": 0.22256895181702807,
+          "t_stat": -8.002092001570183,
+          "max_drawdown": 0.4097106173358078
+        },
+        "intraday": {
+          "observations": 252,
+          "mean_return": 0.0026761389511031886,
+          "total_return": 0.9529771002361898,
+          "profit_factor": 3.2423221971281113,
+          "t_stat": 7.386348448576394,
+          "max_drawdown": 0.021912102885767948
+        }
+      }
+    }
+  },
+  "decisions": {
+    "SPX": {
+      "pass": false,
+      "combined_validation_oos": {
+        "overnight": {
+          "observations": 746,
+          "mean_return": 6.97644594662229e-05,
+          "total_return": 0.03701309491879412,
+          "profit_factor": 1.0308087430068407,
+          "t_stat": 0.293691708363716,
+          "max_drawdown": 0.2383440475178492
+        },
+        "intraday": {
+          "observations": 746,
+          "mean_return": 0.00027518932050734355,
+          "total_return": 0.19054310494597004,
+          "profit_factor": 1.0857223842511012,
+          "t_stat": 0.8258459147963911,
+          "max_drawdown": 0.12598636813150332
+        }
+      }
+    },
+    "STOCKS": {
+      "pass": false,
+      "combined_validation_oos": {
+        "overnight": {
+          "observations": 753,
+          "mean_return": -0.00242092204127336,
+          "total_return": -0.840491570227949,
+          "profit_factor": 0.270518700462082,
+          "t_stat": -12.616782365771117,
+          "max_drawdown": 0.841195638181153
+        },
+        "intraday": {
+          "observations": 753,
+          "mean_return": 0.002763670155130675,
+          "total_return": 6.796372432072603,
+          "profit_factor": 2.4969449568729294,
+          "t_stat": 9.364087862843034,
+          "max_drawdown": 0.07368801443835726
+        }
+      }
+    }
+  },
+  "transfer_gate_pass": false
+}

@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-d1-compression-breakout-v1",
+  "status": "FROZEN_BEFORE_PERFORMANCE",
+  "objective": "Test statistical edge in R units before any account-capital or leverage decision.",
+  "hypothesis": "In a rising long-term trend, volatility compression followed by a confirmed close above a prior range can precede a persistent expansion move.",
+  "assets": ["KO", "JPM", "DE"],
+  "timeframe": "D1_NYSE_RTH",
+  "direction": "long_only",
+  "temporal_contract": {
+    "train": ["2017-01-01", "2021-12-31"],
+    "validation": ["2022-01-01", "2023-12-31"],
+    "oos": ["2024-01-01", "2024-12-31"],
+    "holdout_2025": "SEALED_NOT_LOADED"
+  },
+  "common_rules": {
+    "trend": "close[t] > SMA200[t] and SMA200[t] > SMA200[t-20]",
+    "compression": "ATR5[t] / ATR20[t] <= compression_ratio",
+    "breakout": "close[t] > maximum high of the preceding breakout_days, excluding t",
+    "entry": "next session open",
+    "initial_stop": "entry - 2 * ATR20 known at signal close",
+    "exit": "initial stop or close after maximum_holding_sessions",
+    "gap_stop": "fill at session open when open is below stop",
+    "sizing": "one unit of initial risk; results reported in R",
+    "overlap": "one position per asset and variant",
+    "period_boundaries": "each train, validation and OOS segment starts flat"
+  },
+  "grid": {
+    "compression_ratio": [0.65, 0.8],
+    "breakout_days": [10, 20],
+    "maximum_holding_sessions": [10, 20],
+    "total_variants": 8
+  },
+  "statistical_gates": {
+    "minimum_validation_trades_per_asset": 6,
+    "minimum_oos_trades_per_asset": 3,
+    "minimum_validation_oos_trades_per_asset": 12,
+    "minimum_mean_r_each_validation_and_oos": 0.05,
+    "minimum_profit_factor_r_each_validation_and_oos": 1.1,
+    "maximum_drawdown_r_each_validation_and_oos": 8.0,
+    "minimum_assets_passing_same_variant": 2,
+    "train_must_not_have_negative_mean_r": true,
+    "family_density_gate": "At least 2 of 8 neighboring variants must pass on at least 2 assets; an isolated winner is not density."
+  },
+  "robustness_sequence_if_pass": [
+    "trade-level bootstrap and block bootstrap",
+    "parameter-neighborhood consistency",
+    "SQCLI precise-engine parity",
+    "Monte Carlo and walk-forward",
+    "only then capital, costs, fractional shares and leverage"
+  ],
+  "prohibitions": [
+    "No capital-dollar gate in edge discovery.",
+    "No parameter optimization after seeing this screen.",
+    "No 2025 data access.",
+    "No SQCLI search unless the preregistered density gate passes.",
+    "No paper or live authorization from this screen."
+  ]
+}

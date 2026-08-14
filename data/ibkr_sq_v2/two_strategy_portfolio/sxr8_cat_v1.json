@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "period": "2019-01-01/2024-12-31",
+  "allocation": "two independent equal sleeves; no leverage; no rebalancing",
+  "costs": "CAT fixed commissions + 10bps each side; SXR8 EUR1.25/order + 10bps round-trip",
+  "inputs_sha256": {
+    "data/ibkr_sq_v2/preflight/SXR8_DE_ADJUSTED_D1_2012_2024.csv": "ccc723b140f1d1a003dd248864cc3f7a5004b3fe628531363b51dba589cd5fa6",
+    "data/ibkr_sq_v2/preflight/CATUSUSD_NYSE_RTH_D1_2024.csv": "fb3822c5db7700cb118ca5c2cc18dbc9b8debc563ec1d25ac698716628e06e97"
+  },
+  "full_2019_2024": {
+    "strategies": {
+      "SXR8_TURN_OF_MONTH": {
+        "initial_capital": 1000.0,
+        "final_equity": 1260.279256,
+        "return_pct": 26.027926,
+        "events": 71,
+        "profit_factor": 1.513067,
+        "max_drawdown_pct_closed_equity": 8.313676,
+        "positive_months": 41,
+        "active_months": 71
+      },
+      "CAT_0168": {
+        "initial_capital": 1000.0,
+        "final_equity": 1666.154625,
+        "return_pct": 66.615463,
+        "events": 101,
+        "profit_factor": 1.223598,
+        "max_drawdown_pct_closed_equity": 28.223801,
+        "positive_months": 29,
+        "active_months": 57
+      }
+    },
+    "portfolio": {
+      "initial_capital": 2000.0,
+      "final_equity": 2926.433882,
+      "return_pct": 46.321694,
+      "events": 172,
+      "profit_factor": 1.265716,
+      "max_drawdown_pct_closed_equity": 14.515521,
+      "positive_months": 38,
+      "active_months": 71
+    },
+    "diversification": {
+      "months": 71,
+      "correlation_zero_when_inactive": 0.381748
+    },
+    "both_positive": true
+  },
+  "forward_validation_oos_2022_2024": {
+    "strategies": {
+      "SXR8_TURN_OF_MONTH": {
+        "initial_capital": 1000.0,
+        "final_equity": 1049.148725,
+        "return_pct": 4.914873,
+        "events": 35,
+        "profit_factor": 1.209491,
+        "max_drawdown_pct_closed_equity": 8.630761,
+        "positive_months": 20,
+        "active_months": 35
+      },
+      "CAT_0168": {
+        "initial_capital": 1000.0,
+        "final_equity": 1285.159703,
+        "return_pct": 28.51597,
+        "events": 57,
+        "profit_factor": 1.202464,
+        "max_drawdown_pct_closed_equity": 17.677245,
+        "positive_months": 16,
+        "active_months": 32
+      }
+    },
+    "portfolio": {
+      "initial_capital": 2000.0,
+      "final_equity": 2334.308428,
+      "return_pct": 16.715421,
+      "events": 92,
+      "profit_factor": 1.203468,
+      "max_drawdown_pct_closed_equity": 9.758109,
+      "positive_months": 18,
+      "active_months": 36
+    },
+    "diversification": {
+      "months": 36,
+      "correlation_zero_when_inactive": 0.320963
+    },
+    "both_positive": true
+  },
+  "decision": "TWO_EDGE_SHADOW_PORTFOLIO",
+  "limitations": [
+    "CAT has only 21 trades in the 2024 OOS year, below its frozen 60-trade release gate",
+    "closed-equity drawdown ignores intratrade mark-to-market",
+    "different sleeve currencies are treated as accounting units; FX conversion is excluded"
+  ],
+  "holdout_2025_accessed": false,
+  "orders_sent": 0,
+  "paper_authorized": false,
+  "live_authorized": false
+}

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-multi-asset-dual-momentum-v1",
+  "status": "FROZEN_BEFORE_PERFORMANCE",
+  "hypothesis": "Monthly relative momentum across equity, gold and long-duration Treasuries, combined with an absolute positive-return filter, captures persistent cross-asset trends while moving to cash in broad downtrends.",
+  "academic_basis": "Moskowitz, Ooi and Pedersen, Time Series Momentum, Journal of Financial Economics 2012",
+  "assets": {
+    "SPY": "data/ibkr_sq_v2/preflight/SPY_ADJUSTED_D1_2017_2024.csv",
+    "PHAU": "data/ibkr_sq_v2/preflight/PHAU_L_ADJUSTED_D1_through_2024.csv",
+    "IDTL": "data/ibkr_sq_v2/preflight/IDTL_L_ADJUSTED_D1_through_2024.csv"
+  },
+  "rule": {
+    "formation_months": 12,
+    "rebalance": "monthly; rank using month-end closes through month t-1 and hold selected asset during month t",
+    "selection": "single asset with highest trailing 12-month total return if positive, otherwise cash",
+    "cash_return": 0.0,
+    "switch_cost_bps": 30
+  },
+  "periods": {
+    "train": ["2018-01", "2021-12"],
+    "validation": ["2022-01", "2023-12"],
+    "oos": ["2024-01", "2024-12"]
+  },
+  "validation_gate": {
+    "minimum_months": 24,
+    "minimum_net_return": 0.0,
+    "minimum_profit_factor": 1.10,
+    "minimum_sharpe_improvement_vs_equal_weight": 0.0,
+    "positive_calendar_years_required": 2,
+    "maximum_drawdown": 0.20
+  },
+  "single_variant": true,
+  "oos_access_before_validation_gate": false,
+  "holdout_2025": "SEALED_NOT_LOADED",
+  "optimized": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

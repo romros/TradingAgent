@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_BEFORE_HOLDOUT",
+  "campaign": "ALQUIMIA_MSFT_D1_TREND_LONG",
+  "strategy": "Strategy 0.68",
+  "sqx_sha256": "269825444e5641796f4e8baaa4777dda243dfdf485f841275fee5c6ce2770a48",
+  "selection_basis": "Among fully supported candidates, balanced persistence: 31/31 validation/OOS trades, PF 1.457/2.340 and identical 10.53% drawdown; not maximum-return selection.",
+  "holdout": ["2023-10-30", "2024-12-31"],
+  "holdout_gate": {
+    "minimum_trades": 6,
+    "minimum_profit_factor": 1.10,
+    "minimum_compound_return": 0.0,
+    "maximum_drawdown": 0.15
+  },
+  "require_native_sq_parity": true,
+  "require_cost_stress": true,
+  "optimized_after_selection": false,
+  "holdout_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

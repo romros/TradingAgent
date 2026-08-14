@@ -1,0 +1,11 @@
+{
+  "command": "-databank action=synctofiles project=IBKR_V2_AAPL_ROC_TIME_48_TRAIN_V2 name=Train",
+  "databank": "Train",
+  "decision": "PASS_RETEST_OUTPUT_DATABANK_SYNC",
+  "observed_output_sqx_count": 1,
+  "output_sqx_path": "/mnt/volume-SQ/user/projects/IBKR_V2_AAPL_ROC_TIME_48_TRAIN_V2/databanks/Train/time_48.sqx",
+  "output_sqx_sha256": "d6d69a199160e573a1374c8bb5f9775fe499b74bd16327d320335877309d2254",
+  "project_name": "IBKR_V2_AAPL_ROC_TIME_48_TRAIN_V2",
+  "response": "07:21:22 Syncing datatabank to files\n--------------------------------------------------\nSynchronization started.\n--------------------------------------------------\n",
+  "schema_version": 1
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "campaign": "AAPL_H1_ROC_EXIT_AFTER_BARS",
+  "decision": "REJECT_FAMILY_BEFORE_VALIDATION",
+  "development_period": "2020-08-31/2022-12-30",
+  "capital_usd": 1000,
+  "variants_tested_bars": [12, 24, 36, 48, 60],
+  "selection_rule": "retain only a stable adjacent plateau that survives small-account stress costs",
+  "results": {
+    "12": {"trades": 305, "tiered_return_pct": -9.314, "stress_return_pct": -81.05378, "stress_profit_factor": 0.528022, "stress_positive_quarters": 1, "quarters": 10, "maximum_duration_hours": 138.516667},
+    "24": {"trades": 244, "tiered_return_pct": 27.01, "stress_return_pct": -53.05811, "stress_profit_factor": 0.732934, "stress_positive_quarters": 2, "quarters": 10, "maximum_duration_hours": 164.499722},
+    "36": {"trades": 220, "tiered_return_pct": -4.086, "stress_return_pct": -68.037746, "stress_profit_factor": 0.606873, "stress_positive_quarters": 1, "quarters": 10, "maximum_duration_hours": 241.0},
+    "48": {"trades": 216, "tiered_return_pct": 3.445, "stress_return_pct": -64.029777, "stress_profit_factor": 0.62956, "stress_positive_quarters": 1, "quarters": 10, "maximum_duration_hours": 287.0},
+    "60": {"trades": 212, "tiered_return_pct": 2.222, "stress_return_pct": -62.253933, "stress_profit_factor": 0.64083, "stress_positive_quarters": 1, "quarters": 10, "maximum_duration_hours": 336.0}
+  },
+  "reason": "No adjacent parameter plateau survives the preregistered stress-cost model. The isolated tiered gain at 24 bars is not economically robust.",
+  "validation_2023_accessed_for_variants": false,
+  "oos_2024_accessed": false,
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

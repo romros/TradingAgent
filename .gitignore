@@ -31,6 +31,11 @@ data/ibkr_sq_v2/**/*.bi5
 data/ibkr_sq_v2/**/*.gz
 data/ibkr_sq_v2/**/*.sqx
 data/ibkr_sq_v2/**/*.cfx
+# Canonical market data and live/shadow state stay local; version receipts only.
+data/ibkr_sq_v2/preflight/*.csv
+data/ibkr_sq_v2/preflight/*.jsonl
+data/forward/
+data/shadow/
 # Compiled StrategyQuant custom-block outputs; sources and receipts are versioned.
 lab/sq_bridge/evidence/**/classes/
 lab/sq_bridge/evidence/**/*.jar

@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "preregistration_sha256": "6260b6de697848e2d9c89fe4a9ec9c002c20575784b4194ff5ed99c2e09d4993",
+  "optimized": false,
+  "holdout_2025_accessed": false,
+  "periods": {
+    "train": {
+      "trades": 59,
+      "wins": 38,
+      "mean_return": 0.0047082518070592685,
+      "total_return": 0.30221241862891723,
+      "profit_factor": 1.8890795329971857,
+      "monthly_sharpe": 0.7694041941064272,
+      "max_drawdown": 0.09298883320299867
+    },
+    "validation": {
+      "trades": 23,
+      "wins": 14,
+      "mean_return": 0.0039057547116671315,
+      "total_return": 0.0892310333171138,
+      "profit_factor": 1.638150890036815,
+      "monthly_sharpe": 0.6898975047806022,
+      "max_drawdown": 0.05567857679775834
+    },
+    "oos_2024": {
+      "trades": 11,
+      "wins": 9,
+      "mean_return": 0.002071547999876976,
+      "total_return": 0.020528648863227472,
+      "profit_factor": 1.3099333494477288,
+      "monthly_sharpe": 0.3279295727887334,
+      "max_drawdown": 0.0724754169329409
+    }
+  },
+  "decision": {
+    "pass": true,
+    "combined_validation_oos": {
+      "trades": 34,
+      "wins": 23,
+      "mean_return": 0.003312334893146787,
+      "total_return": 0.11159147473101139,
+      "profit_factor": 1.5255414110189536,
+      "monthly_sharpe": 0.5720881322866996,
+      "max_drawdown": 0.0724754169329409
+    }
+  },
+  "statistical_evidence": {
+    "full_2017_2024": {
+      "observations": 93,
+      "mean_return": 0.004197916591220297,
+      "t_stat": 1.9567360214598235,
+      "one_sided_p_value": 0.026705317682206776
+    },
+    "validation_oos": {
+      "observations": 34,
+      "mean_return": 0.003312334893146787,
+      "t_stat": 0.9629678195346436,
+      "one_sided_p_value": 0.17128371386143496
+    }
+  },
+  "cost_diagnostics": {
+    "capital_200_slippage_2bps": {
+      "roundtrip_cost_bps": 36.99999999999999,
+      "metrics": {
+        "trades": 34,
+        "wins": 19,
+        "mean_return": -0.000387665106853212,
+        "total_return": -0.01967697375236832,
+        "profit_factor": 0.9494173130534013,
+        "monthly_sharpe": -0.06695536957668058,
+        "max_drawdown": 0.07988116788667188
+      }
+    },
+    "capital_200_slippage_10bps": {
+      "roundtrip_cost_bps": 44.99999999999999,
+      "metrics": {
+        "trades": 34,
+        "wins": 19,
+        "mean_return": -0.001187665106853213,
+        "total_return": -0.04601310904966882,
+        "profit_factor": 0.8518553578898741,
+        "monthly_sharpe": -0.20512693754714137,
+        "max_drawdown": 0.08522828619151446
+      }
+    },
+    "capital_500_slippage_2bps": {
+      "roundtrip_cost_bps": 16.0,
+      "metrics": {
+        "trades": 34,
+        "wins": 22,
+        "mean_return": 0.0017123348931467868,
+        "total_return": 0.0528573494399629,
+        "profit_factor": 1.249976594929601,
+        "monthly_sharpe": 0.29574499634577833,
+        "max_drawdown": 0.07555522117395341
+      }
+    },
+    "capital_500_slippage_10bps": {
+      "roundtrip_cost_bps": 24.0,
+      "metrics": {
+        "trades": 34,
+        "wins": 21,
+        "mean_return": 0.0009123348931467875,
+        "total_return": 0.024631161678109192,
+        "profit_factor": 1.1278448110006838,
+        "monthly_sharpe": 0.15757342837531785,
+        "max_drawdown": 0.07709320329445946
+      }
+    },
+    "capital_1000_slippage_2bps": {
+      "roundtrip_cost_bps": 9.0,
+      "metrics": {
+        "trades": 34,
+        "wins": 22,
+        "mean_return": 0.0024123348931467865,
+        "total_return": 0.07817317993587469,
+        "profit_factor": 1.3653435367356286,
+        "monthly_sharpe": 0.41664511831993134,
+        "max_drawdown": 0.07420843681851041
+      }
+    },
+    "capital_1000_slippage_10bps": {
+      "roundtrip_cost_bps": 17.0,
+      "metrics": {
+        "trades": 34,
+        "wins": 22,
+        "mean_return": 0.001612334893146787,
+        "total_return": 0.0492882324339583,
+        "profit_factor": 1.2341714595428457,
+        "monthly_sharpe": 0.2784735503494708,
+        "max_drawdown": 0.07574753893901665
+      }
+    }
+  }
+}

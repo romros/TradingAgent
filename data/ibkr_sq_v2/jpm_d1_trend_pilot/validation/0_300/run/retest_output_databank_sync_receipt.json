@@ -1,0 +1,11 @@
+{
+  "command": "-databank action=synctofiles project=IBKR_V2_JPM_D1_VAL_0_300 name=Validation",
+  "databank": "Validation",
+  "decision": "PASS_RETEST_OUTPUT_DATABANK_SYNC",
+  "observed_output_sqx_count": 1,
+  "output_sqx_path": "/mnt/volume-SQ/user/projects/IBKR_V2_JPM_D1_VAL_0_300/databanks/Validation/Strategy 0.300.sqx",
+  "output_sqx_sha256": "a7a50a34f7ecb006f370bf1811e8bc95e68a5c092f6f4a4717c33d196fccfa87",
+  "project_name": "IBKR_V2_JPM_D1_VAL_0_300",
+  "response": "08:44:10 Syncing datatabank to files\n--------------------------------------------------\nSynchronization started.\n--------------------------------------------------\n",
+  "schema_version": 1
+}

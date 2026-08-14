@@ -36,3 +36,43 @@ def test_h4_harvest_is_a_frequency_escalation_not_holdout_relaxation():
     assert spec["periods"]["validation_from"] == "2023-01-03"
     assert spec["periods"]["sealed_oos_from"] == "2024-01-02"
     assert spec["promotion_allowed"] is False
+
+
+def test_h1_harvest_changes_frequency_without_relaxing_the_holdout():
+    path = Path(__file__).with_name("aapl_postsplit_h1_idea_harvest_v2.json")
+    spec = json.loads(path.read_text())
+    assert spec["discovery"]["timeframe"] == "H1"
+    assert spec["discovery"]["direction"] == "long"
+    assert spec["discovery"]["search_profile"] == "equity_intraday_channel_breakout_v1"
+    assert spec["discovery"]["attempt_budget"] == 25000
+    assert spec["discovery"]["minimum_train_trades"] == 30
+    assert spec["discovery"]["minimum_profit_factor_train"] == 1.05
+    assert spec["periods"]["validation_from"] == "2023-01-03"
+    assert spec["periods"]["sealed_oos_from"] == "2024-01-02"
+    assert spec["performance_accessed_before_freeze"] is False
+    assert spec["promotion_allowed"] is False
+
+
+def test_h1_shock_reversion_is_directed_and_non_promotable():
+    path = Path(__file__).with_name("aapl_postsplit_h1_shock_reversion_v2.json")
+    spec = json.loads(path.read_text())
+    assert spec["discovery"]["timeframe"] == "H1"
+    assert spec["discovery"]["direction"] == "long"
+    assert spec["discovery"]["search_profile"] == "equity_intraday_shock_reversion_v1"
+    assert spec["discovery"]["maximum_rules"] == 2
+    assert spec["discovery"]["minimum_train_trades"] == 30
+    assert spec["discovery"]["commission_per_order_usd"] == 0.35
+    assert spec["performance_accessed_before_freeze"] is False
+    assert spec["promotion_allowed"] is False
+
+
+def test_roc_genetic_exploits_a_frozen_supported_family():
+    path = Path(__file__).with_name("aapl_h1_roc_reversion_genetic_v2.json")
+    spec = json.loads(path.read_text())
+    assert spec["discovery"]["generation"] == "genetic-evolution"
+    assert spec["discovery"]["search_profile"] == "equity_h1_roc_reversion_v2"
+    assert spec["discovery"]["minimum_train_trades"] == 60
+    assert spec["discovery"]["commission_per_order_usd"] == 0
+    assert spec["validation_gate"]["minimum_stress_profit_factor"] == 1.15
+    assert spec["validation_gate"]["maximum_duration_hours"] == 240
+    assert spec["promotion_allowed"] is False

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "decision": "BUILDING_LIBRARY",
+  "admitted_strategy_ids": [
+    "cat_d1_trend_0168",
+    "msft_d1_capitulation"
+  ],
+  "conditional_strategy_ids": [
+    "sxr8_turn_of_month_l1_f3"
+  ],
+  "watchlist_strategy_ids": [
+    "jpm_d1_candidate_0_24"
+  ],
+  "rejected_strategy_ids": [
+    "aapl_h1_roc_4_1_174",
+    "jnj_d1_defensive_campaign_v1",
+    "spy_turnaround_tuesday_v1",
+    "multi_asset_dual_momentum_v1",
+    "spy_gap_down_recovery_v1"
+  ],
+  "admitted_count": 2,
+  "conditional_count": 1,
+  "distinct_eligible_mechanisms": 3,
+  "minimum_required": 4,
+  "portfolio_ready": false,
+  "evidence_verified": true,
+  "paper_authorized": false,
+  "live_authorized": false
+}

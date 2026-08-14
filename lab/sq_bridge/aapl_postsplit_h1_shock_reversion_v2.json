@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-v2-aapl-postsplit-h1-shock-reversion-pilot",
+  "status": "IDEA_ONLY_NON_PROMOTABLE",
+  "purpose": "Test short-horizon long reversion after an AAPL H1 downside shock.",
+  "asset": "AAPL",
+  "source": "Dukascopy AAPLUSUSD tick resource, America/New_York",
+  "known_data_limit": "Training starts at the 2020 split; RTH and corporate-action semantics still require certification.",
+  "performance_accessed_before_freeze": false,
+  "periods": {
+    "train_from": "2020-08-31",
+    "train_to": "2022-12-30",
+    "validation_from": "2023-01-03",
+    "validation_to": "2023-12-29",
+    "sealed_oos_from": "2024-01-02",
+    "sealed_oos_to": "2024-12-31",
+    "untouched_future_from": "2025-01-01",
+    "untouched_future_to": "2025-12-31"
+  },
+  "discovery": {
+    "timeframe": "H1",
+    "direction": "long",
+    "lane": "directed_downside_shock_reversion_random_density_pilot",
+    "search_profile": "equity_intraday_shock_reversion_v1",
+    "generation": "random-generation",
+    "attempt_budget": 25000,
+    "wall_time_budget_minutes": 30,
+    "accepted_limit": 40,
+    "maximum_rules": 2,
+    "minimum_train_trades": 30,
+    "minimum_profit_factor_train": 1.05,
+    "commission_per_order_usd": 0.35,
+    "commission_plan": "IBKR_PRO_TIERED_US_STOCK_BASE"
+  },
+  "review_contract": "Idea structure only; RTH certification, validation, OOS, costs and robustness remain mandatory.",
+  "promotion_allowed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

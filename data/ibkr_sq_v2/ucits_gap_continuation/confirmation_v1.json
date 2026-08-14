@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "preregistration_sha256": "8a141cf7cae882655d722b1243021c876369873a3bb9a10a639a5d27ac86c639",
+  "optimized": false,
+  "holdout_2025_accessed": false,
+  "periods": {
+    "development": {
+      "trades": 57,
+      "wins": 16,
+      "mean_return": -0.003923188306256069,
+      "total_return": -0.20364192411407533,
+      "profit_factor": 0.3809608492771181,
+      "t_stat": -2.6132567333460632
+    },
+    "validation": {
+      "trades": 33,
+      "wins": 12,
+      "mean_return": -0.00424752077308522,
+      "total_return": -0.13339570734764483,
+      "profit_factor": 0.4165580527697262,
+      "t_stat": -1.8844229306598042
+    },
+    "oos_2024": {
+      "trades": 11,
+      "wins": 3,
+      "mean_return": -0.0023784812506877483,
+      "total_return": -0.026548172028084682,
+      "profit_factor": 0.5699546955794101,
+      "t_stat": -0.6615914665854196
+    }
+  },
+  "decision": {
+    "pass": false,
+    "combined_validation_oos": {
+      "trades": 44,
+      "wins": 15,
+      "mean_return": -0.0037802608924858523,
+      "total_return": -0.1564024671892562,
+      "profit_factor": 0.4475543063297203,
+      "t_stat": -1.9917235644728173
+    },
+    "paper_authorized": false,
+    "live_authorized": false
+  }
+}

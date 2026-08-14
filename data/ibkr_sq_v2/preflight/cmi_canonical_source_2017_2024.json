@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_CANONICAL_SOURCE_ONLY",
+  "symbol": "CMI_IBKR_V2",
+  "timeframe": "D1",
+  "rows": 1739,
+  "first": "2018-02-01",
+  "last": "2024-12-31",
+  "source_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/preflight/CMIUSUSD_NYSE_RTH_D1_2024.csv",
+  "source_sha256": "53985744993ce041435c678d3ce9d87db75fa9ccafd89c23733b8f6cb0e34d50",
+  "output_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/preflight/CMIUSUSD_CANONICAL_D1_2017_2024.csv",
+  "output_sha256": "733fafce4982b9e0c19102bd54f855971c47168418b4817a8841b4779ca1ce58",
+  "corporate_actions_source": "https://investor.cummins.com/news/detail/654/cummins-completes-separation-of-atmus-filtration-technologies",
+  "splits_in_research_window": [],
+  "absolute_close_jumps_at_least_20pct": [
+    {
+      "date": "2020-03-24",
+      "close_return": 0.207723191
+    }
+  ],
+  "ohlc_envelope_repair": {
+    "rule": "high=max(source_high,open,close); low=min(source_low,open,close)",
+    "rows_repaired": 136,
+    "max_high_delta": 1.41,
+    "max_low_delta": 0.0
+  },
+  "volume_rules_allowed": false,
+  "performance_accessed": false,
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

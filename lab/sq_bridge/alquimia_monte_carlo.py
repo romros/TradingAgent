@@ -105,7 +105,9 @@ def verify_project(cfx: Path, manifest: dict, *,
         **manifest, "cfx_sha256": _sha(cfx)}
     settings = verify(cfx, checked_manifest, source=source)
     return {"project_name": settings["project_name"],
-            "candidate_id": base_contract["candidate_id"], **settings}
+            "candidate_id": base_contract["candidate_id"],
+            "output_databank": base_contract.get("output_databank", "PreHoldout"),
+            **settings}
 
 
 def generate(source: Path, output: Path, project_name: str, simulations: int,
@@ -175,6 +177,14 @@ def generate(source: Path, output: Path, project_name: str, simulations: int,
             "holdout_accessed": False,
             "performance_filters_applied_in_sq": False,
         })
+        # The supervised runner must resolve the exact market and databank
+        # contract inherited from the uncensored base retest.  Earlier
+        # manifests omitted these fields and failed only after import intent.
+        for key in ("symbol", "timeframe", "date_from", "date_to",
+                    "input_databank", "output_databank", "keep_failed",
+                    "performance_filters_applied_in_sq"):
+            if key in base:
+                result[key] = base[key]
     verify(output, result, source=source)
     if base_retest_manifest_path is not None:
         verify_project(output, result)

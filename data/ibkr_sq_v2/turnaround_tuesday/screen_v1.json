@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-spy-turnaround-tuesday-v1",
+  "preregistration_sha256": "f9bfeb5de4e5c9ca7344e623f199f8b385f2615694709a882df76888e3624b0e",
+  "source_sha256": "a2aa4c620fcda15bc96fdc2589846d276f96379c0e427d662f4619ccd28e70a1",
+  "costs_roundtrip_bps": 30,
+  "train": {
+    "trades": 116,
+    "net_return": -0.16000107220530457,
+    "profit_factor": 0.6612296821318208,
+    "maximum_drawdown": 0.16670732899408647,
+    "mean_trade_return": -0.0014460610351196021,
+    "t_stat": -1.473047233005925,
+    "calendar_year_returns": {
+      "2017": -0.04002328383296472,
+      "2018": 0.03105833381381151,
+      "2019": -0.031244496453227577,
+      "2020": -0.043708873076670596,
+      "2021": -0.08392614934983467
+    },
+    "positive_calendar_years": 1
+  },
+  "validation": {
+    "trades": 48,
+    "net_return": -0.21415181111029835,
+    "profit_factor": 0.3903593235161894,
+    "maximum_drawdown": 0.23574971403670186,
+    "mean_trade_return": -0.00491523338420828,
+    "t_stat": -2.5145643663408834,
+    "calendar_year_returns": {
+      "2022": -0.17084682989690647,
+      "2023": -0.05222796314944744
+    },
+    "positive_calendar_years": 0
+  },
+  "validation_gate_passed": false,
+  "decision": "REJECT_VALIDATION",
+  "oos_2024_accessed": false,
+  "holdout_2025_accessed": false,
+  "optimized": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

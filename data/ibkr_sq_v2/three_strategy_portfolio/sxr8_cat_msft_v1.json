@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "classification": "THREE_EDGE_RESEARCH_PORTFOLIO",
+  "rule_changed": false,
+  "capital_per_sleeve": 1000,
+  "costs": "SXR8 and CAT prior stress contracts; MSFT 30bps round-trip",
+  "full_2019_2024": {
+    "strategies": {
+      "SXR8": {
+        "initial_capital": 1000,
+        "final_equity": 1260.279256,
+        "return_pct": 26.027926,
+        "events": 71,
+        "profit_factor": 1.513067,
+        "max_drawdown_pct_closed_equity": 8.313676,
+        "positive_months": 41,
+        "active_months": 71
+      },
+      "CAT": {
+        "initial_capital": 1000,
+        "final_equity": 1666.154625,
+        "return_pct": 66.615463,
+        "events": 101,
+        "profit_factor": 1.223598,
+        "max_drawdown_pct_closed_equity": 28.223801,
+        "positive_months": 29,
+        "active_months": 57
+      },
+      "MSFT_CAPITULATION": {
+        "initial_capital": 1000,
+        "final_equity": 1229.507934,
+        "return_pct": 22.950793,
+        "events": 22,
+        "profit_factor": 3.452212,
+        "max_drawdown_pct_closed_equity": 3.333285,
+        "positive_months": 10,
+        "active_months": 18
+      }
+    },
+    "portfolio": {
+      "initial_capital": 3000,
+      "final_equity": 4155.941815,
+      "return_pct": 38.531394,
+      "events": 194,
+      "profit_factor": 1.322876,
+      "max_drawdown_pct_closed_equity": 10.032678,
+      "positive_months": 40,
+      "active_months": 71
+    },
+    "pairwise_monthly_correlation": {
+      "SXR8__CAT": {
+        "months": 71,
+        "correlation_zero_when_inactive": 0.381748
+      },
+      "SXR8__MSFT_CAPITULATION": {
+        "months": 71,
+        "correlation_zero_when_inactive": 0.174785
+      },
+      "CAT__MSFT_CAPITULATION": {
+        "months": 59,
+        "correlation_zero_when_inactive": 0.021678
+      }
+    }
+  },
+  "forward_2022_2024": {
+    "strategies": {
+      "SXR8": {
+        "initial_capital": 1000,
+        "final_equity": 1049.148725,
+        "return_pct": 4.914873,
+        "events": 35,
+        "profit_factor": 1.209491,
+        "max_drawdown_pct_closed_equity": 8.630761,
+        "positive_months": 20,
+        "active_months": 35
+      },
+      "CAT": {
+        "initial_capital": 1000,
+        "final_equity": 1285.159703,
+        "return_pct": 28.51597,
+        "events": 57,
+        "profit_factor": 1.202464,
+        "max_drawdown_pct_closed_equity": 17.677245,
+        "positive_months": 16,
+        "active_months": 32
+      },
+      "MSFT_CAPITULATION": {
+        "initial_capital": 1000,
+        "final_equity": 1035.044559,
+        "return_pct": 3.504456,
+        "events": 15,
+        "profit_factor": 1.489954,
+        "max_drawdown_pct_closed_equity": 3.535994,
+        "positive_months": 5,
+        "active_months": 12
+      }
+    },
+    "portfolio": {
+      "initial_capital": 3000,
+      "final_equity": 3369.352987,
+      "return_pct": 12.311766,
+      "events": 107,
+      "profit_factor": 1.215419,
+      "max_drawdown_pct_closed_equity": 6.794977,
+      "positive_months": 18,
+      "active_months": 36
+    },
+    "pairwise_monthly_correlation": {
+      "SXR8__CAT": {
+        "months": 36,
+        "correlation_zero_when_inactive": 0.320963
+      },
+      "SXR8__MSFT_CAPITULATION": {
+        "months": 36,
+        "correlation_zero_when_inactive": -0.12383
+      },
+      "CAT__MSFT_CAPITULATION": {
+        "months": 33,
+        "correlation_zero_when_inactive": -0.23755
+      }
+    }
+  },
+  "core_satellite_40_40_20_2022_2024": {
+    "allocation_pct": {
+      "SXR8": 40,
+      "CAT": 40,
+      "MSFT_CAPITULATION": 20
+    },
+    "initial_capital": 2500.0,
+    "strategies": {
+      "SXR8": {
+        "initial_capital": 1000.0,
+        "final_equity": 1049.148725,
+        "return_pct": 4.914873,
+        "events": 35,
+        "profit_factor": 1.209491,
+        "max_drawdown_pct_closed_equity": 8.630761,
+        "positive_months": 20,
+        "active_months": 35
+      },
+      "CAT": {
+        "initial_capital": 1000.0,
+        "final_equity": 1285.159703,
+        "return_pct": 28.51597,
+        "events": 57,
+        "profit_factor": 1.202464,
+        "max_drawdown_pct_closed_equity": 17.677245,
+        "positive_months": 16,
+        "active_months": 32
+      },
+      "MSFT_CAPITULATION": {
+        "initial_capital": 500.0,
+        "final_equity": 513.10152,
+        "return_pct": 2.620304,
+        "events": 15,
+        "profit_factor": 1.474375,
+        "max_drawdown_pct_closed_equity": 2.50478,
+        "positive_months": 5,
+        "active_months": 12
+      }
+    },
+    "portfolio": {
+      "initial_capital": 2500.0,
+      "final_equity": 2847.409948,
+      "return_pct": 13.896398,
+      "events": 107,
+      "profit_factor": 1.207946,
+      "max_drawdown_pct_closed_equity": 8.023465,
+      "positive_months": 18,
+      "active_months": 36
+    }
+  },
+  "allocation_policy": "Equal sleeves are the neutral audit. 40/40/20 is one preregistered-style operational diagnostic, not a weight optimization grid.",
+  "maximum_abs_msft_pairwise_correlation": 0.23755,
+  "inputs_sha256": {
+    "data/ibkr_sq_v2/preflight/SXR8_DE_ADJUSTED_D1_2012_2024.csv": "ccc723b140f1d1a003dd248864cc3f7a5004b3fe628531363b51dba589cd5fa6",
+    "data/ibkr_sq_v2/preflight/CATUSUSD_NYSE_RTH_D1_2024.csv": "fb3822c5db7700cb118ca5c2cc18dbc9b8debc563ec1d25ac698716628e06e97",
+    "data/ibkr_sq_v2/preflight/MSFT_ADJUSTED_D1_through_2024.csv": "0d66cdbbe74a5b46f2c8640c7dfcb567a98535c4af41880dcfc5310addf10480"
+  },
+  "monitoring_disclosure": "Existing capitulation audit already consumed 2024-2026 monitoring; this is not a fresh holdout claim. Portfolio performance here stops at 2024.",
+  "holdout_2025_accessed_by_this_run": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

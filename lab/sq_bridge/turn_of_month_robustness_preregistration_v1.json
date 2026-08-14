@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "candidate": "SPY last1_first3 open-to-open",
+  "parent_transfer_sha256": "6260b6de697848e2d9c89fe4a9ec9c002c20575784b4194ff5ed99c2e09d4993",
+  "diagnostics": {
+    "neighbor_windows": [
+      {"entry_from_month_end": 0, "exit_session_next_month": 3},
+      {"entry_from_month_end": 0, "exit_session_next_month": 5},
+      {"entry_from_month_end": -1, "exit_session_next_month": 4},
+      {"entry_from_month_end": 1, "exit_session_next_month": 4}
+    ],
+    "bootstrap": {"unit":"calendar year blocks","iterations":10000,"seed":168}
+  },
+  "robustness_gates": {
+    "minimum_positive_neighbors_full_period": 3,
+    "minimum_positive_neighbors_validation_oos": 2,
+    "bootstrap_probability_mean_positive_gte": 0.95,
+    "minimum_positive_calendar_years": 6
+  },
+  "notes": ["Diagnostics cannot replace the frozen candidate or optimize it.","All windows use next-session opens.","2025 remains sealed."]
+}

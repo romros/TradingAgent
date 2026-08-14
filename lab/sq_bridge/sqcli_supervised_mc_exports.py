@@ -14,11 +14,19 @@ from typing import Callable
 
 from lab.sq_bridge.sqcli_transport import docker_exec_http_call
 from lab.sq_bridge.sqx_monte_carlo_materialize import verify_manifest
+from lab.sq_bridge.sqx_monte_carlo_partial_recovery import verify_partial_manifest
 
 
 REQUIRED_COLUMNS = {"Ticket", "Type", "Open time", "Open price", "Close time",
                     "Close price", "Size", "Profit/Loss", "MAE ($)"}
 SAFE_COMPONENT = re.compile(r"^[A-Za-z0-9][A-Za-z0-9_.-]*$")
+
+
+def _verify_source(path: Path) -> dict:
+    raw = json.loads(path.read_text())
+    if raw.get("artifact_type") == "strategyquant_partial_mc_order_materialization":
+        return verify_partial_manifest(path)
+    return verify_manifest(path)
 
 
 def _sha(path: Path) -> str:
@@ -65,11 +73,18 @@ def _verify_csv(path: Path) -> dict:
 def verify_export_receipt(path: Path) -> dict:
     result = json.loads(path.read_text())
     materialization = Path(result.get("materialization_manifest_path", ""))
-    if (result.get("decision") != "PASS_SUPERVISED_MC_EXPORTS"
+    if (result.get("decision") not in {"PASS_SUPERVISED_MC_EXPORTS",
+                                       "DIAGNOSTIC_PARTIAL_MC_EXPORTS"}
             or not materialization.is_file()
             or result.get("materialization_manifest_sha256") != _sha(materialization)):
         raise ValueError("MC_EXPORT_RECEIPT_INVALID")
-    source = verify_manifest(materialization)
+    source = _verify_source(materialization)
+    is_partial = source.get("artifact_type") == \
+        "strategyquant_partial_mc_order_materialization"
+    expected_decision = ("DIAGNOSTIC_PARTIAL_MC_EXPORTS" if is_partial
+                         else "PASS_SUPERVISED_MC_EXPORTS")
+    if result.get("decision") != expected_decision:
+        raise ValueError("MC_EXPORT_RECEIPT_DECISION_INVALID")
     rows = result.get("runs")
     if not isinstance(rows, list) or len(rows) != len(source["runs"]):
         raise ValueError("MC_EXPORT_RECEIPT_RUN_COUNT_INVALID")
@@ -81,6 +96,8 @@ def verify_export_receipt(path: Path) -> dict:
                     != expected["materialized_sqx_sha256"]
                 or any(row.get(key) != value for key, value in observed.items())):
             raise ValueError("MC_EXPORT_RECEIPT_RUN_LINEAGE_INVALID")
+    if rows and all(row.get("trade_count") == 0 for row in rows):
+        raise ValueError("MC_EXPORT_ALL_RUNS_EMPTY_UNUSABLE")
     return result
 
 
@@ -90,7 +107,9 @@ def export_all(*, materialization_manifest: Path, output_dir: Path,
                container: str = "sqcli-docker",
                export_fn: Callable[[str], str] | None = None,
                progress_hook: Callable[[dict], None] | None = None) -> dict:
-    source = verify_manifest(materialization_manifest)
+    source = _verify_source(materialization_manifest)
+    is_partial = source.get("artifact_type") == \
+        "strategyquant_partial_mc_order_materialization"
     output_dir = output_dir.resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
     checkpoints = output_dir / "checkpoints"
@@ -148,16 +167,20 @@ def export_all(*, materialization_manifest: Path, output_dir: Path,
                            "completed": index + 1, "total": total})
     result = {
         "schema_version": 1,
-        "decision": "PASS_SUPERVISED_MC_EXPORTS",
+        "decision": ("DIAGNOSTIC_PARTIAL_MC_EXPORTS" if is_partial
+                     else "PASS_SUPERVISED_MC_EXPORTS"),
         "materialization_manifest_path": str(materialization_manifest.resolve()),
         "materialization_manifest_sha256": _sha(materialization_manifest),
         "simulation_count": total,
         "completed_count": len(completed),
         "zero_trade_run_count": sum(row["trade_count"] == 0 for row in completed),
+        "canonical_robustness_authorized": not is_partial,
         "runs": completed,
         "paper_authorized": False,
         "live_authorized": False,
     }
+    if completed and all(row["trade_count"] == 0 for row in completed):
+        raise ValueError("MC_EXPORT_ALL_RUNS_EMPTY_UNUSABLE")
     _write_atomic(final_path, result)
     return verify_export_receipt(final_path)
 

@@ -179,7 +179,7 @@ def verify_retest_project(cfx_path: Path, manifest: dict, *,
                           require_archive_hash: bool = True) -> dict:
     """Reopen a generated CFX and verify its frozen scientific contract."""
     if (manifest.get("schema_version") != 2
-            or manifest.get("stage") != "pre_holdout"
+            or manifest.get("stage") not in {"train", "validation", "oos", "pre_holdout"}
             or (require_archive_hash and manifest.get("cfx_sha256") != _sha256(cfx_path))
             or manifest.get("build_reproducible") is not True
             or manifest.get("source_role") != "xml_format_scaffold_only"
@@ -202,9 +202,11 @@ def verify_retest_project(cfx_path: Path, manifest: dict, *,
             or tasks[0].get("active") != "true"
             or tasks[0].get("taskXMLFile") != "Retest-Task1.xml"):
         raise ValueError("RETEST_CONFIG_INVALID")
-    _validate_pre_holdout_contract(
+    output_databank = manifest["output_databank"]
+    _validate_uncensored_contract(
         task, symbol=manifest["symbol"], timeframe=manifest["timeframe"],
-        date_from=manifest["date_from"], date_to=manifest["date_to"])
+        date_from=manifest["date_from"], date_to=manifest["date_to"],
+        output_databank=output_databank)
     if (task.find("./Data/Setups/Setup").get("slippage") != str(
             manifest["setup_slippage"])):
         raise ValueError("RETEST_SLIPPAGE_MISMATCH")
@@ -214,7 +216,7 @@ def verify_retest_project(cfx_path: Path, manifest: dict, *,
         "candidate_sqx_sha256": manifest["candidate_sqx_sha256"],
         "date_from": manifest["date_from"], "date_to": manifest["date_to"],
         "symbol": manifest["symbol"], "timeframe": manifest["timeframe"],
-        "input_databank": "Results", "output_databank": "PreHoldout",
+        "input_databank": "Results", "output_databank": output_databank,
     }
 
 
@@ -436,7 +438,7 @@ def generate(source: Path, output: Path, project_name: str, stage: str, manifest
         delete_failed = ET.SubElement(rankings, "DeleteFailedStrategies")
     # Both pre-holdout and the one-shot final holdout must retain losing
     # candidates; otherwise SQ would censor the evidence needed for REJECT.
-    uncensored = stage in {"pre_holdout", "holdout"}
+    uncensored = stage in {"pre_holdout", "holdout"} or keep_failed
     delete_failed.text = "false" if keep_failed or uncensored else "true"
     minimum_trades = methodology["temporal_validation"]["minimum_trades_oos"]
     minimum_pf = methodology["temporal_validation"]["minimum_oos_profit_factor"]

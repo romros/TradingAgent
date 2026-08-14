@@ -25,7 +25,8 @@ def compile_pilot(output_dir: Path, *, spec_path: Path = SPEC,
         "sq_symbol": "AAPLUSUSD",
         "discovery_timeframe": "D1",
         "discovery_slippage": 0,
-        "discovery_commission_per_order": 1.0,
+        "discovery_commission_per_order": float(
+            spec["discovery"].get("commission_per_order_usd", 1.0)),
         "sq_resource_clone_from": "BTCUSD_ALQ_H4",
         "sq_prune_resources": True,
         "sq_resource_remove_attributes": ["cloneFrom", "sourceTimezone"],
@@ -65,11 +66,11 @@ def compile_pilot(output_dir: Path, *, spec_path: Path = SPEC,
     methodology_path = output_dir / "frozen_methodology.json"
     methodology_path.write_text(json.dumps(methodology, indent=2, sort_keys=True) + "\n")
     timeframe = spec["discovery"]["timeframe"]
-    if timeframe not in {"D1", "H4"}:
+    if timeframe not in {"D1", "H4", "H1"}:
         raise ValueError("unsupported AAPL pilot timeframe")
     market = registry["markets"]["AAPL"]
     market["discovery_timeframe"] = timeframe
-    if timeframe == "H4":
+    if timeframe in {"H4", "H1"}:
         market["sq_symbol"] = "AAPLUSUSD_TICK_UTCMinus05"
         market["sq_resource_attributes"].update({
             "precision": "TICK", "uSymbol": "AAPLUSUSD",
@@ -77,15 +78,29 @@ def compile_pilot(output_dir: Path, *, spec_path: Path = SPEC,
         })
         registry_path.write_text(json.dumps(registry, indent=2, sort_keys=True) + "\n")
     cfx = output_dir / "project.cfx"
+    periods = spec["periods"]
+    explicit_periods = {
+        "train_from": periods["train_from"],
+        "train_to": periods["train_to"],
+        "validation_from": periods["validation_from"],
+        "validation_to": periods["validation_to"],
+        "oos_from": periods["sealed_oos_from"],
+        "oos_to": periods["sealed_oos_to"],
+        "holdout_from": periods["untouched_future_from"],
+        "holdout_to": periods.get("untouched_future_to", "2025-12-31"),
+    }
     manifest = build(
         SCAFFOLD, cfx, project_name, "AAPL",
-        registry_path, methodology_path, date(2020, 8, 31), date(2022, 12, 30),
-        spec["discovery"]["accepted_limit"], "generic_translatable",
+        registry_path, methodology_path,
+        date.fromisoformat(explicit_periods["train_from"]),
+        date.fromisoformat(explicit_periods["holdout_to"]),
+        spec["discovery"]["accepted_limit"],
+        spec["discovery"].get("search_profile", "generic_translatable"),
         spec["discovery"]["generation"], spec["discovery"]["attempt_budget"],
         spec["discovery"]["wall_time_budget_minutes"], None,
-        spec["discovery"]["direction"])
-    if manifest.get("generation_type") != "random-generation":
-        raise ValueError("AAPL density pilot must use random generation")
+        spec["discovery"]["direction"], periods_override=explicit_periods)
+    if manifest.get("generation_type") != spec["discovery"]["generation"]:
+        raise ValueError("AAPL pilot generation type drifted from its frozen spec")
     receipt = {"decision": "PASS_NON_PROMOTABLE_PILOT_READY", "project": str(cfx),
                "manifest": str(cfx.with_suffix('.manifest.json')),
                "promotion_allowed": False, "paper_authorized": False, "live_authorized": False}

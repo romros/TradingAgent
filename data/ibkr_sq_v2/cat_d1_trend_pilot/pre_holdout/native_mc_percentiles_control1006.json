@@ -1,0 +1,116 @@
+{
+  "adjusted_profitable_ratio_lower_bound": 0.9950298210735586,
+  "artifact_type": "strategyquant_native_mc_percentiles",
+  "canonical_robustness_authorized": false,
+  "columns": [
+    "NetProfit",
+    "Drawdown",
+    "ReturnDDRatio",
+    "RExpectancy"
+  ],
+  "databank": "PreHoldout",
+  "decision": "DIAGNOSTIC_PASS_CANONICAL_RUN_COUNT_INCOMPLETE",
+  "holdout_accessed": false,
+  "method": "MonteCarloRetest",
+  "missing_simulations_counted_as_failures": 5,
+  "persisted_simulations": 1001,
+  "project": "IBKR_V2_CAT_D1_PREHOLDOUT_MC_0168_C1006",
+  "requested_simulations": 1006,
+  "rows": [
+    {
+      "Drawdown": 57.45000076293945,
+      "NetProfit": 223.14999389648438,
+      "RExpectancy": 0.1429000049829483,
+      "ReturnDDRatio": 3.880000114440918,
+      "confidence_level_pct": 0
+    },
+    {
+      "Drawdown": 57.45000076293945,
+      "NetProfit": 223.14999389648438,
+      "RExpectancy": 0.1429000049829483,
+      "ReturnDDRatio": 3.880000114440918,
+      "confidence_level_pct": 50
+    },
+    {
+      "Drawdown": 57.45000076293945,
+      "NetProfit": 223.14999389648438,
+      "RExpectancy": 0.1429000049829483,
+      "ReturnDDRatio": 3.880000114440918,
+      "confidence_level_pct": 60
+    },
+    {
+      "Drawdown": 57.56999969482422,
+      "NetProfit": 223.14999389648438,
+      "RExpectancy": 0.1429000049829483,
+      "ReturnDDRatio": 3.880000114440918,
+      "confidence_level_pct": 70
+    },
+    {
+      "Drawdown": 59.27000045776367,
+      "NetProfit": 222.22999572753906,
+      "RExpectancy": 0.1420000046491623,
+      "ReturnDDRatio": 3.819999933242798,
+      "confidence_level_pct": 80
+    },
+    {
+      "Drawdown": 62.220001220703125,
+      "NetProfit": 213.9199981689453,
+      "RExpectancy": 0.13670000433921814,
+      "ReturnDDRatio": 3.4800000190734863,
+      "confidence_level_pct": 90
+    },
+    {
+      "Drawdown": 62.79999923706055,
+      "NetProfit": 210.75999450683594,
+      "RExpectancy": 0.13459999859333038,
+      "ReturnDDRatio": 3.4200000762939453,
+      "confidence_level_pct": 92
+    },
+    {
+      "Drawdown": 62.91999816894531,
+      "NetProfit": 207.36000061035156,
+      "RExpectancy": 0.13120000064373016,
+      "ReturnDDRatio": 3.319999933242798,
+      "confidence_level_pct": 95
+    },
+    {
+      "Drawdown": 63.61000061035156,
+      "NetProfit": 200.66000366210938,
+      "RExpectancy": 0.12530000507831573,
+      "ReturnDDRatio": 3.1600000858306885,
+      "confidence_level_pct": 97
+    },
+    {
+      "Drawdown": 64.08000183105469,
+      "NetProfit": 192.8000030517578,
+      "RExpectancy": 0.12020000070333481,
+      "ReturnDDRatio": 3.0299999713897705,
+      "confidence_level_pct": 98
+    },
+    {
+      "Drawdown": 66.47000122070312,
+      "NetProfit": 188.16000366210938,
+      "RExpectancy": 0.11760000139474869,
+      "ReturnDDRatio": 2.9800000190734863,
+      "confidence_level_pct": 99
+    },
+    {
+      "Drawdown": 68.33999633789062,
+      "NetProfit": 185.2899932861328,
+      "RExpectancy": 0.1145000010728836,
+      "ReturnDDRatio": 2.880000114440918,
+      "confidence_level_pct": 100
+    }
+  ],
+  "schema_version": 1,
+  "settings": {
+    "data": "CAT_IBKR_V2_D1 / D1, 2017.05.11 - 2024.12.31",
+    "methods": [
+      "Randomize strategy parameters, with probability 20 % and max change 10 %"
+    ],
+    "simulations": 1006
+  },
+  "source_sqx_path": "/mnt/volume-SQ/user/projects/IBKR_V2_CAT_D1_PREHOLDOUT_MC_0168_C1006/databanks/PreHoldout/Strategy 0.168.sqx",
+  "source_sqx_sha256": "b9604adde037c8e99ea252626a42fe1f4264bdf15da23d0159479f16372b5f5d",
+  "strategy": "Strategy 0.168"
+}

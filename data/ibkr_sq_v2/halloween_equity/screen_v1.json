@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "preregistration_sha256": "9e1ac60bde05e8171559ac935b2e78bc50c00a56b3a51b2519de815d3a24410e",
+  "source_sha256": {
+    "SPY": "a2aa4c620fcda15bc96fdc2589846d276f96379c0e427d662f4619ccd28e70a1",
+    "SXR8": "ccc723b140f1d1a003dd248864cc3f7a5004b3fe628531363b51dba589cd5fa6",
+    "CSPX": "1760d3835dbed769767c9e115a35fadb35e2492970aa6c05c0229075862ec803"
+  },
+  "train": {
+    "SPY": {
+      "trades": 3,
+      "net_return": 0.06058042879956482,
+      "profit_factor": 2.1371304856395943,
+      "maximum_drawdown": 0.05718242684981034,
+      "trades_detail": [
+        {
+          "entry": "2017-11-01",
+          "exit": "2018-05-01",
+          "return": 0.028936981402440613
+        },
+        {
+          "entry": "2018-11-01",
+          "exit": "2019-05-01",
+          "return": 0.09326932626114515
+        },
+        {
+          "entry": "2019-11-01",
+          "exit": "2020-05-01",
+          "return": -0.05718242684981034
+        }
+      ]
+    },
+    "SXR8": {
+      "trades": 4,
+      "net_return": 0.18884595465262288,
+      "profit_factor": 4.615594571512943,
+      "maximum_drawdown": 0.05190319933918652,
+      "trades_detail": [
+        {
+          "entry": "2016-11-01",
+          "exit": "2017-05-02",
+          "return": 0.13559926334009142
+        },
+        {
+          "entry": "2017-11-01",
+          "exit": "2018-05-02",
+          "return": 0.002314668934075062
+        },
+        {
+          "entry": "2018-11-01",
+          "exit": "2019-05-02",
+          "return": 0.10165019283993704
+        },
+        {
+          "entry": "2019-11-01",
+          "exit": "2020-05-04",
+          "return": -0.05190319933918652
+        }
+      ]
+    },
+    "CSPX": {
+      "trades": 4,
+      "net_return": 0.19872061029591004,
+      "profit_factor": 4.297267874593818,
+      "maximum_drawdown": 0.05924606974021862,
+      "trades_detail": [
+        {
+          "entry": "2016-11-01",
+          "exit": "2017-05-02",
+          "return": 0.1272748205031281
+        },
+        {
+          "entry": "2017-11-01",
+          "exit": "2018-05-01",
+          "return": 0.031626103004680384
+        },
+        {
+          "entry": "2018-11-01",
+          "exit": "2019-05-01",
+          "return": 0.09569530868277842
+        },
+        {
+          "entry": "2019-11-01",
+          "exit": "2020-05-01",
+          "return": -0.05924606974021873
+        }
+      ]
+    }
+  },
+  "validation": {
+    "SPY": {
+      "trades": 2,
+      "net_return": 0.14678654870770114,
+      "profit_factor": 2.7181185637786975,
+      "maximum_drawdown": 0.10184344350633134,
+      "trades_detail": [
+        {
+          "entry": "2020-11-02",
+          "exit": "2021-05-03",
+          "return": 0.2768225543937063
+        },
+        {
+          "entry": "2021-11-01",
+          "exit": "2022-05-02",
+          "return": -0.10184344350633134
+        }
+      ]
+    },
+    "SXR8": {
+      "trades": 2,
+      "net_return": 0.23022518386912072,
+      "profit_factor": 25.550854192247943,
+      "maximum_drawdown": 0.009470831775943767,
+      "trades_detail": [
+        {
+          "entry": "2020-11-02",
+          "exit": "2021-05-03",
+          "return": 0.24198784178644772
+        },
+        {
+          "entry": "2021-11-01",
+          "exit": "2022-05-02",
+          "return": -0.009470831775943763
+        }
+      ]
+    },
+    "CSPX": {
+      "trades": 2,
+      "net_return": 0.1574163887869644,
+      "profit_factor": 2.9240932094651884,
+      "maximum_drawdown": 0.09574467305934176,
+      "trades_detail": [
+        {
+          "entry": "2020-11-02",
+          "exit": "2021-05-04",
+          "return": 0.2799663483352858
+        },
+        {
+          "entry": "2021-11-01",
+          "exit": "2022-05-03",
+          "return": -0.09574467305934176
+        }
+      ]
+    }
+  },
+  "validation_gate_passed": true,
+  "decision": "PASS_VALIDATION_OPEN_OOS",
+  "oos_2023_2024_accessed": true,
+  "holdout_2025_accessed": false,
+  "optimized": false,
+  "oos": {
+    "SPY": {
+      "trades": 2,
+      "net_return": 0.28681375606569026,
+      "profit_factor": null,
+      "maximum_drawdown": 0.0,
+      "trades_detail": [
+        {
+          "entry": "2022-11-01",
+          "exit": "2023-05-01",
+          "return": 0.07089845922937721
+        },
+        {
+          "entry": "2023-11-01",
+          "exit": "2024-05-01",
+          "return": 0.20162069986699438
+        }
+      ]
+    },
+    "SXR8": {
+      "trades": 2,
+      "net_return": 0.1556346344811559,
+      "profit_factor": 6.349187089121777,
+      "maximum_drawdown": 0.030175814206303442,
+      "trades_detail": [
+        {
+          "entry": "2022-11-01",
+          "exit": "2023-05-02",
+          "return": -0.03017581420630344
+        },
+        {
+          "entry": "2023-11-01",
+          "exit": "2024-05-02",
+          "return": 0.1915918899623993
+        }
+      ]
+    },
+    "CSPX": {
+      "trades": 2,
+      "net_return": 0.29556988535014805,
+      "profit_factor": null,
+      "maximum_drawdown": 0.0,
+      "trades_detail": [
+        {
+          "entry": "2022-11-01",
+          "exit": "2023-05-02",
+          "return": 0.07494498226343771
+        },
+        {
+          "entry": "2023-11-01",
+          "exit": "2024-05-01",
+          "return": 0.20524297217719545
+        }
+      ]
+    }
+  }
+}

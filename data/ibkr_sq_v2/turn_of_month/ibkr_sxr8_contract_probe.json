@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-08-14T00:40:47.994814+00:00",
+  "target": {
+    "symbol": "SXR8",
+    "isin": "IE00B5BMR087",
+    "currency": "EUR",
+    "exchange_hint": "IBIS2"
+  },
+  "auth": {
+    "authenticated": false,
+    "connected": false,
+    "competing": false
+  },
+  "read_only": true,
+  "orders_supported": false,
+  "decision": "BLOCKED_GATEWAY_UNAVAILABLE",
+  "error": "URLError: <urlopen error [Errno 1] Operation not permitted>",
+  "candidates": []
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "hypothesis": "Very short-term oversold moves inside a long-term equity uptrend mean-revert over the following sessions.",
+  "rule": {
+    "id": "connors_rsi2_5_200",
+    "long_filter": "close > SMA(200)",
+    "entry_signal": "Wilder RSI(2) < 5 at close",
+    "entry_execution": "next session open",
+    "exit_signal": "close > SMA(5)",
+    "exit_execution": "next session open",
+    "one_position_per_asset": true
+  },
+  "assets": ["AAPL", "CMI", "DE", "JNJ", "JPM", "KO", "UNP"],
+  "periods": {
+    "train": ["2017-01-01", "2021-12-31"],
+    "validation": ["2022-01-01", "2023-12-31"],
+    "oos_2024": ["2024-01-01", "2024-12-31"],
+    "holdout_2025": ["2025-01-01", "2025-12-31"]
+  },
+  "gates": {
+    "validation_min_trades": 35,
+    "oos_min_trades": 15,
+    "validation_and_oos_mean_return_gt": 0.0,
+    "validation_and_oos_profit_factor_gte": 1.1,
+    "combined_one_sided_t_stat_gte": 1.645,
+    "combined_max_drawdown_lte": 0.2,
+    "minimum_assets_positive_combined": 4
+  },
+  "notes": ["Exact published-style parameters; no grid or optimization.", "Gross edge first; costs and portfolio concurrency are subsequent gates.", "2025 is sealed."]
+}

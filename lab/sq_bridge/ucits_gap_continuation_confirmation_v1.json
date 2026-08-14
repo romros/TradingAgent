@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "origin": "directional inversion suggested by failed preregistered long gap-fade on SXR8/CSPX; no VUAA gap performance accessed",
+  "asset": "VUAA.MI",
+  "rule": {"signal":"today open / prior close - 1 <= -0.01","entry":"short at today open","exit":"cover at today close","optimization":false},
+  "periods": {"development":["2019-05-14","2021-12-31"],"validation":["2022-01-01","2023-12-31"],"oos_2024":["2024-01-01","2024-12-31"],"holdout_2025_plus":["2025-01-01","2099-12-31"]},
+  "economics": {"capital_eur":1000,"commission_each_order_eur":1.25,"roundtrip_slippage_bps":10,"borrow_cost_overnight":0.0},
+  "gates": {"development_min_trades":25,"validation_min_trades":20,"oos_min_trades":5,"each_period_net_mean_gt":0.0,"validation_and_oos_net_profit_factor_gte":1.25,"combined_validation_oos_t_stat_gte":1.645},
+  "operational_blockers": ["IBKR short-sale permission","SXR8/VUAA borrow availability","SSR handling","market-on-close fill quality"],
+  "sealed":"2025 and later"
+}

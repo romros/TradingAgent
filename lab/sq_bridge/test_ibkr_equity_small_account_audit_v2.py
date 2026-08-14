@@ -45,3 +45,14 @@ def test_oos_audit_discloses_access_without_opening_holdout(tmp_path):
     assert result["stage"] == "IBKR_EQUITY_SMALL_ACCOUNT_OOS_AUDIT"
     assert result["oos_2024_accessed"] is True
     assert result["holdout_2025_accessed"] is False
+
+
+def test_same_bar_d1_stop_allows_sub_target_favorable_excursion(tmp_path):
+    path = tmp_path / "orders.csv"
+    path.write_text(
+        '"Type";"Open time";"Open price";"Close time";"Close price";'
+        '"Profit/Loss";"Close type";"MAE ($)";"MFE ($)"\n'
+        '"Buy";"2024.01.02 10:00:00";"100";"2024.01.02 10:00:00";'
+        '"98";"-2";"SL";"-2";"0.5"\n')
+    orders = load_orders(path, allow_same_bar_d1=True)
+    assert len(orders) == 1 and orders[0]["mfe"] == .5

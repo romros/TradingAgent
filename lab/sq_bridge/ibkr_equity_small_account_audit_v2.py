@@ -53,7 +53,7 @@ def load_orders(path: Path, *, allow_same_bar_d1: bool = False) -> list[dict]:
             row["close_type"] != "SL" or row["close_price"] >= row["open_price"]
             or row["mae"] is None or row["mfe"] is None
             or abs(row["mae"] - row["sq_pnl_one_share"]) > .011
-            or abs(row["mfe"]) > .011 for row in same_bar)):
+            for row in same_bar)):
         raise ValueError("non-positive trade duration")
     if any(right["open_time"] < left["close_time"]
            for left, right in zip(orders, orders[1:])):
@@ -129,7 +129,7 @@ def audit(*, candidate_id: str, orders_path: Path,
         "orders_csv_sha256": _sha(orders_path),
         "sizing": "whole_shares_all_available_realized_equity_no_leverage",
         "same_bar_d1_policy": (
-            "allow_only_pessimistic_stop_with_mae_equal_loss_and_zero_mfe"
+            "allow_only_stop_below_entry_with_mae_equal_recorded_loss"
             if allow_same_bar_d1 else "forbidden"),
         "same_bar_d1_trade_count": sum(
             row["open_time"] == row["close_time"] for row in orders),

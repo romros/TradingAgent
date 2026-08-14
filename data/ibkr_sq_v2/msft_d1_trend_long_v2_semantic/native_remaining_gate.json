@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "holdout_accessed": false,
+  "execution_contract": "D1, long, no EOD exit, no time range, maximum one entry per day",
+  "native_zero_cost_results": {
+    "Strategy 0.14": {
+      "validation": {"trades": 61, "profit_factor": 1.7617, "return_pct": 1.438, "max_drawdown_pct": 0.2698},
+      "oos": {"trades": 79, "profit_factor": 1.6441, "return_pct": 6.5, "max_drawdown_pct": 3.841}
+    },
+    "Strategy 0.279": {
+      "validation": {"trades": 84, "profit_factor": 1.5362, "return_pct": 1.526, "max_drawdown_pct": 0.7594},
+      "oos": {"trades": 100, "profit_factor": 1.314, "return_pct": 5.393, "max_drawdown_pct": 6.7235}
+    },
+    "Strategy 0.92": {
+      "validation": {"trades": 44, "profit_factor": 1.6529, "return_pct": 1.404, "max_drawdown_pct": 0.5396},
+      "oos": {"trades": 64, "profit_factor": 1.3397, "return_pct": 5.076, "max_drawdown_pct": 4.4401}
+    }
+  },
+  "selected_for_neighborhood_robustness": "Strategy 0.14",
+  "selection_reason": "Highest native OOS profit factor with positive validation and OOS and at least 60 trades in each segment.",
+  "strategy_014_logic": "Long after four non-strictly rising delayed D1 closes; 1.4 percent stop; 4.4 ATR(20) target.",
+  "strategy_014_ibkr_cost_observation": {
+    "capital_1000_tiered_validation_return_pct": 53.247,
+    "capital_1000_tiered_oos_return_pct": 57.578,
+    "capital_1000_stress_validation_return_pct": 25.349884,
+    "capital_1000_stress_oos_return_pct": 21.505139,
+    "capital_1000_stress_oos_profit_factor": 1.193559,
+    "capital_1000_stress_oos_drawdown_pct": 36.00489,
+    "capital_500_stress_oos_return_pct": -6.527868
+  },
+  "decision": "PROVISIONAL_EDGE_REQUIRES_LOCAL_NEIGHBORHOOD_ROBUSTNESS",
+  "library_admitted": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

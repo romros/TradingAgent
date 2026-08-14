@@ -1,0 +1,548 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_NO_CROSS_ASSET_EDGE",
+  "preregistration_sha256": "fdb0309c599d162d767b1bc46cab42b4e10ac5557f028258d9c2f5f122b5021e",
+  "passing_assets": 1,
+  "assets": [
+    {
+      "asset": "AAPL",
+      "source_sha256": "47a4a85f455d4f55946c233cc6c2d7525ec39b5778ed6bcb418496b2c5172127",
+      "passing_variants": 9,
+      "passes_region": true,
+      "variants": [
+        {
+          "id": "MSFT014_B4_SL1.2_PT4.0",
+          "sqx_sha256": "29abf53877e5326881b352cf0a9cef77d7a8c716c9864e6dee6e9d4e4cc2d637",
+          "stages": {
+            "validation": {
+              "trades": 39,
+              "profit_factor": 2.5496701766383922,
+              "return_pct": 72.30208547785185,
+              "max_drawdown_pct": 15.564908316207859
+            },
+            "oos": {
+              "trades": 34,
+              "profit_factor": 3.2001664927569182,
+              "return_pct": 88.67564048010424,
+              "max_drawdown_pct": 6.80672484578243
+            }
+          },
+          "passes": true
+        },
+        {
+          "id": "MSFT014_B4_SL1.2_PT4.4",
+          "sqx_sha256": "1228b11d815d42e26f95cefa358d57600b90dc411cf6ac9af03437563b3739e5",
+          "stages": {
+            "validation": {
+              "trades": 38,
+              "profit_factor": 2.6118977028978327,
+              "return_pct": 75.44799342285235,
+              "max_drawdown_pct": 17.342509947880323
+            },
+            "oos": {
+              "trades": 32,
+              "profit_factor": 3.459086285426112,
+              "return_pct": 96.23627113057083,
+              "max_drawdown_pct": 6.806724845782419
+            }
+          },
+          "passes": true
+        },
+        {
+          "id": "MSFT014_B4_SL1.2_PT4.8",
+          "sqx_sha256": "97af4f5ac3f660e9c54bad46000b4bf2cf090c1aa52f15187db6a5ee4c2de9b9",
+          "stages": {
+            "validation": {
+              "trades": 38,
+              "profit_factor": 2.1446442740956404,
+              "return_pct": 52.08519039562602,
+              "max_drawdown_pct": 16.867376792382515
+            },
+            "oos": {
+              "trades": 32,
+              "profit_factor": 3.7803513960987387,
+              "return_pct": 113.79626231025198,
+              "max_drawdown_pct": 6.806724845782419
+            }
+          },
+          "passes": true
+        },
+        {
+          "id": "MSFT014_B4_SL1.4_PT4.0",
+          "sqx_sha256": "8c410b4d7fbf04fd24be8f81aa188ecea22951b74fee73edf7851cac52886856",
+          "stages": {
+            "validation": {
+              "trades": 36,
+              "profit_factor": 2.824458651711018,
+              "return_pct": 86.5005615932547,
+              "max_drawdown_pct": 15.486614124667142
+            },
+            "oos": {
+              "trades": 34,
+              "profit_factor": 2.800145681162306,
+              "return_pct": 80.43295831077603,
+              "max_drawdown_pct": 7.748063336857591
+            }
+          },
+          "passes": true
+        },
+        {
+          "id": "MSFT014_B4_SL1.4_PT4.4",
+          "sqx_sha256": "0056490bf5efac0d9713f4a16c53ca0a91674d676da458ad870d52dd4267f149",
+          "stages": {
+            "validation": {
+              "trades": 35,
+              "profit_factor": 2.909471017559123,
+              "return_pct": 91.15363569694284,
+              "max_drawdown_pct": 17.69630759590536
+            },
+            "oos": {
+              "trades": 32,
+              "profit_factor": 3.0267004997478506,
+              "return_pct": 88.04471675653988,
+              "max_drawdown_pct": 7.74806333685758
+            }
+          },
+          "passes": true
+        },
+        {
+          "id": "MSFT014_B4_SL1.4_PT4.8",
+          "sqx_sha256": "9399be58a9678783b8bc634abefc38de8010a67546bdcda08acb9e979ff0d388",
+          "stages": {
+            "validation": {
+              "trades": 34,
+              "profit_factor": 2.917151182836813,
+              "return_pct": 90.6925028059965,
+              "max_drawdown_pct": 17.223208145916935
+            },
+            "oos": {
+              "trades": 32,
+              "profit_factor": 3.3078074715863988,
+              "return_pct": 104.8716955235455,
+              "max_drawdown_pct": 7.74806333685758
+            }
+          },
+          "passes": true
+        },
+        {
+          "id": "MSFT014_B4_SL1.6_PT4.0",
+          "sqx_sha256": "a5c24d77bb26ca7ad8f2e6e896bf4c7b20965f6042ef901f130d1f482109836a",
+          "stages": {
+            "validation": {
+              "trades": 34,
+              "profit_factor": 2.741889751145408,
+              "return_pct": 84.0634801998166,
+              "max_drawdown_pct": 16.35432994914089
+            },
+            "oos": {
+              "trades": 30,
+              "profit_factor": 3.8700644926951093,
+              "return_pct": 117.99095260757619,
+              "max_drawdown_pct": 7.007922302400016
+            }
+          },
+          "passes": true
+        },
+        {
+          "id": "MSFT014_B4_SL1.6_PT4.4",
+          "sqx_sha256": "9b83d6d3e173be5ca8176c1a9e4b69397efabf2dc287d687e7929a5cfacdae89",
+          "stages": {
+            "validation": {
+              "trades": 33,
+              "profit_factor": 2.8238683353846485,
+              "return_pct": 88.61040432505034,
+              "max_drawdown_pct": 18.87213231906606
+            },
+            "oos": {
+              "trades": 29,
+              "profit_factor": 4.042948490517001,
+              "return_pct": 127.45040933717884,
+              "max_drawdown_pct": 7.007922302400004
+            }
+          },
+          "passes": true
+        },
+        {
+          "id": "MSFT014_B4_SL1.6_PT4.8",
+          "sqx_sha256": "3421252c0397b361790ca85d19711921f26d754919a33d49df8e44be0ea9e1e9",
+          "stages": {
+            "validation": {
+              "trades": 32,
+              "profit_factor": 2.8305605444653916,
+              "return_pct": 88.11103570152252,
+              "max_drawdown_pct": 18.40579176425675
+            },
+            "oos": {
+              "trades": 29,
+              "profit_factor": 4.418696333089255,
+              "return_pct": 150.98762666202376,
+              "max_drawdown_pct": 7.007922302400016
+            }
+          },
+          "passes": true
+        }
+      ]
+    },
+    {
+      "asset": "JPM",
+      "source_sha256": "4c75a75bcda98fd92cc04472cd7a1b5cbd29f3e9de454db53c7f81ed8c7791b1",
+      "passing_variants": 0,
+      "passes_region": false,
+      "variants": [
+        {
+          "id": "MSFT014_B4_SL1.2_PT4.0",
+          "sqx_sha256": "29abf53877e5326881b352cf0a9cef77d7a8c716c9864e6dee6e9d4e4cc2d637",
+          "stages": {
+            "validation": {
+              "trades": 36,
+              "profit_factor": 1.0708349965626018,
+              "return_pct": 1.2864302252995063,
+              "max_drawdown_pct": 15.564908316207815
+            },
+            "oos": {
+              "trades": 45,
+              "profit_factor": 0.7560542491260173,
+              "return_pct": -14.119544346285407,
+              "max_drawdown_pct": 21.312172680407603
+            }
+          },
+          "passes": false
+        },
+        {
+          "id": "MSFT014_B4_SL1.2_PT4.4",
+          "sqx_sha256": "1228b11d815d42e26f95cefa358d57600b90dc411cf6ac9af03437563b3739e5",
+          "stages": {
+            "validation": {
+              "trades": 36,
+              "profit_factor": 0.9665792199779117,
+              "return_pct": -2.9898484014462046,
+              "max_drawdown_pct": 16.938141888250748
+            },
+            "oos": {
+              "trades": 45,
+              "profit_factor": 0.8338574762364209,
+              "return_pct": -10.676279973056102,
+              "max_drawdown_pct": 21.31217268040758
+            }
+          },
+          "passes": false
+        },
+        {
+          "id": "MSFT014_B4_SL1.2_PT4.8",
+          "sqx_sha256": "97af4f5ac3f660e9c54bad46000b4bf2cf090c1aa52f15187db6a5ee4c2de9b9",
+          "stages": {
+            "validation": {
+              "trades": 35,
+              "profit_factor": 1.0872477664688094,
+              "return_pct": 1.6946049971905186,
+              "max_drawdown_pct": 15.564908316207859
+            },
+            "oos": {
+              "trades": 45,
+              "profit_factor": 0.9116607033468248,
+              "return_pct": -7.121124646980547,
+              "max_drawdown_pct": 21.312172680407592
+            }
+          },
+          "passes": false
+        },
+        {
+          "id": "MSFT014_B4_SL1.4_PT4.0",
+          "sqx_sha256": "8c410b4d7fbf04fd24be8f81aa188ecea22951b74fee73edf7851cac52886856",
+          "stages": {
+            "validation": {
+              "trades": 33,
+              "profit_factor": 1.045093770683693,
+              "return_pct": 0.22897542997881715,
+              "max_drawdown_pct": 16.2574689898917
+            },
+            "oos": {
+              "trades": 44,
+              "profit_factor": 0.8091075082563818,
+              "return_pct": -12.633228988686273,
+              "max_drawdown_pct": 22.879396344045922
+            }
+          },
+          "passes": false
+        },
+        {
+          "id": "MSFT014_B4_SL1.4_PT4.4",
+          "sqx_sha256": "0056490bf5efac0d9713f4a16c53ca0a91674d676da458ad870d52dd4267f149",
+          "stages": {
+            "validation": {
+              "trades": 33,
+              "profit_factor": 0.9397297972007479,
+              "return_pct": -4.197378590274658,
+              "max_drawdown_pct": 17.638265406941002
+            },
+            "oos": {
+              "trades": 43,
+              "profit_factor": 0.7685952390741633,
+              "return_pct": -14.793380226047525,
+              "max_drawdown_pct": 22.745893332442535
+            }
+          },
+          "passes": false
+        },
+        {
+          "id": "MSFT014_B4_SL1.4_PT4.8",
+          "sqx_sha256": "9399be58a9678783b8bc634abefc38de8010a67546bdcda08acb9e979ff0d388",
+          "stages": {
+            "validation": {
+              "trades": 32,
+              "profit_factor": 1.0611120028517707,
+              "return_pct": 0.6328887586646292,
+              "max_drawdown_pct": 16.2574689898917
+            },
+            "oos": {
+              "trades": 43,
+              "profit_factor": 0.8403102853782027,
+              "return_pct": -11.404015493263564,
+              "max_drawdown_pct": 22.745893332442545
+            }
+          },
+          "passes": false
+        },
+        {
+          "id": "MSFT014_B4_SL1.6_PT4.0",
+          "sqx_sha256": "a5c24d77bb26ca7ad8f2e6e896bf4c7b20965f6042ef901f130d1f482109836a",
+          "stages": {
+            "validation": {
+              "trades": 31,
+              "profit_factor": 1.2089106964394782,
+              "return_pct": 6.987280910504867,
+              "max_drawdown_pct": 18.11084953869937
+            },
+            "oos": {
+              "trades": 42,
+              "profit_factor": 0.7603041982345685,
+              "return_pct": -15.970899327287736,
+              "max_drawdown_pct": 25.056169345969582
+            }
+          },
+          "passes": false
+        },
+        {
+          "id": "MSFT014_B4_SL1.6_PT4.4",
+          "sqx_sha256": "9b83d6d3e173be5ca8176c1a9e4b69397efabf2dc287d687e7929a5cfacdae89",
+          "stages": {
+            "validation": {
+              "trades": 31,
+              "profit_factor": 0.9021406053127177,
+              "return_pct": -5.963397537624182,
+              "max_drawdown_pct": 18.826879271221653
+            },
+            "oos": {
+              "trades": 41,
+              "profit_factor": 0.7222355262411189,
+              "return_pct": -18.048526366622962,
+              "max_drawdown_pct": 24.25420757791357
+            }
+          },
+          "passes": false
+        },
+        {
+          "id": "MSFT014_B4_SL1.6_PT4.8",
+          "sqx_sha256": "3421252c0397b361790ca85d19711921f26d754919a33d49df8e44be0ea9e1e9",
+          "stages": {
+            "validation": {
+              "trades": 30,
+              "profit_factor": 1.0218115583017047,
+              "return_pct": -1.0209941643250398,
+              "max_drawdown_pct": 18.11084953869937
+            },
+            "oos": {
+              "trades": 41,
+              "profit_factor": 0.7896249030855493,
+              "return_pct": -14.788645441061876,
+              "max_drawdown_pct": 23.849577577122737
+            }
+          },
+          "passes": false
+        }
+      ]
+    },
+    {
+      "asset": "KO",
+      "source_sha256": "d387bd9c1aaaf8099cf9377cc76feef76e4c26ce0d10ed10a9df63f672fc5fc3",
+      "passing_variants": 0,
+      "passes_region": false,
+      "variants": [
+        {
+          "id": "MSFT014_B4_SL1.2_PT4.0",
+          "sqx_sha256": "29abf53877e5326881b352cf0a9cef77d7a8c716c9864e6dee6e9d4e4cc2d637",
+          "stages": {
+            "validation": {
+              "trades": 34,
+              "profit_factor": 0.6399590948386693,
+              "return_pct": -14.52530515311663,
+              "max_drawdown_pct": 26.668236573176742
+            },
+            "oos": {
+              "trades": 36,
+              "profit_factor": 1.0725526418618556,
+              "return_pct": 1.3450023943929912,
+              "max_drawdown_pct": 11.857251434834259
+            }
+          },
+          "passes": false
+        },
+        {
+          "id": "MSFT014_B4_SL1.2_PT4.4",
+          "sqx_sha256": "1228b11d815d42e26f95cefa358d57600b90dc411cf6ac9af03437563b3739e5",
+          "stages": {
+            "validation": {
+              "trades": 33,
+              "profit_factor": 0.731647274885077,
+              "return_pct": -11.089178052579562,
+              "max_drawdown_pct": 26.668236573176706
+            },
+            "oos": {
+              "trades": 35,
+              "profit_factor": 1.0512724525709132,
+              "return_pct": 0.330994017442543,
+              "max_drawdown_pct": 10.848904179001162
+            }
+          },
+          "passes": false
+        },
+        {
+          "id": "MSFT014_B4_SL1.2_PT4.8",
+          "sqx_sha256": "97af4f5ac3f660e9c54bad46000b4bf2cf090c1aa52f15187db6a5ee4c2de9b9",
+          "stages": {
+            "validation": {
+              "trades": 32,
+              "profit_factor": 0.8301271719719561,
+              "return_pct": -7.528842860801365,
+              "max_drawdown_pct": 26.668236573176717
+            },
+            "oos": {
+              "trades": 32,
+              "profit_factor": 1.017223433419123,
+              "return_pct": -1.0336183835770396,
+              "max_drawdown_pct": 9.834845745808229
+            }
+          },
+          "passes": false
+        },
+        {
+          "id": "MSFT014_B4_SL1.4_PT4.0",
+          "sqx_sha256": "8c410b4d7fbf04fd24be8f81aa188ecea22951b74fee73edf7851cac52886856",
+          "stages": {
+            "validation": {
+              "trades": 33,
+              "profit_factor": 0.5799629296975447,
+              "return_pct": -18.102662726975716,
+              "max_drawdown_pct": 28.731590447368394
+            },
+            "oos": {
+              "trades": 34,
+              "profit_factor": 1.162931606883476,
+              "return_pct": 5.13311934145273,
+              "max_drawdown_pct": 9.224094323467892
+            }
+          },
+          "passes": false
+        },
+        {
+          "id": "MSFT014_B4_SL1.4_PT4.4",
+          "sqx_sha256": "0056490bf5efac0d9713f4a16c53ca0a91674d676da458ad870d52dd4267f149",
+          "stages": {
+            "validation": {
+              "trades": 32,
+              "profit_factor": 0.6639021568401632,
+              "return_pct": -14.637197557125681,
+              "max_drawdown_pct": 28.731590447368394
+            },
+            "oos": {
+              "trades": 33,
+              "profit_factor": 1.1542598778802036,
+              "return_pct": 4.580835099292413,
+              "max_drawdown_pct": 9.224094323467902
+            }
+          },
+          "passes": false
+        },
+        {
+          "id": "MSFT014_B4_SL1.4_PT4.8",
+          "sqx_sha256": "9399be58a9678783b8bc634abefc38de8010a67546bdcda08acb9e979ff0d388",
+          "stages": {
+            "validation": {
+              "trades": 31,
+              "profit_factor": 0.7542982476091343,
+              "return_pct": -11.038489557577636,
+              "max_drawdown_pct": 28.731590447368383
+            },
+            "oos": {
+              "trades": 30,
+              "profit_factor": 1.1533809085249058,
+              "return_pct": 4.07302561521552,
+              "max_drawdown_pct": 9.224094323467892
+            }
+          },
+          "passes": false
+        },
+        {
+          "id": "MSFT014_B4_SL1.6_PT4.0",
+          "sqx_sha256": "a5c24d77bb26ca7ad8f2e6e896bf4c7b20965f6042ef901f130d1f482109836a",
+          "stages": {
+            "validation": {
+              "trades": 32,
+              "profit_factor": 0.7133243988325938,
+              "return_pct": -13.83815018854695,
+              "max_drawdown_pct": 26.566320047481305
+            },
+            "oos": {
+              "trades": 32,
+              "profit_factor": 1.119333760948962,
+              "return_pct": 3.383221362333666,
+              "max_drawdown_pct": 10.325507666339584
+            }
+          },
+          "passes": false
+        },
+        {
+          "id": "MSFT014_B4_SL1.6_PT4.4",
+          "sqx_sha256": "9b83d6d3e173be5ca8176c1a9e4b69397efabf2dc287d687e7929a5cfacdae89",
+          "stages": {
+            "validation": {
+              "trades": 31,
+              "profit_factor": 0.8187097789311547,
+              "return_pct": -9.372423102202498,
+              "max_drawdown_pct": 26.56632004748134
+            },
+            "oos": {
+              "trades": 31,
+              "profit_factor": 1.1109305766000757,
+              "return_pct": 2.8380887969942314,
+              "max_drawdown_pct": 10.325507666339572
+            }
+          },
+          "passes": false
+        },
+        {
+          "id": "MSFT014_B4_SL1.6_PT4.8",
+          "sqx_sha256": "3421252c0397b361790ca85d19711921f26d754919a33d49df8e44be0ea9e1e9",
+          "stages": {
+            "validation": {
+              "trades": 30,
+              "profit_factor": 0.9328772740379266,
+              "return_pct": -4.6943003519975495,
+              "max_drawdown_pct": 26.56632004748133
+            },
+            "oos": {
+              "trades": 28,
+              "profit_factor": 1.1177409908921068,
+              "return_pct": 2.754010876119173,
+              "max_drawdown_pct": 10.611475785399149
+            }
+          },
+          "passes": false
+        }
+      ]
+    }
+  ],
+  "holdout_accessed": false,
+  "native_sq_required": false,
+  "library_admitted": false
+}

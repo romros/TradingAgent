@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "hypothesis": "Four non-strictly rising delayed D1 closes have transferable long continuation edge; stop and ATR target form a stable region.",
+  "assets": ["AAPL", "JPM", "KO"],
+  "periods": {
+    "validation": ["2017-01-26", "2020-12-31"],
+    "oos": ["2021-01-01", "2024-12-31"]
+  },
+  "variants": "All nine preregistered B4 combinations: stop 1.2/1.4/1.6 percent and target 4.0/4.4/4.8 ATR20.",
+  "roundtrip_cost_bps": 20,
+  "gate": {
+    "minimum_trades_each_segment": 20,
+    "minimum_profit_factor_each_segment": 1.1,
+    "maximum_drawdown_pct_each_segment": 30,
+    "minimum_passing_variants_of_9": 5,
+    "minimum_passing_assets_of_3": 2
+  },
+  "selection_rule": "No asset, parameter or threshold replacement after results. Native SQ transfer is allowed only after this screen passes.",
+  "holdout_accessed": false,
+  "library_admitted": false
+}

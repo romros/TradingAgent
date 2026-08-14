@@ -12,7 +12,7 @@ from lab.sq_bridge.us500_v4_hypotheses import US500_PROFILE_BLOCKS
 from lab.sq_bridge.sq_project_contract import EURUSD_V4_PROFILE_BLOCKS
 from alquimia_project import (
     SEARCH_PROFILES, _nominal_genetic_shape, _split_dates, _sq_discovery_slippage,
-    _normalize_v4_search_space,
+    _configure_execution_options, _normalize_v4_search_space,
     _validate_generation_contract, _write_reproducible_cfx,
     _validate_v4_prerequisites,
     _validated_v4_periods,
@@ -156,6 +156,21 @@ def test_cfx_writer_is_byte_reproducible_and_uses_canonical_metadata(tmp_path):
 def test_v3_keeps_legacy_generation_compatibility():
     methodology = json.loads(Path(__file__).with_name("methodology_v3.json").read_text())
     _validate_generation_contract(methodology, "random-generation", None)
+
+
+def test_d1_execution_options_cannot_leak_from_intraday_scaffold():
+    keys = ("ExitAtEndOfDay", "ExitOnFriday", "EODExitTime", "LimitTimeRange",
+            "SignalTimeRangeFrom", "SignalTimeRangeTo", "ExitAtEndOfRange",
+            "MaxTradesPerDay")
+    root = ET.fromstring("<Root>" + "".join(
+        f'<Param key="{key}">inherited</Param>' for key in keys) + "</Root>")
+    _configure_execution_options(root, {"maximum_trades_per_day": 1})
+    values = {node.get("key"): node.text for node in root.findall(".//Param")}
+    assert values["ExitAtEndOfDay"] == "false"
+    assert values["ExitOnFriday"] == "false"
+    assert values["LimitTimeRange"] == "false"
+    assert values["ExitAtEndOfRange"] == "false"
+    assert values["MaxTradesPerDay"] == "1"
 
 
 def test_v4_sq_discovery_is_gross_and_cannot_double_charge_slippage():

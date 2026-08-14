@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "build_reproducible": true,
+  "project_name": "ALQUIMIA_MSFT_D1_TREND_LONG_V2_SEMANTIC",
+  "market": "MSFT",
+  "methodology_id": "alquimia-msft-d1-close-v1",
+  "sq_symbol": "MSFT",
+  "timeframe": "D1",
+  "methodology_sha256": "f4be71d33847b7dbb7507ed266893986c2e95c1ba2d6d936d74945c55eb0416f",
+  "source_role": "xml_format_scaffold_only",
+  "source_sha256": "1b0387aa564d54119b15f7ecdb94f47622b105f8575ca0149f9c1f0f6e904991",
+  "output_sha256": "1a669d48788228997b595f31de94c90c3023baf69b345f2ae0ac6972ad951715",
+  "accepted_limit": 100,
+  "discovery_initial_capital": 10000,
+  "sq_discovery_spread": 0,
+  "sq_discovery_commission": 0.0,
+  "sq_discovery_slippage": 0,
+  "venue_cost_application_stage": "legacy_embedded_or_posthoc",
+  "search_profile": "msft_d1_close_trend_v1",
+  "generation_type": "random-generation",
+  "market_side": "long",
+  "attempt_budget": 50000,
+  "wall_time_budget_minutes": 60,
+  "attempt_stop_guard": 100,
+  "stagnation_attempts": null,
+  "sq_genetic_shape": null,
+  "canonical_evaluation_capital": 200,
+  "periods": {
+    "train_from": "1999-01-01",
+    "train_to": "2012-10-16",
+    "validation_from": "2012-10-17",
+    "validation_to": "2018-04-23",
+    "oos_from": "2018-04-24",
+    "oos_to": "2023-10-29",
+    "holdout_from": "2023-10-30",
+    "holdout_to": "2026-08-01"
+  },
+  "intraday_execution": {
+    "exit_at_end_of_day": false,
+    "eod_exit_seconds": null,
+    "signal_time_range_seconds": null,
+    "exit_at_end_of_range": false,
+    "maximum_trades_per_day": 1
+  },
+  "blocks": {
+    "enabled": 15,
+    "disabled": 513,
+    "search_space": null,
+    "genetic_parameters": {}
+  },
+  "holdout_sealed": true
+}

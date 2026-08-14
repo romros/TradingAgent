@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "campaign": "ALQUIMIA_MSFT_D1_TREND_LONG_V2_SEMANTIC",
+  "candidate": "Strategy 0.83",
+  "candidate_sqx_sha256": "e01c9b3c8e66fe4e3080a891cfa326c93727e51467cd826092783eff7bb4d8d2",
+  "execution_contract": {
+    "exit_at_end_of_day": false,
+    "limit_time_range": false,
+    "exit_at_end_of_range": false,
+    "maximum_trades_per_day": 1
+  },
+  "validation": {
+    "from": "2012-10-17",
+    "to": "2018-04-23",
+    "trades": 104,
+    "profit_factor": 1.6401734104046242,
+    "net_profit_on_sq_nominal_10000": 177.2,
+    "return_pct_on_sq_nominal": 1.772,
+    "max_drawdown_pct": 0.38629376177725605
+  },
+  "oos": {
+    "from": "2018-04-24",
+    "to": "2023-10-29",
+    "trades": 145,
+    "profit_factor": 0.9305,
+    "net_profit_on_sq_nominal_10000": -139.85,
+    "return_pct_on_sq_nominal": -1.399,
+    "max_drawdown_pct": 5.8749
+  },
+  "python_oos_comparison": {
+    "trades": 74,
+    "profit_factor": 2.154,
+    "result": "PARITY_FAIL"
+  },
+  "decision": "REJECT_NATIVE_OOS_AND_PARITY",
+  "holdout_accessed": false,
+  "library_admitted": false,
+  "reason": "The frozen candidate loses in native SQ OOS and the Python translation does not reproduce native trade count or profit factor."
+}

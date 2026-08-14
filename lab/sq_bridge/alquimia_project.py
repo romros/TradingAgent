@@ -408,26 +408,25 @@ def _normalize_v4_search_space(root: ET.Element, profile: str,
             "rising_falling_bars": {"min": 2, "max": 5, "step": 1}}
 
 
-def _configure_build(xml: bytes, market: dict, periods: dict, methodology: dict,
-                     accepted_limit: int, search_profile: str = "generic_translatable",
-                     generation_type: str = "random-generation",
-                     attempt_budget: int | None = None,
-                     wall_time_minutes: int = 0,
-                     market_side: str = "both") -> tuple[bytes, dict]:
-    root = ET.fromstring(xml)
+def _configure_execution_options(root: ET.Element, market: dict) -> None:
+    """Write every execution switch that could leak in from a scaffold."""
     for key in ("ExitAtEndOfDay", "ExitOnFriday"):
         option = root.find(f".//Param[@key='{key}']")
         if option is None:
             raise ValueError(f"Opcio SQ absent: {key}")
         option.text = ("true" if key == "ExitAtEndOfDay"
                        and market.get("exit_at_end_of_day") is True else "false")
+    # Never inherit execution semantics from the scaffold.  In particular, a
+    # D1 project cloned from an intraday project must explicitly disable the
+    # time window and EOD exit; otherwise discovery and downstream validation
+    # can describe different holding periods while appearing reproducible.
     intraday_options = {
         "EODExitTime": market.get("eod_exit_seconds"),
-        "LimitTimeRange": ("true" if market.get("signal_time_range_seconds") else None),
+        "LimitTimeRange": "true" if market.get("signal_time_range_seconds") else "false",
         "SignalTimeRangeFrom": ((market.get("signal_time_range_seconds") or [None])[0]),
         "SignalTimeRangeTo": ((market.get("signal_time_range_seconds") or [None, None])[1]),
-        "ExitAtEndOfRange": ("true" if market.get("exit_at_end_of_range") is True else None),
-        "MaxTradesPerDay": market.get("maximum_trades_per_day"),
+        "ExitAtEndOfRange": "true" if market.get("exit_at_end_of_range") is True else "false",
+        "MaxTradesPerDay": market.get("maximum_trades_per_day", 0),
     }
     for key, value in intraday_options.items():
         if value is None:
@@ -436,6 +435,16 @@ def _configure_build(xml: bytes, market: dict, periods: dict, methodology: dict,
         if option is None:
             raise ValueError(f"Opcio SQ intradia absent: {key}")
         option.text = str(value).lower() if isinstance(value, bool) else str(value)
+
+
+def _configure_build(xml: bytes, market: dict, periods: dict, methodology: dict,
+                     accepted_limit: int, search_profile: str = "generic_translatable",
+                     generation_type: str = "random-generation",
+                     attempt_budget: int | None = None,
+                     wall_time_minutes: int = 0,
+                     market_side: str = "both") -> tuple[bytes, dict]:
+    root = ET.fromstring(xml)
+    _configure_execution_options(root, market)
     strategy = root.find("./WhatToBuild/StrategyType")
     if strategy is None:
         raise ValueError("StrategyType absent")

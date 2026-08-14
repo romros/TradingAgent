@@ -185,12 +185,20 @@ def main():
             if finalists and identity not in finalists: continue
             path=root/c["file"]
             try:
-                contract=extract(path); result={k:simulate(frame,contract,*v) for k,v in periods.items()}
+                contract=extract(path)
+                if contract["translation_status"] != "SUPPORTED_SUBSET":
+                    raise ValueError(
+                        "unsupported SQX translation: "
+                        + ",".join(contract["unsupported_nodes_or_formulas"]))
+                result={k:simulate(frame,contract,*v) for k,v in periods.items()}
                 rows.append({"project":inv_path.stem,"strategy":c["strategy"],"sqx_sha256":contract["source_sha256"],"translation":contract["translation_status"],"results":result})
             except Exception as exc: rows.append({"project":inv_path.stem,"strategy":c["strategy"],"error":f"{type(exc).__name__}: {exc}"})
     gate_periods=("validation","oos")
     eligible=[r for r in rows if "error" not in r and all(r["results"][p]["trades"]>=25 and (r["results"][p]["profit_factor"] or 0)>=1.15 and r["results"][p]["compound_return"]>0 for p in gate_periods)]
-    out={"schema_version":1,"data":"Yahoo MSFT unadjusted OHLC; close parity certified, OHLC execution provisional","periods":periods,"candidate_count":len(rows),"eligible_count":len(eligible),"eligible":[{"project":r["project"],"strategy":r["strategy"],"results":r["results"]} for r in eligible],"candidates":rows}
+    data_description = (f"deterministic local OHLC: {a.source.resolve()}"
+                        if a.source is not None
+                        else "Yahoo MSFT unadjusted OHLC; close parity certified, OHLC execution provisional")
+    out={"schema_version":1,"data":data_description,"periods":periods,"candidate_count":len(rows),"eligible_count":len(eligible),"eligible":[{"project":r["project"],"strategy":r["strategy"],"results":r["results"]} for r in eligible],"candidates":rows}
     a.output.parent.mkdir(parents=True,exist_ok=True); a.output.write_text(json.dumps(out,indent=2)+"\n"); print(json.dumps({"candidates":len(rows),"eligible":len(eligible),"errors":sum('error' in r for r in rows)},indent=2))
 
 

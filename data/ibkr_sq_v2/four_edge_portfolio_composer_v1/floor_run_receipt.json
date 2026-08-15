@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_PORTFOLIO_COMPOSER_FIXED_BUDGET_RUN",
+  "sqx_path": "data/ibkr_sq_v2/four_edge_portfolio_composer_v1/Portfolio-1786795330285.sqx",
+  "sqx_sha256": "8a10d42afb4a41fd316cbef18ec7f80c2151e2f092d7698a0e593d0a1dc1637a",
+  "period": "2022-01-01/2024-12-31",
+  "weights_pct": [25, 25, 25, 25],
+  "fixed_budget_per_strategy": 500,
+  "initial_capital": 2000,
+  "leverage": 1,
+  "accepted_orders": 94,
+  "rejected_orders": 0,
+  "maximum_order_notional": 499.45,
+  "gross_return_pct": 32.90840148925781,
+  "daily_equity_max_drawdown_pct": 5.79881494424711,
+  "cost_model": "neutral",
+  "paper_authorized": false,
+  "live_authorized": false
+}

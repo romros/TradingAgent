@@ -3,6 +3,7 @@
 from __future__ import annotations
 import argparse,datetime as dt,hashlib,json,struct,zipfile
 from pathlib import Path
+from xml.etree import ElementTree as ET
 
 def decode(blob:bytes):
     if blob[:4]!=b'\xac\xed\x00\x05':raise ValueError('not a Java object stream')
@@ -25,13 +26,23 @@ def metrics(rows,start=dt.date(2022,1,1),capital=2000):
         if equity>peak:peak,peak_date=equity,d
         dd=(peak-equity)/peak*100
         if dd>max_dd:max_dd,dd_pair=dd,(peak_date,d)
-    return {'first_date':str(rows[0][0]),'last_date':str(rows[-1][0]),'first_pnl':rows[0][1],'last_pnl':rows[-1][1],'return_pct_on_capital':rows[-1][1]/capital*100,'maximum_pnl':max(v for _,v in rows),'minimum_pnl':min(v for _,v in rows),'daily_equity_max_drawdown_pct':max_dd,'drawdown_peak_date':str(dd_pair[0]),'drawdown_trough_date':str(dd_pair[1]),'observations':len(rows)}
+    return {'first_date':str(rows[0][0]),'last_date':str(rows[-1][0]),'first_pnl':rows[0][1],'last_pnl':rows[-1][1],'return_pct_on_capital':rows[-1][1]/capital*100,'maximum_pnl':max(v for _,v in rows),'minimum_pnl':min(v for _,v in rows),'daily_equity_max_drawdown_pct':max_dd,'drawdown_peak_date':str(dd_pair[0]) if dd_pair else None,'drawdown_trough_date':str(dd_pair[1]) if dd_pair else None,'observations':len(rows)}
 
 def extract(path:Path):
     with zipfile.ZipFile(path) as z:
         members={n:metrics(decode(z.read(n))) for n in z.namelist() if n.endswith('dailyEquity.bin')}
         parts=sorted(n.removeprefix('PortfolioParts/') for n in z.namelist() if n.startswith('PortfolioParts/') and n.endswith('.sqx'))
-    return {'schema_version':1,'decision':'PASS_SQ_NATIVE_COMMON_WINDOW_PORTFOLIO_DIAGNOSTIC','sqx_path':str(path),'sqx_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'period':'2022-01-01/2024-12-31','initial_capital':2000,'components':parts,'daily_equity':members,'limitations':['SQ Portfolio Master used one whole share per trade, not four fixed 25% sleeves.','SQ run used neutral costs; this is not IBKR net economics.','Daily equity ends 2024-12-30; EndTest closed balance is audited separately from exported orders.'],'paper_authorized':False,'live_authorized':False}
+        composer_log=None
+        if 'settings.xml' in z.namelist():
+            node=ET.fromstring(z.read('settings.xml')).find('.//PortfolioComposerLog')
+            composer_log=node.text if node is not None else None
+    if composer_log:
+        limitations=['SQ Portfolio Composer used four fixed $500 sleeves, whole shares floored by AlquimiaFixedBudgetFloor.','SQ run used neutral costs; this is gross research, not IBKR net economics.','SQ includes its EndTest accounting point on 2025-01-01 although new market data and signals are sealed at 2024-12-31.']
+        run_type='portfolio_composer_fixed_budget'
+    else:
+        limitations=['SQ Portfolio Master used one whole share per trade, not four fixed 25% sleeves.','SQ run used neutral costs; this is not IBKR net economics.','EndTest closed balance is audited separately from exported orders.']
+        run_type='portfolio_master_one_share'
+    return {'schema_version':1,'decision':'PASS_SQ_NATIVE_COMMON_WINDOW_PORTFOLIO_DIAGNOSTIC','run_type':run_type,'sqx_path':str(path),'sqx_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'period':'2022-01-01/2024-12-31','initial_capital':2000,'components':parts,'daily_equity':members,'limitations':limitations,'paper_authorized':False,'live_authorized':False}
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('sqx',type=Path);p.add_argument('--output',type=Path,required=True);a=p.parse_args();result=extract(a.sqx);a.output.write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))

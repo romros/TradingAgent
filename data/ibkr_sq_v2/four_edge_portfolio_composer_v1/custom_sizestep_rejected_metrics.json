@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_CUSTOM_SIZESTEP_PRODUCED_ZERO_SIZE",
+  "sqx_path": "/mnt/volume-SQ/user/projects/PortfolioComposer/databanks/Portfolios/Portfolio-1786795111343.sqx",
+  "sqx_sha256": "fee691ca85f35f1f03ffe0f8c991d23f71832337d0d2bc614bfe29081f04649c",
+  "period": "2022-01-01/2024-12-31",
+  "initial_capital": 2000,
+  "components": [],
+  "daily_equity": {
+    "Results/Portfolio/dailyEquity.bin": {
+      "first_date": "2022-01-08",
+      "last_date": "2025-01-01",
+      "first_pnl": 0.0,
+      "last_pnl": 0.0,
+      "return_pct_on_capital": 0.0,
+      "maximum_pnl": 0.0,
+      "minimum_pnl": 0.0,
+      "daily_equity_max_drawdown_pct": 0,
+      "drawdown_peak_date": null,
+      "drawdown_trough_date": null,
+      "observations": 1090
+    },
+    "Results/CAT_0168_FLOOR500:  CAT_IBKR_V2_D1_LOM_D1/dailyEquity.bin": {
+      "first_date": "2022-01-22",
+      "last_date": "2025-01-01",
+      "first_pnl": 0.0,
+      "last_pnl": 0.0,
+      "return_pct_on_capital": 0.0,
+      "maximum_pnl": 0.0,
+      "minimum_pnl": 0.0,
+      "daily_equity_max_drawdown_pct": 0,
+      "drawdown_peak_date": null,
+      "drawdown_trough_date": null,
+      "observations": 1076
+    },
+    "Results/MSFT_CAPITULATION_FLOOR500:  MSFT_LOM_D1/dailyEquity.bin": {
+      "first_date": "2022-01-08",
+      "last_date": "2024-11-05",
+      "first_pnl": 0.0,
+      "last_pnl": 0.0,
+      "return_pct_on_capital": 0.0,
+      "maximum_pnl": 0.0,
+      "minimum_pnl": 0.0,
+      "daily_equity_max_drawdown_pct": 0,
+      "drawdown_peak_date": null,
+      "drawdown_trough_date": null,
+      "observations": 1033
+    },
+    "Results/JPM_MOMENTUM60_FLOOR500:  JPM_MOM60_V1_D1_LOM_D1/dailyEquity.bin": {
+      "first_date": "2022-12-01",
+      "last_date": "2025-01-01",
+      "first_pnl": 0.0,
+      "last_pnl": 0.0,
+      "return_pct_on_capital": 0.0,
+      "maximum_pnl": 0.0,
+      "minimum_pnl": 0.0,
+      "daily_equity_max_drawdown_pct": 0,
+      "drawdown_peak_date": null,
+      "drawdown_trough_date": null,
+      "observations": 763
+    },
+    "Results/SGLN_TSMOM12_FLOOR500:  SGLN_GBP_ALQ_D1_LOM_D1/dailyEquity.bin": {
+      "first_date": "2022-03-02",
+      "last_date": "2025-01-01",
+      "first_pnl": 0.0,
+      "last_pnl": 0.0,
+      "return_pct_on_capital": 0.0,
+      "maximum_pnl": 0.0,
+      "minimum_pnl": 0.0,
+      "daily_equity_max_drawdown_pct": 0,
+      "drawdown_peak_date": null,
+      "drawdown_trough_date": null,
+      "observations": 1037
+    }
+  },
+  "limitations": [
+    "SQ Portfolio Master used one whole share per trade, not four fixed 25% sleeves.",
+    "SQ run used neutral costs; this is not IBKR net economics.",
+    "Daily equity ends 2024-12-30; EndTest closed balance is audited separately from exported orders."
+  ],
+  "paper_authorized": false,
+  "live_authorized": false
+}

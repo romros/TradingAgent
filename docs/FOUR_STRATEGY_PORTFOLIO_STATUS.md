@@ -55,11 +55,13 @@ acaba a **+13,52%** sobre 2.000 i té **3,17%** de drawdown mark-to-market.
 El balanç tancat exportat acaba a 2.276,56
 (+13,83%). Les quatre `PortfolioParts` són dins l'SQX.
 
-Això valida agregació, calendari, solapament i diversificació dins SQ, però no
-és encara la configuració ideal de capital: Portfolio Master ha usat una acció
-sencera per entrada, no quatre compartiments fixos del 25%, i costos SQ neutres.
-Per això no substitueix el diagnòstic Python de +21,99%/DD 8,47%; respon una
-pregunta diferent. Evidència: `data/ibkr_sq_v2/four_edge_portfolio_master_v1/`.
+Això valida agregació, calendari, solapament i diversificació dins SQ. El pas
+següent ja també està resolt: Portfolio Composer, amb el mètode custom
+`AlquimiaFixedBudgetFloor`, aplica quatre compartiments fixos de 500 USD i
+`floor(500/preu)` en accions senceres. Accepta 94/94 ordres, cap notional
+supera 500 USD (màxim 499,45), i dona **+32,91% brut** amb **DD diari 5,80%**.
+SQ continua amb costos neutres; no és encara l'economia neta IBKR. Evidència:
+`data/ibkr_sq_v2/four_edge_portfolio_composer_v1/`.
 
 ## Cadena pendent, en ordre
 
@@ -68,8 +70,8 @@ pregunta diferent. Evidència: `data/ibkr_sq_v2/four_edge_portfolio_master_v1/`.
    timestamps i arrodoneix OHLC com a màxim 0,00005049 GBP.
 2. **Completat:** retest SGLN 2019–2024 i paritat exacta dates/preus 3/3.
 3. **Completat:** Portfolio Master 4-de-4 sobre finestra comuna 2022–2024.
-4. Implementar en SQ/Portfolio Composer els pesos fixos 25% o demostrar una
-   equivalència exacta; després aplicar costos IBKR i FX GBP/USD.
+4. **Completat:** Portfolio Composer amb pesos fixos 25%, pressupost 500 USD,
+   unitats senceres floor i auditoria de totes les ordres.
 5. Resoldre a IBKR `IE00B4ND3602`, listing, moneda, KID i comissió.
 6. Comparar trade-a-trade la cartera ponderada SQ contra Python i només llavors
    decidir si mereix shadow/paper.
@@ -80,6 +82,7 @@ pregunta diferent. Evidència: `data/ibkr_sq_v2/four_edge_portfolio_master_v1/`.
   del 25%.
 - El +28,26% anterior era amb quatre sleeves de 1.000, no 1.000 total.
 - El +21,99% a 2.000 és històric, closed-equity i amb FX aproximat 1:1.
-- Portfolio Master ja ha passat l'auditoria comuna de rendiment, però amb una
-  acció per trade i costos neutres; encara no és sizing operable.
+- Portfolio Composer ja resol el sizing brut. El MM integrat de SQ queda
+  rebutjat perquè arrodonia cap amunt i podia gastar més de 500 USD.
+- Encara falten costos IBKR/FX i equivalència trade-a-trade amb Python.
 - `paper_authorized=false` i `live_authorized=false` fins completar els gates.

@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_INDICATIVE_PRE_ACCOUNT_GATE",
+  "period": "2022-01-01/2024-12-31",
+  "capital": 2000,
+  "sqx_sha256": "8a10d42afb4a41fd316cbef18ec7f80c2151e2f092d7698a0e593d0a1dc1637a",
+  "fx_sha256": "f95006726de866df21bea8ca0c3a1e7f9d082600b57d04199ab37201b7b48e21",
+  "fx_source_urls": [
+    "https://data-api.ecb.europa.eu/service/data/EXR/D.GBP.EUR.SP00.A",
+    "https://data-api.ecb.europa.eu/service/data/EXR/D.USD.EUR.SP00.A"
+  ],
+  "commission_source_url": "https://www.interactivebrokers.com/en/pricing/commissions-stocks-europe.php?re=europe",
+  "accepted_positions": 94,
+  "us_positions": 93,
+  "sgln_positions": 1,
+  "sgln_sq_size_wrong_currency": 18.0,
+  "sgln_fx_corrected_size": 13,
+  "sgln_entry_usd_per_gbp": 1.3401368712,
+  "sgln_end_usd_per_gbp": 1.2529245761,
+  "sgln_end_price_gbp_derived": 40.33999976264106,
+  "sq_neutral_gross_return_pct": 32.90840148925781,
+  "fx_corrected_neutral_gross_return_pct": 30.25703978454921,
+  "scenarios": {
+    "tiered_indicative": {
+      "gross_pnl_fx_corrected": 605.140796,
+      "estimated_cost": 83.463796,
+      "net_pnl": 521.676999,
+      "net_return_pct": 26.08385
+    },
+    "fixed_indicative": {
+      "gross_pnl_fx_corrected": 605.140796,
+      "estimated_cost": 231.004374,
+      "net_pnl": 374.136422,
+      "net_return_pct": 18.706821
+    },
+    "stress": {
+      "gross_pnl_fx_corrected": 605.140796,
+      "estimated_cost": 267.397844,
+      "net_pnl": 337.742951,
+      "net_return_pct": 16.887148
+    }
+  },
+  "limitations": [
+    "Commission schedules are indicative public models; the actual account plan and venue fees require an IBKR account statement.",
+    "Costs conservatively charge a round trip for every accepted position, including positions marked at EndTest.",
+    "Closed-equity costs are deducted from final PnL; a net daily mark-to-market drawdown is not claimed.",
+    "No paper or live trading is authorized."
+  ],
+  "paper_authorized": false,
+  "live_authorized": false
+}

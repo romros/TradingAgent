@@ -63,6 +63,14 @@ supera 500 USD (màxim 499,45), i dona **+32,91% brut** amb **DD diari 5,80%**.
 SQ continua amb costos neutres; no és encara l'economia neta IBKR. Evidència:
 `data/ibkr_sq_v2/four_edge_portfolio_composer_v1/`.
 
+La correcció pre-compte usa el creuament oficial ECB GBP/EUR i USD/EUR. Detecta
+que SQ tractava erròniament 27,73 GBP com 27,73 USD: el sleeve SGLN correcte és
+13 unitats, no 18. El brut corregit baixa a **+30,26%**. Amb comissions i
+fricció indicatives, el total 2022–2024 és **+26,08% tiered**, **+18,71% fixed**
+i **+16,89% estrès**. L'estrès són 337,74 USD en tres anys sobre 2.000 USD,
+aproximadament 5,3% anualitzat. Sense compte no es pot confirmar el pla, venue,
+KID ni comissió del fill real; per això continua sent un gate teòric.
+
 ## Cadena pendent, en ordre
 
 1. **Completat:** D1 ajustat de SGLN importat amb GBp dividit per 100. Són
@@ -72,7 +80,8 @@ SQ continua amb costos neutres; no és encara l'economia neta IBKR. Evidència:
 3. **Completat:** Portfolio Master 4-de-4 sobre finestra comuna 2022–2024.
 4. **Completat:** Portfolio Composer amb pesos fixos 25%, pressupost 500 USD,
    unitats senceres floor i auditoria de totes les ordres.
-5. Resoldre a IBKR `IE00B4ND3602`, listing, moneda, KID i comissió.
+5. **Completat provisionalment sense compte:** FX històric i tres escenaris de
+   costos públics. Pendent substituir-los per fills/statement quan hi hagi compte.
 6. Comparar trade-a-trade la cartera ponderada SQ contra Python i només llavors
    decidir si mereix shadow/paper.
 

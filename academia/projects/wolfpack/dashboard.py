@@ -257,6 +257,36 @@ def roster_view(events: list[dict], paper: dict, pack: dict) -> dict:
             }}
 
 
+def family_portfolio(ledger: dict, replication: dict) -> list[dict]:
+    trades = ledger.get("trades", [])
+    link_closed = [row for row in trades if row.get("source") == "standalone_setup"
+                   and row.get("pair") == "LINK/USD" and row.get("status") == "CLOSED"]
+    btc = [row for row in trades if row.get("source") == "wolfpack"
+           and row.get("pair") == "BTC/USD"]
+    btc_closed = [row for row in btc if row.get("status") == "CLOSED"]
+    return [
+        {"id": "link_relative_breakout", "label": "LINK breakout relatiu",
+         "status": "ACTIVE_REPLICATION" if replication.get("status") in
+         {"WATCH", "WARMUP", "PAPER_OPEN", "PAPER_OPEN_AFTER_TARGET_1"} else
+         replication.get("status", "NOT_STARTED"),
+         "closed": len(link_closed), "open": int(bool(replication.get("position"))),
+         "candidate_required": 10,
+         "net_pnl_usdc": sum(float(row.get("copy_net_pnl_usdc") or 0) for row in link_closed),
+         "cost_complete": all(row.get("cost_complete", False) for row in link_closed),
+         "next": "acumular rèpliques sense canviar la geometria"},
+        {"id": "btc_wolf_replicability", "label": "BTC llops copiables",
+         "status": "FORWARD_COLLECTION", "closed": len(btc_closed),
+         "open": sum(row.get("status") == "OPEN" for row in btc), "candidate_required": 10,
+         "net_pnl_usdc": sum(float(row.get("copy_net_pnl_usdc") or 0) for row in btc_closed),
+         "cost_complete": bool(btc_closed) and all(row.get("cost_complete", False) for row in btc_closed),
+         "next": "esperar tancaments executables; no filtrar retrospectivament"},
+        {"id": "third_independent_family", "label": "Tercera família independent",
+         "status": "DISCOVERY_REQUIRED", "closed": 0, "open": 0,
+         "candidate_required": 10, "net_pnl_usdc": 0, "cost_complete": False,
+         "next": "mecanisme nou; XAU, SPX i EURUSD rebutjats no es reciclen"},
+    ]
+
+
 def build_state(follows: Path, heartbeat: Path, paper_path: Path,
                 checkpoint: Path, now: datetime | None = None,
                 pack_path: Path | None = None,
@@ -349,6 +379,7 @@ def build_state(follows: Path, heartbeat: Path, paper_path: Path,
         "replication_watch": replication_watch,
         "standalone_paper_results": standalone_closed,
         "unified_ledger": unified_ledger,
+        "family_portfolio": family_portfolio(unified_ledger, replication_watch),
         "opportunity_monitor": {
             "market": market_overview(diary, now),
             "setups": ([{"instrument": "LINK/USD", "kind": "BREAKOUT_OR_BREAKDOWN",

@@ -15,6 +15,7 @@ const replicationWatch = w => {
   const q=w.last_quote||{}, l=w.levels||{}, p=w.position||{};
   return `<article class="card"><div class="badge">V40 · ${esc(w.status)}<br>PAPER ONLY</div><div><h3>LINK/USD · rèplica relativa</h3><p>Anchor congelat: ${esc(fmt(w.anchor))} · actualització: ${esc(fmt(q.captured_at))}</p><div class="facts"><code>mid: ${esc(fmt(q.mid))}</code><code>short: ${esc(fmt(l.SHORT?.trigger))}</code><code>confirmació short: ${esc(fmt(w.consecutive_short))}/3</code><code>long: ${esc(fmt(l.LONG?.trigger))}</code><code>confirmació long: ${esc(fmt(w.consecutive_long))}/3</code><code>direcció: ${esc(fmt(p.direction))}</code><code>entrada: ${esc(fmt(p.entry))}</code><code>stop: ${esc(fmt(p.stop))}</code><code>target 1: ${esc(fmt(p.target_1))}</code><code>target 2: ${esc(fmt(p.target_2))}</code><code>PnL realitzat: ${esc(fmt(w.realized_pnl_usdc))} USDC</code></div></div></article>`;
 };
+const familyCard = f => `<article class="card"><div class="badge">${esc(f.status)}</div><div><h3>${esc(f.label)}</h3><p>${esc(f.next)}</p><div class="facts"><code>tancades: ${esc(f.closed)}/${esc(f.candidate_required)}</code><code>obertes: ${esc(f.open)}</code><code>PnL net comptable: ${esc(fmt(f.net_pnl_usdc))} USDC</code><code>cost complet: ${f.cost_complete?'sí':'no'}</code></div>${progress('Progrés candidat',100*Number(f.closed||0)/Number(f.candidate_required||10))}</div></article>`;
 document.querySelectorAll('.tab').forEach(button=>button.addEventListener('click',()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===button));
   document.querySelectorAll('.tab-panel').forEach(x=>x.classList.toggle('active',x.id===`tab-${button.dataset.tab}`));
@@ -33,6 +34,7 @@ async function refresh(){
     document.querySelector('#roster').innerHTML=s.roster.profiles.length?s.roster.profiles.map(wolfCard).join(''):'<div class="empty">Cap llop al roster.</div>';
     document.querySelector('#link-watch').innerHTML=linkWatch(s.link_watch);
     document.querySelector('#replication-watch').innerHTML=replicationWatch(s.replication_watch);
+    document.querySelector('#family-portfolio').innerHTML=(s.family_portfolio||[]).map(familyCard).join('');
     document.querySelector('#market-overview').innerHTML=marketOverview(s.opportunity_monitor.market);
     const cr=s.opportunity_monitor.codex_review;
     document.querySelector('#codex-review').innerHTML=`<strong>${esc(cr.status||'WAITING')}</strong> · ${esc(cr.decision||'Codex només s’activarà quan canviï materialment un setup o el règim.')}`;

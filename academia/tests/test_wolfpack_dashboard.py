@@ -77,6 +77,20 @@ class DashboardTest(unittest.TestCase):
             exported = dashboard.paper_csv({}, state["standalone_paper_results"])
             self.assertIn(b"CLOSED_STANDALONE", exported)
 
+    def test_family_portfolio_keeps_real_families_and_empty_slot_separate(self):
+        ledger = {"trades": [
+            {"source": "standalone_setup", "pair": "LINK/USD", "status": "CLOSED",
+             "copy_net_pnl_usdc": 3.5, "cost_complete": False},
+            {"source": "wolfpack", "pair": "BTC/USD", "status": "CLOSED",
+             "copy_net_pnl_usdc": None, "cost_complete": False},
+            {"source": "wolfpack", "pair": "BTC/USD", "status": "OPEN"}]}
+        families = dashboard.family_portfolio(ledger, {"status": "WATCH", "position": None})
+        self.assertEqual(families[0]["status"], "ACTIVE_REPLICATION")
+        self.assertEqual(families[0]["closed"], 1)
+        self.assertEqual(families[1]["closed"], 1)
+        self.assertEqual(families[1]["open"], 1)
+        self.assertEqual(families[2]["status"], "DISCOVERY_REQUIRED")
+
     def test_closed_source_and_paper_results_stay_separate(self):
         events = [{"position_sha256": "p", "wallet_sha256": "w", "pair": "BTC/USD",
                    "action": "Open", "side": "B", "notional_usd": 100,

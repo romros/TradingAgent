@@ -148,6 +148,23 @@ Els setups paper independents tancats es reconcilien a
 l'equity combinada. Si falta una taxa contemporània, la vista diu `estimada`, el
 CSV conserva `cost_complete=false` i el resultat no compta com edge demostrat.
 
+`paper_ledger.py` fusiona cada font per identitat estable, sense convertir els
+setups independents en trades de llops ni duplicar resultats. Manté JSON i CSV
+efímers actualitzats per al dashboard:
+
+```bash
+python3 academia/projects/wolfpack/paper_ledger.py \
+  --wolfpack /tmp/wolfpack-paper-forward-20260813.json \
+  --standalone-dir academia/experiments/observations \
+  --output /tmp/wolfpack-unified-ledger.json \
+  --csv /tmp/wolfpack-unified-ledger.csv
+```
+
+La rèplica LINK v40 conserva la geometria percentual de v39 sobre un anchor
+prospectiu nou. No canvia distàncies després del guany i captura el contracte,
+fees i rollover a entrada i sortida. El gate continua exigint 10 tancaments;
+una segona victòria tampoc demostraria edge per si sola.
+
 ## Manteniment
 
 - diàriament: generar brief i comprovar fonts/errors;

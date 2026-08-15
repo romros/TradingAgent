@@ -263,7 +263,9 @@ def build_state(follows: Path, heartbeat: Path, paper_path: Path,
                 link_watch_path: Path | None = None,
                 diary_path: Path | None = None,
                 codex_review_path: Path | None = None,
-                standalone_result_path: Path | None = None) -> dict:
+                standalone_result_path: Path | None = None,
+                unified_ledger_path: Path | None = None,
+                unified_ledger_csv_path: Path | None = None) -> dict:
     now = now or datetime.now(timezone.utc)
     events = read_jsonl(follows)
     heartbeat_data = read_json(heartbeat)
@@ -276,6 +278,7 @@ def build_state(follows: Path, heartbeat: Path, paper_path: Path,
     standalone = read_json(standalone_result_path) if standalone_result_path else {}
     standalone_closed = [standalone] if standalone.get("status", "").startswith("CLOSED") else []
     standalone_net = sum(float(row.get("copy_net_pnl_usdc") or 0) for row in standalone_closed)
+    unified_ledger = read_json(unified_ledger_path) if unified_ledger_path else {}
     assets, tracking = tracking_views(events, paper)
     roster = roster_view(events, paper, pack)
     checked = parse_time(heartbeat_data.get("checked_at"))
@@ -342,6 +345,7 @@ def build_state(follows: Path, heartbeat: Path, paper_path: Path,
         },
         "link_watch": link_watch,
         "standalone_paper_results": standalone_closed,
+        "unified_ledger": unified_ledger,
         "opportunity_monitor": {
             "market": market_overview(diary, now),
             "setups": ([{"instrument": "LINK/USD", "kind": "BREAKOUT_OR_BREAKDOWN",
@@ -382,6 +386,17 @@ def handler_factory(web_root: Path, paths: dict[str, Path]):
                 self.end_headers()
                 self.wfile.write(payload)
                 return
+            if request_path == "/api/ledger.csv":
+                try:
+                    payload = paths["unified_ledger_csv_path"].read_bytes()
+                except FileNotFoundError:
+                    payload = b""
+                self.send_response(200)
+                self.send_header("Content-Type", "text/csv; charset=utf-8")
+                self.send_header("Content-Disposition", "attachment; filename=wolfpack-unified-ledger.csv")
+                self.send_header("Cache-Control", "no-store")
+                self.send_header("Content-Length", str(len(payload)))
+                self.end_headers(); self.wfile.write(payload); return
             super().do_GET()
 
         def end_headers(self):
@@ -418,12 +433,18 @@ def main() -> None:
     parser.add_argument("--standalone-result", dest="standalone_result_path", type=Path,
                         default=here.parents[1] / "experiments" / "observations" /
                         "link-breakout-breakdown-paper-v39-result.json")
+    parser.add_argument("--unified-ledger", dest="unified_ledger_path", type=Path,
+                        default=Path("/host-tmp/wolfpack-unified-ledger.json"))
+    parser.add_argument("--unified-ledger-csv", dest="unified_ledger_csv_path", type=Path,
+                        default=Path("/host-tmp/wolfpack-unified-ledger.csv"))
     args = parser.parse_args()
     paths = {key: getattr(args, key) for key in
              ("follows", "heartbeat", "paper_path", "checkpoint", "pack_path")}
     paths.update(link_watch_path=args.link_watch_path, diary_path=args.diary_path,
                  codex_review_path=args.codex_review_path,
-                 standalone_result_path=args.standalone_result_path)
+                 standalone_result_path=args.standalone_result_path,
+                 unified_ledger_path=args.unified_ledger_path)
+    paths["unified_ledger_csv_path"] = args.unified_ledger_csv_path
     server = ThreadingHTTPServer((args.bind, args.port), handler_factory(here / "web", paths))
     server.timeout = 1
     deadline = time.time() + args.duration_hours * 3600

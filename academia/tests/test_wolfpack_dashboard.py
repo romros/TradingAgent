@@ -72,6 +72,7 @@ class DashboardTest(unittest.TestCase):
             self.assertEqual(state["coverage"]["paper_closed"], 1)
             self.assertTrue(state["paper"]["combined_equity_is_estimate"])
             self.assertEqual(len(state["standalone_paper_results"]), 1)
+            self.assertEqual(state["unified_ledger"], {})
             exported = dashboard.paper_csv({}, state["standalone_paper_results"])
             self.assertIn(b"CLOSED_STANDALONE", exported)
 

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "classification": "NATIVE_SQX_PARITY_REQUIRED",
+  "strategy": "SGLN_TSMOM12_MONTHLY_NATIVE_V1",
+  "rule": "on first trading bar of month: prior month-end close > exact month-end close 12 calendar months earlier => long; inverse => cash",
+  "calendar_month_lookup": true,
+  "fixed_trading_day_proxy": false,
+  "template_sha256": "4ccc1c4f48f705ea7e11d30ab96614feccb7a94800656768532e2eb458ad0bcc",
+  "output_sha256": "295318005bf18fdae041ec3181b21d017b9c9446ab58ae696f65b98b75252561",
+  "performance_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

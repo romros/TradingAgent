@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "source_csv": "data/ibkr_sq_v2/gold_tsmom_confirmation_v1/SGLN_GBP_ALQ_D1.csv",
+  "source_sha256": "6ad0e470365038e860d0bb6b36a349e38db8b21f765c4fce0f1e9ffdfb533031",
+  "exported_csv": "/mnt/volume-SQ/user/exports/alquimia_sgln_d1_roundtrip_v1/SGLN_GBP_ALQ_D1-D1-No Session.csv",
+  "exported_sha256": "137a40de377ed473fbd7709033286bbdd65b348d4c936b03ed7cbcb846b91a46",
+  "exported_has_header": false,
+  "source_rows": 3283,
+  "exported_rows": 3283,
+  "timestamps_exact_and_ordered": true,
+  "field_errors": {
+    "open": {
+      "changed_rows": 39,
+      "max_absolute_error": "0.00004971",
+      "mean_absolute_error": "1.694364910143161742308863844E-7"
+    },
+    "high": {
+      "changed_rows": 995,
+      "max_absolute_error": "0.00005049",
+      "mean_absolute_error": "0.000003643140420347243374961925069"
+    },
+    "low": {
+      "changed_rows": 1097,
+      "max_absolute_error": "0.00005049",
+      "mean_absolute_error": "0.000004449881206213828815108132805"
+    },
+    "close": {
+      "changed_rows": 14,
+      "max_absolute_error": "0.00004971",
+      "mean_absolute_error": "1.242796222966798659762412428E-7"
+    },
+    "volume": {
+      "changed_rows": 0,
+      "max_absolute_error": "0.0",
+      "mean_absolute_error": "0.0"
+    }
+  },
+  "decision": "PASS_SIGNAL_RESEARCH",
+  "decision_scope": "Data integrity for signal research only; volume-dependent rules, execution, paper, and live remain unauthorized.",
+  "exact_numeric_parity": false,
+  "paper_or_live_authorized": false
+}

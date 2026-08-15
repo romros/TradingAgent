@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_SQ_INSTALL_AND_CATALOG_NOT_PARITY",
+  "installed_at_utc": "2026-08-15T10:20:38Z",
+  "sq_version": "143.2708",
+  "license_runtime": "59072E",
+  "runtime_internal_mount": "/home/roman/dockers-SQ/6ACC10/internal",
+  "baseline_snippets_jar_sha256": "321d998478fc478fff260541506fc7ab7503937ad2f88010dd42a156ac33cd23",
+  "compiled_snippets_jar_sha256": "27e1dda89e70931ccc39685253188cd7c5e3c1381bfff5b977e410bee5f5b166",
+  "backup_path": "/mnt/volume-SQ/user/backups/sgln_tsmom12_native_v1/preinstall_20260815/Snippets.jar",
+  "installed_source_sha256": {
+    "SQ/Utils/AlquimiaMonthlyMomentum.java": "53b26ed5ead9c216ecd5d025525bc820e3c337746fc9ab407018c344f5fec2a8",
+    "SQ/Blocks/Alquimia/AlquimiaMonthlyMomentumAbove.java": "117c473eef539478d9e72f8973d4ff13aa8786a963e3665a8dfe6abccdbe2221",
+    "SQ/Blocks/Alquimia/AlquimiaMonthlyMomentumBelow.java": "7e73f3a5afb916216a51fdac4cbe04a97623a2512b19ea4416728e74d8380a79"
+  },
+  "catalog_classes_verified": [
+    "SQ/Utils/AlquimiaMonthlyMomentum.class",
+    "SQ/Blocks/Alquimia/AlquimiaMonthlyMomentumAbove.class",
+    "SQ/Blocks/Alquimia/AlquimiaMonthlyMomentumBelow.class"
+  ],
+  "compile_only_container_network": "none",
+  "production_projects_modified": false,
+  "performance_accessed": false,
+  "remaining_gate": "SGLN_D1_IMPORT_SCALE_THEN_TRADE_BY_TRADE_SQ_PYTHON_PARITY",
+  "paper_authorized": false,
+  "live_authorized": false
+}

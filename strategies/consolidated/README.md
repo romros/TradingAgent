@@ -4,6 +4,9 @@ Aquest directori és el punt d'entrada net a les estratègies que han superat el
 gates de recerca disponibles. No conté còpies dels resultats: cada fitxa apunta
 als artefactes originals, que conserven hashes i traçabilitat.
 
+L'estat transversal, capital petit, paritat SQ i ordre de treball són a
+[FOUR_STRATEGY_PORTFOLIO_STATUS](../../docs/FOUR_STRATEGY_PORTFOLIO_STATUS.md).
+
 ## Estat del catàleg
 
 | Estratègia | Actiu | Mecanisme | Estat | Fitxa |

@@ -64,3 +64,28 @@ Per reconstruir la recerca:
 - Cal confirmar a IBKR el contracte/KID accessible al compte espanyol i les
   comissions LSE/Xetra reals.
 - Paper i LIVE continuen no autoritzats.
+
+## Viabilitat de compte petit
+
+La reconstrucció posterior `four_strategy_small_account_v1.py` substitueix els
+quatre sleeves teòrics de 1.000 per una sola dotació total, repartida en quatre
+compartiments fixos del 25%, i exigeix unitats senceres. En 2022–2024:
+
+| Capital total | Retorn | DD tancat | Reprodueix les quatre? |
+|---:|---:|---:|:---:|
+| 500 | +9,80% | 1,22% | No; només SGLN |
+| 1.000 | +13,49% | 2,96% | No; CAT queda fora |
+| 1.500 | +18,70% | 3,32% | No; CAT queda fora |
+| 2.000 | +21,99% | 8,47% | Sí |
+| 3.000 | +26,97% | 8,34% | Sí |
+
+Per tant, **2.000 és el primer punt viable de la graella provada**, no un mínim
+matemàtic exacte. El resultat encara fixa GBP/account currency a 1:1, conserva
+cash sobrant dins cada compartiment i calcula DD closed-equity. No s'ha d'usar
+com a promesa de rendiment.
+
+SQCLI Portfolio Master sí que val la pena com a implementació independent: el
+smoke real ja prova que pot construir una cartera i generar equity/ordres. No
+pot validar encara aquesta cartera perquè primer cal tenir les quatre regles en
+SQX natiu amb paritat trade-a-trade i els mateixos costos. Executar Portfolio
+Master abans amagaria les discrepàncies de cada cama dins l'agregat.

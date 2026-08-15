@@ -29,9 +29,10 @@ Les hipòtesis, watchlists i estratègies rebutjades es mantenen a
 `lab/sq_bridge/theoretical_strategy_library_v1.json`; no es barregen amb aquest
 directori.
 
+L'índex llegible de vies mortes és a [estratègies rebutjades](../rejected/README.md).
+
 ## Candidata en validació
 
 `aapl_momentum60_v1` ha passat el holdout Python i l'economia de compte petit,
 però encara necessita paritat nativa SQCLI i robustesa. Per tant, no està
 consolidada ni forma part de la cartera.
-

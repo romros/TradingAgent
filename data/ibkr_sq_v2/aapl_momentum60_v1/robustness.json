@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_ROBUSTNESS",
+  "method": "iid_trade_bootstrap_with_replacement_plus_leave_one_out",
+  "seed": 20260815,
+  "runs": 10000,
+  "trades": 10,
+  "observed_return": 0.4778697773627505,
+  "observed_max_drawdown": 0.09457118577253887,
+  "bootstrap_probability_positive": 0.9581,
+  "bootstrap_return_p05": 0.021075134419060282,
+  "bootstrap_return_median": 0.49311695930845634,
+  "bootstrap_drawdown_p95": 0.20247926468803268,
+  "leave_one_out_positive_ratio": 1.0,
+  "leave_one_out_worst_return": 0.3049032137239649,
+  "top_three_gross_winners_share_of_observed_net": 0.7297830963997294,
+  "limitations": [
+    "IID bootstrap does not model market-regime clustering.",
+    "Ten holdout trades remain a small sample; this is a falsification aid, not proof of future profit."
+  ],
+  "paper_authorized": false,
+  "live_authorized": false
+}

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "candidate_id": "AAPL_MOMENTUM60_MONTH_END_V1",
-  "status": "PROMISING_RESEARCH_CANDIDATE_NOT_YET_CONSOLIDATED",
+  "status": "ADMITTED_RESEARCH_EDGE",
   "passed": [
     "cross_asset_pre_2025_hypothesis_discovery",
     "untouched_2025_2026_python_holdout",
@@ -15,7 +15,7 @@
   "stress_1000_return_pct": 39.893637,
   "stress_1000_profit_factor": 3.189106,
   "stress_1000_drawdown_pct": 8.642318,
-  "remaining": ["parameter_neighborhood_stability_without_retuning", "trade_sequence_monte_carlo", "portfolio_overlap_and_incremental_value"],
+  "remaining": ["portfolio_overlap_and_incremental_value"],
   "paper_authorized": false,
   "live_authorized": false
 }

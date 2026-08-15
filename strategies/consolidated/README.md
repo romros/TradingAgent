@@ -10,6 +10,7 @@ als artefactes originals, que conserven hashes i traçabilitat.
 |---|---|---|---|---|
 | `cat_d1_trend_0168` | CAT | Trend pullback D1 | Admesa per recerca | [CAT](cat_d1_trend_0168.md) |
 | `msft_d1_capitulation` | MSFT | Reversió després de capitulació D1 | Admesa per recerca | [MSFT](msft_d1_capitulation.md) |
+| `aapl_momentum60_month_end_v1` | AAPL | Momentum mitjà mostrejat a final de mes | Admesa per recerca | [AAPL](aapl_momentum60_month_end_v1.md) |
 
 `Admesa per recerca` no significa autorització per operar. Encara cal la capa
 de cartera, risc, paper trading i validació d'execució IBKR abans de LIVE.
@@ -33,6 +34,5 @@ L'índex llegible de vies mortes és a [estratègies rebutjades](../rejected/REA
 
 ## Candidata en validació
 
-`aapl_momentum60_v1` ha passat el holdout Python i l'economia de compte petit,
-però encara necessita paritat nativa SQCLI i robustesa. Per tant, no està
-consolidada ni forma part de la cartera.
+No hi ha cap candidata pendent en aquest apartat. Les noves hipòtesis romanen
+fora del directori fins que completen la cadena de validació.

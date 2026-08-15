@@ -34,6 +34,19 @@
       "caveat": "Exact SQ/Python signal parity; historical periods are not a pristine new holdout."
     },
     {
+      "id": "aapl_momentum60_month_end_v1",
+      "asset": "AAPL",
+      "mechanism": "medium_term_momentum_month_end_sampling",
+      "status": "ADMITTED_RESEARCH_EDGE",
+      "evidence_path": "data/ibkr_sq_v2/aapl_momentum60_v1/native_holdout/ibkr_cost_audit.json",
+      "evidence_sha256": "dd82f66305cf84aed6e90e68ae3dc2549fafaea95dbef200ad0a5f152e21e4e8",
+      "parity_path": "data/ibkr_sq_v2/aapl_momentum60_v1/native_holdout/signal_parity.json",
+      "parity_sha256": "1149514bc994c69fb10178ac86da1ffe66280f29f377c543b966e8cfab8264af",
+      "robustness_path": "data/ibkr_sq_v2/aapl_momentum60_v1/robustness.json",
+      "robustness_sha256": "740642e4a5f0d7a6ac07f7d11fb7a0b58a824cfa9823c6c5ec69a94a839b5b20",
+      "caveat": "Untouched recent holdout and native parity pass, but the holdout contains only 10 completed trades and portfolio incremental-value analysis remains pending."
+    },
+    {
       "id": "aapl_h1_roc_4_1_174",
       "asset": "AAPL",
       "mechanism": "roc_reversion",

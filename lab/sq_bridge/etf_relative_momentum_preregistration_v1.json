@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-etf-relative-momentum-fifth-edge-v1",
+  "status": "FROZEN_BEFORE_PORTFOLIO_PERFORMANCE",
+  "hypothesis": "Cross-sectional momentum across economically distinct equity segments persists more reliably than standalone timing because capital flows rotate gradually between regions, sizes and sectors.",
+  "assets": ["IWM", "EEM", "EFA", "XLE", "XLF"],
+  "periods": {
+    "train": ["2018-01-01", "2021-12-31"],
+    "validation": ["2022-01-01", "2023-12-31"],
+    "oos_2024": ["2024-01-01", "2024-12-31"],
+    "holdout_2025_plus": "sealed"
+  },
+  "rule": {
+    "review": "last common NYSE session of each month",
+    "score": "close at review divided by close lookback sessions earlier minus one",
+    "selection": "top two assets with strictly positive score",
+    "weighting": "equal weight across selected assets; unused slots remain cash",
+    "execution": "rebalance at next common session open",
+    "variants": [
+      {"id": "L63", "lookback_sessions": 63},
+      {"id": "L126", "lookback_sessions": 126},
+      {"id": "L252", "lookback_sessions": 252}
+    ],
+    "central_variant": "L126"
+  },
+  "validation_release_gate": {
+    "all_variants_positive": true,
+    "central_minimum_annualized_sharpe": 0.50,
+    "central_maximum_drawdown": 0.25,
+    "minimum_monthly_observations": 18
+  },
+  "final_gate": {
+    "all_variants_positive_oos": true,
+    "central_combined_minimum_annualized_sharpe": 0.65,
+    "central_combined_maximum_drawdown": 0.25
+  },
+  "subsequent_mandatory_gates": [
+    "IBKR tiered/fixed/stress costs and turnover",
+    "corporate-action semantics",
+    "SQ native portfolio reproduction",
+    "parameter neighbourhood",
+    "correlation and marginal portfolio contribution"
+  ],
+  "paper_authorized": false,
+  "live_authorized": false
+}

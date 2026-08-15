@@ -1,0 +1,80 @@
+{
+  "adjusted_sha256": {
+    "EEM": "3ec5b1bb028a35add08412dc990ed230f5b467c271cb4106b2f008c0636ddc54",
+    "EFA": "beeafebb9287ae7963a7b4dae81982f0de3ca90d5908e70ed0161b04bec9efcd",
+    "IWM": "58fbee463a5d0864bb272cc4bea6461216c69051632884186c63059da08825cd",
+    "XLE": "d52a192d973ebb9b264e3a2de25e9a6057649fefa4468b572c59db30b081ea77",
+    "XLF": "c719b145ad4c3372cd9d25374cea02f25b058f1cc6affda341b004cca557d8e7"
+  },
+  "decision": "REJECT_SOURCE_DEPENDENT",
+  "holdout_2025_plus_accessed": false,
+  "live_authorized": false,
+  "paper_authorized": false,
+  "raw_sha256": {
+    "EEM": "7eabba2af37b5389d834c278160e9c2681f5cb950b8988cbf40dd5152a880a0f",
+    "EFA": "ac6abd47e0fa79aee19e08bd94e1901e6eaa62fb958fd0ad161d64d0e4c38c48",
+    "IWM": "2d3c53e9eb3e5a8c70e0fe6fd354abe7443625d51cfd25a8c4e45791303e761f",
+    "XLE": "aa051835386a1d07e3722f63f756f57eb9354d4c6dd97b36589cf9044f2c9457",
+    "XLF": "e3a7c4453bb60c32aef793f01dc20b7d3fe57dc8fffa2d158959b71fc62e706c"
+  },
+  "results": {
+    "oos_2024": {
+      "adjusted": {
+        "annualized_sharpe": 2.3553878386294267,
+        "cash_months": 0,
+        "maximum_drawdown": 0.04340590005514888,
+        "monthly_observations": 11,
+        "total_return": 0.31431011426780553
+      },
+      "common_months": 11,
+      "raw": {
+        "annualized_sharpe": 2.496567548084238,
+        "cash_months": 0,
+        "maximum_drawdown": 0.04270521768029245,
+        "monthly_observations": 11,
+        "total_return": 0.3563889119355408
+      },
+      "same_selection_months": 9,
+      "selection_agreement": 0.8181818181818182
+    },
+    "train": {
+      "adjusted": {
+        "annualized_sharpe": -0.13824046558809788,
+        "cash_months": 9,
+        "maximum_drawdown": 0.4715538399125433,
+        "monthly_observations": 46,
+        "total_return": -0.18002394827444823
+      },
+      "common_months": 36,
+      "raw": {
+        "annualized_sharpe": 0.24180036740586774,
+        "cash_months": 13,
+        "maximum_drawdown": 0.36473186734660734,
+        "monthly_observations": 36,
+        "total_return": 0.085519563835176
+      },
+      "same_selection_months": 30,
+      "selection_agreement": 0.8333333333333334
+    },
+    "validation": {
+      "adjusted": {
+        "annualized_sharpe": 0.8287010238369653,
+        "cash_months": 0,
+        "maximum_drawdown": 0.17913226510751867,
+        "monthly_observations": 23,
+        "total_return": 0.5096020799645218
+      },
+      "common_months": 23,
+      "raw": {
+        "annualized_sharpe": 0.7002534282846387,
+        "cash_months": 0,
+        "maximum_drawdown": 0.21381980000022938,
+        "monthly_observations": 23,
+        "total_return": 0.3993885945484601
+      },
+      "same_selection_months": 23,
+      "selection_agreement": 1.0
+    }
+  },
+  "schema_version": 1
+}

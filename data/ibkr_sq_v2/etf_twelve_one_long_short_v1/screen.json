@@ -1,0 +1,34 @@
+{
+  "decision": "REJECT_FAMILY",
+  "periods": {
+    "train": {
+      "monthly_observations": 46,
+      "total_return": -0.24953566298160368,
+      "annualized_sharpe": -0.5031813495932318,
+      "maximum_drawdown": 0.2988535604619641,
+      "cash_slot_months": 0
+    },
+    "validation": {
+      "monthly_observations": 23,
+      "total_return": 0.21134518827423365,
+      "annualized_sharpe": 0.734479959497557,
+      "maximum_drawdown": 0.18139381700547863,
+      "cash_slot_months": 0
+    },
+    "oos_2024": {
+      "monthly_observations": 11,
+      "total_return": 0.01390406216624318,
+      "annualized_sharpe": 0.2948334991584841,
+      "maximum_drawdown": 0.054050635260408875,
+      "cash_slot_months": 0
+    }
+  },
+  "validation_oos": {
+    "monthly_observations": 35,
+    "total_return": 0.17657798901033472,
+    "annualized_sharpe": 0.49360686483768007,
+    "maximum_drawdown": 0.2504140866062964,
+    "cash_slot_months": 0
+  },
+  "holdout_2025_plus_accessed": false
+}

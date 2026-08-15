@@ -1,0 +1,159 @@
+{
+  "decision": "REJECT_TRANSFER_FAMILY",
+  "holdout_2025_plus_accessed": false,
+  "passing_assets": [],
+  "results": {
+    "EEM": {
+      "pass": false,
+      "periods": {
+        "oos_2024": {
+          "maximum_drawdown": 0.07129467997969019,
+          "profit_factor": 1.3663492504609482,
+          "return": 0.04168566946411323,
+          "trades": 12
+        },
+        "train": {
+          "maximum_drawdown": 0.26081311465741563,
+          "profit_factor": 0.7247555170024267,
+          "return": -0.15726011037262644,
+          "trades": 23
+        },
+        "validation": {
+          "maximum_drawdown": 0.10181422715796817,
+          "profit_factor": 0.7173041001109112,
+          "return": -0.05355460246319077,
+          "trades": 6
+        }
+      },
+      "validation_plus_oos": {
+        "maximum_drawdown": 0.10864272762759064,
+        "profit_factor": 1.102746688888845,
+        "return": 0.015885617196339297,
+        "trades": 19
+      }
+    },
+    "EFA": {
+      "pass": false,
+      "periods": {
+        "oos_2024": {
+          "maximum_drawdown": 0.05249883207755979,
+          "profit_factor": 1.6243365912652903,
+          "return": 0.06034485839247461,
+          "trades": 11
+        },
+        "train": {
+          "maximum_drawdown": 0.18614805417398173,
+          "profit_factor": 0.9648026946031553,
+          "return": -0.027978838897397718,
+          "trades": 25
+        },
+        "validation": {
+          "maximum_drawdown": 0.21224071757180096,
+          "profit_factor": 0.313791576456221,
+          "return": -0.21224071757180096,
+          "trades": 11
+        }
+      },
+      "validation_plus_oos": {
+        "maximum_drawdown": 0.21224071757180096,
+        "profit_factor": 0.7144520352650461,
+        "return": -0.1310737686242428,
+        "trades": 23
+      }
+    },
+    "IWM": {
+      "pass": false,
+      "periods": {
+        "oos_2024": {
+          "maximum_drawdown": 0.08283571594451655,
+          "profit_factor": 1.1047481018838265,
+          "return": 0.008395869928828015,
+          "trades": 11
+        },
+        "train": {
+          "maximum_drawdown": 0.25522847493810374,
+          "profit_factor": 0.9121203173883395,
+          "return": -0.07505921648965064,
+          "trades": 28
+        },
+        "validation": {
+          "maximum_drawdown": 0.2699866435459495,
+          "profit_factor": 0.31978970303207116,
+          "return": -0.2699866435459495,
+          "trades": 9
+        }
+      },
+      "validation_plus_oos": {
+        "maximum_drawdown": 0.27982949917814437,
+        "profit_factor": 0.5742495032147433,
+        "return": -0.26385754635885406,
+        "trades": 20
+      }
+    },
+    "XLE": {
+      "pass": false,
+      "periods": {
+        "oos_2024": {
+          "maximum_drawdown": 0.13920293861090216,
+          "profit_factor": 0.8159872330455292,
+          "return": -0.04976301374101,
+          "trades": 8
+        },
+        "train": {
+          "maximum_drawdown": 0.3552184030775174,
+          "profit_factor": 1.0165955789811667,
+          "return": -0.05699208258311883,
+          "trades": 24
+        },
+        "validation": {
+          "maximum_drawdown": 0.1839086367785554,
+          "profit_factor": 2.2765443722774164,
+          "return": 0.48237018623517347,
+          "trades": 15
+        }
+      },
+      "validation_plus_oos": {
+        "maximum_drawdown": 0.1839086367785554,
+        "profit_factor": 1.7629868353611333,
+        "return": 0.40860297828828873,
+        "trades": 23
+      }
+    },
+    "XLF": {
+      "pass": false,
+      "periods": {
+        "oos_2024": {
+          "maximum_drawdown": 0.057217758245467154,
+          "profit_factor": 2.7997778048269444,
+          "return": 0.2015666250793675,
+          "trades": 11
+        },
+        "train": {
+          "maximum_drawdown": 0.24132502636518005,
+          "profit_factor": 1.2728852571723412,
+          "return": 0.11753221945032144,
+          "trades": 29
+        },
+        "validation": {
+          "maximum_drawdown": 0.07627169800399669,
+          "profit_factor": 1.0205680359448934,
+          "return": -0.0042239423516480246,
+          "trades": 9
+        }
+      },
+      "validation_plus_oos": {
+        "maximum_drawdown": 0.07627169800399669,
+        "profit_factor": 1.8792459461312487,
+        "return": 0.25511563757813893,
+        "trades": 21
+      }
+    }
+  },
+  "source_sha256": {
+    "EEM": "3ec5b1bb028a35add08412dc990ed230f5b467c271cb4106b2f008c0636ddc54",
+    "EFA": "beeafebb9287ae7963a7b4dae81982f0de3ca90d5908e70ed0161b04bec9efcd",
+    "IWM": "58fbee463a5d0864bb272cc4bea6461216c69051632884186c63059da08825cd",
+    "XLE": "d52a192d973ebb9b264e3a2de25e9a6057649fefa4468b572c59db30b081ea77",
+    "XLF": "c719b145ad4c3372cd9d25374cea02f25b058f1cc6affda341b004cca557d8e7"
+  }
+}

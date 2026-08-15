@@ -1,0 +1,66 @@
+{
+  "decision": "REJECT_VALIDATION",
+  "holdout_2025_plus_accessed": false,
+  "live_authorized": false,
+  "oos_2024_performance_accessed": false,
+  "paper_authorized": false,
+  "preregistration_sha256": "53f37b7a298481c0db4459b2d8811f93c940ff8f7be545736e69b461a4a0fefc",
+  "results": {
+    "L126": {
+      "train": {
+        "annualized_sharpe": -0.1391510275669737,
+        "cash_slot_months": 23,
+        "maximum_drawdown": 0.3898087901558335,
+        "monthly_observations": 42,
+        "total_return": -0.15216552897668167
+      },
+      "validation": {
+        "annualized_sharpe": 0.06759095588356161,
+        "cash_slot_months": 8,
+        "maximum_drawdown": 0.20162663401978653,
+        "monthly_observations": 23,
+        "total_return": -0.0023022016845030135
+      }
+    },
+    "L252": {
+      "train": {
+        "annualized_sharpe": -0.0935398060244891,
+        "cash_slot_months": 24,
+        "maximum_drawdown": 0.28958454466470285,
+        "monthly_observations": 36,
+        "total_return": -0.06923801032966359
+      },
+      "validation": {
+        "annualized_sharpe": 0.5883275403964208,
+        "cash_slot_months": 13,
+        "maximum_drawdown": 0.10470574149894007,
+        "monthly_observations": 23,
+        "total_return": 0.18571138139196797
+      }
+    },
+    "L63": {
+      "train": {
+        "annualized_sharpe": 0.3603760062083268,
+        "cash_slot_months": 23,
+        "maximum_drawdown": 0.23998776361052332,
+        "monthly_observations": 45,
+        "total_return": 0.18589942632150747
+      },
+      "validation": {
+        "annualized_sharpe": 0.3591454181818178,
+        "cash_slot_months": 17,
+        "maximum_drawdown": 0.14147943502167049,
+        "monthly_observations": 23,
+        "total_return": 0.08623750932905772
+      }
+    }
+  },
+  "schema_version": 1,
+  "source_sha256": {
+    "EEM": "7eabba2af37b5389d834c278160e9c2681f5cb950b8988cbf40dd5152a880a0f",
+    "EFA": "ac6abd47e0fa79aee19e08bd94e1901e6eaa62fb958fd0ad161d64d0e4c38c48",
+    "IWM": "2d3c53e9eb3e5a8c70e0fe6fd354abe7443625d51cfd25a8c4e45791303e761f",
+    "XLE": "aa051835386a1d07e3722f63f756f57eb9354d4c6dd97b36589cf9044f2c9457",
+    "XLF": "e3a7c4453bb60c32aef793f01dc20b7d3fe57dc8fffa2d158959b71fc62e706c"
+  }
+}

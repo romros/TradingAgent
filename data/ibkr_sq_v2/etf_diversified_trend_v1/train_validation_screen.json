@@ -1,0 +1,63 @@
+{
+  "decision": "REJECT_VALIDATION",
+  "holdout_2025_plus_accessed": false,
+  "oos_2024_accessed_for_this_family": false,
+  "preregistration_sha256": "76554c73990998789bc105fb15145b1c40f2b8e8fd13b7db0573f0747b041b53",
+  "results": {
+    "10": {
+      "train": {
+        "annualized_sharpe": 0.4834419540071295,
+        "cash_sleeve_months": 91,
+        "maximum_drawdown": 0.18345930126328636,
+        "monthly_observations": 47,
+        "total_return": 0.20786204291437915
+      },
+      "validation": {
+        "annualized_sharpe": -0.12873629746599216,
+        "cash_sleeve_months": 59,
+        "maximum_drawdown": 0.0920606646501756,
+        "monthly_observations": 23,
+        "total_return": -0.02703149145967232
+      }
+    },
+    "12": {
+      "train": {
+        "annualized_sharpe": 0.31546777357119693,
+        "cash_sleeve_months": 90,
+        "maximum_drawdown": 0.21330089836412636,
+        "monthly_observations": 47,
+        "total_return": 0.11851900925689796
+      },
+      "validation": {
+        "annualized_sharpe": -0.37748602423268635,
+        "cash_sleeve_months": 61,
+        "maximum_drawdown": 0.12468919030666781,
+        "monthly_observations": 23,
+        "total_return": -0.06199696405001365
+      }
+    },
+    "8": {
+      "train": {
+        "annualized_sharpe": 0.36240207425860743,
+        "cash_sleeve_months": 89,
+        "maximum_drawdown": 0.2310743963896028,
+        "monthly_observations": 47,
+        "total_return": 0.15867279104798904
+      },
+      "validation": {
+        "annualized_sharpe": -0.18306096758544074,
+        "cash_sleeve_months": 61,
+        "maximum_drawdown": 0.11543228495292424,
+        "monthly_observations": 23,
+        "total_return": -0.031941882416742895
+      }
+    }
+  },
+  "source_sha256": {
+    "EEM": "3ec5b1bb028a35add08412dc990ed230f5b467c271cb4106b2f008c0636ddc54",
+    "EFA": "beeafebb9287ae7963a7b4dae81982f0de3ca90d5908e70ed0161b04bec9efcd",
+    "IWM": "58fbee463a5d0864bb272cc4bea6461216c69051632884186c63059da08825cd",
+    "XLE": "d52a192d973ebb9b264e3a2de25e9a6057649fefa4468b572c59db30b081ea77",
+    "XLF": "c719b145ad4c3372cd9d25374cea02f25b058f1cc6affda341b004cca557d8e7"
+  }
+}

@@ -1,0 +1,471 @@
+{
+  "decision": "REJECT_NO_STABLE_TRAIN_REGION",
+  "holdout_2025_plus_accessed": false,
+  "live_authorized": false,
+  "oos_2024_accessed": false,
+  "paper_authorized": false,
+  "preregistration_sha256": "b04b9c735fb16012d6729f98648592d29226a7959235fb011bee3a3d2b6de8a1",
+  "schema_version": 1,
+  "selected": null,
+  "source_sha256": "2d3c53e9eb3e5a8c70e0fe6fd354abe7443625d51cfd25a8c4e45791303e761f",
+  "train": {
+    "rsi2_b10_x3_t150_h5": {
+      "average_holding_sessions": 2.125,
+      "max_drawdown": 0.08781693634572241,
+      "mean_return": -0.006865713002151705,
+      "profit_factor": 0.4310109998037517,
+      "t_stat": -0.9874999142435833,
+      "total_return": -0.05491408308398116,
+      "trades": 8
+    },
+    "rsi2_b10_x3_t200_h5": {
+      "average_holding_sessions": 1.8888888888888888,
+      "max_drawdown": 0.058697520359341726,
+      "mean_return": -0.0026767457882161086,
+      "profit_factor": 0.6333063633077489,
+      "t_stat": -0.5253885781852861,
+      "total_return": -0.024744316669662147,
+      "trades": 9
+    },
+    "rsi2_b10_x5_t150_h5": {
+      "average_holding_sessions": 2.875,
+      "max_drawdown": 0.06146760307675825,
+      "mean_return": -0.003312021309866159,
+      "profit_factor": 0.6109372787984737,
+      "t_stat": -0.5718249849770717,
+      "total_return": -0.027103664390265014,
+      "trades": 8
+    },
+    "rsi2_b10_x5_t200_h5": {
+      "average_holding_sessions": 2.6666666666666665,
+      "max_drawdown": 0.05463724120130331,
+      "mean_return": -0.002149874624205165,
+      "profit_factor": 0.6825726167938931,
+      "t_stat": -0.43990598593959485,
+      "total_return": -0.020023211907960303,
+      "trades": 9
+    },
+    "rsi2_b10_x8_t150_h5": {
+      "average_holding_sessions": 3.75,
+      "max_drawdown": 0.05632896114205965,
+      "mean_return": 0.007593541119420927,
+      "profit_factor": 1.8692604935237813,
+      "t_stat": 0.592850439551548,
+      "total_return": 0.05767506161642255,
+      "trades": 8
+    },
+    "rsi2_b10_x8_t200_h5": {
+      "average_holding_sessions": 3.4444444444444446,
+      "max_drawdown": 0.03954880023071217,
+      "mean_return": 0.007543958646272244,
+      "profit_factor": 2.0822129704311805,
+      "t_stat": 0.6773464684066947,
+      "total_return": 0.06537250865305921,
+      "trades": 9
+    },
+    "rsi2_b15_x3_t150_h5": {
+      "average_holding_sessions": 2.0454545454545454,
+      "max_drawdown": 0.18230404361049324,
+      "mean_return": -0.005705894382583318,
+      "profit_factor": 0.5033806869302928,
+      "t_stat": -0.9350529997510758,
+      "total_return": -0.1262568910898988,
+      "trades": 22
+    },
+    "rsi2_b15_x3_t200_h5": {
+      "average_holding_sessions": 2.0,
+      "max_drawdown": 0.1931362191750976,
+      "mean_return": -0.00469180595610935,
+      "profit_factor": 0.5390585286251269,
+      "t_stat": -0.9265728663555105,
+      "total_return": -0.1275563533723707,
+      "trades": 27
+    },
+    "rsi2_b15_x5_t150_h5": {
+      "average_holding_sessions": 3.05,
+      "max_drawdown": 0.18349591539363075,
+      "mean_return": -0.004099035554976244,
+      "profit_factor": 0.6800313602309062,
+      "t_stat": -0.5518049589218118,
+      "total_return": -0.08866375723670339,
+      "trades": 20
+    },
+    "rsi2_b15_x5_t200_h5": {
+      "average_holding_sessions": 2.9166666666666665,
+      "max_drawdown": 0.1770047506677045,
+      "mean_return": -0.0031372137319329815,
+      "profit_factor": 0.713942858683119,
+      "t_stat": -0.5061153564717658,
+      "total_return": -0.08261309895124314,
+      "trades": 24
+    },
+    "rsi2_b15_x8_t150_h5": {
+      "average_holding_sessions": 3.736842105263158,
+      "max_drawdown": 0.1531605859116726,
+      "mean_return": -0.0009763356123389317,
+      "profit_factor": 0.9343395598549149,
+      "t_stat": -0.1053426868420081,
+      "total_return": -0.032766009636844506,
+      "trades": 19
+    },
+    "rsi2_b15_x8_t200_h5": {
+      "average_holding_sessions": 3.608695652173913,
+      "max_drawdown": 0.1425968501524818,
+      "mean_return": -0.00031906237617273587,
+      "profit_factor": 0.9746526708888741,
+      "t_stat": -0.04169764485441054,
+      "total_return": -0.02197380297404805,
+      "trades": 23
+    },
+    "rsi2_b5_x3_t150_h5": {
+      "average_holding_sessions": 5.0,
+      "max_drawdown": 0.0,
+      "mean_return": 0.02237827584764096,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.02237827584764096,
+      "trades": 1
+    },
+    "rsi2_b5_x3_t200_h5": {
+      "average_holding_sessions": 3.0,
+      "max_drawdown": 0.0003257028395858841,
+      "mean_return": 0.011026286504027538,
+      "profit_factor": 68.70764736375615,
+      "t_stat": 0.9713087433640765,
+      "total_return": 0.022045284340066473,
+      "trades": 2
+    },
+    "rsi2_b5_x5_t150_h5": {
+      "average_holding_sessions": 5.0,
+      "max_drawdown": 0.0,
+      "mean_return": 0.02237827584764096,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.02237827584764096,
+      "trades": 1
+    },
+    "rsi2_b5_x5_t200_h5": {
+      "average_holding_sessions": 3.0,
+      "max_drawdown": 0.0003257028395858841,
+      "mean_return": 0.011026286504027538,
+      "profit_factor": 68.70764736375615,
+      "t_stat": 0.9713087433640765,
+      "total_return": 0.022045284340066473,
+      "trades": 2
+    },
+    "rsi2_b5_x8_t150_h5": {
+      "average_holding_sessions": 5.0,
+      "max_drawdown": 0.0,
+      "mean_return": 0.02237827584764096,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.02237827584764096,
+      "trades": 1
+    },
+    "rsi2_b5_x8_t200_h5": {
+      "average_holding_sessions": 3.0,
+      "max_drawdown": 0.0003257028395858841,
+      "mean_return": 0.011026286504027538,
+      "profit_factor": 68.70764736375615,
+      "t_stat": 0.9713087433640765,
+      "total_return": 0.022045284340066473,
+      "trades": 2
+    },
+    "rsi3_b10_x3_t150_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi3_b10_x3_t200_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi3_b10_x5_t150_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi3_b10_x5_t200_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi3_b10_x8_t150_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi3_b10_x8_t200_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi3_b15_x3_t150_h5": {
+      "average_holding_sessions": 5.0,
+      "max_drawdown": 0.0,
+      "mean_return": 0.02237827584764096,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.02237827584764096,
+      "trades": 1
+    },
+    "rsi3_b15_x3_t200_h5": {
+      "average_holding_sessions": 3.0,
+      "max_drawdown": 0.0003257028395858841,
+      "mean_return": 0.011026286504027538,
+      "profit_factor": 68.70764736375615,
+      "t_stat": 0.9713087433640765,
+      "total_return": 0.022045284340066473,
+      "trades": 2
+    },
+    "rsi3_b15_x5_t150_h5": {
+      "average_holding_sessions": 5.0,
+      "max_drawdown": 0.0,
+      "mean_return": 0.02237827584764096,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.02237827584764096,
+      "trades": 1
+    },
+    "rsi3_b15_x5_t200_h5": {
+      "average_holding_sessions": 3.0,
+      "max_drawdown": 0.0003257028395858841,
+      "mean_return": 0.011026286504027538,
+      "profit_factor": 68.70764736375615,
+      "t_stat": 0.9713087433640765,
+      "total_return": 0.022045284340066473,
+      "trades": 2
+    },
+    "rsi3_b15_x8_t150_h5": {
+      "average_holding_sessions": 5.0,
+      "max_drawdown": 0.0,
+      "mean_return": 0.02237827584764096,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.02237827584764096,
+      "trades": 1
+    },
+    "rsi3_b15_x8_t200_h5": {
+      "average_holding_sessions": 3.0,
+      "max_drawdown": 0.0003257028395858841,
+      "mean_return": 0.011026286504027538,
+      "profit_factor": 68.70764736375615,
+      "t_stat": 0.9713087433640765,
+      "total_return": 0.022045284340066473,
+      "trades": 2
+    },
+    "rsi3_b5_x3_t150_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi3_b5_x3_t200_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi3_b5_x5_t150_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi3_b5_x5_t200_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi3_b5_x8_t150_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi3_b5_x8_t200_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi4_b10_x3_t150_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi4_b10_x3_t200_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi4_b10_x5_t150_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi4_b10_x5_t200_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi4_b10_x8_t150_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi4_b10_x8_t200_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi4_b15_x3_t150_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi4_b15_x3_t200_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi4_b15_x5_t150_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi4_b15_x5_t200_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi4_b15_x8_t150_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi4_b15_x8_t200_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi4_b5_x3_t150_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi4_b5_x3_t200_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi4_b5_x5_t150_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi4_b5_x5_t200_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi4_b5_x8_t150_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    },
+    "rsi4_b5_x8_t200_h5": {
+      "max_drawdown": 0.0,
+      "mean_return": null,
+      "profit_factor": null,
+      "t_stat": null,
+      "total_return": 0.0,
+      "trades": 0
+    }
+  },
+  "train_eligible_count": 0,
+  "variant_count": 54
+}

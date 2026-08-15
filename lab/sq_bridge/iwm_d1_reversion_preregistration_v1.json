@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "asset": "IWM",
+  "hypothesis": "Liquid US small caps overreact to short selloffs and mean-revert when the long-term trend remains positive.",
+  "selection_policy": "Use train only to choose a stable parameter neighbourhood; validation decides whether OOS 2024 may be opened.",
+  "variants": {
+    "rsi_period": [2, 3, 4],
+    "entry_below": [5, 10, 15],
+    "exit_sma": [3, 5, 8],
+    "trend_sma": [150, 200],
+    "maximum_holding_sessions": [5]
+  },
+  "execution": {
+    "side": "long",
+    "signal_at": "daily close",
+    "entry": "next regular-session open",
+    "exit": "next regular-session open after close above exit SMA, or next open after maximum holding sessions",
+    "one_position": true
+  },
+  "periods": {
+    "train": ["2017-01-26", "2021-12-31"],
+    "validation": ["2022-01-01", "2023-12-31"],
+    "oos_2024": ["2024-01-01", "2024-12-31"],
+    "holdout_2025_plus": "sealed"
+  },
+  "train_selection_gate": {
+    "minimum_trades": 20,
+    "minimum_profit_factor": 1.10,
+    "minimum_positive_immediate_neighbours": 2,
+    "ranking": "median immediate-neighbour t-stat, then central t-stat, then lexicographic id"
+  },
+  "validation_release_gate": {
+    "minimum_trades": 8,
+    "minimum_profit_factor": 1.05,
+    "minimum_mean_return": 0.0,
+    "maximum_drawdown": 0.20
+  },
+  "final_oos_gate": {
+    "minimum_trades": 5,
+    "minimum_profit_factor": 1.05,
+    "minimum_mean_return": 0.0,
+    "combined_validation_oos_one_sided_t_stat": 1.645,
+    "combined_maximum_drawdown": 0.20
+  },
+  "next_gates_if_pass": [
+    "IBKR cost stress",
+    "native SQ exact reproduction",
+    "native SQ parameter Monte Carlo",
+    "portfolio diversification"
+  ],
+  "paper_authorized": false,
+  "live_authorized": false
+}

@@ -1,0 +1,32 @@
+{
+  "decision": "REJECT_RECENT_HOLDOUT",
+  "live_authorized": false,
+  "next_gate": null,
+  "paper_authorized": false,
+  "passing_assets": [],
+  "performance_accessed": true,
+  "results": {
+    "AVGO": {
+      "metrics": {
+        "maximum_drawdown": 0.35759638561873897,
+        "profit_factor": 0.9050379714793644,
+        "return": -0.15484626123829182,
+        "trades": 14
+      },
+      "pass": false
+    },
+    "GOOG": {
+      "metrics": {
+        "maximum_drawdown": 0.2634003307845195,
+        "profit_factor": 1.305337601300873,
+        "return": 0.10044100877935391,
+        "trades": 14
+      },
+      "pass": false
+    }
+  },
+  "source_sha256": {
+    "AVGO": "cf0f8c51695ab988363211cad71076ec5239445c1ffd6ecb2422d76a20cabde5",
+    "GOOG": "85d598ce2f0b6bc73da0e23c84db48890c1c405ad7efb39ec275d26c8542755a"
+  }
+}

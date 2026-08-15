@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-etf-diversified-trend-v1",
+  "status": "FROZEN_BEFORE_PERFORMANCE",
+  "assets": ["IWM", "EEM", "EFA", "XLE", "XLF"],
+  "source": "split/dividend-adjusted daily OHLC through 2024",
+  "periods": {"train": ["2018-01-01", "2021-12-31"], "validation": ["2022-01-01", "2023-12-31"], "oos_2024": ["2024-01-01", "2024-12-31"]},
+  "rule": {"signal": "at each month-end each asset is independently long when close exceeds the arithmetic mean of the prior N month-end closes including current", "variants_months": [8, 10, 12], "central_months": 10, "execution": "next common session open to next rebalance open", "weight": "fixed 20% per eligible asset; unused sleeves stay cash"},
+  "validation_gate": {"all_variants_positive": true, "central_minimum_sharpe": 0.50, "central_maximum_drawdown": 0.25, "minimum_months": 18},
+  "final_gate": {"oos_positive": true, "combined_minimum_sharpe": 0.65, "combined_maximum_drawdown": 0.25},
+  "disclosure": "2024 was previously observed for other frozen hypotheses and is comparative OOS, not a virgin dataset for this family.",
+  "holdout_2025_plus": "sealed", "paper_authorized": false, "live_authorized": false
+}

@@ -1,0 +1,31 @@
+{
+  "decision": "PASS_GROSS_OOS",
+  "holdout_2025_plus_accessed": false,
+  "live_authorized": false,
+  "next_gate": "PARAMETER_NEIGHBOURHOOD_AND_COSTS",
+  "oos_2024": {
+    "annualized_sharpe": 2.496567548084238,
+    "cash_months": 0,
+    "maximum_drawdown": 0.04270521768029245,
+    "monthly_observations": 11,
+    "total_return": 0.3563889119355408
+  },
+  "oos_2024_performance_accessed": true,
+  "paper_authorized": false,
+  "preregistration_sha256": "6e946ecee59c54e20364b379b1386f6865a5ada9fa73708ba07f9ac72f89e957",
+  "schema_version": 1,
+  "source_sha256": {
+    "EEM": "7eabba2af37b5389d834c278160e9c2681f5cb950b8988cbf40dd5152a880a0f",
+    "EFA": "ac6abd47e0fa79aee19e08bd94e1901e6eaa62fb958fd0ad161d64d0e4c38c48",
+    "IWM": "2d3c53e9eb3e5a8c70e0fe6fd354abe7443625d51cfd25a8c4e45791303e761f",
+    "XLE": "aa051835386a1d07e3722f63f756f57eb9354d4c6dd97b36589cf9044f2c9457",
+    "XLF": "e3a7c4453bb60c32aef793f01dc20b7d3fe57dc8fffa2d158959b71fc62e706c"
+  },
+  "validation_plus_oos": {
+    "annualized_sharpe": 0.990694477956537,
+    "cash_months": 0,
+    "maximum_drawdown": 0.21381980000022938,
+    "monthly_observations": 35,
+    "total_return": 0.9550329235381247
+  }
+}

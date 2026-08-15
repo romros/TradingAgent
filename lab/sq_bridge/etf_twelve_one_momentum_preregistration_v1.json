@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-etf-twelve-one-momentum-v1",
+  "status": "FROZEN_BEFORE_PERFORMANCE",
+  "hypothesis": "The canonical 12-1 cross-sectional momentum signal preserves medium-term continuation while excluding the latest month's short-term reversal.",
+  "assets": ["IWM", "EEM", "EFA", "XLE", "XLF"],
+  "periods": {
+    "train": ["2018-01-01", "2021-12-31"],
+    "validation": ["2022-01-01", "2023-12-31"],
+    "oos_2024": ["2024-01-01", "2024-12-31"],
+    "holdout_2025_plus": "sealed"
+  },
+  "rule": {
+    "review": "last common NYSE session monthly",
+    "score": "close 21 sessions ago divided by close 252 sessions ago minus one",
+    "selection": "top one asset if its score is strictly positive, otherwise cash",
+    "execution": "next common session open to next month's rebalance open",
+    "weighting": "100% selected sleeve or cash"
+  },
+  "validation_release_gate": {
+    "minimum_total_return": 0.0,
+    "minimum_annualized_sharpe": 0.50,
+    "maximum_drawdown": 0.25,
+    "minimum_monthly_observations": 18
+  },
+  "final_gate": {
+    "minimum_oos_total_return": 0.0,
+    "combined_minimum_annualized_sharpe": 0.65,
+    "combined_maximum_drawdown": 0.25
+  },
+  "subsequent_mandatory_gates": ["parameter neighbourhood", "IBKR costs", "SQ native reproduction", "portfolio contribution"],
+  "multiple_testing_disclosure": "Tested after plain 3/6/12-month long-cash and unskipped cross-sectional momentum failed; this is a distinct canonical published mechanism.",
+  "paper_authorized": false,
+  "live_authorized": false
+}

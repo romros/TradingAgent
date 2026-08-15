@@ -1,0 +1,162 @@
+{
+  "decision": "PASS_ASSET_GATE_OPEN_RECENT_HOLDOUT",
+  "holdout_2025_plus_accessed": false,
+  "passing_assets": [
+    "GOOG",
+    "AVGO"
+  ],
+  "results": {
+    "AMZN": {
+      "pass": false,
+      "periods": {
+        "oos_2024": {
+          "maximum_drawdown": 0.13104176023756575,
+          "profit_factor": 2.9627111892879556,
+          "return": 0.2858710392241628,
+          "trades": 10
+        },
+        "train": {
+          "maximum_drawdown": 0.23270195378220693,
+          "profit_factor": 2.095704605040707,
+          "return": 0.9521876803662421,
+          "trades": 34
+        },
+        "validation": {
+          "maximum_drawdown": 0.3193336220722348,
+          "profit_factor": 0.5486171672253235,
+          "return": -0.21736066026637635,
+          "trades": 10
+        }
+      },
+      "validation_plus_oos": {
+        "maximum_drawdown": 0.3193336220722348,
+        "profit_factor": 1.170098840510489,
+        "return": 0.042044321871978374,
+        "trades": 21
+      }
+    },
+    "AVGO": {
+      "pass": true,
+      "periods": {
+        "oos_2024": {
+          "maximum_drawdown": 0.049384752401872234,
+          "profit_factor": 9.692535341076734,
+          "return": 0.8924369089976794,
+          "trades": 11
+        },
+        "train": {
+          "maximum_drawdown": 0.22859988044714097,
+          "profit_factor": 1.862400973094312,
+          "return": 0.6210784543401282,
+          "trades": 33
+        },
+        "validation": {
+          "maximum_drawdown": 0.1424151950552437,
+          "profit_factor": 2.2635466778146607,
+          "return": 0.3524282709802127,
+          "trades": 13
+        }
+      },
+      "validation_plus_oos": {
+        "maximum_drawdown": 0.1424151950552437,
+        "profit_factor": 4.412090410446013,
+        "return": 2.0376451992488227,
+        "trades": 25
+      }
+    },
+    "GOOG": {
+      "pass": true,
+      "periods": {
+        "oos_2024": {
+          "maximum_drawdown": 0.1139686667692047,
+          "profit_factor": 3.2965216969365283,
+          "return": 0.3706248008904913,
+          "trades": 10
+        },
+        "train": {
+          "maximum_drawdown": 0.26252442450613234,
+          "profit_factor": 1.579035767827095,
+          "return": 0.5066861596964303,
+          "trades": 36
+        },
+        "validation": {
+          "maximum_drawdown": 0.14509830595790885,
+          "profit_factor": 1.122699154537277,
+          "return": 0.006813250626972689,
+          "trades": 9
+        }
+      },
+      "validation_plus_oos": {
+        "maximum_drawdown": 0.14509830595790885,
+        "profit_factor": 1.8751580619084849,
+        "return": 0.3799632111745028,
+        "trades": 19
+      }
+    },
+    "META": {
+      "pass": false,
+      "periods": {
+        "oos_2024": {
+          "maximum_drawdown": 0.11705595644820499,
+          "profit_factor": 4.232578424499887,
+          "return": 0.40704061442419737,
+          "trades": 9
+        },
+        "train": {
+          "maximum_drawdown": 0.298116100670931,
+          "profit_factor": 0.9929340991455006,
+          "return": -0.0849938794630839,
+          "trades": 29
+        },
+        "validation": {
+          "maximum_drawdown": 0.09907275749764022,
+          "profit_factor": 4.3038950909058435,
+          "return": 0.7185145244685351,
+          "trades": 10
+        }
+      },
+      "validation_plus_oos": {
+        "maximum_drawdown": 0.11705595644820499,
+        "profit_factor": 4.531955638753789,
+        "return": 1.6039421399624523,
+        "trades": 20
+      }
+    },
+    "NVDA": {
+      "pass": false,
+      "periods": {
+        "oos_2024": {
+          "maximum_drawdown": 0.09928472666959975,
+          "profit_factor": 8.034570781118813,
+          "return": 1.3616837948837208,
+          "trades": 10
+        },
+        "train": {
+          "maximum_drawdown": 0.4766735170517461,
+          "profit_factor": 2.3677396416474217,
+          "return": 2.8944757129592635,
+          "trades": 38
+        },
+        "validation": {
+          "maximum_drawdown": 0.29421675814028947,
+          "profit_factor": 2.537227151637649,
+          "return": 0.8029877021469551,
+          "trades": 12
+        }
+      },
+      "validation_plus_oos": {
+        "maximum_drawdown": 0.29421675814028947,
+        "profit_factor": 3.726734979695201,
+        "return": 3.2580868385351014,
+        "trades": 22
+      }
+    }
+  },
+  "source_sha256": {
+    "AMZN": "e4a41e296c019c5070f9d651bfb56fa8d04834c428a77c9934cd0e3ea31c1a50",
+    "AVGO": "c8294d6bdcae03df4d13e85ddb9d65773b2ff5974ff1b4ea9e442feeb408869f",
+    "GOOG": "08832095461d69dd4958c8c53be30eee4b0eb2e53943ff9c799b4f40a654781a",
+    "META": "6b5f1b22224053f05287b08a052bc8ad8d95f517096f0aec6de2988e81576084",
+    "NVDA": "0d58c90579652e1568cdd40486acf2ca8c64a3b4660f7e735dd5d420e67cd0ed"
+  }
+}

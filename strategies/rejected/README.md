@@ -1,5 +1,9 @@
 # Estratègies i famílies rebutjades
 
+- [Campanya ETF i tech transfer 2026-08-15](etf_and_tech_transfer_campaign_20260815.md):
+  IWM reversal, momentum/rotació ETF, transfer Momentum60 tech i QQQ
+  turn-of-month rebutjats amb els gates congelats; inclou motius i via següent.
+
 Aquest directori evita repetir recerques mortes. Un rebuig no s'ha de
 "rescatar" canviant paràmetres després de veure l'OOS/holdout; una nova idea ha
 de tenir un mecanisme i una preregistració nous.

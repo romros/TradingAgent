@@ -1,0 +1,43 @@
+{
+  "decision": "REJECT_TRANSFER",
+  "periods_25bps": {
+    "train": {
+      "trades": 59,
+      "wins": 33,
+      "mean_return": 0.0032708704989949282,
+      "total_return": 0.18826511791676093,
+      "profit_factor": 1.4100877537330776,
+      "monthly_sharpe": 0.42982025455022466,
+      "max_drawdown": 0.08961705060754144
+    },
+    "validation": {
+      "trades": 23,
+      "wins": 10,
+      "mean_return": 0.0019981443331406486,
+      "total_return": 0.038984979896153904,
+      "profit_factor": 1.2170354959011036,
+      "monthly_sharpe": 0.2616413118373681,
+      "max_drawdown": 0.058924393714112955
+    },
+    "oos_2024": {
+      "trades": 11,
+      "wins": 9,
+      "mean_return": 0.001906330223106042,
+      "total_return": 0.01682829095814431,
+      "profit_factor": 1.2066911283346078,
+      "monthly_sharpe": 0.228971313671301,
+      "max_drawdown": 0.09917867628977217
+    }
+  },
+  "validation_oos_25bps": {
+    "trades": 34,
+    "wins": 19,
+    "mean_return": 0.001968439768129452,
+    "total_return": 0.05646932143898842,
+    "profit_factor": 1.2136847202769627,
+    "monthly_sharpe": 0.25436380988305574,
+    "max_drawdown": 0.0991786762897724
+  },
+  "source_sha256": "2eec43d0f8d9c227034d56402965eb7d27f2794fe3045cb0d7c39ab91eff0341",
+  "holdout_2025_plus_accessed": false
+}

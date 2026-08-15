@@ -46,6 +46,11 @@ El constructor determinista és
 ## Limitacions
 
 Deu operacions continuen sent una mostra petita. El bootstrap IID no representa
-clustering de règims. L'anàlisi d'aportació incremental i solapament amb CAT i
-MSFT encara és pendent. Admesa per recerca; paper i LIVE no autoritzats.
+clustering de règims. En el diagnòstic 2022–2024 va perdre −12,78%, PF 0,632,
+tot i tenir correlació màxima de només 0,30 amb CAT/MSFT. La combinació neutral
+va ser rebutjada; evidència a
+`data/ibkr_sq_v2/three_consolidated_portfolio/cat_msft_aapl_v1.json`.
 
+Per tant és un edge de recerca recent, però no un component de cartera admès.
+Caldria preregistrar un filtre de règim independent abans de tornar-la a
+considerar. Paper i LIVE no autoritzats.

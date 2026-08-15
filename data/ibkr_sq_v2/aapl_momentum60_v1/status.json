@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "candidate_id": "AAPL_MOMENTUM60_MONTH_END_V1",
-  "status": "ADMITTED_RESEARCH_EDGE",
+  "status": "ADMITTED_RESEARCH_EDGE_NOT_ADMITTED_TO_PORTFOLIO",
   "passed": [
     "cross_asset_pre_2025_hypothesis_discovery",
     "untouched_2025_2026_python_holdout",
@@ -15,7 +15,12 @@
   "stress_1000_return_pct": 39.893637,
   "stress_1000_profit_factor": 3.189106,
   "stress_1000_drawdown_pct": 8.642318,
-  "remaining": ["portfolio_overlap_and_incremental_value"],
+  "portfolio_incremental_value": {
+    "decision": "REJECT_PORTFOLIO_COMBINATION",
+    "reason": "AAPL returned -12.78% with PF 0.632 in the 2022-2024 forward diagnostic despite low correlations and a positive 2025-2026 holdout",
+    "evidence": "data/ibkr_sq_v2/three_consolidated_portfolio/cat_msft_aapl_v1.json"
+  },
+  "remaining": ["identify_a_preregistered_regime_filter_before_any_portfolio_use"],
   "paper_authorized": false,
   "live_authorized": false
 }

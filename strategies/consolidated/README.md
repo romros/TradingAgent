@@ -10,7 +10,7 @@ als artefactes originals, que conserven hashes i traçabilitat.
 |---|---|---|---|---|
 | `cat_d1_trend_0168` | CAT | Trend pullback D1 | Admesa per recerca | [CAT](cat_d1_trend_0168.md) |
 | `msft_d1_capitulation` | MSFT | Reversió després de capitulació D1 | Admesa per recerca | [MSFT](msft_d1_capitulation.md) |
-| `aapl_momentum60_month_end_v1` | AAPL | Momentum mitjà mostrejat a final de mes | Admesa per recerca | [AAPL](aapl_momentum60_month_end_v1.md) |
+| `aapl_momentum60_month_end_v1` | AAPL | Momentum mitjà mostrejat a final de mes | Recerca admesa; cartera rebutjada | [AAPL](aapl_momentum60_month_end_v1.md) |
 
 `Admesa per recerca` no significa autorització per operar. Encara cal la capa
 de cartera, risc, paper trading i validació d'execució IBKR abans de LIVE.

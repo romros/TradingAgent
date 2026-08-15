@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "classification": "REJECT_PORTFOLIO_COMBINATION",
+  "allocation": "three equal independent sleeves; no leverage, transfer or weight optimization",
+  "costs": "IBKR-like whole shares, USD1/order minimum and 10bps adverse slippage each side for CAT/AAPL; MSFT frozen 30bps",
+  "full_2019_2024": {
+    "strategies": {
+      "CAT_0168": {
+        "initial_capital": 1000.0,
+        "final_equity": 1668.310365,
+        "return_pct": 66.831036,
+        "events": 101,
+        "profit_factor": 1.223927,
+        "max_drawdown_pct_closed_equity": 28.227131,
+        "positive_months": 29,
+        "active_months": 57
+      },
+      "MSFT_CAPITULATION": {
+        "initial_capital": 1000.0,
+        "final_equity": 1229.507934,
+        "return_pct": 22.950793,
+        "events": 22,
+        "profit_factor": 3.452212,
+        "max_drawdown_pct_closed_equity": 3.333285,
+        "positive_months": 10,
+        "active_months": 18
+      },
+      "AAPL_MOMENTUM60": {
+        "initial_capital": 1000.0,
+        "final_equity": 1792.135092,
+        "return_pct": 79.213509,
+        "events": 41,
+        "profit_factor": 1.558287,
+        "max_drawdown_pct_closed_equity": 26.590682,
+        "positive_months": 20,
+        "active_months": 35
+      }
+    },
+    "portfolio": {
+      "initial_capital": 3000.0,
+      "final_equity": 4689.95339,
+      "return_pct": 56.33178,
+      "events": 164,
+      "profit_factor": 1.375799,
+      "max_drawdown_pct_closed_equity": 12.724996,
+      "positive_months": 41,
+      "active_months": 63
+    },
+    "pairwise_monthly_correlation": {
+      "CAT_0168__MSFT_CAPITULATION": {
+        "months": 59,
+        "correlation_zero_when_inactive": 0.022453
+      },
+      "CAT_0168__AAPL_MOMENTUM60": {
+        "months": 62,
+        "correlation_zero_when_inactive": 0.200532
+      },
+      "MSFT_CAPITULATION__AAPL_MOMENTUM60": {
+        "months": 45,
+        "correlation_zero_when_inactive": -0.078053
+      }
+    }
+  },
+  "forward_2022_2024": {
+    "strategies": {
+      "CAT_0168": {
+        "initial_capital": 1000.0,
+        "final_equity": 1285.410342,
+        "return_pct": 28.541034,
+        "events": 57,
+        "profit_factor": 1.202236,
+        "max_drawdown_pct_closed_equity": 17.693741,
+        "positive_months": 16,
+        "active_months": 32
+      },
+      "MSFT_CAPITULATION": {
+        "initial_capital": 1000.0,
+        "final_equity": 1035.044559,
+        "return_pct": 3.504456,
+        "events": 15,
+        "profit_factor": 1.489954,
+        "max_drawdown_pct_closed_equity": 3.535994,
+        "positive_months": 5,
+        "active_months": 12
+      },
+      "AAPL_MOMENTUM60": {
+        "initial_capital": 1000.0,
+        "final_equity": 872.171779,
+        "return_pct": -12.782822,
+        "events": 17,
+        "profit_factor": 0.631718,
+        "max_drawdown_pct_closed_equity": 26.182443,
+        "positive_months": 6,
+        "active_months": 14
+      }
+    },
+    "portfolio": {
+      "initial_capital": 3000.0,
+      "final_equity": 3192.62668,
+      "return_pct": 6.420889,
+      "events": 89,
+      "profit_factor": 1.105267,
+      "max_drawdown_pct_closed_equity": 11.516549,
+      "positive_months": 18,
+      "active_months": 34
+    },
+    "pairwise_monthly_correlation": {
+      "CAT_0168__MSFT_CAPITULATION": {
+        "months": 33,
+        "correlation_zero_when_inactive": -0.237724
+      },
+      "CAT_0168__AAPL_MOMENTUM60": {
+        "months": 33,
+        "correlation_zero_when_inactive": 0.298176
+      },
+      "MSFT_CAPITULATION__AAPL_MOMENTUM60": {
+        "months": 22,
+        "correlation_zero_when_inactive": -0.133968
+      }
+    }
+  },
+  "maximum_absolute_forward_pairwise_monthly_correlation": 0.298176,
+  "inputs_sha256": {
+    "data/ibkr_sq_v2/preflight/CATUSUSD_CANONICAL_D1_2017_2025.csv": "9aa5e9f60467bdcb71e59be2a583eb737d0911daab9f59a90bc0293a89bb359c",
+    "data/ibkr_sq_v2/preflight/MSFT_ADJUSTED_D1_through_2024.csv": "0d66cdbbe74a5b46f2c8640c7dfcb567a98535c4af41880dcfc5310addf10480",
+    "data/ibkr_sq_v2/preflight/AAPLUSUSD_CANONICAL_D1_2017_2024.csv": "47a4a85f455d4f55946c233cc6c2d7525ec39b5778ed6bcb418496b2c5172127"
+  },
+  "limitations": [
+    "Historical portfolio period helped form parts of the hypotheses and is not a new holdout.",
+    "Closed-equity drawdown omits intratrade mark-to-market."
+  ],
+  "paper_authorized": false,
+  "live_authorized": false
+}

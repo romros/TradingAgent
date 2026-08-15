@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_BEFORE_OOS_2024",
+  "campaign": "IBKR_V2_AAPL_H1_SHOCK_REVERSION_TIERED",
+  "candidates": ["Strategy 0.24306", "Strategy 0.14113"],
+  "selection_reason": "Only validation survivors audited under whole-share IBKR economics; ordering fixed by lower validation trade concentration, then stress result.",
+  "oos_period": ["2024-01-02", "2024-12-31"],
+  "economics": {
+    "primary_capital_independent_gate": "positive gross expectancy, PF >= 1.15 and at least 20 trades",
+    "secondary_cost_gate": "positive after indicative IBKR tiered costs at USD 1000",
+    "stress_diagnostic": "fixed USD 1/order plus 10 bps adverse slippage per side"
+  },
+  "promotion_gate": {
+    "candidate_oos_trades_gte": 20,
+    "candidate_oos_gross_profit_factor_gte": 1.15,
+    "candidate_oos_gross_expectancy_gt": 0,
+    "candidate_oos_tiered_return_pct_gt": 0,
+    "validation_and_oos_positive": true,
+    "robustness_required_after_oos": true,
+    "sq_python_parity_required": true
+  },
+  "prohibitions": [
+    "No parameter changes after OOS performance",
+    "No candidate substitution after OOS performance",
+    "No paper or live authorization from this gate"
+  ]
+}

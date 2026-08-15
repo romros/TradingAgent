@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_STATISTICAL_RESEARCH_EDGE",
+  "candidate": "Strategy 0.24306",
+  "preregistration_sha256": "b2b00500ece284252f46e6dd614995be79daa69e015a23ab0028736d7799d0a1",
+  "source_sha256": {
+    "validation_orders": "ef69af6128f8f2d82baf670660006eff5fe35bf2fce26772d59f40de9a59e732",
+    "oos_orders": "86190456e442ce628ef03e2d937298db9dbdc8e594ef710984a88314cb3c6087",
+    "validation_audit": "2fcd28652d5193e5b16ea9af9546b07974cdbb9a20a048e5f19543c726941667",
+    "oos_audit": "92f7182e62e9b7724753df3b8524b122447319c347d0ee71ff1cd700b06e1e80"
+  },
+  "validation_gross": {
+    "trades": 29,
+    "mean_return": 0.007104551091259576,
+    "profit_factor": 2.250631306427229,
+    "t_stat": 2.10376269439956
+  },
+  "oos_gross": {
+    "trades": 24,
+    "mean_return": 0.0035096470703077317,
+    "profit_factor": 1.4544123151798194,
+    "t_stat": 0.8536537567178267
+  },
+  "combined_gross": {
+    "trades": 53,
+    "mean_return": 0.005476670025168174,
+    "profit_factor": 1.8290731266357347,
+    "t_stat": 2.0990936538730454
+  },
+  "bootstrap_probability_mean_positive": 0.98,
+  "delete_three_largest_winners": {
+    "trades": 50,
+    "mean_return": 0.004344842525152586
+  },
+  "oos_tiered": {
+    "plan": "tiered",
+    "initial_capital_usd": 1000.0,
+    "final_equity_usd": 1053.88,
+    "net_pnl_usd": 53.88,
+    "return_pct": 5.388,
+    "trades": 24,
+    "profit_factor": 1.307921,
+    "win_rate": 0.666667,
+    "net_expectancy_usd": 2.245,
+    "maximum_drawdown_pct_close_to_close": 8.027675,
+    "minimum_shares": 4,
+    "maximum_shares": 5,
+    "median_duration_hours": 95.66,
+    "maximum_duration_hours": 503.393333,
+    "top_three_winners_share_of_net_profit": 0.99072,
+    "positive_quarters": 3,
+    "quarters": 4,
+    "quarter_pnl_usd": {
+      "2024-Q1": 0.25,
+      "2024-Q2": 53.55,
+      "2024-Q3": -3.76,
+      "2024-Q4": 3.84
+    }
+  },
+  "combined_stress_compounded_return": 0.05409061897069445,
+  "checks": {
+    "validation_trades": true,
+    "oos_trades": true,
+    "each_period_positive": true,
+    "combined_t_stat": true,
+    "combined_profit_factor": true,
+    "bootstrap": true,
+    "delete_three": true,
+    "oos_tiered": true,
+    "combined_stress": true
+  },
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

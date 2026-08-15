@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_BEFORE_FINAL_STATISTICAL_ROBUSTNESS",
+  "candidate": "Strategy 0.24306",
+  "rule_identity_sha256": "6cbf07564f2c59a1ae54c65d6c5fc848c81ecfed9c302c1cf78230f1e5c90d7d",
+  "periods": {"validation": "2023", "oos": "2024"},
+  "known_selection_disclosure": "Candidate was selected in SQ discovery and passed 2023 validation before 2024 OOS was opened; OOS tiered result is positive but concentrated.",
+  "robustness_tests": {
+    "gross_combined_one_sided_t_stat_gte": 1.645,
+    "gross_combined_profit_factor_gte": 1.2,
+    "gross_each_period_mean_gt": 0,
+    "validation_trades_gte": 25,
+    "oos_trades_gte": 20,
+    "bootstrap_iterations": 10000,
+    "bootstrap_seed": 24306,
+    "bootstrap_probability_mean_positive_gte": 0.95,
+    "delete_three_largest_winners_combined_mean_gt": 0,
+    "oos_tiered_return_gt": 0,
+    "oos_tiered_profit_factor_gte": 1.15,
+    "combined_validation_oos_stress_compounded_return_gt": 0
+  },
+  "prohibitions": [
+    "No parameter changes or candidate substitution",
+    "No 2025 data",
+    "No paper or live authorization",
+    "Passing establishes a statistical research edge, not production readiness"
+  ]
+}

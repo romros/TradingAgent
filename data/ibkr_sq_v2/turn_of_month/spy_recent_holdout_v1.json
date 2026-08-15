@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_RECENT_HOLDOUT",
+  "preregistration_sha256": "02fdd25aa25884ec3620139da0bf61aa68c0082222a05bda825b4723b96024e0",
+  "parent_result_sha256": "f0cc56be33f768cb3bd1ee1911868fef720d53885a0684bd0f32e28e8e38a324",
+  "source_sha256": "df04a2ab9fd730e1b2c6e2633c61f24ae50ea07b040a564258776b6887abba9a",
+  "recent": {
+    "gross": {
+      "trades": 16,
+      "compounded_return": 0.007058922375934751,
+      "mean_return": 0.0006086828407822556,
+      "profit_factor": 1.0858855163519225,
+      "maximum_drawdown": 0.06634601078868507,
+      "t_stat": 0.12896145473898094
+    },
+    "tiered_1000": {
+      "trades": 16,
+      "compounded_return": -0.007341407904820851,
+      "mean_return": -0.0002913171592177447,
+      "profit_factor": 0.9610584989790191,
+      "maximum_drawdown": 0.06892333140996443,
+      "t_stat": -0.06172128097921385
+    },
+    "stress_1000": {
+      "trades": 16,
+      "compounded_return": -0.04019496961993918,
+      "mean_return": -0.002391317159217744,
+      "profit_factor": 0.7153072487849376,
+      "maximum_drawdown": 0.0780771625794866,
+      "t_stat": -0.5066476643216681
+    }
+  },
+  "combined_2017_2026": {
+    "trades": 109,
+    "compounded_return": 0.457746212198735,
+    "mean_return": 0.003671056591155997,
+    "profit_factor": 1.625100243856318,
+    "maximum_drawdown": 0.09862392528855013,
+    "t_stat": 1.8796723553413592
+  },
+  "trades": [
+    {
+      "entry": "2025-01-31",
+      "exit": "2025-02-06",
+      "gross_return": -0.002586063570084507
+    },
+    {
+      "entry": "2025-02-28",
+      "exit": "2025-03-06",
+      "gross_return": -0.017163174828709882
+    },
+    {
+      "entry": "2025-03-31",
+      "exit": "2025-04-04",
+      "gross_return": -0.04757868853055325
+    },
+    {
+      "entry": "2025-04-30",
+      "exit": "2025-05-06",
+      "gross_return": 0.019050367491269427
+    },
+    {
+      "entry": "2025-05-30",
+      "exit": "2025-06-05",
+      "gross_return": 0.014842776266501101
+    },
+    {
+      "entry": "2025-06-30",
+      "exit": "2025-07-07",
+      "gross_return": 0.00966980138843443
+    },
+    {
+      "entry": "2025-07-31",
+      "exit": "2025-08-06",
+      "gross_return": -0.016263798816808617
+    },
+    {
+      "entry": "2025-08-29",
+      "exit": "2025-09-05",
+      "gross_return": 0.00613150139927976
+    },
+    {
+      "entry": "2025-09-30",
+      "exit": "2025-10-06",
+      "gross_return": 0.01313909794284851
+    },
+    {
+      "entry": "2025-10-31",
+      "exit": "2025-11-06",
+      "gross_return": -0.012512280896399441
+    },
+    {
+      "entry": "2025-11-28",
+      "exit": "2025-12-04",
+      "gross_return": 0.006298581240536949
+    },
+    {
+      "entry": "2025-12-31",
+      "exit": "2026-01-07",
+      "gross_return": 0.007305686210590023
+    },
+    {
+      "entry": "2026-01-30",
+      "exit": "2026-02-05",
+      "gross_return": -0.016017704615660433
+    },
+    {
+      "entry": "2026-02-27",
+      "exit": "2026-03-05",
+      "gross_return": -0.0012725590004627474
+    },
+    {
+      "entry": "2026-03-31",
+      "exit": "2026-04-07",
+      "gross_return": 0.027706164386778198
+    },
+    {
+      "entry": "2026-04-30",
+      "exit": "2026-05-06",
+      "gross_return": 0.018989219384956568
+    }
+  ],
+  "optimized": false,
+  "recent_holdout_accessed": true,
+  "paper_authorized": false,
+  "live_authorized": false
+}

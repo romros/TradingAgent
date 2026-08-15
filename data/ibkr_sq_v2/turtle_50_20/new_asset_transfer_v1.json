@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_TRANSFER",
+  "preregistration_sha256": "36fd759bcde7ec0083fa56b7c6b1258ed7ca04a485b27876364f4509f19a10bd",
+  "source_sha256": {
+    "MSFT": "0d66cdbbe74a5b46f2c8640c7dfcb567a98535c4af41880dcfc5310addf10480",
+    "SPY": "a2aa4c620fcda15bc96fdc2589846d276f96379c0e427d662f4619ccd28e70a1",
+    "XOM": "30f8269e9661e034bd24af5799cafadda40d95144b15483e02e6c6e4c597cc97"
+  },
+  "periods": {
+    "train": {
+      "pooled": {
+        "trades": 39,
+        "mean_return": 0.032137116206898506,
+        "total_return": 2.0659941324669213,
+        "profit_factor": 3.8620933290491193,
+        "t_stat": 2.389637761490812,
+        "max_drawdown": 0.10183003053466377
+      },
+      "by_asset": {
+        "MSFT": {
+          "trades": 15,
+          "mean_return": 0.04082691736750483,
+          "total_return": 0.7749816611137856,
+          "profit_factor": 5.918965357245511,
+          "t_stat": 2.4705624414920178,
+          "max_drawdown": 0.06517627687048722
+        },
+        "SPY": {
+          "trades": 14,
+          "mean_return": 0.02994990060745197,
+          "total_return": 0.49466638116251604,
+          "profit_factor": 6.200334083110395,
+          "t_stat": 2.6263335347341266,
+          "max_drawdown": 0.0590880078417354
+        },
+        "XOM": {
+          "trades": 10,
+          "mean_return": 0.022164516305214176,
+          "total_return": 0.1556682522855679,
+          "profit_factor": 1.9521444754131725,
+          "t_stat": 0.48909724587452647,
+          "max_drawdown": 0.1387801881702928
+        }
+      }
+    },
+    "validation": {
+      "pooled": {
+        "trades": 17,
+        "mean_return": 0.0029571772053493556,
+        "total_return": -0.015681710202885668,
+        "profit_factor": 1.086498595455398,
+        "t_stat": 0.12940243466326282,
+        "max_drawdown": 0.3679153740642942
+      },
+      "by_asset": {
+        "MSFT": {
+          "trades": 6,
+          "mean_return": 0.004005634227042883,
+          "total_return": -0.006741680226162838,
+          "profit_factor": 1.0934569798926244,
+          "t_stat": 0.08571399042849764,
+          "max_drawdown": 0.23432165805854333
+        },
+        "SPY": {
+          "trades": 4,
+          "mean_return": -0.0008581799755986441,
+          "total_return": -0.00917706288405784,
+          "profit_factor": 0.9637633536909922,
+          "t_stat": -0.027206193964153812,
+          "max_drawdown": 0.09206923356067087
+        },
+        "XOM": {
+          "trades": 7,
+          "mean_return": 0.0042387038615823314,
+          "total_return": 0.00017798639179478215,
+          "profit_factor": 1.1294013579695676,
+          "t_stat": 0.10815026114594736,
+          "max_drawdown": 0.18150541050253755
+        }
+      }
+    },
+    "oos_2024": {
+      "pooled": {
+        "trades": 8,
+        "mean_return": 0.021284473494121908,
+        "total_return": 0.1742470034426209,
+        "profit_factor": 2.883578841269735,
+        "t_stat": 1.2445168939848097,
+        "max_drawdown": 0.07762034527832717
+      },
+      "by_asset": {
+        "MSFT": {
+          "trades": 3,
+          "mean_return": 0.025315113164565733,
+          "total_return": 0.07673499971553155,
+          "profit_factor": 7.746431909189562,
+          "t_stat": 1.3144500219519317,
+          "max_drawdown": 0.01125711198392887
+        },
+        "SPY": {
+          "trades": 2,
+          "mean_return": 0.03712820931908001,
+          "total_return": 0.07561650270668552,
+          "profit_factor": null,
+          "t_stat": 8.650891328286432,
+          "max_drawdown": 0.0
+        },
+        "XOM": {
+          "trades": 3,
+          "mean_return": 0.0066913432737060186,
+          "total_return": 0.013895448803518784,
+          "profit_factor": 1.2536424335554348,
+          "t_stat": 0.1441530922885203,
+          "max_drawdown": 0.07762034527832717
+        }
+      }
+    }
+  },
+  "new_assets_combined_validation_oos": {
+    "trades": 25,
+    "mean_return": 0.008821912017756572,
+    "total_return": 0.15583280222802687,
+    "profit_factor": 1.3283970252572472,
+    "t_stat": 0.5397973175607903,
+    "max_drawdown": 0.3679153740642942
+  },
+  "new_positive_assets": 3,
+  "all_assets_combined_validation_oos": {
+    "trades": 79,
+    "mean_return": 0.00853759856923837,
+    "profit_factor": 1.4527886263962397,
+    "t_stat": 1.2184278849371357
+  },
+  "optimized": false,
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

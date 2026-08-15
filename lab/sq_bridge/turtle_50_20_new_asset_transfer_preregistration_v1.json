@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_BEFORE_NEW_ASSET_TRANSFER",
+  "parent_result": "data/ibkr_sq_v2/turtle_50_20/screen_v1.json",
+  "parent_result_sha256": "cce713cd1a7461799f44edb82e2e54ed099ac091eec38fb15612952cdcef423e",
+  "rule": "unchanged long close breakout above prior 50 closes; exit below prior 20 closes; execute next open",
+  "new_assets": ["MSFT", "SPY", "XOM"],
+  "periods": {
+    "train": ["2017-01-01", "2021-12-31"],
+    "validation": ["2022-01-01", "2023-12-31"],
+    "oos_2024": ["2024-01-01", "2024-12-31"]
+  },
+  "gates": {
+    "new_assets_combined_validation_oos_trades_gte": 20,
+    "new_assets_combined_validation_oos_profit_factor_gte": 1.1,
+    "new_assets_positive_gte": 2,
+    "all_assets_combined_validation_oos_t_stat_gte": 1.645,
+    "all_assets_combined_validation_oos_profit_factor_gte": 1.2,
+    "all_assets_combined_validation_oos_max_drawdown_lte": 0.3
+  },
+  "notes": [
+    "No parameter search or survivor selection.",
+    "The three transfer assets were fixed before their Turtle performance was read.",
+    "2025 and later are excluded. Gross statistical edge is the current objective."
+  ]
+}

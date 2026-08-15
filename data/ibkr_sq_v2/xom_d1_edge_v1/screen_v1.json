@@ -1,0 +1,640 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_FROZEN_XOM_TSMOM",
+  "preregistration_sha256": "1986653343ea479160d77be299c166687facbd2c7c039a10647810f5be6d12db",
+  "source_sha256": "b765141055e03b405f5a879e42b3ee0262c1ec58b7484bd2ad9aa37ade0ea60a",
+  "results": {
+    "M6": {
+      "lookback_sessions": 126,
+      "periods": {
+        "train": {
+          "tiered": {
+            "metrics": {
+              "trades": 6,
+              "net_pnl": -60.507281999999805,
+              "net_return": -0.12101456399999966,
+              "profit_factor": 0.6213480258350708,
+              "maximum_drawdown": 0.3177903031999997,
+              "annualized_monthly_sharpe": -0.6206337205636308,
+              "positive_years": 2,
+              "position_changes": 12
+            },
+            "trades": [
+              {
+                "entry": "2017-11-01",
+                "exit": "2018-03-01",
+                "shares": 6,
+                "net": -46.68244959999997
+              },
+              {
+                "entry": "2018-09-04",
+                "exit": "2018-12-03",
+                "shares": 6,
+                "net": 0.901406000000111
+              },
+              {
+                "entry": "2019-05-01",
+                "exit": "2019-06-03",
+                "shares": 6,
+                "net": -54.34706199999998
+              },
+              {
+                "entry": "2019-07-01",
+                "exit": "2019-09-03",
+                "shares": 6,
+                "net": -58.76704600000001
+              },
+              {
+                "entry": "2021-02-01",
+                "exit": "2021-09-01",
+                "shares": 10,
+                "net": 88.08005200000004
+              },
+              {
+                "entry": "2021-10-01",
+                "exit": "2021-12-01",
+                "shares": 8,
+                "net": 10.30781760000001
+              }
+            ]
+          },
+          "fixed": {
+            "metrics": {
+              "trades": 6,
+              "net_pnl": -62.289850999999715,
+              "net_return": -0.12457970199999946,
+              "profit_factor": 0.60448257749206,
+              "maximum_drawdown": 0.3149790499999997,
+              "annualized_monthly_sharpe": -0.649705636320237,
+              "positive_years": 1,
+              "position_changes": 12
+            },
+            "trades": [
+              {
+                "entry": "2017-11-01",
+                "exit": "2018-03-01",
+                "shares": 5,
+                "net": -40.55677
+              },
+              {
+                "entry": "2018-09-04",
+                "exit": "2018-12-03",
+                "shares": 6,
+                "net": -0.6874849999999526
+              },
+              {
+                "entry": "2019-05-01",
+                "exit": "2019-06-03",
+                "shares": 6,
+                "net": -55.91865499999997
+              },
+              {
+                "entry": "2019-07-01",
+                "exit": "2019-09-03",
+                "shares": 6,
+                "net": -60.32661499999992
+              },
+              {
+                "entry": "2021-02-01",
+                "exit": "2021-09-01",
+                "shares": 10,
+                "net": 86.48013000000009
+              },
+              {
+                "entry": "2021-10-01",
+                "exit": "2021-12-01",
+                "shares": 8,
+                "net": 8.719544000000042
+              }
+            ]
+          },
+          "stress": {
+            "metrics": {
+              "trades": 6,
+              "net_pnl": -65.03370199999972,
+              "net_return": -0.1300674039999994,
+              "profit_factor": 0.5916329263395596,
+              "maximum_drawdown": 0.31850609999999974,
+              "annualized_monthly_sharpe": -0.6786824863041891,
+              "positive_years": 1,
+              "position_changes": 12
+            },
+            "trades": [
+              {
+                "entry": "2017-11-01",
+                "exit": "2018-03-01",
+                "shares": 5,
+                "net": -40.953539999999975
+              },
+              {
+                "entry": "2018-09-04",
+                "exit": "2018-12-03",
+                "shares": 6,
+                "net": -1.1689699999999448
+              },
+              {
+                "entry": "2019-05-01",
+                "exit": "2019-06-03",
+                "shares": 6,
+                "net": -56.37130999999994
+              },
+              {
+                "entry": "2019-07-01",
+                "exit": "2019-09-03",
+                "shares": 6,
+                "net": -60.75923
+              },
+              {
+                "entry": "2021-02-01",
+                "exit": "2021-09-01",
+                "shares": 10,
+                "net": 85.98026000000007
+              },
+              {
+                "entry": "2021-10-01",
+                "exit": "2021-12-01",
+                "shares": 8,
+                "net": 8.239088000000038
+              }
+            ]
+          }
+        },
+        "validation": {
+          "tiered": {
+            "metrics": {
+              "trades": 2,
+              "net_pnl": 103.29739000000006,
+              "net_return": 0.2065947800000001,
+              "profit_factor": 3.2438907412304507,
+              "maximum_drawdown": 0.07089581685585675,
+              "annualized_monthly_sharpe": 1.2951293258262673,
+              "positive_years": 1,
+              "position_changes": 4
+            },
+            "trades": [
+              {
+                "entry": "2022-02-01",
+                "exit": "2023-06-01",
+                "shares": 6,
+                "net": 149.3323364
+              },
+              {
+                "entry": "2023-10-02",
+                "exit": "2023-11-01",
+                "shares": 4,
+                "net": -46.03494639999998
+              }
+            ]
+          },
+          "fixed": {
+            "metrics": {
+              "trades": 2,
+              "net_pnl": 100.10847500000011,
+              "net_return": 0.20021695000000017,
+              "profit_factor": 3.102970512631402,
+              "maximum_drawdown": 0.07349466689771375,
+              "annualized_monthly_sharpe": 1.2554817745356943,
+              "positive_years": 1,
+              "position_changes": 4
+            },
+            "trades": [
+              {
+                "entry": "2022-02-01",
+                "exit": "2023-06-01",
+                "shares": 6,
+                "net": 147.71184100000005
+              },
+              {
+                "entry": "2023-10-02",
+                "exit": "2023-11-01",
+                "shares": 4,
+                "net": -47.60336599999994
+              }
+            ]
+          },
+          "stress": {
+            "metrics": {
+              "trades": 2,
+              "net_pnl": 99.12695000000008,
+              "net_return": 0.1982539000000001,
+              "profit_factor": 3.0629644101987927,
+              "maximum_drawdown": 0.07424658379984111,
+              "annualized_monthly_sharpe": 1.2437249388215652,
+              "positive_years": 1,
+              "position_changes": 4
+            },
+            "trades": [
+              {
+                "entry": "2022-02-01",
+                "exit": "2023-06-01",
+                "shares": 6,
+                "net": 147.17768200000003
+              },
+              {
+                "entry": "2023-10-02",
+                "exit": "2023-11-01",
+                "shares": 4,
+                "net": -48.050731999999925
+              }
+            ]
+          }
+        },
+        "oos": {
+          "tiered": {
+            "metrics": {
+              "trades": 1,
+              "net_pnl": -43.23654639999995,
+              "net_return": -0.08647309279999993,
+              "profit_factor": 0.0,
+              "maximum_drawdown": 0.0864730927999999,
+              "annualized_monthly_sharpe": null,
+              "positive_years": 0,
+              "position_changes": 2
+            },
+            "trades": [
+              {
+                "entry": "2024-05-01",
+                "exit": "2024-12-31",
+                "shares": 4,
+                "net": -43.236546399999966,
+                "exit_type": "EndTest"
+              }
+            ]
+          },
+          "fixed": {
+            "metrics": {
+              "trades": 1,
+              "net_pnl": -44.807365999999945,
+              "net_return": -0.08961473199999992,
+              "profit_factor": 0.0,
+              "maximum_drawdown": 0.08961473199999989,
+              "annualized_monthly_sharpe": null,
+              "positive_years": 0,
+              "position_changes": 2
+            },
+            "trades": [
+              {
+                "entry": "2024-05-01",
+                "exit": "2024-12-31",
+                "shares": 4,
+                "net": -44.807365999999945,
+                "exit_type": "EndTest"
+              }
+            ]
+          },
+          "stress": {
+            "metrics": {
+              "trades": 1,
+              "net_pnl": -45.25873199999995,
+              "net_return": -0.09051746399999994,
+              "profit_factor": 0.0,
+              "maximum_drawdown": 0.09051746399999991,
+              "annualized_monthly_sharpe": null,
+              "positive_years": 0,
+              "position_changes": 2
+            },
+            "trades": [
+              {
+                "entry": "2024-05-01",
+                "exit": "2024-12-31",
+                "shares": 4,
+                "net": -45.25873199999995,
+                "exit_type": "EndTest"
+              }
+            ]
+          }
+        }
+      },
+      "combined_validation_oos_stress": {
+        "trades": 3,
+        "net_pnl": 53.86821800000007,
+        "net_return": 0.10773643600000016,
+        "profit_factor": 1.5773071207439389,
+        "maximum_drawdown": 0.14417905097042566,
+        "annualized_monthly_sharpe": 0.5557793574733273,
+        "positive_years": 1,
+        "position_changes": 6
+      }
+    },
+    "M12": {
+      "lookback_sessions": 252,
+      "periods": {
+        "train": {
+          "tiered": {
+            "metrics": {
+              "trades": 5,
+              "net_pnl": -154.83229039999992,
+              "net_return": -0.3096645807999998,
+              "profit_factor": 0.18168528078291896,
+              "maximum_drawdown": 0.378417464,
+              "annualized_monthly_sharpe": -2.611585209333326,
+              "positive_years": 1,
+              "position_changes": 10
+            },
+            "trades": [
+              {
+                "entry": "2018-02-01",
+                "exit": "2018-03-01",
+                "shares": 5,
+                "net": -60.40798500000001
+              },
+              {
+                "entry": "2018-06-01",
+                "exit": "2018-11-01",
+                "shares": 6,
+                "net": -15.827614000000022
+              },
+              {
+                "entry": "2019-03-01",
+                "exit": "2019-06-03",
+                "shares": 6,
+                "net": -50.14622199999995
+              },
+              {
+                "entry": "2020-01-02",
+                "exit": "2020-02-03",
+                "shares": 7,
+                "net": -62.826911
+              },
+              {
+                "entry": "2021-03-01",
+                "exit": "2021-12-30",
+                "shares": 8,
+                "net": 34.376441600000064,
+                "exit_type": "EndTest"
+              }
+            ]
+          },
+          "fixed": {
+            "metrics": {
+              "trades": 5,
+              "net_pnl": -162.69472599999978,
+              "net_return": -0.3253894519999996,
+              "profit_factor": 0.16775861946373433,
+              "maximum_drawdown": 0.39097965999999973,
+              "annualized_monthly_sharpe": -2.7448562769543083,
+              "positive_years": 1,
+              "position_changes": 10
+            },
+            "trades": [
+              {
+                "entry": "2018-02-01",
+                "exit": "2018-03-01",
+                "shares": 5,
+                "net": -61.95246250000001
+              },
+              {
+                "entry": "2018-06-01",
+                "exit": "2018-11-01",
+                "shares": 6,
+                "net": -17.418034999999975
+              },
+              {
+                "entry": "2019-03-01",
+                "exit": "2019-06-03",
+                "shares": 6,
+                "net": -51.71655499999997
+              },
+              {
+                "entry": "2020-01-02",
+                "exit": "2020-02-03",
+                "shares": 7,
+                "net": -64.40277749999989
+              },
+              {
+                "entry": "2021-03-01",
+                "exit": "2021-12-30",
+                "shares": 8,
+                "net": 32.795104000000094,
+                "exit_type": "EndTest"
+              }
+            ]
+          },
+          "stress": {
+            "metrics": {
+              "trades": 5,
+              "net_pnl": -164.9654519999998,
+              "net_return": -0.3299309039999996,
+              "profit_factor": 0.16384984545215994,
+              "maximum_drawdown": 0.39458331999999974,
+              "annualized_monthly_sharpe": -2.7842711518805445,
+              "positive_years": 1,
+              "position_changes": 10
+            },
+            "trades": [
+              {
+                "entry": "2018-02-01",
+                "exit": "2018-03-01",
+                "shares": 5,
+                "net": -62.35992499999999
+              },
+              {
+                "entry": "2018-06-01",
+                "exit": "2018-11-01",
+                "shares": 6,
+                "net": -17.90207000000001
+              },
+              {
+                "entry": "2019-03-01",
+                "exit": "2019-06-03",
+                "shares": 6,
+                "net": -52.16710999999995
+              },
+              {
+                "entry": "2020-01-02",
+                "exit": "2020-02-03",
+                "shares": 7,
+                "net": -64.86255499999994
+              },
+              {
+                "entry": "2021-03-01",
+                "exit": "2021-12-30",
+                "shares": 8,
+                "net": 32.326208000000065,
+                "exit_type": "EndTest"
+              }
+            ]
+          }
+        },
+        "validation": {
+          "tiered": {
+            "metrics": {
+              "trades": 1,
+              "net_pnl": 358.88013920000003,
+              "net_return": 0.7177602784000001,
+              "profit_factor": null,
+              "maximum_drawdown": 0,
+              "annualized_monthly_sharpe": null,
+              "positive_years": 1,
+              "position_changes": 2
+            },
+            "trades": [
+              {
+                "entry": "2022-01-03",
+                "exit": "2023-11-01",
+                "shares": 8,
+                "net": 358.88013920000003
+              }
+            ]
+          },
+          "fixed": {
+            "metrics": {
+              "trades": 1,
+              "net_pnl": 357.17834800000014,
+              "net_return": 0.7143566960000003,
+              "profit_factor": null,
+              "maximum_drawdown": 0,
+              "annualized_monthly_sharpe": null,
+              "positive_years": 1,
+              "position_changes": 2
+            },
+            "trades": [
+              {
+                "entry": "2022-01-03",
+                "exit": "2023-11-01",
+                "shares": 8,
+                "net": 357.17834800000014
+              }
+            ]
+          },
+          "stress": {
+            "metrics": {
+              "trades": 1,
+              "net_pnl": 356.5086960000001,
+              "net_return": 0.7130173920000002,
+              "profit_factor": null,
+              "maximum_drawdown": 0,
+              "annualized_monthly_sharpe": null,
+              "positive_years": 1,
+              "position_changes": 2
+            },
+            "trades": [
+              {
+                "entry": "2022-01-03",
+                "exit": "2023-11-01",
+                "shares": 8,
+                "net": 356.5086960000001
+              }
+            ]
+          }
+        },
+        "oos": {
+          "tiered": {
+            "metrics": {
+              "trades": 3,
+              "net_pnl": -43.13919920000001,
+              "net_return": -0.08627839840000007,
+              "profit_factor": 0.1408549010107062,
+              "maximum_drawdown": 0.09902285419284158,
+              "annualized_monthly_sharpe": -1.633758445382994,
+              "positive_years": 1,
+              "position_changes": 6
+            },
+            "trades": [
+              {
+                "entry": "2024-04-01",
+                "exit": "2024-05-01",
+                "shares": 4,
+                "net": 7.072574399999996
+              },
+              {
+                "entry": "2024-06-03",
+                "exit": "2024-10-01",
+                "shares": 4,
+                "net": -0.9300184000000058
+              },
+              {
+                "entry": "2024-11-01",
+                "exit": "2024-12-31",
+                "shares": 4,
+                "net": -49.281755200000035,
+                "exit_type": "EndTest"
+              }
+            ]
+          },
+          "fixed": {
+            "metrics": {
+              "trades": 3,
+              "net_pnl": -47.871997999999905,
+              "net_return": -0.09574399599999983,
+              "profit_factor": 0.10290634594467869,
+              "maximum_drawdown": 0.10556743438082683,
+              "annualized_monthly_sharpe": -1.8132598126929154,
+              "positive_years": 1,
+              "position_changes": 6
+            },
+            "trades": [
+              {
+                "entry": "2024-04-01",
+                "exit": "2024-05-01",
+                "shares": 4,
+                "net": 5.4914360000000215
+              },
+              {
+                "entry": "2024-06-03",
+                "exit": "2024-10-01",
+                "shares": 4,
+                "net": -2.5090459999999553
+              },
+              {
+                "entry": "2024-11-01",
+                "exit": "2024-12-31",
+                "shares": 4,
+                "net": -50.85438799999997,
+                "exit_type": "EndTest"
+              }
+            ]
+          },
+          "stress": {
+            "metrics": {
+              "trades": 3,
+              "net_pnl": -49.259995999999944,
+              "net_return": -0.09851999199999983,
+              "profit_factor": 0.09253144104324058,
+              "maximum_drawdown": 0.1074859595665995,
+              "annualized_monthly_sharpe": -1.8662825765659337,
+              "positive_years": 1,
+              "position_changes": 6
+            },
+            "trades": [
+              {
+                "entry": "2024-04-01",
+                "exit": "2024-05-01",
+                "shares": 4,
+                "net": 5.022872000000007
+              },
+              {
+                "entry": "2024-06-03",
+                "exit": "2024-10-01",
+                "shares": 4,
+                "net": -2.9740919999999846
+              },
+              {
+                "entry": "2024-11-01",
+                "exit": "2024-12-31",
+                "shares": 4,
+                "net": -51.308775999999966,
+                "exit_type": "EndTest"
+              }
+            ]
+          }
+        }
+      },
+      "combined_validation_oos_stress": {
+        "trades": 4,
+        "net_pnl": 307.2487000000002,
+        "net_return": 0.6144974000000005,
+        "profit_factor": 6.660141243826698,
+        "maximum_drawdown": 0.06300740450638935,
+        "annualized_monthly_sharpe": 1.4144620409782702,
+        "positive_years": 2,
+        "position_changes": 8
+      }
+    }
+  },
+  "optimized": false,
+  "post_2024_accessed": false,
+  "sqcli_started": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

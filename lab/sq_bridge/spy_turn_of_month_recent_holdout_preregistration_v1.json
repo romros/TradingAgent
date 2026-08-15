@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_BEFORE_RECENT_HOLDOUT",
+  "parent_result": "data/ibkr_sq_v2/turn_of_month/spy_transfer_v1.json",
+  "parent_result_sha256": "f0cc56be33f768cb3bd1ee1911868fef720d53885a0684bd0f32e28e8e38a324",
+  "historical_source": "data/ibkr_sq_v2/preflight/SPY_ADJUSTED_D1_2017_2024.csv",
+  "historical_source_sha256": "a2aa4c620fcda15bc96fdc2589846d276f96379c0e427d662f4619ccd28e70a1",
+  "asset": "SPY",
+  "rule": "long at open of last NYSE session of month; exit at open of fourth NYSE session of next month",
+  "holdout": ["2025-01-01", "2026-05-29"],
+  "expected_completed_trades": 16,
+  "costs": {
+    "gross": "no costs",
+    "tiered_1000": "USD 0.35 per order plus 2 bps round-trip slippage",
+    "stress_1000": "USD 1.00 per order plus 10 bps round-trip slippage"
+  },
+  "gates": {
+    "holdout_trades_gte": 16,
+    "holdout_gross_return_gt": 0,
+    "holdout_gross_profit_factor_gte": 1.1,
+    "holdout_max_drawdown_lte": 0.15,
+    "holdout_tiered_1000_return_gt": 0,
+    "combined_2017_2026_one_sided_t_stat_gte": 1.645,
+    "combined_2017_2026_profit_factor_gte": 1.2
+  },
+  "prohibitions": [
+    "No parameter changes after holdout performance",
+    "No partial-month trade after 2026-05-29",
+    "No paper or live authorization from this screen"
+  ]
+}

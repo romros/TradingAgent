@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "campaign_id": "xom-monthly-tsmom-fifth-edge-v1",
+  "status": "FROZEN_BEFORE_PERFORMANCE",
+  "hypothesis": "Energy-equity trends persist at multi-month horizons because commodity capex and supply cycles adjust slowly.",
+  "asset": "XOM",
+  "ibkr_instrument_type": "US listed stock",
+  "source": "Dukascopy XOMUSUSD M1 aggregated to NYSE RTH D1",
+  "maximum_source_date": "2024-12-31",
+  "periods": {
+    "train": ["2017-01-26", "2021-12-31"],
+    "validation": ["2022-01-01", "2023-12-31"],
+    "oos": ["2024-01-01", "2024-12-31"]
+  },
+  "rules": {
+    "review": "last NYSE session of each month",
+    "signal": "close at review is greater than close lookback_sessions earlier",
+    "entry": "next NYSE session open",
+    "position": "long or cash",
+    "exit": "next open after a monthly review where signal is false",
+    "maximum_capital_usd": 500,
+    "whole_shares": true,
+    "leverage": 1
+  },
+  "variants": [
+    {"id": "M6", "lookback_sessions": 126},
+    {"id": "M12", "lookback_sessions": 252}
+  ],
+  "costs": {
+    "tiered_minimum_usd_each_order": 0.35,
+    "fixed_minimum_usd_each_order": 1.0,
+    "stress_minimum_usd_each_order": 1.0,
+    "stress_slippage_bps_each_side": 10
+  },
+  "gates": {
+    "both_variants_validation_net_return_gt": 0,
+    "both_variants_oos_net_return_gt": 0,
+    "both_variants_combined_profit_factor_gte": 1.15,
+    "both_variants_combined_maximum_drawdown_lte": 0.2,
+    "central_M12_combined_annualized_sharpe_gte": 0.5,
+    "central_M12_completed_position_changes_gte": 4,
+    "maximum_absolute_monthly_correlation_to_each_existing_sleeve": 0.5
+  },
+  "selection": "M12 is central; M6 is a mandatory neighboring-horizon robustness check. No winner selection is allowed.",
+  "prohibitions": [
+    "No 2025 data access.",
+    "No parameter tuning after performance.",
+    "No reversal of direction after a failed result.",
+    "No paper or live authorization from this screen."
+  ]
+}

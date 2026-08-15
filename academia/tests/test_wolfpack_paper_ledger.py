@@ -20,3 +20,19 @@ class PaperLedgerTest(unittest.TestCase):
         self.assertFalse(result["cost_complete"])
         self.assertFalse(result["live_trading_authorized"])
 
+    def test_active_standalone_is_open_and_later_close_deduplicates_it(self):
+        active = {"experiment_id": "v40", "status": "PAPER_OPEN", "realized_pnl_usdc": -0.15,
+                  "last_quote": {"mid": 9.4}, "position": {"direction": "SHORT",
+                  "opened_at": "2026-08-15T06:00:00Z", "entry": 9.39,
+                  "stop": 9.46, "target_1": 9.21, "target_2": 9.05,
+                  "open_fee_remaining_usdc": 0.15}}
+        result = ledger.build({"starting_equity_usdc": 500, "ending_equity_usdc": 500}, [], [active])
+        self.assertEqual(result["open_count"], 1)
+        self.assertEqual(result["trades"][0]["experiment_id"], "v40")
+        self.assertEqual(result["trades"][0]["status"], "OPEN")
+        closed = {"experiment_id": "v40", "status": "CLOSED_TARGET_COMPLETE",
+                  "copy_net_pnl_usdc": 3, "cost_complete": True}
+        deduplicated = ledger.build({"starting_equity_usdc": 500, "ending_equity_usdc": 500},
+                                    [closed], [active])
+        self.assertEqual(deduplicated["open_count"], 0)
+        self.assertEqual(deduplicated["closed_count"], 1)

@@ -157,7 +157,8 @@ python3 academia/projects/wolfpack/paper_ledger.py \
   --wolfpack /tmp/wolfpack-paper-forward-20260813.json \
   --standalone-dir academia/experiments/observations \
   --output /tmp/wolfpack-unified-ledger.json \
-  --csv /tmp/wolfpack-unified-ledger.csv
+  --csv /tmp/wolfpack-unified-ledger.csv \
+  --active-state /tmp/link-relative-v40-state.json
 ```
 
 La rèplica LINK v40 conserva la geometria percentual de v39 sobre un anchor

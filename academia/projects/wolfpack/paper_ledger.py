@@ -23,7 +23,7 @@ def identity(source: str, trade: dict) -> str:
     return hashlib.sha256(f"{source}:{natural}".encode()).hexdigest()
 
 
-def build(wolfpack: dict, standalone: list[dict]) -> dict:
+def build(wolfpack: dict, standalone: list[dict], active_states: list[dict] | None = None) -> dict:
     trades = []
     for status, key in (("OPEN", "open_positions"), ("CLOSED", "closed")):
         for row in wolfpack.get(key, []):
@@ -39,6 +39,26 @@ def build(wolfpack: dict, standalone: list[dict]) -> dict:
         seen.add(ledger_id)
         trades.append({**row, "ledger_id": ledger_id, "source": "standalone_setup",
                        "status": "CLOSED"})
+    for state in active_states or []:
+        position = state.get("position")
+        if not position:
+            continue
+        row = {"experiment_id": state.get("experiment_id"), "pair": "LINK/USD",
+               "side": "B" if position.get("direction") == "LONG" else "S",
+               "entry_time": position.get("opened_at"), "entry_price": position.get("entry"),
+               "paper_notional_usdc": 250,
+               "open_fee_usdc": position.get("open_fee_remaining_usdc"),
+               "realized_pnl_usdc": state.get("realized_pnl_usdc"),
+               "last_mid": state.get("last_quote", {}).get("mid"),
+               "stop": position.get("stop"), "target_1": position.get("target_1"),
+               "target_2": position.get("target_2"), "cost_complete": False,
+               "live_trading_authorized": False}
+        ledger_id = identity("standalone", row)
+        if ledger_id in seen:
+            continue
+        seen.add(ledger_id)
+        trades.append({**row, "ledger_id": ledger_id, "source": "standalone_setup",
+                       "status": "OPEN"})
     starting = float(wolfpack.get("starting_equity_usdc", 500))
     wolf_equity = float(wolfpack.get("ending_equity_usdc", starting))
     standalone_net = sum(float(row.get("copy_net_pnl_usdc") or 0)
@@ -74,6 +94,8 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--wolfpack", type=Path, required=True)
     parser.add_argument("--standalone-dir", type=Path, required=True)
+    parser.add_argument("--active-state", dest="active_states", action="append", type=Path,
+                        default=[])
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--csv", dest="csv_output", type=Path, required=True)
     parser.add_argument("--interval-seconds", type=int, default=60)
@@ -85,7 +107,8 @@ def main() -> None:
     deadline = time.time() + args.duration_hours * 3600
     while time.time() < deadline:
         standalone = [read_json(path) for path in sorted(args.standalone_dir.glob("*-result.json"))]
-        write_outputs(args.output, args.csv_output, build(read_json(args.wolfpack), standalone))
+        active = [read_json(path) for path in args.active_states]
+        write_outputs(args.output, args.csv_output, build(read_json(args.wolfpack), standalone, active))
         if args.once:
             break
         time.sleep(args.interval_seconds)

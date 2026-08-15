@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "campaign_id": "jpm-momentum60-holdout-v1",
+  "asset": "JPM",
+  "selection_basis": "The frozen pre-2025 cross-asset 60-session/20-session/no-filter variant was positive on five of seven assets; JPM had 21 trades, +36.78% and PF 2.006.",
+  "rule": {"lookback_sessions": 60, "holding_sessions": 20, "sma200_filter": false, "signal": "last session of month", "entry": "next open", "exit": "open after 20 sessions", "same_open_reentry": true},
+  "holdout": ["2025-01-01", "2026-08-13"],
+  "costs": "IBKR whole shares, USD1/order minimum and 10bps adverse slippage each side",
+  "gates": {"minimum_completed_trades": 8, "minimum_stress_profit_factor": 1.1, "positive_stress_return": true, "maximum_stress_drawdown_pct": 20},
+  "parameters_frozen": true,
+  "holdout_accessed": false
+}

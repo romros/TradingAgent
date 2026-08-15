@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_CANONICAL_SOURCE_ONLY",
+  "symbol": "JPM",
+  "timeframe": "D1",
+  "rows": 2401,
+  "first": "2017-01-26",
+  "last": "2026-08-14",
+  "source_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/jpm_momentum60_v1/JPMUSUSD_NYSE_RTH_D1_through_2026.csv",
+  "source_sha256": "38386e15596b637ef997d29d10abfb832a83ecef6979900df518b1785737549d",
+  "output_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/jpm_momentum60_v1/JPMUSUSD_CANONICAL_D1_through_2026.csv",
+  "output_sha256": "eff45c42fd8ecf1c6525b00e487a41abac4bac07cf0b6972cf98f7cf0b97d7de",
+  "corporate_actions_source": "https://jpmorganchaseco.gcs-web.com/ir/shareholder-information/stock-split-history/",
+  "splits_in_research_window": [],
+  "absolute_close_jumps_at_least_20pct": [],
+  "ohlc_envelope_repair": {
+    "rule": "high=max(source_high,open,close); low=min(source_low,open,close)",
+    "rows_repaired": 255,
+    "max_high_delta": 1.769,
+    "max_low_delta": 0.0
+  },
+  "volume_rules_allowed": false,
+  "performance_accessed": false,
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "source_csv": "data/ibkr_sq_v2/jpm_momentum60_v1/JPMUSUSD_CANONICAL_D1_through_2026.csv",
+  "source_sha256": "eff45c42fd8ecf1c6525b00e487a41abac4bac07cf0b6972cf98f7cf0b97d7de",
+  "exported_csv": "/mnt/volume-SQ/user/exports/ibkr_jpm_momentum60_v1/JPM_MOM60_V1_D1-D1-No Session.csv",
+  "exported_sha256": "90c57c1f13bd63ac08d8aaa9861a174508ad9351efff8e54767c228ee32a5994",
+  "exported_has_header": false,
+  "source_rows": 2401,
+  "exported_rows": 2401,
+  "timestamps_exact_and_ordered": true,
+  "field_errors": {
+    "open": {
+      "changed_rows": 0,
+      "max_absolute_error": "0.000000",
+      "mean_absolute_error": "0.000000"
+    },
+    "high": {
+      "changed_rows": 0,
+      "max_absolute_error": "0.000000",
+      "mean_absolute_error": "0.000000"
+    },
+    "low": {
+      "changed_rows": 0,
+      "max_absolute_error": "0.000000",
+      "mean_absolute_error": "0.000000"
+    },
+    "close": {
+      "changed_rows": 0,
+      "max_absolute_error": "0.000000",
+      "mean_absolute_error": "0.000000"
+    },
+    "volume": {
+      "changed_rows": 2395,
+      "max_absolute_error": "1.000000",
+      "mean_absolute_error": "0.5004920866305705955851728446"
+    }
+  },
+  "decision": "PASS_SIGNAL_RESEARCH",
+  "decision_scope": "Data integrity for signal research only; volume-dependent rules, execution, paper, and live remain unauthorized.",
+  "exact_numeric_parity": false,
+  "paper_or_live_authorized": false
+}

@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_TO_NATIVE_SQ",
+  "preregistration_sha256": "fdc1db2bb4653f6164fbc2813ee09b571299596299b099bb04b5f04054bbc773",
+  "source_sha256": "38386e15596b637ef997d29d10abfb832a83ecef6979900df518b1785737549d",
+  "whole_share_ibkr_stress": {
+    "500": {
+      "trades": 11,
+      "return_pct": 22.14874120000012,
+      "profit_factor": 2.5861773438463014,
+      "maximum_drawdown_pct": 7.565911074970866,
+      "final_equity": 610.7437060000007
+    },
+    "1000": {
+      "trades": 11,
+      "return_pct": 23.798565800000148,
+      "profit_factor": 2.5438424250124787,
+      "maximum_drawdown_pct": 8.91009514724903,
+      "final_equity": 1237.9856580000014
+    }
+  },
+  "completed_trades": [
+    {
+      "entry": "2025-01-02",
+      "exit": "2025-01-31",
+      "entry_price": 240.546,
+      "exit_price": 268.996
+    },
+    {
+      "entry": "2025-02-03",
+      "exit": "2025-03-04",
+      "entry_price": 261.776,
+      "exit_price": 255.437
+    },
+    {
+      "entry": "2025-04-01",
+      "exit": "2025-04-30",
+      "entry_price": 242.536,
+      "exit_price": 241.266
+    },
+    {
+      "entry": "2025-06-02",
+      "exit": "2025-07-01",
+      "entry_price": 262.996,
+      "exit_price": 289.996
+    },
+    {
+      "entry": "2025-07-01",
+      "exit": "2025-07-30",
+      "entry_price": 289.996,
+      "exit_price": 297.407
+    },
+    {
+      "entry": "2025-08-01",
+      "exit": "2025-08-29",
+      "entry_price": 290.256,
+      "exit_price": 301.246
+    },
+    {
+      "entry": "2025-09-02",
+      "exit": "2025-09-30",
+      "entry_price": 299.917,
+      "exit_price": 315.697
+    },
+    {
+      "entry": "2025-10-01",
+      "exit": "2025-10-29",
+      "entry_price": 312.997,
+      "exit_price": 302.997
+    },
+    {
+      "entry": "2025-11-03",
+      "exit": "2025-12-02",
+      "entry_price": 311.057,
+      "exit_price": 308.527
+    },
+    {
+      "entry": "2026-01-02",
+      "exit": "2026-02-02",
+      "entry_price": 322.486,
+      "exit_price": 304.897
+    },
+    {
+      "entry": "2026-07-01",
+      "exit": "2026-07-30",
+      "entry_price": 327.757,
+      "exit_price": 347.446
+    }
+  ],
+  "holdout_accessed": true,
+  "paper_authorized": false,
+  "live_authorized": false
+}

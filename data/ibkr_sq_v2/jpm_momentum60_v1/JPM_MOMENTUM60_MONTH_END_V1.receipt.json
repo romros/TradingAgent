@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "strategy": "JPM_MOMENTUM60_MONTH_END_V1",
+  "rule": "DayOfMonth[0] < DayOfMonth[1] AND Close[1] > Close[61]; enter market; exit after 20 bars",
+  "template_sha256": "0af742397206a4e2799a565a0463531941ebcbfe7ffa786bbd644ff963802998",
+  "output_sha256": "4ccc1c4f48f705ea7e11d30ab96614feccb7a94800656768532e2eb458ad0bcc",
+  "performance_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "classification": "PASS_INCREMENTAL_PORTFOLIO_EDGE",
+  "allocation": "three equal independent sleeves; no leverage or weight optimization",
+  "full_2019_2024": {
+    "strategies": {
+      "CAT_0168": {
+        "initial_capital": 1000.0,
+        "final_equity": 1668.310365,
+        "return_pct": 66.831036,
+        "events": 101,
+        "profit_factor": 1.223927,
+        "max_drawdown_pct_closed_equity": 28.227131,
+        "positive_months": 29,
+        "active_months": 57
+      },
+      "MSFT_CAPITULATION": {
+        "initial_capital": 1000.0,
+        "final_equity": 1229.507934,
+        "return_pct": 22.950793,
+        "events": 22,
+        "profit_factor": 3.452212,
+        "max_drawdown_pct_closed_equity": 3.333285,
+        "positive_months": 10,
+        "active_months": 18
+      },
+      "JPM_MOMENTUM60": {
+        "initial_capital": 1000.0,
+        "final_equity": 1955.76704,
+        "return_pct": 95.576704,
+        "events": 43,
+        "profit_factor": 1.888584,
+        "max_drawdown_pct_closed_equity": 13.432726,
+        "positive_months": 22,
+        "active_months": 33
+      }
+    },
+    "portfolio": {
+      "initial_capital": 3000.0,
+      "final_equity": 4853.585339,
+      "return_pct": 61.786178,
+      "events": 166,
+      "profit_factor": 1.44625,
+      "max_drawdown_pct_closed_equity": 13.096024,
+      "positive_months": 44,
+      "active_months": 65
+    },
+    "pairwise_monthly_correlation": {
+      "CAT_0168__MSFT_CAPITULATION": {
+        "months": 59,
+        "correlation_zero_when_inactive": 0.022453
+      },
+      "CAT_0168__JPM_MOMENTUM60": {
+        "months": 64,
+        "correlation_zero_when_inactive": 0.05357
+      },
+      "MSFT_CAPITULATION__JPM_MOMENTUM60": {
+        "months": 45,
+        "correlation_zero_when_inactive": -0.232121
+      }
+    }
+  },
+  "forward_2022_2024": {
+    "strategies": {
+      "CAT_0168": {
+        "initial_capital": 1000.0,
+        "final_equity": 1285.410342,
+        "return_pct": 28.541034,
+        "events": 57,
+        "profit_factor": 1.202236,
+        "max_drawdown_pct_closed_equity": 17.693741,
+        "positive_months": 16,
+        "active_months": 32
+      },
+      "MSFT_CAPITULATION": {
+        "initial_capital": 1000.0,
+        "final_equity": 1035.044559,
+        "return_pct": 3.504456,
+        "events": 15,
+        "profit_factor": 1.489954,
+        "max_drawdown_pct_closed_equity": 3.535994,
+        "positive_months": 5,
+        "active_months": 12
+      },
+      "JPM_MOMENTUM60": {
+        "initial_capital": 1000.0,
+        "final_equity": 1361.282981,
+        "return_pct": 36.128298,
+        "events": 20,
+        "profit_factor": 1.984985,
+        "max_drawdown_pct_closed_equity": 13.613623,
+        "positive_months": 11,
+        "active_months": 14
+      }
+    },
+    "portfolio": {
+      "initial_capital": 3000.0,
+      "final_equity": 3681.737882,
+      "return_pct": 22.724596,
+      "events": 92,
+      "profit_factor": 1.368588,
+      "max_drawdown_pct_closed_equity": 10.680863,
+      "positive_months": 22,
+      "active_months": 34
+    },
+    "pairwise_monthly_correlation": {
+      "CAT_0168__MSFT_CAPITULATION": {
+        "months": 33,
+        "correlation_zero_when_inactive": -0.237724
+      },
+      "CAT_0168__JPM_MOMENTUM60": {
+        "months": 34,
+        "correlation_zero_when_inactive": -0.005745
+      },
+      "MSFT_CAPITULATION__JPM_MOMENTUM60": {
+        "months": 22,
+        "correlation_zero_when_inactive": 0.000741
+      }
+    }
+  },
+  "maximum_absolute_forward_pairwise_monthly_correlation": 0.237724,
+  "inputs_sha256": {
+    "data/ibkr_sq_v2/preflight/CATUSUSD_CANONICAL_D1_2017_2025.csv": "9aa5e9f60467bdcb71e59be2a583eb737d0911daab9f59a90bc0293a89bb359c",
+    "data/ibkr_sq_v2/preflight/MSFT_ADJUSTED_D1_through_2024.csv": "0d66cdbbe74a5b46f2c8640c7dfcb567a98535c4af41880dcfc5310addf10480",
+    "data/ibkr_sq_v2/jpm_momentum60_v1/JPMUSUSD_CANONICAL_D1_through_2026.csv": "eff45c42fd8ecf1c6525b00e487a41abac4bac07cf0b6972cf98f7cf0b97d7de"
+  },
+  "limitations": [
+    "Historical portfolio period is diagnostic, not a new holdout.",
+    "Closed-equity drawdown omits intratrade mark-to-market."
+  ],
+  "paper_authorized": false,
+  "live_authorized": false
+}

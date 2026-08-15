@@ -49,6 +49,19 @@
       "caveat": "Untouched recent holdout and native parity pass, but 2022-2024 returned -12.78% and failed admission to the neutral CAT/MSFT/AAPL portfolio."
     },
     {
+      "id": "jpm_momentum60_month_end_v1",
+      "asset": "JPM",
+      "mechanism": "medium_term_momentum_month_end_sampling",
+      "status": "ADMITTED_RESEARCH_EDGE_AND_INCREMENTAL_PORTFOLIO_COMPONENT",
+      "evidence_path": "data/ibkr_sq_v2/jpm_momentum60_v1/holdout.json",
+      "evidence_sha256": "1005b4b69b0b154cd7def4ee592352fa82a4c5f1644a6a9462b42d84704d3962",
+      "native_oos_path": "data/ibkr_sq_v2/jpm_momentum60_v1/native_oos/ibkr_cost_audit_500.json",
+      "native_oos_sha256": "3e85c41f5c4df92e36f82a662e32c84e3d548bfd57004311f083f2f430688a99",
+      "portfolio_evidence_path": "data/ibkr_sq_v2/jpm_momentum60_v1/cat_msft_jpm_portfolio.json",
+      "portfolio_evidence_sha256": "14ca6b3d47faf7ef2f7d46b3573dada5cac23e4117cb74095ffeb55dfef237bd",
+      "caveat": "Exact frozen AAPL Momentum60 rule transferred without JPM tuning; positive native 2024 and preregistered 2025-2026 confirmation, with near-zero correlation and lower combined drawdown in CAT/MSFT/JPM. Samples remain small; paper/live are not authorized."
+    },
+    {
       "id": "aapl_h1_roc_4_1_174",
       "asset": "AAPL",
       "mechanism": "roc_reversion",

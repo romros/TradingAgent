@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "build_reproducible": true,
+  "project_name": "IBKR_JPM_MOMENTUM60_RESOURCE_V1",
+  "market": "JPM",
+  "methodology_id": "ibkr-sq-aggressive-v1",
+  "sq_symbol": "JPM_MOM60_V1_D1",
+  "timeframe": "D1",
+  "methodology_sha256": "181b58a3f6e8e32e45415b7464a7e5c73d293cb9339093df351a0f1432567515",
+  "source_role": "xml_format_scaffold_only",
+  "source_sha256": "5f0fbe6a4ca69f87628c6485b5174b72772c3c772e63ef42aa153333f97d4677",
+  "output_sha256": "59e699896b2c3020e6a7dd225445a9bb6a937b66b75d75a5c76dc8b2a39c88e7",
+  "accepted_limit": 1,
+  "discovery_initial_capital": 10000,
+  "sq_discovery_spread": 0,
+  "sq_discovery_commission": 0.0,
+  "sq_discovery_slippage": 0,
+  "venue_cost_application_stage": "legacy_embedded_or_posthoc",
+  "search_profile": "msft_d1_close_trend_v1",
+  "generation_type": "random-generation",
+  "market_side": "long",
+  "attempt_budget": 1,
+  "wall_time_budget_minutes": 1,
+  "attempt_stop_guard": 0,
+  "stagnation_attempts": null,
+  "sq_genetic_shape": null,
+  "canonical_evaluation_capital": 2000,
+  "periods": {
+    "train_from": "2017-01-26",
+    "train_to": "2021-12-30",
+    "validation_from": "2021-12-31",
+    "validation_to": "2023-12-28",
+    "oos_from": "2023-12-29",
+    "oos_to": "2024-12-31",
+    "holdout_from": "2025-01-01",
+    "holdout_to": "2026-08-13"
+  },
+  "intraday_execution": {
+    "exit_at_end_of_day": false,
+    "eod_exit_seconds": null,
+    "signal_time_range_seconds": null,
+    "exit_at_end_of_range": false,
+    "maximum_trades_per_day": 1
+  },
+  "blocks": {
+    "enabled": 15,
+    "disabled": 500,
+    "search_space": null,
+    "genetic_parameters": {}
+  },
+  "holdout_sealed": true
+}

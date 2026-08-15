@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "created_before_result_access": true,
+  "candidate_id": "Strategy 0.24306",
+  "strategy_xml_sha256": "6cbf07564f2c59a1ae54c65d6c5fc848c81ecfed9c302c1cf78230f1e5c90d7d",
+  "period": {
+    "from": "2020-08-31",
+    "to": "2024-12-31",
+    "holdout_2025_accessed": false
+  },
+  "experiment": {
+    "engine": "StrategyQuant X native Monte Carlo",
+    "method": "RandomizeStrategyParameters",
+    "simulations": 1000,
+    "parameter_randomization_probability_pct": 100,
+    "maximum_parameter_change_pct": 10
+  },
+  "decision_gate": {
+    "minimum_profitable_simulation_ratio": 0.70,
+    "minimum_median_total_return": 0.0,
+    "minimum_p05_total_return": -0.15,
+    "maximum_zero_trade_simulation_ratio": 0.05,
+    "all_conditions_required": true
+  },
+  "interpretation": "This gate tests whether the statistical edge survives a broad local neighbourhood of the frozen parameters. Passing does not authorize paper or live trading; failing prevents promotion to portfolio testing."
+}

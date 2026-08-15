@@ -16,7 +16,6 @@ L'estat transversal, capital petit, paritat SQ i ordre de treball són a
 | `jpm_momentum60_month_end_v1` | JPM | Momentum mitjà mostrejat a final de mes | Admesa; aporta a cartera | [JPM](jpm_momentum60_month_end_v1.md) |
 | `sgln_tsmom12_capped_v1` | SGLN/IGLN/EGLN | Momentum 12 mesos sobre or físic | Admesa només com a sleeve ≤25% | [SGLN](sgln_tsmom12_capped_v1.md) |
 | `aapl_momentum60_month_end_v1` | AAPL | Momentum mitjà mostrejat a final de mes | Recerca admesa; cartera rebutjada | [AAPL](aapl_momentum60_month_end_v1.md) |
-| `aapl_h1_roc_cross_024306` | AAPL | Pullback/ROC H1 amb SL/PT ATR | Edge estadístic admès; integració pendent | [AAPL H1](aapl_h1_roc_cross_024306.md) |
 
 `Admesa per recerca` no significa autorització per operar. Encara cal la capa
 de cartera, risc, paper trading i validació d'execució IBKR abans de LIVE.

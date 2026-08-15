@@ -24,6 +24,7 @@ de tenir un mecanisme i una preregistració nous.
 | SPY turn-of-month recent | 2025–05/2026 tiered −0,73%, PF 0,961 | `data/ibkr_sq_v2/turn_of_month/spy_recent_holdout_v1.json` |
 | Turtle 50/20 ampliada | Nous actius PF 1,33, però t combinat només 1,22 i DD 36,8% | `data/ibkr_sq_v2/turtle_50_20/new_asset_transfer_v1.json` |
 | AAPL H1 Strategy 0.14113 | OOS tiered PF 1,004 i stress −10,98% | `data/ibkr_sq_v2/aapl_h1_shock_reversion_tiered_pilot/oos/0_14113/small_account_audit.json` |
+| AAPL H1 Strategy 0.24306 | Edge OOS aparent, però falla Monte Carlo paramètric natiu ±10% | [Fitxa](aapl_h1_roc_cross_024306.md) |
 
 Les watchlists i resultats condicionals no s'inclouen aquí fins que hi hagi una
 decisió formal de rebuig.

@@ -1,0 +1,16 @@
+Project: IBKR_V2_AAPL_H1_MC_PREHOLD_0_24306
+Log file: /global_log_20260815_185036.log
+
+--------------------------------------------------------------------------------------------------------------------------
+TASK STARTED at 2026.08.15 18:50:36.859
+Task: pre_holdout retest, Type: Retest
+Databanks before start: Results (1), PreHoldout (0)
+
+TASK FINISHED at 2026.08.15 18:52:16.981 in 1 min. 40 s.
+Databanks after finish: Results (1), PreHoldout (1)
+
+Total tested: 1, Time per strategy: 0 ms., Passed: 0, Failed: 1
+
+Time per strategy details:
+Monte Carlo retest methods: Count: 1, Avg. time: 9.5900 s., Total time: 9.5900 s., % of all: 41.66 %
+Main test: Count: 1, Avg. time: 13.4290 s., Total time: 13.4290 s., % of all: 58.34 %

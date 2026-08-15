@@ -41,6 +41,7 @@ class DashboardTest(unittest.TestCase):
             self.assertEqual(state["global_signal"]["decision"], "NO_SIGNAL")
             self.assertFalse(state["global_signal"]["live_trading_authorized"])
             self.assertEqual(state["link_watch"], {})
+            self.assertEqual(state["replication_watch"], {})
             self.assertEqual(state["opportunity_monitor"]["market"]["situation"], "PARTIAL_OR_STALE")
 
     def test_market_overview_and_paper_csv_are_factual(self):

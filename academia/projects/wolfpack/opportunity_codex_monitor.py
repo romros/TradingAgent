@@ -62,7 +62,7 @@ def snapshot(diary: Path, link_watch: Path, link_setup: Path | None = None) -> d
                          "short": link.get("consecutive_short", 0),
                          "required": 3,
                      },
-                     "setups": setup.get("setups", {}),
+                     "setups": setup.get("setups") or link.get("levels", {}),
                      "paper_execution": setup.get("paper_execution", {}),
                      "automatic_cancel": setup.get("automatic_cancel", []),
                      "position": link.get("position"),

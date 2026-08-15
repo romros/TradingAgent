@@ -10,6 +10,11 @@ const linkWatch = w => {
   return `<article class="card"><div class="badge">${esc(w.status)}<br>PAPER ONLY</div><div><h3>LINK/USD · ${esc(p.direction||'esperant ruptura')}</h3><p>Actualització: ${esc(fmt(q.captured_at))} · expira 15/08 12:00 UTC</p><div class="facts"><code>mid: ${esc(fmt(q.mid))}</code><code>confirmació short: ${esc(fmt(w.consecutive_short))}/3</code><code>confirmació long: ${esc(fmt(w.consecutive_long))}/3</code><code>entrada: ${esc(fmt(p.entry))}</code><code>stop: ${esc(fmt(p.stop))}</code><code>target 1: ${esc(fmt(p.target_1))}</code><code>target 2: ${esc(fmt(p.target_2))}</code><code>PnL realitzat: ${esc(fmt(w.realized_pnl_usdc))} USDC</code></div>${p.direction?(progress('Progrés target 1',pp.target_1_pct)+progress('Progrés target 2',pp.target_2_pct)):(progress('Proximitat short 8,72',wp.short_trigger_proximity_pct)+progress('Proximitat long 8,865',wp.long_trigger_proximity_pct))}</div></article>`;
 };
 const marketOverview = m => `<table><thead><tr><th>Mercat</th><th>Estat</th><th>Mid</th><th>1 h</th><th>4 h</th><th>Spread</th><th>Obert</th></tr></thead><tbody>${(m.universe||[]).map(x=>`<tr><td><strong>${esc(x.instrument)}</strong></td><td>${esc(x.status)}</td><td>${esc(fmt(x.mid))}</td><td class="${(x.change_1h_pct||0)>=0?'good':'bad'}">${esc(fmt(x.change_1h_pct))}%</td><td class="${(x.change_4h_pct||0)>=0?'good':'bad'}">${esc(fmt(x.change_4h_pct))}%</td><td>${esc(fmt(x.spread_bps))} bps</td><td>${x.market_open===true?'sí':x.market_open===false?'no':'—'}</td></tr>`).join('')}</tbody></table><p>${esc(m.interpretation||'')}</p>`;
+const replicationWatch = w => {
+  if(!w || !w.status) return '<div class="empty">Rèplica prospectiva encara no iniciada.</div>';
+  const q=w.last_quote||{}, l=w.levels||{}, p=w.position||{};
+  return `<article class="card"><div class="badge">V40 · ${esc(w.status)}<br>PAPER ONLY</div><div><h3>LINK/USD · rèplica relativa</h3><p>Anchor congelat: ${esc(fmt(w.anchor))} · actualització: ${esc(fmt(q.captured_at))}</p><div class="facts"><code>mid: ${esc(fmt(q.mid))}</code><code>short: ${esc(fmt(l.SHORT?.trigger))}</code><code>confirmació short: ${esc(fmt(w.consecutive_short))}/3</code><code>long: ${esc(fmt(l.LONG?.trigger))}</code><code>confirmació long: ${esc(fmt(w.consecutive_long))}/3</code><code>direcció: ${esc(fmt(p.direction))}</code><code>entrada: ${esc(fmt(p.entry))}</code><code>stop: ${esc(fmt(p.stop))}</code><code>target 1: ${esc(fmt(p.target_1))}</code><code>target 2: ${esc(fmt(p.target_2))}</code><code>PnL realitzat: ${esc(fmt(w.realized_pnl_usdc))} USDC</code></div></div></article>`;
+};
 document.querySelectorAll('.tab').forEach(button=>button.addEventListener('click',()=>{
   document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===button));
   document.querySelectorAll('.tab-panel').forEach(x=>x.classList.toggle('active',x.id===`tab-${button.dataset.tab}`));
@@ -27,6 +32,7 @@ async function refresh(){
     document.querySelector('#portfolio').innerHTML=pg.pass?'<strong>CARTERA PAPER PREPARADA</strong> · només titulars elegibles':'<strong>CARTERA BLOQUEJADA</strong> · '+pg.blockers.map(esc).join(' · ');
     document.querySelector('#roster').innerHTML=s.roster.profiles.length?s.roster.profiles.map(wolfCard).join(''):'<div class="empty">Cap llop al roster.</div>';
     document.querySelector('#link-watch').innerHTML=linkWatch(s.link_watch);
+    document.querySelector('#replication-watch').innerHTML=replicationWatch(s.replication_watch);
     document.querySelector('#market-overview').innerHTML=marketOverview(s.opportunity_monitor.market);
     const cr=s.opportunity_monitor.codex_review;
     document.querySelector('#codex-review').innerHTML=`<strong>${esc(cr.status||'WAITING')}</strong> · ${esc(cr.decision||'Codex només s’activarà quan canviï materialment un setup o el règim.')}`;

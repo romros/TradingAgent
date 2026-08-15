@@ -1,0 +1,360 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_FREEZE_ONE_FOR_OOS",
+  "preregistration_sha256": "77d364b39561a40f4e7eb973f5f9b03b96daea63d9ce196336d3455982998633",
+  "source_sha256": "4623392042865a4155fbc2a0ed9ab19740ba166e1d4088710aff04e823e2502a",
+  "stable_ids": [
+    "GLD_BREAKOUT_E60_X20",
+    "GLD_BREAKOUT_E120_X20",
+    "GLD_BREAKOUT_E120_X60"
+  ],
+  "selected_for_oos": "GLD_BREAKOUT_E120_X60",
+  "points": [
+    {
+      "id": "GLD_BREAKOUT_E60_X20",
+      "entry": 60,
+      "exit": 20,
+      "metrics": {
+        "train": {
+          "500": {
+            "trades": 10,
+            "return_pct": 6.1328000000000715,
+            "profit_factor": 1.4207119004035695,
+            "maximum_drawdown_pct": 5.1282445999999755
+          },
+          "1000": {
+            "trades": 10,
+            "return_pct": 8.640093700000051,
+            "profit_factor": 1.6002446790310505,
+            "maximum_drawdown_pct": 4.9443498999999775
+          }
+        },
+        "validation": {
+          "500": {
+            "trades": 3,
+            "return_pct": 5.136344400000037,
+            "profit_factor": 4.849867917010372,
+            "maximum_drawdown_pct": 1.2530805526671518
+          },
+          "1000": {
+            "trades": 3,
+            "return_pct": 5.956603800000049,
+            "profit_factor": 5.355192854581262,
+            "maximum_drawdown_pct": 1.2743632452843823
+          }
+        }
+      },
+      "period_pass": true,
+      "profitable_neighbors": 2,
+      "stable_pass": true
+    },
+    {
+      "id": "GLD_BREAKOUT_E60_X60",
+      "entry": 60,
+      "exit": 60,
+      "metrics": {
+        "train": {
+          "500": {
+            "trades": 7,
+            "return_pct": 3.4647234000000804,
+            "profit_factor": 1.2760176263871377,
+            "maximum_drawdown_pct": 5.286040399999992
+          },
+          "1000": {
+            "trades": 7,
+            "return_pct": 5.090399000000101,
+            "profit_factor": 1.3980725632998858,
+            "maximum_drawdown_pct": 5.633713799999985
+          }
+        },
+        "validation": {
+          "500": {
+            "trades": 1,
+            "return_pct": 8.358600200000033,
+            "profit_factor": null,
+            "maximum_drawdown_pct": 0.0
+          },
+          "1000": {
+            "trades": 1,
+            "return_pct": 8.558600200000033,
+            "profit_factor": null,
+            "maximum_drawdown_pct": 0.0
+          }
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 3,
+      "stable_pass": false
+    },
+    {
+      "id": "GLD_BREAKOUT_E60_X120",
+      "entry": 60,
+      "exit": 120,
+      "metrics": {
+        "train": {
+          "500": {
+            "trades": 3,
+            "return_pct": 30.44732060000004,
+            "profit_factor": 4.018573524437529,
+            "maximum_drawdown_pct": 5.072534289279885
+          },
+          "1000": {
+            "trades": 3,
+            "return_pct": 30.59463910000002,
+            "profit_factor": 4.017419161233196,
+            "maximum_drawdown_pct": 4.928882403394175
+          }
+        },
+        "validation": {
+          "500": {
+            "trades": 1,
+            "return_pct": 5.205756200000011,
+            "profit_factor": null,
+            "maximum_drawdown_pct": 0.0
+          },
+          "1000": {
+            "trades": 1,
+            "return_pct": 5.4057562000000114,
+            "profit_factor": null,
+            "maximum_drawdown_pct": 0.0
+          }
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 1,
+      "stable_pass": false
+    },
+    {
+      "id": "GLD_BREAKOUT_E120_X20",
+      "entry": 120,
+      "exit": 20,
+      "metrics": {
+        "train": {
+          "500": {
+            "trades": 6,
+            "return_pct": 4.006359000000059,
+            "profit_factor": 1.4025136422416087,
+            "maximum_drawdown_pct": 6.872365605607367
+          },
+          "1000": {
+            "trades": 6,
+            "return_pct": 7.873514200000042,
+            "profit_factor": 1.7319878348647793,
+            "maximum_drawdown_pct": 7.355363145223204
+          }
+        },
+        "validation": {
+          "500": {
+            "trades": 3,
+            "return_pct": 1.3955884000000252,
+            "profit_factor": 2.0460418126385522,
+            "maximum_drawdown_pct": 1.298709677766019
+          },
+          "1000": {
+            "trades": 3,
+            "return_pct": 3.0731232000000164,
+            "profit_factor": 3.2469253707772054,
+            "maximum_drawdown_pct": 1.309546821301577
+          }
+        }
+      },
+      "period_pass": true,
+      "profitable_neighbors": 2,
+      "stable_pass": true
+    },
+    {
+      "id": "GLD_BREAKOUT_E120_X60",
+      "entry": 120,
+      "exit": 60,
+      "metrics": {
+        "train": {
+          "500": {
+            "trades": 5,
+            "return_pct": 3.8361248000000625,
+            "profit_factor": 1.4727155513403136,
+            "maximum_drawdown_pct": 4.547251821010656
+          },
+          "1000": {
+            "trades": 5,
+            "return_pct": 4.6844991000000835,
+            "profit_factor": 1.5243297970922314,
+            "maximum_drawdown_pct": 4.989910791484176
+          }
+        },
+        "validation": {
+          "500": {
+            "trades": 2,
+            "return_pct": 2.7585208000000083,
+            "profit_factor": 4.638126700021855,
+            "maximum_drawdown_pct": 0.7582255999999843
+          },
+          "1000": {
+            "trades": 2,
+            "return_pct": 4.048151000000022,
+            "profit_factor": 7.249248975735941,
+            "maximum_drawdown_pct": 0.6477819999999745
+          }
+        }
+      },
+      "period_pass": true,
+      "profitable_neighbors": 2,
+      "stable_pass": true
+    },
+    {
+      "id": "GLD_BREAKOUT_E120_X120",
+      "entry": 120,
+      "exit": 120,
+      "metrics": {
+        "train": {
+          "500": {
+            "trades": 2,
+            "return_pct": 22.824039400000018,
+            "profit_factor": 5.30945785021791,
+            "maximum_drawdown_pct": 5.296266999999988
+          },
+          "1000": {
+            "trades": 2,
+            "return_pct": 27.16137930000002,
+            "profit_factor": 5.594037255986947,
+            "maximum_drawdown_pct": 5.912311499999989
+          }
+        },
+        "validation": {
+          "500": {
+            "trades": 2,
+            "return_pct": -2.616498799999989,
+            "profit_factor": 0.35096200547449585,
+            "maximum_drawdown_pct": 4.0313491999999895
+          },
+          "1000": {
+            "trades": 2,
+            "return_pct": -2.670623499999991,
+            "profit_factor": 0.43648060695649066,
+            "maximum_drawdown_pct": 4.739186499999981
+          }
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 2,
+      "stable_pass": false
+    },
+    {
+      "id": "GLD_BREAKOUT_E200_X20",
+      "entry": 200,
+      "exit": 20,
+      "metrics": {
+        "train": {
+          "500": {
+            "trades": 5,
+            "return_pct": 1.5455256000000306,
+            "profit_factor": 1.138991877271174,
+            "maximum_drawdown_pct": 7.035342055018035
+          },
+          "1000": {
+            "trades": 5,
+            "return_pct": 3.648835500000036,
+            "profit_factor": 1.3011360579026021,
+            "maximum_drawdown_pct": 7.555507472846445
+          }
+        },
+        "validation": {
+          "500": {
+            "trades": 2,
+            "return_pct": -2.745786399999972,
+            "profit_factor": 0.0,
+            "maximum_drawdown_pct": 2.745786399999972
+          },
+          "1000": {
+            "trades": 2,
+            "return_pct": -2.832232999999973,
+            "profit_factor": 0.0,
+            "maximum_drawdown_pct": 2.832232999999973
+          }
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 1,
+      "stable_pass": false
+    },
+    {
+      "id": "GLD_BREAKOUT_E200_X60",
+      "entry": 200,
+      "exit": 60,
+      "metrics": {
+        "train": {
+          "500": {
+            "trades": 4,
+            "return_pct": 2.3716940000000575,
+            "profit_factor": 1.2590318033580563,
+            "maximum_drawdown_pct": 4.612837823822913
+          },
+          "1000": {
+            "trades": 4,
+            "return_pct": 3.560507000000057,
+            "profit_factor": 1.3773827585736231,
+            "maximum_drawdown_pct": 4.951189799999989
+          }
+        },
+        "validation": {
+          "500": {
+            "trades": 2,
+            "return_pct": -6.149978799999978,
+            "profit_factor": 0.0,
+            "maximum_drawdown_pct": 6.149978799999978
+          },
+          "1000": {
+            "trades": 2,
+            "return_pct": -7.087473499999975,
+            "profit_factor": 0.0,
+            "maximum_drawdown_pct": 7.087473499999975
+          }
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 1,
+      "stable_pass": false
+    },
+    {
+      "id": "GLD_BREAKOUT_E200_X120",
+      "entry": 200,
+      "exit": 120,
+      "metrics": {
+        "train": {
+          "500": {
+            "trades": 1,
+            "return_pct": 23.430221000000007,
+            "profit_factor": null,
+            "maximum_drawdown_pct": 0.0
+          },
+          "1000": {
+            "trades": 1,
+            "return_pct": 27.601924499999985,
+            "profit_factor": null,
+            "maximum_drawdown_pct": 0.0
+          }
+        },
+        "validation": {
+          "500": {
+            "trades": 2,
+            "return_pct": -11.524998399999987,
+            "profit_factor": 0.0,
+            "maximum_drawdown_pct": 11.524998399999987
+          },
+          "1000": {
+            "trades": 2,
+            "return_pct": -12.739541699999968,
+            "profit_factor": 0.0,
+            "maximum_drawdown_pct": 12.739541699999968
+          }
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    }
+  ],
+  "oos_accessed": false,
+  "sqcli_started": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

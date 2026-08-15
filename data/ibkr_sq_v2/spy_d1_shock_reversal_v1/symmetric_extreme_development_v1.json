@@ -1,0 +1,843 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_DEVELOPMENT",
+  "preregistration_sha256": "8005166ecded67ea3c1b52b77eaa00a6c133d195ed541a3e80e25e76f33b8bed",
+  "source_sha256": "3d1874ef58daf88062af8a86eb66990aaa082e1d235d41d0d55405e72078bc26",
+  "variants": 36,
+  "stable_ids": [],
+  "selected_for_exact_qqq_transfer": null,
+  "points": [
+    {
+      "id": "SPY_SYM_010_H1_LONG",
+      "threshold": 0.01,
+      "hold": 1,
+      "side": "long",
+      "metrics": {
+        "early": {
+          "trades": 75,
+          "return_pct": -22.013508599999255,
+          "profit_factor": 0.4950112065671872,
+          "maximum_drawdown_pct": 24.29148184786922
+        },
+        "late": {
+          "trades": 91,
+          "return_pct": -37.824378699999386,
+          "profit_factor": 0.26912171976102256,
+          "maximum_drawdown_pct": 38.485220899218874
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_010_H1_SHORT",
+      "threshold": 0.01,
+      "hold": 1,
+      "side": "short",
+      "metrics": {
+        "early": {
+          "trades": 101,
+          "return_pct": -27.734881099999107,
+          "profit_factor": 0.544523004750502,
+          "maximum_drawdown_pct": 27.734881099999107
+        },
+        "late": {
+          "trades": 106,
+          "return_pct": -35.303229399999225,
+          "profit_factor": 0.28122200757068583,
+          "maximum_drawdown_pct": 35.49762509226624
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_010_H1_BOTH",
+      "threshold": 0.01,
+      "hold": 1,
+      "side": "both",
+      "metrics": {
+        "early": {
+          "trades": 147,
+          "return_pct": -39.43651149999879,
+          "profit_factor": 0.491614731024712,
+          "maximum_drawdown_pct": 39.73791185177542
+        },
+        "late": {
+          "trades": 173,
+          "return_pct": -51.58805939999893,
+          "profit_factor": 0.29870141532897987,
+          "maximum_drawdown_pct": 52.01207922830008
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 1,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_010_H3_LONG",
+      "threshold": 0.01,
+      "hold": 3,
+      "side": "long",
+      "metrics": {
+        "early": {
+          "trades": 58,
+          "return_pct": -5.082373699999487,
+          "profit_factor": 0.8906857834813843,
+          "maximum_drawdown_pct": 19.70859094247446
+        },
+        "late": {
+          "trades": 70,
+          "return_pct": -13.836157599999355,
+          "profit_factor": 0.7827956176918596,
+          "maximum_drawdown_pct": 20.82546756150124
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_010_H3_SHORT",
+      "threshold": 0.01,
+      "hold": 3,
+      "side": "short",
+      "metrics": {
+        "early": {
+          "trades": 74,
+          "return_pct": -34.21361889999942,
+          "profit_factor": 0.4988320190681436,
+          "maximum_drawdown_pct": 36.543187801494604
+        },
+        "late": {
+          "trades": 82,
+          "return_pct": -28.863127499999408,
+          "profit_factor": 0.4857303167582647,
+          "maximum_drawdown_pct": 28.88457249939308
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_010_H3_BOTH",
+      "threshold": 0.01,
+      "hold": 3,
+      "side": "both",
+      "metrics": {
+        "early": {
+          "trades": 95,
+          "return_pct": 33.056109900001054,
+          "profit_factor": 1.4392333257749286,
+          "maximum_drawdown_pct": 13.304591273682686
+        },
+        "late": {
+          "trades": 112,
+          "return_pct": 5.517703200001067,
+          "profit_factor": 1.075397589403682,
+          "maximum_drawdown_pct": 14.951750871861558
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_010_H5_LONG",
+      "threshold": 0.01,
+      "hold": 5,
+      "side": "long",
+      "metrics": {
+        "early": {
+          "trades": 47,
+          "return_pct": 13.839861800000431,
+          "profit_factor": 1.2846488802696001,
+          "maximum_drawdown_pct": 22.56927769502929
+        },
+        "late": {
+          "trades": 57,
+          "return_pct": -9.516209199999404,
+          "profit_factor": 0.8317096483261434,
+          "maximum_drawdown_pct": 19.88292129073227
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_010_H5_SHORT",
+      "threshold": 0.01,
+      "hold": 5,
+      "side": "short",
+      "metrics": {
+        "early": {
+          "trades": 60,
+          "return_pct": -23.405129199999443,
+          "profit_factor": 0.6742024085032786,
+          "maximum_drawdown_pct": 30.31237450980425
+        },
+        "late": {
+          "trades": 64,
+          "return_pct": -35.47758699999963,
+          "profit_factor": 0.40149664862141654,
+          "maximum_drawdown_pct": 36.55862673166461
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_010_H5_BOTH",
+      "threshold": 0.01,
+      "hold": 5,
+      "side": "both",
+      "metrics": {
+        "early": {
+          "trades": 73,
+          "return_pct": 15.02433750000074,
+          "profit_factor": 1.2123025078524006,
+          "maximum_drawdown_pct": 25.511094787483646
+        },
+        "late": {
+          "trades": 86,
+          "return_pct": -27.506210299999378,
+          "profit_factor": 0.6663523250709966,
+          "maximum_drawdown_pct": 33.766285337438816
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 1,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_015_H1_LONG",
+      "threshold": 0.015,
+      "hold": 1,
+      "side": "long",
+      "metrics": {
+        "early": {
+          "trades": 54,
+          "return_pct": -14.502520099999439,
+          "profit_factor": 0.6383872750597229,
+          "maximum_drawdown_pct": 17.18901655069961
+        },
+        "late": {
+          "trades": 52,
+          "return_pct": -17.966906199999567,
+          "profit_factor": 0.44426026987298584,
+          "maximum_drawdown_pct": 19.18405144135249
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_015_H1_SHORT",
+      "threshold": 0.015,
+      "hold": 1,
+      "side": "short",
+      "metrics": {
+        "early": {
+          "trades": 48,
+          "return_pct": -12.533116999999427,
+          "profit_factor": 0.6409634752169924,
+          "maximum_drawdown_pct": 12.533116999999427
+        },
+        "late": {
+          "trades": 56,
+          "return_pct": -18.243584599999462,
+          "profit_factor": 0.45152616859680417,
+          "maximum_drawdown_pct": 18.39872087181402
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_015_H1_BOTH",
+      "threshold": 0.015,
+      "hold": 1,
+      "side": "both",
+      "metrics": {
+        "early": {
+          "trades": 87,
+          "return_pct": -16.357706099999124,
+          "profit_factor": 0.7226165661786071,
+          "maximum_drawdown_pct": 16.574613107025492
+        },
+        "late": {
+          "trades": 98,
+          "return_pct": -32.36784179999922,
+          "profit_factor": 0.41920495584814543,
+          "maximum_drawdown_pct": 32.9343134626507
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_015_H3_LONG",
+      "threshold": 0.015,
+      "hold": 3,
+      "side": "long",
+      "metrics": {
+        "early": {
+          "trades": 42,
+          "return_pct": -10.964058599999593,
+          "profit_factor": 0.7719404890165585,
+          "maximum_drawdown_pct": 25.53339381556655
+        },
+        "late": {
+          "trades": 43,
+          "return_pct": -22.510839599999642,
+          "profit_factor": 0.5340247295589566,
+          "maximum_drawdown_pct": 26.63665030142851
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_015_H3_SHORT",
+      "threshold": 0.015,
+      "hold": 3,
+      "side": "short",
+      "metrics": {
+        "early": {
+          "trades": 35,
+          "return_pct": -4.815884699999595,
+          "profit_factor": 0.8851869295588218,
+          "maximum_drawdown_pct": 11.22858349153435
+        },
+        "late": {
+          "trades": 45,
+          "return_pct": -25.34588759999965,
+          "profit_factor": 0.43926635449007817,
+          "maximum_drawdown_pct": 25.368392910380745
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_015_H3_BOTH",
+      "threshold": 0.015,
+      "hold": 3,
+      "side": "both",
+      "metrics": {
+        "early": {
+          "trades": 58,
+          "return_pct": -23.12927099999943,
+          "profit_factor": 0.6379839839285815,
+          "maximum_drawdown_pct": 29.474960043101493
+        },
+        "late": {
+          "trades": 67,
+          "return_pct": -30.93396579999962,
+          "profit_factor": 0.4914732693567223,
+          "maximum_drawdown_pct": 32.59673834464728
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 1,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_015_H5_LONG",
+      "threshold": 0.015,
+      "hold": 5,
+      "side": "long",
+      "metrics": {
+        "early": {
+          "trades": 33,
+          "return_pct": 17.54106910000037,
+          "profit_factor": 1.4587835213360723,
+          "maximum_drawdown_pct": 17.640069311184092
+        },
+        "late": {
+          "trades": 35,
+          "return_pct": -15.857749399999665,
+          "profit_factor": 0.6013295028985611,
+          "maximum_drawdown_pct": 21.51860556124301
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_015_H5_SHORT",
+      "threshold": 0.015,
+      "hold": 5,
+      "side": "short",
+      "metrics": {
+        "early": {
+          "trades": 30,
+          "return_pct": -13.305601899999598,
+          "profit_factor": 0.7417906958233128,
+          "maximum_drawdown_pct": 21.18781336101353
+        },
+        "late": {
+          "trades": 37,
+          "return_pct": -14.686768099999703,
+          "profit_factor": 0.6489805965015939,
+          "maximum_drawdown_pct": 16.576713071682857
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_015_H5_BOTH",
+      "threshold": 0.015,
+      "hold": 5,
+      "side": "both",
+      "metrics": {
+        "early": {
+          "trades": 47,
+          "return_pct": -13.782042199999545,
+          "profit_factor": 0.7605863715503545,
+          "maximum_drawdown_pct": 27.194595148955326
+        },
+        "late": {
+          "trades": 54,
+          "return_pct": -31.272393799999698,
+          "profit_factor": 0.4565514620264671,
+          "maximum_drawdown_pct": 33.135884528909976
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_020_H1_LONG",
+      "threshold": 0.02,
+      "hold": 1,
+      "side": "long",
+      "metrics": {
+        "early": {
+          "trades": 37,
+          "return_pct": -11.63222319999968,
+          "profit_factor": 0.5939059750617899,
+          "maximum_drawdown_pct": 15.513222799999793
+        },
+        "late": {
+          "trades": 26,
+          "return_pct": -8.508248599999801,
+          "profit_factor": 0.43037292437822555,
+          "maximum_drawdown_pct": 10.19193815404491
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_020_H1_SHORT",
+      "threshold": 0.02,
+      "hold": 1,
+      "side": "short",
+      "metrics": {
+        "early": {
+          "trades": 25,
+          "return_pct": 0.9762304000003219,
+          "profit_factor": 1.0511026059428974,
+          "maximum_drawdown_pct": 6.396341016206087
+        },
+        "late": {
+          "trades": 26,
+          "return_pct": -8.157266399999774,
+          "profit_factor": 0.545698154312701,
+          "maximum_drawdown_pct": 9.800043090758582
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_020_H1_BOTH",
+      "threshold": 0.02,
+      "hold": 1,
+      "side": "both",
+      "metrics": {
+        "early": {
+          "trades": 52,
+          "return_pct": -6.8956722999994895,
+          "profit_factor": 0.7886374886429532,
+          "maximum_drawdown_pct": 11.467126999999778
+        },
+        "late": {
+          "trades": 46,
+          "return_pct": -15.098955399999625,
+          "profit_factor": 0.5015117882427264,
+          "maximum_drawdown_pct": 18.14755924511783
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_020_H3_LONG",
+      "threshold": 0.02,
+      "hold": 3,
+      "side": "long",
+      "metrics": {
+        "early": {
+          "trades": 29,
+          "return_pct": -13.199457899999711,
+          "profit_factor": 0.673478314107913,
+          "maximum_drawdown_pct": 26.292239202481394
+        },
+        "late": {
+          "trades": 23,
+          "return_pct": -10.66502919999982,
+          "profit_factor": 0.6011954098401707,
+          "maximum_drawdown_pct": 15.592548727444111
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_020_H3_SHORT",
+      "threshold": 0.02,
+      "hold": 3,
+      "side": "short",
+      "metrics": {
+        "early": {
+          "trades": 19,
+          "return_pct": 7.103767500000147,
+          "profit_factor": 1.3257032914536537,
+          "maximum_drawdown_pct": 7.639937914921536
+        },
+        "late": {
+          "trades": 23,
+          "return_pct": -10.690728399999848,
+          "profit_factor": 0.5652330550737973,
+          "maximum_drawdown_pct": 13.958556594745685
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 1,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_020_H3_BOTH",
+      "threshold": 0.02,
+      "hold": 3,
+      "side": "both",
+      "metrics": {
+        "early": {
+          "trades": 37,
+          "return_pct": 21.97344370000036,
+          "profit_factor": 1.6590590568127181,
+          "maximum_drawdown_pct": 12.413784269828254
+        },
+        "late": {
+          "trades": 35,
+          "return_pct": -14.306637999999772,
+          "profit_factor": 0.6294712059028158,
+          "maximum_drawdown_pct": 19.672326744768064
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_020_H5_LONG",
+      "threshold": 0.02,
+      "hold": 5,
+      "side": "long",
+      "metrics": {
+        "early": {
+          "trades": 25,
+          "return_pct": 17.493450100000295,
+          "profit_factor": 1.6224836962876088,
+          "maximum_drawdown_pct": 17.47191940172248
+        },
+        "late": {
+          "trades": 18,
+          "return_pct": -15.144910399999889,
+          "profit_factor": 0.34338194541043643,
+          "maximum_drawdown_pct": 18.183318433384144
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_020_H5_SHORT",
+      "threshold": 0.02,
+      "hold": 5,
+      "side": "short",
+      "metrics": {
+        "early": {
+          "trades": 16,
+          "return_pct": 5.936804800000228,
+          "profit_factor": 1.2070957256311283,
+          "maximum_drawdown_pct": 16.148984595003423
+        },
+        "late": {
+          "trades": 19,
+          "return_pct": -15.373588399999882,
+          "profit_factor": 0.3136441525474468,
+          "maximum_drawdown_pct": 16.132708960506537
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 1,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_020_H5_BOTH",
+      "threshold": 0.02,
+      "hold": 5,
+      "side": "both",
+      "metrics": {
+        "early": {
+          "trades": 30,
+          "return_pct": -1.4771008999996282,
+          "profit_factor": 0.9635482766505191,
+          "maximum_drawdown_pct": 18.79417041301329
+        },
+        "late": {
+          "trades": 29,
+          "return_pct": -28.028048699999886,
+          "profit_factor": 0.2934735104526403,
+          "maximum_drawdown_pct": 28.720992419169445
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_025_H1_LONG",
+      "threshold": 0.025,
+      "hold": 1,
+      "side": "long",
+      "metrics": {
+        "early": {
+          "trades": 28,
+          "return_pct": -4.464134799999719,
+          "profit_factor": 0.805730721910876,
+          "maximum_drawdown_pct": 10.13321182971102
+        },
+        "late": {
+          "trades": 13,
+          "return_pct": -5.113613599999878,
+          "profit_factor": 0.32203687708658574,
+          "maximum_drawdown_pct": 5.526123766343294
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_025_H1_SHORT",
+      "threshold": 0.025,
+      "hold": 1,
+      "side": "short",
+      "metrics": {
+        "early": {
+          "trades": 18,
+          "return_pct": 5.9641955000002245,
+          "profit_factor": 1.4225318850571476,
+          "maximum_drawdown_pct": 6.607629102995205
+        },
+        "late": {
+          "trades": 10,
+          "return_pct": -2.1807703999999317,
+          "profit_factor": 0.6380443880981742,
+          "maximum_drawdown_pct": 3.9267227887177847
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 1,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_025_H1_BOTH",
+      "threshold": 0.025,
+      "hold": 1,
+      "side": "both",
+      "metrics": {
+        "early": {
+          "trades": 39,
+          "return_pct": 5.3188524000003845,
+          "profit_factor": 1.2053367201230554,
+          "maximum_drawdown_pct": 6.6783480370841914
+        },
+        "late": {
+          "trades": 22,
+          "return_pct": -5.7329713999998315,
+          "profit_factor": 0.5224977796827349,
+          "maximum_drawdown_pct": 7.165968978091064
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_025_H3_LONG",
+      "threshold": 0.025,
+      "hold": 3,
+      "side": "long",
+      "metrics": {
+        "early": {
+          "trades": 21,
+          "return_pct": -16.770177299999823,
+          "profit_factor": 0.5458694025522682,
+          "maximum_drawdown_pct": 26.822890803612598
+        },
+        "late": {
+          "trades": 11,
+          "return_pct": -10.154580999999908,
+          "profit_factor": 0.3192730616943609,
+          "maximum_drawdown_pct": 11.729801357128977
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_025_H3_SHORT",
+      "threshold": 0.025,
+      "hold": 3,
+      "side": "short",
+      "metrics": {
+        "early": {
+          "trades": 13,
+          "return_pct": 14.141251500000118,
+          "profit_factor": 2.1439095077137518,
+          "maximum_drawdown_pct": 4.478906642281554
+        },
+        "late": {
+          "trades": 9,
+          "return_pct": 5.627410400000055,
+          "profit_factor": 2.461056101137719,
+          "maximum_drawdown_pct": 2.6587469654289264
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 1,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_025_H3_BOTH",
+      "threshold": 0.025,
+      "hold": 3,
+      "side": "both",
+      "metrics": {
+        "early": {
+          "trades": 26,
+          "return_pct": 16.237266400000316,
+          "profit_factor": 1.6271645876014513,
+          "maximum_drawdown_pct": 12.754875308528202
+        },
+        "late": {
+          "trades": 18,
+          "return_pct": -4.868766999999852,
+          "profit_factor": 0.685159718313302,
+          "maximum_drawdown_pct": 7.963684756211597
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_025_H5_LONG",
+      "threshold": 0.025,
+      "hold": 5,
+      "side": "long",
+      "metrics": {
+        "early": {
+          "trades": 20,
+          "return_pct": 27.391597200000263,
+          "profit_factor": 2.235916520317929,
+          "maximum_drawdown_pct": 16.585913654231643
+        },
+        "late": {
+          "trades": 9,
+          "return_pct": -11.25876719999994,
+          "profit_factor": 0.18985829847267954,
+          "maximum_drawdown_pct": 12.113165042345564
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_025_H5_SHORT",
+      "threshold": 0.025,
+      "hold": 5,
+      "side": "short",
+      "metrics": {
+        "early": {
+          "trades": 11,
+          "return_pct": 18.17613780000016,
+          "profit_factor": 2.5786828190913456,
+          "maximum_drawdown_pct": 5.6546149445984355
+        },
+        "late": {
+          "trades": 9,
+          "return_pct": 7.809390200000044,
+          "profit_factor": 2.1226090943554707,
+          "maximum_drawdown_pct": 3.3665134286826603
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 1,
+      "stable_pass": false
+    },
+    {
+      "id": "SPY_SYM_025_H5_BOTH",
+      "threshold": 0.025,
+      "hold": 5,
+      "side": "both",
+      "metrics": {
+        "early": {
+          "trades": 23,
+          "return_pct": -5.159685499999711,
+          "profit_factor": 0.8493991793482989,
+          "maximum_drawdown_pct": 18.991445721718346
+        },
+        "late": {
+          "trades": 16,
+          "return_pct": 0.13014420000008187,
+          "profit_factor": 1.0075340111069349,
+          "maximum_drawdown_pct": 7.450988037372019
+        }
+      },
+      "period_pass": false,
+      "profitable_neighbors": 0,
+      "stable_pass": false
+    }
+  ],
+  "spy_oos_accessed": false,
+  "qqq_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

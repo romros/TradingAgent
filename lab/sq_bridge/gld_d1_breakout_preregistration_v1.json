@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "campaign_id": "gld-d1-breakout-v1",
+  "created_before_performance_access": true,
+  "asset": "GLD",
+  "provider_symbol": "GLDUSUSD",
+  "mechanism": "medium_term_time_series_breakout",
+  "rule": "Enter next open after close exceeds the highest prior N closes; exit next open after close falls below the lowest prior M closes; one long position.",
+  "finite_grid": {
+    "entry_lookbacks": [60, 120, 200],
+    "exit_lookbacks": [20, 60, 120],
+    "total_variants": 9
+  },
+  "periods": {
+    "train": ["2017-05-11", "2021-12-31"],
+    "validation": ["2022-01-01", "2023-12-31"],
+    "oos": ["2024-01-01", "2024-12-31"]
+  },
+  "economics": {"capitals_usd": [500, 1000], "whole_shares": true, "adverse_slippage_each_side_bps": 10, "minimum_commission_per_order_usd": 1, "compounding": true},
+  "gates": {"train_minimum_trades": 4, "validation_minimum_trades": 2, "minimum_profit_factor_each_period": 1.10, "maximum_drawdown_pct": 20, "minimum_profitable_adjacent_variants": 2, "oos_minimum_trades": 1, "oos_minimum_profit_factor": 1.05},
+  "selection": "Stable train+validation region first; one exact variant frozen before opening 2024.",
+  "sqcli_only_after_oos_pass": true,
+  "paper_authorized": false,
+  "live_authorized": false
+}

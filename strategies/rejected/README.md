@@ -14,7 +14,8 @@ de tenir un mecanisme i una preregistració nous.
 | Multi-asset dual momentum | Validació −28,08%, PF 0,247 | `data/ibkr_sq_v2/multi_asset_dual_momentum/screen_v1.json` |
 | IBS daily reversion | Cap actiu transferible positiu | `data/ibkr_sq_v2/ibs_reversion/screen_v1.json` |
 | Confirmed capitulation cross-asset | Només 1/36 variants passa; regió fràgil | `data/ibkr_sq_v2/confirmed_capitulation_cross_asset_v1/screen.json` |
+| SPY D1 short reversal | Dues famílies sense regió estable després de costos | [Fitxa](spy_d1_short_reversal_families.md) |
+| GLD D1 breakout | Zero trades completats al 2024 OOS | [Fitxa](gld_d1_breakout_v1.md) |
 
 Les watchlists i resultats condicionals no s'inclouen aquí fins que hi hagi una
 decisió formal de rebuig.
-

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_OOS",
+  "candidate_id": "GLD_BREAKOUT_E120_X60",
+  "lock_sha256": "7bab05405fe13d3922fceac81254e6a2f711476c1da4e498e81836c917d44d91",
+  "source_sha256": "bb8284831e039bc7d99ffd8e036d798938eca2b9c58c2b0e46a366b9915da783",
+  "period": [
+    "2024-01-01",
+    "2024-12-31"
+  ],
+  "whole_share_ibkr_stress": {
+    "500": {
+      "trades": 0,
+      "return_pct": 0.0,
+      "profit_factor": null,
+      "maximum_drawdown_pct": 0.0
+    },
+    "1000": {
+      "trades": 0,
+      "return_pct": 0.0,
+      "profit_factor": null,
+      "maximum_drawdown_pct": 0.0
+    }
+  },
+  "completed_trade_details": [],
+  "oos_accessed": true,
+  "sqcli_authorized": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

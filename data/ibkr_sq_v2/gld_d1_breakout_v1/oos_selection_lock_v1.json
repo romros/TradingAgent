@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "campaign_id": "gld-d1-breakout-v1",
+  "selected_candidate_id": "GLD_BREAKOUT_E120_X60",
+  "entry_lookback_sessions": 120,
+  "exit_lookback_sessions": 60,
+  "preregistration_sha256": "77d364b39561a40f4e7eb973f5f9b03b96daea63d9ce196336d3455982998633",
+  "development_artifact_sha256": "8627227f77546e328e1a000614748c61294c0d96cad5b2158fb0a822adcfd5c5",
+  "development_source_sha256": "4623392042865a4155fbc2a0ed9ab19740ba166e1d4088710aff04e823e2502a",
+  "selection_basis": "highest worst-period PF among three stable neighboring variants",
+  "oos_period": ["2024-01-01", "2024-12-31"],
+  "oos_accessed": false,
+  "sqcli_started": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "campaign_id": "spy-d1-shock-reversal-v1",
+  "created_before_performance_access": true,
+  "asset": "SPY",
+  "provider_symbol": "SPYUSUSD",
+  "timeframe": "D1_NYSE_RTH",
+  "direction": "long_only",
+  "hypothesis": "Short forced-selling shocks mean-revert over 1-5 sessions when the long-term trend is rising.",
+  "signal_semantics": {
+    "trend": "Close[0] > SMA(Close,200)[0] AND SMA(Close,200)[0] > SMA(Close,200)[20]",
+    "shock_1d": "Close[0] / Close[1] - 1 <= threshold",
+    "shock_3d": "Close[0] / Close[3] - 1 <= threshold",
+    "entry": "next_session_open",
+    "exit": "open_after_hold_sessions",
+    "overlap": "one_position; a signal while invested is ignored",
+    "stops_or_targets": "none in discovery"
+  },
+  "finite_grid": {
+    "shock_1d_thresholds": [-0.015, -0.020, -0.025],
+    "shock_3d_thresholds": [-0.030, -0.040, -0.050],
+    "holding_sessions": [1, 3, 5],
+    "total_variants": 18
+  },
+  "periods": {
+    "train": ["2017-05-11", "2021-12-31"],
+    "validation": ["2022-01-01", "2023-12-31"],
+    "oos": ["2024-01-01", "2024-12-31"],
+    "recent_confirmation": ["2025-01-01", "2026-08-13"]
+  },
+  "economics": {
+    "capitals_usd": [500, 1000],
+    "whole_shares": true,
+    "adverse_slippage_each_side_bps": 10,
+    "minimum_commission_per_order_usd": 1,
+    "compounding": true
+  },
+  "gates": {
+    "train_minimum_trades": 15,
+    "train_minimum_stress_profit_factor": 1.15,
+    "validation_minimum_trades": 8,
+    "validation_minimum_stress_profit_factor": 1.10,
+    "validation_maximum_stress_drawdown_pct": 20,
+    "minimum_profitable_adjacent_variants": 2,
+    "oos_minimum_trades": 4,
+    "oos_minimum_stress_profit_factor": 1.10,
+    "oos_maximum_stress_drawdown_pct": 20
+  },
+  "selection": "Select one stable train region, then one validation winner without opening OOS.",
+  "sqcli_only_after_validation_pass": true,
+  "paper_authorized": false,
+  "live_authorized": false
+}

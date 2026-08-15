@@ -1,0 +1,17 @@
+{
+  "databank_sync_receipt_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/aapl_momentum60_v1/native_holdout/run/retest_databank_sync_receipt.json",
+  "databank_sync_receipt_sha256": "dc5b348d453d0dd34e776d484ec1f4faa2a6bd6b9d46a3ef0705328b8b32f997",
+  "decision": "PASS_RETEST_STARTED",
+  "holdout_accessed": true,
+  "holdout_evaluation_count": 1,
+  "input_copy_path": "/mnt/volume-SQ/user/projects/IBKR_V4_AAPL_MOMENTUM60_HOLDOUT/databanks/Results/AAPL_MOMENTUM60_MONTH_END_V1.sqx",
+  "input_copy_sha256": "0af742397206a4e2799a565a0463531941ebcbfe7ffa786bbd644ff963802998",
+  "preflight_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/aapl_momentum60_v1/native_holdout/run/retest_preflight.json",
+  "preflight_sha256": "65a05829a6eb0e67264bb2742423cc1ae746f58f59d6330780a1fb81968a42d4",
+  "project_name": "IBKR_V4_AAPL_MOMENTUM60_HOLDOUT",
+  "response": {
+    "success": "Project execution started."
+  },
+  "retest_stage": "holdout",
+  "schema_version": 1
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-confirmed-capitulation-d1-v1",
+  "hypothesis": "A volatility-normalized daily selloff followed by a partial recovery identifies temporary forced selling in liquid US equities.",
+  "assets": ["AAPL", "CMI", "DE", "JNJ", "JPM", "KO", "UNP"],
+  "periods": {
+    "train": ["2017-01-01", "2020-12-31"],
+    "validation": ["2021-01-01", "2022-12-31"],
+    "oos": ["2023-01-01", "2024-12-31"]
+  },
+  "grid": {
+    "drop_z": [1.5, 2.0, 2.5],
+    "recovery_fraction": [0.25, 0.5],
+    "holding_days": [1, 2, 3],
+    "regime_sma200": [false, true]
+  },
+  "execution": "signal at recovery close, enter next open, exit next open after holding_days completed sessions",
+  "cost_bps_round_trip": 30,
+  "variant_gate": {"minimum_trades_combined": 15, "minimum_profit_factor": 1.1, "positive_return": true, "maximum_drawdown": 0.2},
+  "family_gate": {"minimum_passing_variants": 12, "minimum_assets_positive_central_variant": 4},
+  "central_variant": {"drop_z": 2.0, "recovery_fraction": 0.25, "holding_days": 2, "regime_sma200": true},
+  "optimization": false,
+  "holdout_after_2024_accessed": false
+}

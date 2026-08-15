@@ -1,0 +1,765 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_FAMILY",
+  "preregistration_sha256": "604a9ddd08b0f5aa021df922e0ba0dd7208c47bfd79f2d6a38bdf871f1891cb9",
+  "passing_variants": 0,
+  "central_positive_assets": 2,
+  "central_variant": {
+    "parameters": {
+      "lookback_sessions": 120,
+      "holding_sessions": 20,
+      "sma200_filter": true
+    },
+    "combined_validation_oos": {
+      "trades": 139,
+      "return": -0.1885076689232389,
+      "profit_factor": 0.9953197634210995,
+      "max_drawdown": 0.6472078367004808
+    },
+    "by_asset": {
+      "AAPL": {
+        "trades": 23,
+        "return": 0.21680528941051835,
+        "profit_factor": 1.558505727750362,
+        "max_drawdown": 0.14018203894660186
+      },
+      "CMI": {
+        "trades": 12,
+        "return": -0.09615133263296038,
+        "profit_factor": 0.6215913880853132,
+        "max_drawdown": 0.1922754006129218
+      },
+      "DE": {
+        "trades": 18,
+        "return": -0.27489361059218875,
+        "profit_factor": 0.5734743018219449,
+        "max_drawdown": 0.41937659053595033
+      },
+      "JNJ": {
+        "trades": 17,
+        "return": -0.1252759389507635,
+        "profit_factor": 0.5548617393858779,
+        "max_drawdown": 0.23035210156423158
+      },
+      "JPM": {
+        "trades": 25,
+        "return": 0.734704761768574,
+        "profit_factor": 2.7182797460743777,
+        "max_drawdown": 0.11977130842786876
+      },
+      "KO": {
+        "trades": 23,
+        "return": -0.18403991437297063,
+        "profit_factor": 0.6089216159452865,
+        "max_drawdown": 0.22674173171522483
+      },
+      "UNP": {
+        "trades": 21,
+        "return": -0.17813531660462356,
+        "profit_factor": 0.7439821132772791,
+        "max_drawdown": 0.24608872355213718
+      }
+    },
+    "pass": false
+  },
+  "results": [
+    {
+      "parameters": {
+        "lookback_sessions": 60,
+        "holding_sessions": 20,
+        "sma200_filter": false
+      },
+      "combined_validation_oos": {
+        "trades": 137,
+        "return": 1.3065647935189637,
+        "profit_factor": 1.4065422258357736,
+        "max_drawdown": 0.4426585843583859
+      },
+      "by_asset": {
+        "AAPL": {
+          "trades": 21,
+          "return": 0.2750764405691859,
+          "profit_factor": 1.7784159532908952,
+          "max_drawdown": 0.15725441880066227
+        },
+        "CMI": {
+          "trades": 14,
+          "return": -0.021617605523225447,
+          "profit_factor": 1.0262017522990758,
+          "max_drawdown": 0.22954645296104403
+        },
+        "DE": {
+          "trades": 21,
+          "return": 0.32068144435403556,
+          "profit_factor": 1.5921107683060842,
+          "max_drawdown": 0.23728788216987184
+        },
+        "JNJ": {
+          "trades": 22,
+          "return": 0.04203395322795256,
+          "profit_factor": 1.194931193173211,
+          "max_drawdown": 0.14981671851830547
+        },
+        "JPM": {
+          "trades": 21,
+          "return": 0.36775605465021655,
+          "profit_factor": 2.0058045875863235,
+          "max_drawdown": 0.11977130842786876
+        },
+        "KO": {
+          "trades": 21,
+          "return": -0.09184477241923739,
+          "profit_factor": 0.7716676266758619,
+          "max_drawdown": 0.16721031542805098
+        },
+        "UNP": {
+          "trades": 17,
+          "return": 0.0816135742041122,
+          "profit_factor": 1.2944043402611551,
+          "max_drawdown": 0.17228581776651208
+        }
+      },
+      "pass": false
+    },
+    {
+      "parameters": {
+        "lookback_sessions": 60,
+        "holding_sessions": 20,
+        "sma200_filter": true
+      },
+      "combined_validation_oos": {
+        "trades": 123,
+        "return": 0.6738881443363272,
+        "profit_factor": 1.3023670601533766,
+        "max_drawdown": 0.49428684917866317
+      },
+      "by_asset": {
+        "AAPL": {
+          "trades": 20,
+          "return": 0.41975468941592253,
+          "profit_factor": 2.4863478358368307,
+          "max_drawdown": 0.14018203894660186
+        },
+        "CMI": {
+          "trades": 10,
+          "return": 0.024839974705518797,
+          "profit_factor": 1.2461468064789871,
+          "max_drawdown": 0.09649651788028601
+        },
+        "DE": {
+          "trades": 18,
+          "return": -0.09790588919858578,
+          "profit_factor": 0.9032775233706833,
+          "max_drawdown": 0.35694386695116487
+        },
+        "JNJ": {
+          "trades": 19,
+          "return": -0.06882917703692393,
+          "profit_factor": 0.7712076845325008,
+          "max_drawdown": 0.18068600271657975
+        },
+        "JPM": {
+          "trades": 21,
+          "return": 0.36775605465021655,
+          "profit_factor": 2.0058045875863235,
+          "max_drawdown": 0.11977130842786876
+        },
+        "KO": {
+          "trades": 19,
+          "return": -0.09967814343505477,
+          "profit_factor": 0.7465315481029151,
+          "max_drawdown": 0.16721031542805098
+        },
+        "UNP": {
+          "trades": 16,
+          "return": 0.1121654980272273,
+          "profit_factor": 1.3871559294004028,
+          "max_drawdown": 0.1489056926959501
+        }
+      },
+      "pass": false
+    },
+    {
+      "parameters": {
+        "lookback_sessions": 60,
+        "holding_sessions": 60,
+        "sma200_filter": false
+      },
+      "combined_validation_oos": {
+        "trades": 71,
+        "return": 1.8045339877962614,
+        "profit_factor": 1.6944892106376577,
+        "max_drawdown": 0.3913367647339647
+      },
+      "by_asset": {
+        "AAPL": {
+          "trades": 10,
+          "return": 0.20224099174721166,
+          "profit_factor": 1.7099784784320236,
+          "max_drawdown": 0.1572928293532908
+        },
+        "CMI": {
+          "trades": 7,
+          "return": 0.04802572826712104,
+          "profit_factor": 1.2920808940794766,
+          "max_drawdown": 0.1477462925242813
+        },
+        "DE": {
+          "trades": 11,
+          "return": 0.24854458916630562,
+          "profit_factor": 1.6374345699185753,
+          "max_drawdown": 0.2694945504454238
+        },
+        "JNJ": {
+          "trades": 10,
+          "return": -0.0198422435886616,
+          "profit_factor": 0.9082396659996327,
+          "max_drawdown": 0.13749677857833253
+        },
+        "JPM": {
+          "trades": 12,
+          "return": 1.102278427319432,
+          "profit_factor": 11.188070447364728,
+          "max_drawdown": 0.03410146154176408
+        },
+        "KO": {
+          "trades": 12,
+          "return": -0.10902343695843619,
+          "profit_factor": 0.7473080629971304,
+          "max_drawdown": 0.16479360912859664
+        },
+        "UNP": {
+          "trades": 9,
+          "return": -0.028952041260305483,
+          "profit_factor": 0.9889902955908704,
+          "max_drawdown": 0.1522845171861088
+        }
+      },
+      "pass": false
+    },
+    {
+      "parameters": {
+        "lookback_sessions": 60,
+        "holding_sessions": 60,
+        "sma200_filter": true
+      },
+      "combined_validation_oos": {
+        "trades": 65,
+        "return": 0.7351464056200949,
+        "profit_factor": 1.4356545866887074,
+        "max_drawdown": 0.3963622433749525
+      },
+      "by_asset": {
+        "AAPL": {
+          "trades": 10,
+          "return": 0.20224099174721166,
+          "profit_factor": 1.7099784784320236,
+          "max_drawdown": 0.1572928293532908
+        },
+        "CMI": {
+          "trades": 6,
+          "return": -0.08299772818374374,
+          "profit_factor": 0.670266024356799,
+          "max_drawdown": 0.1522254527014527
+        },
+        "DE": {
+          "trades": 11,
+          "return": 0.1815727800959097,
+          "profit_factor": 1.5474263353720257,
+          "max_drawdown": 0.22738409860194198
+        },
+        "JNJ": {
+          "trades": 10,
+          "return": -0.12063077275020506,
+          "profit_factor": 0.524431205912188,
+          "max_drawdown": 0.22085549678607552
+        },
+        "JPM": {
+          "trades": 11,
+          "return": 0.7469641270399139,
+          "profit_factor": 8.60990967125946,
+          "max_drawdown": 0.03410146154176408
+        },
+        "KO": {
+          "trades": 10,
+          "return": -0.07314819873878387,
+          "profit_factor": 0.8289594972055372,
+          "max_drawdown": 0.16479360912859653
+        },
+        "UNP": {
+          "trades": 7,
+          "return": -0.06449060150247032,
+          "profit_factor": 0.7232067306303319,
+          "max_drawdown": 0.1500107457485188
+        }
+      },
+      "pass": false
+    },
+    {
+      "parameters": {
+        "lookback_sessions": 120,
+        "holding_sessions": 20,
+        "sma200_filter": false
+      },
+      "combined_validation_oos": {
+        "trades": 156,
+        "return": -0.49611435585207564,
+        "profit_factor": 0.8839901416491674,
+        "max_drawdown": 0.7775671716913106
+      },
+      "by_asset": {
+        "AAPL": {
+          "trades": 24,
+          "return": 0.048618593116591224,
+          "profit_factor": 1.1663960937843418,
+          "max_drawdown": 0.25374636219440505
+        },
+        "CMI": {
+          "trades": 17,
+          "return": 0.05858762527060746,
+          "profit_factor": 1.3171254008269522,
+          "max_drawdown": 0.10335698161322715
+        },
+        "DE": {
+          "trades": 22,
+          "return": -0.46444624173825233,
+          "profit_factor": 0.40161417272221417,
+          "max_drawdown": 0.5711594138245342
+        },
+        "JNJ": {
+          "trades": 18,
+          "return": -0.16226955619704564,
+          "profit_factor": 0.4821850262943794,
+          "max_drawdown": 0.26290186329707554
+        },
+        "JPM": {
+          "trades": 27,
+          "return": 0.7814388623977648,
+          "profit_factor": 2.5006400797732824,
+          "max_drawdown": 0.18418619909619383
+        },
+        "KO": {
+          "trades": 24,
+          "return": -0.24156785441266526,
+          "profit_factor": 0.5287561606795086,
+          "max_drawdown": 0.28090775554580794
+        },
+        "UNP": {
+          "trades": 24,
+          "return": -0.251153861546371,
+          "profit_factor": 0.6461595948749633,
+          "max_drawdown": 0.3130699499432895
+        }
+      },
+      "pass": false
+    },
+    {
+      "parameters": {
+        "lookback_sessions": 120,
+        "holding_sessions": 20,
+        "sma200_filter": true
+      },
+      "combined_validation_oos": {
+        "trades": 139,
+        "return": -0.1885076689232389,
+        "profit_factor": 0.9953197634210995,
+        "max_drawdown": 0.6472078367004808
+      },
+      "by_asset": {
+        "AAPL": {
+          "trades": 23,
+          "return": 0.21680528941051835,
+          "profit_factor": 1.558505727750362,
+          "max_drawdown": 0.14018203894660186
+        },
+        "CMI": {
+          "trades": 12,
+          "return": -0.09615133263296038,
+          "profit_factor": 0.6215913880853132,
+          "max_drawdown": 0.1922754006129218
+        },
+        "DE": {
+          "trades": 18,
+          "return": -0.27489361059218875,
+          "profit_factor": 0.5734743018219449,
+          "max_drawdown": 0.41937659053595033
+        },
+        "JNJ": {
+          "trades": 17,
+          "return": -0.1252759389507635,
+          "profit_factor": 0.5548617393858779,
+          "max_drawdown": 0.23035210156423158
+        },
+        "JPM": {
+          "trades": 25,
+          "return": 0.734704761768574,
+          "profit_factor": 2.7182797460743777,
+          "max_drawdown": 0.11977130842786876
+        },
+        "KO": {
+          "trades": 23,
+          "return": -0.18403991437297063,
+          "profit_factor": 0.6089216159452865,
+          "max_drawdown": 0.22674173171522483
+        },
+        "UNP": {
+          "trades": 21,
+          "return": -0.17813531660462356,
+          "profit_factor": 0.7439821132772791,
+          "max_drawdown": 0.24608872355213718
+        }
+      },
+      "pass": false
+    },
+    {
+      "parameters": {
+        "lookback_sessions": 120,
+        "holding_sessions": 60,
+        "sma200_filter": false
+      },
+      "combined_validation_oos": {
+        "trades": 76,
+        "return": -0.23464457569778163,
+        "profit_factor": 1.0438468155373544,
+        "max_drawdown": 0.8034395995847354
+      },
+      "by_asset": {
+        "AAPL": {
+          "trades": 12,
+          "return": 0.3928548820135722,
+          "profit_factor": 2.008283221971386,
+          "max_drawdown": 0.22441296139547906
+        },
+        "CMI": {
+          "trades": 8,
+          "return": 0.029070787866122938,
+          "profit_factor": 1.2614822985115828,
+          "max_drawdown": 0.10384545805172618
+        },
+        "DE": {
+          "trades": 10,
+          "return": -0.2506154335116345,
+          "profit_factor": 0.7732841995254572,
+          "max_drawdown": 0.5099866533111872
+        },
+        "JNJ": {
+          "trades": 10,
+          "return": -0.33129322790072724,
+          "profit_factor": 0.20875371745423907,
+          "max_drawdown": 0.3893793979148814
+        },
+        "JPM": {
+          "trades": 12,
+          "return": 0.5340730013508692,
+          "profit_factor": 2.783284646650545,
+          "max_drawdown": 0.14504880367474893
+        },
+        "KO": {
+          "trades": 13,
+          "return": -0.19284111376464075,
+          "profit_factor": 0.6280831238186827,
+          "max_drawdown": 0.28637901501646623
+        },
+        "UNP": {
+          "trades": 11,
+          "return": -0.1394690029849145,
+          "profit_factor": 0.6440863571265704,
+          "max_drawdown": 0.24544330497328581
+        }
+      },
+      "pass": false
+    },
+    {
+      "parameters": {
+        "lookback_sessions": 120,
+        "holding_sessions": 60,
+        "sma200_filter": true
+      },
+      "combined_validation_oos": {
+        "trades": 70,
+        "return": -0.01429820937263293,
+        "profit_factor": 1.1260571839432691,
+        "max_drawdown": 0.7379052062475622
+      },
+      "by_asset": {
+        "AAPL": {
+          "trades": 12,
+          "return": 0.2916807609564218,
+          "profit_factor": 1.7189543145550636,
+          "max_drawdown": 0.2131909364100738
+        },
+        "CMI": {
+          "trades": 6,
+          "return": 0.03422205185724736,
+          "profit_factor": 1.2950043310140857,
+          "max_drawdown": 0.09935953864088265
+        },
+        "DE": {
+          "trades": 10,
+          "return": -0.13236168239153467,
+          "profit_factor": 0.9155984183155194,
+          "max_drawdown": 0.43266198059154193
+        },
+        "JNJ": {
+          "trades": 10,
+          "return": -0.33129322790072724,
+          "profit_factor": 0.20875371745423907,
+          "max_drawdown": 0.3893793979148814
+        },
+        "JPM": {
+          "trades": 11,
+          "return": 0.6793926537448332,
+          "profit_factor": 4.535282758582866,
+          "max_drawdown": 0.11021068041944271
+        },
+        "KO": {
+          "trades": 12,
+          "return": -0.16300374764391234,
+          "profit_factor": 0.6778519251528028,
+          "max_drawdown": 0.28637901501646623
+        },
+        "UNP": {
+          "trades": 9,
+          "return": -0.09525466318419751,
+          "profit_factor": 0.7411582808547539,
+          "max_drawdown": 0.20667395647969256
+        }
+      },
+      "pass": false
+    },
+    {
+      "parameters": {
+        "lookback_sessions": 252,
+        "holding_sessions": 20,
+        "sma200_filter": false
+      },
+      "combined_validation_oos": {
+        "trades": 163,
+        "return": 1.5483331938660387,
+        "profit_factor": 1.3789522760975015,
+        "max_drawdown": 0.5714771561803194
+      },
+      "by_asset": {
+        "AAPL": {
+          "trades": 30,
+          "return": 0.4644184571740737,
+          "profit_factor": 1.6658000857521864,
+          "max_drawdown": 0.21333787188773168
+        },
+        "CMI": {
+          "trades": 17,
+          "return": -0.0994538370747513,
+          "profit_factor": 0.7389368625594843,
+          "max_drawdown": 0.19730929831905686
+        },
+        "DE": {
+          "trades": 24,
+          "return": 0.15794135839419776,
+          "profit_factor": 1.35126645487152,
+          "max_drawdown": 0.26395559213645803
+        },
+        "JNJ": {
+          "trades": 21,
+          "return": 0.030726880952770763,
+          "profit_factor": 1.1573519741074454,
+          "max_drawdown": 0.19296582009837737
+        },
+        "JPM": {
+          "trades": 23,
+          "return": 0.5776276391201447,
+          "profit_factor": 2.4473678215183527,
+          "max_drawdown": 0.18909425430373306
+        },
+        "KO": {
+          "trades": 23,
+          "return": 0.19296149011867714,
+          "profit_factor": 1.619443912349188,
+          "max_drawdown": 0.09317752400987012
+        },
+        "UNP": {
+          "trades": 25,
+          "return": -0.13975147224357531,
+          "profit_factor": 0.8320983722068199,
+          "max_drawdown": 0.2572983956138971
+        }
+      },
+      "pass": false
+    },
+    {
+      "parameters": {
+        "lookback_sessions": 252,
+        "holding_sessions": 20,
+        "sma200_filter": true
+      },
+      "combined_validation_oos": {
+        "trades": 131,
+        "return": 0.42643103711998,
+        "profit_factor": 1.2144201197402815,
+        "max_drawdown": 0.5564008324404838
+      },
+      "by_asset": {
+        "AAPL": {
+          "trades": 24,
+          "return": 0.32809733554602993,
+          "profit_factor": 1.7809324702644764,
+          "max_drawdown": 0.14018203894660164
+        },
+        "CMI": {
+          "trades": 11,
+          "return": -0.0453358700453228,
+          "profit_factor": 0.7950581133616967,
+          "max_drawdown": 0.14686414910238454
+        },
+        "DE": {
+          "trades": 18,
+          "return": -0.034329273733903265,
+          "profit_factor": 1.0111980392986752,
+          "max_drawdown": 0.2703087988681139
+        },
+        "JNJ": {
+          "trades": 17,
+          "return": -0.10814748117954753,
+          "profit_factor": 0.6090681690443643,
+          "max_drawdown": 0.2152811985056725
+        },
+        "JPM": {
+          "trades": 21,
+          "return": 0.536240303074945,
+          "profit_factor": 2.7118815815814346,
+          "max_drawdown": 0.12506689304375784
+        },
+        "KO": {
+          "trades": 19,
+          "return": -0.07652317980341039,
+          "profit_factor": 0.7959355109087747,
+          "max_drawdown": 0.2000476594706302
+        },
+        "UNP": {
+          "trades": 21,
+          "return": -0.07920488485389221,
+          "profit_factor": 0.9135635033177936,
+          "max_drawdown": 0.17360434991181006
+        }
+      },
+      "pass": false
+    },
+    {
+      "parameters": {
+        "lookback_sessions": 252,
+        "holding_sessions": 60,
+        "sma200_filter": false
+      },
+      "combined_validation_oos": {
+        "trades": 75,
+        "return": -0.302573302273325,
+        "profit_factor": 0.9936775244373973,
+        "max_drawdown": 0.7131459693169624
+      },
+      "by_asset": {
+        "AAPL": {
+          "trades": 14,
+          "return": 0.3329226032705883,
+          "profit_factor": 1.8738430747261463,
+          "max_drawdown": 0.2143336025406406
+        },
+        "CMI": {
+          "trades": 8,
+          "return": -0.27205606683687167,
+          "profit_factor": 0.25406201899967235,
+          "max_drawdown": 0.27205606683687167
+        },
+        "DE": {
+          "trades": 11,
+          "return": -0.29228885155044115,
+          "profit_factor": 0.5884344377781554,
+          "max_drawdown": 0.3932810350563264
+        },
+        "JNJ": {
+          "trades": 10,
+          "return": -0.1800845012715403,
+          "profit_factor": 0.4552832026649576,
+          "max_drawdown": 0.24660515717127507
+        },
+        "JPM": {
+          "trades": 10,
+          "return": 0.43169745744901267,
+          "profit_factor": 2.4451741868650987,
+          "max_drawdown": 0.18331761869595053
+        },
+        "KO": {
+          "trades": 11,
+          "return": 0.2401154730137629,
+          "profit_factor": 2.059333392290766,
+          "max_drawdown": 0.11483601255062403
+        },
+        "UNP": {
+          "trades": 11,
+          "return": -0.30231852459418573,
+          "profit_factor": 0.3984567163646204,
+          "max_drawdown": 0.36537649523375215
+        }
+      },
+      "pass": false
+    },
+    {
+      "parameters": {
+        "lookback_sessions": 252,
+        "holding_sessions": 60,
+        "sma200_filter": true
+      },
+      "combined_validation_oos": {
+        "trades": 65,
+        "return": -0.25530727443498247,
+        "profit_factor": 0.987904181902179,
+        "max_drawdown": 0.6994890705607756
+      },
+      "by_asset": {
+        "AAPL": {
+          "trades": 11,
+          "return": 0.20147927179201086,
+          "profit_factor": 1.6989887469908227,
+          "max_drawdown": 0.18949286400216914
+        },
+        "CMI": {
+          "trades": 6,
+          "return": -0.2363652571597452,
+          "profit_factor": 0.2882017105905531,
+          "max_drawdown": 0.2363652571597452
+        },
+        "DE": {
+          "trades": 10,
+          "return": -0.1620761036663576,
+          "profit_factor": 0.7895846074302889,
+          "max_drawdown": 0.37638809628461556
+        },
+        "JNJ": {
+          "trades": 9,
+          "return": -0.17055353527418027,
+          "profit_factor": 0.36102792213551566,
+          "max_drawdown": 0.2426021077994046
+        },
+        "JPM": {
+          "trades": 10,
+          "return": 0.3872901142041316,
+          "profit_factor": 2.309191828028806,
+          "max_drawdown": 0.18331761869595053
+        },
+        "KO": {
+          "trades": 10,
+          "return": -0.03478920292370857,
+          "profit_factor": 0.972756759929187,
+          "max_drawdown": 0.1770636035855423
+        },
+        "UNP": {
+          "trades": 9,
+          "return": -0.1278468566572033,
+          "profit_factor": 0.6602806191223113,
+          "max_drawdown": 0.20667395647969256
+        }
+      },
+      "pass": false
+    }
+  ],
+  "optimized": false,
+  "post_2024_accessed": false
+}

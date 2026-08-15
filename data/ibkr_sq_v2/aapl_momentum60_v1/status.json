@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "candidate_id": "AAPL_MOMENTUM60_MONTH_END_V1",
+  "status": "PROMISING_RESEARCH_CANDIDATE_NOT_YET_CONSOLIDATED",
+  "passed": [
+    "cross_asset_pre_2025_hypothesis_discovery",
+    "untouched_2025_2026_python_holdout",
+    "exact_native_sq_completed_entry_parity",
+    "ibkr_whole_share_stress_costs_at_500_and_1000_usd"
+  ],
+  "holdout_completed_trades": 10,
+  "stress_500_return_pct": 37.893637,
+  "stress_500_profit_factor": 3.01308,
+  "stress_500_drawdown_pct": 8.893607,
+  "stress_1000_return_pct": 39.893637,
+  "stress_1000_profit_factor": 3.189106,
+  "stress_1000_drawdown_pct": 8.642318,
+  "remaining": ["parameter_neighborhood_stability_without_retuning", "trade_sequence_monte_carlo", "portfolio_overlap_and_incremental_value"],
+  "paper_authorized": false,
+  "live_authorized": false
+}

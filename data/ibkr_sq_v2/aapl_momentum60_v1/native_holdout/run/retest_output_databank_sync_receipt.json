@@ -1,0 +1,11 @@
+{
+  "command": "-databank action=synctofiles project=IBKR_V4_AAPL_MOMENTUM60_HOLDOUT name=Holdout",
+  "databank": "Holdout",
+  "decision": "PASS_RETEST_OUTPUT_DATABANK_SYNC",
+  "observed_output_sqx_count": 1,
+  "output_sqx_path": "/mnt/volume-SQ/user/projects/IBKR_V4_AAPL_MOMENTUM60_HOLDOUT/databanks/Holdout/AAPL_MOMENTUM60_MONTH_END_V1.sqx",
+  "output_sqx_sha256": "5b4c9e3c4286197beb10532c251a2f74458c3fa5939a73b597dc2be48899f7b8",
+  "project_name": "IBKR_V4_AAPL_MOMENTUM60_HOLDOUT",
+  "response": "05:17:04 Syncing datatabank to files\n--------------------------------------------------\nSynchronization started.\n--------------------------------------------------\n",
+  "schema_version": 1
+}

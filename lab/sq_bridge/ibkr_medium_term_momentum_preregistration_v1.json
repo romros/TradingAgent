@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-medium-term-momentum-v1",
+  "assets": ["AAPL", "CMI", "DE", "JNJ", "JPM", "KO", "UNP"],
+  "periods": {"train": ["2017-01-01", "2020-12-31"], "validation": ["2021-01-01", "2022-12-31"], "oos": ["2023-01-01", "2024-12-31"]},
+  "rule": "At month-end, buy next open when lookback return is positive and optional close>SMA200; exit next open after fixed sessions.",
+  "grid": {"lookback_sessions": [60, 120, 252], "holding_sessions": [20, 60], "sma200_filter": [false, true]},
+  "round_trip_cost_bps": 30,
+  "gates": {"minimum_trades": 35, "minimum_profit_factor": 1.15, "positive_return": true, "maximum_drawdown": 0.25, "minimum_passing_variants": 4, "minimum_positive_assets_central": 4},
+  "central_variant": {"lookback_sessions": 120, "holding_sessions": 20, "sma200_filter": true},
+  "holdout_after_2024_accessed": false
+}

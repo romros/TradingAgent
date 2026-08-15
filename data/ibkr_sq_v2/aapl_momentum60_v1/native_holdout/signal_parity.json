@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_EXACT_COMPLETED_TRADE_PARITY",
+  "candidate_id": "AAPL_MOMENTUM60_MONTH_END_V1",
+  "period": ["2025-01-01", "2026-08-13"],
+  "python_completed_entries": 10,
+  "sq_completed_entries": 10,
+  "entry_dates_exact_match": true,
+  "missing_in_sq": [],
+  "extra_completed_in_sq": [],
+  "right_censored_sq_positions_excluded": ["2026-08-03"],
+  "right_censor_reason": "EndTest after only 10 of the required 20 sessions",
+  "python_holdout_sha256": "65dc60e10d5f971bcd70e5b3ab77ba46be7714d8a057729e034631e5f6fb78ce",
+  "sq_orders_sha256": "d768fa32be64c5f684aade3975ff48c54af7e10eafd8768dbbb4143bc826020d",
+  "paper_authorized": false,
+  "live_authorized": false
+}

@@ -1,0 +1,11 @@
+{
+  "command": "-databank action=syncfromfiles project=IBKR_V4_AAPL_MOMENTUM60_HOLDOUT name=Results",
+  "databank": "Results",
+  "decision": "PASS_RETEST_DATABANK_SYNC",
+  "input_copy_path": "/mnt/volume-SQ/user/projects/IBKR_V4_AAPL_MOMENTUM60_HOLDOUT/databanks/Results/AAPL_MOMENTUM60_MONTH_END_V1.sqx",
+  "input_copy_sha256": "0af742397206a4e2799a565a0463531941ebcbfe7ffa786bbd644ff963802998",
+  "observed_project_strategies": 1,
+  "project_name": "IBKR_V4_AAPL_MOMENTUM60_HOLDOUT",
+  "response": "05:17:02 Syncing databank from files\n--------------------------------------------------\n",
+  "schema_version": 1
+}

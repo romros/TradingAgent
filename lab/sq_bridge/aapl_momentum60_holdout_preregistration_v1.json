@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "campaign_id": "aapl-momentum60-holdout-v1",
+  "source_hypothesis": "The 60-session momentum subregion was the only broad cross-asset region with five of seven positive assets before 2025 access.",
+  "asset": "AAPL",
+  "rule": {"lookback_sessions": 60, "holding_sessions": 20, "sma200_filter": false, "signal": "last session of month", "entry": "next open", "exit": "open after 20 sessions"},
+  "holdout": ["2025-01-01", "2026-08-13"],
+  "round_trip_cost_bps": 30,
+  "gates": {"minimum_trades": 8, "minimum_profit_factor": 1.1, "positive_return": true, "maximum_drawdown": 0.2},
+  "parameters_frozen": true,
+  "holdout_accessed": false
+}

@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "campaign_id": "aapl-momentum60-holdout-v1",
+  "periods": {
+    "train_from": "2017-01-26", "train_to": "2020-12-31",
+    "validation_from": "2021-01-01", "validation_to": "2022-12-31",
+    "oos_from": "2023-01-01", "oos_to": "2024-12-31",
+    "holdout_from": "2025-01-01", "holdout_to": "2026-08-13"
+  },
+  "holdout_release_authorized": true
+}

@@ -28,11 +28,14 @@ def _commission(plan: str, shares: int) -> float:
     raise ValueError("unknown commission plan")
 
 
-def load_orders(path: Path, *, allow_same_bar_d1: bool = False) -> list[dict]:
+def load_orders(path: Path, *, allow_same_bar_d1: bool = False,
+                exclude_end_test: bool = False) -> list[dict]:
     with path.open(newline="", encoding="utf-8-sig") as handle:
         rows = list(csv.DictReader(handle, delimiter=";"))
     orders = []
     for row in rows:
+        if exclude_end_test and row.get("Close type") == "EndTest":
+            continue
         if row["Type"] != "Buy":
             raise ValueError("audit currently supports long-only candidates")
         orders.append({
@@ -128,10 +131,11 @@ def simulate(orders: list[dict], *, initial_capital: float, plan: str) -> dict:
 
 def audit(*, candidate_id: str, orders_path: Path,
           capital_scenarios: list[float], allow_same_bar_d1: bool = False,
-          stage: str = "validation") -> dict:
+          stage: str = "validation", exclude_end_test: bool = False) -> dict:
     if stage not in {"validation", "oos", "holdout"}:
         raise ValueError("audit stage must be validation, oos or holdout")
-    orders = load_orders(orders_path, allow_same_bar_d1=allow_same_bar_d1)
+    orders = load_orders(orders_path, allow_same_bar_d1=allow_same_bar_d1,
+                         exclude_end_test=exclude_end_test)
     return {
         "schema_version": 1,
         "stage": f"IBKR_EQUITY_SMALL_ACCOUNT_{stage.upper()}_AUDIT",
@@ -144,6 +148,7 @@ def audit(*, candidate_id: str, orders_path: Path,
             if allow_same_bar_d1 else "forbidden"),
         "same_bar_d1_trade_count": sum(
             row["open_time"] == row["close_time"] for row in orders),
+        "end_test_positions_excluded": exclude_end_test,
         "cost_contract": {
             "tiered": "max(USD 0.35, USD 0.0035/share) per order",
             "fixed": "max(USD 1.00, USD 0.005/share) per order",
@@ -167,12 +172,14 @@ def main() -> None:
     parser.add_argument("--capital", action="append", type=float, required=True)
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--allow-same-bar-d1", action="store_true")
+    parser.add_argument("--exclude-end-test", action="store_true")
     parser.add_argument("--stage", choices=("validation", "oos", "holdout"),
                         default="validation")
     args = parser.parse_args()
     result = audit(candidate_id=args.candidate_id, orders_path=args.orders,
                    capital_scenarios=args.capital,
-                   allow_same_bar_d1=args.allow_same_bar_d1, stage=args.stage)
+                   allow_same_bar_d1=args.allow_same_bar_d1, stage=args.stage,
+                   exclude_end_test=args.exclude_end_test)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2, default=str) + "\n")
     print(json.dumps(result["results"], indent=2))

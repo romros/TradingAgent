@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "strategy": "AAPL_MOMENTUM60_MONTH_END_V1",
+  "rule": "DayOfMonth[0] < DayOfMonth[1] AND Close[1] > Close[61]; enter market; exit after 20 bars",
+  "template_sha256": "884e90a85daf98d854893d64d18d7fc7b1fa02bdada885e0089cdef8ba7dbb00",
+  "output_sha256": "0af742397206a4e2799a565a0463531941ebcbfe7ffa786bbd644ff963802998",
+  "performance_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

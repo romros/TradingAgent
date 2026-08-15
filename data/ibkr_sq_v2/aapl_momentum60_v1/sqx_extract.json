@@ -1,0 +1,153 @@
+{
+  "schema_version": 1,
+  "source": "data/ibkr_sq_v2/aapl_momentum60_v1/AAPL_MOMENTUM60_MONTH_END_V1.sqx",
+  "source_sha256": "0af742397206a4e2799a565a0463531941ebcbfe7ffa786bbd644ff963802998",
+  "strategy_xml_sha256": "e35204324d07f07897bce250b36a150226015c0bca1ccc15d60ccc91d5affd9a",
+  "strategy_name": "AAPL_MOMENTUM60_MONTH_END_V1",
+  "market": {
+    "symbol": "US500_ALQ_RTH_D1",
+    "timeframe": "D1"
+  },
+  "execution": {
+    "exit_at_end_of_day": false,
+    "eod_exit_time_hhmm": 1957,
+    "exit_on_friday": false,
+    "friday_exit_time_hhmm": 1700,
+    "dont_trade_on_weekends": true,
+    "weekend_friday_close_hhmm": 1700,
+    "weekend_sunday_open_hhmm": 1700,
+    "spread_in_sq": 0.0,
+    "slippage_in_sq": 0.0,
+    "commission_enabled": false,
+    "commission_method": "None",
+    "commission_value": 0.0,
+    "swap_enabled": false,
+    "point_value": 1.0,
+    "order_size_multiplier": 1.0,
+    "tick_step": 0.001
+  },
+  "entries": {
+    "long": {
+      "signal_variable_id": "33333333-1111-1111-3333-333333333333",
+      "signal_variable_ids_used": [
+        "33333333-1111-1111-3333-333333333333"
+      ],
+      "entry_gate": {
+        "op": "var",
+        "id": "33333333-1111-1111-3333-333333333333"
+      },
+      "signal": {
+        "op": "AND",
+        "children": [
+          {
+            "op": "IsLower",
+            "children": [
+              {
+                "op": "BarDayOfMonth",
+                "params": {
+                  "#Chart#": 0,
+                  "#Shift#": 0
+                }
+              },
+              {
+                "op": "BarDayOfMonth",
+                "params": {
+                  "#Chart#": 0,
+                  "#Shift#": 1
+                }
+              }
+            ]
+          },
+          {
+            "op": "IsGreater",
+            "children": [
+              {
+                "op": "Close",
+                "params": {
+                  "#Chart#": 0,
+                  "#Shift#": 1
+                }
+              },
+              {
+                "op": "Close",
+                "params": {
+                  "#Chart#": 0,
+                  "#Shift#": 61
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "action": {
+        "op": "EnterAtMarket",
+        "params": {
+          "#Symbol#": "Current",
+          "#Direction#": 1,
+          "#Size#": {
+            "formula": "SQ.Formulas.Size.UseGlobalMM",
+            "params": {}
+          },
+          "#MagicNumber#": "11111111-1111-1111-1111-111111111111",
+          "#Comment#": null,
+          "#AllowDuplicateTrades#": false,
+          "#ExitAfterBars.ExitAfterBars#": 20,
+          "#MoveSL2BE.MoveSL2BE#": {
+            "formula": "SQ.Formulas.RangeLevel.None",
+            "params": {}
+          },
+          "#MoveSL2BE.SL2BEAddPips#": {
+            "formula": "SQ.Formulas.Range.None",
+            "params": {}
+          },
+          "#ProfitTarget.ProfitTarget#": {
+            "formula": "SQ.Formulas.SLPT.None",
+            "params": {}
+          },
+          "#StopLoss.StopLoss#": {
+            "formula": "SQ.Formulas.SLPT.None",
+            "params": {}
+          },
+          "#TrailingStop.TrailingStop#": {
+            "formula": "SQ.Formulas.RangeLevel.None",
+            "params": {}
+          },
+          "#TrailingStop.TrailingActivation#": {
+            "formula": "SQ.Formulas.Range.None",
+            "params": {}
+          }
+        }
+      },
+      "condition_count": 2
+    },
+    "short": null
+  },
+  "signal_variable_ids": [
+    "33333333-1111-1111-3333-333333333333",
+    "33333333-1111-2222-3333-333333333333",
+    "33333333-2222-1111-3333-333333333333",
+    "33333333-2222-2222-3333-333333333333"
+  ],
+  "entry_condition_counts": {
+    "long": 2,
+    "short": 0
+  },
+  "maximum_entry_conditions": 2,
+  "exit_signals": {
+    "33333333-1111-2222-3333-333333333333": {
+      "op": "Boolean",
+      "params": {
+        "#Value#": false
+      }
+    },
+    "33333333-2222-2222-3333-333333333333": {
+      "op": "Boolean",
+      "params": {
+        "#Value#": false
+      }
+    }
+  },
+  "supported": true,
+  "unsupported_nodes_or_formulas": [],
+  "translation_status": "SUPPORTED_SUBSET"
+}

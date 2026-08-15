@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_TO_NATIVE_SQ",
+  "preregistration_sha256": "8f04fa10c9d2aef47a471e115051809b8a50f6515ccb1d90aeb2bdbdb957669a",
+  "source_sha256": "1c4c333b958ece0ba1d8251c4cb7efbcd706475b82f8d48b52855703bf2c12c3",
+  "metrics": {
+    "trades": 10,
+    "return": 0.4778697773627505,
+    "profit_factor": 3.7640747665970316,
+    "maximum_drawdown": 0.09457118577253887
+  },
+  "whole_share_ibkr_stress": {
+    "500": {
+      "return_pct": 37.8936372000001,
+      "profit_factor": 3.0130800777071136,
+      "maximum_drawdown_pct": 8.893607244590761,
+      "final_equity": 689.4681860000005
+    },
+    "1000": {
+      "return_pct": 39.8936372000001,
+      "profit_factor": 3.1891061396782177,
+      "maximum_drawdown_pct": 8.642317570899948,
+      "final_equity": 1398.936372000001
+    }
+  },
+  "trades": [
+    {
+      "entry": "2025-01-02",
+      "exit": "2025-01-31",
+      "entry_price": 248.866,
+      "exit_price": 246.996,
+      "net_return": -0.010514083884500144
+    },
+    {
+      "entry": "2025-02-03",
+      "exit": "2025-03-04",
+      "entry_price": 229.906,
+      "exit_price": 237.747,
+      "net_return": 0.03110524301236162
+    },
+    {
+      "entry": "2025-08-01",
+      "exit": "2025-08-29",
+      "entry_price": 210.796,
+      "exit_price": 232.556,
+      "net_return": 0.10022776523273691
+    },
+    {
+      "entry": "2025-09-02",
+      "exit": "2025-09-30",
+      "entry_price": 229.247,
+      "exit_price": 254.766,
+      "net_return": 0.1083166148302922
+    },
+    {
+      "entry": "2025-10-01",
+      "exit": "2025-10-29",
+      "entry_price": 254.946,
+      "exit_price": 269.176,
+      "net_return": 0.052815741372682745
+    },
+    {
+      "entry": "2025-11-03",
+      "exit": "2025-12-02",
+      "entry_price": 270.336,
+      "exit_price": 282.827,
+      "net_return": 0.043205462831439445
+    },
+    {
+      "entry": "2026-01-02",
+      "exit": "2026-02-02",
+      "entry_price": 272.007,
+      "exit_price": 259.776,
+      "net_return": -0.047965754557787066
+    },
+    {
+      "entry": "2026-05-01",
+      "exit": "2026-06-01",
+      "entry_price": 278.597,
+      "exit_price": 309.486,
+      "net_return": 0.10787341213293755
+    },
+    {
+      "entry": "2026-06-01",
+      "exit": "2026-06-30",
+      "entry_price": 309.486,
+      "exit_price": 281.146,
+      "net_return": -0.09457118577253887
+    },
+    {
+      "entry": "2026-07-01",
+      "exit": "2026-07-30",
+      "entry_price": 293.247,
+      "exit_price": 332.997,
+      "net_return": 0.13255125883640761
+    }
+  ],
+  "holdout_accessed": true,
+  "paper_authorized": false,
+  "live_authorized": false
+}

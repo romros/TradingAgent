@@ -143,6 +143,11 @@ tot abans que existeixi una posició. La sortida estructurada mai pot posar
 `live_trading_authorized=true`. Codex
 aporta judici crític; no substitueix els gates deterministes ni envia ordres.
 
+Els setups paper independents tancats es reconcilien a
+`academia/experiments/observations/` i el dashboard els suma una sola vegada a
+l'equity combinada. Si falta una taxa contemporània, la vista diu `estimada`, el
+CSV conserva `cost_complete=false` i el resultat no compta com edge demostrat.
+
 ## Manteniment
 
 - diàriament: generar brief i comprovar fonts/errors;

@@ -59,6 +59,22 @@ class DashboardTest(unittest.TestCase):
         self.assertIn(b"paper_status", exported)
         self.assertIn(b"OPEN,p", exported)
 
+    def test_standalone_result_is_integrated_once_and_marked_estimated(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "paper").write_text(json.dumps({"starting_equity_usdc": 500,
+                "ending_equity_usdc": 496.8, "open_positions": [], "closed": [], "skipped": []}))
+            (root / "standalone").write_text(json.dumps({"status": "CLOSED_TARGET_COMPLETE",
+                "pair": "LINK/USD", "copy_net_pnl_usdc": 3.5, "cost_complete": False}))
+            state = dashboard.build_state(root / "follows", root / "heartbeat", root / "paper",
+                                          root / "checkpoint", standalone_result_path=root / "standalone")
+            self.assertAlmostEqual(state["paper"]["ending_equity_usdc"], 500.3)
+            self.assertEqual(state["coverage"]["paper_closed"], 1)
+            self.assertTrue(state["paper"]["combined_equity_is_estimate"])
+            self.assertEqual(len(state["standalone_paper_results"]), 1)
+            exported = dashboard.paper_csv({}, state["standalone_paper_results"])
+            self.assertIn(b"CLOSED_STANDALONE", exported)
+
     def test_closed_source_and_paper_results_stay_separate(self):
         events = [{"position_sha256": "p", "wallet_sha256": "w", "pair": "BTC/USD",
                    "action": "Open", "side": "B", "notional_usd": 100,

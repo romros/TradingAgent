@@ -74,7 +74,7 @@ def market_overview(rows: list[dict], now: datetime) -> dict:
             "interpretation": "Moviment i costos observats; no és una recomanació d'entrada."}
 
 
-def paper_csv(paper: dict) -> bytes:
+def paper_csv(paper: dict, standalone: list[dict] | None = None) -> bytes:
     fields = ["paper_status", "position_sha256", "wallet_sha256", "pair", "side",
               "entry_time", "exit_time", "entry_price", "exit_price",
               "copy_net_pnl_usdc", "cost_complete"]
@@ -84,6 +84,8 @@ def paper_csv(paper: dict) -> bytes:
     for status, key in (("OPEN", "open_positions"), ("CLOSED", "closed")):
         for trade in paper.get(key, []):
             writer.writerow({"paper_status": status, **trade})
+    for trade in standalone or []:
+        writer.writerow({"paper_status": "CLOSED_STANDALONE", **trade})
     return stream.getvalue().encode()
 
 
@@ -260,7 +262,8 @@ def build_state(follows: Path, heartbeat: Path, paper_path: Path,
                 pack_path: Path | None = None,
                 link_watch_path: Path | None = None,
                 diary_path: Path | None = None,
-                codex_review_path: Path | None = None) -> dict:
+                codex_review_path: Path | None = None,
+                standalone_result_path: Path | None = None) -> dict:
     now = now or datetime.now(timezone.utc)
     events = read_jsonl(follows)
     heartbeat_data = read_json(heartbeat)
@@ -270,6 +273,9 @@ def build_state(follows: Path, heartbeat: Path, paper_path: Path,
     link_watch = read_json(link_watch_path) if link_watch_path else {}
     diary = read_jsonl(diary_path) if diary_path else []
     codex_review = read_json(codex_review_path) if codex_review_path else {}
+    standalone = read_json(standalone_result_path) if standalone_result_path else {}
+    standalone_closed = [standalone] if standalone.get("status", "").startswith("CLOSED") else []
+    standalone_net = sum(float(row.get("copy_net_pnl_usdc") or 0) for row in standalone_closed)
     assets, tracking = tracking_views(events, paper)
     roster = roster_view(events, paper, pack)
     checked = parse_time(heartbeat_data.get("checked_at"))
@@ -309,10 +315,15 @@ def build_state(follows: Path, heartbeat: Path, paper_path: Path,
         "health": {"follower": "healthy" if heartbeat_age is not None and heartbeat_age <= 1800 else "stale",
                    "heartbeat_age_seconds": heartbeat_age},
         "coverage": {"events": len(events), "paper_open": len(paper.get("open_positions", [])),
-                     "paper_closed": len(paper.get("closed", [])),
+                     "paper_closed": len(paper.get("closed", [])) + len(standalone_closed),
+                     "standalone_paper_closed": len(standalone_closed),
                      "paper_skipped": len(paper.get("skipped", []))},
         "paper": {"starting_equity_usdc": paper.get("starting_equity_usdc", 500),
-                  "ending_equity_usdc": paper.get("ending_equity_usdc", 500),
+                  "ending_equity_usdc": paper.get("ending_equity_usdc", 500) + standalone_net,
+                  "wolfpack_ending_equity_usdc": paper.get("ending_equity_usdc", 500),
+                  "standalone_net_pnl_usdc": standalone_net,
+                  "combined_equity_is_estimate": any(not row.get("cost_complete")
+                                                     for row in standalone_closed),
                   "execution_realism_pass": paper.get("execution_realism_pass", False),
                   "execution_realism_blockers": paper.get("execution_realism_blockers", []),
                   "live_trading_authorized": False},
@@ -330,6 +341,7 @@ def build_state(follows: Path, heartbeat: Path, paper_path: Path,
             "maximum_loss_usdc": None, "live_trading_authorized": False,
         },
         "link_watch": link_watch,
+        "standalone_paper_results": standalone_closed,
         "opportunity_monitor": {
             "market": market_overview(diary, now),
             "setups": ([{"instrument": "LINK/USD", "kind": "BREAKOUT_OR_BREAKDOWN",
@@ -360,7 +372,8 @@ def handler_factory(web_root: Path, paths: dict[str, Path]):
                 self.wfile.write(payload)
                 return
             if request_path == "/api/paper.csv":
-                payload = paper_csv(read_json(paths["paper_path"]))
+                standalone = read_json(paths["standalone_result_path"])
+                payload = paper_csv(read_json(paths["paper_path"]), [standalone] if standalone else [])
                 self.send_response(200)
                 self.send_header("Content-Type", "text/csv; charset=utf-8")
                 self.send_header("Content-Disposition", "attachment; filename=wolfpack-paper.csv")
@@ -402,11 +415,15 @@ def main() -> None:
                         default=Path("/host-tmp/cross-venue-diary-forward-20260813.jsonl"))
     parser.add_argument("--codex-review", dest="codex_review_path", type=Path,
                         default=Path("/host-tmp/opportunity-codex-review.json"))
+    parser.add_argument("--standalone-result", dest="standalone_result_path", type=Path,
+                        default=here.parents[1] / "experiments" / "observations" /
+                        "link-breakout-breakdown-paper-v39-result.json")
     args = parser.parse_args()
     paths = {key: getattr(args, key) for key in
              ("follows", "heartbeat", "paper_path", "checkpoint", "pack_path")}
     paths.update(link_watch_path=args.link_watch_path, diary_path=args.diary_path,
-                 codex_review_path=args.codex_review_path)
+                 codex_review_path=args.codex_review_path,
+                 standalone_result_path=args.standalone_result_path)
     server = ThreadingHTTPServer((args.bind, args.port), handler_factory(here / "web", paths))
     server.timeout = 1
     deadline = time.time() + args.duration_hours * 3600

@@ -58,7 +58,7 @@ El balanç tancat exportat acaba a 2.276,56
 Això valida agregació, calendari, solapament i diversificació dins SQ. El pas
 següent ja també està resolt: Portfolio Composer, amb el mètode custom
 `AlquimiaFixedBudgetFloor`, aplica quatre compartiments fixos de 500 USD i
-`floor(500/preu)` en accions senceres. Accepta 94/94 ordres, cap notional
+`floor(500/preu)` en accions senceres. Accepta 93 ordres úniques, cap notional
 supera 500 USD (màxim 499,45), i dona **+32,91% brut** amb **DD diari 5,80%**.
 SQ continua amb costos neutres; no és encara l'economia neta IBKR. Evidència:
 `data/ibkr_sq_v2/four_edge_portfolio_composer_v1/`.
@@ -66,10 +66,16 @@ SQ continua amb costos neutres; no és encara l'economia neta IBKR. Evidència:
 La correcció pre-compte usa el creuament oficial ECB GBP/EUR i USD/EUR. Detecta
 que SQ tractava erròniament 27,73 GBP com 27,73 USD: el sleeve SGLN correcte és
 13 unitats, no 18. El brut corregit baixa a **+30,26%**. Amb comissions i
-fricció indicatives, el total 2022–2024 és **+26,08% tiered**, **+18,71% fixed**
-i **+16,89% estrès**. L'estrès són 337,74 USD en tres anys sobre 2.000 USD,
+fricció indicatives, el total 2022–2024 és **+26,13% tiered**, **+18,83% fixed**
+i **+17,02% estrès**. L'estrès són 340,47 USD en tres anys sobre 2.000 USD,
 aproximadament 5,3% anualitzat. Sense compte no es pot confirmar el pla, venue,
 KID ni comissió del fill real; per això continua sent un gate teòric.
+
+La paritat agregada troba exactament **93/93 entrades**: CAT 57, MSFT 15,
+JPM 20 i SGLN 1. El log SQ repetia literalment l'última ordre CAT i explicava
+el recompte antic de 94. CAT/JPM/SGLN coincideixen també en preu; MSFT només
+en dates perquè Python usa preus ajustats i SQ preus nominals, límit ja declarat
+en la seva auditoria individual.
 
 ## Cadena pendent, en ordre
 
@@ -82,8 +88,8 @@ KID ni comissió del fill real; per això continua sent un gate teòric.
    unitats senceres floor i auditoria de totes les ordres.
 5. **Completat provisionalment sense compte:** FX històric i tres escenaris de
    costos públics. Pendent substituir-los per fills/statement quan hi hagi compte.
-6. Comparar trade-a-trade la cartera ponderada SQ contra Python i només llavors
-   decidir si mereix shadow/paper.
+6. **Completat per entrades:** 93/93 dates; preu exacte CAT/JPM/SGLN i abast
+   explícit només de senyal per MSFT. Les sortides depenen dels rebuts individuals.
 
 ## Límits que una sessió nova no pot reinterpretar
 
@@ -93,5 +99,5 @@ KID ni comissió del fill real; per això continua sent un gate teòric.
 - El +21,99% a 2.000 és històric, closed-equity i amb FX aproximat 1:1.
 - Portfolio Composer ja resol el sizing brut. El MM integrat de SQ queda
   rebutjat perquè arrodonia cap amunt i podia gastar més de 500 USD.
-- Encara falten costos IBKR/FX i equivalència trade-a-trade amb Python.
+- Encara falta substituir costos públics per comissions/fills del compte real.
 - `paper_authorized=false` i `live_authorized=false` fins completar els gates.

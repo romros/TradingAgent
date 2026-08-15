@@ -10,8 +10,8 @@
     "https://data-api.ecb.europa.eu/service/data/EXR/D.USD.EUR.SP00.A"
   ],
   "commission_source_url": "https://www.interactivebrokers.com/en/pricing/commissions-stocks-europe.php?re=europe",
-  "accepted_positions": 94,
-  "us_positions": 93,
+  "accepted_positions": 93,
+  "us_positions": 92,
   "sgln_positions": 1,
   "sgln_sq_size_wrong_currency": 18.0,
   "sgln_fx_corrected_size": 13,
@@ -23,21 +23,21 @@
   "scenarios": {
     "tiered_indicative": {
       "gross_pnl_fx_corrected": 605.140796,
-      "estimated_cost": 83.463796,
-      "net_pnl": 521.676999,
-      "net_return_pct": 26.08385
+      "estimated_cost": 82.618161,
+      "net_pnl": 522.522634,
+      "net_return_pct": 26.126132
     },
     "fixed_indicative": {
       "gross_pnl_fx_corrected": 605.140796,
-      "estimated_cost": 231.004374,
-      "net_pnl": 374.136422,
-      "net_return_pct": 18.706821
+      "estimated_cost": 228.640287,
+      "net_pnl": 376.500509,
+      "net_return_pct": 18.825025
     },
     "stress": {
       "gross_pnl_fx_corrected": 605.140796,
-      "estimated_cost": 267.397844,
-      "net_pnl": 337.742951,
-      "net_return_pct": 16.887148
+      "estimated_cost": 264.66967,
+      "net_pnl": 340.471125,
+      "net_return_pct": 17.023556
     }
   },
   "limitations": [

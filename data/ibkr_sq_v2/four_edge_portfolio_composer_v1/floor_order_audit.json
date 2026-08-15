@@ -4,9 +4,11 @@
   "sqx_path": "data/ibkr_sq_v2/four_edge_portfolio_composer_v1/Portfolio-1786795330285.sqx",
   "sqx_sha256": "8a10d42afb4a41fd316cbef18ec7f80c2151e2f092d7698a0e593d0a1dc1637a",
   "budget_per_strategy": 500,
-  "accepted_orders": 94,
+  "raw_accepted_log_lines": 94,
+  "duplicate_accepted_log_lines": 1,
+  "accepted_unique_orders": 93,
   "rejected_orders": 0,
-  "parsed_orders": 94,
+  "parsed_orders": 93,
   "maximum_notional": 499.45,
   "violations": [],
   "sizes_by_strategy": {

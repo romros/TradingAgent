@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_AGGREGATE_SIGNAL_PARITY_WITH_MSFT_PRICE_SCOPE_LIMIT",
+  "period": "2022-01-01/2024-12-31",
+  "duplicate_sq_log_lines_ignored": 1,
+  "unique_sq_entries": 93,
+  "python_entries": 93,
+  "price_tolerance": 0.0011,
+  "strategies": {
+    "CAT": {
+      "sq_entries": 57,
+      "python_entries": 57,
+      "pass": true,
+      "price_parity_asserted": true,
+      "price_scope_note": null,
+      "maximum_price_abs_error": 1.0000000031595846e-05,
+      "mismatches": []
+    },
+    "MSFT": {
+      "sq_entries": 15,
+      "python_entries": 15,
+      "pass": true,
+      "price_parity_asserted": false,
+      "price_scope_note": "MSFT Python candles are dividend-adjusted while SQ execution candles are split-consistent nominal OHLC.",
+      "maximum_price_abs_error": 11.49474511186844,
+      "mismatches": []
+    },
+    "JPM": {
+      "sq_entries": 20,
+      "python_entries": 20,
+      "pass": true,
+      "price_parity_asserted": true,
+      "price_scope_note": null,
+      "maximum_price_abs_error": 1.0000000003174137e-05,
+      "mismatches": []
+    },
+    "SGLN": {
+      "sq_entries": 1,
+      "python_entries": 1,
+      "pass": true,
+      "price_parity_asserted": true,
+      "price_scope_note": null,
+      "maximum_price_abs_error": 0.0,
+      "mismatches": []
+    }
+  },
+  "inputs_sha256": {
+    "data/ibkr_sq_v2/four_edge_portfolio_composer_v1/Portfolio-1786795330285.sqx": "8a10d42afb4a41fd316cbef18ec7f80c2151e2f092d7698a0e593d0a1dc1637a",
+    "data/ibkr_sq_v2/preflight/CATUSUSD_CANONICAL_D1_2017_2025.csv": "9aa5e9f60467bdcb71e59be2a583eb737d0911daab9f59a90bc0293a89bb359c",
+    "data/ibkr_sq_v2/preflight/MSFT_ADJUSTED_D1_through_2024.csv": "0d66cdbbe74a5b46f2c8640c7dfcb567a98535c4af41880dcfc5310addf10480",
+    "data/ibkr_sq_v2/jpm_momentum60_v1/JPMUSUSD_CANONICAL_D1_through_2026.csv": "eff45c42fd8ecf1c6525b00e487a41abac4bac07cf0b6972cf98f7cf0b97d7de",
+    "data/ibkr_sq_v2/preflight/SGLN_L_ADJUSTED_D1_through_2024.csv": "25008847d1f9c8be10b9d60a0a52306ab46134febe3b63d720914fef2c28d713"
+  },
+  "scope": "Entry dates for all four strategies; raw entry prices for CAT/JPM/SGLN. MSFT price parity is deliberately not asserted because its Python signal source is adjusted and SQ execution source is nominal. Individual exit parity remains governed by each strategy parity receipt.",
+  "paper_authorized": false,
+  "live_authorized": false
+}

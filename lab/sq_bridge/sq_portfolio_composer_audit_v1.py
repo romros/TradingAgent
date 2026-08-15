@@ -11,13 +11,15 @@ def audit(path:Path,budget:float=500):
     with zipfile.ZipFile(path) as z:node=ET.fromstring(z.read('settings.xml')).find('.//PortfolioComposerLog')
     if node is None or not node.text:raise ValueError('PortfolioComposerLog missing')
     log=node.text;orders=[]
-    for line in log.splitlines():
+    accepted_lines=[line for line in log.splitlines() if 'Order ACCEPTED' in line]
+    unique_lines=list(dict.fromkeys(accepted_lines))
+    for line in unique_lines:
         match=ORDER_RE.search(line)
         if match:orders.append({'strategy':match.group(1),'open_price':float(match.group(2)),'size':float(match.group(3)),'notional':float(match.group(4))})
-    accepted=log.count('Order ACCEPTED');rejected=log.count('Order REJECTED')
-    if len(orders)!=accepted:raise ValueError(f'parsed {len(orders)} of {accepted} accepted orders')
+    raw_accepted=len(accepted_lines);accepted=len(unique_lines);rejected=log.count('Order REJECTED')
+    if len(orders)!=accepted:raise ValueError(f'parsed {len(orders)} of {accepted} unique accepted orders')
     violations=[order for order in orders if order['notional']>budget+0.01 or order['size']!=int(order['size']) or order['size']<1]
-    return {'schema_version':1,'decision':'PASS_FIXED_BUDGET_ORDER_AUDIT' if not violations and rejected==0 else 'FAIL_FIXED_BUDGET_ORDER_AUDIT','sqx_path':str(path),'sqx_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'budget_per_strategy':budget,'accepted_orders':accepted,'rejected_orders':rejected,'parsed_orders':len(orders),'maximum_notional':max((o['notional'] for o in orders),default=0),'violations':violations,'sizes_by_strategy':{s:sorted({o['size'] for o in orders if o['strategy']==s}) for s in sorted({o['strategy'] for o in orders})},'paper_authorized':False,'live_authorized':False}
+    return {'schema_version':1,'decision':'PASS_FIXED_BUDGET_ORDER_AUDIT' if not violations and rejected==0 else 'FAIL_FIXED_BUDGET_ORDER_AUDIT','sqx_path':str(path),'sqx_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'budget_per_strategy':budget,'raw_accepted_log_lines':raw_accepted,'duplicate_accepted_log_lines':raw_accepted-accepted,'accepted_unique_orders':accepted,'rejected_orders':rejected,'parsed_orders':len(orders),'maximum_notional':max((o['notional'] for o in orders),default=0),'violations':violations,'sizes_by_strategy':{s:sorted({o['size'] for o in orders if o['strategy']==s}) for s in sorted({o['strategy'] for o in orders})},'paper_authorized':False,'live_authorized':False}
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('sqx',type=Path);parser.add_argument('--budget',type=float,default=500);parser.add_argument('--output',type=Path,required=True);args=parser.parse_args()

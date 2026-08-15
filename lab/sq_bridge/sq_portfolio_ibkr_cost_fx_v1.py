@@ -23,13 +23,14 @@ def audit(sqx:Path,fx_path:Path,capital=2000):
     with zipfile.ZipFile(sqx) as z:
         root=ET.fromstring(z.read('settings.xml'));log=root.find('.//PortfolioComposerLog').text
         pnl={n:decode(z.read(n))[-1][1] for n in z.namelist() if n.endswith('dailyEquity.bin')}
+    accepted_lines=list(dict.fromkeys(line for line in log.splitlines() if 'Order ACCEPTED' in line))
     orders=[]
-    for line in log.splitlines():
+    for line in accepted_lines:
         m=ACCEPTED.search(line)
         if m:
             year,month,day=m.group(2).split('.')
             orders.append({'strategy':m.group(1),'date':f'{year}-{month}-{day}','price':float(m.group(3)),'size_sq':float(m.group(4))})
-    if len(orders)!=log.count('Order ACCEPTED'):raise ValueError('accepted-order parse mismatch')
+    if len(orders)!=len(accepted_lines):raise ValueError('accepted-order parse mismatch')
     gold=[o for o in orders if o['strategy'].startswith('SGLN_')]
     if len(gold)!=1:raise ValueError('expected one SGLN position')
     series=fx(fx_path);g=gold[0];entry_fx=asof(series,g['date']);end_fx=asof(series,'2024-12-31')

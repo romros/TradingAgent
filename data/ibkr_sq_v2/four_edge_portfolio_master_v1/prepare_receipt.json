@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "classification": "COMMON_WINDOW_SQ_PORTFOLIO_AUDIT",
+  "project_name": "IBKR_FOUR_EDGE_PORTFOLIO_MASTER_2022_2024_V2",
+  "period": "2022-01-01/2024-12-31",
+  "input_count": 4,
+  "inputs": {
+    "data/ibkr_sq_v2/four_edge_portfolio_master_v1/input/CAT_0168_NATIVE_V1.sqx": "0221f4facb60b461548c99293602bce0974dfbc6f709aff4385ce0aa7dbf5bba",
+    "data/ibkr_sq_v2/four_edge_portfolio_master_v1/input/MSFT_CAPITULATION_D1_NATIVE_V1.sqx": "9cabefe881df7e92183fc6a012d4f9bd9ab548955da2a1feb4088324c3d352bd",
+    "data/ibkr_sq_v2/four_edge_portfolio_master_v1/input/JPM_MOMENTUM60_MONTH_END_V1.sqx": "4415e94b5f70127a1d901579d7005983c22fe1e1ff16de142100660a28141018",
+    "data/ibkr_sq_v2/four_edge_portfolio_master_v1/input/SGLN_TSMOM12_MONTHLY_NATIVE_V1.sqx": "1900abe2cc9de55b38de110f47af63ecee1448260197870ac7fd4bc3916c47fe"
+  },
+  "settings": {
+    "SearchType": "bruteforce",
+    "MinStrategies": "4",
+    "MaxStrategies": "4",
+    "MaxStrategiesDatabank": "4",
+    "DateRange": "full",
+    "FitnessType": "ReturnDD",
+    "CorrMax": "1.0",
+    "CorrAllowNegative": "true",
+    "FilterOverlappingTrades": "false",
+    "MMMethodOptional": "false"
+  },
+  "initial_capital": 2000,
+  "money_management_warning": "Portfolio Master StocksSizeByPrice is not yet proven equal to four fixed 25% compartments; aggregate is SQ-native diagnostic, not small-account parity.",
+  "cfx_sha256": "dbe3128e6e16ab20e29826b6eb0119ec7c93d41bcd1e71bef022fca2e09e046c",
+  "paper_authorized": false,
+  "live_authorized": false
+}

@@ -1,0 +1,17 @@
+{
+  "databank_sync_receipt_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/common_2022_2024/SGLN/run/retest_databank_sync_receipt.json",
+  "databank_sync_receipt_sha256": "9c694af3bd6fb0855d30c66dd2b7973afb67f8cf2c2945a3c85e2c6d6e15d3f5",
+  "decision": "PASS_RETEST_STARTED",
+  "holdout_accessed": false,
+  "holdout_evaluation_count": 0,
+  "input_copy_path": "/mnt/volume-SQ/user/projects/PORTFOLIO_COMMON_SGLN_2022_2024/databanks/Results/SGLN_TSMOM12_MONTHLY_NATIVE_V1.sqx",
+  "input_copy_sha256": "295318005bf18fdae041ec3181b21d017b9c9446ab58ae696f65b98b75252561",
+  "preflight_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/common_2022_2024/SGLN/run/retest_preflight.json",
+  "preflight_sha256": "d5315f0ac35edc4e5070986f141c931539c4d4760b359570028b9304582a9bbd",
+  "project_name": "PORTFOLIO_COMMON_SGLN_2022_2024",
+  "response": {
+    "success": "Project execution started."
+  },
+  "retest_stage": "pre_holdout",
+  "schema_version": 1
+}

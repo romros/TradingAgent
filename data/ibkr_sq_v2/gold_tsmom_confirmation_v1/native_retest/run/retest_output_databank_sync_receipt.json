@@ -1,0 +1,11 @@
+{
+  "command": "-databank action=synctofiles project=IBKR_SGLN_TSMOM12_PREHOLDOUT_V1 name=PreHoldout",
+  "databank": "PreHoldout",
+  "decision": "PASS_RETEST_OUTPUT_DATABANK_SYNC",
+  "observed_output_sqx_count": 1,
+  "output_sqx_path": "/mnt/volume-SQ/user/projects/IBKR_SGLN_TSMOM12_PREHOLDOUT_V1/databanks/PreHoldout/SGLN_TSMOM12_MONTHLY_NATIVE_V1.sqx",
+  "output_sqx_sha256": "f957a3e8812794d4428ba32d18f6f293f9493391eafd210cbb1b1acb91b951bc",
+  "project_name": "IBKR_SGLN_TSMOM12_PREHOLDOUT_V1",
+  "response": "10:47:39 Syncing datatabank to files\n--------------------------------------------------\nSynchronization started.\n--------------------------------------------------\n",
+  "schema_version": 1
+}

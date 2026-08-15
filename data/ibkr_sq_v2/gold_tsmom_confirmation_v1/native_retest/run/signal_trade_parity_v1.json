@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_EXACT_SIGNAL_AND_TRADE_PARITY",
+  "strategy": "SGLN_TSMOM12_MONTHLY_NATIVE_V1",
+  "python_trades": 3,
+  "sq_trades": 3,
+  "pairs": [
+    {
+      "python": {
+        "open_date": "2019-01-02",
+        "open_price": 19.785,
+        "close_date": "2021-03-01",
+        "close_price": 24.53,
+        "close_type": "Exit Signal"
+      },
+      "sq": {
+        "open_date": "2019-01-02",
+        "open_price": 19.785,
+        "close_date": "2021-03-01",
+        "close_price": 24.53,
+        "close_type": "Exit Signal"
+      },
+      "dates_exact": true,
+      "types_exact": true,
+      "max_price_abs_error_gbp": 0.0
+    },
+    {
+      "python": {
+        "open_date": "2021-12-01",
+        "open_price": 26.14,
+        "close_date": "2022-01-04",
+        "close_price": 26.12,
+        "close_type": "Exit Signal"
+      },
+      "sq": {
+        "open_date": "2021-12-01",
+        "open_price": 26.14,
+        "close_date": "2022-01-04",
+        "close_price": 26.12,
+        "close_type": "Exit Signal"
+      },
+      "dates_exact": true,
+      "types_exact": true,
+      "max_price_abs_error_gbp": 0.0
+    },
+    {
+      "python": {
+        "open_date": "2022-03-01",
+        "open_price": 27.73,
+        "close_date": "2024-12-31",
+        "close_price": 40.46,
+        "close_type": "EndTest"
+      },
+      "sq": {
+        "open_date": "2022-03-01",
+        "open_price": 27.73,
+        "close_date": "2024-12-31",
+        "close_price": 40.46,
+        "close_type": "EndTest"
+      },
+      "dates_exact": true,
+      "types_exact": true,
+      "max_price_abs_error_gbp": 0.0
+    }
+  ],
+  "maximum_price_abs_error_gbp": 0.0,
+  "source_sha256": "25008847d1f9c8be10b9d60a0a52306ab46134febe3b63d720914fef2c28d713",
+  "orders_sha256": "cfc5bec37fc4740533d4a3066709ac9c4d46a03ab9fd546023c7b79fc8e593da",
+  "sizing_and_cost_parity": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

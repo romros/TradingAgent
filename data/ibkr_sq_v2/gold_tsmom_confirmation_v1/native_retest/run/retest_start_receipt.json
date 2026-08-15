@@ -1,0 +1,17 @@
+{
+  "databank_sync_receipt_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/gold_tsmom_confirmation_v1/native_retest/run/retest_databank_sync_receipt.json",
+  "databank_sync_receipt_sha256": "22bcfdca396bc7ed371344ad2d852bf3cd8fb60f46a9d0c85cedfd7062a17308",
+  "decision": "PASS_RETEST_STARTED",
+  "holdout_accessed": false,
+  "holdout_evaluation_count": 0,
+  "input_copy_path": "/mnt/volume-SQ/user/projects/IBKR_SGLN_TSMOM12_PREHOLDOUT_V1/databanks/Results/SGLN_TSMOM12_MONTHLY_NATIVE_V1.sqx",
+  "input_copy_sha256": "295318005bf18fdae041ec3181b21d017b9c9446ab58ae696f65b98b75252561",
+  "preflight_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/gold_tsmom_confirmation_v1/native_retest/run/retest_preflight.json",
+  "preflight_sha256": "798832e69fc9502ecac5f50b51aec3d05d84bd55dc52eb3cb07c6243ba702cd7",
+  "project_name": "IBKR_SGLN_TSMOM12_PREHOLDOUT_V1",
+  "response": {
+    "success": "Project execution started."
+  },
+  "retest_stage": "pre_holdout",
+  "schema_version": 1
+}

@@ -12,12 +12,14 @@ from xml.etree import ElementTree as ET
 
 SUPPORTED_SIGNAL_NODES = {
     "AND", "Not", "IsRising", "IsFalling", "CrossesAbove", "CrossesBelow",
-    "IsGreater", "IsLower", "Close", "Low", "High", "SMA", "EMA", "RSI",
+    "IsGreater", "IsLower", "Close", "Open", "Low", "High", "SMA", "EMA", "RSI",
+    "ADX", "BollingerBands", "Multiplication",
     "ROC", "Highest", "Lowest", "BarDayOfMonth", "BarDayOfWeekIs", "IsMonthFirstTradingDay",
     "IsMonthLastTradingDay", "Number", "Boolean",
     "AlquimiaH4MomentumAbove", "AlquimiaH4MomentumBelow",
     "AlquimiaH4ChannelAbove", "AlquimiaH4ChannelBelow",
     "AlquimiaH4CompressionChannelAbove", "AlquimiaH4CompressionChannelBelow",
+    "AlquimiaMonthlyMomentumAbove", "AlquimiaMonthlyMomentumBelow",
 }
 SUPPORTED_ENTRY = {"EnterAtMarket"}
 SUPPORTED_ACTION_PARAMS = {
@@ -264,7 +266,11 @@ def extract(path: Path) -> dict:
     for signal_id, node in signals.items():
         if signal_id in {"33333333-1111-2222-3333-333333333333", "33333333-2222-2222-3333-333333333333"}:
             exit_signal_values[signal_id] = node
-            if node != {"op": "Boolean", "params": {"#Value#": False}}:
+            supported_exit = (
+                node == {"op": "Boolean", "params": {"#Value#": False}}
+                or node.get("op") == "AlquimiaMonthlyMomentumBelow"
+            )
+            if not supported_exit:
                 unsupported.add("NON_FALSE_EXIT_SIGNAL")
     entry_condition_counts = {
         direction: entry["condition_count"] if entry is not None else 0

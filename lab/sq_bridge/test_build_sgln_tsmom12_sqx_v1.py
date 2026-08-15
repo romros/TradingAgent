@@ -3,6 +3,7 @@ from pathlib import Path
 from xml.etree import ElementTree as ET
 
 from build_sgln_tsmom12_sqx_v1 import build, NAME, LONG_ENTRY, LONG_EXIT
+from sqx_extract import extract
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -23,3 +24,10 @@ def test_extension_uses_calendar_month_not_252_bar_proxy():
     source = (ROOT / "lab/sq_bridge/sq_extensions/SQ/Utils/AlquimiaMonthlyMomentum.java").read_text()
     assert "minusMonths(months)" in source
     assert "252" not in source and "253" not in source
+
+def test_native_shell_is_supported_by_lineage_extractor(tmp_path):
+    source = ROOT / "data/ibkr_sq_v2/jpm_momentum60_v1/JPM_MOMENTUM60_MONTH_END_V1.sqx"
+    output = tmp_path / "sgln.sqx"; build(source, output)
+    result = extract(output)
+    assert result["translation_status"] == "SUPPORTED_SUBSET"
+    assert result["entries"]["long"]["signal"]["op"] == "AlquimiaMonthlyMomentumAbove"

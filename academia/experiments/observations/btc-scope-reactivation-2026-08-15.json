@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "id": "btc-scope-reactivation-2026-08-15",
+  "observed_at": "2026-08-15",
+  "authority": "The user explicitly requested continued BTC monitoring and a diversified 3-6 strategy objective after the earlier no-BTC instruction.",
+  "decision": "REACTIVATE_BTC_FORWARD_RESEARCH_ONLY",
+  "authorized_now": ["btc-wolf-crossvenue-replicability-v38", "read-only market context", "paper trading"],
+  "not_automatically_reactivated": ["btc-m15-trend-pullback-v1"],
+  "reason": "The M15 project remains blocked by unresolved SQ resources and has no performance evidence. A scope change does not turn an operationally blocked hypothesis into a candidate.",
+  "current_forward_evidence": {"family": "btc-wolf-crossvenue-replicability-v38", "minimum_candidate_closes": 10, "live_trading_authorized": false},
+  "live_trading_authorized": false
+}

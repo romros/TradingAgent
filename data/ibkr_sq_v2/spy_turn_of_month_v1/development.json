@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_DEVELOPMENT",
+  "preregistration_sha256": "2d6786cc119e681dbfdbd77f8774a591fcf5f756b08e44dc7c86e99cb70d0c75",
+  "source_sha256": "3d1874ef58daf88062af8a86eb66990aaa082e1d235d41d0d55405e72078bc26",
+  "rule_id": "SPY_TOM_M1_P3",
+  "metrics": {
+    "train": {
+      "trades": 53,
+      "gross_return_pct": 22.03841602388332,
+      "gross_profit_factor": 1.6500076502478995,
+      "net_return_pct": 15.75737061343676,
+      "net_profit_factor": 1.4606996065982496,
+      "net_maximum_drawdown_pct": 7.5385944464693155,
+      "gross_mean_trade_pct": 0.3989173578061509,
+      "gross_t_stat": 1.364661176962048,
+      "positive_trades": 36
+    },
+    "validation": {
+      "trades": 23,
+      "gross_return_pct": 6.330215457818,
+      "gross_profit_factor": 1.4347319872156723,
+      "net_return_pct": 3.9172360970747278,
+      "net_profit_factor": 1.2658311455773728,
+      "net_maximum_drawdown_pct": 4.80639816368662,
+      "gross_mean_trade_pct": 0.28713756904247023,
+      "gross_t_stat": 0.673929747040844,
+      "positive_trades": 13
+    }
+  },
+  "combined": {
+    "trades": 77,
+    "gross_return_pct": 27.330031685574397,
+    "gross_profit_factor": 1.5216670174158313,
+    "net_return_pct": 17.915530929213542,
+    "net_profit_factor": 1.3457580941196299,
+    "net_maximum_drawdown_pct": 7.734631167490735,
+    "gross_mean_trade_pct": 0.3359910960955251,
+    "gross_t_stat": 1.4095353745249637,
+    "positive_trades": 49
+  },
+  "oos_accessed": false,
+  "sqcli_started": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "hypothesis": "US equity-index returns concentrate around the turn of the calendar month.",
+  "rule": {
+    "id": "SPY_TOM_M1_P3",
+    "entry": "close of the second-to-last trading session of each month",
+    "exit": "close of the third trading session of the following month",
+    "position": "long SPY, no overlap",
+    "parameters_searched": 0
+  },
+  "periods": {
+    "train": ["2017-05-11", "2021-12-31"],
+    "validation": ["2022-01-01", "2023-12-31"],
+    "oos_2024": ["2024-01-01", "2024-12-31"]
+  },
+  "gates": {
+    "train_minimum_trades": 48,
+    "validation_minimum_trades": 20,
+    "minimum_gross_profit_factor_each_period": 1.1,
+    "minimum_net_profit_factor_each_period": 1.0,
+    "minimum_combined_one_sided_t_stat": 1.645,
+    "maximum_net_drawdown_pct": 12.0
+  },
+  "economics": {
+    "round_trip_friction_bps": 10.0,
+    "note": "Capital-independent return screen; sizing is downstream only. Raw unadjusted CFD closes make omitted distributions conservative."
+  },
+  "evidence": [
+    "McConnell and Xu (2008), Equity Returns at the Turn of the Month, Financial Analysts Journal 64(2)",
+    "Recent literature is mixed and reports decay of calendar anomalies; therefore 2024 stays sealed until development passes."
+  ],
+  "research_authorized": true,
+  "paper_authorized": false,
+  "live_authorized": false
+}

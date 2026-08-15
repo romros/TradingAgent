@@ -16,6 +16,7 @@ de tenir un mecanisme i una preregistració nous.
 | Confirmed capitulation cross-asset | Només 1/36 variants passa; regió fràgil | `data/ibkr_sq_v2/confirmed_capitulation_cross_asset_v1/screen.json` |
 | SPY D1 short reversal | Dues famílies sense regió estable després de costos | [Fitxa](spy_d1_short_reversal_families.md) |
 | GLD D1 breakout | Zero trades completats al 2024 OOS | [Fitxa](gld_d1_breakout_v1.md) |
+| SPY turn-of-the-month | Efecte positiu però t-stat 1,410 < 1,645; OOS 2024 segellat | [Fitxa](spy_turn_of_month_v1.md) |
 
 Les watchlists i resultats condicionals no s'inclouen aquí fins que hi hagi una
 decisió formal de rebuig.

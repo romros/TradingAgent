@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-gold-tsmom-confirmation-v1",
+  "status": "FROZEN_AFTER_DISCOVERY_BEFORE_CONFIRMATION_DATA",
+  "discovery_result": "data/ibkr_sq_v2/gold_etc_tsmom/screen_v2.json",
+  "candidate": {"ticker": "SGLN.L", "isin": "IE00B4ND3602"},
+  "independent_gold_control": {"ticker": "PHAU.L", "isin": "JE00B1VS3770"},
+  "rule": "at each month-end, long 100% next session open when adjusted close exceeds adjusted close 12 month-ends earlier; otherwise cash; exit/rebalance next month open",
+  "confirmation_period": ["2025-01-01", "2026-07-31"],
+  "economics": {"capital_eur_equivalent": 1000, "commission_each_position_change_eur": 1.25, "slippage_each_position_change_bps": 5, "cash_return": 0.0},
+  "gates": {
+    "minimum_completed_candidate_months": 18,
+    "candidate_total_return_gt": 0.0,
+    "candidate_annualized_sharpe_gte": 0.5,
+    "candidate_maximum_drawdown_lte": 0.2,
+    "control_total_return_gt": 0.0,
+    "candidate_control_monthly_return_correlation_gte": 0.85,
+    "combined_2019_2026_candidate_annualized_sharpe_gte": 0.7,
+    "combined_2019_2026_candidate_maximum_drawdown_lte": 0.2
+  },
+  "parameters_searched": 0,
+  "sqcli_only_after_confirmation_pass": true,
+  "paper_authorized": false,
+  "live_authorized": false
+}

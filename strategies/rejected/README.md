@@ -17,6 +17,9 @@ de tenir un mecanisme i una preregistració nous.
 | SPY D1 short reversal | Dues famílies sense regió estable després de costos | [Fitxa](spy_d1_short_reversal_families.md) |
 | GLD D1 breakout | Zero trades completats al 2024 OOS | [Fitxa](gld_d1_breakout_v1.md) |
 | SPY turn-of-the-month | Efecte positiu però t-stat 1,410 < 1,645; OOS 2024 segellat | [Fitxa](spy_turn_of_month_v1.md) |
+| SPY Halloween standalone | 9 temporades +60,56%, però t-stat 1,493 < 1,645 | `data/ibkr_sq_v2/halloween_equity/recent_holdout_v1.json` |
+| AAPL open→close diari | Brut +11,2 bps, però a 1.000 USD −11,47% net i PF 0,960 | `data/ibkr_sq_v2/aapl_intraday_confirmation_v1/screen_v1.json` |
+| Futurs TSMOM diversificats proxy | Positiu als tres trams, però Sharpe combinat 0,553 < 0,65 | `data/ibkr_sq_v2/diversified_futures_tsmom_v1/screen_v1.json` |
 
 Les watchlists i resultats condicionals no s'inclouen aquí fins que hi hagi una
 decisió formal de rebuig.

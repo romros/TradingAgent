@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-halloween-equity-v1-recent-holdout",
+  "parent_preregistration_sha256": "9e1ac60bde05e8171559ac935b2e78bc50c00a56b3a51b2519de815d3a24410e",
+  "parent_result_sha256": "5f2d62c9d0632eb0d095dcdb22a0b599d1be02ff577c74a338236bed59bec4c0",
+  "rule": "unchanged: buy first session open in November; sell first session open in May; 30 bps roundtrip",
+  "holdout_seasons": [
+    ["2024-11-01", "2025-05-31"],
+    ["2025-11-01", "2026-05-31"]
+  ],
+  "source": "Dukascopy SPYUSUSD M1 aggregated to complete NYSE RTH D1; raw prices, omitted dividends are conservative",
+  "gates": {
+    "two_completed_holdout_trades": true,
+    "holdout_compounded_net_return_gt": 0.0,
+    "all_nine_seasons_combined_one_sided_t_stat_gte": 1.645,
+    "all_nine_seasons_net_profit_factor_gte": 1.3,
+    "all_nine_seasons_maximum_drawdown_lte": 0.25
+  },
+  "no_parameter_changes": true,
+  "sqcli_required_only_after_statistical_pass": true,
+  "paper_authorized": false,
+  "live_authorized": false
+}

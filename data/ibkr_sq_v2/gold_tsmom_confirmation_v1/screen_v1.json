@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_CONFIRMATION",
+  "preregistration_sha256": "db31339e4fa70f288b657a23ebccd363a46e9c6e1e5f6a65c1b9036aff4fa9d4",
+  "sources": {
+    "SGLN_L": "b34e0712bc45fd6465f3934eb6e28c372edda19553a77c2feb4e15790e1db253",
+    "PHAU_L": "bb63754738ad7c12a54dff7fddad6ca0e1c4ec70f19faf57874b557f8be03159"
+  },
+  "confirmation": {
+    "SGLN_L": {
+      "months": 18,
+      "invested_months": 18,
+      "position_changes": 0,
+      "total_return": 0.42128386624359315,
+      "annualized_return": 0.2641168417259183,
+      "annualized_sharpe": 1.0455959381711746,
+      "maximum_drawdown": 0.2582165605095543
+    },
+    "PHAU_L": {
+      "months": 18,
+      "invested_months": 18,
+      "position_changes": 0,
+      "total_return": 0.5105519688608902,
+      "annualized_return": 0.31650884374410637,
+      "annualized_sharpe": 1.2186216230261038,
+      "maximum_drawdown": 0.2661650148462741
+    }
+  },
+  "confirmation_transfer": {
+    "months": 18,
+    "correlation": 0.9602606072257514
+  },
+  "candidate_combined_2019_2026": {
+    "months": 90,
+    "invested_months": 79,
+    "position_changes": 4,
+    "total_return": 1.5835012939731326,
+    "annualized_return": 0.13490930768117715,
+    "annualized_sharpe": 0.8921302024996384,
+    "maximum_drawdown": 0.2582165605095542
+  },
+  "optimized": false,
+  "sqcli_started": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-diversified-futures-tsmom-v1",
+  "status": "FROZEN_BEFORE_PROXY_DATA",
+  "academic_basis": "Moskowitz, Ooi and Pedersen, Journal of Financial Economics 104 (2012), 228-250",
+  "instruments": {
+    "ES": {"proxy": "ES=F", "ibkr_micro": "MES", "class": "equity_index"},
+    "GC": {"proxy": "GC=F", "ibkr_micro": "MGC", "class": "metal"},
+    "CL": {"proxy": "CL=F", "ibkr_micro": "MCL", "class": "energy"},
+    "ZN": {"proxy": "ZN=F", "ibkr_micro": null, "class": "government_bond"},
+    "EUR": {"proxy": "6E=F", "ibkr_micro": "M6E", "class": "currency"},
+    "JPY": {"proxy": "6J=F", "ibkr_micro": "MJY", "class": "currency"}
+  },
+  "rule": {
+    "signal": "sign of trailing 252-session adjusted-close return at each month-end",
+    "execution": "next session open; long when positive and short when negative; hold until next monthly execution",
+    "risk_weighting": "inverse 60-session daily volatility, normalized to equal portfolio risk weights with maximum 30 percent per instrument",
+    "portfolio_target_volatility": "not applied in edge screen; returns normalized to unit gross weight",
+    "parameters_searched": 0
+  },
+  "periods": {"train": ["2010-01-01", "2018-12-31"], "validation": ["2019-01-01", "2022-12-31"], "oos": ["2023-01-01", "2024-12-31"], "recent_holdout": ["2025-01-01", "2026-07-31"]},
+  "economics": {"turnover_cost_bps": 10, "note": "proxy screen only; contract commissions, roll and micro-future granularity are mandatory downstream"},
+  "gates": {
+    "minimum_assets_with_80_percent_period_coverage": 5,
+    "validation_return_gt": 0.0,
+    "oos_return_gt": 0.0,
+    "recent_holdout_return_gt": 0.0,
+    "combined_validation_oos_recent_annualized_sharpe_gte": 0.65,
+    "combined_maximum_drawdown_lte": 0.2,
+    "minimum_positive_asset_classes_combined": 3,
+    "proxy_pass_requires_broker_grade_roll_validation": true
+  },
+  "paper_authorized": false,
+  "live_authorized": false
+}

@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_PROXY_EDGE",
+  "preregistration_sha256": "a0854a416ceb0ed39e7d8f00331cb3930eb6c45d23d35be3d533f3e24590232d",
+  "quality": {
+    "ES": {
+      "valid": true,
+      "months": 210,
+      "sha256": "01beadcc38fdc369c746648ca5b2b2f013f1304377bac466d3cd5f9ed5790611"
+    },
+    "GC": {
+      "valid": true,
+      "months": 210,
+      "sha256": "020c71b232a4e9e8e491901d6d33008da723137e05931d7e44512f904c6c6b2c"
+    },
+    "CL": {
+      "valid": false,
+      "reason": "non-positive continuous price",
+      "sha256": "0e32a117b3122c80c2466c47a94e4c662f1c8dcc8a091614940a4a2d48fe49b8"
+    },
+    "ZN": {
+      "valid": true,
+      "months": 209,
+      "sha256": "bcb155186c36eace769197977b2bf4571805b1ada04a38eaa0f63a41f4164c4a"
+    },
+    "EUR": {
+      "valid": true,
+      "months": 210,
+      "sha256": "0a690013631755096fed00647f236f3bc793a347ac4918df3bbcf3a856be33d6"
+    },
+    "JPY": {
+      "valid": true,
+      "months": 210,
+      "sha256": "c7ae6e4ca095daa4c7410559175741ee691c584489d09753a32e17438c3b95be"
+    }
+  },
+  "periods": {
+    "train": {
+      "months": 108,
+      "total_return": 0.03175224022111811,
+      "annualized_return": 0.003479211892492229,
+      "annualized_sharpe": 0.09241738707378098,
+      "maximum_drawdown": 0.12006415755285282,
+      "average_monthly_turnover": 0.2911478105149127
+    },
+    "validation": {
+      "months": 48,
+      "total_return": 0.12471481493988534,
+      "annualized_return": 0.029818297435152186,
+      "annualized_sharpe": 0.5432020955208797,
+      "maximum_drawdown": 0.07060422037866665,
+      "average_monthly_turnover": 0.1920489157599541
+    },
+    "oos": {
+      "months": 24,
+      "total_return": 0.01223000535532437,
+      "annualized_return": 0.006096419512227724,
+      "annualized_sharpe": 0.15163285102879578,
+      "maximum_drawdown": 0.04104761102195342,
+      "average_monthly_turnover": 0.4306794846166273
+    },
+    "recent_holdout": {
+      "months": 18,
+      "total_return": 0.0808209039739809,
+      "annualized_return": 0.053179726601669364,
+      "annualized_sharpe": 1.1007677622454306,
+      "maximum_drawdown": 0.022479981815000882,
+      "average_monthly_turnover": 0.3332426270824537
+    }
+  },
+  "combined_validation_oos_recent": {
+    "months": 90,
+    "total_return": 0.23048226441731323,
+    "annualized_return": 0.028040082458082427,
+    "annualized_sharpe": 0.5529612087772041,
+    "maximum_drawdown": 0.10122244961378069,
+    "average_monthly_turnover": 0.2839224763862335
+  },
+  "gross_contribution_by_instrument": {
+    "ES": 0.07681777576020475,
+    "GC": 0.09946128109716125,
+    "ZN": 0.036390869754907185,
+    "EUR": -0.02453854844514119,
+    "JPY": 0.05533543652666183
+  },
+  "positive_asset_classes": 4,
+  "proxy_performance_accessed": true,
+  "optimized": false,
+  "sqcli_started": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

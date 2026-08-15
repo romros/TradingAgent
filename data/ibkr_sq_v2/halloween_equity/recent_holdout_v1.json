@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_RECENT_HOLDOUT",
+  "preregistration_sha256": "427c29ae95ffcebd61c7934304004b2b33680fc0e645ca13aaba356633536bc2",
+  "parent_result_sha256": "5f2d62c9d0632eb0d095dcdb22a0b599d1be02ff577c74a338236bed59bec4c0",
+  "holdout_source_sha256": "5fe980e2890005db607c768fbeee009d1ac986d775e11abd417caf3e5c062a34",
+  "historical_independent_seasons": 7,
+  "holdout": {
+    "trades": 2,
+    "compounded_net_return": 0.025890469060841692,
+    "arithmetic_mean_trade": 0.01348237599799629,
+    "one_sided_t_stat": 0.3804185551647921,
+    "net_profit_factor": 2.2279856291241042,
+    "maximum_drawdown": 0.0219585240710235,
+    "positive_trades": 1
+  },
+  "holdout_trades": [
+    {
+      "entry": "2024-11-01",
+      "exit": "2025-05-01",
+      "return": -0.021958524071023496
+    },
+    {
+      "entry": "2025-11-03",
+      "exit": "2026-05-01",
+      "return": 0.048923276067016075
+    }
+  ],
+  "combined_nine_seasons": {
+    "trades": 9,
+    "compounded_net_return": 0.605620442391952,
+    "arithmetic_mean_trade": 0.059942989199279394,
+    "one_sided_t_stat": 1.493244700688014,
+    "net_profit_factor": 3.9808476277805487,
+    "maximum_drawdown": 0.10184344350633134,
+    "positive_trades": 6
+  },
+  "performance_accessed": true,
+  "optimized": false,
+  "sqcli_started": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

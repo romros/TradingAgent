@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "campaign_id": "aapl-open-close-confirmation-v1",
+  "status": "FROZEN_AFTER_EXPLORATION_BEFORE_CONFIRMATION_DATA",
+  "discovery_evidence": {
+    "path": "data/ibkr_sq_v2/overnight_premium/intraday_source_audit_v1.json",
+    "classification": "exploratory only",
+    "adjusted_source_period": "2022-01-01/2024-12-31",
+    "observations": 753,
+    "mean_bps": 11.623538207221058,
+    "t_stat": 2.2313819622311213
+  },
+  "hypothesis": "AAPL retains a positive regular-session open-to-close return after IBKR Pro Tiered costs in a chronologically new sample.",
+  "rule": {
+    "entry": "buy at official regular-session open every session",
+    "exit": "sell at the same session official close",
+    "direction": "long only",
+    "filters": "none",
+    "parameters_searched": 0
+  },
+  "confirmation_period": ["2025-01-02", "2026-07-31"],
+  "primary_source": "Yahoo split/dividend-adjusted OHLC; intraday return is invariant to the daily adjustment factor",
+  "parity_source": "Dukascopy AAPLUSUSD canonical RTH D1",
+  "economics": {
+    "capital_usd": [1000, 3000],
+    "whole_shares": true,
+    "commission_per_order_usd": 0.35,
+    "round_trip_slippage_bps": 4.0,
+    "commission_basis": "IBKR Pro Tiered published minimum; exchange/regulatory uncertainty is absorbed by slippage stress"
+  },
+  "gates": {
+    "minimum_confirmation_sessions": 350,
+    "primary_net_one_sided_t_stat_gte": 1.645,
+    "primary_net_profit_factor_gte": 1.10,
+    "primary_net_return_gt": 0.0,
+    "primary_net_maximum_drawdown_lte": 0.15,
+    "must_pass_at_capital_usd": 1000,
+    "daily_return_parity_correlation_gte": 0.995,
+    "daily_return_direction_agreement_gte": 0.95
+  },
+  "sqcli_only_after_confirmation_pass": true,
+  "paper_authorized": false,
+  "live_authorized": false
+}

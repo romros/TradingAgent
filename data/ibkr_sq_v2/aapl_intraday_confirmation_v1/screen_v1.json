@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_CONFIRMATION",
+  "preregistration_sha256": "fd77e3ab57953265c5ba6813579026b06e991c63bcca8cc614da0f276f7978a8",
+  "primary_source_sha256": "1fe71d33ebde806a25397ef16b6857455beb51371b0ede7b40c674ad7f124284",
+  "parity_source_sha256": "1c4c333b958ece0ba1d8251c4cb7efbcd706475b82f8d48b52855703bf2c12c3",
+  "economics_by_capital": {
+    "1000": {
+      "sessions": 395,
+      "skipped": 0,
+      "net_return": -0.114666174125588,
+      "net_mean_daily_return": -0.00019608199391274418,
+      "net_one_sided_t_stat": -0.25745331845005426,
+      "net_profit_factor": 0.9602033241568025,
+      "net_maximum_drawdown": 0.2906332175956986,
+      "gross_mean_bps": 11.198059351959733,
+      "positive_net_sessions": 192
+    },
+    "3000": {
+      "sessions": 395,
+      "skipped": 0,
+      "net_return": 0.14369951569116712,
+      "net_mean_daily_return": 0.00046841652016678517,
+      "net_one_sided_t_stat": 0.5746290577065343,
+      "net_profit_factor": 1.0932460049431094,
+      "net_maximum_drawdown": 0.19257595236101555,
+      "gross_mean_bps": 11.198059351959733,
+      "positive_net_sessions": 202
+    }
+  },
+  "source_parity": {
+    "common_sessions": 395,
+    "return_correlation": 0.9981672244452208,
+    "direction_agreement": 0.959493670886076,
+    "mean_difference_bps": -9.303084819810884
+  },
+  "optimized": false,
+  "sqcli_started": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

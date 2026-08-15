@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "id": "link-relative-breakout-replication-v40",
+  "preregistered_at": "2026-08-15",
+  "status": "FORWARD_WATCH",
+  "asset": "LINK/USD",
+  "mode": "PAPER_ONLY_NO_ORDERS",
+  "expires_at": "2026-08-22T12:00:00Z",
+  "anchor": "first valid executable mid after process start",
+  "replication_rule": "Reuse v39 geometry as percentages of its 8.7925 corridor midpoint; no levels selected from v40 outcomes.",
+  "confirmation_samples": 3,
+  "interval_seconds": 60,
+  "geometry": {
+    "short": {"trigger_anchor_pct": -0.8245663918100654, "stop_from_trigger_pct": 0.6880733944954094, "target_1_from_trigger_pct": -1.9495412844036654, "target_2_from_trigger_pct": -3.6697247706422016},
+    "long": {"trigger_anchor_pct": 0.8245663918100654, "stop_from_trigger_pct": -0.7332205301748449, "target_1_from_trigger_pct": 1.5228426395939088, "target_2_from_trigger_pct": 1.748448956570779}
+  },
+  "paper_execution": {"notional_usdc": 250, "collateral_usdc": 50, "maximum_leverage": 5, "first_target_fraction": 0.5, "maximum_one_position": true},
+  "success_gate": {"minimum_closed_replications": 10, "minimum_profit_factor": 1.2, "both_temporal_halves_positive": true, "maximum_drawdown_pct": 15, "single_trade_profit_concentration_max_pct": 40},
+  "edge_demonstrated": false,
+  "live_trading_authorized": false
+}

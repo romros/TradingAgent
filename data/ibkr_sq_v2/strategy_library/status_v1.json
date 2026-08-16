@@ -5,7 +5,8 @@
     "cat_d1_trend_0168",
     "msft_d1_capitulation",
     "jpm_momentum60_month_end_v1",
-    "sgln_tsmom12_capped_v1"
+    "sgln_tsmom12_capped_v1",
+    "multi_asset_sma200_three_down_hold10_v1"
   ],
   "capped_portfolio_component_ids": [
     "sgln_tsmom12_capped_v1"
@@ -26,10 +27,10 @@
     "multi_asset_dual_momentum_v1",
     "spy_gap_down_recovery_v1"
   ],
-  "admitted_count": 4,
+  "admitted_count": 5,
   "conditional_count": 1,
-  "eligible_portfolio_count": 5,
-  "distinct_eligible_mechanisms": 5,
+  "eligible_portfolio_count": 6,
+  "distinct_eligible_mechanisms": 6,
   "minimum_required": 4,
   "portfolio_ready": true,
   "evidence_verified": true,

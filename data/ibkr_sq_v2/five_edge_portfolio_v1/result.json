@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_FIVE_EDGE_THEORETICAL_PORTFOLIO",
+  "period": "2022-01-01/2024-12-31",
+  "initial_capital_usd": 3000,
+  "allocation": {
+    "legacy_four_edge_portfolio_usd": 2000,
+    "multi_asset_trend_pullback_usd": 1000,
+    "transfers_between_sleeves": false,
+    "leverage": 1.0
+  },
+  "legacy_four_edge_stress_net_pnl_usd": 402.2410279999999,
+  "new_edge_stress_net_pnl_usd": 177.22293461669506,
+  "combined_net_pnl_usd": 579.463962616695,
+  "combined_net_return_pct": 19.3154654205565,
+  "weighted_individual_drawdown_budget_pct": 12.074354637707778,
+  "drawdown_budget_is_not_observed_portfolio_drawdown": true,
+  "legacy_input_sha256": "68d28a226af5db99c7b5216902e648ef97415a9dbd56c58ef5123d737f5cde00",
+  "new_input_sha256": "4dfb4ded34c78f72d786edabf1f61e43532555354df25bc2406dcf010d0a5f2e",
+  "checks": {
+    "positive_return": true,
+    "drawdown_budget": true
+  },
+  "paper_authorized": false,
+  "live_authorized": false
+}

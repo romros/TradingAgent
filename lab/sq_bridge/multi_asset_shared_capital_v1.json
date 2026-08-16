@@ -13,7 +13,7 @@
   },
   "capital_scenarios_usd": [500, 1000, 2000, 5000, 10000],
   "costs": {"commission_usd_per_order": 1.0, "slippage_bps_per_side": 10.0},
-  "periods": {"train": ["2017-01-01", "2021-12-31"], "validation": ["2022-01-01", "2023-12-31"], "oos": ["2024-01-01", "2024-12-31"]},
+  "periods": {"train": ["2017-01-01", "2021-12-31"], "validation": ["2022-01-01", "2023-12-31"], "oos": ["2024-01-01", "2024-12-31"], "common_2022_2024": ["2022-01-01", "2024-12-31"]},
   "diagnostic_only": true,
   "paper_authorized": false,
   "live_authorized": false

@@ -4,7 +4,9 @@ Aquest directori és el punt d'entrada net a les estratègies que han superat el
 gates de recerca disponibles. No conté còpies dels resultats: cada fitxa apunta
 als artefactes originals, que conserven hashes i traçabilitat.
 
-L'estat transversal, capital petit, paritat SQ i ordre de treball són a
+L'estat transversal actual, capital petit i agregació són a
+[FIVE_STRATEGY_PORTFOLIO_STATUS](../../docs/FIVE_STRATEGY_PORTFOLIO_STATUS.md).
+La reconstrucció nativa de les quatre peces prèvies continua documentada a
 [FOUR_STRATEGY_PORTFOLIO_STATUS](../../docs/FOUR_STRATEGY_PORTFOLIO_STATUS.md).
 
 ## Estat del catàleg
@@ -38,9 +40,10 @@ directori.
 
 L'índex llegible de vies mortes és a [estratègies rebutjades](../rejected/README.md).
 
-## Candidata en validació tècnica
+## Cinquena font d'edge
 
 La família multi-actiu SMA200/3-down/hold-10 ha superat el gate estadístic,
-OOS, robustesa per blocs i paritat nativa SQ sobre AAPL. Encara necessita
-contracte de capital compartit i extensió de paritat als altres recursos. No
-està autoritzada per paper ni live.
+OOS, robustesa per blocs, paritat nativa SQ sobre AAPL i contracte de capital
+compartit. Amb 1.000 USD supera validation i OOS; amb 500 USD falla. La paritat
+SQ dels altres actius és una millora tècnica pendent, no una llicència per
+reinterpretar la regla. No està autoritzada per paper ni live.

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_BEFORE_AGGREGATION",
+  "period": "2022-01-01/2024-12-31",
+  "allocation": {
+    "legacy_four_edge_portfolio_usd": 2000,
+    "multi_asset_trend_pullback_usd": 1000,
+    "transfers_between_sleeves": false,
+    "leverage": 1.0
+  },
+  "inputs": {
+    "legacy": "data/ibkr_sq_v2/four_edge_portfolio_composer_v1/net_daily_mtm_gate_v1.json",
+    "new": "data/ibkr_sq_v2/multi_asset_known_edge_funnel_v1/shared_capital_v1.json"
+  },
+  "gate": {"minimum_net_return_pct": 0, "maximum_drawdown_budget_pct": 15},
+  "paper_authorized": false,
+  "live_authorized": false
+}

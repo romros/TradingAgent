@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "campaign_id": "connors-rsi2-recent-confirmation-v1",
+  "created_utc": "2026-08-16",
+  "hypothesis": "The frozen Connors RSI(2) mean-reversion rule retains a positive cross-asset edge in chronologically new US-equity data.",
+  "rule": {
+    "long_filter": "close > SMA(200)",
+    "entry_signal": "Wilder RSI(2) < 5 at close",
+    "entry_execution": "next session open",
+    "exit_signal": "close > SMA(5)",
+    "exit_execution": "next session open",
+    "optimization": false
+  },
+  "assets": ["AAPL", "JPM", "SPY"],
+  "confirmation_period": ["2025-01-01", "2026-05-29"],
+  "complete_year_gate": ["2025-01-01", "2025-12-31"],
+  "gates": {
+    "minimum_combined_trades": 12,
+    "combined_mean_return_strictly_above": 0,
+    "combined_profit_factor_at_least": 1.25,
+    "year_2025_mean_return_strictly_above": 0,
+    "minimum_positive_assets": 2,
+    "maximum_gross_drawdown": 0.2
+  },
+  "sequencing": "Only if the gross statistical gate passes may small-account costs, SQ translation, or portfolio contribution be inspected.",
+  "paper_authorized": false,
+  "live_authorized": false
+}

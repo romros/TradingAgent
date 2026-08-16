@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_SMALL_ACCOUNT_COST_GATE",
+  "preregistration_sha256": "b39ac3fbebb6a8163f0c3cf157808b919cd78a7c087255fd52edac2331825c31",
+  "capital_usd": 2000.0,
+  "fixed_sleeve_usd": 666.6666666666666,
+  "scenarios": {
+    "tiered_indicative": {
+      "combined": {
+        "trades": 19,
+        "wins": 10,
+        "net_pnl_usd": 19.884786,
+        "net_return_pct_on_total_capital": 0.994239,
+        "profit_factor": 1.318916,
+        "closed_trade_max_drawdown_pct": 0.931681
+      },
+      "year_2025": {
+        "trades": 13,
+        "wins": 7,
+        "net_pnl_usd": 22.927209,
+        "net_return_pct_on_total_capital": 1.14636,
+        "profit_factor": 1.773211,
+        "closed_trade_max_drawdown_pct": 0.931681
+      },
+      "by_asset": {
+        "AAPL": {
+          "trades": 10,
+          "wins": 5,
+          "net_pnl_usd": 14.195776,
+          "net_return_pct_on_total_capital": 2.129366,
+          "profit_factor": 1.364221,
+          "closed_trade_max_drawdown_pct": 2.762004
+        },
+        "JPM": {
+          "trades": 4,
+          "wins": 1,
+          "net_pnl_usd": -18.805213,
+          "net_return_pct_on_total_capital": -2.820782,
+          "profit_factor": 0.12358,
+          "closed_trade_max_drawdown_pct": 3.205776
+        },
+        "SPY": {
+          "trades": 5,
+          "wins": 4,
+          "net_pnl_usd": 24.494223,
+          "net_return_pct_on_total_capital": 3.674134,
+          "profit_factor": 13.766302,
+          "closed_trade_max_drawdown_pct": 0.287799
+        }
+      },
+      "positive_assets": 2
+    },
+    "fixed_indicative": {
+      "combined": {
+        "trades": 19,
+        "wins": 10,
+        "net_pnl_usd": -10.983534,
+        "net_return_pct_on_total_capital": -0.549177,
+        "profit_factor": 0.857188,
+        "closed_trade_max_drawdown_pct": 1.426121
+      },
+      "year_2025": {
+        "trades": 13,
+        "wins": 7,
+        "net_pnl_usd": 1.770524,
+        "net_return_pct_on_total_capital": 0.088526,
+        "profit_factor": 1.045021,
+        "closed_trade_max_drawdown_pct": 1.332853
+      },
+      "by_asset": {
+        "AAPL": {
+          "trades": 10,
+          "wins": 5,
+          "net_pnl_usd": -1.771561,
+          "net_return_pct_on_total_capital": -0.265734,
+          "profit_factor": 0.962278,
+          "closed_trade_max_drawdown_pct": 3.269688
+        },
+        "JPM": {
+          "trades": 4,
+          "wins": 1,
+          "net_pnl_usd": -25.333032,
+          "net_return_pct_on_total_capital": -3.799955,
+          "profit_factor": 0.039292,
+          "closed_trade_max_drawdown_pct": 3.94923
+        },
+        "SPY": {
+          "trades": 5,
+          "wins": 4,
+          "net_pnl_usd": 16.121059,
+          "net_return_pct_on_total_capital": 2.418159,
+          "profit_factor": 5.507299,
+          "closed_trade_max_drawdown_pct": 0.536498
+        }
+      },
+      "positive_assets": 1
+    },
+    "stress": {
+      "combined": {
+        "trades": 19,
+        "wins": 10,
+        "net_pnl_usd": -21.264069,
+        "net_return_pct_on_total_capital": -1.063203,
+        "profit_factor": 0.73964,
+        "closed_trade_max_drawdown_pct": 1.600841
+      },
+      "year_2025": {
+        "trades": 13,
+        "wins": 7,
+        "net_pnl_usd": -5.323953,
+        "net_return_pct_on_total_capital": -0.266198,
+        "profit_factor": 0.874588,
+        "closed_trade_max_drawdown_pct": 1.459806
+      },
+      "by_asset": {
+        "AAPL": {
+          "trades": 10,
+          "wins": 5,
+          "net_pnl_usd": -6.717122,
+          "net_return_pct_on_total_capital": -1.007568,
+          "profit_factor": 0.864142,
+          "closed_trade_max_drawdown_pct": 3.580614
+        },
+        "JPM": {
+          "trades": 4,
+          "wins": 1,
+          "net_pnl_usd": -27.546064,
+          "net_return_pct_on_total_capital": -4.13191,
+          "profit_factor": 0.018184,
+          "closed_trade_max_drawdown_pct": 4.205218
+        },
+        "SPY": {
+          "trades": 5,
+          "wins": 4,
+          "net_pnl_usd": 12.999117,
+          "net_return_pct_on_total_capital": 1.949868,
+          "profit_factor": 4.11482,
+          "closed_trade_max_drawdown_pct": 0.625997
+        }
+      },
+      "positive_assets": 1
+    }
+  },
+  "sq_translation_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

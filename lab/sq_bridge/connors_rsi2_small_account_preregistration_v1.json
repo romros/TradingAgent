@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "campaign_id": "connors-rsi2-small-account-v1",
+  "created_utc": "2026-08-16",
+  "upstream_result": "data/ibkr_sq_v2/connors_rsi2/recent_confirmation_v1.json",
+  "upstream_result_sha256": "8587e0ec0bdfd8d29a88ac62c35ca8435d4156b79fb028a4c15fad55e8009e69",
+  "capital_usd": 2000,
+  "sizing": "three fixed equal sleeves of capital/3; whole shares floored on every entry; no compounding",
+  "cost_scenarios": {
+    "tiered_indicative": {"minimum_per_order_usd": 0.35, "bps_per_side": 2},
+    "fixed_indicative": {"minimum_per_order_usd": 1.0, "bps_per_side": 5},
+    "stress": {"minimum_per_order_usd": 1.0, "bps_per_side": 10}
+  },
+  "frozen_gate": {
+    "stress_net_pnl_strictly_above_usd": 0,
+    "stress_profit_factor_at_least": 1.1,
+    "stress_year_2025_net_pnl_strictly_above_usd": 0,
+    "stress_minimum_positive_assets": 2,
+    "stress_closed_trade_drawdown_at_most_pct": 15,
+    "minimum_executed_trades": 12
+  },
+  "next_if_pass": "Native SQ translation/parity and incremental portfolio contribution; no optimization.",
+  "paper_authorized": false,
+  "live_authorized": false
+}

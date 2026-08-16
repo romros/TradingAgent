@@ -30,6 +30,8 @@ de tenir un mecanisme i una preregistració nous.
 | Turtle 50/20 ampliada | Nous actius PF 1,33, però t combinat només 1,22 i DD 36,8% | `data/ibkr_sq_v2/turtle_50_20/new_asset_transfer_v1.json` |
 | AAPL H1 Strategy 0.14113 | OOS tiered PF 1,004 i stress −10,98% | `data/ibkr_sq_v2/aapl_h1_shock_reversion_tiered_pilot/oos/0_14113/small_account_audit.json` |
 | AAPL H1 Strategy 0.24306 | Edge OOS aparent, però falla Monte Carlo paramètric natiu ±10% | [Fitxa](aapl_h1_roc_cross_024306.md) |
+| Connors RSI(2) recent | Passa brut, però a 2.000 USD l'estrès és −1,06%, PF 0,740 | [Fitxa](connors_rsi2_and_spy_pre_fomc_20260816.md) |
+| SPY pre-FOMC MOC i M1 | MOC negatiu; finestra M1 canvia de règim i falla train/OOS | [Fitxa](connors_rsi2_and_spy_pre_fomc_20260816.md) |
 
 Les watchlists i resultats condicionals no s'inclouen aquí fins que hi hagi una
 decisió formal de rebuig.

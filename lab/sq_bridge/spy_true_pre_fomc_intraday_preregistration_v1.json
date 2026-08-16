@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "campaign_id": "spy-true-pre-fomc-intraday-v1",
+  "created_utc": "2026-08-16",
+  "material_difference_from_rejected_moc_rule": "Exit is before the 14:00 announcement, excluding the post-announcement reaction included by the rejected close-to-close implementation.",
+  "rule": {
+    "asset": "SPY",
+    "entry": "close of the 14:00 America/New_York M1 bar on the immediately preceding NYSE session",
+    "exit": "close of the 13:59 America/New_York M1 bar on the regular scheduled FOMC statement date",
+    "side": "long only",
+    "optimization": false
+  },
+  "periods": {
+    "train": ["2017-01-01", "2021-12-31"],
+    "validation": ["2022-01-01", "2023-12-31"],
+    "oos_2024": ["2024-01-01", "2024-12-31"]
+  },
+  "economics": {
+    "capital_usd": 2000,
+    "whole_shares": true,
+    "compounding": false,
+    "stress_minimum_per_order_usd": 1.0,
+    "stress_bps_per_side": 10
+  },
+  "gates": {
+    "train_net_pnl_strictly_above_usd": 0,
+    "validation_net_pnl_strictly_above_usd": 0,
+    "oos_net_pnl_strictly_above_usd": 0,
+    "combined_validation_oos_minimum_events": 20,
+    "combined_validation_oos_profit_factor_at_least": 1.2,
+    "combined_validation_oos_one_sided_t_stat_at_least": 1.645,
+    "minimum_positive_years_2022_2024": 2,
+    "maximum_combined_validation_oos_drawdown_pct": 15
+  },
+  "data_contract": "Dukascopy SPYUSUSD BID M1 cache; timestamps converted from UTC to America/New_York; every used session must contain exactly 390 RTH minutes.",
+  "paper_authorized": false,
+  "live_authorized": false
+}

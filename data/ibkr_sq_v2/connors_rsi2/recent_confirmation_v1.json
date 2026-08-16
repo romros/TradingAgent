@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_RECENT_CONFIRMATION",
+  "preregistration_sha256": "2264637db5e3a986cdf066bd0eb57f4d12b5b9280f1ddf0d4878e349e40814be",
+  "optimized": false,
+  "maximum_market_date_accessed": "2026-05-29",
+  "combined": {
+    "trades": 23,
+    "wins": 13,
+    "mean_return": 0.004635924016624228,
+    "total_return": 0.10895713908502014,
+    "profit_factor": 2.0540344616688335,
+    "t_stat": 1.3487745772580964,
+    "max_drawdown": 0.029435630958881354
+  },
+  "year_2025": {
+    "trades": 14,
+    "wins": 8,
+    "mean_return": 0.005166060715679702,
+    "total_return": 0.07308949616215199,
+    "profit_factor": 2.51606005075014,
+    "t_stat": 1.2225767853950578,
+    "max_drawdown": 0.029435630958881354
+  },
+  "by_asset": {
+    "AAPL": {
+      "trades": 10,
+      "wins": 5,
+      "mean_return": 0.005122563829376758,
+      "total_return": 0.04997878261547961,
+      "profit_factor": 1.7529127205649324,
+      "t_stat": 0.7084379927551561,
+      "max_drawdown": 0.03164755379222217
+    },
+    "JPM": {
+      "trades": 4,
+      "wins": 1,
+      "mean_return": -0.006167849412233473,
+      "total_return": -0.02461874241058315,
+      "profit_factor": 0.2159695082590783,
+      "t_stat": -1.1364106152804818,
+      "max_drawdown": 0.0312026869684775
+    },
+    "SPY": {
+      "trades": 9,
+      "wins": 7,
+      "mean_return": 0.008896890193058171,
+      "total_return": 0.08282888371648989,
+      "profit_factor": 49.34968609882453,
+      "t_stat": 4.463119282408326,
+      "max_drawdown": 0.0016411396877813456
+    }
+  },
+  "positive_assets": 2,
+  "small_account_cost_gate_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

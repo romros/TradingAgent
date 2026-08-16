@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "campaign_id": "spy-pre-fomc-drift-v1",
+  "created_utc": "2026-08-16",
+  "hypothesis": "US equities earn a positive return around scheduled FOMC announcements because investors are compensated for macro-policy event risk.",
+  "calendar_path": "lab/sq_bridge/evidence/fomc_regular_statement_calendar_2015_2026.json",
+  "rule": {
+    "asset": "SPY",
+    "entry": "market-on-close of the immediately preceding available NYSE session",
+    "exit": "market-on-close of the scheduled regular FOMC statement session",
+    "side": "long only",
+    "excluded": ["unscheduled meetings", "conference calls", "notation votes"],
+    "optimization": false
+  },
+  "periods": {
+    "train": ["2017-01-01", "2021-12-31"],
+    "validation": ["2022-01-01", "2023-12-31"],
+    "oos_2024": ["2024-01-01", "2024-12-31"]
+  },
+  "economics": {
+    "capital_usd": 2000,
+    "whole_shares": true,
+    "compounding": false,
+    "stress_minimum_per_order_usd": 1.0,
+    "stress_bps_per_side": 10
+  },
+  "gates": {
+    "train_net_pnl_strictly_above_usd": 0,
+    "validation_net_pnl_strictly_above_usd": 0,
+    "oos_net_pnl_strictly_above_usd": 0,
+    "combined_validation_oos_minimum_events": 20,
+    "combined_validation_oos_profit_factor_at_least": 1.2,
+    "combined_validation_oos_one_sided_t_stat_at_least": 1.0,
+    "minimum_positive_years_2022_2024": 2,
+    "maximum_combined_validation_oos_drawdown_pct": 15
+  },
+  "limitations": [
+    "Daily data tests close-to-close FOMC exposure, not the narrower intraday pre-14:00 academic window.",
+    "MOC fills require later broker-specific parity and slippage evidence.",
+    "Raw SPY prices omit distributions, conservatively biasing an ex-dividend event downward."
+  ],
+  "paper_authorized": false,
+  "live_authorized": false
+}

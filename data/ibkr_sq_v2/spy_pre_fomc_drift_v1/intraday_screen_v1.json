@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_TRUE_PRE_FOMC_GATE",
+  "preregistration_sha256": "8f062517a552127c6914983c7bde40d7a71e977de9a2219fd44280aad0d8c1ac",
+  "optimized": false,
+  "stress_costs_applied": true,
+  "rth_sessions_validated": 2272,
+  "event_count_expected": 63,
+  "event_count_matched": 59,
+  "periods": {
+    "train": {
+      "events": 35,
+      "wins": 9,
+      "net_pnl_usd": -137.738399,
+      "net_return_pct_on_capital": -6.88692,
+      "mean_net_pnl_usd": -3.935383,
+      "profit_factor": 0.395854,
+      "t_stat": -1.950802,
+      "closed_event_max_drawdown_pct": 6.984208
+    },
+    "validation": {
+      "events": 16,
+      "wins": 10,
+      "net_pnl_usd": 82.90623,
+      "net_return_pct_on_capital": 4.145312,
+      "mean_net_pnl_usd": 5.181639,
+      "profit_factor": 3.513924,
+      "t_stat": 1.74359,
+      "closed_event_max_drawdown_pct": 0.819195
+    },
+    "oos_2024": {
+      "events": 8,
+      "wins": 3,
+      "net_pnl_usd": -3.748762,
+      "net_return_pct_on_capital": -0.187438,
+      "mean_net_pnl_usd": -0.468595,
+      "profit_factor": 0.923967,
+      "t_stat": -0.087362,
+      "closed_event_max_drawdown_pct": 2.181673
+    }
+  },
+  "combined_validation_oos": {
+    "events": 24,
+    "wins": 13,
+    "net_pnl_usd": 79.157468,
+    "net_return_pct_on_capital": 3.957873,
+    "mean_net_pnl_usd": 3.298228,
+    "profit_factor": 1.96201,
+    "t_stat": 1.24068,
+    "closed_event_max_drawdown_pct": 2.752335
+  },
+  "years_2022_2024": {
+    "2022": {
+      "events": 8,
+      "wins": 6,
+      "net_pnl_usd": 89.915021,
+      "net_return_pct_on_capital": 4.495751,
+      "mean_net_pnl_usd": 11.239378,
+      "profit_factor": 6.356192,
+      "t_stat": 2.292579,
+      "closed_event_max_drawdown_pct": 0.726893
+    },
+    "2023": {
+      "events": 8,
+      "wins": 4,
+      "net_pnl_usd": -7.008791,
+      "net_return_pct_on_capital": -0.35044,
+      "mean_net_pnl_usd": -0.876099,
+      "profit_factor": 0.567137,
+      "t_stat": -0.48002,
+      "closed_event_max_drawdown_pct": 0.751765
+    },
+    "2024": {
+      "events": 8,
+      "wins": 3,
+      "net_pnl_usd": -3.748762,
+      "net_return_pct_on_capital": -0.187438,
+      "mean_net_pnl_usd": -0.468595,
+      "profit_factor": 0.923967,
+      "t_stat": -0.087362,
+      "closed_event_max_drawdown_pct": 2.181673
+    }
+  },
+  "positive_years_2022_2024": 1,
+  "paper_authorized": false,
+  "live_authorized": false
+}

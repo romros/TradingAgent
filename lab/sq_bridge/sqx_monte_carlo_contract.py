@@ -13,6 +13,7 @@ from xml.etree import ElementTree as ET
 
 RESULT_SUFFIX = "/MonteCarloRetest_Results.xml"
 ORDER_RE = re.compile(r"^(?P<prefix>Results/.+)/MonteCarloRetest_Simulation(?P<index>\d+)Orders\.bin$")
+ORIGINAL_SUFFIX = "/RobustnessOriginalOrders.bin"
 
 
 def _sha(path: Path) -> str:
@@ -32,6 +33,10 @@ def inspect(path: Path, *, simulations: int, probability_pct: int,
         result_name = result_names[0]
         root = ET.fromstring(archive.read(result_name))
         prefix = result_name[:-len(RESULT_SUFFIX)]
+        original_name = prefix + ORIGINAL_SUFFIX
+        if original_name not in names or archive.getinfo(original_name).file_size <= 0:
+            raise ValueError("SQX_MONTE_CARLO_ORIGINAL_ORDERS_MISSING")
+        original_sha = hashlib.sha256(archive.read(original_name)).hexdigest()
         order_rows = []
         for name in names:
             match = ORDER_RE.match(name)
@@ -50,15 +55,27 @@ def inspect(path: Path, *, simulations: int, probability_pct: int,
     date_range = (root.findtext("./DateRange") or "").strip()
     expected_method = ("Randomize strategy parameters, with probability "
                        f"{probability_pct} % and max change {max_change_pct} %")
-    indices = [row[0] for row in sorted(order_rows)]
+    ordered_randomized = sorted(order_rows)
+    indices = [row[0] for row in ordered_randomized]
+    # SQ records only attempts where at least one parameter changed. Attempts
+    # where the probability draw changes nothing are equivalent to the base
+    # strategy and are represented by RobustnessOriginalOrders.bin. They form
+    # a missing tail because SQ numbers materialized mutations consecutively.
+    randomized_count = len(indices)
+    no_change_count = simulations - randomized_count
     if (observed != simulations or methods != [expected_method]
             or not symbol or not timeframe
             or not re.fullmatch(r"\d{4}\.\d{2}\.\d{2} - \d{4}\.\d{2}\.\d{2}",
                                 date_range)
-            or indices != list(range(simulations))
+            or randomized_count > simulations
+            or indices != list(range(randomized_count))
             or any(size <= 0 for _, _, size, _ in order_rows)):
         raise ValueError("SQX_MONTE_CARLO_NATIVE_EVIDENCE_INVALID")
-    ordered = sorted(order_rows)
+    ordered = ordered_randomized + [
+        (index, original_name, archive_size, original_sha)
+        for index in range(randomized_count, simulations)
+        for archive_size in [len(b"placeholder")]
+    ]
     return {
         "schema_version": 1,
         "evidence_type": "strategyquant_native_parameter_monte_carlo",
@@ -75,6 +92,10 @@ def inspect(path: Path, *, simulations: int, probability_pct: int,
         "simulation_order_members": [name for _, name, _, _ in ordered],
         "simulation_order_sha256": [digest for _, _, _, digest in ordered],
         "all_simulation_orders_nonempty": True,
+        "randomized_simulations_materialized": randomized_count,
+        "no_parameter_change_simulations": no_change_count,
+        "no_parameter_change_orders_member": original_name,
+        "no_parameter_change_orders_sha256": original_sha,
     }
 
 

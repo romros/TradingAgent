@@ -18,6 +18,7 @@ def _sqx(path: Path, count: int = 4, *, declared: int | None = None,
     prefix = "Results/Main: EURUSD/H4"
     with zipfile.ZipFile(target, "w") as archive:
         archive.writestr(f"{prefix}/MonteCarloRetest_Results.xml", result)
+        archive.writestr(f"{prefix}/RobustnessOriginalOrders.bin", "original")
         for index in range(count):
             archive.writestr(
                 f"{prefix}/MonteCarloRetest_Simulation{index}Orders.bin",
@@ -31,10 +32,19 @@ def test_inspects_exact_native_parameter_monte_carlo_members(tmp_path):
     assert result["simulations"] == 4
     assert len(result["simulation_order_sha256"]) == 4
     assert result["all_simulation_orders_nonempty"] is True
+    assert result["no_parameter_change_simulations"] == 0
+
+
+def test_maps_unmodified_probability_attempts_to_original_orders(tmp_path):
+    result = inspect(_sqx(tmp_path, count=3, declared=4), simulations=4,
+                     probability_pct=10, max_change_pct=10)
+    assert result["randomized_simulations_materialized"] == 3
+    assert result["no_parameter_change_simulations"] == 1
+    assert result["simulation_order_members"][-1].endswith(
+        "RobustnessOriginalOrders.bin")
 
 
 @pytest.mark.parametrize("kwargs", [
-    {"count": 3, "declared": 4},
     {"count": 4, "max_change": 20},
 ])
 def test_rejects_missing_runs_or_wrong_method(tmp_path, kwargs):

@@ -93,6 +93,7 @@ def test_supervises_native_monte_carlo_and_replays_verified_receipt(tmp_path):
                 output.writestr(name, source.read(name))
             prefix = "Results/Main: NVDA/M15"
             output.writestr(f"{prefix}/MonteCarloRetest_Results.xml", result_xml)
+            output.writestr(f"{prefix}/RobustnessOriginalOrders.bin", b"original-orders")
             for index in range(1000):
                 output.writestr(
                     f"{prefix}/MonteCarloRetest_Simulation{index}Orders.bin",

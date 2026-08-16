@@ -1,0 +1,549 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_PEADEAR_GATE",
+  "preregistration_sha256": "47ec61ed7dd1635c977a510d0aa2e4bf7408a5e14f9a3d34b8b137c1c745f1d6",
+  "optimized": false,
+  "periods": {
+    "train": {
+      "trades": 103,
+      "wins": 51,
+      "mean_net_return": 0.0029529715871946067,
+      "compounded_net_return": -0.09722144440897262,
+      "profit_factor": 1.1047952507468706,
+      "t_stat": 0.3476132828735574,
+      "maximum_drawdown": 0.7897813436555681
+    },
+    "validation": {
+      "trades": 50,
+      "wins": 24,
+      "mean_net_return": -0.008992057571380625,
+      "compounded_net_return": -0.4737344104273411,
+      "profit_factor": 0.7492664326443419,
+      "t_stat": -0.7393242816815072,
+      "maximum_drawdown": 0.6037248049748438
+    },
+    "oos_2024": {
+      "trades": 22,
+      "wins": 15,
+      "mean_net_return": 0.034090018771289615,
+      "compounded_net_return": 1.0149262423260286,
+      "profit_factor": 4.205147575861346,
+      "t_stat": 2.6012437515557196,
+      "maximum_drawdown": 0.10078747780255748
+    }
+  },
+  "combined_validation_oos": {
+    "trades": 72,
+    "wins": 39,
+    "mean_net_return": 0.004171910199990838,
+    "compounded_net_return": 0.0603863468631296,
+    "profit_factor": 1.1481778161293859,
+    "t_stat": 0.4350340172398618,
+    "maximum_drawdown": 0.6037248049748438
+  },
+  "years_2022_2024": {
+    "2022": {
+      "trades": 25,
+      "wins": 10,
+      "mean_net_return": -0.024680546275178367,
+      "compounded_net_return": -0.5225030948467062,
+      "profit_factor": 0.45349910601739835,
+      "t_stat": -1.3314224145414546,
+      "maximum_drawdown": 0.6037248049748438
+    },
+    "2023": {
+      "trades": 25,
+      "wins": 14,
+      "mean_net_return": 0.006696431132417116,
+      "compounded_net_return": 0.10213403247861597,
+      "profit_factor": 1.252077575567103,
+      "t_stat": 0.43233736448855375,
+      "maximum_drawdown": 0.3250012312963175
+    },
+    "2024": {
+      "trades": 22,
+      "wins": 15,
+      "mean_net_return": 0.034090018771289615,
+      "compounded_net_return": 1.0149262423260286,
+      "profit_factor": 4.205147575861346,
+      "t_stat": 2.6012437515557196,
+      "maximum_drawdown": 0.10078747780255748
+    }
+  },
+  "by_asset_validation_oos": {
+    "AAPL": {
+      "trades": 7,
+      "wins": 4,
+      "mean_net_return": 0.022079844098611273,
+      "compounded_net_return": 0.14982034260936183,
+      "profit_factor": 2.558134447301294,
+      "t_stat": 0.8497773424452623,
+      "maximum_drawdown": 0.09675629415097076
+    },
+    "AMZN": {
+      "trades": 7,
+      "wins": 3,
+      "mean_net_return": 0.0013441418130729493,
+      "compounded_net_return": -0.013367269013516925,
+      "profit_factor": 1.0419326523740278,
+      "t_stat": 0.041000002658427306,
+      "maximum_drawdown": 0.1970109608707905
+    },
+    "DE": {
+      "trades": 5,
+      "wins": 2,
+      "mean_net_return": -0.012392042392535744,
+      "compounded_net_return": -0.06484110566025003,
+      "profit_factor": 0.4742246068397459,
+      "t_stat": -0.5788407684617332,
+      "maximum_drawdown": 0.10394818115529936
+    },
+    "GOOG": {
+      "trades": 6,
+      "wins": 4,
+      "mean_net_return": 0.02248834042303573,
+      "compounded_net_return": 0.12127111959254022,
+      "profit_factor": 2.1767186732428323,
+      "t_stat": 0.6062995094708891,
+      "maximum_drawdown": 0.08497443734638177
+    },
+    "JNJ": {
+      "trades": 6,
+      "wins": 2,
+      "mean_net_return": -0.023654572140911642,
+      "compounded_net_return": -0.13772976223029842,
+      "profit_factor": 0.2672172711415673,
+      "t_stat": -1.385371607045442,
+      "maximum_drawdown": 0.13772976223029842
+    },
+    "JPM": {
+      "trades": 6,
+      "wins": 4,
+      "mean_net_return": 0.033344223410305636,
+      "compounded_net_return": 0.20040115600772368,
+      "profit_factor": 3.7733426594005226,
+      "t_stat": 1.0325766908433909,
+      "maximum_drawdown": 0.054694521217101943
+    },
+    "KO": {
+      "trades": 9,
+      "wins": 5,
+      "mean_net_return": 0.00557453145257816,
+      "compounded_net_return": 0.04270162287274393,
+      "profit_factor": 1.3433300626004714,
+      "t_stat": 0.3682686564102031,
+      "maximum_drawdown": 0.09538564426782736
+    },
+    "META": {
+      "trades": 6,
+      "wins": 4,
+      "mean_net_return": 0.004015925474556309,
+      "compounded_net_return": 0.011559967819193773,
+      "profit_factor": 1.1441918568070062,
+      "t_stat": 0.1404288176060938,
+      "maximum_drawdown": 0.1000040348957354
+    },
+    "NVDA": {
+      "trades": 7,
+      "wins": 4,
+      "mean_net_return": 0.0032043625101217587,
+      "compounded_net_return": -0.07566891205938953,
+      "profit_factor": 1.0453526486985774,
+      "t_stat": 0.04857220059976938,
+      "maximum_drawdown": 0.35418801432985103
+    },
+    "UNP": {
+      "trades": 6,
+      "wins": 2,
+      "mean_net_return": -0.030893985406653415,
+      "compounded_net_return": -0.17921254354150595,
+      "profit_factor": 0.2647886836921071,
+      "t_stat": -1.292185788039985,
+      "maximum_drawdown": 0.20085970422936084
+    },
+    "XOM": {
+      "trades": 7,
+      "wins": 5,
+      "mean_net_return": 0.01342413339631114,
+      "compounded_net_return": 0.0762243656528443,
+      "profit_factor": 1.6467702828222044,
+      "t_stat": 0.4257787675946706,
+      "maximum_drawdown": 0.14103817998714496
+    }
+  },
+  "positive_years": 2,
+  "positive_assets": 8,
+  "signals_executed": 175,
+  "return_extremes": [
+    {
+      "asset": "DE",
+      "accession": "0001558370-20-001119",
+      "reaction": "2020-02-21",
+      "entry": "2020-02-24",
+      "exit": "2020-03-23",
+      "ear": 0.07950749555676051,
+      "shares": 11,
+      "net_return": -0.3608770560554409
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-22-000136",
+      "reaction": "2022-08-25",
+      "entry": "2022-08-26",
+      "exit": "2022-09-26",
+      "ear": 0.025933011394203787,
+      "shares": 112,
+      "net_return": -0.30299324747131406
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-20-000007",
+      "reaction": "2020-02-14",
+      "entry": "2020-02-18",
+      "exit": "2020-03-17",
+      "ear": 0.06854324631403386,
+      "shares": 281,
+      "net_return": -0.2989174855854243
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-20-000008",
+      "reaction": "2020-01-29",
+      "entry": "2020-01-30",
+      "exit": "2020-02-28",
+      "ear": 0.02221153165736578,
+      "shares": 24,
+      "net_return": -0.19818224685827884
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-19-000063",
+      "reaction": "2019-05-01",
+      "entry": "2019-05-02",
+      "exit": "2019-05-31",
+      "ear": 0.05766022001178739,
+      "shares": 38,
+      "net_return": -0.16357018705881832
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-21-000160",
+      "reaction": "2021-11-18",
+      "entry": "2021-11-19",
+      "exit": "2021-12-20",
+      "ear": 0.07933700913106678,
+      "shares": 62,
+      "net_return": -0.155896540036011
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-22-000002",
+      "reaction": "2022-02-04",
+      "entry": "2022-02-07",
+      "exit": "2022-03-08",
+      "ear": 0.12974051186615387,
+      "shares": 12,
+      "net_return": -0.14066598313993053
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-23-000171",
+      "reaction": "2023-08-24",
+      "entry": "2023-08-25",
+      "exit": "2023-09-25",
+      "ear": 0.012986104187795222,
+      "shares": 42,
+      "net_return": -0.11813783836699453
+    },
+    {
+      "asset": "UNP",
+      "accession": "0001437749-22-009378",
+      "reaction": "2022-04-21",
+      "entry": "2022-04-22",
+      "exit": "2022-05-20",
+      "ear": 0.002257557542044597,
+      "shares": 8,
+      "net_return": -0.1172003038723076
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-17-000164",
+      "reaction": "2017-11-10",
+      "entry": "2017-11-13",
+      "exit": "2017-12-12",
+      "ear": 0.05343384539233542,
+      "shares": 374,
+      "net_return": -0.10979860975098946
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-21-000004",
+      "reaction": "2021-02-02",
+      "entry": "2021-02-03",
+      "exit": "2021-03-04",
+      "ear": 0.0031013538931499163,
+      "shares": 54,
+      "net_return": 0.2697868738009443
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-20-000087",
+      "reaction": "2020-10-30",
+      "entry": "2020-11-02",
+      "exit": "2020-12-01",
+      "ear": 0.0022555709730238682,
+      "shares": 76,
+      "net_return": 0.20076981568673335
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-23-000041",
+      "reaction": "2023-04-26",
+      "entry": "2023-04-27",
+      "exit": "2023-05-25",
+      "ear": 0.002111194201180666,
+      "shares": 19,
+      "net_return": 0.18667062983717525
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-20-000060",
+      "reaction": "2020-07-31",
+      "entry": "2020-08-03",
+      "exit": "2020-08-31",
+      "ear": 0.09726096553605257,
+      "shares": 18,
+      "net_return": 0.17569470983354576
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-22-000486",
+      "reaction": "2022-10-14",
+      "entry": "2022-10-17",
+      "exit": "2022-11-14",
+      "ear": 0.04320203712303328,
+      "shares": 17,
+      "net_return": 0.17027162549902444
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-22-000023",
+      "reaction": "2022-04-29",
+      "entry": "2022-05-02",
+      "exit": "2022-05-31",
+      "ear": 0.014375453869962973,
+      "shares": 27,
+      "net_return": 0.16809087961367283
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-23-000014",
+      "reaction": "2023-02-23",
+      "entry": "2023-02-24",
+      "exit": "2023-03-24",
+      "ear": 0.1344215545988663,
+      "shares": 86,
+      "net_return": 0.1609050546247054
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-20-000073",
+      "reaction": "2020-07-31",
+      "entry": "2020-08-03",
+      "exit": "2020-08-31",
+      "ear": 0.0739411080812018,
+      "shares": 7,
+      "net_return": 0.16016307949722
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-24-000113",
+      "reaction": "2024-05-23",
+      "entry": "2024-05-24",
+      "exit": "2024-06-25",
+      "ear": 0.10034996390068585,
+      "shares": 19,
+      "net_return": 0.1573004217029804
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-24-000080",
+      "reaction": "2024-08-02",
+      "entry": "2024-08-05",
+      "exit": "2024-09-03",
+      "ear": 0.02514246432017675,
+      "shares": 10,
+      "net_return": 0.14509600767619338
+    }
+  ],
+  "skipped": [
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-17-000002",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-17-000058",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-17-000005",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-17-000014",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0001628280-17-000663",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-17-000004",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-17-000003",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-17-000003",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-17-000016",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-17-000019",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-17-000353",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-17-000020",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-17-000014",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-17-000049",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-17-000011",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-17-000025",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0001628280-17-004663",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-17-000021",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-17-000068",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001104659-17-009994",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-17-000029",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-17-000110",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-17-000169",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-17-000241",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-21-000363",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-21-000053",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-21-000021",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-21-000247",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-21-000063",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-21-000041",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-21-000047",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-21-000018",
+      "reason": "reaction window unavailable"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-21-000046",
+      "reason": "reaction window unavailable"
+    }
+  ],
+  "portfolio_concurrency_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

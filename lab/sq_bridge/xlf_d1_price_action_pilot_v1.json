@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-xlf-d1-price-action-v1",
+  "status": "FROZEN_BEFORE_SQ_PERFORMANCE",
+  "hypothesis": "Diversified US financials exhibit persistent D1 trend/pullback and stress-reversion structures that survive multiple rate and banking regimes.",
+  "falsifier": "Reject if no structural train density exists or frozen representatives fail 2022-2023 after whole-share IBKR stress costs.",
+  "asset": "XLF",
+  "sq_symbol": "XLF_IBKR_V1_D1",
+  "adjusted_source": "data/ibkr_sq_v2/etf_twelve_one_momentum_v1/adjusted/XLF_ADJUSTED_D1_2017_2024.csv",
+  "volume_rules_allowed": false,
+  "performance_accessed_before_freeze": false,
+  "periods": {
+    "train_from": "2017-01-26", "train_to": "2021-12-31",
+    "validation_from": "2022-01-03", "validation_to": "2023-12-29",
+    "sealed_oos_from": "2024-01-02", "sealed_oos_to": "2024-12-31"
+  },
+  "discovery": {
+    "timeframe": "D1", "direction": "long",
+    "search_profile": "equity_d1_trend_pullback_v1",
+    "generation": "random-generation", "attempt_budget": 100000,
+    "wall_time_budget_minutes": 60, "accepted_limit": 60,
+    "maximum_rules": 2, "minimum_train_trades": 40,
+    "minimum_profit_factor_train": 1.08
+  },
+  "validation_gate": {
+    "capital_usd": 1000, "minimum_trades": 20,
+    "minimum_stress_profit_factor": 1.15,
+    "minimum_positive_quarters": 5,
+    "maximum_close_to_close_drawdown_pct": 25
+  },
+  "oos_gate": {
+    "minimum_trades": 8, "minimum_stress_return_pct": 0,
+    "minimum_stress_profit_factor": 1.10,
+    "maximum_close_to_close_drawdown_pct": 20
+  },
+  "promotion_allowed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

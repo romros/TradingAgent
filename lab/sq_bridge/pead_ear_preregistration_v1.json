@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "campaign_id": "pead-ear-v1",
+  "created_utc": "2026-08-16",
+  "upstream_preflight_sha256": "cda8e5972f067f91cd802890c1af94f1d9533efa43ae043798206b9a7ee7ccd1",
+  "universe": ["AAPL", "AMZN", "DE", "GOOG", "JNJ", "JPM", "KO", "META", "NVDA", "UNP", "XOM"],
+  "rule": {
+    "event": "point-in-time SEC 8-K Item 2.02 acceptance mapped to first session close after acceptance",
+    "earnings_announcement_return": "asset close-to-close reaction minus SPY close-to-close reaction over the same prior-session to reaction-session window",
+    "signal": "EAR strictly above zero",
+    "side": "long only",
+    "entry": "next asset session open after the reaction session",
+    "exit": "open 20 asset sessions after entry",
+    "overlapping_events": "each event is an independent statistical observation in this gate",
+    "optimization": false
+  },
+  "periods": {
+    "train": ["2017-01-01", "2021-12-31"],
+    "validation": ["2022-01-01", "2023-12-31"],
+    "oos_2024": ["2024-01-01", "2024-12-31"]
+  },
+  "economics": {
+    "reference_notional_usd_per_event": 2000,
+    "whole_shares": true,
+    "minimum_per_order_usd": 1.0,
+    "bps_per_side": 10,
+    "dividends": "omitted where raw sources are used; conservative for long holdings"
+  },
+  "gates": {
+    "train_net_mean_strictly_above": 0,
+    "validation_net_mean_strictly_above": 0,
+    "oos_net_mean_strictly_above": 0,
+    "combined_validation_oos_minimum_trades": 30,
+    "combined_validation_oos_profit_factor_at_least": 1.2,
+    "combined_validation_oos_one_sided_t_stat_at_least": 1.645,
+    "minimum_positive_years_2022_2024": 2,
+    "minimum_positive_assets_validation_oos": 6,
+    "maximum_combined_validation_oos_drawdown_pct": 20
+  },
+  "sequencing": "Only a pass may proceed to fixed-capital concurrent portfolio construction, SQ translation, and incremental portfolio admission.",
+  "paper_authorized": false,
+  "live_authorized": false
+}

@@ -1,0 +1,4062 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_SEC_POINT_IN_TIME_CALENDAR_PREFLIGHT",
+  "performance_accessed": false,
+  "universe": [
+    "AAPL",
+    "AMZN",
+    "DE",
+    "GOOG",
+    "JNJ",
+    "JPM",
+    "KO",
+    "META",
+    "NVDA",
+    "UNP",
+    "XOM"
+  ],
+  "events": [
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-17-000002",
+      "accepted_utc": "2017-01-24T13:11:39.000Z",
+      "accepted_ny": "2017-01-24T08:11:39-05:00",
+      "reaction_session": "2017-01-26",
+      "signal_session": "2017-01-26",
+      "entry_session": "2017-01-27",
+      "exit_20_session": "2017-02-27"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-17-000058",
+      "accepted_utc": "2017-01-13T12:54:39.000Z",
+      "accepted_ny": "2017-01-13T07:54:39-05:00",
+      "reaction_session": "2017-01-26",
+      "signal_session": "2017-01-26",
+      "entry_session": "2017-01-27",
+      "exit_20_session": "2017-02-27"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-17-000005",
+      "accepted_utc": "2017-01-26T21:03:43.000Z",
+      "accepted_ny": "2017-01-26T16:03:43-05:00",
+      "reaction_session": "2017-01-27",
+      "signal_session": "2017-01-27",
+      "entry_session": "2017-01-30",
+      "exit_20_session": "2017-02-28"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-17-000014",
+      "accepted_utc": "2017-01-31T13:00:27.000Z",
+      "accepted_ny": "2017-01-31T08:00:27-05:00",
+      "reaction_session": "2017-01-31",
+      "signal_session": "2017-01-31",
+      "entry_session": "2017-02-01",
+      "exit_20_session": "2017-03-02"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0001628280-17-000663",
+      "accepted_utc": "2017-01-31T21:31:02.000Z",
+      "accepted_ny": "2017-01-31T16:31:02-05:00",
+      "reaction_session": "2017-02-01",
+      "signal_session": "2017-02-01",
+      "entry_session": "2017-02-02",
+      "exit_20_session": "2017-03-03"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-17-000004",
+      "accepted_utc": "2017-02-01T21:04:53.000Z",
+      "accepted_ny": "2017-02-01T16:04:53-05:00",
+      "reaction_session": "2017-02-02",
+      "signal_session": "2017-02-02",
+      "entry_session": "2017-02-03",
+      "exit_20_session": "2017-03-06"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-17-000003",
+      "accepted_utc": "2017-02-02T21:09:02.000Z",
+      "accepted_ny": "2017-02-02T16:09:02-05:00",
+      "reaction_session": "2017-02-03",
+      "signal_session": "2017-02-03",
+      "entry_session": "2017-02-06",
+      "exit_20_session": "2017-03-07"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-17-000003",
+      "accepted_utc": "2017-02-09T12:04:43.000Z",
+      "accepted_ny": "2017-02-09T07:04:43-05:00",
+      "reaction_session": "2017-02-09",
+      "signal_session": "2017-02-09",
+      "entry_session": "2017-02-10",
+      "exit_20_session": "2017-03-13"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-17-000016",
+      "accepted_utc": "2017-02-09T21:23:02.000Z",
+      "accepted_ny": "2017-02-09T16:23:02-05:00",
+      "reaction_session": "2017-02-10",
+      "signal_session": "2017-02-10",
+      "entry_session": "2017-02-13",
+      "exit_20_session": "2017-03-14"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-17-000019",
+      "accepted_utc": "2017-02-23T17:52:41.000Z",
+      "accepted_ny": "2017-02-23T12:52:41-05:00",
+      "reaction_session": "2017-02-23",
+      "signal_session": "2017-02-23",
+      "entry_session": "2017-02-24",
+      "exit_20_session": "2017-03-24"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-17-000353",
+      "accepted_utc": "2017-04-13T10:40:13.000Z",
+      "accepted_ny": "2017-04-13T06:40:13-04:00",
+      "reaction_session": "2017-04-13",
+      "signal_session": "2017-04-13",
+      "entry_session": "2017-04-17",
+      "exit_20_session": "2017-05-15"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-17-000020",
+      "accepted_utc": "2017-04-18T12:15:19.000Z",
+      "accepted_ny": "2017-04-18T08:15:19-04:00",
+      "reaction_session": "2017-04-18",
+      "signal_session": "2017-04-18",
+      "entry_session": "2017-04-19",
+      "exit_20_session": "2017-05-17"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-17-000014",
+      "accepted_utc": "2017-04-25T11:02:37.000Z",
+      "accepted_ny": "2017-04-25T07:02:37-04:00",
+      "reaction_session": "2017-04-25",
+      "signal_session": "2017-04-25",
+      "entry_session": "2017-04-26",
+      "exit_20_session": "2017-05-24"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-17-000049",
+      "accepted_utc": "2017-04-27T20:06:06.000Z",
+      "accepted_ny": "2017-04-27T16:06:06-04:00",
+      "reaction_session": "2017-04-28",
+      "signal_session": "2017-04-28",
+      "entry_session": "2017-05-01",
+      "exit_20_session": "2017-05-30"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-17-000011",
+      "accepted_utc": "2017-04-27T20:02:04.000Z",
+      "accepted_ny": "2017-04-27T16:02:04-04:00",
+      "reaction_session": "2017-04-28",
+      "signal_session": "2017-04-28",
+      "entry_session": "2017-05-01",
+      "exit_20_session": "2017-05-30"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-17-000025",
+      "accepted_utc": "2017-04-28T12:00:37.000Z",
+      "accepted_ny": "2017-04-28T08:00:37-04:00",
+      "reaction_session": "2017-04-28",
+      "signal_session": "2017-04-28",
+      "entry_session": "2017-05-01",
+      "exit_20_session": "2017-05-30"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0001628280-17-004663",
+      "accepted_utc": "2017-05-02T20:31:37.000Z",
+      "accepted_ny": "2017-05-02T16:31:37-04:00",
+      "reaction_session": "2017-05-03",
+      "signal_session": "2017-05-03",
+      "entry_session": "2017-05-04",
+      "exit_20_session": "2017-06-02"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-17-000021",
+      "accepted_utc": "2017-05-03T20:13:45.000Z",
+      "accepted_ny": "2017-05-03T16:13:45-04:00",
+      "reaction_session": "2017-05-04",
+      "signal_session": "2017-05-04",
+      "entry_session": "2017-05-05",
+      "exit_20_session": "2017-06-05"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-17-000068",
+      "accepted_utc": "2017-05-09T20:21:40.000Z",
+      "accepted_ny": "2017-05-09T16:21:40-04:00",
+      "reaction_session": "2017-05-10",
+      "signal_session": "2017-05-10",
+      "entry_session": "2017-05-11",
+      "exit_20_session": "2017-06-09"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001104659-17-009994",
+      "accepted_utc": "2017-02-17T11:56:57.000Z",
+      "accepted_ny": "2017-02-17T06:56:57-05:00",
+      "reaction_session": "2017-05-11",
+      "signal_session": "2017-05-11",
+      "entry_session": "2017-05-12",
+      "exit_20_session": "2017-06-12"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001104659-17-033895",
+      "accepted_utc": "2017-05-19T10:50:39.000Z",
+      "accepted_ny": "2017-05-19T06:50:39-04:00",
+      "reaction_session": "2017-05-19",
+      "signal_session": "2017-05-19",
+      "entry_session": "2017-05-22",
+      "exit_20_session": "2017-06-20"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-17-000472",
+      "accepted_utc": "2017-07-14T10:54:55.000Z",
+      "accepted_ny": "2017-07-14T06:54:55-04:00",
+      "reaction_session": "2017-07-14",
+      "signal_session": "2017-07-14",
+      "entry_session": "2017-07-17",
+      "exit_20_session": "2017-08-14"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-17-000040",
+      "accepted_utc": "2017-07-18T12:11:27.000Z",
+      "accepted_ny": "2017-07-18T08:11:27-04:00",
+      "reaction_session": "2017-07-18",
+      "signal_session": "2017-07-18",
+      "entry_session": "2017-07-19",
+      "exit_20_session": "2017-08-16"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-17-000024",
+      "accepted_utc": "2017-07-24T20:01:31.000Z",
+      "accepted_ny": "2017-07-24T16:01:31-04:00",
+      "reaction_session": "2017-07-25",
+      "signal_session": "2017-07-25",
+      "entry_session": "2017-07-26",
+      "exit_20_session": "2017-08-23"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-17-000023",
+      "accepted_utc": "2017-07-26T11:08:26.000Z",
+      "accepted_ny": "2017-07-26T07:08:26-04:00",
+      "reaction_session": "2017-07-26",
+      "signal_session": "2017-07-26",
+      "entry_session": "2017-07-27",
+      "exit_20_session": "2017-08-24"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-17-000035",
+      "accepted_utc": "2017-07-26T20:07:54.000Z",
+      "accepted_ny": "2017-07-26T16:07:54-04:00",
+      "reaction_session": "2017-07-27",
+      "signal_session": "2017-07-27",
+      "entry_session": "2017-07-28",
+      "exit_20_session": "2017-08-25"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-17-000098",
+      "accepted_utc": "2017-07-27T20:07:05.000Z",
+      "accepted_ny": "2017-07-27T16:07:05-04:00",
+      "reaction_session": "2017-07-28",
+      "signal_session": "2017-07-28",
+      "entry_session": "2017-07-31",
+      "exit_20_session": "2017-08-28"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-17-000038",
+      "accepted_utc": "2017-07-28T12:00:23.000Z",
+      "accepted_ny": "2017-07-28T08:00:23-04:00",
+      "reaction_session": "2017-07-28",
+      "signal_session": "2017-07-28",
+      "entry_session": "2017-07-31",
+      "exit_20_session": "2017-08-28"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-17-000006",
+      "accepted_utc": "2017-08-01T20:30:15.000Z",
+      "accepted_ny": "2017-08-01T16:30:15-04:00",
+      "reaction_session": "2017-08-02",
+      "signal_session": "2017-08-02",
+      "entry_session": "2017-08-03",
+      "exit_20_session": "2017-08-31"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-17-000117",
+      "accepted_utc": "2017-08-10T20:23:58.000Z",
+      "accepted_ny": "2017-08-10T16:23:58-04:00",
+      "reaction_session": "2017-08-11",
+      "signal_session": "2017-08-11",
+      "entry_session": "2017-08-14",
+      "exit_20_session": "2017-09-12"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001104659-17-052527",
+      "accepted_utc": "2017-08-18T10:50:36.000Z",
+      "accepted_ny": "2017-08-18T06:50:36-04:00",
+      "reaction_session": "2017-08-18",
+      "signal_session": "2017-08-18",
+      "entry_session": "2017-08-21",
+      "exit_20_session": "2017-09-19"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-17-000545",
+      "accepted_utc": "2017-10-12T10:48:05.000Z",
+      "accepted_ny": "2017-10-12T06:48:05-04:00",
+      "reaction_session": "2017-10-12",
+      "signal_session": "2017-10-12",
+      "entry_session": "2017-10-13",
+      "exit_20_session": "2017-11-10"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-17-000050",
+      "accepted_utc": "2017-10-17T12:34:42.000Z",
+      "accepted_ny": "2017-10-17T08:34:42-04:00",
+      "reaction_session": "2017-10-17",
+      "signal_session": "2017-10-17",
+      "entry_session": "2017-10-18",
+      "exit_20_session": "2017-11-15"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-17-000029",
+      "accepted_utc": "2017-10-25T11:08:12.000Z",
+      "accepted_ny": "2017-10-25T07:08:12-04:00",
+      "reaction_session": "2017-10-25",
+      "signal_session": "2017-10-25",
+      "entry_session": "2017-10-26",
+      "exit_20_session": "2017-11-24"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-17-000131",
+      "accepted_utc": "2017-10-26T20:09:54.000Z",
+      "accepted_ny": "2017-10-26T16:09:54-04:00",
+      "reaction_session": "2017-10-27",
+      "signal_session": "2017-10-27",
+      "entry_session": "2017-10-30",
+      "exit_20_session": "2017-11-28"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-17-000039",
+      "accepted_utc": "2017-10-26T20:02:01.000Z",
+      "accepted_ny": "2017-10-26T16:02:01-04:00",
+      "reaction_session": "2017-10-27",
+      "signal_session": "2017-10-27",
+      "entry_session": "2017-10-30",
+      "exit_20_session": "2017-11-28"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-17-000044",
+      "accepted_utc": "2017-10-27T12:00:26.000Z",
+      "accepted_ny": "2017-10-27T08:00:26-04:00",
+      "reaction_session": "2017-10-27",
+      "signal_session": "2017-10-27",
+      "entry_session": "2017-10-30",
+      "exit_20_session": "2017-11-28"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-17-000046",
+      "accepted_utc": "2017-11-01T20:11:06.000Z",
+      "accepted_ny": "2017-11-01T16:11:06-04:00",
+      "reaction_session": "2017-11-02",
+      "signal_session": "2017-11-02",
+      "entry_session": "2017-11-03",
+      "exit_20_session": "2017-12-04"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-17-000067",
+      "accepted_utc": "2017-11-02T20:30:16.000Z",
+      "accepted_ny": "2017-11-02T16:30:16-04:00",
+      "reaction_session": "2017-11-03",
+      "signal_session": "2017-11-03",
+      "entry_session": "2017-11-06",
+      "exit_20_session": "2017-12-05"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-17-000164",
+      "accepted_utc": "2017-11-09T21:23:57.000Z",
+      "accepted_ny": "2017-11-09T16:23:57-05:00",
+      "reaction_session": "2017-11-10",
+      "signal_session": "2017-11-10",
+      "entry_session": "2017-11-13",
+      "exit_20_session": "2017-12-12"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-17-000029",
+      "accepted_utc": "2017-01-19T13:03:02.000Z",
+      "accepted_ny": "2017-01-19T08:03:02-05:00",
+      "reaction_session": "2017-11-15",
+      "signal_session": "2017-11-15",
+      "entry_session": "2017-11-16",
+      "exit_20_session": "2017-12-15"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-17-000110",
+      "accepted_utc": "2017-04-27T12:04:37.000Z",
+      "accepted_ny": "2017-04-27T08:04:37-04:00",
+      "reaction_session": "2017-11-15",
+      "signal_session": "2017-11-15",
+      "entry_session": "2017-11-16",
+      "exit_20_session": "2017-12-15"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-17-000169",
+      "accepted_utc": "2017-07-20T12:04:38.000Z",
+      "accepted_ny": "2017-07-20T08:04:38-04:00",
+      "reaction_session": "2017-11-15",
+      "signal_session": "2017-11-15",
+      "entry_session": "2017-11-16",
+      "exit_20_session": "2017-12-15"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-17-000241",
+      "accepted_utc": "2017-10-26T12:06:42.000Z",
+      "accepted_ny": "2017-10-26T08:06:42-04:00",
+      "reaction_session": "2017-11-15",
+      "signal_session": "2017-11-15",
+      "entry_session": "2017-11-16",
+      "exit_20_session": "2017-12-15"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001104659-17-070026",
+      "accepted_utc": "2017-11-22T11:04:31.000Z",
+      "accepted_ny": "2017-11-22T06:04:31-05:00",
+      "reaction_session": "2017-11-22",
+      "signal_session": "2017-11-22",
+      "entry_session": "2017-11-24",
+      "exit_20_session": "2017-12-22"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-18-000004",
+      "accepted_utc": "2018-01-12T11:46:59.000Z",
+      "accepted_ny": "2018-01-12T06:46:59-05:00",
+      "reaction_session": "2018-01-12",
+      "signal_session": "2018-01-12",
+      "entry_session": "2018-01-16",
+      "exit_20_session": "2018-02-13"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-18-000003",
+      "accepted_utc": "2018-01-23T12:16:07.000Z",
+      "accepted_ny": "2018-01-23T07:16:07-05:00",
+      "reaction_session": "2018-01-23",
+      "signal_session": "2018-01-23",
+      "entry_session": "2018-01-24",
+      "exit_20_session": "2018-02-22"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-18-000033",
+      "accepted_utc": "2018-01-25T13:05:21.000Z",
+      "accepted_ny": "2018-01-25T08:05:21-05:00",
+      "reaction_session": "2018-01-25",
+      "signal_session": "2018-01-25",
+      "entry_session": "2018-01-26",
+      "exit_20_session": "2018-02-26"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-18-000006",
+      "accepted_utc": "2018-01-31T21:10:19.000Z",
+      "accepted_ny": "2018-01-31T16:10:19-05:00",
+      "reaction_session": "2018-02-01",
+      "signal_session": "2018-02-01",
+      "entry_session": "2018-02-02",
+      "exit_20_session": "2018-03-05"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-18-000005",
+      "accepted_utc": "2018-02-01T21:30:17.000Z",
+      "accepted_ny": "2018-02-01T16:30:17-05:00",
+      "reaction_session": "2018-02-02",
+      "signal_session": "2018-02-02",
+      "entry_session": "2018-02-05",
+      "exit_20_session": "2018-03-06"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-18-000002",
+      "accepted_utc": "2018-02-01T21:15:34.000Z",
+      "accepted_ny": "2018-02-01T16:15:34-05:00",
+      "reaction_session": "2018-02-02",
+      "signal_session": "2018-02-02",
+      "entry_session": "2018-02-05",
+      "exit_20_session": "2018-03-06"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-18-000004",
+      "accepted_utc": "2018-02-01T21:01:32.000Z",
+      "accepted_ny": "2018-02-01T16:01:32-05:00",
+      "reaction_session": "2018-02-02",
+      "signal_session": "2018-02-02",
+      "entry_session": "2018-02-05",
+      "exit_20_session": "2018-03-06"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-18-000006",
+      "accepted_utc": "2018-02-02T13:00:27.000Z",
+      "accepted_ny": "2018-02-02T08:00:27-05:00",
+      "reaction_session": "2018-02-02",
+      "signal_session": "2018-02-02",
+      "entry_session": "2018-02-05",
+      "exit_20_session": "2018-03-06"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-18-000004",
+      "accepted_utc": "2018-02-08T21:23:23.000Z",
+      "accepted_ny": "2018-02-08T16:23:23-05:00",
+      "reaction_session": "2018-02-09",
+      "signal_session": "2018-02-09",
+      "entry_session": "2018-02-12",
+      "exit_20_session": "2018-03-13"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-18-000012",
+      "accepted_utc": "2018-02-09T20:24:11.000Z",
+      "accepted_ny": "2018-02-09T15:24:11-05:00",
+      "reaction_session": "2018-02-09",
+      "signal_session": "2018-02-09",
+      "entry_session": "2018-02-12",
+      "exit_20_session": "2018-03-13"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001104659-18-010168",
+      "accepted_utc": "2018-02-16T11:05:31.000Z",
+      "accepted_ny": "2018-02-16T06:05:31-05:00",
+      "reaction_session": "2018-02-16",
+      "signal_session": "2018-02-16",
+      "entry_session": "2018-02-20",
+      "exit_20_session": "2018-03-20"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-18-000004",
+      "accepted_utc": "2018-02-16T12:04:58.000Z",
+      "accepted_ny": "2018-02-16T07:04:58-05:00",
+      "reaction_session": "2018-02-16",
+      "signal_session": "2018-02-16",
+      "entry_session": "2018-02-20",
+      "exit_20_session": "2018-03-20"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-18-000082",
+      "accepted_utc": "2018-04-13T10:47:36.000Z",
+      "accepted_ny": "2018-04-13T06:47:36-04:00",
+      "reaction_session": "2018-04-13",
+      "signal_session": "2018-04-13",
+      "entry_session": "2018-04-16",
+      "exit_20_session": "2018-05-14"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-18-000015",
+      "accepted_utc": "2018-04-17T12:02:41.000Z",
+      "accepted_ny": "2018-04-17T08:02:41-04:00",
+      "reaction_session": "2018-04-17",
+      "signal_session": "2018-04-17",
+      "entry_session": "2018-04-18",
+      "exit_20_session": "2018-05-16"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-18-000011",
+      "accepted_utc": "2018-04-23T20:01:28.000Z",
+      "accepted_ny": "2018-04-23T16:01:28-04:00",
+      "reaction_session": "2018-04-24",
+      "signal_session": "2018-04-24",
+      "entry_session": "2018-04-25",
+      "exit_20_session": "2018-05-23"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-18-000018",
+      "accepted_utc": "2018-04-24T11:00:21.000Z",
+      "accepted_ny": "2018-04-24T07:00:21-04:00",
+      "reaction_session": "2018-04-24",
+      "signal_session": "2018-04-24",
+      "entry_session": "2018-04-25",
+      "exit_20_session": "2018-05-23"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-18-000026",
+      "accepted_utc": "2018-04-25T20:18:44.000Z",
+      "accepted_ny": "2018-04-25T16:18:44-04:00",
+      "reaction_session": "2018-04-26",
+      "signal_session": "2018-04-26",
+      "entry_session": "2018-04-27",
+      "exit_20_session": "2018-05-25"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-18-000120",
+      "accepted_utc": "2018-04-26T12:04:46.000Z",
+      "accepted_ny": "2018-04-26T08:04:46-04:00",
+      "reaction_session": "2018-04-26",
+      "signal_session": "2018-04-26",
+      "entry_session": "2018-04-27",
+      "exit_20_session": "2018-05-25"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-18-000070",
+      "accepted_utc": "2018-04-26T20:16:09.000Z",
+      "accepted_ny": "2018-04-26T16:16:09-04:00",
+      "reaction_session": "2018-04-27",
+      "signal_session": "2018-04-27",
+      "entry_session": "2018-04-30",
+      "exit_20_session": "2018-05-29"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-18-000020",
+      "accepted_utc": "2018-04-27T12:00:25.000Z",
+      "accepted_ny": "2018-04-27T08:00:25-04:00",
+      "reaction_session": "2018-04-27",
+      "signal_session": "2018-04-27",
+      "entry_session": "2018-04-30",
+      "exit_20_session": "2018-05-29"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-18-000067",
+      "accepted_utc": "2018-05-01T20:30:17.000Z",
+      "accepted_ny": "2018-05-01T16:30:17-04:00",
+      "reaction_session": "2018-05-02",
+      "signal_session": "2018-05-02",
+      "entry_session": "2018-05-03",
+      "exit_20_session": "2018-06-01"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-18-000052",
+      "accepted_utc": "2018-05-10T20:25:11.000Z",
+      "accepted_ny": "2018-05-10T16:25:11-04:00",
+      "reaction_session": "2018-05-11",
+      "signal_session": "2018-05-11",
+      "entry_session": "2018-05-14",
+      "exit_20_session": "2018-06-12"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001104659-18-034240",
+      "accepted_utc": "2018-05-18T10:05:39.000Z",
+      "accepted_ny": "2018-05-18T06:05:39-04:00",
+      "reaction_session": "2018-05-18",
+      "signal_session": "2018-05-18",
+      "entry_session": "2018-05-21",
+      "exit_20_session": "2018-06-19"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-18-000147",
+      "accepted_utc": "2018-07-13T10:45:51.000Z",
+      "accepted_ny": "2018-07-13T06:45:51-04:00",
+      "reaction_session": "2018-07-13",
+      "signal_session": "2018-07-13",
+      "entry_session": "2018-07-16",
+      "exit_20_session": "2018-08-13"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-18-000039",
+      "accepted_utc": "2018-07-17T11:15:17.000Z",
+      "accepted_ny": "2018-07-17T07:15:17-04:00",
+      "reaction_session": "2018-07-17",
+      "signal_session": "2018-07-17",
+      "entry_session": "2018-07-18",
+      "exit_20_session": "2018-08-15"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-18-000181",
+      "accepted_utc": "2018-07-19T12:04:30.000Z",
+      "accepted_ny": "2018-07-19T08:04:30-04:00",
+      "reaction_session": "2018-07-19",
+      "signal_session": "2018-07-19",
+      "entry_session": "2018-07-20",
+      "exit_20_session": "2018-08-17"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-18-000025",
+      "accepted_utc": "2018-07-23T20:02:07.000Z",
+      "accepted_ny": "2018-07-23T16:02:07-04:00",
+      "reaction_session": "2018-07-24",
+      "signal_session": "2018-07-24",
+      "entry_session": "2018-07-25",
+      "exit_20_session": "2018-08-22"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-18-000029",
+      "accepted_utc": "2018-07-25T11:04:47.000Z",
+      "accepted_ny": "2018-07-25T07:04:47-04:00",
+      "reaction_session": "2018-07-25",
+      "signal_session": "2018-07-25",
+      "entry_session": "2018-07-26",
+      "exit_20_session": "2018-08-23"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-18-000053",
+      "accepted_utc": "2018-07-25T20:08:39.000Z",
+      "accepted_ny": "2018-07-25T16:08:39-04:00",
+      "reaction_session": "2018-07-26",
+      "signal_session": "2018-07-26",
+      "entry_session": "2018-07-27",
+      "exit_20_session": "2018-08-24"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-18-000106",
+      "accepted_utc": "2018-07-26T20:14:07.000Z",
+      "accepted_ny": "2018-07-26T16:14:07-04:00",
+      "reaction_session": "2018-07-27",
+      "signal_session": "2018-07-27",
+      "entry_session": "2018-07-30",
+      "exit_20_session": "2018-08-27"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-18-000037",
+      "accepted_utc": "2018-07-27T12:01:05.000Z",
+      "accepted_ny": "2018-07-27T08:01:05-04:00",
+      "reaction_session": "2018-07-27",
+      "signal_session": "2018-07-27",
+      "entry_session": "2018-07-30",
+      "exit_20_session": "2018-08-27"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-18-000098",
+      "accepted_utc": "2018-07-31T20:30:20.000Z",
+      "accepted_ny": "2018-07-31T16:30:20-04:00",
+      "reaction_session": "2018-08-01",
+      "signal_session": "2018-08-01",
+      "entry_session": "2018-08-02",
+      "exit_20_session": "2018-08-30"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001104659-18-052534",
+      "accepted_utc": "2018-08-17T10:05:36.000Z",
+      "accepted_ny": "2018-08-17T06:05:36-04:00",
+      "reaction_session": "2018-08-17",
+      "signal_session": "2018-08-17",
+      "entry_session": "2018-08-20",
+      "exit_20_session": "2018-09-18"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-18-000113",
+      "accepted_utc": "2018-08-16T20:20:21.000Z",
+      "accepted_ny": "2018-08-16T16:20:21-04:00",
+      "reaction_session": "2018-08-17",
+      "signal_session": "2018-08-17",
+      "entry_session": "2018-08-20",
+      "exit_20_session": "2018-09-18"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-18-000196",
+      "accepted_utc": "2018-10-12T10:46:51.000Z",
+      "accepted_ny": "2018-10-12T06:46:51-04:00",
+      "reaction_session": "2018-10-12",
+      "signal_session": "2018-10-12",
+      "entry_session": "2018-10-15",
+      "exit_20_session": "2018-11-12"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-18-000049",
+      "accepted_utc": "2018-10-16T12:00:30.000Z",
+      "accepted_ny": "2018-10-16T08:00:30-04:00",
+      "reaction_session": "2018-10-16",
+      "signal_session": "2018-10-16",
+      "entry_session": "2018-10-17",
+      "exit_20_session": "2018-11-14"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-18-000265",
+      "accepted_utc": "2018-10-25T12:05:08.000Z",
+      "accepted_ny": "2018-10-25T08:05:08-04:00",
+      "reaction_session": "2018-10-25",
+      "signal_session": "2018-10-25",
+      "entry_session": "2018-10-26",
+      "exit_20_session": "2018-11-26"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-18-000157",
+      "accepted_utc": "2018-10-25T20:18:13.000Z",
+      "accepted_ny": "2018-10-25T16:18:13-04:00",
+      "reaction_session": "2018-10-26",
+      "signal_session": "2018-10-26",
+      "entry_session": "2018-10-29",
+      "exit_20_session": "2018-11-27"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-18-000033",
+      "accepted_utc": "2018-10-25T20:01:30.000Z",
+      "accepted_ny": "2018-10-25T16:01:30-04:00",
+      "reaction_session": "2018-10-26",
+      "signal_session": "2018-10-26",
+      "entry_session": "2018-10-29",
+      "exit_20_session": "2018-11-27"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-18-000039",
+      "accepted_utc": "2018-10-30T11:04:38.000Z",
+      "accepted_ny": "2018-10-30T07:04:38-04:00",
+      "reaction_session": "2018-10-30",
+      "signal_session": "2018-10-30",
+      "entry_session": "2018-10-31",
+      "exit_20_session": "2018-11-29"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-18-000063",
+      "accepted_utc": "2018-10-30T20:14:19.000Z",
+      "accepted_ny": "2018-10-30T16:14:19-04:00",
+      "reaction_session": "2018-10-31",
+      "signal_session": "2018-10-31",
+      "entry_session": "2018-11-01",
+      "exit_20_session": "2018-11-30"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-18-000142",
+      "accepted_utc": "2018-11-01T20:30:21.000Z",
+      "accepted_ny": "2018-11-01T16:30:21-04:00",
+      "reaction_session": "2018-11-02",
+      "signal_session": "2018-11-02",
+      "entry_session": "2018-11-05",
+      "exit_20_session": "2018-12-04"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-18-000046",
+      "accepted_utc": "2018-11-02T11:55:40.000Z",
+      "accepted_ny": "2018-11-02T07:55:40-04:00",
+      "reaction_session": "2018-11-02",
+      "signal_session": "2018-11-02",
+      "entry_session": "2018-11-05",
+      "exit_20_session": "2018-12-04"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-18-000148",
+      "accepted_utc": "2018-11-15T21:21:48.000Z",
+      "accepted_ny": "2018-11-15T16:21:48-05:00",
+      "reaction_session": "2018-11-16",
+      "signal_session": "2018-11-16",
+      "entry_session": "2018-11-19",
+      "exit_20_session": "2018-12-19"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001104659-18-069483",
+      "accepted_utc": "2018-11-21T11:05:40.000Z",
+      "accepted_ny": "2018-11-21T06:05:40-05:00",
+      "reaction_session": "2018-11-21",
+      "signal_session": "2018-11-21",
+      "entry_session": "2018-11-23",
+      "exit_20_session": "2018-12-24"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-19-000002",
+      "accepted_utc": "2019-01-02T21:30:03.000Z",
+      "accepted_ny": "2019-01-02T16:30:03-05:00",
+      "reaction_session": "2019-01-03",
+      "signal_session": "2019-01-03",
+      "entry_session": "2019-01-04",
+      "exit_20_session": "2019-02-04"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-19-000028",
+      "accepted_utc": "2019-01-09T21:23:45.000Z",
+      "accepted_ny": "2019-01-09T16:23:45-05:00",
+      "reaction_session": "2019-01-10",
+      "signal_session": "2019-01-10",
+      "entry_session": "2019-01-11",
+      "exit_20_session": "2019-02-11"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-19-000002",
+      "accepted_utc": "2019-01-15T11:46:00.000Z",
+      "accepted_ny": "2019-01-15T06:46:00-05:00",
+      "reaction_session": "2019-01-15",
+      "signal_session": "2019-01-15",
+      "entry_session": "2019-01-16",
+      "exit_20_session": "2019-02-14"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-19-000004",
+      "accepted_utc": "2019-01-22T13:00:43.000Z",
+      "accepted_ny": "2019-01-22T08:00:43-05:00",
+      "reaction_session": "2019-01-22",
+      "signal_session": "2019-01-22",
+      "entry_session": "2019-01-23",
+      "exit_20_session": "2019-02-21"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-19-000036",
+      "accepted_utc": "2019-01-24T13:06:54.000Z",
+      "accepted_ny": "2019-01-24T08:06:54-05:00",
+      "reaction_session": "2019-01-24",
+      "signal_session": "2019-01-24",
+      "entry_session": "2019-01-25",
+      "exit_20_session": "2019-02-25"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-19-000004",
+      "accepted_utc": "2019-01-28T14:04:54.000Z",
+      "accepted_ny": "2019-01-28T09:04:54-05:00",
+      "reaction_session": "2019-01-28",
+      "signal_session": "2019-01-28",
+      "entry_session": "2019-01-29",
+      "exit_20_session": "2019-02-27"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-19-000007",
+      "accepted_utc": "2019-01-29T21:30:18.000Z",
+      "accepted_ny": "2019-01-29T16:30:18-05:00",
+      "reaction_session": "2019-01-30",
+      "signal_session": "2019-01-30",
+      "entry_session": "2019-01-31",
+      "exit_20_session": "2019-03-01"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-19-000003",
+      "accepted_utc": "2019-01-30T21:16:27.000Z",
+      "accepted_ny": "2019-01-30T16:16:27-05:00",
+      "reaction_session": "2019-01-31",
+      "signal_session": "2019-01-31",
+      "entry_session": "2019-02-01",
+      "exit_20_session": "2019-03-04"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-19-000002",
+      "accepted_utc": "2019-01-31T21:30:02.000Z",
+      "accepted_ny": "2019-01-31T16:30:02-05:00",
+      "reaction_session": "2019-02-01",
+      "signal_session": "2019-02-01",
+      "entry_session": "2019-02-04",
+      "exit_20_session": "2019-03-05"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-19-000002",
+      "accepted_utc": "2019-02-01T12:58:33.000Z",
+      "accepted_ny": "2019-02-01T07:58:33-05:00",
+      "reaction_session": "2019-02-01",
+      "signal_session": "2019-02-01",
+      "entry_session": "2019-02-04",
+      "exit_20_session": "2019-03-05"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-19-000002",
+      "accepted_utc": "2019-02-04T21:01:19.000Z",
+      "accepted_ny": "2019-02-04T16:01:19-05:00",
+      "reaction_session": "2019-02-05",
+      "signal_session": "2019-02-05",
+      "entry_session": "2019-02-06",
+      "exit_20_session": "2019-03-07"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-19-000010",
+      "accepted_utc": "2019-02-14T12:03:02.000Z",
+      "accepted_ny": "2019-02-14T07:03:02-05:00",
+      "reaction_session": "2019-02-14",
+      "signal_session": "2019-02-14",
+      "entry_session": "2019-02-15",
+      "exit_20_session": "2019-03-18"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001104659-19-008904",
+      "accepted_utc": "2019-02-15T11:05:26.000Z",
+      "accepted_ny": "2019-02-15T06:05:26-05:00",
+      "reaction_session": "2019-02-15",
+      "signal_session": "2019-02-15",
+      "entry_session": "2019-02-19",
+      "exit_20_session": "2019-03-19"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-19-000007",
+      "accepted_utc": "2019-02-14T21:23:06.000Z",
+      "accepted_ny": "2019-02-14T16:23:06-05:00",
+      "reaction_session": "2019-02-15",
+      "signal_session": "2019-02-15",
+      "entry_session": "2019-02-19",
+      "exit_20_session": "2019-03-19"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-19-000007",
+      "accepted_utc": "2019-02-26T21:54:04.000Z",
+      "accepted_ny": "2019-02-26T16:54:04-05:00",
+      "reaction_session": "2019-02-27",
+      "signal_session": "2019-02-27",
+      "entry_session": "2019-02-28",
+      "exit_20_session": "2019-03-28"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-19-000060",
+      "accepted_utc": "2019-04-12T10:46:08.000Z",
+      "accepted_ny": "2019-04-12T06:46:08-04:00",
+      "reaction_session": "2019-04-12",
+      "signal_session": "2019-04-12",
+      "entry_session": "2019-04-15",
+      "exit_20_session": "2019-05-14"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-19-000025",
+      "accepted_utc": "2019-04-16T11:52:00.000Z",
+      "accepted_ny": "2019-04-16T07:52:00-04:00",
+      "reaction_session": "2019-04-16",
+      "signal_session": "2019-04-16",
+      "entry_session": "2019-04-17",
+      "exit_20_session": "2019-05-16"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-19-000125",
+      "accepted_utc": "2019-04-18T12:06:13.000Z",
+      "accepted_ny": "2019-04-18T08:06:13-04:00",
+      "reaction_session": "2019-04-18",
+      "signal_session": "2019-04-18",
+      "entry_session": "2019-04-22",
+      "exit_20_session": "2019-05-20"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-19-000022",
+      "accepted_utc": "2019-04-23T11:03:00.000Z",
+      "accepted_ny": "2019-04-23T07:03:00-04:00",
+      "reaction_session": "2019-04-23",
+      "signal_session": "2019-04-23",
+      "entry_session": "2019-04-24",
+      "exit_20_session": "2019-05-22"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-19-000035",
+      "accepted_utc": "2019-04-24T20:09:20.000Z",
+      "accepted_ny": "2019-04-24T16:09:20-04:00",
+      "reaction_session": "2019-04-25",
+      "signal_session": "2019-04-25",
+      "entry_session": "2019-04-26",
+      "exit_20_session": "2019-05-24"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-19-000041",
+      "accepted_utc": "2019-04-25T20:10:54.000Z",
+      "accepted_ny": "2019-04-25T16:10:54-04:00",
+      "reaction_session": "2019-04-26",
+      "signal_session": "2019-04-26",
+      "entry_session": "2019-04-29",
+      "exit_20_session": "2019-05-28"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-19-000015",
+      "accepted_utc": "2019-04-26T11:58:29.000Z",
+      "accepted_ny": "2019-04-26T07:58:29-04:00",
+      "reaction_session": "2019-04-26",
+      "signal_session": "2019-04-26",
+      "entry_session": "2019-04-29",
+      "exit_20_session": "2019-05-28"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-19-000011",
+      "accepted_utc": "2019-04-29T20:01:22.000Z",
+      "accepted_ny": "2019-04-29T16:01:22-04:00",
+      "reaction_session": "2019-04-30",
+      "signal_session": "2019-04-30",
+      "entry_session": "2019-05-01",
+      "exit_20_session": "2019-05-30"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-19-000063",
+      "accepted_utc": "2019-04-30T20:30:16.000Z",
+      "accepted_ny": "2019-04-30T16:30:16-04:00",
+      "reaction_session": "2019-05-01",
+      "signal_session": "2019-05-01",
+      "entry_session": "2019-05-02",
+      "exit_20_session": "2019-05-31"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001558370-19-005158",
+      "accepted_utc": "2019-05-17T10:07:38.000Z",
+      "accepted_ny": "2019-05-17T06:07:38-04:00",
+      "reaction_session": "2019-05-17",
+      "signal_session": "2019-05-17",
+      "entry_session": "2019-05-20",
+      "exit_20_session": "2019-06-18"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-19-000077",
+      "accepted_utc": "2019-05-16T20:22:47.000Z",
+      "accepted_ny": "2019-05-16T16:22:47-04:00",
+      "reaction_session": "2019-05-17",
+      "signal_session": "2019-05-17",
+      "entry_session": "2019-05-20",
+      "exit_20_session": "2019-06-18"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-19-000049",
+      "accepted_utc": "2019-07-16T12:00:32.000Z",
+      "accepted_ny": "2019-07-16T08:00:32-04:00",
+      "reaction_session": "2019-07-16",
+      "signal_session": "2019-07-16",
+      "entry_session": "2019-07-17",
+      "exit_20_session": "2019-08-14"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-19-000120",
+      "accepted_utc": "2019-07-16T10:45:52.000Z",
+      "accepted_ny": "2019-07-16T06:45:52-04:00",
+      "reaction_session": "2019-07-16",
+      "signal_session": "2019-07-16",
+      "entry_session": "2019-07-17",
+      "exit_20_session": "2019-08-14"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-19-000191",
+      "accepted_utc": "2019-07-18T12:05:11.000Z",
+      "accepted_ny": "2019-07-18T08:05:11-04:00",
+      "reaction_session": "2019-07-18",
+      "signal_session": "2019-07-18",
+      "entry_session": "2019-07-19",
+      "exit_20_session": "2019-08-16"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-19-000031",
+      "accepted_utc": "2019-07-23T10:58:22.000Z",
+      "accepted_ny": "2019-07-23T06:58:22-04:00",
+      "reaction_session": "2019-07-23",
+      "signal_session": "2019-07-23",
+      "entry_session": "2019-07-24",
+      "exit_20_session": "2019-08-21"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-19-000053",
+      "accepted_utc": "2019-07-24T20:27:15.000Z",
+      "accepted_ny": "2019-07-24T16:27:15-04:00",
+      "reaction_session": "2019-07-25",
+      "signal_session": "2019-07-25",
+      "entry_session": "2019-07-26",
+      "exit_20_session": "2019-08-23"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-19-000069",
+      "accepted_utc": "2019-07-25T20:33:27.000Z",
+      "accepted_ny": "2019-07-25T16:33:27-04:00",
+      "reaction_session": "2019-07-26",
+      "signal_session": "2019-07-26",
+      "entry_session": "2019-07-29",
+      "exit_20_session": "2019-08-26"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-19-000021",
+      "accepted_utc": "2019-07-25T20:01:22.000Z",
+      "accepted_ny": "2019-07-25T16:01:22-04:00",
+      "reaction_session": "2019-07-26",
+      "signal_session": "2019-07-26",
+      "entry_session": "2019-07-29",
+      "exit_20_session": "2019-08-26"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-19-000073",
+      "accepted_utc": "2019-07-30T20:30:36.000Z",
+      "accepted_ny": "2019-07-30T16:30:36-04:00",
+      "reaction_session": "2019-07-31",
+      "signal_session": "2019-07-31",
+      "entry_session": "2019-08-01",
+      "exit_20_session": "2019-08-29"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-19-000039",
+      "accepted_utc": "2019-08-02T11:28:30.000Z",
+      "accepted_ny": "2019-08-02T07:28:30-04:00",
+      "reaction_session": "2019-08-02",
+      "signal_session": "2019-08-02",
+      "entry_session": "2019-08-05",
+      "exit_20_session": "2019-09-03"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001558370-19-008226",
+      "accepted_utc": "2019-08-16T10:11:42.000Z",
+      "accepted_ny": "2019-08-16T06:11:42-04:00",
+      "reaction_session": "2019-08-16",
+      "signal_session": "2019-08-16",
+      "entry_session": "2019-08-19",
+      "exit_20_session": "2019-09-17"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-19-000140",
+      "accepted_utc": "2019-08-15T20:27:50.000Z",
+      "accepted_ny": "2019-08-15T16:27:50-04:00",
+      "reaction_session": "2019-08-16",
+      "signal_session": "2019-08-16",
+      "entry_session": "2019-08-19",
+      "exit_20_session": "2019-09-17"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-19-000061",
+      "accepted_utc": "2019-10-15T12:01:15.000Z",
+      "accepted_ny": "2019-10-15T08:01:15-04:00",
+      "reaction_session": "2019-10-15",
+      "signal_session": "2019-10-15",
+      "entry_session": "2019-10-16",
+      "exit_20_session": "2019-11-13"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-19-000194",
+      "accepted_utc": "2019-10-15T10:44:31.000Z",
+      "accepted_ny": "2019-10-15T06:44:31-04:00",
+      "reaction_session": "2019-10-15",
+      "signal_session": "2019-10-15",
+      "entry_session": "2019-10-16",
+      "exit_20_session": "2019-11-13"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-19-000249",
+      "accepted_utc": "2019-10-17T12:03:25.000Z",
+      "accepted_ny": "2019-10-17T08:03:25-04:00",
+      "reaction_session": "2019-10-17",
+      "signal_session": "2019-10-17",
+      "entry_session": "2019-10-18",
+      "exit_20_session": "2019-11-15"
+    },
+    {
+      "asset": "KO",
+      "accession": "0001628280-19-012399",
+      "accepted_utc": "2019-10-18T10:59:20.000Z",
+      "accepted_ny": "2019-10-18T06:59:20-04:00",
+      "reaction_session": "2019-10-18",
+      "signal_session": "2019-10-18",
+      "entry_session": "2019-10-21",
+      "exit_20_session": "2019-11-18"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-19-000063",
+      "accepted_utc": "2019-10-23T21:25:51.000Z",
+      "accepted_ny": "2019-10-23T17:25:51-04:00",
+      "reaction_session": "2019-10-24",
+      "signal_session": "2019-10-24",
+      "entry_session": "2019-10-25",
+      "exit_20_session": "2019-11-22"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-19-000087",
+      "accepted_utc": "2019-10-24T23:53:55.000Z",
+      "accepted_ny": "2019-10-24T19:53:55-04:00",
+      "reaction_session": "2019-10-25",
+      "signal_session": "2019-10-25",
+      "entry_session": "2019-10-28",
+      "exit_20_session": "2019-11-25"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-19-000030",
+      "accepted_utc": "2019-10-28T20:03:38.000Z",
+      "accepted_ny": "2019-10-28T16:03:38-04:00",
+      "reaction_session": "2019-10-29",
+      "signal_session": "2019-10-29",
+      "entry_session": "2019-10-30",
+      "exit_20_session": "2019-11-27"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-19-000117",
+      "accepted_utc": "2019-10-30T20:30:40.000Z",
+      "accepted_ny": "2019-10-30T16:30:40-04:00",
+      "reaction_session": "2019-10-31",
+      "signal_session": "2019-10-31",
+      "entry_session": "2019-11-01",
+      "exit_20_session": "2019-12-02"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-19-000066",
+      "accepted_utc": "2019-10-30T20:13:02.000Z",
+      "accepted_ny": "2019-10-30T16:13:02-04:00",
+      "reaction_session": "2019-10-31",
+      "signal_session": "2019-10-31",
+      "entry_session": "2019-11-01",
+      "exit_20_session": "2019-12-02"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-19-000060",
+      "accepted_utc": "2019-11-01T11:28:11.000Z",
+      "accepted_ny": "2019-11-01T07:28:11-04:00",
+      "reaction_session": "2019-11-01",
+      "signal_session": "2019-11-01",
+      "entry_session": "2019-11-04",
+      "exit_20_session": "2019-12-03"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-19-000168",
+      "accepted_utc": "2019-11-14T21:21:53.000Z",
+      "accepted_ny": "2019-11-14T16:21:53-05:00",
+      "reaction_session": "2019-11-15",
+      "signal_session": "2019-11-15",
+      "entry_session": "2019-11-18",
+      "exit_20_session": "2019-12-17"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001558370-19-011223",
+      "accepted_utc": "2019-11-27T11:05:26.000Z",
+      "accepted_ny": "2019-11-27T06:05:26-05:00",
+      "reaction_session": "2019-11-27",
+      "signal_session": "2019-11-27",
+      "entry_session": "2019-11-29",
+      "exit_20_session": "2019-12-30"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-20-000082",
+      "accepted_utc": "2020-01-14T11:46:00.000Z",
+      "accepted_ny": "2020-01-14T06:46:00-05:00",
+      "reaction_session": "2020-01-14",
+      "signal_session": "2020-01-14",
+      "entry_session": "2020-01-15",
+      "exit_20_session": "2020-02-13"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-20-000004",
+      "accepted_utc": "2020-01-22T12:30:25.000Z",
+      "accepted_ny": "2020-01-22T07:30:25-05:00",
+      "reaction_session": "2020-01-22",
+      "signal_session": "2020-01-22",
+      "entry_session": "2020-01-23",
+      "exit_20_session": "2020-02-21"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-20-000035",
+      "accepted_utc": "2020-01-23T13:04:50.000Z",
+      "accepted_ny": "2020-01-23T08:04:50-05:00",
+      "reaction_session": "2020-01-23",
+      "signal_session": "2020-01-23",
+      "entry_session": "2020-01-24",
+      "exit_20_session": "2020-02-24"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-20-000008",
+      "accepted_utc": "2020-01-28T21:30:40.000Z",
+      "accepted_ny": "2020-01-28T16:30:40-05:00",
+      "reaction_session": "2020-01-29",
+      "signal_session": "2020-01-29",
+      "entry_session": "2020-01-30",
+      "exit_20_session": "2020-02-28"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-20-000002",
+      "accepted_utc": "2020-01-30T11:59:32.000Z",
+      "accepted_ny": "2020-01-30T06:59:32-05:00",
+      "reaction_session": "2020-01-30",
+      "signal_session": "2020-01-30",
+      "entry_session": "2020-01-31",
+      "exit_20_session": "2020-03-02"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-20-000010",
+      "accepted_utc": "2020-01-29T21:10:08.000Z",
+      "accepted_ny": "2020-01-29T16:10:08-05:00",
+      "reaction_session": "2020-01-30",
+      "signal_session": "2020-01-30",
+      "entry_session": "2020-01-31",
+      "exit_20_session": "2020-03-02"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-20-000002",
+      "accepted_utc": "2020-01-30T21:46:49.000Z",
+      "accepted_ny": "2020-01-30T16:46:49-05:00",
+      "reaction_session": "2020-01-31",
+      "signal_session": "2020-01-31",
+      "entry_session": "2020-02-03",
+      "exit_20_session": "2020-03-03"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-20-000011",
+      "accepted_utc": "2020-01-31T12:28:47.000Z",
+      "accepted_ny": "2020-01-31T07:28:47-05:00",
+      "reaction_session": "2020-01-31",
+      "signal_session": "2020-01-31",
+      "entry_session": "2020-02-03",
+      "exit_20_session": "2020-03-03"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-20-000004",
+      "accepted_utc": "2020-02-03T21:02:04.000Z",
+      "accepted_ny": "2020-02-03T16:02:04-05:00",
+      "reaction_session": "2020-02-04",
+      "signal_session": "2020-02-04",
+      "entry_session": "2020-02-05",
+      "exit_20_session": "2020-03-05"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-20-000007",
+      "accepted_utc": "2020-02-13T21:21:20.000Z",
+      "accepted_ny": "2020-02-13T16:21:20-05:00",
+      "reaction_session": "2020-02-14",
+      "signal_session": "2020-02-14",
+      "entry_session": "2020-02-18",
+      "exit_20_session": "2020-03-17"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001558370-20-001119",
+      "accepted_utc": "2020-02-21T11:03:45.000Z",
+      "accepted_ny": "2020-02-21T06:03:45-05:00",
+      "reaction_session": "2020-02-21",
+      "signal_session": "2020-02-21",
+      "entry_session": "2020-02-24",
+      "exit_20_session": "2020-03-23"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-20-000026",
+      "accepted_utc": "2020-04-14T12:00:51.000Z",
+      "accepted_ny": "2020-04-14T08:00:51-04:00",
+      "reaction_session": "2020-04-14",
+      "signal_session": "2020-04-14",
+      "entry_session": "2020-04-15",
+      "exit_20_session": "2020-05-13"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-20-000280",
+      "accepted_utc": "2020-04-14T10:43:57.000Z",
+      "accepted_ny": "2020-04-14T06:43:57-04:00",
+      "reaction_session": "2020-04-14",
+      "signal_session": "2020-04-14",
+      "entry_session": "2020-04-15",
+      "exit_20_session": "2020-05-13"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-20-000011",
+      "accepted_utc": "2020-04-21T10:25:20.000Z",
+      "accepted_ny": "2020-04-21T06:25:20-04:00",
+      "reaction_session": "2020-04-21",
+      "signal_session": "2020-04-21",
+      "entry_session": "2020-04-22",
+      "exit_20_session": "2020-05-20"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-20-000139",
+      "accepted_utc": "2020-04-23T12:04:57.000Z",
+      "accepted_ny": "2020-04-23T08:04:57-04:00",
+      "reaction_session": "2020-04-23",
+      "signal_session": "2020-04-23",
+      "entry_session": "2020-04-24",
+      "exit_20_session": "2020-05-22"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-20-000018",
+      "accepted_utc": "2020-04-28T20:01:47.000Z",
+      "accepted_ny": "2020-04-28T16:01:47-04:00",
+      "reaction_session": "2020-04-29",
+      "signal_session": "2020-04-29",
+      "entry_session": "2020-04-30",
+      "exit_20_session": "2020-05-29"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-20-000046",
+      "accepted_utc": "2020-04-29T20:10:26.000Z",
+      "accepted_ny": "2020-04-29T16:10:26-04:00",
+      "reaction_session": "2020-04-30",
+      "signal_session": "2020-04-30",
+      "entry_session": "2020-05-01",
+      "exit_20_session": "2020-06-01"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-20-000050",
+      "accepted_utc": "2020-04-30T20:30:41.000Z",
+      "accepted_ny": "2020-04-30T16:30:41-04:00",
+      "reaction_session": "2020-05-01",
+      "signal_session": "2020-05-01",
+      "entry_session": "2020-05-04",
+      "exit_20_session": "2020-06-02"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-20-000008",
+      "accepted_utc": "2020-04-30T20:42:20.000Z",
+      "accepted_ny": "2020-04-30T16:42:20-04:00",
+      "reaction_session": "2020-05-01",
+      "signal_session": "2020-05-01",
+      "entry_session": "2020-05-04",
+      "exit_20_session": "2020-06-02"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-20-000035",
+      "accepted_utc": "2020-05-01T11:33:38.000Z",
+      "accepted_ny": "2020-05-01T07:33:38-04:00",
+      "reaction_session": "2020-05-01",
+      "signal_session": "2020-05-01",
+      "entry_session": "2020-05-04",
+      "exit_20_session": "2020-06-02"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001558370-20-006900",
+      "accepted_utc": "2020-05-22T10:08:24.000Z",
+      "accepted_ny": "2020-05-22T06:08:24-04:00",
+      "reaction_session": "2020-05-22",
+      "signal_session": "2020-05-22",
+      "entry_session": "2020-05-26",
+      "exit_20_session": "2020-06-23"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-20-000063",
+      "accepted_utc": "2020-05-21T20:22:07.000Z",
+      "accepted_ny": "2020-05-21T16:22:07-04:00",
+      "reaction_session": "2020-05-22",
+      "signal_session": "2020-05-22",
+      "entry_session": "2020-05-26",
+      "exit_20_session": "2020-06-23"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-20-000362",
+      "accepted_utc": "2020-07-14T10:45:40.000Z",
+      "accepted_ny": "2020-07-14T06:45:40-04:00",
+      "reaction_session": "2020-07-14",
+      "signal_session": "2020-07-14",
+      "entry_session": "2020-07-15",
+      "exit_20_session": "2020-08-12"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-20-000047",
+      "accepted_utc": "2020-07-16T11:31:10.000Z",
+      "accepted_ny": "2020-07-16T07:31:10-04:00",
+      "reaction_session": "2020-07-16",
+      "signal_session": "2020-07-16",
+      "entry_session": "2020-07-17",
+      "exit_20_session": "2020-08-14"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-20-000037",
+      "accepted_utc": "2020-07-21T10:59:21.000Z",
+      "accepted_ny": "2020-07-21T06:59:21-04:00",
+      "reaction_session": "2020-07-21",
+      "signal_session": "2020-07-21",
+      "entry_session": "2020-07-22",
+      "exit_20_session": "2020-08-19"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-20-000219",
+      "accepted_utc": "2020-07-23T12:05:18.000Z",
+      "accepted_ny": "2020-07-23T08:05:18-04:00",
+      "reaction_session": "2020-07-23",
+      "signal_session": "2020-07-23",
+      "entry_session": "2020-07-24",
+      "exit_20_session": "2020-08-21"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-20-000060",
+      "accepted_utc": "2020-07-30T22:55:04.000Z",
+      "accepted_ny": "2020-07-30T18:55:04-04:00",
+      "reaction_session": "2020-07-31",
+      "signal_session": "2020-07-31",
+      "entry_session": "2020-08-03",
+      "exit_20_session": "2020-08-31"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-20-000019",
+      "accepted_utc": "2020-07-30T23:05:15.000Z",
+      "accepted_ny": "2020-07-30T19:05:15-04:00",
+      "reaction_session": "2020-07-31",
+      "signal_session": "2020-07-31",
+      "entry_session": "2020-08-03",
+      "exit_20_session": "2020-08-31"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-20-000031",
+      "accepted_utc": "2020-07-30T22:40:20.000Z",
+      "accepted_ny": "2020-07-30T18:40:20-04:00",
+      "reaction_session": "2020-07-31",
+      "signal_session": "2020-07-31",
+      "entry_session": "2020-08-03",
+      "exit_20_session": "2020-08-31"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-20-000073",
+      "accepted_utc": "2020-07-30T23:18:23.000Z",
+      "accepted_ny": "2020-07-30T19:18:23-04:00",
+      "reaction_session": "2020-07-31",
+      "signal_session": "2020-07-31",
+      "entry_session": "2020-08-03",
+      "exit_20_session": "2020-08-31"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-20-000066",
+      "accepted_utc": "2020-07-31T12:39:10.000Z",
+      "accepted_ny": "2020-07-31T08:39:10-04:00",
+      "reaction_session": "2020-07-31",
+      "signal_session": "2020-07-31",
+      "entry_session": "2020-08-03",
+      "exit_20_session": "2020-08-31"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-20-000145",
+      "accepted_utc": "2020-08-19T20:21:46.000Z",
+      "accepted_ny": "2020-08-19T16:21:46-04:00",
+      "reaction_session": "2020-08-20",
+      "signal_session": "2020-08-20",
+      "entry_session": "2020-08-21",
+      "exit_20_session": "2020-09-21"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001558370-20-010785",
+      "accepted_utc": "2020-08-21T10:03:56.000Z",
+      "accepted_ny": "2020-08-21T06:03:56-04:00",
+      "reaction_session": "2020-08-21",
+      "signal_session": "2020-08-21",
+      "entry_session": "2020-08-24",
+      "exit_20_session": "2020-09-22"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-20-000054",
+      "accepted_utc": "2020-10-13T11:12:34.000Z",
+      "accepted_ny": "2020-10-13T07:12:34-04:00",
+      "reaction_session": "2020-10-13",
+      "signal_session": "2020-10-13",
+      "entry_session": "2020-10-14",
+      "exit_20_session": "2020-11-11"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-20-000427",
+      "accepted_utc": "2020-10-13T10:45:49.000Z",
+      "accepted_ny": "2020-10-13T06:45:49-04:00",
+      "reaction_session": "2020-10-13",
+      "signal_session": "2020-10-13",
+      "entry_session": "2020-10-14",
+      "exit_20_session": "2020-11-11"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-20-000044",
+      "accepted_utc": "2020-10-22T10:59:55.000Z",
+      "accepted_ny": "2020-10-22T06:59:55-04:00",
+      "reaction_session": "2020-10-22",
+      "signal_session": "2020-10-22",
+      "entry_session": "2020-10-23",
+      "exit_20_session": "2020-11-20"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-20-000301",
+      "accepted_utc": "2020-10-22T12:08:13.000Z",
+      "accepted_ny": "2020-10-22T08:08:13-04:00",
+      "reaction_session": "2020-10-22",
+      "signal_session": "2020-10-22",
+      "entry_session": "2020-10-23",
+      "exit_20_session": "2020-11-20"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-20-000094",
+      "accepted_utc": "2020-10-29T20:30:32.000Z",
+      "accepted_ny": "2020-10-29T16:30:32-04:00",
+      "reaction_session": "2020-10-30",
+      "signal_session": "2020-10-30",
+      "entry_session": "2020-11-02",
+      "exit_20_session": "2020-12-01"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-20-000028",
+      "accepted_utc": "2020-10-29T20:42:03.000Z",
+      "accepted_ny": "2020-10-29T16:42:03-04:00",
+      "reaction_session": "2020-10-30",
+      "signal_session": "2020-10-30",
+      "entry_session": "2020-11-02",
+      "exit_20_session": "2020-12-01"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-20-000046",
+      "accepted_utc": "2020-10-29T20:01:25.000Z",
+      "accepted_ny": "2020-10-29T16:01:25-04:00",
+      "reaction_session": "2020-10-30",
+      "signal_session": "2020-10-30",
+      "entry_session": "2020-11-02",
+      "exit_20_session": "2020-12-01"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-20-000081",
+      "accepted_utc": "2020-10-29T20:07:58.000Z",
+      "accepted_ny": "2020-10-29T16:07:58-04:00",
+      "reaction_session": "2020-10-30",
+      "signal_session": "2020-10-30",
+      "entry_session": "2020-11-02",
+      "exit_20_session": "2020-12-01"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-20-000087",
+      "accepted_utc": "2020-10-30T11:28:31.000Z",
+      "accepted_ny": "2020-10-30T07:28:31-04:00",
+      "reaction_session": "2020-10-30",
+      "signal_session": "2020-10-30",
+      "entry_session": "2020-11-02",
+      "exit_20_session": "2020-12-01"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-20-000187",
+      "accepted_utc": "2020-11-18T21:21:51.000Z",
+      "accepted_ny": "2020-11-18T16:21:51-05:00",
+      "reaction_session": "2020-11-19",
+      "signal_session": "2020-11-19",
+      "entry_session": "2020-11-20",
+      "exit_20_session": "2020-12-21"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001558370-20-014042",
+      "accepted_utc": "2020-11-25T11:03:58.000Z",
+      "accepted_ny": "2020-11-25T06:03:58-05:00",
+      "reaction_session": "2020-11-25",
+      "signal_session": "2020-11-25",
+      "entry_session": "2020-11-27",
+      "exit_20_session": "2020-12-28"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-21-000027",
+      "accepted_utc": "2021-01-08T14:00:17.000Z",
+      "accepted_ny": "2021-01-08T09:00:17-05:00",
+      "reaction_session": "2021-01-08",
+      "signal_session": "2021-01-08",
+      "entry_session": "2021-01-11",
+      "exit_20_session": "2021-02-09"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-21-000071",
+      "accepted_utc": "2021-01-15T11:45:52.000Z",
+      "accepted_ny": "2021-01-15T06:45:52-05:00",
+      "reaction_session": "2021-01-15",
+      "signal_session": "2021-01-15",
+      "entry_session": "2021-01-19",
+      "exit_20_session": "2021-02-17"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-21-000038",
+      "accepted_utc": "2021-01-21T13:06:12.000Z",
+      "accepted_ny": "2021-01-21T08:06:12-05:00",
+      "reaction_session": "2021-01-21",
+      "signal_session": "2021-01-21",
+      "entry_session": "2021-01-22",
+      "exit_20_session": "2021-02-22"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-21-000006",
+      "accepted_utc": "2021-01-26T13:06:06.000Z",
+      "accepted_ny": "2021-01-26T08:06:06-05:00",
+      "reaction_session": "2021-01-26",
+      "signal_session": "2021-01-26",
+      "entry_session": "2021-01-27",
+      "exit_20_session": "2021-02-25"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-21-000009",
+      "accepted_utc": "2021-01-27T21:30:35.000Z",
+      "accepted_ny": "2021-01-27T16:30:35-05:00",
+      "reaction_session": "2021-01-28",
+      "signal_session": "2021-01-28",
+      "entry_session": "2021-01-29",
+      "exit_20_session": "2021-03-01"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-21-000011",
+      "accepted_utc": "2021-01-27T21:08:08.000Z",
+      "accepted_ny": "2021-01-27T16:08:08-05:00",
+      "reaction_session": "2021-01-28",
+      "signal_session": "2021-01-28",
+      "entry_session": "2021-01-29",
+      "exit_20_session": "2021-03-01"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-21-000004",
+      "accepted_utc": "2021-02-02T12:27:16.000Z",
+      "accepted_ny": "2021-02-02T07:27:16-05:00",
+      "reaction_session": "2021-02-02",
+      "signal_session": "2021-02-02",
+      "entry_session": "2021-02-03",
+      "exit_20_session": "2021-03-04"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-21-000002",
+      "accepted_utc": "2021-02-02T21:30:08.000Z",
+      "accepted_ny": "2021-02-02T16:30:08-05:00",
+      "reaction_session": "2021-02-03",
+      "signal_session": "2021-02-03",
+      "entry_session": "2021-02-04",
+      "exit_20_session": "2021-03-05"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-21-000006",
+      "accepted_utc": "2021-02-02T21:01:27.000Z",
+      "accepted_ny": "2021-02-02T16:01:27-05:00",
+      "reaction_session": "2021-02-03",
+      "signal_session": "2021-02-03",
+      "entry_session": "2021-02-04",
+      "exit_20_session": "2021-03-05"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-21-000003",
+      "accepted_utc": "2021-02-10T11:58:03.000Z",
+      "accepted_ny": "2021-02-10T06:58:03-05:00",
+      "reaction_session": "2021-02-10",
+      "signal_session": "2021-02-10",
+      "entry_session": "2021-02-11",
+      "exit_20_session": "2021-03-12"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001558370-21-001244",
+      "accepted_utc": "2021-02-19T11:05:42.000Z",
+      "accepted_ny": "2021-02-19T06:05:42-05:00",
+      "reaction_session": "2021-02-19",
+      "signal_session": "2021-02-19",
+      "entry_session": "2021-02-22",
+      "exit_20_session": "2021-03-22"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-21-000007",
+      "accepted_utc": "2021-02-24T21:22:27.000Z",
+      "accepted_ny": "2021-02-24T16:22:27-05:00",
+      "reaction_session": "2021-02-25",
+      "signal_session": "2021-02-25",
+      "entry_session": "2021-02-26",
+      "exit_20_session": "2021-03-26"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-21-000281",
+      "accepted_utc": "2021-04-14T10:45:37.000Z",
+      "accepted_ny": "2021-04-14T06:45:37-04:00",
+      "reaction_session": "2021-04-14",
+      "signal_session": "2021-04-14",
+      "entry_session": "2021-04-15",
+      "exit_20_session": "2021-05-13"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-21-000011",
+      "accepted_utc": "2021-04-19T11:00:01.000Z",
+      "accepted_ny": "2021-04-19T07:00:01-04:00",
+      "reaction_session": "2021-04-19",
+      "signal_session": "2021-04-19",
+      "entry_session": "2021-04-20",
+      "exit_20_session": "2021-05-18"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-21-000024",
+      "accepted_utc": "2021-04-20T12:02:01.000Z",
+      "accepted_ny": "2021-04-20T08:02:01-04:00",
+      "reaction_session": "2021-04-20",
+      "signal_session": "2021-04-20",
+      "entry_session": "2021-04-21",
+      "exit_20_session": "2021-05-19"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-21-000157",
+      "accepted_utc": "2021-04-22T12:04:48.000Z",
+      "accepted_ny": "2021-04-22T08:04:48-04:00",
+      "reaction_session": "2021-04-22",
+      "signal_session": "2021-04-22",
+      "entry_session": "2021-04-23",
+      "exit_20_session": "2021-05-21"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-21-000018",
+      "accepted_utc": "2021-04-27T20:01:33.000Z",
+      "accepted_ny": "2021-04-27T16:01:33-04:00",
+      "reaction_session": "2021-04-28",
+      "signal_session": "2021-04-28",
+      "entry_session": "2021-04-29",
+      "exit_20_session": "2021-05-27"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-21-000055",
+      "accepted_utc": "2021-04-28T20:30:33.000Z",
+      "accepted_ny": "2021-04-28T16:30:33-04:00",
+      "reaction_session": "2021-04-29",
+      "signal_session": "2021-04-29",
+      "entry_session": "2021-04-30",
+      "exit_20_session": "2021-05-28"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-21-000031",
+      "accepted_utc": "2021-04-28T20:09:19.000Z",
+      "accepted_ny": "2021-04-28T16:09:19-04:00",
+      "reaction_session": "2021-04-29",
+      "signal_session": "2021-04-29",
+      "entry_session": "2021-04-30",
+      "exit_20_session": "2021-05-28"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-21-000008",
+      "accepted_utc": "2021-04-29T20:31:31.000Z",
+      "accepted_ny": "2021-04-29T16:31:31-04:00",
+      "reaction_session": "2021-04-30",
+      "signal_session": "2021-04-30",
+      "entry_session": "2021-05-03",
+      "exit_20_session": "2021-06-01"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-21-000021",
+      "accepted_utc": "2021-04-30T11:28:42.000Z",
+      "accepted_ny": "2021-04-30T07:28:42-04:00",
+      "reaction_session": "2021-04-30",
+      "signal_session": "2021-04-30",
+      "entry_session": "2021-05-03",
+      "exit_20_session": "2021-06-01"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001558370-21-007596",
+      "accepted_utc": "2021-05-21T10:04:20.000Z",
+      "accepted_ny": "2021-05-21T06:04:20-04:00",
+      "reaction_session": "2021-05-21",
+      "signal_session": "2021-05-21",
+      "entry_session": "2021-05-24",
+      "exit_20_session": "2021-06-22"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-21-000063",
+      "accepted_utc": "2021-05-26T20:20:35.000Z",
+      "accepted_ny": "2021-05-26T16:20:35-04:00",
+      "reaction_session": "2021-05-27",
+      "signal_session": "2021-05-27",
+      "entry_session": "2021-05-28",
+      "exit_20_session": "2021-06-28"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-21-000363",
+      "accepted_utc": "2021-07-13T10:45:46.000Z",
+      "accepted_ny": "2021-07-13T06:45:46-04:00",
+      "reaction_session": "2021-07-13",
+      "signal_session": "2021-07-13",
+      "entry_session": "2021-07-14",
+      "exit_20_session": "2021-08-11"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-21-000053",
+      "accepted_utc": "2021-07-21T12:00:52.000Z",
+      "accepted_ny": "2021-07-21T08:00:52-04:00",
+      "reaction_session": "2021-07-21",
+      "signal_session": "2021-07-21",
+      "entry_session": "2021-07-22",
+      "exit_20_session": "2021-08-19"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-21-000021",
+      "accepted_utc": "2021-07-21T11:00:37.000Z",
+      "accepted_ny": "2021-07-21T07:00:37-04:00",
+      "reaction_session": "2021-07-21",
+      "signal_session": "2021-07-21",
+      "entry_session": "2021-07-22",
+      "exit_20_session": "2021-08-19"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-21-000247",
+      "accepted_utc": "2021-07-22T12:05:05.000Z",
+      "accepted_ny": "2021-07-22T08:05:05-04:00",
+      "reaction_session": "2021-07-22",
+      "signal_session": "2021-07-22",
+      "entry_session": "2021-07-23",
+      "exit_20_session": "2021-08-20"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-21-000063",
+      "accepted_utc": "2021-07-27T20:35:44.000Z",
+      "accepted_ny": "2021-07-27T16:35:44-04:00",
+      "reaction_session": "2021-07-28",
+      "signal_session": "2021-07-28",
+      "entry_session": "2021-07-29",
+      "exit_20_session": "2021-08-26"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-21-000041",
+      "accepted_utc": "2021-07-27T20:36:42.000Z",
+      "accepted_ny": "2021-07-27T16:36:42-04:00",
+      "reaction_session": "2021-07-28",
+      "signal_session": "2021-07-28",
+      "entry_session": "2021-07-29",
+      "exit_20_session": "2021-08-26"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-21-000047",
+      "accepted_utc": "2021-07-28T20:08:06.000Z",
+      "accepted_ny": "2021-07-28T16:08:06-04:00",
+      "reaction_session": "2021-07-29",
+      "signal_session": "2021-07-29",
+      "entry_session": "2021-07-30",
+      "exit_20_session": "2021-08-27"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-21-000018",
+      "accepted_utc": "2021-07-29T20:34:52.000Z",
+      "accepted_ny": "2021-07-29T16:34:52-04:00",
+      "reaction_session": "2021-07-30",
+      "signal_session": "2021-07-30",
+      "entry_session": "2021-08-02",
+      "exit_20_session": "2021-08-30"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-21-000046",
+      "accepted_utc": "2021-07-30T11:28:29.000Z",
+      "accepted_ny": "2021-07-30T07:28:29-04:00",
+      "reaction_session": "2021-07-30",
+      "signal_session": "2021-07-30",
+      "entry_session": "2021-08-02",
+      "exit_20_session": "2021-08-30"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-21-000128",
+      "accepted_utc": "2021-08-18T20:21:07.000Z",
+      "accepted_ny": "2021-08-18T16:21:07-04:00",
+      "reaction_session": "2021-08-19",
+      "signal_session": "2021-08-19",
+      "entry_session": "2021-08-20",
+      "exit_20_session": "2021-09-20"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001558370-21-011969",
+      "accepted_utc": "2021-08-20T10:04:39.000Z",
+      "accepted_ny": "2021-08-20T06:04:39-04:00",
+      "reaction_session": "2021-08-20",
+      "signal_session": "2021-08-20",
+      "entry_session": "2021-08-23",
+      "exit_20_session": "2021-09-21"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-21-000446",
+      "accepted_utc": "2021-10-13T10:45:50.000Z",
+      "accepted_ny": "2021-10-13T06:45:50-04:00",
+      "reaction_session": "2021-10-13",
+      "signal_session": "2021-10-13",
+      "entry_session": "2021-10-14",
+      "exit_20_session": "2021-11-11"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-21-000067",
+      "accepted_utc": "2021-10-19T12:01:28.000Z",
+      "accepted_ny": "2021-10-19T08:01:28-04:00",
+      "reaction_session": "2021-10-19",
+      "signal_session": "2021-10-19",
+      "entry_session": "2021-10-20",
+      "exit_20_session": "2021-11-17"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-21-000350",
+      "accepted_utc": "2021-10-21T12:06:15.000Z",
+      "accepted_ny": "2021-10-21T08:06:15-04:00",
+      "reaction_session": "2021-10-21",
+      "signal_session": "2021-10-21",
+      "entry_session": "2021-10-22",
+      "exit_20_session": "2021-11-19"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-21-000062",
+      "accepted_utc": "2021-10-25T20:08:12.000Z",
+      "accepted_ny": "2021-10-25T16:08:12-04:00",
+      "reaction_session": "2021-10-26",
+      "signal_session": "2021-10-26",
+      "entry_session": "2021-10-27",
+      "exit_20_session": "2021-11-24"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-21-000054",
+      "accepted_utc": "2021-10-26T20:01:30.000Z",
+      "accepted_ny": "2021-10-26T16:01:30-04:00",
+      "reaction_session": "2021-10-27",
+      "signal_session": "2021-10-27",
+      "entry_session": "2021-10-28",
+      "exit_20_session": "2021-11-26"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-21-000027",
+      "accepted_utc": "2021-10-27T10:58:06.000Z",
+      "accepted_ny": "2021-10-27T06:58:06-04:00",
+      "reaction_session": "2021-10-27",
+      "signal_session": "2021-10-27",
+      "entry_session": "2021-10-28",
+      "exit_20_session": "2021-11-26"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-21-000104",
+      "accepted_utc": "2021-10-28T20:30:23.000Z",
+      "accepted_ny": "2021-10-28T16:30:23-04:00",
+      "reaction_session": "2021-10-29",
+      "signal_session": "2021-10-29",
+      "entry_session": "2021-11-01",
+      "exit_20_session": "2021-11-30"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-21-000026",
+      "accepted_utc": "2021-10-28T20:07:09.000Z",
+      "accepted_ny": "2021-10-28T16:07:09-04:00",
+      "reaction_session": "2021-10-29",
+      "signal_session": "2021-10-29",
+      "entry_session": "2021-11-01",
+      "exit_20_session": "2021-11-30"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-21-000061",
+      "accepted_utc": "2021-10-29T11:30:10.000Z",
+      "accepted_ny": "2021-10-29T07:30:10-04:00",
+      "reaction_session": "2021-10-29",
+      "signal_session": "2021-10-29",
+      "entry_session": "2021-11-01",
+      "exit_20_session": "2021-11-30"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-21-000160",
+      "accepted_utc": "2021-11-17T21:20:59.000Z",
+      "accepted_ny": "2021-11-17T16:20:59-05:00",
+      "reaction_session": "2021-11-18",
+      "signal_session": "2021-11-18",
+      "entry_session": "2021-11-19",
+      "exit_20_session": "2021-12-20"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001558370-21-016306",
+      "accepted_utc": "2021-11-24T11:04:19.000Z",
+      "accepted_ny": "2021-11-24T06:04:19-05:00",
+      "reaction_session": "2021-11-24",
+      "signal_session": "2021-11-24",
+      "entry_session": "2021-11-26",
+      "exit_20_session": "2021-12-27"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-22-000079",
+      "accepted_utc": "2022-01-14T11:45:48.000Z",
+      "accepted_ny": "2022-01-14T06:45:48-05:00",
+      "reaction_session": "2022-01-14",
+      "signal_session": "2022-01-14",
+      "entry_session": "2022-01-18",
+      "exit_20_session": "2022-02-15"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0001437749-22-001269",
+      "accepted_utc": "2022-01-20T13:04:36.000Z",
+      "accepted_ny": "2022-01-20T08:04:36-05:00",
+      "reaction_session": "2022-01-20",
+      "signal_session": "2022-01-20",
+      "entry_session": "2022-01-21",
+      "exit_20_session": "2022-02-18"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-22-000012",
+      "accepted_utc": "2022-01-25T13:00:34.000Z",
+      "accepted_ny": "2022-01-25T08:00:34-05:00",
+      "reaction_session": "2022-01-25",
+      "signal_session": "2022-01-25",
+      "entry_session": "2022-01-26",
+      "exit_20_session": "2022-02-24"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-22-000006",
+      "accepted_utc": "2022-01-27T21:30:36.000Z",
+      "accepted_ny": "2022-01-27T16:30:36-05:00",
+      "reaction_session": "2022-01-28",
+      "signal_session": "2022-01-28",
+      "entry_session": "2022-01-31",
+      "exit_20_session": "2022-03-01"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-22-000005",
+      "accepted_utc": "2022-02-01T12:25:00.000Z",
+      "accepted_ny": "2022-02-01T07:25:00-05:00",
+      "reaction_session": "2022-02-01",
+      "signal_session": "2022-02-01",
+      "entry_session": "2022-02-02",
+      "exit_20_session": "2022-03-03"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-22-000015",
+      "accepted_utc": "2022-02-01T21:01:29.000Z",
+      "accepted_ny": "2022-02-01T16:01:29-05:00",
+      "reaction_session": "2022-02-02",
+      "signal_session": "2022-02-02",
+      "entry_session": "2022-02-03",
+      "exit_20_session": "2022-03-04"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-22-000015",
+      "accepted_utc": "2022-02-02T21:08:34.000Z",
+      "accepted_ny": "2022-02-02T16:08:34-05:00",
+      "reaction_session": "2022-02-03",
+      "signal_session": "2022-02-03",
+      "entry_session": "2022-02-04",
+      "exit_20_session": "2022-03-07"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-22-000002",
+      "accepted_utc": "2022-02-03T21:11:33.000Z",
+      "accepted_ny": "2022-02-03T16:11:33-05:00",
+      "reaction_session": "2022-02-04",
+      "signal_session": "2022-02-04",
+      "entry_session": "2022-02-07",
+      "exit_20_session": "2022-03-08"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-22-000004",
+      "accepted_utc": "2022-02-10T11:57:42.000Z",
+      "accepted_ny": "2022-02-10T06:57:42-05:00",
+      "reaction_session": "2022-02-10",
+      "signal_session": "2022-02-10",
+      "entry_session": "2022-02-11",
+      "exit_20_session": "2022-03-14"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-22-000008",
+      "accepted_utc": "2022-02-16T21:21:16.000Z",
+      "accepted_ny": "2022-02-16T16:21:16-05:00",
+      "reaction_session": "2022-02-17",
+      "signal_session": "2022-02-17",
+      "entry_session": "2022-02-18",
+      "exit_20_session": "2022-03-21"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001558370-22-001380",
+      "accepted_utc": "2022-02-18T11:01:29.000Z",
+      "accepted_ny": "2022-02-18T06:01:29-05:00",
+      "reaction_session": "2022-02-18",
+      "signal_session": "2022-02-18",
+      "entry_session": "2022-02-22",
+      "exit_20_session": "2022-03-22"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-22-000313",
+      "accepted_utc": "2022-04-13T10:46:25.000Z",
+      "accepted_ny": "2022-04-13T06:46:25-04:00",
+      "reaction_session": "2022-04-13",
+      "signal_session": "2022-04-13",
+      "entry_session": "2022-04-14",
+      "exit_20_session": "2022-05-13"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-22-000038",
+      "accepted_utc": "2022-04-19T11:56:38.000Z",
+      "accepted_ny": "2022-04-19T07:56:38-04:00",
+      "reaction_session": "2022-04-19",
+      "signal_session": "2022-04-19",
+      "entry_session": "2022-04-20",
+      "exit_20_session": "2022-05-18"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0001437749-22-009378",
+      "accepted_utc": "2022-04-21T11:46:28.000Z",
+      "accepted_ny": "2022-04-21T07:46:28-04:00",
+      "reaction_session": "2022-04-21",
+      "signal_session": "2022-04-21",
+      "entry_session": "2022-04-22",
+      "exit_20_session": "2022-05-20"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-22-000013",
+      "accepted_utc": "2022-04-25T10:57:33.000Z",
+      "accepted_ny": "2022-04-25T06:57:33-04:00",
+      "reaction_session": "2022-04-25",
+      "signal_session": "2022-04-25",
+      "entry_session": "2022-04-26",
+      "exit_20_session": "2022-05-24"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-22-000025",
+      "accepted_utc": "2022-04-26T20:01:32.000Z",
+      "accepted_ny": "2022-04-26T16:01:32-04:00",
+      "reaction_session": "2022-04-27",
+      "signal_session": "2022-04-27",
+      "entry_session": "2022-04-28",
+      "exit_20_session": "2022-05-26"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-22-000054",
+      "accepted_utc": "2022-04-27T20:07:54.000Z",
+      "accepted_ny": "2022-04-27T16:07:54-04:00",
+      "reaction_session": "2022-04-28",
+      "signal_session": "2022-04-28",
+      "entry_session": "2022-04-29",
+      "exit_20_session": "2022-05-27"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-22-000058",
+      "accepted_utc": "2022-04-28T20:32:12.000Z",
+      "accepted_ny": "2022-04-28T16:32:12-04:00",
+      "reaction_session": "2022-04-29",
+      "signal_session": "2022-04-29",
+      "entry_session": "2022-05-02",
+      "exit_20_session": "2022-05-31"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-22-000011",
+      "accepted_utc": "2022-04-28T20:27:13.000Z",
+      "accepted_ny": "2022-04-28T16:27:13-04:00",
+      "reaction_session": "2022-04-29",
+      "signal_session": "2022-04-29",
+      "entry_session": "2022-05-02",
+      "exit_20_session": "2022-05-31"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-22-000023",
+      "accepted_utc": "2022-04-29T10:02:06.000Z",
+      "accepted_ny": "2022-04-29T06:02:06-04:00",
+      "reaction_session": "2022-04-29",
+      "signal_session": "2022-04-29",
+      "entry_session": "2022-05-02",
+      "exit_20_session": "2022-05-31"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001558370-22-009205",
+      "accepted_utc": "2022-05-20T10:02:47.000Z",
+      "accepted_ny": "2022-05-20T06:02:47-04:00",
+      "reaction_session": "2022-05-20",
+      "signal_session": "2022-05-20",
+      "entry_session": "2022-05-23",
+      "exit_20_session": "2022-06-22"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-22-000073",
+      "accepted_utc": "2022-05-25T20:22:25.000Z",
+      "accepted_ny": "2022-05-25T16:22:25-04:00",
+      "reaction_session": "2022-05-26",
+      "signal_session": "2022-05-26",
+      "entry_session": "2022-05-27",
+      "exit_20_session": "2022-06-28"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-22-000410",
+      "accepted_utc": "2022-07-14T10:45:42.000Z",
+      "accepted_ny": "2022-07-14T06:45:42-04:00",
+      "reaction_session": "2022-07-14",
+      "signal_session": "2022-07-14",
+      "entry_session": "2022-07-15",
+      "exit_20_session": "2022-08-12"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-22-000063",
+      "accepted_utc": "2022-07-19T11:59:43.000Z",
+      "accepted_ny": "2022-07-19T07:59:43-04:00",
+      "reaction_session": "2022-07-19",
+      "signal_session": "2022-07-19",
+      "entry_session": "2022-07-20",
+      "exit_20_session": "2022-08-17"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0001437749-22-017481",
+      "accepted_utc": "2022-07-21T11:50:12.000Z",
+      "accepted_ny": "2022-07-21T07:50:12-04:00",
+      "reaction_session": "2022-07-21",
+      "signal_session": "2022-07-21",
+      "entry_session": "2022-07-22",
+      "exit_20_session": "2022-08-19"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-22-000030",
+      "accepted_utc": "2022-07-26T11:01:38.000Z",
+      "accepted_ny": "2022-07-26T07:01:38-04:00",
+      "reaction_session": "2022-07-26",
+      "signal_session": "2022-07-26",
+      "entry_session": "2022-07-27",
+      "exit_20_session": "2022-08-24"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-22-000068",
+      "accepted_utc": "2022-07-26T20:02:00.000Z",
+      "accepted_ny": "2022-07-26T16:02:00-04:00",
+      "reaction_session": "2022-07-27",
+      "signal_session": "2022-07-27",
+      "entry_session": "2022-07-28",
+      "exit_20_session": "2022-08-25"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-22-000079",
+      "accepted_utc": "2022-07-27T20:07:22.000Z",
+      "accepted_ny": "2022-07-27T16:07:22-04:00",
+      "reaction_session": "2022-07-28",
+      "signal_session": "2022-07-28",
+      "entry_session": "2022-07-29",
+      "exit_20_session": "2022-08-26"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-22-000069",
+      "accepted_utc": "2022-07-28T20:31:44.000Z",
+      "accepted_ny": "2022-07-28T16:31:44-04:00",
+      "reaction_session": "2022-07-29",
+      "signal_session": "2022-07-29",
+      "entry_session": "2022-08-01",
+      "exit_20_session": "2022-08-29"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-22-000017",
+      "accepted_utc": "2022-07-28T20:09:30.000Z",
+      "accepted_ny": "2022-07-28T16:09:30-04:00",
+      "reaction_session": "2022-07-29",
+      "signal_session": "2022-07-29",
+      "entry_session": "2022-08-01",
+      "exit_20_session": "2022-08-29"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-22-000048",
+      "accepted_utc": "2022-07-29T10:31:59.000Z",
+      "accepted_ny": "2022-07-29T06:31:59-04:00",
+      "reaction_session": "2022-07-29",
+      "signal_session": "2022-07-29",
+      "entry_session": "2022-08-01",
+      "exit_20_session": "2022-08-29"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-22-000133",
+      "accepted_utc": "2022-08-08T13:16:50.000Z",
+      "accepted_ny": "2022-08-08T09:16:50-04:00",
+      "reaction_session": "2022-08-08",
+      "signal_session": "2022-08-08",
+      "entry_session": "2022-08-09",
+      "exit_20_session": "2022-09-07"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001558370-22-013796",
+      "accepted_utc": "2022-08-19T10:01:54.000Z",
+      "accepted_ny": "2022-08-19T06:01:54-04:00",
+      "reaction_session": "2022-08-19",
+      "signal_session": "2022-08-19",
+      "entry_session": "2022-08-22",
+      "exit_20_session": "2022-09-20"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-22-000136",
+      "accepted_utc": "2022-08-24T20:24:34.000Z",
+      "accepted_ny": "2022-08-24T16:24:34-04:00",
+      "reaction_session": "2022-08-25",
+      "signal_session": "2022-08-25",
+      "entry_session": "2022-08-26",
+      "exit_20_session": "2022-09-26"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-22-000486",
+      "accepted_utc": "2022-10-14T10:45:32.000Z",
+      "accepted_ny": "2022-10-14T06:45:32-04:00",
+      "reaction_session": "2022-10-14",
+      "signal_session": "2022-10-14",
+      "entry_session": "2022-10-17",
+      "exit_20_session": "2022-11-14"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-22-000081",
+      "accepted_utc": "2022-10-18T11:54:56.000Z",
+      "accepted_ny": "2022-10-18T07:54:56-04:00",
+      "reaction_session": "2022-10-18",
+      "signal_session": "2022-10-18",
+      "entry_session": "2022-10-19",
+      "exit_20_session": "2022-11-16"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0001437749-22-024411",
+      "accepted_utc": "2022-10-20T11:47:35.000Z",
+      "accepted_ny": "2022-10-20T07:47:35-04:00",
+      "reaction_session": "2022-10-20",
+      "signal_session": "2022-10-20",
+      "entry_session": "2022-10-21",
+      "exit_20_session": "2022-11-18"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-22-000038",
+      "accepted_utc": "2022-10-25T10:56:55.000Z",
+      "accepted_ny": "2022-10-25T06:56:55-04:00",
+      "reaction_session": "2022-10-25",
+      "signal_session": "2022-10-25",
+      "entry_session": "2022-10-26",
+      "exit_20_session": "2022-11-23"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-22-000085",
+      "accepted_utc": "2022-10-25T20:01:23.000Z",
+      "accepted_ny": "2022-10-25T16:01:23-04:00",
+      "reaction_session": "2022-10-26",
+      "signal_session": "2022-10-26",
+      "entry_session": "2022-10-27",
+      "exit_20_session": "2022-11-25"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-22-000105",
+      "accepted_utc": "2022-10-26T20:19:09.000Z",
+      "accepted_ny": "2022-10-26T16:19:09-04:00",
+      "reaction_session": "2022-10-27",
+      "signal_session": "2022-10-27",
+      "entry_session": "2022-10-28",
+      "exit_20_session": "2022-11-28"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-22-000107",
+      "accepted_utc": "2022-10-27T20:30:22.000Z",
+      "accepted_ny": "2022-10-27T16:30:22-04:00",
+      "reaction_session": "2022-10-28",
+      "signal_session": "2022-10-28",
+      "entry_session": "2022-10-31",
+      "exit_20_session": "2022-11-29"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-22-000021",
+      "accepted_utc": "2022-10-27T20:09:35.000Z",
+      "accepted_ny": "2022-10-27T16:09:35-04:00",
+      "reaction_session": "2022-10-28",
+      "signal_session": "2022-10-28",
+      "entry_session": "2022-10-31",
+      "exit_20_session": "2022-11-29"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-22-000057",
+      "accepted_utc": "2022-10-28T10:32:12.000Z",
+      "accepted_ny": "2022-10-28T06:32:12-04:00",
+      "reaction_session": "2022-10-28",
+      "signal_session": "2022-10-28",
+      "entry_session": "2022-10-31",
+      "exit_20_session": "2022-11-29"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-22-000163",
+      "accepted_utc": "2022-11-16T21:21:18.000Z",
+      "accepted_ny": "2022-11-16T16:21:18-05:00",
+      "reaction_session": "2022-11-17",
+      "signal_session": "2022-11-17",
+      "entry_session": "2022-11-18",
+      "exit_20_session": "2022-12-19"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001558370-22-018162",
+      "accepted_utc": "2022-11-23T11:03:27.000Z",
+      "accepted_ny": "2022-11-23T06:03:27-05:00",
+      "reaction_session": "2022-11-23",
+      "signal_session": "2022-11-23",
+      "entry_session": "2022-11-25",
+      "exit_20_session": "2022-12-23"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-23-000063",
+      "accepted_utc": "2023-01-13T11:45:26.000Z",
+      "accepted_ny": "2023-01-13T06:45:26-05:00",
+      "reaction_session": "2023-01-13",
+      "signal_session": "2023-01-13",
+      "entry_session": "2023-01-17",
+      "exit_20_session": "2023-02-14"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-23-000005",
+      "accepted_utc": "2023-01-24T12:44:10.000Z",
+      "accepted_ny": "2023-01-24T07:44:10-05:00",
+      "reaction_session": "2023-01-24",
+      "signal_session": "2023-01-24",
+      "entry_session": "2023-01-25",
+      "exit_20_session": "2023-02-23"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0001437749-23-001638",
+      "accepted_utc": "2023-01-24T12:49:35.000Z",
+      "accepted_ny": "2023-01-24T07:49:35-05:00",
+      "reaction_session": "2023-01-24",
+      "signal_session": "2023-01-24",
+      "entry_session": "2023-01-25",
+      "exit_20_session": "2023-02-23"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-23-000011",
+      "accepted_utc": "2023-01-31T11:32:51.000Z",
+      "accepted_ny": "2023-01-31T06:32:51-05:00",
+      "reaction_session": "2023-01-31",
+      "signal_session": "2023-01-31",
+      "entry_session": "2023-02-01",
+      "exit_20_session": "2023-03-02"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-23-000008",
+      "accepted_utc": "2023-02-01T21:22:15.000Z",
+      "accepted_ny": "2023-02-01T16:22:15-05:00",
+      "reaction_session": "2023-02-02",
+      "signal_session": "2023-02-02",
+      "entry_session": "2023-02-03",
+      "exit_20_session": "2023-03-06"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-23-000005",
+      "accepted_utc": "2023-02-02T21:30:33.000Z",
+      "accepted_ny": "2023-02-02T16:30:33-05:00",
+      "reaction_session": "2023-02-03",
+      "signal_session": "2023-02-03",
+      "entry_session": "2023-02-06",
+      "exit_20_session": "2023-03-07"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-23-000002",
+      "accepted_utc": "2023-02-02T21:08:48.000Z",
+      "accepted_ny": "2023-02-02T16:08:48-05:00",
+      "reaction_session": "2023-02-03",
+      "signal_session": "2023-02-03",
+      "entry_session": "2023-02-06",
+      "exit_20_session": "2023-03-07"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-23-000013",
+      "accepted_utc": "2023-02-02T21:01:29.000Z",
+      "accepted_ny": "2023-02-02T16:01:29-05:00",
+      "reaction_session": "2023-02-03",
+      "signal_session": "2023-02-03",
+      "entry_session": "2023-02-06",
+      "exit_20_session": "2023-03-07"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-23-000005",
+      "accepted_utc": "2023-02-14T11:58:07.000Z",
+      "accepted_ny": "2023-02-14T06:58:07-05:00",
+      "reaction_session": "2023-02-14",
+      "signal_session": "2023-02-14",
+      "entry_session": "2023-02-15",
+      "exit_20_session": "2023-03-16"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001558370-23-001480",
+      "accepted_utc": "2023-02-17T11:05:15.000Z",
+      "accepted_ny": "2023-02-17T06:05:15-05:00",
+      "reaction_session": "2023-02-17",
+      "signal_session": "2023-02-17",
+      "entry_session": "2023-02-21",
+      "exit_20_session": "2023-03-21"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-23-000014",
+      "accepted_utc": "2023-02-22T21:52:26.000Z",
+      "accepted_ny": "2023-02-22T16:52:26-05:00",
+      "reaction_session": "2023-02-23",
+      "signal_session": "2023-02-23",
+      "entry_session": "2023-02-24",
+      "exit_20_session": "2023-03-24"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0001628280-23-011546",
+      "accepted_utc": "2023-04-14T10:48:57.000Z",
+      "accepted_ny": "2023-04-14T06:48:57-04:00",
+      "reaction_session": "2023-04-14",
+      "signal_session": "2023-04-14",
+      "entry_session": "2023-04-17",
+      "exit_20_session": "2023-05-15"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-23-000043",
+      "accepted_utc": "2023-04-18T11:29:50.000Z",
+      "accepted_ny": "2023-04-18T07:29:50-04:00",
+      "reaction_session": "2023-04-18",
+      "signal_session": "2023-04-18",
+      "entry_session": "2023-04-19",
+      "exit_20_session": "2023-05-17"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0001437749-23-010684",
+      "accepted_utc": "2023-04-20T11:46:33.000Z",
+      "accepted_ny": "2023-04-20T07:46:33-04:00",
+      "reaction_session": "2023-04-20",
+      "signal_session": "2023-04-20",
+      "entry_session": "2023-04-21",
+      "exit_20_session": "2023-05-19"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-23-000034",
+      "accepted_utc": "2023-04-20T20:24:04.000Z",
+      "accepted_ny": "2023-04-20T16:24:04-04:00",
+      "reaction_session": "2023-04-21",
+      "signal_session": "2023-04-21",
+      "entry_session": "2023-04-24",
+      "exit_20_session": "2023-05-22"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-23-000017",
+      "accepted_utc": "2023-04-24T10:59:24.000Z",
+      "accepted_ny": "2023-04-24T06:59:24-04:00",
+      "reaction_session": "2023-04-24",
+      "signal_session": "2023-04-24",
+      "entry_session": "2023-04-25",
+      "exit_20_session": "2023-05-23"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-23-000041",
+      "accepted_utc": "2023-04-25T20:01:48.000Z",
+      "accepted_ny": "2023-04-25T16:01:48-04:00",
+      "reaction_session": "2023-04-26",
+      "signal_session": "2023-04-26",
+      "entry_session": "2023-04-27",
+      "exit_20_session": "2023-05-25"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-23-000063",
+      "accepted_utc": "2023-04-26T20:18:04.000Z",
+      "accepted_ny": "2023-04-26T16:18:04-04:00",
+      "reaction_session": "2023-04-27",
+      "signal_session": "2023-04-27",
+      "entry_session": "2023-04-28",
+      "exit_20_session": "2023-05-26"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-23-000006",
+      "accepted_utc": "2023-04-27T20:10:37.000Z",
+      "accepted_ny": "2023-04-27T16:10:37-04:00",
+      "reaction_session": "2023-04-28",
+      "signal_session": "2023-04-28",
+      "entry_session": "2023-05-01",
+      "exit_20_session": "2023-05-30"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-23-000028",
+      "accepted_utc": "2023-04-28T10:32:24.000Z",
+      "accepted_ny": "2023-04-28T06:32:24-04:00",
+      "reaction_session": "2023-04-28",
+      "signal_session": "2023-04-28",
+      "entry_session": "2023-05-01",
+      "exit_20_session": "2023-05-30"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-23-000063",
+      "accepted_utc": "2023-05-04T20:30:43.000Z",
+      "accepted_ny": "2023-05-04T16:30:43-04:00",
+      "reaction_session": "2023-05-05",
+      "signal_session": "2023-05-05",
+      "entry_session": "2023-05-08",
+      "exit_20_session": "2023-06-06"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001558370-23-010220",
+      "accepted_utc": "2023-05-19T10:01:19.000Z",
+      "accepted_ny": "2023-05-19T06:01:19-04:00",
+      "reaction_session": "2023-05-19",
+      "signal_session": "2023-05-19",
+      "entry_session": "2023-05-22",
+      "exit_20_session": "2023-06-21"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-23-000087",
+      "accepted_utc": "2023-05-24T20:22:18.000Z",
+      "accepted_ny": "2023-05-24T16:22:18-04:00",
+      "reaction_session": "2023-05-25",
+      "signal_session": "2023-05-25",
+      "entry_session": "2023-05-26",
+      "exit_20_session": "2023-06-27"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-23-000425",
+      "accepted_utc": "2023-07-14T10:46:08.000Z",
+      "accepted_ny": "2023-07-14T06:46:08-04:00",
+      "reaction_session": "2023-07-14",
+      "signal_session": "2023-07-14",
+      "entry_session": "2023-07-17",
+      "exit_20_session": "2023-08-14"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-23-000073",
+      "accepted_utc": "2023-07-20T11:15:55.000Z",
+      "accepted_ny": "2023-07-20T07:15:55-04:00",
+      "reaction_session": "2023-07-20",
+      "signal_session": "2023-07-20",
+      "entry_session": "2023-07-21",
+      "exit_20_session": "2023-08-18"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-23-000067",
+      "accepted_utc": "2023-07-25T20:01:21.000Z",
+      "accepted_ny": "2023-07-25T16:01:21-04:00",
+      "reaction_session": "2023-07-26",
+      "signal_session": "2023-07-26",
+      "entry_session": "2023-07-27",
+      "exit_20_session": "2023-08-24"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-23-000045",
+      "accepted_utc": "2023-07-26T10:57:08.000Z",
+      "accepted_ny": "2023-07-26T06:57:08-04:00",
+      "reaction_session": "2023-07-26",
+      "signal_session": "2023-07-26",
+      "entry_session": "2023-07-27",
+      "exit_20_session": "2023-08-24"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0001437749-23-020647",
+      "accepted_utc": "2023-07-26T11:49:29.000Z",
+      "accepted_ny": "2023-07-26T07:49:29-04:00",
+      "reaction_session": "2023-07-26",
+      "signal_session": "2023-07-26",
+      "entry_session": "2023-07-27",
+      "exit_20_session": "2023-08-24"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-23-000089",
+      "accepted_utc": "2023-07-26T20:06:51.000Z",
+      "accepted_ny": "2023-07-26T16:06:51-04:00",
+      "reaction_session": "2023-07-27",
+      "signal_session": "2023-07-27",
+      "entry_session": "2023-07-28",
+      "exit_20_session": "2023-08-25"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-23-000046",
+      "accepted_utc": "2023-07-28T10:32:19.000Z",
+      "accepted_ny": "2023-07-28T06:32:19-04:00",
+      "reaction_session": "2023-07-28",
+      "signal_session": "2023-07-28",
+      "entry_session": "2023-07-31",
+      "exit_20_session": "2023-08-28"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-23-000075",
+      "accepted_utc": "2023-08-03T20:30:21.000Z",
+      "accepted_ny": "2023-08-03T16:30:21-04:00",
+      "reaction_session": "2023-08-04",
+      "signal_session": "2023-08-04",
+      "entry_session": "2023-08-07",
+      "exit_20_session": "2023-09-05"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-23-000010",
+      "accepted_utc": "2023-08-03T20:09:02.000Z",
+      "accepted_ny": "2023-08-03T16:09:02-04:00",
+      "reaction_session": "2023-08-04",
+      "signal_session": "2023-08-04",
+      "entry_session": "2023-08-07",
+      "exit_20_session": "2023-09-05"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001558370-23-015085",
+      "accepted_utc": "2023-08-18T10:01:26.000Z",
+      "accepted_ny": "2023-08-18T06:01:26-04:00",
+      "reaction_session": "2023-08-18",
+      "signal_session": "2023-08-18",
+      "entry_session": "2023-08-21",
+      "exit_20_session": "2023-09-19"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-23-000171",
+      "accepted_utc": "2023-08-23T20:21:42.000Z",
+      "accepted_ny": "2023-08-23T16:21:42-04:00",
+      "reaction_session": "2023-08-24",
+      "signal_session": "2023-08-24",
+      "entry_session": "2023-08-25",
+      "exit_20_session": "2023-09-25"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-23-000091",
+      "accepted_utc": "2023-08-30T11:46:49.000Z",
+      "accepted_ny": "2023-08-30T07:46:49-04:00",
+      "reaction_session": "2023-08-30",
+      "signal_session": "2023-08-30",
+      "entry_session": "2023-08-31",
+      "exit_20_session": "2023-09-29"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-23-000508",
+      "accepted_utc": "2023-10-13T10:47:21.000Z",
+      "accepted_ny": "2023-10-13T06:47:21-04:00",
+      "reaction_session": "2023-10-13",
+      "signal_session": "2023-10-13",
+      "entry_session": "2023-10-16",
+      "exit_20_session": "2023-11-13"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-23-000094",
+      "accepted_utc": "2023-10-17T11:33:25.000Z",
+      "accepted_ny": "2023-10-17T07:33:25-04:00",
+      "reaction_session": "2023-10-17",
+      "signal_session": "2023-10-17",
+      "entry_session": "2023-10-18",
+      "exit_20_session": "2023-11-15"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0001437749-23-028559",
+      "accepted_utc": "2023-10-19T11:46:23.000Z",
+      "accepted_ny": "2023-10-19T07:46:23-04:00",
+      "reaction_session": "2023-10-19",
+      "signal_session": "2023-10-19",
+      "entry_session": "2023-10-20",
+      "exit_20_session": "2023-11-17"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-23-000057",
+      "accepted_utc": "2023-10-24T10:57:49.000Z",
+      "accepted_ny": "2023-10-24T06:57:49-04:00",
+      "reaction_session": "2023-10-24",
+      "signal_session": "2023-10-24",
+      "entry_session": "2023-10-25",
+      "exit_20_session": "2023-11-22"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-23-000088",
+      "accepted_utc": "2023-10-24T20:01:23.000Z",
+      "accepted_ny": "2023-10-24T16:01:23-04:00",
+      "reaction_session": "2023-10-25",
+      "signal_session": "2023-10-25",
+      "entry_session": "2023-10-26",
+      "exit_20_session": "2023-11-24"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-23-000100",
+      "accepted_utc": "2023-10-25T20:20:51.000Z",
+      "accepted_ny": "2023-10-25T16:20:51-04:00",
+      "reaction_session": "2023-10-26",
+      "signal_session": "2023-10-26",
+      "entry_session": "2023-10-27",
+      "exit_20_session": "2023-11-27"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-23-000016",
+      "accepted_utc": "2023-10-26T20:14:51.000Z",
+      "accepted_ny": "2023-10-26T16:14:51-04:00",
+      "reaction_session": "2023-10-27",
+      "signal_session": "2023-10-27",
+      "entry_session": "2023-10-30",
+      "exit_20_session": "2023-11-28"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-23-000054",
+      "accepted_utc": "2023-10-27T10:31:48.000Z",
+      "accepted_ny": "2023-10-27T06:31:48-04:00",
+      "reaction_session": "2023-10-27",
+      "signal_session": "2023-10-27",
+      "entry_session": "2023-10-30",
+      "exit_20_session": "2023-11-28"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-23-000104",
+      "accepted_utc": "2023-11-02T20:30:32.000Z",
+      "accepted_ny": "2023-11-02T16:30:32-04:00",
+      "reaction_session": "2023-11-03",
+      "signal_session": "2023-11-03",
+      "entry_session": "2023-11-06",
+      "exit_20_session": "2023-12-05"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001558370-23-019292",
+      "accepted_utc": "2023-11-22T11:01:22.000Z",
+      "accepted_ny": "2023-11-22T06:01:22-05:00",
+      "reaction_session": "2023-11-22",
+      "signal_session": "2023-11-22",
+      "entry_session": "2023-11-24",
+      "exit_20_session": "2023-12-22"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-23-000225",
+      "accepted_utc": "2023-11-21T21:22:00.000Z",
+      "accepted_ny": "2023-11-21T16:22:00-05:00",
+      "reaction_session": "2023-11-22",
+      "signal_session": "2023-11-22",
+      "entry_session": "2023-11-24",
+      "exit_20_session": "2023-12-22"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-24-000049",
+      "accepted_utc": "2024-01-12T11:47:22.000Z",
+      "accepted_ny": "2024-01-12T06:47:22-05:00",
+      "reaction_session": "2024-01-12",
+      "signal_session": "2024-01-12",
+      "entry_session": "2024-01-16",
+      "exit_20_session": "2024-02-13"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-24-000004",
+      "accepted_utc": "2024-01-23T12:45:37.000Z",
+      "accepted_ny": "2024-01-23T07:45:37-05:00",
+      "reaction_session": "2024-01-23",
+      "signal_session": "2024-01-23",
+      "entry_session": "2024-01-24",
+      "exit_20_session": "2024-02-22"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0001437749-24-002118",
+      "accepted_utc": "2024-01-25T12:46:44.000Z",
+      "accepted_ny": "2024-01-25T07:46:44-05:00",
+      "reaction_session": "2024-01-25",
+      "signal_session": "2024-01-25",
+      "entry_session": "2024-01-26",
+      "exit_20_session": "2024-02-26"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-24-000014",
+      "accepted_utc": "2024-01-30T21:01:26.000Z",
+      "accepted_ny": "2024-01-30T16:01:26-05:00",
+      "reaction_session": "2024-01-31",
+      "signal_session": "2024-01-31",
+      "entry_session": "2024-02-01",
+      "exit_20_session": "2024-03-01"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-24-000005",
+      "accepted_utc": "2024-02-01T21:30:30.000Z",
+      "accepted_ny": "2024-02-01T16:30:30-05:00",
+      "reaction_session": "2024-02-02",
+      "signal_session": "2024-02-02",
+      "entry_session": "2024-02-05",
+      "exit_20_session": "2024-03-05"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-24-000006",
+      "accepted_utc": "2024-02-01T21:06:02.000Z",
+      "accepted_ny": "2024-02-01T16:06:02-05:00",
+      "reaction_session": "2024-02-02",
+      "signal_session": "2024-02-02",
+      "entry_session": "2024-02-05",
+      "exit_20_session": "2024-03-05"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-24-000010",
+      "accepted_utc": "2024-02-01T21:10:29.000Z",
+      "accepted_ny": "2024-02-01T16:10:29-05:00",
+      "reaction_session": "2024-02-02",
+      "signal_session": "2024-02-02",
+      "entry_session": "2024-02-05",
+      "exit_20_session": "2024-03-05"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-24-000007",
+      "accepted_utc": "2024-02-02T11:31:50.000Z",
+      "accepted_ny": "2024-02-02T06:31:50-05:00",
+      "reaction_session": "2024-02-02",
+      "signal_session": "2024-02-02",
+      "entry_session": "2024-02-05",
+      "exit_20_session": "2024-03-05"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-24-000004",
+      "accepted_utc": "2024-02-13T11:57:58.000Z",
+      "accepted_ny": "2024-02-13T06:57:58-05:00",
+      "reaction_session": "2024-02-13",
+      "signal_session": "2024-02-13",
+      "entry_session": "2024-02-14",
+      "exit_20_session": "2024-03-14"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001558370-24-001189",
+      "accepted_utc": "2024-02-15T11:00:37.000Z",
+      "accepted_ny": "2024-02-15T06:00:37-05:00",
+      "reaction_session": "2024-02-15",
+      "signal_session": "2024-02-15",
+      "entry_session": "2024-02-16",
+      "exit_20_session": "2024-03-18"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-24-000028",
+      "accepted_utc": "2024-02-21T21:22:09.000Z",
+      "accepted_ny": "2024-02-21T16:22:09-05:00",
+      "reaction_session": "2024-02-22",
+      "signal_session": "2024-02-22",
+      "entry_session": "2024-02-23",
+      "exit_20_session": "2024-03-22"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-24-000315",
+      "accepted_utc": "2024-04-12T10:45:53.000Z",
+      "accepted_ny": "2024-04-12T06:45:53-04:00",
+      "reaction_session": "2024-04-12",
+      "signal_session": "2024-04-12",
+      "entry_session": "2024-04-15",
+      "exit_20_session": "2024-05-13"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-24-000031",
+      "accepted_utc": "2024-04-16T11:06:41.000Z",
+      "accepted_ny": "2024-04-16T07:06:41-04:00",
+      "reaction_session": "2024-04-16",
+      "signal_session": "2024-04-16",
+      "entry_session": "2024-04-17",
+      "exit_20_session": "2024-05-15"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-24-000044",
+      "accepted_utc": "2024-04-24T20:07:26.000Z",
+      "accepted_ny": "2024-04-24T16:07:26-04:00",
+      "reaction_session": "2024-04-25",
+      "signal_session": "2024-04-25",
+      "entry_session": "2024-04-26",
+      "exit_20_session": "2024-05-24"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0001437749-24-013124",
+      "accepted_utc": "2024-04-25T11:46:26.000Z",
+      "accepted_ny": "2024-04-25T07:46:26-04:00",
+      "reaction_session": "2024-04-25",
+      "signal_session": "2024-04-25",
+      "entry_session": "2024-04-26",
+      "exit_20_session": "2024-05-24"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-24-000047",
+      "accepted_utc": "2024-04-25T20:01:35.000Z",
+      "accepted_ny": "2024-04-25T16:01:35-04:00",
+      "reaction_session": "2024-04-26",
+      "signal_session": "2024-04-26",
+      "entry_session": "2024-04-29",
+      "exit_20_session": "2024-05-28"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-24-000025",
+      "accepted_utc": "2024-04-26T10:31:49.000Z",
+      "accepted_ny": "2024-04-26T06:31:49-04:00",
+      "reaction_session": "2024-04-26",
+      "signal_session": "2024-04-26",
+      "entry_session": "2024-04-29",
+      "exit_20_session": "2024-05-28"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-24-000013",
+      "accepted_utc": "2024-04-30T10:58:54.000Z",
+      "accepted_ny": "2024-04-30T06:58:54-04:00",
+      "reaction_session": "2024-04-30",
+      "signal_session": "2024-04-30",
+      "entry_session": "2024-05-01",
+      "exit_20_session": "2024-05-30"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-24-000081",
+      "accepted_utc": "2024-04-30T20:10:34.000Z",
+      "accepted_ny": "2024-04-30T16:10:34-04:00",
+      "reaction_session": "2024-05-01",
+      "signal_session": "2024-05-01",
+      "entry_session": "2024-05-02",
+      "exit_20_session": "2024-05-31"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-24-000048",
+      "accepted_utc": "2024-05-01T11:00:25.000Z",
+      "accepted_ny": "2024-05-01T07:00:25-04:00",
+      "reaction_session": "2024-05-01",
+      "signal_session": "2024-05-01",
+      "entry_session": "2024-05-02",
+      "exit_20_session": "2024-05-31"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-24-000067",
+      "accepted_utc": "2024-05-02T20:30:34.000Z",
+      "accepted_ny": "2024-05-02T16:30:34-04:00",
+      "reaction_session": "2024-05-03",
+      "signal_session": "2024-05-03",
+      "entry_session": "2024-05-06",
+      "exit_20_session": "2024-06-04"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001558370-24-008339",
+      "accepted_utc": "2024-05-16T10:01:05.000Z",
+      "accepted_ny": "2024-05-16T06:01:05-04:00",
+      "reaction_session": "2024-05-16",
+      "signal_session": "2024-05-16",
+      "entry_session": "2024-05-17",
+      "exit_20_session": "2024-06-17"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-24-000113",
+      "accepted_utc": "2024-05-22T20:21:29.000Z",
+      "accepted_ny": "2024-05-22T16:21:29-04:00",
+      "reaction_session": "2024-05-23",
+      "signal_session": "2024-05-23",
+      "entry_session": "2024-05-24",
+      "exit_20_session": "2024-06-25"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-24-000446",
+      "accepted_utc": "2024-07-12T10:46:30.000Z",
+      "accepted_ny": "2024-07-12T06:46:30-04:00",
+      "reaction_session": "2024-07-12",
+      "signal_session": "2024-07-12",
+      "entry_session": "2024-07-15",
+      "exit_20_session": "2024-08-12"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-24-000071",
+      "accepted_utc": "2024-07-17T12:14:26.000Z",
+      "accepted_ny": "2024-07-17T08:14:26-04:00",
+      "reaction_session": "2024-07-17",
+      "signal_session": "2024-07-17",
+      "entry_session": "2024-07-18",
+      "exit_20_session": "2024-08-15"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-24-000037",
+      "accepted_utc": "2024-07-23T10:58:02.000Z",
+      "accepted_ny": "2024-07-23T06:58:02-04:00",
+      "reaction_session": "2024-07-23",
+      "signal_session": "2024-07-23",
+      "entry_session": "2024-07-24",
+      "exit_20_session": "2024-08-21"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-24-000076",
+      "accepted_utc": "2024-07-23T20:01:54.000Z",
+      "accepted_ny": "2024-07-23T16:01:54-04:00",
+      "reaction_session": "2024-07-24",
+      "signal_session": "2024-07-24",
+      "entry_session": "2024-07-25",
+      "exit_20_session": "2024-08-22"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0001437749-24-023420",
+      "accepted_utc": "2024-07-25T11:46:58.000Z",
+      "accepted_ny": "2024-07-25T07:46:58-04:00",
+      "reaction_session": "2024-07-25",
+      "signal_session": "2024-07-25",
+      "entry_session": "2024-07-26",
+      "exit_20_session": "2024-08-23"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-24-000065",
+      "accepted_utc": "2024-07-31T20:11:20.000Z",
+      "accepted_ny": "2024-07-31T16:11:20-04:00",
+      "reaction_session": "2024-08-01",
+      "signal_session": "2024-08-01",
+      "entry_session": "2024-08-02",
+      "exit_20_session": "2024-08-30"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-24-000080",
+      "accepted_utc": "2024-08-01T20:30:26.000Z",
+      "accepted_ny": "2024-08-01T16:30:26-04:00",
+      "reaction_session": "2024-08-02",
+      "signal_session": "2024-08-02",
+      "entry_session": "2024-08-05",
+      "exit_20_session": "2024-09-03"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-24-000128",
+      "accepted_utc": "2024-08-01T20:06:02.000Z",
+      "accepted_ny": "2024-08-01T16:06:02-04:00",
+      "reaction_session": "2024-08-02",
+      "signal_session": "2024-08-02",
+      "entry_session": "2024-08-05",
+      "exit_20_session": "2024-09-03"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-24-000048",
+      "accepted_utc": "2024-08-02T10:31:19.000Z",
+      "accepted_ny": "2024-08-02T06:31:19-04:00",
+      "reaction_session": "2024-08-02",
+      "signal_session": "2024-08-02",
+      "entry_session": "2024-08-05",
+      "exit_20_session": "2024-09-03"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001558370-24-012287",
+      "accepted_utc": "2024-08-15T10:00:30.000Z",
+      "accepted_ny": "2024-08-15T06:00:30-04:00",
+      "reaction_session": "2024-08-15",
+      "signal_session": "2024-08-15",
+      "entry_session": "2024-08-16",
+      "exit_20_session": "2024-09-16"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-24-000262",
+      "accepted_utc": "2024-08-28T20:21:16.000Z",
+      "accepted_ny": "2024-08-28T16:21:16-04:00",
+      "reaction_session": "2024-08-29",
+      "signal_session": "2024-08-29",
+      "entry_session": "2024-08-30",
+      "exit_20_session": "2024-09-30"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-24-000555",
+      "accepted_utc": "2024-10-11T10:46:16.000Z",
+      "accepted_ny": "2024-10-11T06:46:16-04:00",
+      "reaction_session": "2024-10-11",
+      "signal_session": "2024-10-11",
+      "entry_session": "2024-10-14",
+      "exit_20_session": "2024-11-11"
+    },
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-24-000088",
+      "accepted_utc": "2024-10-15T11:37:20.000Z",
+      "accepted_ny": "2024-10-15T07:37:20-04:00",
+      "reaction_session": "2024-10-15",
+      "signal_session": "2024-10-15",
+      "entry_session": "2024-10-16",
+      "exit_20_session": "2024-11-13"
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-24-000056",
+      "accepted_utc": "2024-10-23T11:00:47.000Z",
+      "accepted_ny": "2024-10-23T07:00:47-04:00",
+      "reaction_session": "2024-10-23",
+      "signal_session": "2024-10-23",
+      "entry_session": "2024-10-24",
+      "exit_20_session": "2024-11-21"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0001437749-24-031962",
+      "accepted_utc": "2024-10-24T11:46:42.000Z",
+      "accepted_ny": "2024-10-24T07:46:42-04:00",
+      "reaction_session": "2024-10-24",
+      "signal_session": "2024-10-24",
+      "entry_session": "2024-10-25",
+      "exit_20_session": "2024-11-22"
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-24-000115",
+      "accepted_utc": "2024-10-29T20:01:46.000Z",
+      "accepted_ny": "2024-10-29T16:01:46-04:00",
+      "reaction_session": "2024-10-30",
+      "signal_session": "2024-10-30",
+      "entry_session": "2024-10-31",
+      "exit_20_session": "2024-11-29"
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-24-000077",
+      "accepted_utc": "2024-10-30T20:08:12.000Z",
+      "accepted_ny": "2024-10-30T16:08:12-04:00",
+      "reaction_session": "2024-10-31",
+      "signal_session": "2024-10-31",
+      "entry_session": "2024-11-01",
+      "exit_20_session": "2024-12-02"
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-24-000120",
+      "accepted_utc": "2024-10-31T20:30:25.000Z",
+      "accepted_ny": "2024-10-31T16:30:25-04:00",
+      "reaction_session": "2024-11-01",
+      "signal_session": "2024-11-01",
+      "entry_session": "2024-11-04",
+      "exit_20_session": "2024-12-03"
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-24-000158",
+      "accepted_utc": "2024-10-31T20:13:57.000Z",
+      "accepted_ny": "2024-10-31T16:13:57-04:00",
+      "reaction_session": "2024-11-01",
+      "signal_session": "2024-11-01",
+      "entry_session": "2024-11-04",
+      "exit_20_session": "2024-12-03"
+    },
+    {
+      "asset": "XOM",
+      "accession": "0000034088-24-000066",
+      "accepted_utc": "2024-11-01T10:32:12.000Z",
+      "accepted_ny": "2024-11-01T06:32:12-04:00",
+      "reaction_session": "2024-11-01",
+      "signal_session": "2024-11-01",
+      "entry_session": "2024-11-04",
+      "exit_20_session": "2024-12-03"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001558370-24-015876",
+      "accepted_utc": "2024-11-21T11:00:28.000Z",
+      "accepted_ny": "2024-11-21T06:00:28-05:00",
+      "reaction_session": "2024-11-21",
+      "signal_session": "2024-11-21",
+      "entry_session": "2024-11-22",
+      "exit_20_session": "2024-12-23"
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-24-000315",
+      "accepted_utc": "2024-11-20T21:21:20.000Z",
+      "accepted_ny": "2024-11-20T16:21:20-05:00",
+      "reaction_session": "2024-11-21",
+      "signal_session": "2024-11-21",
+      "entry_session": "2024-11-22",
+      "exit_20_session": "2024-12-23"
+    }
+  ],
+  "event_counts": {
+    "train": 228,
+    "validation": 91,
+    "oos_2024": 45
+  },
+  "assets": {
+    "AAPL": {
+      "market_path": "data/ibkr_sq_v2/preflight/AAPLUSUSD_CANONICAL_D1_2017_2024.csv",
+      "market_sha256": "47a4a85f455d4f55946c233cc6c2d7525ec39b5778ed6bcb418496b2c5172127",
+      "first_market_date": "2017-01-26",
+      "last_market_date": "2024-12-31",
+      "item_202_events": 33,
+      "sec_sources": [
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000320193.json",
+          "sha256": "9ce67c0a62345214dd42434cbacfa70dad226e679c6ce752281578b1cfd2fac4"
+        }
+      ]
+    },
+    "AMZN": {
+      "market_path": "data/ibkr_sq_v2/tech_momentum60_transfer_v1/adjusted/AMZN_ADJUSTED_D1_2017_2024.csv",
+      "market_sha256": "e4a41e296c019c5070f9d651bfb56fa8d04834c428a77c9934cd0e3ea31c1a50",
+      "first_market_date": "2017-01-03",
+      "last_market_date": "2024-12-31",
+      "item_202_events": 32,
+      "sec_sources": [
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0001018724.json",
+          "sha256": "1b9f17e617d44a2e84892c8c6cdf3f9bd0fb8cd452840df5dcaccd2c2561839f"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0001018724-submissions-001.json",
+          "sha256": "c15dd44be1ce31ec44424a4c548cef4530247abb71cb9b8ba514871b9d1e58a6"
+        }
+      ]
+    },
+    "GOOG": {
+      "market_path": "data/ibkr_sq_v2/tech_momentum60_transfer_v1/adjusted/GOOG_ADJUSTED_D1_2017_2024.csv",
+      "market_sha256": "08832095461d69dd4958c8c53be30eee4b0eb2e53943ff9c799b4f40a654781a",
+      "first_market_date": "2017-01-03",
+      "last_market_date": "2024-12-31",
+      "item_202_events": 33,
+      "sec_sources": [
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0001652044.json",
+          "sha256": "f07010855a929e2007a4a88af904b612b250ea97c70c1d0faef479ec0c03b635"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0001652044-submissions-001.json",
+          "sha256": "55bb220c53ae489299976222333f3a8d4ac8319bcb3ea469d565093180af74c4"
+        }
+      ]
+    },
+    "META": {
+      "market_path": "data/ibkr_sq_v2/tech_momentum60_transfer_v1/adjusted/META_ADJUSTED_D1_2017_2024.csv",
+      "market_sha256": "6b5f1b22224053f05287b08a052bc8ad8d95f517096f0aec6de2988e81576084",
+      "first_market_date": "2017-01-03",
+      "last_market_date": "2024-12-31",
+      "item_202_events": 32,
+      "sec_sources": [
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0001326801.json",
+          "sha256": "58f825c93fca9796db7ce7b3d99b35bef02aaafeee52db6632237951ceb606af"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0001326801-submissions-001.json",
+          "sha256": "ef02fb9c2eb88d8767deb5872f0664d167808a06d307e0de7be8d14777b4fef7"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0001326801-submissions-002.json",
+          "sha256": "8c5bbccebe2e0745799414c6de58def92189ad03ef124314a69044b44b42a7df"
+        }
+      ]
+    },
+    "NVDA": {
+      "market_path": "data/ibkr_sq_v2/tech_momentum60_transfer_v1/adjusted/NVDA_ADJUSTED_D1_2017_2024.csv",
+      "market_sha256": "0d58c90579652e1568cdd40486acf2ca8c64a3b4660f7e735dd5d420e67cd0ed",
+      "first_market_date": "2017-01-03",
+      "last_market_date": "2024-12-31",
+      "item_202_events": 34,
+      "sec_sources": [
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0001045810.json",
+          "sha256": "6409047f0e8bcae37da64801161b928c531957e519e765c6de3a605c5134d2e0"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0001045810-submissions-001.json",
+          "sha256": "99338730d8c4a90a4cb2b4a5c55034fa5e228b9a45aaf7df79f07dbe242f8597"
+        }
+      ]
+    },
+    "JPM": {
+      "market_path": "data/ibkr_sq_v2/preflight/JPMUSUSD_CANONICAL_D1_2017_2024.csv",
+      "market_sha256": "4c75a75bcda98fd92cc04472cd7a1b5cbd29f3e9de454db53c7f81ed8c7791b1",
+      "first_market_date": "2017-01-26",
+      "last_market_date": "2024-12-31",
+      "item_202_events": 32,
+      "sec_sources": [
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617.json",
+          "sha256": "d0499271ffc99716f2fcfbdc923f61f8c4360615f57a11dd6efc39e2514d00c5"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-001.json",
+          "sha256": "dfac6317f9799718ea9f8103942718955b4dc3cd7ed578c603f111e83e5a6477"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-002.json",
+          "sha256": "52421e7e0eb259e8a05c4fe5657c94ce0761a617611cbf69f30dc83db906c497"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-003.json",
+          "sha256": "52f546388978812e4a0a59dd86300b975369243ba829ebd6b6cd3fca2f7faa6a"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-004.json",
+          "sha256": "8bd6153574313ef07d4d83a9a1ce9265f73aec28ffbe23b28bf3559d9c618016"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-005.json",
+          "sha256": "4edb164b5533f1fe5bd5a95da29def0b28c282e6ac836e505f2b757d691444ee"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-006.json",
+          "sha256": "a65323049f12968d4f155527dbc856abf1ff79b80488ce23daf73f3231da5675"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-007.json",
+          "sha256": "9181a93dcf2329282646c0bbe2562f55af0cb8119acf6a928ce5907252046449"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-008.json",
+          "sha256": "e1533ca9f759bc170774ddbf72feff81a4d46ba10deb10dfdf2ae55014bc9cec"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-009.json",
+          "sha256": "3543007c7ad632812f28dff449c17e2eb38c81451e45269ac3fffa5e4b3ad178"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-010.json",
+          "sha256": "0eb5354261507c3b055c7a4ae24ace2ccddc738e5b0983bab20423ceb6076a26"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-011.json",
+          "sha256": "60027128a6e67423084b49a6f241b2990e182ad578166b5769994f4c2eada95c"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-012.json",
+          "sha256": "4ae322f34179c44a345dfa150983a7653935173d04ebd047f55df1c96c42316e"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-013.json",
+          "sha256": "c2976b2a5274fcb030153af3f9f6a817577ee5caaf1f04b5217bde684c640137"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-014.json",
+          "sha256": "f1f1082fb488bc32b26296dcfe6f7e857cc9347716713068057ae305cdf486de"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-015.json",
+          "sha256": "ee8ac4992b6b6c0c2fef7d1d4183714b14e4b09fa7e356caf4a4b85b85a3ad53"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-016.json",
+          "sha256": "9f24c1dcc8eb14067c987a97a3634f1967beaf57d7d2284fe054be2c1266c6aa"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-017.json",
+          "sha256": "65a8d7ea1621eaafa654c30c3b8c112c52bb1a3bbd9d1c4b7d19d50c637fef81"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-018.json",
+          "sha256": "5b524174afe4a5dec4421acc04fb83374fd7df7272c2804838f8903da9bb751b"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-019.json",
+          "sha256": "f0b895231789c3026575639f5bd77d1f1b8a66b648e7b794070420225c8edcb5"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-020.json",
+          "sha256": "c78cf1be681891739c5c19c550abeb55dab660eb73e7116113c150b937721eb1"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-021.json",
+          "sha256": "7df3f5618ce652e838d363e050d7e5a745ad8e44f3032e618035dc88408bba82"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-022.json",
+          "sha256": "55059c8ffe6a437ad6cc5a89910628ac9c68512518687dc27c9f412e723eeab3"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-023.json",
+          "sha256": "60d651f9aaf23b1935b6a30525b8e53fc3f1dc6eede7bbd2a755ac1fdb24e8fc"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-024.json",
+          "sha256": "8788835cfee681cadc94fc4e29fa7be1176c3ad7bcfbc35f59c5f1ed4ae21bda"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-025.json",
+          "sha256": "ea010116859e8d572907cd1e484ff04ce641762d7b6f03d82a6afd9c1ff2d638"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-026.json",
+          "sha256": "7ab454ecb6b2e19d3f8a279bc0ebf187a7aa53d7d7913facace0eb40c37c61d0"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-027.json",
+          "sha256": "30f29253c3ccbf25925fc60d9548d18af49bac17c0e03a469b896a1a35c06cce"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-028.json",
+          "sha256": "b0bd2e8b9c8840511d11faf2089af3047f1af7e8b2e0296b84d4991b0877da23"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-029.json",
+          "sha256": "65ac7b05099a5e71547521207ca35d34c8fd1817b3c1ee25bf3237ae18a8be16"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-030.json",
+          "sha256": "2f0b97b3308c25c0f2ad3dc60dd7d3d992a46a4ae2e3c9692759231f9830a9cf"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-031.json",
+          "sha256": "51796fe7e843152d0b46baf01742c6a7202265e1c8b28d619ddd77085b9456bf"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-032.json",
+          "sha256": "4824fe6c21e66edc36e493ec0c1b4cd7b58a71998be6bd87f2f9e4e6d16aa1e2"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-033.json",
+          "sha256": "77f7ffeb5a9778a235b1b9b645d57e407eddeb683d3ab1eda2d3e5483b1de8e6"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-034.json",
+          "sha256": "666292ee761d8f79fda90130e875a1d690f80d4d49569410b5ddfe9c93a73922"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-035.json",
+          "sha256": "f3849dbe6387f37c36e8eefca299a33d236315d086121c01519e75ac96b2626c"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-036.json",
+          "sha256": "23e3955e6929ad372bfc6309cb38d7cfe888751ca4395d80e1c7da245676ad01"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-037.json",
+          "sha256": "baed14fe70cc7a50b5f68f1c2da25ee70fa2178853d5824384967be487f526aa"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-038.json",
+          "sha256": "787e74d09f00247df359109230dc4aa78d1d3a7deb5d9311cdc6d8ca9fa45404"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-039.json",
+          "sha256": "663313a7a4645cc1322954a8a5b4befb4e15a5858d9dc90106c1873dc85aa225"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-040.json",
+          "sha256": "d411c3f514007f3253d1317eecd4e43074e014b58b13e3851bff5879f33c51d5"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-041.json",
+          "sha256": "8fd2d5e8ed27d438bf5385248bb4a9c5d560d60cc7866c609d7bb2a42713c442"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-042.json",
+          "sha256": "456146cef353bbe68792b2aaac2e859e4a994c10dac32bb7cf53bdcc80c7875f"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-043.json",
+          "sha256": "b71dfc8f0c4201780cf9af216a7b45fcba88a55b420a564584340f3d824eb66e"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-044.json",
+          "sha256": "1b9331486cd13445a2f93c93dbea8650a5d30b85c3207654293afe9309b65de5"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-045.json",
+          "sha256": "e4fac4be6213408e22ff6a56983f11e1ecff577cc04c8fe7521ffbe1f9eab44f"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-046.json",
+          "sha256": "0f987a45c8ceac4e9185a6df61fc0f3a853f5cd8527ae07c283633c04391c621"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-047.json",
+          "sha256": "2d5f578fd9b0481b31450accd76faddb0e3076bfdf0cff51b285f92bc2049be1"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-048.json",
+          "sha256": "96124121c98b2361ce393afac044fb1117a3d532dd46757b551a05a62ae70b6c"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-049.json",
+          "sha256": "1c94403a604d7ad88c677ebffa356cc3bfbcdd38804a58e63a03d08377cf1874"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-050.json",
+          "sha256": "88150757caaac453bdfb291cf9d4b4e3be557bec2ebe0577e1884fc4bc28ba2c"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-051.json",
+          "sha256": "9bbf806707c925f39390de2d2008f4ea17c6f07e541e51a896aaafb13760b7ad"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-052.json",
+          "sha256": "d4230e3cf5e2128f69a5bf77a2f410093bb0ca3566cf931bfd281b9bd81d6ae0"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-053.json",
+          "sha256": "17444b67585172333befbca7e8b7a129c3bbcff67ff2a4a25de414080988943c"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000019617-submissions-054.json",
+          "sha256": "b3f19edda8cf3d459dfa02dbe27d37e492402533853161acef2eade483a58a8e"
+        }
+      ]
+    },
+    "KO": {
+      "market_path": "data/ibkr_sq_v2/preflight/KOUSUSD_CANONICAL_D1_2017_2024.csv",
+      "market_sha256": "d387bd9c1aaaf8099cf9377cc76feef76e4c26ce0d10ed10a9df63f672fc5fc3",
+      "first_market_date": "2017-01-26",
+      "last_market_date": "2024-12-31",
+      "item_202_events": 32,
+      "sec_sources": [
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000021344.json",
+          "sha256": "eddab6906fb1fa1868e455ddfe7d8988b374c107b72302652e7b4ea7cdc19710"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000021344-submissions-001.json",
+          "sha256": "e6e257cb43e5f7087edf36b185d19919b863324b5d086952cf60efefea8e0718"
+        }
+      ]
+    },
+    "DE": {
+      "market_path": "data/ibkr_sq_v2/preflight/DEUSUSD_CANONICAL_D1_2017_2024.csv",
+      "market_sha256": "3e1d0e7331984672d1028255bf1bbf33282a5c0757cfb4761b050b87830d9a1d",
+      "first_market_date": "2017-05-11",
+      "last_market_date": "2024-12-31",
+      "item_202_events": 32,
+      "sec_sources": [
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000315189.json",
+          "sha256": "73b61370ae641ec904c1bbdf5a7d21d3bd716c02906731f92dc6d3728066cc74"
+        }
+      ]
+    },
+    "JNJ": {
+      "market_path": "data/ibkr_sq_v2/preflight/JNJUSUSD_CANONICAL_D1_2017_2024.csv",
+      "market_sha256": "b7518077871dc072aa1ddcce334d0ddf082aa912efd0b19f2c40e88c5c81913f",
+      "first_market_date": "2017-01-26",
+      "last_market_date": "2024-12-31",
+      "item_202_events": 35,
+      "sec_sources": [
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000200406.json",
+          "sha256": "c6d82210ca7304f34f8dd9d6102df9dd9a9981a0b3241292b871b81eb8eb9a45"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000200406-submissions-001.json",
+          "sha256": "6db0bf7e785df34ed855b36245c7c0684c502d6751be55d58f891587082c1956"
+        }
+      ]
+    },
+    "UNP": {
+      "market_path": "data/ibkr_sq_v2/preflight/UNPUSUSD_CANONICAL_D1_2017_2024.csv",
+      "market_sha256": "26194577587a8d70adbb5467c260e0bdcd18ea885f57bb14db536512fe3cf709",
+      "first_market_date": "2017-11-15",
+      "last_market_date": "2024-12-31",
+      "item_202_events": 34,
+      "sec_sources": [
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000100885.json",
+          "sha256": "979cc3b6707dfe100e8f020137fb7dda769b7af48feeb39dee3b30474aa59a0b"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000100885-submissions-001.json",
+          "sha256": "7bbb571681fab5c4b3415ec99382bb969bdb052019c0ed1d30ef7f54cffadf90"
+        }
+      ]
+    },
+    "XOM": {
+      "market_path": "data/ibkr_sq_v2/xom_d1_price_action_pilot/XOM_ADJUSTED_D1_2017_2024.csv",
+      "market_sha256": "c5b4db7083268caee52c0233114b381ca8156e63820de3ff53190fb7d454469f",
+      "first_market_date": "2017-01-03",
+      "last_market_date": "2024-12-31",
+      "item_202_events": 35,
+      "sec_sources": [
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000034088.json",
+          "sha256": "7918818ea3045fb09fbb18d67537909a28feb245d693d0bd7cd3bc30b16ea3db"
+        },
+        {
+          "path": "data/ibkr_sq_v2/pead_ear_v1/sec_submissions/CIK0000034088-submissions-001.json",
+          "sha256": "4ffb5ee2f2c40d7bd0e492573be2388c7bb31253033ab4ffcd00aa2aa1774d98"
+        }
+      ]
+    }
+  }
+}

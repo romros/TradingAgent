@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-nflx-d1-volatility-breakout-v1",
+  "status": "PREREGISTERED_SOURCE_DOWNLOAD_IN_PROGRESS",
+  "objective": "Find a sixth traceable return-seeking edge that can improve the active portfolio versus passive buy-and-hold.",
+  "hypothesis": "NFLX has clustered volatility and persistent repricing after information shocks; stop entries above an observable recent high, optionally conditioned by trend strength or volatility, can capture continuation while explicit stops and time exits bound failed breaks.",
+  "falsifier": "Reject if train lacks structural density, validation fails whole-share stress economics, OOS fails, or the component does not improve the frozen portfolio/benchmark comparison.",
+  "asset": "NFLX",
+  "sq_catalog_symbol": "NFLXUSUSD",
+  "sq_symbol": "NFLX_IBKR_BREAKOUT_V1_D1",
+  "catalog_first_date": "2017-01-26",
+  "price_scale": 1000,
+  "data_source": "Dukascopy M1 BID aggregated to NYSE RTH D1",
+  "data_maximum_date": "2024-12-31",
+  "corporate_actions": "Last known split 2015; mechanical and official audit required before SQ import.",
+  "periods": {
+    "train_from": "2017-01-26", "train_to": "2021-12-31",
+    "validation_from": "2022-01-03", "validation_to": "2023-12-29",
+    "sealed_oos_from": "2024-01-02", "sealed_oos_to": "2024-12-31"
+  },
+  "discovery": {
+    "timeframe": "D1", "direction": "long",
+    "search_profile": "equity_d1_volatility_breakout_v1",
+    "generation": "random-generation", "attempt_budget": 150000,
+    "wall_time_budget_minutes": 75, "accepted_limit": 80,
+    "maximum_entry_rules": 2, "minimum_train_trades": 35,
+    "minimum_profit_factor_train": 1.10
+  },
+  "selection": "Freeze at most five structurally distinct train representatives before validation; ranking cannot use OOS or buy-and-hold outcome.",
+  "validation_gate": {
+    "capital_scenarios_usd": [1000, 2000, 3000],
+    "minimum_trades": 16, "minimum_stress_profit_factor": 1.15,
+    "minimum_positive_half_years": 3, "maximum_drawdown_pct": 25
+  },
+  "oos_gate": {
+    "minimum_trades": 6, "minimum_stress_return_pct": 0,
+    "minimum_stress_profit_factor": 1.10, "maximum_drawdown_pct": 22
+  },
+  "portfolio_gate": {
+    "maximum_total_strategies": 8,
+    "must_improve": "active CAGR versus SPY or the preregistered defensive utility without exceeding 3000 USD total capital"
+  },
+  "prohibitions": [
+    "No volume rules.", "No short side in this campaign.",
+    "No parameter or gate relaxation after validation/OOS.",
+    "No leverage before standalone and portfolio edge pass.",
+    "No paper or live authorization."
+  ],
+  "performance_accessed_for_this_family": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

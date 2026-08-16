@@ -102,6 +102,15 @@ SEARCH_PROFILES = {
         "ExitAfterBars.ExitAfterBars", "ProfitTarget.ProfitTarget",
         "StopLoss.StopLoss",
     },
+    "equity_d1_volatility_breakout_v1": {
+        "Prices.Close", "Prices.High", "Prices.Low",
+        "Indicators.Highest", "Indicators.Lowest", "Indicators.ATR",
+        "Indicators.ADX", "Indicators.ROC",
+        "IsGreater", "IsLower", "CrossesAbove", "IsRising", "IsFalling",
+        "EnterAtStop", "Stop/Limit Price Levels.Highest",
+        "Stop/Limit Price Ranges.ATR", "ExitAfterBars.ExitAfterBars",
+        "ProfitTarget.ProfitTarget", "StopLoss.StopLoss",
+    },
     "xau_h4_sweep_reclaim_v4": {
         "Prices.Close", "Prices.High", "Prices.Low",
         "Indicators.Highest", "Indicators.Lowest", "Indicators.ATR",

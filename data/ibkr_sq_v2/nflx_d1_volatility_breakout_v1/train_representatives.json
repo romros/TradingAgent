@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_FREEZE_NFLX_TRAIN_REPRESENTATIVES",
+  "selection_rule": "Pareto only; >=35 trades; positive profit; rank profit/DD, fitness, profit, complexity, name; unique structural and entry-indicator archetypes",
+  "inventory_sha256": "06e0359e3ea7ce3296745268fa5f2d28cdaee9a8ac0935dc225fbaa2aec9618f",
+  "selected_count": 5,
+  "selected": [
+    {
+      "strategy": "Strategy 0.4681",
+      "file": "Strategy 0.4681.sqx",
+      "sqx_sha256": "04ecb1cb88854c787530ad2d5d899b119e486898bef751e638a83a4922aae643",
+      "structural_family_sha256": "41f1cf39e31559ab1e4a8068669982b311ba1ecb6f3199dd82bfbf13bced2f84",
+      "entry_indicator_archetype_sha256": "2108c5fd38e581a2e086b87ca02d75a7b75a7cb57fd02a3aa00541cbcb73b948",
+      "trades": 42,
+      "profit": 481.07000732421875,
+      "drawdown": 68.48999786376953,
+      "profit_drawdown_ratio": 7.02394543,
+      "fitness": 0.5068736139937644,
+      "complexity": 6,
+      "entry_indicator_types": [
+        [
+          "High",
+          "priceValue"
+        ],
+        [
+          "Low",
+          "priceValue"
+        ]
+      ]
+    },
+    {
+      "strategy": "Strategy 0.2699",
+      "file": "Strategy 0.2699.sqx",
+      "sqx_sha256": "fe823fc4e560c8c51c6e7a4365a7cf7102ba390045b69e85294616ac068d1fa8",
+      "structural_family_sha256": "46002d8068828e3584b34908a74f4b354e5c4d3653867c7b28742ddba4f15242",
+      "entry_indicator_archetype_sha256": "8bf8b75d5cb6ef8431994412930f9ebeebac9984800a6dd19564bb254fff9321",
+      "trades": 49,
+      "profit": 254.88999938964844,
+      "drawdown": 70.27999877929688,
+      "profit_drawdown_ratio": 3.62677865,
+      "fitness": 0.4507992925532266,
+      "complexity": 5,
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ],
+        [
+          "Highest",
+          "indicator"
+        ]
+      ]
+    },
+    {
+      "strategy": "Strategy 0.6246",
+      "file": "Strategy 0.6246.sqx",
+      "sqx_sha256": "2238d8dfcd08601046e93a554d012bf60f658812d8c143b947365f825c3eabe3",
+      "structural_family_sha256": "618b4678dd5bc2e39ab01252f7f37636401176f4ff0fdb3880db96e05c1b64ff",
+      "entry_indicator_archetype_sha256": "0078adbbdea868f943d805306696a2733d0f190dec42ac86534d1964c6d1e788",
+      "trades": 54,
+      "profit": 280.4100036621094,
+      "drawdown": 112.18000030517578,
+      "profit_drawdown_ratio": 2.49964346,
+      "fitness": 0.5511111111111111,
+      "complexity": 5,
+      "entry_indicator_types": [
+        [
+          "ADX",
+          "indicator"
+        ]
+      ]
+    },
+    {
+      "strategy": "Strategy 0.1454",
+      "file": "Strategy 0.1454.sqx",
+      "sqx_sha256": "d25d2105e801f16480d95118313de640bb96c7c301d98f7d8ab9f0e97ae55a51",
+      "structural_family_sha256": "bc679d2dfa2ef49a4eba89944c23626928db3a6aeeae6f38a948fa163a9c14d6",
+      "entry_indicator_archetype_sha256": "e0e0326bba50065e15f7b2ca05477f106ac005e6416d59077e4a2c296461870b",
+      "trades": 46,
+      "profit": 299.1700134277344,
+      "drawdown": 134.64999389648438,
+      "profit_drawdown_ratio": 2.22183459,
+      "fitness": 0.400947868648087,
+      "complexity": 6,
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ],
+        [
+          "High",
+          "priceValue"
+        ]
+      ]
+    },
+    {
+      "strategy": "Strategy 0.4840",
+      "file": "Strategy 0.4840.sqx",
+      "sqx_sha256": "8cad1967909da9c80f2d0efa31a73531ef387b701a5071c414956828deb039ff",
+      "structural_family_sha256": "d36471d21bcc61231f2a44ffae26c2189e4fa95f48cd1d3a4069248292803b46",
+      "entry_indicator_archetype_sha256": "59384dbb0c386bd6c28fed54558c0020b39264eebce8cc32df9b8596345dc705",
+      "trades": 63,
+      "profit": 222.08999633789062,
+      "drawdown": 106.70999908447266,
+      "profit_drawdown_ratio": 2.08124823,
+      "fitness": 0.5254901909452363,
+      "complexity": 7,
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ],
+        [
+          "ROC",
+          "indicator"
+        ]
+      ]
+    }
+  ],
+  "validation_accessed": false,
+  "oos_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

@@ -1,0 +1,517 @@
+{
+  "decision": "PASS_SUPERVISED_RANDOM_RUN",
+  "project_name": "IBKR_NFLX_D1_VOLATILITY_BREAKOUT_V1",
+  "final": {
+    "observed_at": "2026-08-16T10:19:09.309751+00:00",
+    "project": "IBKR_NFLX_D1_VOLATILITY_BREAKOUT_V1",
+    "generated": 7317,
+    "accepted_pct": 1.093344266776001,
+    "in_databank": 81,
+    "failed": 0,
+    "strategies_per_hour": 5051045.0,
+    "backtests_performed": 9580,
+    "job_exceptions": 0,
+    "running_status": 4,
+    "task_name": "Build strategies",
+    "task_iterations": 1,
+    "attempt_counter_source": "sq_project_final_log",
+    "memory_available_bytes": 2175107072,
+    "disk_free_bytes": 2163830784,
+    "artifacts": [
+      {
+        "path": "Results/Strategy 0.1134.sqx",
+        "size": 27231,
+        "mtime_ns": 1786875548892171083,
+        "sha256": "a66976b99ec52465e426255ef24b53bb6f793a375998e557b03eb5cd0c3845dd"
+      },
+      {
+        "path": "Results/Strategy 0.1193.sqx",
+        "size": 26595,
+        "mtime_ns": 1786875549159183688,
+        "sha256": "e3578515b9e36a2da9126c62191bb02e97f7afb6e1e98e8e871579cba2694251"
+      },
+      {
+        "path": "Results/Strategy 0.1334.sqx",
+        "size": 25122,
+        "mtime_ns": 1786875548917172264,
+        "sha256": "6d4224a4f95a521d5c557dc70b85b21d4df3ac29d81c10136fd51ddc204bed71"
+      },
+      {
+        "path": "Results/Strategy 0.134.sqx",
+        "size": 26049,
+        "mtime_ns": 1786875549175184443,
+        "sha256": "e729172bf5f7cf9a5640dfe8a7eee3439aa4a5290e8f821564d44091f8eb48ba"
+      },
+      {
+        "path": "Results/Strategy 0.1454.sqx",
+        "size": 25613,
+        "mtime_ns": 1786875548899171414,
+        "sha256": "d25d2105e801f16480d95118313de640bb96c7c301d98f7d8ab9f0e97ae55a51"
+      },
+      {
+        "path": "Results/Strategy 0.1465.sqx",
+        "size": 26244,
+        "mtime_ns": 1786875549215186331,
+        "sha256": "af5ff673996a63aa90c4db26a2dac60640c9c70250245c313644d33328e977fc"
+      },
+      {
+        "path": "Results/Strategy 0.1470.sqx",
+        "size": 23648,
+        "mtime_ns": 1786875549163183877,
+        "sha256": "a4f6c285179e9ffad7905aaa1a40c9ad35f96ff00b6208374240d1af6f87c8d4"
+      },
+      {
+        "path": "Results/Strategy 0.1483.sqx",
+        "size": 26313,
+        "mtime_ns": 1786875549068179392,
+        "sha256": "49561aeb15403bc8c98a0c1c3f7815e401d8c2621c373625678e39b8afc4f579"
+      },
+      {
+        "path": "Results/Strategy 0.1484.sqx",
+        "size": 25626,
+        "mtime_ns": 1786875549072179581,
+        "sha256": "e38570660a44965dd7813b8cf27eeaa8a5bc22eb7735cfa2896e70d22412505c"
+      },
+      {
+        "path": "Results/Strategy 0.1618.sqx",
+        "size": 25792,
+        "mtime_ns": 1786875549009176607,
+        "sha256": "665f0971d58b28cb512bfc68f01c00edd29b2de60dc1801592784c15b6d8d4be"
+      },
+      {
+        "path": "Results/Strategy 0.1664.sqx",
+        "size": 25946,
+        "mtime_ns": 1786875549231187087,
+        "sha256": "fb44673dbe806c9182cccd69a5c76f8a3e9f5aba67f276b4ab4ea60a97166ee5"
+      },
+      {
+        "path": "Results/Strategy 0.1728.sqx",
+        "size": 25707,
+        "mtime_ns": 1786875549094180619,
+        "sha256": "d8010cf9688b85250bf4d620d5be5ddbc16548202b520973345aa48bf70eb8c3"
+      },
+      {
+        "path": "Results/Strategy 0.1738.sqx",
+        "size": 26551,
+        "mtime_ns": 1786875549003176323,
+        "sha256": "573c8cf32de2c33c446686fc59522ebee14012c8f0bb31aabf75d7a088fb1ca2"
+      },
+      {
+        "path": "Results/Strategy 0.1773.sqx",
+        "size": 26989,
+        "mtime_ns": 1786875548905171697,
+        "sha256": "ef50977ba9df0f2da1cc06a31a76567444a2df84324b4c7b6eb2701ff5c589c7"
+      },
+      {
+        "path": "Results/Strategy 0.1822.sqx",
+        "size": 25539,
+        "mtime_ns": 1786875549282189494,
+        "sha256": "aaaeff2a597d5dd7db31f44e62bc5842e538910a8ec61ae63e6383cc9e56f131"
+      },
+      {
+        "path": "Results/Strategy 0.1837.sqx",
+        "size": 24954,
+        "mtime_ns": 1786875549183184821,
+        "sha256": "f19c2973bf47a7a74324e506f9dbc63c7e3168afe0d43a72199e61d4c57c5fcb"
+      },
+      {
+        "path": "Results/Strategy 0.2078.sqx",
+        "size": 26166,
+        "mtime_ns": 1786875549253188125,
+        "sha256": "1483a8d9a1cd135d67df0020e37f1eb81db49e5175dba575178d932ab9a95809"
+      },
+      {
+        "path": "Results/Strategy 0.2147.sqx",
+        "size": 26037,
+        "mtime_ns": 1786875548911171980,
+        "sha256": "7af563081702704359248320c7eef961748d3c54d266dc190f08273c24ec942c"
+      },
+      {
+        "path": "Results/Strategy 0.2154.sqx",
+        "size": 25614,
+        "mtime_ns": 1786875549248187889,
+        "sha256": "49917df16d822a7cc22377c26943411343b048b046782bf96d359e821befc267"
+      },
+      {
+        "path": "Results/Strategy 0.2418.sqx",
+        "size": 29259,
+        "mtime_ns": 1786875549089180383,
+        "sha256": "9745d970b63e6cebdb95457b441a3fa0f57ae1714110335f4def3ce904ece934"
+      },
+      {
+        "path": "Results/Strategy 0.2444.sqx",
+        "size": 24062,
+        "mtime_ns": 1786875549131182366,
+        "sha256": "8f52189f78ff7ce062de23a63e8ffe3d77f84f16db38aa7e17e7214625341da6"
+      },
+      {
+        "path": "Results/Strategy 0.2575.sqx",
+        "size": 29365,
+        "mtime_ns": 1786875549031177645,
+        "sha256": "ce5866863868945a86302815e66fe65e2a858d07dba0ba5e5c0ecbfd8d8b9dac"
+      },
+      {
+        "path": "Results/Strategy 0.2699.sqx",
+        "size": 25026,
+        "mtime_ns": 1786875549043178212,
+        "sha256": "fe823fc4e560c8c51c6e7a4365a7cf7102ba390045b69e85294616ac068d1fa8"
+      },
+      {
+        "path": "Results/Strategy 0.2887.sqx",
+        "size": 25799,
+        "mtime_ns": 1786875549192185246,
+        "sha256": "08d2da96723273832baa8583ece8f396f80d18da518f706bfb1ce6284deb6edd"
+      },
+      {
+        "path": "Results/Strategy 0.292.sqx",
+        "size": 25118,
+        "mtime_ns": 1786875549171184254,
+        "sha256": "4238b0d574202ca53348025f7bc082d1064bb646942bb8e1f69735bc7c2e5cf3"
+      },
+      {
+        "path": "Results/Strategy 0.3094.sqx",
+        "size": 27604,
+        "mtime_ns": 1786875549167184066,
+        "sha256": "bcd8f5d3413d85bcd25b02644aee8498149e8a3dbb13c826a07d863103c82a3c"
+      },
+      {
+        "path": "Results/Strategy 0.3100.sqx",
+        "size": 24749,
+        "mtime_ns": 1786875549054178731,
+        "sha256": "09f11365c9136bdcce4b96304ea0249ee0fb80812726357ecbdb7df547afe2dc"
+      },
+      {
+        "path": "Results/Strategy 0.3153.sqx",
+        "size": 28078,
+        "mtime_ns": 1786875548954174010,
+        "sha256": "ad41b47722ce81038047a6acd739f086633efe0afaf8be5d915d65381901df21"
+      },
+      {
+        "path": "Results/Strategy 0.3190.sqx",
+        "size": 26972,
+        "mtime_ns": 1786875548972174860,
+        "sha256": "1c904758c676aafb12bd24b7f612fae8dbc6f7d2bf6513491e14678be493dc9b"
+      },
+      {
+        "path": "Results/Strategy 0.3214.sqx",
+        "size": 25623,
+        "mtime_ns": 1786875549117181705,
+        "sha256": "592353b85dd2c468a3156365d75e4c75139affd8ab908c839544adfeb6f4b430"
+      },
+      {
+        "path": "Results/Strategy 0.3354.sqx",
+        "size": 25845,
+        "mtime_ns": 1786875548935173113,
+        "sha256": "61483d3b0d7053da8cc642530d6ef6feaeb5ada178fcaaf0ae30680d3fbf437d"
+      },
+      {
+        "path": "Results/Strategy 0.3430.sqx",
+        "size": 26393,
+        "mtime_ns": 1786875548923172547,
+        "sha256": "cb4603e28739907f57ae1f4670cb851cc2763062e83146564c5b168b1f22e737"
+      },
+      {
+        "path": "Results/Strategy 0.3445.sqx",
+        "size": 26948,
+        "mtime_ns": 1786875549209186048,
+        "sha256": "bd031512b9a4ad192f7fa20a79e03ebfcaa48d493643d014cc6be54603107e23"
+      },
+      {
+        "path": "Results/Strategy 0.3485.sqx",
+        "size": 26754,
+        "mtime_ns": 1786875549237187370,
+        "sha256": "1f7d7846211eb9860b0ab7a87d8736668eb68bb38ae6fdbc815386a343c8a558"
+      },
+      {
+        "path": "Results/Strategy 0.3698.sqx",
+        "size": 27494,
+        "mtime_ns": 1786875549122181941,
+        "sha256": "efaf87869ed6ef7cf4597682f11d6bbcbc3444279177f52f59908dc5ef7012db"
+      },
+      {
+        "path": "Results/Strategy 0.3699.sqx",
+        "size": 25685,
+        "mtime_ns": 1786875549144182980,
+        "sha256": "5a4461cffae7c54ba2d68fc9238409106c4beed309c453616a6a102714b922ce"
+      },
+      {
+        "path": "Results/Strategy 0.3712.sqx",
+        "size": 25121,
+        "mtime_ns": 1786875549020177126,
+        "sha256": "f9fad701ffa6db333ebf1d74216a6a0e4cbd8e9682f23ace0524beb4ad44b1f3"
+      },
+      {
+        "path": "Results/Strategy 0.3734.sqx",
+        "size": 25498,
+        "mtime_ns": 1786875549198185529,
+        "sha256": "e6b95625fd938f0fd9bb6789d3af0ab5d129f78bb5708f5eb21ca6c45c98aad2"
+      },
+      {
+        "path": "Results/Strategy 0.3740.sqx",
+        "size": 25897,
+        "mtime_ns": 1786875549076179770,
+        "sha256": "d3f675779886e38e7a111ad509d6c4fa3a1a09f2e05fa0083482c5060f78610b"
+      },
+      {
+        "path": "Results/Strategy 0.3742.sqx",
+        "size": 23964,
+        "mtime_ns": 1786875549037177929,
+        "sha256": "f09c58d4469fc31a95e1d305eedf570a5ef7d47840bfe3189d09623a91975acc"
+      },
+      {
+        "path": "Results/Strategy 0.3780.sqx",
+        "size": 25557,
+        "mtime_ns": 1786875549080179958,
+        "sha256": "8bd4451c50acf5679777c652f89556087c7241f3a50d9275e47a84513c135cc0"
+      },
+      {
+        "path": "Results/Strategy 0.3976.sqx",
+        "size": 25653,
+        "mtime_ns": 1786875549203185765,
+        "sha256": "cfba5ef7a62d03c68e7fd01b5d58acab4d51c3448f35912253f6ad78e6374173"
+      },
+      {
+        "path": "Results/Strategy 0.4104.sqx",
+        "size": 27375,
+        "mtime_ns": 1786875549136182602,
+        "sha256": "eb2a38278a913f189035a78a20163b0f5d234a18fe867c6a857729d30b9b21ce"
+      },
+      {
+        "path": "Results/Strategy 0.4354.sqx",
+        "size": 25688,
+        "mtime_ns": 1786875549059178967,
+        "sha256": "5c8495c959857692c0620dde7de3b3dc280d6fad312e45f8973a7f2fdeedd68f"
+      },
+      {
+        "path": "Results/Strategy 0.4467.sqx",
+        "size": 25642,
+        "mtime_ns": 1786875549140182791,
+        "sha256": "ebac767aa21f591d1c2f06d396f637a7d8a444f398e5390db375e44071edee91"
+      },
+      {
+        "path": "Results/Strategy 0.4501.sqx",
+        "size": 26910,
+        "mtime_ns": 1786875549127182177,
+        "sha256": "2e05bcede0a8bee0c8db218dc4bb330463c3504a2a57976fecbd68eae2188cdd"
+      },
+      {
+        "path": "Results/Strategy 0.4560.sqx",
+        "size": 24407,
+        "mtime_ns": 1786875548963174435,
+        "sha256": "8e17dfb654bd3f2dd2b32727741bf3fdb8db905694f0093db294534826afc40f"
+      },
+      {
+        "path": "Results/Strategy 0.4681.sqx",
+        "size": 25083,
+        "mtime_ns": 1786875548967174624,
+        "sha256": "04ecb1cb88854c787530ad2d5d899b119e486898bef751e638a83a4922aae643"
+      },
+      {
+        "path": "Results/Strategy 0.477.sqx",
+        "size": 28005,
+        "mtime_ns": 1786875548992175804,
+        "sha256": "fb21939a967676e084d6685a10b9faa898c973646fea6d0d621e2a20b69a459f"
+      },
+      {
+        "path": "Results/Strategy 0.4840.sqx",
+        "size": 26595,
+        "mtime_ns": 1786875548927172736,
+        "sha256": "8cad1967909da9c80f2d0efa31a73531ef387b701a5071c414956828deb039ff"
+      },
+      {
+        "path": "Results/Strategy 0.4848.sqx",
+        "size": 25368,
+        "mtime_ns": 1786875549025177362,
+        "sha256": "8ae269d9e9bd35a8e5e222d7d02c86ea7656df9df7c555f14662ddd65b9e4aeb"
+      },
+      {
+        "path": "Results/Strategy 0.5201.sqx",
+        "size": 26624,
+        "mtime_ns": 1786875549063179156,
+        "sha256": "1d103b57fa07b7c239aaf26d07990ec303869c549184e3b335551cd57f9daa06"
+      },
+      {
+        "path": "Results/Strategy 0.5206.sqx",
+        "size": 27563,
+        "mtime_ns": 1786875549048178448,
+        "sha256": "ca4d2f50b0017519ea7fa4b274e4f60e70c822ef6138a7e60ab69989041be656"
+      },
+      {
+        "path": "Results/Strategy 0.5233.sqx",
+        "size": 24795,
+        "mtime_ns": 1786875549148183168,
+        "sha256": "6007f423dbd5d469dc6d01d46639fde7ad6209bf52a193f3a793298f6bdfded5"
+      },
+      {
+        "path": "Results/Strategy 0.5254.sqx",
+        "size": 25935,
+        "mtime_ns": 1786875548958174199,
+        "sha256": "a999df2a56db62336356585c9d1bd049e40c61ad017bb18c46299f7148653718"
+      },
+      {
+        "path": "Results/Strategy 0.5281.sqx",
+        "size": 26698,
+        "mtime_ns": 1786875549084180147,
+        "sha256": "005ec6f6e9930aa0dff240bc730a78ed9144dad25d604500ad501689fe352330"
+      },
+      {
+        "path": "Results/Strategy 0.5386.sqx",
+        "size": 25257,
+        "mtime_ns": 1786875549259188409,
+        "sha256": "dcf1b9b1f9804ad16be88ca6cbd5c2256603bdc74769df2ab052bd8a50d0854d"
+      },
+      {
+        "path": "Results/Strategy 0.5499.sqx",
+        "size": 26435,
+        "mtime_ns": 1786875548940173349,
+        "sha256": "bdbc0167e26ff8913342a47e474cbbe6b56f3705ea9b8f49fe82757d60a0d6a3"
+      },
+      {
+        "path": "Results/Strategy 0.5552.sqx",
+        "size": 26793,
+        "mtime_ns": 1786875549152183357,
+        "sha256": "a184345d60bb9327c14ab18b387f0109b40a05168a332b7013716d24a879605f"
+      },
+      {
+        "path": "Results/Strategy 0.5650.sqx",
+        "size": 27396,
+        "mtime_ns": 1786875548950173821,
+        "sha256": "d190b2511e26c83819e11181478dcda2a62929d2cf6a9316a8fe99c74adec106"
+      },
+      {
+        "path": "Results/Strategy 0.5726.sqx",
+        "size": 25316,
+        "mtime_ns": 1786875549112181469,
+        "sha256": "a284672a1f632bf94c725a4fc78e22f8360f80845903bc7c1029902663b83506"
+      },
+      {
+        "path": "Results/Strategy 0.5818.sqx",
+        "size": 25892,
+        "mtime_ns": 1786875549014176843,
+        "sha256": "0d0d12c871c2d6ad144cde656734dbe4d05a9e9c187435729edbcc1bd5931154"
+      },
+      {
+        "path": "Results/Strategy 0.5846.sqx",
+        "size": 25299,
+        "mtime_ns": 1786875549103181044,
+        "sha256": "ebcc97c60f0cba3e419b9b67c12bd85db0643005ce2501a23ed45e796ae1aac5"
+      },
+      {
+        "path": "Results/Strategy 0.5867.sqx",
+        "size": 29810,
+        "mtime_ns": 1786875549221186615,
+        "sha256": "7ad1d93e277b9c2544bccb56ef00dd61e75b842b84ce0b0b89f1d4f4946133fa"
+      },
+      {
+        "path": "Results/Strategy 0.6062.sqx",
+        "size": 27398,
+        "mtime_ns": 1786875548976175049,
+        "sha256": "9ba0ec3995be55b962bb638cbcba72594cc5274f08fd4f04532217fd5bf5eb52"
+      },
+      {
+        "path": "Results/Strategy 0.610.sqx",
+        "size": 24917,
+        "mtime_ns": 1786875549179184632,
+        "sha256": "da63bd76565c4765270b0f041932f76e1c202d8917600ba04cd08036d96679f0"
+      },
+      {
+        "path": "Results/Strategy 0.6146.sqx",
+        "size": 26225,
+        "mtime_ns": 1786875548931172924,
+        "sha256": "ded6b8eb0f74d69d5e5acf4ba2143375770563510abd2e097ea84d7da3bc1d6d"
+      },
+      {
+        "path": "Results/Strategy 0.6246.sqx",
+        "size": 25761,
+        "mtime_ns": 1786875549155183499,
+        "sha256": "2238d8dfcd08601046e93a554d012bf60f658812d8c143b947365f825c3eabe3"
+      },
+      {
+        "path": "Results/Strategy 0.632.sqx",
+        "size": 26093,
+        "mtime_ns": 1786875548998176087,
+        "sha256": "7be70cfc6a6168e0c7a2ee4286893b4cac6a73fb69cf62dcef27e0022d673da8"
+      },
+      {
+        "path": "Results/Strategy 0.6618.sqx",
+        "size": 23443,
+        "mtime_ns": 1786875549098180808,
+        "sha256": "c5c2280afe0f91a8f6901d7f1c4a3aa887ca2b9c5c5d41246df97ab29240e185"
+      },
+      {
+        "path": "Results/Strategy 0.6676.sqx",
+        "size": 27409,
+        "mtime_ns": 1786875549242187606,
+        "sha256": "ac3f3752096c9474836e86c1a4df7857b6045b3e647c0ae3c778b05b72a8d086"
+      },
+      {
+        "path": "Results/Strategy 0.6714.sqx",
+        "size": 23380,
+        "mtime_ns": 1786875549226186851,
+        "sha256": "3e414c4a957f10eed3c05a040b0f9fe54977c7ee16fd786a2815cbb69d695b49"
+      },
+      {
+        "path": "Results/Strategy 0.7001.sqx",
+        "size": 26047,
+        "mtime_ns": 1786875549264188645,
+        "sha256": "0365d0c686be889b7db2f9176b329e1350a349124fa5e644a662f4109ab2b18c"
+      },
+      {
+        "path": "Results/Strategy 0.7089.sqx",
+        "size": 26132,
+        "mtime_ns": 1786875549270188928,
+        "sha256": "5068219228d370f06188d5639c7d9a4df2730b92cf6e12a3583fb7d058c05fb9"
+      },
+      {
+        "path": "Results/Strategy 0.7313.sqx",
+        "size": 24358,
+        "mtime_ns": 1786875548944173538,
+        "sha256": "10a6e90e3e03d1216e6204eb5630c5b95d55c8210acc774792054e167748c1b8"
+      },
+      {
+        "path": "Results/Strategy 0.735.sqx",
+        "size": 25953,
+        "mtime_ns": 1786875549188185057,
+        "sha256": "11b7defc9a70602bf515794dd0aa27693a92ad6428df4dad78ebcb64bf0e4294"
+      },
+      {
+        "path": "Results/Strategy 0.782.sqx",
+        "size": 26911,
+        "mtime_ns": 1786875549274189117,
+        "sha256": "5dcd515c87f22fd14bc3898be6cd0414432dac1e927462608b98345d449c06ab"
+      },
+      {
+        "path": "Results/Strategy 0.800.sqx",
+        "size": 25108,
+        "mtime_ns": 1786875549108181280,
+        "sha256": "3a179ebe6b23ed1c893c3ae9688cfb00cf913229867d12d827db3b6b7bc7a399"
+      },
+      {
+        "path": "Results/Strategy 0.871.sqx",
+        "size": 28198,
+        "mtime_ns": 1786875548981175285,
+        "sha256": "0d49f18c463b5ee164da89620cced820dd6d812b83889f646de88487643b3d98"
+      },
+      {
+        "path": "Results/Strategy 0.989.sqx",
+        "size": 24589,
+        "mtime_ns": 1786875549278189306,
+        "sha256": "60aad8e47562ef36cc34f40c23a858c2a38b54421f9fec9dc991e9d42ef9672b"
+      }
+    ],
+    "raw_status": "{\"_engine\": {\"acceptedStats\": \"[[\\\"In databank\\\",80,\\\"98.77 %\\\"],[\\\"Replaced with better strategy\\\",1,\\\"1.23 %\\\"]]\", \"acceptedStrategiesPerHour\": \"55916\", \"backtestsPerformed\": 9580, \"databanks\": 5, \"dismissalStats\": \"[[\\\"Automatic filter: too little trades\\\",4896,\\\"67.66 %\\\"],[\\\"Global filter:  Profit factor[Main data] > 1.10\\\",36,\\\"0.5 %\\\"],[\\\"Automatic filter: no trades\\\",2304,\\\"31.84 %\\\"]]\", \"durationStats\": \"[[\\\"Main test\\\",117,\\\"0.0141 s.\\\",\\\"1.6500 s.\\\",\\\"100.00 %\\\"]]\", \"errorType\": 0, \"filePath\": \"/home/squser/SQ/user/projects/IBKR_NFLX_D1_VOLATILITY_BREAKOUT_V1/project.cfx\", \"hasUnresolvedResources\": false, \"infiniteProgress\": true, \"jobExceptionsCount\": 0, \"lastEvent\": \"Running backtest for Strategy 0.7321...\", \"progressPercent\": 0, \"projectName\": \"IBKR_NFLX_D1_VOLATILITY_BREAKOUT_V1\", \"runningStatus\": 4, \"step\": 0, \"strategies\": 80, \"strategiesAccepted\": 81, \"strategiesAcceptedPct\": \"1.11\", \"strategiesFailed\": 0, \"strategiesPassed\": 0, \"strategiesPerHour\": \"5051045\", \"strategiesRejected\": 7236, \"strategiesRejectedPct\": \"98.89\", \"taskRunningTime\": \"5 s.\", \"tasks\": 1, \"timePerAcceptedStrategy\": \"64 ms.\", \"timePerStrategy\": \"0 ms.\", \"timeToFinish\": \"0 ms.\", \"totalJobsDone\": 7317, \"totalRunningTime\": \"5 s.\", \"totalSteps\": 0}, \"databanks\": 5, \"filePath\": \"/home/squser/SQ/user/projects/IBKR_NFLX_D1_VOLATILITY_BREAKOUT_V1/project.cfx\", \"hasUnresolvedResources\": false, \"projectName\": \"IBKR_NFLX_D1_VOLATILITY_BREAKOUT_V1\", \"runningStatus\": 4, \"strategies\": 80, \"tasks\": 1, \"tasksIterations\": [{\"iterations\": 1, \"taskName\": \"Build strategies\"}]}",
+    "status_source": "sq_gui_subscribed_websocket",
+    "state": "BUDGET_REACHED",
+    "reason": "SQ_PROJECT_FINISHED",
+    "control_authorized": true,
+    "hard_attempt_budget": 150000,
+    "attempt_stop_guard": 100,
+    "attempt_control_threshold": 149900,
+    "rejected": 7236,
+    "sq_final_log_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/run/watchdog_status.json.sq-final.log",
+    "sq_container_log_path": "/home/squser/SQ/user/projects/IBKR_NFLX_D1_VOLATILITY_BREAKOUT_V1/log/global_log_20260816_101903.log",
+    "sq_final_log_sha256": "a9fe251eb2ce844454ff182be66e0d98df94463f0a7ca4ae196f86d9bf12148f"
+  },
+  "paper_authorized": false,
+  "live_authorized": false
+}

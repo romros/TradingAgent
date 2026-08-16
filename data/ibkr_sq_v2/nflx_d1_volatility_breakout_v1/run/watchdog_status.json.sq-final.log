@@ -1,0 +1,24 @@
+Project: IBKR_NFLX_D1_VOLATILITY_BREAKOUT_V1
+Log file: /global_log_20260816_101903.log
+
+--------------------------------------------------------------------------------------------------------------------------
+TASK STARTED at 2026.08.16 10:19:03.453
+Task: Build strategies, Type: Build
+Databanks before start: Results (0), Existing portfolio (0), Last generation (0), Initial population (0), Strategies to improve (0), D1 (0), OLD (0), D1_OLD (0)
+
+TASK FINISHED at 2026.08.16 10:19:09.284 in 5 s.
+Databanks after finish: Results (80), Existing portfolio (0), Last generation (0), Initial population (0), Strategies to improve (0), D1 (0), OLD (0), D1_OLD (0)
+
+Strategies generated: 7317, Time per strategy: 0 ms., Time per accepted strategy: 64 ms., Accepted: 81, Rejected: 7236, Strategies per hour: 5051045, Accepted strategies per hour: 55916
+
+Time per strategy details:
+Main test: Count: 117, Avg. time: 0.0141 s., Total time: 1.6500 s., % of all: 100.00 %
+
+Rejected details:
+Automatic filter: too little trades, Count: 4896, % of all: 67.66 %
+Global filter:  Profit factor[Main data] > 1.10, Count: 36, % of all: 0.5 %
+Automatic filter: no trades, Count: 2304, % of all: 31.84 %
+
+Accepted details:
+In databank, Count: 80, % of all: 98.77 %
+Replaced with better strategy, Count: 1, % of all: 1.23 %

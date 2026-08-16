@@ -16,6 +16,7 @@ L'estat transversal, capital petit, paritat SQ i ordre de treball són a
 | `jpm_momentum60_month_end_v1` | JPM | Momentum mitjà mostrejat a final de mes | Admesa; aporta a cartera | [JPM](jpm_momentum60_month_end_v1.md) |
 | `sgln_tsmom12_capped_v1` | SGLN/IGLN/EGLN | Momentum 12 mesos sobre or físic | Admesa només com a sleeve ≤25% | [SGLN](sgln_tsmom12_capped_v1.md) |
 | `aapl_momentum60_month_end_v1` | AAPL | Momentum mitjà mostrejat a final de mes | Recerca admesa; cartera rebutjada | [AAPL](aapl_momentum60_month_end_v1.md) |
+| `multi_asset_sma200_three_down_hold10_v1` | 10 equities/ETF | Pullback curt dins tendència SMA200 | Edge de recerca; SQ pendent | [Multi-actiu](multi_asset_sma200_three_down_hold10_v1.md) |
 
 `Admesa per recerca` no significa autorització per operar. Encara cal la capa
 de cartera, risc, paper trading i validació d'execució IBKR abans de LIVE.
@@ -37,7 +38,8 @@ directori.
 
 L'índex llegible de vies mortes és a [estratègies rebutjades](../rejected/README.md).
 
-## Candidata en validació
+## Candidata en validació tècnica
 
-No hi ha cap candidata pendent en aquest apartat. Les noves hipòtesis romanen
-fora del directori fins que completen la cadena de validació.
+La família multi-actiu SMA200/3-down/hold-10 ha superat el gate estadístic i
+OOS, però encara necessita paritat nativa SQ i contracte de capital compartit.
+No està autoritzada per paper ni live.

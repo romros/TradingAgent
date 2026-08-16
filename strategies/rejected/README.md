@@ -32,6 +32,8 @@ de tenir un mecanisme i una preregistració nous.
 | AAPL H1 Strategy 0.24306 | Edge OOS aparent, però falla Monte Carlo paramètric natiu ±10% | [Fitxa](aapl_h1_roc_cross_024306.md) |
 | Connors RSI(2) recent | Passa brut, però a 2.000 USD l'estrès és −1,06%, PF 0,740 | [Fitxa](connors_rsi2_and_spy_pre_fomc_20260816.md) |
 | SPY pre-FOMC MOC i M1 | MOC negatiu; finestra M1 canvia de règim i falla train/OOS | [Fitxa](connors_rsi2_and_spy_pre_fomc_20260816.md) |
+| PEAD-EAR multi-actiu | Validació −47,37% composta i PF 0,749 | [Fitxa](pead_ear_and_xlf_price_action_20260816.md) |
+| XLF price action SQ D1 | Cinc representants perden en validació; PF 0,60–0,83 | [Fitxa](pead_ear_and_xlf_price_action_20260816.md) |
 
 Les watchlists i resultats condicionals no s'inclouen aquí fins que hi hagi una
 decisió formal de rebuig.

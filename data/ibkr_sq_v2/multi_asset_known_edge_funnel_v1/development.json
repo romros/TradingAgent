@@ -1,0 +1,4689 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_FREEZE_ONE_BEFORE_OOS",
+  "spec_sha256": "c14e0e8ea89fb752733a4bbf4b3616e055344f9f8e6b450e6216e1ae4e1c6f26",
+  "evaluated_variants": 24,
+  "eligible_variants": 2,
+  "selected_variant": {
+    "family": "trend_pullback",
+    "sma": 100,
+    "down_days": 3,
+    "hold_days": 5
+  },
+  "results": [
+    {
+      "variant": {
+        "family": "trend_filter",
+        "sma": 100
+      },
+      "assets": {
+        "AAPL": {
+          "train": {
+            "trades": 24,
+            "net_pnl_usd": 1032.632517000005,
+            "return_pct": 103.2632517000005,
+            "profit_factor": 2.6678484951168664,
+            "maximum_drawdown_pct": 16.86534003906824
+          },
+          "validation": {
+            "trades": 13,
+            "net_pnl_usd": 73.77795400000309,
+            "return_pct": 7.37779540000032,
+            "profit_factor": 1.1613329557626442,
+            "maximum_drawdown_pct": 33.50734719287753
+          }
+        },
+        "AMZN": {
+          "train": {
+            "trades": 40,
+            "net_pnl_usd": 183.51952124023956,
+            "return_pct": 18.351952124023963,
+            "profit_factor": 1.163826628642248,
+            "maximum_drawdown_pct": 36.2269176740893
+          },
+          "validation": {
+            "trades": 8,
+            "net_pnl_usd": 7.901498458863102,
+            "return_pct": 0.790149845886301,
+            "profit_factor": 1.0306028411788433,
+            "maximum_drawdown_pct": 23.77806605453486
+          }
+        },
+        "GOOG": {
+          "train": {
+            "trades": 22,
+            "net_pnl_usd": 738.6075317037432,
+            "return_pct": 73.86075317037432,
+            "profit_factor": 3.3892148916716,
+            "maximum_drawdown_pct": 11.454427231656576
+          },
+          "validation": {
+            "trades": 14,
+            "net_pnl_usd": -175.87872319669611,
+            "return_pct": -17.587872319669607,
+            "profit_factor": 0.6685038638603908,
+            "maximum_drawdown_pct": 48.50497362976289
+          }
+        },
+        "META": {
+          "train": {
+            "trades": 30,
+            "net_pnl_usd": 218.4948632970145,
+            "return_pct": 21.84948632970145,
+            "profit_factor": 1.500202993384105,
+            "maximum_drawdown_pct": 22.800689481238763
+          },
+          "validation": {
+            "trades": 2,
+            "net_pnl_usd": 1435.0106263541566,
+            "return_pct": 143.50106263541568,
+            "profit_factor": 80.4454612994432,
+            "maximum_drawdown_pct": 1.8062839624599294
+          }
+        },
+        "NVDA": {
+          "train": {
+            "trades": 26,
+            "net_pnl_usd": 1913.889930502839,
+            "return_pct": 191.3889930502839,
+            "profit_factor": 3.0363159475974846,
+            "maximum_drawdown_pct": 27.764908535915428
+          },
+          "validation": {
+            "trades": 10,
+            "net_pnl_usd": 7443.3858577199135,
+            "return_pct": 744.3385857719913,
+            "profit_factor": 5.566477400905953,
+            "maximum_drawdown_pct": 47.391188956774535
+          }
+        },
+        "EEM": {
+          "train": {
+            "trades": 22,
+            "net_pnl_usd": 188.6034349993995,
+            "return_pct": 18.860343499939948,
+            "profit_factor": 1.5328283466212673,
+            "maximum_drawdown_pct": 11.762264318116749
+          },
+          "validation": {
+            "trades": 12,
+            "net_pnl_usd": -108.69734057163612,
+            "return_pct": -10.869734057163615,
+            "profit_factor": 0.22090673452239806,
+            "maximum_drawdown_pct": 10.869734057163612
+          }
+        },
+        "EFA": {
+          "train": {
+            "trades": 23,
+            "net_pnl_usd": 125.70834459813705,
+            "return_pct": 12.570834459813707,
+            "profit_factor": 1.5740385744391463,
+            "maximum_drawdown_pct": 15.105573772045904
+          },
+          "validation": {
+            "trades": 10,
+            "net_pnl_usd": 24.569688768928245,
+            "return_pct": 2.4569688768928177,
+            "profit_factor": 1.363383963098941,
+            "maximum_drawdown_pct": 4.292771465385647
+          }
+        },
+        "IWM": {
+          "train": {
+            "trades": 32,
+            "net_pnl_usd": 232.09705044655425,
+            "return_pct": 23.209705044655426,
+            "profit_factor": 1.577196469258479,
+            "maximum_drawdown_pct": 14.418835890368753
+          },
+          "validation": {
+            "trades": 13,
+            "net_pnl_usd": -234.684486361866,
+            "return_pct": -23.4684486361866,
+            "profit_factor": 0.033023258200086454,
+            "maximum_drawdown_pct": 23.468448636186597
+          }
+        },
+        "XLE": {
+          "train": {
+            "trades": 24,
+            "net_pnl_usd": -77.56959103747249,
+            "return_pct": -7.756959103747252,
+            "profit_factor": 0.8337486396300836,
+            "maximum_drawdown_pct": 42.536380222872815
+          },
+          "validation": {
+            "trades": 15,
+            "net_pnl_usd": 429.7627353532241,
+            "return_pct": 42.976273535322406,
+            "profit_factor": 2.8302642888014096,
+            "maximum_drawdown_pct": 10.371384367287726
+          }
+        },
+        "XLF": {
+          "train": {
+            "trades": 29,
+            "net_pnl_usd": 79.82431524382855,
+            "return_pct": 7.982431524382849,
+            "profit_factor": 1.1693154168022177,
+            "maximum_drawdown_pct": 32.08207625775138
+          },
+          "validation": {
+            "trades": 11,
+            "net_pnl_usd": -159.4881649683848,
+            "return_pct": -15.94881649683848,
+            "profit_factor": 0.11984691691584581,
+            "maximum_drawdown_pct": 15.94881649683848
+          }
+        }
+      },
+      "pooled": {
+        "train": {
+          "trades": 272,
+          "profit_factor": 1.8684085261522048,
+          "return_pct": 46.35807917994288,
+          "maximum_drawdown_pct": 42.536380222872815
+        },
+        "validation": {
+          "trades": 108,
+          "profit_factor": 3.3233314393912194,
+          "return_pct": 87.35659645556505,
+          "maximum_drawdown_pct": 48.50497362976289
+        }
+      },
+      "checks": {
+        "train_pf": true,
+        "train_trades": true,
+        "positive_assets": true,
+        "strong_assets": true,
+        "validation_pf": true,
+        "validation_trades": true,
+        "validation_drawdown": false
+      },
+      "positive_assets": 6,
+      "strong_assets": 5
+    },
+    {
+      "variant": {
+        "family": "trend_filter",
+        "sma": 150
+      },
+      "assets": {
+        "AAPL": {
+          "train": {
+            "trades": 20,
+            "net_pnl_usd": 768.4693045000035,
+            "return_pct": 76.84693045000034,
+            "profit_factor": 2.2235735800068426,
+            "maximum_drawdown_pct": 13.943629213628078
+          },
+          "validation": {
+            "trades": 15,
+            "net_pnl_usd": 154.8093300000014,
+            "return_pct": 15.48093300000013,
+            "profit_factor": 1.2947598697892626,
+            "maximum_drawdown_pct": 32.66753162538717
+          }
+        },
+        "AMZN": {
+          "train": {
+            "trades": 31,
+            "net_pnl_usd": 513.701348575597,
+            "return_pct": 51.370134857559705,
+            "profit_factor": 1.4895668750825606,
+            "maximum_drawdown_pct": 30.752552816952704
+          },
+          "validation": {
+            "trades": 10,
+            "net_pnl_usd": -114.3243149261466,
+            "return_pct": -11.432431492614658,
+            "profit_factor": 0.635949926355898,
+            "maximum_drawdown_pct": 31.403458810424716
+          }
+        },
+        "GOOG": {
+          "train": {
+            "trades": 12,
+            "net_pnl_usd": -82.08846556344997,
+            "return_pct": -8.208846556344994,
+            "profit_factor": 0.5954921925239108,
+            "maximum_drawdown_pct": 18.554000324167834
+          },
+          "validation": {
+            "trades": 8,
+            "net_pnl_usd": 976.4246620822846,
+            "return_pct": 97.64246620822846,
+            "profit_factor": 4.529890511870854,
+            "maximum_drawdown_pct": 14.45546624886804
+          }
+        },
+        "META": {
+          "train": {
+            "trades": 24,
+            "net_pnl_usd": -6.63268605584733,
+            "return_pct": -0.6632686055847326,
+            "profit_factor": 0.9847981102630325,
+            "maximum_drawdown_pct": 15.99318439817144
+          },
+          "validation": {
+            "trades": 0,
+            "net_pnl_usd": 0,
+            "return_pct": 0.0,
+            "profit_factor": null,
+            "maximum_drawdown_pct": 0
+          }
+        },
+        "NVDA": {
+          "train": {
+            "trades": 12,
+            "net_pnl_usd": 1485.366132024753,
+            "return_pct": 148.53661320247528,
+            "profit_factor": 4.6051586282340375,
+            "maximum_drawdown_pct": 25.162424823687584
+          },
+          "validation": {
+            "trades": 8,
+            "net_pnl_usd": 150.54241284789714,
+            "return_pct": 15.054241284789715,
+            "profit_factor": 1.1187085434135007,
+            "maximum_drawdown_pct": 52.43158257326
+          }
+        },
+        "EEM": {
+          "train": {
+            "trades": 13,
+            "net_pnl_usd": 311.30101058225455,
+            "return_pct": 31.130101058225446,
+            "profit_factor": 2.9501366125826567,
+            "maximum_drawdown_pct": 8.795852509793308
+          },
+          "validation": {
+            "trades": 15,
+            "net_pnl_usd": -187.38017924836163,
+            "return_pct": -18.738017924836157,
+            "profit_factor": 0.009932504232622022,
+            "maximum_drawdown_pct": 18.73801792483616
+          }
+        },
+        "EFA": {
+          "train": {
+            "trades": 17,
+            "net_pnl_usd": 128.20515334040329,
+            "return_pct": 12.820515334040339,
+            "profit_factor": 1.7101989017644408,
+            "maximum_drawdown_pct": 12.33154135668397
+          },
+          "validation": {
+            "trades": 7,
+            "net_pnl_usd": 59.439593284327884,
+            "return_pct": 5.943959328432791,
+            "profit_factor": 1.9221307087075563,
+            "maximum_drawdown_pct": 3.2877540700934613
+          }
+        },
+        "IWM": {
+          "train": {
+            "trades": 33,
+            "net_pnl_usd": 129.78672481774902,
+            "return_pct": 12.978672481774911,
+            "profit_factor": 1.2804949590244445,
+            "maximum_drawdown_pct": 23.906436322942582
+          },
+          "validation": {
+            "trades": 11,
+            "net_pnl_usd": -284.12908563640667,
+            "return_pct": -28.41290856364067,
+            "profit_factor": 0.01291939749024243,
+            "maximum_drawdown_pct": 28.412908563640666
+          }
+        },
+        "XLE": {
+          "train": {
+            "trades": 27,
+            "net_pnl_usd": -67.557749355753,
+            "return_pct": -6.755774935575298,
+            "profit_factor": 0.8315975357225687,
+            "maximum_drawdown_pct": 26.999939619815237
+          },
+          "validation": {
+            "trades": 15,
+            "net_pnl_usd": 156.54558719805232,
+            "return_pct": 15.654558719805234,
+            "profit_factor": 1.4863656002511105,
+            "maximum_drawdown_pct": 17.052019913358208
+          }
+        },
+        "XLF": {
+          "train": {
+            "trades": 27,
+            "net_pnl_usd": 338.8429620168356,
+            "return_pct": 33.88429620168356,
+            "profit_factor": 1.8468104912769145,
+            "maximum_drawdown_pct": 22.452385802516144
+          },
+          "validation": {
+            "trades": 14,
+            "net_pnl_usd": -249.6154900370392,
+            "return_pct": -24.96154900370392,
+            "profit_factor": 0.01717592197330277,
+            "maximum_drawdown_pct": 24.96154900370392
+          }
+        }
+      },
+      "pooled": {
+        "train": {
+          "trades": 216,
+          "profit_factor": 1.8122737240453481,
+          "return_pct": 35.19393734882546,
+          "maximum_drawdown_pct": 30.752552816952704
+        },
+        "validation": {
+          "trades": 103,
+          "profit_factor": 1.1891544998247625,
+          "return_pct": 6.6231251556460915,
+          "maximum_drawdown_pct": 52.43158257326
+        }
+      },
+      "checks": {
+        "train_pf": true,
+        "train_trades": true,
+        "positive_assets": true,
+        "strong_assets": true,
+        "validation_pf": true,
+        "validation_trades": true,
+        "validation_drawdown": false
+      },
+      "positive_assets": 5,
+      "strong_assets": 5
+    },
+    {
+      "variant": {
+        "family": "trend_filter",
+        "sma": 200
+      },
+      "assets": {
+        "AAPL": {
+          "train": {
+            "trades": 12,
+            "net_pnl_usd": 965.6474762500018,
+            "return_pct": 96.56474762500018,
+            "profit_factor": 4.171531687825549,
+            "maximum_drawdown_pct": 13.244737174999976
+          },
+          "validation": {
+            "trades": 9,
+            "net_pnl_usd": 225.8114980000023,
+            "return_pct": 22.581149800000233,
+            "profit_factor": 1.7437150941854482,
+            "maximum_drawdown_pct": 22.244842215094806
+          }
+        },
+        "AMZN": {
+          "train": {
+            "trades": 29,
+            "net_pnl_usd": 424.34223611450693,
+            "return_pct": 42.43422361145068,
+            "profit_factor": 1.4935065267216543,
+            "maximum_drawdown_pct": 32.035746438585
+          },
+          "validation": {
+            "trades": 5,
+            "net_pnl_usd": -190.08624227142263,
+            "return_pct": -19.008624227142267,
+            "profit_factor": 0.0,
+            "maximum_drawdown_pct": 19.008624227142263
+          }
+        },
+        "GOOG": {
+          "train": {
+            "trades": 17,
+            "net_pnl_usd": -114.16625878394177,
+            "return_pct": -11.416625878394182,
+            "profit_factor": 0.5882254355202399,
+            "maximum_drawdown_pct": 13.562116684378992
+          },
+          "validation": {
+            "trades": 8,
+            "net_pnl_usd": 638.5921312034397,
+            "return_pct": 63.85921312034397,
+            "profit_factor": 3.8268946559660018,
+            "maximum_drawdown_pct": 11.705719837398378
+          }
+        },
+        "META": {
+          "train": {
+            "trades": 21,
+            "net_pnl_usd": 11.276663365360946,
+            "return_pct": 1.1276663365360928,
+            "profit_factor": 1.037629711889647,
+            "maximum_drawdown_pct": 19.4412192862588
+          },
+          "validation": {
+            "trades": 1,
+            "net_pnl_usd": -51.639153214013504,
+            "return_pct": -5.163915321401347,
+            "profit_factor": 0.0,
+            "maximum_drawdown_pct": 5.16391532140135
+          }
+        },
+        "NVDA": {
+          "train": {
+            "trades": 5,
+            "net_pnl_usd": 2130.3388648293408,
+            "return_pct": 213.03388648293407,
+            "profit_factor": 18.95812446940818,
+            "maximum_drawdown_pct": 9.718832466488344
+          },
+          "validation": {
+            "trades": 5,
+            "net_pnl_usd": 1042.969001129285,
+            "return_pct": 104.2969001129285,
+            "profit_factor": 1.8846199072512195,
+            "maximum_drawdown_pct": 36.59257822354978
+          }
+        },
+        "EEM": {
+          "train": {
+            "trades": 21,
+            "net_pnl_usd": -53.33887396658304,
+            "return_pct": -5.333887396658299,
+            "profit_factor": 0.8033494619136512,
+            "maximum_drawdown_pct": 21.887871880538594
+          },
+          "validation": {
+            "trades": 8,
+            "net_pnl_usd": -91.35314116505197,
+            "return_pct": -9.1353141165052,
+            "profit_factor": 0.03975887802671159,
+            "maximum_drawdown_pct": 9.135314116505198
+          }
+        },
+        "EFA": {
+          "train": {
+            "trades": 29,
+            "net_pnl_usd": 13.091065985407454,
+            "return_pct": 1.3091065985407546,
+            "profit_factor": 1.0495919757117878,
+            "maximum_drawdown_pct": 14.22863598191992
+          },
+          "validation": {
+            "trades": 4,
+            "net_pnl_usd": 100.36282228141135,
+            "return_pct": 10.036282228141125,
+            "profit_factor": 139.90588522346775,
+            "maximum_drawdown_pct": 0.07225239025685823
+          }
+        },
+        "IWM": {
+          "train": {
+            "trades": 24,
+            "net_pnl_usd": 70.09952999917618,
+            "return_pct": 7.0099529999176236,
+            "profit_factor": 1.219314911497454,
+            "maximum_drawdown_pct": 26.926018271007546
+          },
+          "validation": {
+            "trades": 10,
+            "net_pnl_usd": -187.43815001375572,
+            "return_pct": -18.743815001375573,
+            "profit_factor": 0.054212778966217054,
+            "maximum_drawdown_pct": 19.203722865158774
+          }
+        },
+        "XLE": {
+          "train": {
+            "trades": 17,
+            "net_pnl_usd": 121.55953925683843,
+            "return_pct": 12.15595392568385,
+            "profit_factor": 1.524218838193033,
+            "maximum_drawdown_pct": 14.306857646976503
+          },
+          "validation": {
+            "trades": 8,
+            "net_pnl_usd": 543.9993794806817,
+            "return_pct": 54.399937948068164,
+            "profit_factor": 3.847231599060612,
+            "maximum_drawdown_pct": 11.011858556422212
+          }
+        },
+        "XLF": {
+          "train": {
+            "trades": 17,
+            "net_pnl_usd": -211.62796618462278,
+            "return_pct": -21.162796618462277,
+            "profit_factor": 0.18146258382736924,
+            "maximum_drawdown_pct": 24.193457716660472
+          },
+          "validation": {
+            "trades": 12,
+            "net_pnl_usd": 227.32511319628065,
+            "return_pct": 22.732511319628056,
+            "profit_factor": 2.034366782899152,
+            "maximum_drawdown_pct": 15.187108617844554
+          }
+        }
+      },
+      "pooled": {
+        "train": {
+          "trades": 192,
+          "profit_factor": 2.047444698726511,
+          "return_pct": 33.57222276865485,
+          "maximum_drawdown_pct": 32.035746438585
+        },
+        "validation": {
+          "trades": 70,
+          "profit_factor": 1.8506343911763852,
+          "return_pct": 22.585432586268567,
+          "maximum_drawdown_pct": 36.59257822354978
+        }
+      },
+      "checks": {
+        "train_pf": true,
+        "train_trades": true,
+        "positive_assets": true,
+        "strong_assets": true,
+        "validation_pf": true,
+        "validation_trades": true,
+        "validation_drawdown": false
+      },
+      "positive_assets": 6,
+      "strong_assets": 6
+    },
+    {
+      "variant": {
+        "family": "donchian",
+        "entry": 20,
+        "exit": 10
+      },
+      "assets": {
+        "AAPL": {
+          "train": {
+            "trades": 18,
+            "net_pnl_usd": 1013.3804230000028,
+            "return_pct": 101.33804230000027,
+            "profit_factor": 3.2595697807623294,
+            "maximum_drawdown_pct": 13.609805711378984
+          },
+          "validation": {
+            "trades": 8,
+            "net_pnl_usd": 313.790449000001,
+            "return_pct": 31.379044900000096,
+            "profit_factor": 1.5903509002049145,
+            "maximum_drawdown_pct": 21.239155603344827
+          }
+        },
+        "AMZN": {
+          "train": {
+            "trades": 25,
+            "net_pnl_usd": 509.10169783783294,
+            "return_pct": 50.91016978378329,
+            "profit_factor": 1.6096444073428129,
+            "maximum_drawdown_pct": 20.88809781961977
+          },
+          "validation": {
+            "trades": 6,
+            "net_pnl_usd": 247.07993460083094,
+            "return_pct": 24.7079934600831,
+            "profit_factor": 1.7051847568794256,
+            "maximum_drawdown_pct": 17.176664470825603
+          }
+        },
+        "GOOG": {
+          "train": {
+            "trades": 26,
+            "net_pnl_usd": 238.9398773536061,
+            "return_pct": 23.8939877353606,
+            "profit_factor": 1.5069227605450262,
+            "maximum_drawdown_pct": 20.327548911121905
+          },
+          "validation": {
+            "trades": 12,
+            "net_pnl_usd": -435.86638454317153,
+            "return_pct": -43.58663845431715,
+            "profit_factor": 0.2603459154613688,
+            "maximum_drawdown_pct": 43.58663845431715
+          }
+        },
+        "META": {
+          "train": {
+            "trades": 22,
+            "net_pnl_usd": 211.8803282432291,
+            "return_pct": 21.18803282432291,
+            "profit_factor": 1.4831350980130993,
+            "maximum_drawdown_pct": 12.705282291356387
+          },
+          "validation": {
+            "trades": 8,
+            "net_pnl_usd": 544.3277441103683,
+            "return_pct": 54.432774411036824,
+            "profit_factor": 2.5075133295564065,
+            "maximum_drawdown_pct": 24.712865077659114
+          }
+        },
+        "NVDA": {
+          "train": {
+            "trades": 22,
+            "net_pnl_usd": 1060.5335653130655,
+            "return_pct": 106.05335653130656,
+            "profit_factor": 2.1221744183173543,
+            "maximum_drawdown_pct": 31.106652014169683
+          },
+          "validation": {
+            "trades": 7,
+            "net_pnl_usd": 1151.3234589926628,
+            "return_pct": 115.13234589926627,
+            "profit_factor": 2.4089523491295757,
+            "maximum_drawdown_pct": 36.72460378999979
+          }
+        },
+        "EEM": {
+          "train": {
+            "trades": 25,
+            "net_pnl_usd": 108.34488042750536,
+            "return_pct": 10.834488042750534,
+            "profit_factor": 1.2536261650308647,
+            "maximum_drawdown_pct": 16.50998332690459
+          },
+          "validation": {
+            "trades": 9,
+            "net_pnl_usd": -108.01892768017854,
+            "return_pct": -10.80189276801785,
+            "profit_factor": 0.4570213421593835,
+            "maximum_drawdown_pct": 13.685660977474754
+          }
+        },
+        "EFA": {
+          "train": {
+            "trades": 24,
+            "net_pnl_usd": 113.12443103376268,
+            "return_pct": 11.312443103376268,
+            "profit_factor": 1.3585657934340118,
+            "maximum_drawdown_pct": 9.851480345654444
+          },
+          "validation": {
+            "trades": 9,
+            "net_pnl_usd": -85.16575438617849,
+            "return_pct": -8.516575438617846,
+            "profit_factor": 0.547238081584828,
+            "maximum_drawdown_pct": 11.892732656833152
+          }
+        },
+        "IWM": {
+          "train": {
+            "trades": 23,
+            "net_pnl_usd": 203.0950086367568,
+            "return_pct": 20.309500863675687,
+            "profit_factor": 1.449123308386932,
+            "maximum_drawdown_pct": 17.594839291349455
+          },
+          "validation": {
+            "trades": 7,
+            "net_pnl_usd": -124.25313259351424,
+            "return_pct": -12.425313259351423,
+            "profit_factor": 0.2607731782083873,
+            "maximum_drawdown_pct": 13.657535371845597
+          }
+        },
+        "XLE": {
+          "train": {
+            "trades": 18,
+            "net_pnl_usd": 209.89076325506358,
+            "return_pct": 20.98907632550635,
+            "profit_factor": 1.6252949775749175,
+            "maximum_drawdown_pct": 19.47954838577904
+          },
+          "validation": {
+            "trades": 8,
+            "net_pnl_usd": 216.10513644071625,
+            "return_pct": 21.610513644071627,
+            "profit_factor": 1.6646949108915183,
+            "maximum_drawdown_pct": 20.16658222755191
+          }
+        },
+        "XLF": {
+          "train": {
+            "trades": 23,
+            "net_pnl_usd": 4.09675122011015,
+            "return_pct": 0.40967512201102174,
+            "profit_factor": 1.0096641530069024,
+            "maximum_drawdown_pct": 28.035460709878567
+          },
+          "validation": {
+            "trades": 8,
+            "net_pnl_usd": -47.10845835527323,
+            "return_pct": -4.710845835527322,
+            "profit_factor": 0.6566826714528383,
+            "maximum_drawdown_pct": 6.539509944114378
+          }
+        }
+      },
+      "pooled": {
+        "train": {
+          "trades": 226,
+          "profit_factor": 1.7210661215285017,
+          "return_pct": 36.72387726320935,
+          "maximum_drawdown_pct": 31.106652014169683
+        },
+        "validation": {
+          "trades": 82,
+          "profit_factor": 1.4560320946820884,
+          "return_pct": 16.72214065586263,
+          "maximum_drawdown_pct": 43.58663845431715
+        }
+      },
+      "checks": {
+        "train_pf": true,
+        "train_trades": true,
+        "positive_assets": true,
+        "strong_assets": true,
+        "validation_pf": true,
+        "validation_trades": true,
+        "validation_drawdown": false
+      },
+      "positive_assets": 5,
+      "strong_assets": 5
+    },
+    {
+      "variant": {
+        "family": "donchian",
+        "entry": 50,
+        "exit": 20
+      },
+      "assets": {
+        "AAPL": {
+          "train": {
+            "trades": 12,
+            "net_pnl_usd": 759.8792552500022,
+            "return_pct": 75.98792552500022,
+            "profit_factor": 4.042459480922722,
+            "maximum_drawdown_pct": 13.645679799999948
+          },
+          "validation": {
+            "trades": 4,
+            "net_pnl_usd": 266.51408600000013,
+            "return_pct": 26.651408600000014,
+            "profit_factor": 2.482393494544333,
+            "maximum_drawdown_pct": 16.37647663334317
+          }
+        },
+        "AMZN": {
+          "train": {
+            "trades": 9,
+            "net_pnl_usd": 514.3067178993235,
+            "return_pct": 51.43067178993235,
+            "profit_factor": 2.20027617617407,
+            "maximum_drawdown_pct": 17.596845303933964
+          },
+          "validation": {
+            "trades": 5,
+            "net_pnl_usd": -305.669221023559,
+            "return_pct": -30.566922102355896,
+            "profit_factor": 0.4440128351405439,
+            "maximum_drawdown_pct": 54.977747750854455
+          }
+        },
+        "GOOG": {
+          "train": {
+            "trades": 11,
+            "net_pnl_usd": 614.8774227133133,
+            "return_pct": 61.487742271331335,
+            "profit_factor": 5.5695121635110345,
+            "maximum_drawdown_pct": 4.419378367968639
+          },
+          "validation": {
+            "trades": 5,
+            "net_pnl_usd": -388.20933087281117,
+            "return_pct": -38.82093308728112,
+            "profit_factor": 0.23555932907566526,
+            "maximum_drawdown_pct": 38.82093308728112
+          }
+        },
+        "META": {
+          "train": {
+            "trades": 10,
+            "net_pnl_usd": 199.93139018333295,
+            "return_pct": 19.993139018333306,
+            "profit_factor": 2.0096459388989536,
+            "maximum_drawdown_pct": 12.128082797391986
+          },
+          "validation": {
+            "trades": 2,
+            "net_pnl_usd": 1076.455211779365,
+            "return_pct": 107.64552117793649,
+            "profit_factor": 5.505567890238944,
+            "maximum_drawdown_pct": 10.318716355636255
+          }
+        },
+        "NVDA": {
+          "train": {
+            "trades": 12,
+            "net_pnl_usd": 1096.345296181751,
+            "return_pct": 109.63452961817511,
+            "profit_factor": 2.303098143358737,
+            "maximum_drawdown_pct": 22.605362878551208
+          },
+          "validation": {
+            "trades": 4,
+            "net_pnl_usd": 1407.7615339851218,
+            "return_pct": 140.77615339851218,
+            "profit_factor": 3.2469857185443707,
+            "maximum_drawdown_pct": 56.54305985687837
+          }
+        },
+        "EEM": {
+          "train": {
+            "trades": 10,
+            "net_pnl_usd": 275.797344297011,
+            "return_pct": 27.579734429701098,
+            "profit_factor": 2.825580035177702,
+            "maximum_drawdown_pct": 7.010123791886008
+          },
+          "validation": {
+            "trades": 3,
+            "net_pnl_usd": -85.35199755287567,
+            "return_pct": -8.53519975528757,
+            "profit_factor": 0.07844112023412267,
+            "maximum_drawdown_pct": 9.194896960734392
+          }
+        },
+        "EFA": {
+          "train": {
+            "trades": 10,
+            "net_pnl_usd": 245.89428985094173,
+            "return_pct": 24.589428985094173,
+            "profit_factor": 3.4072865607366882,
+            "maximum_drawdown_pct": 3.878413057047874
+          },
+          "validation": {
+            "trades": 4,
+            "net_pnl_usd": -40.26369776214642,
+            "return_pct": -4.026369776214644,
+            "profit_factor": 0.7159675484946667,
+            "maximum_drawdown_pct": 12.86955950810667
+          }
+        },
+        "IWM": {
+          "train": {
+            "trades": 12,
+            "net_pnl_usd": 139.26950644437284,
+            "return_pct": 13.926950644437275,
+            "profit_factor": 1.510039242142525,
+            "maximum_drawdown_pct": 12.884370123854547
+          },
+          "validation": {
+            "trades": 3,
+            "net_pnl_usd": -69.68707707841293,
+            "return_pct": -6.968707707841293,
+            "profit_factor": 0.30868651627954957,
+            "maximum_drawdown_pct": 10.08038736686823
+          }
+        },
+        "XLE": {
+          "train": {
+            "trades": 10,
+            "net_pnl_usd": 72.71555767518089,
+            "return_pct": 7.271555767518079,
+            "profit_factor": 1.254799686753463,
+            "maximum_drawdown_pct": 19.32377214922585
+          },
+          "validation": {
+            "trades": 4,
+            "net_pnl_usd": 219.0388063324574,
+            "return_pct": 21.90388063324573,
+            "profit_factor": 3.5096330196985743,
+            "maximum_drawdown_pct": 6.91998279226629
+          }
+        },
+        "XLF": {
+          "train": {
+            "trades": 11,
+            "net_pnl_usd": 158.70795886204223,
+            "return_pct": 15.870795886204213,
+            "profit_factor": 1.6719555530042387,
+            "maximum_drawdown_pct": 12.956269634233456
+          },
+          "validation": {
+            "trades": 5,
+            "net_pnl_usd": -274.61763268444815,
+            "return_pct": -27.461763268444816,
+            "profit_factor": 0.03226051654585767,
+            "maximum_drawdown_pct": 28.37722727859137
+          }
+        }
+      },
+      "pooled": {
+        "train": {
+          "trades": 107,
+          "profit_factor": 2.4061043903020405,
+          "return_pct": 40.777247393572715,
+          "maximum_drawdown_pct": 22.605362878551208
+        },
+        "validation": {
+          "trades": 39,
+          "profit_factor": 1.6429102223566787,
+          "return_pct": 18.05970681122691,
+          "maximum_drawdown_pct": 56.54305985687837
+        }
+      },
+      "checks": {
+        "train_pf": true,
+        "train_trades": true,
+        "positive_assets": true,
+        "strong_assets": true,
+        "validation_pf": true,
+        "validation_trades": false,
+        "validation_drawdown": false
+      },
+      "positive_assets": 4,
+      "strong_assets": 4
+    },
+    {
+      "variant": {
+        "family": "donchian",
+        "entry": 100,
+        "exit": 50
+      },
+      "assets": {
+        "AAPL": {
+          "train": {
+            "trades": 5,
+            "net_pnl_usd": 667.4748872500004,
+            "return_pct": 66.74748872500005,
+            "profit_factor": 6.129956306422237,
+            "maximum_drawdown_pct": 11.571306430244476
+          },
+          "validation": {
+            "trades": 2,
+            "net_pnl_usd": 272.4249840000009,
+            "return_pct": 27.24249840000008,
+            "profit_factor": null,
+            "maximum_drawdown_pct": 0
+          }
+        },
+        "AMZN": {
+          "train": {
+            "trades": 6,
+            "net_pnl_usd": 568.653276348115,
+            "return_pct": 56.86532763481149,
+            "profit_factor": 1.8842437481367103,
+            "maximum_drawdown_pct": 22.91915786217116
+          },
+          "validation": {
+            "trades": 1,
+            "net_pnl_usd": 112.75814597320573,
+            "return_pct": 11.275814597320565,
+            "profit_factor": null,
+            "maximum_drawdown_pct": 0
+          }
+        },
+        "GOOG": {
+          "train": {
+            "trades": 4,
+            "net_pnl_usd": -36.21505880192319,
+            "return_pct": -3.6215058801923217,
+            "profit_factor": 0.7198045150215427,
+            "maximum_drawdown_pct": 11.824813803221499
+          },
+          "validation": {
+            "trades": 2,
+            "net_pnl_usd": 560.8223065358097,
+            "return_pct": 56.08223065358098,
+            "profit_factor": null,
+            "maximum_drawdown_pct": 0
+          }
+        },
+        "META": {
+          "train": {
+            "trades": 6,
+            "net_pnl_usd": -12.78003403879211,
+            "return_pct": -1.2780034038792132,
+            "profit_factor": 0.9307590104555543,
+            "maximum_drawdown_pct": 16.18356247501466
+          },
+          "validation": {
+            "trades": 0,
+            "net_pnl_usd": 0,
+            "return_pct": 0.0,
+            "profit_factor": null,
+            "maximum_drawdown_pct": 0
+          }
+        },
+        "NVDA": {
+          "train": {
+            "trades": 3,
+            "net_pnl_usd": 2101.199177099079,
+            "return_pct": 210.11991770990787,
+            "profit_factor": null,
+            "maximum_drawdown_pct": 0
+          },
+          "validation": {
+            "trades": 2,
+            "net_pnl_usd": 7807.370720735784,
+            "return_pct": 780.7370720735785,
+            "profit_factor": null,
+            "maximum_drawdown_pct": 0
+          }
+        },
+        "EEM": {
+          "train": {
+            "trades": 4,
+            "net_pnl_usd": 264.2013007882067,
+            "return_pct": 26.42013007882067,
+            "profit_factor": 4.849107588489356,
+            "maximum_drawdown_pct": 6.0374491334653975
+          },
+          "validation": {
+            "trades": 2,
+            "net_pnl_usd": -166.68190850325527,
+            "return_pct": -16.668190850325526,
+            "profit_factor": 0.0,
+            "maximum_drawdown_pct": 16.668190850325526
+          }
+        },
+        "EFA": {
+          "train": {
+            "trades": 6,
+            "net_pnl_usd": 44.397184244160826,
+            "return_pct": 4.439718424416084,
+            "profit_factor": 1.354487939905292,
+            "maximum_drawdown_pct": 11.949164294920427
+          },
+          "validation": {
+            "trades": 1,
+            "net_pnl_usd": 41.35740782791231,
+            "return_pct": 4.135740782791242,
+            "profit_factor": null,
+            "maximum_drawdown_pct": 0
+          }
+        },
+        "IWM": {
+          "train": {
+            "trades": 6,
+            "net_pnl_usd": 238.8038919855112,
+            "return_pct": 23.88038919855111,
+            "profit_factor": 2.8829599362188816,
+            "maximum_drawdown_pct": 11.116356844224425
+          },
+          "validation": {
+            "trades": 1,
+            "net_pnl_usd": -70.51049622161861,
+            "return_pct": -7.051049622161864,
+            "profit_factor": 0.0,
+            "maximum_drawdown_pct": 7.051049622161861
+          }
+        },
+        "XLE": {
+          "train": {
+            "trades": 3,
+            "net_pnl_usd": 170.3233206684804,
+            "return_pct": 17.032332066848042,
+            "profit_factor": 2.5568464344092723,
+            "maximum_drawdown_pct": 10.134651963537072
+          },
+          "validation": {
+            "trades": 2,
+            "net_pnl_usd": 489.85712879414814,
+            "return_pct": 48.98571287941482,
+            "profit_factor": 8.583170385144534,
+            "maximum_drawdown_pct": 4.155664201781888
+          }
+        },
+        "XLF": {
+          "train": {
+            "trades": 4,
+            "net_pnl_usd": -37.09006894167749,
+            "return_pct": -3.7090068941677434,
+            "profit_factor": 0.6416509311819155,
+            "maximum_drawdown_pct": 5.638505299552174
+          },
+          "validation": {
+            "trades": 2,
+            "net_pnl_usd": 251.32408872298083,
+            "return_pct": 25.132408872298086,
+            "profit_factor": 3.776406127789151,
+            "maximum_drawdown_pct": 6.7460354844831985
+          }
+        }
+      },
+      "pooled": {
+        "train": {
+          "trades": 47,
+          "profit_factor": 3.449007931535096,
+          "return_pct": 39.6896787660116,
+          "maximum_drawdown_pct": 22.91915786217116
+        },
+        "validation": {
+          "trades": 15,
+          "profit_factor": 24.702383044165344,
+          "return_pct": 92.98722377864968,
+          "maximum_drawdown_pct": 16.668190850325526
+        }
+      },
+      "checks": {
+        "train_pf": true,
+        "train_trades": false,
+        "positive_assets": true,
+        "strong_assets": false,
+        "validation_pf": true,
+        "validation_trades": false,
+        "validation_drawdown": true
+      },
+      "positive_assets": 7,
+      "strong_assets": 2
+    },
+    {
+      "variant": {
+        "family": "trend_pullback",
+        "sma": 100,
+        "down_days": 2,
+        "hold_days": 3
+      },
+      "assets": {
+        "AAPL": {
+          "train": {
+            "trades": 105,
+            "net_pnl_usd": 74.46887900001116,
+            "return_pct": 7.44688790000112,
+            "profit_factor": 1.0721899752319164,
+            "maximum_drawdown_pct": 22.53398510930339
+          },
+          "validation": {
+            "trades": 36,
+            "net_pnl_usd": 7.520834000002992,
+            "return_pct": 0.7520834000003029,
+            "profit_factor": 1.0182898676541718,
+            "maximum_drawdown_pct": 14.003829198413998
+          }
+        },
+        "AMZN": {
+          "train": {
+            "trades": 85,
+            "net_pnl_usd": -247.5293890838543,
+            "return_pct": -24.752938908385435,
+            "profit_factor": 0.7298353513726681,
+            "maximum_drawdown_pct": 27.62355120546871
+          },
+          "validation": {
+            "trades": 26,
+            "net_pnl_usd": 94.46756671142771,
+            "return_pct": 9.446756671142765,
+            "profit_factor": 1.4446080772960106,
+            "maximum_drawdown_pct": 6.38726323642356
+          }
+        },
+        "GOOG": {
+          "train": {
+            "trades": 99,
+            "net_pnl_usd": 48.56504222621993,
+            "return_pct": 4.856504222621982,
+            "profit_factor": 1.0578363147464793,
+            "maximum_drawdown_pct": 19.6545365732768
+          },
+          "validation": {
+            "trades": 25,
+            "net_pnl_usd": -306.07118113809497,
+            "return_pct": -30.607118113809495,
+            "profit_factor": 0.2267210409512503,
+            "maximum_drawdown_pct": 30.607118113809495
+          }
+        },
+        "META": {
+          "train": {
+            "trades": 91,
+            "net_pnl_usd": 138.10769399911624,
+            "return_pct": 13.810769399911615,
+            "profit_factor": 1.1715915077610735,
+            "maximum_drawdown_pct": 21.791736301341746
+          },
+          "validation": {
+            "trades": 31,
+            "net_pnl_usd": 574.1387498332758,
+            "return_pct": 57.413874983327574,
+            "profit_factor": 2.9606218879103463,
+            "maximum_drawdown_pct": 5.741468289776767
+          }
+        },
+        "NVDA": {
+          "train": {
+            "trades": 100,
+            "net_pnl_usd": 147.37567710796452,
+            "return_pct": 14.737567710796462,
+            "profit_factor": 1.099259016335361,
+            "maximum_drawdown_pct": 31.070803449347817
+          },
+          "validation": {
+            "trades": 36,
+            "net_pnl_usd": 653.2409722460593,
+            "return_pct": 65.32409722460592,
+            "profit_factor": 2.0351548746463757,
+            "maximum_drawdown_pct": 20.65451952692649
+          }
+        },
+        "EEM": {
+          "train": {
+            "trades": 67,
+            "net_pnl_usd": -59.58989508529237,
+            "return_pct": -5.958989508529234,
+            "profit_factor": 0.8761189182744369,
+            "maximum_drawdown_pct": 17.706161923830376
+          },
+          "validation": {
+            "trades": 21,
+            "net_pnl_usd": -131.66543697164184,
+            "return_pct": -13.16654369716418,
+            "profit_factor": 0.35289504995461335,
+            "maximum_drawdown_pct": 13.503548897462977
+          }
+        },
+        "EFA": {
+          "train": {
+            "trades": 78,
+            "net_pnl_usd": -171.76118285518044,
+            "return_pct": -17.176118285518037,
+            "profit_factor": 0.5998219674254529,
+            "maximum_drawdown_pct": 22.313894517294855
+          },
+          "validation": {
+            "trades": 29,
+            "net_pnl_usd": -155.21497972156794,
+            "return_pct": -15.521497972156794,
+            "profit_factor": 0.18790066346121073,
+            "maximum_drawdown_pct": 16.723208180615696
+          }
+        },
+        "IWM": {
+          "train": {
+            "trades": 91,
+            "net_pnl_usd": -338.8488038614041,
+            "return_pct": -33.884880386140416,
+            "profit_factor": 0.5553098987216766,
+            "maximum_drawdown_pct": 35.30875238478018
+          },
+          "validation": {
+            "trades": 20,
+            "net_pnl_usd": -86.86604831292664,
+            "return_pct": -8.686604831292666,
+            "profit_factor": 0.45350211023668136,
+            "maximum_drawdown_pct": 9.904160870050719
+          }
+        },
+        "XLE": {
+          "train": {
+            "trades": 64,
+            "net_pnl_usd": -411.7443797263787,
+            "return_pct": -41.17443797263787,
+            "profit_factor": 0.4094896543934343,
+            "maximum_drawdown_pct": 42.10875463387756
+          },
+          "validation": {
+            "trades": 35,
+            "net_pnl_usd": -34.8918418973916,
+            "return_pct": -3.4891841897391584,
+            "profit_factor": 0.8820876155975811,
+            "maximum_drawdown_pct": 9.182013841435044
+          }
+        },
+        "XLF": {
+          "train": {
+            "trades": 94,
+            "net_pnl_usd": -225.71707086819902,
+            "return_pct": -22.571707086819902,
+            "profit_factor": 0.6415131144436925,
+            "maximum_drawdown_pct": 24.3585407950805
+          },
+          "validation": {
+            "trades": 25,
+            "net_pnl_usd": -57.126369895105654,
+            "return_pct": -5.712636989510567,
+            "profit_factor": 0.706575886702724,
+            "maximum_drawdown_pct": 9.278774273523297
+          }
+        }
+      },
+      "pooled": {
+        "train": {
+          "trades": 874,
+          "profit_factor": 0.8704008585016678,
+          "return_pct": -10.466734291469972,
+          "maximum_drawdown_pct": 42.10875463387756
+        },
+        "validation": {
+          "trades": 284,
+          "profit_factor": 1.186620069998188,
+          "return_pct": 5.57532264854037,
+          "maximum_drawdown_pct": 30.607118113809495
+        }
+      },
+      "checks": {
+        "train_pf": false,
+        "train_trades": true,
+        "positive_assets": true,
+        "strong_assets": true,
+        "validation_pf": true,
+        "validation_trades": true,
+        "validation_drawdown": false
+      },
+      "positive_assets": 4,
+      "strong_assets": 3
+    },
+    {
+      "variant": {
+        "family": "trend_pullback",
+        "sma": 100,
+        "down_days": 2,
+        "hold_days": 5
+      },
+      "assets": {
+        "AAPL": {
+          "train": {
+            "trades": 92,
+            "net_pnl_usd": 263.70822250000924,
+            "return_pct": 26.370822250000913,
+            "profit_factor": 1.2024031535761437,
+            "maximum_drawdown_pct": 23.35229293078426
+          },
+          "validation": {
+            "trades": 29,
+            "net_pnl_usd": -28.14921499999673,
+            "return_pct": -2.8149214999996675,
+            "profit_factor": 0.943440430849426,
+            "maximum_drawdown_pct": 25.040451162672095
+          }
+        },
+        "AMZN": {
+          "train": {
+            "trades": 71,
+            "net_pnl_usd": -197.43795092772802,
+            "return_pct": -19.7437950927728,
+            "profit_factor": 0.8216041111683584,
+            "maximum_drawdown_pct": 33.18322257451353
+          },
+          "validation": {
+            "trades": 24,
+            "net_pnl_usd": -36.00516670226921,
+            "return_pct": -3.6005166702269165,
+            "profit_factor": 0.881158785055566,
+            "maximum_drawdown_pct": 12.680668620300276
+          }
+        },
+        "GOOG": {
+          "train": {
+            "trades": 78,
+            "net_pnl_usd": 227.23716465694588,
+            "return_pct": 22.7237164656946,
+            "profit_factor": 1.288995434540808,
+            "maximum_drawdown_pct": 14.311673054010313
+          },
+          "validation": {
+            "trades": 22,
+            "net_pnl_usd": -281.3805919565714,
+            "return_pct": -28.13805919565714,
+            "profit_factor": 0.4621373447094707,
+            "maximum_drawdown_pct": 30.58990963073184
+          }
+        },
+        "META": {
+          "train": {
+            "trades": 77,
+            "net_pnl_usd": -83.97925676452257,
+            "return_pct": -8.397925676452257,
+            "profit_factor": 0.9098948530159967,
+            "maximum_drawdown_pct": 30.377614791287954
+          },
+          "validation": {
+            "trades": 24,
+            "net_pnl_usd": 726.9761731961025,
+            "return_pct": 72.69761731961026,
+            "profit_factor": 3.0551240928592227,
+            "maximum_drawdown_pct": 9.731464935405723
+          }
+        },
+        "NVDA": {
+          "train": {
+            "trades": 81,
+            "net_pnl_usd": 1228.6559152493055,
+            "return_pct": 122.86559152493055,
+            "profit_factor": 1.688939954588221,
+            "maximum_drawdown_pct": 31.61051465631481
+          },
+          "validation": {
+            "trades": 32,
+            "net_pnl_usd": 2838.458957298977,
+            "return_pct": 283.84589572989773,
+            "profit_factor": 3.19865342400794,
+            "maximum_drawdown_pct": 39.05969210500143
+          }
+        },
+        "EEM": {
+          "train": {
+            "trades": 59,
+            "net_pnl_usd": -0.9765391323052199,
+            "return_pct": -0.09765391323052208,
+            "profit_factor": 0.9979649590625592,
+            "maximum_drawdown_pct": 18.291412812261417
+          },
+          "validation": {
+            "trades": 16,
+            "net_pnl_usd": -132.296893515766,
+            "return_pct": -13.229689351576601,
+            "profit_factor": 0.36779235420655254,
+            "maximum_drawdown_pct": 16.126524936217464
+          }
+        },
+        "EFA": {
+          "train": {
+            "trades": 66,
+            "net_pnl_usd": -234.06705466720507,
+            "return_pct": -23.406705466720513,
+            "profit_factor": 0.5116195391455616,
+            "maximum_drawdown_pct": 25.451933603717308
+          },
+          "validation": {
+            "trades": 23,
+            "net_pnl_usd": -98.28972943553299,
+            "return_pct": -9.828972943553293,
+            "profit_factor": 0.4544242076472474,
+            "maximum_drawdown_pct": 11.030881020542665
+          }
+        },
+        "IWM": {
+          "train": {
+            "trades": 69,
+            "net_pnl_usd": -78.12153564416963,
+            "return_pct": -7.812153564416957,
+            "profit_factor": 0.8714743027815866,
+            "maximum_drawdown_pct": 24.599519264865037
+          },
+          "validation": {
+            "trades": 16,
+            "net_pnl_usd": -87.36380231707949,
+            "return_pct": -8.736380231707951,
+            "profit_factor": 0.5969586369930785,
+            "maximum_drawdown_pct": 15.078418276666214
+          }
+        },
+        "XLE": {
+          "train": {
+            "trades": 52,
+            "net_pnl_usd": -349.28327096944986,
+            "return_pct": -34.92832709694499,
+            "profit_factor": 0.4976175907513466,
+            "maximum_drawdown_pct": 38.40304299656478
+          },
+          "validation": {
+            "trades": 28,
+            "net_pnl_usd": 3.6089986865249557,
+            "return_pct": 0.3608998686524867,
+            "profit_factor": 1.0106826831652218,
+            "maximum_drawdown_pct": 15.367563205030924
+          }
+        },
+        "XLF": {
+          "train": {
+            "trades": 79,
+            "net_pnl_usd": -164.72917031955137,
+            "return_pct": -16.472917031955138,
+            "profit_factor": 0.7755527822171461,
+            "maximum_drawdown_pct": 28.10132921872224
+          },
+          "validation": {
+            "trades": 20,
+            "net_pnl_usd": -65.17226372534628,
+            "return_pct": -6.517226372534624,
+            "profit_factor": 0.7477708829864401,
+            "maximum_drawdown_pct": 11.4416523046748
+          }
+        }
+      },
+      "pooled": {
+        "train": {
+          "trades": 724,
+          "profit_factor": 1.0685946911958895,
+          "return_pct": 6.110065239813289,
+          "maximum_drawdown_pct": 38.40304299656478
+        },
+        "validation": {
+          "trades": 234,
+          "profit_factor": 1.6809934144766028,
+          "return_pct": 28.403864665290428,
+          "maximum_drawdown_pct": 39.05969210500143
+        }
+      },
+      "checks": {
+        "train_pf": true,
+        "train_trades": true,
+        "positive_assets": false,
+        "strong_assets": false,
+        "validation_pf": true,
+        "validation_trades": true,
+        "validation_drawdown": false
+      },
+      "positive_assets": 3,
+      "strong_assets": 2
+    },
+    {
+      "variant": {
+        "family": "trend_pullback",
+        "sma": 100,
+        "down_days": 2,
+        "hold_days": 10
+      },
+      "assets": {
+        "AAPL": {
+          "train": {
+            "trades": 58,
+            "net_pnl_usd": 604.4501222500055,
+            "return_pct": 60.44501222500056,
+            "profit_factor": 1.3940870263182221,
+            "maximum_drawdown_pct": 17.924606769338745
+          },
+          "validation": {
+            "trades": 20,
+            "net_pnl_usd": -47.93425699999716,
+            "return_pct": -4.7934256999997205,
+            "profit_factor": 0.9260342514266109,
+            "maximum_drawdown_pct": 31.911678179352087
+          }
+        },
+        "AMZN": {
+          "train": {
+            "trades": 50,
+            "net_pnl_usd": 657.2362919387879,
+            "return_pct": 65.72362919387879,
+            "profit_factor": 1.548275438495718,
+            "maximum_drawdown_pct": 19.663535344305778
+          },
+          "validation": {
+            "trades": 17,
+            "net_pnl_usd": 147.36423014068828,
+            "return_pct": 14.736423014068833,
+            "profit_factor": 1.2669099517551297,
+            "maximum_drawdown_pct": 39.30644331283567
+          }
+        },
+        "GOOG": {
+          "train": {
+            "trades": 57,
+            "net_pnl_usd": 473.75967271684317,
+            "return_pct": 47.37596727168432,
+            "profit_factor": 1.5943434096629188,
+            "maximum_drawdown_pct": 16.691665624527214
+          },
+          "validation": {
+            "trades": 17,
+            "net_pnl_usd": -218.40533932312064,
+            "return_pct": -21.840533932312066,
+            "profit_factor": 0.6325774871285762,
+            "maximum_drawdown_pct": 35.107601953202234
+          }
+        },
+        "META": {
+          "train": {
+            "trades": 51,
+            "net_pnl_usd": 80.05953512410474,
+            "return_pct": 8.005953512410468,
+            "profit_factor": 1.0853020238517215,
+            "maximum_drawdown_pct": 36.69492842482763
+          },
+          "validation": {
+            "trades": 16,
+            "net_pnl_usd": 920.3556982241196,
+            "return_pct": 92.03556982241197,
+            "profit_factor": 2.7750740342297884,
+            "maximum_drawdown_pct": 13.580415609979447
+          }
+        },
+        "NVDA": {
+          "train": {
+            "trades": 62,
+            "net_pnl_usd": 1729.2251637943032,
+            "return_pct": 172.9225163794303,
+            "profit_factor": 1.9281172217118039,
+            "maximum_drawdown_pct": 29.297028958564496
+          },
+          "validation": {
+            "trades": 20,
+            "net_pnl_usd": 1546.1999052205301,
+            "return_pct": 154.61999052205303,
+            "profit_factor": 1.729960820683481,
+            "maximum_drawdown_pct": 94.4577142946159
+          }
+        },
+        "EEM": {
+          "train": {
+            "trades": 43,
+            "net_pnl_usd": 56.32474877012214,
+            "return_pct": 5.632474877012217,
+            "profit_factor": 1.096911026332837,
+            "maximum_drawdown_pct": 20.347517925651033
+          },
+          "validation": {
+            "trades": 13,
+            "net_pnl_usd": -50.41950229384213,
+            "return_pct": -5.041950229384218,
+            "profit_factor": 0.6954232978969769,
+            "maximum_drawdown_pct": 10.336216604369051
+          }
+        },
+        "EFA": {
+          "train": {
+            "trades": 47,
+            "net_pnl_usd": -149.06324829045866,
+            "return_pct": -14.90632482904587,
+            "profit_factor": 0.6842074973578335,
+            "maximum_drawdown_pct": 28.044922085805226
+          },
+          "validation": {
+            "trades": 19,
+            "net_pnl_usd": -71.8608255936881,
+            "return_pct": -7.186082559368812,
+            "profit_factor": 0.6243070267309183,
+            "maximum_drawdown_pct": 9.508288583286047
+          }
+        },
+        "IWM": {
+          "train": {
+            "trades": 54,
+            "net_pnl_usd": -184.1680619446479,
+            "return_pct": -18.416806194464787,
+            "profit_factor": 0.7532324475069331,
+            "maximum_drawdown_pct": 34.55599453880805
+          },
+          "validation": {
+            "trades": 13,
+            "net_pnl_usd": -32.871670865336796,
+            "return_pct": -3.287167086533682,
+            "profit_factor": 0.8541089977418557,
+            "maximum_drawdown_pct": 11.899092723124314
+          }
+        },
+        "XLE": {
+          "train": {
+            "trades": 37,
+            "net_pnl_usd": -299.5199956510031,
+            "return_pct": -29.95199956510031,
+            "profit_factor": 0.5898617542254398,
+            "maximum_drawdown_pct": 41.72388165200368
+          },
+          "validation": {
+            "trades": 23,
+            "net_pnl_usd": 357.44578587146043,
+            "return_pct": 35.74457858714604,
+            "profit_factor": 1.8090443131598513,
+            "maximum_drawdown_pct": 12.537105182575692
+          }
+        },
+        "XLF": {
+          "train": {
+            "trades": 57,
+            "net_pnl_usd": -190.52510239649473,
+            "return_pct": -19.05251023964948,
+            "profit_factor": 0.7576503294716489,
+            "maximum_drawdown_pct": 42.75549619400939
+          },
+          "validation": {
+            "trades": 17,
+            "net_pnl_usd": -154.0954103321909,
+            "return_pct": -15.409541033219087,
+            "profit_factor": 0.5379494796649805,
+            "maximum_drawdown_pct": 19.539204008474513
+          }
+        }
+      },
+      "pooled": {
+        "train": {
+          "trades": 516,
+          "profit_factor": 1.2879320503348715,
+          "return_pct": 27.77779126311562,
+          "maximum_drawdown_pct": 42.75549619400939
+        },
+        "validation": {
+          "trades": 175,
+          "profit_factor": 1.4138694917898162,
+          "return_pct": 23.957786140486228,
+          "maximum_drawdown_pct": 94.4577142946159
+        }
+      },
+      "checks": {
+        "train_pf": true,
+        "train_trades": true,
+        "positive_assets": true,
+        "strong_assets": true,
+        "validation_pf": true,
+        "validation_trades": true,
+        "validation_drawdown": false
+      },
+      "positive_assets": 4,
+      "strong_assets": 4
+    },
+    {
+      "variant": {
+        "family": "trend_pullback",
+        "sma": 100,
+        "down_days": 3,
+        "hold_days": 3
+      },
+      "assets": {
+        "AAPL": {
+          "train": {
+            "trades": 49,
+            "net_pnl_usd": 29.98844225000539,
+            "return_pct": 2.998844225000541,
+            "profit_factor": 1.0501264586251386,
+            "maximum_drawdown_pct": 28.91610568244235
+          },
+          "validation": {
+            "trades": 17,
+            "net_pnl_usd": 37.4969280000023,
+            "return_pct": 3.749692800000237,
+            "profit_factor": 1.3059928043202298,
+            "maximum_drawdown_pct": 3.8347171083910663
+          }
+        },
+        "AMZN": {
+          "train": {
+            "trades": 40,
+            "net_pnl_usd": 13.349921760565167,
+            "return_pct": 1.3349921760565264,
+            "profit_factor": 1.0239151492968754,
+            "maximum_drawdown_pct": 18.810174563721894
+          },
+          "validation": {
+            "trades": 9,
+            "net_pnl_usd": -56.0320781631458,
+            "return_pct": -5.6032078163145815,
+            "profit_factor": 0.6475685609232913,
+            "maximum_drawdown_pct": 9.480482001873689
+          }
+        },
+        "GOOG": {
+          "train": {
+            "trades": 47,
+            "net_pnl_usd": -41.517489754365556,
+            "return_pct": -4.151748975436553,
+            "profit_factor": 0.9123511883336171,
+            "maximum_drawdown_pct": 20.032847509957314
+          },
+          "validation": {
+            "trades": 12,
+            "net_pnl_usd": -12.586196685109599,
+            "return_pct": -1.258619668510963,
+            "profit_factor": 0.9154256765701428,
+            "maximum_drawdown_pct": 9.89071487798259
+          }
+        },
+        "META": {
+          "train": {
+            "trades": 43,
+            "net_pnl_usd": 221.860323998412,
+            "return_pct": 22.186032399841203,
+            "profit_factor": 1.6095000215594977,
+            "maximum_drawdown_pct": 9.72604502893207
+          },
+          "validation": {
+            "trades": 12,
+            "net_pnl_usd": 235.7815403777647,
+            "return_pct": 23.57815403777648,
+            "profit_factor": 2.6390299285097356,
+            "maximum_drawdown_pct": 5.390873681547748
+          }
+        },
+        "NVDA": {
+          "train": {
+            "trades": 41,
+            "net_pnl_usd": -87.98254173997589,
+            "return_pct": -8.798254173997588,
+            "profit_factor": 0.8802928087681321,
+            "maximum_drawdown_pct": 40.324775574999435
+          },
+          "validation": {
+            "trades": 19,
+            "net_pnl_usd": 1191.5193853480482,
+            "return_pct": 119.15193853480481,
+            "profit_factor": 11.29713955769082,
+            "maximum_drawdown_pct": 3.004768609642504
+          }
+        },
+        "EEM": {
+          "train": {
+            "trades": 27,
+            "net_pnl_usd": -68.83035569848357,
+            "return_pct": -6.883035569848362,
+            "profit_factor": 0.6871047919295351,
+            "maximum_drawdown_pct": 8.271539377606576
+          },
+          "validation": {
+            "trades": 9,
+            "net_pnl_usd": -96.88801763579318,
+            "return_pct": -9.688801763579313,
+            "profit_factor": 0.1397189828179354,
+            "maximum_drawdown_pct": 10.43614683203141
+          }
+        },
+        "EFA": {
+          "train": {
+            "trades": 28,
+            "net_pnl_usd": -64.64198945203611,
+            "return_pct": -6.464198945203615,
+            "profit_factor": 0.6495771531142243,
+            "maximum_drawdown_pct": 12.801041473642716
+          },
+          "validation": {
+            "trades": 9,
+            "net_pnl_usd": -45.16334978315081,
+            "return_pct": -4.516334978315085,
+            "profit_factor": 0.17855758374932726,
+            "maximum_drawdown_pct": 4.516334978315081
+          }
+        },
+        "IWM": {
+          "train": {
+            "trades": 30,
+            "net_pnl_usd": -221.25634866415726,
+            "return_pct": -22.125634866415723,
+            "profit_factor": 0.26881707988670617,
+            "maximum_drawdown_pct": 22.670850798190475
+          },
+          "validation": {
+            "trades": 7,
+            "net_pnl_usd": -59.29666653501886,
+            "return_pct": -5.9296666535018865,
+            "profit_factor": 0.10485137303055103,
+            "maximum_drawdown_pct": 5.9296666535018865
+          }
+        },
+        "XLE": {
+          "train": {
+            "trades": 32,
+            "net_pnl_usd": -78.2878449494882,
+            "return_pct": -7.828784494948815,
+            "profit_factor": 0.7591938204308426,
+            "maximum_drawdown_pct": 12.825446129343163
+          },
+          "validation": {
+            "trades": 20,
+            "net_pnl_usd": 173.5821619956148,
+            "return_pct": 17.358216199561483,
+            "profit_factor": 1.7308802075722454,
+            "maximum_drawdown_pct": 12.56993897360629
+          }
+        },
+        "XLF": {
+          "train": {
+            "trades": 40,
+            "net_pnl_usd": -83.60438631135094,
+            "return_pct": -8.360438631135093,
+            "profit_factor": 0.784851437679114,
+            "maximum_drawdown_pct": 17.235371203046984
+          },
+          "validation": {
+            "trades": 12,
+            "net_pnl_usd": -94.52403912907118,
+            "return_pct": -9.452403912907116,
+            "profit_factor": 0.38505786682477405,
+            "maximum_drawdown_pct": 12.424705654280729
+          }
+        }
+      },
+      "pooled": {
+        "train": {
+          "trades": 377,
+          "profit_factor": 0.9082089695272655,
+          "return_pct": -3.8092226856087477,
+          "maximum_drawdown_pct": 40.324775574999435
+        },
+        "validation": {
+          "trades": 126,
+          "profit_factor": 1.968758640117926,
+          "return_pct": 12.738896677901407,
+          "maximum_drawdown_pct": 12.56993897360629
+        }
+      },
+      "checks": {
+        "train_pf": false,
+        "train_trades": true,
+        "positive_assets": true,
+        "strong_assets": true,
+        "validation_pf": true,
+        "validation_trades": true,
+        "validation_drawdown": true
+      },
+      "positive_assets": 4,
+      "strong_assets": 4
+    },
+    {
+      "variant": {
+        "family": "trend_pullback",
+        "sma": 100,
+        "down_days": 3,
+        "hold_days": 5
+      },
+      "assets": {
+        "AAPL": {
+          "train": {
+            "trades": 46,
+            "net_pnl_usd": 317.16654800000447,
+            "return_pct": 31.716654800000455,
+            "profit_factor": 1.517596555255528,
+            "maximum_drawdown_pct": 10.553895459564258
+          },
+          "validation": {
+            "trades": 15,
+            "net_pnl_usd": -102.1633119999974,
+            "return_pct": -10.21633119999974,
+            "profit_factor": 0.6006911836546549,
+            "maximum_drawdown_pct": 11.897403199999872
+          }
+        },
+        "AMZN": {
+          "train": {
+            "trades": 36,
+            "net_pnl_usd": 370.3094360313478,
+            "return_pct": 37.03094360313477,
+            "profit_factor": 1.6407296285689619,
+            "maximum_drawdown_pct": 14.237913202370061
+          },
+          "validation": {
+            "trades": 8,
+            "net_pnl_usd": -49.85923594665394,
+            "return_pct": -4.9859235946653975,
+            "profit_factor": 0.7085758622971141,
+            "maximum_drawdown_pct": 9.504572130670054
+          }
+        },
+        "GOOG": {
+          "train": {
+            "trades": 45,
+            "net_pnl_usd": 429.9415231251337,
+            "return_pct": 42.99415231251338,
+            "profit_factor": 2.037476148938313,
+            "maximum_drawdown_pct": 8.992976381846903
+          },
+          "validation": {
+            "trades": 11,
+            "net_pnl_usd": 177.75463687983756,
+            "return_pct": 17.775463687983752,
+            "profit_factor": 1.9612273869442534,
+            "maximum_drawdown_pct": 11.179533384302037
+          }
+        },
+        "META": {
+          "train": {
+            "trades": 38,
+            "net_pnl_usd": 237.83116784557183,
+            "return_pct": 23.78311678455718,
+            "profit_factor": 1.5074183483009662,
+            "maximum_drawdown_pct": 16.047230275040526
+          },
+          "validation": {
+            "trades": 10,
+            "net_pnl_usd": 212.72171330841547,
+            "return_pct": 21.272171330841537,
+            "profit_factor": 2.485516281141019,
+            "maximum_drawdown_pct": 6.810697396349902
+          }
+        },
+        "NVDA": {
+          "train": {
+            "trades": 40,
+            "net_pnl_usd": -9.074665802925097,
+            "return_pct": -0.9074665802925042,
+            "profit_factor": 0.9906418370544858,
+            "maximum_drawdown_pct": 41.14342807446491
+          },
+          "validation": {
+            "trades": 19,
+            "net_pnl_usd": 441.39806995910544,
+            "return_pct": 44.13980699591053,
+            "profit_factor": 2.0947203611668868,
+            "maximum_drawdown_pct": 11.015360852213115
+          }
+        },
+        "EEM": {
+          "train": {
+            "trades": 25,
+            "net_pnl_usd": 27.268065122699454,
+            "return_pct": 2.7268065122699525,
+            "profit_factor": 1.132579481047098,
+            "maximum_drawdown_pct": 7.738868138633907
+          },
+          "validation": {
+            "trades": 8,
+            "net_pnl_usd": -81.1490336989034,
+            "return_pct": -8.114903369890335,
+            "profit_factor": 0.3273948693946194,
+            "maximum_drawdown_pct": 9.546610654491019
+          }
+        },
+        "EFA": {
+          "train": {
+            "trades": 28,
+            "net_pnl_usd": -120.10348714935981,
+            "return_pct": -12.010348714935981,
+            "profit_factor": 0.5008400544044757,
+            "maximum_drawdown_pct": 13.97063736413095
+          },
+          "validation": {
+            "trades": 9,
+            "net_pnl_usd": 6.139441135552829,
+            "return_pct": 0.613944113555287,
+            "profit_factor": 1.2504177252958149,
+            "maximum_drawdown_pct": 1.6705420308100654
+          }
+        },
+        "IWM": {
+          "train": {
+            "trades": 28,
+            "net_pnl_usd": 43.858934992104196,
+            "return_pct": 4.385893499210414,
+            "profit_factor": 1.1827861120201515,
+            "maximum_drawdown_pct": 11.403060638559817
+          },
+          "validation": {
+            "trades": 7,
+            "net_pnl_usd": -69.71917672267625,
+            "return_pct": -6.971917672267624,
+            "profit_factor": 0.2765714075674027,
+            "maximum_drawdown_pct": 7.220743411114016
+          }
+        },
+        "XLE": {
+          "train": {
+            "trades": 30,
+            "net_pnl_usd": -94.69223154073813,
+            "return_pct": -9.469223154073813,
+            "profit_factor": 0.7573658274524715,
+            "maximum_drawdown_pct": 15.57426966247537
+          },
+          "validation": {
+            "trades": 18,
+            "net_pnl_usd": 268.5400118535156,
+            "return_pct": 26.85400118535155,
+            "profit_factor": 1.8455765971932436,
+            "maximum_drawdown_pct": 13.493518968982496
+          }
+        },
+        "XLF": {
+          "train": {
+            "trades": 37,
+            "net_pnl_usd": 160.62888035916671,
+            "return_pct": 16.062888035916668,
+            "profit_factor": 1.5265509601553438,
+            "maximum_drawdown_pct": 8.411509359640116
+          },
+          "validation": {
+            "trades": 11,
+            "net_pnl_usd": 72.26630797670009,
+            "return_pct": 7.226630797670008,
+            "profit_factor": 1.57458117325388,
+            "maximum_drawdown_pct": 8.811405500286666
+          }
+        }
+      },
+      "pooled": {
+        "train": {
+          "trades": 353,
+          "profit_factor": 1.3080459562681928,
+          "return_pct": 13.631341709830053,
+          "maximum_drawdown_pct": 41.14342807446491
+        },
+        "validation": {
+          "trades": 116,
+          "profit_factor": 1.4752324857252148,
+          "return_pct": 8.759294227448958,
+          "maximum_drawdown_pct": 13.493518968982496
+        }
+      },
+      "checks": {
+        "train_pf": true,
+        "train_trades": true,
+        "positive_assets": true,
+        "strong_assets": true,
+        "validation_pf": true,
+        "validation_trades": true,
+        "validation_drawdown": true
+      },
+      "positive_assets": 6,
+      "strong_assets": 6
+    },
+    {
+      "variant": {
+        "family": "trend_pullback",
+        "sma": 100,
+        "down_days": 3,
+        "hold_days": 10
+      },
+      "assets": {
+        "AAPL": {
+          "train": {
+            "trades": 36,
+            "net_pnl_usd": 32.28916125000478,
+            "return_pct": 3.2289161250004694,
+            "profit_factor": 1.0472575769347785,
+            "maximum_drawdown_pct": 23.957717112962868
+          },
+          "validation": {
+            "trades": 14,
+            "net_pnl_usd": -131.04111699999828,
+            "return_pct": -13.104111699999832,
+            "profit_factor": 0.594516530777129,
+            "maximum_drawdown_pct": 17.19282143233398
+          }
+        },
+        "AMZN": {
+          "train": {
+            "trades": 29,
+            "net_pnl_usd": 108.89637533569771,
+            "return_pct": 10.889637533569774,
+            "profit_factor": 1.1095206778445008,
+            "maximum_drawdown_pct": 24.48790512362165
+          },
+          "validation": {
+            "trades": 8,
+            "net_pnl_usd": -111.24744400787267,
+            "return_pct": -11.124744400787268,
+            "profit_factor": 0.5165610976789067,
+            "maximum_drawdown_pct": 15.176954804229695
+          }
+        },
+        "GOOG": {
+          "train": {
+            "trades": 35,
+            "net_pnl_usd": 498.6616233581269,
+            "return_pct": 49.86616233581269,
+            "profit_factor": 1.7533415651419222,
+            "maximum_drawdown_pct": 15.60069758645419
+          },
+          "validation": {
+            "trades": 9,
+            "net_pnl_usd": 224.58598037544834,
+            "return_pct": 22.458598037544842,
+            "profit_factor": 2.591603403050678,
+            "maximum_drawdown_pct": 6.475981812946833
+          }
+        },
+        "META": {
+          "train": {
+            "trades": 33,
+            "net_pnl_usd": 444.0414862769162,
+            "return_pct": 44.40414862769162,
+            "profit_factor": 1.5865930764166813,
+            "maximum_drawdown_pct": 20.44843816620151
+          },
+          "validation": {
+            "trades": 9,
+            "net_pnl_usd": 592.3586338991154,
+            "return_pct": 59.235863389911536,
+            "profit_factor": 7.250737514906784,
+            "maximum_drawdown_pct": 5.489656781049644
+          }
+        },
+        "NVDA": {
+          "train": {
+            "trades": 33,
+            "net_pnl_usd": 248.90833973249937,
+            "return_pct": 24.890833973249936,
+            "profit_factor": 1.2167789474771888,
+            "maximum_drawdown_pct": 43.12087492384515
+          },
+          "validation": {
+            "trades": 15,
+            "net_pnl_usd": 707.4134084414334,
+            "return_pct": 70.74134084414334,
+            "profit_factor": 2.349084424571303,
+            "maximum_drawdown_pct": 15.574661166347356
+          }
+        },
+        "EEM": {
+          "train": {
+            "trades": 22,
+            "net_pnl_usd": 85.72300847461997,
+            "return_pct": 8.572300847461989,
+            "profit_factor": 1.395150007628636,
+            "maximum_drawdown_pct": 8.390735341738356
+          },
+          "validation": {
+            "trades": 8,
+            "net_pnl_usd": -134.1961601866509,
+            "return_pct": -13.419616018665092,
+            "profit_factor": 0.13275170398573646,
+            "maximum_drawdown_pct": 15.373955477374649
+          }
+        },
+        "EFA": {
+          "train": {
+            "trades": 25,
+            "net_pnl_usd": -56.08848714861779,
+            "return_pct": -5.6088487148617805,
+            "profit_factor": 0.7967198581375249,
+            "maximum_drawdown_pct": 16.41473630601671
+          },
+          "validation": {
+            "trades": 7,
+            "net_pnl_usd": -60.92254202649747,
+            "return_pct": -6.09225420264975,
+            "profit_factor": 0.205925271388199,
+            "maximum_drawdown_pct": 6.092254202649746
+          }
+        },
+        "IWM": {
+          "train": {
+            "trades": 27,
+            "net_pnl_usd": 148.11510431820466,
+            "return_pct": 14.811510431820473,
+            "profit_factor": 1.5031138078339847,
+            "maximum_drawdown_pct": 10.957140896543015
+          },
+          "validation": {
+            "trades": 6,
+            "net_pnl_usd": -40.05168231734365,
+            "return_pct": -4.005168231734368,
+            "profit_factor": 0.7405030456288393,
+            "maximum_drawdown_pct": 8.717846787846094
+          }
+        },
+        "XLE": {
+          "train": {
+            "trades": 26,
+            "net_pnl_usd": -96.76411750360421,
+            "return_pct": -9.676411750360426,
+            "profit_factor": 0.7973572827523653,
+            "maximum_drawdown_pct": 31.797705761174065
+          },
+          "validation": {
+            "trades": 16,
+            "net_pnl_usd": 360.3505570385198,
+            "return_pct": 36.03505570385197,
+            "profit_factor": 1.7747601018770367,
+            "maximum_drawdown_pct": 13.778403691506147
+          }
+        },
+        "XLF": {
+          "train": {
+            "trades": 32,
+            "net_pnl_usd": 201.741489260889,
+            "return_pct": 20.174148926088908,
+            "profit_factor": 1.38044056555845,
+            "maximum_drawdown_pct": 20.489069407050017
+          },
+          "validation": {
+            "trades": 11,
+            "net_pnl_usd": -86.53363660962214,
+            "return_pct": -8.65336366096221,
+            "profit_factor": 0.6336271214831977,
+            "maximum_drawdown_pct": 17.383389895207483
+          }
+        }
+      },
+      "pooled": {
+        "train": {
+          "trades": 298,
+          "profit_factor": 1.2674826005482076,
+          "return_pct": 16.155239833547363,
+          "maximum_drawdown_pct": 43.12087492384515
+        },
+        "validation": {
+          "trades": 103,
+          "profit_factor": 1.5501531709372542,
+          "return_pct": 13.207159976065316,
+          "maximum_drawdown_pct": 17.383389895207483
+        }
+      },
+      "checks": {
+        "train_pf": true,
+        "train_trades": true,
+        "positive_assets": true,
+        "strong_assets": true,
+        "validation_pf": true,
+        "validation_trades": true,
+        "validation_drawdown": true
+      },
+      "positive_assets": 4,
+      "strong_assets": 4
+    },
+    {
+      "variant": {
+        "family": "trend_pullback",
+        "sma": 150,
+        "down_days": 2,
+        "hold_days": 3
+      },
+      "assets": {
+        "AAPL": {
+          "train": {
+            "trades": 108,
+            "net_pnl_usd": -35.38807374999021,
+            "return_pct": -3.53880737499902,
+            "profit_factor": 0.9657039888733044,
+            "maximum_drawdown_pct": 26.302014295631203
+          },
+          "validation": {
+            "trades": 43,
+            "net_pnl_usd": -125.226825999997,
+            "return_pct": -12.522682599999701,
+            "profit_factor": 0.7337555120203524,
+            "maximum_drawdown_pct": 16.4312714999999
+          }
+        },
+        "AMZN": {
+          "train": {
+            "trades": 94,
+            "net_pnl_usd": -114.11852743910845,
+            "return_pct": -11.411852743910844,
+            "profit_factor": 0.891512323867049,
+            "maximum_drawdown_pct": 30.789626238977814
+          },
+          "validation": {
+            "trades": 18,
+            "net_pnl_usd": 78.58103750610508,
+            "return_pct": 7.858103750610512,
+            "profit_factor": 1.4835439911611494,
+            "maximum_drawdown_pct": 9.016385873638882
+          }
+        },
+        "GOOG": {
+          "train": {
+            "trades": 106,
+            "net_pnl_usd": 10.536672278500419,
+            "return_pct": 1.0536672278500525,
+            "profit_factor": 1.0111593268389993,
+            "maximum_drawdown_pct": 28.153235037002034
+          },
+          "validation": {
+            "trades": 24,
+            "net_pnl_usd": -268.6556063692981,
+            "return_pct": -26.865560636929807,
+            "profit_factor": 0.25244471596190016,
+            "maximum_drawdown_pct": 26.865560636929807
+          }
+        },
+        "META": {
+          "train": {
+            "trades": 101,
+            "net_pnl_usd": 109.25796593236578,
+            "return_pct": 10.92579659323658,
+            "profit_factor": 1.1052442807245606,
+            "maximum_drawdown_pct": 21.91900182341204
+          },
+          "validation": {
+            "trades": 30,
+            "net_pnl_usd": 431.67585641310984,
+            "return_pct": 43.16758564131098,
+            "profit_factor": 2.629833209618113,
+            "maximum_drawdown_pct": 6.146589404628376
+          }
+        },
+        "NVDA": {
+          "train": {
+            "trades": 100,
+            "net_pnl_usd": 79.07027046248322,
+            "return_pct": 7.907027046248327,
+            "profit_factor": 1.048470090005326,
+            "maximum_drawdown_pct": 41.21406421496651
+          },
+          "validation": {
+            "trades": 38,
+            "net_pnl_usd": 626.8172187550742,
+            "return_pct": 62.68172187550742,
+            "profit_factor": 1.925323151344406,
+            "maximum_drawdown_pct": 18.003029895030775
+          }
+        },
+        "EEM": {
+          "train": {
+            "trades": 68,
+            "net_pnl_usd": -141.51678951204588,
+            "return_pct": -14.151678951204582,
+            "profit_factor": 0.7445668769159727,
+            "maximum_drawdown_pct": 24.74120438715718
+          },
+          "validation": {
+            "trades": 21,
+            "net_pnl_usd": -105.95013757032916,
+            "return_pct": -10.595013757032913,
+            "profit_factor": 0.40054285589005933,
+            "maximum_drawdown_pct": 10.595013757032916
+          }
+        },
+        "EFA": {
+          "train": {
+            "trades": 78,
+            "net_pnl_usd": -202.96256862615814,
+            "return_pct": -20.296256862615813,
+            "profit_factor": 0.5556231088171536,
+            "maximum_drawdown_pct": 22.800209439584318
+          },
+          "validation": {
+            "trades": 30,
+            "net_pnl_usd": -152.14881937678558,
+            "return_pct": -15.214881937678559,
+            "profit_factor": 0.22401767522524366,
+            "maximum_drawdown_pct": 16.339639525792524
+          }
+        },
+        "IWM": {
+          "train": {
+            "trades": 91,
+            "net_pnl_usd": -334.28313849228266,
+            "return_pct": -33.42831384922826,
+            "profit_factor": 0.5508239840916175,
+            "maximum_drawdown_pct": 34.95276822030354
+          },
+          "validation": {
+            "trades": 20,
+            "net_pnl_usd": -94.24437875793046,
+            "return_pct": -9.424437875793046,
+            "profit_factor": 0.405185753803887,
+            "maximum_drawdown_pct": 9.884481644981962
+          }
+        },
+        "XLE": {
+          "train": {
+            "trades": 63,
+            "net_pnl_usd": -425.9586072712668,
+            "return_pct": -42.59586072712668,
+            "profit_factor": 0.3698837831281916,
+            "maximum_drawdown_pct": 43.48480472191678
+          },
+          "validation": {
+            "trades": 43,
+            "net_pnl_usd": -135.8593547510369,
+            "return_pct": -13.585935475103694,
+            "profit_factor": 0.6737866382709542,
+            "maximum_drawdown_pct": 18.74476023832135
+          }
+        },
+        "XLF": {
+          "train": {
+            "trades": 90,
+            "net_pnl_usd": -253.26554111428607,
+            "return_pct": -25.326554111428614,
+            "profit_factor": 0.5929754392521351,
+            "maximum_drawdown_pct": 31.453329993140667
+          },
+          "validation": {
+            "trades": 24,
+            "net_pnl_usd": -110.56031137383206,
+            "return_pct": -11.056031137383204,
+            "profit_factor": 0.4499038786893155,
+            "maximum_drawdown_pct": 13.776312628834756
+          }
+        }
+      },
+      "pooled": {
+        "train": {
+          "trades": 899,
+          "profit_factor": 0.8504530558992038,
+          "return_pct": -13.086283375317885,
+          "maximum_drawdown_pct": 43.48480472191678
+        },
+        "validation": {
+          "trades": 291,
+          "profit_factor": 1.0468435435946915,
+          "return_pct": 1.4442867847507987,
+          "maximum_drawdown_pct": 26.865560636929807
+        }
+      },
+      "checks": {
+        "train_pf": false,
+        "train_trades": true,
+        "positive_assets": false,
+        "strong_assets": true,
+        "validation_pf": false,
+        "validation_trades": true,
+        "validation_drawdown": false
+      },
+      "positive_assets": 3,
+      "strong_assets": 3
+    },
+    {
+      "variant": {
+        "family": "trend_pullback",
+        "sma": 150,
+        "down_days": 2,
+        "hold_days": 5
+      },
+      "assets": {
+        "AAPL": {
+          "train": {
+            "trades": 93,
+            "net_pnl_usd": 148.84096750000845,
+            "return_pct": 14.884096750000841,
+            "profit_factor": 1.1159849845563616,
+            "maximum_drawdown_pct": 28.075631249999685
+          },
+          "validation": {
+            "trades": 33,
+            "net_pnl_usd": -151.40922099999693,
+            "return_pct": -15.140922099999699,
+            "profit_factor": 0.6947084811616024,
+            "maximum_drawdown_pct": 24.976522056928925
+          }
+        },
+        "AMZN": {
+          "train": {
+            "trades": 81,
+            "net_pnl_usd": -75.83892341612943,
+            "return_pct": -7.583892341612941,
+            "profit_factor": 0.9422859576629005,
+            "maximum_drawdown_pct": 38.116243614743645
+          },
+          "validation": {
+            "trades": 16,
+            "net_pnl_usd": 11.09105908966194,
+            "return_pct": 1.1091059089662014,
+            "profit_factor": 1.0403000220920975,
+            "maximum_drawdown_pct": 15.08061158106412
+          }
+        },
+        "GOOG": {
+          "train": {
+            "trades": 86,
+            "net_pnl_usd": 409.29751514695386,
+            "return_pct": 40.929751514695376,
+            "profit_factor": 1.4626195863979476,
+            "maximum_drawdown_pct": 15.587399210443948
+          },
+          "validation": {
+            "trades": 22,
+            "net_pnl_usd": -246.5029267929342,
+            "return_pct": -24.65029267929342,
+            "profit_factor": 0.5657753632904239,
+            "maximum_drawdown_pct": 29.876755236893544
+          }
+        },
+        "META": {
+          "train": {
+            "trades": 87,
+            "net_pnl_usd": -74.12484907165151,
+            "return_pct": -7.412484907165151,
+            "profit_factor": 0.9304010571999317,
+            "maximum_drawdown_pct": 24.84630064624847
+          },
+          "validation": {
+            "trades": 23,
+            "net_pnl_usd": 669.7931435214196,
+            "return_pct": 66.97931435214196,
+            "profit_factor": 2.9769737369872367,
+            "maximum_drawdown_pct": 9.27000733660032
+          }
+        },
+        "NVDA": {
+          "train": {
+            "trades": 82,
+            "net_pnl_usd": 1793.1125732664327,
+            "return_pct": 179.31125732664327,
+            "profit_factor": 1.8786912157371634,
+            "maximum_drawdown_pct": 20.665800211658734
+          },
+          "validation": {
+            "trades": 34,
+            "net_pnl_usd": 3989.0459977424034,
+            "return_pct": 398.90459977424035,
+            "profit_factor": 3.1053367097975637,
+            "maximum_drawdown_pct": 52.57979745197338
+          }
+        },
+        "EEM": {
+          "train": {
+            "trades": 59,
+            "net_pnl_usd": -54.719061216902446,
+            "return_pct": -5.47190612169024,
+            "profit_factor": 0.8957851356093958,
+            "maximum_drawdown_pct": 18.987001653339224
+          },
+          "validation": {
+            "trades": 16,
+            "net_pnl_usd": -89.79964357415065,
+            "return_pct": -8.97996435741506,
+            "profit_factor": 0.4667051659892759,
+            "maximum_drawdown_pct": 13.404197402398612
+          }
+        },
+        "EFA": {
+          "train": {
+            "trades": 65,
+            "net_pnl_usd": -219.78848503323638,
+            "return_pct": -21.978848503323633,
+            "profit_factor": 0.5528114152797323,
+            "maximum_drawdown_pct": 23.818718193110026
+          },
+          "validation": {
+            "trades": 23,
+            "net_pnl_usd": -110.02975495087298,
+            "return_pct": -11.002975495087297,
+            "profit_factor": 0.4293671248094026,
+            "maximum_drawdown_pct": 11.070031793026555
+          }
+        },
+        "IWM": {
+          "train": {
+            "trades": 70,
+            "net_pnl_usd": -44.48206888375876,
+            "return_pct": -4.448206888375871,
+            "profit_factor": 0.9261170806632065,
+            "maximum_drawdown_pct": 19.52721428785891
+          },
+          "validation": {
+            "trades": 16,
+            "net_pnl_usd": -89.48160215823248,
+            "return_pct": -8.948160215823254,
+            "profit_factor": 0.5753774458574675,
+            "maximum_drawdown_pct": 13.699176613433984
+          }
+        },
+        "XLE": {
+          "train": {
+            "trades": 51,
+            "net_pnl_usd": -326.8075219088129,
+            "return_pct": -32.68075219088129,
+            "profit_factor": 0.519852281741049,
+            "maximum_drawdown_pct": 36.31143979700393
+          },
+          "validation": {
+            "trades": 34,
+            "net_pnl_usd": -102.65659209021419,
+            "return_pct": -10.265659209021416,
+            "profit_factor": 0.7823210069629817,
+            "maximum_drawdown_pct": 22.983861853698027
+          }
+        },
+        "XLF": {
+          "train": {
+            "trades": 75,
+            "net_pnl_usd": -154.627185165529,
+            "return_pct": -15.462718516552897,
+            "profit_factor": 0.7819999386161082,
+            "maximum_drawdown_pct": 26.055299729538206
+          },
+          "validation": {
+            "trades": 19,
+            "net_pnl_usd": -121.21091867259861,
+            "return_pct": -12.121091867259858,
+            "profit_factor": 0.5259469984183346,
+            "maximum_drawdown_pct": 18.159742934865022
+          }
+        }
+      },
+      "pooled": {
+        "train": {
+          "trades": 749,
+          "profit_factor": 1.145979430248799,
+          "return_pct": 14.008629612173745,
+          "maximum_drawdown_pct": 38.116243614743645
+        },
+        "validation": {
+          "trades": 236,
+          "profit_factor": 1.7715819771479295,
+          "return_pct": 37.58839541114485,
+          "maximum_drawdown_pct": 52.57979745197338
+        }
+      },
+      "checks": {
+        "train_pf": true,
+        "train_trades": true,
+        "positive_assets": false,
+        "strong_assets": false,
+        "validation_pf": true,
+        "validation_trades": true,
+        "validation_drawdown": false
+      },
+      "positive_assets": 3,
+      "strong_assets": 2
+    },
+    {
+      "variant": {
+        "family": "trend_pullback",
+        "sma": 150,
+        "down_days": 2,
+        "hold_days": 10
+      },
+      "assets": {
+        "AAPL": {
+          "train": {
+            "trades": 58,
+            "net_pnl_usd": 462.907128750006,
+            "return_pct": 46.290712875000594,
+            "profit_factor": 1.3239720328342472,
+            "maximum_drawdown_pct": 19.14139429623335
+          },
+          "validation": {
+            "trades": 24,
+            "net_pnl_usd": 11.360120000003235,
+            "return_pct": 1.1360120000003304,
+            "profit_factor": 1.016301575689074,
+            "maximum_drawdown_pct": 25.31517638847194
+          }
+        },
+        "AMZN": {
+          "train": {
+            "trades": 53,
+            "net_pnl_usd": 484.84496788025535,
+            "return_pct": 48.48449678802553,
+            "profit_factor": 1.367558542827205,
+            "maximum_drawdown_pct": 30.098901502471076
+          },
+          "validation": {
+            "trades": 12,
+            "net_pnl_usd": 303.79261247253635,
+            "return_pct": 30.37926124725363,
+            "profit_factor": 2.5055836374057208,
+            "maximum_drawdown_pct": 8.93344734921996
+          }
+        },
+        "GOOG": {
+          "train": {
+            "trades": 61,
+            "net_pnl_usd": 572.8202840957881,
+            "return_pct": 57.282028409578814,
+            "profit_factor": 1.6236317307803019,
+            "maximum_drawdown_pct": 16.416017663420725
+          },
+          "validation": {
+            "trades": 16,
+            "net_pnl_usd": -84.27731966853617,
+            "return_pct": -8.427731966853614,
+            "profit_factor": 0.8455483496599729,
+            "maximum_drawdown_pct": 24.98799338106471
+          }
+        },
+        "META": {
+          "train": {
+            "trades": 56,
+            "net_pnl_usd": -116.18258970575164,
+            "return_pct": -11.618258970575168,
+            "profit_factor": 0.8725076896274082,
+            "maximum_drawdown_pct": 40.104782769920696
+          },
+          "validation": {
+            "trades": 15,
+            "net_pnl_usd": 516.0224655343234,
+            "return_pct": 51.60224655343233,
+            "profit_factor": 2.668568871097446,
+            "maximum_drawdown_pct": 12.196766056037742
+          }
+        },
+        "NVDA": {
+          "train": {
+            "trades": 61,
+            "net_pnl_usd": 1945.0671799432334,
+            "return_pct": 194.50671799432337,
+            "profit_factor": 1.9796972631267218,
+            "maximum_drawdown_pct": 33.10721850096322
+          },
+          "validation": {
+            "trades": 22,
+            "net_pnl_usd": 3918.521769965293,
+            "return_pct": 391.85217699652935,
+            "profit_factor": 2.701525028923964,
+            "maximum_drawdown_pct": 48.70556175642855
+          }
+        },
+        "EEM": {
+          "train": {
+            "trades": 39,
+            "net_pnl_usd": -90.48495211113755,
+            "return_pct": -9.04849521111375,
+            "profit_factor": 0.8423030153961316,
+            "maximum_drawdown_pct": 27.178668555518808
+          },
+          "validation": {
+            "trades": 12,
+            "net_pnl_usd": -105.59280647356877,
+            "return_pct": -10.559280647356871,
+            "profit_factor": 0.24359948170228019,
+            "maximum_drawdown_pct": 10.834439868219356
+          }
+        },
+        "EFA": {
+          "train": {
+            "trades": 47,
+            "net_pnl_usd": -46.42828073496446,
+            "return_pct": -4.642828073496441,
+            "profit_factor": 0.9007700909014245,
+            "maximum_drawdown_pct": 26.789065388974958
+          },
+          "validation": {
+            "trades": 19,
+            "net_pnl_usd": -97.72385911771585,
+            "return_pct": -9.772385911771586,
+            "profit_factor": 0.5791732957563843,
+            "maximum_drawdown_pct": 13.179692612890086
+          }
+        },
+        "IWM": {
+          "train": {
+            "trades": 54,
+            "net_pnl_usd": -4.818152326576865,
+            "return_pct": -0.48181523265768966,
+            "profit_factor": 0.993554697385123,
+            "maximum_drawdown_pct": 27.026464793383838
+          },
+          "validation": {
+            "trades": 13,
+            "net_pnl_usd": -111.51720494683423,
+            "return_pct": -11.151720494683426,
+            "profit_factor": 0.6045955106890081,
+            "maximum_drawdown_pct": 16.5819496129287
+          }
+        },
+        "XLE": {
+          "train": {
+            "trades": 34,
+            "net_pnl_usd": -194.0523330972942,
+            "return_pct": -19.405233309729418,
+            "profit_factor": 0.6811672786319604,
+            "maximum_drawdown_pct": 31.865035910126533
+          },
+          "validation": {
+            "trades": 28,
+            "net_pnl_usd": 257.45155186324746,
+            "return_pct": 25.74515518632474,
+            "profit_factor": 1.4082174372122354,
+            "maximum_drawdown_pct": 17.401890679470768
+          }
+        },
+        "XLF": {
+          "train": {
+            "trades": 54,
+            "net_pnl_usd": -104.02130395331778,
+            "return_pct": -10.402130395331778,
+            "profit_factor": 0.8639370290049493,
+            "maximum_drawdown_pct": 42.217641321056966
+          },
+          "validation": {
+            "trades": 15,
+            "net_pnl_usd": -175.00318538299348,
+            "return_pct": -17.500318538299354,
+            "profit_factor": 0.4617622406659379,
+            "maximum_drawdown_pct": 24.63693040793869
+          }
+        }
+      },
+      "pooled": {
+        "train": {
+          "trades": 517,
+          "profit_factor": 1.299177684684704,
+          "return_pct": 29.096519487402407,
+          "maximum_drawdown_pct": 42.217641321056966
+        },
+        "validation": {
+          "trades": 176,
+          "profit_factor": 1.7823677553335875,
+          "return_pct": 44.33034144245755,
+          "maximum_drawdown_pct": 48.70556175642855
+        }
+      },
+      "checks": {
+        "train_pf": true,
+        "train_trades": true,
+        "positive_assets": true,
+        "strong_assets": true,
+        "validation_pf": true,
+        "validation_trades": true,
+        "validation_drawdown": false
+      },
+      "positive_assets": 5,
+      "strong_assets": 4
+    },
+    {
+      "variant": {
+        "family": "trend_pullback",
+        "sma": 150,
+        "down_days": 3,
+        "hold_days": 3
+      },
+      "assets": {
+        "AAPL": {
+          "train": {
+            "trades": 48,
+            "net_pnl_usd": 1.2071780000055696,
+            "return_pct": 0.1207178000005582,
+            "profit_factor": 1.0020352720833496,
+            "maximum_drawdown_pct": 31.63112223687395
+          },
+          "validation": {
+            "trades": 19,
+            "net_pnl_usd": 49.06930500000203,
+            "return_pct": 4.906930500000195,
+            "profit_factor": 1.3508212217687054,
+            "maximum_drawdown_pct": 3.434182211743491
+          }
+        },
+        "AMZN": {
+          "train": {
+            "trades": 50,
+            "net_pnl_usd": -72.33118149566008,
+            "return_pct": -7.233118149566009,
+            "profit_factor": 0.8919650069510535,
+            "maximum_drawdown_pct": 24.647995635114093
+          },
+          "validation": {
+            "trades": 6,
+            "net_pnl_usd": -35.089153648375714,
+            "return_pct": -3.5089153648375726,
+            "profit_factor": 0.6579366690821344,
+            "maximum_drawdown_pct": 9.292721519817663
+          }
+        },
+        "GOOG": {
+          "train": {
+            "trades": 53,
+            "net_pnl_usd": -22.50837793272831,
+            "return_pct": -2.2508377932728307,
+            "profit_factor": 0.9578638765156853,
+            "maximum_drawdown_pct": 20.037386541638792
+          },
+          "validation": {
+            "trades": 13,
+            "net_pnl_usd": -19.098576638978102,
+            "return_pct": -1.909857663897807,
+            "profit_factor": 0.878688164201492,
+            "maximum_drawdown_pct": 9.871114787733081
+          }
+        },
+        "META": {
+          "train": {
+            "trades": 45,
+            "net_pnl_usd": 174.89521590066897,
+            "return_pct": 17.489521590066893,
+            "profit_factor": 1.4273100653674426,
+            "maximum_drawdown_pct": 8.964277637802814
+          },
+          "validation": {
+            "trades": 13,
+            "net_pnl_usd": 238.21042722635912,
+            "return_pct": 23.821042722635923,
+            "profit_factor": 2.6559142793008594,
+            "maximum_drawdown_pct": 5.390873681547748
+          }
+        },
+        "NVDA": {
+          "train": {
+            "trades": 43,
+            "net_pnl_usd": 27.675719275905976,
+            "return_pct": 2.7675719275906063,
+            "profit_factor": 1.0399989770355347,
+            "maximum_drawdown_pct": 31.86728468759047
+          },
+          "validation": {
+            "trades": 21,
+            "net_pnl_usd": 944.2088861287687,
+            "return_pct": 94.42088861287688,
+            "profit_factor": 5.470003373260863,
+            "maximum_drawdown_pct": 12.9618566746866
+          }
+        },
+        "EEM": {
+          "train": {
+            "trades": 30,
+            "net_pnl_usd": -13.379129473723538,
+            "return_pct": -1.337912947372355,
+            "profit_factor": 0.9397130338259334,
+            "maximum_drawdown_pct": 6.834518842360128
+          },
+          "validation": {
+            "trades": 11,
+            "net_pnl_usd": -94.03716143613838,
+            "return_pct": -9.403716143613838,
+            "profit_factor": 0.1903061386069181,
+            "maximum_drawdown_pct": 10.188856622900424
+          }
+        },
+        "EFA": {
+          "train": {
+            "trades": 34,
+            "net_pnl_usd": -92.52826558914035,
+            "return_pct": -9.252826558914041,
+            "profit_factor": 0.6322879468947132,
+            "maximum_drawdown_pct": 17.337883134448845
+          },
+          "validation": {
+            "trades": 12,
+            "net_pnl_usd": -46.16442988554195,
+            "return_pct": -4.616442988554192,
+            "profit_factor": 0.4149770244753379,
+            "maximum_drawdown_pct": 4.616442988554195
+          }
+        },
+        "IWM": {
+          "train": {
+            "trades": 30,
+            "net_pnl_usd": -85.79455176411113,
+            "return_pct": -8.57945517641111,
+            "profit_factor": 0.6943191670528558,
+            "maximum_drawdown_pct": 13.815284846771874
+          },
+          "validation": {
+            "trades": 7,
+            "net_pnl_usd": -21.122544527106697,
+            "return_pct": -2.1122544527106712,
+            "profit_factor": 0.6111190366756198,
+            "maximum_drawdown_pct": 5.257119035527166
+          }
+        },
+        "XLE": {
+          "train": {
+            "trades": 29,
+            "net_pnl_usd": -161.13653840305415,
+            "return_pct": -16.11365384030542,
+            "profit_factor": 0.5444274490857497,
+            "maximum_drawdown_pct": 16.113653840305414
+          },
+          "validation": {
+            "trades": 23,
+            "net_pnl_usd": 62.87231064297407,
+            "return_pct": 6.287231064297405,
+            "profit_factor": 1.227130326229341,
+            "maximum_drawdown_pct": 14.43836293375726
+          }
+        },
+        "XLF": {
+          "train": {
+            "trades": 39,
+            "net_pnl_usd": -19.526446256489635,
+            "return_pct": -1.9526446256489582,
+            "profit_factor": 0.9498091294224162,
+            "maximum_drawdown_pct": 15.729038104717482
+          },
+          "validation": {
+            "trades": 12,
+            "net_pnl_usd": -109.20855933305165,
+            "return_pct": -10.920855933305162,
+            "profit_factor": 0.3670259646737305,
+            "maximum_drawdown_pct": 14.040056539350202
+          }
+        }
+      },
+      "pooled": {
+        "train": {
+          "trades": 401,
+          "profit_factor": 0.9400622562943887,
+          "return_pct": -2.634263777383267,
+          "maximum_drawdown_pct": 31.86728468759047
+        },
+        "validation": {
+          "trades": 137,
+          "profit_factor": 1.6670243087931476,
+          "return_pct": 9.696405035289116,
+          "maximum_drawdown_pct": 14.43836293375726
+        }
+      },
+      "checks": {
+        "train_pf": false,
+        "train_trades": true,
+        "positive_assets": true,
+        "strong_assets": true,
+        "validation_pf": true,
+        "validation_trades": true,
+        "validation_drawdown": true
+      },
+      "positive_assets": 4,
+      "strong_assets": 4
+    },
+    {
+      "variant": {
+        "family": "trend_pullback",
+        "sma": 150,
+        "down_days": 3,
+        "hold_days": 5
+      },
+      "assets": {
+        "AAPL": {
+          "train": {
+            "trades": 45,
+            "net_pnl_usd": 182.1731082500046,
+            "return_pct": 18.217310825000467,
+            "profit_factor": 1.2857120378700193,
+            "maximum_drawdown_pct": 18.599930369690725
+          },
+          "validation": {
+            "trades": 16,
+            "net_pnl_usd": -156.2525799999978,
+            "return_pct": -15.625257999999775,
+            "profit_factor": 0.4644881662406975,
+            "maximum_drawdown_pct": 15.62525799999978
+          }
+        },
+        "AMZN": {
+          "train": {
+            "trades": 45,
+            "net_pnl_usd": 368.4166951942516,
+            "return_pct": 36.84166951942516,
+            "profit_factor": 1.5053156751569028,
+            "maximum_drawdown_pct": 15.588655757476575
+          },
+          "validation": {
+            "trades": 5,
+            "net_pnl_usd": -48.24904500579726,
+            "return_pct": -4.82490450057973,
+            "profit_factor": 0.5458990756152029,
+            "maximum_drawdown_pct": 9.490018106005289
+          }
+        },
+        "GOOG": {
+          "train": {
+            "trades": 50,
+            "net_pnl_usd": 466.7665624766528,
+            "return_pct": 46.676656247665285,
+            "profit_factor": 1.9984076184797446,
+            "maximum_drawdown_pct": 8.943939791576065
+          },
+          "validation": {
+            "trades": 12,
+            "net_pnl_usd": 239.1666961077608,
+            "return_pct": 23.916669610776076,
+            "profit_factor": 2.202667079303927,
+            "maximum_drawdown_pct": 12.007715089240344
+          }
+        },
+        "META": {
+          "train": {
+            "trades": 41,
+            "net_pnl_usd": 200.70934502315936,
+            "return_pct": 20.07093450231594,
+            "profit_factor": 1.4085340458222866,
+            "maximum_drawdown_pct": 12.894541712006843
+          },
+          "validation": {
+            "trades": 10,
+            "net_pnl_usd": 212.72171330841547,
+            "return_pct": 21.272171330841537,
+            "profit_factor": 2.485516281141019,
+            "maximum_drawdown_pct": 6.810697396349902
+          }
+        },
+        "NVDA": {
+          "train": {
+            "trades": 40,
+            "net_pnl_usd": 149.26808738218824,
+            "return_pct": 14.926808738218833,
+            "profit_factor": 1.1620091820815037,
+            "maximum_drawdown_pct": 29.899563897441983
+          },
+          "validation": {
+            "trades": 21,
+            "net_pnl_usd": 120.71944306288219,
+            "return_pct": 12.071944306288218,
+            "profit_factor": 1.1891368161709102,
+            "maximum_drawdown_pct": 30.52270625944092
+          }
+        },
+        "EEM": {
+          "train": {
+            "trades": 27,
+            "net_pnl_usd": 94.56116873969722,
+            "return_pct": 9.456116873969723,
+            "profit_factor": 1.451343721314004,
+            "maximum_drawdown_pct": 6.113050490354304
+          },
+          "validation": {
+            "trades": 9,
+            "net_pnl_usd": -103.40055034277088,
+            "return_pct": -10.340055034277086,
+            "profit_factor": 0.22649213265029192,
+            "maximum_drawdown_pct": 10.34005503427709
+          }
+        },
+        "EFA": {
+          "train": {
+            "trades": 33,
+            "net_pnl_usd": -60.80546834472466,
+            "return_pct": -6.080546834472466,
+            "profit_factor": 0.785733991957114,
+            "maximum_drawdown_pct": 13.978968665771166
+          },
+          "validation": {
+            "trades": 12,
+            "net_pnl_usd": 30.51403856306706,
+            "return_pct": 3.0514038563067114,
+            "profit_factor": 1.639078889817032,
+            "maximum_drawdown_pct": 2.677886787439872
+          }
+        },
+        "IWM": {
+          "train": {
+            "trades": 29,
+            "net_pnl_usd": 123.4585063368645,
+            "return_pct": 12.34585063368645,
+            "profit_factor": 1.4820375480377268,
+            "maximum_drawdown_pct": 7.354592597421828
+          },
+          "validation": {
+            "trades": 7,
+            "net_pnl_usd": -59.674920855918685,
+            "return_pct": -5.967492085591863,
+            "profit_factor": 0.35458542847316993,
+            "maximum_drawdown_pct": 7.391445359828866
+          }
+        },
+        "XLE": {
+          "train": {
+            "trades": 27,
+            "net_pnl_usd": -72.76178749170117,
+            "return_pct": -7.276178749170114,
+            "profit_factor": 0.7873583981581789,
+            "maximum_drawdown_pct": 11.988921630906878
+          },
+          "validation": {
+            "trades": 20,
+            "net_pnl_usd": 263.26194822993807,
+            "return_pct": 26.32619482299381,
+            "profit_factor": 1.7750369591695438,
+            "maximum_drawdown_pct": 13.570426456917314
+          }
+        },
+        "XLF": {
+          "train": {
+            "trades": 35,
+            "net_pnl_usd": 154.6703954784848,
+            "return_pct": 15.467039547848472,
+            "profit_factor": 1.4876286011503745,
+            "maximum_drawdown_pct": 8.606359093349818
+          },
+          "validation": {
+            "trades": 11,
+            "net_pnl_usd": 26.77849025795831,
+            "return_pct": 2.677849025795842,
+            "profit_factor": 1.1648155940141902,
+            "maximum_drawdown_pct": 12.363961580078808
+          }
+        }
+      },
+      "pooled": {
+        "train": {
+          "trades": 372,
+          "profit_factor": 1.3450564560022704,
+          "return_pct": 16.064566130448775,
+          "maximum_drawdown_pct": 29.899563897441983
+        },
+        "validation": {
+          "trades": 123,
+          "profit_factor": 1.2439594630906003,
+          "return_pct": 5.255852333255374,
+          "maximum_drawdown_pct": 30.52270625944092
+        }
+      },
+      "checks": {
+        "train_pf": true,
+        "train_trades": true,
+        "positive_assets": true,
+        "strong_assets": true,
+        "validation_pf": true,
+        "validation_trades": true,
+        "validation_drawdown": false
+      },
+      "positive_assets": 6,
+      "strong_assets": 6
+    },
+    {
+      "variant": {
+        "family": "trend_pullback",
+        "sma": 150,
+        "down_days": 3,
+        "hold_days": 10
+      },
+      "assets": {
+        "AAPL": {
+          "train": {
+            "trades": 36,
+            "net_pnl_usd": -164.51249574999576,
+            "return_pct": -16.451249574999572,
+            "profit_factor": 0.7772294908843361,
+            "maximum_drawdown_pct": 33.72007817045295
+          },
+          "validation": {
+            "trades": 15,
+            "net_pnl_usd": -84.32221899999865,
+            "return_pct": -8.43222189999987,
+            "profit_factor": 0.6921652098539866,
+            "maximum_drawdown_pct": 13.825830324284944
+          }
+        },
+        "AMZN": {
+          "train": {
+            "trades": 36,
+            "net_pnl_usd": 184.87248987198473,
+            "return_pct": 18.48724898719847,
+            "profit_factor": 1.1673929232293199,
+            "maximum_drawdown_pct": 26.1086784002835
+          },
+          "validation": {
+            "trades": 5,
+            "net_pnl_usd": -38.71360633850031,
+            "return_pct": -3.8713606338500295,
+            "profit_factor": 0.7783477736527215,
+            "maximum_drawdown_pct": 8.599146477437083
+          }
+        },
+        "GOOG": {
+          "train": {
+            "trades": 36,
+            "net_pnl_usd": 655.4651712941036,
+            "return_pct": 65.54651712941035,
+            "profit_factor": 1.993133522388,
+            "maximum_drawdown_pct": 15.503260175216289
+          },
+          "validation": {
+            "trades": 10,
+            "net_pnl_usd": 268.30044956388747,
+            "return_pct": 26.830044956388743,
+            "profit_factor": 2.7573518081438606,
+            "maximum_drawdown_pct": 6.712178303299241
+          }
+        },
+        "META": {
+          "train": {
+            "trades": 34,
+            "net_pnl_usd": 340.2015920167264,
+            "return_pct": 34.02015920167265,
+            "profit_factor": 1.4745148731285609,
+            "maximum_drawdown_pct": 20.81451567420228
+          },
+          "validation": {
+            "trades": 9,
+            "net_pnl_usd": 553.6311930605316,
+            "return_pct": 55.36311930605316,
+            "profit_factor": 7.280263974176897,
+            "maximum_drawdown_pct": 4.828449683418444
+          }
+        },
+        "NVDA": {
+          "train": {
+            "trades": 35,
+            "net_pnl_usd": 779.5197900792118,
+            "return_pct": 77.9519790079212,
+            "profit_factor": 1.6400070985157145,
+            "maximum_drawdown_pct": 28.556096987553875
+          },
+          "validation": {
+            "trades": 17,
+            "net_pnl_usd": 445.0690461943848,
+            "return_pct": 44.50690461943847,
+            "profit_factor": 1.484648726243778,
+            "maximum_drawdown_pct": 59.643342447024
+          }
+        },
+        "EEM": {
+          "train": {
+            "trades": 24,
+            "net_pnl_usd": 167.2809850975243,
+            "return_pct": 16.72809850975243,
+            "profit_factor": 1.763380976761133,
+            "maximum_drawdown_pct": 8.390735341738356
+          },
+          "validation": {
+            "trades": 8,
+            "net_pnl_usd": -171.41343442323023,
+            "return_pct": -17.14134344232302,
+            "profit_factor": 0.007171598062400581,
+            "maximum_drawdown_pct": 17.141343442323024
+          }
+        },
+        "EFA": {
+          "train": {
+            "trades": 28,
+            "net_pnl_usd": -53.827642708476105,
+            "return_pct": -5.3827642708476064,
+            "profit_factor": 0.8329727284614366,
+            "maximum_drawdown_pct": 19.507292859703437
+          },
+          "validation": {
+            "trades": 9,
+            "net_pnl_usd": -24.067278637828622,
+            "return_pct": -2.406727863782865,
+            "profit_factor": 0.704291094397725,
+            "maximum_drawdown_pct": 4.570413682852684
+          }
+        },
+        "IWM": {
+          "train": {
+            "trades": 28,
+            "net_pnl_usd": 299.35489829431253,
+            "return_pct": 29.935489829431262,
+            "profit_factor": 2.0208117199182625,
+            "maximum_drawdown_pct": 6.145077648634179
+          },
+          "validation": {
+            "trades": 6,
+            "net_pnl_usd": -62.24922308925977,
+            "return_pct": -6.224922308925973,
+            "profit_factor": 0.6828168621443755,
+            "maximum_drawdown_pct": 10.123461601240452
+          }
+        },
+        "XLE": {
+          "train": {
+            "trades": 22,
+            "net_pnl_usd": 13.88847713070777,
+            "return_pct": 1.3888477130707733,
+            "profit_factor": 1.0374739293347823,
+            "maximum_drawdown_pct": 23.672810245783044
+          },
+          "validation": {
+            "trades": 18,
+            "net_pnl_usd": 368.8014797316664,
+            "return_pct": 36.88014797316663,
+            "profit_factor": 1.6259054883014077,
+            "maximum_drawdown_pct": 14.46996487946603
+          }
+        },
+        "XLF": {
+          "train": {
+            "trades": 30,
+            "net_pnl_usd": 149.63581715317787,
+            "return_pct": 14.963581715317797,
+            "profit_factor": 1.2950333368648037,
+            "maximum_drawdown_pct": 20.705137051293235
+          },
+          "validation": {
+            "trades": 10,
+            "net_pnl_usd": -56.378838379460376,
+            "return_pct": -5.637883837946034,
+            "profit_factor": 0.7214186647591049,
+            "maximum_drawdown_pct": 14.271508580345424
+          }
+        }
+      },
+      "pooled": {
+        "train": {
+          "trades": 309,
+          "profit_factor": 1.3856533500851294,
+          "return_pct": 23.718790824792773,
+          "maximum_drawdown_pct": 33.72007817045295
+        },
+        "validation": {
+          "trades": 107,
+          "profit_factor": 1.420634194659995,
+          "return_pct": 11.98657568682192,
+          "maximum_drawdown_pct": 59.643342447024
+        }
+      },
+      "checks": {
+        "train_pf": true,
+        "train_trades": true,
+        "positive_assets": true,
+        "strong_assets": true,
+        "validation_pf": true,
+        "validation_trades": true,
+        "validation_drawdown": false
+      },
+      "positive_assets": 4,
+      "strong_assets": 4
+    },
+    {
+      "variant": {
+        "family": "trend_pullback",
+        "sma": 200,
+        "down_days": 2,
+        "hold_days": 3
+      },
+      "assets": {
+        "AAPL": {
+          "train": {
+            "trades": 110,
+            "net_pnl_usd": -61.86393274999125,
+            "return_pct": -6.186393274999125,
+            "profit_factor": 0.9418421874355288,
+            "maximum_drawdown_pct": 25.67837874999958
+          },
+          "validation": {
+            "trades": 46,
+            "net_pnl_usd": -100.0456669999968,
+            "return_pct": -10.004566699999684,
+            "profit_factor": 0.7950521395189012,
+            "maximum_drawdown_pct": 13.241222499999902
+          }
+        },
+        "AMZN": {
+          "train": {
+            "trades": 96,
+            "net_pnl_usd": -168.2215697936923,
+            "return_pct": -16.82215697936923,
+            "profit_factor": 0.8469461821499984,
+            "maximum_drawdown_pct": 35.71291442389235
+          },
+          "validation": {
+            "trades": 16,
+            "net_pnl_usd": 79.2264246063246,
+            "return_pct": 7.922642460632456,
+            "profit_factor": 1.5581183020999574,
+            "maximum_drawdown_pct": 8.204233058803299
+          }
+        },
+        "GOOG": {
+          "train": {
+            "trades": 101,
+            "net_pnl_usd": -65.44022267001469,
+            "return_pct": -6.54402226700147,
+            "profit_factor": 0.9306909939891632,
+            "maximum_drawdown_pct": 27.62381743115266
+          },
+          "validation": {
+            "trades": 27,
+            "net_pnl_usd": -235.04830243210654,
+            "return_pct": -23.50483024321065,
+            "profit_factor": 0.2642170296893104,
+            "maximum_drawdown_pct": 23.50483024321065
+          }
+        },
+        "META": {
+          "train": {
+            "trades": 102,
+            "net_pnl_usd": 117.69163599070589,
+            "return_pct": 11.769163599070588,
+            "profit_factor": 1.109611898176404,
+            "maximum_drawdown_pct": 20.808107728771542
+          },
+          "validation": {
+            "trades": 29,
+            "net_pnl_usd": 415.7932875305903,
+            "return_pct": 41.57932875305903,
+            "profit_factor": 2.5983667692181918,
+            "maximum_drawdown_pct": 6.273240743151177
+          }
+        },
+        "NVDA": {
+          "train": {
+            "trades": 93,
+            "net_pnl_usd": 166.57798661329707,
+            "return_pct": 16.657798661329704,
+            "profit_factor": 1.1024627881460458,
+            "maximum_drawdown_pct": 32.952894334526576
+          },
+          "validation": {
+            "trades": 38,
+            "net_pnl_usd": 739.1308612887055,
+            "return_pct": 73.91308612887056,
+            "profit_factor": 2.005741744746766,
+            "maximum_drawdown_pct": 18.972304100763203
+          }
+        },
+        "EEM": {
+          "train": {
+            "trades": 66,
+            "net_pnl_usd": -201.39191289861924,
+            "return_pct": -20.139191289861923,
+            "profit_factor": 0.6357153871445006,
+            "maximum_drawdown_pct": 27.04228716497407
+          },
+          "validation": {
+            "trades": 23,
+            "net_pnl_usd": -90.34478220769438,
+            "return_pct": -9.034478220769437,
+            "profit_factor": 0.5001093128178346,
+            "maximum_drawdown_pct": 11.07812231042227
+          }
+        },
+        "EFA": {
+          "train": {
+            "trades": 75,
+            "net_pnl_usd": -198.39571139378222,
+            "return_pct": -19.839571139378222,
+            "profit_factor": 0.5683688787151613,
+            "maximum_drawdown_pct": 22.660378040149354
+          },
+          "validation": {
+            "trades": 33,
+            "net_pnl_usd": -150.5755565181289,
+            "return_pct": -15.057555651812892,
+            "profit_factor": 0.24477284115164724,
+            "maximum_drawdown_pct": 16.138898763192167
+          }
+        },
+        "IWM": {
+          "train": {
+            "trades": 92,
+            "net_pnl_usd": -354.329743276362,
+            "return_pct": -35.4329743276362,
+            "profit_factor": 0.5459470391563532,
+            "maximum_drawdown_pct": 38.20050884126407
+          },
+          "validation": {
+            "trades": 16,
+            "net_pnl_usd": -71.27908897973839,
+            "return_pct": -7.127908897973834,
+            "profit_factor": 0.4344826754084924,
+            "maximum_drawdown_pct": 8.325307733043717
+          }
+        },
+        "XLE": {
+          "train": {
+            "trades": 62,
+            "net_pnl_usd": -314.3078981836022,
+            "return_pct": -31.43078981836023,
+            "profit_factor": 0.5048356407791607,
+            "maximum_drawdown_pct": 35.246800166654126
+          },
+          "validation": {
+            "trades": 48,
+            "net_pnl_usd": -130.0269467440985,
+            "return_pct": -13.002694674409854,
+            "profit_factor": 0.7575801089466863,
+            "maximum_drawdown_pct": 19.254987104565462
+          }
+        },
+        "XLF": {
+          "train": {
+            "trades": 85,
+            "net_pnl_usd": -151.88070843488038,
+            "return_pct": -15.188070843488033,
+            "profit_factor": 0.7427368187666847,
+            "maximum_drawdown_pct": 24.750495860541353
+          },
+          "validation": {
+            "trades": 25,
+            "net_pnl_usd": -130.89703058529972,
+            "return_pct": -13.089703058529967,
+            "profit_factor": 0.46845241017153544,
+            "maximum_drawdown_pct": 16.212946831286516
+          }
+        }
+      },
+      "pooled": {
+        "train": {
+          "trades": 882,
+          "profit_factor": 0.8604373804892433,
+          "return_pct": -12.315620767969415,
+          "maximum_drawdown_pct": 38.20050884126407
+        },
+        "validation": {
+          "trades": 301,
+          "profit_factor": 1.1008025706411053,
+          "return_pct": 3.259331989585573,
+          "maximum_drawdown_pct": 23.50483024321065
+        }
+      },
+      "checks": {
+        "train_pf": false,
+        "train_trades": true,
+        "positive_assets": false,
+        "strong_assets": true,
+        "validation_pf": false,
+        "validation_trades": true,
+        "validation_drawdown": true
+      },
+      "positive_assets": 3,
+      "strong_assets": 3
+    },
+    {
+      "variant": {
+        "family": "trend_pullback",
+        "sma": 200,
+        "down_days": 2,
+        "hold_days": 5
+      },
+      "assets": {
+        "AAPL": {
+          "train": {
+            "trades": 94,
+            "net_pnl_usd": 224.02849000000856,
+            "return_pct": 22.402849000000845,
+            "profit_factor": 1.1712431852054732,
+            "maximum_drawdown_pct": 27.88260289999971
+          },
+          "validation": {
+            "trades": 34,
+            "net_pnl_usd": -107.42804999999623,
+            "return_pct": -10.742804999999622,
+            "profit_factor": 0.8057369798991131,
+            "maximum_drawdown_pct": 21.118733670830316
+          }
+        },
+        "AMZN": {
+          "train": {
+            "trades": 82,
+            "net_pnl_usd": -189.41059636687442,
+            "return_pct": -18.94105963668744,
+            "profit_factor": 0.8553505654748728,
+            "maximum_drawdown_pct": 44.77237168998718
+          },
+          "validation": {
+            "trades": 15,
+            "net_pnl_usd": 68.03146092987231,
+            "return_pct": 6.803146092987222,
+            "profit_factor": 1.3034616937085046,
+            "maximum_drawdown_pct": 13.421550851147183
+          }
+        },
+        "GOOG": {
+          "train": {
+            "trades": 83,
+            "net_pnl_usd": 392.5336893743345,
+            "return_pct": 39.25336893743345,
+            "profit_factor": 1.387929045301577,
+            "maximum_drawdown_pct": 20.560710959398637
+          },
+          "validation": {
+            "trades": 25,
+            "net_pnl_usd": -171.5381346526367,
+            "return_pct": -17.153813465263667,
+            "profit_factor": 0.690272609382877,
+            "maximum_drawdown_pct": 22.64160877005136
+          }
+        },
+        "META": {
+          "train": {
+            "trades": 86,
+            "net_pnl_usd": 108.96773686201527,
+            "return_pct": 10.896773686201522,
+            "profit_factor": 1.1023376057685192,
+            "maximum_drawdown_pct": 22.836782949034067
+          },
+          "validation": {
+            "trades": 22,
+            "net_pnl_usd": 386.6592656828436,
+            "return_pct": 38.66592656828436,
+            "profit_factor": 2.2110059119921353,
+            "maximum_drawdown_pct": 10.976854357428392
+          }
+        },
+        "NVDA": {
+          "train": {
+            "trades": 77,
+            "net_pnl_usd": 2430.2194855082794,
+            "return_pct": 243.02194855082794,
+            "profit_factor": 2.134016686324865,
+            "maximum_drawdown_pct": 12.145691614384395
+          },
+          "validation": {
+            "trades": 33,
+            "net_pnl_usd": 4629.098529721885,
+            "return_pct": 462.9098529721885,
+            "profit_factor": 3.221665859757127,
+            "maximum_drawdown_pct": 61.83452808376233
+          }
+        },
+        "EEM": {
+          "train": {
+            "trades": 58,
+            "net_pnl_usd": -100.40767265259353,
+            "return_pct": -10.040767265259355,
+            "profit_factor": 0.8222579426309485,
+            "maximum_drawdown_pct": 18.262916295065743
+          },
+          "validation": {
+            "trades": 18,
+            "net_pnl_usd": -101.85692573250037,
+            "return_pct": -10.185692573250037,
+            "profit_factor": 0.4481955534841062,
+            "maximum_drawdown_pct": 13.23487442621757
+          }
+        },
+        "EFA": {
+          "train": {
+            "trades": 61,
+            "net_pnl_usd": -210.95570034898242,
+            "return_pct": -21.095570034898238,
+            "profit_factor": 0.5473859511261073,
+            "maximum_drawdown_pct": 21.822316794895766
+          },
+          "validation": {
+            "trades": 25,
+            "net_pnl_usd": -123.70383650690746,
+            "return_pct": -12.37038365069074,
+            "profit_factor": 0.39107781990920243,
+            "maximum_drawdown_pct": 12.798797937539085
+          }
+        },
+        "IWM": {
+          "train": {
+            "trades": 70,
+            "net_pnl_usd": -61.29013303067984,
+            "return_pct": -6.129013303067987,
+            "profit_factor": 0.9032446266791289,
+            "maximum_drawdown_pct": 23.29679618737326
+          },
+          "validation": {
+            "trades": 13,
+            "net_pnl_usd": -66.01099646580076,
+            "return_pct": -6.601099646580078,
+            "profit_factor": 0.6323524794124813,
+            "maximum_drawdown_pct": 13.385853851062985
+          }
+        },
+        "XLE": {
+          "train": {
+            "trades": 50,
+            "net_pnl_usd": -161.1912572698418,
+            "return_pct": -16.119125726984183,
+            "profit_factor": 0.7537212590597254,
+            "maximum_drawdown_pct": 29.560830044011322
+          },
+          "validation": {
+            "trades": 36,
+            "net_pnl_usd": -48.54509506087493,
+            "return_pct": -4.85450950608749,
+            "profit_factor": 0.921831818534918,
+            "maximum_drawdown_pct": 21.620866566140712
+          }
+        },
+        "XLF": {
+          "train": {
+            "trades": 69,
+            "net_pnl_usd": -170.00981241035174,
+            "return_pct": -17.000981241035173,
+            "profit_factor": 0.7461061257589972,
+            "maximum_drawdown_pct": 24.830932584206032
+          },
+          "validation": {
+            "trades": 20,
+            "net_pnl_usd": -121.42892892672023,
+            "return_pct": -12.14289289267202,
+            "profit_factor": 0.5496993151028161,
+            "maximum_drawdown_pct": 17.978076982130194
+          }
+        }
+      },
+      "pooled": {
+        "train": {
+          "trades": 730,
+          "profit_factor": 1.2302564838668169,
+          "return_pct": 22.62484229665314,
+          "maximum_drawdown_pct": 44.77237168998718
+        },
+        "validation": {
+          "trades": 241,
+          "profit_factor": 1.8365465018961256,
+          "return_pct": 43.43277288989164,
+          "maximum_drawdown_pct": 61.83452808376233
+        }
+      },
+      "checks": {
+        "train_pf": true,
+        "train_trades": true,
+        "positive_assets": false,
+        "strong_assets": true,
+        "validation_pf": true,
+        "validation_trades": true,
+        "validation_drawdown": false
+      },
+      "positive_assets": 3,
+      "strong_assets": 3
+    },
+    {
+      "variant": {
+        "family": "trend_pullback",
+        "sma": 200,
+        "down_days": 2,
+        "hold_days": 10
+      },
+      "assets": {
+        "AAPL": {
+          "train": {
+            "trades": 57,
+            "net_pnl_usd": 285.85895650000475,
+            "return_pct": 28.58589565000047,
+            "profit_factor": 1.2212466497069678,
+            "maximum_drawdown_pct": 24.364850601057874
+          },
+          "validation": {
+            "trades": 24,
+            "net_pnl_usd": 3.9401050000024043,
+            "return_pct": 0.3940105000002303,
+            "profit_factor": 1.0064326832543322,
+            "maximum_drawdown_pct": 22.609523162801416
+          }
+        },
+        "AMZN": {
+          "train": {
+            "trades": 53,
+            "net_pnl_usd": 371.9205677413993,
+            "return_pct": 37.19205677413993,
+            "profit_factor": 1.2774447466486039,
+            "maximum_drawdown_pct": 38.09154287588512
+          },
+          "validation": {
+            "trades": 10,
+            "net_pnl_usd": 302.2590877075211,
+            "return_pct": 30.225908770752106,
+            "profit_factor": 3.1780647113564853,
+            "maximum_drawdown_pct": 8.244895996292149
+          }
+        },
+        "GOOG": {
+          "train": {
+            "trades": 58,
+            "net_pnl_usd": 305.72885093324703,
+            "return_pct": 30.572885093324697,
+            "profit_factor": 1.3227624704485137,
+            "maximum_drawdown_pct": 25.97191522235866
+          },
+          "validation": {
+            "trades": 18,
+            "net_pnl_usd": 115.02426268365866,
+            "return_pct": 11.502426268365863,
+            "profit_factor": 1.2469842934573072,
+            "maximum_drawdown_pct": 13.620472017900678
+          }
+        },
+        "META": {
+          "train": {
+            "trades": 55,
+            "net_pnl_usd": -86.30242247899116,
+            "return_pct": -8.630242247899112,
+            "profit_factor": 0.9047047737645612,
+            "maximum_drawdown_pct": 41.17356274412491
+          },
+          "validation": {
+            "trades": 16,
+            "net_pnl_usd": 331.11608418930564,
+            "return_pct": 33.11160841893057,
+            "profit_factor": 2.0535474835412324,
+            "maximum_drawdown_pct": 12.201732812946428
+          }
+        },
+        "NVDA": {
+          "train": {
+            "trades": 57,
+            "net_pnl_usd": 3299.846971505821,
+            "return_pct": 329.9846971505821,
+            "profit_factor": 2.6340459895396195,
+            "maximum_drawdown_pct": 25.67730362559133
+          },
+          "validation": {
+            "trades": 22,
+            "net_pnl_usd": 3916.426117311805,
+            "return_pct": 391.6426117311805,
+            "profit_factor": 2.24285887077805,
+            "maximum_drawdown_pct": 106.17991919703496
+          }
+        },
+        "EEM": {
+          "train": {
+            "trades": 38,
+            "net_pnl_usd": -141.60903852228182,
+            "return_pct": -14.160903852228179,
+            "profit_factor": 0.7433784762513495,
+            "maximum_drawdown_pct": 26.03950265192686
+          },
+          "validation": {
+            "trades": 13,
+            "net_pnl_usd": -27.44046238641772,
+            "return_pct": -2.744046238641773,
+            "profit_factor": 0.7676285510585784,
+            "maximum_drawdown_pct": 4.180676127317508
+          }
+        },
+        "EFA": {
+          "train": {
+            "trades": 45,
+            "net_pnl_usd": -32.377445610569,
+            "return_pct": -3.237744561056899,
+            "profit_factor": 0.9322274749484373,
+            "maximum_drawdown_pct": 26.75970405143233
+          },
+          "validation": {
+            "trades": 20,
+            "net_pnl_usd": -86.26419602082672,
+            "return_pct": -8.626419602082668,
+            "profit_factor": 0.6327269092632664,
+            "maximum_drawdown_pct": 11.26581620181371
+          }
+        },
+        "IWM": {
+          "train": {
+            "trades": 53,
+            "net_pnl_usd": -17.38545140029464,
+            "return_pct": -1.7385451400294683,
+            "profit_factor": 0.9774867633956904,
+            "maximum_drawdown_pct": 30.25431624547369
+          },
+          "validation": {
+            "trades": 10,
+            "net_pnl_usd": -7.038705754324155,
+            "return_pct": -0.7038705754324193,
+            "profit_factor": 0.9644312315435944,
+            "maximum_drawdown_pct": 12.763983896841044
+          }
+        },
+        "XLE": {
+          "train": {
+            "trades": 34,
+            "net_pnl_usd": 110.3763686921468,
+            "return_pct": 11.037636869214683,
+            "profit_factor": 1.203812235663872,
+            "maximum_drawdown_pct": 21.415755562124602
+          },
+          "validation": {
+            "trades": 28,
+            "net_pnl_usd": 405.52660585377885,
+            "return_pct": 40.55266058537788,
+            "profit_factor": 1.4666802069301887,
+            "maximum_drawdown_pct": 19.05714690021521
+          }
+        },
+        "XLF": {
+          "train": {
+            "trades": 47,
+            "net_pnl_usd": -233.0218453474223,
+            "return_pct": -23.30218453474223,
+            "profit_factor": 0.6721547082252126,
+            "maximum_drawdown_pct": 41.64486238270527
+          },
+          "validation": {
+            "trades": 17,
+            "net_pnl_usd": -133.60762958836233,
+            "return_pct": -13.360762958836236,
+            "profit_factor": 0.5800761383525331,
+            "maximum_drawdown_pct": 21.418691309441947
+          }
+        }
+      },
+      "pooled": {
+        "train": {
+          "trades": 497,
+          "profit_factor": 1.4041268991411946,
+          "return_pct": 38.6303551201306,
+          "maximum_drawdown_pct": 41.64486238270527
+        },
+        "validation": {
+          "trades": 178,
+          "profit_factor": 1.7507205314061602,
+          "return_pct": 48.199412689961406,
+          "maximum_drawdown_pct": 106.17991919703496
+        }
+      },
+      "checks": {
+        "train_pf": true,
+        "train_trades": true,
+        "positive_assets": true,
+        "strong_assets": true,
+        "validation_pf": true,
+        "validation_trades": true,
+        "validation_drawdown": false
+      },
+      "positive_assets": 6,
+      "strong_assets": 5
+    },
+    {
+      "variant": {
+        "family": "trend_pullback",
+        "sma": 200,
+        "down_days": 3,
+        "hold_days": 3
+      },
+      "assets": {
+        "AAPL": {
+          "train": {
+            "trades": 52,
+            "net_pnl_usd": -27.972665249993725,
+            "return_pct": -2.7972665249993756,
+            "profit_factor": 0.954364342020032,
+            "maximum_drawdown_pct": 30.89996615052969
+          },
+          "validation": {
+            "trades": 21,
+            "net_pnl_usd": 26.42548000000238,
+            "return_pct": 2.6425480000002333,
+            "profit_factor": 1.188962945286238,
+            "maximum_drawdown_pct": 4.986711494708997
+          }
+        },
+        "AMZN": {
+          "train": {
+            "trades": 47,
+            "net_pnl_usd": -89.2057868347108,
+            "return_pct": -8.920578683471081,
+            "profit_factor": 0.8601009708817269,
+            "maximum_drawdown_pct": 25.05024834976808
+          },
+          "validation": {
+            "trades": 5,
+            "net_pnl_usd": -22.915202262877983,
+            "return_pct": -2.291520226287802,
+            "profit_factor": 0.7465326444660265,
+            "maximum_drawdown_pct": 8.514710929183309
+          }
+        },
+        "GOOG": {
+          "train": {
+            "trades": 50,
+            "net_pnl_usd": -70.15938888897404,
+            "return_pct": -7.0159388888973995,
+            "profit_factor": 0.8705389933763142,
+            "maximum_drawdown_pct": 20.121981472484656
+          },
+          "validation": {
+            "trades": 14,
+            "net_pnl_usd": 35.46359831252198,
+            "return_pct": 3.5463598312521993,
+            "profit_factor": 1.2362292277146,
+            "maximum_drawdown_pct": 9.66229836498052
+          }
+        },
+        "META": {
+          "train": {
+            "trades": 45,
+            "net_pnl_usd": 147.3014150557649,
+            "return_pct": 14.7301415055765,
+            "profit_factor": 1.3498943085754267,
+            "maximum_drawdown_pct": 11.571865954780566
+          },
+          "validation": {
+            "trades": 13,
+            "net_pnl_usd": 238.21042722635912,
+            "return_pct": 23.821042722635923,
+            "profit_factor": 2.6559142793008594,
+            "maximum_drawdown_pct": 5.390873681547748
+          }
+        },
+        "NVDA": {
+          "train": {
+            "trades": 41,
+            "net_pnl_usd": 138.81776523698386,
+            "return_pct": 13.881776523698397,
+            "profit_factor": 1.207646607281548,
+            "maximum_drawdown_pct": 31.9228347322841
+          },
+          "validation": {
+            "trades": 21,
+            "net_pnl_usd": 955.3544721139444,
+            "return_pct": 95.53544721139444,
+            "profit_factor": 5.705485060197935,
+            "maximum_drawdown_pct": 14.604107769174753
+          }
+        },
+        "EEM": {
+          "train": {
+            "trades": 31,
+            "net_pnl_usd": -145.86400747605433,
+            "return_pct": -14.586400747605433,
+            "profit_factor": 0.5459006517074853,
+            "maximum_drawdown_pct": 16.654012003223148
+          },
+          "validation": {
+            "trades": 11,
+            "net_pnl_usd": -108.44128993809409,
+            "return_pct": -10.84412899380941,
+            "profit_factor": 0.06618434042809354,
+            "maximum_drawdown_pct": 10.844128993809408
+          }
+        },
+        "EFA": {
+          "train": {
+            "trades": 33,
+            "net_pnl_usd": -115.80788039258118,
+            "return_pct": -11.580788039258117,
+            "profit_factor": 0.5587909928174271,
+            "maximum_drawdown_pct": 17.38041116081165
+          },
+          "validation": {
+            "trades": 13,
+            "net_pnl_usd": -46.41205025486988,
+            "return_pct": -4.6412050254869825,
+            "profit_factor": 0.4095921274801588,
+            "maximum_drawdown_pct": 4.641205025486989
+          }
+        },
+        "IWM": {
+          "train": {
+            "trades": 32,
+            "net_pnl_usd": -235.60932300562956,
+            "return_pct": -23.560932300562953,
+            "profit_factor": 0.3529425702004245,
+            "maximum_drawdown_pct": 25.136948839723473
+          },
+          "validation": {
+            "trades": 6,
+            "net_pnl_usd": -42.094727884545705,
+            "return_pct": -4.209472788454571,
+            "profit_factor": 0.1416302297018542,
+            "maximum_drawdown_pct": 4.870205502576496
+          }
+        },
+        "XLE": {
+          "train": {
+            "trades": 33,
+            "net_pnl_usd": -40.86555326916516,
+            "return_pct": -4.086555326916519,
+            "profit_factor": 0.8936612010142787,
+            "maximum_drawdown_pct": 10.942797601797741
+          },
+          "validation": {
+            "trades": 26,
+            "net_pnl_usd": 6.059832905114263,
+            "return_pct": 0.6059832905114249,
+            "profit_factor": 1.0145242684778328,
+            "maximum_drawdown_pct": 20.2779782202962
+          }
+        },
+        "XLF": {
+          "train": {
+            "trades": 41,
+            "net_pnl_usd": -74.83570283817346,
+            "return_pct": -7.483570283817342,
+            "profit_factor": 0.8029498449755489,
+            "maximum_drawdown_pct": 18.680873845505122
+          },
+          "validation": {
+            "trades": 13,
+            "net_pnl_usd": -103.72260428055154,
+            "return_pct": -10.372260428055158,
+            "profit_factor": 0.43850275353096935,
+            "maximum_drawdown_pct": 13.323485281800403
+          }
+        }
+      },
+      "pooled": {
+        "train": {
+          "trades": 405,
+          "profit_factor": 0.888069855772493,
+          "return_pct": -5.1420112766253325,
+          "maximum_drawdown_pct": 31.9228347322841
+        },
+        "validation": {
+          "trades": 143,
+          "profit_factor": 1.5962732360102634,
+          "return_pct": 9.37927935937003,
+          "maximum_drawdown_pct": 20.2779782202962
+        }
+      },
+      "checks": {
+        "train_pf": false,
+        "train_trades": true,
+        "positive_assets": true,
+        "strong_assets": true,
+        "validation_pf": true,
+        "validation_trades": true,
+        "validation_drawdown": true
+      },
+      "positive_assets": 5,
+      "strong_assets": 4
+    },
+    {
+      "variant": {
+        "family": "trend_pullback",
+        "sma": 200,
+        "down_days": 3,
+        "hold_days": 5
+      },
+      "assets": {
+        "AAPL": {
+          "train": {
+            "trades": 48,
+            "net_pnl_usd": 143.5168112500055,
+            "return_pct": 14.35168112500056,
+            "profit_factor": 1.2156084776434448,
+            "maximum_drawdown_pct": 17.272201127452284
+          },
+          "validation": {
+            "trades": 17,
+            "net_pnl_usd": -164.78756799999792,
+            "return_pct": -16.478756799999793,
+            "profit_factor": 0.4338396749442155,
+            "maximum_drawdown_pct": 16.47875679999979
+          }
+        },
+        "AMZN": {
+          "train": {
+            "trades": 43,
+            "net_pnl_usd": 419.0059114036626,
+            "return_pct": 41.90059114036626,
+            "profit_factor": 1.588700360475554,
+            "maximum_drawdown_pct": 15.360542358189006
+          },
+          "validation": {
+            "trades": 4,
+            "net_pnl_usd": -36.09893186950592,
+            "return_pct": -3.609893186950597,
+            "profit_factor": 0.6382567238318916,
+            "maximum_drawdown_pct": 9.381617625641185
+          }
+        },
+        "GOOG": {
+          "train": {
+            "trades": 46,
+            "net_pnl_usd": 577.0948572622938,
+            "return_pct": 57.70948572622938,
+            "profit_factor": 2.240431041356547,
+            "maximum_drawdown_pct": 8.997679853817596
+          },
+          "validation": {
+            "trades": 13,
+            "net_pnl_usd": 274.62559201224076,
+            "return_pct": 27.462559201224067,
+            "profit_factor": 2.3134562318009815,
+            "maximum_drawdown_pct": 12.39819771863378
+          }
+        },
+        "META": {
+          "train": {
+            "trades": 42,
+            "net_pnl_usd": 268.7612312231661,
+            "return_pct": 26.8761231223166,
+            "profit_factor": 1.506367198323431,
+            "maximum_drawdown_pct": 15.537608154977859
+          },
+          "validation": {
+            "trades": 10,
+            "net_pnl_usd": 204.70997496021755,
+            "return_pct": 20.47099749602175,
+            "profit_factor": 2.3538222719999493,
+            "maximum_drawdown_pct": 7.13649828215168
+          }
+        },
+        "NVDA": {
+          "train": {
+            "trades": 38,
+            "net_pnl_usd": 258.7673389323377,
+            "return_pct": 25.876733893233773,
+            "profit_factor": 1.2816875346097616,
+            "maximum_drawdown_pct": 30.399011966918298
+          },
+          "validation": {
+            "trades": 20,
+            "net_pnl_usd": 83.99224245461187,
+            "return_pct": 8.399224245461179,
+            "profit_factor": 1.1403620000331984,
+            "maximum_drawdown_pct": 34.2015126813937
+          }
+        },
+        "EEM": {
+          "train": {
+            "trades": 28,
+            "net_pnl_usd": -47.893688639590096,
+            "return_pct": -4.789368863959009,
+            "profit_factor": 0.826640362097288,
+            "maximum_drawdown_pct": 11.664389547201273
+          },
+          "validation": {
+            "trades": 10,
+            "net_pnl_usd": -54.95274683001594,
+            "return_pct": -5.495274683001594,
+            "profit_factor": 0.49470896037707524,
+            "maximum_drawdown_pct": 6.861713676218255
+          }
+        },
+        "EFA": {
+          "train": {
+            "trades": 33,
+            "net_pnl_usd": -101.6791823075232,
+            "return_pct": -10.167918230752315,
+            "profit_factor": 0.6727952560467441,
+            "maximum_drawdown_pct": 14.006587286808985
+          },
+          "validation": {
+            "trades": 12,
+            "net_pnl_usd": 30.038180420615163,
+            "return_pct": 3.0038180420615124,
+            "profit_factor": 1.648841881451663,
+            "maximum_drawdown_pct": 2.5418571150359153
+          }
+        },
+        "IWM": {
+          "train": {
+            "trades": 30,
+            "net_pnl_usd": 11.170181338927932,
+            "return_pct": 1.1170181338927998,
+            "profit_factor": 1.0350695619243013,
+            "maximum_drawdown_pct": 15.824679145906352
+          },
+          "validation": {
+            "trades": 6,
+            "net_pnl_usd": -45.80122106821352,
+            "return_pct": -4.580122106821349,
+            "profit_factor": 0.3678693753803699,
+            "maximum_drawdown_pct": 6.831444943339063
+          }
+        },
+        "XLE": {
+          "train": {
+            "trades": 30,
+            "net_pnl_usd": 94.54655109116766,
+            "return_pct": 9.45465510911676,
+            "profit_factor": 1.2997180656170857,
+            "maximum_drawdown_pct": 11.645903124209566
+          },
+          "validation": {
+            "trades": 23,
+            "net_pnl_usd": 264.57019124678095,
+            "return_pct": 26.457019124678105,
+            "profit_factor": 1.5020584471164575,
+            "maximum_drawdown_pct": 15.188446491625779
+          }
+        },
+        "XLF": {
+          "train": {
+            "trades": 36,
+            "net_pnl_usd": 47.13409038526015,
+            "return_pct": 4.7134090385260174,
+            "profit_factor": 1.136451434811619,
+            "maximum_drawdown_pct": 12.65314553634008
+          },
+          "validation": {
+            "trades": 11,
+            "net_pnl_usd": -5.0630027210423805,
+            "return_pct": -0.5063002721042431,
+            "profit_factor": 0.9683142975220363,
+            "maximum_drawdown_pct": 12.478001645264612
+          }
+        }
+      },
+      "pooled": {
+        "train": {
+          "trades": 374,
+          "profit_factor": 1.3438197368032412,
+          "return_pct": 16.70424101939708,
+          "maximum_drawdown_pct": 30.399011966918298
+        },
+        "validation": {
+          "trades": 126,
+          "profit_factor": 1.2434977990264895,
+          "return_pct": 5.512327106056904,
+          "maximum_drawdown_pct": 34.2015126813937
+        }
+      },
+      "checks": {
+        "train_pf": true,
+        "train_trades": true,
+        "positive_assets": true,
+        "strong_assets": true,
+        "validation_pf": true,
+        "validation_trades": true,
+        "validation_drawdown": false
+      },
+      "positive_assets": 5,
+      "strong_assets": 5
+    },
+    {
+      "variant": {
+        "family": "trend_pullback",
+        "sma": 200,
+        "down_days": 3,
+        "hold_days": 10
+      },
+      "assets": {
+        "AAPL": {
+          "train": {
+            "trades": 39,
+            "net_pnl_usd": 25.312217000004694,
+            "return_pct": 2.5312217000004633,
+            "profit_factor": 1.0306158140460082,
+            "maximum_drawdown_pct": 28.692581902357126
+          },
+          "validation": {
+            "trades": 18,
+            "net_pnl_usd": -87.0419319999977,
+            "return_pct": -8.704193199999766,
+            "profit_factor": 0.7675034957173057,
+            "maximum_drawdown_pct": 17.553862944320116
+          }
+        },
+        "AMZN": {
+          "train": {
+            "trades": 34,
+            "net_pnl_usd": 130.62135737228937,
+            "return_pct": 13.062135737228942,
+            "profit_factor": 1.1217474819719038,
+            "maximum_drawdown_pct": 28.980891298197964
+          },
+          "validation": {
+            "trades": 4,
+            "net_pnl_usd": 43.35371699523989,
+            "return_pct": 4.335371699523982,
+            "profit_factor": 1.4328410124586164,
+            "maximum_drawdown_pct": 8.856617761191822
+          }
+        },
+        "GOOG": {
+          "train": {
+            "trades": 33,
+            "net_pnl_usd": 616.8990419292966,
+            "return_pct": 61.68990419292966,
+            "profit_factor": 1.9570278625140842,
+            "maximum_drawdown_pct": 15.74550022734646
+          },
+          "validation": {
+            "trades": 10,
+            "net_pnl_usd": 38.994931825783624,
+            "return_pct": 3.899493182578362,
+            "profit_factor": 1.1461541519781484,
+            "maximum_drawdown_pct": 15.558413588059791
+          }
+        },
+        "META": {
+          "train": {
+            "trades": 33,
+            "net_pnl_usd": 415.8294315190619,
+            "return_pct": 41.58294315190618,
+            "profit_factor": 1.5806913093488049,
+            "maximum_drawdown_pct": 21.22344587079504
+          },
+          "validation": {
+            "trades": 9,
+            "net_pnl_usd": 592.3586338991154,
+            "return_pct": 59.235863389911536,
+            "profit_factor": 7.250737514906784,
+            "maximum_drawdown_pct": 5.489656781049644
+          }
+        },
+        "NVDA": {
+          "train": {
+            "trades": 33,
+            "net_pnl_usd": 914.8993808339774,
+            "return_pct": 91.48993808339773,
+            "profit_factor": 1.790707011805179,
+            "maximum_drawdown_pct": 31.406360136834177
+          },
+          "validation": {
+            "trades": 16,
+            "net_pnl_usd": 546.8192321681363,
+            "return_pct": 54.68192321681362,
+            "profit_factor": 1.5840273249890158,
+            "maximum_drawdown_pct": 60.39438299700098
+          }
+        },
+        "EEM": {
+          "train": {
+            "trades": 26,
+            "net_pnl_usd": -60.704227374719494,
+            "return_pct": -6.070422737471947,
+            "profit_factor": 0.8318965351091014,
+            "maximum_drawdown_pct": 16.73173927232072
+          },
+          "validation": {
+            "trades": 9,
+            "net_pnl_usd": -80.52805590716491,
+            "return_pct": -8.052805590716494,
+            "profit_factor": 0.37737356120882903,
+            "maximum_drawdown_pct": 9.834797892729284
+          }
+        },
+        "EFA": {
+          "train": {
+            "trades": 28,
+            "net_pnl_usd": -62.148027222612086,
+            "return_pct": -6.2148027222612034,
+            "profit_factor": 0.8106812759281629,
+            "maximum_drawdown_pct": 19.629978104081758
+          },
+          "validation": {
+            "trades": 10,
+            "net_pnl_usd": 8.276649451221601,
+            "return_pct": 0.827664945122164,
+            "profit_factor": 1.1018007122257554,
+            "maximum_drawdown_pct": 4.122118721742785
+          }
+        },
+        "IWM": {
+          "train": {
+            "trades": 28,
+            "net_pnl_usd": 42.06129758177212,
+            "return_pct": 4.206129758177202,
+            "profit_factor": 1.0940166719050703,
+            "maximum_drawdown_pct": 27.049279560137933
+          },
+          "validation": {
+            "trades": 5,
+            "net_pnl_usd": -18.825637897295337,
+            "return_pct": -1.88256378972953,
+            "profit_factor": 0.8339923015401957,
+            "maximum_drawdown_pct": 7.4747131360436
+          }
+        },
+        "XLE": {
+          "train": {
+            "trades": 25,
+            "net_pnl_usd": 230.7234777482472,
+            "return_pct": 23.07234777482472,
+            "profit_factor": 1.6556743436984653,
+            "maximum_drawdown_pct": 22.401889295436327
+          },
+          "validation": {
+            "trades": 21,
+            "net_pnl_usd": 663.7203331344522,
+            "return_pct": 66.37203331344521,
+            "profit_factor": 1.6794884922379547,
+            "maximum_drawdown_pct": 23.348965778455028
+          }
+        },
+        "XLF": {
+          "train": {
+            "trades": 30,
+            "net_pnl_usd": -59.002469524235494,
+            "return_pct": -5.900246952423549,
+            "profit_factor": 0.8912329781521271,
+            "maximum_drawdown_pct": 20.355939947571912
+          },
+          "validation": {
+            "trades": 10,
+            "net_pnl_usd": -101.69358676074125,
+            "return_pct": -10.169358676074125,
+            "profit_factor": 0.4572778164483038,
+            "maximum_drawdown_pct": 14.930053160037174
+          }
+        }
+      },
+      "pooled": {
+        "train": {
+          "trades": 309,
+          "profit_factor": 1.3403085939087798,
+          "return_pct": 21.94491479863082,
+          "maximum_drawdown_pct": 31.406360136834177
+        },
+        "validation": {
+          "trades": 112,
+          "profit_factor": 1.4923715257827417,
+          "return_pct": 16.054342849087497,
+          "maximum_drawdown_pct": 60.39438299700098
+        }
+      },
+      "checks": {
+        "train_pf": true,
+        "train_trades": true,
+        "positive_assets": true,
+        "strong_assets": true,
+        "validation_pf": true,
+        "validation_trades": true,
+        "validation_drawdown": false
+      },
+      "positive_assets": 6,
+      "strong_assets": 6
+    }
+  ],
+  "oos_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_BEFORE_PERFORMANCE",
+  "campaign_id": "ibkr-multi-asset-known-edge-funnel-v1",
+  "assets": {
+    "AAPL": "data/ibkr_sq_v2/preflight/AAPLUSUSD_CANONICAL_D1_2017_2024.csv",
+    "AMZN": "data/ibkr_sq_v2/tech_momentum60_transfer_v1/adjusted/AMZN_ADJUSTED_D1_2017_2024.csv",
+    "GOOG": "data/ibkr_sq_v2/tech_momentum60_transfer_v1/adjusted/GOOG_ADJUSTED_D1_2017_2024.csv",
+    "META": "data/ibkr_sq_v2/tech_momentum60_transfer_v1/adjusted/META_ADJUSTED_D1_2017_2024.csv",
+    "NVDA": "data/ibkr_sq_v2/tech_momentum60_transfer_v1/adjusted/NVDA_ADJUSTED_D1_2017_2024.csv",
+    "EEM": "data/ibkr_sq_v2/etf_twelve_one_momentum_v1/adjusted/EEM_ADJUSTED_D1_2017_2024.csv",
+    "EFA": "data/ibkr_sq_v2/etf_twelve_one_momentum_v1/adjusted/EFA_ADJUSTED_D1_2017_2024.csv",
+    "IWM": "data/ibkr_sq_v2/etf_twelve_one_momentum_v1/adjusted/IWM_ADJUSTED_D1_2017_2024.csv",
+    "XLE": "data/ibkr_sq_v2/etf_twelve_one_momentum_v1/adjusted/XLE_ADJUSTED_D1_2017_2024.csv",
+    "XLF": "data/ibkr_sq_v2/etf_twelve_one_momentum_v1/adjusted/XLF_ADJUSTED_D1_2017_2024.csv"
+  },
+  "periods": {"train": ["2017-01-01", "2021-12-31"], "validation": ["2022-01-01", "2023-12-31"], "oos": ["2024-01-01", "2024-12-31"]},
+  "families": {
+    "trend_filter": {"sma": [100, 150, 200]},
+    "donchian": {"entry": [20, 50, 100], "exit": [10, 20, 50]},
+    "trend_pullback": {"sma": [100, 150, 200], "down_days": [2, 3], "hold_days": [3, 5, 10]}
+  },
+  "economics": {"capital_usd": 1000, "commission_usd_per_order": 1.0, "slippage_bps_per_side": 10.0, "whole_shares": true},
+  "development_gate": {"minimum_pooled_train_pf": 1.05, "minimum_pooled_train_trades": 80, "minimum_assets_positive_validation": 4, "minimum_assets_pf_1_10_validation": 3, "minimum_pooled_validation_pf": 1.15, "minimum_pooled_validation_trades": 40, "maximum_pooled_validation_drawdown_pct": 25},
+  "selection": "highest count of validation PF>=1.10, then pooled PF, then lowest drawdown; exactly one variant before OOS",
+  "paper_authorized": false,
+  "live_authorized": false
+}

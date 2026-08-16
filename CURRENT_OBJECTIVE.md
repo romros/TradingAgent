@@ -1,7 +1,47 @@
 # Objectiu canònic actual — cartera teòrica nova amb SQCLI
 
 **Vigent des de:** 2026-08-12
+**Esmena de criteri d'èxit:** 2026-08-16
 **Autoritat:** aquest document preval sobre qualsevol full de ruta anterior.
+
+## Criteri d'èxit vigent — superar la inversió passiva
+
+L'objectiu final de TradingAgent no és només trobar estratègies amb PnL
+positiu. Ha de produir una cartera que, amb la mateixa finestra, capital,
+unitats, dades i costos:
+
+1. superi buy-and-hold net de costos en rendiment; **o**
+2. si el rendiment és inferior, ofereixi una millora prou clara de risc-retorn
+   (drawdown, Sharpe/Sortino i retorn sobre drawdown) per justificar la
+   complexitat operativa.
+
+La cartera actual de cinc edges queda congelada com a **baseline defensiva**,
+no com a objectiu assolit. El seu resultat 2022–2024 és +19,32% acumulat
+(~6,07% CAGR) i DD diari conjunt 10,92% sobre 3.000 USD. És prometedora per
+control de risc, però encara no ha demostrat que sigui millor que una inversió
+passiva adequada.
+
+No es pot convertir una estratègia mediocre en guanyadora aplicant leverage.
+Primer s'exigeix edge net i comparació de benchmark; compounding i
+palanquejament només s'avaluen després. Els benchmarks s'han de preregistrar
+abans de calcular-los i no es poden canviar retrospectivament per facilitar un
+PASS.
+
+El capital no està prefixat. S'han d'avaluar configuracions fins a un màxim de
+**3.000 USD** i recomanar el capital més petit que superi el contracte de
+benchmark amb operativa realista. Si cap nivell ho fa, la decisió correcta és
+no assignar encara capital al trading actiu.
+
+La cartera final tindrà **entre 6 i 8 estratègies i mai més de 8**. El mínim de
+sis no autoritza a admetre peces mediocres: mentre no existeixin sis edges que
+passin individualment els gates, la biblioteca continua incompleta. Cada
+estratègia ha de mantenir identificador, regla congelada, senyals, capital,
+fills, costos, PnL, drawdown i estat de salut separats. L'agregació de cartera
+no pot ocultar la degradació d'una peça; s'han de poder desactivar i auditar
+individualment.
+
+Estat canònic de la baseline:
+[`docs/FIVE_STRATEGY_PORTFOLIO_STATUS.md`](docs/FIVE_STRATEGY_PORTFOLIO_STATUS.md).
 
 ## Objectiu anterior — TANCAT
 
@@ -31,7 +71,7 @@ La selecció de famílies es basa en:
 
 ## Resultat buscat
 
-- Idealment 4–8 estratègies complementàries; mai completar la xifra amb
+- Entre 6 i 8 estratègies complementàries; mai completar la xifra amb
   estratègies mediocres.
 - Cap criptoactiu.
 - Actius nous respecte de l'univers Ostium anterior i verificables al catàleg

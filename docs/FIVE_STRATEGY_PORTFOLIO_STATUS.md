@@ -74,10 +74,33 @@ No es crearà retrospectivament un selector dinàmic per encaixar cinc edges en
 1.000 USD: després d'haver vist 2024 seria una nova política sobreajustada i
 necessitaria una mostra independent nova.
 
+## Benchmark passiu i decisió actual
+
+La comparació preregistrada usa SPY total-return (dividends ajustats) només com
+a benchmark, amb el mateix període, capital, accions senceres i costos
+d'estrès. Cap dels tres nivells actius supera buy-and-hold en rendiment:
+
+| Capital | Activa CAGR / DD | SPY CAGR / DD | Decisió |
+|---:|---:|---:|---|
+| 1.000 USD | 5,59% / 19,92% | 8,25% / 23,43% | FAIL |
+| 2.000 USD | 6,30% / 8,15% | 8,28% / 23,41% | Només utilitat defensiva |
+| 3.000 USD | 6,07% / 10,92% | 8,29% / 23,40% | FAIL del gate congelat |
+
+Per tant, **no hi ha capital recomanat encara per a l'objectiu de superar
+buy-and-hold**. Si l'objectiu fos exclusivament defensiu, 2.000 USD seria la
+configuració actual més eficient. Aquesta distinció no es pot esborrar ni
+reinterpretar.
+
+La cartera final queda limitada a 6–8 estratègies identificables. La sisena
+ha d'aportar retorn marginal i diversificació; no s'admetrà només per arribar
+al mínim.
+
 ## Evidència principal
 
 - `data/ibkr_sq_v2/five_edge_portfolio_v1/result.json`
 - `data/ibkr_sq_v2/five_edge_portfolio_v1/daily_mtm_v1.json`
+- `data/ibkr_sq_v2/five_edge_portfolio_v1/vs_spy_buy_hold_v1.json`
+- `data/ibkr_sq_v2/five_edge_portfolio_v1/capital_ladder_vs_spy_v1.json`
 - `data/ibkr_sq_v2/multi_asset_known_edge_funnel_v1/shared_capital_v1.json`
 - `data/ibkr_sq_v2/multi_asset_known_edge_funnel_v1/oos_2024_concentration_audit.json`
 - `data/ibkr_sq_v2/four_edge_portfolio_composer_v1/net_daily_mtm_gate_v1.json`

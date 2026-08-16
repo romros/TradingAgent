@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "decision": "NO_ACTIVE_RAW_OUTPERFORMANCE_YET",
+  "period": "2022-01-01/2024-12-31",
+  "levels": {
+    "1000": {
+      "active": {
+        "net_return_pct": 17.722293461669516,
+        "maximum_drawdown_pct": 19.919877913123333,
+        "cagr_pct": 5.593032858685243
+      },
+      "spy_buy_hold": {
+        "net_return_pct": 26.828478687950728,
+        "cagr_pct": 8.250136555544652,
+        "maximum_drawdown_pct": 23.429590332746024,
+        "shares": 2
+      },
+      "raw_return_win": false,
+      "defensive_utility_pass": false
+    },
+    "2000": {
+      "active": {
+        "net_return_pct": 20.112051,
+        "maximum_drawdown_pct": 8.151593,
+        "cagr_pct": 6.303236278219293
+      },
+      "spy_buy_hold": {
+        "net_return_pct": 26.92847868795072,
+        "cagr_pct": 8.278598514500857,
+        "maximum_drawdown_pct": 23.406158746035384,
+        "shares": 4
+      },
+      "raw_return_win": false,
+      "defensive_utility_pass": true
+    },
+    "3000": {
+      "active": {
+        "net_return_pct": 19.315465419599875,
+        "maximum_drawdown_pct": 10.922991581665945,
+        "cagr_pct": 6.0675567931368635
+      },
+      "spy_buy_hold": {
+        "net_return_pct": 26.961812021284047,
+        "cagr_pct": 8.288082513141548,
+        "maximum_drawdown_pct": 23.398358628586944,
+        "shares": 6
+      },
+      "raw_return_win": false,
+      "defensive_utility_pass": false
+    }
+  },
+  "recommended_capital_for_raw_outperformance_usd": null,
+  "recommended_capital_for_defensive_utility_usd": 2000,
+  "interpretation": "Defensive utility is not raw-return outperformance and does not complete the primary research objective.",
+  "paper_authorized": false,
+  "live_authorized": false
+}

@@ -1,10 +1,15 @@
 # TradingAgent
 
-> **OBJECTIU NOU I ÚNIC (2026-08-12):** recerca teòrica d'una cartera
+> **OBJECTIU NOU I ÚNIC (esmenat 2026-08-16):** recerca teòrica d'una cartera
 > no-cripto amb actius del catàleg públic d'Interactive Brokers, escenaris de
-> capital entre 200 i 2.000 i compounding. L'objectiu
+> capital petit (màxim 3.000 USD) i compounding, que superi buy-and-hold net de costos o aporti
+> una millora clara i mesurable de risc-retorn. La cartera actual de cinc
+> edges és la baseline defensiva, no l'èxit final. L'objectiu
 > anterior d'Ostium està tancat. Començar sempre per
 > [CURRENT_OBJECTIVE.md](CURRENT_OBJECTIVE.md).
+
+La cartera final està limitada a 6–8 estratègies traçables individualment;
+mai s'afegeixen peces només per arribar al mínim.
 
 TradingAgent és el cervell de senyal, context i risc. Una futura integració de
 BrokerageService amb IBKR només es considerarà després d'un `THEORETICAL_PASS`.

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_BEFORE_1000_AND_2000_BENCHMARK_PERFORMANCE",
+  "period": ["2022-01-01", "2024-12-31"],
+  "levels": {
+    "1000": "multi_asset_shared_capital",
+    "2000": "legacy_four_edge",
+    "3000": "five_edge_synchronized"
+  },
+  "inputs": {
+    "multi_asset": "data/ibkr_sq_v2/multi_asset_known_edge_funnel_v1/shared_capital_v1.json",
+    "legacy_four": "data/ibkr_sq_v2/four_edge_portfolio_composer_v1/net_daily_mtm_gate_v1.json",
+    "five_edge": "data/ibkr_sq_v2/five_edge_portfolio_v1/daily_mtm_v1.json",
+    "benchmark_spec": "lab/sq_bridge/five_edge_vs_buy_hold_v1.json"
+  },
+  "gate": {
+    "raw_return_win": "active CAGR strictly exceeds SPY CAGR",
+    "defensive_utility": "active CAGR >= 75% of SPY CAGR and active DD <= 60% of SPY DD"
+  },
+  "selection": "smallest capital passing each separate gate; never call defensive utility a raw-return win",
+  "maximum_capital_usd": 3000,
+  "paper_authorized": false,
+  "live_authorized": false
+}

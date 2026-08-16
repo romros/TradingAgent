@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "decision": "FAIL_ACTIVE_BELOW_BUY_HOLD_OBJECTIVE",
+  "period": "2022-01-01/2024-12-31",
+  "capital_usd": 3000,
+  "active": {
+    "net_return_pct": 19.315465419599875,
+    "cagr_pct": 6.0675567931368635,
+    "maximum_drawdown_pct": 10.922991581665945
+  },
+  "spy_buy_hold_total_return": {
+    "shares": 6,
+    "cash_usd": 134.50844800000016,
+    "net_return_pct": 26.961812021284047,
+    "cagr_pct": 8.288082513141548,
+    "maximum_drawdown_pct": 23.398358628586944,
+    "drawdown_peak_date": "2022-01-03",
+    "drawdown_trough_date": "2022-10-12"
+  },
+  "comparison": {
+    "active_minus_benchmark_return_points": -7.646346601684172,
+    "active_minus_benchmark_cagr_points": -2.2205257200046846,
+    "drawdown_ratio_active_to_benchmark": 0.4668272572043058,
+    "return_pass": false,
+    "risk_adjusted_pass": false
+  },
+  "benchmark_role": "comparison_only_not_strategy_candidate",
+  "paper_authorized": false,
+  "live_authorized": false
+}

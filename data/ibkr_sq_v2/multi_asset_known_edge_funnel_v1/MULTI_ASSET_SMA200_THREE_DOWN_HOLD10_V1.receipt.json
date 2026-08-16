@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "strategy": "MULTI_ASSET_SMA200_THREE_DOWN_HOLD10_V1",
+  "rule": "Close[1]>SMA(200)[1] AND Close[1]<Close[2]<Close[3]<Close[4]; enter market; exit after 10 bars",
+  "template_sha256": "0af742397206a4e2799a565a0463531941ebcbfe7ffa786bbd644ff963802998",
+  "output_sha256": "0b08280bec170b8fdfab82719dd36c7f78af539b4f6b00fade2ed4936ec357eb",
+  "performance_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

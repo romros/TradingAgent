@@ -1,0 +1,17 @@
+{
+  "databank_sync_receipt_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/multi_asset_known_edge_funnel_v1/native_aapl/run/retest_databank_sync_receipt.json",
+  "databank_sync_receipt_sha256": "324541dd2d8eb3f8e5287a0011f7d19d978f2cb721df846386f3d2e5ae62831b",
+  "decision": "PASS_RETEST_STARTED",
+  "holdout_accessed": false,
+  "holdout_evaluation_count": 0,
+  "input_copy_path": "/mnt/volume-SQ/user/projects/IBKR_AAPL_SMA200_3DOWN_HOLD10_NATIVE_V1/databanks/Results/MULTI_ASSET_SMA200_THREE_DOWN_HOLD10_V1.sqx",
+  "input_copy_sha256": "0b08280bec170b8fdfab82719dd36c7f78af539b4f6b00fade2ed4936ec357eb",
+  "preflight_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/multi_asset_known_edge_funnel_v1/native_aapl/run/retest_preflight.json",
+  "preflight_sha256": "bc890d4eff3d67dc782dbb3831ff5225d836d129e4efac441b7153113fecba9b",
+  "project_name": "IBKR_AAPL_SMA200_3DOWN_HOLD10_NATIVE_V1",
+  "response": {
+    "success": "Project execution started."
+  },
+  "retest_stage": "pre_holdout",
+  "schema_version": 1
+}

@@ -16,7 +16,7 @@ L'estat transversal, capital petit, paritat SQ i ordre de treball són a
 | `jpm_momentum60_month_end_v1` | JPM | Momentum mitjà mostrejat a final de mes | Admesa; aporta a cartera | [JPM](jpm_momentum60_month_end_v1.md) |
 | `sgln_tsmom12_capped_v1` | SGLN/IGLN/EGLN | Momentum 12 mesos sobre or físic | Admesa només com a sleeve ≤25% | [SGLN](sgln_tsmom12_capped_v1.md) |
 | `aapl_momentum60_month_end_v1` | AAPL | Momentum mitjà mostrejat a final de mes | Recerca admesa; cartera rebutjada | [AAPL](aapl_momentum60_month_end_v1.md) |
-| `multi_asset_sma200_three_down_hold10_v1` | 10 equities/ETF | Pullback curt dins tendència SMA200 | Edge de recerca; SQ pendent | [Multi-actiu](multi_asset_sma200_three_down_hold10_v1.md) |
+| `multi_asset_sma200_three_down_hold10_v1` | 10 equities/ETF | Pullback curt dins tendència SMA200 | Edge de recerca; paritat SQ AAPL | [Multi-actiu](multi_asset_sma200_three_down_hold10_v1.md) |
 
 `Admesa per recerca` no significa autorització per operar. Encara cal la capa
 de cartera, risc, paper trading i validació d'execució IBKR abans de LIVE.
@@ -40,6 +40,7 @@ L'índex llegible de vies mortes és a [estratègies rebutjades](../rejected/REA
 
 ## Candidata en validació tècnica
 
-La família multi-actiu SMA200/3-down/hold-10 ha superat el gate estadístic i
-OOS, però encara necessita paritat nativa SQ i contracte de capital compartit.
-No està autoritzada per paper ni live.
+La família multi-actiu SMA200/3-down/hold-10 ha superat el gate estadístic,
+OOS, robustesa per blocs i paritat nativa SQ sobre AAPL. Encara necessita
+contracte de capital compartit i extensió de paritat als altres recursos. No
+està autoritzada per paper ni live.

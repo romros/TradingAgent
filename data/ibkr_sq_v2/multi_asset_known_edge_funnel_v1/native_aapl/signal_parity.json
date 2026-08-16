@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_EXACT_SQ_PYTHON_SIGNAL_PARITY",
+  "source_sha256": "47a4a85f455d4f55946c233cc6c2d7525ec39b5778ed6bcb418496b2c5172127",
+  "orders_sha256": "a9d95541c81ffaae790dc033c0949e596eaa009c11e12f89255418de2c72dbd0",
+  "retest_receipt_sha256": "747b507b65fdd6eaed39af6efb4cba84800f3bbc1cae6c48d3e787af8b59bdbe",
+  "comparison_from": "2017-11-10",
+  "warmup_policy": "research source must accumulate 200 complete sessions; first possible entry is row index 201",
+  "native_pre_research_warmup_trades": [
+    {
+      "entry": "2017-08-01",
+      "exit": "2017-08-15"
+    },
+    {
+      "entry": "2017-08-21",
+      "exit": "2017-09-05"
+    },
+    {
+      "entry": "2017-09-08",
+      "exit": "2017-09-22"
+    },
+    {
+      "entry": "2017-09-25",
+      "exit": "2017-10-09"
+    }
+  ],
+  "python_trades": 63,
+  "sq_trades": 63,
+  "missing_in_sq": [],
+  "extra_in_sq": [],
+  "entry_exit_pairs_exact": true,
+  "price_parity_required": false,
+  "price_note": "signal/date parity only; native and adjusted/canonical price levels can differ",
+  "paper_authorized": false,
+  "live_authorized": false
+}

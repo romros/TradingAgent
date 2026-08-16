@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_POST_OOS_ROBUSTNESS",
+  "variant": {
+    "family": "trend_pullback",
+    "sma": 200,
+    "down_days": 3,
+    "hold_days": 10
+  },
+  "period": "2022-01..2024-12",
+  "monthly_observations": 36,
+  "block_months": 3,
+  "simulations": 10000,
+  "seed": 20260816,
+  "observed_additive_return": 0.3854371344349236,
+  "positive_month_fraction": 0.6111111111111112,
+  "bootstrap_probability_positive": 0.9857,
+  "bootstrap_total_return_p05": 0.08889761765354327,
+  "bootstrap_total_return_p50": 0.3727227360877542,
+  "bootstrap_total_return_p95": 0.6914440183153773,
+  "one_sided_sign_flip_p_value": 0.013598640135986401,
+  "checks": {
+    "bootstrap_probability_positive": true,
+    "bootstrap_p05_positive": true,
+    "sign_flip_p_value": true
+  },
+  "parameter_selection_performed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

@@ -1,6 +1,6 @@
 # Multi-actiu D1 — SMA200 + tres baixades + sortida a 10 sessions
 
-Estat: **edge estadístic de recerca; pendent de paritat nativa SQ i no autoritzat per paper/live**.
+Estat: **edge estadístic de recerca amb paritat nativa SQ; no autoritzat per paper/live**.
 
 ## Regla executable
 
@@ -45,12 +45,24 @@ NVDA és una contribució molt gran (+200,72% en la seva butxaca), però la prov
 leave-one-out evita presentar-la com l'única font de l'edge. La dispersió entre
 actius continua sent material: META, EEM, EFA i XLE són negatius el 2024.
 
+## Paritat SQ i robustesa
+
+- SQX nativa explícita: quatre comparacions, SMA200 i `ExitAfterBars=10`.
+- Retest supervisat AAPL 2017–2024, sense filtres SQ de rendiment.
+- Després del warm-up de 200 sessions: 63/63 parells entrada/sortida exactes
+  entre SQ i Python, zero absents i zero extres.
+- SQ produeix quatre trades previs perquè el seu recurs conté warm-up anterior
+  a 2017; queden exclosos explícitament de la finestra elegible de recerca.
+- Bootstrap de 10.000 mostres en blocs de tres mesos sobre 2022–2024:
+  probabilitat de retorn positiu 98,57%; percentil 5 +8,89%; p unilateral per
+  randomització de signes 0,0136.
+
 ## Limitacions i següent gate
 
 - És un edge de cartera/equal-weight, no una promesa que cada actiu funcioni.
 - L'històric cobreix només 2017–2024 i el 2024 és un sol any OOS.
-- Falta reconstrucció SQ, Retest natiu, comparació exacta de senyals i auditoria
-  de robustesa per blocs/Monte Carlo.
+- La paritat SQ s'ha comprovat en AAPL com a actiu de control; falta repetir
+  paritat de dades/senyals en la resta de recursos abans d'un runner multi-actiu.
 - Cal decidir una regla de capital compartit i conflictes simultanis abans de
   qualsevol shadow.
 - `paper_authorized=false`; `live_authorized=false`.
@@ -61,3 +73,5 @@ Evidència reproduïble:
 - `lab/sq_bridge/multi_asset_known_edge_funnel_v1.py`
 - `data/ibkr_sq_v2/multi_asset_known_edge_funnel_v1/development_boundary_corrected.json`
 - `data/ibkr_sq_v2/multi_asset_known_edge_funnel_v1/oos_2024_concentration_audit.json`
+- `data/ibkr_sq_v2/multi_asset_known_edge_funnel_v1/native_aapl/signal_parity.json`
+- `data/ibkr_sq_v2/multi_asset_known_edge_funnel_v1/post_oos_robustness.json`

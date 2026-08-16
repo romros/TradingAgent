@@ -1,0 +1,93 @@
+{
+  "schema_version": 1,
+  "stage": "train_structural_selection_translation_eligible",
+  "selection_rule": "families_with_at_least_2_members_then_medoid_of_trades_profit_dd_complexity",
+  "selection_uses_validation": false,
+  "selection_uses_oos": false,
+  "source_inventory_sha256": "a18a4fedc7dca2b497454a785d98993b7757231b0e52298e9bec8e4b59dd98b8",
+  "eligible_family_count": 10,
+  "representative_limit": 8,
+  "representatives": [
+    {
+      "structural_family_sha256": "4104f4375a908aa81396053ad44751d56ace6f7c3676136285c4ef72a2a729fc",
+      "family_support": 6,
+      "candidate_id": "Strategy 0.495",
+      "candidate_sqx_sha256": "d4befdc7b63707b9415206e2c6a04bb6e32e39541dbe80baaee583233adbf9a1",
+      "selection_distance_to_family_median": 0.25964242891304345,
+      "translation_status": "SUPPORTED_SUBSET",
+      "unsupported_nodes_or_formulas": []
+    },
+    {
+      "structural_family_sha256": "0b308ff6cba4ac43c6f2d1ee40f43a3ad64fbfe11bcb6a650f2a93ac8733a0a9",
+      "family_support": 5,
+      "candidate_id": "Strategy 0.469",
+      "candidate_sqx_sha256": "625572151a47a893b2accf05f5cda3e04adf28a84c7cdb7710be83ca4b2e0e51",
+      "selection_distance_to_family_median": 0.016666666666666666,
+      "translation_status": "SUPPORTED_SUBSET",
+      "unsupported_nodes_or_formulas": []
+    },
+    {
+      "structural_family_sha256": "e0ddb303cb7c3db2d380c00963104e0b7393b7203ffaa2039a5fb9a53dfc225d",
+      "family_support": 5,
+      "candidate_id": "Strategy 0.501",
+      "candidate_sqx_sha256": "354d2347fef03d739b6c9547d9e1e01239b16ceb8bfa5b1d103f6c79c82e577e",
+      "selection_distance_to_family_median": 0.08955223880597014,
+      "translation_status": "SUPPORTED_SUBSET",
+      "unsupported_nodes_or_formulas": []
+    },
+    {
+      "structural_family_sha256": "fd5cdce9d0f349d1fb5e1325c226d03d6e4b6568116c769f6167cbe8095f7b24",
+      "family_support": 5,
+      "candidate_id": "Strategy 0.202",
+      "candidate_sqx_sha256": "ebe89e6e5137c69d7fdba26f6e489918aca6b0aedd20bc5e6b90d981605681b7",
+      "selection_distance_to_family_median": 0.21052631578947367,
+      "translation_status": "SUPPORTED_SUBSET",
+      "unsupported_nodes_or_formulas": []
+    },
+    {
+      "structural_family_sha256": "618b4678dd5bc2e39ab01252f7f37636401176f4ff0fdb3880db96e05c1b64ff",
+      "family_support": 4,
+      "candidate_id": "Strategy 0.126",
+      "candidate_sqx_sha256": "2ff6727a05a81161237876f8d7fba05da40805fb0f1d9863ea1e4c165e91c68f",
+      "selection_distance_to_family_median": 0.5016667457865169,
+      "translation_status": "SUPPORTED_SUBSET",
+      "unsupported_nodes_or_formulas": []
+    }
+  ],
+  "inventory_file_sha256": "d6598c773fdb65a071884e8f12a8089c8e413fbf4f6d1cb9e919d7d41a290e3a",
+  "translation_rejected": [
+    {
+      "structural_family_sha256": "50f133339e79976a01233a7b8714581b7b99f8b6ffe7f474015d33e6b75c85e5",
+      "family_support": 4,
+      "candidate_id": "Strategy 0.631",
+      "candidate_sqx_sha256": "6c494bd4e28f76e4048d788fec55af1cf5cce1b11d439db23ce8bdd216bad509",
+      "selection_distance_to_family_median": 0.12286466686335411,
+      "translation_status": "UNSUPPORTED",
+      "unsupported_nodes_or_formulas": [
+        "NON_CLOSE_COMPUTED_FROM"
+      ]
+    },
+    {
+      "structural_family_sha256": "33fe24c410142b04e3dbea2ac571bbf93800c2c9429c5e3f691fe136891a6f39",
+      "family_support": 3,
+      "candidate_id": "Strategy 0.138",
+      "candidate_sqx_sha256": "f5c770d097f42032da6f52251806ea43be247eb82c67954e4219d54e6228c315",
+      "selection_distance_to_family_median": 0.05660377358490566,
+      "translation_status": "UNSUPPORTED",
+      "unsupported_nodes_or_formulas": [
+        "NON_CLOSE_COMPUTED_FROM"
+      ]
+    },
+    {
+      "structural_family_sha256": "2b98010ae1d83ce0fe9ddac3bda666c885b9bebbf70c9ed40be0fc6cecc59347",
+      "family_support": 2,
+      "candidate_id": "Strategy 0.507",
+      "candidate_sqx_sha256": "66d5894bf60c8d122e31b5d380f0fd1024bd713d80ec615f72ebee8a0b561a42",
+      "selection_distance_to_family_median": 0.2090371009395973,
+      "translation_status": "UNSUPPORTED",
+      "unsupported_nodes_or_formulas": [
+        "NON_CLOSE_COMPUTED_FROM"
+      ]
+    }
+  ]
+}

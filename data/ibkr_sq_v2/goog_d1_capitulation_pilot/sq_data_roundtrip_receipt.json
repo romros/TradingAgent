@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "source_csv": "data/ibkr_sq_v2/goog_d1_capitulation_pilot/GOOG_ADJUSTED_D1_2017_2024.csv",
+  "source_sha256": "5b9a145321a0208dacb668a5a19686129c54e5666bf60f0fac1a479b7522e28e",
+  "exported_csv": "data/ibkr_sq_v2/goog_d1_capitulation_pilot/GOOG_IBKR_V1_D1_roundtrip.csv",
+  "exported_sha256": "7ab85c6337c17a8caa64969f70b67cbc5ace7a2cda285e52955c26fcf114f317",
+  "exported_has_header": false,
+  "source_rows": 2012,
+  "exported_rows": 2012,
+  "timestamps_exact_and_ordered": true,
+  "field_errors": {
+    "open": {
+      "changed_rows": 2012,
+      "max_absolute_error": "4.9997381E-7",
+      "mean_absolute_error": "2.502170551938369781312127237E-7"
+    },
+    "high": {
+      "changed_rows": 2012,
+      "max_absolute_error": "4.9990897E-7",
+      "mean_absolute_error": "2.510168916824055666003976143E-7"
+    },
+    "low": {
+      "changed_rows": 2012,
+      "max_absolute_error": "4.9950754E-7",
+      "mean_absolute_error": "2.478554222405566600397614314E-7"
+    },
+    "close": {
+      "changed_rows": 2012,
+      "max_absolute_error": "4.9951172E-7",
+      "mean_absolute_error": "2.428533051133200795228628231E-7"
+    },
+    "volume": {
+      "changed_rows": 0,
+      "max_absolute_error": "0.0",
+      "mean_absolute_error": "0.0"
+    }
+  },
+  "decision": "PASS_SIGNAL_RESEARCH",
+  "decision_scope": "Data integrity for signal research only; volume-dependent rules, execution, paper, and live remain unauthorized.",
+  "exact_numeric_parity": false,
+  "paper_or_live_authorized": false
+}

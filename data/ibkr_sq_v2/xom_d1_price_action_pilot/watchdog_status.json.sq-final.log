@@ -1,0 +1,24 @@
+Project: IBKR_XOM_D1_PRICE_ACTION_V1
+Log file: /global_log_20260816_074333.log
+
+--------------------------------------------------------------------------------------------------------------------------
+TASK STARTED at 2026.08.16 07:43:33.274
+Task: Build strategies, Type: Build
+Databanks before start: Results (0), Existing portfolio (0), Last generation (0), Initial population (0), Strategies to improve (0), D1 (0), OLD (0), D1_OLD (0)
+
+TASK FINISHED at 2026.08.16 07:43:34.790 in 1 s.
+Databanks after finish: Results (60), Existing portfolio (0), Last generation (0), Initial population (0), Strategies to improve (0), D1 (0), OLD (0), D1_OLD (0)
+
+Strategies generated: 723, Time per strategy: 1 ms., Time per accepted strategy: 13 ms., Accepted: 60, Rejected: 663, Strategies per hour: 3257572, Accepted strategies per hour: 270338
+
+Time per strategy details:
+Main test: Count: 184, Avg. time: 0.0114 s., Total time: 2.0970 s., % of all: 100.00 %
+
+Rejected details:
+Automatic filter: too little trades, Count: 480, % of all: 72.4 %
+Global filter:  # of trades[Main data] > 40.00, Count: 2, % of all: 0.3 %
+Global filter:  Profit factor[Main data] > 1.08, Count: 122, % of all: 18.4 %
+Automatic filter: no trades, Count: 59, % of all: 8.9 %
+
+Accepted details:
+In databank, Count: 60, % of all: 100.0 %

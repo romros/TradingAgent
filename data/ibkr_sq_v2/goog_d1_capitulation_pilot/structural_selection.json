@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "stage": "train_structural_selection",
+  "selection_rule": "families_with_at_least_2_members_then_medoid_of_trades_profit_dd_complexity",
+  "selection_uses_validation": false,
+  "selection_uses_oos": false,
+  "source_inventory_sha256": "3584c14c4e2285099ef9b47059900c4e7d9d442ab3420c028a29a5447d2a62d6",
+  "eligible_family_count": 10,
+  "representative_limit": 8,
+  "representatives": [
+    {
+      "structural_family_sha256": "618b4678dd5bc2e39ab01252f7f37636401176f4ff0fdb3880db96e05c1b64ff",
+      "family_support": 5,
+      "candidate_id": "Strategy 0.174",
+      "candidate_sqx_sha256": "f8e4937b3c437035dac0f79acfc7fb4583fdfc9568e2e8f6bc650628959fc299",
+      "selection_distance_to_family_median": 0.0
+    },
+    {
+      "structural_family_sha256": "33fe24c410142b04e3dbea2ac571bbf93800c2c9429c5e3f691fe136891a6f39",
+      "family_support": 4,
+      "candidate_id": "Strategy 0.81",
+      "candidate_sqx_sha256": "808434b1d46750c3c85db34821fd7e3a96fa67ab68801942d98836827269fc39",
+      "selection_distance_to_family_median": 0.24026752725031136
+    },
+    {
+      "structural_family_sha256": "fd5cdce9d0f349d1fb5e1325c226d03d6e4b6568116c769f6167cbe8095f7b24",
+      "family_support": 4,
+      "candidate_id": "Strategy 0.114",
+      "candidate_sqx_sha256": "fe572981dbb237d713bf41726159ff754326b3b1c857bd5dd0df8c1ba4ae9486",
+      "selection_distance_to_family_median": 0.26623031580657813
+    },
+    {
+      "structural_family_sha256": "0bc556e03cfe71889d96378e0a6229d12e20ae15130e0e81a28a8e74d7252a27",
+      "family_support": 3,
+      "candidate_id": "Strategy 0.33",
+      "candidate_sqx_sha256": "2bada20973e01cf0884e0195997ed92cb8dd9ac00b608251092b279b94a8a1d8",
+      "selection_distance_to_family_median": 0.2879403512830103
+    },
+    {
+      "structural_family_sha256": "25a37a7c81a0e03a990b19ef9f7ba2c8b55fd093f370445f904e3d51bb68366d",
+      "family_support": 3,
+      "candidate_id": "Strategy 0.217",
+      "candidate_sqx_sha256": "4db0627ecf2c0a5d930432f31c6c1e38cbd38d39f7344fde1df44005a4b624b5",
+      "selection_distance_to_family_median": 0.0
+    },
+    {
+      "structural_family_sha256": "958b689ca4b46095545898b14c9cfc471e128f1e3024c2bce8a3a19e8f18463e",
+      "family_support": 3,
+      "candidate_id": "Strategy 0.99",
+      "candidate_sqx_sha256": "de6797a72f3a2b52af281a67bd3818c6fd0d7c10942e178f8f91cb77420798f1",
+      "selection_distance_to_family_median": 0.02857142857142857
+    },
+    {
+      "structural_family_sha256": "e0ddb303cb7c3db2d380c00963104e0b7393b7203ffaa2039a5fb9a53dfc225d",
+      "family_support": 3,
+      "candidate_id": "Strategy 0.215",
+      "candidate_sqx_sha256": "534a34016c5e6bcae32cc6242c77ae77e074134c9ece58073259dd5c95b3462e",
+      "selection_distance_to_family_median": 0.0
+    },
+    {
+      "structural_family_sha256": "0b308ff6cba4ac43c6f2d1ee40f43a3ad64fbfe11bcb6a650f2a93ac8733a0a9",
+      "family_support": 2,
+      "candidate_id": "Strategy 0.153",
+      "candidate_sqx_sha256": "9ad6437f23979ecaa55e7ad229ec8b19f935c7ea9e1bbc49b87c0e389fe69900",
+      "selection_distance_to_family_median": 0.33096296284317117
+    }
+  ],
+  "inventory_file_sha256": "8b6925855a2cc99735d702967af4a70b2a001ec09530602eea4afd807805b764"
+}

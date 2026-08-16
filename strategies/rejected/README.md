@@ -25,6 +25,7 @@ de tenir un mecanisme i una preregistració nous.
 | AAPL open→close diari | Brut +11,2 bps, però a 1.000 USD −11,47% net i PF 0,960 | `data/ibkr_sq_v2/aapl_intraday_confirmation_v1/screen_v1.json` |
 | Futurs TSMOM diversificats proxy | Positiu als tres trams, però Sharpe combinat 0,553 < 0,65 | `data/ibkr_sq_v2/diversified_futures_tsmom_v1/screen_v1.json` |
 | XOM momentum mensual 6/12 mesos | 2024 OOS aproximadament −9% i train negatiu | `data/ibkr_sq_v2/xom_d1_edge_v1/screen_v1.json` |
+| GOOG/XOM price-action SQ D1 | GOOG sense supervivent; XOM finalista −1,42%, PF 0,947 a OOS estrès | [Fitxa](goog_xom_sq_price_action_20260816.md) |
 | SPY turn-of-month recent | 2025–05/2026 tiered −0,73%, PF 0,961 | `data/ibkr_sq_v2/turn_of_month/spy_recent_holdout_v1.json` |
 | Turtle 50/20 ampliada | Nous actius PF 1,33, però t combinat només 1,22 i DD 36,8% | `data/ibkr_sq_v2/turtle_50_20/new_asset_transfer_v1.json` |
 | AAPL H1 Strategy 0.14113 | OOS tiered PF 1,004 i stress −10,98% | `data/ibkr_sq_v2/aapl_h1_shock_reversion_tiered_pilot/oos/0_14113/small_account_audit.json` |

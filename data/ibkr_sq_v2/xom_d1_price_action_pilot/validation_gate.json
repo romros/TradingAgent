@@ -1,0 +1,650 @@
+{
+  "schema_version": 1,
+  "stage": "XOM_D1_2022_2023_VALIDATION",
+  "decision": "PASS_VALIDATION_SURVIVORS",
+  "spec_sha256": "00eb1c39f96dd41485d079aadbd0e8e46e08a2f68b7c8cf42c626ae5439b62dc",
+  "selection_sha256": "805a1aa93ae6c7224fbbccfc23d2d9607caa92c2bcd47dbf9ca9a198e28b14f7",
+  "validation_gate": {
+    "capital_usd": 1000,
+    "minimum_trades": 20,
+    "minimum_stress_profit_factor": 1.15,
+    "minimum_positive_quarters": 5,
+    "maximum_close_to_close_drawdown_pct": 25
+  },
+  "evaluated": 5,
+  "survivors": [
+    "Strategy 0.469",
+    "Strategy 0.202"
+  ],
+  "results": [
+    {
+      "candidate_id": "Strategy 0.495",
+      "token": "0_495",
+      "family_support": 6,
+      "receipt_path": "data/ibkr_sq_v2/xom_d1_price_action_pilot/validation/0_495/run/supervised_retest_receipt.json",
+      "receipt_sha256": "c753a9f40112a03e94754fc27f893250e5e9a342d6d0f69cf66226561091969c",
+      "audit": {
+        "schema_version": 1,
+        "stage": "IBKR_EQUITY_SMALL_ACCOUNT_VALIDATION_AUDIT",
+        "candidate_id": "Strategy 0.495",
+        "orders_csv_path": "/mnt/volume-SQ/user/projects/IBKR_XOM_D1_VAL_0_495/orders-validation-ec888b42b763889a.csv",
+        "orders_csv_sha256": "f1b2fc73560941a9e329786ff225a452b2720df80fc0cde6bf446f600804cc14",
+        "sizing": "whole_shares_all_available_realized_equity_no_leverage",
+        "same_bar_d1_policy": "allow_verified_SL_MAE_or_PT_MFE_or_exact_EndTest_mark_to_market",
+        "same_bar_d1_trade_count": 0,
+        "end_test_positions_excluded": false,
+        "cost_contract": {
+          "tiered": "max(USD 0.35, USD 0.0035/share) per order",
+          "fixed": "max(USD 1.00, USD 0.005/share) per order",
+          "stress": "fixed commission plus 10 bps adverse slippage per side"
+        },
+        "results": {
+          "1000": {
+            "tiered": {
+              "plan": "tiered",
+              "initial_capital_usd": 1000,
+              "final_equity_usd": 1165.777336,
+              "net_pnl_usd": 165.777336,
+              "return_pct": 16.577734,
+              "trades": 32,
+              "profit_factor": 1.161841,
+              "win_rate": 0.65625,
+              "net_expectancy_usd": 5.180542,
+              "maximum_drawdown_pct_close_to_close": 20.518936,
+              "minimum_shares": 11,
+              "maximum_shares": 17,
+              "median_duration_hours": 264.0,
+              "maximum_duration_hours": 1416.0,
+              "top_three_winners_share_of_net_profit": 1.442561,
+              "positive_quarters": 5,
+              "quarters": 8,
+              "quarter_pnl_usd": {
+                "2022-Q1": 318.246924,
+                "2022-Q2": -123.978791,
+                "2022-Q3": 5.022105,
+                "2022-Q4": 77.750507,
+                "2023-Q1": -127.36455,
+                "2023-Q2": 19.820019,
+                "2023-Q3": 12.553606,
+                "2023-Q4": -16.272484
+              }
+            },
+            "fixed": {
+              "plan": "fixed",
+              "initial_capital_usd": 1000,
+              "final_equity_usd": 1121.008459,
+              "net_pnl_usd": 121.008459,
+              "return_pct": 12.100846,
+              "trades": 32,
+              "profit_factor": 1.118124,
+              "win_rate": 0.65625,
+              "net_expectancy_usd": 3.781514,
+              "maximum_drawdown_pct_close_to_close": 22.121939,
+              "minimum_shares": 10,
+              "maximum_shares": 17,
+              "median_duration_hours": 264.0,
+              "maximum_duration_hours": 1416.0,
+              "top_three_winners_share_of_net_profit": 1.944029,
+              "positive_quarters": 5,
+              "quarters": 8,
+              "quarter_pnl_usd": {
+                "2022-Q1": 303.419642,
+                "2022-Q2": -131.778791,
+                "2022-Q3": 1.122105,
+                "2022-Q4": 70.314484,
+                "2023-Q1": -131.26455,
+                "2023-Q2": 18.114447,
+                "2023-Q3": 8.653606,
+                "2023-Q4": -17.572484
+              }
+            },
+            "stress": {
+              "plan": "stress",
+              "initial_capital_usd": 1000,
+              "final_equity_usd": 1053.881892,
+              "net_pnl_usd": 53.881892,
+              "return_pct": 5.388189,
+              "trades": 32,
+              "profit_factor": 1.053757,
+              "win_rate": 0.65625,
+              "net_expectancy_usd": 1.683809,
+              "maximum_drawdown_pct_close_to_close": 23.992463,
+              "minimum_shares": 10,
+              "maximum_shares": 17,
+              "median_duration_hours": 264.0,
+              "maximum_duration_hours": 1416.0,
+              "top_three_winners_share_of_net_profit": 4.045571,
+              "positive_quarters": 4,
+              "quarters": 8,
+              "quarter_pnl_usd": {
+                "2022-Q1": 271.927258,
+                "2022-Q2": -132.596061,
+                "2022-Q3": -6.271677,
+                "2022-Q4": 56.956917,
+                "2023-Q1": -126.751495,
+                "2023-Q2": 7.850817,
+                "2023-Q3": 1.079564,
+                "2023-Q4": -18.313431
+              }
+            }
+          }
+        },
+        "oos_2024_accessed": false,
+        "holdout_2025_accessed": false,
+        "paper_authorized": false,
+        "live_authorized": false
+      },
+      "checks": {
+        "minimum_trades": true,
+        "minimum_stress_profit_factor": false,
+        "minimum_positive_quarters": false,
+        "maximum_drawdown": true
+      },
+      "passed": false
+    },
+    {
+      "candidate_id": "Strategy 0.469",
+      "token": "0_469",
+      "family_support": 5,
+      "receipt_path": "data/ibkr_sq_v2/xom_d1_price_action_pilot/validation/0_469/run/supervised_retest_receipt.json",
+      "receipt_sha256": "02cd880bf8738f5ada1799bf99e9f62527e1890ad2f95ea4bff1f6aff87daaad",
+      "audit": {
+        "schema_version": 1,
+        "stage": "IBKR_EQUITY_SMALL_ACCOUNT_VALIDATION_AUDIT",
+        "candidate_id": "Strategy 0.469",
+        "orders_csv_path": "/mnt/volume-SQ/user/projects/IBKR_XOM_D1_VAL_0_469/orders-validation-07db455588093407.csv",
+        "orders_csv_sha256": "72b28269bda92738058c49e39addf807874ff66529918c9fee847b3d2f960983",
+        "sizing": "whole_shares_all_available_realized_equity_no_leverage",
+        "same_bar_d1_policy": "allow_verified_SL_MAE_or_PT_MFE_or_exact_EndTest_mark_to_market",
+        "same_bar_d1_trade_count": 0,
+        "end_test_positions_excluded": false,
+        "cost_contract": {
+          "tiered": "max(USD 0.35, USD 0.0035/share) per order",
+          "fixed": "max(USD 1.00, USD 0.005/share) per order",
+          "stress": "fixed commission plus 10 bps adverse slippage per side"
+        },
+        "results": {
+          "1000": {
+            "tiered": {
+              "plan": "tiered",
+              "initial_capital_usd": 1000,
+              "final_equity_usd": 1399.191321,
+              "net_pnl_usd": 399.191321,
+              "return_pct": 39.919132,
+              "trades": 29,
+              "profit_factor": 1.370877,
+              "win_rate": 0.724138,
+              "net_expectancy_usd": 13.765218,
+              "maximum_drawdown_pct_close_to_close": 17.887949,
+              "minimum_shares": 15,
+              "maximum_shares": 19,
+              "median_duration_hours": 336.0,
+              "maximum_duration_hours": 2088.0,
+              "top_three_winners_share_of_net_profit": 0.789955,
+              "positive_quarters": 5,
+              "quarters": 8,
+              "quarter_pnl_usd": {
+                "2022-Q1": 209.819711,
+                "2022-Q2": 77.50788,
+                "2022-Q3": 135.54547,
+                "2022-Q4": 265.791584,
+                "2023-Q1": -38.409264,
+                "2023-Q2": -263.6582,
+                "2023-Q3": 259.14704,
+                "2023-Q4": -246.5529
+              }
+            },
+            "fixed": {
+              "plan": "fixed",
+              "initial_capital_usd": 1000,
+              "final_equity_usd": 1342.422372,
+              "net_pnl_usd": 342.422372,
+              "return_pct": 34.242237,
+              "trades": 29,
+              "profit_factor": 1.319804,
+              "win_rate": 0.724138,
+              "net_expectancy_usd": 11.807668,
+              "maximum_drawdown_pct_close_to_close": 18.863072,
+              "minimum_shares": 14,
+              "maximum_shares": 19,
+              "median_duration_hours": 336.0,
+              "maximum_duration_hours": 2088.0,
+              "top_three_winners_share_of_net_profit": 0.891107,
+              "positive_quarters": 5,
+              "quarters": 8,
+              "quarter_pnl_usd": {
+                "2022-Q1": 200.719711,
+                "2022-Q2": 67.472461,
+                "2022-Q3": 124.037234,
+                "2022-Q4": 261.891584,
+                "2023-Q1": -47.322886,
+                "2023-Q2": -257.847906,
+                "2023-Q3": 236.483904,
+                "2023-Q4": -243.01173
+              }
+            },
+            "stress": {
+              "plan": "stress",
+              "initial_capital_usd": 1000,
+              "final_equity_usd": 1280.779706,
+              "net_pnl_usd": 280.779706,
+              "return_pct": 28.077971,
+              "trades": 29,
+              "profit_factor": 1.268985,
+              "win_rate": 0.689655,
+              "net_expectancy_usd": 9.682059,
+              "maximum_drawdown_pct_close_to_close": 19.594521,
+              "minimum_shares": 13,
+              "maximum_shares": 19,
+              "median_duration_hours": 336.0,
+              "maximum_duration_hours": 2088.0,
+              "top_three_winners_share_of_net_profit": 1.016593,
+              "positive_quarters": 5,
+              "quarters": 8,
+              "quarter_pnl_usd": {
+                "2022-Q1": 191.701131,
+                "2022-Q2": 53.082167,
+                "2022-Q3": 111.49526,
+                "2022-Q4": 236.622483,
+                "2023-Q1": -44.595593,
+                "2023-Q2": -254.223702,
+                "2023-Q3": 221.129441,
+                "2023-Q4": -234.43148
+              }
+            }
+          }
+        },
+        "oos_2024_accessed": false,
+        "holdout_2025_accessed": false,
+        "paper_authorized": false,
+        "live_authorized": false
+      },
+      "checks": {
+        "minimum_trades": true,
+        "minimum_stress_profit_factor": true,
+        "minimum_positive_quarters": true,
+        "maximum_drawdown": true
+      },
+      "passed": true
+    },
+    {
+      "candidate_id": "Strategy 0.501",
+      "token": "0_501",
+      "family_support": 5,
+      "receipt_path": "data/ibkr_sq_v2/xom_d1_price_action_pilot/validation/0_501/run/supervised_retest_receipt.json",
+      "receipt_sha256": "f49e1df50526357d77ca112baee24cd71657b7417033d191dc8d8ed0728652b1",
+      "audit": {
+        "schema_version": 1,
+        "stage": "IBKR_EQUITY_SMALL_ACCOUNT_VALIDATION_AUDIT",
+        "candidate_id": "Strategy 0.501",
+        "orders_csv_path": "/mnt/volume-SQ/user/projects/IBKR_XOM_D1_VAL_0_501/orders-validation-8e2e595ebbf92347.csv",
+        "orders_csv_sha256": "a40489b88e15b8d570805be3312fbb9a8131c25206f1cdda0f8c85b81fd11769",
+        "sizing": "whole_shares_all_available_realized_equity_no_leverage",
+        "same_bar_d1_policy": "allow_verified_SL_MAE_or_PT_MFE_or_exact_EndTest_mark_to_market",
+        "same_bar_d1_trade_count": 1,
+        "end_test_positions_excluded": false,
+        "cost_contract": {
+          "tiered": "max(USD 0.35, USD 0.0035/share) per order",
+          "fixed": "max(USD 1.00, USD 0.005/share) per order",
+          "stress": "fixed commission plus 10 bps adverse slippage per side"
+        },
+        "results": {
+          "1000": {
+            "tiered": {
+              "plan": "tiered",
+              "initial_capital_usd": 1000,
+              "final_equity_usd": 1317.307747,
+              "net_pnl_usd": 317.307747,
+              "return_pct": 31.730775,
+              "trades": 31,
+              "profit_factor": 1.233371,
+              "win_rate": 0.612903,
+              "net_expectancy_usd": 10.235734,
+              "maximum_drawdown_pct_close_to_close": 23.594334,
+              "minimum_shares": 14,
+              "maximum_shares": 19,
+              "median_duration_hours": 336.0,
+              "maximum_duration_hours": 2856.0,
+              "top_three_winners_share_of_net_profit": 1.161028,
+              "positive_quarters": 3,
+              "quarters": 8,
+              "quarter_pnl_usd": {
+                "2022-Q1": 444.585863,
+                "2022-Q2": -30.148235,
+                "2022-Q3": 89.418282,
+                "2022-Q4": 191.265134,
+                "2023-Q1": -141.567029,
+                "2023-Q2": -37.295922,
+                "2023-Q3": -22.696072,
+                "2023-Q4": -176.254274
+              }
+            },
+            "fixed": {
+              "plan": "fixed",
+              "initial_capital_usd": 1000,
+              "final_equity_usd": 1278.869204,
+              "net_pnl_usd": 278.869204,
+              "return_pct": 27.88692,
+              "trades": 31,
+              "profit_factor": 1.205953,
+              "win_rate": 0.612903,
+              "net_expectancy_usd": 8.995781,
+              "maximum_drawdown_pct_close_to_close": 24.084256,
+              "minimum_shares": 13,
+              "maximum_shares": 19,
+              "median_duration_hours": 336.0,
+              "maximum_duration_hours": 2856.0,
+              "top_three_winners_share_of_net_profit": 1.307076,
+              "positive_quarters": 3,
+              "quarters": 8,
+              "quarter_pnl_usd": {
+                "2022-Q1": 436.785863,
+                "2022-Q2": -40.548235,
+                "2022-Q3": 78.981798,
+                "2022-Q4": 187.160105,
+                "2023-Q1": -151.780651,
+                "2023-Q2": -31.791064,
+                "2023-Q3": -25.296072,
+                "2023-Q4": -174.64254
+              }
+            },
+            "stress": {
+              "plan": "stress",
+              "initial_capital_usd": 1000,
+              "final_equity_usd": 1171.475903,
+              "net_pnl_usd": 171.475903,
+              "return_pct": 17.14759,
+              "trades": 31,
+              "profit_factor": 1.129386,
+              "win_rate": 0.580645,
+              "net_expectancy_usd": 5.531481,
+              "maximum_drawdown_pct_close_to_close": 25.698454,
+              "minimum_shares": 12,
+              "maximum_shares": 19,
+              "median_duration_hours": 336.0,
+              "maximum_duration_hours": 2856.0,
+              "top_three_winners_share_of_net_profit": 1.956863,
+              "positive_quarters": 3,
+              "quarters": 8,
+              "quarter_pnl_usd": {
+                "2022-Q1": 408.490791,
+                "2022-Q2": -87.937878,
+                "2022-Q3": 65.597329,
+                "2022-Q4": 163.820957,
+                "2023-Q1": -151.174814,
+                "2023-Q2": -35.000926,
+                "2023-Q3": -23.137055,
+                "2023-Q4": -169.182501
+              }
+            }
+          }
+        },
+        "oos_2024_accessed": false,
+        "holdout_2025_accessed": false,
+        "paper_authorized": false,
+        "live_authorized": false
+      },
+      "checks": {
+        "minimum_trades": true,
+        "minimum_stress_profit_factor": false,
+        "minimum_positive_quarters": false,
+        "maximum_drawdown": false
+      },
+      "passed": false
+    },
+    {
+      "candidate_id": "Strategy 0.202",
+      "token": "0_202",
+      "family_support": 5,
+      "receipt_path": "data/ibkr_sq_v2/xom_d1_price_action_pilot/validation/0_202/run/supervised_retest_receipt.json",
+      "receipt_sha256": "7337fe1a0946f03cc939bbc9cb9827063501d3ce71454761cad28d8c9106c6bf",
+      "audit": {
+        "schema_version": 1,
+        "stage": "IBKR_EQUITY_SMALL_ACCOUNT_VALIDATION_AUDIT",
+        "candidate_id": "Strategy 0.202",
+        "orders_csv_path": "/mnt/volume-SQ/user/projects/IBKR_XOM_D1_VAL_0_202/orders-validation-7a74b961484114bf.csv",
+        "orders_csv_sha256": "548170cca929d5cb4a18e8d7476784f5e5953b6c9fc3a19fc13609794f232954",
+        "sizing": "whole_shares_all_available_realized_equity_no_leverage",
+        "same_bar_d1_policy": "allow_verified_SL_MAE_or_PT_MFE_or_exact_EndTest_mark_to_market",
+        "same_bar_d1_trade_count": 0,
+        "end_test_positions_excluded": false,
+        "cost_contract": {
+          "tiered": "max(USD 0.35, USD 0.0035/share) per order",
+          "fixed": "max(USD 1.00, USD 0.005/share) per order",
+          "stress": "fixed commission plus 10 bps adverse slippage per side"
+        },
+        "results": {
+          "1000": {
+            "tiered": {
+              "plan": "tiered",
+              "initial_capital_usd": 1000,
+              "final_equity_usd": 1553.082236,
+              "net_pnl_usd": 553.082236,
+              "return_pct": 55.308224,
+              "trades": 24,
+              "profit_factor": 1.559072,
+              "win_rate": 0.583333,
+              "net_expectancy_usd": 23.045093,
+              "maximum_drawdown_pct_close_to_close": 13.335612,
+              "minimum_shares": 15,
+              "maximum_shares": 18,
+              "median_duration_hours": 432.0,
+              "maximum_duration_hours": 2184.0,
+              "top_three_winners_share_of_net_profit": 0.740656,
+              "positive_quarters": 5,
+              "quarters": 8,
+              "quarter_pnl_usd": {
+                "2022-Q1": 236.711799,
+                "2022-Q2": 123.311024,
+                "2022-Q3": 142.053948,
+                "2022-Q4": 139.453188,
+                "2023-Q1": 150.535122,
+                "2023-Q2": -114.813256,
+                "2023-Q3": -82.279195,
+                "2023-Q4": -41.890394
+              }
+            },
+            "fixed": {
+              "plan": "fixed",
+              "initial_capital_usd": 1000,
+              "final_equity_usd": 1504.043101,
+              "net_pnl_usd": 504.043101,
+              "return_pct": 50.40431,
+              "trades": 24,
+              "profit_factor": 1.509483,
+              "win_rate": 0.583333,
+              "net_expectancy_usd": 21.001796,
+              "maximum_drawdown_pct_close_to_close": 13.875695,
+              "minimum_shares": 15,
+              "maximum_shares": 18,
+              "median_duration_hours": 432.0,
+              "maximum_duration_hours": 2184.0,
+              "top_three_winners_share_of_net_profit": 0.789491,
+              "positive_quarters": 5,
+              "quarters": 8,
+              "quarter_pnl_usd": {
+                "2022-Q1": 230.211799,
+                "2022-Q2": 119.411024,
+                "2022-Q3": 138.153948,
+                "2022-Q4": 128.007854,
+                "2023-Q1": 130.578496,
+                "2023-Q2": -118.983001,
+                "2023-Q3": -83.579195,
+                "2023-Q4": -39.757824
+              }
+            },
+            "stress": {
+              "plan": "stress",
+              "initial_capital_usd": 1000,
+              "final_equity_usd": 1452.08926,
+              "net_pnl_usd": 452.08926,
+              "return_pct": 45.208926,
+              "trades": 24,
+              "profit_factor": 1.460421,
+              "win_rate": 0.583333,
+              "net_expectancy_usd": 18.837053,
+              "maximum_drawdown_pct_close_to_close": 14.611743,
+              "minimum_shares": 14,
+              "maximum_shares": 18,
+              "median_duration_hours": 432.0,
+              "maximum_duration_hours": 2184.0,
+              "top_three_winners_share_of_net_profit": 0.842117,
+              "positive_quarters": 5,
+              "quarters": 8,
+              "quarter_pnl_usd": {
+                "2022-Q1": 219.500287,
+                "2022-Q2": 103.762854,
+                "2022-Q3": 136.949641,
+                "2022-Q4": 111.337942,
+                "2023-Q1": 129.021824,
+                "2023-Q2": -121.148657,
+                "2023-Q3": -81.013904,
+                "2023-Q4": -46.320728
+              }
+            }
+          }
+        },
+        "oos_2024_accessed": false,
+        "holdout_2025_accessed": false,
+        "paper_authorized": false,
+        "live_authorized": false
+      },
+      "checks": {
+        "minimum_trades": true,
+        "minimum_stress_profit_factor": true,
+        "minimum_positive_quarters": true,
+        "maximum_drawdown": true
+      },
+      "passed": true
+    },
+    {
+      "candidate_id": "Strategy 0.126",
+      "token": "0_126",
+      "family_support": 4,
+      "receipt_path": "data/ibkr_sq_v2/xom_d1_price_action_pilot/validation/0_126/run/supervised_retest_receipt.json",
+      "receipt_sha256": "30a01e3fc7330b7e4b5d447764f9fe9fc013fa528e1fb1dddfe55ff67c54f1f1",
+      "audit": {
+        "schema_version": 1,
+        "stage": "IBKR_EQUITY_SMALL_ACCOUNT_VALIDATION_AUDIT",
+        "candidate_id": "Strategy 0.126",
+        "orders_csv_path": "/mnt/volume-SQ/user/projects/IBKR_XOM_D1_VAL_0_126/orders-validation-22bfe9b5fc3888a8.csv",
+        "orders_csv_sha256": "1d8e97e68e99e57b28b9d56b25e9229611573c8bccca78b56a59e52813726efa",
+        "sizing": "whole_shares_all_available_realized_equity_no_leverage",
+        "same_bar_d1_policy": "allow_verified_SL_MAE_or_PT_MFE_or_exact_EndTest_mark_to_market",
+        "same_bar_d1_trade_count": 1,
+        "end_test_positions_excluded": false,
+        "cost_contract": {
+          "tiered": "max(USD 0.35, USD 0.0035/share) per order",
+          "fixed": "max(USD 1.00, USD 0.005/share) per order",
+          "stress": "fixed commission plus 10 bps adverse slippage per side"
+        },
+        "results": {
+          "1000": {
+            "tiered": {
+              "plan": "tiered",
+              "initial_capital_usd": 1000,
+              "final_equity_usd": 1104.7509,
+              "net_pnl_usd": 104.7509,
+              "return_pct": 10.47509,
+              "trades": 32,
+              "profit_factor": 1.109057,
+              "win_rate": 0.625,
+              "net_expectancy_usd": 3.273466,
+              "maximum_drawdown_pct_close_to_close": 30.401148,
+              "minimum_shares": 11,
+              "maximum_shares": 19,
+              "median_duration_hours": 168.0,
+              "maximum_duration_hours": 1176.0,
+              "top_three_winners_share_of_net_profit": 2.433252,
+              "positive_quarters": 3,
+              "quarters": 8,
+              "quarter_pnl_usd": {
+                "2022-Q1": 285.642063,
+                "2022-Q2": 201.572695,
+                "2022-Q3": -80.903527,
+                "2022-Q4": -28.796885,
+                "2023-Q1": -119.463122,
+                "2023-Q2": -152.62302,
+                "2023-Q3": 105.805465,
+                "2023-Q4": -106.482769
+              }
+            },
+            "fixed": {
+              "plan": "fixed",
+              "initial_capital_usd": 1000,
+              "final_equity_usd": 1059.768445,
+              "net_pnl_usd": 59.768445,
+              "return_pct": 5.976844,
+              "trades": 32,
+              "profit_factor": 1.062091,
+              "win_rate": 0.625,
+              "net_expectancy_usd": 1.867764,
+              "maximum_drawdown_pct_close_to_close": 31.346157,
+              "minimum_shares": 11,
+              "maximum_shares": 19,
+              "median_duration_hours": 168.0,
+              "maximum_duration_hours": 1176.0,
+              "top_three_winners_share_of_net_profit": 4.098207,
+              "positive_quarters": 3,
+              "quarters": 8,
+              "quarter_pnl_usd": {
+                "2022-Q1": 277.842063,
+                "2022-Q2": 189.030825,
+                "2022-Q3": -79.723408,
+                "2022-Q4": -35.549336,
+                "2023-Q1": -123.363122,
+                "2023-Q2": -148.090001,
+                "2023-Q3": 88.704193,
+                "2023-Q4": -109.082769
+              }
+            },
+            "stress": {
+              "plan": "stress",
+              "initial_capital_usd": 1000,
+              "final_equity_usd": 988.382238,
+              "net_pnl_usd": -11.617762,
+              "return_pct": -1.161776,
+              "trades": 32,
+              "profit_factor": 0.987783,
+              "win_rate": 0.625,
+              "net_expectancy_usd": -0.363055,
+              "maximum_drawdown_pct_close_to_close": 32.406396,
+              "minimum_shares": 10,
+              "maximum_shares": 19,
+              "median_duration_hours": 168.0,
+              "maximum_duration_hours": 1176.0,
+              "top_three_winners_share_of_net_profit": null,
+              "positive_quarters": 3,
+              "quarters": 8,
+              "quarter_pnl_usd": {
+                "2022-Q1": 260.506347,
+                "2022-Q2": 164.21942,
+                "2022-Q3": -92.519711,
+                "2022-Q4": -40.60333,
+                "2023-Q1": -117.22944,
+                "2023-Q2": -152.398211,
+                "2023-Q3": 69.762183,
+                "2023-Q4": -103.35502
+              }
+            }
+          }
+        },
+        "oos_2024_accessed": false,
+        "holdout_2025_accessed": false,
+        "paper_authorized": false,
+        "live_authorized": false
+      },
+      "checks": {
+        "minimum_trades": true,
+        "minimum_stress_profit_factor": false,
+        "minimum_positive_quarters": false,
+        "maximum_drawdown": false
+      },
+      "passed": false
+    }
+  ],
+  "oos_2024_accessed": false,
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

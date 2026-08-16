@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "stage": "IBKR_EQUITY_SMALL_ACCOUNT_OOS_AUDIT",
+  "candidate_id": "Strategy 0.202",
+  "orders_csv_path": "/mnt/volume-SQ/user/projects/IBKR_XOM_D1_OOS_0_202/orders-oos-6aa27fc5edbde608.csv",
+  "orders_csv_sha256": "d08ca1145fa0d1cbd75918af19747d667509791130c70502a2faad1130a20da3",
+  "sizing": "whole_shares_all_available_realized_equity_no_leverage",
+  "same_bar_d1_policy": "allow_verified_SL_MAE_or_PT_MFE_or_exact_EndTest_mark_to_market",
+  "same_bar_d1_trade_count": 0,
+  "end_test_positions_excluded": false,
+  "cost_contract": {
+    "tiered": "max(USD 0.35, USD 0.0035/share) per order",
+    "fixed": "max(USD 1.00, USD 0.005/share) per order",
+    "stress": "fixed commission plus 10 bps adverse slippage per side"
+  },
+  "results": {
+    "1000": {
+      "tiered": {
+        "plan": "tiered",
+        "initial_capital_usd": 1000.0,
+        "final_equity_usd": 1021.384343,
+        "net_pnl_usd": 21.384343,
+        "return_pct": 2.138434,
+        "trades": 11,
+        "profit_factor": 1.085091,
+        "win_rate": 0.545455,
+        "net_expectancy_usd": 1.944031,
+        "maximum_drawdown_pct_close_to_close": 9.560428,
+        "minimum_shares": 9,
+        "maximum_shares": 10,
+        "median_duration_hours": 336.0,
+        "maximum_duration_hours": 1176.0,
+        "top_three_winners_share_of_net_profit": 7.914004,
+        "positive_quarters": 3,
+        "quarters": 4,
+        "quarter_pnl_usd": {
+          "2024-Q1": 53.90112,
+          "2024-Q2": 6.376198,
+          "2024-Q3": 8.533903,
+          "2024-Q4": -47.426878
+        }
+      },
+      "fixed": {
+        "plan": "fixed",
+        "initial_capital_usd": 1000.0,
+        "final_equity_usd": 1007.084343,
+        "net_pnl_usd": 7.084343,
+        "return_pct": 0.708434,
+        "trades": 11,
+        "profit_factor": 1.027479,
+        "win_rate": 0.545455,
+        "net_expectancy_usd": 0.644031,
+        "maximum_drawdown_pct_close_to_close": 9.882322,
+        "minimum_shares": 9,
+        "maximum_shares": 10,
+        "median_duration_hours": 336.0,
+        "maximum_duration_hours": 1176.0,
+        "top_three_winners_share_of_net_profit": 23.338195,
+        "positive_quarters": 3,
+        "quarters": 4,
+        "quarter_pnl_usd": {
+          "2024-Q1": 50.00112,
+          "2024-Q2": 3.776198,
+          "2024-Q3": 5.933903,
+          "2024-Q4": -52.626878
+        }
+      },
+      "stress": {
+        "plan": "stress",
+        "initial_capital_usd": 1000.0,
+        "final_equity_usd": 985.828626,
+        "net_pnl_usd": -14.171374,
+        "return_pct": -1.417137,
+        "trades": 11,
+        "profit_factor": 0.947208,
+        "win_rate": 0.454545,
+        "net_expectancy_usd": -1.288307,
+        "maximum_drawdown_pct_close_to_close": 10.466075,
+        "minimum_shares": 9,
+        "maximum_shares": 10,
+        "median_duration_hours": 336.0,
+        "maximum_duration_hours": 1176.0,
+        "top_three_winners_share_of_net_profit": null,
+        "positive_quarters": 2,
+        "quarters": 4,
+        "quarter_pnl_usd": {
+          "2024-Q1": 44.24714,
+          "2024-Q2": -0.130604,
+          "2024-Q3": 2.088263,
+          "2024-Q4": -60.376172
+        }
+      }
+    }
+  },
+  "oos_2024_accessed": true,
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

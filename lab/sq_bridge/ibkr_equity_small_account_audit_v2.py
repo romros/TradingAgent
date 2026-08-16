@@ -83,6 +83,7 @@ def simulate(orders: list[dict], *, initial_capital: float, plan: str) -> dict:
     max_drawdown = 0.0
     results = []
     quarter_pnl: dict[str, float] = defaultdict(float)
+    half_year_pnl: dict[str, float] = defaultdict(float)
     for order in orders:
         slippage_bps = 10.0 if plan == "stress" else 0.0
         entry = order["open_price"] * (1 + slippage_bps / 10_000)
@@ -98,6 +99,8 @@ def simulate(orders: list[dict], *, initial_capital: float, plan: str) -> dict:
         max_drawdown = max(max_drawdown, (peak - equity) / peak if peak else 0.0)
         quarter = f"{order['open_time'].year}-Q{(order['open_time'].month - 1) // 3 + 1}"
         quarter_pnl[quarter] += net
+        half_year = f"{order['open_time'].year}-H{1 if order['open_time'].month <= 6 else 2}"
+        half_year_pnl[half_year] += net
         results.append({
             **order, "shares": shares, "entry_fee": entry_fee,
             "exit_fee": exit_fee, "net_pnl": net, "equity_after": equity,
@@ -126,6 +129,9 @@ def simulate(orders: list[dict], *, initial_capital: float, plan: str) -> dict:
         "positive_quarters": sum(value > 0 for value in quarter_pnl.values()),
         "quarters": len(quarter_pnl),
         "quarter_pnl_usd": {key: round(value, 6) for key, value in sorted(quarter_pnl.items())},
+        "positive_half_years": sum(value > 0 for value in half_year_pnl.values()),
+        "half_years": len(half_year_pnl),
+        "half_year_pnl_usd": {key: round(value, 6) for key, value in sorted(half_year_pnl.items())},
     }
 
 

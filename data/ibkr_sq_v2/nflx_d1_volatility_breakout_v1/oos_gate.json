@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "stage": "NFLX_D1_2024_OOS_GATE",
+  "candidate_id": "Strategy 0.4681",
+  "decision": "PASS_OOS_TO_ROBUSTNESS",
+  "spec_sha256": "4ab6a465b978ded12a7fa0e2aeb643f2c5f1229c07fd0f99fe2d1ebc1ab6f34c",
+  "finalist_freeze_sha256": "f862e56f0a57255c1a7ee14feaec4ce21340795d88f36e67c33d728ddf5ef6ba",
+  "audit_sha256": "d3243fcfc43b361879a84358187486a8ae059dd0b038df6fb6db24c61664f492",
+  "oos_gate": {
+    "minimum_trades": 6,
+    "minimum_stress_return_pct": 0,
+    "minimum_stress_profit_factor": 1.1,
+    "maximum_drawdown_pct": 22
+  },
+  "passing_capitals_usd": [
+    1000,
+    2000,
+    3000
+  ],
+  "results": {
+    "1000": {
+      "stress": {
+        "plan": "stress",
+        "initial_capital_usd": 1000.0,
+        "final_equity_usd": 1313.276486,
+        "net_pnl_usd": 313.276486,
+        "return_pct": 31.327649,
+        "trades": 10,
+        "profit_factor": 5.651118,
+        "win_rate": 0.8,
+        "net_expectancy_usd": 31.327649,
+        "maximum_drawdown_pct_close_to_close": 5.355536,
+        "minimum_shares": 1,
+        "maximum_shares": 2,
+        "median_duration_hours": 744.0,
+        "maximum_duration_hours": 1104.0,
+        "top_three_winners_share_of_net_profit": 0.556376,
+        "positive_quarters": 4,
+        "quarters": 4,
+        "quarter_pnl_usd": {
+          "2024-Q1": 57.21896,
+          "2024-Q2": 83.775653,
+          "2024-Q3": 89.92553,
+          "2024-Q4": 82.356343
+        },
+        "positive_half_years": 2,
+        "half_years": 2,
+        "half_year_pnl_usd": {
+          "2024-H1": 140.994613,
+          "2024-H2": 172.281873
+        }
+      },
+      "checks": {
+        "minimum_trades": true,
+        "minimum_stress_return": true,
+        "minimum_stress_profit_factor": true,
+        "maximum_drawdown": true
+      },
+      "passed": true
+    },
+    "2000": {
+      "stress": {
+        "plan": "stress",
+        "initial_capital_usd": 2000.0,
+        "final_equity_usd": 2899.998582,
+        "net_pnl_usd": 899.998582,
+        "return_pct": 44.999929,
+        "trades": 10,
+        "profit_factor": 5.637607,
+        "win_rate": 0.8,
+        "net_expectancy_usd": 89.999858,
+        "maximum_drawdown_pct_close_to_close": 7.698464,
+        "minimum_shares": 3,
+        "maximum_shares": 4,
+        "median_duration_hours": 744.0,
+        "maximum_duration_hours": 1104.0,
+        "top_three_winners_share_of_net_profit": 0.505632,
+        "positive_quarters": 4,
+        "quarters": 4,
+        "quarter_pnl_usd": {
+          "2024-Q1": 103.826004,
+          "2024-Q2": 259.326959,
+          "2024-Q3": 277.77659,
+          "2024-Q4": 259.069029
+        },
+        "positive_half_years": 2,
+        "half_years": 2,
+        "half_year_pnl_usd": {
+          "2024-H1": 363.152963,
+          "2024-H2": 536.845619
+        }
+      },
+      "checks": {
+        "minimum_trades": true,
+        "minimum_stress_return": true,
+        "minimum_stress_profit_factor": true,
+        "maximum_drawdown": true
+      },
+      "passed": true
+    },
+    "3000": {
+      "stress": {
+        "plan": "stress",
+        "initial_capital_usd": 3000.0,
+        "final_equity_usd": 4486.720678,
+        "net_pnl_usd": 1486.720678,
+        "return_pct": 49.557356,
+        "trades": 10,
+        "profit_factor": 5.63477,
+        "win_rate": 0.8,
+        "net_expectancy_usd": 148.672068,
+        "maximum_drawdown_pct_close_to_close": 8.458921,
+        "minimum_shares": 5,
+        "maximum_shares": 6,
+        "median_duration_hours": 744.0,
+        "maximum_duration_hours": 1104.0,
+        "top_three_winners_share_of_net_profit": 0.494939,
+        "positive_quarters": 4,
+        "quarters": 4,
+        "quarter_pnl_usd": {
+          "2024-Q1": 150.433048,
+          "2024-Q2": 434.878265,
+          "2024-Q3": 465.62765,
+          "2024-Q4": 435.781715
+        },
+        "positive_half_years": 2,
+        "half_years": 2,
+        "half_year_pnl_usd": {
+          "2024-H1": 585.311313,
+          "2024-H2": 901.409365
+        }
+      },
+      "checks": {
+        "minimum_trades": true,
+        "minimum_stress_return": true,
+        "minimum_stress_profit_factor": true,
+        "maximum_drawdown": true
+      },
+      "passed": true
+    }
+  },
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

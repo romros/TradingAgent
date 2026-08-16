@@ -103,15 +103,26 @@ def _candidate_contract(candidate_sqx: Path | None, candidate_id: str | None,
         raise ValueError(
             f"CANDIDATE_ID_MISMATCH: expected={candidate_id!r} "
             f"sqx={contract.get('strategy_name')!r}")
-    if contract.get("translation_status") != "SUPPORTED_SUBSET":
-        raise ValueError("CANDIDATE_NOT_TRANSLATABLE: " + ",".join(
-            contract.get("unsupported_nodes_or_formulas", [])))
+    translation_status = contract.get("translation_status")
+    unsupported = set(contract.get("unsupported_nodes_or_formulas", []))
+    native_stop_subset = {
+        "EnterAtStop", "ACTION_PARAM:#Price#", "ACTION_PARAM:#BarsValid#",
+        "ACTION_PARAM:#ReplaceExisting#", "SQ.Formulas.Price.UseFormula",
+    }
+    if translation_status != "SUPPORTED_SUBSET":
+        if unsupported and unsupported <= native_stop_subset:
+            # SQ can retest its own exact order semantics. Python parity remains
+            # a mandatory downstream gate and this status must not be promoted.
+            translation_status = "SQ_NATIVE_ENTER_AT_STOP_PENDING_PYTHON_PARITY"
+        else:
+            raise ValueError("CANDIDATE_NOT_TRANSLATABLE: " + ",".join(
+                contract.get("unsupported_nodes_or_formulas", [])))
     return {
         "candidate_id": candidate_id,
         "candidate_sqx_path": str(candidate_sqx.resolve()),
         "candidate_sqx_sha256": _sha256(candidate_sqx),
         "candidate_strategy_xml_sha256": contract["strategy_xml_sha256"],
-        "candidate_translation_status": contract["translation_status"],
+        "candidate_translation_status": translation_status,
     }
 
 

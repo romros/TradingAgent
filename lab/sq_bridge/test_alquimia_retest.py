@@ -8,7 +8,7 @@ from xml.etree import ElementTree as ET
 import pytest
 
 from lab.sq_bridge.alquimia_retest import (
-    PERIOD_KEYS, _condition, _graft_resource_symbol, _require_resource_symbol,
+    PERIOD_KEYS, _candidate_contract, _condition, _graft_resource_symbol, _require_resource_symbol,
     _select_all_input_strategies, generate,
     verify_holdout_project, verify_retest_project,
 )
@@ -38,6 +38,12 @@ _graft_resource_symbol(target, source, "XAU")
 assert [node.get("name") for node in target.findall("./Resources/Symbols/Symbol")] == ["XAU"]
 assert target.find("./Resources/Symbols/Symbol/InstrumentInfo").get("instrument") == "XAUUSD"
 print("PASS: temporal retest gates")
+
+
+def test_native_stop_candidate_can_retest_but_remains_pending_python_parity():
+    path = Path("data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/train_selected/Strategy 0.4681.sqx")
+    result = _candidate_contract(path, "Strategy 0.4681", required=True)
+    assert result["candidate_translation_status"] == "SQ_NATIVE_ENTER_AT_STOP_PENDING_PYTHON_PARITY"
 
 
 def test_generator_source_forces_full_input_databank_not_stale_selection():

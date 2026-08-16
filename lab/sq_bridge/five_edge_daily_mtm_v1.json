@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_BEFORE_SYNCHRONIZED_CURVE",
+  "inputs": {
+    "legacy_sqx": "data/ibkr_sq_v2/four_edge_portfolio_composer_v1/Portfolio-1786795330285.sqx",
+    "legacy_fx": "data/ibkr_sq_v2/four_edge_portfolio_composer_v1/ecb_gbpusd_2021_2024.csv",
+    "strategy_spec": "lab/sq_bridge/multi_asset_known_edge_funnel_v1.json",
+    "capital_spec": "lab/sq_bridge/multi_asset_shared_capital_v1.json"
+  },
+  "allocation_usd": {"legacy_four": 2000, "multi_asset": 1000},
+  "transfers": false,
+  "leverage": 1.0,
+  "gate": {"return_strictly_positive": true, "daily_mtm_drawdown_pct_at_most": 15},
+  "paper_authorized": false,
+  "live_authorized": false
+}

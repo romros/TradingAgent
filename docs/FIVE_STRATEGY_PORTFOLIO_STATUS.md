@@ -53,10 +53,14 @@ Entre 2022–2024, sota costos d'estrès, els endpoints sumen:
 - motor multi-actiu: +177,22 USD;
 - total: **+579,46 USD, o +19,32% sobre 3.000 USD**.
 
-El 12,07% reportat és la mitjana ponderada dels drawdowns individuals i només
-serveix com a pressupost conservador de sizing. **No és el drawdown observat
-d'una corba conjunta sincronitzada.** Tampoc el +19,32% és una expectativa
-anual: cobreix tres anys històrics i no inclou compounding entre compartiments.
+La reconstrucció posterior ha sincronitzat **1.089 observacions diàries** de
+les dues corbes. Reprodueix el mateix endpoint de 3.579,46 USD i dona un
+**drawdown conjunt observat del 10,92%**, entre 2022-01-12 i 2022-09-23. Passa
+el gate congelat de DD <=15%. El 12,07% anterior queda només com a pressupost
+ponderat preliminar i no s'ha d'usar com a mesura final.
+
+El +19,32% no és una expectativa anual: cobreix tres anys històrics i no
+inclou compounding ni transferències entre compartiments.
 
 ## Decisió per capital inicial
 
@@ -73,11 +77,13 @@ necessitaria una mostra independent nova.
 ## Evidència principal
 
 - `data/ibkr_sq_v2/five_edge_portfolio_v1/result.json`
+- `data/ibkr_sq_v2/five_edge_portfolio_v1/daily_mtm_v1.json`
 - `data/ibkr_sq_v2/multi_asset_known_edge_funnel_v1/shared_capital_v1.json`
 - `data/ibkr_sq_v2/multi_asset_known_edge_funnel_v1/oos_2024_concentration_audit.json`
 - `data/ibkr_sq_v2/four_edge_portfolio_composer_v1/net_daily_mtm_gate_v1.json`
 
-La pròxima feina útil és reconstruir la corba diària combinada si les dades de
-trades permeten una alineació exacta. Després, només un shadow/paper curt i
-una auditoria de contractes i costos IBKR poden promoure la cartera. Fins
-aleshores `paper_authorized=false` i `live_authorized=false`.
+La corba diària conjunta ja està reconstruïda. Les millores tècniques pendents
+són estendre la paritat SQ de la cinquena regla més enllà del control AAPL i
+preparar una auditoria de contractes i costos IBKR. Després, només un
+shadow/paper curt pot promoure la cartera. Fins aleshores
+`paper_authorized=false` i `live_authorized=false`.

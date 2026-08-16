@@ -5,9 +5,9 @@ import argparse,json,math
 from pathlib import Path
 from lab.sq_bridge.multi_asset_known_edge_funnel_v1 import ROOT,load,sma
 
-def run(data,capital,start,end,cfg):
+def run(data,capital,start,end,cfg,include_daily_equity=False):
  max_positions=cfg['allocation']['maximum_concurrent_positions'];commission=cfg['costs']['commission_usd_per_order'];slip=cfg['costs']['slippage_bps_per_side']/10000
- indexed={asset:{row['date']:index for index,row in enumerate(rows)} for asset,rows in data.items()};dates=sorted({row['date'] for rows in data.values() for row in rows if start<=row['date']<=end});cash=capital;positions={};trades=[];peak=capital;dd=0;skipped=0
+ indexed={asset:{row['date']:index for index,row in enumerate(rows)} for asset,rows in data.items()};dates=sorted({row['date'] for rows in data.values() for row in rows if start<=row['date']<=end});cash=capital;positions={};trades=[];peak=capital;dd=0;skipped=0;daily=[]
  for day in dates:
   # Exit first at today's open after ten complete asset-session advances.
   for asset,pos in list(positions.items()):
@@ -32,9 +32,16 @@ def run(data,capital,start,end,cfg):
    index=indexed[asset].get(day)
    equity+=pos['shares']*(data[asset][index]['close'] if index is not None else data[asset][pos['entry_index']]['open'])
   peak=max(peak,equity);dd=max(dd,(peak-equity)/peak*100)
+  if include_daily_equity:daily.append({'date':day,'equity_usd':equity})
  # Positions still open at the boundary are excluded and restored at entry cost.
  cash+=sum(pos['cost'] for pos in positions.values());wins=sum(max(t['pnl'],0) for t in trades);loss=sum(max(-t['pnl'],0) for t in trades)
- return {'trades':len(trades),'return_pct':(cash/capital-1)*100,'net_pnl_usd':cash-capital,'profit_factor':wins/loss if loss else None,'maximum_mark_to_market_drawdown_pct':dd,'skipped_unaffordable_signals':skipped,'open_positions_excluded':len(positions)}
+ result={'trades':len(trades),'return_pct':(cash/capital-1)*100,'net_pnl_usd':cash-capital,'profit_factor':wins/loss if loss else None,'maximum_mark_to_market_drawdown_pct':dd,'skipped_unaffordable_signals':skipped,'open_positions_excluded':len(positions)}
+ if include_daily_equity:
+  # The frozen endpoint excludes boundary-open positions at entry cost. Align
+  # the final curve point to that same accounting convention.
+  if daily:daily[-1]['equity_usd']=cash
+  result['daily_equity']=daily
+ return result
 def evaluate(strategy_spec:Path,capital_spec:Path):
  strategy=json.loads(strategy_spec.read_text());cfg=json.loads(capital_spec.read_text());data={asset:load(ROOT/path) for asset,path in strategy['assets'].items()};results={}
  for capital in cfg['capital_scenarios_usd']:

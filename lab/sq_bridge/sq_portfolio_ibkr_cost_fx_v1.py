@@ -4,7 +4,10 @@ from __future__ import annotations
 import argparse,csv,hashlib,json,re,zipfile
 from pathlib import Path
 from xml.etree import ElementTree as ET
-from sq_portfolio_daily_equity_v1 import decode
+try:
+    from .sq_portfolio_daily_equity_v1 import decode
+except ImportError:  # Preserve direct-script execution from lab/sq_bridge.
+    from sq_portfolio_daily_equity_v1 import decode
 
 ACCEPTED=re.compile(r"Order ACCEPTED '([^/]+)/.*?OpenTime=([0-9.]+) [^|]+\|OpenPrice=\$([0-9.]+).*?\]=([0-9.]+)")
 SCENARIOS={

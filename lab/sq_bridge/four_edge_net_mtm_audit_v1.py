@@ -13,8 +13,12 @@ from datetime import date
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
-from sq_portfolio_daily_equity_v1 import decode
-from sq_portfolio_ibkr_cost_fx_v1 import SCENARIOS
+try:
+    from .sq_portfolio_daily_equity_v1 import decode
+    from .sq_portfolio_ibkr_cost_fx_v1 import SCENARIOS
+except ImportError:  # Preserve direct-script execution from lab/sq_bridge.
+    from sq_portfolio_daily_equity_v1 import decode
+    from sq_portfolio_ibkr_cost_fx_v1 import SCENARIOS
 
 ACCEPTED = re.compile(
     r"Order ACCEPTED '([^/]+)/.*?OpenTime=([0-9.]+) [^|]+\|OpenPrice=\$([0-9.]+).*?\]=([0-9.]+)"

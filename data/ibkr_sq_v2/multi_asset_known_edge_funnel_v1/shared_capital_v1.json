@@ -1,0 +1,161 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_SHARED_CAPITAL_DIAGNOSTIC",
+  "policy": {
+    "maximum_concurrent_positions": 3,
+    "target_notional_per_position": "current_equity / 3",
+    "collision_ranking": "most negative three-session close return first; asset ticker tie-break",
+    "shares": "whole",
+    "leverage": 1.0
+  },
+  "results": {
+    "500": {
+      "train": {
+        "trades": 160,
+        "return_pct": -6.127194987861051,
+        "net_pnl_usd": -30.635974939305243,
+        "profit_factor": 0.9402344212195515,
+        "maximum_mark_to_market_drawdown_pct": 36.562624776637655,
+        "skipped_unaffordable_signals": 83,
+        "open_positions_excluded": 2
+      },
+      "validation": {
+        "trades": 63,
+        "return_pct": -17.6838354522596,
+        "net_pnl_usd": -88.41917726129799,
+        "profit_factor": 0.6513500353735094,
+        "maximum_mark_to_market_drawdown_pct": 19.951259801511785,
+        "skipped_unaffordable_signals": 47,
+        "open_positions_excluded": 0
+      },
+      "oos": {
+        "trades": 36,
+        "return_pct": -6.269317987771805,
+        "net_pnl_usd": -31.34658993885904,
+        "profit_factor": 0.7360933644568384,
+        "maximum_mark_to_market_drawdown_pct": 15.294029168106887,
+        "skipped_unaffordable_signals": 62,
+        "open_positions_excluded": 1
+      }
+    },
+    "1000": {
+      "train": {
+        "trades": 181,
+        "return_pct": 33.591106068761874,
+        "net_pnl_usd": 335.91106068761883,
+        "profit_factor": 1.2555768363932278,
+        "maximum_mark_to_market_drawdown_pct": 28.65866145336539,
+        "skipped_unaffordable_signals": 0,
+        "open_positions_excluded": 3
+      },
+      "validation": {
+        "trades": 79,
+        "return_pct": 6.82945745349357,
+        "net_pnl_usd": 68.29457453493569,
+        "profit_factor": 1.1550236803905312,
+        "maximum_mark_to_market_drawdown_pct": 19.919877913123333,
+        "skipped_unaffordable_signals": 0,
+        "open_positions_excluded": 2
+      },
+      "oos": {
+        "trades": 51,
+        "return_pct": 8.116966034940344,
+        "net_pnl_usd": 81.16966034940333,
+        "profit_factor": 1.3308156184710531,
+        "maximum_mark_to_market_drawdown_pct": 7.496286820799602,
+        "skipped_unaffordable_signals": 12,
+        "open_positions_excluded": 3
+      }
+    },
+    "2000": {
+      "train": {
+        "trades": 181,
+        "return_pct": 61.31422645687861,
+        "net_pnl_usd": 1226.284529137572,
+        "profit_factor": 1.4268937345673232,
+        "maximum_mark_to_market_drawdown_pct": 26.92350358115539,
+        "skipped_unaffordable_signals": 0,
+        "open_positions_excluded": 3
+      },
+      "validation": {
+        "trades": 79,
+        "return_pct": 15.813643631712448,
+        "net_pnl_usd": 316.27287263424887,
+        "profit_factor": 1.343104773915971,
+        "maximum_mark_to_market_drawdown_pct": 19.661799289169174,
+        "skipped_unaffordable_signals": 0,
+        "open_positions_excluded": 2
+      },
+      "oos": {
+        "trades": 52,
+        "return_pct": 11.265322306038804,
+        "net_pnl_usd": 225.30644612077595,
+        "profit_factor": 1.3983012408715476,
+        "maximum_mark_to_market_drawdown_pct": 6.987646159319048,
+        "skipped_unaffordable_signals": 0,
+        "open_positions_excluded": 3
+      }
+    },
+    "5000": {
+      "train": {
+        "trades": 181,
+        "return_pct": 78.85111595812123,
+        "net_pnl_usd": 3942.5557979060613,
+        "profit_factor": 1.516868435139178,
+        "maximum_mark_to_market_drawdown_pct": 25.236905908297057,
+        "skipped_unaffordable_signals": 0,
+        "open_positions_excluded": 3
+      },
+      "validation": {
+        "trades": 79,
+        "return_pct": 23.35481887753399,
+        "net_pnl_usd": 1167.7409438767,
+        "profit_factor": 1.505718446101055,
+        "maximum_mark_to_market_drawdown_pct": 19.276413742880052,
+        "skipped_unaffordable_signals": 0,
+        "open_positions_excluded": 2
+      },
+      "oos": {
+        "trades": 52,
+        "return_pct": 15.095383244701166,
+        "net_pnl_usd": 754.7691622350585,
+        "profit_factor": 1.5030215543924461,
+        "maximum_mark_to_market_drawdown_pct": 7.245806095426957,
+        "skipped_unaffordable_signals": 0,
+        "open_positions_excluded": 3
+      }
+    },
+    "10000": {
+      "train": {
+        "trades": 181,
+        "return_pct": 84.38119018362933,
+        "net_pnl_usd": 8438.119018362933,
+        "profit_factor": 1.5422081061764632,
+        "maximum_mark_to_market_drawdown_pct": 24.7833147649041,
+        "skipped_unaffordable_signals": 0,
+        "open_positions_excluded": 3
+      },
+      "validation": {
+        "trades": 79,
+        "return_pct": 25.92923014105024,
+        "net_pnl_usd": 2592.923014105025,
+        "profit_factor": 1.5614552093677003,
+        "maximum_mark_to_market_drawdown_pct": 19.111467830626875,
+        "skipped_unaffordable_signals": 0,
+        "open_positions_excluded": 2
+      },
+      "oos": {
+        "trades": 52,
+        "return_pct": 15.569763834157534,
+        "net_pnl_usd": 1556.976383415753,
+        "profit_factor": 1.500755232183539,
+        "maximum_mark_to_market_drawdown_pct": 7.566896846369846,
+        "skipped_unaffordable_signals": 0,
+        "open_positions_excluded": 3
+      }
+    }
+  },
+  "diagnostic_only": true,
+  "paper_authorized": false,
+  "live_authorized": false
+}

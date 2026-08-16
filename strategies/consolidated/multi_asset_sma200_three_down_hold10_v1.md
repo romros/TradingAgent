@@ -67,6 +67,24 @@ actius continua sent material: META, EEM, EFA i XLE són negatius el 2024.
   qualsevol shadow.
 - `paper_authorized=false`; `live_authorized=false`.
 
+## Capital compartit
+
+Diagnòstic congelat amb màxim tres posicions, un terç del patrimoni per slot,
+accions senceres, sense leverage, 1 USD per ordre i 10 bps adversos per costat:
+
+| Capital | Validació 2022–2023 | OOS 2024 | Lectura |
+|---:|---:|---:|---|
+| 500 USD | −17,68%, PF 0,651 | −6,27%, PF 0,736 | No viable |
+| 1.000 USD | +6,83%, PF 1,155 | +8,12%, PF 1,331 | Mínim teòric viable |
+| 2.000 USD | +15,81%, PF 1,343 | +11,27%, PF 1,398 | Millor absorció de costos |
+| 5.000 USD | +23,35%, PF 1,506 | +15,10%, PF 1,503 | Eficient |
+| 10.000 USD | +25,93%, PF 1,561 | +15,57%, PF 1,501 | Cost fix gairebé diluït |
+
+Amb 500 USD s'ometen molts senyals perquè no es pot comprar ni una acció dins
+el slot. A 1.000 USD encara hi ha 12 senyals inassequibles el 2024, però el
+resultat supera costos. Aquesta és una auditoria post-OOS de sizing i no una
+nova selecció de la regla.
+
 Evidència reproduïble:
 
 - `lab/sq_bridge/multi_asset_known_edge_funnel_v1.json`
@@ -75,3 +93,4 @@ Evidència reproduïble:
 - `data/ibkr_sq_v2/multi_asset_known_edge_funnel_v1/oos_2024_concentration_audit.json`
 - `data/ibkr_sq_v2/multi_asset_known_edge_funnel_v1/native_aapl/signal_parity.json`
 - `data/ibkr_sq_v2/multi_asset_known_edge_funnel_v1/post_oos_robustness.json`
+- `data/ibkr_sq_v2/multi_asset_known_edge_funnel_v1/shared_capital_v1.json`

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_BEFORE_SHARED_CAPITAL_PERFORMANCE",
+  "parent_strategy": "multi_asset_sma200_three_down_hold10_v1",
+  "entry_rule": "close>SMA200 and three consecutive down closes; execute next open",
+  "exit_rule": "exit at open ten asset sessions after entry",
+  "allocation": {
+    "maximum_concurrent_positions": 3,
+    "target_notional_per_position": "current_equity / 3",
+    "collision_ranking": "most negative three-session close return first; asset ticker tie-break",
+    "shares": "whole",
+    "leverage": 1.0
+  },
+  "capital_scenarios_usd": [500, 1000, 2000, 5000, 10000],
+  "costs": {"commission_usd_per_order": 1.0, "slippage_bps_per_side": 10.0},
+  "periods": {"train": ["2017-01-01", "2021-12-31"], "validation": ["2022-01-01", "2023-12-31"], "oos": ["2024-01-01", "2024-12-31"]},
+  "diagnostic_only": true,
+  "paper_authorized": false,
+  "live_authorized": false
+}

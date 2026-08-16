@@ -174,7 +174,8 @@ def build_month(root: Path, symbol: str, year: int, month: int, workers: int,
     manifest = target.with_name("manifest.json")
     if target.exists() and manifest.exists():
         previous = json.loads(manifest.read_text())
-        if previous.get("status") == "complete":
+        actual_sha = hashlib.sha256(target.read_bytes()).hexdigest()
+        if previous.get("status") == "complete" and previous.get("sha256") == actual_sha:
             return {**previous, "action": "skipped"}
     # Dukascopy's equities endpoint can answer HTTP 503 for closed weekends.
     # Never request them. Keep successful days in memory and retry only failed

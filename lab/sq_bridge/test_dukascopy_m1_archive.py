@@ -4,11 +4,13 @@ from datetime import date
 from pathlib import Path
 
 from dukascopy_m1_archive import (
+    build_month,
     daily_cache_path,
     decode,
     is_fx_symbol,
     month_days,
     nyse_closed_dates,
+    partition_path,
     read_daily_cache,
     write_daily_cache,
 )
@@ -54,3 +56,19 @@ def test_nyse_calendar_handles_recurring_and_exceptional_closures():
     assert date(2022, 6, 20) in nyse_closed_dates(2022)  # Juneteenth observed
     assert date(2021, 6, 18) not in nyse_closed_dates(2021)
     assert date(2021, 12, 31) in nyse_closed_dates(2021)
+
+
+def test_complete_manifest_with_wrong_hash_is_rebuilt(tmp_path: Path, monkeypatch):
+    day = date(2024, 1, 2)
+    rows = [(1704153660, 250.125, 251.0, 249.5, 250.75, 10.0)]
+    write_daily_cache(daily_cache_path(tmp_path, "CATUSUSD", day), rows)
+    target = partition_path(tmp_path, "CATUSUSD", 2024, 1)
+    target.parent.mkdir(parents=True)
+    target.write_bytes(b"stale")
+    target.with_name("manifest.json").write_text('{"status":"complete","sha256":"wrong"}\n')
+    monkeypatch.setattr("dukascopy_m1_archive.month_days", lambda year, month: [day])
+    receipt = build_month(tmp_path, "CATUSUSD", 2024, 1, workers=1,
+                          price_scale=1000, closed_dates=set())
+    assert receipt["action"] == "written"
+    assert receipt["sha256"] != "wrong"
+    partition_path,

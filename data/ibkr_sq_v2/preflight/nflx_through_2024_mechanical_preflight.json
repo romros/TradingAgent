@@ -1,0 +1,412 @@
+{
+  "schema_version": 1,
+  "stage": "US_EQUITY_DATA_PREFLIGHT",
+  "symbol": "NFLXUSUSD",
+  "decision": "PASS_YEAR_PILOT_SOURCE_ONLY",
+  "performance_accessed": false,
+  "source_rows": 2872800,
+  "unique_timestamps": 2872800,
+  "duplicate_timestamps": 0,
+  "complete_months": 96,
+  "rth_timezone": "America/New_York",
+  "rth_window": "09:30:00<=local_time<16:00:00",
+  "expected_minutes_per_full_session": 390,
+  "sessions": 1995,
+  "bad_session_minutes": {},
+  "first_session": "2017-01-26",
+  "last_session": "2024-12-31",
+  "d1_csv": "data/ibkr_sq_v2/preflight/NFLXUSUSD_NYSE_RTH_D1_through_2024.csv",
+  "d1_sha256": "e0bed249d5e8363b98132a6976909eff8f4b9c25900aa73da36c94cf95f69489",
+  "monthly_sources": [
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2017/month=01/data.csv.gz",
+      "sha256": "4477f2c70cc6a320d93c2484adbdaf23e53d9eb68077ca9063e03fa94d9777fe"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2017/month=02/data.csv.gz",
+      "sha256": "e4ace8295a6af04cb50499d692aa05fb9101786641f1a461b6a16058104ab665"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2017/month=03/data.csv.gz",
+      "sha256": "bba5e1e24b398346811268c85d89f3c920fbfe28335b43851a3b06ec3b5ae05b"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2017/month=04/data.csv.gz",
+      "sha256": "7d3fa03c051377e219a110789222af9e3a85c86f64b7ee3bea799c7eae923bb3"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2017/month=05/data.csv.gz",
+      "sha256": "9a287ff0178bd05feee92fccff823183988cdff8b234a0f43947d20f8f403f73"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2017/month=06/data.csv.gz",
+      "sha256": "a4952a51c1000b92e2f7eca81f857d813c2e1ac747077e531c8583217ee42dc5"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2017/month=07/data.csv.gz",
+      "sha256": "92e979effa551b830cfcf977082583c5bdbd3a258880dec93efe0b719b703cbc"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2017/month=08/data.csv.gz",
+      "sha256": "a534a1f120e56e7e399bfcd6533b516f041b47c49000b91dea86e0b93ddb52d7"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2017/month=09/data.csv.gz",
+      "sha256": "297512fe26ebbb2f601b5b748e7586cb9d1e02e4bfa56ba06d26504a6963ba90"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2017/month=10/data.csv.gz",
+      "sha256": "ee03b87e1a0998d9bfbcde3e671e43be1b3439e0927049b840f4880da966cb71"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2017/month=11/data.csv.gz",
+      "sha256": "fa334961e4cc711b84ca763d7818121ad31ef746de74cfbcea4d01ffea0fd18d"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2017/month=12/data.csv.gz",
+      "sha256": "4acd4bac9392be54b62c9c5ff87fae83ea66817165a147c710d68700b99e8251"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2018/month=01/data.csv.gz",
+      "sha256": "56ecf69061cf0132dceb1c3bec866b12cf1d05858b43adf1d8a588f260135d5d"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2018/month=02/data.csv.gz",
+      "sha256": "42e616f7478eac43b933b394ae184ea28186b7a81a7eab5ddd08bd4d77630fd8"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2018/month=03/data.csv.gz",
+      "sha256": "bfd0eaa6c3aca7858b5844dec1d3aa7b53b23591763a6159139c2235d0e395ef"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2018/month=04/data.csv.gz",
+      "sha256": "2884414338229f4428b23d149a9e0efb1f2b46a621d1a95ff8b7f82f55d82384"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2018/month=05/data.csv.gz",
+      "sha256": "f88305affcf1923b8b9895858147cb7a40a07bf6940025702980b192b34d47c1"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2018/month=06/data.csv.gz",
+      "sha256": "cb1c60db1bda3752b208215b2f0caceee55a017665c87ad00d5c4f671df5705b"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2018/month=07/data.csv.gz",
+      "sha256": "4273d888fd3b71a4cc2c1690eb832af0490444b6a753f300fe4eb48a6cb4d798"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2018/month=08/data.csv.gz",
+      "sha256": "1190d8a3c6fbd55d469ffa3c6508cab2d8766bf43392e8f5b6df8e705d3d4a63"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2018/month=09/data.csv.gz",
+      "sha256": "5ec0aba8965e31dc39df81f642b6d1fbcb29df685398052bc8bf85747323fb1f"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2018/month=10/data.csv.gz",
+      "sha256": "292c0f07dda98e3648b8cbed0d934709e130e4069727d3212fd6bbe2787675af"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2018/month=11/data.csv.gz",
+      "sha256": "2bfa4a40d45788abaee5f6448f0c03a00c9598552900adb3dc1a7119c51fa4bc"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2018/month=12/data.csv.gz",
+      "sha256": "7d2990ce370192ba4bb7f4322f379a82361534bacf99ba198c76ce3ad4daec3a"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2019/month=01/data.csv.gz",
+      "sha256": "3f3e2480829b08d9e50de35f758119ccc25729270727f718e6c13e88e90c01a2"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2019/month=02/data.csv.gz",
+      "sha256": "4635ebae77db6552c09db3ea5fe04f53a48e646718275be8a0b5f1ecdd5bd297"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2019/month=03/data.csv.gz",
+      "sha256": "7fe35c8125e44db8bf66a64e3df819c8ddc31b578aaffdb594f676951baa89c7"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2019/month=04/data.csv.gz",
+      "sha256": "93015b7d42999a2bbfa9e7d5ae3d734f41f7318d9475f4608644c0777273514b"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2019/month=05/data.csv.gz",
+      "sha256": "4048d46d6290ac1b09c9c61f9735dbb7f27da8b59643510f618f6888a4ce5199"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2019/month=06/data.csv.gz",
+      "sha256": "f9d4fe6a6834c02b42aad2050559e601c7d70808643da9a732a28423f80fe9f0"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2019/month=07/data.csv.gz",
+      "sha256": "372125a0bc1360536e26a754d00451a0f7da95fdd53bde39bb2b8c18e8685221"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2019/month=08/data.csv.gz",
+      "sha256": "bca193d3d0f815354798586e7d5f482c20d681b33df8897e69451119349c50ea"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2019/month=09/data.csv.gz",
+      "sha256": "9e0788dba95f8c9466b5bb7d094625d67b55319b4c37922f1afcbf6bd5ca6e81"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2019/month=10/data.csv.gz",
+      "sha256": "ac5418802ae96f364d0ef492925adea0b39d44c0294541debdbac2940830e588"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2019/month=11/data.csv.gz",
+      "sha256": "904341d123aaa59909ef2b4a47dac68fc88dccaa52066443ebe0ea088de0b973"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2019/month=12/data.csv.gz",
+      "sha256": "1bd1ec1a1f49ed48c510ade9ea2ede1bdb87db48f1afa376fa9d064148c2f057"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2020/month=01/data.csv.gz",
+      "sha256": "c13025e0829505d08f7da2ed8dfa0000bb097c0b90df531a34268c68b78e26f8"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2020/month=02/data.csv.gz",
+      "sha256": "31dc9f67d718787136dfb2168e4bc23743932a4e309b7aa2627fee629b874341"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2020/month=03/data.csv.gz",
+      "sha256": "1ce29c2f8d26c7ac9fb5ef11d18e37af6498cee7fe2db987f430b98ed8a5d789"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2020/month=04/data.csv.gz",
+      "sha256": "83304c4aeb36e48765b59b07cdf086f0001f551a67acd3a8bc3ac09aee8c40f9"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2020/month=05/data.csv.gz",
+      "sha256": "74140556932ee99be4ef6c1125fcbe126d1b7204d7fe0aa1191b49807e387c65"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2020/month=06/data.csv.gz",
+      "sha256": "9ad7dfd835d4cbc248563864864eb8d898919a813cccaf129d426d2cd4841c63"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2020/month=07/data.csv.gz",
+      "sha256": "305ae4a149c814c0f1d044b53c67c6072c8a46e118cf8abccb61dcd0a45b1afe"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2020/month=08/data.csv.gz",
+      "sha256": "2da64c3ac1d340c8d174a854b1879e032508cbd5ee78f63e4453a4296a7c360e"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2020/month=09/data.csv.gz",
+      "sha256": "4b5df975962d5e9f774f4224439f9e9319cfa8d804fe4c49a16f320649976770"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2020/month=10/data.csv.gz",
+      "sha256": "91c17259e0105d860b4c6ea4e6db9c1830bc76ec26daba1707614192211ca86c"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2020/month=11/data.csv.gz",
+      "sha256": "76f50110c395e2a64f61a0ebbcf8ffcfb210140f7b4dc535a4a2ac4ed60f7ef2"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2020/month=12/data.csv.gz",
+      "sha256": "6460a645136a3ad3ef17774e0d2a019d769ddea5ea9ebcc408699070d1725145"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2021/month=01/data.csv.gz",
+      "sha256": "f50531809be8c9069d01a5018f684b2dd4c002f67813a4f9300ee0bf4f27bd5d"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2021/month=02/data.csv.gz",
+      "sha256": "4306cb182a099457948cdc57ae29887be2c23ea2c4e3c7878d0b7a131b62c95d"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2021/month=03/data.csv.gz",
+      "sha256": "0814bc40d50a3a4c69d0b7f5c1d75e37093dfd69e055cacc9b081ca8e63f2c24"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2021/month=04/data.csv.gz",
+      "sha256": "5f05e3c396e97afb56ebf09552771d0e472c69645e29440d7ab71ee56bfb0fbc"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2021/month=05/data.csv.gz",
+      "sha256": "7c71f35ed7c1ce4373fcfce59c7af389925bbf169213973f225112b3fae117f1"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2021/month=06/data.csv.gz",
+      "sha256": "8a8234193e29e419ee1dfadcc930d9ed795e2a41e7d918e8e2ed26f3590c16d3"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2021/month=07/data.csv.gz",
+      "sha256": "cd857a445cb0d4410b77a31ccda1fed7ffd5c9d0e2b1e88f038365f954eed64c"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2021/month=08/data.csv.gz",
+      "sha256": "17d3891c431c3d50a3bc9c732da5c13ae754b75f94a2dc6a56318f3a1a7328ac"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2021/month=09/data.csv.gz",
+      "sha256": "2241788ec6e24804d4109dc5f175df9f475ca1f1764e208a5ccf5a1b57056b3f"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2021/month=10/data.csv.gz",
+      "sha256": "69ef0101addccae572d90430887612a0b23b26a70419db40b05f8d9a412cd164"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2021/month=11/data.csv.gz",
+      "sha256": "657eccb4762e70cf194def1cb4006af11e0317089b46873c2a8e30d6ea154881"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2021/month=12/data.csv.gz",
+      "sha256": "b6641bf2a7a4208f4ac84eeabaa8b739e1ba4462fca85026bb490c89af4afc69"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2022/month=01/data.csv.gz",
+      "sha256": "fa6b9146879785055bb3c3050a272c2d05a91ec42e744b3ebd0dfc4a61f29ce2"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2022/month=02/data.csv.gz",
+      "sha256": "978093ebae8712ef6511cb3c93eb005dfbd26ae1b0d74d1cf933ec52530c33cf"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2022/month=03/data.csv.gz",
+      "sha256": "c0edd8e69865611ba2b34a15d07bebf134eb7fe0748604c8274a1891b7fe55e2"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2022/month=04/data.csv.gz",
+      "sha256": "4981f76aee64025ad159ea198f299d6edeab306b1b53c3eab0159bb14f8ad413"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2022/month=05/data.csv.gz",
+      "sha256": "0d4d65890addcb0bca9edd5dff67522d241ddc56bd7d2261fa7886872cd49bcf"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2022/month=06/data.csv.gz",
+      "sha256": "cfe6fc2e560b5372d05c604935d3e9891c2be1540456c3f30973a8cbcd979b9c"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2022/month=07/data.csv.gz",
+      "sha256": "7add1038ba66361dd8b9a0cc15f4d1cd268c2bcaad81148ad48d8fbc5974f1a7"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2022/month=08/data.csv.gz",
+      "sha256": "3899a871c0381501c47f71fddfd745f870ebee0bd82f20fab50b351b3470e3cc"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2022/month=09/data.csv.gz",
+      "sha256": "0ac3b3d77e85617e08fea7a98ad20cb02dd1ec0c973befb172787bc29817b847"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2022/month=10/data.csv.gz",
+      "sha256": "32988411c43d52a648348561ec5f6d8b80352adac7769e1bb6f4d665887ada57"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2022/month=11/data.csv.gz",
+      "sha256": "2a9e5b2f5065ffa73d475dbc70d3c09752aaea11a004ca32299d2334804f5e03"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2022/month=12/data.csv.gz",
+      "sha256": "5f22c23e636d55766b55000a6f8f51820a90e410067c1f0eaf3de42ad7752037"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2023/month=01/data.csv.gz",
+      "sha256": "32f1ddd8c10beaa9a6a9ba3dcf4c3668b05f025a83d16076af9dd48c75ef8daa"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2023/month=02/data.csv.gz",
+      "sha256": "984471b302d22d5931f5ce2f0989e08b90d64ebefe2ab7ce56ecb20152e1811b"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2023/month=03/data.csv.gz",
+      "sha256": "b321ef804a76f6e9a42c495bb3696e261627738b486e77650720f34e8e38b575"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2023/month=04/data.csv.gz",
+      "sha256": "2d23cb235184e31f92c17012045b49fcdd87f027a37c36de7d9c9e017ef5ac9f"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2023/month=05/data.csv.gz",
+      "sha256": "ea5f9ad7befc5395a9763a7ef7b2cad9b607dfa3ad0027c9dcfec275d7c71669"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2023/month=06/data.csv.gz",
+      "sha256": "988563212a44690ea8494c1bef99adb0c8d48ff6d1931fc15c81e7b8339d959a"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2023/month=07/data.csv.gz",
+      "sha256": "6b63fb3f59d3eb70efb75ab0a850c8ab3ec6855d2e0e7094d8976f9a64f0c1f9"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2023/month=08/data.csv.gz",
+      "sha256": "00e13a632e9e82c20e643cdd36941f5b692f61b9983caf7503726a776dbb934d"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2023/month=09/data.csv.gz",
+      "sha256": "d1589fc6af9e48df387ddcb2007838eb024f30b175e3ed3e8d454d77316d76d0"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2023/month=10/data.csv.gz",
+      "sha256": "0caa50b3132d010ffaf0d43435d7141a7f6f4fb3d51a74eaff1dc31a6d435f2d"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2023/month=11/data.csv.gz",
+      "sha256": "58f65db84fb413a15bd621d82a0519d46f5bfc4e8718a2689ea70559fbf9cecd"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2023/month=12/data.csv.gz",
+      "sha256": "369ef7f751156c93e18fae07335e3fc30a749a4c7b2f83b653aeb6aa7ef9f6f1"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2024/month=01/data.csv.gz",
+      "sha256": "e036f7a13890572091ef584cb8f5c29cf49637b86d03694589d2b62ecb59fb49"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2024/month=02/data.csv.gz",
+      "sha256": "8b69b163b009de561666a4c36b40a52fdc47c430b5f0acdae31238214c91662c"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2024/month=03/data.csv.gz",
+      "sha256": "4b9a986dcaebce6bab69a47fff11690307ef678b6e4bbdb22fc2e6109479ae8b"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2024/month=04/data.csv.gz",
+      "sha256": "c86ec2ea199fd6177c88bcaeda19eb7433925fc7c02941a6f7ad703802f32014"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2024/month=05/data.csv.gz",
+      "sha256": "d8f892d495059a29fead4bdc1f1c3d58dec354bd21f1c604e049ed672c8e8850"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2024/month=06/data.csv.gz",
+      "sha256": "bcb0b72c5b8f3f54c8272e261b52a71dc7d5ee501550624b8375d1d540226d8e"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2024/month=07/data.csv.gz",
+      "sha256": "7ab42b0f289bc4b67f54d979dc0116a046eb6582156cb82cdcb492fdb165cdab"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2024/month=08/data.csv.gz",
+      "sha256": "f888776986dc82fd1c427dd3093113a183bd69b9964431828cecc51a0f511b75"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2024/month=09/data.csv.gz",
+      "sha256": "5d3053c241a454bc18709e9b7b048dd9d6dd8bf1259d0a9605b58fa6092d1e6b"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2024/month=10/data.csv.gz",
+      "sha256": "ff81e68d29a3a87a6e03f33fb1d6b74b488c471ab6cc7a4b56b1dd6f32d38b52"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2024/month=11/data.csv.gz",
+      "sha256": "49ab550537ef1a3188232b8f9e7f7948ed54dba8e1533acb33cbc1fcc2f5099e"
+    },
+    {
+      "path": "data/ibkr_sq_v2/dukascopy_m1/NFLXUSUSD/tf=1m/year=2024/month=12/data.csv.gz",
+      "sha256": "83675e8a9caaa6123afc0f1295c872b79f0c34e423b9ae6e675533a46b8c1192"
+    }
+  ],
+  "remaining_blocks": [
+    "download_and audit 2018-2025",
+    "prove split/dividend adjustment semantics",
+    "freeze train/validation/OOS before performance",
+    "import and round-trip D1 through SQ"
+  ]
+}

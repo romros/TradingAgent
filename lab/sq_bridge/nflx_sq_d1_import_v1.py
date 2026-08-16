@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Import/export the frozen NFLX D1 resource through SQCLI."""
-import argparse,json
+import argparse,json,subprocess
 from lab.sq_bridge.sqcli_transport import docker_exec_http_call
 COMMANDS=[
  '-instrument action=add instrument=NFLX_IBKR_BREAKOUT_V1 description=NFLX_D1_breakout_research pointvalue=1 ticksize=0.001 tickstep=0.001 defaultspread=0 datatype=stock orderSizeMultiplier=1 orderSizeStep=1',
@@ -9,5 +9,5 @@ COMMANDS=[
  '-data action=export symbols=NFLX_IBKR_BREAKOUT_V1_D1 timeframe=D1 datefrom=2017.01.26 dateto=2024.12.31 outputdir=/home/squser/SQ/user/exports/alquimia_nflx_breakout_v1'
 ]
 def main():
- p=argparse.ArgumentParser();p.add_argument('--export-only',action='store_true');a=p.parse_args();commands=COMMANDS[-1:] if a.export_only else COMMANDS;print(json.dumps([{'command':c,'response':docker_exec_http_call('sqcli-docker',c,timeout_seconds=120).strip()} for c in commands],indent=2))
+ p=argparse.ArgumentParser();p.add_argument('--export-only',action='store_true');a=p.parse_args();subprocess.run(['docker','exec','sqcli-docker','mkdir','-p','/home/squser/SQ/user/exports/alquimia_nflx_breakout_v1'],check=True);commands=COMMANDS[-1:] if a.export_only else COMMANDS;print(json.dumps([{'command':c,'response':docker_exec_http_call('sqcli-docker',c,timeout_seconds=120).strip()} for c in commands],indent=2))
 if __name__=='__main__':main()

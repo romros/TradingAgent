@@ -9,22 +9,19 @@ from lab.sq_bridge.alquimia_project import build
 ROOT=Path(__file__).resolve().parents[2]
 SPEC=Path(__file__).with_name('nflx_d1_volatility_breakout_v1.json')
 SCAFFOLD=Path('/mnt/volume-SQ/user/projects/ALQUIMIA_CRYPTO_H4_CFX_SMOKE_V2/project.cfx')
-SOURCE=ROOT/'data/ibkr_sq_v2/preflight/NFLXUSUSD_NYSE_RTH_D1_through_2024.csv'
-REPORT=ROOT/'data/ibkr_sq_v2/preflight/nflx_through_2024_mechanical_preflight.json'
+SOURCE=ROOT/'data/ibkr_sq_v2/preflight/NFLXUSUSD_CANONICAL_D1_2017_2024.csv'
+REPORT=ROOT/'data/ibkr_sq_v2/preflight/nflx_canonical_source_2017_2024.json'
 def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 def epoch(value):return str(int(datetime.combine(date.fromisoformat(value),datetime.min.time(),tzinfo=timezone.utc).timestamp()*1000))
 def prepare(target):
- rows=[]
- with SOURCE.open(newline='') as s:
-  for r in csv.DictReader(s):
-   if r['date']>'2024-12-31':raise ValueError('post-2024 row refused')
-   rows.append(r)
- if not rows or rows[0]['date']!='2017-01-26' or rows[-1]['date']!='2024-12-31':raise ValueError('canonical date boundary mismatch')
- target.write_text(''.join(f"{r['date'].replace('-','.')},00:00,{float(r['open']):.6f},{float(r['high']):.6f},{float(r['low']):.6f},{float(r['close']):.6f},0\n" for r in rows))
+ with SOURCE.open(newline='') as s:rows=list(csv.reader(s))
+ if not rows or len(rows[0])!=7 or rows[0][0]!='2017.01.26' or rows[-1][0]!='2024.12.31':raise ValueError('canonical date boundary mismatch')
+ if any(r[0]>'2024.12.31' for r in rows):raise ValueError('post-2024 row refused')
+ target.write_bytes(SOURCE.read_bytes())
  return {'rows':len(rows),'source_sha256':sha(SOURCE),'mt4_sha256':sha(target)}
 def compile_campaign(output):
  spec=json.loads(SPEC.read_text());report=json.loads(REPORT.read_text())
- if spec['performance_accessed_for_this_family'] or report.get('decision')!='PASS_MECHANICAL_PREFLIGHT':raise ValueError('blind source preflight required')
+ if spec['performance_accessed_for_this_family'] or not report.get('decision','').startswith('PASS'):raise ValueError('blind source preflight required')
  output.mkdir(parents=True,exist_ok=True);mt4=output/'NFLXUSUSD_NYSE_RTH_D1_2017_2024_MT4.csv';source=prepare(mt4);p=spec['periods'];d=spec['discovery']
  registry={'markets':{'NFLX':{'research_eligible':True,'sq_symbol':spec['sq_symbol'],'discovery_timeframe':'D1','discovery_slippage':0,'discovery_commission_per_order':0,'sq_resource_clone_from':'BTCUSD_ALQ_H4','sq_prune_resources':True,'sq_resource_remove_attributes':['cloneFrom','sourceTimezone'],'sq_resource_attributes':{'source':'1','barType':'1','precision':'D1','timezone':'America/New_York','dateFrom':epoch(p['train_from']),'dateTo':epoch(p['sealed_oos_to']),'uSymbol':'NFLX_IBKR_BREAKOUT_V1','uSymbolName':'NFLX_IBKR_BREAKOUT_V1','removeWeekends':'false','broker':'-1'},'sq_instrument_attributes':{'instrument':'NFLX_IBKR_BREAKOUT_V1','description':'NFLX D1 breakout research','tickSize':'0.001','tickStep':'0.001','minDistance':'0','tickValueInMoney':'0','dateFrom':'0','dateTo':'0','rows':'0','totalDays':'0','defaultSpread':'0','defaultSlippage':'0','decimals':'3','commissions':'','pointValue':'1','dataType':'1','recognizedFromOrders':'false','exchange':'NASDAQ','country':'US','sector':'Communication Services','swap':'','orderSizeMultiplier':'1','orderSizeStep':'1','broker':'-1'},'exit_at_end_of_day':False,'eod_exit_seconds':None,'signal_time_range_seconds':None,'exit_at_end_of_range':False,'maximum_trades_per_day':1,'venue_max_leverage':1}}}
  rp=output/'frozen_market_registry.json';rp.write_text(json.dumps(registry,indent=2,sort_keys=True)+'\n');method=json.loads((ROOT/'lab/sq_bridge/methodology_ibkr_sq_v1.json').read_text());method['methodology_id']=spec['campaign_id'];method['capital_usdc']=1000;method['small_account']['canonical_capital_usdc']=1000

@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_CANONICAL_SOURCE_ONLY",
+  "symbol": "NFLXUSUSD",
+  "timeframe": "D1",
+  "rows": 1995,
+  "first": "2017-01-26",
+  "last": "2024-12-31",
+  "source_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/preflight/NFLXUSUSD_NYSE_RTH_D1_through_2024.csv",
+  "source_sha256": "e0bed249d5e8363b98132a6976909eff8f4b9c25900aa73da36c94cf95f69489",
+  "output_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/preflight/NFLXUSUSD_CANONICAL_D1_2017_2024.csv",
+  "output_sha256": "12c140360eb22d9c489d796e3215e565f0e46b6b0918b206585bf577bae2b818",
+  "corporate_actions_source": "https://www.sec.gov/Archives/edgar/data/1065280/000106528025000044/nflx-20241231.htm",
+  "splits_in_research_window": [],
+  "absolute_close_jumps_at_least_20pct": [
+    {
+      "date": "2022-01-21",
+      "close_return": -0.218746503
+    },
+    {
+      "date": "2022-04-20",
+      "close_return": -0.350924989
+    }
+  ],
+  "ohlc_envelope_repair": {
+    "rule": "high=max(source_high,open,close); low=min(source_low,open,close)",
+    "rows_repaired": 286,
+    "max_high_delta": 5.701,
+    "max_low_delta": 0.0
+  },
+  "volume_rules_allowed": false,
+  "performance_accessed": false,
+  "oos_accessed": false,
+  "holdout_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

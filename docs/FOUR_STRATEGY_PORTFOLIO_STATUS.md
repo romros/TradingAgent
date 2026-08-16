@@ -11,7 +11,7 @@ cartera executable a IBKR. No s'ha autoritzat ni paper ni LIVE.
 | CAT 0.168 | Pullback/trend D1 amb DI/ATR congelats | OOS 2024 i transferències documentades | Sí | Reserva consolidada |
 | MSFT capitulation | Caiguda diària >2% sota BB(20,2), compra open i sortida close | Paritat nativa i costos | Sí | Consolidada |
 | JPM Momentum60 | Canvi de mes i `Close[1] > Close[61]`, hold 20 | OOS natiu + confirmació recent | Sí | Consolidada |
-| SGLN TSMOM12 | A primer dia de mes, long si últim final de mes supera l'exacte de fa 12 mesos; altrament cash | Confirmació SGLN/PHAU; només sleeve ≤25% | Sí; paritat exacta de 3/3 trades | Condicional |
+| SGLN TSMOM12 | A primer dia de mes, long si últim final de mes supera l'exacte de fa 12 mesos; altrament cash | Confirmació SGLN/PHAU; només sleeve ≤25% | Sí; paritat exacta de 3/3 trades | Admesa només com a component ≤25% |
 
 Les fitxes detallades viuen a `strategies/consolidated/`. Els intents que no
 passen viuen a `strategies/rejected/README.md` i no s'han de regenerar sense una
@@ -70,6 +70,15 @@ fricció indicatives, el total 2022–2024 és **+26,13% tiered**, **+18,83% fix
 i **+17,02% estrès**. L'estrès són 340,47 USD en tres anys sobre 2.000 USD,
 aproximadament 5,3% anualitzat. Sense compte no es pot confirmar el pla, venue,
 KID ni comissió del fill real; per això continua sent un gate teòric.
+
+Una auditoria congelada posterior substitueix també el PnL diari GBP fictici
+de SQ, aplica GBPUSD ECB dia a dia i carrega el round-trip complet en entrar.
+L'escenari d'estrès acaba a **+20,11%**, amb **8,15% de drawdown diari net** i
+equity mínima de 1.851,09 USD. Passa el gate preregistrat de DD ≤15%. Això
+promou SGLN de condicional a **component de cartera admès i limitat al 25%**;
+no canvia el seu rebuig standalone. El +20,11% és el valor mark-to-market real
+del 31-12-2024; no usa la liquidació sintètica `EndTest` de SQ de l'01-01-2025,
+que cau fora de la finestra de dades segellada.
 
 La paritat agregada troba exactament **93/93 entrades**: CAT 57, MSFT 15,
 JPM 20 i SGLN 1. El log SQ repetia literalment l'última ordre CAT i explicava

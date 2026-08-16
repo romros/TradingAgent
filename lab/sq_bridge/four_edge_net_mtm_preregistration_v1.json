@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-08-16",
+  "purpose": "Decide whether conditional SGLN may be admitted only as a capped fourth portfolio sleeve.",
+  "frozen_inputs": {
+    "period": "2022-01-01/2024-12-31",
+    "initial_capital_usd": 2000,
+    "sleeve_budget_usd": 500,
+    "maximum_sgln_weight_pct": 25,
+    "portfolio_sqx_sha256": "8a10d42afb4a41fd316cbef18ec7f80c2151e2f092d7698a0e593d0a1dc1637a",
+    "ecb_fx_sha256": "f95006726de866df21bea8ca0c3a1e7f9d082600b57d04199ab37201b7b48e21"
+  },
+  "method": [
+    "Use SQ native daily mark-to-market equity for every component.",
+    "Replace SQ's currency-neutral SGLN PnL with whole-share GBP PnL converted daily using as-of ECB GBPUSD.",
+    "Deduct a complete estimated round-trip cost on each entry date, which is conservative before the actual exit.",
+    "Do not change signals, parameters, sizing, dates, assets, or the three cost scenarios after seeing this result."
+  ],
+  "admission_gate": {
+    "stress_net_return_pct_strictly_above": 0,
+    "stress_daily_mtm_max_drawdown_pct_at_most": 15,
+    "stress_minimum_equity_usd_strictly_above": 0,
+    "required_components": ["CAT", "MSFT", "JPM", "SGLN"],
+    "paper_or_live_authorized": false
+  },
+  "interpretation": "PASS admits SGLN as a capped portfolio diversifier only. It does not promote SGLN to a standalone consolidated strategy."
+}

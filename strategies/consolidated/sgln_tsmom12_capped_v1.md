@@ -38,6 +38,14 @@ Per això la classificació és `PASS_EDGE_AS_CAPPED_PORTFOLIO_SLEEVE`, amb un
 màxim inicial del 25% del capital. No autoritza augmentar el pes per aprofitar
 el rally recent de l'or.
 
+L'auditoria posterior va congelar abans de calcular un gate diari net de
+retorn d'estrès >0, drawdown mark-to-market ≤15% i equity sempre positiva.
+Corregint diàriament GBPUSD amb ECB i carregant conservadorament tot el cost
+round-trip el dia d'entrada, la cartera 2022–2024 obté **+20,11% net d'estrès**,
+**8,15% de drawdown diari** i equity mínima de **1.851,09 USD** sobre 2.000.
+Per tant SGLN queda formalment admès com a component limitat, mai com a regla
+standalone al 100%.
+
 ## Vehicle i implementació
 
 BlackRock identifica el producte com a ETC de metall físic, TER 0,12%, base
@@ -59,8 +67,8 @@ Per reconstruir la recerca:
 ## Limitacions
 
 - La cartera 2022–2024 és un diagnòstic històric downstream, no un holdout nou.
-- El drawdown de cartera és closed-equity; abans de paper cal recomputar-lo
-  mark-to-market i incloure FX si es compra una línia no denominada en EUR.
+- El drawdown de cartera ja està recomputat diàriament mark-to-market amb
+  GBPUSD; les comissions continuen sent models públics fins tenir compte.
 - Cal confirmar a IBKR el contracte/KID accessible al compte espanyol i les
   comissions LSE/Xetra reals.
 - Paper i LIVE continuen no autoritzats.

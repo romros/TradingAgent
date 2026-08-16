@@ -4,11 +4,14 @@
   "admitted_strategy_ids": [
     "cat_d1_trend_0168",
     "msft_d1_capitulation",
-    "jpm_momentum60_month_end_v1"
+    "jpm_momentum60_month_end_v1",
+    "sgln_tsmom12_capped_v1"
+  ],
+  "capped_portfolio_component_ids": [
+    "sgln_tsmom12_capped_v1"
   ],
   "conditional_strategy_ids": [
-    "sxr8_turn_of_month_l1_f3",
-    "sgln_tsmom12_capped_v1"
+    "sxr8_turn_of_month_l1_f3"
   ],
   "research_only_strategy_ids": [
     "aapl_momentum60_month_end_v1"
@@ -23,8 +26,8 @@
     "multi_asset_dual_momentum_v1",
     "spy_gap_down_recovery_v1"
   ],
-  "admitted_count": 3,
-  "conditional_count": 2,
+  "admitted_count": 4,
+  "conditional_count": 1,
   "eligible_portfolio_count": 5,
   "distinct_eligible_mechanisms": 5,
   "minimum_required": 4,

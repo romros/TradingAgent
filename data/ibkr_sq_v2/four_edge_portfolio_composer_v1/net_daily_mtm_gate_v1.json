@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_ADMIT_SGLN_AS_CAPPED_PORTFOLIO_COMPONENT",
+  "period": "2022-01-01/2024-12-31",
+  "initial_capital_usd": 2000.0,
+  "sleeve_budget_usd": 500.0,
+  "sgln_maximum_weight_pct": 25,
+  "positions": 93,
+  "sgln_whole_shares": 13,
+  "scenarios": {
+    "tiered_indicative": {
+      "final_equity_usd": 2584.066398,
+      "net_return_pct": 29.20332,
+      "minimum_equity_usd": 1891.70531,
+      "full_roundtrip_costs_accrued_upfront_usd": 82.496394,
+      "daily_mtm_max_drawdown_pct": 7.287168,
+      "drawdown_peak_date": "2022-05-09",
+      "drawdown_trough_date": "2022-09-23"
+    },
+    "fixed_indicative": {
+      "final_equity_usd": 2438.139947,
+      "net_return_pct": 21.906997,
+      "minimum_equity_usd": 1860.123135,
+      "full_roundtrip_costs_accrued_upfront_usd": 228.422846,
+      "daily_mtm_max_drawdown_pct": 7.986581,
+      "drawdown_peak_date": "2022-05-09",
+      "drawdown_trough_date": "2022-09-23"
+    },
+    "stress": {
+      "final_equity_usd": 2402.241028,
+      "net_return_pct": 20.112051,
+      "minimum_equity_usd": 1851.092425,
+      "full_roundtrip_costs_accrued_upfront_usd": 264.321765,
+      "daily_mtm_max_drawdown_pct": 8.151593,
+      "drawdown_peak_date": "2022-05-09",
+      "drawdown_trough_date": "2022-09-23"
+    }
+  },
+  "limitations": [
+    "Round-trip costs are charged completely on entry, a conservative timing assumption.",
+    "Final return is the 2024-12-31 mark-to-market value; SQ's synthetic 2025-01-01 EndTest liquidation is deliberately outside the sealed market-data window.",
+    "Public indicative commissions are not a substitute for an actual IBKR account statement.",
+    "This admits diversification use only; standalone SGLN still fails its frozen 20% drawdown gate.",
+    "No paper or live trading is authorized."
+  ],
+  "paper_authorized": false,
+  "live_authorized": false
+}

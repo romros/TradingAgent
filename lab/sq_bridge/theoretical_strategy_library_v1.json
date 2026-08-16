@@ -65,12 +65,12 @@
       "id": "sgln_tsmom12_capped_v1",
       "asset": "SGLN_ISIN_IE00B4ND3602",
       "mechanism": "monthly_12_month_time_series_momentum_physical_gold",
-      "status": "CONDITIONAL_EDGE_MAX_25_PERCENT_PORTFOLIO_SLEEVE",
+      "status": "ADMITTED_CAPPED_PORTFOLIO_COMPONENT",
       "evidence_path": "data/ibkr_sq_v2/gold_tsmom_confirmation_v1/screen_v1.json",
       "evidence_sha256": "9f28cbddb154fd30a0417c0ce1aafb5e3326d0de6c25d2f960f283e483b97930",
-      "portfolio_evidence_path": "data/ibkr_sq_v2/gold_tsmom_confirmation_v1/cat_msft_jpm_gold_portfolio.json",
-      "portfolio_evidence_sha256": "004e22b6fa1d60295a169c7b4cfb425ac18546d84ec771c34fb549f49bcec622",
-      "caveat": "Recent edge and cross-vehicle control pass, but the frozen 100% standalone DD gate failed at 25.82%. Admission is only as a fixed maximum 25% sleeve: the equal CAT/MSFT/JPM/SGLN diagnostic improves 2022-2024 return, PF and closed-equity DD. IBKR contract resolution by ISIN/KID, mark-to-market risk, SQ parity and paper remain pending."
+      "portfolio_evidence_path": "data/ibkr_sq_v2/four_edge_portfolio_composer_v1/net_daily_mtm_gate_v1.json",
+      "portfolio_evidence_sha256": "68d28a226af5db99c7b5216902e648ef97415a9dbd56c58ef5123d737f5cde00",
+      "caveat": "The frozen 100% standalone DD gate still fails at 25.82%. Admission is only as a maximum 25% sleeve: the independent SQ portfolio has exact entry parity and the FX-corrected daily mark-to-market audit passes under stress (+20.11%, 8.15% DD in 2022-2024). Contract/KID/account-specific fees and paper remain pending."
     },
     {
       "id": "aapl_h1_roc_4_1_174",

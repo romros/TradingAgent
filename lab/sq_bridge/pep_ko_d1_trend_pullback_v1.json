@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-pep-ko-d1-trend-pullback-v1",
+  "status": "PREREGISTERED_READY_FOR_SQ_BUILD",
+  "objective": "Find a sixth traceable edge that adds return beyond the current portfolio and survives transfer between two consumer-staples equities.",
+  "hypothesis": "Large consumer-staples equities exhibit persistent medium-term trends and temporary price/oscillator pullbacks; a next-open long entry after a pullback can capture recovery without relying on ambiguous D1 stop-entry sequencing.",
+  "falsifier": "Reject the family if no frozen PEP representative remains profitable after whole-share stress costs on both PEP and untuned KO validation, or if sealed 2024 OOS and the incremental portfolio benchmark fail.",
+  "discovery_asset": {
+    "asset": "PEP",
+    "sq_catalog_symbol": "PEPUSUSD",
+    "sq_symbol": "PEP_IBKR_TREND_PULLBACK_V1_D1",
+    "source": "data/ibkr_sq_v2/preflight/PEPUSUSD_CANONICAL_D1_2017_2024.csv"
+  },
+  "mandatory_transfer_asset": {
+    "asset": "KO",
+    "sq_catalog_symbol": "KOUSUSD",
+    "sq_symbol": "KO_IBKR_TREND_PULLBACK_V1_D1",
+    "source": "data/ibkr_sq_v2/preflight/KOUSUSD_CANONICAL_D1_2017_2024.csv",
+    "parameter_tuning_allowed": false
+  },
+  "periods": {
+    "train_from": "2017-11-02",
+    "train_to": "2021-12-31",
+    "validation_from": "2022-01-03",
+    "validation_to": "2023-12-29",
+    "sealed_oos_from": "2024-01-02",
+    "sealed_oos_to": "2024-12-31"
+  },
+  "discovery": {
+    "timeframe": "D1",
+    "direction": "long",
+    "search_profile": "equity_d1_trend_pullback_v1",
+    "generation": "random-generation",
+    "attempt_budget": 120000,
+    "wall_time_budget_minutes": 60,
+    "accepted_limit": 60,
+    "maximum_entry_rules": 2,
+    "entry": "next_bar_market_only",
+    "minimum_train_trades": 30,
+    "minimum_profit_factor_train": 1.10
+  },
+  "selection": "Freeze at most five structurally distinct PEP train representatives before any validation; no ranking may use KO, validation, OOS, or portfolio results.",
+  "validation_gate": {
+    "capital_scenarios_usd": [1000, 2000, 3000],
+    "minimum_trades_each_asset": 12,
+    "minimum_combined_trades": 30,
+    "minimum_stress_profit_factor_each_asset": 1.05,
+    "minimum_stress_profit_factor_combined": 1.15,
+    "minimum_positive_asset_years": 3,
+    "maximum_drawdown_pct_each_asset": 25,
+    "same_bar_execution_ambiguity_allowed": false
+  },
+  "oos_gate": {
+    "minimum_combined_trades": 10,
+    "minimum_stress_return_pct_each_asset": 0,
+    "minimum_stress_profit_factor_combined": 1.10,
+    "maximum_drawdown_pct_each_asset": 22
+  },
+  "portfolio_gate": {
+    "maximum_total_strategies": 8,
+    "maximum_total_capital_usd": 3000,
+    "must_improve": "active CAGR versus SPY buy-and-hold after stress costs without exceeding the current portfolio drawdown budget"
+  },
+  "prohibitions": [
+    "No stop or limit entries.",
+    "No short side.",
+    "No volume or fundamental rules.",
+    "No parameter or gate relaxation after train results.",
+    "No leverage before standalone and incremental portfolio gates pass.",
+    "No access to 2025.",
+    "No paper or live authorization."
+  ],
+  "performance_accessed_for_this_family": false,
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

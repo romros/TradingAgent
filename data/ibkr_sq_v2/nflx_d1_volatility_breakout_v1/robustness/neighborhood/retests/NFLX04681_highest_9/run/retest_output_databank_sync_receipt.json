@@ -1,0 +1,11 @@
+{
+  "command": "-databank action=synctofiles project=IBKR_NFLX04681_highest_9_PREHOLDOUT name=PreHoldout",
+  "databank": "PreHoldout",
+  "decision": "PASS_RETEST_OUTPUT_DATABANK_SYNC",
+  "observed_output_sqx_count": 1,
+  "output_sqx_path": "/mnt/volume-SQ/user/projects/IBKR_NFLX04681_highest_9_PREHOLDOUT/databanks/PreHoldout/NFLX04681_highest_9.sqx",
+  "output_sqx_sha256": "81642c037ebaa249cec11ebc1b5674f8dc08e5e43191650284d7c7c01eb16178",
+  "project_name": "IBKR_NFLX04681_highest_9_PREHOLDOUT",
+  "response": "22:04:40 Syncing datatabank to files\n--------------------------------------------------\nSynchronization started.\n--------------------------------------------------\n",
+  "schema_version": 1
+}

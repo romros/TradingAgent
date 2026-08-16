@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_NEIGHBORS_MATERIALIZED",
+  "spec_path": "/mnt/volume-SQ/dev/TradingAgent/lab/sq_bridge/nflx_04681_neighborhood_v1.json",
+  "spec_sha256": "4cee6fdafe95c16da80c6d11005e57e4ebe2b0316c06bba0b8f43aca7b97200e",
+  "source_sqx_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/train_selected/Strategy 0.4681.sqx",
+  "source_sqx_sha256": "04ecb1cb88854c787530ad2d5d899b119e486898bef751e638a83a4922aae643",
+  "neighbors": [
+    {
+      "id": "highest_9",
+      "candidate_id": "NFLX04681_highest_9",
+      "parameters": {
+        "highest_period": 9,
+        "entry_atr_period": 104,
+        "entry_atr_multiplier": 0.3,
+        "stop_atr_multiplier": 2.5,
+        "target_atr_multiplier": 2.8
+      },
+      "sqx_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/neighborhood/candidates/NFLX04681_highest_9.sqx",
+      "sqx_sha256": "0f51105d8a8971c981eb7c79cfc8f117f1fda42886161c25d0eb32de07e45d7e"
+    },
+    {
+      "id": "highest_11",
+      "candidate_id": "NFLX04681_highest_11",
+      "parameters": {
+        "highest_period": 11,
+        "entry_atr_period": 104,
+        "entry_atr_multiplier": 0.3,
+        "stop_atr_multiplier": 2.5,
+        "target_atr_multiplier": 2.8
+      },
+      "sqx_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/neighborhood/candidates/NFLX04681_highest_11.sqx",
+      "sqx_sha256": "10305ef96ed8a55c393109f35531e0cda394ab1cfcda242caa79a84aedea9630"
+    },
+    {
+      "id": "entry_atr_94",
+      "candidate_id": "NFLX04681_entry_atr_94",
+      "parameters": {
+        "highest_period": 10,
+        "entry_atr_period": 94,
+        "entry_atr_multiplier": 0.3,
+        "stop_atr_multiplier": 2.5,
+        "target_atr_multiplier": 2.8
+      },
+      "sqx_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/neighborhood/candidates/NFLX04681_entry_atr_94.sqx",
+      "sqx_sha256": "d600b284f234478b343f086d5f55a2ba6a8c9cb213d55d0073a92bb0f22d7e34"
+    },
+    {
+      "id": "entry_atr_114",
+      "candidate_id": "NFLX04681_entry_atr_114",
+      "parameters": {
+        "highest_period": 10,
+        "entry_atr_period": 114,
+        "entry_atr_multiplier": 0.3,
+        "stop_atr_multiplier": 2.5,
+        "target_atr_multiplier": 2.8
+      },
+      "sqx_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/neighborhood/candidates/NFLX04681_entry_atr_114.sqx",
+      "sqx_sha256": "08ca21662a79c9e459e70d8dacb549da0ddcab1f89cb8f1a960cd1599c442813"
+    },
+    {
+      "id": "buffer_027",
+      "candidate_id": "NFLX04681_buffer_027",
+      "parameters": {
+        "highest_period": 10,
+        "entry_atr_period": 104,
+        "entry_atr_multiplier": 0.27,
+        "stop_atr_multiplier": 2.5,
+        "target_atr_multiplier": 2.8
+      },
+      "sqx_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/neighborhood/candidates/NFLX04681_buffer_027.sqx",
+      "sqx_sha256": "4c560f35c85bbfb51847ae3cdd6382514b7a950aa7dbb01939b29fc2022ccc7f"
+    },
+    {
+      "id": "buffer_033",
+      "candidate_id": "NFLX04681_buffer_033",
+      "parameters": {
+        "highest_period": 10,
+        "entry_atr_period": 104,
+        "entry_atr_multiplier": 0.33,
+        "stop_atr_multiplier": 2.5,
+        "target_atr_multiplier": 2.8
+      },
+      "sqx_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/neighborhood/candidates/NFLX04681_buffer_033.sqx",
+      "sqx_sha256": "ab588aed7de7f184338d160e704f0b4b55fe5bedb0a584b7242bf3ab136cd711"
+    },
+    {
+      "id": "stop_225",
+      "candidate_id": "NFLX04681_stop_225",
+      "parameters": {
+        "highest_period": 10,
+        "entry_atr_period": 104,
+        "entry_atr_multiplier": 0.3,
+        "stop_atr_multiplier": 2.25,
+        "target_atr_multiplier": 2.8
+      },
+      "sqx_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/neighborhood/candidates/NFLX04681_stop_225.sqx",
+      "sqx_sha256": "10d2f4619c063bf8d7a8a19b3f3613089fc6148a07b117d08a6ee8b6483592a4"
+    },
+    {
+      "id": "stop_275",
+      "candidate_id": "NFLX04681_stop_275",
+      "parameters": {
+        "highest_period": 10,
+        "entry_atr_period": 104,
+        "entry_atr_multiplier": 0.3,
+        "stop_atr_multiplier": 2.75,
+        "target_atr_multiplier": 2.8
+      },
+      "sqx_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/neighborhood/candidates/NFLX04681_stop_275.sqx",
+      "sqx_sha256": "29f47392d62d5ffa9a9728f6a44394d159b9c0710d11fb8e3005db647748dbf0"
+    },
+    {
+      "id": "target_252",
+      "candidate_id": "NFLX04681_target_252",
+      "parameters": {
+        "highest_period": 10,
+        "entry_atr_period": 104,
+        "entry_atr_multiplier": 0.3,
+        "stop_atr_multiplier": 2.5,
+        "target_atr_multiplier": 2.52
+      },
+      "sqx_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/neighborhood/candidates/NFLX04681_target_252.sqx",
+      "sqx_sha256": "df240d23ff71659a7ead9725d5bb3b966fdf8bb3e1b14aaba4d6ea11b91b27a5"
+    },
+    {
+      "id": "target_308",
+      "candidate_id": "NFLX04681_target_308",
+      "parameters": {
+        "highest_period": 10,
+        "entry_atr_period": 104,
+        "entry_atr_multiplier": 0.3,
+        "stop_atr_multiplier": 2.5,
+        "target_atr_multiplier": 3.08
+      },
+      "sqx_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/neighborhood/candidates/NFLX04681_target_308.sqx",
+      "sqx_sha256": "df8ab04c2a311adc5451f503253680ea2a0809b664d370c9e119677c70c30b1c"
+    }
+  ],
+  "performance_accessed": false,
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

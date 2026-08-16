@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-nflx-d1-volatility-breakout-v1",
+  "candidate_id": "Strategy 0.4681",
+  "source_sqx_sha256": "04ecb1cb88854c787530ad2d5d899b119e486898bef751e638a83a4922aae643",
+  "stage": "PREREGISTERED_PARAMETER_NEIGHBORHOOD",
+  "period": {"from": "2017-01-26", "to": "2024-12-31"},
+  "central": {
+    "highest_period": 10,
+    "entry_atr_period": 104,
+    "entry_atr_multiplier": 0.30,
+    "stop_atr_multiplier": 2.5,
+    "target_atr_multiplier": 2.8
+  },
+  "neighbors": [
+    {"id": "highest_9", "highest_period": 9},
+    {"id": "highest_11", "highest_period": 11},
+    {"id": "entry_atr_94", "entry_atr_period": 94},
+    {"id": "entry_atr_114", "entry_atr_period": 114},
+    {"id": "buffer_027", "entry_atr_multiplier": 0.27},
+    {"id": "buffer_033", "entry_atr_multiplier": 0.33},
+    {"id": "stop_225", "stop_atr_multiplier": 2.25},
+    {"id": "stop_275", "stop_atr_multiplier": 2.75},
+    {"id": "target_252", "target_atr_multiplier": 2.52},
+    {"id": "target_308", "target_atr_multiplier": 3.08}
+  ],
+  "gate": {
+    "minimum_profitable_neighbors_ratio_stress": 0.70,
+    "minimum_neighbors_with_profit_factor_gte_1_10": 6,
+    "maximum_neighbor_close_to_close_drawdown_pct": 25,
+    "capital_usd": 2000
+  },
+  "selection_or_optimization_after_results": false,
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

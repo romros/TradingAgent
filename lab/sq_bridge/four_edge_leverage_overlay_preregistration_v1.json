@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "campaign_id": "four-edge-leverage-overlay-v1",
+  "created_utc": "2026-08-17",
+  "purpose": "Test whether unused drawdown budget in the consolidated four-edge portfolio can produce raw outperformance over passive SPY.",
+  "inputs": {
+    "portfolio_sqx": {"path": "data/ibkr_sq_v2/four_edge_portfolio_composer_v1/Portfolio-1786795330285.sqx", "sha256": "8a10d42afb4a41fd316cbef18ec7f80c2151e2f092d7698a0e593d0a1dc1637a"},
+    "ecb_fx": {"path": "data/ibkr_sq_v2/four_edge_portfolio_composer_v1/ecb_gbpusd_2021_2024.csv", "sha256": "f95006726de866df21bea8ca0c3a1e7f9d082600b57d04199ab37201b7b48e21"},
+    "spy_benchmark_receipt": {"path": "data/ibkr_sq_v2/five_edge_portfolio_v1/capital_ladder_vs_spy_v1.json", "sha256": "82172f1560d1c66c15dafdd028592cbcbac1db7e6ebefd0b8a7c1594b21126a0", "level": "2000"}
+  },
+  "period": ["2022-01-01", "2024-12-31"],
+  "rule": {
+    "exposure_multiple": 2.0,
+    "annual_financing_rate_on_borrowed_equity": 0.08,
+    "rebalance": "daily constant exposure diagnostic",
+    "base_costs": "stress scenario; daily base net returns are multiplied by exposure, conservatively multiplying fixed commissions too",
+    "capital_usd": 2000,
+    "optimization": false
+  },
+  "gate": {"net_return_strictly_above_spy": true, "maximum_drawdown_not_above_spy": true, "minimum_equity_strictly_positive": true},
+  "sequencing": "A pass is only permission to rebuild exact 1000 USD sleeves natively in SQ/Portfolio Composer; it is not an executable leverage claim.",
+  "paper_authorized": false,
+  "live_authorized": false
+}

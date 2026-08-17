@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_RETURN_AND_DRAWDOWN_GATE",
+  "preregistration_sha256": "99dffe13a49e32144d510f91d75c09f50ba7b3e53fe942a75fc2386f9fb1e9ff",
+  "source_sha256": "a2aa4c620fcda15bc96fdc2589846d276f96379c0e427d662f4619ccd28e70a1",
+  "optimized": false,
+  "periods": {
+    "train": {
+      "strategy": {
+        "sessions": 1059,
+        "net_return": 0.6560211058384549,
+        "cagr": 0.12753229092772078,
+        "maximum_drawdown": 0.2863469668746904,
+        "annualized_sharpe": 0.6874124526926841
+      },
+      "buy_and_hold": {
+        "sessions": 1059,
+        "net_return": 1.0027952182593216,
+        "cagr": 0.17971617757976155,
+        "maximum_drawdown": 0.33717264353564524,
+        "annualized_sharpe": 0.9151250443435844
+      },
+      "average_exposure": 1.320113314447592
+    },
+    "validation": {
+      "strategy": {
+        "sessions": 501,
+        "net_return": -0.10535382677960758,
+        "cagr": -0.054457840581078165,
+        "maximum_drawdown": 0.30220875328222063,
+        "annualized_sharpe": -0.28057773676973347
+      },
+      "buy_and_hold": {
+        "sessions": 501,
+        "net_return": 0.03242888222418916,
+        "cagr": 0.016182169252809242,
+        "maximum_drawdown": 0.24496410902903365,
+        "annualized_sharpe": 0.17970864280027224
+      },
+      "average_exposure": 0.8413173652694611
+    },
+    "oos_2024": {
+      "strategy": {
+        "sessions": 252,
+        "net_return": 0.33265266182993347,
+        "cagr": 0.33265266182993347,
+        "maximum_drawdown": 0.12645551368887986,
+        "annualized_sharpe": 1.6170762087532438
+      },
+      "buy_and_hold": {
+        "sessions": 252,
+        "net_return": 0.24886454815309977,
+        "cagr": 0.24886454815309977,
+        "maximum_drawdown": 0.08405613406037582,
+        "annualized_sharpe": 1.831620605187212
+      },
+      "average_exposure": 1.5
+    }
+  },
+  "paper_authorized": false,
+  "live_authorized": false
+}

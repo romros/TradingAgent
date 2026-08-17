@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "campaign_id": "spy-sma200-levered-v1",
+  "created_utc": "2026-08-17",
+  "source": "data/ibkr_sq_v2/preflight/SPY_ADJUSTED_D1_2017_2024.csv",
+  "hypothesis": "Moderate exposure amplification only above a slow trend filter can retain enough equity premium to beat passive SPY while avoiding part of prolonged drawdowns.",
+  "rule": {
+    "signal": "previous close strictly above the simple average of the previous 200 closes, including that close",
+    "entry_and_exit": "set exposure at next session open",
+    "risk_on_exposure": 1.5,
+    "risk_off_exposure": 0.0,
+    "one_way_turnover_cost_bps": 10,
+    "annual_borrow_rate_on_exposure_above_one": 0.08,
+    "cash_return": 0.0,
+    "optimization": false
+  },
+  "periods": {"train": ["2017-01-01", "2021-12-31"], "validation": ["2022-01-01", "2023-12-31"], "oos_2024": ["2024-01-01", "2024-12-31"]},
+  "gates": {
+    "train_strategy_return_above_buy_hold": true,
+    "validation_strategy_return_above_buy_hold": true,
+    "oos_strategy_return_above_buy_hold": true,
+    "validation_drawdown_not_above_buy_hold": true,
+    "oos_drawdown_not_above_buy_hold": true
+  },
+  "single_variant": true,
+  "holdout_pristine": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": 2,
+  "decision": "PASS_BEATS_SPY_POSITION_ONLY_LEVERAGE",
+  "period": "2022-01-01/2024-12-31",
+  "initial_capital_usd": 2000.0,
+  "gross_target_exposure_usd": 4000,
+  "broker_leverage": 2,
+  "positions": 93,
+  "sgln_whole_shares_usd_corrected": 26,
+  "benchmark_gate": {
+    "spy_return_pct": 26.928,
+    "spy_drawdown_pct": 23.406
+  },
+  "scenarios": {
+    "tiered_indicative": {
+      "final_equity_usd": 3380.342657,
+      "net_return_pct": 69.017133,
+      "minimum_equity_usd": 1789.385594,
+      "costs_usd": 100.091651,
+      "position_only_financing_usd": 13.890619,
+      "maximum_cash_borrow_usd": 1424.005886,
+      "daily_mtm_max_drawdown_pct": 14.919876,
+      "drawdown_peak_date": "2022-05-09",
+      "drawdown_trough_date": "2022-07-06"
+    },
+    "fixed_indicative": {
+      "final_equity_usd": 3204.120299,
+      "net_return_pct": 60.206015,
+      "minimum_equity_usd": 1780.313975,
+      "costs_usd": 271.501974,
+      "position_only_financing_usd": 18.702654,
+      "maximum_cash_borrow_usd": 1489.372928,
+      "daily_mtm_max_drawdown_pct": 15.487796,
+      "drawdown_peak_date": "2022-05-09",
+      "drawdown_trough_date": "2022-09-23"
+    },
+    "stress": {
+      "final_equity_usd": 3120.836157,
+      "net_return_pct": 56.041808,
+      "minimum_equity_usd": 1776.027943,
+      "costs_usd": 351.821007,
+      "position_only_financing_usd": 21.667762,
+      "maximum_cash_borrow_usd": 1519.958396,
+      "daily_mtm_max_drawdown_pct": 15.915973,
+      "drawdown_peak_date": "2022-05-09",
+      "drawdown_trough_date": "2022-09-23"
+    }
+  },
+  "limitations": [
+    "Borrowing is reconstructed from dated entry/exit cash flows and charged only while cash is negative.",
+    "Round-trip costs are charged on entry; this is conservative timing.",
+    "SGLN is resized in USD using frozen ECB GBPUSD and replaces SQ's GBP-as-USD accounting.",
+    "This is historical research, not paper/live authorization or a return promise."
+  ],
+  "paper_authorized": false,
+  "live_authorized": false
+}

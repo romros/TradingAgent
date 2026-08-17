@@ -86,6 +86,19 @@ el recompte antic de 94. CAT/JPM/SGLN coincideixen també en preu; MSFT només
 en dates perquè Python usa preus ajustats i SQ preus nominals, límit ja declarat
 en la seva auditoria individual.
 
+## Variant 2x amb préstec només quan cal
+
+La prova nativa posterior manté capital inicial de 2.000 USD, però permet fins
+a 1.000 USD per cadascuna de les quatre peces. En l'escenari d'estrès i després
+de corregir FX de SGLN, costos i interessos només durant caixa negativa, acaba
+a **+56,04%**, amb **15,92% de drawdown diari**. Supera SPY 2022–2024
+(+26,93%, DD 23,41%). La configuració i els límits són a
+[POSITION_ONLY_LEVERAGE_AUDIT_V2](POSITION_ONLY_LEVERAGE_AUDIT_V2.md).
+
+És una promoció de recerca de cartera, no una autorització operativa. Encara
+cal comparar-la amb buy-and-hold dels mateixos quatre actius i substituir els
+costos indicatius per condicions verificades del compte.
+
 ## Cadena pendent, en ordre
 
 1. **Completat:** D1 ajustat de SGLN importat amb GBp dividit per 100. Són

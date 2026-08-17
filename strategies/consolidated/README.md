@@ -8,6 +8,8 @@ L'estat transversal actual, capital petit i agregació són a
 [FIVE_STRATEGY_PORTFOLIO_STATUS](../../docs/FIVE_STRATEGY_PORTFOLIO_STATUS.md).
 La reconstrucció nativa de les quatre peces prèvies continua documentada a
 [FOUR_STRATEGY_PORTFOLIO_STATUS](../../docs/FOUR_STRATEGY_PORTFOLIO_STATUS.md).
+La variant 2x que només paga interessos amb caixa negativa és a
+[POSITION_ONLY_LEVERAGE_AUDIT_V2](../../docs/POSITION_ONLY_LEVERAGE_AUDIT_V2.md).
 
 ## Estat del catàleg
 

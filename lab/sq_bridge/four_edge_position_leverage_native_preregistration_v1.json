@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "campaign_id": "four-edge-position-leverage-native-v1",
+  "created_utc": "2026-08-17",
+  "inputs": {
+    "CAT_0168_FLOOR1000": "d1eab1cf34be005d1b4fe1941c61d67ebfc44873f6b6ea88fb22edf6975d376e",
+    "MSFT_CAPITULATION_FLOOR1000": "a12408f2c0ea80b5d0b582326d0e975ed4990abec3e8bd2b0d0adec881b76b53",
+    "JPM_MOMENTUM60_FLOOR1000": "362c4082ea16da28247c8f522e5a7b1e61fe9f8e12b5c4e78b8eb4262a695626",
+    "SGLN_TSMOM12_FLOOR1000": "02c4a89782d902853b8d50a03089b4ef668414ff826ea985b7d11a2e1420e03a"
+  },
+  "portfolio_composer": {
+    "period": ["2022.01.01", "2024.12.31"],
+    "initial_capital_usd": 2000,
+    "broker_leverage": 2,
+    "weights_pct": [25, 25, 25, 25],
+    "fixed_budget_per_strategy_usd": 1000,
+    "transfers_between_strategies": false,
+    "sq_cost_model": "neutral; exact costs applied in independent audit"
+  },
+  "economics_audit": {
+    "cost_scenario": "same stress schedule as four_edge_net_mtm_audit_v1",
+    "annual_margin_rate": 0.08,
+    "financing_basis": "only actual borrowed notional while positions are open",
+    "sgln": "whole shares in GBP with daily ECB GBPUSD conversion",
+    "no_cash_financing_charge": true
+  },
+  "success_gate": {
+    "net_return_strictly_above_spy_2000_buy_hold": true,
+    "daily_mtm_drawdown_not_above_spy_2000_buy_hold": true,
+    "minimum_equity_strictly_positive": true
+  },
+  "single_variant": true,
+  "optimized": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

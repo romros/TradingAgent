@@ -16,11 +16,14 @@ from lab.sq_bridge.ibkr_equity_small_account_audit_v2 import _commission, _numbe
 SHORT_BORROW_RATE = 0.03
 
 
-def load_orders(path: Path, allow_same_bar_d1: bool = False) -> list[dict]:
+def load_orders(path: Path, allow_same_bar_d1: bool = False,
+                exclude_end_test: bool = False) -> list[dict]:
     with path.open(newline="", encoding="utf-8-sig") as handle:
         rows = list(csv.DictReader(handle, delimiter=";"))
     result = []
     for row in rows:
+        if exclude_end_test and row.get("Close type") == "EndTest":
+            continue
         if row["Type"] not in {"Buy", "Sell"}:
             raise ValueError("unsupported order side")
         result.append({
@@ -50,7 +53,10 @@ def load_orders(path: Path, allow_same_bar_d1: bool = False) -> list[dict]:
     return result
 
 
-def simulate(orders: list[dict], capital: float, plan: str) -> dict:
+def simulate(orders: list[dict], capital: float, plan: str,
+             exposure_fraction: float = 1.0) -> dict:
+    if not 0 < exposure_fraction <= 1:
+        raise ValueError("exposure fraction must be in (0, 1]")
     equity = capital
     peak = capital
     drawdown = 0.0
@@ -63,7 +69,7 @@ def simulate(orders: list[dict], capital: float, plan: str) -> dict:
         direction = 1 if order["side"] == "long" else -1
         entry = order["open_price"] * (1 + direction * stress)
         exit_price = order["close_price"] * (1 - direction * stress)
-        shares = math.floor(equity / entry)
+        shares = math.floor(equity * exposure_fraction / entry)
         if shares < 1:
             raise ValueError("capital cannot support one whole share")
         days = (order["close_time"] - order["open_time"]).total_seconds() / 86400
@@ -83,6 +89,7 @@ def simulate(orders: list[dict], capital: float, plan: str) -> dict:
     losses = sum(max(-value, 0) for value in pnls)
     return {
         "plan": plan, "initial_capital_usd": capital,
+        "exposure_fraction": exposure_fraction,
         "final_equity_usd": round(equity, 6),
         "return_pct": round((equity / capital - 1) * 100, 6),
         "trades": len(pnls), "long_trades": side_counts["long"],
@@ -97,7 +104,8 @@ def simulate(orders: list[dict], capital: float, plan: str) -> dict:
 
 
 def audit(candidate: str, orders_path: Path, capital: float = 1000) -> dict:
-    orders = load_orders(orders_path, allow_same_bar_d1=True)
+    orders = load_orders(orders_path, allow_same_bar_d1=True,
+                         exclude_end_test=True)
     return {
         "schema_version": 1, "stage": "VALIDATION_2022_2023",
         "candidate_id": candidate, "orders_csv_path": str(orders_path.resolve()),

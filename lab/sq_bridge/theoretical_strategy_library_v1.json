@@ -73,6 +73,17 @@
       "caveat": "The frozen 100% standalone DD gate still fails at 25.82%. Admission is only as a maximum 25% sleeve: the independent SQ portfolio has exact entry parity and the FX-corrected daily mark-to-market audit passes under stress (+20.11%, 8.15% DD in 2022-2024). Contract/KID/account-specific fees and paper remain pending."
     },
     {
+      "id": "nflx_d1_volatility_breakout_04681_capped_v1",
+      "asset": "NFLX",
+      "mechanism": "volatility_breakout_stop_entry",
+      "status": "ADMITTED_RESEARCH_EDGE_NOT_ADMITTED_TO_PORTFOLIO",
+      "evidence_path": "data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/neighborhood/capped_50pct_remediation_v1.json",
+      "evidence_sha256": "ffd274e9e37b174822ca4a3bb114ed3480c2e0446408067e1a1b685cbbc1a821",
+      "robustness_path": "data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/native_mc_gate_v1.json",
+      "robustness_sha256": "2a2ad9286ba7d6f9a650030ebfd444b6c3d3af7d6129082fa9d99c0722c4fe6a",
+      "caveat": "Central validation/OOS, M1 execution, 2000-run native parameter MC and all ten capped neighbors are positive. The original uncapped neighborhood gate remains failed; classification is capped at 50% exposure and portfolio admission still requires a new marginal test. Holdout 2025+ remains unopened."
+    },
+    {
       "id": "aapl_h1_roc_4_1_174",
       "asset": "AAPL",
       "mechanism": "roc_reversion",

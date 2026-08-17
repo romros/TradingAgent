@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_NATIVE_PARAMETER_MONTE_CARLO",
+  "candidate_id": "Strategy 0.4681",
+  "metrics": {
+    "conceptual_simulations": 2000,
+    "persisted_randomized_payloads": 1985,
+    "unchanged_original_repetitions": 15,
+    "profitable_simulation_ratio": 1.0,
+    "median_return_on_sq_10000_balance": 0.090523,
+    "p05_return_on_sq_10000_balance": 0.081559,
+    "minimum_return_on_sq_10000_balance": 0.072382,
+    "zero_trade_simulation_ratio": 0.0
+  },
+  "checks": {
+    "minimum_profitable_ratio": true,
+    "all_conceptual_runs_accounted": true,
+    "original_payload_matches_orders": true
+  },
+  "threshold_source": "frozen_methodology.robustness.minimum_profitable_monte_carlo_ratio",
+  "sqx_sha256": "0ad44205995d0bf89ae6e9af69739aba59f246ad95195fb07967b3788f035fcd",
+  "orders_sha256": "fcc9c31e8cda9eb3cb8bf732b082d497e5822a7fd87535c09909c7553653fcc0",
+  "contract_sha256": "2d8f9d40a8d811dff29e83cd667d10296adf44851088200cb4892ea92542021d",
+  "methodology_sha256": "2aafdf2771940380b3686642e8449086bf581f2cc6541ab35c9981bf30c1d285",
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

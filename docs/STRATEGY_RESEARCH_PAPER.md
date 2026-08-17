@@ -12,13 +12,15 @@ defensable, no una promesa de rendiment ni autorització de paper/live.
 | Admesa | capitulation_d1 | MSFT | reversió després de xoc | Edge de recerca; paritat exacta de senyals SQ/Python |
 | Condicional | last-1 + first-3 | SXR8 | fluxos de canvi de mes | Positiva amb 1.000 EUR, però dependent de règim i contracte UCITS pendent |
 | Watchlist | JPM 0.24 | JPM | trend/reversion D1 | +17,64% stress a validació, però només 24 trades |
+| Edge capat, fora cartera | NFLX 0.4681 | NFLX | breakout de volatilitat D1 | MC natiu i 10/10 veïns passen amb exposició màxima 50%; pendent prova marginal nova |
 | Rebutjada | AAPL 4.1.174 | AAPL | ROC reversion H1 | OOS stress −17,19%, PF 0,731 |
 | Rebutjada | JNJ defensive v1 | JNJ | trend/pullback D1 | 0/8 candidats passen validació; OOS 2024 no obert |
 | Overlay, no edge autònom | volatility-managed v1 | SPY | exposició inversa a volatilitat | Millora Sharpe/DD en validació, però falla 2/2 anys positius; OOS segellat |
 
-La llibreria encara no està preparada: hi ha dos mecanismes admesos, un de
-condicional i en calen almenys quatre d'independents abans de formar una
-cartera teòrica final.
+La cartera teòrica canònica ja té quatre mecanismes (CAT, MSFT, JPM i SGLN).
+NFLX és el cinquè edge de recerca defensable, però continua fora de la cartera
+fins superar la comptabilitat marginal actual i el benchmark dels mateixos
+actius.
 
 ## Registre «no repetir»
 

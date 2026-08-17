@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_STOP225_SAME_BAR_M1_FEASIBILITY",
+  "candidate_id": "NFLX04681_stop_225",
+  "checks": {
+    "exactly_two_same_bar_trades": true,
+    "all_sessions_390_minutes": true,
+    "both_targets_after_entry_before_stop": true
+  },
+  "orders_sha256": "0d170a870cbc9b4d2404dd3a61f31c073a65d1f7585f4b106aeb4fa95454f6cf",
+  "trades": [
+    {
+      "ticket": "328",
+      "date": "2020-08-26",
+      "rth_minutes": 390,
+      "entry_price": 504.441,
+      "target_price": 543.605,
+      "stop_price": 472.9699285714285,
+      "entry_touch": "2020-08-26T09:42:00-04:00",
+      "target_touch": "2020-08-26T13:06:00-04:00",
+      "stop_touch": null,
+      "chronologically_feasible": true
+    },
+    {
+      "ticket": "381",
+      "date": "2021-01-20",
+      "rth_minutes": 390,
+      "entry_price": 563.427,
+      "target_price": 585.839,
+      "stop_price": 545.4173571428571,
+      "entry_touch": "2021-01-20T09:30:00-05:00",
+      "target_touch": "2021-01-20T14:09:00-05:00",
+      "stop_touch": null,
+      "chronologically_feasible": true
+    }
+  ],
+  "parameters_changed": false,
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

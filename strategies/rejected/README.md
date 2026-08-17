@@ -33,6 +33,7 @@ de tenir un mecanisme i una preregistració nous.
 | Connors RSI(2) recent | Passa brut, però a 2.000 USD l'estrès és −1,06%, PF 0,740 | [Fitxa](connors_rsi2_and_spy_pre_fomc_20260816.md) |
 | SPY pre-FOMC MOC i M1 | MOC negatiu; finestra M1 canvia de règim i falla train/OOS | [Fitxa](connors_rsi2_and_spy_pre_fomc_20260816.md) |
 | PEAD-EAR multi-actiu | Validació −47,37% composta i PF 0,749 | [Fitxa](pead_ear_and_xlf_price_action_20260816.md) |
+| Earnings gap continuation | PF recent 2,64, però només 17 observacions i train compost −2,97% | [Fitxa](earnings_gap_continuation_v1.md) |
 | XLF price action SQ D1 | Cinc representants perden en validació; PF 0,60–0,83 | [Fitxa](pead_ear_and_xlf_price_action_20260816.md) |
 | NFLX D1 breakout 0.4681 | Edge aparent, però veí DD 40,35% i paritat d'execució incompleta | [Fitxa](nflx_d1_volatility_breakout_04681.md) |
 | PEP → KO D1 trend pullback | PEP valida, però KO conté una entrada/TP intrabar D1 no demostrable | [Fitxa](pep_ko_d1_trend_pullback_v1.md) |

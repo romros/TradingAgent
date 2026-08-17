@@ -228,6 +228,11 @@ El holdout 2025 continua segellat. `paper_authorized=false` i
   L'edge publicat depèn d'entrar al mateix close que genera el senyal o no
   sobreviu aquesta implementació; no es força amb llindars posteriors.
   Evidència: `data/ibkr_sq_v2/ibs_reversion/screen_v1.json`.
+- Continuació de gap després de resultats: el comportament 2022–2024 és
+  prometedor (17 trades, PF 2,64, t=1,33), però incompleix el mínim congelat
+  de 20 trades i el train té PF 1,02, compost −2,97% i DD 22,65%. Queda com a
+  lead rebutjat, no com a edge. Fitxa completa:
+  `strategies/rejected/earnings_gap_continuation_v1.md`.
 
 ## SXR8/CSPX D1 — transferència UCITS del canvi de mes
 

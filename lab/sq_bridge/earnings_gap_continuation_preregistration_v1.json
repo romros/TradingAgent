@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "campaign_id": "earnings-gap-continuation-v1",
+  "created_utc": "2026-08-17",
+  "upstream_preflight_sha256": "cda8e5972f067f91cd802890c1af94f1d9533efa43ae043798206b9a7ee7ccd1",
+  "universe": ["AAPL", "AMZN", "DE", "GOOG", "JNJ", "JPM", "KO", "META", "NVDA", "UNP", "XOM"],
+  "rule": {
+    "event": "point-in-time SEC 8-K Item 2.02 acceptance mapped to its reaction session",
+    "signal": "reaction open / prior session close - 1 >= 3%; reaction close > reaction open; close-location value >= 0.75",
+    "close_location_value": "(close-low)/(high-low); zero-range sessions are rejected",
+    "side": "long only",
+    "entry": "next asset session open after reaction",
+    "exit": "open five asset sessions after entry",
+    "overlapping_events": "each event is an independent statistical observation",
+    "optimization": false
+  },
+  "parameters": {
+    "minimum_gap_pct": 3.0,
+    "minimum_close_location_value": 0.75,
+    "holding_sessions": 5
+  },
+  "periods": {
+    "train": ["2017-01-01", "2021-12-31"],
+    "validation": ["2022-01-01", "2023-12-31"],
+    "oos_2024": ["2024-01-01", "2024-12-31"]
+  },
+  "economics": {
+    "reference_notional_usd_per_event": 2000,
+    "whole_shares": true,
+    "minimum_per_order_usd": 1.0,
+    "bps_per_side": 10
+  },
+  "gates": {
+    "train_net_mean_strictly_above": 0,
+    "validation_net_mean_strictly_above": 0,
+    "combined_validation_oos_minimum_trades": 20,
+    "combined_validation_oos_profit_factor_at_least": 1.2,
+    "combined_validation_oos_one_sided_t_stat_at_least": 1.0,
+    "minimum_positive_years_2022_2024": 2,
+    "minimum_positive_assets_validation_oos": 4,
+    "maximum_combined_validation_oos_drawdown_pct": 20
+  },
+  "interpretation": "Exploratory transfer screen, not pristine holdout: these calendar periods were accessed by the earlier PEAD-EAR study.",
+  "paper_authorized": false,
+  "live_authorized": false
+}

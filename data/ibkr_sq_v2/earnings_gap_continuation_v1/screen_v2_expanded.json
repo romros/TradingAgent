@@ -1,0 +1,642 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_EXPLORATORY_EDGE_GATE",
+  "preregistration_sha256": "313f92d00443b812bce7e0d9073f08bc215e498656f445f6c6f5607d661fa4c7",
+  "optimized": false,
+  "holdout_pristine": false,
+  "periods": {
+    "train": {
+      "trades": 17,
+      "wins": 10,
+      "mean_net_return": 0.0005637898819577813,
+      "compounded_net_return": -0.029739173484770287,
+      "profit_factor": 1.0236897167633352,
+      "t_stat": 0.03415485342263538,
+      "maximum_drawdown": 0.22648468625589124
+    },
+    "validation": {
+      "trades": 12,
+      "wins": 10,
+      "mean_net_return": 0.01729047118663365,
+      "compounded_net_return": 0.20712806245234283,
+      "profit_factor": 2.513063808605249,
+      "t_stat": 1.058029460749179,
+      "maximum_drawdown": 0.1169868659297244
+    },
+    "oos_2024": {
+      "trades": 5,
+      "wins": 2,
+      "mean_net_return": 0.019040157221899615,
+      "compounded_net_return": 0.09192483178460042,
+      "profit_factor": 2.9910493298333725,
+      "t_stat": 0.7264696161056953,
+      "maximum_drawdown": 0.034716253462745095
+    }
+  },
+  "combined_validation_oos": {
+    "trades": 17,
+    "wins": 12,
+    "mean_net_return": 0.017805084726417758,
+    "compounded_net_return": 0.3180931065357453,
+    "profit_factor": 2.636639582941425,
+    "t_stat": 1.3265454397666159,
+    "maximum_drawdown": 0.1169868659297244
+  },
+  "years_2022_2024": {
+    "2022": {
+      "trades": 7,
+      "wins": 6,
+      "mean_net_return": 0.007364183255278582,
+      "compounded_net_return": 0.04191983210401129,
+      "profit_factor": 1.4406416256840013,
+      "t_stat": 0.34099550235706033,
+      "maximum_drawdown": 0.1169868659297244
+    },
+    "2023": {
+      "trades": 5,
+      "wins": 4,
+      "mean_net_return": 0.031187274290530743,
+      "compounded_net_return": 0.15856136456747993,
+      "profit_factor": 8.741615164901903,
+      "t_stat": 1.1783957322764445,
+      "maximum_drawdown": 0.020142614703921313
+    },
+    "2024": {
+      "trades": 5,
+      "wins": 2,
+      "mean_net_return": 0.019040157221899615,
+      "compounded_net_return": 0.09192483178460042,
+      "profit_factor": 2.9910493298333725,
+      "t_stat": 0.7264696161056953,
+      "maximum_drawdown": 0.034716253462745095
+    }
+  },
+  "by_asset_validation_oos": {
+    "AAPL": {
+      "trades": 2,
+      "wins": 2,
+      "mean_net_return": 0.006656150064898971,
+      "compounded_net_return": 0.013323244377707377,
+      "profit_factor": null,
+      "t_stat": 1.1524166528475541,
+      "maximum_drawdown": 0.0
+    },
+    "AMZN": {
+      "trades": 1,
+      "wins": 1,
+      "mean_net_return": 0.023931774352123517,
+      "compounded_net_return": 0.02393177435212346,
+      "profit_factor": null,
+      "t_stat": null,
+      "maximum_drawdown": 0.0
+    },
+    "CAT": {
+      "trades": 0
+    },
+    "DE": {
+      "trades": 1,
+      "wins": 0,
+      "mean_net_return": -0.020142614703921365,
+      "compounded_net_return": -0.020142614703921313,
+      "profit_factor": 0.0,
+      "t_stat": null,
+      "maximum_drawdown": 0.020142614703921313
+    },
+    "GOOG": {
+      "trades": 1,
+      "wins": 1,
+      "mean_net_return": 0.045657997820793966,
+      "compounded_net_return": 0.04565799782079405,
+      "profit_factor": null,
+      "t_stat": null,
+      "maximum_drawdown": 0.0
+    },
+    "JNJ": {
+      "trades": 0
+    },
+    "JPM": {
+      "trades": 1,
+      "wins": 1,
+      "mean_net_return": 0.00457944023892546,
+      "compounded_net_return": 0.004579440238925425,
+      "profit_factor": null,
+      "t_stat": null,
+      "maximum_drawdown": 0.0
+    },
+    "KO": {
+      "trades": 0
+    },
+    "META": {
+      "trades": 1,
+      "wins": 1,
+      "mean_net_return": 0.010975456882212752,
+      "compounded_net_return": 0.010975456882212686,
+      "profit_factor": null,
+      "t_stat": null,
+      "maximum_drawdown": 0.0
+    },
+    "MSFT": {
+      "trades": 1,
+      "wins": 1,
+      "mean_net_return": 0.04153160680109153,
+      "compounded_net_return": 0.04153160680109158,
+      "profit_factor": null,
+      "t_stat": null,
+      "maximum_drawdown": 0.0
+    },
+    "NFLX": {
+      "trades": 3,
+      "wins": 2,
+      "mean_net_return": 0.023999674033764924,
+      "compounded_net_return": 0.07259683791169769,
+      "profit_factor": 6.0368089514877425,
+      "t_stat": 1.2513079230534792,
+      "maximum_drawdown": 0.014294570787726224
+    },
+    "NVDA": {
+      "trades": 1,
+      "wins": 0,
+      "mean_net_return": -0.01280197239486428,
+      "compounded_net_return": -0.012801972394864247,
+      "profit_factor": 0.0,
+      "t_stat": null,
+      "maximum_drawdown": 0.012801972394864247
+    },
+    "PEP": {
+      "trades": 0
+    },
+    "TSLA": {
+      "trades": 5,
+      "wins": 3,
+      "mean_net_return": 0.024728685824329515,
+      "compounded_net_return": 0.10697136473657975,
+      "profit_factor": 1.897888220763059,
+      "t_stat": 0.5386634297525911,
+      "maximum_drawdown": 0.1169868659297244
+    },
+    "UNP": {
+      "trades": 0
+    },
+    "XOM": {
+      "trades": 0
+    }
+  },
+  "positive_years": 3,
+  "positive_assets": 8,
+  "signals_executed": 34,
+  "observations": [
+    {
+      "asset": "TSLA",
+      "accession": "0001564590-17-005875",
+      "reaction": "2017-04-03",
+      "entry": "2017-04-04",
+      "exit": "2017-04-11",
+      "gap": 0.031142241379310542,
+      "clv": 0.9624217118997934,
+      "shares": 100,
+      "net_return": 0.04838425693953768
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-17-000068",
+      "reaction": "2017-05-10",
+      "entry": "2017-05-11",
+      "exit": "2017-05-18",
+      "gap": 0.11025847684431023,
+      "clv": 0.93205068169397,
+      "shares": 676,
+      "net_return": 0.07563771646655162
+    },
+    {
+      "asset": "NFLX",
+      "accession": "0001065280-17-000041",
+      "reaction": "2017-07-18",
+      "entry": "2017-07-19",
+      "exit": "2017-07-26",
+      "gap": 0.08891911946574327,
+      "clv": 0.8994360902255645,
+      "shares": 10,
+      "net_return": 0.021693627718876493
+    },
+    {
+      "asset": "CAT",
+      "accession": "0000018230-17-000226",
+      "reaction": "2017-07-25",
+      "entry": "2017-07-26",
+      "exit": "2017-08-02",
+      "gap": 0.04336193375772668,
+      "clv": 0.9965277777777809,
+      "shares": 17,
+      "net_return": -0.01142478167737678
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-17-000131",
+      "reaction": "2017-10-27",
+      "entry": "2017-10-30",
+      "exit": "2017-11-06",
+      "gap": 0.08814009346112628,
+      "clv": 0.9158645147784037,
+      "shares": 36,
+      "net_return": 0.009885520303894087
+    },
+    {
+      "asset": "NFLX",
+      "accession": "0001065280-18-000202",
+      "reaction": "2018-04-17",
+      "entry": "2018-04-18",
+      "exit": "2018-04-25",
+      "gap": 0.06996959538473524,
+      "clv": 0.846054421768705,
+      "shares": 5,
+      "net_return": -0.09043066041389833
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-18-000067",
+      "reaction": "2018-05-02",
+      "entry": "2018-05-03",
+      "exit": "2018-05-10",
+      "gap": 0.035826613379998706,
+      "clv": 0.7682989690721644,
+      "shares": 45,
+      "net_return": 0.06552845891032719
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-18-000098",
+      "reaction": "2018-08-01",
+      "entry": "2018-08-02",
+      "exit": "2018-08-09",
+      "gap": 0.043991652597028086,
+      "clv": 1.0,
+      "shares": 39,
+      "net_return": 0.030999998977309377
+    },
+    {
+      "asset": "TSLA",
+      "accession": "0001564590-18-018490",
+      "reaction": "2018-08-02",
+      "entry": "2018-08-03",
+      "exit": "2018-08-10",
+      "gap": 0.09096046794060775,
+      "clv": 0.9806695131355984,
+      "shares": 86,
+      "net_return": 0.014805997284849182
+    },
+    {
+      "asset": "TSLA",
+      "accession": "0001564590-18-023716",
+      "reaction": "2018-10-01",
+      "entry": "2018-10-02",
+      "exit": "2018-10-09",
+      "gap": 0.1545935757012018,
+      "clv": 0.8934739860594855,
+      "shares": 95,
+      "net_return": -0.1904319330774609
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-19-000036",
+      "reaction": "2019-01-24",
+      "entry": "2019-01-25",
+      "exit": "2019-02-01",
+      "gap": 0.032463535220667694,
+      "clv": 0.9865963524500156,
+      "shares": 12,
+      "net_return": -0.012400278644208835
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-19-000007",
+      "reaction": "2019-01-30",
+      "entry": "2019-01-31",
+      "exit": "2019-02-07",
+      "gap": 0.05513322732032733,
+      "clv": 0.8999999999999986,
+      "shares": 48,
+      "net_return": 0.03471005758026422
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-19-000191",
+      "reaction": "2019-07-18",
+      "entry": "2019-07-19",
+      "exit": "2019-07-26",
+      "gap": 0.043035423798771566,
+      "clv": 0.9140811455847229,
+      "shares": 11,
+      "net_return": -0.0045912622767287125
+    },
+    {
+      "asset": "KO",
+      "accession": "0000021344-19-000031",
+      "reaction": "2019-07-23",
+      "entry": "2019-07-24",
+      "exit": "2019-07-31",
+      "gap": 0.038455532130865944,
+      "clv": 0.913090711569797,
+      "shares": 37,
+      "net_return": -0.01261942775244514
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-20-000060",
+      "reaction": "2020-07-31",
+      "entry": "2020-08-03",
+      "exit": "2020-08-10",
+      "gap": 0.06909306264091364,
+      "clv": 0.99914066033469,
+      "shares": 18,
+      "net_return": 0.03707618143729705
+    },
+    {
+      "asset": "NFLX",
+      "accession": "0001065280-21-000037",
+      "reaction": "2021-01-20",
+      "entry": "2021-01-21",
+      "exit": "2021-01-28",
+      "gap": 0.12219017762180395,
+      "clv": 0.8637083993660843,
+      "shares": 3,
+      "net_return": -0.08268344533807806
+    },
+    {
+      "asset": "DE",
+      "accession": "0001558370-21-001244",
+      "reaction": "2021-02-19",
+      "entry": "2021-02-22",
+      "exit": "2021-03-01",
+      "gap": 0.06328008320887557,
+      "clv": 0.7583333333333323,
+      "shares": 6,
+      "net_return": 0.07544440155457213
+    },
+    {
+      "asset": "TSLA",
+      "accession": "0001564590-22-000009",
+      "reaction": "2022-01-03",
+      "entry": "2022-01-04",
+      "exit": "2022-01-11",
+      "gap": 0.08573428993159049,
+      "clv": 0.9798699436317726,
+      "shares": 5,
+      "net_return": -0.11698686592972442
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-22-000006",
+      "reaction": "2022-01-28",
+      "entry": "2022-01-31",
+      "exit": "2022-02-07",
+      "gap": 0.03799444503658367,
+      "clv": 1.0,
+      "shares": 11,
+      "net_return": 0.012431969121706259
+    },
+    {
+      "asset": "META",
+      "accession": "0001326801-22-000054",
+      "reaction": "2022-04-28",
+      "entry": "2022-04-29",
+      "exit": "2022-05-06",
+      "gap": 0.15987415698163487,
+      "clv": 0.8208571863699924,
+      "shares": 9,
+      "net_return": 0.010975456882212752
+    },
+    {
+      "asset": "NFLX",
+      "accession": "0001065280-22-000256",
+      "reaction": "2022-07-20",
+      "entry": "2022-07-21",
+      "exit": "2022-07-28",
+      "gap": 0.031113158572589228,
+      "clv": 0.9987485847088977,
+      "shares": 9,
+      "net_return": 0.04508133157427456
+    },
+    {
+      "asset": "TSLA",
+      "accession": "0001564590-22-026048",
+      "reaction": "2022-07-21",
+      "entry": "2022-07-22",
+      "exit": "2022-07-29",
+      "gap": 0.03145603979054834,
+      "clv": 0.9103747963063533,
+      "shares": 7,
+      "net_return": 0.012857786516595422
+    },
+    {
+      "asset": "GOOG",
+      "accession": "0001652044-22-000068",
+      "reaction": "2022-07-27",
+      "entry": "2022-07-28",
+      "exit": "2022-08-04",
+      "gap": 0.039453712114994266,
+      "clv": 0.8662203005571506,
+      "shares": 17,
+      "net_return": 0.045657997820793966
+    },
+    {
+      "asset": "MSFT",
+      "accession": "0001193125-22-202034",
+      "reaction": "2022-07-27",
+      "entry": "2022-07-28",
+      "exit": "2022-08-04",
+      "gap": 0.03676085900113302,
+      "clv": 0.8830357410470289,
+      "shares": 7,
+      "net_return": 0.04153160680109153
+    },
+    {
+      "asset": "NFLX",
+      "accession": "0001065280-23-000034",
+      "reaction": "2023-01-20",
+      "entry": "2023-01-23",
+      "exit": "2023-01-30",
+      "gap": 0.05832853354262535,
+      "clv": 1.0,
+      "shares": 5,
+      "net_return": 0.041212261314746465
+    },
+    {
+      "asset": "TSLA",
+      "accession": "0001564590-23-000799",
+      "reaction": "2023-01-26",
+      "entry": "2023-01-27",
+      "exit": "2023-02-03",
+      "gap": 0.10723934880498809,
+      "clv": 0.8214826021180024,
+      "shares": 12,
+      "net_return": 0.12940695359481147
+    },
+    {
+      "asset": "DE",
+      "accession": "0001558370-23-001480",
+      "reaction": "2023-02-17",
+      "entry": "2023-02-21",
+      "exit": "2023-02-28",
+      "gap": 0.03082653810289071,
+      "clv": 0.8755074424898514,
+      "shares": 4,
+      "net_return": -0.020142614703921365
+    },
+    {
+      "asset": "JPM",
+      "accession": "0001628280-23-011546",
+      "reaction": "2023-04-14",
+      "entry": "2023-04-17",
+      "exit": "2023-04-24",
+      "gap": 0.04713003580673658,
+      "clv": 0.9800443458980037,
+      "shares": 14,
+      "net_return": 0.00457944023892546
+    },
+    {
+      "asset": "AAPL",
+      "accession": "0000320193-23-000063",
+      "reaction": "2023-05-05",
+      "entry": "2023-05-08",
+      "exit": "2023-05-15",
+      "gap": 0.030337763246001792,
+      "clv": 0.8087323943661957,
+      "shares": 11,
+      "net_return": 0.0008803310080916843
+    },
+    {
+      "asset": "AMZN",
+      "accession": "0001018724-24-000006",
+      "reaction": "2024-02-02",
+      "entry": "2024-02-05",
+      "exit": "2024-02-12",
+      "gap": 0.06221750212241628,
+      "clv": 0.8665371981075554,
+      "shares": 11,
+      "net_return": 0.023931774352123517
+    },
+    {
+      "asset": "NVDA",
+      "accession": "0001045810-24-000028",
+      "reaction": "2024-02-22",
+      "entry": "2024-02-23",
+      "exit": "2024-03-01",
+      "gap": 0.11194292836386155,
+      "clv": 0.991505173277646,
+      "shares": 24,
+      "net_return": -0.01280197239486428
+    },
+    {
+      "asset": "TSLA",
+      "accession": "0001628280-24-030714",
+      "reaction": "2024-07-02",
+      "entry": "2024-07-03",
+      "exit": "2024-07-11",
+      "gap": 0.042248154322457765,
+      "clv": 1.0,
+      "shares": 8,
+      "net_return": 0.11908339017735337
+    },
+    {
+      "asset": "NFLX",
+      "accession": "0001065280-24-000286",
+      "reaction": "2024-10-18",
+      "entry": "2024-10-21",
+      "exit": "2024-10-28",
+      "gap": 0.07123792420563846,
+      "clv": 0.9469292389853128,
+      "shares": 2,
+      "net_return": -0.014294570787726252
+    },
+    {
+      "asset": "TSLA",
+      "accession": "0001628280-24-043432",
+      "reaction": "2024-10-24",
+      "entry": "2024-10-25",
+      "exit": "2024-11-01",
+      "gap": 0.14492346580536442,
+      "clv": 0.9218191108840075,
+      "shares": 7,
+      "net_return": -0.020717835237388276
+    }
+  ],
+  "skipped": [
+    {
+      "asset": "JNJ",
+      "accession": "0000200406-17-000002",
+      "reason": "window unavailable"
+    },
+    {
+      "asset": "JPM",
+      "accession": "0000019617-17-000058",
+      "reason": "window unavailable"
+    },
+    {
+      "asset": "NFLX",
+      "accession": "0001628280-17-000276",
+      "reason": "window unavailable"
+    },
+    {
+      "asset": "TSLA",
+      "accession": "0001564590-17-000024",
+      "reason": "window unavailable"
+    },
+    {
+      "asset": "CAT",
+      "accession": "0000018230-17-000034",
+      "reason": "window unavailable"
+    },
+    {
+      "asset": "CAT",
+      "accession": "0000018230-17-000135",
+      "reason": "window unavailable"
+    },
+    {
+      "asset": "DE",
+      "accession": "0001104659-17-009994",
+      "reason": "window unavailable"
+    },
+    {
+      "asset": "PEP",
+      "accession": "0000077476-17-000005",
+      "reason": "window unavailable"
+    },
+    {
+      "asset": "PEP",
+      "accession": "0000077476-17-000014",
+      "reason": "window unavailable"
+    },
+    {
+      "asset": "PEP",
+      "accession": "0000077476-17-000030",
+      "reason": "window unavailable"
+    },
+    {
+      "asset": "PEP",
+      "accession": "0000077476-17-000044",
+      "reason": "window unavailable"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-17-000029",
+      "reason": "window unavailable"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-17-000110",
+      "reason": "window unavailable"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-17-000169",
+      "reason": "window unavailable"
+    },
+    {
+      "asset": "UNP",
+      "accession": "0000100885-17-000241",
+      "reason": "window unavailable"
+    }
+  ],
+  "paper_authorized": false,
+  "live_authorized": false
+}

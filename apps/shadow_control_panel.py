@@ -94,12 +94,33 @@ def snapshot() -> dict:
     schedule = read(SXR8_SCHEDULE); today = dt.date.today().isoformat()
     upcoming = next((x for x in schedule.get("actions", []) if x.get("date", "") >= today), None)
     cat_scan = cat.get("scan", {})
+    asset_selection = read(ASSET_SELECTION, {"assets": []})
+    shared = asset_selection.get("shared_account", {})
+    shadow_events = sum(x["intents"] for x in (sxr8_position, cat_position, msft_position, nflx_position))
+    open_positions = sum(bool(x["quantity"]) for x in (sxr8_position, cat_position, msft_position, nflx_position))
     return {"schema_version": 1, "observed_at": dt.datetime.now(dt.timezone.utc).isoformat(),
             "mode": "SHADOW_ONLY", "plain_status": (
                 "Tot correcte. Esperant una oportunitat; no hi ha cap posició oberta."
                 if cycle.get("status") == "PASS" and not sxr8_position["quantity"] and not cat_position["quantity"] and not msft_position["quantity"] and not nflx_position["quantity"]
                 else "Revisa els avisos o les posicions obertes."),
             "scheduler": cycle,
+            "overview": {
+                "open_positions": open_positions,
+                "shadow_events": shadow_events,
+                "last_completed_session": max(filter(None, [cat_scan.get("session"),
+                    (msft.get("scan") or {}).get("session"), nflx_state.get("last_session")]), default=None),
+                "next_run_at": cycle.get("next_run_at"),
+                "theoretical_portfolio": {
+                    "name": "Selecció vigent SXR8/CAT/MSFT",
+                    "period": "2022–2024",
+                    "allocation": asset_selection.get("allocation"),
+                    "return_pct": shared.get("return_pct"),
+                    "max_drawdown_pct": shared.get("max_drawdown_pct"),
+                    "average_capital_deployed_pct": shared.get("average_capital_deployed_pct"),
+                    "benchmark_status": "PENDENT_MATEIXOS_PESOS_DATES_COSTOS",
+                },
+                "nflx_status": "Candidata validada en shadow; encara no integrada a la cartera teòrica",
+            },
             "strategies": [
                 {"name": "SXR8 · canvi de mes", "state": "SHADOW_PAPER_READY",
                  "explanation": "Compra l'última sessió del mes i ven la quarta del següent.",
@@ -122,7 +143,7 @@ def snapshot() -> dict:
             "portfolio": {"research_period": "2022–2024 validació + OOS",
                           **forward.get("portfolio", {}),
                           "correlation": forward.get("diversification", {}).get("correlation_zero_when_inactive")},
-            "asset_selection": read(ASSET_SELECTION, {"assets": []}),
+            "asset_selection": asset_selection,
             "nflx": {"pipeline": nflx, "state": nflx_state,
                      "selected": nflx_risk.get("selected_overlay"),
                      "buy_hold": nflx_risk.get("buy_and_hold_diagnostic"),

@@ -46,6 +46,7 @@ de tenir un mecanisme i una preregistració nous.
 | XLE momentum mensual M6/M12 | Validació forta de règim, però OOS 2024 −16,05%/−1,76% | [Fitxa](xle_monthly_tsmom_v1.md) |
 | Cinquena família només amb caixa residual | CAGR 15,86% < 16,00% base i DD 18,36% > 15,92% base | [Fitxa](five_edge_residual_cash_v1.md) |
 | Bons UCITS SMA200/3-down/hold10 | Pooled train −4,30%, validació −0,82% i PF 0,431 | [Fitxa](bond_ucits_three_down_transfer_v1.md) |
+| JNJ/KO/PEP xoc 2 ATR sobre SMA200 | Train −2,11%, PF 0,821 i només 4 trades de validació | [Fitxa](defensive_equity_atr_shock_v1.md) |
 
 Les watchlists i resultats condicionals no s'inclouen aquí fins que hi hagi una
 decisió formal de rebuig.

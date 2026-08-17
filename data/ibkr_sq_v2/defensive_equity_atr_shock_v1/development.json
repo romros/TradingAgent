@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_DEVELOPMENT",
+  "results": {
+    "train": {
+      "JNJ": {
+        "trades": 5,
+        "return_pct": -3.8092050999999127,
+        "profit_factor": 0.41201595013423487,
+        "maximum_drawdown_pct": 5.43329415069031
+      },
+      "KO": {
+        "trades": 3,
+        "return_pct": -0.2403234999999615,
+        "profit_factor": 0.9547819252184316,
+        "maximum_drawdown_pct": 4.7847602704228525
+      },
+      "PEP": {
+        "trades": 1,
+        "return_pct": 1.9365854999999987,
+        "profit_factor": null,
+        "maximum_drawdown_pct": 0.0
+      }
+    },
+    "validation": {
+      "JNJ": {
+        "trades": 2,
+        "return_pct": 0.3664481000000164,
+        "profit_factor": 1.210625174049044,
+        "maximum_drawdown_pct": 1.739811499999985
+      },
+      "KO": {
+        "trades": 1,
+        "return_pct": 2.7044272000000147,
+        "profit_factor": null,
+        "maximum_drawdown_pct": 0.0
+      },
+      "PEP": {
+        "trades": 1,
+        "return_pct": -1.8150169999999854,
+        "profit_factor": 0.0,
+        "maximum_drawdown_pct": 1.815016999999989
+      }
+    }
+  },
+  "pooled": {
+    "train": {
+      "trades": 9,
+      "return_pct": -2.1129430999998866,
+      "profit_factor": 0.8208335036294788,
+      "maximum_drawdown_pct": 5.599358432042557
+    },
+    "validation": {
+      "trades": 4,
+      "return_pct": 1.2558583000000345,
+      "profit_factor": 1.353282387603244,
+      "maximum_drawdown_pct": 3.4612222636493946
+    }
+  },
+  "oos_accessed": false,
+  "optimized": false,
+  "post_2024_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

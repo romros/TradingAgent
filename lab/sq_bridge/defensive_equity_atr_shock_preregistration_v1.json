@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_BEFORE_PERFORMANCE",
+  "campaign_id": "defensive-equity-atr-shock-v1",
+  "assets": ["JNJ", "KO", "PEP"],
+  "periods": {"train": ["2017-01-01", "2021-12-31"], "validation": ["2022-01-01", "2023-12-31"], "oos": ["2024-01-01", "2024-12-31"]},
+  "rule": {
+    "direction": "long_only",
+    "trend": "signal close above SMA200 including signal close",
+    "shock": "signal close-to-close return <= negative 2.0 times ATR20 divided by prior close",
+    "entry": "next session open",
+    "exit": "open of third session after entry",
+    "overlap": "one position per asset"
+  },
+  "economics": {"capital_usd_per_asset": 1000, "commission_usd_per_order": 1, "slippage_bps_per_side": 10},
+  "validation_gate": {"minimum_pooled_train_trades": 20, "minimum_pooled_train_pf": 1.10, "minimum_pooled_validation_trades": 8, "minimum_pooled_validation_pf": 1.10, "minimum_positive_validation_assets": 2, "maximum_validation_drawdown_pct": 15},
+  "oos_gate": {"minimum_trades": 5, "minimum_pf": 1.10, "positive_return": true, "maximum_drawdown_pct": 15},
+  "optimized": false,
+  "post_2024_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

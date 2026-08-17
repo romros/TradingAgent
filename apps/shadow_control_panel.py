@@ -24,6 +24,7 @@ PORTFOLIO = ROOT / "data/ibkr_sq_v2/two_strategy_portfolio/sxr8_cat_v1.json"
 SXR8_READY = ROOT / "data/ibkr_sq_v2/turn_of_month/sxr8_shadow_readiness.json"
 SXR8_SCHEDULE = ROOT / "data/ibkr_sq_v2/turn_of_month/sxr8_xetra_schedule_2026.json"
 ASSET_SELECTION = ROOT / "data/shadow/asset_selection_dashboard.json"
+WINNING_CANDIDATE = ROOT / "data/ibkr_sq_v2/portfolio_benchmark_v1/four_edge_nflx_daily_mtm_v1.json"
 
 
 def read(path: Path, default=None):
@@ -95,6 +96,7 @@ def snapshot() -> dict:
     upcoming = next((x for x in schedule.get("actions", []) if x.get("date", "") >= today), None)
     cat_scan = cat.get("scan", {})
     asset_selection = read(ASSET_SELECTION, {"assets": []})
+    winning = read(WINNING_CANDIDATE)
     shared = asset_selection.get("shared_account", {})
     shadow_events = sum(x["intents"] for x in (sxr8_position, cat_position, msft_position, nflx_position))
     open_positions = sum(bool(x["quantity"]) for x in (sxr8_position, cat_position, msft_position, nflx_position))
@@ -121,6 +123,7 @@ def snapshot() -> dict:
                 },
                 "nflx_status": "Candidata validada en shadow; encara no integrada a la cartera teòrica",
             },
+            "portfolio_candidate": winning,
             "strategies": [
                 {"name": "SXR8 · canvi de mes", "state": "SHADOW_PAPER_READY",
                  "explanation": "Compra l'última sessió del mes i ven la quarta del següent.",

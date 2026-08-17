@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "decision": "FAIL_NFLX_DOES_NOT_CLOSE_BUY_HOLD_GAP",
+  "variants": [
+    {
+      "nflx_weight_pct": 20,
+      "capital_by_sleeve": {
+        "SXR8": 960.0,
+        "CAT": 960.0,
+        "MSFT_CAPITULATION": 480.0,
+        "NFLX": 600.0
+      },
+      "active": {
+        "initial_capital": 3000.0,
+        "final_equity": 3512.0065025179365,
+        "return_pct": 17.066883417264545,
+        "cagr_pct": 5.396577319092177,
+        "maximum_drawdown_pct_monthly": 6.705143154980818,
+        "drawdown_peak": "2023-08-28",
+        "drawdown_trough": "2023-10-28"
+      },
+      "weighted_buy_hold": {
+        "initial_capital": 3000.0,
+        "final_equity": 4495.402712353635,
+        "return_pct": 49.846757078454516,
+        "cagr_pct": 14.442678884811698,
+        "maximum_drawdown_pct_monthly": 19.033750000077802,
+        "drawdown_peak": "2022-03-31",
+        "drawdown_trough": "2022-09-30"
+      },
+      "comparison": {
+        "cagr_difference_points": -9.046101565719521,
+        "drawdown_ratio": 0.3522765169739757,
+        "raw_return_pass": false,
+        "risk_adjusted_pass": false
+      },
+      "passes": false,
+      "events": 124
+    },
+    {
+      "nflx_weight_pct": 25,
+      "capital_by_sleeve": {
+        "SXR8": 900.0,
+        "CAT": 900.0,
+        "MSFT_CAPITULATION": 450.0,
+        "NFLX": 750.0
+      },
+      "active": {
+        "initial_capital": 3000.0,
+        "final_equity": 3842.0314871460578,
+        "return_pct": 28.067716238201925,
+        "cagr_pct": 8.601797988676484,
+        "maximum_drawdown_pct_monthly": 6.542113099454324,
+        "drawdown_peak": "2023-08-28",
+        "drawdown_trough": "2023-10-28"
+      },
+      "weighted_buy_hold": {
+        "initial_capital": 3000.0,
+        "final_equity": 4417.315889871165,
+        "return_pct": 47.24386299570551,
+        "cagr_pct": 13.77572580120432,
+        "maximum_drawdown_pct_monthly": 20.252227330195954,
+        "drawdown_peak": "2022-03-31",
+        "drawdown_trough": "2022-06-30"
+      },
+      "comparison": {
+        "cagr_difference_points": -5.173927812527836,
+        "drawdown_ratio": 0.3230317827659416,
+        "raw_return_pass": false,
+        "risk_adjusted_pass": false
+      },
+      "passes": false,
+      "events": 133
+    },
+    {
+      "nflx_weight_pct": 30,
+      "capital_by_sleeve": {
+        "SXR8": 840.0,
+        "CAT": 840.0,
+        "MSFT_CAPITULATION": 420.0,
+        "NFLX": 900.0
+      },
+      "active": {
+        "initial_capital": 3000.0,
+        "final_equity": 3908.109810769337,
+        "return_pct": 30.270327025644562,
+        "cagr_pct": 9.221281612963384,
+        "maximum_drawdown_pct_monthly": 6.468599824966212,
+        "drawdown_peak": "2023-08-28",
+        "drawdown_trough": "2023-10-28"
+      },
+      "weighted_buy_hold": {
+        "initial_capital": 3000.0,
+        "final_equity": 4304.684274040885,
+        "return_pct": 43.48947580136282,
+        "cagr_pct": 12.79973496516067,
+        "maximum_drawdown_pct_monthly": 20.08397217207425,
+        "drawdown_peak": "2022-03-31",
+        "drawdown_trough": "2022-06-30"
+      },
+      "comparison": {
+        "cagr_difference_points": -3.578453352197286,
+        "drawdown_ratio": 0.3220777129914805,
+        "raw_return_pass": false,
+        "risk_adjusted_pass": false
+      },
+      "passes": false,
+      "events": 133
+    }
+  ],
+  "selected": null,
+  "weights_were_preregistered": true,
+  "post_2024_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

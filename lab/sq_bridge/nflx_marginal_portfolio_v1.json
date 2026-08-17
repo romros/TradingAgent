@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "status": "PREREGISTERED_BEFORE_PORTFOLIO_RESULTS",
+  "period": ["2022-01-01", "2024-12-31"],
+  "capital_usd_accounting_units": 3000,
+  "nflx_weights_pct": [20, 25, 30],
+  "remaining_core_ratio": {"SXR8": 40, "CAT": 40, "MSFT_CAPITULATION": 20},
+  "nflx_exposure_fraction_inside_sleeve": 0.75,
+  "sizing": "whole shares, independent sleeves, no leverage, no capital reuse",
+  "selection": "A variant passes only if CAGR exceeds matching weighted buy-and-hold, or reaches at least 75% of benchmark CAGR with at most 60% of benchmark monthly drawdown. Choose highest Calmar among passes.",
+  "weight_grid_is_exhaustive": true,
+  "post_2024_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

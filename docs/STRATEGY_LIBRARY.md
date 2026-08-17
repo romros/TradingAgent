@@ -5,6 +5,11 @@ explotar-los. Una entrada no implica paper ni live. Cada estratègia avança per
 
 `idea → train → validació → veïnat → OOS → robustesa → holdout → executable`
 
+Estat del nou objectiu buy-and-hold: [BUY_HOLD_OBJECTIVE_STATUS.md](BUY_HOLD_OBJECTIVE_STATUS.md).
+La candidata CAT/MSFT/JPM/SGLN/NFLX supera SPY 2022–2024, però NFLX continua
+fora del catàleg consolidat pel seu gate de veïnat; no s'ha de promocionar
+només pel bon resultat agregat.
+
 ## CAT D1 — descens de pressió venedora (`Strategy 0.168`)
 
 Estat: **reserva de recerca robusta; holdout 2025 intacte**.

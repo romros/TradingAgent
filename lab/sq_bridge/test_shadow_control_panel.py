@@ -18,3 +18,4 @@ def test_snapshot_is_plain_and_never_authorizes_orders(monkeypatch):
     assert "Esperant" in value["plain_status"]
     assert value["overview"]["open_positions"] == 0
     assert value["overview"]["theoretical_portfolio"]["benchmark_status"] == "PENDENT_MATEIXOS_PESOS_DATES_COSTOS"
+    assert "portfolio_candidate" in value

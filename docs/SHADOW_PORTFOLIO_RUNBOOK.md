@@ -1,5 +1,9 @@
 # Cartera shadow SXR8 + CAT + MSFT + NFLX — estat i continuïtat
 
+> La millor cartera teòrica actual és CAT/MSFT/JPM/SGLN/NFLX i es documenta a
+> `docs/BUY_HOLD_OBJECTIVE_STATUS.md`. Aquest runner encara observa SXR8 en lloc
+> de JPM/SGLN; no s'ha de confondre el monitor actual amb la cartera candidata.
+
 ## Què és
 
 És observació forward sense broker. El sistema consulta dades actuals, calcula

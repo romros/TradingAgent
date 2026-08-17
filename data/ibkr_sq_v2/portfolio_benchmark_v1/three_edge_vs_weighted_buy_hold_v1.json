@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "decision": "FAIL_ACTIVE_BELOW_BUY_HOLD",
+  "period": "2022-01-01/2024-12-31",
+  "allocation_pct": {
+    "SXR8": 40,
+    "CAT": 40,
+    "MSFT_CAPITULATION": 20
+  },
+  "capital": 2500,
+  "active": {
+    "initial_capital": 2500.0,
+    "final_equity": 2847.409948252758,
+    "return_pct": 13.896397930110327,
+    "cagr_pct": 4.43574710023511,
+    "maximum_drawdown_pct_monthly": 7.216543873086591,
+    "drawdown_peak": "2023-09-28",
+    "drawdown_trough": "2023-10-28"
+  },
+  "weighted_buy_hold": {
+    "initial_capital": 2500.0,
+    "final_equity": 3741.610922755035,
+    "return_pct": 49.664436910201395,
+    "cagr_pct": 14.396214656463368,
+    "maximum_drawdown_pct_monthly": 16.26016116349744,
+    "drawdown_peak": "2022-03-31",
+    "drawdown_trough": "2022-09-30"
+  },
+  "buy_hold_legs": {
+    "SXR8": {
+      "initial_capital": 1000.0,
+      "shares": 2,
+      "cash": 136.73919291146012,
+      "first_session": "2022-01-03",
+      "last_session": "2024-12-30",
+      "final_equity": 1336.4484714821601,
+      "return_pct": 33.64484714821601,
+      "maximum_drawdown_pct_daily": 14.790616842394844,
+      "drawdown_peak": "2022-01-04",
+      "drawdown_trough": "2022-06-16"
+    },
+    "CAT": {
+      "initial_capital": 1000.0,
+      "shares": 5,
+      "cash": 41.56537064880001,
+      "first_session": "2022-01-03",
+      "last_session": "2024-12-31",
+      "final_equity": 1814.75376174335,
+      "return_pct": 81.475376174335,
+      "maximum_drawdown_pct_daily": 29.004417741516992,
+      "drawdown_peak": "2022-04-20",
+      "drawdown_trough": "2022-09-27"
+    },
+    "MSFT_CAPITULATION": {
+      "initial_capital": 500.0,
+      "shares": 1,
+      "cash": 175.47511650548495,
+      "first_session": "2022-01-03",
+      "last_session": "2024-12-31",
+      "final_equity": 590.408689529525,
+      "return_pct": 18.081737905904994,
+      "maximum_drawdown_pct_daily": 23.074909184955448,
+      "drawdown_peak": "2022-01-03",
+      "drawdown_trough": "2022-11-03"
+    }
+  },
+  "comparison": {
+    "active_minus_buy_hold_cagr_points": -9.960467556228258,
+    "active_to_buy_hold_monthly_drawdown_ratio": 0.44381748744822197,
+    "raw_return_pass": false,
+    "risk_adjusted_pass": false
+  },
+  "methodology": "Whole shares; frozen 40/40/20 sleeves; adjusted prices; entry and terminal-exit costs; monthly common observation for drawdown. No rebalancing.",
+  "limitations": [
+    "Active monthly closed equity omits intratrade drawdown",
+    "Mixed EUR/USD sleeves are accounting units; FX conversion excluded"
+  ],
+  "inputs_sha256": {
+    "data/ibkr_sq_v2/portfolio_benchmark_v1/SXR8_DE_ADJUSTED_2022_2024.csv": "6cebc0892c9a98e9f46e42ba77593ec775e721d338aa5d5ca3297f630d71466f",
+    "data/ibkr_sq_v2/portfolio_benchmark_v1/CAT_ADJUSTED_2022_2024.csv": "9d043cd5a9a9024007b340b8e76477b0aeabcebb9bae59b0e4ec2930be7ac73e",
+    "data/ibkr_sq_v2/portfolio_benchmark_v1/MSFT_ADJUSTED_2022_2024.csv": "c28f9851347d9f854e6b5b85f193a015adb699228e44010718a47458801e89b1"
+  },
+  "post_2024_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

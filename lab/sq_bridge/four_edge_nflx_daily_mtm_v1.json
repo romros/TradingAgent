@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_BEFORE_SYNCHRONIZED_CURVE",
+  "allocation_usd": {"legacy_four": 2000, "NFLX_04681": 1000},
+  "nflx_exposure_fraction": 0.75,
+  "transfers": false,
+  "leverage": 1.0,
+  "period": ["2022-01-01", "2024-12-31"],
+  "gate": {"beat_spy_buy_hold_cagr": true, "daily_mtm_drawdown_pct_at_most": 20},
+  "post_2024_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

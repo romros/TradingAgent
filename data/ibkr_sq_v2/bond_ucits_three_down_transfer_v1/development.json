@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_DEVELOPMENT",
+  "spec_sha256": "81de8b53cf87495944fa63e4d08748ea8a0f02f45ee0ab3b9e416db567128e3d",
+  "evaluated_variants": 1,
+  "eligible_variants": 0,
+  "selected_variant": null,
+  "results": [
+    {
+      "variant": {
+        "family": "trend_pullback",
+        "sma": 200,
+        "down_days": 3,
+        "hold_days": 10
+      },
+      "assets": {
+        "IBTM": {
+          "train": {
+            "trades": 39,
+            "net_pnl_usd": -165.96769418436065,
+            "return_pct": -16.596769418436065,
+            "profit_factor": 0.20818339773634106,
+            "maximum_drawdown_pct": 16.596769418436068
+          },
+          "validation": {
+            "trades": 6,
+            "net_pnl_usd": -16.308110969610652,
+            "return_pct": -1.63081109696106,
+            "profit_factor": 0.4308173662420069,
+            "maximum_drawdown_pct": 1.6308110969610652
+          }
+        },
+        "IDTL": {
+          "train": {
+            "trades": 38,
+            "net_pnl_usd": 80.0470557065305,
+            "return_pct": 8.004705570653048,
+            "profit_factor": 1.3168723131974205,
+            "maximum_drawdown_pct": 6.178979470541671
+          },
+          "validation": {
+            "trades": 0,
+            "net_pnl_usd": 0,
+            "return_pct": 0.0,
+            "profit_factor": null,
+            "maximum_drawdown_pct": 0
+          }
+        }
+      },
+      "pooled": {
+        "train": {
+          "trades": 77,
+          "profit_factor": 0.8141130413589528,
+          "return_pct": -4.296031923891508,
+          "maximum_drawdown_pct": 5.031059690002595
+        },
+        "validation": {
+          "trades": 6,
+          "profit_factor": 0.4308173662420069,
+          "return_pct": -0.81540554848053,
+          "maximum_drawdown_pct": 0.8154055484805326
+        }
+      },
+      "checks": {
+        "train_pf": false,
+        "train_trades": true,
+        "positive_assets": false,
+        "strong_assets": false,
+        "validation_pf": false,
+        "validation_trades": false,
+        "validation_drawdown": true
+      },
+      "positive_assets": 0,
+      "strong_assets": 0
+    }
+  ],
+  "oos_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

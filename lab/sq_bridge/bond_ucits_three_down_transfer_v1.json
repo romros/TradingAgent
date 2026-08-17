@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "campaign_id": "bond-ucits-three-down-transfer-v1",
+  "status": "FROZEN_BEFORE_PERFORMANCE",
+  "hypothesis": "Short-term liquidity and positioning reversals after three down sessions may transfer from equities to liquid Treasury UCITS ETFs while bond duration diversifies the equity-heavy portfolio.",
+  "assets": {
+    "IBTM": "data/ibkr_sq_v2/preflight/IBTM_L_ADJUSTED_D1_through_2024.csv",
+    "IDTL": "data/ibkr_sq_v2/preflight/IDTL_L_ADJUSTED_D1_through_2024.csv"
+  },
+  "periods": {
+    "train": ["2016-01-01", "2021-12-31"],
+    "validation": ["2022-01-01", "2023-12-31"],
+    "oos": ["2024-01-01", "2024-12-31"]
+  },
+  "families": {
+    "trend_filter": {"sma": []},
+    "donchian": {"entry": [], "exit": []},
+    "trend_pullback": {"sma": [200], "down_days": [3], "hold_days": [10]}
+  },
+  "economics": {
+    "capital_usd": 1000,
+    "commission_usd_per_order": 1,
+    "slippage_bps_per_side": 10
+  },
+  "development_gate": {
+    "minimum_pooled_train_pf": 1.05,
+    "minimum_pooled_train_trades": 30,
+    "minimum_assets_positive_validation": 2,
+    "minimum_assets_pf_1_10_validation": 1,
+    "minimum_pooled_validation_pf": 1.10,
+    "minimum_pooled_validation_trades": 10,
+    "maximum_pooled_validation_drawdown_pct": 15
+  },
+  "selection": "single exact cross-asset transfer; no parameter search",
+  "oos_release": "Only PASS_FREEZE_ONE_BEFORE_OOS may open 2024",
+  "post_2024_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

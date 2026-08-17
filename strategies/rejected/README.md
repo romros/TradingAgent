@@ -39,6 +39,8 @@ de tenir un mecanisme i una preregistració nous.
 | XLF price action SQ D1 | Cinc representants perden en validació; PF 0,60–0,83 | [Fitxa](pead_ear_and_xlf_price_action_20260816.md) |
 | NFLX D1 breakout 0.4681 | Edge aparent, però veí DD 40,35% i paritat d'execució incompleta | [Fitxa](nflx_d1_volatility_breakout_04681.md) |
 | PEP → KO D1 trend pullback | PEP valida, però KO conté una entrada/TP intrabar D1 no demostrable | [Fitxa](pep_ko_d1_trend_pullback_v1.md) |
+| Cinquena edge sobre marge residual | Millora CAGR a 17,70%, però DD 21,01% supera el gate congelat del 20% | [Fitxa](five_edge_residual_margin_v1.md) |
+| IDTL TSMOM12 durada | Validation −6,50%, OOS −4,47% i només 5/35 mesos invertit | [Fitxa](idtl_tsmom12_v1.md) |
 
 Les watchlists i resultats condicionals no s'inclouen aquí fins que hi hagi una
 decisió formal de rebuig.

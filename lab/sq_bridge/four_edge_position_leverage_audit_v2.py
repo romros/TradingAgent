@@ -58,7 +58,7 @@ def read_trades(paths: dict[str, Path]) -> list[dict]:
     return trades
 
 
-def audit(sqx: Path, fx_path: Path, order_paths: dict[str, Path]) -> dict:
+def audit(sqx: Path, fx_path: Path, order_paths: dict[str, Path], include_daily: bool = False) -> dict:
     if sha(sqx) != EXPECTED_SQX or sha(fx_path) != EXPECTED_FX:
         raise ValueError("frozen SQX/FX hash mismatch")
     trades = read_trades(order_paths)
@@ -109,7 +109,7 @@ def audit(sqx: Path, fx_path: Path, order_paths: dict[str, Path]) -> dict:
             events.setdefault(trade["close"], []).append((0, sell))
 
         cash, financing, accrued_cost, previous = CAPITAL, 0.0, 0.0, START
-        rows, max_borrow = [], 0.0
+        rows, cash_rows, max_borrow = [], [], 0.0
         for day in sorted(portfolio):
             elapsed = (day - previous).days
             charge = max(-cash, 0.0) * RATE * elapsed / 365.2425
@@ -126,6 +126,7 @@ def audit(sqx: Path, fx_path: Path, order_paths: dict[str, Path]) -> dict:
                 - gold_trade["open_price"] * gold_entry_fx)
             equity = CAPITAL + portfolio[day] - sq_gold_pnl + corrected_gold_pnl - accrued_cost - financing
             rows.append((day, equity))
+            cash_rows.append((day, cash))
             previous = day
         final = rows[-1][1]
         scenarios[scenario] = {
@@ -137,6 +138,9 @@ def audit(sqx: Path, fx_path: Path, order_paths: dict[str, Path]) -> dict:
             "maximum_cash_borrow_usd": round(max_borrow, 6),
             **drawdown(rows),
         }
+        if include_daily:
+            scenarios[scenario]["daily_equity"] = [{"date": str(d), "equity_usd": v} for d, v in rows]
+            scenarios[scenario]["daily_cash"] = [{"date": str(d), "cash_usd": v} for d, v in cash_rows]
     stress = scenarios["stress"]
     spy_return, spy_dd = 26.928, 23.406
     passed = stress["net_return_pct"] > spy_return and stress["daily_mtm_max_drawdown_pct"] <= spy_dd and stress["minimum_equity_usd"] > 0

@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_IDTL_TSMOM12",
+  "source_sha256": "3bf1c6020b2d32233ba393e0880d9f220c54afa4def35a8eb7f5d2d5ce04cd4e",
+  "economics": {
+    "cost_each_position_change_fraction": 0.004
+  },
+  "periods": {
+    "train": {
+      "months": 71,
+      "invested_months": 42,
+      "position_changes": 8,
+      "total_return": 0.04907209173848859,
+      "annualized_return": 0.008129665115265139,
+      "annualized_sharpe": 0.12693519883678286,
+      "maximum_drawdown": 0.2161929430354892
+    },
+    "validation": {
+      "months": 24,
+      "invested_months": 1,
+      "position_changes": 2,
+      "total_return": -0.06502427278236156,
+      "annualized_return": -0.03305857094773401,
+      "annualized_sharpe": -0.753804030158599,
+      "maximum_drawdown": 0.06502427278236156
+    },
+    "oos": {
+      "months": 11,
+      "invested_months": 4,
+      "position_changes": 3,
+      "total_return": -0.044661321654439035,
+      "annualized_return": -0.04862116646735337,
+      "annualized_sharpe": -0.7203124895005909,
+      "maximum_drawdown": 0.06085584116437348
+    },
+    "combined": {
+      "months": 35,
+      "invested_months": 5,
+      "position_changes": 5,
+      "total_return": -0.10678152447472133,
+      "annualized_return": -0.03797690908262086,
+      "annualized_sharpe": -0.7383115717501207,
+      "maximum_drawdown": 0.12192300713046256
+    }
+  },
+  "optimized": false,
+  "post_2024_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

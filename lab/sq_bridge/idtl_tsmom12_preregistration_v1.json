@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_BEFORE_PERFORMANCE",
+  "campaign_id": "idtl-duration-tsmom12-v1",
+  "asset": "IDTL.L long-duration US Treasury UCITS ETF",
+  "mechanism": "standalone duration trend/cash, materially different from rejected top-one dual momentum",
+  "rule": "at each month-end, long next month when adjusted close exceeds close 12 month-ends earlier; otherwise cash; execute at next session open",
+  "periods": {"train": ["2016-01-01", "2021-12-31"], "validation": ["2022-01-01", "2023-12-31"], "oos": ["2024-01-01", "2024-12-31"]},
+  "economics": {"capital_gbp": 1000, "commission_gbp_each_position_change": 3, "slippage_bps_each_position_change": 10, "cash_return": 0},
+  "gates": {"all_period_returns_positive": true, "combined_2022_2024_sharpe_gte": 0.4, "combined_2022_2024_drawdown_lte": 0.2, "combined_invested_months_gte": 12},
+  "parameters_searched": 0,
+  "post_2024_access": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

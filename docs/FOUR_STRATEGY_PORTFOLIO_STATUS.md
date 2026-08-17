@@ -101,6 +101,11 @@ buy-and-hold retorna més (+76,15%) però pateix DD 45,26%. És una promoció de
 recerca de perfil risc/retorn, no una autorització operativa. Encara cal
 substituir els costos indicatius per condicions verificades del compte.
 
+La prova posterior d'afegir el pullback multi-actiu sobre el marge residual
+millora CAGR a 17,70%, però eleva DD a 21,01% i falla el gate congelat de 20%.
+La política concreta queda rebutjada i no es redueix la mida després de veure
+el resultat. La cartera canònica continua sent la de quatre peces.
+
 ## Cadena pendent, en ordre
 
 1. **Completat:** D1 ajustat de SGLN importat amb GBp dividit per 100. Són

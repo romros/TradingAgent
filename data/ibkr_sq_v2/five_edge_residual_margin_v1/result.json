@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "decision": "FAIL_FIFTH_EDGE_RESIDUAL_MARGIN",
+  "period": "2022-01-01/2024-12-31",
+  "initial_capital_usd": 2000.0,
+  "final_equity_usd": 3260.03233,
+  "net_return_pct": 63.001616,
+  "cagr_pct": 17.700316,
+  "daily_mtm_max_drawdown_pct": 21.009867,
+  "drawdown_peak_date": "2022-03-25",
+  "drawdown_trough_date": "2022-09-23",
+  "minimum_equity_usd": 1587.125342,
+  "candidate": {
+    "closed_trades": 130,
+    "profit_factor": 1.285064,
+    "net_closed_pnl_usd": 203.761247,
+    "extra_financing_usd": 64.565075,
+    "skipped_margin": 0,
+    "skipped_unaffordable": 12,
+    "open_positions_excluded": 3
+  },
+  "base": {
+    "cagr_pct": 15.99959,
+    "return_pct": 56.041808,
+    "drawdown_pct": 15.915973
+  },
+  "policy": {
+    "base_priority": true,
+    "borrow_limit_usd": 2000.0,
+    "slots": 3,
+    "notional_cap_per_position_usd": 333.33
+  },
+  "limitations": [
+    "Candidate uses only residual margin after frozen base orders.",
+    "Adjusted candidate resources retain the previously audited family data conventions.",
+    "No paper or live trading is authorized."
+  ],
+  "paper_authorized": false,
+  "live_authorized": false
+}

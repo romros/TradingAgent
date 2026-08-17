@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_NATIVE_PARAMETER_MONTE_CARLO",
+  "candidate_id": "Strategy 0.24306",
+  "sqx_path": "/mnt/volume-SQ/user/projects/IBKR_V2_AAPL_H1_MC_PREHOLD_0_24306/databanks/PreHoldout/Strategy 0.24306.sqx",
+  "sqx_sha256": "fdc627e5d72373f3305239f75b43acec5e2e8af5317f89b8aee226a2737a21c9",
+  "official_original_orders_path": "/mnt/volume-SQ/user/projects/IBKR_V2_AAPL_H1_MC_PREHOLD_0_24306/orders-pre-holdout-fdc627e5d72373f3.csv",
+  "official_original_orders_sha256": "c0c25818e79e482f6b537c4ae15b26c1e1cbb4e88b164acd2780fc5b855ef650",
+  "preregistered_gate_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/aapl_h1_shock_reversion_tiered_pilot/robustness_prehold/0_24306/robustness_gate.preregistered.json",
+  "preregistered_gate_sha256": "862daaf9416fa217c8174f8034c9166a04824b651e3ce1dcbb7107653117752b",
+  "compact_payload_semantics": "big_endian int32 trade_count followed by signed PnL cents",
+  "original_payload_matches_official_orders_csv": true,
+  "metrics": {
+    "simulations": 1000,
+    "profitable_simulation_ratio": 0.939,
+    "median_total_return": 0.0055355000000000005,
+    "p05_total_return": -0.00034805,
+    "zero_trade_simulation_ratio": 0.0,
+    "minimum_total_return": -0.005347,
+    "maximum_total_return": 0.016061000000000002,
+    "median_trade_count": 79.0
+  },
+  "checks": {
+    "profitable_ratio": true,
+    "median_return": true,
+    "p05_return": true,
+    "zero_trade_ratio": true
+  },
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

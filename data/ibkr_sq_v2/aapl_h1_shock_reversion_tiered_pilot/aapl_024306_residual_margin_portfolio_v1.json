@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_AAPL_024306_PORTFOLIO_MARGINAL",
+  "period": "2022-01-01/2024-12-31",
+  "initial_capital_usd": 2000.0,
+  "candidate_policy": "base priority; one AAPL sleeve capped at USD500 borrowed only while open",
+  "candidate_closed_trades": 53,
+  "candidate_net_pnl_usd": -57.222272,
+  "candidate_profit_factor": 0.695314,
+  "candidate_financing_usd": 20.661402,
+  "combined_final_equity_usd": 3063.613885,
+  "combined_return_pct": 53.180694,
+  "combined_cagr_pct": 15.285767,
+  "combined_daily_mtm_drawdown_pct": 15.915973,
+  "drawdown_peak_date": "2022-05-09",
+  "drawdown_trough_date": "2022-09-23",
+  "base": {
+    "cagr_pct": 15.99959,
+    "return_pct": 56.041808,
+    "drawdown_pct": 15.915973
+  },
+  "checks": {
+    "cagr_improves_base": false,
+    "drawdown_at_most_20pct": true,
+    "candidate_net_positive": false
+  },
+  "inputs_sha256": {
+    "portfolio_sqx": "5e419d22050c0a376543f24fe4f64567bc53d26d16f83b5dd3097016a89d5a71",
+    "fx": "f95006726de866df21bea8ca0c3a1e7f9d082600b57d04199ab37201b7b48e21",
+    "aapl_orders": "c0c25818e79e482f6b537c4ae15b26c1e1cbb4e88b164acd2780fc5b855ef650",
+    "aapl_h1": "9cbda2e1b805d5524e3a875725dbc616c0756ead381c5903ff361b7403bdb3c4"
+  },
+  "post_2024_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

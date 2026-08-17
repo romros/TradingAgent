@@ -4,7 +4,7 @@
 
 `Strategy 0.4681` mostra un edge aparent fort, però no entra a
 `strategies/consolidated`: ha fallat el gate de robustesa paramètrica congelat
-i encara no té paritat independent completa amb l'execució nativa de SQ.
+malgrat haver superat posteriorment la paritat independent i l'auditoria M1.
 
 No està autoritzada per paper ni live. Tampoc s'ha consultat 2025.
 
@@ -30,24 +30,31 @@ El SQX original és
   10 operacions i 4/4 trimestres positius.
 - En la graella preregistrada de deu veïns, 9/10 variants auditables són
   rendibles amb costos d'estrès i PF ≥1,10.
+- La rèplica Python reprodueix exactament les 68/68 operacions de SQ, sense
+  cap discrepància de data, tipus de sortida o preu. La paritat incorpora la
+  vida real de `EnterAtStop`: gap abans d'`OnBarUpdate`, rebuig d'ordres noves
+  fora de rang, ATR/bracket congelats en crear l'ordre i reentrada només
+  després d'una sortida al mateix open.
+- L'auditoria dels 2.872.800 minuts Dukascopy confirma 68/68 entrades i 68/68
+  sortides executables, cap bracket contrari tocat abans i cap minut ambigu
+  resolt favorablement. Les 1.995 sessions RTH tenen 390 minuts.
 
 ## Per què queda fora
 
 - El gate havia fixat DD màxim de 25%; el pitjor veí arriba a 40,35%.
-- La variant de stop 2,25 ATR conté una entrada i target a la mateixa barra D1
-  que no permet demostrar l'ordre intradia amb OHLC diari.
-- La rèplica Python obté 68 operacions, igual que SQ, i coincideix exactament
-  en les deu primeres; després divergeix en la semàntica de manteniment de
-  l'ordre pendent i dels brackets en gaps. Per tant, la paritat continua
-  formalment rebutjada.
+- La variant veïna de stop 2,25 ATR continua sense una auditoria M1 pròpia;
+  l'auditoria executada cobreix exclusivament la regla central 0.4681 i no pot
+  rescatar retroactivament el gate de tot el veïnat.
 
 Evidència principal:
 
 - `data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/neighborhood/neighborhood_gate.json`
-- `data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/nflx_04681_python_parity.json`
+- `data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/nflx_04681_independent_parity_v1.json`
+- `data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/nflx_04681_m1_execution_audit_v1.json`
 
 ## Via futura legítima
 
-No s'ha de rescatar retocant el gate després de veure aquests resultats. Una
-nova versió només seria legítima amb una hipòtesi preregistrada diferent i una
-font intradia que resolgui les entrades stop, gaps i barres que toquen SL/TP.
+No s'ha de rescatar retocant el gate després de veure aquests resultats. La
+via legítima és una nova prova de robustesa independent i preregistrada que no
+seleccioni paràmetres després de veure performance. L'execució central ja no
+és el bloqueig; ho és l'estabilitat extrema del veïnat.

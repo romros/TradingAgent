@@ -49,13 +49,16 @@ def replay(source: Path, orders: Path, date_from: str, date_to: str) -> dict:
         if day > date_to:
             break
         exited = False
+        exited_at_open = False
         if position is not None:
             stop, target = position["stop"], position["target"]
             kind = price = None
             if opens[index] <= stop:
                 kind, price = "SL", opens[index]
+                exited_at_open = True
             elif opens[index] >= target:
                 kind, price = "PT", opens[index]
+                exited_at_open = True
             elif lows[index] <= stop:
                 kind, price = "SL", stop
             elif highs[index] >= target:
@@ -66,27 +69,57 @@ def replay(source: Path, orders: Path, date_from: str, date_to: str) -> dict:
                 position = None
                 exited = True
 
-        if position is not None or exited:
+        if position is not None or (exited and not exited_at_open):
             continue
+        entered_today = False
         if pending is not None:
             pending["age"] += 1
             if pending["age"] >= 80:
                 pending = None
+            elif opens[index] >= pending["price"]:
+                # A live order from the previous bar is filled by the opening
+                # gap before OnBarUpdate gets a chance to replace it.
+                entry = opens[index]
+                distance = pending["atr15"]
+                bracket_base = pending["price"]
+                position = {
+                    "open_date": day, "open_price": entry,
+                    "stop": round(bracket_base - 2.5 * round(distance, 6), 3),
+                    "target": round(bracket_base + 2.8 * round(distance, 6), 3),
+                }
+                pending = None
+                entered_today = True
+                if lows[index] <= position["stop"]:
+                    trades.append({**position, "close_date": day,
+                                   "close_type": "SL", "close_price": position["stop"]})
+                    position = None
+                elif highs[index] >= position["target"]:
+                    trades.append({**position, "close_date": day,
+                                   "close_type": "PT", "close_price": position["target"]})
+                    position = None
+        if entered_today:
+            continue
         # The imported SQ market uses the campaign's explicit 100-bar warm-up.
         if index >= 100 and lows[index - 3] < highs[index - 1]:
             pending = {
-                "price": max(highs[index - 10:index]) + 0.30 * atr104[index - 3],
+                "price": round(max(highs[index - 10:index]) + 0.30 * atr104[index - 3], 3),
+                "atr15": atr15[index - 1],
                 "age": 0,
             }
+        # A newly replaced BuyStop below the current open is invalid. A valid
+        # new stop can still be reached during the remainder of this D1 bar.
+        if pending is not None and pending["price"] < opens[index]:
+            pending = None
+            continue
         if pending is None or highs[index] < pending["price"]:
             continue
-        entry = max(opens[index], pending["price"])
-        distance = atr15[index - 1]
+        entry = pending["price"]
+        distance = pending["atr15"]
         position = {
             "open_date": day,
             "open_price": entry,
-            "stop": entry - 2.5 * distance,
-            "target": entry + 2.8 * distance,
+            "stop": round(entry - 2.5 * round(distance, 6), 3),
+            "target": round(entry + 2.8 * round(distance, 6), 3),
         }
         pending = None
         if lows[index] <= position["stop"]:

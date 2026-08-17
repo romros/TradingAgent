@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-nflx-04681-m1-execution-adjudication-v1",
+  "status": "PREREGISTERED_BEFORE_M1_EXECUTION_AUDIT",
+  "purpose": "Determine whether the fixed SQ D1 trades are executable in chronological NFLX M1 data; do not optimize or change the strategy.",
+  "candidate": "Strategy 0.4681",
+  "fixed_parameters": {
+    "direction": "long",
+    "condition": "Low[3] < High[1]",
+    "entry": "Highest(High,10)[1] + 0.30 * ATR(104)[3] stop",
+    "order_valid_bars": 80,
+    "replace_pending_order": true,
+    "stop_loss": "2.5 * ATR(15)",
+    "profit_target": "2.8 * ATR(15)"
+  },
+  "frozen_history": {
+    "start": "2017-01-26",
+    "end": "2024-12-31",
+    "m1_symbol": "NFLXUSUSD",
+    "expected_m1_rows": 2872800,
+    "expected_months": 96,
+    "holdout_2025_allowed": false
+  },
+  "audit_rules": [
+    "Use the 68 already exported SQ trades; no candidate selection.",
+    "Use D1 only for signals and ATR levels and M1 only for fill chronology.",
+    "A stop entry must be touched by M1 after it becomes active.",
+    "For a same-session entry and exit, the exit level must occur after the entry minute.",
+    "If stop and target occur in one minute and tick order is unknowable, use the adverse stop-first result.",
+    "Market gaps fill at the first observable RTH minute, never at a better synthetic price.",
+    "Do not inspect or use any row from 2025 or later."
+  ],
+  "decision_gate": {
+    "all_sq_entries_m1_feasible": true,
+    "all_same_session_exits_chronologically_feasible": true,
+    "zero_optimistic_ambiguous_trades": true,
+    "independent_trade_sequence_explained": true
+  },
+  "interpretation": "Passing clears execution feasibility only. It does not reverse the previously failed strict all-neighbor drawdown gate.",
+  "selection_or_optimization_authorized": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_INDEPENDENT_TRADE_PARITY",
+  "candidate_id": "Strategy 0.4681",
+  "source_sha256": "12c140360eb22d9c489d796e3215e565f0e46b6b0918b206585bf577bae2b818",
+  "orders_sha256": "fcc9c31e8cda9eb3cb8bf732b082d497e5822a7fd87535c09909c7553653fcc0",
+  "date_from": "2017.01.26",
+  "date_to": "2024.12.31",
+  "simulated_trades": 68,
+  "sq_trades": 68,
+  "mismatches": [],
+  "execution": "daily replaceable stop entry; fixed ATR15 bracket; pessimistic same-bar ordering",
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

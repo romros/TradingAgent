@@ -1,0 +1,25 @@
+Project: IBKR_NVDA_D1_SIMPLE_DISCOVERY_V1
+Log file: /global_log_20260817_143313.log
+
+--------------------------------------------------------------------------------------------------------------------------
+TASK STARTED at 2026.08.17 14:33:13.057
+Task: Build strategies, Type: Build
+Databanks before start: Results (0), Existing portfolio (0), Last generation (0), Initial population (0), Strategies to improve (0), D1 (0), OLD (0), D1_OLD (0)
+
+TASK FINISHED at 2026.08.17 14:33:21.377 in 8 s.
+Databanks after finish: Results (80), Existing portfolio (0), Last generation (0), Initial population (0), Strategies to improve (0), D1 (0), OLD (0), D1_OLD (0)
+
+Strategies generated: 323, Time per strategy: 19 ms., Time per accepted strategy: 77 ms., Accepted: 82, Rejected: 241, Strategies per hour: 182515, Accepted strategies per hour: 46335
+
+Time per strategy details:
+Main test: Count: 84, Avg. time: 0.1588 s., Total time: 13.3410 s., % of all: 100.00 %
+
+Rejected details:
+Automatic filter: too little trades, Count: 202, % of all: 83.82 %
+Global filter:  Profit factor[Main data] > 1.08, Count: 2, % of all: 0.83 %
+Automatic filter: no trades, Count: 36, % of all: 14.94 %
+Automatic filter: too many ambiguous trades, Count: 1, % of all: 0.41 %
+
+Accepted details:
+In databank, Count: 80, % of all: 97.56 %
+Replaced with better strategy, Count: 2, % of all: 2.44 %

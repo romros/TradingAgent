@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-nvda-d1-simple-discovery-v1",
+  "status": "FROZEN_BEFORE_SQ_PERFORMANCE",
+  "hypothesis": "NVDA's persistent innovation/capex regimes and high volatility may support simple D1 trend, breakout or pullback families, but only temporal validation and small-account costs can establish an edge.",
+  "falsifier": "Reject families that do not survive 2022-2023 stress costs; 2024 remains sealed until one representative per structural family is frozen.",
+  "sq_symbol": "NVDA_IBKR_D1_V1_D1",
+  "periods": {"train_from": "2017-01-03", "train_to": "2021-12-31", "validation_from": "2022-01-03", "validation_to": "2023-12-29", "sealed_oos_from": "2024-01-02", "sealed_oos_to": "2024-12-31"},
+  "discovery": {"timeframe": "D1", "direction": "long", "search_profile": "equity_d1_trend_pullback_v1", "generation": "random-generation", "attempt_budget": 100000, "wall_time_budget_minutes": 60, "accepted_limit": 80, "maximum_rules": 2, "minimum_train_trades": 35, "minimum_profit_factor_train": 1.08},
+  "validation_gate": {"capital_usd": 1000, "minimum_trades": 15, "minimum_stress_profit_factor": 1.15, "minimum_positive_quarters": 5, "maximum_close_to_close_drawdown_pct": 25},
+  "oos_gate": {"minimum_trades": 7, "minimum_stress_return_pct": 0, "minimum_stress_profit_factor": 1.10, "maximum_close_to_close_drawdown_pct": 20},
+  "performance_accessed_before_freeze": false,
+  "post_2024_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

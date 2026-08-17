@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_FAMILIES_FROZEN_BEFORE_VALIDATION",
+  "selection_policy": "one simple interpretable representative for each distinct chosen entry archetype; train complexity and profit/drawdown only",
+  "inventory_sha256": "e64efc5cc93fa19d24157a280ee110a3b261bc39174d5339fd6842db72d90def",
+  "representative_count": 8,
+  "validation_accessed_before_freeze": false,
+  "oos_2024_accessed": false,
+  "representatives": [
+    {
+      "family": "adx_regime",
+      "candidate": "Strategy 0.11",
+      "sqx_path": "data/ibkr_sq_v2/nvda_d1_simple_discovery_v1/frozen_family_representatives/Strategy 0.11.sqx",
+      "sqx_sha256": "45ef1ff91492b12f01a038488c09ea870f5bfdecef08ff2db8d01a99cb77cb05",
+      "train_trades": 122,
+      "train_profit_drawdown_ratio": 5.97643988,
+      "complexity": 4,
+      "entry_indicator_types": [
+        [
+          "ADX",
+          "indicator"
+        ]
+      ],
+      "translation_status": "SUPPORTED_SUBSET"
+    },
+    {
+      "family": "close_pullback",
+      "candidate": "Strategy 0.142",
+      "sqx_path": "data/ibkr_sq_v2/nvda_d1_simple_discovery_v1/frozen_family_representatives/Strategy 0.142.sqx",
+      "sqx_sha256": "c7b6f56aeb1a010f696bd79a900a6049bad6421624b483f9f7694e951ce0b31c",
+      "train_trades": 91,
+      "train_profit_drawdown_ratio": 5.99466654,
+      "complexity": 3,
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ]
+      ],
+      "translation_status": "SUPPORTED_SUBSET"
+    },
+    {
+      "family": "ema_rising",
+      "candidate": "Strategy 0.157",
+      "sqx_path": "data/ibkr_sq_v2/nvda_d1_simple_discovery_v1/frozen_family_representatives/Strategy 0.157.sqx",
+      "sqx_sha256": "d4cf8f1b9882925b19a81b028531b8704bab21d4c0ac4d4b57fe70f13be5aa0e",
+      "train_trades": 80,
+      "train_profit_drawdown_ratio": 4.05919676,
+      "complexity": 4,
+      "entry_indicator_types": [
+        [
+          "EMA",
+          "indicator"
+        ]
+      ],
+      "translation_status": "SUPPORTED_SUBSET"
+    },
+    {
+      "family": "ma_relative",
+      "candidate": "Strategy 0.168",
+      "sqx_path": "data/ibkr_sq_v2/nvda_d1_simple_discovery_v1/frozen_family_representatives/Strategy 0.168.sqx",
+      "sqx_sha256": "edfc732028b43eefac14498ea7f2f258cfe7c82b3e62726c611d36bef40265ca",
+      "train_trades": 93,
+      "train_profit_drawdown_ratio": 2.94351445,
+      "complexity": 5,
+      "entry_indicator_types": [
+        [
+          "EMA",
+          "indicator"
+        ],
+        [
+          "SMA",
+          "indicator"
+        ]
+      ],
+      "translation_status": "SUPPORTED_SUBSET"
+    },
+    {
+      "family": "price_above_sma",
+      "candidate": "Strategy 0.56",
+      "sqx_path": "data/ibkr_sq_v2/nvda_d1_simple_discovery_v1/frozen_family_representatives/Strategy 0.56.sqx",
+      "sqx_sha256": "c29977f73087d2ad93e9f0a7124960fcb1e8c84a5f383129b9743c2a5a9909ca",
+      "train_trades": 65,
+      "train_profit_drawdown_ratio": 5.04194241,
+      "complexity": 4,
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ],
+        [
+          "SMA",
+          "indicator"
+        ]
+      ],
+      "translation_status": "SUPPORTED_SUBSET"
+    },
+    {
+      "family": "roc_turn",
+      "candidate": "Strategy 0.229",
+      "sqx_path": "data/ibkr_sq_v2/nvda_d1_simple_discovery_v1/frozen_family_representatives/Strategy 0.229.sqx",
+      "sqx_sha256": "1375ab51181bc867d49d346f059f7e4f6ce207af77875615fa4fe1626d4dd04b",
+      "train_trades": 120,
+      "train_profit_drawdown_ratio": 4.58472526,
+      "complexity": 4,
+      "entry_indicator_types": [
+        [
+          "ROC",
+          "indicator"
+        ]
+      ],
+      "translation_status": "SUPPORTED_SUBSET"
+    },
+    {
+      "family": "rsi_relative",
+      "candidate": "Strategy 0.123",
+      "sqx_path": "data/ibkr_sq_v2/nvda_d1_simple_discovery_v1/frozen_family_representatives/Strategy 0.123.sqx",
+      "sqx_sha256": "0099d910ef7c5faf10f0adb60cf2bd43fb40db21f9d585de787b31e02b52d4a5",
+      "train_trades": 130,
+      "train_profit_drawdown_ratio": 2.86509279,
+      "complexity": 4,
+      "entry_indicator_types": [
+        [
+          "RSI",
+          "indicator"
+        ]
+      ],
+      "translation_status": "SUPPORTED_SUBSET"
+    },
+    {
+      "family": "sma_regime",
+      "candidate": "Strategy 0.119",
+      "sqx_path": "data/ibkr_sq_v2/nvda_d1_simple_discovery_v1/frozen_family_representatives/Strategy 0.119.sqx",
+      "sqx_sha256": "c4a840187dd51cc350acd516e66309384b8d3c5f8177f4ffd88e6508bd7f29d9",
+      "train_trades": 143,
+      "train_profit_drawdown_ratio": 3.63723913,
+      "complexity": 4,
+      "entry_indicator_types": [
+        [
+          "SMA",
+          "indicator"
+        ]
+      ],
+      "translation_status": "SUPPORTED_SUBSET"
+    }
+  ]
+}

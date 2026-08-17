@@ -1,0 +1,41 @@
+{
+  "decision": "PASS_RANDOM_RUN_PREFLIGHT",
+  "project_name": "IBKR_NVDA_D1_SIMPLE_DISCOVERY_V1",
+  "source_sha256": "247e18394f11bbe07f079b2bf89e6b47c02b81ee9e3912e619790601ca7db33a",
+  "imported_sha256": "95740715d87bdd69418d5824f91504e286b1d0352abd71fa97dcd7ee518017b3",
+  "manifest_sha256": "e3fe04d24930c27132b58ea495c658ab0c8cf74adc3b50c05b1708315d712615",
+  "shape": {
+    "generation_type": "random-generation",
+    "project_name": "IBKR_NVDA_D1_SIMPLE_DISCOVERY_V1",
+    "symbol": "NVDA_IBKR_D1_V1_D1",
+    "timeframe": "D1",
+    "train_from": "2017.01.03",
+    "train_to": "2021.12.31",
+    "market_side": "long",
+    "active_blocks": [
+      "CrossesAbove",
+      "CrossesBelow",
+      "EnterAtMarket",
+      "ExitAfterBars.ExitAfterBars",
+      "Indicators.ADX",
+      "Indicators.EMA",
+      "Indicators.ROC",
+      "Indicators.RSI",
+      "Indicators.SMA",
+      "IsFalling",
+      "IsGreater",
+      "IsLower",
+      "IsRising",
+      "Prices.Close",
+      "ProfitTarget.ProfitTarget",
+      "StopLoss.StopLoss"
+    ],
+    "minimum_trades": "35",
+    "minimum_profit_factor": "1.08",
+    "accepted_limit": 80,
+    "wall_hours": 1,
+    "wall_minutes": 0
+  },
+  "paper_authorized": false,
+  "live_authorized": false
+}

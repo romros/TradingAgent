@@ -1,13 +1,13 @@
-# Cartera shadow SXR8 + CAT + MSFT + NFLX — estat i continuïtat
+# Cartera shadow SXR8 + CAT + MSFT + NFLX + JPM + SGLN — estat i continuïtat
 
 > La millor cartera teòrica actual és CAT/MSFT/JPM/SGLN/NFLX i es documenta a
-> `docs/BUY_HOLD_OBJECTIVE_STATUS.md`. Aquest runner encara observa SXR8 en lloc
-> de JPM/SGLN; no s'ha de confondre el monitor actual amb la cartera candidata.
+> `docs/BUY_HOLD_OBJECTIVE_STATUS.md`. El runner ja cobreix totes cinc peces de
+> la candidata i conserva SXR8 com a diagnòstic addicional.
 
 ## Què és
 
 És observació forward sense broker. El sistema consulta dades actuals, calcula
-què haurien fet quatre estratègies i desa intents hipotètics. **No envia ordres,
+què haurien fet sis estratègies i desa intents hipotètics. **No envia ordres,
 no està connectat a IBKR i no està autoritzat per paper broker ni live.**
 
 Estratègies:
@@ -24,6 +24,12 @@ Estratègies:
 4. `NFLX 0.4681`: buy stop de breakout, SL `2,5 × ATR(15)` i TP
    `2,8 × ATR(15)`, exposició diagnòstica del 75% sense leverage. Estat
    `VALIDATED_RESEARCH_SHADOW`; no està autoritzada per broker.
+5. `JPM Momentum60`: al primer open del mes entra si el tancament anterior és
+   superior al de 60 sessions abans, i surt a l'open després de 20 sessions.
+   Estat `ADMITTED_RESEARCH_SHADOW`, butxaca diagnòstica de 500 USD.
+6. `SGLN TSMOM12`: compara l'últim tancament mensual amb el del mateix mes de
+   l'any anterior. Converteix GBp→GBP→USD amb GBP/USD observat i costos d'estrès.
+   Estat `CAPPED_RESEARCH_SHADOW`, butxaca màxima de 500 USD.
 
 ## Estat verificat el 2026-08-14
 
@@ -81,6 +87,8 @@ Estat del scheduler:
 - `data/shadow/cat_0168_pipeline_status.json`
 - `data/shadow/msft_capitulation_pipeline_status.json`
 - `data/shadow/nflx_04681_pipeline_status.json`
+- `data/shadow/jpm_momentum60_pipeline_status.json`
+- `data/shadow/sgln_tsmom12_pipeline_status.json`
 
 ## Registre shadow: JSON i CSV
 
@@ -95,6 +103,12 @@ Cada estratègia manté dos formats sincronitzats atòmicament:
 - `data/shadow/nflx_04681.json`
 - `data/shadow/nflx_04681.csv`
 - `data/shadow/nflx_04681_state.json`
+- `data/shadow/jpm_momentum60.json`
+- `data/shadow/jpm_momentum60.csv`
+- `data/shadow/jpm_momentum60_state.json`
+- `data/shadow/sgln_tsmom12.json`
+- `data/shadow/sgln_tsmom12.csv`
+- `data/shadow/sgln_tsmom12_state.json`
 
 JSON és la font operativa. CSV és el mirall per inspecció humana, Excel o
 DuckDB. Columnes: clau idempotent, estratègia, símbol, acció, sessió, preu de

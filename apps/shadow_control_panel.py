@@ -18,6 +18,8 @@ STATE = ROOT / "data/shadow/hourly_scheduler_status.json"
 CAT_PIPELINE = ROOT / "data/shadow/cat_0168_pipeline_status.json"
 MSFT_PIPELINE = ROOT / "data/shadow/msft_capitulation_pipeline_status.json"
 NFLX_PIPELINE = ROOT / "data/shadow/nflx_04681_pipeline_status.json"
+JPM_PIPELINE = ROOT / "data/shadow/jpm_momentum60_pipeline_status.json"
+SGLN_PIPELINE = ROOT / "data/shadow/sgln_tsmom12_pipeline_status.json"
 NFLX_RISK = ROOT / "data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/nflx_04681_risk_overlay_v1.json"
 NFLX_MTM = ROOT / "data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/nflx_04681_daily_mtm_v1.json"
 PORTFOLIO = ROOT / "data/ibkr_sq_v2/two_strategy_portfolio/sxr8_cat_v1.json"
@@ -59,6 +61,10 @@ def run_cycle(now: dt.datetime | None = None) -> dict:
                  "--as-of", now.date().isoformat(), "--capital", "1000"],
         "NFLX": [sys.executable, str(ROOT / "apps/nflx_shadow_pipeline.py"),
                  "--as-of", now.date().isoformat(), "--capital", "3000"],
+        "JPM": [sys.executable, str(ROOT / "apps/jpm_shadow_pipeline.py"),
+                "--as-of", now.date().isoformat(), "--capital", "500"],
+        "SGLN": [sys.executable, str(ROOT / "apps/sgln_shadow_pipeline.py"),
+                 "--as-of", now.date().isoformat(), "--capital", "500"],
     }
     outputs = {}
     for name, command in commands.items():
@@ -85,12 +91,14 @@ def scheduler(stop: threading.Event, interval: int) -> None:
 
 
 def snapshot() -> dict:
-    cycle, cat, msft, nflx, portfolio = read(STATE), read(CAT_PIPELINE), read(MSFT_PIPELINE), read(NFLX_PIPELINE), read(PORTFOLIO)
+    cycle, cat, msft, nflx, jpm, sgln, portfolio = read(STATE), read(CAT_PIPELINE), read(MSFT_PIPELINE), read(NFLX_PIPELINE), read(JPM_PIPELINE), read(SGLN_PIPELINE), read(PORTFOLIO)
     forward = portfolio.get("forward_validation_oos_2022_2024", {})
     sxr8_position = position(ROOT / "data/shadow/sxr8_turn_of_month.json", "SXR8")
     cat_position = position(ROOT / "data/shadow/cat_0168.json", "CAT")
     msft_position = position(ROOT / "data/shadow/msft_capitulation.json", "MSFT")
     nflx_position = position(ROOT / "data/shadow/nflx_04681.json", "NFLX")
+    jpm_position = position(ROOT / "data/shadow/jpm_momentum60.json", "JPM")
+    sgln_position = position(ROOT / "data/shadow/sgln_tsmom12.json", "SGLN")
     nflx_state, nflx_risk, nflx_mtm = read(ROOT / "data/shadow/nflx_04681_state.json"), read(NFLX_RISK), read(NFLX_MTM)
     schedule = read(SXR8_SCHEDULE); today = dt.date.today().isoformat()
     upcoming = next((x for x in schedule.get("actions", []) if x.get("date", "") >= today), None)
@@ -98,12 +106,12 @@ def snapshot() -> dict:
     asset_selection = read(ASSET_SELECTION, {"assets": []})
     winning = read(WINNING_CANDIDATE)
     shared = asset_selection.get("shared_account", {})
-    shadow_events = sum(x["intents"] for x in (sxr8_position, cat_position, msft_position, nflx_position))
-    open_positions = sum(bool(x["quantity"]) for x in (sxr8_position, cat_position, msft_position, nflx_position))
+    shadow_events = sum(x["intents"] for x in (sxr8_position, cat_position, msft_position, nflx_position, jpm_position, sgln_position))
+    open_positions = sum(bool(x["quantity"]) for x in (sxr8_position, cat_position, msft_position, nflx_position, jpm_position, sgln_position))
     return {"schema_version": 1, "observed_at": dt.datetime.now(dt.timezone.utc).isoformat(),
             "mode": "SHADOW_ONLY", "plain_status": (
                 "Tot correcte. Esperant una oportunitat; no hi ha cap posició oberta."
-                if cycle.get("status") == "PASS" and not sxr8_position["quantity"] and not cat_position["quantity"] and not msft_position["quantity"] and not nflx_position["quantity"]
+                if cycle.get("status") == "PASS" and not sxr8_position["quantity"] and not cat_position["quantity"] and not msft_position["quantity"] and not nflx_position["quantity"] and not jpm_position["quantity"] and not sgln_position["quantity"]
                 else "Revisa els avisos o les posicions obertes."),
             "scheduler": cycle,
             "overview": {
@@ -142,7 +150,17 @@ def snapshot() -> dict:
                  "explanation": "Buy stop de volatilitat; TP 2,8 ATR i SL 2,5 ATR. Exposició teòrica 75% sense leverage.",
                  "last_action": (nflx.get("scan") or {}).get("action", "NO_SCAN"),
                  "last_session": nflx_state.get("last_session"), "position": nflx_position,
-                 "pending": nflx_state.get("pending"), "next_known_action": "Ordre pendent o nou senyal D1"}],
+                 "pending": nflx_state.get("pending"), "next_known_action": "Ordre pendent o nou senyal D1"},
+                {"name": "JPM · Momentum60 mensual", "state": "ADMITTED_RESEARCH_SHADOW",
+                 "explanation": "A canvi de mes entra si el momentum de 60 sessions és positiu; surt 20 sessions després.",
+                 "last_action": (jpm.get("scan") or {}).get("action", "NO_SCAN"),
+                 "last_session": ((jpm.get("scan") or {}).get("state") or {}).get("last_session"),
+                 "position": jpm_position, "next_known_action": "Depèn del canvi de mes i del momentum"},
+                {"name": "SGLN · momentum d'or 12 mesos", "state": "CAPPED_RESEARCH_SHADOW",
+                 "explanation": "A inici de mes manté or físic si el tancament mensual supera el de fa dotze mesos.",
+                 "last_action": (sgln.get("scan") or {}).get("action", "NO_SCAN"),
+                 "last_session": ((sgln.get("scan") or {}).get("state") or {}).get("last_session"),
+                 "position": sgln_position, "next_known_action": "Revisió al primer open de cada mes"}],
             "portfolio": {"research_period": "2022–2024 validació + OOS",
                           **forward.get("portfolio", {}),
                           "correlation": forward.get("diversification", {}).get("correlation_zero_when_inactive")},

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_NFLX_04681_MARGINAL_GATE",
+  "period": "2022-01-01/2024-12-31",
+  "initial_capital_usd": 2000.0,
+  "account_borrow_limit_usd": 2000.0,
+  "candidate_notional_cap_usd": 1000.0,
+  "final_equity_usd": 3794.553466,
+  "net_return_pct": 89.727673,
+  "cagr_pct": 23.814589,
+  "daily_mtm_max_drawdown_pct": 19.292048,
+  "drawdown_peak_date": "2022-03-29",
+  "drawdown_trough_date": "2022-07-06",
+  "minimum_equity_usd": 1688.694647,
+  "candidate": {
+    "signals": 26,
+    "executed_trades": 26,
+    "skipped_notional_cap": 0,
+    "skipped_account_margin": 0,
+    "profit_factor_before_financing": 2.428557,
+    "net_pnl_before_financing_usd": 710.295422,
+    "extra_financing_usd": 36.578113,
+    "open_position_at_boundary": false
+  },
+  "base": {
+    "return_pct": 56.041808,
+    "cagr_pct": 15.99959,
+    "drawdown_pct": 15.915973
+  },
+  "classification": "preregistered_fixed_rule_marginal_portfolio_test",
+  "limitations": [
+    "The canonical four-edge portfolio has execution priority.",
+    "NFLX uses whole shares, a fixed $1000 notional cap, 10 bps slippage per side, $1 per order and 8% incremental borrowing.",
+    "This is historical research, not paper/live authorization or a return promise."
+  ],
+  "sources": {
+    "nflx_orders_sha256": "fcc9c31e8cda9eb3cb8bf732b082d497e5822a7fd87535c09909c7553653fcc0",
+    "nflx_d1_sha256": "12c140360eb22d9c489d796e3215e565f0e46b6b0918b206585bf577bae2b818"
+  },
+  "paper_authorized": false,
+  "live_authorized": false
+}

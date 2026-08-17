@@ -6,9 +6,10 @@ explotar-los. Una entrada no implica paper ni live. Cada estratègia avança per
 `idea → train → validació → veïnat → OOS → robustesa → holdout → executable`
 
 Estat del nou objectiu buy-and-hold: [BUY_HOLD_OBJECTIVE_STATUS.md](BUY_HOLD_OBJECTIVE_STATUS.md).
-La candidata CAT/MSFT/JPM/SGLN/NFLX supera SPY 2022–2024, però NFLX continua
-fora del catàleg consolidat pel seu gate de veïnat; no s'ha de promocionar
-només pel bon resultat agregat.
+La cartera teòrica CAT/MSFT/JPM/SGLN/NFLX supera el gate marginal 2022–2024.
+NFLX s'admet només amb notional màxim de 1.000 USD: eleva el resultat stress
+de +56,04% a +89,73%, amb CAGR 23,81% i DD 19,29%. El gate original de NFLX
+a exposició completa continua fallat; aquesta admissió capada no l'esborra.
 
 ## CAT D1 — descens de pressió venedora (`Strategy 0.168`)
 

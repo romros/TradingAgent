@@ -76,12 +76,14 @@
       "id": "nflx_d1_volatility_breakout_04681_capped_v1",
       "asset": "NFLX",
       "mechanism": "volatility_breakout_stop_entry",
-      "status": "ADMITTED_RESEARCH_EDGE_NOT_ADMITTED_TO_PORTFOLIO",
+      "status": "ADMITTED_CAPPED_INCREMENTAL_PORTFOLIO_COMPONENT",
       "evidence_path": "data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/neighborhood/capped_50pct_remediation_v1.json",
       "evidence_sha256": "ffd274e9e37b174822ca4a3bb114ed3480c2e0446408067e1a1b685cbbc1a821",
       "robustness_path": "data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/native_mc_gate_v1.json",
       "robustness_sha256": "2a2ad9286ba7d6f9a650030ebfd444b6c3d3af7d6129082fa9d99c0722c4fe6a",
-      "caveat": "Central validation/OOS, M1 execution, 2000-run native parameter MC and all ten capped neighbors are positive. The original uncapped neighborhood gate remains failed; classification is capped at 50% exposure and portfolio admission still requires a new marginal test. Holdout 2025+ remains unopened."
+      "portfolio_evidence_path": "data/ibkr_sq_v2/nflx_04681_residual_margin_portfolio_v1/result.json",
+      "portfolio_evidence_sha256": "128f7ea5633f8f3889441d29966200586e39519e3174a16c7fa0a109c8d52f50",
+      "caveat": "Central validation/OOS, M1 execution, 2000-run native parameter MC and all ten capped neighbors are positive. The capped marginal test raises 2022-2024 portfolio CAGR from 16.00% to 23.81% with 19.29% DD. The original uncapped neighborhood gate remains failed; admission is only with a USD1000 notional cap and holdout 2025+ remains unopened."
     },
     {
       "id": "aapl_h1_roc_4_1_174",

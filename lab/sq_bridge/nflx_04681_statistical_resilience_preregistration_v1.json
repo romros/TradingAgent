@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-nflx-04681-statistical-resilience-v1",
+  "status": "PREREGISTERED_BEFORE_RESILIENCE_CALCULATION",
+  "candidate": "Strategy 0.4681",
+  "purpose": "Test whether the frozen central rule has a distributed statistical edge independently of account size and without parameter optimization.",
+  "input_orders_sha256": "fcc9c31e8cda9eb3cb8bf732b082d497e5822a7fd87535c09909c7553653fcc0",
+  "period": {"from": "2017-01-26", "to": "2024-12-31", "trades": 68},
+  "frozen_costs": {"round_trip_bps": [20, 50, 100]},
+  "tests": {
+    "stress_100bps": {"net_return_positive": true, "profit_factor_min": 1.20},
+    "remove_top_three_winners_at_50bps": {"net_return_positive": true, "profit_factor_min": 1.10},
+    "two_regimes_at_50bps": {"regimes": ["2017-2020", "2021-2024"], "each_net_positive": true, "each_profit_factor_min": 1.10},
+    "winner_concentration_at_50bps": {"top_three_share_of_positive_gains_max": 0.50},
+    "annual_block_bootstrap_at_50bps": {"seed": 4681, "attempts": 20000, "probability_compounded_return_positive_min": 0.90, "fifth_percentile_min": -0.15}
+  },
+  "decision_policy": "All tests must pass. Passing establishes central statistical resilience only and does not overwrite the failed 2026 parameter-neighborhood drawdown gate.",
+  "parameter_changes_authorized": false,
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

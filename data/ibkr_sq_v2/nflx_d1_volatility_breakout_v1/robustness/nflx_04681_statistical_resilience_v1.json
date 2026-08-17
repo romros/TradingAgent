@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_CENTRAL_STATISTICAL_RESILIENCE",
+  "candidate": "Strategy 0.4681",
+  "checks": {
+    "stress_100bps": true,
+    "remove_top_three_winners_at_50bps": true,
+    "two_regimes_at_50bps": true,
+    "winner_concentration_at_50bps": true,
+    "annual_block_bootstrap_at_50bps": true
+  },
+  "cost_scenarios": {
+    "20": {
+      "trades": 68,
+      "compounded_return": 5.955834310804048,
+      "profit_factor": 2.3291454673709318,
+      "mean_return": 0.03210616547378665
+    },
+    "50": {
+      "trades": 68,
+      "compounded_return": 4.699577420047943,
+      "profit_factor": 2.158404446183594,
+      "mean_return": 0.02910616547378665
+    },
+    "100": {
+      "trades": 68,
+      "compounded_return": 3.0840944247336717,
+      "profit_factor": 1.9013763612772916,
+      "mean_return": 0.024106165473786655
+    }
+  },
+  "remove_top_three": {
+    "trades": 65,
+    "compounded_return": 2.6843266563875168,
+    "profit_factor": 1.8835368585845325,
+    "mean_return": 0.023224426910459863
+  },
+  "removed_tickets": [
+    "185",
+    "279",
+    "552"
+  ],
+  "regimes": {
+    "2017-2020": {
+      "trades": 33,
+      "compounded_return": 1.4517007221038871,
+      "profit_factor": 2.1399205540095116,
+      "mean_return": 0.03118885876694184
+    },
+    "2021-2024": {
+      "trades": 35,
+      "compounded_return": 1.3247443575237612,
+      "profit_factor": 2.1791188396581043,
+      "mean_return": 0.02714248322595461
+    }
+  },
+  "top_three_positive_gain_share": 0.12734758218510528,
+  "annual_block_bootstrap": {
+    "attempts": 20000,
+    "probability_positive": 1.0,
+    "fifth_percentile": 1.9431046054633287,
+    "median": 4.752009412397372
+  },
+  "does_not_override_parameter_neighborhood_gate": true,
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

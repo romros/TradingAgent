@@ -38,6 +38,14 @@ El SQX original és
 - L'auditoria dels 2.872.800 minuts Dukascopy confirma 68/68 entrades i 68/68
   sortides executables, cap bracket contrari tocat abans i cap minut ambigu
   resolt favorablement. Les 1.995 sessions RTH tenen 390 minuts.
+- La prova de resiliència estadística central, preregistrada després de resoldre
+  la paritat però abans de calcular-la, passa 5/5 gates. Amb 100 bps per round
+  trip conserva PF 1,90; sense els tres millors trades conserva PF 1,88; els
+  blocs 2017–2020 i 2021–2024 donen PF 2,14 i 2,18. Els tres guanyadors més
+  grans només representen el 12,7% dels guanys positius. En 20.000 bootstraps
+  anuals, la probabilitat de retorn compost positiu és 100% i el percentil 5
+  és +194%. Aquests retorns compostos són una prova estadística per trade, no
+  una previsió de cartera ni una recomanació d'assignar-hi tot el capital.
 
 ## Per què queda fora
 
@@ -51,6 +59,7 @@ Evidència principal:
 - `data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/neighborhood/neighborhood_gate.json`
 - `data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/nflx_04681_independent_parity_v1.json`
 - `data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/nflx_04681_m1_execution_audit_v1.json`
+- `data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/nflx_04681_statistical_resilience_v1.json`
 
 ## Via futura legítima
 

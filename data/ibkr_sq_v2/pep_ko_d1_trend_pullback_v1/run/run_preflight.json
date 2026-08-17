@@ -1,0 +1,41 @@
+{
+  "decision": "PASS_RANDOM_RUN_PREFLIGHT",
+  "project_name": "IBKR_PEP_D1_TREND_PULLBACK_V1",
+  "source_sha256": "ae57b86ff05f96b4731bf4a7a22b58cbe6440943856aba12b7131a1ce3b19c68",
+  "imported_sha256": "0c0e6c4cb2e385ad3f6837a4668578b0d0a4e8ea4be06faee5538de8d219f95e",
+  "manifest_sha256": "18f56bf19f221f77a23f91e710ae31d1e7d682436e21a52dff390118540b4ffe",
+  "shape": {
+    "generation_type": "random-generation",
+    "project_name": "IBKR_PEP_D1_TREND_PULLBACK_V1",
+    "symbol": "PEP_IBKR_TREND_PULLBACK_V1_D1",
+    "timeframe": "D1",
+    "train_from": "2017.11.02",
+    "train_to": "2021.12.31",
+    "market_side": "long",
+    "active_blocks": [
+      "CrossesAbove",
+      "CrossesBelow",
+      "EnterAtMarket",
+      "ExitAfterBars.ExitAfterBars",
+      "Indicators.ADX",
+      "Indicators.EMA",
+      "Indicators.ROC",
+      "Indicators.RSI",
+      "Indicators.SMA",
+      "IsFalling",
+      "IsGreater",
+      "IsLower",
+      "IsRising",
+      "Prices.Close",
+      "ProfitTarget.ProfitTarget",
+      "StopLoss.StopLoss"
+    ],
+    "minimum_trades": "30",
+    "minimum_profit_factor": "1.1",
+    "accepted_limit": 60,
+    "wall_hours": 1,
+    "wall_minutes": 0
+  },
+  "paper_authorized": false,
+  "live_authorized": false
+}

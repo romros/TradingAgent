@@ -1,0 +1,397 @@
+{
+  "decision": "PASS_SUPERVISED_RANDOM_RUN",
+  "project_name": "IBKR_PEP_D1_TREND_PULLBACK_V1",
+  "final": {
+    "observed_at": "2026-08-17T06:00:24.340493+00:00",
+    "project": "IBKR_PEP_D1_TREND_PULLBACK_V1",
+    "generated": 734,
+    "accepted_pct": null,
+    "in_databank": 61,
+    "failed": null,
+    "strategies_per_hour": null,
+    "backtests_performed": null,
+    "job_exceptions": null,
+    "running_status": null,
+    "task_name": null,
+    "task_iterations": null,
+    "attempt_counter_source": "sq_project_final_log",
+    "memory_available_bytes": 3390644224,
+    "disk_free_bytes": 2219507712,
+    "artifacts": [
+      {
+        "path": "Results/Strategy 0.115.sqx",
+        "size": 24251,
+        "mtime_ns": 1786946375760610105,
+        "sha256": "60a5b1313246e55110de5ffc03f4cbc43f3ca4c86f51b9c31f6b20078c55e9d3"
+      },
+      {
+        "path": "Results/Strategy 0.134.sqx",
+        "size": 27367,
+        "mtime_ns": 1786946375904616863,
+        "sha256": "d1887669c6e71ee87efc6df5c9e5fc0dd342173eb4fe7004c0e8905aaa146b8a"
+      },
+      {
+        "path": "Results/Strategy 0.149.sqx",
+        "size": 24534,
+        "mtime_ns": 1786946375993621040,
+        "sha256": "8b6b0c393f63699d180234127bfbfd481f5b7b4d42ecb5adfcbb8bac6e661fad"
+      },
+      {
+        "path": "Results/Strategy 0.161.sqx",
+        "size": 23766,
+        "mtime_ns": 1786946375783611184,
+        "sha256": "a9c229dea21359e14728e6b7e7edcd796e3cb5fe4676a9f1c0be2b0d6938e064"
+      },
+      {
+        "path": "Results/Strategy 0.184.sqx",
+        "size": 24455,
+        "mtime_ns": 1786946375960619491,
+        "sha256": "79e1f13eec91f6da0108d5d9efcc1582b8fc50668185106ad8e7b7d502a4bc25"
+      },
+      {
+        "path": "Results/Strategy 0.187.sqx",
+        "size": 26099,
+        "mtime_ns": 1786946375964619679,
+        "sha256": "c8e27d3a037c7bb2b091dc38677ed291ce33aa2f50ee313ba9eb3dc3d2ca0b41"
+      },
+      {
+        "path": "Results/Strategy 0.189.sqx",
+        "size": 26534,
+        "mtime_ns": 1786946375969619914,
+        "sha256": "a4d6eccdee5ada769193796639a094c7d3be29feb4d9801fc8e7d9ad155dd350"
+      },
+      {
+        "path": "Results/Strategy 0.195.sqx",
+        "size": 27088,
+        "mtime_ns": 1786946375718608133,
+        "sha256": "bb1b415d957c595020a6bdb3ec78a8e4fd95db7bbd3d1be63863f99c01bcdec4"
+      },
+      {
+        "path": "Results/Strategy 0.242.sqx",
+        "size": 23534,
+        "mtime_ns": 1786946375794611700,
+        "sha256": "804b7ea5c7047d0257e682e5170ae857321745f8f6b812749e012c8bfe2c8300"
+      },
+      {
+        "path": "Results/Strategy 0.246.sqx",
+        "size": 26568,
+        "mtime_ns": 1786946375816612733,
+        "sha256": "59b72d3aea0576c3405f70c15276da0357c8515d6a3e449894d39158b85d85fa"
+      },
+      {
+        "path": "Results/Strategy 0.25.sqx",
+        "size": 24873,
+        "mtime_ns": 1786946375935618318,
+        "sha256": "ffdbd141f9b919704d940bcbbfdd45270d5eec46ea8f981b4884f905b2f5873b"
+      },
+      {
+        "path": "Results/Strategy 0.273.sqx",
+        "size": 24523,
+        "mtime_ns": 1786946375712607852,
+        "sha256": "d56c74897bc642f859599426d08987be15649815dd1924378018c6499038e55b"
+      },
+      {
+        "path": "Results/Strategy 0.283.sqx",
+        "size": 27373,
+        "mtime_ns": 1786946375788611419,
+        "sha256": "33846622e4c728088a9e31becad42fdac4a8c9bb0e33152f35420828b70588e4"
+      },
+      {
+        "path": "Results/Strategy 0.286.sqx",
+        "size": 26415,
+        "mtime_ns": 1786946375799611935,
+        "sha256": "ebe9a895e793ff20919cb21518deae9f9b2d482639dac23305851e9833f1f32f"
+      },
+      {
+        "path": "Results/Strategy 0.290.sqx",
+        "size": 25191,
+        "mtime_ns": 1786946375777610902,
+        "sha256": "47e006f0a0fee15876af073a1ded5bc71ae542c188dc6ae6ee6b30bfc4ca0edc"
+      },
+      {
+        "path": "Results/Strategy 0.298.sqx",
+        "size": 24407,
+        "mtime_ns": 1786946375925617849,
+        "sha256": "0898a1ec83985139fca7d0f4487a523cebfae0430e66222fad56c0df7098eaa7"
+      },
+      {
+        "path": "Results/Strategy 0.311.sqx",
+        "size": 26305,
+        "mtime_ns": 1786946375754609823,
+        "sha256": "53cc7420697725f90aea996257b8d3fc944508d6a1aff8d8bc47649a78e299d4"
+      },
+      {
+        "path": "Results/Strategy 0.321.sqx",
+        "size": 25959,
+        "mtime_ns": 1786946375805612217,
+        "sha256": "b02a4b28d0e86db1a15aed6b688a750660f9d64b369c05b670b8466eca360d5a"
+      },
+      {
+        "path": "Results/Strategy 0.325.sqx",
+        "size": 27181,
+        "mtime_ns": 1786946375833613531,
+        "sha256": "41ff3b12beb72b1d4b173654557a88c6fc80413058e151dc92c5d017e89c43d3"
+      },
+      {
+        "path": "Results/Strategy 0.332.sqx",
+        "size": 25091,
+        "mtime_ns": 1786946375910617145,
+        "sha256": "03305acd1ab92f113a1a0032afd6ebc8512a3fa80dc4e39023a881596f1004b0"
+      },
+      {
+        "path": "Results/Strategy 0.354.sqx",
+        "size": 25422,
+        "mtime_ns": 1786946375737609025,
+        "sha256": "e73f7e583677b14fc051a437113e816e5f2190af8af7bacc21aa37d967aaa66f"
+      },
+      {
+        "path": "Results/Strategy 0.386.sqx",
+        "size": 25943,
+        "mtime_ns": 1786946375974620148,
+        "sha256": "b5476890d2f3a417395dbf2f088f539019c129acac3396268c393bf84432ed24"
+      },
+      {
+        "path": "Results/Strategy 0.391.sqx",
+        "size": 24258,
+        "mtime_ns": 1786946375691606866,
+        "sha256": "8e00bfe003dc8d9bec1155586d1bdc7a79385fec611b6d04ffa8955302e9c151"
+      },
+      {
+        "path": "Results/Strategy 0.395.sqx",
+        "size": 25028,
+        "mtime_ns": 1786946375731608743,
+        "sha256": "f8c7f3aaf08dfab8d2e5725b17553fb98927313e2cbb1075efb71717eaf5b49f"
+      },
+      {
+        "path": "Results/Strategy 0.396.sqx",
+        "size": 27718,
+        "mtime_ns": 1786946375725608462,
+        "sha256": "bbdfaa8eee74b68ca1f6c66ce97d32713049189682147c813b6c8f432d11adc5"
+      },
+      {
+        "path": "Results/Strategy 0.400.sqx",
+        "size": 25634,
+        "mtime_ns": 1786946375822613014,
+        "sha256": "a9b41422a0e4f796157099c14839b4b91e5936b612b91521c5d1a327be4cc7bf"
+      },
+      {
+        "path": "Results/Strategy 0.408.sqx",
+        "size": 26429,
+        "mtime_ns": 1786946375771610621,
+        "sha256": "d213d19563bc6cb1f6da74c1e29ef3f51ea723448df737ba87dec28c2875fec7"
+      },
+      {
+        "path": "Results/Strategy 0.419.sqx",
+        "size": 25651,
+        "mtime_ns": 1786946375872615361,
+        "sha256": "ae65df1d9601c6776da4a20f1c3493bfb8a81067963b4b8b18c160dc14ca70d3"
+      },
+      {
+        "path": "Results/Strategy 0.429.sqx",
+        "size": 24706,
+        "mtime_ns": 1786946375950619022,
+        "sha256": "1418b5053053dab7e2ce99e7ed2072bb9057a3feae0701cfa5fa8dcb2f91d3c2"
+      },
+      {
+        "path": "Results/Strategy 0.445.sqx",
+        "size": 24594,
+        "mtime_ns": 1786946375846614141,
+        "sha256": "0d26c344cdb7ea0a9c9af07d12823a90feea2c32baeb4fe5f0c9b40b5352826c"
+      },
+      {
+        "path": "Results/Strategy 0.453.sqx",
+        "size": 24218,
+        "mtime_ns": 1786946375915617379,
+        "sha256": "f3aa106c06ee2ff9ff33aaab8efd34a604378c0e2c875f6a36801b10aca589d9"
+      },
+      {
+        "path": "Results/Strategy 0.458.sqx",
+        "size": 24219,
+        "mtime_ns": 1786946375945618787,
+        "sha256": "25e28b2a6e250d6f5ccac8e514f5f25f44b39b6d17bc50660950145629f3c6de"
+      },
+      {
+        "path": "Results/Strategy 0.465.sqx",
+        "size": 25182,
+        "mtime_ns": 1786946375984620618,
+        "sha256": "2ff582b20a97416c51bc2c8a7c2247ea201f2c15fb60edc0db7506910e046076"
+      },
+      {
+        "path": "Results/Strategy 0.469.sqx",
+        "size": 24452,
+        "mtime_ns": 1786946376004621556,
+        "sha256": "faa03a49f91d2e775eda16b5d1fcec2c999b9d9dea9adfae4ca263c500e58416"
+      },
+      {
+        "path": "Results/Strategy 0.493.sqx",
+        "size": 25457,
+        "mtime_ns": 1786946375877615596,
+        "sha256": "807e71b4c0658bc5da604c653d58ea491660dbb294e552a6f139a0c315231b49"
+      },
+      {
+        "path": "Results/Strategy 0.509.sqx",
+        "size": 25612,
+        "mtime_ns": 1786946375955619257,
+        "sha256": "72b8bddd23e1d6ab3a478d4e4b7165607d05ab4b324adeebd600a95f2b08b4a9"
+      },
+      {
+        "path": "Results/Strategy 0.521.sqx",
+        "size": 25398,
+        "mtime_ns": 1786946375828613296,
+        "sha256": "24e7c2d7f9ab4375a3e0e7b16d7070282d1b10592f1a6e5235c5807b859ed6a3"
+      },
+      {
+        "path": "Results/Strategy 0.555.sqx",
+        "size": 27639,
+        "mtime_ns": 1786946375749609588,
+        "sha256": "b620368804ebe0cb8f722a2557d72b0425d3053adebac1a6a2cbbdfcf7d8a680"
+      },
+      {
+        "path": "Results/Strategy 0.574.sqx",
+        "size": 27571,
+        "mtime_ns": 1786946375894616394,
+        "sha256": "2d76ce07527b5c6408fa87171eb13ba4d15a3ed31bd75a4ac678c2db3a284a28"
+      },
+      {
+        "path": "Results/Strategy 0.589.sqx",
+        "size": 24678,
+        "mtime_ns": 1786946375989620852,
+        "sha256": "0803a58c2e579e956387c0b9dfcd76d47eb5a6889ffdc99d2dfb630265798ddb"
+      },
+      {
+        "path": "Results/Strategy 0.592.sqx",
+        "size": 23896,
+        "mtime_ns": 1786946375704607476,
+        "sha256": "13c778ef899bda18b4a4871b06ee05dd9715a330c9125eee0cd060b9a883ae6c"
+      },
+      {
+        "path": "Results/Strategy 0.601.sqx",
+        "size": 24111,
+        "mtime_ns": 1786946375865615033,
+        "sha256": "8f9e6e5bade0119c437ec77e8e70ec5be59b40fcd68c0d1778435f515b3f0772"
+      },
+      {
+        "path": "Results/Strategy 0.62.sqx",
+        "size": 24050,
+        "mtime_ns": 1786946375883615877,
+        "sha256": "4096ae523ea69544649b3fbea7368aaf44ed653eead952c7fa790627e5491ebd"
+      },
+      {
+        "path": "Results/Strategy 0.621.sqx",
+        "size": 25469,
+        "mtime_ns": 1786946375979620383,
+        "sha256": "7bdc2d07cc54db5d71bd063ff408704c48069be460f1a84d027779198bbd0e99"
+      },
+      {
+        "path": "Results/Strategy 0.626.sqx",
+        "size": 24933,
+        "mtime_ns": 1786946376009621791,
+        "sha256": "10a744de10a8aab0375bc7ff66f1b0125a02f312b473f870ddb67de3cd9f8e89"
+      },
+      {
+        "path": "Results/Strategy 0.638.sqx",
+        "size": 24734,
+        "mtime_ns": 1786946375647604801,
+        "sha256": "633a46ab4064c632be085d55a90e99aac195650f5efc4f03a07d40d927013497"
+      },
+      {
+        "path": "Results/Strategy 0.64.sqx",
+        "size": 25040,
+        "mtime_ns": 1786946375941618600,
+        "sha256": "1c0146fabb907237675c555f3c99f45f2f1eaa7f7751d2155c270cc3544abc14"
+      },
+      {
+        "path": "Results/Strategy 0.650.sqx",
+        "size": 24677,
+        "mtime_ns": 1786946375888616112,
+        "sha256": "0732d7adb0fe1c0e34666bf517f062bec575f8af95d625ff8f26cc6efc5d96ac"
+      },
+      {
+        "path": "Results/Strategy 0.671.sqx",
+        "size": 25239,
+        "mtime_ns": 1786946375743609307,
+        "sha256": "595daf77eab15792b44db799b65bc6e29e13401252337feac55eb9464016876f"
+      },
+      {
+        "path": "Results/Strategy 0.682.sqx",
+        "size": 24997,
+        "mtime_ns": 1786946375811612498,
+        "sha256": "99fce645598455ab2bbca55fe7d1af613584f84a405a7ea1aec38e4850c2a96a"
+      },
+      {
+        "path": "Results/Strategy 0.685.sqx",
+        "size": 26049,
+        "mtime_ns": 1786946375840613859,
+        "sha256": "503dbb994fbafac596f2d2efdcfebc4f054435c5526fec30a0cf5a50c20db1d4"
+      },
+      {
+        "path": "Results/Strategy 0.686.sqx",
+        "size": 25835,
+        "mtime_ns": 1786946375853614469,
+        "sha256": "02b2d24ae4be0c58b3d855c404eab76d2e388323161f1bde9cd25e8e341c8717"
+      },
+      {
+        "path": "Results/Strategy 0.692.sqx",
+        "size": 26849,
+        "mtime_ns": 1786946375920617614,
+        "sha256": "dbe0293720deaaef933a10b29cb0c0517ef8134ff587e55507a5f26e1a830a4f"
+      },
+      {
+        "path": "Results/Strategy 0.693.sqx",
+        "size": 26503,
+        "mtime_ns": 1786946375930618083,
+        "sha256": "cc6e38a1f2a9db8233bd484a7301c266f08eb71e1c4653379cad68bc677b0d4f"
+      },
+      {
+        "path": "Results/Strategy 0.695.sqx",
+        "size": 24226,
+        "mtime_ns": 1786946375899616628,
+        "sha256": "a7834e39387a2301e3fd273cc713b8e996612353d2d062d2cafbf1b10cb9dce2"
+      },
+      {
+        "path": "Results/Strategy 0.712.sqx",
+        "size": 24261,
+        "mtime_ns": 1786946375765610339,
+        "sha256": "4e2bf2b1bfb88cbcb4e1ba1781e2d873db286786196e30013c24201458ab4111"
+      },
+      {
+        "path": "Results/Strategy 0.716.sqx",
+        "size": 25962,
+        "mtime_ns": 1786946375663605552,
+        "sha256": "cb77366656899741c6dc83712784b29fbdbb5a2ff8102396d95483b0350f5af7"
+      },
+      {
+        "path": "Results/Strategy 0.75.sqx",
+        "size": 25546,
+        "mtime_ns": 1786946375859614751,
+        "sha256": "4366a1f02fc91d68646fd39a130cbdf284c2da166311c16ef847995f7be6cf62"
+      },
+      {
+        "path": "Results/Strategy 0.82.sqx",
+        "size": 27206,
+        "mtime_ns": 1786946375678606256,
+        "sha256": "9271f205545286fa6062feeacbf9c0d152ec6f3953186b6563794a9bc93d991a"
+      },
+      {
+        "path": "Results/Strategy 0.96.sqx",
+        "size": 25860,
+        "mtime_ns": 1786946375998621275,
+        "sha256": "0a25777163945d8bb4f4b7376b53b565829081ed11174150db608d87b1b01d6e"
+      }
+    ],
+    "raw_status": "{\"_engine\": {}, \"databanks\": 5, \"filePath\": \"/home/squser/SQ/user/projects/IBKR_PEP_D1_TREND_PULLBACK_V1/project.cfx\", \"hasUnresolvedResources\": false, \"projectName\": \"IBKR_PEP_D1_TREND_PULLBACK_V1\", \"strategies\": 60, \"tasks\": 1, \"tasksIterations\": null}",
+    "status_source": "sq_gui_rest_degraded",
+    "rejected": 673,
+    "state": "BUDGET_REACHED",
+    "reason": "SQ_PROJECT_FINISHED",
+    "control_authorized": true,
+    "hard_attempt_budget": 120000,
+    "attempt_stop_guard": 100,
+    "attempt_control_threshold": 119900,
+    "sq_final_log_path": "/mnt/volume-SQ/dev/TradingAgent/data/ibkr_sq_v2/pep_ko_d1_trend_pullback_v1/run/watchdog_status.json.sq-final.log",
+    "sq_container_log_path": "/home/squser/SQ/user/projects/IBKR_PEP_D1_TREND_PULLBACK_V1/log/global_log_20260817_055933.log",
+    "sq_final_log_sha256": "a5a65ab9e3e41e1c26b2a557f2e9fee70c6a8cfc7eeee8b50490c399f388df7d"
+  },
+  "paper_authorized": false,
+  "live_authorized": false
+}

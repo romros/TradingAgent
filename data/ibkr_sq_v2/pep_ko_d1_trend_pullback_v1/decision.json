@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_PEP_KO_D1_TREND_PULLBACK_FAMILY",
+  "train_generated": 734,
+  "train_databank_candidates": 60,
+  "train_pareto_candidates": 8,
+  "frozen_representatives": 4,
+  "pep_validation_survivors": ["Strategy 0.242"],
+  "pep_0_242_stress_1000": {
+    "trades": 25,
+    "return_pct": 7.93,
+    "profit_factor": 1.290439,
+    "maximum_drawdown_pct_close_to_close": 6.095987,
+    "positive_half_years": 3,
+    "half_years": 4
+  },
+  "ko_transfer": {
+    "candidate_id": "Strategy 0.242",
+    "sq_orders": 30,
+    "decision": "REJECT_D1_EXECUTION_AMBIGUITY",
+    "ambiguous_trade": {
+      "open_close_date": "2022-11-30",
+      "open_price": 61.996,
+      "close_price": 63.457,
+      "close_type": "PT"
+    },
+    "reason": "The preregistration forbids same-bar D1 execution ambiguity; OHLC D1 cannot establish whether entry preceded target."
+  },
+  "train_representatives_path": "data/ibkr_sq_v2/pep_ko_d1_trend_pullback_v1/train_representatives.json",
+  "train_representatives_sha256": "ba06cd8cb595567f0875ca7bc6b4cefde66c578e75c606d04c2c80f77cdfcdb5",
+  "pep_validation_audit_path": "data/ibkr_sq_v2/pep_ko_d1_trend_pullback_v1/validation/0_242/small_account_audit.json",
+  "pep_validation_audit_sha256": "fe0420442e1feddd94606adf5391b1c2e328e6c78cf93d0442897fdcbdec9346",
+  "ko_transfer_receipt_path": "data/ibkr_sq_v2/pep_ko_d1_trend_pullback_v1/ko_transfer_validation/0_242/run/supervised_retest_receipt.json",
+  "ko_transfer_receipt_sha256": "0493a2992264cd2dfd4f12731f974bc3e9f8a1bb12dd7c49d0b260e9583477e8",
+  "oos_2024_accessed": false,
+  "holdout_2025_accessed": false,
+  "retuned_after_results": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

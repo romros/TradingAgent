@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_FREEZE_PEP_TRAIN_REPRESENTATIVES",
+  "selection_rule": "Pareto only; >=30 trades; positive profit; rank profit/DD, fitness, profit, complexity, name; unique structural and entry-indicator archetypes",
+  "inventory_sha256": "9fe1fa225b38039d6ec326f0d5e47b94930b890177078e30ac05f147b6f127a1",
+  "selected_count": 4,
+  "selected": [
+    {
+      "strategy": "Strategy 0.298",
+      "file": "Strategy 0.298.sqx",
+      "sqx_sha256": "0898a1ec83985139fca7d0f4487a523cebfae0430e66222fad56c0df7098eaa7",
+      "structural_family_sha256": "0b308ff6cba4ac43c6f2d1ee40f43a3ad64fbfe11bcb6a650f2a93ac8733a0a9",
+      "entry_indicator_archetype_sha256": "bcec969077c5aadc2bcad179b641ae4999194051a4d06f63d5050f585a3a9fad",
+      "trades": 45,
+      "profit": 104.93000030517578,
+      "drawdown": 8.489999771118164,
+      "profit_drawdown_ratio": 12.35924654,
+      "fitness": 0.5415041768744465,
+      "complexity": 3,
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ]
+      ]
+    },
+    {
+      "strategy": "Strategy 0.242",
+      "file": "Strategy 0.242.sqx",
+      "sqx_sha256": "804b7ea5c7047d0257e682e5170ae857321745f8f6b812749e012c8bfe2c8300",
+      "structural_family_sha256": "50f133339e79976a01233a7b8714581b7b99f8b6ffe7f474015d33e6b75c85e5",
+      "entry_indicator_archetype_sha256": "190d2c89fc0a6f364af419fe527694d5f430d40642000307ae619af6dd805c74",
+      "trades": 43,
+      "profit": 74.6500015258789,
+      "drawdown": 7.760000228881836,
+      "profit_drawdown_ratio": 9.61984527,
+      "fitness": 0.5277108426615458,
+      "complexity": 4,
+      "entry_indicator_types": [
+        [
+          "RSI",
+          "indicator"
+        ]
+      ]
+    },
+    {
+      "strategy": "Strategy 0.321",
+      "file": "Strategy 0.321.sqx",
+      "sqx_sha256": "b02a4b28d0e86db1a15aed6b688a750660f9d64b369c05b670b8466eca360d5a",
+      "structural_family_sha256": "09d473a3f0afe615481c34818c0bad912f0bed2e5963e1b8151d72a9833fff0d",
+      "entry_indicator_archetype_sha256": "6bd157215e254b19f30e9f0011935bc80370c78d3f0dc9dc94709f2efbf6c2a4",
+      "trades": 67,
+      "profit": 101.33999633789062,
+      "drawdown": 11.65999984741211,
+      "profit_drawdown_ratio": 8.69125194,
+      "fitness": 0.6952291820426956,
+      "complexity": 4,
+      "entry_indicator_types": [
+        [
+          "Close",
+          "priceValue"
+        ],
+        [
+          "EMA",
+          "indicator"
+        ]
+      ]
+    },
+    {
+      "strategy": "Strategy 0.396",
+      "file": "Strategy 0.396.sqx",
+      "sqx_sha256": "bbdfaa8eee74b68ca1f6c66ce97d32713049189682147c813b6c8f432d11adc5",
+      "structural_family_sha256": "e0ddb303cb7c3db2d380c00963104e0b7393b7203ffaa2039a5fb9a53dfc225d",
+      "entry_indicator_archetype_sha256": "2b283c08056d30b4f22b8ab958a1a8521e4387a319b7471a41440bb7da025f78",
+      "trades": 83,
+      "profit": 127.87000274658203,
+      "drawdown": 17.75,
+      "profit_drawdown_ratio": 7.20394382,
+      "fitness": 0.7206521712313978,
+      "complexity": 4,
+      "entry_indicator_types": [
+        [
+          "ROC",
+          "indicator"
+        ]
+      ]
+    }
+  ],
+  "validation_accessed": false,
+  "transfer_ko_accessed": false,
+  "oos_accessed": false,
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

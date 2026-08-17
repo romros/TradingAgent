@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_RISK_OVERLAY",
+  "candidate": "Strategy 0.4681",
+  "results": [
+    {
+      "exposure_fraction": 0.35,
+      "initial_capital_usd": 3000,
+      "final_equity_usd": 5734.242868000007,
+      "net_pnl_usd": 2734.2428680000066,
+      "return_pct": 91.14142893333354,
+      "cagr_pct": 9.002469072140862,
+      "maximum_drawdown_pct_close_to_close": 4.519520561353034,
+      "profit_factor": 2.4251578217268905,
+      "executed_trades": 68,
+      "skipped_unaffordable": 0,
+      "regime_pnl_usd": {
+        "2017-2020": 1170.1966420000033,
+        "2021-2024": 1564.0462260000056
+      },
+      "calmar": 1.99190798004595,
+      "passes_hard_gate": false
+    },
+    {
+      "exposure_fraction": 0.5,
+      "initial_capital_usd": 3000,
+      "final_equity_usd": 7665.878008000016,
+      "net_pnl_usd": 4665.878008000016,
+      "return_pct": 155.52926693333387,
+      "cagr_pct": 13.295584434999185,
+      "maximum_drawdown_pct_close_to_close": 6.344662725802633,
+      "profit_factor": 2.330974876990979,
+      "executed_trades": 68,
+      "skipped_unaffordable": 0,
+      "regime_pnl_usd": {
+        "2017-2020": 1826.8061180000057,
+        "2021-2024": 2839.0718900000106
+      },
+      "calmar": 2.0955541704255407,
+      "passes_hard_gate": true
+    },
+    {
+      "exposure_fraction": 0.75,
+      "initial_capital_usd": 3000,
+      "final_equity_usd": 12261.102057000033,
+      "net_pnl_usd": 9261.102057000033,
+      "return_pct": 308.70340190000104,
+      "cagr_pct": 20.601408071526862,
+      "maximum_drawdown_pct_close_to_close": 9.39923915246221,
+      "profit_factor": 2.32865948658213,
+      "executed_trades": 68,
+      "skipped_unaffordable": 0,
+      "regime_pnl_usd": {
+        "2017-2020": 3097.4059550000093,
+        "2021-2024": 6163.6961020000235
+      },
+      "calmar": 2.19181656486846,
+      "passes_hard_gate": true
+    },
+    {
+      "exposure_fraction": 1.0,
+      "initial_capital_usd": 3000,
+      "final_equity_usd": 19022.44644300006,
+      "net_pnl_usd": 16022.446443000059,
+      "return_pct": 534.0815481000019,
+      "cagr_pct": 27.859006362916116,
+      "maximum_drawdown_pct_close_to_close": 13.352221262374748,
+      "profit_factor": 2.3187525146126613,
+      "executed_trades": 68,
+      "skipped_unaffordable": 0,
+      "regime_pnl_usd": {
+        "2017-2020": 4620.617537000014,
+        "2021-2024": 11401.828906000044
+      },
+      "calmar": 2.086469795210784,
+      "passes_hard_gate": true
+    }
+  ],
+  "selected_overlay": {
+    "exposure_fraction": 0.75,
+    "initial_capital_usd": 3000,
+    "final_equity_usd": 12261.102057000033,
+    "net_pnl_usd": 9261.102057000033,
+    "return_pct": 308.70340190000104,
+    "cagr_pct": 20.601408071526862,
+    "maximum_drawdown_pct_close_to_close": 9.39923915246221,
+    "profit_factor": 2.32865948658213,
+    "executed_trades": 68,
+    "skipped_unaffordable": 0,
+    "regime_pnl_usd": {
+      "2017-2020": 3097.4059550000093,
+      "2021-2024": 6163.6961020000235
+    },
+    "calmar": 2.19181656486846,
+    "passes_hard_gate": true
+  },
+  "buy_and_hold_diagnostic": {
+    "shares": 18,
+    "initial_price": 158.985,
+    "final_price": 890.367,
+    "final_equity_usd": 16143.987664,
+    "return_pct": 438.1329221333333,
+    "cagr_pct": 25.097965893303797
+  },
+  "selection_was_preregistered": true,
+  "strategy_parameters_changed": false,
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

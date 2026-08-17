@@ -46,6 +46,16 @@ El SQX original és
   anuals, la probabilitat de retorn compost positiu és 100% i el percentil 5
   és +194%. Aquests retorns compostos són una prova estadística per trade, no
   una previsió de cartera ni una recomanació d'assignar-hi tot el capital.
+- La prova de sizing preregistrada amb 3.000 USD, accions senceres, sense
+  leverage, comissió IBKR fixed i 10 bps adversos per costat selecciona 75%
+  d'exposició pel millor Calmar: CAGR teòric 20,60%, PF 2,33 i DD sobre equity
+  tancada 9,40%. A 100% d'exposició, la regla arriba a CAGR 27,86% versus
+  25,10% del buy-and-hold diagnòstic, però amb pitjor Calmar. El 75% no supera
+  buy-and-hold en retorn brut; prioritza estabilitat i reserva 25% per a altres
+  edges. L'auditoria diària mark-to-market posterior passa el veto congelat:
+  DD 15,24% per l'estratègia al 75% versus 75,15% per buy-and-hold NFLX sobre
+  les mateixes dates. Continua faltant risc intraminut i de gap extrem abans
+  de considerar capital real.
 
 ## Per què queda fora
 
@@ -60,6 +70,8 @@ Evidència principal:
 - `data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/nflx_04681_independent_parity_v1.json`
 - `data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/nflx_04681_m1_execution_audit_v1.json`
 - `data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/nflx_04681_statistical_resilience_v1.json`
+- `data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/nflx_04681_risk_overlay_v1.json`
+- `data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/nflx_04681_daily_mtm_v1.json`
 
 ## Via futura legítima
 

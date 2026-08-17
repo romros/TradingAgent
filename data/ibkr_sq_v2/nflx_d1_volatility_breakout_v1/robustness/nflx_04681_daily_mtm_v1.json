@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_DAILY_MTM_VETO",
+  "exposure_fraction": 0.75,
+  "strategy_daily_mtm_drawdown_pct": 15.240047493424308,
+  "strategy_worst_episode": {
+    "peak_date": "2019-05-03",
+    "trough_date": "2019-07-22",
+    "peak_equity": 4598.197816000007,
+    "trough_equity": 3897.4302850000067
+  },
+  "buy_hold_daily_mtm_drawdown_pct": 75.15310773630792,
+  "buy_hold_worst_episode": {
+    "peak_date": "2021-11-17",
+    "trough_date": "2022-05-11",
+    "peak_equity": 12572.762464000001,
+    "trough_equity": 3123.9407439999995
+  },
+  "daily_points": 1189,
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

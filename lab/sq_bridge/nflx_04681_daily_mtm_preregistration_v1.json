@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "status": "PREREGISTERED_BEFORE_DAILY_MTM_AUDIT",
+  "candidate": "Strategy 0.4681",
+  "risk_overlay_sha256": "79acc610041538839d4275b9e0ea114bd9578a2796e48a0d828687355bd1166d",
+  "canonical_d1_sha256": "12c140360eb22d9c489d796e3215e565f0e46b6b0918b206585bf577bae2b818",
+  "frozen_exposure_fraction": 0.75,
+  "veto_gate": {"maximum_daily_mark_to_market_drawdown_pct": 20},
+  "benchmark": "Whole-share NFLX buy-and-hold daily drawdown over identical dates and costs.",
+  "selection_changes_authorized": false,
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

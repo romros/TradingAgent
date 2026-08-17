@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "campaign_id": "ibkr-nflx-04681-risk-overlay-v1",
+  "status": "PREREGISTERED_BEFORE_RISK_SIMULATION",
+  "candidate": "Strategy 0.4681",
+  "orders_sha256": "fcc9c31e8cda9eb3cb8bf732b082d497e5822a7fd87535c09909c7553653fcc0",
+  "initial_capital_usd": 3000,
+  "sizing": "whole shares; realized equity only; no leverage; one position at a time",
+  "exposure_fractions": [0.35, 0.5, 0.75, 1.0],
+  "costs": "IBKR fixed max(USD 1, USD 0.005/share) per side plus 10 bps adverse slippage per side",
+  "hard_gate": {
+    "maximum_close_to_close_drawdown_pct": 20,
+    "minimum_cagr_pct": 12,
+    "minimum_profit_factor": 1.3,
+    "both_regimes_net_positive": true
+  },
+  "selection": "Among passing overlays choose maximum Calmar; ties within 0.01 choose lower exposure.",
+  "benchmark": "NFLX buy-and-hold over identical first-entry to final-exit dates, whole shares and identical entry/exit costs; diagnostic only.",
+  "strategy_parameters_changed": false,
+  "holdout_2025_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

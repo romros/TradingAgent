@@ -1,9 +1,9 @@
-# Cartera shadow SXR8 + CAT + MSFT — estat i continuïtat
+# Cartera shadow SXR8 + CAT + MSFT + NFLX — estat i continuïtat
 
 ## Què és
 
 És observació forward sense broker. El sistema consulta dades actuals, calcula
-què haurien fet tres estratègies i desa intents hipotètics. **No envia ordres,
+què haurien fet quatre estratègies i desa intents hipotètics. **No envia ordres,
 no està connectat a IBKR i no està autoritzat per paper broker ni live.**
 
 Estratègies:
@@ -17,6 +17,9 @@ Estratègies:
 3. `MSFT capitulation_d1`: després d'una caiguda extrema sota Bollinger,
    compra hipotèticament a l'obertura següent i ven al mateix tancament. Les
    dues potes es desen juntes de forma atòmica. Estat `RESEARCH_SHADOW`.
+4. `NFLX 0.4681`: buy stop de breakout, SL `2,5 × ATR(15)` i TP
+   `2,8 × ATR(15)`, exposició diagnòstica del 75% sense leverage. Estat
+   `VALIDATED_RESEARCH_SHADOW`; no està autoritzada per broker.
 
 ## Estat verificat el 2026-08-14
 
@@ -35,10 +38,26 @@ python3 apps/shadow_control_panel.py --host 127.0.0.1 --port 8770 --interval 360
 
 Obrir: `http://127.0.0.1:8770`.
 
+Per deixar-lo persistent després de reiniciar la màquina, la unitat versionada
+és `deploy/systemd/tradingagent-shadow-panel.service`. S'executa com a servei
+d'usuari, es reinicia si falla i continua mantenint l'aïllament de broker.
+
+Execució manual exclusiva del carril NFLX, si mai cal diagnosticar-lo:
+
+```bash
+python3 apps/nflx_shadow_pipeline.py --capital 3000
+```
+
 La pestanya `Actius i selecció` reprodueix les lectures essencials d'un report
 SQ: equity neta normalitzada, benchmark buy-and-hold, underwater/drawdown,
 operacions, profit factor i motiu d'inclusió. La comparació comuna és 2022–2024;
 l'històric llarg de MSFT apareix separat per no barrejar finestres.
+
+La pestanya `NFLX 0.4681` mostra en llenguatge directe la regla, pipeline,
+última sessió, buy stop pendent, posició/SL/TP hipotètics i els KPIs validats.
+El feed és D1 ajustat per splits i exclou el dia actual fins després de les
+16:15 de Nova York. El primer cicle només inicialitza estat per a la sessió
+següent: no crea operacions shadow retroactives.
 
 Diagnòstic de capital compartit 2022–2024 (pesos màxims fixos, sense
 reutilització retrospectiva): 36,98% de capital mitjà desplegat, 80% màxim i
@@ -57,6 +76,7 @@ Estat del scheduler:
 - `data/shadow/hourly_scheduler_status.json`
 - `data/shadow/cat_0168_pipeline_status.json`
 - `data/shadow/msft_capitulation_pipeline_status.json`
+- `data/shadow/nflx_04681_pipeline_status.json`
 
 ## Registre shadow: JSON i CSV
 
@@ -68,6 +88,9 @@ Cada estratègia manté dos formats sincronitzats atòmicament:
 - `data/shadow/sxr8_turn_of_month.csv`
 - `data/shadow/msft_capitulation.json`
 - `data/shadow/msft_capitulation.csv`
+- `data/shadow/nflx_04681.json`
+- `data/shadow/nflx_04681.csv`
+- `data/shadow/nflx_04681_state.json`
 
 JSON és la font operativa. CSV és el mirall per inspecció humana, Excel o
 DuckDB. Columnes: clau idempotent, estratègia, símbol, acció, sessió, preu de
@@ -87,7 +110,7 @@ SELECT * FROM read_csv_auto('data/shadow/cat_0168.csv');
 2. `docs/STRATEGY_LIBRARY.md`
 3. `data/ibkr_sq_v2/two_strategy_portfolio/sxr8_cat_v1.json`
 4. `data/shadow/hourly_scheduler_status.json`
-5. Els tres ledgers JSON/CSV.
+5. Els quatre ledgers JSON/CSV.
 
 No s'ha de modificar la regla CAT ni SXR8 amb dades forward. El 2025+ no es
 pot reutilitzar com a train. Qualsevol `BUY/SELL` continua sent hipotètic fins

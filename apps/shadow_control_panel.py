@@ -17,6 +17,9 @@ WEB = ROOT / "apps/shadow_panel_web"
 STATE = ROOT / "data/shadow/hourly_scheduler_status.json"
 CAT_PIPELINE = ROOT / "data/shadow/cat_0168_pipeline_status.json"
 MSFT_PIPELINE = ROOT / "data/shadow/msft_capitulation_pipeline_status.json"
+NFLX_PIPELINE = ROOT / "data/shadow/nflx_04681_pipeline_status.json"
+NFLX_RISK = ROOT / "data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/nflx_04681_risk_overlay_v1.json"
+NFLX_MTM = ROOT / "data/ibkr_sq_v2/nflx_d1_volatility_breakout_v1/robustness/nflx_04681_daily_mtm_v1.json"
 PORTFOLIO = ROOT / "data/ibkr_sq_v2/two_strategy_portfolio/sxr8_cat_v1.json"
 SXR8_READY = ROOT / "data/ibkr_sq_v2/turn_of_month/sxr8_shadow_readiness.json"
 SXR8_SCHEDULE = ROOT / "data/ibkr_sq_v2/turn_of_month/sxr8_xetra_schedule_2026.json"
@@ -53,6 +56,8 @@ def run_cycle(now: dt.datetime | None = None) -> dict:
                  "--session", now.date().isoformat(), "--capital", "1000"],
         "MSFT": [sys.executable, str(ROOT / "apps/msft_shadow_pipeline.py"),
                  "--as-of", now.date().isoformat(), "--capital", "1000"],
+        "NFLX": [sys.executable, str(ROOT / "apps/nflx_shadow_pipeline.py"),
+                 "--as-of", now.date().isoformat(), "--capital", "3000"],
     }
     outputs = {}
     for name, command in commands.items():
@@ -79,18 +84,20 @@ def scheduler(stop: threading.Event, interval: int) -> None:
 
 
 def snapshot() -> dict:
-    cycle, cat, msft, portfolio = read(STATE), read(CAT_PIPELINE), read(MSFT_PIPELINE), read(PORTFOLIO)
+    cycle, cat, msft, nflx, portfolio = read(STATE), read(CAT_PIPELINE), read(MSFT_PIPELINE), read(NFLX_PIPELINE), read(PORTFOLIO)
     forward = portfolio.get("forward_validation_oos_2022_2024", {})
     sxr8_position = position(ROOT / "data/shadow/sxr8_turn_of_month.json", "SXR8")
     cat_position = position(ROOT / "data/shadow/cat_0168.json", "CAT")
     msft_position = position(ROOT / "data/shadow/msft_capitulation.json", "MSFT")
+    nflx_position = position(ROOT / "data/shadow/nflx_04681.json", "NFLX")
+    nflx_state, nflx_risk, nflx_mtm = read(ROOT / "data/shadow/nflx_04681_state.json"), read(NFLX_RISK), read(NFLX_MTM)
     schedule = read(SXR8_SCHEDULE); today = dt.date.today().isoformat()
     upcoming = next((x for x in schedule.get("actions", []) if x.get("date", "") >= today), None)
     cat_scan = cat.get("scan", {})
     return {"schema_version": 1, "observed_at": dt.datetime.now(dt.timezone.utc).isoformat(),
             "mode": "SHADOW_ONLY", "plain_status": (
                 "Tot correcte. Esperant una oportunitat; no hi ha cap posició oberta."
-                if cycle.get("status") == "PASS" and not sxr8_position["quantity"] and not cat_position["quantity"] and not msft_position["quantity"]
+                if cycle.get("status") == "PASS" and not sxr8_position["quantity"] and not cat_position["quantity"] and not msft_position["quantity"] and not nflx_position["quantity"]
                 else "Revisa els avisos o les posicions obertes."),
             "scheduler": cycle,
             "strategies": [
@@ -106,11 +113,22 @@ def snapshot() -> dict:
                  "explanation": "Caiguda diària extrema sota Bollinger; entra l'endemà i surt al tancament.",
                  "last_action": (msft.get("scan") or {}).get("action", "NO_SCAN"),
                  "last_session": (msft.get("scan") or {}).get("session"),
-                 "position": msft_position, "next_known_action": "Depèn del senyal al tancament anterior"}],
+                 "position": msft_position, "next_known_action": "Depèn del senyal al tancament anterior"},
+                {"name": "NFLX 0.4681 · breakout", "state": "VALIDATED_RESEARCH_SHADOW",
+                 "explanation": "Buy stop de volatilitat; TP 2,8 ATR i SL 2,5 ATR. Exposició teòrica 75% sense leverage.",
+                 "last_action": (nflx.get("scan") or {}).get("action", "NO_SCAN"),
+                 "last_session": nflx_state.get("last_session"), "position": nflx_position,
+                 "pending": nflx_state.get("pending"), "next_known_action": "Ordre pendent o nou senyal D1"}],
             "portfolio": {"research_period": "2022–2024 validació + OOS",
                           **forward.get("portfolio", {}),
                           "correlation": forward.get("diversification", {}).get("correlation_zero_when_inactive")},
             "asset_selection": read(ASSET_SELECTION, {"assets": []}),
+            "nflx": {"pipeline": nflx, "state": nflx_state,
+                     "selected": nflx_risk.get("selected_overlay"),
+                     "buy_hold": nflx_risk.get("buy_and_hold_diagnostic"),
+                     "mtm": nflx_mtm,
+                     "rule": {"condition": "Low[3] < High[1]", "entry": "Highest(High,10)[1] + 0,30 × ATR(104)[3]",
+                              "stop": "2,5 × ATR(15)", "target": "2,8 × ATR(15)", "validity": "80 barres; replace=true"}},
             "safety": {"orders_sent": cycle.get("orders_sent", 0), "broker_connected": False,
                        "paper_authorized": False, "live_authorized": False,
                        "message": "Tot és hipotètic: aquest servei no conté cap client d'ordres."}}

@@ -1,0 +1,16 @@
+[Unit]
+Description=TradingAgent hourly shadow collector and dashboard
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/mnt/volume-SQ/dev/TradingAgent
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONPYCACHEPREFIX=/tmp/tradingagent_shadow_pycache
+ExecStart=/usr/bin/python3 /mnt/volume-SQ/dev/TradingAgent/apps/shadow_control_panel.py --host 127.0.0.1 --port 8770 --interval 3600
+Restart=on-failure
+RestartSec=15
+
+[Install]
+WantedBy=default.target

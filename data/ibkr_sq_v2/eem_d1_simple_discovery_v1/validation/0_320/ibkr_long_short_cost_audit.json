@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "stage": "VALIDATION_2022_2023",
+  "candidate_id": "Strategy 0.320",
+  "orders_csv_path": "/mnt/volume-SQ/user/projects/IBKR_EEM_D1_VAL_0_320/orders-validation-da8188ef9e6e3c21.csv",
+  "orders_csv_sha256": "43a46d3df44921afc5ee0f5d9ed15aff7d1e53931bcf809a98bac5aca7a4ae05",
+  "sizing": "whole_shares_one_times_equity_no_portfolio_overlap",
+  "short_borrow_rate_annual": 0.03,
+  "cost_contract": "tiered/fixed; stress=fixed plus 10bps each side; short borrow 3% annual",
+  "results": {
+    "tiered": {
+      "plan": "tiered",
+      "initial_capital_usd": 1000.0,
+      "final_equity_usd": 996.276918,
+      "return_pct": -0.372308,
+      "trades": 30,
+      "long_trades": 13,
+      "short_trades": 17,
+      "profit_factor": 0.995201,
+      "maximum_drawdown_pct_close_to_close": 30.336409,
+      "short_borrow_cost_usd": 21.375924,
+      "positive_quarters": 3,
+      "quarters": 8,
+      "quarter_pnl_usd": {
+        "2022-Q1": 246.518327,
+        "2022-Q2": -96.56848,
+        "2022-Q3": -25.773774,
+        "2022-Q4": -60.003006,
+        "2023-Q1": 2.650872,
+        "2023-Q2": -74.133033,
+        "2023-Q3": -44.181207,
+        "2023-Q4": 47.767219
+      }
+    },
+    "fixed": {
+      "plan": "fixed",
+      "initial_capital_usd": 1000.0,
+      "final_equity_usd": 962.336957,
+      "return_pct": -3.766304,
+      "trades": 30,
+      "long_trades": 13,
+      "short_trades": 17,
+      "profit_factor": 0.951806,
+      "maximum_drawdown_pct_close_to_close": 32.055118,
+      "short_borrow_cost_usd": 21.056702,
+      "positive_quarters": 2,
+      "quarters": 8,
+      "quarter_pnl_usd": {
+        "2022-Q1": 240.018327,
+        "2022-Q2": -98.069789,
+        "2022-Q3": -28.373774,
+        "2022-Q4": -66.751733,
+        "2023-Q1": -2.854127,
+        "2023-Q2": -76.691531,
+        "2023-Q3": -46.567496,
+        "2023-Q4": 41.62708
+      }
+    },
+    "stress": {
+      "plan": "stress",
+      "initial_capital_usd": 1000.0,
+      "final_equity_usd": 906.06615,
+      "return_pct": -9.393385,
+      "trades": 30,
+      "long_trades": 13,
+      "short_trades": 17,
+      "profit_factor": 0.881214,
+      "maximum_drawdown_pct_close_to_close": 34.823601,
+      "short_borrow_cost_usd": 20.481455,
+      "positive_quarters": 2,
+      "quarters": 8,
+      "quarter_pnl_usd": {
+        "2022-Q1": 227.50759,
+        "2022-Q2": -103.075498,
+        "2022-Q3": -31.694681,
+        "2022-Q4": -78.019498,
+        "2023-Q1": -9.394167,
+        "2023-Q2": -80.726418,
+        "2023-Q3": -50.471305,
+        "2023-Q4": 31.940125
+      }
+    }
+  },
+  "oos_2024_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

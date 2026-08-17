@@ -1,0 +1,41 @@
+{
+  "decision": "PASS_RANDOM_RUN_PREFLIGHT",
+  "project_name": "IBKR_EEM_D1_SIMPLE_DISCOVERY_V1",
+  "source_sha256": "ea6495e9477920a872c255ba8b94c38037d939ff8112d86c77eeb13b0bc3d65f",
+  "imported_sha256": "b1539f86c2a2d3f305f3ab7323719034054d799710afe71839a718c3d8132c30",
+  "manifest_sha256": "a69f401607b289fb717d64c3748739c54ebccc58f3c9e3cf01a91225b6208e4e",
+  "shape": {
+    "generation_type": "random-generation",
+    "project_name": "IBKR_EEM_D1_SIMPLE_DISCOVERY_V1",
+    "symbol": "EEM_IBKR_D1_V1_D1",
+    "timeframe": "D1",
+    "train_from": "2017.01.03",
+    "train_to": "2021.12.31",
+    "market_side": "both",
+    "active_blocks": [
+      "CrossesAbove",
+      "CrossesBelow",
+      "EnterAtMarket",
+      "ExitAfterBars.ExitAfterBars",
+      "Indicators.ADX",
+      "Indicators.EMA",
+      "Indicators.ROC",
+      "Indicators.RSI",
+      "Indicators.SMA",
+      "IsFalling",
+      "IsGreater",
+      "IsLower",
+      "IsRising",
+      "Prices.Close",
+      "ProfitTarget.ProfitTarget",
+      "StopLoss.StopLoss"
+    ],
+    "minimum_trades": "35",
+    "minimum_profit_factor": "1.08",
+    "accepted_limit": 100,
+    "wall_hours": 1,
+    "wall_minutes": 0
+  },
+  "paper_authorized": false,
+  "live_authorized": false
+}

@@ -46,6 +46,7 @@ millors dades o una correcció demostrada d'un error metodològic.
 | PEP→KO trend pullback | L'ambigüitat intrabar es resol amb M1, però KO OOS 2024 stress és −6,72% i PF 0,650 a 1.000 USD | `data/ibkr_sq_v2/pep_ko_d1_trend_pullback_v1/ko_oos_2024/0_242_v2/small_account_audit.json` |
 | IBTM TSMOM12 | Validació −0,44% i Sharpe combinat 0,229; transferència exacta sense optimitzar | `data/ibkr_sq_v2/ibtm_tsmom12_v1/screen.json` |
 | GOOG Momentum60 marginal | Millora CAGR de cartera, però DD 25,06% incompleix el màxim congelat del 20% | `data/ibkr_sq_v2/goog_momentum60_residual_margin_v1/result.json` |
+| EEM D1 random simple long/short | Sis famílies congelades perden en validació: stress −9,39% a −35,13%, PF màxim 0,881 | `data/ibkr_sq_v2/eem_d1_simple_discovery_v1/validation_adjudication_v1.json` |
 
 ## Fonts GitHub revisades
 

@@ -1,0 +1,24 @@
+Project: IBKR_EEM_D1_SIMPLE_DISCOVERY_V1
+Log file: /global_log_20260817_145530.log
+
+--------------------------------------------------------------------------------------------------------------------------
+TASK STARTED at 2026.08.17 14:55:30.618
+Task: Build strategies, Type: Build
+Databanks before start: Results (0), Existing portfolio (0), Last generation (0), Initial population (0), Strategies to improve (0), D1 (0), OLD (0), D1_OLD (0)
+
+TASK FINISHED at 2026.08.17 14:55:32.656 in 2 s.
+Databanks after finish: Results (100), Existing portfolio (0), Last generation (0), Initial population (0), Strategies to improve (0), D1 (0), OLD (0), D1_OLD (0)
+
+Strategies generated: 488, Time per strategy: 2 ms., Time per accepted strategy: 12 ms., Accepted: 101, Rejected: 387, Strategies per hour: 1414493, Accepted strategies per hour: 292754
+
+Time per strategy details:
+Main test: Count: 252, Avg. time: 0.0201 s., Total time: 5.0690 s., % of all: 100.00 %
+
+Rejected details:
+Automatic filter: too little trades, Count: 205, % of all: 52.97 %
+Global filter:  Profit factor[Main data] > 1.08, Count: 150, % of all: 38.76 %
+Automatic filter: no trades, Count: 31, % of all: 8.01 %
+
+Accepted details:
+In databank, Count: 100, % of all: 99.01 %
+Strategy is too similar or the same as some other strategy in databank, Count: 1, % of all: 0.99 %

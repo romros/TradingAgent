@@ -1,0 +1,239 @@
+{
+  "schema_version": 1,
+  "decision": "REJECT_EEM_D1_NO_VALIDATION_SURVIVOR",
+  "family_freeze_sha256": "208fd6d9e8c2f1285503b8899ca2c0cdc8bf8beffbcfadc7a2f5b3f4b523db7a",
+  "survivors": [],
+  "candidates": [
+    {
+      "candidate_id": "Strategy 0.321",
+      "decision": "REJECT_VALIDATION",
+      "checks": {
+        "minimum_trades_15": true,
+        "minimum_stress_profit_factor_1_15": false,
+        "minimum_positive_quarters_5": false,
+        "maximum_drawdown_25pct": false
+      },
+      "stress_1000": {
+        "plan": "stress",
+        "initial_capital_usd": 1000.0,
+        "final_equity_usd": 679.321054,
+        "return_pct": -32.067895,
+        "trades": 57,
+        "long_trades": 23,
+        "short_trades": 34,
+        "profit_factor": 0.693006,
+        "maximum_drawdown_pct_close_to_close": 47.77162,
+        "short_borrow_cost_usd": 29.180565,
+        "positive_quarters": 2,
+        "quarters": 8,
+        "quarter_pnl_usd": {
+          "2022-Q1": 151.537542,
+          "2022-Q2": -142.542411,
+          "2022-Q3": -94.473063,
+          "2022-Q4": 7.179021,
+          "2023-Q1": -123.366527,
+          "2023-Q2": -40.924258,
+          "2023-Q3": -37.803924,
+          "2023-Q4": -40.285326
+        }
+      },
+      "audit_path": "data/ibkr_sq_v2/eem_d1_simple_discovery_v1/validation/0_321/ibkr_long_short_cost_audit.json",
+      "audit_sha256": "0848f816f44ffb393ba13059eef3616c22eb3ce47ad43f963ac09c6f373cbcbc",
+      "receipt_path": "data/ibkr_sq_v2/eem_d1_simple_discovery_v1/validation/0_321/run/supervised_retest_receipt.json",
+      "receipt_sha256": "fcbaa84f4b95b81a00dd2a1abfffd234289a2fa8aed5b09d31f0232f40359d1c"
+    },
+    {
+      "candidate_id": "Strategy 0.334",
+      "decision": "REJECT_VALIDATION",
+      "checks": {
+        "minimum_trades_15": true,
+        "minimum_stress_profit_factor_1_15": false,
+        "minimum_positive_quarters_5": false,
+        "maximum_drawdown_25pct": false
+      },
+      "stress_1000": {
+        "plan": "stress",
+        "initial_capital_usd": 1000.0,
+        "final_equity_usd": 683.720625,
+        "return_pct": -31.627937,
+        "trades": 64,
+        "long_trades": 40,
+        "short_trades": 24,
+        "profit_factor": 0.685016,
+        "maximum_drawdown_pct_close_to_close": 34.852926,
+        "short_borrow_cost_usd": 20.164881,
+        "positive_quarters": 1,
+        "quarters": 8,
+        "quarter_pnl_usd": {
+          "2022-Q1": -24.979871,
+          "2022-Q2": -87.550022,
+          "2022-Q3": -79.763882,
+          "2022-Q4": -49.105503,
+          "2023-Q1": 57.243277,
+          "2023-Q2": -12.888385,
+          "2023-Q3": -67.580513,
+          "2023-Q4": -51.654477
+        }
+      },
+      "audit_path": "data/ibkr_sq_v2/eem_d1_simple_discovery_v1/validation/0_334/ibkr_long_short_cost_audit.json",
+      "audit_sha256": "0513670e91f1522449b44004238ceac78627599810a178a3530c9751968cda65",
+      "receipt_path": "data/ibkr_sq_v2/eem_d1_simple_discovery_v1/validation/0_334/run/supervised_retest_receipt.json",
+      "receipt_sha256": "0a90faec2ceca6dbd621b23bb7cc5b45e3d6e591f9ce77d01db571500a7a03f3"
+    },
+    {
+      "candidate_id": "Strategy 0.278",
+      "decision": "REJECT_VALIDATION",
+      "checks": {
+        "minimum_trades_15": true,
+        "minimum_stress_profit_factor_1_15": false,
+        "minimum_positive_quarters_5": false,
+        "maximum_drawdown_25pct": true
+      },
+      "stress_1000": {
+        "plan": "stress",
+        "initial_capital_usd": 1000.0,
+        "final_equity_usd": 751.251978,
+        "return_pct": -24.874802,
+        "trades": 44,
+        "long_trades": 16,
+        "short_trades": 28,
+        "profit_factor": 0.666798,
+        "maximum_drawdown_pct_close_to_close": 24.874802,
+        "short_borrow_cost_usd": 25.212029,
+        "positive_quarters": 3,
+        "quarters": 8,
+        "quarter_pnl_usd": {
+          "2022-Q1": -99.649149,
+          "2022-Q2": 10.904692,
+          "2022-Q3": 14.727386,
+          "2022-Q4": -108.667614,
+          "2023-Q1": -23.925601,
+          "2023-Q2": 36.934722,
+          "2023-Q3": -15.31293,
+          "2023-Q4": -63.759529
+        }
+      },
+      "audit_path": "data/ibkr_sq_v2/eem_d1_simple_discovery_v1/validation/0_278/ibkr_long_short_cost_audit.json",
+      "audit_sha256": "c10ea729d8150a6c45c56f43169abbcacc2f3b0defb9c9fa973db50fd3675d75",
+      "receipt_path": "data/ibkr_sq_v2/eem_d1_simple_discovery_v1/validation/0_278/run/supervised_retest_receipt.json",
+      "receipt_sha256": "14bdfcc6a13718a19b17cf164c953a5ef6001dd164fe5fc4cda8bf2b9dcf857d"
+    },
+    {
+      "candidate_id": "Strategy 0.133",
+      "decision": "REJECT_VALIDATION",
+      "checks": {
+        "minimum_trades_15": true,
+        "minimum_stress_profit_factor_1_15": false,
+        "minimum_positive_quarters_5": false,
+        "maximum_drawdown_25pct": false
+      },
+      "stress_1000": {
+        "plan": "stress",
+        "initial_capital_usd": 1000.0,
+        "final_equity_usd": 774.415386,
+        "return_pct": -22.558461,
+        "trades": 28,
+        "long_trades": 13,
+        "short_trades": 15,
+        "profit_factor": 0.602913,
+        "maximum_drawdown_pct_close_to_close": 26.055033,
+        "short_borrow_cost_usd": 17.015597,
+        "positive_quarters": 3,
+        "quarters": 7,
+        "quarter_pnl_usd": {
+          "2022-Q1": 8.2969,
+          "2022-Q2": -110.651287,
+          "2022-Q4": 23.374019,
+          "2023-Q1": -120.12109,
+          "2023-Q2": 11.960362,
+          "2023-Q3": -33.558852,
+          "2023-Q4": -4.884666
+        }
+      },
+      "audit_path": "data/ibkr_sq_v2/eem_d1_simple_discovery_v1/validation/0_133/ibkr_long_short_cost_audit.json",
+      "audit_sha256": "aab56dc382db783b30c2ee6706439cbf1d58fec2bf536aa38735395bca98e70a",
+      "receipt_path": "data/ibkr_sq_v2/eem_d1_simple_discovery_v1/validation/0_133/run/supervised_retest_receipt.json",
+      "receipt_sha256": "fe0f39c53981c6b811f4a329b09ec79cec696b562d20793aa9ac7695054d504c"
+    },
+    {
+      "candidate_id": "Strategy 0.320",
+      "decision": "REJECT_VALIDATION",
+      "checks": {
+        "minimum_trades_15": true,
+        "minimum_stress_profit_factor_1_15": false,
+        "minimum_positive_quarters_5": false,
+        "maximum_drawdown_25pct": false
+      },
+      "stress_1000": {
+        "plan": "stress",
+        "initial_capital_usd": 1000.0,
+        "final_equity_usd": 906.06615,
+        "return_pct": -9.393385,
+        "trades": 30,
+        "long_trades": 13,
+        "short_trades": 17,
+        "profit_factor": 0.881214,
+        "maximum_drawdown_pct_close_to_close": 34.823601,
+        "short_borrow_cost_usd": 20.481455,
+        "positive_quarters": 2,
+        "quarters": 8,
+        "quarter_pnl_usd": {
+          "2022-Q1": 227.50759,
+          "2022-Q2": -103.075498,
+          "2022-Q3": -31.694681,
+          "2022-Q4": -78.019498,
+          "2023-Q1": -9.394167,
+          "2023-Q2": -80.726418,
+          "2023-Q3": -50.471305,
+          "2023-Q4": 31.940125
+        }
+      },
+      "audit_path": "data/ibkr_sq_v2/eem_d1_simple_discovery_v1/validation/0_320/ibkr_long_short_cost_audit.json",
+      "audit_sha256": "e01253c90b96687e5453a40bf34d789e7519bff44a6fd0504c7156780aa46a81",
+      "receipt_path": "data/ibkr_sq_v2/eem_d1_simple_discovery_v1/validation/0_320/run/supervised_retest_receipt.json",
+      "receipt_sha256": "51be1c500d1a6313c424c783f332cbfdfd5f08c9e4b9c51f69b6bc760bd46c86"
+    },
+    {
+      "candidate_id": "Strategy 0.52",
+      "decision": "REJECT_VALIDATION",
+      "checks": {
+        "minimum_trades_15": true,
+        "minimum_stress_profit_factor_1_15": false,
+        "minimum_positive_quarters_5": false,
+        "maximum_drawdown_25pct": false
+      },
+      "stress_1000": {
+        "plan": "stress",
+        "initial_capital_usd": 1000.0,
+        "final_equity_usd": 648.712848,
+        "return_pct": -35.128715,
+        "trades": 53,
+        "long_trades": 18,
+        "short_trades": 35,
+        "profit_factor": 0.613758,
+        "maximum_drawdown_pct_close_to_close": 36.539553,
+        "short_borrow_cost_usd": 25.813393,
+        "positive_quarters": 1,
+        "quarters": 8,
+        "quarter_pnl_usd": {
+          "2022-Q1": -67.048824,
+          "2022-Q2": -56.504068,
+          "2022-Q3": 70.408763,
+          "2022-Q4": -85.575864,
+          "2023-Q1": -65.100327,
+          "2023-Q2": -63.134885,
+          "2023-Q3": -30.996484,
+          "2023-Q4": -53.335464
+        }
+      },
+      "audit_path": "data/ibkr_sq_v2/eem_d1_simple_discovery_v1/validation/0_52/ibkr_long_short_cost_audit.json",
+      "audit_sha256": "2d60f743fdb8e7a7700daba923b46032cc2f9e419dc5a9ae850ba7da8721d6c5",
+      "receipt_path": "data/ibkr_sq_v2/eem_d1_simple_discovery_v1/validation/0_52/run/supervised_retest_receipt.json",
+      "receipt_sha256": "513121cd414d889d18bb7a21e33ce1626ddebbceb8f3e5e31c6a8c265a1f1da2"
+    }
+  ],
+  "oos_2024_accessed": false,
+  "optimization_performed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

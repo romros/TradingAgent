@@ -95,9 +95,11 @@ a **+56,04%**, amb **15,92% de drawdown diari**. Supera SPY 2022–2024
 (+26,93%, DD 23,41%). La configuració i els límits són a
 [POSITION_ONLY_LEVERAGE_AUDIT_V2](POSITION_ONLY_LEVERAGE_AUDIT_V2.md).
 
-És una promoció de recerca de cartera, no una autorització operativa. Encara
-cal comparar-la amb buy-and-hold dels mateixos quatre actius i substituir els
-costos indicatius per condicions verificades del compte.
+Contra buy-and-hold dels mateixos actius sense palanquejament, l'activa també
+guanya: +56,04% vs +44,36%, amb DD 15,92% vs 19,43%. A exposició 2x constant,
+buy-and-hold retorna més (+80,77%) però pateix DD 52,62%. És una promoció de
+recerca de perfil risc/retorn, no una autorització operativa. Encara cal
+substituir els costos indicatius per condicions verificades del compte.
 
 ## Cadena pendent, en ordre
 

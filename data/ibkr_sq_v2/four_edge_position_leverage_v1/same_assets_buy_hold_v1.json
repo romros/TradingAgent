@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_UNLEVERED_AND_RISK_FAIL_MAX_RETURN_MATCHED_EXPOSURE",
+  "period": "2022-01-01/2024-12-31",
+  "active": {
+    "return_pct": 56.041808,
+    "cagr_pct": 15.99959,
+    "daily_mtm_max_drawdown_pct": 15.915973
+  },
+  "same_assets_buy_hold_unlevered": {
+    "budget_per_asset_usd": 500,
+    "final_equity_usd": 2887.227475,
+    "return_pct": 44.361374,
+    "cagr_pct": 13.027897,
+    "costs_usd": 19.163988,
+    "financing_usd": 0.0,
+    "minimum_equity_usd": 1635.767195,
+    "legs": {
+      "cat": {
+        "shares": 2,
+        "entry_usd": 382.59126048,
+        "entry_cost": 1.38259126048,
+        "entry_date": "2022-01-03"
+      },
+      "msft": {
+        "shares": 1,
+        "entry_usd": 323.04032301,
+        "entry_cost": 1.32304032301,
+        "entry_date": "2022-01-03"
+      },
+      "jpm": {
+        "shares": 3,
+        "entry_usd": 425.73454047,
+        "entry_cost": 1.4257345404700001,
+        "entry_date": "2022-01-03"
+      },
+      "sgln": {
+        "shares": 14,
+        "entry_usd": 493.25560525763206,
+        "entry_cost": 5.033127967715265,
+        "entry_date": "2022-01-04"
+      }
+    },
+    "daily_mtm_max_drawdown_pct": 19.433222,
+    "drawdown_peak_date": "2022-01-12",
+    "drawdown_trough_date": "2022-09-27"
+  },
+  "same_assets_buy_hold_exposure_matched": {
+    "budget_per_asset_usd": 1000,
+    "final_equity_usd": 3615.311406,
+    "return_pct": 80.76557,
+    "cagr_pct": 21.832226,
+    "costs_usd": 26.182038,
+    "financing_usd": 518.247444,
+    "minimum_equity_usd": 980.511727,
+    "legs": {
+      "cat": {
+        "shares": 5,
+        "entry_usd": 956.4781512000001,
+        "entry_cost": 1.9564781512000002,
+        "entry_date": "2022-01-03"
+      },
+      "msft": {
+        "shares": 3,
+        "entry_usd": 969.12096903,
+        "entry_cost": 1.96912096903,
+        "entry_date": "2022-01-03"
+      },
+      "jpm": {
+        "shares": 7,
+        "entry_usd": 993.38059443,
+        "entry_cost": 1.99338059443,
+        "entry_date": "2022-01-03"
+      },
+      "sgln": {
+        "shares": 28,
+        "entry_usd": 986.5112105152641,
+        "entry_cost": 6.019639178230529,
+        "entry_date": "2022-01-04"
+      }
+    },
+    "daily_mtm_max_drawdown_pct": 52.619447,
+    "drawdown_peak_date": "2022-01-12",
+    "drawdown_trough_date": "2022-09-30"
+  },
+  "comparison_unlevered": {
+    "active_minus_buy_hold_return_points": 11.680434,
+    "active_to_buy_hold_drawdown_ratio": 0.819008,
+    "return_pass": true,
+    "drawdown_pass": true
+  },
+  "comparison_exposure_matched": {
+    "active_minus_buy_hold_return_points": -24.723762,
+    "active_to_buy_hold_drawdown_ratio": 0.302473,
+    "return_pass": false,
+    "drawdown_pass": true
+  },
+  "limitations": [
+    "Adjusted total-return series are used for a dividend-aware benchmark.",
+    "Exposure-matched buy-and-hold pays 8% on negative cash for the entire holding period.",
+    "No paper or live trading is authorized."
+  ],
+  "post_2024_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

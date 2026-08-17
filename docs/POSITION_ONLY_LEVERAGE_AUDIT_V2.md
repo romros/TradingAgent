@@ -30,11 +30,22 @@ mínima és 1.776,03 USD. Hi ha 93 operacions: CAT 57, MSFT 15, JPM 20 i SGLN 1.
 
 ## Interpretació correcta
 
-És una evidència històrica prometedora i ara sí supera SPY sota l'escenari
-d'estrès preregistrat. No prova rendiment futur, no incorpora fills reals d'un
-compte IBKR i no autoritza ni paper ni LIVE. Tampoc demostra encara que superi
-buy-and-hold dels mateixos quatre actius; aquesta és la següent comparació que
-cal tancar abans de considerar-la configuració ideal.
+És una evidència històrica prometedora i supera SPY sota l'escenari d'estrès
+preregistrat. No prova rendiment futur, no incorpora fills reals d'un compte
+IBKR i no autoritza ni paper ni LIVE.
+
+La comparació posterior amb els mateixos actius ja està tancada:
+
+| Configuració | Retorn acumulat | CAGR | Drawdown |
+|---|---:|---:|---:|
+| Cartera activa | **+56,04%** | **16,00%** | **15,92%** |
+| Buy-and-hold, 500 USD/actiu | +44,36% | 13,03% | 19,43% |
+| Buy-and-hold, 1.000 USD/actiu a 2x | +80,77% | 21,83% | 52,62% |
+
+L'activa supera la comparació sense palanquejament en retorn i risc. No supera
+el retorn retrospectiu del buy-and-hold a exposició 2x, però n'evita una caiguda
+superior al 50%. Això és una millora real de perfil risc/retorn, no una victòria
+en retorn absolut contra qualsevol quantitat de palanquejament.
 
 ## Evidència reproduïble
 
@@ -43,5 +54,7 @@ cal tancar abans de considerar-la configuració ideal.
 - `lab/sq_bridge/test_four_edge_position_leverage_audit_v2.py`
 - `data/ibkr_sq_v2/four_edge_position_leverage_v1/net_audit_v2.json`
 - `data/ibkr_sq_v2/four_edge_position_leverage_v1/Portfolio-1786963273774.sqx`
+- `lab/sq_bridge/four_edge_same_assets_buy_hold_v1.py`
+- `data/ibkr_sq_v2/four_edge_position_leverage_v1/same_assets_buy_hold_v1.json`
 
 `paper_authorized=false` i `live_authorized=false`.

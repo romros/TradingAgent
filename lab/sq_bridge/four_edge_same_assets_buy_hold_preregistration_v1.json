@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "campaign_id": "four-edge-same-assets-buy-hold-v1",
+  "created_utc": "2026-08-17",
+  "performance_blind_at_freeze": true,
+  "period": ["2022-01-01", "2024-12-31"],
+  "assets": ["CAT", "MSFT", "JPM", "SGLN"],
+  "comparisons": {
+    "unlevered": {"initial_capital_usd": 2000, "budget_per_asset_usd": 500},
+    "exposure_matched": {"initial_capital_usd": 2000, "budget_per_asset_usd": 1000, "annual_margin_rate": 0.08}
+  },
+  "execution": "whole shares, first available open, final available close, no rebalancing",
+  "economics": "IBKR stress schedule; SGLN in GBP with frozen daily ECB GBPUSD; interest only on negative cash",
+  "gate": {
+    "active_return_must_exceed_same_assets_buy_hold": true,
+    "active_drawdown_must_not_exceed_same_assets_buy_hold": true
+  },
+  "active_frozen_result": {"net_return_pct": 56.041808, "daily_mtm_drawdown_pct": 15.915973},
+  "post_2024_access": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

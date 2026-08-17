@@ -106,6 +106,13 @@ millora CAGR a 17,70%, però eleva DD a 21,01% i falla el gate congelat de 20%.
 La política concreta queda rebutjada i no es redueix la mida després de veure
 el resultat. La cartera canònica continua sent la de quatre peces.
 
+Les dues falsificacions següents tampoc alteren la cartera. GOOG Momentum60
+com a posició marginal eleva CAGR a 16,91% però també DD a 25,06%. La família
+PEP→KO resol satisfactòriament la seva antiga ambigüitat intrabar amb M1, però
+KO perd −6,72% a 1.000 USD en OOS 2024 stress (14 trades, PF 0,650). IBTM
+TSMOM12 també falla validació i el gate de Sharpe. Totes consten a
+`strategies/rejected/`; no s'han retocat després de veure OOS.
+
 ## Cadena pendent, en ordre
 
 1. **Completat:** D1 ajustat de SGLN importat amb GBp dividit per 100. Són

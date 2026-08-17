@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "decision": "PASS_ENTRY_PRECEDES_TARGET",
+  "audit_kind": "post_hoc_execution_forensic_explicitly_allowed_by_parent_rejection",
+  "source_sha256": "d69ceddcc06d8553bd264f23b68f6eb277e5a144b6421bcda2c11878bdbe74ea",
+  "date": "2022-11-30",
+  "rth_minutes": 390,
+  "entry": {
+    "timestamp_utc": "2022-11-30T14:30:00+00:00",
+    "price": 61.996
+  },
+  "target": {
+    "price": 63.457,
+    "first_observed_minute_utc": "2022-11-30T20:50:00+00:00",
+    "minutes_after_entry": 380,
+    "canonical_envelope": 63.647
+  },
+  "envelope_rule": "max(open,high,close), matching the canonical repair of known raw Dukascopy high-envelope quirks",
+  "oos_2024_accessed": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

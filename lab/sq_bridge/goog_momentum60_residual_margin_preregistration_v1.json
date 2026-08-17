@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_BEFORE_MARGINAL_PORTFOLIO_PERFORMANCE",
+  "campaign_id": "goog-momentum60-residual-margin-v1",
+  "candidate": "exact unchanged GOOG Momentum60/hold20/month-start transfer",
+  "candidate_evidence": {"train_positive": true, "validation_return": 0.00681325, "oos_2024_return": 0.3706248, "recent_2025_2026_return": 0.100441, "recent_profit_factor": 1.305338, "standalone_recent_drawdown_failed": 0.2634},
+  "portfolio_policy": {
+    "base": "four-edge position-only leverage v2",
+    "base_orders_priority": true,
+    "maximum_candidate_positions": 1,
+    "maximum_candidate_notional_usd": 500,
+    "maximum_total_cash_borrow_usd": 2000,
+    "candidate_slippage_bps_per_side": 12.5,
+    "candidate_commission_usd_per_side": 1,
+    "financing_rate": 0.08
+  },
+  "gate": {"combined_cagr_strictly_above_pct": 15.99959, "combined_drawdown_pct_at_most": 20, "minimum_equity_positive": true},
+  "single_policy": true,
+  "optimized": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

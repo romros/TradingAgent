@@ -1,6 +1,6 @@
 # Registre mestre de recerca d'estratègies
 
-Data de tall: 2026-08-14. Aquest document és l'índex humà; els JSON i SQX
+Data de tall: 2026-08-17. Aquest document és l'índex humà; els JSON i SQX
 enllaçats són l'evidència reproduïble. «Edge» significa evidència històrica
 defensable, no una promesa de rendiment ni autorització de paper/live.
 
@@ -43,6 +43,9 @@ millors dades o una correcció demostrada d'un error metodològic.
 | SPY volatility-managed 10%/21d mensual com a estratègia autònoma | Millora Sharpe i DD, però 2022 continua negatiu i falla el gate de 2/2 anys; conservar només com a overlay de risc | `data/ibkr_sq_v2/spy_volatility_managed/screen_v1.json` |
 | Dual momentum mensual SPY/PHAU/IDTL, formació 12 mesos | Validació −28,08%, PF 0,247, DD 30,49% i 0/2 anys positius | `data/ibkr_sq_v2/multi_asset_dual_momentum/screen_v1.json` |
 | Recuperació intradia de gaps SPY ≤−1% | Validació −7,27%, PF 0,735 després de 30 bps; no invertir el signe post hoc | `data/ibkr_sq_v2/spy_gap_down_recovery/screen_v1.json` |
+| PEP→KO trend pullback | L'ambigüitat intrabar es resol amb M1, però KO OOS 2024 stress és −6,72% i PF 0,650 a 1.000 USD | `data/ibkr_sq_v2/pep_ko_d1_trend_pullback_v1/ko_oos_2024/0_242_v2/small_account_audit.json` |
+| IBTM TSMOM12 | Validació −0,44% i Sharpe combinat 0,229; transferència exacta sense optimitzar | `data/ibkr_sq_v2/ibtm_tsmom12_v1/screen.json` |
+| GOOG Momentum60 marginal | Millora CAGR de cartera, però DD 25,06% incompleix el màxim congelat del 20% | `data/ibkr_sq_v2/goog_momentum60_residual_margin_v1/result.json` |
 
 ## Fonts GitHub revisades
 

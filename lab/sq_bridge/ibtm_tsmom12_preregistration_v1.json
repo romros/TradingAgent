@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_BEFORE_PERFORMANCE",
+  "campaign_id": "ibtm-duration-tsmom12-transfer-v1",
+  "asset": "IBTM.L intermediate US Treasury UCITS ETF",
+  "parent_rule": "exact unchanged IDTL TSMOM12 long/cash rule and economics",
+  "periods": {"train": ["2010-01-01", "2021-12-31"], "validation": ["2022-01-01", "2023-12-31"], "oos": ["2024-01-01", "2024-12-31"]},
+  "gates": {"all_period_returns_positive": true, "combined_2022_2024_sharpe_gte": 0.4, "combined_2022_2024_drawdown_lte": 0.2, "combined_invested_months_gte": 12},
+  "parameters_searched": 0,
+  "post_2024_access": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

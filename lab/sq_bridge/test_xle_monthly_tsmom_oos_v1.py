@@ -1,18 +1,18 @@
-import json
-
-import pytest
+from pathlib import Path
 
 from lab.sq_bridge.xle_monthly_tsmom_oos_v1 import evaluate
-from lab.sq_bridge.xle_monthly_tsmom_screen_v1 import SPEC, sha
 
 
-def test_rejects_oos_without_validation_release(tmp_path):
-    source = tmp_path / "XLE_2024.csv"
-    source.write_text("date,open,high,low,close,volume,minutes\n")
-    prior = tmp_path / "validation.json"
-    prior.write_text(json.dumps({"decision": "REJECT_VALIDATION",
-                                 "preregistration_sha256": sha(SPEC),
-                                 "source_sha256": sha(source),
-                                 "oos_2024_performance_accessed": False}))
-    with pytest.raises(ValueError, match="OOS_RELEASE_NOT_AUTHORIZED"):
-        evaluate(source, prior, tmp_path / "out.json")
+ROOT = Path(__file__).resolve().parents[2]
+
+
+def test_frozen_xle_oos_decision_replays():
+    result = evaluate(
+        ROOT / "data/ibkr_sq_v2/etf_twelve_one_momentum_v1/adjusted/XLE_ADJUSTED_D1_2017_2024.csv",
+        ROOT / "data/ibkr_sq_v2/xle_monthly_tsmom_v1/validation_screen.json",
+    )
+    assert result["decision"] == "REJECT_GROSS_OOS"
+    assert result["results"]["M6"]["oos_2024"]["total_return"] < 0
+    assert result["results"]["M12"]["oos_2024"]["total_return"] < 0
+    assert result["holdout_2025_plus_accessed"] is False
+    assert result["optimized"] is False

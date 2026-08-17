@@ -43,6 +43,8 @@ de tenir un mecanisme i una preregistració nous.
 | IDTL TSMOM12 durada | Validation −6,50%, OOS −4,47% i només 5/35 mesos invertit | [Fitxa](idtl_tsmom12_v1.md) |
 | IBTM TSMOM12 durada curta | Validació −0,44% i Sharpe combinat 0,229 < 0,40 | [Fitxa](ibtm_tsmom12_v1.md) |
 | GOOG Momentum60 sobre marge residual | CAGR millora, però DD 25,06% supera el gate del 20% | [Fitxa](goog_momentum60_residual_margin_v1.md) |
+| XLE momentum mensual M6/M12 | Validació forta de règim, però OOS 2024 −16,05%/−1,76% | [Fitxa](xle_monthly_tsmom_v1.md) |
+| Cinquena família només amb caixa residual | CAGR 15,86% < 16,00% base i DD 18,36% > 15,92% base | [Fitxa](five_edge_residual_cash_v1.md) |
 
 Les watchlists i resultats condicionals no s'inclouen aquí fins que hi hagi una
 decisió formal de rebuig.

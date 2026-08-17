@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "status": "FROZEN_BEFORE_MARGINAL_PERFORMANCE",
+  "campaign_id": "five-edge-residual-cash-v1",
+  "period": ["2022-01-01", "2024-12-31"],
+  "base_portfolio": "four-edge position-only leverage v2; capital 2000 USD; stress economics",
+  "candidate": "multi_asset_sma200_three_down_hold10_v1",
+  "policy": {
+    "base_orders_have_priority": true,
+    "candidate_may_use_only_positive_combined_cash": true,
+    "additional_borrowing_usd": 0,
+    "candidate_maximum_concurrent_positions": 3,
+    "candidate_maximum_notional_per_position_usd": 333.33,
+    "candidate_collision_ranking": "most negative three-session close return first; ticker tie-break",
+    "candidate_shares": "whole",
+    "candidate_entry": "next open after close>SMA200 and three consecutive down closes",
+    "candidate_exit": "open ten asset sessions after entry",
+    "candidate_costs": "1 USD per order plus 10 bps slippage per side"
+  },
+  "gate": {
+    "combined_cagr_strictly_above_base_cagr_pct": 15.99959,
+    "combined_drawdown_pct_at_most": 20,
+    "minimum_equity_strictly_positive": true
+  },
+  "single_policy": true,
+  "optimized": false,
+  "post_2024_access": false,
+  "paper_authorized": false,
+  "live_authorized": false
+}

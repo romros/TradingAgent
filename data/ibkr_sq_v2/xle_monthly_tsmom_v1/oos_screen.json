@@ -1,0 +1,45 @@
+{
+  "decision": "REJECT_GROSS_OOS",
+  "holdout_2025_plus_accessed": false,
+  "known_train_warning": "M6 and M12 were both negative in 2017-11-15/2021",
+  "live_authorized": false,
+  "optimized": false,
+  "paper_authorized": false,
+  "results": {
+    "M12": {
+      "oos_2024": {
+        "annualized_monthly_sharpe": -0.3382640253445012,
+        "completed_trades": 3,
+        "maximum_drawdown": 0.037992803272353326,
+        "monthly_observations": 12,
+        "total_return": -0.017605314102579595
+      },
+      "validation_plus_oos": {
+        "annualized_monthly_sharpe": 0.6266325607626554,
+        "completed_trades": 5,
+        "maximum_drawdown": 0.037992803272353215,
+        "monthly_observations": 36,
+        "total_return": 0.5172834247864493
+      }
+    },
+    "M6": {
+      "oos_2024": {
+        "annualized_monthly_sharpe": -1.5188310280242474,
+        "completed_trades": 3,
+        "maximum_drawdown": 0.16048104000692665,
+        "monthly_observations": 12,
+        "total_return": -0.16048104000692665
+      },
+      "validation_plus_oos": {
+        "annualized_monthly_sharpe": 0.1538450112505479,
+        "completed_trades": 5,
+        "maximum_drawdown": 0.24804479280406388,
+        "monthly_observations": 36,
+        "total_return": 0.04173570000366822
+      }
+    }
+  },
+  "schema_version": 1,
+  "source_sha256": "d52a192d973ebb9b264e3a2de25e9a6057649fefa4468b572c59db30b081ea77",
+  "validation_receipt_sha256": "600da67c5a378e2d1d4641060cd7820f03a7f809fcf61ccafc5c7863403fe7fe"
+}

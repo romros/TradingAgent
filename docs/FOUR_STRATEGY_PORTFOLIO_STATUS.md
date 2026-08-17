@@ -113,6 +113,14 @@ KO perd −6,72% a 1.000 USD en OOS 2024 stress (14 trades, PF 0,650). IBTM
 TSMOM12 també falla validació i el gate de Sharpe. Totes consten a
 `strategies/rejected/`; no s'han retocat després de veure OOS.
 
+El carril posterior XLE momentum mensual també queda tancat: el bon règim
+2022–2023 no persisteix al 2024. La família multi-actiu consolidada tampoc es
+pot afegir aprofitant només caixa lliure: baixa CAGR a 15,86% i eleva DD a
+18,36%. Això rebutja dues polítiques d'inclusió —marge residual i caixa
+residual—, no l'edge estadístic standalone de la família. La cartera executable
+ideal continua en quatre peces mentre es busca una cinquena que aporti valor
+marginal real.
+
 ## Cadena pendent, en ordre
 
 1. **Completat:** D1 ajustat de SGLN importat amb GBp dividit per 100. Són

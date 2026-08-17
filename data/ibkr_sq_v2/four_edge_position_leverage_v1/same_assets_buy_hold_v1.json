@@ -9,29 +9,29 @@
   },
   "same_assets_buy_hold_unlevered": {
     "budget_per_asset_usd": 500,
-    "final_equity_usd": 2887.227475,
-    "return_pct": 44.361374,
-    "cagr_pct": 13.027897,
-    "costs_usd": 19.163988,
+    "final_equity_usd": 2951.214065,
+    "return_pct": 47.560703,
+    "cagr_pct": 13.857329,
+    "costs_usd": 19.422707,
     "financing_usd": 0.0,
-    "minimum_equity_usd": 1635.767195,
+    "minimum_equity_usd": 1608.419582,
     "legs": {
       "cat": {
         "shares": 2,
-        "entry_usd": 382.59126048,
-        "entry_cost": 1.38259126048,
+        "entry_usd": 414.01200000000006,
+        "entry_cost": 1.414012,
         "entry_date": "2022-01-03"
       },
       "msft": {
         "shares": 1,
-        "entry_usd": 323.04032301,
-        "entry_cost": 1.32304032301,
+        "entry_usd": 335.35,
+        "entry_cost": 1.33535,
         "entry_date": "2022-01-03"
       },
       "jpm": {
         "shares": 3,
-        "entry_usd": 425.73454047,
-        "entry_cost": 1.4257345404700001,
+        "entry_usd": 479.24100000000004,
+        "entry_cost": 1.479241,
         "entry_date": "2022-01-03"
       },
       "sgln": {
@@ -41,35 +41,35 @@
         "entry_date": "2022-01-04"
       }
     },
-    "daily_mtm_max_drawdown_pct": 19.433222,
+    "daily_mtm_max_drawdown_pct": 20.965838,
     "drawdown_peak_date": "2022-01-12",
     "drawdown_trough_date": "2022-09-27"
   },
   "same_assets_buy_hold_exposure_matched": {
     "budget_per_asset_usd": 1000,
-    "final_equity_usd": 3615.311406,
-    "return_pct": 80.76557,
-    "cagr_pct": 21.832226,
-    "costs_usd": 26.182038,
-    "financing_usd": 518.247444,
-    "minimum_equity_usd": 980.511727,
+    "final_equity_usd": 3522.986755,
+    "return_pct": 76.149338,
+    "cagr_pct": 20.785497,
+    "costs_usd": 25.040023,
+    "financing_usd": 393.246765,
+    "minimum_equity_usd": 1135.614305,
     "legs": {
       "cat": {
-        "shares": 5,
-        "entry_usd": 956.4781512000001,
-        "entry_cost": 1.9564781512000002,
+        "shares": 4,
+        "entry_usd": 828.0240000000001,
+        "entry_cost": 1.828024,
         "entry_date": "2022-01-03"
       },
       "msft": {
-        "shares": 3,
-        "entry_usd": 969.12096903,
-        "entry_cost": 1.96912096903,
+        "shares": 2,
+        "entry_usd": 670.7,
+        "entry_cost": 1.6707,
         "entry_date": "2022-01-03"
       },
       "jpm": {
-        "shares": 7,
-        "entry_usd": 993.38059443,
-        "entry_cost": 1.99338059443,
+        "shares": 6,
+        "entry_usd": 958.4820000000001,
+        "entry_cost": 1.958482,
         "entry_date": "2022-01-03"
       },
       "sgln": {
@@ -79,24 +79,29 @@
         "entry_date": "2022-01-04"
       }
     },
-    "daily_mtm_max_drawdown_pct": 52.619447,
+    "daily_mtm_max_drawdown_pct": 45.260565,
     "drawdown_peak_date": "2022-01-12",
     "drawdown_trough_date": "2022-09-30"
   },
   "comparison_unlevered": {
-    "active_minus_buy_hold_return_points": 11.680434,
-    "active_to_buy_hold_drawdown_ratio": 0.819008,
+    "active_minus_buy_hold_return_points": 8.481105,
+    "active_to_buy_hold_drawdown_ratio": 0.759138,
     "return_pass": true,
     "drawdown_pass": true
   },
   "comparison_exposure_matched": {
-    "active_minus_buy_hold_return_points": -24.723762,
-    "active_to_buy_hold_drawdown_ratio": 0.302473,
+    "active_minus_buy_hold_return_points": -20.10753,
+    "active_to_buy_hold_drawdown_ratio": 0.351652,
     "return_pass": false,
     "drawdown_pass": true
   },
+  "nominal_entry_open_provenance": {
+    "cat": "CATUSUSD_CANONICAL_D1_2017_2025.csv sha256 9aa5e9f6...",
+    "msft": "SQ export MSFT-D1-No Session.csv sha256 b19c15a9...",
+    "jpm": "JPMUSUSD_CANONICAL_D1_2017_2024.csv sha256 4c75a75b..."
+  },
   "limitations": [
-    "Adjusted total-return series are used for a dividend-aware benchmark.",
+    "Adjusted total-return series are rescaled to nominal first-session opens so whole-share sizing is executable and dividends remain represented.",
     "Exposure-matched buy-and-hold pays 8% on negative cash for the entire holding period.",
     "No paper or live trading is authorized."
   ],

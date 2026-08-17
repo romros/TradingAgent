@@ -21,6 +21,13 @@ EXPECTED = {
  "jpm":"1b5bc1a71c5d330cb4933ec0dd6f2e3ef9f3a3ca5053bd2b4b78ca48d0179270",
  "sgln":"25008847d1f9c8be10b9d60a0a52306ab46134febe3b63d720914fef2c28d713",
  "fx":"f95006726de866df21bea8ca0c3a1e7f9d082600b57d04199ab37201b7b48e21"}
+# Actual tradable opens on the first session. Adjusted prices are rescaled to
+# these levels, preserving total return without manufacturing extra shares.
+NOMINAL_OPEN = {"cat":207.006, "msft":335.35, "jpm":159.747}
+NOMINAL_PROVENANCE = {
+ "cat":"CATUSUSD_CANONICAL_D1_2017_2025.csv sha256 9aa5e9f6...",
+ "msft":"SQ export MSFT-D1-No Session.csv sha256 b19c15a9...",
+ "jpm":"JPMUSUSD_CANONICAL_D1_2017_2024.csv sha256 4c75a75b..."}
 
 def sha(p): return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def load(path, header=True, pence=False):
@@ -41,6 +48,9 @@ def prior(rows, day):
 def scenario(paths, fx_path, budget, cost):
  fx_days,fx_values=load_fx(fx_path)
  series={"cat":load(paths['cat']),"msft":load(paths['msft']),"jpm":load(paths['jpm']),"sgln":load(paths['sgln'],False,True)}
+ for key,nominal in NOMINAL_OPEN.items():
+  factor=nominal/series[key][0][1]
+  series[key]=[(d,o*factor,c*factor) for d,o,c in series[key]]
  cash=CAPITAL; legs={}; total_cost=0.; entries={}
  for key,rows in series.items():
   d,o=rows[0][0],rows[0][1]
@@ -92,7 +102,8 @@ def run(paths,fx):
   "period":f"{START}/{END}","active":{"return_pct":ACTIVE_RETURN,"cagr_pct":round(((1+ACTIVE_RETURN/100)**(1/years)-1)*100,6),"daily_mtm_max_drawdown_pct":ACTIVE_DD},
   "same_assets_buy_hold_unlevered":unlevered,"same_assets_buy_hold_exposure_matched":matched,
   "comparison_unlevered":compare(unlevered),"comparison_exposure_matched":compare(matched),
-  "limitations":["Adjusted total-return series are used for a dividend-aware benchmark.","Exposure-matched buy-and-hold pays 8% on negative cash for the entire holding period.","No paper or live trading is authorized."],
+  "nominal_entry_open_provenance":NOMINAL_PROVENANCE,
+  "limitations":["Adjusted total-return series are rescaled to nominal first-session opens so whole-share sizing is executable and dividends remain represented.","Exposure-matched buy-and-hold pays 8% on negative cash for the entire holding period.","No paper or live trading is authorized."],
   "post_2024_accessed":False,"paper_authorized":False,"live_authorized":False}
 def main():
  p=argparse.ArgumentParser()

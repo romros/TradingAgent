@@ -39,13 +39,17 @@ La comparació posterior amb els mateixos actius ja està tancada:
 | Configuració | Retorn acumulat | CAGR | Drawdown |
 |---|---:|---:|---:|
 | Cartera activa | **+56,04%** | **16,00%** | **15,92%** |
-| Buy-and-hold, 500 USD/actiu | +44,36% | 13,03% | 19,43% |
-| Buy-and-hold, 1.000 USD/actiu a 2x | +80,77% | 21,83% | 52,62% |
+| Buy-and-hold, 500 USD/actiu | +47,56% | 13,86% | 20,97% |
+| Buy-and-hold, 1.000 USD/actiu a 2x | +76,15% | 20,79% | 45,26% |
 
 L'activa supera la comparació sense palanquejament en retorn i risc. No supera
-el retorn retrospectiu del buy-and-hold a exposició 2x, però n'evita una caiguda
-superior al 50%. Això és una millora real de perfil risc/retorn, no una victòria
+el retorn retrospectiu del buy-and-hold a exposició 2x, però evita una caiguda
+del 45,26%. Això és una millora real de perfil risc/retorn, no una victòria
 en retorn absolut contra qualsevol quantitat de palanquejament.
+
+Per respectar unitats senceres, les sèries total-return ajustades s'escalen al
+preu nominal negociable del primer dia. Això evita que el preu ajustat històric
+fabriqui accions addicionals que mai no s'haurien pogut comprar.
 
 ## Evidència reproduïble
 
